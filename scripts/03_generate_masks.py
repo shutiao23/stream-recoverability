@@ -226,6 +226,11 @@ def generate_libraries(input_path: Path, output_root: Path, config: dict[str, An
         if not split_selector.any():
             raise ValueError(f"input contains no dates for split {split!r}")
         split_eligible = eligible & split_selector[:, None, None]
+        # Offline two-sided methods need an observed right boundary.  Keeping
+        # the final day of each split out of the artificial target set also
+        # prevents validation recovery from reaching into the test split.
+        split_positions = np.flatnonzero(split_selector)
+        split_eligible[split_positions[-1], :, :] = False
         default_seeds = split_config.get("seeds", [])
         generated = []
         for scenario in scenarios:
