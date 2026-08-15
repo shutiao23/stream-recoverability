@@ -25,11 +25,54 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
+from stream_recoverability.data.confirmatory import load_finalized_model_roster
 from stream_recoverability.experiments.contracts import (
     build_design_contract,
     canonical_evaluation_split,
     file_sha256,
+    validate_data_version_inputs,
 )
+from stream_recoverability.experiments.formal_authorization import (
+    FRONTIER_ANCHORED_MASK_TYPES,
+    validate_formal_authorization,
+)
+from stream_recoverability.masks.anchors import load_frontier_anchor_catalog
+from stream_recoverability.masks.event_catalog import (
+    event_catalog_sha256,
+    load_event_episode_catalog,
+)
+
+PRIMARY_SUITE_ROLES = (
+    "core_full",
+    "dense_frontier",
+    "network_resilience",
+    "event_uncertainty",
+    "operational_dropout",
+    "retrained_upper_bound",
+)
+SENSITIVITY_SUITE_ROLES = (
+    "sensitivity_core_T",
+    "sensitivity_dense_frontier",
+    "sensitivity_operational_dropout",
+)
+STRUCTURAL_BASELINES = ("independent_flow", "rating_curve")
+CANONICAL_FRONTIER_ANCHOR_PATH = PROJECT_ROOT / "metadata/frontier_anchors.csv"
+DERIVED_FORMAL_MODELS = {
+    "science_compensation": "information_compensation",
+    "retrained_information_upper_bounds": "retrained_information_upper_bound",
+}
+PRIMARY_SUITE_ROLE_EQUIVALENTS = {
+    "full": ("core_full", "event_uncertainty"),
+    "science_dense": ("dense_frontier",),
+    "science_resilience": ("network_resilience",),
+    "science_compensation": ("operational_dropout",),
+    "retrained_information_upper_bounds": ("retrained_upper_bound",),
+}
+SENSITIVITY_SUITE_ROLE_EQUIVALENTS = {
+    "core": ("sensitivity_core_T",),
+    "science_dense": ("sensitivity_dense_frontier",),
+    "science_compensation": ("sensitivity_operational_dropout",),
+}
 
 DAILY_KEY = (
     "scenario_id",
@@ -198,6 +241,15 @@ def _load_registry(
         )
     if value.get("finalized") is not True:
         raise ValueError("suite registry must be explicitly finalized")
+    if (
+        value.get("registry_hash_scope")
+        != "canonical_json_excluding_registry_sha256"
+    ):
+        raise ValueError("suite registry has an unknown canonical hash scope")
+    persisted_hash = value.get("registry_sha256")
+    unsigned = {key: item for key, item in value.items() if key != "registry_sha256"}
+    if persisted_hash != _canonical_sha256(unsigned):
+        raise ValueError("suite registry canonical SHA-256 does not match its content")
     suites = value.get("suites")
     if not isinstance(suites, list) or not suites:
         raise ValueError("suite registry must declare at least one suite")
@@ -214,6 +266,285 @@ def _string_list(value: object, label: str, *, allow_empty: bool = False) -> lis
     if len(set(value)) != len(value):
         raise ValueError(f"{label} contains duplicate values")
     return list(value)
+
+
+def _repository_path(value: object, label: str) -> Path:
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{label} must be a non-empty path")
+    path = Path(value)
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def _registry_file_identity(
+    value: object, *, label: str, required_path: Path | None = None
+) -> Path:
+    if not isinstance(value, Mapping):
+        raise TypeError(f"{label} must be a file identity")
+    path = _repository_path(value.get("path"), f"{label}.path")
+    if required_path is not None and path.resolve() != required_path.resolve():
+        raise ValueError(f"{label} points to a different artifact")
+    if not path.is_file():
+        raise FileNotFoundError(f"{label} is missing: {path}")
+    expected_sha = value.get("sha256")
+    expected_bytes = value.get("bytes", value.get("size"))
+    if expected_sha != file_sha256(path) or expected_bytes != path.stat().st_size:
+        raise ValueError(f"{label} does not match its recorded bytes/SHA-256")
+    return path
+
+
+def _expected_role_models(
+    role: str, selected_models: Sequence[str]
+) -> list[str]:
+    selected = list(selected_models)
+    if role in {"core_full", "dense_frontier", "event_uncertainty"}:
+        return [*selected, *STRUCTURAL_BASELINES]
+    if role == "network_resilience":
+        return selected
+    if role in {"operational_dropout", "sensitivity_operational_dropout"}:
+        return ["information_compensation"]
+    if role == "retrained_upper_bound":
+        return ["retrained_information_upper_bound"]
+    if role in {"sensitivity_core_T", "sensitivity_dense_frontier"}:
+        return selected
+    raise ValueError(f"unknown registry suite role {role!r}")
+
+
+def _validate_registry_contract(
+    registry: Mapping[str, Any],
+    *,
+    formal_root: Path,
+    expected_evidence: Mapping[str, Any],
+    data_version: str,
+    evaluation_split: str,
+    data_version_manifest_path: Path,
+    design_path: str | Path,
+    study_manifest_path: str | Path,
+    config_path: str | Path,
+) -> dict[str, Any]:
+    """Revalidate every trust-bearing field emitted by the registry builder."""
+
+    expected_bundle_role = (
+        "primary" if data_version == "published_v1" else "sensitivity_compact"
+    )
+    expected_bundle_kind = (
+        "primary" if data_version == "published_v1" else "sensitivity"
+    )
+    for field, expected in (
+        ("bundle_role", expected_bundle_role),
+        ("bundle_kind", expected_bundle_kind),
+        ("data_version", data_version),
+        ("evaluation_split", evaluation_split),
+        ("design_hash", expected_evidence["design_hash"]),
+        ("code_identity", expected_evidence["code_identity"]),
+    ):
+        if registry.get(field) != expected:
+            raise ValueError(f"suite registry {field} does not match frozen execution")
+    registry_root = _repository_path(registry.get("formal_root"), "formal_root")
+    if registry_root.resolve() != formal_root.resolve():
+        raise ValueError("suite registry formal_root differs from aggregation root")
+    _registry_file_identity(
+        registry.get("data_version_manifest"),
+        label="registry data-version manifest",
+        required_path=data_version_manifest_path,
+    )
+
+    raw_roster = registry.get("finalized_model_roster")
+    if not isinstance(raw_roster, Mapping):
+        raise TypeError("suite registry lacks finalized_model_roster")
+    if set(raw_roster) != {"path", "sha256", "selected_models", "proposed_decision"}:
+        raise ValueError("suite registry finalized roster fields are not frozen")
+    roster_path = _repository_path(raw_roster.get("path"), "finalized roster path")
+    roster = load_finalized_model_roster(
+        roster_path,
+        design_path=design_path,
+        study_manifest_path=study_manifest_path,
+        experiment_config_path=config_path,
+        selection_data_version="published_v1",
+        selection_data_version_manifest_path=(
+            PROJECT_ROOT / "data_versions/published_v1/version_manifest.json"
+        ),
+    )
+    expected_roster = {
+        "path": raw_roster["path"],
+        "sha256": roster.manifest_sha256,
+        "selected_models": list(roster.selected_models),
+        "proposed_decision": roster.proposed_decision,
+    }
+    if dict(raw_roster) != expected_roster:
+        raise ValueError("suite registry finalized roster metadata is stale or tampered")
+
+    required_roles = (
+        list(PRIMARY_SUITE_ROLES)
+        if expected_bundle_role == "primary"
+        else list(SENSITIVITY_SUITE_ROLES)
+    )
+    if registry.get("required_suite_roles") != required_roles:
+        raise ValueError("suite registry required role inventory is incomplete")
+    raw_roles = registry.get("suite_roles")
+    if not isinstance(raw_roles, list) or len(raw_roles) != len(required_roles):
+        raise ValueError("suite registry suite_roles do not close required roles")
+    roles_by_name: dict[str, dict[str, Any]] = {}
+    for item in raw_roles:
+        if not isinstance(item, Mapping):
+            raise TypeError("suite registry role rows must be mappings")
+        role = item.get("role")
+        if not isinstance(role, str) or role in roles_by_name:
+            raise ValueError("suite registry roles are missing or duplicated")
+        roles_by_name[role] = dict(item)
+    if set(roles_by_name) != set(required_roles):
+        raise ValueError("suite registry role names differ from required roles")
+
+    source_rows = registry.get("sources")
+    if not isinstance(source_rows, list) or not source_rows:
+        raise ValueError("suite registry requires non-empty hash-bound sources")
+    role_equivalents = (
+        PRIMARY_SUITE_ROLE_EQUIVALENTS
+        if expected_bundle_role == "primary"
+        else SENSITIVITY_SUITE_ROLE_EQUIVALENTS
+    )
+    source_by_hash: dict[str, dict[str, Any]] = {}
+    for position, source in enumerate(source_rows):
+        if not isinstance(source, Mapping):
+            raise TypeError("suite registry source rows must be mappings")
+        if set(source) != {
+            "suite",
+            "run_directory",
+            "manifest",
+            "daily_predictions",
+            "event_metrics",
+            "models",
+        }:
+            raise ValueError("suite registry source fields are not frozen")
+        suite = source.get("suite")
+        models = _string_list(
+            source.get("models"), f"registry.sources[{position}].models"
+        )
+        if not isinstance(suite, str) or suite not in role_equivalents:
+            raise ValueError("suite registry source has no role in this bundle")
+        source_path = _registry_file_identity(
+            source.get("manifest"), label=f"registry source {position} manifest"
+        )
+        run_directory = _repository_path(
+            source.get("run_directory"), f"registry source {position} run_directory"
+        )
+        if source_path.parent.resolve() != run_directory.resolve():
+            raise ValueError("registry source run directory and manifest disagree")
+        daily_path = _registry_file_identity(
+            source.get("daily_predictions"),
+            label=f"registry source {position} daily predictions",
+            required_path=run_directory / "daily_predictions.parquet",
+        )
+        event_path = _registry_file_identity(
+            source.get("event_metrics"),
+            label=f"registry source {position} event metrics",
+            required_path=run_directory / "event_metrics.parquet",
+        )
+        digest = file_sha256(source_path)
+        if digest in source_by_hash:
+            raise ValueError("suite registry contains duplicate source manifests")
+        source_manifest = _read_mapping(source_path, "registry source manifest")
+        if source_manifest.get("suite") != suite or source_manifest.get("models") != models:
+            raise ValueError("registry source suite/models differ from its manifest")
+        source_by_hash[digest] = {
+            "manifest_sha256": digest,
+            "suite": suite,
+            "models": models,
+            "manifest_path": source_path.resolve(),
+            "run_directory": run_directory.resolve(),
+            "daily_predictions_path": daily_path.resolve(),
+            "daily_predictions_sha256": file_sha256(daily_path),
+            "event_metrics_path": event_path.resolve(),
+            "event_metrics_sha256": file_sha256(event_path),
+        }
+
+    expected_not_applicable = (
+        [
+            {
+                "manifest_suite": suite,
+                "status": "not_applicable",
+                "reason": "proposed_decision=framework_only",
+            }
+            for suite in sorted(DERIVED_FORMAL_MODELS)
+        ]
+        if roster.proposed_decision == "framework_only"
+        else []
+    )
+    if registry.get("not_applicable_suites") != expected_not_applicable:
+        raise ValueError("suite registry not_applicable_suites is incomplete")
+
+    proposed_not_applicable = (
+        {"operational_dropout", "retrained_upper_bound"}
+        if expected_bundle_role == "primary"
+        else {"sensitivity_operational_dropout"}
+    )
+    for role in required_roles:
+        item = roles_by_name[role]
+        if set(item) != {
+            "role",
+            "status",
+            "reason",
+            "manifest_suites",
+            "source_manifest_sha256",
+            "expected_models",
+        }:
+            raise ValueError(f"registry role {role} fields are not frozen")
+        expected_na = (
+            roster.proposed_decision == "framework_only"
+            and role in proposed_not_applicable
+        )
+        if expected_na:
+            if item != {
+                "role": role,
+                "status": "not_applicable",
+                "reason": "proposed_decision=framework_only",
+                "manifest_suites": [],
+                "source_manifest_sha256": [],
+                "expected_models": [],
+            }:
+                raise ValueError(f"registry role {role} must be explicitly not_applicable")
+            continue
+        if item.get("status") != "complete" or item.get("reason") is not None:
+            raise ValueError(f"registry role {role} is not complete")
+        suites = _string_list(
+            item.get("manifest_suites"), f"registry role {role} manifest_suites"
+        )
+        hashes = _string_list(
+            item.get("source_manifest_sha256"),
+            f"registry role {role} source hashes",
+        )
+        expected_sources = {
+            digest: source
+            for digest, source in source_by_hash.items()
+            if role in role_equivalents[source["suite"]]
+        }
+        expected_suites = sorted(
+            {source["suite"] for source in expected_sources.values()}
+        )
+        if suites != expected_suites or hashes != sorted(expected_sources):
+            raise ValueError(f"registry role {role} source bindings are stale")
+        expected_models = _expected_role_models(role, roster.selected_models)
+        if item.get("expected_models") != expected_models:
+            raise ValueError(f"registry role {role} model contract is stale")
+        observed_models = {
+            model
+            for source in expected_sources.values()
+            for model in source["models"]
+        }
+        if observed_models != set(expected_models):
+            raise ValueError(f"registry role {role} source models are incomplete")
+    return {
+        "bundle_kind": expected_bundle_kind,
+        "bundle_role": expected_bundle_role,
+        "required_suite_roles": required_roles,
+        "suite_roles": [roles_by_name[role] for role in required_roles],
+        "finalized_model_roster": {
+            "path": raw_roster["path"],
+            "sha256": roster.manifest_sha256,
+            "selected_models": list(roster.selected_models),
+            "proposed_decision": roster.proposed_decision,
+        },
+        "sources": list(source_by_hash.values()),
+    }
 
 
 def _count(manifest: Mapping[str, Any], field: str, label: str) -> int:
@@ -295,13 +626,23 @@ def _require_evidence_contract(
 def _require_table_contract(
     frame: pd.DataFrame, expected: Mapping[str, Any], label: str
 ) -> None:
-    _require_columns(frame, REQUIRED_EVIDENCE_FIELDS, label)
+    _require_columns(
+        frame,
+        (*REQUIRED_EVIDENCE_FIELDS, "formal_evidence", "evidence_role"),
+        label,
+    )
     for field in REQUIRED_EVIDENCE_FIELDS:
         values = set(frame[field].dropna().astype(str))
         if frame[field].isna().any() or values != {str(expected[field])}:
             raise ValueError(
                 f"{label} mixes, omits, or contains stale {field}: {sorted(values)}"
             )
+    if not frame["formal_evidence"].eq(True).all():
+        raise ValueError(f"{label} requires formal_evidence=true")
+    if not frame["evidence_role"].astype(str).eq(
+        "formal_development_evaluation"
+    ).all():
+        raise ValueError(f"{label} is not formal development evidence")
 
 
 def _require_unique(frame: pd.DataFrame, key: Sequence[str], label: str) -> None:
@@ -410,6 +751,270 @@ def _require_complete_manifest(manifest: Mapping[str, Any], label: str) -> None:
         raise ValueError(f"{label} training_profile must be formal")
 
 
+def _resolve_run_artifact(
+    value: object, *, run_directory: Path, label: str
+) -> Path:
+    if not isinstance(value, str) or not value:
+        raise ValueError(f"{label} must be a non-empty path")
+    raw = Path(value)
+    candidates = (
+        (raw,)
+        if raw.is_absolute()
+        else (run_directory / raw, PROJECT_ROOT / raw)
+    )
+    existing = {candidate.resolve() for candidate in candidates if candidate.is_file()}
+    if not existing:
+        raise FileNotFoundError(f"{label} is missing: {value}")
+    if len(existing) != 1:
+        raise ValueError(f"{label} resolves ambiguously: {value}")
+    return next(iter(existing))
+
+
+def _manifest_roster_matches(
+    value: object, expected: Mapping[str, Any], *, label: str
+) -> None:
+    if not isinstance(value, Mapping):
+        raise TypeError(f"{label} must be a finalized roster mapping")
+    for field in ("sha256", "selected_models", "proposed_decision"):
+        if value.get(field) != expected.get(field):
+            raise ValueError(f"{label}.{field} differs from the registry roster")
+    path = _repository_path(value.get("path"), f"{label}.path")
+    expected_path = _repository_path(expected.get("path"), "registry roster path")
+    if path.resolve() != expected_path.resolve():
+        raise ValueError(f"{label}.path differs from the registry roster")
+
+
+def _formal_authorization_models(
+    suite: str, manifest_models: Sequence[str]
+) -> list[str]:
+    return ["proposed"] if suite in DERIVED_FORMAL_MODELS else list(manifest_models)
+
+
+def _validate_frontier_anchor_tables(
+    manifest: Mapping[str, Any],
+    daily: pd.DataFrame,
+    events: pd.DataFrame,
+    *,
+    run_directory: Path,
+    label: str,
+) -> dict[str, Any]:
+    catalog_path = _resolve_run_artifact(
+        manifest.get("frontier_anchor_catalog_path"),
+        run_directory=run_directory,
+        label=f"{label}.frontier_anchor_catalog_path",
+    )
+    if catalog_path != CANONICAL_FRONTIER_ANCHOR_PATH.resolve():
+        raise ValueError(f"{label} does not use the canonical frontier catalog")
+    observed_sha = file_sha256(catalog_path)
+    if manifest.get("frontier_anchor_catalog_sha256") != observed_sha:
+        raise ValueError(f"{label} frontier anchor catalog SHA-256 mismatch")
+    catalog = load_frontier_anchor_catalog(
+        catalog_path,
+        expected_data_version="published_v1",
+        expected_evaluation_split="development_test",
+    )
+    if manifest.get("frontier_anchor_count") != len(catalog):
+        raise ValueError(f"{label} frontier anchor catalog count mismatch")
+    grid_contract = manifest.get("formal_grid_contract")
+    if (
+        manifest.get("formal_grid_contract_complete") is not True
+        or not isinstance(grid_contract, Mapping)
+    ):
+        raise ValueError(f"{label} lacks a completed formal grid contract")
+    for field, expected in (
+        ("suite", manifest.get("suite")),
+        ("frontier_anchor_required", True),
+        ("frontier_anchor_catalog_path", manifest.get("frontier_anchor_catalog_path")),
+        ("frontier_anchor_catalog_sha256", observed_sha),
+        ("frontier_anchor_count", len(catalog)),
+    ):
+        if grid_contract.get(field) != expected:
+            raise ValueError(f"{label} formal grid contract has stale {field}")
+    scenario_count = grid_contract.get("frontier_anchor_scenario_count")
+    binding_hash = grid_contract.get("frontier_anchor_bindings_sha256")
+    if (
+        isinstance(scenario_count, bool)
+        or not isinstance(scenario_count, int)
+        or scenario_count < 1
+        or not isinstance(binding_hash, str)
+        or len(binding_hash) != 64
+    ):
+        raise ValueError(f"{label} formal grid contract lacks anchor inventory")
+
+    catalog_by_id = catalog.set_index("anchor_id", drop=False)
+    inventories: list[set[tuple[str, str, int]]] = []
+    required_columns = (
+        "scenario_id",
+        "mask_type",
+        "anchor_id",
+        "anchor_target",
+        "anchor_mask_seed",
+        "center_date",
+        "center_index",
+        "anchor_data_version",
+        "anchor_evaluation_split",
+        "anchor_source_split",
+        "anchor_max_supported_length",
+        "anchor_start_month",
+        "anchor_season",
+        "anchor_year",
+        "anchor_hydrologic_state",
+        "station_ids",
+    )
+    for frame, table_label in ((daily, "daily"), (events, "events")):
+        _require_columns(frame, required_columns, f"{label} {table_label}")
+        anchored = frame.loc[
+            frame["mask_type"].astype(str).isin(FRONTIER_ANCHORED_MASK_TYPES)
+        ].copy()
+        if anchored.empty or anchored.loc[:, required_columns].isna().any().any():
+            raise ValueError(f"{label} {table_label} lacks frontier anchor bindings")
+        inventory: set[tuple[str, str, int]] = set()
+        for row in anchored.loc[:, required_columns].drop_duplicates().itertuples(
+            index=False
+        ):
+            anchor_id = str(row.anchor_id)
+            if anchor_id not in catalog_by_id.index:
+                raise ValueError(f"{label} contains an unknown frontier anchor")
+            catalog_row = catalog_by_id.loc[anchor_id]
+            try:
+                stations = json.loads(str(row.station_ids))
+            except json.JSONDecodeError as error:
+                raise ValueError(f"{label} has malformed station_ids") from error
+            if not isinstance(stations, list) or not stations:
+                raise ValueError(f"{label} has empty station_ids")
+            observed = {
+                "station_id": str(stations[0]),
+                "target": str(row.anchor_target),
+                "mask_seed": int(row.anchor_mask_seed),
+                "center_date": str(row.center_date),
+                "center_index": int(row.center_index),
+                "data_version": str(row.anchor_data_version),
+                "evaluation_split": str(row.anchor_evaluation_split),
+                "source_split": str(row.anchor_source_split),
+                "max_supported_length": int(row.anchor_max_supported_length),
+                "start_month": int(row.anchor_start_month),
+                "season": str(row.anchor_season),
+                "year": int(row.anchor_year),
+                "hydrologic_state": str(row.anchor_hydrologic_state),
+            }
+            expected = {
+                "station_id": str(catalog_row["station_id"]),
+                "target": str(catalog_row["target"]),
+                "mask_seed": int(catalog_row["mask_seed"]),
+                "center_date": str(catalog_row["center_date"]),
+                "center_index": int(catalog_row["center_index"]),
+                "data_version": str(catalog_row["data_version"]),
+                "evaluation_split": str(catalog_row["evaluation_split"]),
+                "source_split": str(catalog_row["source_split"]),
+                "max_supported_length": int(catalog_row["max_supported_length"]),
+                "start_month": int(catalog_row["start_month"]),
+                "season": str(catalog_row["season"]),
+                "year": int(catalog_row["year"]),
+                "hydrologic_state": str(catalog_row["hydrologic_state"]),
+            }
+            if observed != expected:
+                raise ValueError(f"{label} contains a stale frontier anchor binding")
+            inventory.add((str(row.scenario_id), anchor_id, int(row.anchor_mask_seed)))
+        inventories.append(inventory)
+    if inventories[0] != inventories[1]:
+        raise ValueError(f"{label} daily/event frontier anchor inventories differ")
+    if len(inventories[0]) > scenario_count:
+        raise ValueError(f"{label} table anchor inventory exceeds its grid contract")
+    return {
+        "path": str(catalog_path),
+        "sha256": observed_sha,
+        "count": len(catalog),
+        "observed_evidence_scenario_count": len(inventories[0]),
+    }
+
+
+def _validate_full_event_contract(
+    manifest: Mapping[str, Any],
+    expected_run_units: set[str],
+    *,
+    run_directory: Path,
+    label: str,
+) -> dict[str, Any] | None:
+    if manifest.get("suite") != "full":
+        return None
+    catalog_path = _resolve_run_artifact(
+        manifest.get("event_catalog_path"),
+        run_directory=run_directory,
+        label=f"{label}.event_catalog_path",
+    )
+    catalog = load_event_episode_catalog(
+        catalog_path,
+        expected_data_version=str(manifest["data_version"]),
+        expected_evaluation_split=str(manifest["evaluation_split"]),
+    )
+    digest = event_catalog_sha256(catalog)
+    eligible = catalog.loc[catalog["analysis_eligible"].astype(bool)]
+    if (
+        manifest.get("event_catalog_sha256") != digest
+        or manifest.get("event_catalog_episode_count") != len(catalog)
+        or manifest.get("event_catalog_analysis_count") != len(eligible)
+        or len(eligible) < 1
+    ):
+        raise ValueError(f"{label} event catalog identity/count mismatch")
+    suffixes: list[str] = []
+    if str(manifest["data_version"]) != "published_v1":
+        suffixes.append(str(manifest["data_version"]).upper())
+    if str(manifest["evaluation_split"]) != "test":
+        suffixes.append(str(manifest["evaluation_split"]).upper())
+    detail = "" if not suffixes else "-" + "-".join(suffixes)
+    expected_m7b = {
+        *(
+            f"M7B-EVENT-{value}{detail}-R0000"
+            for value in eligible["event_id"].astype(str)
+        ),
+        *(
+            f"M7B-CONTROL-{value}{detail}-R0000"
+            for value in eligible["control_id"].astype(str)
+        ),
+    }
+    observed_scenarios = {
+        _parse_run_unit_key(key, label)[0] for key in expected_run_units
+    }
+    observed_m7a = {
+        scenario for scenario in observed_scenarios if scenario.startswith("M7A-")
+    }
+    observed_m7b = {
+        scenario
+        for scenario in observed_scenarios
+        if scenario.startswith(("M7B-EVENT-", "M7B-CONTROL-"))
+    }
+    if len(observed_m7a) != 12 or any(
+        not scenario.endswith("-R0000") for scenario in observed_m7a
+    ):
+        raise ValueError(f"{label} must contain exactly twelve seed-0 M7a scenarios")
+    if len(expected_m7b) != 2 * len(eligible) or observed_m7b != expected_m7b:
+        raise ValueError(
+            f"{label} M7b inventory must be two seed-0 scenarios per eligible pair"
+        )
+    grid_contract = manifest.get("formal_grid_contract")
+    if not isinstance(grid_contract, Mapping):
+        raise TypeError(f"{label} lacks a formal full-grid contract")
+    for field, expected in (
+        ("event_uncertainty_required", True),
+        ("event_catalog_path", manifest.get("event_catalog_path")),
+        ("event_catalog_sha256", digest),
+        ("event_catalog_episode_count", len(catalog)),
+        ("event_catalog_analysis_count", len(eligible)),
+        ("m7a_scenario_count", 12),
+        ("m7b_scenario_count", len(expected_m7b)),
+    ):
+        if grid_contract.get(field) != expected:
+            raise ValueError(f"{label} formal full-grid contract has stale {field}")
+    return {
+        "path": str(catalog_path),
+        "sha256": digest,
+        "episode_count": len(catalog),
+        "analysis_count": len(eligible),
+        "m7a_scenario_count": len(observed_m7a),
+        "m7b_scenario_count": len(observed_m7b),
+    }
+
+
 def _validate_run_directory(
     directory: Path,
     *,
@@ -417,6 +1022,11 @@ def _validate_run_directory(
     expected_models: Sequence[str],
     allowed_table_models: set[str],
     expected_evidence: Mapping[str, Any],
+    expected_roster: Mapping[str, Any],
+    design_path: str | Path,
+    study_manifest_path: str | Path,
+    config_path: str | Path,
+    data_version_manifest_path: str | Path,
 ) -> dict[str, Any]:
     manifest_path = directory / "run_manifest.json"
     daily_path = directory / "daily_predictions.parquet"
@@ -424,6 +1034,21 @@ def _validate_run_directory(
     manifest = _read_mapping(manifest_path, "runner manifest")
     _require_complete_manifest(manifest, str(manifest_path))
     _require_evidence_contract(manifest, expected_evidence, str(manifest_path))
+    version_manifest = Path(data_version_manifest_path)
+    expected_version_identity = validate_data_version_inputs(
+        data_version_manifest_path=version_manifest,
+        data_version=str(manifest.get("data_version")),
+        wide_path=version_manifest.parent / "daily_wide.parquet",
+        quality_path=version_manifest.parent / "daily_long.parquet",
+        require_manifest=True,
+        require_quality=True,
+    )
+    if manifest.get("data_version_input_identity") != expected_version_identity:
+        raise ValueError(f"{manifest_path} data-version input identity is stale")
+    if manifest.get("formal_evidence") is not True:
+        raise ValueError(f"{manifest_path} requires formal_evidence=true")
+    if manifest.get("evidence_role") != "formal_development_evaluation":
+        raise ValueError(f"{manifest_path} is not formal development evidence")
     if manifest.get("suite") != expected_suite:
         raise ValueError(f"{manifest_path} suite does not match registry")
     models = _string_list(manifest.get("models"), f"{manifest_path}.models")
@@ -431,6 +1056,29 @@ def _validate_run_directory(
         raise ValueError(
             f"{manifest_path} model roster does not match finalized registry"
         )
+    if manifest.get("expected_formal_models") != models:
+        raise ValueError(f"{manifest_path} expected_formal_models is stale")
+    _manifest_roster_matches(
+        manifest.get("finalized_model_roster"),
+        expected_roster,
+        label=f"{manifest_path}.finalized_model_roster",
+    )
+    authorization = manifest.get("formal_execution_authorization")
+    if not isinstance(authorization, Mapping):
+        raise TypeError(f"{manifest_path} lacks formal execution authorization")
+    validated_authorization = validate_formal_authorization(
+        authorization,
+        expected_suite=expected_suite,
+        expected_models=_formal_authorization_models(expected_suite, models),
+        design_path=design_path,
+        study_manifest_path=study_manifest_path,
+        experiment_config_path=config_path,
+    )
+    _manifest_roster_matches(
+        validated_authorization.get("finalized_model_roster"),
+        expected_roster,
+        label=f"{manifest_path}.authorization.finalized_model_roster",
+    )
     if manifest.get("retryable_run_keys") != []:
         raise ValueError(f"{manifest_path} retryable_run_keys must be an empty list")
 
@@ -443,6 +1091,13 @@ def _validate_run_directory(
     _require_unique(daily, DAILY_KEY, str(daily_path))
     _require_unique(events, EVENT_KEY, str(event_path))
     _require_finite_tables(daily, events, str(directory))
+    frontier_contract = _validate_frontier_anchor_tables(
+        manifest,
+        daily,
+        events,
+        run_directory=directory,
+        label=str(manifest_path),
+    )
     observed_models = set(daily["model"].astype(str)).union(events["model"].astype(str))
     if not observed_models.issubset(allowed_table_models):
         raise ValueError(f"{directory} has models outside the finalized registry")
@@ -458,6 +1113,12 @@ def _validate_run_directory(
     finite_events = keys["finite_event_metric_run_unit_keys"]
     checkpoint_required = keys["checkpoint_required_run_unit_keys"]
     checkpoint_valid = keys["checkpoint_valid_run_unit_keys"]
+    event_contract = _validate_full_event_contract(
+        manifest,
+        expected,
+        run_directory=directory,
+        label=str(manifest_path),
+    )
     expected_models_in_keys = {
         _parse_run_unit_key(key, str(manifest_path))[1] for key in expected
     }
@@ -526,6 +1187,9 @@ def _validate_run_directory(
             "structural_skip_run_unit_count": len(structural),
             "expected_evidence_run_unit_count": len(expected_evidence_keys),
             "checkpoint_required_run_unit_count": len(checkpoint_required),
+            "formal_execution_authorization": validated_authorization,
+            "frontier_anchor_catalog": frontier_contract,
+            "event_catalog": event_contract,
         },
     }
 
@@ -547,6 +1211,12 @@ def _validate_registry_suite(
     formal_root: Path,
     entry: object,
     expected_evidence: Mapping[str, Any],
+    *,
+    expected_roster: Mapping[str, Any],
+    design_path: str | Path,
+    study_manifest_path: str | Path,
+    config_path: str | Path,
+    data_version_manifest_path: str | Path,
 ) -> dict[str, Any]:
     if not isinstance(entry, Mapping):
         raise TypeError("each suite registry entry must be a mapping")
@@ -579,6 +1249,11 @@ def _validate_registry_suite(
                 expected_models=roster,
                 allowed_table_models=allowed_models,
                 expected_evidence=expected_evidence,
+                expected_roster=expected_roster,
+                design_path=design_path,
+                study_manifest_path=study_manifest_path,
+                config_path=config_path,
+                data_version_manifest_path=data_version_manifest_path,
             )
         ]
     elif layout == "model_children":
@@ -597,6 +1272,11 @@ def _validate_registry_suite(
                 expected_models=[model],
                 allowed_table_models={model, *derived},
                 expected_evidence=expected_evidence,
+                expected_roster=expected_roster,
+                design_path=design_path,
+                study_manifest_path=study_manifest_path,
+                config_path=config_path,
+                data_version_manifest_path=data_version_manifest_path,
             )
             for model in roster
         ]
@@ -653,16 +1333,45 @@ def aggregate_formal_results(
             PROJECT_ROOT / "data_versions" / data_version / "version_manifest.json"
         )
         data_version_manifest_path = candidate if candidate.is_file() else None
+    if data_version_manifest_path is None:
+        raise FileNotFoundError(
+            f"formal aggregation requires a data-version manifest for {data_version}"
+        )
+    version_manifest_path = Path(data_version_manifest_path)
+    if not version_manifest_path.is_file():
+        raise FileNotFoundError(
+            f"formal aggregation data-version manifest is missing: {version_manifest_path}"
+        )
     evidence = build_design_contract(
         design_path=design_path,
         manifest_path=manifest_path,
         experiment_config_path=config_path,
         data_version=data_version,
         evaluation_split=canonical_split,
-        data_version_manifest_path=data_version_manifest_path,
+        data_version_manifest_path=version_manifest_path,
+    )
+    registry_contract = _validate_registry_contract(
+        registry,
+        formal_root=formal,
+        expected_evidence=evidence,
+        data_version=data_version,
+        evaluation_split=canonical_split,
+        data_version_manifest_path=version_manifest_path,
+        design_path=design_path,
+        study_manifest_path=manifest_path,
+        config_path=config_path,
     )
     suites = [
-        _validate_registry_suite(formal, entry, evidence)
+        _validate_registry_suite(
+            formal,
+            entry,
+            evidence,
+            expected_roster=registry_contract["finalized_model_roster"],
+            design_path=design_path,
+            study_manifest_path=manifest_path,
+            config_path=config_path,
+            data_version_manifest_path=version_manifest_path,
+        )
         for entry in registry["suites"]
     ]
     names = [suite["name"] for suite in suites]
@@ -673,6 +1382,47 @@ def aggregate_formal_results(
         raise ValueError(
             "suite registry declares the same run directory more than once"
         )
+    expected_sources = {
+        str(source["manifest_path"]): source
+        for source in registry_contract["sources"]
+    }
+    actual_sources = {
+        str(Path(run["source"]["manifest"]["path"]).resolve()): {
+            "suite": suite["manifest_suite"],
+            "models": run["source"]["models"],
+            "run_directory": Path(run["directory"]).resolve(),
+            "manifest_sha256": run["source"]["manifest"]["sha256"],
+            "daily_predictions_path": Path(
+                run["source"]["daily_predictions"]["path"]
+            ).resolve(),
+            "daily_predictions_sha256": run["source"]["daily_predictions"][
+                "sha256"
+            ],
+            "event_metrics_path": Path(
+                run["source"]["event_metrics"]["path"]
+            ).resolve(),
+            "event_metrics_sha256": run["source"]["event_metrics"]["sha256"],
+        }
+        for suite in suites
+        for run in suite["runs"]
+    }
+    if set(actual_sources) != set(expected_sources):
+        raise ValueError("validated suite manifests differ from registry sources")
+    for path, actual in actual_sources.items():
+        expected = expected_sources[path]
+        for field in (
+            "suite",
+            "models",
+            "manifest_sha256",
+            "daily_predictions_path",
+            "daily_predictions_sha256",
+            "event_metrics_path",
+            "event_metrics_sha256",
+        ):
+            if actual[field] != expected[field]:
+                raise ValueError(f"registry source {path} has stale {field}")
+        if actual["run_directory"] != expected["run_directory"]:
+            raise ValueError(f"registry source {path} has a stale run directory")
 
     daily_parts = [run["daily"] for suite in suites for run in suite["runs"]]
     event_parts = [run["events"] for suite in suites for run in suite["runs"]]
@@ -702,10 +1452,21 @@ def aggregate_formal_results(
     predictions_path = results / "predictions.parquet"
     event_metrics_path = results / "event_metrics.parquet"
     summary_path = results / "summary_metrics.csv"
+    sources = [run["source"] for suite in suites for run in suite["runs"]]
+    frontier_catalogs = {
+        (
+            source["frontier_anchor_catalog"]["path"],
+            source["frontier_anchor_catalog"]["sha256"],
+            source["frontier_anchor_catalog"]["count"],
+        )
+        for source in sources
+    }
+    if len(frontier_catalogs) != 1:
+        raise ValueError("formal sources do not share one frozen frontier catalog")
+    frontier_path, frontier_sha, frontier_count = next(iter(frontier_catalogs))
     _atomic_parquet(daily, predictions_path)
     _atomic_parquet(events, event_metrics_path)
     _atomic_csv(summary, summary_path)
-    sources = [run["source"] for suite in suites for run in suite["runs"]]
     manifest = {
         "schema_version": "formal_aggregate_manifest_v2",
         "frozen": True,
@@ -714,6 +1475,8 @@ def aggregate_formal_results(
         "formal_training_seed_complete": True,
         "formal_mask_seed_complete": True,
         "training_profile": "formal",
+        "formal_evidence": True,
+        "evidence_role": "formal_development_evaluation",
         "run_unit_complete": True,
         "evidence_complete": True,
         "finite_predictions": True,
@@ -722,6 +1485,17 @@ def aggregate_formal_results(
         "retryable_run_keys": [],
         "retryable_run_unit_count": 0,
         "suite_registry": registry_identity,
+        "suite_registry_sha256": registry["registry_sha256"],
+        "bundle_kind": registry_contract["bundle_kind"],
+        "bundle_role": registry_contract["bundle_role"],
+        "required_suite_roles": registry_contract["required_suite_roles"],
+        "suite_roles": registry_contract["suite_roles"],
+        "finalized_model_roster": registry_contract["finalized_model_roster"],
+        "frontier_anchor_catalog": {
+            "path": frontier_path,
+            "sha256": frontier_sha,
+            "count": frontier_count,
+        },
         "suite_count": len(suites),
         "source_run_count": len(sources),
         "suites": [

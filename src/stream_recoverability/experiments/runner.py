@@ -75,6 +75,11 @@ from .contracts import (
     DEFAULT_MANIFEST_PATH,
     build_design_contract,
     file_sha256,
+    validate_data_version_inputs,
+)
+from .formal_authorization import (
+    validate_formal_authorization,
+    validate_formal_grid_contract,
 )
 from .grid import ExperimentGrid, ExperimentScenario
 from .model_registry import FrozenModelDesign, load_frozen_model_design
@@ -664,6 +669,7 @@ class ExperimentRunner:
         data_version_manifest_path: str | Path | None = None,
         models: Sequence[str] | None = None,
         training_seeds: Sequence[int] | None = None,
+        formal_authorization: Mapping[str, Any] | None = None,
         resume: bool = True,
     ) -> None:
         self.grid = grid
@@ -745,13 +751,10 @@ class ExperimentRunner:
         )
         self.wide_path = Path(wide_path)
         self.quality_path = Path(quality_path) if quality_path is not None else None
-        self.data = _load_data(wide_path, quality_path, self.variable_names)
         grid_versions = {condition.data_version for condition in grid.conditions}
-        if grid_versions != {self.data.data_version}:
-            raise ValueError(
-                "experiment grid and input data_version differ: "
-                f"grid={sorted(grid_versions)}, data={self.data.data_version!r}"
-            )
+        if len(grid_versions) != 1:
+            raise ValueError("one runner grid cannot mix data_version values")
+        grid_data_version = next(iter(grid_versions))
         evaluation_splits = {
             condition.evaluation_split for condition in grid.conditions
         }
@@ -766,6 +769,23 @@ class ExperimentRunner:
             if inferred_version_manifest.exists()
             else None
         )
+        strict_version_binding = bool(
+            formal_authorization is not None or self.evaluation_split == "validation"
+        )
+        self.data_version_input_identity = validate_data_version_inputs(
+            data_version_manifest_path=self.data_version_manifest_path,
+            data_version=grid_data_version,
+            wide_path=self.wide_path,
+            quality_path=self.quality_path,
+            require_manifest=strict_version_binding,
+            require_quality=strict_version_binding,
+        )
+        self.data = _load_data(wide_path, quality_path, self.variable_names)
+        if grid_versions != {self.data.data_version}:
+            raise ValueError(
+                "experiment grid and input data_version differ: "
+                f"grid={sorted(grid_versions)}, data={self.data.data_version!r}"
+            )
         design_contract = build_design_contract(
             design_path=self.design_path,
             manifest_path=self.manifest_path,
@@ -814,6 +834,32 @@ class ExperimentRunner:
                     "formal runner models must come from the design freeze formal "
                     f"candidate registry: {nonformal}"
                 )
+        if formal_authorization is not None and (
+            self.training_profile_name != "formal"
+            or self.evaluation_split != "development_test"
+        ):
+            raise ValueError(
+                "formal roster authorization is valid only for formal "
+                "development_test execution"
+            )
+        self.formal_authorization = (
+            validate_formal_authorization(
+                formal_authorization,
+                expected_suite=self.grid.suite,
+                expected_models=self.models,
+                design_path=self.design_path,
+                study_manifest_path=self.manifest_path,
+                experiment_config_path=self.config_path,
+            )
+            if formal_authorization is not None
+            else None
+        )
+        self.formal_evidence = self.formal_authorization is not None
+        self.formal_grid_contract = (
+            validate_formal_grid_contract(self.grid)
+            if self.formal_evidence
+            else None
+        )
         self.model_request_aliases = {
             value: canonical_model_name(value)
             for value in normalized_inputs
@@ -1043,12 +1089,15 @@ class ExperimentRunner:
             )
         return pd.DataFrame(rows)
 
-    @staticmethod
-    def _evidence_role(evaluation_split: str) -> str:
+    def _evidence_role(self, evaluation_split: str) -> str:
         if evaluation_split == "validation":
             return "model_selection_only"
         if evaluation_split in {"test", "development_test"}:
-            return "development_evaluation"
+            return (
+                "formal_development_evaluation"
+                if self.formal_evidence
+                else "development_evaluation"
+            )
         return "confirmatory_once"
 
     def _build_training_references(self) -> dict[tuple[int, int], _TrainingReference]:
@@ -1407,6 +1456,7 @@ class ExperimentRunner:
                 "evidence_role": self._evidence_role(
                     condition.evaluation_split
                 ),
+                "formal_evidence": self.formal_evidence,
                 "external_validation_status": self.grid.external_validation_status,
                 "is_external_validation": condition.evaluation_split
                 == "confirmatory",
@@ -3142,6 +3192,7 @@ class ExperimentRunner:
                     "data_version": self.data.data_version,
                     "evaluation_split": evaluation_split,
                     "evidence_role": evidence_role,
+                    "formal_evidence": self.formal_evidence,
                     "design_version": self.evidence_contract["design_version"],
                     "design_hash": self.evidence_contract["design_hash"],
                     "mask_schema_version": self.evidence_contract[
@@ -3210,6 +3261,7 @@ class ExperimentRunner:
                         "tuning_split": tuning_split,
                         "evaluation_split": evaluation_split,
                         "evidence_role": evidence_role,
+                        "formal_evidence": self.formal_evidence,
                         "external_validation_status": self.grid.external_validation_status,
                         "is_external_validation": evaluation_split
                         == "confirmatory",
@@ -3929,6 +3981,7 @@ class ExperimentRunner:
                 "evidence_role": self._evidence_role(
                     scenario.condition.evaluation_split
                 ),
+                "formal_evidence": self.formal_evidence,
                 "validation_scope": scenario.condition.validation_scope,
                 "is_external_validation": scenario.condition.evaluation_split
                 == "confirmatory",
@@ -4390,15 +4443,23 @@ class ExperimentRunner:
             self.training_profile_name == "smoke"
             or set(self.grid.mask_seeds) == set(range(101, 121))
         )
-        formal_design_complete = bool(
+        run_complete = bool(
             grid_complete
             and run_unit_complete
             and evidence_complete
             and finite_predictions
             and finite_event_metrics
             and checkpoint_contract_complete
+        )
+        formal_grid_contract_complete = bool(
+            self.formal_evidence and self.formal_grid_contract is not None
+        )
+        formal_design_complete = bool(
+            self.formal_evidence
+            and run_complete
             and formal_training_seed_complete
             and formal_mask_seed_complete
+            and formal_grid_contract_complete
         )
         _atomic_json(
             {
@@ -4427,6 +4488,10 @@ class ExperimentRunner:
                     self.grid.validation_anchor_catalog_sha256
                 ),
                 "validation_anchor_count": self.grid.validation_anchor_count,
+                "validation_anchor_catalog_logical_sha256": (
+                    self.grid.validation_anchor_catalog_logical_sha256
+                ),
+                "validation_anchor_ids": list(self.grid.validation_anchor_ids),
                 "anchor_availability_rows": len(self.anchor_availability),
                 "anchor_unavailable_rows": (
                     int((~self.anchor_availability["available"]).sum())
@@ -4504,10 +4569,14 @@ class ExperimentRunner:
                 "finite_predictions": finite_predictions,
                 "finite_event_metrics": finite_event_metrics,
                 "checkpoint_contract_complete": checkpoint_contract_complete,
+                "grid_complete": grid_complete,
+                "run_complete": run_complete,
                 "complete": formal_design_complete,
                 "formal_design_complete": formal_design_complete,
                 "formal_training_seed_complete": formal_training_seed_complete,
                 "formal_mask_seed_complete": formal_mask_seed_complete,
+                "formal_grid_contract_complete": formal_grid_contract_complete,
+                "formal_grid_contract": self.formal_grid_contract,
                 "expected_mask_seeds": list(range(101, 121)),
                 "expected_training_seeds": list(self.grid.training_seeds),
                 "status_counts": statuses,
@@ -4515,7 +4584,18 @@ class ExperimentRunner:
                 "tuning_split": "validation",
                 "evaluation_split": self.evaluation_split,
                 "data_version": self.data.data_version,
+                "data_version_input_identity": self.data_version_input_identity,
                 "evidence_role": self._evidence_role(self.evaluation_split),
+                "formal_evidence": self.formal_evidence,
+                "formal_execution_authorization": self.formal_authorization,
+                "finalized_model_roster": (
+                    self.formal_authorization["finalized_model_roster"]
+                    if self.formal_authorization is not None
+                    else None
+                ),
+                "expected_formal_models": (
+                    list(self.models) if self.formal_evidence else []
+                ),
                 "is_external_validation": self.evaluation_split
                 == "confirmatory",
                 "external_validation_status": self.grid.external_validation_status,

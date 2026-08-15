@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import asdict
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
@@ -10,6 +11,7 @@ import pandas.testing as pdt
 import pytest
 import torch
 
+import stream_recoverability.experiments.runner as runner_module
 import stream_recoverability.experiments.science as science_module
 from stream_recoverability.analysis.compensation import (
     benjamini_hochberg_fdr,
@@ -41,6 +43,45 @@ from stream_recoverability.models.proposed_training import ProposedTrainingConfi
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+
+
+@pytest.fixture(autouse=True)
+def _authorize_operational_test_runs(monkeypatch: pytest.MonkeyPatch) -> None:
+    roster = SimpleNamespace(
+        manifest_path="validation/finalized_model_roster.json",
+        manifest_sha256="a" * 64,
+        selected_models=("linear", "proposed"),
+        proposed_decision="include_proposed_formally",
+    )
+    authorization = {
+        "schema_version": "formal_execution_authorization_v1",
+        "suite": "science_compensation",
+        "formal_evidence": True,
+        "model_scope": "authorized_proposed_estimand",
+        "target_scope": ["T"],
+        "expected_models": ["proposed"],
+        "finalized_model_roster": {
+            "path": roster.manifest_path,
+            "sha256": roster.manifest_sha256,
+            "selected_models": list(roster.selected_models),
+            "proposed_decision": roster.proposed_decision,
+        },
+    }
+    monkeypatch.setattr(
+        science_module,
+        "authorize_proposed_estimand",
+        lambda *args, **kwargs: (roster, authorization),
+    )
+    monkeypatch.setattr(
+        runner_module,
+        "validate_formal_authorization",
+        lambda value, **kwargs: dict(value),
+    )
+    monkeypatch.setattr(
+        runner_module,
+        "validate_formal_grid_contract",
+        lambda grid: {"suite": grid.suite, "test_fixture": True},
+    )
 
 
 def test_dense_and_compensation_grids_have_fixed_counts() -> None:
@@ -443,6 +484,18 @@ def _write_small_processed_data(root: Path) -> tuple[Path, Path]:
     quality_path = root / "long.parquet"
     wide.to_parquet(wide_path, index=False)
     pd.DataFrame(long_rows).to_parquet(quality_path, index=False)
+    (root / "version_manifest.json").write_text(
+        json.dumps(
+            {
+                "data_version": "published_v1",
+                "artifacts": {
+                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
+                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     return wide_path, quality_path
 
 
@@ -829,7 +882,7 @@ def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
     assert set(daily["training_seed"]) == {22}
 
 
-def test_compensation_aggregate_excludes_all_units_after_training_input_changes(
+def test_compensation_rejects_training_input_changes_against_version_manifest(
     tmp_path: Path,
 ) -> None:
     wide_path, quality_path = _write_small_processed_data(tmp_path)
@@ -860,10 +913,11 @@ def test_compensation_aggregate_excludes_all_units_after_training_input_changes(
     wide = pd.read_parquet(wide_path)
     wide.loc[0, "B1_T"] = np.float32(wide.loc[0, "B1_T"] + 0.125)
     wide.to_parquet(wide_path, index=False)
-    daily, events, _ = run_information_compensation(training_seeds=(11,), **common)
-    assert daily.empty and events.empty
-    manifest = json.loads((tmp_path / "results" / "run_manifest.json").read_text())
-    assert manifest["formal_design_complete"] is False
+    with pytest.raises(
+        ValueError,
+        match="data-version daily_wide.parquet SHA-256 does not match",
+    ):
+        run_information_compensation(training_seeds=(11,), **common)
 
 
 @pytest.mark.parametrize(

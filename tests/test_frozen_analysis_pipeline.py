@@ -214,12 +214,18 @@ def _formal_registry_fields(
     for suite, models in dict(role_sources.values()).items():
         directory = root / "registry_sources" / suite
         directory.mkdir(parents=True, exist_ok=True)
+        daily_path = directory / "daily_predictions.parquet"
+        event_path = directory / "event_metrics.parquet"
+        pd.DataFrame({"suite": [suite]}).to_parquet(daily_path, index=False)
+        pd.DataFrame({"suite": [suite]}).to_parquet(event_path, index=False)
         path = directory / "run_manifest.json"
         path.write_text(json.dumps({"suite": suite, "models": models}), encoding="utf-8")
         source_by_suite[suite] = {
             "suite": suite,
             "run_directory": str(directory.resolve()),
             "manifest": _file_identity(path),
+            "daily_predictions": _file_identity(daily_path),
+            "event_metrics": _file_identity(event_path),
             "models": models,
         }
     suite_roles: list[dict[str, object]] = []
@@ -1410,6 +1416,17 @@ def test_frozen_input_rejects_tampered_registry_source_identity(tmp_path: Path) 
         source_path.read_text(encoding="utf-8") + "\n",
         encoding="utf-8",
     )
+    with pytest.raises(ValueError, match="recorded bytes/SHA-256"):
+        load_frozen_inputs(predictions, events, manifest_path, DESIGN)
+
+
+def test_frozen_input_rejects_tampered_registry_source_artifact(tmp_path: Path) -> None:
+    predictions, events, manifest_path = _write_minimal_bundle(tmp_path)
+    aggregate = json.loads(manifest_path.read_text())
+    registry_path = Path(aggregate["suite_registry"]["path"])
+    registry = json.loads(registry_path.read_text())
+    daily_path = Path(registry["sources"][0]["daily_predictions"]["path"])
+    daily_path.write_bytes(daily_path.read_bytes() + b"tampered")
     with pytest.raises(ValueError, match="recorded bytes/SHA-256"):
         load_frozen_inputs(predictions, events, manifest_path, DESIGN)
 

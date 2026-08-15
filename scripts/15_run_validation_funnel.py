@@ -36,6 +36,9 @@ from stream_recoverability.experiments.selection import (
     select_stage2_finalists,
 )
 from stream_recoverability.experiments.validation import (
+    DEEP_CANDIDATES,
+    TRADITIONAL_CANDIDATES,
+    VALIDATION_DEEP_SEEDS,
     VALIDATION_STAGES,
     build_validation_funnel,
     select_validation_stage,
@@ -47,6 +50,9 @@ from stream_recoverability.experiments.validation_finalization import (
     STAGE2_SELECTION_MANIFEST_SCHEMA_VERSION,
     execute_validation_branch_ablation,
     finalize_validation_roster,
+    validate_ranking_artifact,
+    validate_stage2_selection_artifact,
+    write_early_framework_only_decision,
     write_stage2_diagnostics,
 )
 
@@ -148,7 +154,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--event-metrics",
         type=Path,
         nargs="+",
-        help="stage event tables; defaults to every table under the versioned run root",
+        help=(
+            "initial-stage event tables; defaults exactly to traditional and "
+            "deep_single_seed"
+        ),
     )
     rank.add_argument("--output", type=Path)
 
@@ -179,15 +188,21 @@ def build_parser() -> argparse.ArgumentParser:
         "--event-metrics",
         type=Path,
         nargs="+",
-        required=True,
-        help="complete validation event tables containing traditional and proposed rows",
+        help=(
+            "complete validation event tables containing traditional and proposed "
+            "rows; required only when proposed entered stage 3"
+        ),
     )
     go_no_go.add_argument(
         "--branch-ablations",
         type=Path,
-        required=True,
-        help="validation-only one-checkpoint operational-dropout table",
+        help=(
+            "validation-only one-checkpoint operational-dropout table; required "
+            "only when proposed entered stage 3"
+        ),
     )
+    go_no_go.add_argument("--ranking", type=Path)
+    go_no_go.add_argument("--stage2-selection", type=Path)
     go_no_go.add_argument("--best-traditional-model")
     go_no_go.add_argument("--output-dir", type=Path)
 
@@ -277,6 +292,10 @@ def _write_funnel_registry(
             "anchor_catalog_path": funnel.grid.validation_anchor_catalog_path,
             "anchor_catalog_sha256": funnel.grid.validation_anchor_catalog_sha256,
             "anchor_catalog_rows": funnel.grid.validation_anchor_count,
+            "anchor_catalog_logical_sha256": (
+                funnel.grid.validation_anchor_catalog_logical_sha256
+            ),
+            "anchor_ids": list(funnel.grid.validation_anchor_ids),
             "anchor_season_counts": (
                 units.drop_duplicates("anchor_id")["season"]
                 .value_counts()
@@ -356,6 +375,11 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
         "mask_unit_count": len(funnel.mask_units),
         "anchor_catalog": str(args.anchor_catalog),
         "anchor_catalog_sha256": funnel.grid.validation_anchor_catalog_sha256,
+        "anchor_catalog_logical_sha256": (
+            funnel.grid.validation_anchor_catalog_logical_sha256
+        ),
+        "anchor_catalog_rows": funnel.grid.validation_anchor_count,
+        "anchor_ids": list(funnel.grid.validation_anchor_ids),
         "daily_rows": len(daily),
         "event_rows": len(events),
         "output_dir": str(stage_output),
@@ -413,6 +437,34 @@ def _read_ranking_inputs(paths: Sequence[Path]) -> pd.DataFrame:
             "_source_order", kind="mergesort"
         ).drop_duplicates(duplicate_key, keep="last")
     return combined.drop(columns=["_source_order", "_source_path"])
+
+
+def _validate_initial_ranking_inventory(events: pd.DataFrame) -> None:
+    expected_models = set(TRADITIONAL_CANDIDATES) | set(DEEP_CANDIDATES)
+    observed_models = set(events["model"].astype(str))
+    if observed_models != expected_models:
+        raise ValueError(
+            "initial validation ranking must contain exactly traditional plus "
+            "deep_single_seed candidates"
+        )
+    deep = events.loc[events["model"].astype(str).isin(DEEP_CANDIDATES)]
+    deep_seeds = set(pd.to_numeric(deep["training_seed"], errors="coerce").dropna())
+    if deep_seeds != {VALIDATION_DEEP_SEEDS[0]}:
+        raise ValueError(
+            "initial validation ranking rejects deep_stability seed 22/33 rows"
+        )
+    traditional = events.loc[
+        events["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
+    ]
+    if pd.to_numeric(traditional["training_seed"], errors="coerce").notna().any():
+        raise ValueError("traditional validation ranking rows must be seedless")
+
+
+def _initial_ranking_paths(run_root: Path) -> tuple[Path, Path]:
+    return (
+        run_root / "traditional" / "event_metrics.parquet",
+        run_root / "deep_single_seed" / "event_metrics.parquet",
+    )
 
 
 def _read_table(path: Path) -> pd.DataFrame:
@@ -510,8 +562,9 @@ def _rank(args: argparse.Namespace) -> dict[str, Any]:
     if args.event_metrics:
         paths = tuple(args.event_metrics)
     else:
-        paths = tuple(sorted(run_root.glob("*/event_metrics.parquet")))
+        paths = _initial_ranking_paths(run_root)
     events = _read_ranking_inputs(paths)
+    _validate_initial_ranking_inventory(events)
     output = args.output or run_root / "validation_model_ranking.csv"
     ranking = write_validation_model_ranking(
         events,
@@ -581,6 +634,37 @@ def _select_finalists(args: argparse.Namespace) -> dict[str, Any]:
 
 def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
     contract, run_root = _contract(args, require_version_manifest=False)
+    ranking_path = args.ranking or run_root / "validation_model_ranking.csv"
+    stage2_path = args.stage2_selection or run_root / "stage2_finalist_selection.csv"
+    ranking, _ = validate_ranking_artifact(
+        ranking_path, expected_contract=contract
+    )
+    _, finalists, _ = validate_stage2_selection_artifact(
+        stage2_path,
+        ranking=ranking,
+        ranking_path=ranking_path,
+        design_path=args.design,
+        expected_contract=contract,
+    )
+    output_dir = args.output_dir or run_root / "proposed_go_no_go"
+    if "proposed" not in finalists:
+        if args.event_metrics or args.branch_ablations is not None:
+            raise ValueError(
+                "proposed did not enter stage 3; performance and branch tables "
+                "must not be supplied to the early framework-only path"
+            )
+        return write_early_framework_only_decision(
+            ranking_path=ranking_path,
+            stage2_selection_path=stage2_path,
+            output_dir=output_dir,
+            design_path=args.design,
+            expected_contract=contract,
+        )
+    if not args.event_metrics or args.branch_ablations is None:
+        raise ValueError(
+            "proposed entered stage 3; --event-metrics and --branch-ablations "
+            "are both required"
+        )
     events = _read_ranking_inputs(tuple(args.event_metrics))
     _validate_validation_artifact(
         events,
@@ -599,7 +683,6 @@ def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
         best_traditional_model=args.best_traditional_model,
         **_go_no_go_settings(_load_design(args.design)),
     )
-    output_dir = args.output_dir or run_root / "proposed_go_no_go"
     criteria_path = output_dir / "proposed_go_no_go_criteria.csv"
     decision_path = output_dir / "proposed_go_no_go_decision.json"
     criteria = decision.criteria.copy()
@@ -610,6 +693,8 @@ def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
     payload = {
         "schema_version": GO_NO_GO_SCHEMA_VERSION,
         "command": "go-no-go",
+        "assessment_mode": "full_stage3",
+        "status": "complete",
         "passed": decision.passed,
         "decision": "include_proposed_formally"
         if decision.passed
@@ -619,6 +704,12 @@ def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
         "criteria": _artifact_identity(criteria_path),
         "event_metrics": [_artifact_identity(path) for path in args.event_metrics],
         "branch_ablations": _artifact_identity(args.branch_ablations),
+        "stage2_selection": _artifact_identity(stage2_path),
+        "stage2_selection_manifest": _artifact_identity(
+            stage2_path.with_suffix(".manifest.json")
+        ),
+        "ranking": _artifact_identity(ranking_path),
+        "stage2_selected_models": list(finalists),
         "evaluation_split": "validation",
         "evidence_role": "model_selection_only",
         "formal_evidence": False,
@@ -682,7 +773,15 @@ def _freeze_roster(args: argparse.Namespace) -> dict[str, Any]:
     stage3 = args.stage3_dir or run_root / "deep_stability"
     branch = (
         args.branch_ablations
-        or run_root / "branch_ablation" / "branch_ablation_metrics.parquet"
+        or (
+            run_root / "proposed_go_no_go" / "branch_ablation_not_applicable.json"
+            if (
+                run_root
+                / "proposed_go_no_go"
+                / "branch_ablation_not_applicable.json"
+            ).is_file()
+            else run_root / "branch_ablation" / "branch_ablation_metrics.parquet"
+        )
     )
     go_no_go = (
         args.go_no_go
@@ -702,6 +801,7 @@ def _freeze_roster(args: argparse.Namespace) -> dict[str, Any]:
         data_version_manifest_path=(
             args.data_root / args.data_version / "version_manifest.json"
         ),
+        anchor_catalog_path=args.anchor_catalog,
         expected_contract=contract,
     )
 

@@ -15,6 +15,8 @@ import yaml
 
 from stream_recoverability.data import confirmatory as external
 from stream_recoverability.data.confirmatory import (
+    CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION,
+    CONFIRMATORY_BUILDER_SOURCE_PATHS,
     CONFIRMATORY_DATA_VERSION,
     DH_INTERPRETATION,
     FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
@@ -25,21 +27,40 @@ from stream_recoverability.data.confirmatory import (
     HTTPResponse,
     OGCCollectionResult,
     assemble_confirmatory_frames,
+    build_confirmatory_builder_identity,
     build_confirmatory_data,
     build_confirmatory_request_plan,
     fetch_ogc_feature_collection,
     load_confirmatory_protocol,
     load_finalized_model_roster,
     parse_usgs_daily_values,
+    require_clean_confirmatory_builder_sources,
     strict_json_loads,
+    validate_confirmatory_builder_identity,
     write_immutable_request_plan,
 )
 from stream_recoverability.experiments.contracts import build_design_contract
+from stream_recoverability.experiments.validation import (
+    validation_anchor_catalog_identity,
+)
 
 DESIGN = Path("configs/design_freeze_v1.yaml")
 STUDY_MANIFEST = Path("study_manifest.yaml")
 EXPERIMENT_CONFIG = Path("configs/experiments.yaml")
 SELECTION_VERSION_MANIFEST = Path("data_versions/published_v1/version_manifest.json")
+
+
+@pytest.fixture(autouse=True)
+def _allow_builder_sources_in_dirty_development_tree(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Unit builds use current bytes; dedicated tests exercise the real Git gate."""
+
+    monkeypatch.setattr(
+        external,
+        "require_clean_confirmatory_builder_sources",
+        lambda identity, **_: dict(identity),
+    )
 
 
 def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
@@ -72,6 +93,7 @@ def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
         "selected_models": ["linear", "proposed"],
         "best_traditional_model": "linear",
         "proposed_decision": "include_proposed_formally",
+        "validation_anchor_catalog": validation_anchor_catalog_identity(),
         "artifacts": artifacts,
         **contract,
     }
@@ -286,12 +308,127 @@ def test_protocol_and_plan_are_exact_and_network_free(tmp_path: Path) -> None:
     assert "time-standard=UTC" in power["url"]
     assert "ALLSKY_SFC_SW_DWN" in power["url"]
     assert len(plan["plan_sha256"]) == 64
+    builder_identity = plan["confirmatory_builder_identity"]
+    assert (
+        builder_identity["schema_version"]
+        == CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION
+    )
+    assert [source["path"] for source in builder_identity["sources"]] == list(
+        CONFIRMATORY_BUILDER_SOURCE_PATHS
+    )
+    for source in builder_identity["sources"]:
+        path = Path(source["path"])
+        assert source["bytes"] == path.stat().st_size
+        assert source["sha256"] == hashlib.sha256(path.read_bytes()).hexdigest()
+    unsigned_identity = {
+        key: value
+        for key, value in builder_identity.items()
+        if key != "identity_sha256"
+    }
+    assert builder_identity["identity_sha256"] == hashlib.sha256(
+        json.dumps(
+            unsigned_identity,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
 
     output = tmp_path / "request_plan.json"
     write_immutable_request_plan(plan, output)
     assert json.loads(output.read_text())["plan_sha256"] == plan["plan_sha256"]
     with pytest.raises(FileExistsError, match="refusing to overwrite"):
         write_immutable_request_plan(plan, output)
+
+
+def _git(root: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *arguments],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+
+def _make_builder_repository(
+    root: Path, *, tracked_paths: tuple[str, ...]
+) -> None:
+    for index, relative in enumerate(CONFIRMATORY_BUILDER_SOURCE_PATHS):
+        path = root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"# frozen builder source {index}\n", encoding="utf-8")
+    _git(root, "init", "--quiet")
+    if tracked_paths:
+        _git(root, "add", "--", *tracked_paths)
+        _git(
+            root,
+            "-c",
+            "user.name=Confirmatory Test",
+            "-c",
+            "user.email=confirmatory@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "--quiet",
+            "-m",
+            "freeze builder",
+        )
+
+
+def test_builder_identity_is_clone_stable_and_git_gate_is_fail_closed(
+    tmp_path: Path,
+) -> None:
+    clean = tmp_path / "clean"
+    clean.mkdir()
+    _make_builder_repository(
+        clean, tracked_paths=CONFIRMATORY_BUILDER_SOURCE_PATHS
+    )
+    identity = build_confirmatory_builder_identity(clean)
+    assert require_clean_confirmatory_builder_sources(
+        identity, repository_root=clean
+    ) == identity
+
+    clone = tmp_path / "clone"
+    clone.mkdir()
+    _make_builder_repository(
+        clone, tracked_paths=CONFIRMATORY_BUILDER_SOURCE_PATHS
+    )
+    assert (
+        build_confirmatory_builder_identity(clone)["identity_sha256"]
+        == identity["identity_sha256"]
+    )
+
+    dirty_source = clean / CONFIRMATORY_BUILDER_SOURCE_PATHS[1]
+    dirty_source.write_text("# tampered after freeze\n", encoding="utf-8")
+    dirty_identity = build_confirmatory_builder_identity(clean)
+    with pytest.raises(ValueError, match="tracked and clean"):
+        require_clean_confirmatory_builder_sources(
+            dirty_identity, repository_root=clean
+        )
+    with pytest.raises(ValueError, match="current source bytes"):
+        validate_confirmatory_builder_identity(identity, repository_root=clean)
+
+    untracked = tmp_path / "untracked"
+    untracked.mkdir()
+    _make_builder_repository(
+        untracked, tracked_paths=(CONFIRMATORY_BUILDER_SOURCE_PATHS[1],)
+    )
+    untracked_identity = build_confirmatory_builder_identity(untracked)
+    with pytest.raises(ValueError, match="tracked by git"):
+        require_clean_confirmatory_builder_sources(
+            untracked_identity, repository_root=untracked
+        )
+
+
+def test_builder_identity_rejects_persisted_tampering() -> None:
+    identity = build_confirmatory_builder_identity()
+    tampered = json.loads(json.dumps(identity))
+    tampered["sources"][0]["sha256"] = "0" * 64
+
+    with pytest.raises(ValueError, match="canonical identity SHA-256"):
+        validate_confirmatory_builder_identity(tampered)
 
 
 def test_changed_design_freeze_is_rejected(tmp_path: Path) -> None:
@@ -682,6 +819,11 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     assert manifest["performance_metrics_computed"] is False
     assert manifest["confirmatory_evaluation_executed"] is False
     assert manifest["dh_interpretation"] == DH_INTERPRETATION
+    builder_identity = manifest["confirmatory_builder_identity"]
+    assert validate_confirmatory_builder_identity(builder_identity) == builder_identity
+    assert [source["path"] for source in builder_identity["sources"]] == list(
+        CONFIRMATORY_BUILDER_SOURCE_PATHS
+    )
     gate = manifest["confirmatory_access_gate"]
     assert gate["manifest_path"] == str(roster.resolve())
     assert gate["manifest_sha256"] == hashlib.sha256(roster.read_bytes()).hexdigest()
@@ -754,6 +896,12 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
             == identity["sha256"]
         )
     stored_manifest = output / "provenance_manifest.json"
+    stored_document = json.loads(stored_manifest.read_text(encoding="utf-8"))
+    assert stored_document["confirmatory_builder_identity"] == builder_identity
+    stored_plan = json.loads(
+        (output / "metadata/request_plan.json").read_text(encoding="utf-8")
+    )
+    assert stored_plan["confirmatory_builder_identity"] == builder_identity
     assert (
         hashlib.sha256(stored_manifest.read_bytes()).hexdigest()
         == (output / "provenance_manifest.json.sha256").read_text().strip()
@@ -803,6 +951,38 @@ def test_access_gate_and_failed_fetch_leave_no_output(tmp_path: Path) -> None:
     assert not (tmp_path / ".failed.build.lock").exists()
 
 
+def test_builder_cleanliness_gate_precedes_roster_network_and_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    calls = 0
+
+    def reject_builder(
+        identity: dict[str, Any], **kwargs: object
+    ) -> dict[str, Any]:
+        del identity, kwargs
+        raise ValueError("confirmatory builder sources must be tracked and clean")
+
+    def forbidden_fetcher(url: str, headers: dict[str, str]) -> HTTPResponse:
+        nonlocal calls
+        del url, headers
+        calls += 1
+        raise AssertionError("network must remain closed")
+
+    monkeypatch.setattr(
+        external, "require_clean_confirmatory_builder_sources", reject_builder
+    )
+    output = tmp_path / "uncreated-parent" / "external"
+    with pytest.raises(ValueError, match="tracked and clean"):
+        build_confirmatory_data(
+            DESIGN,
+            output,
+            finalized_model_roster_path=tmp_path / "missing-roster.json",
+            fetcher=forbidden_fetcher,
+        )
+    assert calls == 0
+    assert not output.parent.exists()
+
+
 def test_cli_build_requires_finalized_roster_before_network_or_output(
     tmp_path: Path,
 ) -> None:
@@ -824,3 +1004,54 @@ def test_cli_build_requires_finalized_roster_before_network_or_output(
     assert result.returncode == 2
     assert "--finalized-model-roster" in result.stderr
     assert not output.exists()
+
+
+def test_confirmatory_builder_cli_help_plan_and_import_are_cycle_free(
+    tmp_path: Path,
+) -> None:
+    help_result = subprocess.run(
+        [sys.executable, "scripts/19_build_confirmatory_data.py", "--help"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert help_result.returncode == 0, help_result.stderr
+    assert "Plan or build" in help_result.stdout
+
+    plan_path = tmp_path / "request-plan.json"
+    plan_result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/19_build_confirmatory_data.py",
+            "plan",
+            "--output",
+            str(plan_path),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert plan_result.returncode == 0, plan_result.stderr
+    persisted_plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    assert "confirmatory_builder_identity" in persisted_plan
+    assert persisted_plan["confirmatory_builder_identity"] == (
+        build_confirmatory_builder_identity()
+    )
+
+    import_code = (
+        "import importlib.util\n"
+        "from pathlib import Path\n"
+        "path = Path('scripts/19_build_confirmatory_data.py')\n"
+        "spec = importlib.util.spec_from_file_location('confirmatory_cli', path)\n"
+        "assert spec is not None and spec.loader is not None\n"
+        "module = importlib.util.module_from_spec(spec)\n"
+        "spec.loader.exec_module(module)\n"
+        "assert callable(module.build_parser)\n"
+    )
+    import_result = subprocess.run(
+        [sys.executable, "-c", import_code],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert import_result.returncode == 0, import_result.stderr
