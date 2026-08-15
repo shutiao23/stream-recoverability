@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
+from typing import Any
 
 import numpy as np
 
@@ -15,7 +16,6 @@ from ._common import (
     validate_seed,
 )
 from .block_mask import generate_block_mask
-
 
 _HYDRO_NAMES = {
     "T",
@@ -67,6 +67,11 @@ def generate_station_outage_mask(
     variable_names: Sequence[str] | None = None,
     split: str | None = None,
     scenario_id: str | None = None,
+    forced_start_index: int | None = None,
+    center_index: int | None = None,
+    center_date: object | None = None,
+    anchor_id: str | None = None,
+    anchor_metadata: Mapping[str, Any] | None = None,
 ) -> MaskAndMetadata:
     """Mask T/F/L (hydro-only) or every channel (full-site) at one station."""
 
@@ -112,6 +117,11 @@ def generate_station_outage_mask(
         variable_names=variable_labels,
         split=split,
         scenario_id=scenario_id,
+        forced_start_index=forced_start_index,
+        center_index=center_index,
+        center_date=center_date,
+        anchor_id=anchor_id,
+        anchor_metadata=anchor_metadata,
     )
     metadata["mask_type"] = "station_outage"
     metadata["outage_mode"] = normalized_mode
@@ -119,4 +129,3 @@ def generate_station_outage_mask(
 
 
 station_outage_mask = generate_station_outage_mask
-
