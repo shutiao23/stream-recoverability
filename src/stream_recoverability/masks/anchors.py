@@ -1,9 +1,16 @@
-"""Deterministic, season-balanced anchors for nested frontier gaps."""
+"""Deterministic, season-balanced anchors for nested centered gaps.
+
+Catalog semantics are intentionally explicit: ``center_date``/``season`` refer
+to the fixed center, while ``start_month`` is the month containing the first day
+of the *maximum-supported* centered window.  Shorter gaps keep the same center,
+so their own start month can differ without changing anchor identity.
+"""
 
 from __future__ import annotations
 
 import hashlib
 from collections.abc import Sequence
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -27,6 +34,12 @@ FRONTIER_ANCHOR_COLUMNS = (
     "data_version",
     "evaluation_split",
     "source_split",
+)
+VALIDATION_MASK_SEEDS = tuple(range(101, 106))
+VALIDATION_ANCHOR_COLUMNS = (
+    *FRONTIER_ANCHOR_COLUMNS,
+    "complete_variables",
+    "season_slot",
 )
 
 _SOURCE_SPLIT_BY_EVALUATION = {
@@ -144,6 +157,42 @@ def _eligible_centers(
             & values.notna()
             & np.isfinite(values)
         ).to_numpy(dtype=bool)
+        if "natural_observed" in aligned:
+            eligible &= (
+                aligned["natural_observed"].fillna(False).astype(bool).to_numpy()
+            )
+    starts = valid_block_starts(eligible, max_supported_length)
+    return starts + (max_supported_length - 1) // 2
+
+
+def _joint_eligible_centers(
+    frame: pd.DataFrame,
+    dates: pd.DatetimeIndex,
+    *,
+    station_id: str,
+    variables: Sequence[str],
+    evaluation_split: str,
+    max_supported_length: int,
+) -> np.ndarray:
+    eligible = np.ones(len(dates), dtype=bool)
+    for variable in variables:
+        rows = frame.loc[
+            frame["station_id"].astype(str).eq(station_id)
+            & frame["variable"].astype(str).eq(str(variable))
+        ].set_index("date")
+        aligned = rows.reindex(dates)
+        values = pd.to_numeric(aligned["value"], errors="coerce")
+        channel_eligible = (
+            aligned["quality_approved"].fillna(False).astype(bool)
+            & aligned["split"].astype(str).eq(evaluation_split)
+            & values.notna()
+            & np.isfinite(values)
+        ).to_numpy(dtype=bool)
+        if "natural_observed" in aligned:
+            channel_eligible &= (
+                aligned["natural_observed"].fillna(False).astype(bool).to_numpy()
+            )
+        eligible &= channel_eligible
     starts = valid_block_starts(eligible, max_supported_length)
     return starts + (max_supported_length - 1) // 2
 
@@ -411,11 +460,419 @@ def generate_frontier_anchor_catalog(
     return catalog
 
 
+def _normalize_anchor_catalog(
+    catalog: pd.DataFrame,
+    *,
+    expected_columns: Sequence[str],
+    expected_data_version: str,
+    expected_evaluation_split: str,
+    expected_max_supported_length: int,
+) -> pd.DataFrame:
+    missing = sorted(set(expected_columns).difference(catalog.columns))
+    if missing:
+        raise ValueError(f"anchor catalog is missing required columns: {missing}")
+    if catalog.empty:
+        raise ValueError("anchor catalog is empty")
+    frame = catalog.loc[:, list(expected_columns)].copy()
+    for column in ("anchor_id", "station_id", "target", "season"):
+        if frame[column].isna().any() or not frame[column].astype(str).str.strip().all():
+            raise ValueError(f"anchor catalog has empty {column} values")
+        frame[column] = frame[column].astype(str)
+    for column in (
+        "center_index",
+        "start_month",
+        "year",
+        "mask_seed",
+        "max_supported_length",
+    ):
+        numeric = pd.to_numeric(frame[column], errors="coerce")
+        if numeric.isna().any() or not np.equal(numeric, np.floor(numeric)).all():
+            raise ValueError(f"anchor catalog {column} must contain integers")
+        frame[column] = numeric.astype(int)
+    center_dates = pd.to_datetime(frame["center_date"], errors="coerce")
+    if center_dates.isna().any():
+        raise ValueError("anchor catalog contains invalid center_date values")
+    frame["center_date"] = center_dates.dt.strftime("%Y-%m-%d")
+    if frame["anchor_id"].duplicated().any():
+        raise ValueError("anchor catalog anchor_id values must be unique")
+    key = ["station_id", "target", "mask_seed"]
+    if frame.duplicated(key).any():
+        raise ValueError(f"anchor catalog contains duplicate {key} bindings")
+    versions = tuple(sorted(frame["data_version"].astype(str).unique()))
+    if versions != (str(expected_data_version),):
+        raise ValueError(
+            "anchor catalog data_version mismatch: "
+            f"catalog={versions}, expected={expected_data_version!r}"
+        )
+    splits = tuple(sorted(frame["evaluation_split"].astype(str).unique()))
+    if splits != (str(expected_evaluation_split),):
+        raise ValueError(
+            "anchor catalog evaluation_split mismatch: "
+            f"catalog={splits}, expected={expected_evaluation_split!r}"
+        )
+    supported = tuple(sorted(frame["max_supported_length"].unique()))
+    if supported != (int(expected_max_supported_length),):
+        raise ValueError(
+            "anchor catalog max_supported_length mismatch: "
+            f"catalog={supported}, expected={int(expected_max_supported_length)}"
+        )
+    expected_seasons = frame["center_date"].map(
+        lambda value: meteorological_season(pd.Timestamp(value).month)
+    )
+    if not frame["season"].eq(expected_seasons).all():
+        raise ValueError("anchor catalog season disagrees with center_date")
+    if not frame["start_month"].between(1, 12).all():
+        raise ValueError("anchor catalog start_month must be in 1..12")
+    return frame.sort_values(
+        ["station_id", "target", "mask_seed"], kind="mergesort", ignore_index=True
+    )
+
+
+def load_frontier_anchor_catalog(
+    path: str | Path,
+    *,
+    expected_data_version: str = "published_v1",
+    expected_evaluation_split: str = "development_test",
+    required_stations: Sequence[str] | None = None,
+    required_targets: Sequence[str] | None = None,
+    expected_max_supported_length: int = 365,
+) -> pd.DataFrame:
+    """Load one immutable frontier catalog without silently filtering identity.
+
+    A sensitivity data version deliberately reuses this primary catalog.  Callers
+    must therefore pass the catalog's primary identity here and carry the
+    evaluated data version separately; unavailable anchors are reported by
+    :func:`audit_anchor_availability`, never replaced by a new random draw.
+    """
+
+    source = Path(path)
+    if not source.is_file():
+        raise FileNotFoundError(source)
+    frame = _normalize_anchor_catalog(
+        pd.read_csv(source),
+        expected_columns=FRONTIER_ANCHOR_COLUMNS,
+        expected_data_version=expected_data_version,
+        expected_evaluation_split=expected_evaluation_split,
+        expected_max_supported_length=expected_max_supported_length,
+    )
+    stations = (
+        tuple(sorted(frame["station_id"].unique()))
+        if required_stations is None
+        else tuple(dict.fromkeys(map(str, required_stations)))
+    )
+    targets = (
+        tuple(sorted(frame["target"].unique()))
+        if required_targets is None
+        else tuple(dict.fromkeys(map(str, required_targets)))
+    )
+    expected_seeds = set(FRONTIER_MASK_SEEDS)
+    for station_id in stations:
+        for target in targets:
+            selected = frame.loc[
+                frame["station_id"].eq(station_id) & frame["target"].eq(target)
+            ]
+            if set(selected["mask_seed"]) != expected_seeds:
+                raise ValueError(
+                    "frontier anchor catalog must contain mask seeds 101..120 for "
+                    f"{station_id}/{target}"
+                )
+            if selected["season"].value_counts().to_dict() != {
+                season: 5 for season in FRONTIER_SEASONS
+            }:
+                raise ValueError(
+                    "frontier anchor catalog must contain five anchors per season for "
+                    f"{station_id}/{target}"
+                )
+    unexpected_stations = sorted(set(frame["station_id"]).difference(stations))
+    unexpected_targets = sorted(set(frame["target"]).difference(targets))
+    if required_stations is not None and unexpected_stations:
+        raise ValueError(
+            f"frontier catalog contains undeclared stations: {unexpected_stations}"
+        )
+    if required_targets is not None and unexpected_targets:
+        raise ValueError(
+            f"frontier catalog contains undeclared targets: {unexpected_targets}"
+        )
+    return frame
+
+
+def generate_validation_anchor_catalog(
+    long_data: pd.DataFrame,
+    *,
+    data_version: str,
+    station_ids: Sequence[str],
+    evaluation_split: str = "validation",
+    source_split: str = "validation",
+    variables: Sequence[str] = ("T", "F", "L"),
+    max_supported_length: int = 180,
+    mask_seeds: Sequence[int] = VALIDATION_MASK_SEEDS,
+) -> pd.DataFrame:
+    """Generate five immutable, jointly T/F/L-complete centers per station.
+
+    Every station receives all four seasons; the fifth season rotates by station
+    so aggregate coverage remains balanced and is directly auditable through
+    ``season_slot``.  The same station/seed center is reused by every validation
+    condition, including T-only, T/F/L, point, and station-outage strata.
+    """
+
+    stations = tuple(dict.fromkeys(map(str, station_ids)))
+    variable_names = tuple(dict.fromkeys(map(str, variables)))
+    seeds = tuple(int(value) for value in mask_seeds)
+    if not stations or not variable_names:
+        raise ValueError("station_ids and variables must not be empty")
+    if seeds != VALIDATION_MASK_SEEDS:
+        raise ValueError("validation mask_seeds must be fixed at 101..105")
+    if int(max_supported_length) != 180:
+        raise ValueError("validation max_supported_length must be fixed at 180")
+    if str(evaluation_split) != "validation" or str(source_split) != "validation":
+        raise ValueError("validation anchors must use the validation split identity")
+    frame, dates = _normalize_frame(long_data, data_version=str(data_version))
+    present_stations = set(frame["station_id"].astype(str).unique())
+    unknown = sorted(set(stations).difference(present_stations))
+    if unknown:
+        raise ValueError(f"validation anchor stations are absent from data: {unknown}")
+
+    flow_lookup, seasonal_thresholds, global_thresholds = _flow_reference(frame)
+    rows: list[dict[str, object]] = []
+    availability_rows: list[dict[str, object]] = []
+    for station_index, station_id in enumerate(stations):
+        centers = _joint_eligible_centers(
+            frame,
+            dates,
+            station_id=station_id,
+            variables=variable_names,
+            evaluation_split=source_split,
+            max_supported_length=max_supported_length,
+        )
+        seasons = np.asarray(
+            [meteorological_season(dates[int(index)].month) for index in centers],
+            dtype=object,
+        )
+        season_plan = (*FRONTIER_SEASONS, FRONTIER_SEASONS[station_index % 4])
+        required_by_season = {
+            season: season_plan.count(season) for season in FRONTIER_SEASONS
+        }
+        for season in FRONTIER_SEASONS:
+            available = int((seasons == season).sum())
+            required = required_by_season[season]
+            availability_rows.append(
+                {
+                    "station_id": station_id,
+                    "target": "T_F_L",
+                    "season": season,
+                    "required_anchors": required,
+                    "available_candidate_centers": available,
+                    "shortfall": max(required - available, 0),
+                    "max_supported_length": max_supported_length,
+                    "data_version": data_version,
+                    "evaluation_split": evaluation_split,
+                    "source_split": source_split,
+                }
+            )
+        selected_centers: set[int] = set()
+        for slot, (mask_seed, season) in enumerate(
+            zip(seeds, season_plan, strict=True), start=1
+        ):
+            candidates = np.asarray(
+                [
+                    int(index)
+                    for index in centers[seasons == season]
+                    if int(index) not in selected_centers
+                ],
+                dtype=int,
+            )
+            if candidates.size == 0:
+                continue
+            rng = _stable_rng(
+                "validation_anchor_v1",
+                data_version,
+                station_id,
+                season,
+                mask_seed,
+            )
+            center_index = int(rng.choice(candidates))
+            selected_centers.add(center_index)
+            start_index, _ = centered_bounds(
+                center_index, max_supported_length, len(dates)
+            )
+            center_date = pd.Timestamp(dates[center_index])
+            rows.append(
+                {
+                    "anchor_id": stable_scenario_id(
+                        "VALANCHOR",
+                        data_version,
+                        evaluation_split,
+                        station_id,
+                        seed=mask_seed,
+                    ),
+                    "station_id": station_id,
+                    "target": "T_F_L",
+                    "center_date": center_date.strftime("%Y-%m-%d"),
+                    "center_index": center_index,
+                    "start_month": int(dates[start_index].month),
+                    "season": season,
+                    "year": int(center_date.year),
+                    "hydrologic_state": _hydrologic_state(
+                        station_id,
+                        center_date,
+                        season,
+                        flow_lookup,
+                        seasonal_thresholds,
+                        global_thresholds,
+                    ),
+                    "mask_seed": mask_seed,
+                    "max_supported_length": max_supported_length,
+                    "data_version": data_version,
+                    "evaluation_split": evaluation_split,
+                    "source_split": source_split,
+                    "complete_variables": "_".join(variable_names),
+                    "season_slot": slot,
+                }
+            )
+    availability = pd.DataFrame(availability_rows)
+    if (availability["shortfall"] > 0).any() or len(rows) != len(stations) * len(seeds):
+        raise AnchorAvailabilityError(availability)
+    result = pd.DataFrame(rows, columns=VALIDATION_ANCHOR_COLUMNS)
+    return _normalize_anchor_catalog(
+        result,
+        expected_columns=VALIDATION_ANCHOR_COLUMNS,
+        expected_data_version=str(data_version),
+        expected_evaluation_split="validation",
+        expected_max_supported_length=180,
+    )
+
+
+def load_validation_anchor_catalog(
+    path: str | Path,
+    *,
+    expected_data_version: str,
+    required_stations: Sequence[str],
+) -> pd.DataFrame:
+    """Load the exact three-station, five-center validation catalog."""
+
+    source = Path(path)
+    if not source.is_file():
+        raise FileNotFoundError(source)
+    frame = _normalize_anchor_catalog(
+        pd.read_csv(source),
+        expected_columns=VALIDATION_ANCHOR_COLUMNS,
+        expected_data_version=expected_data_version,
+        expected_evaluation_split="validation",
+        expected_max_supported_length=180,
+    )
+    stations = tuple(dict.fromkeys(map(str, required_stations)))
+    if set(frame["station_id"]) != set(stations):
+        raise ValueError("validation anchor stations do not match the frozen panel")
+    if set(frame["target"]) != {"T_F_L"}:
+        raise ValueError("validation anchors must declare jointly complete T_F_L")
+    if set(frame["complete_variables"].astype(str)) != {"T_F_L"}:
+        raise ValueError("validation anchors must be jointly T/F/L complete")
+    for station_id, group in frame.groupby("station_id", observed=True):
+        if set(group["mask_seed"]) != set(VALIDATION_MASK_SEEDS) or len(group) != 5:
+            raise ValueError(f"validation station {station_id} must have seeds 101..105")
+        if set(group["season"]) != set(FRONTIER_SEASONS):
+            raise ValueError(
+                f"validation station {station_id} must cover all four seasons"
+            )
+    return frame
+
+
+def audit_anchor_availability(
+    long_data: pd.DataFrame,
+    anchors: pd.DataFrame,
+    *,
+    data_version: str,
+    evaluation_split: str,
+    source_split: str | None = None,
+    variables_by_anchor: dict[str, Sequence[str]] | None = None,
+) -> pd.DataFrame:
+    """Audit fixed primary centers on one data version without replacement.
+
+    This is the only supported sensitivity behavior: the primary ``anchor_id``
+    and center remain fixed, while each requested version reports whether all
+    truth cells needed by the maximum centered block remain available.
+    """
+
+    if anchors.empty:
+        raise ValueError("anchors must not be empty")
+    source_label = source_split or _SOURCE_SPLIT_BY_EVALUATION.get(
+        evaluation_split, evaluation_split
+    )
+    frame, dates = _normalize_frame(long_data, data_version=data_version)
+    rows: list[dict[str, object]] = []
+    for anchor in anchors.itertuples(index=False):
+        center_date = pd.Timestamp(anchor.center_date).normalize()
+        matches = np.flatnonzero(dates == center_date)
+        index_matches = matches.size == 1 and int(matches[0]) == int(anchor.center_index)
+        variables = tuple(
+            map(
+                str,
+                (variables_by_anchor or {}).get(
+                    str(anchor.anchor_id),
+                    str(getattr(anchor, "complete_variables", anchor.target)).split("_"),
+                ),
+            )
+        )
+        required_cells = int(anchor.max_supported_length) * len(variables)
+        available_cells = 0
+        reason = "available"
+        if not index_matches:
+            reason = "center_identity_mismatch"
+        else:
+            start, stop = centered_bounds(
+                int(anchor.center_index), int(anchor.max_supported_length), len(dates)
+            )
+            for variable in variables:
+                selected = frame.loc[
+                    frame["station_id"].astype(str).eq(str(anchor.station_id))
+                    & frame["variable"].astype(str).eq(variable)
+                ].set_index("date").reindex(dates[start:stop])
+                values = pd.to_numeric(selected["value"], errors="coerce")
+                eligible = (
+                    selected["quality_approved"].fillna(False).astype(bool)
+                    & selected["split"].astype(str).eq(source_label)
+                    & values.notna()
+                    & np.isfinite(values)
+                )
+                if "natural_observed" in selected:
+                    eligible &= selected["natural_observed"].fillna(False).astype(bool)
+                available_cells += int(eligible.sum())
+            if available_cells != required_cells:
+                reason = "incomplete_fixed_anchor_truth"
+        rows.append(
+            {
+                "anchor_id": str(anchor.anchor_id),
+                "station_id": str(anchor.station_id),
+                "target": str(anchor.target),
+                "center_date": center_date.strftime("%Y-%m-%d"),
+                "center_index": int(anchor.center_index),
+                "anchor_data_version": str(anchor.data_version),
+                "data_version": str(data_version),
+                "anchor_evaluation_split": str(anchor.evaluation_split),
+                "evaluation_split": str(evaluation_split),
+                "source_split": str(source_label),
+                "required_variables": "_".join(variables),
+                "required_cells": required_cells,
+                "available_cells": available_cells,
+                "available": reason == "available",
+                "reason": reason,
+                "replacement_allowed": False,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 __all__ = [
     "FRONTIER_ANCHOR_COLUMNS",
     "FRONTIER_MASK_SEEDS",
     "FRONTIER_SEASONS",
+    "VALIDATION_ANCHOR_COLUMNS",
+    "VALIDATION_MASK_SEEDS",
     "AnchorAvailabilityError",
+    "audit_anchor_availability",
     "generate_frontier_anchor_catalog",
+    "generate_validation_anchor_catalog",
+    "load_frontier_anchor_catalog",
+    "load_validation_anchor_catalog",
     "meteorological_season",
 ]

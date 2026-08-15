@@ -1,0 +1,276 @@
+{
+  "analysis_eligible_episode_count": 352,
+  "anchor_id_count": 355,
+  "boundary_excluded_episode_count": 3,
+  "catalog_file_sha256": "736e62b59495e7be48979ff711572c77097a57d25a5372406f31dbf4e5c5b8b1",
+  "catalog_path": "metadata/event_episode_catalog.csv",
+  "catalog_schema_version": "event_catalog_v2",
+  "catalog_sha256": "444f9c0b1f2029094dcdbbf7475c99e75b574acf92fb24b6fd8b3385de80d4ee",
+  "config_path": "configs/experiments.yaml",
+  "config_sha256": "97b56e633bc3169e56db94e04889ab3cc82658bda1f9a75bc46ae4cece9d5948",
+  "control_id_count": 355,
+  "control_rule": "same_station_same_season_same_window_length_non_event",
+  "data_version": "published_v1",
+  "episode_pair_count": 355,
+  "evaluation_split": "development_test",
+  "event_id_count": 355,
+  "evidence_role": "event_design_catalog",
+  "formal_evidence": false,
+  "group_counts": [
+    {
+      "episode_count": 3,
+      "event_type": "flood",
+      "season": "DJF",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "flood",
+      "season": "JJA",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 6,
+      "event_type": "flood",
+      "season": "MAM",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 6,
+      "event_type": "flood",
+      "season": "SON",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 4,
+      "event_type": "high_temperature",
+      "season": "DJF",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "high_temperature",
+      "season": "JJA",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 6,
+      "event_type": "high_temperature",
+      "season": "MAM",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 7,
+      "event_type": "high_temperature",
+      "season": "SON",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 2,
+      "event_type": "low_flow",
+      "season": "JJA",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 1,
+      "event_type": "low_flow",
+      "season": "MAM",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 1,
+      "event_type": "low_flow",
+      "season": "SON",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 15,
+      "event_type": "rapid_warming",
+      "season": "DJF",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 21,
+      "event_type": "rapid_warming",
+      "season": "JJA",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 23,
+      "event_type": "rapid_warming",
+      "season": "MAM",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 23,
+      "event_type": "rapid_warming",
+      "season": "SON",
+      "station_id": "B1"
+    },
+    {
+      "episode_count": 12,
+      "event_type": "flood",
+      "season": "DJF",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 7,
+      "event_type": "flood",
+      "season": "JJA",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 9,
+      "event_type": "flood",
+      "season": "MAM",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 6,
+      "event_type": "flood",
+      "season": "SON",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "high_temperature",
+      "season": "DJF",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "high_temperature",
+      "season": "SON",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 2,
+      "event_type": "low_flow",
+      "season": "JJA",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 2,
+      "event_type": "low_flow",
+      "season": "SON",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 7,
+      "event_type": "rapid_warming",
+      "season": "DJF",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 10,
+      "event_type": "rapid_warming",
+      "season": "JJA",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "rapid_warming",
+      "season": "MAM",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 19,
+      "event_type": "rapid_warming",
+      "season": "SON",
+      "station_id": "P3"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "flood",
+      "season": "DJF",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 4,
+      "event_type": "flood",
+      "season": "JJA",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 4,
+      "event_type": "flood",
+      "season": "MAM",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 6,
+      "event_type": "flood",
+      "season": "SON",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 4,
+      "event_type": "high_temperature",
+      "season": "DJF",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 1,
+      "event_type": "high_temperature",
+      "season": "JJA",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 5,
+      "event_type": "high_temperature",
+      "season": "MAM",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 3,
+      "event_type": "high_temperature",
+      "season": "SON",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 2,
+      "event_type": "low_flow",
+      "season": "JJA",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 1,
+      "event_type": "low_flow",
+      "season": "SON",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 45,
+      "event_type": "rapid_warming",
+      "season": "DJF",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 24,
+      "event_type": "rapid_warming",
+      "season": "JJA",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 27,
+      "event_type": "rapid_warming",
+      "season": "MAM",
+      "station_id": "S2"
+    },
+    {
+      "episode_count": 19,
+      "event_type": "rapid_warming",
+      "season": "SON",
+      "station_id": "S2"
+    }
+  ],
+  "input_path": "data_versions/published_v1/daily_long.parquet",
+  "input_sha256": "a688ab17b938ba4fd589aa596c549fe1df70b70c44dc87a0ee1e6c73d2a0f9ad",
+  "source_split": "test",
+  "status": "passed",
+  "threshold_reference_scopes": [
+    "station_doy_window",
+    "station_season"
+  ],
+  "threshold_reference_split": "train"
+}

@@ -98,7 +98,10 @@ def test_heatwave_duration_is_limited_to_evaluated_years():
     artificial = np.zeros(len(truth), dtype=bool)
     artificial[-3:] = True
     dates = pd.to_datetime(
-        [*[f"2019-01-{day:02d}" for day in range(1, 8)], *[f"2020-01-{day:02d}" for day in range(1, 4)]]
+        [
+            *[f"2019-01-{day:02d}" for day in range(1, 8)],
+            *[f"2020-01-{day:02d}" for day in range(1, 4)],
+        ]
     )
     result = temperature_metrics(
         truth,
@@ -124,9 +127,7 @@ def test_quantile_coverage_width_pinball_and_crps():
     assert result["coverage_90"] == pytest.approx(1.0)
     assert result["interval_width_90"] == pytest.approx(2.0)
     assert result["pinball_q50"] == pytest.approx(0.0)
-    exact = quantile_metrics(
-        truth, {0.05: truth, 0.5: truth, 0.95: truth}, mask, mask
-    )
+    exact = quantile_metrics(truth, {0.05: truth, 0.5: truth, 0.95: truth}, mask, mask)
     assert exact["approx_crps"] == pytest.approx(0.0)
 
 
@@ -169,3 +170,133 @@ def test_event_output_fields_and_frame_grouping_align_with_specification():
     grouped = event_metrics_from_frame(daily)
     assert len(grouped) == 1
     assert grouped.loc[0, "MAE"] == pytest.approx(0.5)
+
+
+def test_event_metrics_retain_frozen_catalog_context_and_score_extrema():
+    dates = pd.date_range("2020-01-01", periods=7)
+    truth = np.array([99.0, 2.0, 10.0, 6.0, 1.0, 4.0, 99.0])
+    prediction = np.array([100.0, 3.0, 8.0, 11.0, 4.0, 0.0, 100.0])
+    metadata = {
+        "station_id": "S1",
+        "pair_id": "PAIR-1",
+        "anchor_id": "ANCHOR-1",
+        "event_id": "EVENT-1",
+        "control_id": "CONTROL-1",
+        "catalog_role": "event_episode",
+        "event_type": "flood",
+        "raw_episode_start_index": 1,
+        "raw_episode_end_index": 5,
+        "raw_episode_start_date": "2020-01-02",
+        "raw_episode_end_date": "2020-01-06",
+        "raw_episode_length": 5,
+        "window_start_index": 0,
+        "window_end_index": 6,
+        "window_center_index": 3,
+        "window_start_date": "2020-01-01",
+        "window_end_date": "2020-01-07",
+        "window_center_date": "2020-01-04",
+        "event_peak_index": 2,
+        "event_peak_date": "2020-01-03",
+        "event_peak_value": 10.0,
+        "event_min_index": 4,
+        "event_min_date": "2020-01-05",
+        "event_min_value": 1.0,
+        "event_intensity": 10.0,
+        "event_definition": "training station-season q90 flood process",
+        "minimum_duration_days": 1,
+        "merge_gap_days": 2,
+        "fixed_window_length": 7,
+        "episode_component_count": 2,
+        "rising_phase_start_index": 1,
+        "rising_phase_end_index": 1,
+        "rising_phase_start_date": "2020-01-02",
+        "rising_phase_end_date": "2020-01-02",
+        "recession_phase_start_index": 3,
+        "recession_phase_end_index": 5,
+        "recession_phase_start_date": "2020-01-04",
+        "recession_phase_end_date": "2020-01-06",
+        "threshold_reference_scope": "training_station_season",
+        "climatology_half_window_days": 7,
+        "threshold_doy_half_window_days": 15,
+    }
+    row = compute_event_metrics(
+        truth,
+        prediction,
+        np.ones(7, dtype=bool),
+        np.ones(7, dtype=bool),
+        target="X",
+        metadata=metadata,
+        dates=dates,
+    )
+
+    for name, expected in metadata.items():
+        assert row[name] == expected
+    assert row["peak_error"] == pytest.approx(1.0)
+    assert row["timing_error"] == pytest.approx(1.0)
+    assert row["event_peak_magnitude_error"] == pytest.approx(1.0)
+    assert row["event_peak_timing_error_days"] == pytest.approx(1.0)
+    assert row["minimum_error"] == pytest.approx(-1.0)
+    assert row["minimum_timing_error"] == pytest.approx(1.0)
+    assert row["event_minimum_magnitude_error"] == pytest.approx(-1.0)
+    assert row["event_minimum_timing_error_days"] == pytest.approx(1.0)
+    assert row["station"] == "S1"
+    assert row["event_start"] == "2020-01-02"
+    assert row["event_end"] == "2020-01-06"
+    assert row["event_length"] == 5
+    assert row["matched_control_id"] == "CONTROL-1"
+
+
+def test_low_flow_minimum_populates_d4_common_extremum_fields():
+    row = compute_event_metrics(
+        [5.0, 2.0, 1.0, 3.0],
+        [5.0, 0.0, 2.0, 3.0],
+        [True] * 4,
+        [True] * 4,
+        target="X",
+        metadata={
+            "event_type": "low_flow",
+            "raw_episode_start_date": "2020-01-01",
+            "raw_episode_end_date": "2020-01-04",
+            "event_min_date": "2020-01-03",
+            "event_min_value": 1.0,
+        },
+        dates=pd.date_range("2020-01-01", periods=4),
+    )
+
+    assert row["minimum_error"] == pytest.approx(-1.0)
+    assert row["minimum_timing_error"] == pytest.approx(1.0)
+    assert row["peak_error"] == pytest.approx(-1.0)
+    assert row["timing_error"] == pytest.approx(1.0)
+
+
+def test_event_frame_preserves_event_anchor_and_bounds_for_extrema_metrics():
+    daily = pd.DataFrame(
+        {
+            "date": pd.date_range("2020-01-01", periods=5),
+            "scenario_id": "M7b-1",
+            "station_id": "S1",
+            "model": "linear",
+            "target": "F",
+            "event_id": "EVENT-1",
+            "pair_id": "PAIR-1",
+            "catalog_role": "event_episode",
+            "raw_episode_start_date": "2020-01-02",
+            "raw_episode_end_date": "2020-01-04",
+            "event_peak_date": "2020-01-03",
+            "event_peak_value": 8.0,
+            "event_definition": "frozen flood definition",
+            "y_true": [0.0, 2.0, 8.0, 3.0, 0.0],
+            "y_pred": [99.0, 2.0, 4.0, 9.0, 99.0],
+            "quality_approved": True,
+            "artificial_mask": True,
+        }
+    )
+
+    grouped = event_metrics_from_frame(daily)
+
+    assert len(grouped) == 1
+    assert grouped.loc[0, "event_id"] == "EVENT-1"
+    assert grouped.loc[0, "raw_episode_start_date"] == "2020-01-02"
+    assert grouped.loc[0, "event_definition"] == "frozen flood definition"
+    assert grouped.loc[0, "peak_error"] == pytest.approx(1.0)
+    assert grouped.loc[0, "timing_error"] == pytest.approx(1.0)

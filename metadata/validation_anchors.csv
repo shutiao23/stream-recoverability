@@ -1,0 +1,16 @@
+anchor_id,station_id,target,center_date,center_index,start_month,season,year,hydrologic_state,mask_seed,max_supported_length,data_version,evaluation_split,source_split,complete_variables,season_slot
+VALANCHOR-publishedv1-validation-B1-R0101,B1,T_F_L,2016-12-19,4005,9,DJF,2016,high_flow,101,180,published_v1,validation,validation,T_F_L,1
+VALANCHOR-publishedv1-validation-B1-R0102,B1,T_F_L,2017-03-27,4103,12,MAM,2017,low_flow,102,180,published_v1,validation,validation,T_F_L,2
+VALANCHOR-publishedv1-validation-B1-R0103,B1,T_F_L,2017-07-13,4211,4,JJA,2017,high_flow,103,180,published_v1,validation,validation,T_F_L,3
+VALANCHOR-publishedv1-validation-B1-R0104,B1,T_F_L,2016-11-13,3969,8,SON,2016,low_flow,104,180,published_v1,validation,validation,T_F_L,4
+VALANCHOR-publishedv1-validation-B1-R0105,B1,T_F_L,2016-12-02,3988,9,DJF,2016,high_flow,105,180,published_v1,validation,validation,T_F_L,5
+VALANCHOR-publishedv1-validation-P3-R0101,P3,T_F_L,2017-01-19,4036,10,DJF,2017,normal_flow,101,180,published_v1,validation,validation,T_F_L,1
+VALANCHOR-publishedv1-validation-P3-R0102,P3,T_F_L,2017-04-09,4116,1,MAM,2017,low_flow,102,180,published_v1,validation,validation,T_F_L,2
+VALANCHOR-publishedv1-validation-P3-R0103,P3,T_F_L,2017-07-17,4215,4,JJA,2017,normal_flow,103,180,published_v1,validation,validation,T_F_L,3
+VALANCHOR-publishedv1-validation-P3-R0104,P3,T_F_L,2016-11-30,3986,9,SON,2016,normal_flow,104,180,published_v1,validation,validation,T_F_L,4
+VALANCHOR-publishedv1-validation-P3-R0105,P3,T_F_L,2016-07-28,3861,4,JJA,2016,high_flow,105,180,published_v1,validation,validation,T_F_L,5
+VALANCHOR-publishedv1-validation-S2-R0101,S2,T_F_L,2017-01-28,4045,10,DJF,2017,low_flow,101,180,published_v1,validation,validation,T_F_L,1
+VALANCHOR-publishedv1-validation-S2-R0102,S2,T_F_L,2017-03-08,4084,12,MAM,2017,low_flow,102,180,published_v1,validation,validation,T_F_L,2
+VALANCHOR-publishedv1-validation-S2-R0103,S2,T_F_L,2017-06-05,4173,3,JJA,2017,low_flow,103,180,published_v1,validation,validation,T_F_L,3
+VALANCHOR-publishedv1-validation-S2-R0104,S2,T_F_L,2016-09-10,3905,6,SON,2016,high_flow,104,180,published_v1,validation,validation,T_F_L,4
+VALANCHOR-publishedv1-validation-S2-R0105,S2,T_F_L,2017-03-27,4103,12,MAM,2017,low_flow,105,180,published_v1,validation,validation,T_F_L,5
