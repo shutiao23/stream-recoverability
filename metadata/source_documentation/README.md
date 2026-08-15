@@ -13,6 +13,9 @@ The supplied files contain no embedded station names, source identifiers, units,
 
 The first five supplied `TEMP`, `WDSP`, and `PRCP` records match the NOAA Global Summary of the Day station files without ambiguity after converting GSOD `TEMP` from Fahrenheit to Celsius:
 
+- The documented hydrological--meteorological pairings are not co-located. Straight-line haversine distances are 16.756 km (B1--Batang meteorology), 27.890 km (S2--Lijiang), and 50.234 km (P3--Huili); the coordinates, distance method, and values are preserved in `metadata/station_metadata.csv`. Consequently, hiding hydrology and meteorology together is described as a multisource regional-data outage, not a proven single-station communications failure.
+- The supplied hydrological files expose calendar dates but no time zone or hydrological-day cutoff. Meteorological reconciliation is consistent with daily GSOD products, whose aggregation convention is documented separately. The workflow aligns the published daily labels without inventing a subdaily conversion, and this unresolved time convention is retained as a limitation.
+
 | Core ID | WMO/GSOD ID | Meteorological station | Coordinates | Elevation |
 | --- | --- | --- | --- | ---: |
 | B1 | 56247099999 | Batang | 30.00 N, 99.10 E | 2589 m |
