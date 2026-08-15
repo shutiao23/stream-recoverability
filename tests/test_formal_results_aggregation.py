@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from stream_recoverability.analysis.frozen_pipeline import load_frozen_inputs
 from stream_recoverability.experiments.contracts import build_design_contract
 
 SCRIPT = Path(__file__).parents[1] / "scripts/13_aggregate_formal_results.py"
@@ -281,6 +282,14 @@ def test_dynamic_registry_aggregates_only_finalized_roster_and_hashes_outputs(
         assert manifest["artifacts"][name]["sha256"] == _sha256(path)
     persisted = json.loads((formal / "run_manifest.json").read_text())
     assert persisted == manifest
+    frozen = load_frozen_inputs(
+        results / "predictions.parquet",
+        results / "event_metrics.parquet",
+        formal / "run_manifest.json",
+        REPO_ROOT / "configs/design_freeze_v1.yaml",
+    )
+    assert len(frozen.predictions) == len(daily)
+    assert len(frozen.events) == len(events)
 
 
 def test_registry_file_is_audited_by_hash(tmp_path: Path) -> None:
@@ -352,6 +361,35 @@ def test_rejects_stale_contract_in_manifest_or_table(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match="evidence contract mismatch"):
         _aggregate(module, formal, results, registry)
+
+
+def test_rejects_stale_relevant_source_identity(tmp_path: Path) -> None:
+    formal, results, registry = _fixture(tmp_path)
+
+    def mutation(data):
+        data["code_identity"]["relevant_source_digest"] = "0" * 64
+
+    _mutate_manifest(formal / "core/run_manifest.json", mutation)
+    module = _load_script()
+
+    with pytest.raises(ValueError, match="evidence contract mismatch"):
+        _aggregate(module, formal, results, registry)
+
+
+def test_accepts_historical_git_audit_when_code_identity_matches(
+    tmp_path: Path,
+) -> None:
+    formal, results, registry = _fixture(tmp_path)
+
+    def mutation(data):
+        data["code_provenance"]["git_commit"] = "f" * 40
+        data["code_provenance"]["status"] = "historical"
+
+    _mutate_manifest(formal / "core/run_manifest.json", mutation)
+    module = _load_script()
+
+    result = _aggregate(module, formal, results, registry)
+    assert result["complete"] is True
 
 
 def test_rejects_nonfinite_prediction(tmp_path: Path) -> None:

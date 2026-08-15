@@ -632,12 +632,13 @@ def test_scientific_trends_are_seed_specific_and_require_complete_reconstruction
     assert "training-derived high_threshold" in result.loc[22, "threshold_reason"]
     assert np.isnan(result.loc[22, "heatwave_duration_error"])
     assert np.isnan(result.loc[22, "daily_change_mae"])
-    assert "complete test reconstruction unavailable" in result.loc[
-        22, "sequence_metric_reason"
-    ]
+    assert (
+        "complete test reconstruction unavailable"
+        in result.loc[22, "sequence_metric_reason"]
+    )
 
 
-def test_analysis_script_writes_csv_and_json_with_optional_skips(tmp_path):
+def test_analysis_script_rejects_unmanifested_result_tables(tmp_path):
     event_rows = []
     daily_rows = []
     for station in ("S1", "S2"):
@@ -701,33 +702,20 @@ def test_analysis_script_writes_csv_and_json_with_optional_skips(tmp_path):
             str(script),
             "--event-metrics",
             str(events_path),
-            "--daily-predictions",
+            "--predictions",
             str(daily_path),
+            "--top-manifest",
+            str(tmp_path / "missing-top-manifest.json"),
             "--output-dir",
             str(output_dir),
-            "--bootstrap",
-            "30",
-            "--seed",
-            "9",
-            "--mae-threshold",
-            "1.5",
         ],
         check=False,
         capture_output=True,
         text=True,
     )
-    assert completed.returncode == 0, completed.stderr
-    summary = json.loads((output_dir / "analysis_summary.json").read_text())
-    assert not summary["formal_training_seed_coverage"]["complete"]
-    assert summary["analyses"]["paired_comparisons"]["status"] == "partial"
-    assert summary["analyses"]["recoverability_frontiers"]["status"] == "skipped"
-    assert summary["analyses"]["application_frontiers"]["status"] == "skipped"
-    assert summary["analyses"]["information_compensation"]["status"] == "skipped"
-    applications = pd.read_csv(output_dir / "application_frontiers.csv")
-    assert applications["application_frontier_days"].isna().all()
-    assert (output_dir / "recoverability_frontiers.csv").exists()
-    assert (output_dir / "uncertainty_by_gap.csv").exists()
-    assert (output_dir / "scientific_metrics.csv").exists()
+    assert completed.returncode != 0
+    assert "missing-top-manifest.json" in completed.stderr
+    assert not output_dir.exists()
 
 
 def test_training_seed_coverage_rejects_fractional_or_missing_formal_seeds():
