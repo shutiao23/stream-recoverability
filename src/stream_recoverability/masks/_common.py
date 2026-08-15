@@ -8,7 +8,6 @@ from typing import Any
 
 import numpy as np
 
-
 MaskAndMetadata = tuple[np.ndarray, dict[str, Any]]
 
 
@@ -37,9 +36,7 @@ def normalize_indices(
     return result
 
 
-def normalize_labels(
-    labels: Sequence[str] | None, size: int, prefix: str
-) -> list[str]:
+def normalize_labels(labels: Sequence[str] | None, size: int, prefix: str) -> list[str]:
     if labels is None:
         return [f"{prefix}{index + 1}" for index in range(size)]
     result = [str(label) for label in labels]
@@ -48,7 +45,9 @@ def normalize_labels(
     return result
 
 
-def normalize_dates(dates: Sequence[object] | np.ndarray | None, size: int) -> np.ndarray | None:
+def normalize_dates(
+    dates: Sequence[object] | np.ndarray | None, size: int
+) -> np.ndarray | None:
     if dates is None:
         return None
     result = np.asarray(dates, dtype="datetime64[D]")
@@ -87,6 +86,48 @@ def valid_block_starts(day_eligible: np.ndarray, length: int) -> np.ndarray:
         return np.empty(0, dtype=int)
     windows = np.lib.stride_tricks.sliding_window_view(day_eligible, length)
     return np.flatnonzero(windows.all(axis=1))
+
+
+def centered_bounds(
+    center_index: int,
+    length: int,
+    n_dates: int | None = None,
+) -> tuple[int, int]:
+    """Return half-open bounds for a block centered on one fixed date.
+
+    For an even length, ``center_index`` is the earlier of the two middle
+    positions.  This convention makes every shorter block a strict set subset
+    of every longer block around the same center whenever their lengths differ.
+    """
+
+    if isinstance(center_index, (bool, np.bool_)) or not isinstance(
+        center_index, (int, np.integer)
+    ):
+        raise TypeError("center_index must be an integer")
+    if isinstance(length, (bool, np.bool_)) or not isinstance(
+        length, (int, np.integer)
+    ):
+        raise TypeError("length must be an integer")
+    center_index = int(center_index)
+    length = int(length)
+    if center_index < 0:
+        raise ValueError("center_index must be non-negative")
+    if length <= 0:
+        raise ValueError("length must be a positive integer")
+    start = center_index - (length - 1) // 2
+    stop = start + length
+    if n_dates is not None:
+        if isinstance(n_dates, (bool, np.bool_)) or not isinstance(
+            n_dates, (int, np.integer)
+        ):
+            raise TypeError("n_dates must be an integer")
+        if int(n_dates) <= 0:
+            raise ValueError("n_dates must be positive")
+        if start < 0 or stop > int(n_dates):
+            raise ValueError(
+                f"centered block [{start}, {stop}) is outside a {int(n_dates)}-date axis"
+            )
+    return start, stop
 
 
 def season_for_month(month: int) -> str:
