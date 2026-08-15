@@ -23,6 +23,7 @@ data_panels:
 
 window:
   main: 368
+  science_dense: 736
   sensitivity: [184, 736]
 
 splits:
@@ -46,4 +47,3 @@ information_groups:
   B: [same_site_flow, same_site_water_level]
   C: [other_site_temperature, other_site_flow, other_site_water_level]
   D: [air_temperature, precipitation, wind_speed, relative_humidity, sunshine_duration]
-

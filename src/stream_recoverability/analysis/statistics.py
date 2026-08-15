@@ -10,9 +10,50 @@ import numpy as np
 import pandas as pd
 from scipy.stats import wilcoxon
 
-
+DESIGN_REGIME_COLUMNS = (
+    "experiment",
+    "mask_type",
+    "layout",
+    "outage_mode",
+    "overlap_ratio",
+    "variable_pattern",
+    "pattern",
+    "window_length",
+    "training_protocol",
+    "fit_split",
+    "tuning_split",
+    "evaluation_split",
+    "validation_scope",
+    "is_external_validation",
+    "external_validation_status",
+    "target_station_id",
+    "target",
+    "missing_rate",
+    "event_type",
+    "failed_station_ids",
+    "failed_stations",
+    "failure_count",
+    "network_size",
+    "information_combination",
+    "component_estimator",
+)
+COMPARISON_GROUP_COLUMNS = (*DESIGN_REGIME_COLUMNS, "gap_length")
+MIXED_EFFECTS_DESIGN_COLUMNS = tuple(
+    column for column in DESIGN_REGIME_COLUMNS if column != "target_station_id"
+)
 DEFAULT_PAIR_COLUMNS = (
     "scenario_id",
+    "condition_id",
+    "target_gap_id",
+    "experiment",
+    "mask_type",
+    "layout",
+    "outage_mode",
+    "overlap_ratio",
+    "variable_pattern",
+    "window_length",
+    "training_protocol",
+    "validation_scope",
     "station_id",
     "target",
     "gap_length",
@@ -50,7 +91,9 @@ def paired_value_table(
         pair_cols = list(pair_cols)
         require_columns(events, pair_cols, "paired comparison")
     if not pair_cols:
-        return pd.DataFrame(columns=[model_a, model_b, "difference"]), "no event identifier columns"
+        return pd.DataFrame(
+            columns=[model_a, model_b, "difference"]
+        ), "no event identifier columns"
 
     selected = events.loc[
         events[model_col].astype(str).isin([model_a, model_b]),
@@ -59,17 +102,23 @@ def paired_value_table(
     selected[metric] = pd.to_numeric(selected[metric], errors="coerce")
     selected = selected.dropna(subset=[metric])
     if selected.empty:
-        return pd.DataFrame(columns=[*pair_cols, model_a, model_b, "difference"]), "no finite paired values"
+        return pd.DataFrame(
+            columns=[*pair_cols, model_a, model_b, "difference"]
+        ), "no finite paired values"
     collapsed = (
         selected.groupby([*pair_cols, model_col], dropna=False, observed=True)[metric]
         .mean()
         .unstack(model_col)
     )
     if model_a not in collapsed or model_b not in collapsed:
-        return pd.DataFrame(columns=[*pair_cols, model_a, model_b, "difference"]), "one model has no values"
+        return pd.DataFrame(
+            columns=[*pair_cols, model_a, model_b, "difference"]
+        ), "one model has no values"
     paired = collapsed[[model_a, model_b]].dropna().reset_index()
     if paired.empty:
-        return pd.DataFrame(columns=[*pair_cols, model_a, model_b, "difference"]), "models share no event units"
+        return pd.DataFrame(
+            columns=[*pair_cols, model_a, model_b, "difference"]
+        ), "models share no event units"
     paired["difference"] = paired[model_a] - paired[model_b]
     return paired, None
 
@@ -115,7 +164,9 @@ def paired_bootstrap_ci(
             "reason": reason,
         }
     differences = paired["difference"].to_numpy(dtype=float)
-    estimator: Callable[[np.ndarray], float] = np.mean if statistic == "mean" else np.median
+    estimator: Callable[[np.ndarray], float] = (
+        np.mean if statistic == "mean" else np.median
+    )
     rng = np.random.default_rng(seed)
     draws = np.empty(n_boot, dtype=float)
     for draw in range(n_boot):
@@ -130,7 +181,7 @@ def paired_bootstrap_ci(
         "estimate": float(estimator(differences)),
         "ci_lower": float(np.quantile(draws, alpha)),
         "ci_upper": float(np.quantile(draws, 1.0 - alpha)),
-        "n_pairs": int(len(differences)),
+        "n_pairs": len(differences),
         "reason": None,
     }
 
@@ -171,7 +222,7 @@ def paired_wilcoxon(
     return {
         "statistic": statistic_value,
         "p_value": p_value,
-        "n_pairs": int(len(differences)),
+        "n_pairs": len(differences),
         "median_difference": float(np.median(differences)),
         "reason": None,
     }
@@ -201,7 +252,7 @@ def compare_models(
     baseline_model: str = "climatology",
     metric: str = "MAE",
     model_col: str = "model",
-    group_cols: Sequence[str] = ("target", "gap_length"),
+    group_cols: Sequence[str] = COMPARISON_GROUP_COLUMNS,
     n_boot: int = 2000,
     seed: int = 0,
 ) -> pd.DataFrame:
@@ -209,12 +260,18 @@ def compare_models(
 
     require_columns(events, [model_col, metric], "model comparison")
     active_groups = [column for column in group_cols if column in events]
-    grouped = events.groupby(active_groups, dropna=False, observed=True) if active_groups else [((), events)]
+    grouped = (
+        events.groupby(active_groups, dropna=False, observed=True)
+        if active_groups
+        else [((), events)]
+    )
     rows: list[dict[str, Any]] = []
     for group_key, group in grouped:
         if active_groups and not isinstance(group_key, tuple):
             group_key = (group_key,)
-        group_values = dict(zip(active_groups, group_key if active_groups else (), strict=True))
+        group_values = dict(
+            zip(active_groups, group_key if active_groups else (), strict=True)
+        )
         models = sorted(set(group[model_col].dropna().astype(str)) - {baseline_model})
         for index, model in enumerate(models):
             bootstrap = paired_bootstrap_ci(
@@ -249,6 +306,50 @@ def compare_models(
     return result
 
 
+def fit_mixed_effects_by_design(
+    events: pd.DataFrame,
+    *,
+    outcome: str = "MAE",
+    design_cols: Sequence[str] = MIXED_EFFECTS_DESIGN_COLUMNS,
+    fixed_effects: Sequence[str] = ("model", "gap_length"),
+    group_col: str = "station_id",
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Fit separate mixed models for each experimental-design regime."""
+
+    active_design = [column for column in design_cols if column in events]
+    grouped = (
+        events.groupby(active_design, dropna=False, observed=True)
+        if active_design
+        else [((), events)]
+    )
+    coefficient_parts: list[pd.DataFrame] = []
+    diagnostics: list[dict[str, Any]] = []
+    for group_key, group in grouped:
+        if active_design and not isinstance(group_key, tuple):
+            group_key = (group_key,)
+        metadata = dict(
+            zip(active_design, group_key if active_design else (), strict=True)
+        )
+        coefficients, summary = fit_mixed_effects(
+            group,
+            outcome=outcome,
+            fixed_effects=fixed_effects,
+            group_col=group_col,
+        )
+        diagnostics.append({**metadata, **summary})
+        if coefficients.empty:
+            continue
+        for column, value in reversed(tuple(metadata.items())):
+            coefficients.insert(0, column, value)
+        coefficient_parts.append(coefficients)
+    return (
+        pd.concat(coefficient_parts, ignore_index=True)
+        if coefficient_parts
+        else pd.DataFrame(),
+        pd.DataFrame(diagnostics),
+    )
+
+
 def fit_mixed_effects(
     events: pd.DataFrame,
     *,
@@ -258,13 +359,19 @@ def fit_mixed_effects(
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Fit a random-intercept mixed model when the table is identifiable."""
 
-    required = [outcome, group_col, *[column for column in fixed_effects if column in events]]
+    required = [
+        outcome,
+        group_col,
+        *[column for column in fixed_effects if column in events],
+    ]
     require_columns(events, [outcome, group_col], "mixed-effects model")
     data = events.loc[:, list(dict.fromkeys(required))].copy()
     data[outcome] = pd.to_numeric(data[outcome], errors="coerce")
     data = data.dropna(subset=[outcome, group_col])
     if data[group_col].nunique() < 2:
-        return pd.DataFrame(), {"reason": "at least two random-effect groups are required"}
+        return pd.DataFrame(), {
+            "reason": "at least two random-effect groups are required"
+        }
     if len(data) < 8 or data[outcome].nunique() < 2:
         return pd.DataFrame(), {"reason": "insufficient non-constant observations"}
 
@@ -281,7 +388,9 @@ def fit_mixed_effects(
         used_fixed_effects.append(column)
     if not terms:
         return pd.DataFrame(), {"reason": "no varying fixed effects are identifiable"}
-    data = data.dropna(subset=[outcome, group_col, *used_fixed_effects]).reset_index(drop=True)
+    data = data.dropna(subset=[outcome, group_col, *used_fixed_effects]).reset_index(
+        drop=True
+    )
     if data[group_col].nunique() < 2 or len(data) < 8:
         return pd.DataFrame(), {
             "reason": "insufficient complete rows after fixed-effect filtering"
@@ -324,7 +433,9 @@ def fit_mixed_effects(
             "term": fitted.params.index,
             "estimate": fitted.params.to_numpy(dtype=float),
             "std_error": fitted.bse.reindex(fitted.params.index).to_numpy(dtype=float),
-            "p_value": fitted.pvalues.reindex(fitted.params.index).to_numpy(dtype=float),
+            "p_value": fitted.pvalues.reindex(fitted.params.index).to_numpy(
+                dtype=float
+            ),
         }
     )
     summary = {
@@ -340,9 +451,13 @@ def fit_mixed_effects(
 
 
 __all__ = [
+    "COMPARISON_GROUP_COLUMNS",
     "DEFAULT_PAIR_COLUMNS",
+    "DESIGN_REGIME_COLUMNS",
+    "MIXED_EFFECTS_DESIGN_COLUMNS",
     "compare_models",
     "fit_mixed_effects",
+    "fit_mixed_effects_by_design",
     "holm_correction",
     "paired_bootstrap_ci",
     "paired_value_table",

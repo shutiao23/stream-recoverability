@@ -694,18 +694,29 @@ def _figure_06(
     axes[0].legend(frameon=False, fontsize=7)
 
     importance_rows = 0
-    if node_importance is not None and not node_importance.empty and {"station_id", "impact"}.issubset(node_importance):
+    station_column = (
+        "failed_station_id"
+        if node_importance is not None and "failed_station_id" in node_importance
+        else "station_id"
+    )
+    if node_importance is not None and not node_importance.empty and {station_column, "impact"}.issubset(node_importance):
         importance = node_importance.copy()
         if "target" in importance:
             importance = importance.loc[importance["target"].astype(str).str.upper().eq("T")]
         if "model" in importance:
             importance = importance.loc[importance["model"].astype(str).isin(models)]
         importance["impact"] = pd.to_numeric(importance["impact"], errors="coerce")
-        grouped = importance.dropna(subset=["impact"]).groupby("station_id", as_index=False)["impact"].mean().sort_values("impact", ascending=False)
+        grouped = importance.dropna(subset=["impact"]).groupby(station_column, as_index=False)["impact"].mean().sort_values("impact", ascending=False)
         importance_rows = len(grouped)
         if len(grouped):
-            axes[1].bar(grouped["station_id"].astype(str), grouped["impact"], color="#d1495b")
-            axes[1].set(title="(b) Singleton-failure node importance", xlabel="Failed station", ylabel="Skill impact")
+            axes[1].bar(grouped[station_column].astype(str), grouped["impact"], color="#d1495b")
+            metric = (
+                str(importance["value_metric"].dropna().iloc[0])
+                if "value_metric" in importance and importance["value_metric"].notna().any()
+                else "skill"
+            )
+            ylabel = "MAE increase" if metric.upper() == "MAE" else f"{metric} impact"
+            axes[1].set(title="(b) Singleton-failure node importance", xlabel="Failed station", ylabel=ylabel)
             axes[1].grid(axis="y", alpha=0.2)
         else:
             axes[1].text(0.5, 0.5, "Node-importance rows unavailable", ha="center", va="center")

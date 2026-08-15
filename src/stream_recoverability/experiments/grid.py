@@ -30,6 +30,7 @@ class ExperimentCondition:
     window_length: int = 368
     training_protocol: str = "seen_length"
     held_out_station: str | None = None
+    failed_station_ids: tuple[str, ...] = ()
     validation_scope: str = "internal_test"
 
     def as_dict(self) -> dict[str, Any]:
@@ -178,6 +179,7 @@ def _core_conditions(manifest: dict[str, Any], config: dict[str, Any]) -> list[E
                         layout="single",
                         outage_mode=str(mode),
                         window_length=main_window,
+                        failed_station_ids=(station,),
                     )
                 )
     counts = Counter(condition.experiment for condition in conditions)
@@ -230,6 +232,7 @@ def _full_only_conditions(manifest: dict[str, Any], config: dict[str, Any]) -> l
                         gap_length=length,
                         overlap_ratio=overlap,
                         window_length=main_window,
+                        failed_station_ids=pair_tuple,
                     )
                 )
 
@@ -367,7 +370,7 @@ def build_experiment_grid(
     scenarios = tuple(
         ExperimentScenario(condition, seed)
         for condition in conditions
-        for seed in mask_seeds
+        for seed in ((mask_seeds[0],) if condition.experiment == "M10" else mask_seeds)
     )
     return ExperimentGrid(
         suite=suite,

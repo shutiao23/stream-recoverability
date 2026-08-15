@@ -47,11 +47,14 @@ def test_boundary_jumps_use_observed_neighbors():
 def test_flow_and_level_perfect_predictions_have_perfect_efficiency():
     truth = np.array([1.0, 2.0, 4.0, 8.0])
     mask = np.ones(4, dtype=bool)
-    flow = flow_metrics(truth, truth, mask, mask)
+    flow = flow_metrics(truth, truth, mask, mask, high_threshold=7.0, low_threshold=1.5)
     assert flow["nse"] == pytest.approx(1.0)
     assert flow["kge"] == pytest.approx(1.0)
     assert flow["pbias"] == pytest.approx(0.0)
-    level = level_metrics(truth, truth, mask, mask)
+    assert flow["high_flow_threshold"] == 7.0
+    assert flow["low_flow_threshold"] == 1.5
+    level = level_metrics(truth, truth, mask, mask, high_threshold=7.0)
+    assert level["high_level_threshold"] == 7.0
     assert level["peak_level_error"] == pytest.approx(0.0)
     assert level["peak_timing_error_days"] == pytest.approx(0.0)
 
@@ -64,11 +67,49 @@ def test_temperature_extreme_metrics_are_masked():
     artificial = np.zeros(10, dtype=bool)
     artificial[-2:] = True
     result = temperature_metrics(
-        truth, prediction, quality, artificial, high_threshold=9.0
+        truth,
+        prediction,
+        quality,
+        artificial,
+        high_threshold=9.0,
+        ecological_threshold=8.5,
     )
+    assert result["ecological_threshold"] == 8.5
     assert result["high_temp_n"] == 2
     assert result["high_temp_mae"] == pytest.approx(1.0)
     assert result["extreme_peak_error"] == pytest.approx(2.0)
+
+    no_ecological_threshold = temperature_metrics(
+        truth,
+        prediction,
+        quality,
+        artificial,
+        high_threshold=9.0,
+    )
+    assert np.isnan(no_ecological_threshold["ecological_threshold"])
+    assert np.isnan(no_ecological_threshold["threshold_days_bias"])
+    assert no_ecological_threshold["heatwave_duration_error"] == 0.0
+
+
+def test_heatwave_duration_is_limited_to_evaluated_years():
+    truth = np.array([10, 10, 10, 10, 10, 0, 0, 10, 10, 10], dtype=float)
+    prediction = truth.copy()
+    prediction[-3:] = 0.0
+    artificial = np.zeros(len(truth), dtype=bool)
+    artificial[-3:] = True
+    dates = pd.to_datetime(
+        [*[f"2019-01-{day:02d}" for day in range(1, 8)], *[f"2020-01-{day:02d}" for day in range(1, 4)]]
+    )
+    result = temperature_metrics(
+        truth,
+        prediction,
+        np.ones(len(truth), dtype=bool),
+        artificial,
+        high_threshold=9.0,
+        dates=dates,
+    )
+    assert result["heatwave_duration_error"] == -3.0
+    assert result["heatwave_duration_scope"] == "years_intersecting_artificial_mask"
 
 
 def test_quantile_coverage_width_pinball_and_crps():
@@ -109,6 +150,8 @@ def test_event_output_fields_and_frame_grouping_align_with_specification():
     assert row["mask_seed"] == 7
     assert row["gap_length"] == 2
     assert row["MAE"] == pytest.approx(0.5)
+    assert np.isnan(row["high_temp_threshold"])
+    assert np.isnan(row["ecological_threshold"])
 
     daily = pd.DataFrame(
         {
@@ -126,4 +169,3 @@ def test_event_output_fields_and_frame_grouping_align_with_specification():
     grouped = event_metrics_from_frame(daily)
     assert len(grouped) == 1
     assert grouped.loc[0, "MAE"] == pytest.approx(0.5)
-
