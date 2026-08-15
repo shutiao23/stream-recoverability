@@ -16,6 +16,7 @@ if str(SRC_ROOT) not in sys.path:
 
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
+    DEFAULT_SELECTION_DATA_VERSION,
     build_confirmatory_data,
     build_confirmatory_request_plan,
     load_confirmatory_protocol,
@@ -44,8 +45,8 @@ def build_parser() -> argparse.ArgumentParser:
     build = commands.add_parser(
         "build",
         help=(
-            "execute frozen source requests and build data artifacts; requires an "
-            "explicit finalists-frozen attestation"
+            "execute frozen source requests and build data artifacts after validating "
+            "a finalized validation-only model roster"
         ),
     )
     build.add_argument(
@@ -59,11 +60,37 @@ def build_parser() -> argparse.ArgumentParser:
         default=(PROJECT_ROOT / "data_versions" / CONFIRMATORY_DATA_VERSION),
     )
     build.add_argument(
-        "--finalists-frozen",
-        action="store_true",
+        "--finalized-model-roster",
+        type=Path,
+        required=True,
         help=(
-            "attest that the protocol and finalists are frozen before opening the "
+            "existing finalized_model_roster_v1 JSON that authorizes opening "
             "confirmatory values"
+        ),
+    )
+    build.add_argument(
+        "--study-manifest",
+        type=Path,
+        default=PROJECT_ROOT / "study_manifest.yaml",
+    )
+    build.add_argument(
+        "--config",
+        type=Path,
+        default=PROJECT_ROOT / "configs/experiments.yaml",
+    )
+    build.add_argument(
+        "--selection-data-version",
+        default=DEFAULT_SELECTION_DATA_VERSION,
+        help="frozen validation data version (must remain published_v1)",
+    )
+    build.add_argument(
+        "--selection-data-version-manifest",
+        type=Path,
+        default=(
+            PROJECT_ROOT
+            / "data_versions"
+            / DEFAULT_SELECTION_DATA_VERSION
+            / "version_manifest.json"
         ),
     )
     build.add_argument(
@@ -93,16 +120,15 @@ def main(argv: list[str] | None = None) -> int:
             )
         return 0
 
-    if not args.finalists_frozen:
-        parser.error(
-            "build is locked: pass --finalists-frozen only after the protocol and "
-            "finalists are frozen"
-        )
     api_key = os.environ.get(args.usgs_api_key_env)
     manifest = build_confirmatory_data(
         args.design,
         args.output,
-        finalists_frozen=True,
+        finalized_model_roster_path=args.finalized_model_roster,
+        study_manifest_path=args.study_manifest,
+        experiment_config_path=args.config,
+        selection_data_version=args.selection_data_version,
+        selection_data_version_manifest_path=args.selection_data_version_manifest,
         usgs_api_key=api_key,
     )
     counts = manifest["output_counts"]

@@ -3,8 +3,8 @@
 The builder implements the external protocol in ``design_freeze_v1.yaml``.  It
 uses the modern USGS OGC API and the NASA POWER daily point API, records every
 non-secret request and raw response by SHA-256, and materialises no performance
-metrics.  Full acquisition is deliberately gated by an explicit finalists-
-frozen attestation.
+metrics. Full acquisition is deliberately gated by a hash-verified finalized
+model-roster manifest produced from validation-only evidence.
 
 Official API documentation:
 
@@ -33,6 +33,8 @@ import numpy as np
 import pandas as pd
 import yaml
 
+from stream_recoverability.experiments.contracts import build_design_contract
+
 from .prepare import TIME_FEATURE_COLUMNS, add_time_features
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -40,6 +42,22 @@ CONFIRMATORY_DATA_VERSION = "external_lower_chattahoochee_v1"
 CONFIRMATORY_SCHEMA_VERSION = "confirmatory_external_data_v1"
 REQUEST_PLAN_SCHEMA_VERSION = "confirmatory_request_plan_v1"
 REQUEST_LOG_SCHEMA_VERSION = "external_http_request_log_v1"
+FINALIZED_MODEL_ROSTER_SCHEMA_VERSION = "finalized_model_roster_v1"
+DEFAULT_SELECTION_DATA_VERSION = "published_v1"
+FINALIST_ARTIFACT_NAMES = ("ranking", "stage2_selection", "go_no_go")
+FINALIZED_MODEL_ROSTER_FIELDS = frozenset(
+    {
+        "schema_version",
+        "finalized",
+        "evaluation_split",
+        "evidence_role",
+        "formal_evidence",
+        "selected_models",
+        "best_traditional_model",
+        "proposed_decision",
+        "artifacts",
+    }
+)
 
 USGS_OGC_BASE = "https://api.waterdata.usgs.gov/ogcapi/v0/collections"
 NASA_POWER_DAILY_POINT_URL = "https://power.larc.nasa.gov/api/temporal/daily/point"
@@ -548,7 +566,7 @@ def build_confirmatory_request_plan(
         "credential_rule": (
             "optional USGS key is sent only in X-Api-Key and is never hashed or persisted"
         ),
-        "execution_gate": "finalists_frozen attestation required",
+        "execution_gate": ("hash-verified finalized_model_roster_v1 manifest required"),
         "performance_metrics": "prohibited",
     }
     plan["plan_sha256"] = _canonical_json_sha256(plan)
@@ -609,6 +627,227 @@ def strict_json_loads(raw: bytes) -> Any:
         raise ValueError("provider response is not UTF-8 JSON") from error
     except json.JSONDecodeError as error:
         raise ValueError("provider response is not valid JSON") from error
+
+
+@dataclass(frozen=True)
+class FinalizedModelRoster:
+    """Validated, immutable authorization to open confirmatory source values."""
+
+    manifest_path: str
+    manifest_sha256: str
+    selected_models: tuple[str, ...]
+    best_traditional_model: str
+    proposed_decision: str
+    selection_data_version: str
+    selection_design_hash: str
+    selection_contract: dict[str, Any]
+    selection_code_provenance: dict[str, Any] | None
+    selection_data_version_manifest: dict[str, Any]
+    artifacts: dict[str, dict[str, Any]]
+
+    def metadata(self) -> dict[str, Any]:
+        result = asdict(self)
+        result["selected_models"] = list(self.selected_models)
+        return result
+
+
+def _resolve_roster_artifact_path(value: str, roster_path: Path) -> Path:
+    candidate = Path(value)
+    if candidate.is_absolute():
+        return candidate
+    repository_candidate = REPOSITORY_ROOT / candidate
+    manifest_candidate = roster_path.parent / candidate
+    existing = [
+        path for path in (repository_candidate, manifest_candidate) if path.is_file()
+    ]
+    if len(existing) > 1 and existing[0].resolve() != existing[1].resolve():
+        raise ValueError(f"ambiguous finalized-roster artifact path: {value}")
+    return existing[0] if existing else repository_candidate
+
+
+def _validated_roster_artifacts(
+    value: object, roster_path: Path
+) -> dict[str, dict[str, Any]]:
+    if not isinstance(value, Mapping):
+        raise TypeError("finalized model roster artifacts must be a mapping")
+    missing = sorted(set(FINALIST_ARTIFACT_NAMES).difference(value))
+    unexpected = sorted(set(value).difference(FINALIST_ARTIFACT_NAMES))
+    if missing or unexpected:
+        raise ValueError(
+            "finalized model roster artifact set is not frozen: "
+            f"missing={missing}, unexpected={unexpected}"
+        )
+    validated: dict[str, dict[str, Any]] = {}
+    resolved_paths: set[Path] = set()
+    for name in FINALIST_ARTIFACT_NAMES:
+        identity = value[name]
+        if not isinstance(identity, Mapping):
+            raise TypeError(f"finalized roster artifact {name} must be a mapping")
+        if set(identity) != {"path", "sha256"}:
+            raise ValueError(
+                f"finalized roster artifact {name} identity requires only path/sha256"
+            )
+        raw_path = identity.get("path")
+        expected_sha256 = identity.get("sha256")
+        if not isinstance(raw_path, str) or not raw_path:
+            raise ValueError(f"finalized roster artifact {name} requires path")
+        if (
+            not isinstance(expected_sha256, str)
+            or len(expected_sha256) != 64
+            or any(character not in "0123456789abcdef" for character in expected_sha256)
+        ):
+            raise ValueError(
+                f"finalized roster artifact {name} requires lowercase SHA-256"
+            )
+        path = _resolve_roster_artifact_path(raw_path, roster_path)
+        if not path.is_file():
+            raise FileNotFoundError(
+                f"finalized roster artifact {name} does not exist: {path}"
+            )
+        resolved = path.resolve()
+        if resolved in resolved_paths:
+            raise ValueError("finalized roster artifacts must be distinct files")
+        resolved_paths.add(resolved)
+        observed_sha256 = file_sha256(resolved)
+        if observed_sha256 != expected_sha256:
+            raise ValueError(f"finalized roster artifact {name} SHA-256 does not match")
+        validated[name] = {
+            "path": _portable_path(resolved),
+            "sha256": observed_sha256,
+            "bytes": resolved.stat().st_size,
+        }
+    return validated
+
+
+def load_finalized_model_roster(
+    roster_manifest_path: str | Path,
+    *,
+    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v1.yaml",
+    study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
+    experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
+    selection_data_version: str = DEFAULT_SELECTION_DATA_VERSION,
+    selection_data_version_manifest_path: str | Path | None = None,
+) -> FinalizedModelRoster:
+    """Validate the validation-only roster before any confirmatory I/O begins."""
+
+    roster_path = Path(roster_manifest_path)
+    if not roster_path.is_file():
+        raise FileNotFoundError(f"finalized model roster not found: {roster_path}")
+    if selection_data_version != DEFAULT_SELECTION_DATA_VERSION:
+        raise ValueError("confirmatory selection must be frozen against published_v1")
+    version_manifest = (
+        Path(selection_data_version_manifest_path)
+        if selection_data_version_manifest_path is not None
+        else REPOSITORY_ROOT
+        / "data_versions"
+        / selection_data_version
+        / "version_manifest.json"
+    )
+    if not version_manifest.is_file():
+        raise FileNotFoundError(
+            "selection data-version manifest is required before confirmatory access: "
+            f"{version_manifest}"
+        )
+    expected_contract = build_design_contract(
+        design_path=design_path,
+        manifest_path=study_manifest_path,
+        experiment_config_path=experiment_config_path,
+        data_version=selection_data_version,
+        evaluation_split="validation",
+        data_version_manifest_path=version_manifest,
+    )
+    raw = roster_path.read_bytes()
+    document = strict_json_loads(raw)
+    if not isinstance(document, Mapping):
+        raise TypeError("finalized model roster must contain a JSON mapping")
+    if document.get("schema_version") != FINALIZED_MODEL_ROSTER_SCHEMA_VERSION:
+        raise ValueError(
+            "finalized model roster schema_version must be "
+            f"{FINALIZED_MODEL_ROSTER_SCHEMA_VERSION}"
+        )
+    canonical_contract = {
+        field: value
+        for field, value in expected_contract.items()
+        if field != "code_provenance"
+    }
+    frozen_fields = FINALIZED_MODEL_ROSTER_FIELDS | set(canonical_contract)
+    allowed_fields = frozen_fields | {"code_provenance"}
+    missing_fields = sorted(frozen_fields.difference(document))
+    unexpected_fields = sorted(set(document).difference(allowed_fields))
+    if missing_fields or unexpected_fields:
+        raise ValueError(
+            "finalized model roster fields differ from the frozen schema: "
+            f"missing={missing_fields}, unexpected={unexpected_fields}"
+        )
+    if document.get("finalized") is not True:
+        raise ValueError("finalized model roster requires finalized=true")
+    if document.get("evaluation_split") != "validation":
+        raise ValueError("finalized model roster must use evaluation_split=validation")
+    if document.get("formal_evidence") is not False:
+        raise ValueError("finalized model roster must declare formal_evidence=false")
+    if document.get("evidence_role") != "model_selection_only":
+        raise ValueError(
+            "finalized model roster evidence_role must be model_selection_only"
+        )
+    mismatches = {
+        field: (document.get(field), canonical_contract[field])
+        for field in canonical_contract
+        if document.get(field) != canonical_contract[field]
+    }
+    if mismatches:
+        raise ValueError(
+            f"finalized model roster design/data contract mismatch: {mismatches}"
+        )
+    selected = document.get("selected_models")
+    if not isinstance(selected, list) or not selected:
+        raise ValueError("finalized model roster requires non-empty selected_models")
+    if not all(
+        isinstance(model, str) and model and model.strip() == model
+        for model in selected
+    ):
+        raise TypeError("selected_models must contain normalized non-empty strings")
+    if len(set(selected)) != len(selected):
+        raise ValueError("selected_models contains duplicates")
+    best_traditional = document.get("best_traditional_model")
+    if (
+        not isinstance(best_traditional, str)
+        or not best_traditional
+        or best_traditional.strip() != best_traditional
+    ):
+        raise ValueError("finalized model roster requires best_traditional_model")
+    if best_traditional not in selected:
+        raise ValueError("best_traditional_model must be included in selected_models")
+    decision = document.get("proposed_decision")
+    if decision not in {"include_proposed_formally", "framework_only"}:
+        raise ValueError("finalized model roster has invalid proposed_decision")
+    proposed_selected = "proposed" in selected
+    if proposed_selected != (decision == "include_proposed_formally"):
+        raise ValueError("selected_models and proposed_decision are inconsistent")
+    artifacts = _validated_roster_artifacts(document.get("artifacts"), roster_path)
+    raw_provenance = document.get("code_provenance")
+    if raw_provenance is not None and not isinstance(raw_provenance, Mapping):
+        raise TypeError("finalized model roster code_provenance must be a mapping")
+    return FinalizedModelRoster(
+        manifest_path=_portable_path(roster_path),
+        manifest_sha256=_sha256_bytes(raw),
+        selected_models=tuple(selected),
+        best_traditional_model=best_traditional,
+        proposed_decision=decision,
+        selection_data_version=selection_data_version,
+        selection_design_hash=expected_contract["design_hash"],
+        selection_contract=json.loads(json.dumps(canonical_contract)),
+        selection_code_provenance=(
+            json.loads(json.dumps(raw_provenance))
+            if raw_provenance is not None
+            else None
+        ),
+        selection_data_version_manifest={
+            "path": _portable_path(version_manifest),
+            "sha256": file_sha256(version_manifest),
+            "bytes": version_manifest.stat().st_size,
+        },
+        artifacts=artifacts,
+    )
 
 
 @dataclass(frozen=True)
@@ -1669,6 +1908,7 @@ def _artifact_manifest(root: Path) -> dict[str, dict[str, Any]]:
 
 def _build_into_staging(
     protocol: ConfirmatoryProtocol,
+    finalized_roster: FinalizedModelRoster,
     staging: Path,
     *,
     fetcher: HTTPFetcher,
@@ -1733,6 +1973,7 @@ def _build_into_staging(
         "design_version": protocol.design_version,
         "design_path": protocol.design_path,
         "design_sha256": protocol.design_sha256,
+        "confirmatory_access_gate": finalized_roster.metadata(),
         "protocol": protocol.metadata(),
         "official_documentation": {
             "usgs_ogc": USGS_OGC_DOCUMENTATION,
@@ -1774,21 +2015,29 @@ def build_confirmatory_data(
     design_path: str | Path,
     output_dir: str | Path,
     *,
-    finalists_frozen: bool = False,
+    finalized_model_roster_path: str | Path,
+    study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
+    experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
+    selection_data_version: str = DEFAULT_SELECTION_DATA_VERSION,
+    selection_data_version_manifest_path: str | Path | None = None,
     fetcher: HTTPFetcher = urlopen_fetcher,
     usgs_api_key: str | None = None,
 ) -> dict[str, Any]:
     """Atomically materialise the external data without computing performance.
 
-    ``finalists_frozen=True`` is an explicit access attestation.  It is checked
+    The finalized validation roster and each artifact it attests are checked
     before creating output paths or performing any HTTP request.
     """
 
-    if finalists_frozen is not True:
-        raise PermissionError(
-            "confirmatory acquisition is locked until protocol and finalists are frozen"
-        )
     protocol = load_confirmatory_protocol(design_path)
+    finalized_roster = load_finalized_model_roster(
+        finalized_model_roster_path,
+        design_path=design_path,
+        study_manifest_path=study_manifest_path,
+        experiment_config_path=experiment_config_path,
+        selection_data_version=selection_data_version,
+        selection_data_version_manifest_path=selection_data_version_manifest_path,
+    )
     output = Path(output_dir)
     if output.exists():
         raise FileExistsError(f"refusing to overwrite immutable output: {output}")
@@ -1809,6 +2058,7 @@ def build_confirmatory_data(
             raise FileExistsError(f"refusing to overwrite immutable output: {output}")
         manifest = _build_into_staging(
             protocol,
+            finalized_roster,
             staging,
             fetcher=fetcher,
             usgs_api_key=usgs_api_key,
@@ -1826,7 +2076,9 @@ def build_confirmatory_data(
 __all__ = [
     "CONFIRMATORY_DATA_VERSION",
     "CONFIRMATORY_SCHEMA_VERSION",
+    "DEFAULT_SELECTION_DATA_VERSION",
     "DH_INTERPRETATION",
+    "FINALIZED_MODEL_ROSTER_SCHEMA_VERSION",
     "FROZEN_HYDROLOGY",
     "FROZEN_METEOROLOGY",
     "FROZEN_PERIODS",
@@ -1840,6 +2092,7 @@ __all__ = [
     "ConfirmatoryProtocol",
     "ConfirmatorySourceBundle",
     "ExternalVariableSpec",
+    "FinalizedModelRoster",
     "HTTPResponse",
     "OGCCollectionResult",
     "SplitPeriod",
@@ -1852,6 +2105,7 @@ __all__ = [
     "fetch_ogc_feature_collection",
     "file_sha256",
     "load_confirmatory_protocol",
+    "load_finalized_model_roster",
     "parse_site_metadata",
     "parse_time_series_metadata",
     "parse_usgs_daily_values",
