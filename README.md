@@ -1,71 +1,233 @@
 # Stream Recoverability
 
-Reproducible experiments for reconstructing daily stream observations under
-structured monitoring outages.
+A reproducible framework for testing when daily stream observations remain
+recoverable under structured monitoring outages.
 
-![Study area and monitoring stations](figures/study_area.png)
+![Upper Jinsha River study area and monitoring stations](figures/study_area.png)
 
-This repository contains the data pipeline, models, evaluation code, and
-analysis workflow for a three-station Upper Jinsha River case study. It asks
-when missing stream temperature, discharge, and water-level observations can
-be recovered; which remaining information sources make recovery possible; and
-how reconstruction quality changes as gaps become longer or more stations
-fail.
+This repository implements the data, masking, model-selection, experiment,
+confirmation, and analysis pipeline for a three-station Upper Jinsha River case
+study. The primary task is offline reconstruction of stream temperature (`T`);
+discharge (`F`) and water level (`L`) are secondary targets and information
+sources. A separate online protocol is strictly causal.
 
-The primary task is **offline imputation**, where observations on both sides of
-a gap may be used. A separate **online recovery** protocol is strictly causal
-and never uses future observations.
+The scientific contribution is the recoverability framework—nested gap
+frontiers, information compensation, internal network resilience, uncertainty,
+and event-conditioned stress—not a claim of a novel graph architecture.
 
-> **Evidence status:** smoke, truncated, and partial runs are implementation
-> checks. A smoke manifest may be complete for its four-scenario grid, but it
-> is never scientific evidence. Formal evidence requires
-> `training_profile: formal`, the complete intended suite and seed contract,
-> and `formal_design_complete: true` in the relevant manifest.
+## Evidence status
 
-## What is included
+The block below is deliberately machine-readable. It records the status of the
+current frozen protocol, not the existence of runnable code or historical
+artifacts.
 
-- Leakage-controlled data auditing, unit conversion, daily alignment,
-  chronological splitting, and train-only scaling.
-- Deterministic point, block, multiblock, station-outage, network-outage,
-  asynchronous, and event-conditioned masks.
-- Conventional interpolation, smoothing, regression, tree-based, recurrent,
-  attention-based, and multisource quantile models.
-- Event-level accuracy, extremes, timing, boundary, uncertainty, and
-  hydrological diagnostics.
-- Recoverability frontiers, information-compensation analysis, exact Shapley
-  allocation, mutual information, transfer entropy, and network-resilience
-  analysis.
-- Resumable experiment execution, deterministic sharding, manifest-based
-  completeness checks, and publication figure/table generation.
+<!-- evidence-status:start -->
+```json
+{
+  "design_freeze": "frozen_for_validation",
+  "development_test_visibility": "seen_before_design_freeze",
+  "validation_funnel": "pending_execution",
+  "finalized_model_roster": "pending",
+  "development_test_formal_evidence": "pending_current_protocol",
+  "confirmatory_data": "not_opened",
+  "confirmatory_evaluation": "not_run",
+  "current_protocol_result_claims": "none"
+}
+```
+<!-- evidence-status:end -->
 
-## Study design
+In particular:
 
-| Item | Design |
+- 2018–2020 is called `development_test`. It was visible before
+  `design_freeze_v1` and is not presented as a previously unseen test set.
+- Model selection is now restricted to 2016–2017 validation data and must end
+  in a hash-verified `finalized_model_roster_v1` before any formal
+  development-test or confirmatory execution.
+- Smoke, truncated, partial, development-only, and validation-funnel runs are
+  not performance evidence. A complete smoke manifest proves only that its
+  four-scenario software check ran.
+- The pre-freeze artifacts under `results/formal/` are explicitly invalid for
+  inference; see `results/formal/PRE_FREEZE_INVALID.md`.
+- No numerical result or scientific conclusion from the repaired protocol is
+  asserted in this README.
+
+## Frozen study design
+
+| Item | Frozen definition |
 | --- | --- |
-| Monitoring stations | Batang (`B1`), Shigu (`S2`), and Panzhihua (`P3`) |
+| Internal stations | Batang (`B1`), Shigu (`S2`), Panzhihua (`P3`) |
 | River system | Upper Jinsha River, China |
-| Temporal resolution | Daily |
-| Study period | 1 January 2006 to 31 December 2020 |
-| Training period | 2006–2015 |
-| Validation period | 2016–2017 |
-| Test period | 2018–2020 |
+| Resolution | Daily |
+| Internal record | 1 January 2006–31 December 2020 |
+| Fit split | 2006–2015 (`train`) |
+| Selection split | 2016–2017 (`validation`) |
+| Development evaluation | 2018–2020 (`development_test`; stored-data alias `test`) |
 | Primary target | Stream temperature (`T`) |
 | Secondary targets | Discharge (`F`) and water level (`L`) |
-| Auxiliary variables | Air temperature (`Ta`), precipitation (`P`), wind speed (`W`), relative humidity (`RH`), and sunshine duration (`DH`) |
+| Meteorology | Air temperature (`Ta`), precipitation (`P`), wind (`W`), relative humidity (`RH`), sunshine duration (`DH`) |
+| Main / dense windows | 368 / 736 days; 184 and 736 days are window sensitivities |
 | Formal training seeds | `11`, `22`, `33`, `44`, `55` |
 | Formal mask seeds | `101`–`120` |
-| External validation | Unavailable; leave-one-station-out experiments are internal and exploratory |
+| Internal data versions | `published_v1` plus three frozen provenance sensitivities |
+| Confirmatory design | Lower Chattahoochee, 2023–2025, evaluate once after roster freeze |
 
-The fixed study definition is recorded in
-[`study_manifest.yaml`](study_manifest.yaml). Variable definitions and units
-are documented in
-[`metadata/data_dictionary.csv`](metadata/data_dictionary.csv), and station
-details are in
-[`metadata/station_metadata.csv`](metadata/station_metadata.csv).
+The authoritative contracts are
+[`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml),
+[`study_manifest.yaml`](study_manifest.yaml), and
+[`configs/experiments.yaml`](configs/experiments.yaml). Variable definitions
+and provenance are documented in
+[`metadata/data_dictionary.csv`](metadata/data_dictionary.csv) and
+[`metadata/source_documentation/README.md`](metadata/source_documentation/README.md).
+
+## Evidence architecture
+
+The pipeline separates four roles that must not be pooled or relabelled:
+
+1. **Implementation checks.** Smoke runs, standalone baselines, and the local
+   BRITS-lite/SAITS-lite code test interfaces and failure handling.
+2. **Validation-only selection.** A frozen 21-condition, 105-anchor-unit funnel
+   selects the model roster on 2016–2017 data. Its artifacts carry
+   `evidence_role: model_selection_only` and `formal_evidence: false`.
+3. **Formal development evaluation.** Complete, roster-authorized suites run
+   on `development_test`. Their manifests must match the frozen design, data
+   version, masks, checkpoints, code identity, seeds, expected models, and
+   run-unit inventory.
+4. **External temporal confirmation.** An immutable Lower Chattahoochee data
+   bundle may be opened only after the roster is finalized. The frozen models
+   are retrained on the external training period and evaluated once on the
+   confirmatory period.
+
+Formal aggregation is registry-driven. A `formal_suite_registry_v1` names
+explicit completed run manifests; historical-directory discovery is not used.
+The primary registry must cover the core/full, dense-frontier,
+network-resilience, and event/uncertainty roles. Operational-dropout and
+retrained-information roles are required only if the proposed model passes its
+validation gate; otherwise they must be explicit not-applicable records.
+Sensitivity registries are separate and must cover the prescribed roles for
+each non-primary data version.
+
+## Validation funnel and finalized roster
+
+The validation grid contains seven strata at each internal station: a 30%
+point mask; 10-, 30-, 90-, and 180-day `T` blocks; a synchronized 90-day
+`T+F+L` block; and a 90-day hydrological station outage. Each stratum is bound
+to five immutable station anchors from
+[`metadata/validation_anchors.csv`](metadata/validation_anchors.csv).
+
+Selection proceeds without development-test outcomes:
+
+- **Stage 1:** nine traditional candidates.
+- **Stage 2:** official PyPOTS BRITS, SAITS, and CSDI plus the proposed model,
+  all at seed 11, followed by finite-value and convergence diagnostics.
+- **Stage 3:** only retained deep candidates, using seeds 11, 22, and 33.
+- **Proposed-model gate:** if the proposed model enters Stage 3, it must pass
+  every frozen skill, seed-direction, calibration, station-robustness, and
+  same-checkpoint branch-ablation criterion. If it is not retained at Stage 2,
+  the gate records an early `framework_only` decision and a separate
+  not-applicable branch-ablation artifact; it does not fabricate performance.
+- **Roster freeze:** all artifacts and source identities are hash-checked
+  before the immutable `finalized_model_roster_v1` is issued.
+
+Formal `T` suites must use the exact finalized roster. Suites that also score
+`F` or `L` add only the fixed structural `rating_curve` and
+`independent_flow` baselines. If the proposed gate yields `framework_only`, the
+proposed model and both information-attribution estimands are excluded from
+formal claims.
+
+## Models
+
+The unified offline runner contains:
+
+- **Temporal references:** train-only climatology, linear interpolation,
+  PCHIP, and Kalman smoothing.
+- **Regression and tree baselines:** `air_only`, `air_hydro`,
+  `donor_regression`, random forest, and XGBoost.
+- **Hydraulic structural baselines:** a same-site `rating_curve` and an
+  explicitly level-free `independent_flow` model for applicable `F` tasks.
+- **Official reference imputers:** `brits_ref`, `saits_ref`, and `csdi` use the
+  official PyPOTS **1.5** cores. The dependency version and imported module
+  origins are checked; the formal runner does not silently fall back to local
+  approximations.
+- **Development-only neural baselines:** `brits_lite` and `saits_lite` are
+  compact local implementations. Legacy names `brits` and `saits` resolve to
+  these lite models and are never formal reference results.
+- **Proposed model:** a missing-aware multisource quantile imputer with a
+  permanent baseline branch and four switchable information groups. Its
+  cross-station component is masked attention, not a graph neural network.
+
+The proposed model's information definition is fixed as follows:
+
+| Group | Information available to the model |
+| --- | --- |
+| `S0` | Permanent leap-aware calendar features, train-only target climatology, and static station identity |
+| `A` | Local target context before and after the gap and distance to observations |
+| `B` | Same-site discharge and water level |
+| `C` | Other-site temperature, discharge, and water level |
+| `D` | Same-site air temperature, precipitation, wind, relative humidity, and sunshine duration |
+
+Two information estimands remain separate. Operational dropout evaluates `S0`
+and all 15 non-empty A–D subsets with one shared checkpoint and permits exact
+four-source Shapley allocation only after all 16 matched coalitions pass. The
+retrained upper bound fits a distinct checkpoint for each of nine declared
+coalitions (`S0`, `S0+A`, `S0+B`, `S0+C`, `S0+D`, `S0+A+B`, `S0+A+C`,
+`S0+A+D`, and `S0+A+B+C+D`). The nine-coalition design supports bounded
+contrasts, not exact Shapley values, and is never pooled with operational
+dropout.
+
+## Experiment inventory
+
+Counts are generated by the current grid builders. A scenario is one condition
+and mask realization; trainable-model seeds and information coalitions are
+additional run-unit axes rather than extra scenarios in this table.
+
+<!-- protocol-grid-counts: smoke=4/4 core=156/3120 full_catalog=1148/9299 full_without_catalog=444/8595 m6a=144/2880 m6b=36/720 m7a=12/12 m7b=704/704 dense=93/1860 compensation=12/240 resilience=96/1920 retrained=9/180 external=60/60 -->
+
+| Suite | Conditions | Scenarios | Evidence use |
+| --- | ---: | ---: | --- |
+| Executable `smoke` | 4 | 4 | Integration check only |
+| `core` (M1–M4) | 156 | 3,120 | Structured-gap formal role when complete and authorized |
+| Formal `full` with frozen event catalog | 1,148 | 9,299 | M1–M10 plus all eligible M7b pairs |
+| `full` without event catalog | 444 | 8,595 | Builder inventory only; **not a formal full suite** |
+| `SCI_DENSE` | 93 | 1,860 | Nested recoverability frontiers |
+| `SCI_COMPENSATION` | 12 | 240 | Operational 16-coalition dropout, conditional on proposed-model authorization |
+| `SCI_NET` | 96 | 1,920 | Matched internal network failures |
+| Retrained information | 9 | 180 | Base station–gap masks; nine coalitions form a separate training/run-unit axis, conditional on authorization |
+| External confirmation | 60 | 60 | Five sites × six gap designs × two information conditions |
+
+The formal full grid is composed as follows:
+
+- **M1:** nested, season-balanced 10%, 30%, and 50% point masks for `T`, `F`,
+  `L`, or `T+F+L`.
+- **M2–M3:** centered single and fixed-budget multiblock gaps of 10, 30, 90,
+  and 180 days for primary variable patterns.
+- **M4:** 10–180-day hydrological or full-site outages.
+- **M5:** single and multiblock secondary-target experiments for `F`, `L`, and
+  `F+L`.
+- **M6a:** 144 same-station, variable-axis asynchronous conditions and 2,880
+  mask scenarios. `T+F`, `T+L`, `F+L`, and `T+F+L` channels receive equal
+  length but asynchronously placed gaps at overlap ratios 1.0, 0.5, and 0.0.
+- **M6b:** 36 cross-station asynchronous conditions and 720 scenarios for the
+  three station pairs, four gap lengths, and three overlap ratios.
+- **M7a:** 12 deterministic seed-0 aggregate stress cases: four event types at
+  each station.
+- **M7b:** the frozen catalog contains 355 event/control pairs, of which 352
+  are analysis-eligible. Every eligible pair contributes one fixed event
+  episode and one matched non-event control, giving 704 seed-0 scenarios.
+- **M8:** 15 compact window-sensitivity anchors.
+- **M9:** six seen/unseen 180-day training-length protocol conditions.
+- **M10:** three deterministic internal leave-one-station-out diagnostics;
+  these are exploratory and not external validation.
+
+The dedicated dense design uses 15 declared `T` gaps from 1 to 365 days and
+eight declared gaps for each of `F` and `L`, all on the frozen 736-day window.
+The resilience design crosses three targets, four `T` gap lengths, and the
+eight-element powerset of station failures. The 180-row frontier anchor catalog
+provides five fixed anchors per season for every station–target group.
 
 ## Installation
 
-Python 3.10 or newer is required. Run all commands from the repository root.
+Python 3.10 or newer is required. Formal reference models require the pinned
+`reference` extra.
 
 ```bash
 git clone https://github.com/shutiao23/stream-recoverability.git
@@ -74,24 +236,19 @@ cd stream-recoverability
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
-```
-
-The main dependencies are NumPy, pandas, SciPy, scikit-learn, statsmodels,
-PyTorch, XGBoost, PyArrow, Matplotlib, and Seaborn. They are declared in
-[`pyproject.toml`](pyproject.toml).
-
-Verify the installation with:
-
-```bash
+python -m pip install -e ".[dev,reference]"
 pytest
 ```
 
-## Quick start
+The main dependencies are declared in
+[`pyproject.toml`](pyproject.toml). `pypots==1.5` is intentionally exact rather
+than a lower bound.
 
-The repository includes prepared tables, so a smoke experiment can be run
-directly. The paths below keep demonstration artifacts separate from the
-included results:
+## Safe smoke check
+
+Prepared, versioned data are required. This command keeps demonstration
+artifacts away from formal paths and uses only deterministic non-trainable
+models:
 
 ```bash
 python scripts/08_run_experiments.py \
@@ -101,261 +258,195 @@ python scripts/08_run_experiments.py \
   --mask-dir masks/demo-smoke
 ```
 
-This creates a small, deterministic end-to-end run covering one point-gap,
-one single-block, one multiblock, and one station-outage condition. It is a
-software check, not a scientific benchmark.
+It exercises one M1, M2, M3, and M4 scenario. It is not a benchmark and must
+not be supplied to formal aggregation.
 
-For the simpler standalone fixed-mask baseline workflow:
+The older standalone mask/baseline path remains useful for implementation
+checks:
 
 ```bash
-python scripts/03_generate_masks.py --output masks/demo
+python scripts/03_generate_masks.py --output masks/demo-fixed
 python scripts/04_run_baselines.py \
-  --masks masks/demo/test \
+  --masks masks/demo-fixed/test \
   --models climatology linear pchip \
   --output-dir results/demo-baselines
 ```
 
-`03_generate_masks.py` builds the compact validation/test libraries used by
-the standalone baseline, deep-baseline, and online scripts. The unified
-M1–M10 runner in `08_run_experiments.py` manages its own scenario masks.
-The standalone script's optional YAML schema is different from the unified
-outage definitions in `configs/scenarios/`; those files are not directly
-interchangeable.
+Standalone masks are not interchangeable with unified M1–M10 scenario
+contracts.
 
-To regenerate the included audit, processed datasets, and EDA artifacts in
-their standard locations, run:
+## Numbered workflow
 
-```bash
-python scripts/01_audit_data.py
-python scripts/02_prepare_data.py
-python scripts/07_run_eda.py
-```
+Script numbers identify stable entry points; the formal execution order is
+gate-driven and therefore not simply numerical.
 
-These three commands intentionally write into `results/data_audit/`,
-`data/processed/`, `results/eda/`, and `figures/`. Every script also accepts
-path overrides when an isolated rebuild is preferable.
+| Script | Responsibility |
+| --- | --- |
+| `01_audit_data.py` | Audit dates, missing codes, repeated runs, extremes, and hydraulic relationships. |
+| `02_prepare_data.py` | Build aligned long/wide tables, chronological splits, and train-only scaling artifacts. |
+| `03_generate_masks.py` | Generate the standalone validation/test mask library. |
+| `04_run_baselines.py` | Run traditional baselines on standalone fixed masks. |
+| `05_train_deep_baselines.py` | Train local BRITS-lite/SAITS-lite development models; not official references. |
+| `06_train_proposed.py` | Run the proposed model's synthetic-only smoke training. |
+| `07_run_eda.py` | Produce descriptive tables, event labels, QC plots, and study-area inputs. |
+| `08_run_experiments.py` | Run unified smoke/core/full suites; formal core/full runs require a finalized roster. |
+| `09_analyze_results.py` | Analyse one complete hash-verified frozen aggregate and its required sensitivities. |
+| `10_run_online.py` | Run the separate strictly causal online supplement. |
+| `11_make_figures.py` | Freeze figure/table inputs and generate only available publication outputs. |
+| `12_run_science_experiments.py` | Run dense, resilience, operational-dropout, retrained-upper-bound, or descriptive training-information studies. |
+| `13_aggregate_formal_results.py` | Fail closed while aggregating an explicit finalized suite registry. |
+| `14_build_data_versions.py` | Build immutable `published_v1` and three provenance-sensitivity data versions. |
+| `15_run_validation_funnel.py` | Run, diagnose, rank, gate, and freeze the validation-only model funnel. |
+| `16_generate_frontier_anchors.py` | Generate the season-balanced nested-frontier anchor catalog. |
+| `17_build_event_catalog.py` | Build or audit the deterministic M7b event/control catalog. |
+| `18_generate_validation_anchors.py` | Generate the frozen five-anchor-per-station validation catalog. |
+| `19_build_confirmatory_data.py` | Print the external request plan, or build immutable external data after roster authorization; never computes metrics. |
+| `20_run_confirmatory_evaluation.py` | Preflight or execute the frozen external evaluation exactly once. |
+| `21_build_formal_suite_registry.py` | Build one immutable registry from explicitly named completed suite manifests. |
 
-## Workflow
+Use `python scripts/<script>.py --help` before running a stage. The high-level
+order is:
 
 ```text
-raw station tables + metadata
-              |
-              v
-       audit and preparation
-              |
-              v
- processed long/wide tables + train-only scaler
-              |
-              v
-     deterministic artificial outages
-              |
-              v
- traditional, deep, proposed, and online models
-              |
-              v
-      daily predictions + event metrics
-              |
-              v
- frontier, compensation, uncertainty, and resilience analyses
-              |
-              v
-       publication figures, tables, and manifests
+audit / prepare
+      |
+      v
+freeze data versions, frontier anchors, event catalog, validation anchors
+      |
+      v
+validation-only funnel -> finalized model roster
+      |
+      +--------------------------+
+      |                          |
+      v                          v
+formal development suites       build immutable external data
+      |                          |
+      v                          v
+formal suite registries         preflight -> evaluate once
+      |
+      v
+strict aggregation -> frozen analysis -> figures and tables
 ```
 
-The numbered scripts expose each stage:
-
-| Script | Purpose |
-| --- | --- |
-| `01_audit_data.py` | Audit dates, source-missing codes, constant runs, extremes, and rating-curve diagnostics. |
-| `02_prepare_data.py` | Create aligned long/wide Parquet tables, fixed chronological splits, and a train-only scaler. |
-| `03_generate_masks.py` | Create standalone validation and test mask libraries. |
-| `04_run_baselines.py` | Evaluate traditional offline baselines on a fixed mask library. |
-| `05_train_deep_baselines.py` | Train the project-specific BRITS-style and SAITS-style baselines. |
-| `06_train_proposed.py` | Run a synthetic smoke test of the proposed model; it does not train the real-data model. |
-| `07_run_eda.py` | Produce descriptive tables, event labels, QC plots, and study-area inputs. |
-| `08_run_experiments.py` | Run resumable `smoke`, `core`, or `full` M1–M10 experiments; real proposed-model training happens here. |
-| `09_analyze_results.py` | Compute statistical comparisons, frontiers, calibration, resilience, and scientific-preservation diagnostics. |
-| `10_run_online.py` | Run the separate, strictly causal online protocol. |
-| `11_make_figures.py` | Generate available publication figures and tables and freeze their input manifest. |
-| `12_run_science_experiments.py` | Run dense-gap, network-resilience, information-compensation, or information-metric studies. |
-| `13_aggregate_formal_results.py` | Validate and combine complete formal experiment outputs. |
-
-Use `python scripts/<script>.py --help` for all arguments and output-path
-overrides.
-
-## Experiment suites
-
-The unified runner exposes three M1–M10 suite sizes:
-
-| Suite | Scope | Conditions | Executable scenarios | Intended use |
-| --- | --- | ---: | ---: | --- |
-| `smoke` | One condition from each of M1–M4 | 4 | 4 | Fast integration check |
-| `core` | M1–M4 | 156 | 3,120 | Main structured-gap design |
-| `full` | M1–M10 | 300 | 5,943 | Complete fixed experiment grid |
-
-The full grid adds secondary-target gaps, multi-station outages,
-event-conditioned gaps, window sensitivity, length extrapolation, and
-internal leave-one-station-out transfer. Dedicated science suites add:
-
-- `dense`: single gaps spanning the predeclared 1–365 day grid for
-  recoverability-frontier estimation;
-- `resilience`: the complete failure powerset of the three-station network;
-- `compensation`: the S0 reference plus all 15 non-empty subsets of information
-  groups A–D on identical hidden cells;
-- `information`: training-only k-nearest-neighbour mutual information and
-  bidirectional transfer entropy. These are descriptive information measures,
-  not causal estimates.
-
-## Models
-
-The unified offline runner supports:
-
-- **Temporal references:** training climatology, linear interpolation, PCHIP,
-  and Kalman smoothing.
-- **Regression and tree models:** air-only, air-plus-hydrology, donor-station
-  regression, random forest, XGBoost, rating-curve, and independent-flow
-  baselines.
-- **Deep baselines:** compact project-specific BRITS-style and SAITS-style
-  implementations. They are not runs of the authors' official packages.
-- **Proposed model:** a missing-aware multisource imputer that produces ordered
-  temperature quantiles from four explicit information groups:
-  local temporal context (A), same-station hydraulics (B), other-station
-  observations (C), and local meteorology/calendar information (D). Its
-  cross-station component uses masked attention, not a graph neural network.
-
-The online protocol separately compares training climatology,
-last-observation persistence, and a forward-only causal GRU.
-
-## Running larger experiments
-
-A complete full-suite invocation is:
+Formal development execution must pass the finalized roster explicitly. A
+formal full run also requires the frozen event catalog:
 
 ```bash
 python scripts/08_run_experiments.py \
   --suite full \
-  --models climatology linear pchip kalman air_only air_hydro \
-           donor_regression random_forest xgboost rating_curve \
-           independent_flow brits saits proposed
+  --event-catalog metadata/event_episode_catalog.csv \
+  --finalized-model-roster results/validation_funnel/ROSTER_PATH/finalized_model_roster.json
 ```
 
-This run is computationally expensive. Execution is resumable by default and
-can be divided deterministically with `--shard-index` and `--shard-count`.
-Training budgets and model settings are controlled by
-[`configs/experiments.yaml`](configs/experiments.yaml).
+The runner rejects any `--models` override that differs from the authorized
+roster. Dense, resilience, compensation, and retrained-information commands in
+`scripts/12_run_science_experiments.py` apply the same authorization rule.
 
-The dedicated science entry points are:
+## Data versions and sensitivity analysis
 
-```bash
-python scripts/12_run_science_experiments.py dense --models climatology linear
-python scripts/12_run_science_experiments.py resilience --models climatology linear
-python scripts/12_run_science_experiments.py information
-```
+The primary version, `published_v1`, retains published unflagged values. Three
+frozen sensitivity versions change one documented provenance decision at a
+time:
 
-Information-compensation runs require compatible proposed-model checkpoints.
-Inspect their contract before launching the run:
+- `no_s2_suspect_v1`: excludes S2 hydrology for 2013–2019 without reordering;
+- `b1_no_level_v1`: excludes B1 water level;
+- `b1_shift_sensitivity_v1`: applies a hypothetical −8.48 m adjustment to B1
+  level from 2019 onward.
 
-```bash
-python scripts/12_run_science_experiments.py compensation --help
-```
+Each version has its own immutable manifest and design hash. Aggregation never
+mixes data versions into one formal bundle. Frozen analysis requires all three
+sensitivity bundles and reports matched sensitivity results separately.
 
-To analyse outputs from the unified runner, pass its paths explicitly because
-the analysis script defaults to the standalone baseline outputs:
+## External evaluate-once confirmation
 
-```bash
-python scripts/09_analyze_results.py \
-  --event-metrics results/experiments/event_metrics.parquet \
-  --daily-predictions results/experiments/daily_predictions.parquet \
-  --run-manifest results/experiments/run_manifest.json \
-  --output-dir results/analysis
-```
+The confirmatory protocol is frozen in
+[`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml). It uses five
+Lower Chattahoochee main-stem USGS sites (`02334430`, `02335000`, `02335450`,
+`02336000`, and `02337170`) with USGS daily `T`, `F`, and `L` and nearest-cell
+NASA POWER meteorology.
 
-Run the causal protocol independently:
+The external periods are 2012–2020 for fitting, 2021–2022 for early stopping,
+and 2023–2025 for confirmation. The design contains a 30% point mask; 30-, 90-,
+and 180-day `T` blocks; and 90- and 180-day hydrological station outages, each
+under full-information and no-meteorology conditions. This gives 60 fixed
+scenarios. External `DH` is explicitly a daily shortwave-radiation proxy, not
+the internal sunshine-duration measurement.
 
-```bash
-python scripts/10_run_online.py \
-  --smoke \
-  --output-dir results/online-smoke
-```
+This is external temporal replication with the frozen architecture retrained
+on external training data, not zero-shot geographic transfer. Data acquisition
+requires a hash-verified finalized roster. The evaluation command validates
+the immutable bundle and all contracts before creating a persistent once-lock;
+`--preflight-only` performs the checks without opening the evaluation path.
 
-## Outputs and reproducibility
+No confirmatory data or performance result is claimed by the current evidence
+status above. If the external sources cannot satisfy the frozen data contract,
+the correct outcome is an unavailable confirmation—not a substituted site,
+period, or scenario.
 
-Depending on the entry point, the workflow writes:
+## Outputs and reproducibility controls
 
-- `daily_predictions.parquet` or `predictions.parquet`: predictions at
-  quality-eligible, artificially hidden cells;
-- `event_metrics.parquet`: event-level accuracy, boundary, extreme,
-  hydrological, and uncertainty metrics;
-- `run_manifest.json`: suite configuration, expected/completed units, seed
-  coverage, training profile, and completeness status;
-- per-scenario status files: execution contracts, input identities, completed
-  runs, and structured skip reasons;
-- `results/analysis/`: statistical, frontier, compensation, resilience, and
-  scientific-preservation tables;
-- `figures/` and `paper/tables/`: EDA, QC, and publication outputs;
-- `checkpoints/`: trained-model state and training histories.
+Depending on the entry point, a run writes daily predictions, event metrics,
+compact masks, model checkpoints, per-run status records, and a
+`run_manifest.json`. Formal manifests include the design and data-version
+identity, canonical evaluation split, mask/model/statistics schemas, source
+identity, exact expected/completed run-unit keys, checkpoint contracts, finite
+evidence checks, roster authorization, and structured skip records.
 
-The pipeline protects the evaluation boundary by fitting scalers,
-climatologies, normalisers, event thresholds, and model parameters on the
-training period only. Artificial masks can target only finite,
-quality-eligible observations and are removed from every model input path.
-Sequence windows never cross train/validation/test boundaries, and the online
-protocol explicitly forbids future values, backward interpolation, and
-smoothing.
+A directory name such as `full` does not make a run formal. Formal evidence
+requires all of the following:
 
-Formal aggregation is intentionally strict: missing seed coverage, incomplete
-scenario grids, stale checkpoints, conflicting keys, or invalid partial
-coalitions prevent a run from being marked complete.
+- an authorized roster and exact expected models;
+- `training_profile: formal` and `formal_design_complete: true`;
+- complete required scenario and seed coverage;
+- finite daily and event evidence for every non-structural run unit;
+- valid checkpoints wherever training is required;
+- no retryable failures, duplicate keys, stale inputs, or mixed contracts;
+- a finalized registry that covers every required evidence role.
+
+The frozen analysis uses 2,000 anchor-/episode-aware bootstrap replicates with
+seed `20260815`, guarded climatology denominators, and Benjamini–Hochberg
+adjustment within each declared hypothesis family. No application threshold
+was predeclared, so an operational recoverability boundary is withheld rather
+than invented. Training-only mutual information and transfer entropy are
+descriptive association measures and do not establish causal information
+flow.
 
 ## Repository layout
 
 ```text
-stream-recoverability/
-├── configs/                    experiment and outage definitions
-├── data/raw/                   supplied daily station CSV files
-├── data/processed/             aligned datasets, splits, scaler, event labels
-├── figures/                    study-area, EDA, QC, and publication figures
-├── masks/                      deterministic artificial-mask libraries
-├── metadata/                   station, variable, QC, and provenance metadata
-├── paper/                      manuscript, detailed methods, and references
-├── results/                    audit, EDA, experiment, analysis, and online outputs
-├── scripts/                    numbered executable workflow
-├── src/stream_recoverability/  reusable package implementation
-├── tests/                      unit and integration tests
-├── pyproject.toml              package metadata and dependencies
-└── study_manifest.yaml         fixed scientific design
+configs/                    frozen design and experiment configuration
+data/                       supplied and prepared internal data
+data_versions/              immutable primary, sensitivity, and external bundles
+metadata/                   stations, variables, anchors, events, and provenance
+masks/                      deterministic compact mask artifacts
+results/                    validation, experiment, aggregate, and analysis outputs
+scripts/                    numbered executable workflow
+src/stream_recoverability/  reusable implementation
+tests/                      unit, contract, and integration tests
+paper/                      methods, manuscript source, references, and tables
+figures/                    study-area, diagnostic, and publication figures
 ```
 
-## Data provenance and limitations
+## Interpretation limits
 
-The supplied CSV files do not contain provider-level per-value quality flags,
-station names, source identifiers, or complete provenance metadata. The
-repository therefore records independently reconciled variable, station, and
-source information instead of silently assuming it.
+- `observed_unflagged` means eligible published data, not provider-certified
+  sensor truth.
+- The B1 level record contains a documented datum shift around 1 January 2019.
+- S2 has a documented 2013–2019 ordering discrepancy with an external monthly
+  provenance check.
+- `F` and `L` are treated as one hydraulic information family; their strong
+  relationship is not counted as two independent sources.
+- M10 and `SCI_NET` describe internal transfer and redundancy among three
+  stations. They do not establish external generalization.
+- Information-group Shapley values allocate a declared predictive value
+  function; they are not causal effects.
+- The online supplement and offline reconstruction task have different
+  information sets and are never pooled into one ranking.
 
-Important limitations include:
+## Documentation
 
-- `observed_unflagged` means that a finite published value is eligible for this
-  analysis; it does not mean the value was individually certified by the data
-  provider;
-- the retained B1 water-level series contains an approximately 8.48 m datum
-  shift at the start of 2019;
-- the retained S2 series has a documented 2013–2019 ordering discrepancy with
-  an external monthly provenance check;
-- no comparable external daily stream-temperature panel was established, so
-  the project makes no expanded-network or external-validation claim;
-- M10 leave-one-station-out results describe internal transfer among these
-  three stations only.
-
-Read the full provenance record in
-[`metadata/source_documentation/README.md`](metadata/source_documentation/README.md)
-and the generated audit in
-[`results/data_audit/data_quality_report.md`](results/data_audit/data_quality_report.md)
-before interpreting results or reusing the data.
-
-## Further documentation
-
-- [Detailed methods](paper/methods.md)
-- [Manuscript](paper/manuscript.md)
+- [Detailed executable methods](paper/methods.md)
+- [Frozen design](configs/design_freeze_v1.yaml)
 - [Study manifest](study_manifest.yaml)
 - [Data dictionary](metadata/data_dictionary.csv)
 - [Source and provenance notes](metadata/source_documentation/README.md)
