@@ -15,6 +15,10 @@ from stream_recoverability.analysis.compensation import (
     benjamini_hochberg_fdr,
     combination_label,
 )
+from stream_recoverability.experiments.contracts import file_sha256
+from stream_recoverability.experiments.model_registry import (
+    load_frozen_model_design,
+)
 from stream_recoverability.experiments.runner import ExperimentRunner
 from stream_recoverability.experiments.science import (
     _training_doy_anomaly,
@@ -85,7 +89,9 @@ def test_dense_and_compensation_grids_have_fixed_counts() -> None:
 
 
 def test_information_design_contains_s0_and_all_16_combinations() -> None:
-    labels = [combination_label(value) for value in all_information_group_combinations()]
+    labels = [
+        combination_label(value) for value in all_information_group_combinations()
+    ]
     assert len(labels) == 16
     assert len(set(labels)) == 16
     assert labels[0] == "S0"
@@ -96,9 +102,23 @@ def test_compensation_unit_contract_rejects_invalid_quantiles_and_metrics() -> N
     scenario = build_compensation_grid(
         PROJECT_ROOT / "study_manifest.yaml", mask_seeds=(101,)
     ).scenarios[0]
-    labels = [combination_label(value) for value in all_information_group_combinations()]
+    labels = [
+        combination_label(value) for value in all_information_group_combinations()
+    ]
+    contract_fields = {
+        "component_estimator": "proposed_checkpoint",
+        "attribution_estimand": "operational_dropout",
+        "design_version": "test",
+        "design_hash": "a" * 64,
+        "data_version": "published_v1",
+        "evaluation_split": "development_test",
+        "mask_schema_version": "mask_schema_v2",
+        "model_schema_version": "model_schema_v2",
+        "statistics_schema_version": "statistics_schema_v2",
+    }
     daily = pd.DataFrame(
         {
+            **contract_fields,
             "date": pd.Timestamp("2019-01-01"),
             "station_id": "B1",
             "target": "T",
@@ -108,15 +128,16 @@ def test_compensation_unit_contract_rejects_invalid_quantiles_and_metrics() -> N
             "y_true": 10.0,
             "quality_approved": True,
             "artificial_mask": True,
-            "q05": [np.nan, *([8.0] * 15)],
-            "q25": [np.nan, *([9.0] * 15)],
+            "q05": [8.0] * 16,
+            "q25": [9.0] * 16,
             "q50": [10.0] * 16,
-            "q75": [np.nan, *([11.0] * 15)],
-            "q95": [np.nan, *([12.0] * 15)],
+            "q75": [11.0] * 16,
+            "q95": [12.0] * 16,
         }
     )
     events = pd.DataFrame(
         {
+            **contract_fields,
             "scenario_id": scenario.scenario_id,
             "training_seed": 11,
             "information_combination": labels,
@@ -127,12 +148,12 @@ def test_compensation_unit_contract_rejects_invalid_quantiles_and_metrics() -> N
     _validate_compensation_unit(daily, events, scenario, 11)
 
     nonfinite = daily.copy()
-    nonfinite.loc[nonfinite["information_combination"] != "S0", "q95"] = np.inf
+    nonfinite.loc[nonfinite["information_combination"] == "S0", "q95"] = np.inf
     with pytest.raises(ValueError, match="nonfinite"):
         _validate_compensation_unit(nonfinite, events, scenario, 11)
 
     unordered = daily.copy()
-    unordered.loc[unordered["information_combination"] != "S0", "q75"] = 9.5
+    unordered.loc[unordered["information_combination"] == "S0", "q75"] = 9.5
     with pytest.raises(ValueError, match="strictly ordered"):
         _validate_compensation_unit(unordered, events, scenario, 11)
 
@@ -154,9 +175,7 @@ def test_s0_is_fitted_only_from_training_day_of_year() -> None:
 
 
 def test_climatology_and_information_anomaly_use_stable_leap_calendar() -> None:
-    dates = pd.to_datetime(
-        ["2019-03-01", "2020-02-29", "2020-03-01", "2021-03-01"]
-    )
+    dates = pd.to_datetime(["2019-03-01", "2020-02-29", "2020-03-01", "2021-03-01"])
     values = np.array([10.0, 100.0, 14.0, 18.0])
     approved = np.ones(len(values), dtype=bool)
     anomalies = _training_doy_anomaly(pd.DatetimeIndex(dates), values, approved)
@@ -218,20 +237,23 @@ def test_hidden_truth_is_removed_before_enabled_group_inference() -> None:
         scale,
         target_index=0,
     )
-    assert len(first) == 15
-    assert "S0" not in first
+    assert len(first) == 16
+    assert "S0" in first
     for label in first:
         for quantile in ("q05", "q25", "q50", "q75", "q95"):
             np.testing.assert_allclose(first[label][quantile], second[label][quantile])
 
 
-def test_information_combinations_use_half_overlap_windows_and_only_return_hidden_t() -> None:
+def test_information_combinations_use_half_overlap_windows_and_only_return_hidden_t() -> (
+    None
+):
     class RecordingModel(torch.nn.Module):
         quantile_levels = (0.05, 0.25, 0.5, 0.75, 0.95)
 
         def __init__(self) -> None:
             super().__init__()
             self.starts: list[int] = []
+            self.group_masks: list[torch.Tensor] = []
 
         def forward(
             self,
@@ -242,8 +264,9 @@ def test_information_combinations_use_half_overlap_windows_and_only_return_hidde
             seasonal_features: torch.Tensor,
             enabled_groups: torch.Tensor,
         ) -> dict[str, torch.Tensor]:
-            del natural_mask, artificial_mask, enabled_groups
+            del natural_mask, artificial_mask
             self.starts.append(int(seasonal_features[0, 0, 0].item()))
+            self.group_masks.append(enabled_groups.detach().cpu().clone())
             median = torch.zeros(
                 (values.shape[0], values.shape[1], values.shape[2]),
                 dtype=values.dtype,
@@ -275,7 +298,9 @@ def test_information_combinations_use_half_overlap_windows_and_only_return_hidde
         window_length=8,
     )
     assert model.starts == [0, 4, 8, 12]
-    assert len(result) == 15
+    assert len(result) == 16
+    assert all(mask.shape == (16, 4) for mask in model.group_masks)
+    assert all(not mask[0].any() for mask in model.group_masks)
     for quantiles in result.values():
         finite = np.isfinite(quantiles["q50"])
         np.testing.assert_array_equal(finite, artificial[..., 0])
@@ -348,24 +373,27 @@ def test_information_metrics_are_training_only_and_bidirectional(
     assert len(te) == 40
     assert te["hypothesis_id"].nunique() == 38
     assert int(te["hypothesis_duplicate"].sum()) == 2
-    duplicate_hypotheses = te.loc[
-        te["hypothesis_duplicate"], "hypothesis_id"
-    ].tolist()
+    duplicate_hypotheses = te.loc[te["hypothesis_duplicate"], "hypothesis_id"].tolist()
     for hypothesis_id in duplicate_hypotheses:
         displayed = te.loc[te["hypothesis_id"] == hypothesis_id]
         assert len(displayed) == 2
-        assert displayed[
-            [
-                "estimate",
-                "p_value",
-                "null_mean",
-                "null_std",
-                "z_score",
-                "n",
-                "seed",
-                "p_fdr_bh",
+        assert (
+            displayed[
+                [
+                    "estimate",
+                    "p_value",
+                    "null_mean",
+                    "null_std",
+                    "z_score",
+                    "n",
+                    "seed",
+                    "p_fdr_bh",
+                ]
             ]
-        ].nunique(dropna=False).eq(1).all()
+            .nunique(dropna=False)
+            .eq(1)
+            .all()
+        )
     unique_te = te.drop_duplicates("hypothesis_id", keep="first")
     expected_fdr = benjamini_hochberg_fdr(unique_te["p_value"])
     expected_by_hypothesis = dict(
@@ -377,12 +405,16 @@ def test_information_metrics_are_training_only_and_bidirectional(
     assert first["seed"].notna().all()
     assert first["fit_split"].eq("train").all()
     assert first["series_preprocessing"].eq("training_day_of_year_anomaly").all()
-    assert first["series_preprocessing_definition"].str.contains(
-        "reference-year-2000", regex=False
-    ).all()
-    assert first["series_preprocessing_definition"].str.contains(
-        "February 29", regex=False
-    ).all()
+    assert (
+        first["series_preprocessing_definition"]
+        .str.contains("reference-year-2000", regex=False)
+        .all()
+    )
+    assert (
+        first["series_preprocessing_definition"]
+        .str.contains("February 29", regex=False)
+        .all()
+    )
     pdt.assert_frame_equal(first, second)
 
 
@@ -394,9 +426,7 @@ def _write_small_processed_data(root: Path) -> tuple[Path, Path]:
     for station_index, station in enumerate(("B1", "P3", "S2")):
         for variable_index, variable in enumerate(VARIABLES):
             values = (
-                station_index * 2
-                + variable_index
-                + np.sin(np.arange(len(dates)) / 5.0)
+                station_index * 2 + variable_index + np.sin(np.arange(len(dates)) / 5.0)
             ).astype(np.float32)
             wide[f"{station}_{variable}"] = values
             long_rows.extend(
@@ -427,16 +457,28 @@ def _write_compensation_checkpoint(
     protocol: str = "seen_length",
 ) -> None:
     station_ids = ("B1", "P3", "S2")
+    frozen_design = load_frozen_model_design(
+        PROJECT_ROOT / "configs" / "design_freeze_v1.yaml"
+    )
+    frozen_model = frozen_design.protocol_for("proposed")
+    common = frozen_design.common_training
     config = ProposedModelConfig(
         station_ids=station_ids,
         variable_names=VARIABLES,
-        hidden_size=24,
-        dropout=0.0,
+        hidden_size=int(frozen_model["hidden_size"]),
+        station_embedding_size=int(frozen_model["station_embedding_size"]),
+        variable_embedding_size=int(frozen_model["variable_embedding_size"]),
+        dropout=float(frozen_model["dropout"]),
+        architecture_version=str(frozen_model["architecture_version"]),
     )
     model = MissingAwareMultisourceImputer(config)
     training_config = ProposedTrainingConfig(
-        epochs=20,
-        patience=5,
+        epochs=int(common["max_epochs"]),
+        learning_rate=float(common["learning_rate"]),
+        weight_decay=float(common["weight_decay"]),
+        patience=int(common["patience"]),
+        min_delta=float(common["minimum_delta"]),
+        gradient_clip=float(common["gradient_clip"]),
         seed=training_seed if checkpoint_seed is None else checkpoint_seed,
         device="cpu",
     )
@@ -449,20 +491,27 @@ def _write_compensation_checkpoint(
             "training_config": asdict(training_config),
             "training_context": {
                 "profile": "formal",
+                "training_budget_source": "design_freeze",
+                "design_version": frozen_design.design_version,
+                "frozen_common_training": dict(common),
+                "frozen_model_protocol": frozen_model,
                 "train_mask_repeats": 5,
                 "validation_mask_repeats": 1,
                 "window": window,
+                "effective_window": 10,
                 "protocol": protocol,
                 "input_files": {
                     "wide": {
                         "path": str(wide_path.resolve()),
                         "size": wide_path.stat().st_size,
                         "mtime_ns": wide_path.stat().st_mtime_ns,
+                        "sha256": file_sha256(wide_path),
                     },
                     "quality": {
                         "path": str(quality_path.resolve()),
                         "size": quality_path.stat().st_size,
                         "mtime_ns": quality_path.stat().st_mtime_ns,
+                        "sha256": file_sha256(quality_path),
                     },
                 },
             },
@@ -477,9 +526,7 @@ def _write_compensation_checkpoint(
             "best_validation_loss": 1.0,
             "epochs_run": 1,
             "hit_epoch_limit": False,
-            "history": [
-                {"epoch": 1.0, "train_loss": 1.1, "validation_loss": 1.0}
-            ],
+            "history": [{"epoch": 1.0, "train_loss": 1.1, "validation_loss": 1.0}],
         },
         path,
     )
@@ -490,7 +537,9 @@ def test_resilience_masks_share_target_gap_and_export_complete_design(
 ) -> None:
     wide_path, quality_path = _write_small_processed_data(tmp_path)
     grid = build_resilience_science_grid(
-        PROJECT_ROOT / "study_manifest.yaml", mask_seeds=(101,)
+        PROJECT_ROOT / "study_manifest.yaml",
+        mask_seeds=(101,),
+        frontier_anchor_path=None,
     )
     runner = ExperimentRunner(
         grid,
@@ -535,13 +584,17 @@ def test_resilience_masks_share_target_gap_and_export_complete_design(
                     if station_id == "B1" and variable == target_variable
                     else np.empty(0, dtype=int)
                 )
-                np.testing.assert_array_equal(np.flatnonzero(mask[:, station, variable]), expected)
+                np.testing.assert_array_equal(
+                    np.flatnonzero(mask[:, station, variable]), expected
+                )
         assert tuple(metadata["failed_station_ids"]) == failed
         assert metadata["failure_count"] == len(failed)
         assert metadata["network_size"] == 3
 
     mask, metadata = generated[("S2",)]
-    scenario = next(value for value in scenarios if value.condition.failed_station_ids == ("S2",))
+    scenario = next(
+        value for value in scenarios if value.condition.failed_station_ids == ("S2",)
+    )
     daily, events, skipped = runner._prediction_rows(
         scenario, metadata, mask, "climatology", None
     )
@@ -580,7 +633,7 @@ def test_resilience_masks_share_target_gap_and_export_complete_design(
     np.testing.assert_allclose(daily["normalization_std"], reference.std)
 
 
-def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
+def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     tmp_path: Path,
 ) -> None:
     wide_path, quality_path = _write_small_processed_data(tmp_path)
@@ -601,6 +654,7 @@ def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
         mask_dir=tmp_path / "masks",
         training_seed=11,
         mask_seeds=(101,),
+        frontier_anchor_path=None,
         max_scenarios=1,
     )
     assert skipped.empty
@@ -613,13 +667,11 @@ def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
     assert daily[["high_threshold", "low_threshold"]].notna().all().all()
     assert daily[["normalization_iqr", "normalization_std"]].notna().all().all()
     s0 = daily.loc[daily["information_combination"] == "S0"].sort_values("date")
-    proposed = daily.loc[daily["information_combination"] != "S0"]
-    assert proposed[["q05", "q25", "q50", "q75", "q95"]].notna().all().all()
-    assert (proposed["q05"] < proposed["q25"]).all()
-    assert (proposed["q25"] < proposed["q50"]).all()
-    assert (proposed["q50"] < proposed["q75"]).all()
-    assert (proposed["q75"] < proposed["q95"]).all()
-    assert s0[["q25", "q75"]].isna().all().all()
+    assert daily[["q05", "q25", "q50", "q75", "q95"]].notna().all().all()
+    assert (daily["q05"] < daily["q25"]).all()
+    assert (daily["q25"] < daily["q50"]).all()
+    assert (daily["q50"] < daily["q75"]).all()
+    assert (daily["q75"] < daily["q95"]).all()
     wide = pd.read_parquet(wide_path)
     expected = training_doy_climatology(
         wide["date"],
@@ -628,10 +680,26 @@ def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
         np.ones(len(wide), dtype=bool),
     )
     expected_by_date = pd.Series(expected, index=pd.DatetimeIndex(wide["date"]))
-    np.testing.assert_allclose(
-        s0["y_pred"].to_numpy(), expected_by_date.loc[pd.DatetimeIndex(s0["date"])].to_numpy()
+    assert not np.allclose(
+        s0["y_pred"].to_numpy(),
+        expected_by_date.loc[pd.DatetimeIndex(s0["date"])].to_numpy(),
     )
-    assert s0["component_estimator"].eq("training_doy_climatology").all()
+    assert daily["component_estimator"].eq("proposed_checkpoint").all()
+    assert daily["estimator"].eq("proposed_checkpoint").all()
+    assert daily["attribution_estimand"].eq("operational_dropout").all()
+    assert events["component_estimator"].eq("proposed_checkpoint").all()
+    assert events["attribution_estimand"].eq("operational_dropout").all()
+    assert daily["evaluation_split"].eq("development_test").all()
+    for field in (
+        "design_version",
+        "design_hash",
+        "data_version",
+        "mask_schema_version",
+        "model_schema_version",
+        "statistics_schema_version",
+    ):
+        assert daily[field].notna().all()
+        assert events[field].notna().all()
     training_values = wide.loc[wide["split"] == "train", "B1_T"].to_numpy(dtype=float)
     _q10, q25, q75, q90 = np.quantile(training_values, (0.10, 0.25, 0.75, 0.90))
     training_iqr = q75 - q25
@@ -641,9 +709,7 @@ def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
     assert events["threshold_days_bias"].isna().all()
     np.testing.assert_allclose(events["NMAE"], events["MAE"] / training_iqr)
     np.testing.assert_allclose(events["NRMSE"], events["RMSE"] / training_std)
-    run_manifest = json.loads(
-        (tmp_path / "results" / "run_manifest.json").read_text()
-    )
+    run_manifest = json.loads((tmp_path / "results" / "run_manifest.json").read_text())
     assert "reference-year-2000" in run_manifest["s0_definition"]
     assert "February 29" in run_manifest["s0_definition"]
     assert run_manifest["status"] == "partial"
@@ -654,9 +720,33 @@ def test_compensation_output_uses_climatology_for_s0_and_strict_score_mask(
     assert run_manifest["formal_mask_seed_complete"] is False
     assert run_manifest["expected_training_seeds"] == [11, 22, 33, 44, 55]
     assert run_manifest["expected_mask_seeds"] == list(range(101, 121))
+    assert run_manifest["evaluation_split"] == "development_test"
+    assert run_manifest["data_version"] == "published_v1"
+    assert run_manifest["frontier_anchor_catalog_path"] is None
+    assert run_manifest["frontier_anchor_catalog_sha256"] is None
+    assert run_manifest["frontier_anchor_count"] == 0
+    assert run_manifest["anchor_availability_rows"] == 0
+    assert run_manifest["unavailable_anchor_rows"] == 0
+    assert run_manifest["anchor_replacement_allowed"] is False
     assert run_manifest["training_profile"] == "formal"
     assert run_manifest["training_settings"]["train_mask_repeats"] == 5
-    assert run_manifest["training_settings"]["proposed_epochs"] == 20
+    assert run_manifest["training_settings"]["proposed_epochs"] == 200
+    assert run_manifest["training_settings"]["proposed_patience"] == 20
+    assert run_manifest["attribution_estimand"] == "operational_dropout"
+    assert run_manifest["component_estimator"] == "proposed_checkpoint"
+    assert "mixed_baseline_limitation" not in run_manifest
+    assert run_manifest["suite"] == "science_compensation"
+    assert run_manifest["models"] == ["information_compensation"]
+    assert run_manifest["expected_run_unit_count"] == 12 * 5
+    assert run_manifest["completed_run_unit_count"] == 1
+    assert run_manifest["retryable_run_unit_count"] == 12 * 5 - 1
+    assert run_manifest["checkpoint_required_run_count"] == 12 * 5
+    assert run_manifest["checkpoint_valid_run_count"] == 12
+    assert run_manifest["finite_prediction_run_unit_count"] == 1
+    assert run_manifest["finite_event_metric_run_unit_count"] == 1
+    assert len(run_manifest["training_checkpoints"]) == 1
+    assert len(run_manifest["training_checkpoints"][0]["checkpoint"]["sha256"]) == 64
+    assert "code_identity" in run_manifest
 
 
 def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
@@ -680,6 +770,7 @@ def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
         "output_dir": tmp_path / "results",
         "mask_dir": tmp_path / "masks",
         "mask_seeds": (101,),
+        "frontier_anchor_path": None,
         "max_scenarios": 1,
     }
     run_information_compensation(training_seeds=(11,), **common)
@@ -691,28 +782,22 @@ def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
     assert len(events) == 32
     assert set(daily["training_seed"]) == {11, 22}
     for seed in (11, 22):
-        status_paths = list((tmp_path / "results" / "units").glob(f"*/S{seed}/status.json"))
+        status_paths = list(
+            (tmp_path / "results" / "units").glob(f"*/S{seed}/status.json")
+        )
         assert len(status_paths) == 1
         assert json.loads(status_paths[0].read_text())["status"] == "complete"
 
-    seed_11_status = next(
-        (tmp_path / "results" / "units").glob("*/S11/status.json")
-    )
-    original_artifact = json.loads(seed_11_status.read_text())[
-        "checkpoint_artifact"
-    ]
+    seed_11_status = next((tmp_path / "results" / "units").glob("*/S11/status.json"))
+    original_artifact = json.loads(seed_11_status.read_text())["checkpoint_artifact"]
     _write_compensation_checkpoint(
         checkpoints / "proposed-S11-W368-seen_length.pt",
         training_seed=11,
         wide_path=wide_path,
         quality_path=quality_path,
     )
-    daily, events, _ = run_information_compensation(
-        training_seeds=(11,), **common
-    )
-    replacement_artifact = json.loads(seed_11_status.read_text())[
-        "checkpoint_artifact"
-    ]
+    daily, events, _ = run_information_compensation(training_seeds=(11,), **common)
+    replacement_artifact = json.loads(seed_11_status.read_text())["checkpoint_artifact"]
     assert replacement_artifact != original_artifact
     assert set(events["training_seed"]) == {11, 22}
     assert set(daily["training_seed"]) == {11, 22}
@@ -739,9 +824,7 @@ def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
 
     # A later resume of another seed must not resurrect units from a seed whose
     # checkpoint was already found invalid.
-    daily, events, _ = run_information_compensation(
-        training_seeds=(22,), **common
-    )
+    daily, events, _ = run_information_compensation(training_seeds=(22,), **common)
     assert set(events["training_seed"]) == {22}
     assert set(daily["training_seed"]) == {22}
 
@@ -767,6 +850,7 @@ def test_compensation_aggregate_excludes_all_units_after_training_input_changes(
         "output_dir": tmp_path / "results",
         "mask_dir": tmp_path / "masks",
         "mask_seeds": (101,),
+        "frontier_anchor_path": None,
         "max_scenarios": 1,
     }
     run_information_compensation(training_seeds=(11,), **common)
@@ -776,9 +860,7 @@ def test_compensation_aggregate_excludes_all_units_after_training_input_changes(
     wide = pd.read_parquet(wide_path)
     wide.loc[0, "B1_T"] = np.float32(wide.loc[0, "B1_T"] + 0.125)
     wide.to_parquet(wide_path, index=False)
-    daily, events, _ = run_information_compensation(
-        training_seeds=(11,), **common
-    )
+    daily, events, _ = run_information_compensation(training_seeds=(11,), **common)
     assert daily.empty and events.empty
     manifest = json.loads((tmp_path / "results" / "run_manifest.json").read_text())
     assert manifest["formal_design_complete"] is False
@@ -842,8 +924,8 @@ def test_compensation_rejects_mismatched_checkpoint_contract(
             ProposedModelConfig(
                 station_ids=("B1", "P3", "S2"),
                 variable_names=VARIABLES,
-                hidden_size=32,
-                dropout=0.0,
+                hidden_size=24,
+                dropout=0.1,
             )
         )
         payload["model_config"] = asdict(different.config)
@@ -877,6 +959,7 @@ def test_compensation_rejects_mismatched_checkpoint_contract(
         mask_dir=tmp_path / "masks",
         training_seed=11,
         mask_seeds=(101,),
+        frontier_anchor_path=None,
         max_scenarios=1,
     )
     assert daily.empty and events.empty

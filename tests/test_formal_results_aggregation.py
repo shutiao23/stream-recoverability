@@ -429,6 +429,137 @@ def test_rejects_duplicate_frozen_row_within_source(tmp_path: Path) -> None:
         _aggregate(module, formal, results, registry)
 
 
+def test_information_coalitions_extend_the_frozen_table_key() -> None:
+    module = _load_script()
+    rows = pd.DataFrame(
+        {
+            "scenario_id": ["INFO-1", "INFO-1"],
+            "model": ["proposed", "proposed"],
+            "training_seed": [11, 11],
+            "mask_seed": [101, 101],
+            "date": pd.to_datetime(["2020-01-01", "2020-01-01"]),
+            "station_id": ["B1", "B1"],
+            "target": ["T", "T"],
+            "information_combination": ["S0", "S0+A"],
+        }
+    )
+    module._require_unique(rows, module.DAILY_KEY, "information daily")
+    duplicated = pd.concat([rows, rows.iloc[[0]]], ignore_index=True)
+    with pytest.raises(ValueError, match="duplicate rows"):
+        module._require_unique(duplicated, module.DAILY_KEY, "information daily")
+
+
+def test_summary_never_pools_operational_and_retrained_estimands() -> None:
+    module = _load_script()
+    events = pd.DataFrame(
+        {
+            "model": ["proposed", "proposed"],
+            "target": ["T", "T"],
+            "station_id": ["B1", "B1"],
+            "information_combination": ["S0+A", "S0+A"],
+            "attribution_estimand": [
+                "operational_dropout",
+                "retrained_upper_bound",
+            ],
+            "information_estimand": [
+                "operational_dropout",
+                "retrained_upper_bound",
+            ],
+            "MAE": [1.0, 3.0],
+            "RMSE": [1.2, 3.2],
+        }
+    )
+    summary = module._summary_metrics(events)
+    assert len(summary) == 2
+    assert set(summary["attribution_estimand"]) == {
+        "operational_dropout",
+        "retrained_upper_bound",
+    }
+    assert set(summary["MAE"]) == {1.0, 3.0}
+
+
+def test_dynamic_aggregator_accepts_nine_coalitions_in_one_retrained_run_unit(
+    tmp_path: Path,
+) -> None:
+    formal = tmp_path / "formal"
+    results = tmp_path / "results"
+    run = formal / "retrained"
+    _write_run(
+        run,
+        suite="retrained_information_upper_bounds",
+        models=["retrained_information_upper_bound"],
+        evidence_units=[("RETRAINED-1", "retrained_information_upper_bound", 11)],
+        checkpoint_models={"retrained_information_upper_bound"},
+    )
+    coalitions = (
+        "S0",
+        "S0+A",
+        "S0+B",
+        "S0+C",
+        "S0+D",
+        "S0+A+B",
+        "S0+A+C",
+        "S0+A+D",
+        "S0+A+B+C+D",
+    )
+    base_daily = pd.read_parquet(run / "daily_predictions.parquet")
+    base_event = pd.read_parquet(run / "event_metrics.parquet")
+    daily = pd.concat(
+        [
+            base_daily.assign(
+                information_combination=coalition,
+                attribution_estimand="retrained_upper_bound",
+                information_estimand="retrained_upper_bound",
+            )
+            for coalition in coalitions
+        ],
+        ignore_index=True,
+    )
+    events = pd.concat(
+        [
+            base_event.assign(
+                information_combination=coalition,
+                attribution_estimand="retrained_upper_bound",
+                information_estimand="retrained_upper_bound",
+            )
+            for coalition in coalitions
+        ],
+        ignore_index=True,
+    )
+    daily.to_parquet(run / "daily_predictions.parquet", index=False)
+    events.to_parquet(run / "event_metrics.parquet", index=False)
+    _mutate_manifest(
+        run / "run_manifest.json",
+        lambda data: data.update(
+            {
+                "completed_daily_rows": len(daily),
+                "completed_event_rows": len(events),
+            }
+        ),
+    )
+    registry = {
+        "schema_version": "formal_suite_registry_v1",
+        "finalized": True,
+        "suites": [
+            {
+                "name": "retrained_information",
+                "path": "retrained",
+                "layout": "direct",
+                "manifest_suite": "retrained_information_upper_bounds",
+                "finalized": True,
+                "finalized_models": ["retrained_information_upper_bound"],
+            }
+        ],
+    }
+    manifest = _aggregate(_load_script(), formal, results, registry)
+    aggregated = pd.read_parquet(results / "event_metrics.parquet")
+    summary = pd.read_csv(results / "summary_metrics.csv")
+    assert manifest["expected_run_unit_count"] == 1
+    assert len(aggregated) == 9
+    assert set(aggregated["information_combination"]) == set(coalitions)
+    assert summary["attribution_estimand"].eq("retrained_upper_bound").all()
+
+
 def test_rejects_duplicate_run_unit_across_declared_suites(tmp_path: Path) -> None:
     formal, results, registry = _fixture(tmp_path)
     _write_run(
