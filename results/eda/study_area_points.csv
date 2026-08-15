@@ -1,0 +1,9 @@
+station_id,station_name,latitude,longitude,point_type,coordinate_status,plot_order
+ZMD,Zhimenda,33.02,97.23,candidate,candidate_metadata,0
+GT,Gangtuo,30.002936,99.105681,candidate,metadata_proxy,2
+B1,Batang,29.85,99.083333,core,station_metadata,4
+BZL,Benzilan,28.240456,99.305761,candidate,metadata_proxy,7
+S2,Shigu,26.906667,99.947778,core,station_metadata,8
+JAQ,Jinanqiao,26.772638999999998,100.84625,candidate,plot_proxy_missing_metadata_coordinate,10
+P3,Panzhihua,26.638611,101.744722,core,station_metadata,12
+SDZ,Sanduizi,26.558194200000003,102.28380519999999,candidate,plot_proxy_missing_metadata_coordinate,14
