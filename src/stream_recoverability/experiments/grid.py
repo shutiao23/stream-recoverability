@@ -180,6 +180,8 @@ class ExperimentGrid:
     validation_anchor_catalog_path: str | None = None
     validation_anchor_catalog_sha256: str | None = None
     validation_anchor_count: int = 0
+    validation_anchor_catalog_logical_sha256: str | None = None
+    validation_anchor_ids: tuple[str, ...] = ()
 
     @property
     def condition_counts(self) -> dict[str, int]:
@@ -213,6 +215,10 @@ class ExperimentGrid:
             validation_anchor_catalog_path=self.validation_anchor_catalog_path,
             validation_anchor_catalog_sha256=self.validation_anchor_catalog_sha256,
             validation_anchor_count=self.validation_anchor_count,
+            validation_anchor_catalog_logical_sha256=(
+                self.validation_anchor_catalog_logical_sha256
+            ),
+            validation_anchor_ids=self.validation_anchor_ids,
         )
 
 

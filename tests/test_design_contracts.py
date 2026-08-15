@@ -160,11 +160,13 @@ def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
     source = repository / "src/stream_recoverability/experiments/runner.py"
     script = repository / "scripts/08_run_experiments.py"
     confirmatory_script = repository / "scripts/20_run_confirmatory_evaluation.py"
+    roster_loader = repository / "src/stream_recoverability/data/confirmatory.py"
     config = repository / "configs/design.yaml"
     for path, value in (
         (source, "VALUE = 1\n"),
         (script, "#!/usr/bin/env python3\n"),
         (confirmatory_script, "#!/usr/bin/env python3\n"),
+        (roster_loader, "ROSTER_SCHEMA = 1\n"),
         (config, "design: frozen\n"),
         (repository / "pyproject.toml", "[project]\nname='fixture'\n"),
         (repository / "README.md", "first\n"),
@@ -213,6 +215,20 @@ def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
     )
     confirmatory_script.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
 
+    roster_loader.write_text("ROSTER_SCHEMA = 2\n", encoding="utf-8")
+    dirty_roster_loader = build_code_provenance(
+        repository_root=repository,
+        additional_relevant_paths=(config,),
+    )
+    assert dirty_roster_loader["dirty_tracked_paths"] == [
+        "src/stream_recoverability/data/confirmatory.py"
+    ]
+    assert (
+        dirty_roster_loader["relevant_source_digest"]
+        != docs_only["relevant_source_digest"]
+    )
+    roster_loader.write_text("ROSTER_SCHEMA = 1\n", encoding="utf-8")
+
     source.write_text("VALUE = 2\n", encoding="utf-8")
     dirty = build_code_provenance(
         repository_root=repository,
@@ -249,7 +265,9 @@ def test_stored_test_alias_is_canonicalised_to_development_test() -> None:
 def test_validation_grid_masks_only_validation_and_persists_contract(
     tmp_path: Path,
 ) -> None:
-    wide = _wide(tmp_path / "wide.parquet")
+    version_root = REPO_ROOT / "data_versions" / "published_v1"
+    wide = version_root / "daily_wide.parquet"
+    quality = version_root / "daily_long.parquet"
     grid = build_experiment_grid(
         MANIFEST,
         CONFIG,
@@ -260,7 +278,8 @@ def test_validation_grid_masks_only_validation_and_persists_contract(
     runner = ExperimentRunner(
         grid,
         wide_path=wide,
-        quality_path=None,
+        quality_path=quality,
+        data_version_manifest_path=version_root / "version_manifest.json",
         output_dir=tmp_path / "results",
         mask_dir=tmp_path / "masks",
         config_path=CONFIG,

@@ -999,6 +999,8 @@ def _load_formal_registry(
             "suite",
             "run_directory",
             "manifest",
+            "daily_predictions",
+            "event_metrics",
             "models",
         }:
             raise ValueError("formal suite registry source fields are not frozen")
@@ -1025,6 +1027,26 @@ def _load_formal_registry(
         )
         if source_path.parent != run_directory:
             raise ValueError("formal registry source directory/manifest disagree")
+        daily_path, daily_identity = _verified_file_identity(
+            raw_source.get("daily_predictions"),
+            declaring_file=registry_path,
+            label=f"formal registry source {index} daily_predictions",
+            allowed_fields=frozenset({"path", "bytes", "sha256"}),
+        )
+        event_path, event_identity = _verified_file_identity(
+            raw_source.get("event_metrics"),
+            declaring_file=registry_path,
+            label=f"formal registry source {index} event_metrics",
+            allowed_fields=frozenset({"path", "bytes", "sha256"}),
+        )
+        if daily_path != run_directory / "daily_predictions.parquet":
+            raise ValueError(
+                "formal registry source daily_predictions path is not canonical"
+            )
+        if event_path != run_directory / "event_metrics.parquet":
+            raise ValueError(
+                "formal registry source event_metrics path is not canonical"
+            )
         source_manifest = _read_mapping(source_path)
         if source_manifest.get("suite") != suite or source_manifest.get(
             "models"
@@ -1036,6 +1058,8 @@ def _load_formal_registry(
             "suite": suite,
             "run_directory": str(run_directory),
             "manifest": source_identity,
+            "daily_predictions": daily_identity,
+            "event_metrics": event_identity,
             "models": list(models),
         }
 

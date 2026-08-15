@@ -47,6 +47,7 @@ from stream_recoverability.models.proposed_training import (
 )
 
 from .contracts import file_sha256
+from .formal_authorization import proposed_estimand_authorization
 from .grid import DEFAULT_FRONTIER_ANCHOR_PATH, ExperimentGrid, ExperimentScenario
 from .runner import ExperimentRunner
 from .science import (
@@ -238,7 +239,10 @@ def _write_not_applicable_manifest(
         "finalized_model_roster": {
             "path": roster.manifest_path,
             "sha256": roster.manifest_sha256,
+            "selected_models": list(roster.selected_models),
+            "proposed_decision": roster.proposed_decision,
         },
+        "expected_formal_models": [],
         "data_version": data_version,
         "evaluation_split": evaluation_split,
         "formal_evidence": False,
@@ -1113,6 +1117,9 @@ def run_retrained_information_upper_bounds(
         experiment_config_path=config_path,
         selection_data_version_manifest_path=selection_data_version_manifest_path,
     )
+    formal_authorization = proposed_estimand_authorization(
+        roster, suite=RETRAINED_SUITE
+    )
     if roster.proposed_decision == "framework_only":
         manifest = _write_not_applicable_manifest(
             output_root,
@@ -1162,6 +1169,7 @@ def run_retrained_information_upper_bounds(
         data_version_manifest_path=data_version_manifest_path,
         models=("proposed",),
         training_seeds=selected_seeds,
+        formal_authorization=formal_authorization,
         resume=resume,
     )
     if runner.evaluation_split != "development_test":
@@ -1398,6 +1406,7 @@ def run_retrained_information_upper_bounds(
     checkpoint_complete = set(checkpoint_valid_keys) == expected_set
     formal_complete = bool(
         runner.training_profile_name == "formal"
+        and runner.formal_evidence
         and formal_seed_complete
         and formal_mask_complete
         and formal_coalition_complete
@@ -1433,6 +1442,7 @@ def run_retrained_information_upper_bounds(
         "checkpoint_contract_complete": checkpoint_complete,
         "retryable_run_keys": retryable_keys,
         "models": [RETRAINED_MODEL_NAME],
+        "expected_formal_models": [RETRAINED_MODEL_NAME],
         "attribution_estimand": "retrained_upper_bound",
         "information_estimand": "retrained_upper_bound",
         "pooling_rule": "never_mix_with_operational_dropout",
@@ -1450,6 +1460,7 @@ def run_retrained_information_upper_bounds(
         "fit_split": "train",
         "tuning_split": "validation_checkpoint",
         "evaluation_split": runner.evaluation_split,
+        "data_version_input_identity": runner.data_version_input_identity,
         "training_profile": runner.training_profile_name,
         "training_settings": runner.training_settings,
         "daily_rows": len(daily),
@@ -1462,11 +1473,15 @@ def run_retrained_information_upper_bounds(
         "finalized_model_roster": {
             "path": roster.manifest_path,
             "sha256": roster.manifest_sha256,
+            "selected_models": list(roster.selected_models),
             "proposed_decision": roster.proposed_decision,
         },
+        "formal_execution_authorization": runner.formal_authorization,
         "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
         "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
         "frontier_anchor_count": grid.frontier_anchor_count,
+        "formal_grid_contract_complete": runner.formal_grid_contract is not None,
+        "formal_grid_contract": runner.formal_grid_contract,
         "anchor_replacement_allowed": False,
         "s0_definition": S0_DEFINITION,
         "hidden_truth_input_policy": "artificially hidden values are NaN before inference",

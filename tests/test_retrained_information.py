@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import asdict
 from pathlib import Path
 from types import SimpleNamespace
@@ -10,6 +11,8 @@ import pytest
 import torch
 
 import stream_recoverability.experiments.retrained_information as retrained
+import stream_recoverability.experiments.runner as runner_module
+from stream_recoverability.experiments.contracts import file_sha256
 from stream_recoverability.experiments.retrained_information import (
     RETRAINED_COALITION_LABELS,
     RETRAINED_COALITIONS,
@@ -19,6 +22,9 @@ from stream_recoverability.experiments.retrained_information import (
     build_retrained_information_grid,
     coalition_slug,
     run_retrained_information_upper_bounds,
+)
+from stream_recoverability.experiments.validation import (
+    validation_anchor_catalog_identity,
 )
 from stream_recoverability.models.proposed import (
     MissingAwareMultisourceImputer,
@@ -31,6 +37,20 @@ from stream_recoverability.models.proposed_training import ProposedTrainingConfi
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+
+
+@pytest.fixture(autouse=True)
+def _accept_mock_roster_authorization(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        runner_module,
+        "validate_formal_authorization",
+        lambda value, **kwargs: dict(value),
+    )
+    monkeypatch.setattr(
+        runner_module,
+        "validate_formal_grid_contract",
+        lambda grid: {"suite": grid.suite, "test_fixture": True},
+    )
 
 
 def _small_processed_data(root: Path) -> tuple[Path, Path]:
@@ -59,6 +79,18 @@ def _small_processed_data(root: Path) -> tuple[Path, Path]:
     quality_path = root / "daily_long.parquet"
     wide.to_parquet(wide_path, index=False)
     pd.DataFrame(long_rows).to_parquet(quality_path, index=False)
+    (root / "version_manifest.json").write_text(
+        json.dumps(
+            {
+                "data_version": "published_v1",
+                "artifacts": {
+                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
+                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     return wide_path, quality_path
 
 
@@ -66,8 +98,18 @@ def _authorized_roster() -> SimpleNamespace:
     return SimpleNamespace(
         proposed_decision="include_proposed_formally",
         selected_models=("linear", "proposed"),
+        best_traditional_model="linear",
         manifest_path="validation/finalized_model_roster.json",
         manifest_sha256="a" * 64,
+        selection_data_version="published_v1",
+        selection_design_hash="d" * 64,
+        selection_contract={"code_identity": {"relevant_source_digest": "c" * 64}},
+        selection_data_version_manifest={
+            "path": "data_versions/published_v1/version_manifest.json",
+            "sha256": "e" * 64,
+            "bytes": 1,
+        },
+        validation_anchor_catalog=validation_anchor_catalog_identity(),
     )
 
 

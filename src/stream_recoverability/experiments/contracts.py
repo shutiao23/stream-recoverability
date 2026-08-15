@@ -26,6 +26,7 @@ _RELEVANT_CODE_DIRECTORIES = (
 _RELEVANT_CODE_FILES = (
     "src/stream_recoverability/__init__.py",
     "src/stream_recoverability/analysis/compensation.py",
+    "src/stream_recoverability/data/confirmatory.py",
     "scripts/05_train_deep_baselines.py",
     "scripts/08_run_experiments.py",
     "scripts/12_run_science_experiments.py",
@@ -66,6 +67,76 @@ def file_sha256(path: str | Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def validate_data_version_inputs(
+    *,
+    data_version_manifest_path: str | Path | None,
+    data_version: str,
+    wide_path: str | Path,
+    quality_path: str | Path | None,
+    require_manifest: bool,
+    require_quality: bool,
+) -> dict[str, Any] | None:
+    """Bind runner inputs to the declared version manifest's wide/long hashes."""
+
+    if data_version_manifest_path is None:
+        if require_manifest:
+            raise ValueError("formal execution requires a data-version manifest")
+        return None
+    manifest_path = Path(data_version_manifest_path)
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"data-version manifest is missing: {manifest_path}")
+    try:
+        document = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        raise ValueError("data-version manifest is invalid JSON") from error
+    if not isinstance(document, Mapping):
+        raise TypeError("data-version manifest must be a JSON mapping")
+    if document.get("data_version") != str(data_version):
+        raise ValueError("data-version manifest identity differs from the experiment grid")
+    artifacts = document.get("artifacts")
+    if not isinstance(artifacts, Mapping):
+        raise TypeError("data-version manifest artifacts must be a mapping")
+    required = {
+        "daily_wide.parquet": Path(wide_path),
+        "daily_long.parquet": Path(quality_path) if quality_path is not None else None,
+    }
+    if require_quality and required["daily_long.parquet"] is None:
+        raise ValueError("formal execution requires quality_path/daily_long.parquet")
+    validated: dict[str, dict[str, Any]] = {}
+    for name, path in required.items():
+        if path is None:
+            continue
+        raw_identity = artifacts.get(name)
+        if not isinstance(raw_identity, Mapping):
+            raise TypeError(f"data-version manifest lacks {name}")
+        expected_sha = raw_identity.get("sha256")
+        if (
+            not isinstance(expected_sha, str)
+            or len(expected_sha) != 64
+            or any(character not in "0123456789abcdef" for character in expected_sha)
+        ):
+            raise ValueError(f"data-version manifest has invalid SHA-256 for {name}")
+        if not path.is_file():
+            raise FileNotFoundError(f"data-version input is missing: {path}")
+        observed_sha = file_sha256(path)
+        if observed_sha != expected_sha:
+            raise ValueError(f"data-version {name} SHA-256 does not match")
+        validated[name] = {
+            "path": str(path.resolve()),
+            "sha256": observed_sha,
+            "bytes": path.stat().st_size,
+        }
+    return {
+        "data_version": str(data_version),
+        "manifest": {
+            "path": str(manifest_path.resolve()),
+            "sha256": file_sha256(manifest_path),
+            "bytes": manifest_path.stat().st_size,
+        },
+        "artifacts": validated,
+    }
 
 
 def _mapping_yaml(path: Path) -> dict[str, Any]:
@@ -346,4 +417,5 @@ __all__ = [
     "canonical_code_identity",
     "canonical_evaluation_split",
     "file_sha256",
+    "validate_data_version_inputs",
 ]

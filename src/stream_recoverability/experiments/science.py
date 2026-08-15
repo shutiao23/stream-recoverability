@@ -44,6 +44,7 @@ from stream_recoverability.models.proposed_training import (
 )
 
 from .contracts import canonical_evaluation_split, file_sha256
+from .formal_authorization import authorize_proposed_estimand
 from .grid import (
     DEFAULT_FRONTIER_ANCHOR_PATH,
     ExperimentCondition,
@@ -363,6 +364,7 @@ def run_dense_experiments(
     mask_dir: str | Path = "masks/science_dense",
     models: Sequence[str] = ("climatology", "linear"),
     training_seeds: Sequence[int] | None = None,
+    formal_authorization: Mapping[str, Any] | None = None,
     mask_seeds: Sequence[int] | None = None,
     data_version: str = "published_v1",
     evaluation_split: str = "development_test",
@@ -393,6 +395,7 @@ def run_dense_experiments(
         data_version_manifest_path=data_version_manifest_path,
         models=models,
         training_seeds=training_seeds,
+        formal_authorization=formal_authorization,
         resume=resume,
     )
     return runner.run(
@@ -414,6 +417,7 @@ def run_resilience_experiments(
     mask_dir: str | Path = "masks/science_resilience",
     models: Sequence[str] = ("climatology", "linear"),
     training_seeds: Sequence[int] | None = None,
+    formal_authorization: Mapping[str, Any] | None = None,
     mask_seeds: Sequence[int] | None = None,
     data_version: str = "published_v1",
     evaluation_split: str = "development_test",
@@ -444,6 +448,7 @@ def run_resilience_experiments(
         data_version_manifest_path=data_version_manifest_path,
         models=models,
         training_seeds=training_seeds,
+        formal_authorization=formal_authorization,
         resume=resume,
     )
     return runner.run(
@@ -1276,6 +1281,10 @@ def _assert_operational_compensation_directory(output_root: Path) -> None:
 
 def run_information_compensation(
     *,
+    finalized_model_roster_path: str
+    | Path = "results/validation_funnel/finalized_model_roster.json",
+    selection_data_version_manifest_path: str
+    | Path = "data_versions/published_v1/version_manifest.json",
     checkpoint_path: str | Path | None = None,
     checkpoint_dir: str | Path = "results/experiments/checkpoints",
     checkpoint_template: str = "proposed-S{seed}-W{window}-{protocol}.pt",
@@ -1301,6 +1310,47 @@ def run_information_compensation(
 
     output_root = Path(output_dir)
     _assert_operational_compensation_directory(output_root)
+    roster, formal_authorization = authorize_proposed_estimand(
+        finalized_model_roster_path,
+        suite="science_compensation",
+        design_path=design_path,
+        study_manifest_path=manifest_path,
+        experiment_config_path=config_path,
+        selection_data_version_manifest_path=selection_data_version_manifest_path,
+    )
+    if formal_authorization is None:
+        manifest = {
+            "schema_version": "operational_information_dropout_run_v1",
+            "suite": "science_compensation",
+            "status": "not_applicable",
+            "complete": False,
+            "formal_design_complete": False,
+            "attribution_estimand": "operational_dropout",
+            "information_estimand": "operational_dropout",
+            "not_applicable_reason": (
+                "proposed validation decision is framework_only"
+            ),
+            "proposed_decision": roster.proposed_decision,
+            "models": ["information_compensation"],
+            "expected_formal_models": [],
+            "finalized_model_roster": {
+                "path": roster.manifest_path,
+                "sha256": roster.manifest_sha256,
+                "selected_models": list(roster.selected_models),
+                "proposed_decision": roster.proposed_decision,
+            },
+            "data_version": data_version,
+            "evaluation_split": canonical_evaluation_split(evaluation_split),
+            "formal_evidence": False,
+            "evidence_role": "not_applicable",
+            "performance_row_count": 0,
+        }
+        _atomic_json(manifest, output_root / "run_manifest.json")
+        return (
+            pd.DataFrame(),
+            pd.DataFrame(),
+            pd.DataFrame(columns=SKIP_COLUMNS),
+        )
     grid = build_compensation_grid(
         manifest_path,
         mask_seeds=mask_seeds,
@@ -1337,6 +1387,7 @@ def run_information_compensation(
         data_version_manifest_path=data_version_manifest_path,
         models=("proposed",),
         training_seeds=selected_training_seeds,
+        formal_authorization=formal_authorization,
         resume=resume,
     )
     if not runner.anchor_availability.empty:
@@ -1625,7 +1676,8 @@ def run_information_compensation(
     )
     checkpoint_contract_complete = set(checkpoint_valid_run_unit_keys) == expected_set
     formal_design_complete = bool(
-        formal_unit_grid_complete
+        runner.formal_evidence
+        and formal_unit_grid_complete
         and formal_training_seed_complete
         and formal_mask_seed_complete
         and checkpoint_contract_complete
@@ -1658,6 +1710,7 @@ def run_information_compensation(
             "schema_version": "operational_information_dropout_run_v1",
             "suite": grid.suite,
             "models": ["information_compensation"],
+            "expected_formal_models": ["information_compensation"],
             "status": (
                 "complete"
                 if formal_design_complete
@@ -1707,9 +1760,12 @@ def run_information_compensation(
             "tuning_split": "validation_checkpoint",
             "evaluation_split": runner.evaluation_split,
             "data_version": runner.data.data_version,
+            "data_version_input_identity": runner.data_version_input_identity,
             "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
             "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
             "frontier_anchor_count": grid.frontier_anchor_count,
+            "formal_grid_contract_complete": runner.formal_grid_contract is not None,
+            "formal_grid_contract": runner.formal_grid_contract,
             "anchor_availability_rows": len(runner.anchor_availability),
             "unavailable_anchor_rows": (
                 int((~runner.anchor_availability["available"]).sum())
@@ -1729,6 +1785,13 @@ def run_information_compensation(
             "hidden_truth_input_policy": "artificially hidden values are replaced by NaN before inference",
             "formal_evidence": formal_design_complete,
             "evidence_role": "formal_development_evaluation",
+            "formal_execution_authorization": runner.formal_authorization,
+            "finalized_model_roster": {
+                "path": roster.manifest_path,
+                "sha256": roster.manifest_sha256,
+                "selected_models": list(roster.selected_models),
+                "proposed_decision": roster.proposed_decision,
+            },
             **runner.evidence_contract,
             "code_provenance": runner.code_provenance,
         },

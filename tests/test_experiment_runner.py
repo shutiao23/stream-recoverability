@@ -797,7 +797,9 @@ def test_no_resume_reuses_shared_trainable_model_and_completes_manifest(
         (runner.output_dir / "run_manifest.json").read_text(encoding="utf-8")
     )
     assert training_calls == 1
-    assert manifest["complete"] is True
+    assert manifest["complete"] is False
+    assert manifest["run_complete"] is True
+    assert manifest["formal_design_complete"] is False
     assert manifest["expected_run_count"] == len(grid.scenarios)
     assert manifest["completed_status_run_count"] == len(grid.scenarios)
     assert manifest["aggregate_run_count"] == len(grid.scenarios)
@@ -1304,7 +1306,9 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
     )
     assert run_manifest["aggregate_scenario_count"] == len(runner.grid.scenarios)
     assert run_manifest["aggregate_run_count"] == run_manifest["expected_run_count"]
-    assert run_manifest["complete"] is True
+    assert run_manifest["complete"] is False
+    assert run_manifest["run_complete"] is True
+    assert run_manifest["formal_design_complete"] is False
     assert run_manifest["run_unit_complete"] is True
     assert run_manifest["evidence_complete"] is True
     assert run_manifest["finite_predictions"] is True

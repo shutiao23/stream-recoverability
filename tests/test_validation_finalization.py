@@ -83,6 +83,33 @@ def test_validation_mask_registry_serializes_nested_evidence_contract(
     assert json.loads(units.loc[0, "input_digests"]) == contract["input_digests"]
 
 
+def test_initial_ranking_uses_only_stage1_and_seed11_stage2_inputs(
+    tmp_path: Path,
+) -> None:
+    cli = runpy.run_path("scripts/15_run_validation_funnel.py")
+    run_root = tmp_path / "validation"
+    assert cli["_initial_ranking_paths"](run_root) == (
+        run_root / "traditional/event_metrics.parquet",
+        run_root / "deep_single_seed/event_metrics.parquet",
+    )
+    events = pd.DataFrame(
+        {
+            "model": [*TRADITIONAL_CANDIDATES, *DEEP_CANDIDATES],
+            "training_seed": [
+                *([np.nan] * len(TRADITIONAL_CANDIDATES)),
+                *([11] * len(DEEP_CANDIDATES)),
+            ],
+        }
+    )
+    cli["_validate_initial_ranking_inventory"](events)
+    contaminated = pd.concat(
+        [events, events.loc[events["model"].eq("proposed")].assign(training_seed=22)],
+        ignore_index=True,
+    )
+    with pytest.raises(ValueError, match="seed 22/33"):
+        cli["_validate_initial_ranking_inventory"](contaminated)
+
+
 def _scenario_parts(scenario_id: str) -> tuple[str, str, int]:
     condition_id, raw_seed = scenario_id.rsplit("-R", maxsplit=1)
     station = condition_id.split("-")[2]
@@ -597,6 +624,7 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
         study_manifest_path="study_manifest.yaml",
         experiment_config_path="configs/experiments.yaml",
         data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+        anchor_catalog_path="metadata/validation_anchors.csv",
         expected_contract=contract,
     )
 
@@ -628,5 +656,6 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
             data_version_manifest_path=(
                 "data_versions/published_v1/version_manifest.json"
             ),
+            anchor_catalog_path="metadata/validation_anchors.csv",
             expected_contract=contract,
         )

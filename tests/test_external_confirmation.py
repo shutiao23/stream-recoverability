@@ -32,6 +32,9 @@ from stream_recoverability.experiments.model_registry import (
     load_frozen_model_design,
 )
 from stream_recoverability.experiments.runner import ExperimentRunner
+from stream_recoverability.experiments.validation import (
+    validation_anchor_catalog_identity,
+)
 
 DESIGN = Path("configs/design_freeze_v1.yaml")
 STUDY_MANIFEST = Path("study_manifest.yaml")
@@ -75,6 +78,9 @@ def _roster(
             "sha256": "s" * 64,
             "bytes": 1,
         },
+        validation_anchor_catalog=validation_anchor_catalog_identity(
+            require_canonical_path=True
+        ),
         artifacts={},
     )
 

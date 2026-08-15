@@ -22,6 +22,9 @@ from stream_recoverability.experiments.contracts import (
     canonical_evaluation_split,
     file_sha256,
 )
+from stream_recoverability.experiments.formal_authorization import (
+    authorize_roster_suite,
+)
 from stream_recoverability.experiments.runner import (
     LEGACY_MODEL_ALIASES,
     SUPPORTED_MODELS,
@@ -49,6 +52,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--suite", choices=("smoke", "core", "full"), default="smoke")
     parser.add_argument("--models", nargs="+")
     parser.add_argument("--training-seeds", nargs="+", type=int)
+    parser.add_argument(
+        "--finalized-model-roster",
+        type=Path,
+        help=(
+            "hash-verified validation-only finalized_model_roster_v1; required "
+            "for development_test core/full formal evidence"
+        ),
+    )
     parser.add_argument("--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml")
     parser.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml")
     parser.add_argument(
@@ -169,6 +180,45 @@ def main() -> None:
         event_catalog_path=args.event_catalog,
         frontier_anchor_path=args.frontier_anchors,
     )
+    formal_authorization = None
+    is_formal_evidence_suite = (
+        canonical_split == "development_test" and args.suite in {"core", "full"}
+    )
+    if is_formal_evidence_suite:
+        if args.finalized_model_roster is None:
+            raise SystemExit(
+                "--finalized-model-roster is required for development_test "
+                "core/full formal evidence"
+            )
+        selection_manifest = (
+            PROJECT_ROOT / "data_versions/published_v1/version_manifest.json"
+        )
+        expected_models, formal_authorization = authorize_roster_suite(
+            args.finalized_model_roster,
+            suite=grid.suite,
+            target_scope=tuple(
+                dict.fromkeys(
+                    target
+                    for condition in grid.conditions
+                    for target in condition.evaluation_variables
+                )
+            ),
+            design_path=args.design,
+            study_manifest_path=args.manifest,
+            experiment_config_path=args.config,
+            selection_data_version_manifest_path=selection_manifest,
+        )
+        if models is not None and tuple(models) != expected_models:
+            raise ValueError(
+                "--models cannot override the finalized formal roster: "
+                f"expected={list(expected_models)}, observed={models}"
+            )
+        models = list(expected_models)
+    elif args.finalized_model_roster is not None:
+        raise ValueError(
+            "--finalized-model-roster is only valid for development_test "
+            "core/full formal suites"
+        )
     runner = ExperimentRunner(
         grid,
         wide_path=data,
@@ -181,6 +231,7 @@ def main() -> None:
         data_version_manifest_path=version_manifest,
         models=models,
         training_seeds=args.training_seeds,
+        formal_authorization=formal_authorization,
         resume=args.resume,
     )
     if runner.evidence_contract != canonical_contract:
@@ -207,6 +258,15 @@ def main() -> None:
                     str(args.event_catalog) if args.event_catalog is not None else None
                 ),
                 "external_validation_status": grid.external_validation_status,
+                "formal_evidence": runner.formal_evidence,
+                "finalized_model_roster": (
+                    runner.formal_authorization["finalized_model_roster"]
+                    if runner.formal_authorization is not None
+                    else None
+                ),
+                "expected_formal_models": (
+                    list(runner.models) if runner.formal_evidence else []
+                ),
             },
             ensure_ascii=False,
         )

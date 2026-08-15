@@ -6,6 +6,7 @@ must never be mixed with development, confirmatory, or formal-result artifacts.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections.abc import Sequence
 from dataclasses import asdict, dataclass, replace
@@ -16,7 +17,10 @@ import numpy as np
 import pandas as pd
 import yaml
 
-from stream_recoverability.masks import load_validation_anchor_catalog
+from stream_recoverability.masks import (
+    VALIDATION_ANCHOR_COLUMNS,
+    load_validation_anchor_catalog,
+)
 
 from .contracts import file_sha256
 from .grid import (
@@ -30,6 +34,17 @@ VALIDATION_MASK_SEEDS = (101, 102, 103, 104, 105)
 VALIDATION_DEEP_SEEDS = (11, 22, 33)
 DEFAULT_VALIDATION_ANCHOR_PATH = (
     Path(__file__).resolve().parents[3] / "metadata" / "validation_anchors.csv"
+)
+VALIDATION_ANCHOR_BYTE_SHA256 = (
+    "bad94c9beca7bcfd77bbd8ae2132cd4687f6902d41427c7f7e14a6567b13743c"
+)
+VALIDATION_ANCHOR_LOGICAL_SHA256 = (
+    "d1764a228cc672eb0d8906933b1f1f0395221b126428ab6ccb07726b29b58d3e"
+)
+VALIDATION_ANCHOR_IDS = tuple(
+    f"VALANCHOR-publishedv1-validation-{station}-R{seed:04d}"
+    for station in sorted(("B1", "S2", "P3"))
+    for seed in range(101, 106)
 )
 VALIDATION_STRATA = (
     "point_30pct",
@@ -57,6 +72,76 @@ TRADITIONAL_CANDIDATES = (
     "xgboost",
 )
 DEEP_CANDIDATES = ("brits_ref", "saits_ref", "csdi", "proposed")
+
+
+def validation_anchor_catalog_identity(
+    path: str | Path = DEFAULT_VALIDATION_ANCHOR_PATH,
+    *,
+    require_canonical_path: bool = True,
+) -> dict[str, Any]:
+    """Reopen and validate the immutable 15-row selection-anchor inventory."""
+
+    source = Path(path)
+    if require_canonical_path and source.resolve() != DEFAULT_VALIDATION_ANCHOR_PATH.resolve():
+        raise ValueError("validation selection requires metadata/validation_anchors.csv")
+    catalog = load_validation_anchor_catalog(
+        source,
+        expected_data_version="published_v1",
+        required_stations=VALIDATION_STATIONS,
+    )
+    integer_columns = {
+        "center_index",
+        "start_month",
+        "year",
+        "mask_seed",
+        "max_supported_length",
+        "season_slot",
+    }
+    records: list[dict[str, Any]] = []
+    ordered = catalog.sort_values(
+        ["station_id", "mask_seed"], kind="mergesort", ignore_index=True
+    )
+    for row in ordered.itertuples(index=False, name=None):
+        records.append(
+            {
+                column: int(value) if column in integer_columns else str(value)
+                for column, value in zip(VALIDATION_ANCHOR_COLUMNS, row, strict=True)
+            }
+        )
+    logical_sha = hashlib.sha256(
+        json.dumps(
+            records,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    anchor_ids = tuple(record["anchor_id"] for record in records)
+    byte_sha = file_sha256(source)
+    if len(records) != 15 or anchor_ids != VALIDATION_ANCHOR_IDS:
+        raise ValueError("validation anchor IDs/inventory differ from the freeze")
+    if (
+        require_canonical_path
+        and (
+            byte_sha != VALIDATION_ANCHOR_BYTE_SHA256
+            or logical_sha != VALIDATION_ANCHOR_LOGICAL_SHA256
+        )
+    ):
+        raise ValueError("canonical validation anchor catalog hash differs from freeze")
+    try:
+        portable_path = source.resolve().relative_to(
+            DEFAULT_VALIDATION_ANCHOR_PATH.resolve().parents[1]
+        ).as_posix()
+    except ValueError:
+        portable_path = str(source.resolve())
+    return {
+        "path": portable_path,
+        "sha256": byte_sha,
+        "bytes": source.stat().st_size,
+        "logical_sha256": logical_sha,
+        "row_count": len(records),
+        "anchor_ids": list(anchor_ids),
+    }
 
 
 @dataclass(frozen=True)
@@ -248,6 +333,10 @@ def build_validation_funnel(
     )
     if not set(VALIDATION_DEEP_SEEDS).issubset(configured_training_seeds):
         raise AssertionError("manifest does not contain deep validation seeds 11/22/33")
+    anchor_identity = validation_anchor_catalog_identity(
+        anchor_catalog_path,
+        require_canonical_path=True,
+    )
     anchor_catalog = load_validation_anchor_catalog(
         anchor_catalog_path,
         expected_data_version=anchor_data_version,
@@ -343,8 +432,10 @@ def build_validation_funnel(
         training_seeds=VALIDATION_DEEP_SEEDS,
         external_validation_status=str(config["external_validation_status"]),
         validation_anchor_catalog_path=str(Path(anchor_catalog_path)),
-        validation_anchor_catalog_sha256=file_sha256(anchor_catalog_path),
-        validation_anchor_count=len(anchor_catalog),
+        validation_anchor_catalog_sha256=anchor_identity["sha256"],
+        validation_anchor_count=anchor_identity["row_count"],
+        validation_anchor_catalog_logical_sha256=anchor_identity["logical_sha256"],
+        validation_anchor_ids=tuple(anchor_identity["anchor_ids"]),
     )
     return ValidationFunnel(grid=grid, mask_units=mask_units)
 

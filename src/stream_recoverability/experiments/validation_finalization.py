@@ -22,7 +22,7 @@ import yaml
 
 from stream_recoverability.evaluation.event_metrics import compute_event_metrics
 
-from .contracts import file_sha256
+from .contracts import file_sha256, validate_data_version_inputs
 from .model_registry import load_frozen_model_design
 from .selection import assess_proposed_go_no_go, select_stage2_finalists
 from .validation import (
@@ -32,6 +32,7 @@ from .validation import (
     VALIDATION_MASK_SEEDS,
     VALIDATION_STATIONS,
     rank_validation_models,
+    validation_anchor_catalog_identity,
     validation_condition_stratum,
 )
 
@@ -40,6 +41,9 @@ RANKING_MANIFEST_SCHEMA_VERSION = "validation_model_ranking_manifest_v1"
 DIAGNOSTICS_MANIFEST_SCHEMA_VERSION = "validation_stage2_diagnostics_manifest_v1"
 STAGE2_SELECTION_MANIFEST_SCHEMA_VERSION = "validation_stage2_selection_manifest_v1"
 BRANCH_ABLATION_MANIFEST_SCHEMA_VERSION = "validation_branch_ablation_manifest_v1"
+BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION = (
+    "validation_branch_ablation_not_applicable_v1"
+)
 GO_NO_GO_SCHEMA_VERSION = "proposed_go_no_go_v1"
 
 STAGE2_SEED = 11
@@ -1025,10 +1029,6 @@ def validate_stage2_selection_artifact(
     )
     if tuple(manifest.get("selected_models", ())) != finalists:
         raise ValueError("stage-2 manifest finalist roster disagrees with its table")
-    if "proposed" not in finalists:
-        raise ValueError(
-            "proposed failed stage-2 diagnostics; go/no-go and roster finalization are blocked"
-        )
     return selected, finalists, manifest
 
 
@@ -1702,12 +1702,175 @@ def validate_branch_ablation_artifact(
     return events, manifest
 
 
+def write_early_framework_only_decision(
+    *,
+    ranking_path: str | Path,
+    stage2_selection_path: str | Path,
+    output_dir: str | Path,
+    design_path: str | Path,
+    expected_contract: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Persist a hash-bound early stop when proposed fails stage 2.
+
+    This path contains no fabricated stage-3 or branch-performance rows.  The
+    not-applicable branch document is instead bound to the fully revalidated
+    ranking, diagnostics, and deterministic stage-2 selection.
+    """
+
+    ranking, _ = validate_ranking_artifact(
+        ranking_path, expected_contract=expected_contract
+    )
+    selection, finalists, _ = validate_stage2_selection_artifact(
+        stage2_selection_path,
+        ranking=ranking,
+        ranking_path=ranking_path,
+        design_path=design_path,
+        expected_contract=expected_contract,
+    )
+    if "proposed" in finalists:
+        raise ValueError(
+            "early framework-only decision is forbidden after proposed enters stage 3"
+        )
+    proposed_rows = selection.loc[selection["model"].astype(str).eq("proposed")]
+    if len(proposed_rows) != 1:
+        raise ValueError("stage-2 selection requires exactly one proposed row")
+    proposed = proposed_rows.iloc[0]
+    if _strict_bool(
+        proposed["selected_for_stability"], field="proposed selected_for_stability"
+    ):
+        raise ValueError("proposed stage-2 row contradicts the finalist roster")
+
+    traditional = ranking.loc[
+        ranking["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
+    ].sort_values("rank", kind="mergesort")
+    if len(traditional) != len(TRADITIONAL_CANDIDATES):
+        raise ValueError("ranking omits a frozen traditional T candidate")
+    best_traditional = str(traditional.iloc[0]["model"])
+    stage2_path = Path(stage2_selection_path)
+    stage2_manifest_path = stage2_path.with_suffix(".manifest.json")
+    ranking_file = Path(ranking_path)
+    output = Path(output_dir)
+    branch_path = output / "branch_ablation_not_applicable.json"
+    decision_path = output / "proposed_go_no_go_decision.json"
+    branch_payload = {
+        "schema_version": BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION,
+        "status": "not_applicable",
+        "reason": "proposed_not_selected_for_stability",
+        "proposed_decision": "framework_only",
+        "stage2_selected_models": list(finalists),
+        "stage2_selection": _file_identity(stage2_path),
+        "stage2_selection_manifest": _file_identity(stage2_manifest_path),
+        "ranking": _file_identity(ranking_file),
+        "performance_row_count": 0,
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+        **_canonical_contract(expected_contract),
+        "code_provenance": json.loads(
+            json.dumps(expected_contract.get("code_provenance"))
+        ),
+    }
+    _atomic_json(branch_payload, branch_path)
+    decision_payload = {
+        "schema_version": GO_NO_GO_SCHEMA_VERSION,
+        "assessment_mode": "early_framework_only",
+        "status": "not_applicable",
+        "reason": "proposed_not_selected_for_stability",
+        "passed": False,
+        "decision": "framework_only",
+        "best_traditional_model": best_traditional,
+        "criteria_status": "not_applicable",
+        "branch_ablation_status": "not_applicable",
+        "event_metrics": [],
+        "branch_ablations": _file_identity(branch_path),
+        "stage2_selection": _file_identity(stage2_path),
+        "stage2_selection_manifest": _file_identity(stage2_manifest_path),
+        "ranking": _file_identity(ranking_file),
+        "stage2_selected_models": list(finalists),
+        "evidence": {
+            "proposed_selected_for_stability": False,
+            "proposed_diagnostic_pass": _strict_bool(
+                proposed["diagnostic_pass"], field="proposed diagnostic_pass"
+            ),
+            "proposed_selection_reason": str(proposed["selection_reason"]),
+            "stage3_proposed_required": False,
+            "branch_ablation_required": False,
+        },
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+        **_canonical_contract(expected_contract),
+        "code_provenance": json.loads(
+            json.dumps(expected_contract.get("code_provenance"))
+        ),
+    }
+    _atomic_json(decision_payload, decision_path)
+    return {**decision_payload, "output": _portable_path(decision_path)}
+
+
+def validate_branch_ablation_not_applicable_artifact(
+    artifact_path: str | Path,
+    *,
+    stage2_selection_path: str | Path,
+    ranking_path: str | Path,
+    expected_finalists: Sequence[str],
+    expected_contract: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate explicit branch non-applicability without accepting empty tables."""
+
+    path = Path(artifact_path)
+    document = _read_json(path)
+    if (
+        document.get("schema_version")
+        != BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION
+    ):
+        raise ValueError("branch not-applicable schema is not frozen")
+    _validate_contract(document, expected_contract, context="branch not-applicable")
+    _validate_selection_labels(document, context="branch not-applicable")
+    expected_values = {
+        "status": "not_applicable",
+        "reason": "proposed_not_selected_for_stability",
+        "proposed_decision": "framework_only",
+        "performance_row_count": 0,
+    }
+    mismatches = {
+        field: (document.get(field), expected)
+        for field, expected in expected_values.items()
+        if document.get(field) != expected
+    }
+    if mismatches:
+        raise ValueError(f"branch not-applicable contract mismatch: {mismatches}")
+    finalists = tuple(str(value) for value in document.get("stage2_selected_models", ()))
+    if finalists != tuple(expected_finalists) or "proposed" in finalists:
+        raise ValueError("branch not-applicable finalist roster is inconsistent")
+    identities = (
+        ("stage2_selection", Path(stage2_selection_path)),
+        (
+            "stage2_selection_manifest",
+            Path(stage2_selection_path).with_suffix(".manifest.json"),
+        ),
+        ("ranking", Path(ranking_path)),
+    )
+    for field, expected_path in identities:
+        observed_path, _ = _verify_file_identity(
+            document.get(field),
+            relative_to=path.parent,
+            context=f"branch not-applicable {field}",
+        )
+        if observed_path.resolve() != expected_path.resolve():
+            raise ValueError(f"branch not-applicable is bound to different {field}")
+    return document
+
+
 def validate_go_no_go_artifact(
     decision_path: str | Path,
     *,
     branch_metrics_path: str | Path,
     design_path: str | Path,
     expected_contract: Mapping[str, Any],
+    stage2_selection_path: str | Path | None = None,
+    ranking_path: str | Path | None = None,
+    stage2_finalists: Sequence[str] | None = None,
 ) -> tuple[dict[str, Any], pd.DataFrame, tuple[Path, ...]]:
     """Recompute the all-criteria decision from hash-bound validation inputs."""
 
@@ -1717,6 +1880,83 @@ def validate_go_no_go_artifact(
         raise ValueError("go/no-go decision schema is not frozen")
     _validate_contract(document, expected_contract, context="go/no-go decision")
     _validate_selection_labels(document, context="go/no-go decision")
+    assessment_mode = document.get("assessment_mode", "full_stage3")
+    if assessment_mode == "early_framework_only":
+        if (
+            stage2_selection_path is None
+            or ranking_path is None
+            or stage2_finalists is None
+        ):
+            raise ValueError(
+                "early framework-only validation requires ranking and stage-2 inputs"
+            )
+        finalists = tuple(str(value) for value in stage2_finalists)
+        if "proposed" in finalists:
+            raise ValueError(
+                "early framework-only evidence is invalid after proposed enters stage 3"
+            )
+        expected_values = {
+            "status": "not_applicable",
+            "reason": "proposed_not_selected_for_stability",
+            "passed": False,
+            "decision": "framework_only",
+            "criteria_status": "not_applicable",
+            "branch_ablation_status": "not_applicable",
+        }
+        mismatches = {
+            field: (document.get(field), expected)
+            for field, expected in expected_values.items()
+            if document.get(field) != expected
+        }
+        if mismatches:
+            raise ValueError(f"early framework-only decision mismatch: {mismatches}")
+        if document.get("event_metrics") != [] or "criteria" in document:
+            raise ValueError(
+                "early framework-only decision must not contain performance evidence"
+            )
+        if tuple(document.get("stage2_selected_models", ())) != finalists:
+            raise ValueError("early decision finalist roster differs from stage 2")
+        for field, expected_path in (
+            ("stage2_selection", Path(stage2_selection_path)),
+            (
+                "stage2_selection_manifest",
+                Path(stage2_selection_path).with_suffix(".manifest.json"),
+            ),
+            ("ranking", Path(ranking_path)),
+        ):
+            observed_path, _ = _verify_file_identity(
+                document.get(field),
+                relative_to=path.parent,
+                context=f"early go/no-go {field}",
+            )
+            if observed_path.resolve() != expected_path.resolve():
+                raise ValueError(f"early go/no-go is bound to different {field}")
+        branch_path, branch_digest = _verify_file_identity(
+            document.get("branch_ablations"),
+            relative_to=path.parent,
+            context="early go/no-go branch status",
+        )
+        if branch_path.resolve() != Path(branch_metrics_path).resolve():
+            raise ValueError("early go/no-go is bound to different branch status")
+        validate_branch_ablation_not_applicable_artifact(
+            branch_path,
+            stage2_selection_path=stage2_selection_path,
+            ranking_path=ranking_path,
+            expected_finalists=finalists,
+            expected_contract=expected_contract,
+        )
+        if document.get("branch_ablations", {}).get("sha256") != branch_digest:
+            raise ValueError("early go/no-go branch digest is inconsistent")
+        evidence = document.get("evidence")
+        if not isinstance(evidence, Mapping) or (
+            evidence.get("proposed_selected_for_stability") is not False
+            or evidence.get("stage3_proposed_required") is not False
+            or evidence.get("branch_ablation_required") is not False
+        ):
+            raise ValueError("early go/no-go evidence summary is inconsistent")
+        return document, pd.DataFrame(), ()
+    if assessment_mode != "full_stage3":
+        raise ValueError(f"unknown go/no-go assessment_mode: {assessment_mode!r}")
     raw_events = document.get("event_metrics")
     if not isinstance(raw_events, list) or not raw_events:
         raise ValueError("go/no-go decision requires hash-bound event inputs")
@@ -1822,6 +2062,7 @@ def finalize_validation_roster(
     study_manifest_path: str | Path,
     experiment_config_path: str | Path,
     data_version_manifest_path: str | Path,
+    anchor_catalog_path: str | Path,
     expected_contract: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Issue the immutable T/confirmatory model roster after every gate passes.
@@ -1833,6 +2074,19 @@ def finalize_validation_roster(
     """
 
     _validate_relevant_source_clean(expected_contract, context="roster freeze")
+    version_manifest = Path(data_version_manifest_path)
+    validate_data_version_inputs(
+        data_version_manifest_path=version_manifest,
+        data_version=str(expected_contract["data_version"]),
+        wide_path=version_manifest.parent / "daily_wide.parquet",
+        quality_path=version_manifest.parent / "daily_long.parquet",
+        require_manifest=True,
+        require_quality=True,
+    )
+    validation_anchor_identity = validation_anchor_catalog_identity(
+        anchor_catalog_path,
+        require_canonical_path=True,
+    )
     ranking, _ = validate_ranking_artifact(
         ranking_path, expected_contract=expected_contract
     )
@@ -1850,29 +2104,41 @@ def finalize_validation_roster(
         expected_contract=expected_contract,
         expected_stage_name="deep_stability",
     )
-    branch, _ = validate_branch_ablation_artifact(
-        branch_metrics_path, expected_contract=expected_contract
-    )
     decision, _, go_event_paths = validate_go_no_go_artifact(
         go_no_go_path,
         branch_metrics_path=branch_metrics_path,
         design_path=design_path,
         expected_contract=expected_contract,
+        stage2_selection_path=stage2_selection_path,
+        ranking_path=ranking_path,
+        stage2_finalists=finalists,
     )
-    stage3_event_path = Path(stage3_dir) / "event_metrics.parquet"
-    if stage3_event_path.resolve() not in {path.resolve() for path in go_event_paths}:
-        raise ValueError(
-            "go/no-go decision is not bound to the completed stage-3 table"
-        )
-    if file_sha256(stage3_event_path) not in {
-        file_sha256(path) for path in go_event_paths
-    }:
-        raise ValueError("go/no-go stage-3 event identity is inconsistent")
     stage3_models = set(stage3_events["model"].astype(str))
     if stage3_models != set(finalists):
         raise ValueError("completed stage-3 models differ from stage-2 finalists")
-    if set(branch["training_seed"].astype(int)) != set(VALIDATION_DEEP_SEEDS):
-        raise ValueError("branch ablation is not complete for stage-3 seeds")
+    if "proposed" in finalists:
+        branch, _ = validate_branch_ablation_artifact(
+            branch_metrics_path, expected_contract=expected_contract
+        )
+        stage3_event_path = Path(stage3_dir) / "event_metrics.parquet"
+        if stage3_event_path.resolve() not in {
+            path.resolve() for path in go_event_paths
+        }:
+            raise ValueError(
+                "go/no-go decision is not bound to the completed stage-3 table"
+            )
+        if file_sha256(stage3_event_path) not in {
+            file_sha256(path) for path in go_event_paths
+        }:
+            raise ValueError("go/no-go stage-3 event identity is inconsistent")
+        if set(branch["training_seed"].astype(int)) != set(VALIDATION_DEEP_SEEDS):
+            raise ValueError("branch ablation is not complete for stage-3 seeds")
+        if decision.get("assessment_mode", "full_stage3") != "full_stage3":
+            raise ValueError("proposed stage-3 finalist requires full go/no-go evidence")
+    elif decision.get("assessment_mode") != "early_framework_only":
+        raise ValueError(
+            "proposed stage-2 exclusion requires explicit early framework-only evidence"
+        )
 
     traditional = ranking.loc[
         ranking["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
@@ -1919,6 +2185,7 @@ def finalize_validation_roster(
         "selected_models": selected_models,
         "best_traditional_model": best_traditional,
         "proposed_decision": proposed_decision,
+        "validation_anchor_catalog": validation_anchor_identity,
         "artifacts": artifacts,
         **_canonical_contract(expected_contract),
         "code_provenance": json.loads(
@@ -1957,6 +2224,7 @@ __all__ = [
     "BRANCH_ABLATION_COMBINATIONS",
     "BRANCH_ABLATION_GAPS",
     "BRANCH_ABLATION_MANIFEST_SCHEMA_VERSION",
+    "BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION",
     "DIAGNOSTICS_MANIFEST_SCHEMA_VERSION",
     "FINALIZED_MODEL_ROSTER_SCHEMA_VERSION",
     "GO_NO_GO_SCHEMA_VERSION",
@@ -1967,9 +2235,11 @@ __all__ = [
     "finalize_validation_roster",
     "read_validation_event_tables",
     "validate_branch_ablation_artifact",
+    "validate_branch_ablation_not_applicable_artifact",
     "validate_completed_deep_stage",
     "validate_go_no_go_artifact",
     "validate_ranking_artifact",
     "validate_stage2_selection_artifact",
+    "write_early_framework_only_decision",
     "write_stage2_diagnostics",
 ]

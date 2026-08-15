@@ -17,6 +17,9 @@ from stream_recoverability.experiments.contracts import (
     build_design_contract,
     canonical_evaluation_split,
 )
+from stream_recoverability.experiments.formal_authorization import (
+    authorize_roster_suite,
+)
 from stream_recoverability.experiments.retrained_information import (
     run_retrained_information_upper_bounds,
 )
@@ -81,7 +84,10 @@ def build_parser() -> argparse.ArgumentParser:
     dense.add_argument("--quality-data", type=Path)
     dense.add_argument("--output-dir", type=Path)
     dense.add_argument("--mask-dir", type=Path)
-    dense.add_argument("--models", nargs="+", default=["climatology", "linear"])
+    dense.add_argument("--models", nargs="+")
+    dense.add_argument(
+        "--finalized-model-roster", type=Path, required=True
+    )
     dense.add_argument("--training-seeds", nargs="+", type=int)
     dense.add_argument("--mask-seeds", nargs="+", type=int)
     dense.add_argument("--shard-index", type=int, default=0)
@@ -103,7 +109,10 @@ def build_parser() -> argparse.ArgumentParser:
     resilience.add_argument("--quality-data", type=Path)
     resilience.add_argument("--output-dir", type=Path)
     resilience.add_argument("--mask-dir", type=Path)
-    resilience.add_argument("--models", nargs="+", default=["climatology", "linear"])
+    resilience.add_argument("--models", nargs="+")
+    resilience.add_argument(
+        "--finalized-model-roster", type=Path, required=True
+    )
     resilience.add_argument("--training-seeds", nargs="+", type=int)
     resilience.add_argument("--mask-seeds", nargs="+", type=int)
     resilience.add_argument("--shard-index", type=int, default=0)
@@ -138,6 +147,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compensation.add_argument("--training-seed", type=int)
     compensation.add_argument("--training-seeds", nargs="+", type=int)
+    compensation.add_argument(
+        "--finalized-model-roster", type=Path, required=True
+    )
     compensation.add_argument("--mask-seeds", nargs="+", type=int)
     compensation.add_argument("--max-scenarios", type=int)
     compensation.add_argument("--device", default="cpu")
@@ -233,9 +245,13 @@ def main() -> None:
         canonical_split = canonical_evaluation_split(args.evaluation_split)
         version_root = args.data_root / args.data_version
         version_manifest = version_root / "version_manifest.json"
-        if not version_manifest.is_file():
+        selection_version_manifest = (
+            args.data_root / "published_v1" / "version_manifest.json"
+        )
+        if not version_manifest.is_file() or not selection_version_manifest.is_file():
             raise FileNotFoundError(
-                f"versioned data manifest is required: {version_manifest}"
+                "versioned data manifests are required: "
+                f"{version_manifest}, {selection_version_manifest}"
             )
         contract = build_design_contract(
             design_path=args.design,
@@ -264,10 +280,25 @@ def main() -> None:
             / contract["design_hash"]
             / canonical_split
         )
-        try:
-            models = _models(args.models)
-        except argparse.ArgumentTypeError as error:
-            raise SystemExit(str(error)) from error
+        models, formal_authorization = authorize_roster_suite(
+            args.finalized_model_roster,
+            suite="science_dense" if args.command == "dense" else "science_resilience",
+            target_scope=("T", "F", "L") if args.command == "dense" else ("T",),
+            design_path=args.design,
+            study_manifest_path=args.manifest,
+            experiment_config_path=args.config,
+            selection_data_version_manifest_path=selection_version_manifest,
+        )
+        if args.models is not None:
+            try:
+                requested_models = tuple(_models(args.models))
+            except argparse.ArgumentTypeError as error:
+                raise SystemExit(str(error)) from error
+            if requested_models != models:
+                raise ValueError(
+                    "--models cannot override the finalized formal roster: "
+                    f"expected={list(models)}, observed={list(requested_models)}"
+                )
         run_experiments = (
             run_dense_experiments
             if args.command == "dense"
@@ -284,6 +315,7 @@ def main() -> None:
             mask_dir=mask_dir,
             models=models,
             training_seeds=args.training_seeds,
+            formal_authorization=formal_authorization,
             mask_seeds=args.mask_seeds,
             data_version=args.data_version,
             evaluation_split=args.evaluation_split,
@@ -295,21 +327,30 @@ def main() -> None:
         )
         summary = {
             "command": args.command,
-            "models": models,
+            "models": list(models),
             "daily_rows": len(daily),
             "event_rows": len(events),
             "output_dir": str(output_dir),
             "data_version": args.data_version,
             "evaluation_split": canonical_split,
             "design_hash": contract["design_hash"],
+            "formal_evidence": True,
+            "finalized_model_roster": formal_authorization[
+                "finalized_model_roster"
+            ],
+            "expected_formal_models": list(models),
         }
     elif args.command == "compensation":
         canonical_split = canonical_evaluation_split(args.evaluation_split)
         version_root = args.data_root / args.data_version
         version_manifest = version_root / "version_manifest.json"
-        if not version_manifest.is_file():
+        selection_version_manifest = (
+            args.data_root / "published_v1" / "version_manifest.json"
+        )
+        if not version_manifest.is_file() or not selection_version_manifest.is_file():
             raise FileNotFoundError(
-                f"versioned data manifest is required: {version_manifest}"
+                "versioned data manifests are required: "
+                f"{version_manifest}, {selection_version_manifest}"
             )
         contract = build_design_contract(
             design_path=args.design,
@@ -349,6 +390,8 @@ def main() -> None:
             / "checkpoints"
         )
         daily, events, skipped = run_information_compensation(
+            finalized_model_roster_path=args.finalized_model_roster,
+            selection_data_version_manifest_path=selection_version_manifest,
             checkpoint_path=args.checkpoint,
             checkpoint_dir=checkpoint_dir,
             checkpoint_template=args.checkpoint_template,
@@ -370,6 +413,9 @@ def main() -> None:
             device=args.device,
             resume=args.resume,
         )
+        compensation_manifest = json.loads(
+            (output_dir / "run_manifest.json").read_text(encoding="utf-8")
+        )
         summary = {
             "command": args.command,
             "training_seeds": args.training_seeds,
@@ -383,6 +429,14 @@ def main() -> None:
             "data_version": args.data_version,
             "evaluation_split": canonical_split,
             "design_hash": contract["design_hash"],
+            "status": compensation_manifest["status"],
+            "formal_evidence": compensation_manifest["formal_evidence"],
+            "finalized_model_roster": compensation_manifest[
+                "finalized_model_roster"
+            ],
+            "expected_formal_models": compensation_manifest[
+                "expected_formal_models"
+            ],
         }
     elif args.command == "retrained-information":
         canonical_split = canonical_evaluation_split(args.evaluation_split)
