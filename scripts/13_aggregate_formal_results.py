@@ -112,6 +112,8 @@ SUMMARY_GROUP_COLUMNS = (
     "failed_stations",
     "failure_count",
     "network_size",
+    "attribution_estimand",
+    "information_estimand",
     "information_combination",
     "component_estimator",
 )
@@ -303,8 +305,14 @@ def _require_table_contract(
 
 
 def _require_unique(frame: pd.DataFrame, key: Sequence[str], label: str) -> None:
-    _require_columns(frame, key, label)
-    if frame.duplicated(list(key), keep=False).any():
+    effective_key = list(key)
+    if (
+        "information_combination" in frame
+        and frame["information_combination"].notna().any()
+    ):
+        effective_key.append("information_combination")
+    _require_columns(frame, effective_key, label)
+    if frame.duplicated(effective_key, keep=False).any():
         raise ValueError(f"{label} contains duplicate rows for its frozen key")
 
 

@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import pickle
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from itertools import combinations
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,7 @@ from stream_recoverability.analysis.compensation import (
     transfer_entropy,
 )
 from stream_recoverability.evaluation.event_metrics import compute_event_metrics
+from stream_recoverability.masks import load_frontier_anchor_catalog
 from stream_recoverability.models.baselines import (
     ClimatologyBaseline,
     _climatological_doy,
@@ -41,7 +43,14 @@ from stream_recoverability.models.proposed_training import (
     validate_proposed_checkpoint_contract,
 )
 
-from .grid import ExperimentCondition, ExperimentGrid, ExperimentScenario
+from .contracts import canonical_evaluation_split, file_sha256
+from .grid import (
+    DEFAULT_FRONTIER_ANCHOR_PATH,
+    ExperimentCondition,
+    ExperimentGrid,
+    ExperimentScenario,
+    bind_frontier_anchor,
+)
 from .runner import ExperimentRunner, _window_starts
 
 DENSE_T_BLOCK_LENGTHS = (1, 3, 7, 10, 14, 21, 30, 45, 60, 90, 120, 150, 180, 240, 365)
@@ -53,6 +62,15 @@ FIXED_TRAINING_SEEDS = (11, 22, 33, 44, 55)
 INFORMATION_COMBINATION_LABELS = tuple(
     combination_label(value) for value in all_information_group_combinations()
 )
+EVIDENCE_TABLE_FIELDS = (
+    "design_version",
+    "design_hash",
+    "data_version",
+    "evaluation_split",
+    "mask_schema_version",
+    "model_schema_version",
+    "statistics_schema_version",
+)
 SKIP_COLUMNS = (
     "scenario_id",
     "training_seed",
@@ -60,16 +78,11 @@ SKIP_COLUMNS = (
     "reason_code",
     "reason",
 )
-MIXED_BASELINE_LIMITATION = (
-    "S0 is a training-only day-of-year climatology, whereas non-empty A/B/C/D "
-    "combinations are ablations of one trained proposed model; their contrast is a "
-    "mixed-estimator information analysis, not a pure architectural ablation. In "
-    "the checkpoint architecture, supplied calendar features share branch D with "
-    "meteorology, so non-empty branch ablations cannot hold S0 as a separate branch."
-)
 S0_DEFINITION = (
-    "approved training targets; reference-year-2000 month-day key; circular +/-7-day "
-    "median; training-global median fallback; February 29 is a distinct calendar key"
+    "permanent proposed-model branch containing leap-aware calendar features, "
+    "training-only target climatology, and static station identity; the climatology "
+    "uses a reference-year-2000 month-day key, circular +/-7-day median, training-"
+    "global median fallback, and a distinct February 29 key"
 )
 INFORMATION_ANOMALY_DEFINITION = (
     "approved training exact reference-year-2000 month-day mean anomaly; February 29 "
@@ -108,28 +121,74 @@ def _science_grid(
     *,
     suite: str,
     mask_seeds: Sequence[int] | None,
+    data_version: str,
+    evaluation_split: str,
+    frontier_anchor_path: str | Path | None,
 ) -> ExperimentGrid:
     selected_mask_seeds = _selected_fixed_seeds(manifest["mask_seeds"], mask_seeds)
     training_seeds = tuple(int(value) for value in manifest["training_seeds"])
     if training_seeds != FIXED_TRAINING_SEEDS:
         raise AssertionError("training_seeds must be fixed at 11/22/33/44/55")
-    if len({condition.condition_id for condition in conditions}) != len(conditions):
-        raise AssertionError("science condition IDs must be unique")
-    scenarios = tuple(
-        ExperimentScenario(condition, seed)
+    canonical_split = canonical_evaluation_split(evaluation_split)
+    if canonical_split != "development_test":
+        raise ValueError(
+            "the committed frontier catalog is frozen to development_test; "
+            "a different split requires a separately frozen catalog"
+        )
+    anchored_conditions = tuple(
+        replace(
+            condition,
+            data_version=str(data_version),
+            evaluation_split=canonical_split,
+            validation_scope="development_evaluation",
+        )
         for condition in conditions
+    )
+    if len({condition.condition_id for condition in anchored_conditions}) != len(
+        anchored_conditions
+    ):
+        raise AssertionError("science condition IDs must be unique")
+    stations = tuple(manifest["data_panels"]["core"]["stations"])
+    anchor_catalog = (
+        load_frontier_anchor_catalog(
+            frontier_anchor_path,
+            expected_data_version="published_v1",
+            expected_evaluation_split="development_test",
+            required_stations=stations,
+            required_targets=("T", "F", "L"),
+        )
+        if frontier_anchor_path is not None
+        else None
+    )
+    scenarios = tuple(
+        ExperimentScenario(
+            bind_frontier_anchor(condition, seed, anchor_catalog)
+            if anchor_catalog is not None
+            else condition,
+            seed,
+        )
+        for condition in anchored_conditions
         for seed in selected_mask_seeds
     )
-    external_status = str(
-        manifest.get("external_validation_status", "unavailable")
-    )
+    external_status = str(manifest.get("external_validation_status", "unavailable"))
     return ExperimentGrid(
         suite=suite,
-        conditions=tuple(conditions),
+        conditions=anchored_conditions,
         scenarios=scenarios,
         mask_seeds=selected_mask_seeds,
         training_seeds=training_seeds,
         external_validation_status=external_status,
+        frontier_anchor_catalog_path=(
+            str(Path(frontier_anchor_path))
+            if frontier_anchor_path is not None
+            else None
+        ),
+        frontier_anchor_catalog_sha256=(
+            file_sha256(frontier_anchor_path)
+            if frontier_anchor_path is not None
+            else None
+        ),
+        frontier_anchor_count=len(anchor_catalog) if anchor_catalog is not None else 0,
     )
 
 
@@ -137,11 +196,16 @@ def build_dense_science_grid(
     manifest_path: str | Path = "study_manifest.yaml",
     *,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
 ) -> ExperimentGrid:
     """Build the 93-condition, 1,860-scenario dense single-gap grid."""
 
     manifest = _read_yaml(manifest_path)
-    stations = tuple(str(value) for value in manifest["data_panels"]["core"]["stations"])
+    stations = tuple(
+        str(value) for value in manifest["data_panels"]["core"]["stations"]
+    )
     t_lengths = tuple(int(value) for value in manifest["dense_T_block_lengths"])
     fl_lengths = tuple(int(value) for value in manifest["dense_FL_block_lengths"])
     if t_lengths != DENSE_T_BLOCK_LENGTHS or fl_lengths != DENSE_FL_BLOCK_LENGTHS:
@@ -163,7 +227,11 @@ def build_dense_science_grid(
             validation_scope="internal_test",
         )
         for station in stations
-        for variable, lengths in (("T", t_lengths), ("F", fl_lengths), ("L", fl_lengths))
+        for variable, lengths in (
+            ("T", t_lengths),
+            ("F", fl_lengths),
+            ("L", fl_lengths),
+        )
         for length in lengths
     ]
     return _science_grid(
@@ -171,6 +239,9 @@ def build_dense_science_grid(
         conditions,
         suite="science_dense",
         mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
     )
 
 
@@ -178,11 +249,16 @@ def build_compensation_grid(
     manifest_path: str | Path = "study_manifest.yaml",
     *,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
 ) -> ExperimentGrid:
     """Build fixed T-gap scenarios used by the 16 information combinations."""
 
     manifest = _read_yaml(manifest_path)
-    stations = tuple(str(value) for value in manifest["data_panels"]["core"]["stations"])
+    stations = tuple(
+        str(value) for value in manifest["data_panels"]["core"]["stations"]
+    )
     window = int(manifest["window"]["main"])
     conditions = [
         ExperimentCondition(
@@ -205,6 +281,9 @@ def build_compensation_grid(
         conditions,
         suite="science_compensation",
         mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
     )
 
 
@@ -212,16 +291,25 @@ def build_resilience_science_grid(
     manifest_path: str | Path = "study_manifest.yaml",
     *,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
 ) -> ExperimentGrid:
     """Build the matched three-station failure powerset for target-T gaps."""
 
     manifest = _read_yaml(manifest_path)
-    stations = tuple(str(value) for value in manifest["data_panels"]["core"]["stations"])
+    stations = tuple(
+        str(value) for value in manifest["data_panels"]["core"]["stations"]
+    )
     lengths = tuple(int(value) for value in manifest["block_lengths"])
     if len(stations) != 3:
-        raise AssertionError("the resilience powerset requires exactly three core stations")
+        raise AssertionError(
+            "the resilience powerset requires exactly three core stations"
+        )
     if lengths != RESILIENCE_BLOCK_LENGTHS:
-        raise AssertionError("resilience block lengths do not match the fixed study design")
+        raise AssertionError(
+            "resilience block lengths do not match the fixed study design"
+        )
     window = int(manifest["window"]["main"])
     failure_sets = tuple(
         failed
@@ -257,6 +345,9 @@ def build_resilience_science_grid(
         conditions,
         suite="science_resilience",
         mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
     )
 
 
@@ -264,6 +355,8 @@ def run_dense_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
+    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
     output_dir: str | Path = "results/science_experiments/dense",
@@ -271,6 +364,9 @@ def run_dense_experiments(
     models: Sequence[str] = ("climatology", "linear"),
     training_seeds: Sequence[int] | None = None,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
     shard_index: int = 0,
     shard_count: int = 1,
     max_scenarios: int | None = None,
@@ -278,7 +374,13 @@ def run_dense_experiments(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Run the dense grid through the existing unified runner."""
 
-    grid = build_dense_science_grid(manifest_path, mask_seeds=mask_seeds)
+    grid = build_dense_science_grid(
+        manifest_path,
+        mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
+    )
     runner = ExperimentRunner(
         grid,
         wide_path=wide_path,
@@ -286,6 +388,9 @@ def run_dense_experiments(
         output_dir=output_dir,
         mask_dir=mask_dir,
         config_path=config_path,
+        design_path=design_path,
+        manifest_path=manifest_path,
+        data_version_manifest_path=data_version_manifest_path,
         models=models,
         training_seeds=training_seeds,
         resume=resume,
@@ -301,6 +406,8 @@ def run_resilience_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
+    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
     output_dir: str | Path = "results/science_experiments/resilience",
@@ -308,6 +415,9 @@ def run_resilience_experiments(
     models: Sequence[str] = ("climatology", "linear"),
     training_seeds: Sequence[int] | None = None,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
     shard_index: int = 0,
     shard_count: int = 1,
     max_scenarios: int | None = None,
@@ -315,7 +425,13 @@ def run_resilience_experiments(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Run the matched station-failure powerset through the unified runner."""
 
-    grid = build_resilience_science_grid(manifest_path, mask_seeds=mask_seeds)
+    grid = build_resilience_science_grid(
+        manifest_path,
+        mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
+    )
     runner = ExperimentRunner(
         grid,
         wide_path=wide_path,
@@ -323,6 +439,9 @@ def run_resilience_experiments(
         output_dir=output_dir,
         mask_dir=mask_dir,
         config_path=config_path,
+        design_path=design_path,
+        manifest_path=manifest_path,
+        data_version_manifest_path=data_version_manifest_path,
         models=models,
         training_seeds=training_seeds,
         resume=resume,
@@ -354,11 +473,11 @@ def training_doy_climatology(
         raise ValueError("dates, values, train_rows, and quality_approved must align")
     fit_mask = train & approved & np.isfinite(target)
     if not fit_mask.any():
-        raise ValueError("S0 requires at least one approved finite training observation")
+        raise ValueError(
+            "S0 requires at least one approved finite training observation"
+        )
     frame = pd.DataFrame({"date": date_index, "target": target})
-    model = ClimatologyBaseline("target", window=7).fit(
-        frame, train_mask=fit_mask
-    )
+    model = ClimatologyBaseline("target", window=7).fit(frame, train_mask=fit_mask)
     return model.predict(frame).to_numpy(dtype=float)
 
 
@@ -372,14 +491,20 @@ def _checkpoint_scaler(
         raise TypeError("checkpoint is missing its training-only scaler")
     stored_stations = tuple(str(value) for value in scaler.get("station_ids", ()))
     stored_variables = tuple(str(value) for value in scaler.get("variable_names", ()))
-    if stored_stations != tuple(station_ids) or stored_variables != tuple(variable_names):
+    if stored_stations != tuple(station_ids) or stored_variables != tuple(
+        variable_names
+    ):
         raise ValueError("checkpoint scaler axes do not match the current data")
     mean = np.asarray(scaler.get("mean"), dtype=np.float32)
     scale = np.asarray(scaler.get("scale"), dtype=np.float32)
     expected = (len(station_ids), len(variable_names))
     if mean.shape != expected or scale.shape != expected:
         raise ValueError("checkpoint scaler shape does not match the current data")
-    if not np.isfinite(mean).all() or not np.isfinite(scale).all() or np.any(scale <= 0):
+    if (
+        not np.isfinite(mean).all()
+        or not np.isfinite(scale).all()
+        or np.any(scale <= 0)
+    ):
         raise ValueError("checkpoint scaler contains invalid values")
     return mean, scale
 
@@ -394,26 +519,44 @@ def predict_proposed_information_combinations(
     scale: np.ndarray,
     *,
     target_index: int,
+    training_climatology: np.ndarray | None = None,
+    information_combinations: Sequence[Sequence[str]] | None = None,
     window_length: int | None = None,
     device: str | torch.device = "cpu",
 ) -> dict[str, dict[str, np.ndarray]]:
-    """Infer 15 non-empty A/B/C/D subsets in overlapping windows.
+    """Infer frozen A/B/C/D coalitions through the proposed checkpoint.
 
-    The empty subset is intentionally absent: callers must use the training-only
-    day-of-year climatology for S0. Returned arrays are finite only at artificially
-    hidden T cells; all other cells remain NaN.
+    By default all 16 coalitions are evaluated, including the empty optional-source
+    set labelled S0. S0 still passes through the same model and keeps its permanent
+    calendar, training-climatology, and station-identity branch. Returned arrays are
+    finite only at artificially hidden T cells; all other cells remain NaN.
     """
 
     array = np.asarray(values, dtype=np.float32)
     natural = np.asarray(natural_mask, dtype=bool)
     artificial = np.asarray(artificial_mask, dtype=bool)
     seasonal = np.asarray(seasonal_features, dtype=np.float32)
-    if array.ndim != 3 or natural.shape != array.shape or artificial.shape != array.shape:
+    if (
+        array.ndim != 3
+        or natural.shape != array.shape
+        or artificial.shape != array.shape
+    ):
         raise ValueError("values and masks must align as [time, station, variable]")
-    if np.asarray(mean).shape != array.shape[1:] or np.asarray(scale).shape != array.shape[1:]:
+    if (
+        np.asarray(mean).shape != array.shape[1:]
+        or np.asarray(scale).shape != array.shape[1:]
+    ):
         raise ValueError("scaler must match station and variable axes")
     if seasonal.ndim != 2 or seasonal.shape[0] != array.shape[0]:
         raise ValueError("seasonal_features must align with the time axis")
+    if training_climatology is None:
+        climatology = None
+    else:
+        climatology = np.asarray(training_climatology, dtype=np.float32)
+        if climatology.shape != array.shape[:2]:
+            raise ValueError(
+                "training_climatology must align with time and station axes"
+            )
     if not 0 <= target_index < array.shape[2]:
         raise ValueError("target_index is outside the variable axis")
     if window_length is None:
@@ -426,11 +569,22 @@ def predict_proposed_information_combinations(
     normalized = (array - mean[None]) / scale[None]
     normalized = normalized.copy()
     normalized[artificial] = np.nan
-    combinations = [
-        combination
-        for combination in all_information_group_combinations()
-        if combination
-    ]
+    combinations = (
+        tuple(all_information_group_combinations())
+        if information_combinations is None
+        else tuple(
+            tuple(str(group).upper() for group in value)
+            for value in information_combinations
+        )
+    )
+    allowed_combinations = set(all_information_group_combinations())
+    if not combinations:
+        raise ValueError("at least one information combination is required")
+    if len(set(combinations)) != len(combinations):
+        raise ValueError("information combinations must be unique")
+    unknown = [value for value in combinations if value not in allowed_combinations]
+    if unknown:
+        raise ValueError(f"unknown information combinations: {unknown}")
     group_masks = torch.stack([information_group_mask(value) for value in combinations])
     batch_size = len(combinations)
     torch_device = torch.device(device)
@@ -439,9 +593,7 @@ def predict_proposed_information_combinations(
     target_mean = np.asarray(mean, dtype=float)[:, target_index]
     target_scale = np.asarray(scale, dtype=float)[:, target_index]
     hidden_target = artificial[..., target_index]
-    quantile_sum = np.zeros(
-        (batch_size, len(array), array.shape[1], 5), dtype=float
-    )
+    quantile_sum = np.zeros((batch_size, len(array), array.shape[1], 5), dtype=float)
     prediction_count = np.zeros(hidden_target.shape, dtype=np.int16)
     window = min(int(window_length), len(array))
     for start in _window_starts(len(array), window):
@@ -469,13 +621,27 @@ def predict_proposed_information_combinations(
             .unsqueeze(0)
             .expand(batch_size, -1, -1)
         )
+        tensor_climatology = (
+            torch.from_numpy(climatology[start:end])
+            .unsqueeze(0)
+            .expand(batch_size, -1, -1)
+            if climatology is not None
+            else None
+        )
         with torch.no_grad():
+            model_kwargs: dict[str, Any] = {
+                "seasonal_features": tensor_seasonal.to(torch_device),
+                "enabled_groups": group_masks.to(torch_device),
+            }
+            if tensor_climatology is not None:
+                model_kwargs["training_climatology"] = tensor_climatology.to(
+                    torch_device
+                )
             output = model(
                 tensor_values.to(torch_device),
                 tensor_natural.to(torch_device),
                 tensor_artificial.to(torch_device),
-                seasonal_features=tensor_seasonal.to(torch_device),
-                enabled_groups=group_masks.to(torch_device),
+                **model_kwargs,
             )
         raw = output["quantiles"].detach().cpu().numpy()
         expected_shape = (batch_size, window, array.shape[1], 5)
@@ -483,13 +649,8 @@ def predict_proposed_information_combinations(
             raise ValueError(
                 f"model quantiles have shape {raw.shape}; expected {expected_shape}"
             )
-        raw = (
-            raw * target_scale[None, None, :, None]
-            + target_mean[None, None, :, None]
-        )
-        quantile_sum[:, start:end] += np.where(
-            window_hidden[None, ..., None], raw, 0.0
-        )
+        raw = raw * target_scale[None, None, :, None] + target_mean[None, None, :, None]
+        quantile_sum[:, start:end] += np.where(window_hidden[None, ..., None], raw, 0.0)
         prediction_count[start:end] += window_hidden
     if np.any(hidden_target & (prediction_count == 0)):
         raise RuntimeError(
@@ -500,8 +661,7 @@ def predict_proposed_information_combinations(
         label = combination_label(combination)
         averaged = np.full((len(array), array.shape[1], 5), np.nan, dtype=float)
         averaged[hidden_target] = (
-            quantile_sum[index][hidden_target]
-            / prediction_count[hidden_target, None]
+            quantile_sum[index][hidden_target] / prediction_count[hidden_target, None]
         )
         result[label] = {
             "q05": averaged[..., 0],
@@ -530,7 +690,9 @@ def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
 def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.write_text(
+        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     temporary.replace(path)
 
 
@@ -568,7 +730,9 @@ def _compensation_checkpoint_files(
     windows = {condition.window_length for condition in grid.conditions}
     protocols = {condition.training_protocol for condition in grid.conditions}
     if len(windows) != 1 or len(protocols) != 1:
-        raise ValueError("compensation checkpoints require one fixed window and protocol")
+        raise ValueError(
+            "compensation checkpoints require one fixed window and protocol"
+        )
     window = next(iter(windows))
     protocol = next(iter(protocols))
     if checkpoint_path is not None:
@@ -602,7 +766,9 @@ def _load_compensation_checkpoint(
     if not checkpoint_file.is_file():
         raise FileNotFoundError(f"checkpoint does not exist: {checkpoint_file}")
     try:
-        model, checkpoint = load_proposed_checkpoint(checkpoint_file, map_location=device)
+        model, checkpoint = load_proposed_checkpoint(
+            checkpoint_file, map_location=device
+        )
     except RuntimeError as error:
         raise ValueError(
             "checkpoint is incompatible with the current five-quantile architecture; retrain it"
@@ -622,9 +788,7 @@ def _load_compensation_checkpoint(
         expected_model_config,
         expected_training_config,
         expected_training_context,
-    ) = runner._proposed_contract(
-        training_seed, window_length, training_protocol
-    )
+    ) = runner._proposed_contract(training_seed, window_length, training_protocol)
     validate_proposed_checkpoint_contract(
         checkpoint,
         expected_model_config=expected_model_config,
@@ -647,18 +811,20 @@ def _compensation_unit_dir(
     return output_root / "units" / scenario_id / f"S{training_seed}"
 
 
-def _compensation_checkpoint_status_path(
-    output_root: Path, training_seed: int
-) -> Path:
+def _compensation_checkpoint_status_path(output_root: Path, training_seed: int) -> Path:
     return output_root / "checkpoint_status" / f"S{training_seed}.json"
 
 
-def _checkpoint_artifact_identity(checkpoint_file: Path) -> dict[str, int] | None:
+def _checkpoint_artifact_identity(checkpoint_file: Path) -> dict[str, Any] | None:
     try:
         stat = checkpoint_file.stat()
     except OSError:
         return None
-    return {"size": int(stat.st_size), "mtime_ns": int(stat.st_mtime_ns)}
+    return {
+        "size": int(stat.st_size),
+        "mtime_ns": int(stat.st_mtime_ns),
+        "sha256": file_sha256(checkpoint_file),
+    }
 
 
 def _compensation_unit_status(
@@ -689,9 +855,7 @@ def _compensation_unit_contract(
     training_seed: int,
     checkpoint_file: Path,
 ) -> dict[str, Any]:
-    contract = runner._run_execution_contract(
-        scenario, "proposed", training_seed
-    )
+    contract = runner._run_execution_contract(scenario, "proposed", training_seed)
     artifact = _checkpoint_artifact_identity(checkpoint_file)
     contract["checkpoint"] = (
         {
@@ -711,19 +875,39 @@ def _validate_compensation_unit(
     training_seed: int,
 ) -> None:
     labels = set(INFORMATION_COMBINATION_LABELS)
-    required = {"scenario_id", "training_seed", "information_combination"}
+    required = {
+        "scenario_id",
+        "training_seed",
+        "information_combination",
+        "component_estimator",
+        "attribution_estimand",
+        *EVIDENCE_TABLE_FIELDS,
+    }
     if not required.issubset(daily.columns) or not required.issubset(events.columns):
         raise ValueError("compensation unit is missing identity columns")
-    if len(events) != len(labels) or events["information_combination"].duplicated().any():
-        raise ValueError("compensation unit must contain exactly one event for each combination")
+    if (
+        len(events) != len(labels)
+        or events["information_combination"].duplicated().any()
+    ):
+        raise ValueError(
+            "compensation unit must contain exactly one event for each combination"
+        )
     if set(events["information_combination"].astype(str)) != labels:
-        raise ValueError("compensation event unit does not contain the fixed 16 combinations")
+        raise ValueError(
+            "compensation event unit does not contain the fixed 16 combinations"
+        )
     if set(daily["information_combination"].astype(str)) != labels:
-        raise ValueError("compensation daily unit does not contain the fixed 16 combinations")
+        raise ValueError(
+            "compensation daily unit does not contain the fixed 16 combinations"
+        )
     counts = daily.groupby("information_combination", observed=True).size()
     if counts.empty or counts.nunique() != 1:
-        raise ValueError("each information combination must score the same hidden T cells")
-    if daily.duplicated(["information_combination", "station_id", "target", "date"]).any():
+        raise ValueError(
+            "each information combination must score the same hidden T cells"
+        )
+    if daily.duplicated(
+        ["information_combination", "station_id", "target", "date"]
+    ).any():
         raise ValueError("compensation unit contains duplicate hidden T scores")
     identity_columns = ["date", "station_id", "target", "y_true"]
     reference_cells = set(
@@ -744,19 +928,27 @@ def _validate_compensation_unit(
             raise ValueError("compensation unit scenario identity does not match")
         if not frame["training_seed"].eq(training_seed).all():
             raise ValueError("compensation unit training seed does not match")
+        if not frame["component_estimator"].eq("proposed_checkpoint").all():
+            raise ValueError(
+                "every operational coalition must use the proposed checkpoint"
+            )
+        if not frame["attribution_estimand"].eq("operational_dropout").all():
+            raise ValueError("compensation unit mixes information estimands")
     if not daily["quality_approved"].all() or not daily["artificial_mask"].all():
-        raise ValueError("compensation unit contains a non-approved or non-hidden score")
-    proposed = daily["information_combination"].ne("S0")
+        raise ValueError(
+            "compensation unit contains a non-approved or non-hidden score"
+        )
     quantile_columns = ["q05", "q25", "q50", "q75", "q95"]
-    quantiles = daily.loc[proposed, quantile_columns].to_numpy(dtype=float)
+    quantiles = daily.loc[:, quantile_columns].to_numpy(dtype=float)
     if not np.isfinite(quantiles).all():
-        raise ValueError("a proposed combination has nonfinite five-quantile predictions")
+        raise ValueError("a coalition has nonfinite five-quantile predictions")
     if not np.all(np.diff(quantiles, axis=1) > 0):
-        raise ValueError("proposed five-quantile predictions are not strictly ordered")
+        raise ValueError("coalition five-quantile predictions are not strictly ordered")
     required_metrics = ["MAE", "RMSE"]
-    if not set(required_metrics).issubset(events.columns) or not np.isfinite(
-        events[required_metrics].to_numpy(dtype=float)
-    ).all():
+    if (
+        not set(required_metrics).issubset(events.columns)
+        or not np.isfinite(events[required_metrics].to_numpy(dtype=float)).all()
+    ):
         raise ValueError("compensation event MAE/RMSE must be finite")
 
 
@@ -770,7 +962,11 @@ def _read_resumable_compensation_unit(
     status_path = unit_dir / "status.json"
     daily_path = unit_dir / "daily_predictions.parquet"
     event_path = unit_dir / "event_metrics.parquet"
-    if not status_path.is_file() or not daily_path.is_file() or not event_path.is_file():
+    if (
+        not status_path.is_file()
+        or not daily_path.is_file()
+        or not event_path.is_file()
+    ):
         return None
     try:
         status = json.loads(status_path.read_text(encoding="utf-8"))
@@ -837,7 +1033,9 @@ def _score_compensation_unit(
     hidden = artificial[:, station, target_index]
     positions = np.flatnonzero(hidden & quality & np.isfinite(truth))
     if positions.size == 0:
-        raise ValueError("no approved finite T observations were selected by the artificial mask")
+        raise ValueError(
+            "no approved finite T observations were selected by the artificial mask"
+        )
     proposed = predict_proposed_information_combinations(
         model,
         runner.data.values,
@@ -847,12 +1045,18 @@ def _score_compensation_unit(
         mean,
         scale,
         target_index=target_index,
+        training_climatology=(
+            np.column_stack(
+                [s0_by_station[index] for index in range(len(runner.data.station_ids))]
+            ).astype(np.float32)
+            - mean[:, target_index][None, :]
+        )
+        / scale[:, target_index][None, :],
         window_length=scenario.condition.window_length,
         device=device,
     )
-    expected_nonempty = set(INFORMATION_COMBINATION_LABELS).difference({"S0"})
-    if set(proposed) != expected_nonempty:
-        raise ValueError("proposed inference did not return all 15 non-empty combinations")
+    if set(proposed) != set(INFORMATION_COMBINATION_LABELS):
+        raise ValueError("proposed inference did not return all fixed 16 coalitions")
 
     climatology = s0_by_station[station]
     reference = runner._training_reference(station, target_index)
@@ -866,23 +1070,13 @@ def _score_compensation_unit(
         ["DJF", "MAM", "JJA"],
         default="SON",
     )
-    combinations_by_label: dict[str, dict[str, np.ndarray] | None] = {
-        "S0": None,
-        **proposed,
-    }
     daily_parts: list[pd.DataFrame] = []
     event_rows: list[dict[str, Any]] = []
     for label in INFORMATION_COMBINATION_LABELS:
-        quantiles = combinations_by_label[label]
-        component = (
-            "training_doy_climatology" if label == "S0" else "proposed_checkpoint"
-        )
-        prediction = climatology if quantiles is None else quantiles["q50"][:, station]
-        q = (
-            None
-            if quantiles is None
-            else {name: values[:, station] for name, values in quantiles.items()}
-        )
+        quantiles = proposed[label]
+        component = "proposed_checkpoint"
+        prediction = quantiles["q50"][:, station]
+        q = {name: values[:, station] for name, values in quantiles.items()}
         if not np.isfinite(prediction[positions]).all():
             raise ValueError(
                 f"{label} did not identify every approved artificial target"
@@ -919,9 +1113,12 @@ def _score_compensation_unit(
                 "experiment": scenario.condition.experiment,
                 "information_combination": label,
                 "component_estimator": component,
+                "estimator": component,
+                "attribution_estimand": "operational_dropout",
+                "information_estimand": "operational_dropout",
                 "fit_split": "train",
                 "tuning_split": "validation_checkpoint",
-                "evaluation_split": "test",
+                "evaluation_split": runner.evaluation_split,
                 "window_length": scenario.condition.window_length,
                 "training_protocol": scenario.condition.training_protocol,
                 "external_validation_status": grid.external_validation_status,
@@ -953,14 +1150,20 @@ def _score_compensation_unit(
                     "mask_seed": scenario.mask_seed,
                     "information_combination": label,
                     "component_estimator": component,
+                    "estimator": component,
+                    "attribution_estimand": "operational_dropout",
+                    "information_estimand": "operational_dropout",
+                    "fit_split": "train",
+                    "tuning_split": "validation_checkpoint",
+                    "evaluation_split": runner.evaluation_split,
                     "y_true": truth[positions],
                     "y_pred": prediction[positions],
                     "climatology_pred": climatology[positions],
-                    "q05": q["q05"][positions] if q else np.nan,
-                    "q25": q["q25"][positions] if q else np.nan,
-                    "q50": q["q50"][positions] if q else prediction[positions],
-                    "q75": q["q75"][positions] if q else np.nan,
-                    "q95": q["q95"][positions] if q else np.nan,
+                    "q05": q["q05"][positions],
+                    "q25": q["q25"][positions],
+                    "q50": q["q50"][positions],
+                    "q75": q["q75"][positions],
+                    "q95": q["q95"][positions],
                     "season": seasons,
                     "event_type": None,
                     "quality_approved": quality[positions],
@@ -981,6 +1184,13 @@ def _score_compensation_unit(
         )
     daily = pd.concat(daily_parts, ignore_index=True)
     events = pd.DataFrame(event_rows)
+    for field in EVIDENCE_TABLE_FIELDS:
+        daily[field] = runner.evidence_contract[field]
+        events[field] = runner.evidence_contract[field]
+    daily["evidence_role"] = "formal_development_evaluation"
+    events["evidence_role"] = "formal_development_evaluation"
+    daily["formal_evidence"] = True
+    events["formal_evidence"] = True
     _validate_compensation_unit(daily, events, scenario, training_seed)
     return daily, events
 
@@ -1034,7 +1244,9 @@ def _collect_compensation_units(
                     }
                 )
     daily = pd.concat(daily_parts, ignore_index=True) if daily_parts else pd.DataFrame()
-    events = pd.concat(event_parts, ignore_index=True) if event_parts else pd.DataFrame()
+    events = (
+        pd.concat(event_parts, ignore_index=True) if event_parts else pd.DataFrame()
+    )
     if not daily.empty:
         daily = daily.sort_values(
             ["scenario_id", "training_seed", "information_combination", "date"],
@@ -1047,6 +1259,21 @@ def _collect_compensation_units(
     return daily, events, skips, completed_units
 
 
+def _assert_operational_compensation_directory(output_root: Path) -> None:
+    manifest_path = output_root / "run_manifest.json"
+    if not manifest_path.is_file():
+        return
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, TypeError, json.JSONDecodeError) as error:
+        raise ValueError("existing compensation run manifest is unreadable") from error
+    estimand = manifest.get("attribution_estimand")
+    if estimand not in {None, "operational_dropout"}:
+        raise ValueError(
+            "output directory already contains a different information estimand"
+        )
+
+
 def run_information_compensation(
     *,
     checkpoint_path: str | Path | None = None,
@@ -1054,6 +1281,8 @@ def run_information_compensation(
     checkpoint_template: str = "proposed-S{seed}-W{window}-{protocol}.pt",
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
+    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
     output_dir: str | Path = "results/science_experiments/compensation",
@@ -1061,13 +1290,24 @@ def run_information_compensation(
     training_seeds: Sequence[int] | None = None,
     training_seed: int | None = None,
     mask_seeds: Sequence[int] | None = None,
+    data_version: str = "published_v1",
+    evaluation_split: str = "development_test",
+    frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
     max_scenarios: int | None = None,
     device: str = "cpu",
     resume: bool = True,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Score the fixed 16-combination contract for one or all five training seeds."""
 
-    grid = build_compensation_grid(manifest_path, mask_seeds=mask_seeds)
+    output_root = Path(output_dir)
+    _assert_operational_compensation_directory(output_root)
+    grid = build_compensation_grid(
+        manifest_path,
+        mask_seeds=mask_seeds,
+        data_version=data_version,
+        evaluation_split=evaluation_split,
+        frontier_anchor_path=frontier_anchor_path,
+    )
     if checkpoint_path is not None and training_seeds is None and training_seed is None:
         training_seed = grid.training_seeds[0]
     selected_training_seeds = _compensation_training_seeds(
@@ -1085,7 +1325,6 @@ def run_information_compensation(
         if max_scenarios < 1:
             raise ValueError("max_scenarios must be positive")
         selected_scenarios = selected_scenarios[:max_scenarios]
-    output_root = Path(output_dir)
     runner = ExperimentRunner(
         grid,
         wide_path=wide_path,
@@ -1093,10 +1332,18 @@ def run_information_compensation(
         output_dir=output_root,
         mask_dir=mask_dir,
         config_path=config_path,
+        design_path=design_path,
+        manifest_path=manifest_path,
+        data_version_manifest_path=data_version_manifest_path,
         models=("proposed",),
         training_seeds=selected_training_seeds,
         resume=resume,
     )
+    if not runner.anchor_availability.empty:
+        _atomic_csv(
+            runner.anchor_availability,
+            output_root / "anchor_availability.csv",
+        )
     windows = {condition.window_length for condition in grid.conditions}
     protocols = {condition.training_protocol for condition in grid.conditions}
     window_length = next(iter(windows))
@@ -1127,9 +1374,7 @@ def run_information_compensation(
                     "training_protocol": training_protocol,
                     "training_profile": runner.training_profile_name,
                     "training_settings": runner.training_settings,
-                    "information_combinations": list(
-                        INFORMATION_COMBINATION_LABELS
-                    ),
+                    "information_combinations": list(INFORMATION_COMBINATION_LABELS),
                 },
                 _compensation_checkpoint_status_path(output_root, seed),
             )
@@ -1193,12 +1438,14 @@ def run_information_compensation(
     for seed, (model, mean, scale) in loaded.items():
         checkpoint_file = checkpoint_files[seed]
         for scenario in selected_scenarios:
-            unit_dir = _compensation_unit_dir(
-                output_root, scenario.scenario_id, seed
-            )
-            if resume and _read_resumable_compensation_unit(
-                unit_dir, scenario, seed, checkpoint_file, runner
-            ) is not None:
+            unit_dir = _compensation_unit_dir(output_root, scenario.scenario_id, seed)
+            if (
+                resume
+                and _read_resumable_compensation_unit(
+                    unit_dir, scenario, seed, checkpoint_file, runner
+                )
+                is not None
+            ):
                 continue
             _atomic_json(
                 _compensation_unit_status(
@@ -1218,9 +1465,7 @@ def run_information_compensation(
                     s0_by_station,
                     device=device,
                 )
-                _atomic_parquet(
-                    unit_daily, unit_dir / "daily_predictions.parquet"
-                )
+                _atomic_parquet(unit_daily, unit_dir / "daily_predictions.parquet")
                 _atomic_parquet(unit_events, unit_dir / "event_metrics.parquet")
                 _atomic_json(
                     _compensation_unit_status(
@@ -1283,36 +1528,136 @@ def run_information_compensation(
     _atomic_parquet(daily, output_root / "daily_predictions.parquet")
     _atomic_parquet(events, output_root / "event_metrics.parquet")
     _atomic_csv(skipped, output_root / "skipped_runs.csv")
-    selected_completed = 0
+    expected_run_unit_keys = sorted(
+        f"{scenario.scenario_id}|information_compensation:{seed}"
+        for scenario in grid.scenarios
+        for seed in grid.training_seeds
+    )
+    completed_run_unit_keys: list[str] = []
     if not events.empty:
-        selected_completed = int(
-            events.loc[events["training_seed"].isin(selected_training_seeds)]
-            .groupby(["scenario_id", "training_seed"], observed=True)
-            .ngroups
-        )
+        for (scenario_id, seed), unit in events.groupby(
+            ["scenario_id", "training_seed"], observed=True, sort=True
+        ):
+            if len(unit) == len(INFORMATION_COMBINATION_LABELS) and set(
+                unit["information_combination"].astype(str)
+            ) == set(INFORMATION_COMBINATION_LABELS):
+                completed_run_unit_keys.append(
+                    f"{scenario_id}|information_compensation:{int(seed)}"
+                )
+    completed_run_unit_keys = sorted(completed_run_unit_keys)
+    completed_set = set(completed_run_unit_keys)
+    expected_set = set(expected_run_unit_keys)
+    retryable_run_unit_keys = sorted(expected_set.difference(completed_set))
+    selected_completed = sum(
+        key.endswith(tuple(f":{seed}" for seed in selected_training_seeds))
+        for key in completed_run_unit_keys
+    )
     expected_selected_units = len(grid.scenarios) * len(selected_training_seeds)
-    smoke_profile = runner.training_profile_name == "smoke"
     aggregate_training_seeds = (
         set(events["training_seed"].astype(int)) if not events.empty else set()
     )
-    formal_training_seed_complete = bool(
-        smoke_profile or aggregate_training_seeds == set(grid.training_seeds)
+    formal_training_seed_complete = aggregate_training_seeds == set(grid.training_seeds)
+    formal_mask_seed_complete = set(grid.mask_seeds) == set(FIXED_MASK_SEEDS)
+    expected_formal_units = len(expected_run_unit_keys)
+    formal_unit_grid_complete = completed_set == expected_set
+
+    valid_checkpoint_seeds: set[int] = set()
+    training_checkpoints: list[dict[str, Any]] = []
+    for seed in grid.training_seeds:
+        status_path = _compensation_checkpoint_status_path(output_root, seed)
+        try:
+            checkpoint_status = json.loads(status_path.read_text(encoding="utf-8"))
+            checkpoint_file = Path(checkpoint_status["checkpoint"])
+            if checkpoint_status.get("status") != "valid" or checkpoint_status.get(
+                "checkpoint_artifact"
+            ) != _checkpoint_artifact_identity(checkpoint_file):
+                continue
+            _load_compensation_checkpoint(
+                checkpoint_file,
+                runner,
+                training_seed=seed,
+                window_length=window_length,
+                training_protocol=training_protocol,
+                device=device,
+            )
+            metadata = torch.load(
+                checkpoint_file, map_location="cpu", weights_only=False
+            )
+        except (
+            EOFError,
+            FileNotFoundError,
+            KeyError,
+            OSError,
+            RuntimeError,
+            TypeError,
+            ValueError,
+            json.JSONDecodeError,
+            pickle.UnpicklingError,
+        ):
+            persisted_invalid_seeds.add(seed)
+            continue
+        valid_checkpoint_seeds.add(seed)
+        artifact = _checkpoint_artifact_identity(checkpoint_file)
+        training_checkpoints.append(
+            {
+                "model": "information_compensation",
+                "training_seed": seed,
+                "information_combinations": list(INFORMATION_COMBINATION_LABELS),
+                "best_epoch": metadata.get("best_epoch", metadata.get("epoch")),
+                "epochs_run": metadata.get("epochs_run"),
+                "best_validation_score": metadata.get(
+                    "best_validation_score", metadata.get("best_validation_loss")
+                ),
+                "checkpoint": {
+                    "path": str(checkpoint_file.resolve()),
+                    "size": artifact["size"],
+                    "sha256": artifact["sha256"],
+                },
+                "checkpoint_sidecar": None,
+                "checkpoint_contract_valid": True,
+            }
+        )
+    checkpoint_required_run_unit_keys = expected_run_unit_keys
+    checkpoint_valid_run_unit_keys = sorted(
+        f"{scenario.scenario_id}|information_compensation:{seed}"
+        for scenario in grid.scenarios
+        for seed in valid_checkpoint_seeds
     )
-    formal_mask_seed_complete = bool(
-        smoke_profile or set(grid.mask_seeds) == set(FIXED_MASK_SEEDS)
-    )
-    expected_formal_units = len(grid.scenarios) * (
-        len(selected_training_seeds) if smoke_profile else len(grid.training_seeds)
-    )
-    formal_unit_grid_complete = completed_units == expected_formal_units
+    checkpoint_contract_complete = set(checkpoint_valid_run_unit_keys) == expected_set
     formal_design_complete = bool(
         formal_unit_grid_complete
         and formal_training_seed_complete
         and formal_mask_seed_complete
+        and checkpoint_contract_complete
         and not persisted_invalid_seeds
+    )
+    exact_run_unit_fields = {
+        "expected_run_unit_keys": expected_run_unit_keys,
+        "completed_run_unit_keys": completed_run_unit_keys,
+        "retryable_run_unit_keys": retryable_run_unit_keys,
+        "structural_skip_run_unit_keys": [],
+        "expected_evidence_run_unit_keys": expected_run_unit_keys,
+        "completed_evidence_run_unit_keys": completed_run_unit_keys,
+        "finite_prediction_run_unit_keys": completed_run_unit_keys,
+        "finite_event_metric_run_unit_keys": completed_run_unit_keys,
+        "checkpoint_required_run_unit_keys": checkpoint_required_run_unit_keys,
+        "checkpoint_valid_run_unit_keys": checkpoint_valid_run_unit_keys,
+    }
+    exact_run_unit_counts = {
+        f"{field.removesuffix('_keys')}_count": len(values)
+        for field, values in exact_run_unit_fields.items()
+    }
+    exact_run_unit_counts["checkpoint_required_run_count"] = exact_run_unit_counts.pop(
+        "checkpoint_required_run_unit_count"
+    )
+    exact_run_unit_counts["checkpoint_valid_run_count"] = exact_run_unit_counts.pop(
+        "checkpoint_valid_run_unit_count"
     )
     _atomic_json(
         {
+            "schema_version": "operational_information_dropout_run_v1",
+            "suite": grid.suite,
+            "models": ["information_compensation"],
             "status": (
                 "complete"
                 if formal_design_complete
@@ -1325,6 +1670,17 @@ def run_information_compensation(
             "formal_unit_grid_complete": formal_unit_grid_complete,
             "formal_training_seed_complete": formal_training_seed_complete,
             "formal_mask_seed_complete": formal_mask_seed_complete,
+            "run_unit_complete": formal_unit_grid_complete,
+            "evidence_complete": formal_unit_grid_complete,
+            "finite_predictions": formal_unit_grid_complete,
+            "finite_event_metrics": formal_unit_grid_complete,
+            "checkpoint_contract_complete": checkpoint_contract_complete,
+            "retryable_run_keys": retryable_run_unit_keys,
+            **exact_run_unit_fields,
+            **exact_run_unit_counts,
+            "expected_run_count": len(expected_run_unit_keys),
+            "completed_status_run_count": len(completed_run_unit_keys),
+            "aggregate_run_count": len(completed_run_unit_keys),
             "expected_training_seeds": list(grid.training_seeds),
             "expected_mask_seeds": list(FIXED_MASK_SEEDS),
             "expected_formal_units": expected_formal_units,
@@ -1336,23 +1692,45 @@ def run_information_compensation(
             "completed_selected_units": selected_completed,
             "completed_aggregate_units": completed_units,
             "completed_event_rows": len(events),
+            "event_rows": len(events),
             "daily_rows": len(daily),
+            "completed_daily_rows": len(daily),
+            "training_checkpoints": training_checkpoints,
             "checkpoints": {
-                str(seed): str(path.resolve()) for seed, path in checkpoint_files.items()
+                str(seed): str(path.resolve())
+                for seed, path in checkpoint_files.items()
             },
             "invalid_checkpoint_seeds": sorted(persisted_invalid_seeds),
             "mask_seeds": list(grid.mask_seeds),
             "information_combinations": list(INFORMATION_COMBINATION_LABELS),
             "fit_split": "train",
             "tuning_split": "validation_checkpoint",
-            "evaluation_split": "test_once",
+            "evaluation_split": runner.evaluation_split,
+            "data_version": runner.data.data_version,
+            "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
+            "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
+            "frontier_anchor_count": grid.frontier_anchor_count,
+            "anchor_availability_rows": len(runner.anchor_availability),
+            "unavailable_anchor_rows": (
+                int((~runner.anchor_availability["available"]).sum())
+                if not runner.anchor_availability.empty
+                else 0
+            ),
+            "anchor_replacement_allowed": False,
             "inference_window_length": int(window_length),
             "inference_stride": max(1, int(window_length) // 2),
             "training_profile": runner.training_profile_name,
             "training_settings": runner.training_settings,
             "s0_definition": S0_DEFINITION,
-            "mixed_baseline_limitation": MIXED_BASELINE_LIMITATION,
+            "attribution_estimand": "operational_dropout",
+            "information_estimand": "operational_dropout",
+            "component_estimator": "proposed_checkpoint",
+            "coalition_checkpoint_policy": "one_shared_checkpoint_per_training_seed",
             "hidden_truth_input_policy": "artificially hidden values are replaced by NaN before inference",
+            "formal_evidence": formal_design_complete,
+            "evidence_role": "formal_development_evaluation",
+            **runner.evidence_contract,
+            "code_provenance": runner.code_provenance,
         },
         output_root / "run_manifest.json",
     )
@@ -1363,7 +1741,11 @@ def _read_frame(value: pd.DataFrame | str | Path) -> pd.DataFrame:
     if isinstance(value, pd.DataFrame):
         return value.copy()
     path = Path(value)
-    return pd.read_parquet(path) if path.suffix.lower() == ".parquet" else pd.read_csv(path)
+    return (
+        pd.read_parquet(path)
+        if path.suffix.lower() == ".parquet"
+        else pd.read_csv(path)
+    )
 
 
 def _quality_series(
@@ -1374,10 +1756,14 @@ def _quality_series(
 ) -> np.ndarray:
     if quality_long is None:
         return np.ones(len(dates), dtype=bool)
-    selected = quality_long.loc[
-        (quality_long["station_id"].astype(str) == station)
-        & (quality_long["variable"].astype(str) == variable)
-    ].drop_duplicates("date").set_index("date")
+    selected = (
+        quality_long.loc[
+            (quality_long["station_id"].astype(str) == station)
+            & (quality_long["variable"].astype(str) == variable)
+        ]
+        .drop_duplicates("date")
+        .set_index("date")
+    )
     return (
         selected["quality_approved"]
         .reindex(dates)
@@ -1427,7 +1813,9 @@ def compute_training_information_metrics(
     wide = _read_frame(daily_wide)
     required = {"date", "split"}
     if not required.issubset(wide):
-        raise KeyError(f"daily_wide is missing {sorted(required.difference(wide.columns))}")
+        raise KeyError(
+            f"daily_wide is missing {sorted(required.difference(wide.columns))}"
+        )
     wide["date"] = pd.to_datetime(wide["date"]).dt.normalize()
     wide = wide.sort_values("date").reset_index(drop=True)
     if wide["date"].duplicated().any():
@@ -1481,7 +1869,10 @@ def compute_training_information_metrics(
             continue
         source_specs = [
             *[(target_station, variable, "B") for variable in ("F", "L")],
-            *[(target_station, variable, "D") for variable in ("Ta", "P", "W", "RH", "DH")],
+            *[
+                (target_station, variable, "D")
+                for variable in ("Ta", "P", "W", "RH", "DH")
+            ],
             *[
                 (source_station, variable, "C")
                 for source_station in stations
@@ -1520,7 +1911,9 @@ def compute_training_information_metrics(
                     }
                 )
                 continue
-            source = pd.to_numeric(train[source_column], errors="coerce").to_numpy(float)
+            source = pd.to_numeric(train[source_column], errors="coerce").to_numpy(
+                float
+            )
             source_quality = _quality_series(
                 quality, dates, source_station, source_variable
             )
@@ -1546,7 +1939,10 @@ def compute_training_information_metrics(
             target_series = f"{target_station}_T"
             source_series = f"{source_station}_{source_variable}"
             mi_seed = seed + pair_index
-            if np.unique(x[np.isfinite(x)]).size < 2 or np.unique(y[np.isfinite(y)]).size < 2:
+            if (
+                np.unique(x[np.isfinite(x)]).size < 2
+                or np.unique(y[np.isfinite(y)]).size < 2
+            ):
                 mi = {
                     "mutual_information": np.nan,
                     "n": int((np.isfinite(x) & np.isfinite(y)).sum()),
@@ -1554,9 +1950,7 @@ def compute_training_information_metrics(
                     "reason": "both paired series need at least two distinct values",
                 }
             else:
-                mi = knn_mutual_information(
-                    x, y, n_neighbors=n_neighbors, seed=mi_seed
-                )
+                mi = knn_mutual_information(x, y, n_neighbors=n_neighbors, seed=mi_seed)
             rows.append(
                 {
                     **common,
@@ -1596,10 +1990,7 @@ def compute_training_information_metrics(
                         te, te_seed = te_hypotheses[hypothesis_id]
                     else:
                         te_seed = (
-                            seed
-                            + pair_index * 100
-                            + direction_index * 20
-                            + lag_index
+                            seed + pair_index * 100 + direction_index * 20 + lag_index
                         )
                         te = transfer_entropy(
                             driver,
@@ -1642,17 +2033,17 @@ def compute_training_information_metrics(
         if "p_value" not in result:
             result["p_value"] = np.nan
         result["p_fdr_bh"] = np.nan
-        te_rows = result["metric"].eq("transfer_entropy") & result[
-            "hypothesis_id"
-        ].notna()
+        te_rows = (
+            result["metric"].eq("transfer_entropy") & result["hypothesis_id"].notna()
+        )
         unique_te = result.loc[te_rows].drop_duplicates("hypothesis_id", keep="first")
         adjusted = benjamini_hochberg_fdr(unique_te["p_value"])
         adjusted_by_hypothesis = dict(
             zip(unique_te["hypothesis_id"], adjusted, strict=True)
         )
-        result.loc[te_rows, "p_fdr_bh"] = result.loc[
-            te_rows, "hypothesis_id"
-        ].map(adjusted_by_hypothesis)
+        result.loc[te_rows, "p_fdr_bh"] = result.loc[te_rows, "hypothesis_id"].map(
+            adjusted_by_hypothesis
+        )
         result["significant_fdr_05"] = result["p_fdr_bh"].le(0.05)
     return result
 
@@ -1660,11 +2051,23 @@ def compute_training_information_metrics(
 def write_training_information_metrics(
     daily_wide: pd.DataFrame | str | Path,
     output_path: str | Path = "results/analysis/information_metrics.csv",
+    *,
+    evidence_contract: Mapping[str, Any] | None = None,
     **kwargs: Any,
 ) -> pd.DataFrame:
     """Compute and atomically write the training-only information table."""
 
     result = compute_training_information_metrics(daily_wide, **kwargs)
+    if evidence_contract is not None:
+        for key, value in evidence_contract.items():
+            result[key] = (
+                json.dumps(value, ensure_ascii=False, sort_keys=True)
+                if isinstance(value, (Mapping, list, tuple))
+                else value
+            )
+    result["evidence_role"] = "training_only_association"
+    result["formal_evidence"] = False
+    result["test_or_confirmatory_values_used"] = False
     _atomic_csv(result, Path(output_path))
     return result
 
@@ -1673,7 +2076,6 @@ __all__ = [
     "COMPENSATION_T_BLOCK_LENGTHS",
     "DENSE_FL_BLOCK_LENGTHS",
     "DENSE_T_BLOCK_LENGTHS",
-    "MIXED_BASELINE_LIMITATION",
     "RESILIENCE_BLOCK_LENGTHS",
     "build_compensation_grid",
     "build_dense_science_grid",
