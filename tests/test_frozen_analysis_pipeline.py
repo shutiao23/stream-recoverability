@@ -1,0 +1,830 @@
+from __future__ import annotations
+
+import dataclasses
+import hashlib
+import json
+from itertools import combinations
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import pytest
+import yaml
+
+import stream_recoverability.analysis.frozen_pipeline as frozen_pipeline_module
+from stream_recoverability.analysis.compensation import information_combinations
+from stream_recoverability.analysis.frozen_pipeline import (
+    EVIDENCE_FIELDS,
+    FIXED_ARTIFACTS,
+    analyze_calibration,
+    analyze_data_version_sensitivity,
+    analyze_event_pairs,
+    analyze_frontiers,
+    analyze_information,
+    analyze_resilience_outputs,
+    audit_prediction_overlap,
+    build_analysis_code_identity,
+    guarded_model_skill,
+    load_frozen_inputs,
+    load_frozen_inputs_from_manifest,
+    load_frozen_statistics,
+    one_hinge_breakpoint,
+    run_frozen_analysis,
+)
+
+PROJECT_ROOT = Path(__file__).parents[1]
+DESIGN = PROJECT_ROOT / "configs/design_freeze_v1.yaml"
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _canonical_digest(value: dict[str, object]) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    ).hexdigest()
+
+
+def _contract(data_version: str = "published_v1") -> dict[str, object]:
+    design = yaml.safe_load(DESIGN.read_text(encoding="utf-8"))
+    contract: dict[str, object] = {
+        "design_version": design["design_version"],
+        "data_version": data_version,
+        "evaluation_split": "development_test",
+        "mask_schema_version": design["mask_design"]["schema_version"],
+        "model_schema_version": design["training"]["schema_version"],
+        "statistics_schema_version": design["statistics"]["schema_version"],
+        "input_digests": {
+            "design_freeze": _sha256(DESIGN),
+            "study_manifest": "1" * 64,
+            "experiment_config": "2" * 64,
+            "data_version_manifest": "3" * 64,
+        },
+        "code_identity": {
+            "schema_version": "code_provenance_v1",
+            "relevant_source_digest": "a" * 64,
+            "relevant_source_file_count": 17,
+        },
+    }
+    contract["design_hash"] = _canonical_digest(contract)
+    contract["code_provenance"] = {
+        **contract["code_identity"],
+        "git_commit": "b" * 40,
+        "tracked_worktree_clean": True,
+        "relevant_source_clean": True,
+        "dirty_tracked_paths": [],
+        "relevant_untracked_paths": [],
+        "external_relevant_input_count": 0,
+        "status": "clean",
+    }
+    return contract
+
+
+def _evidence(data_version: str = "published_v1") -> dict[str, object]:
+    contract = _contract(data_version)
+    return {field: contract[field] for field in EVIDENCE_FIELDS}
+
+
+def _write_minimal_bundle(tmp_path: Path) -> tuple[Path, Path, Path]:
+    evidence = _evidence()
+    predictions = pd.DataFrame(
+        [
+            {
+                **evidence,
+                "experiment": "M1",
+                "scenario_id": "s1",
+                "station_id": "B1",
+                "target": "T",
+                "model": "climatology",
+            }
+        ]
+    )
+    events = pd.DataFrame(
+        [
+            {
+                **evidence,
+                "experiment": "M1",
+                "scenario_id": "s1",
+                "station_id": "B1",
+                "target": "T",
+                "model": "climatology",
+                "MAE": 1.0,
+            }
+        ]
+    )
+    predictions_path = tmp_path / "predictions.parquet"
+    events_path = tmp_path / "events.parquet"
+    predictions.to_parquet(predictions_path, index=False)
+    events.to_parquet(events_path, index=False)
+    manifest = {
+        **_contract(),
+        "schema_version": "formal_aggregate_manifest_v2",
+        "frozen": True,
+        "complete": True,
+        "formal_design_complete": True,
+        "formal_training_seed_complete": True,
+        "formal_mask_seed_complete": True,
+        "run_unit_complete": True,
+        "evidence_complete": True,
+        "finite_predictions": True,
+        "finite_event_metrics": True,
+        "checkpoint_contract_complete": True,
+        "expected_run_unit_count": 1,
+        "completed_run_unit_count": 1,
+        "structural_skip_run_unit_count": 0,
+        "expected_evidence_run_unit_count": 1,
+        "completed_evidence_run_unit_count": 1,
+        "expected_run_unit_keys_sha256": "4" * 64,
+        "completed_run_unit_keys_sha256": "4" * 64,
+        "prediction_rows": len(predictions),
+        "event_rows": len(events),
+        "predictions_sha256": _sha256(predictions_path),
+        "event_metrics_sha256": _sha256(events_path),
+        "retryable_failures": [],
+        "retryable_run_keys": [],
+        "retryable_run_unit_count": 0,
+    }
+    manifest_path = tmp_path / "top_manifest.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    return predictions_path, events_path, manifest_path
+
+
+def _write_anchored_bundle(
+    root: Path,
+    data_version: str,
+    *,
+    mae_offset: float,
+) -> tuple[Path, Path, Path]:
+    root.mkdir(parents=True, exist_ok=True)
+    evidence = _evidence(data_version)
+    prediction_rows = []
+    event_rows = []
+    for anchor_index, anchor in enumerate(("A1", "A2")):
+        for seed, seed_offset in ((11, -0.1), (22, 0.1)):
+            shared = {
+                **evidence,
+                "experiment": "M2",
+                "condition_id": "D30",
+                "scenario_id": f"scenario-{anchor}",
+                "anchor_id": anchor,
+                "anchor_year": 2019 + anchor_index,
+                "center_date": f"{2019 + anchor_index}-07-01",
+                "mask_seed": 101 + anchor_index,
+                "station_id": "B1",
+                "target": "T",
+                "model": "candidate",
+                "training_seed": seed,
+                "gap_length": 30,
+                "window_length": 368,
+            }
+            prediction_rows.append(
+                {
+                    **shared,
+                    "date": f"{2019 + anchor_index}-07-01",
+                    "y_true": 10.0,
+                    "y_pred": 11.0 + mae_offset + seed_offset,
+                }
+            )
+            event_rows.append(
+                {
+                    **shared,
+                    "MAE": 1.0 + anchor_index + mae_offset + seed_offset,
+                    "RMSE": 1.1 + anchor_index + mae_offset + seed_offset,
+                }
+            )
+    predictions_path = root / "predictions.parquet"
+    events_path = root / "event_metrics.parquet"
+    pd.DataFrame(prediction_rows).to_parquet(predictions_path, index=False)
+    pd.DataFrame(event_rows).to_parquet(events_path, index=False)
+    count = len(event_rows)
+    manifest = {
+        **_contract(data_version),
+        "schema_version": "formal_aggregate_manifest_v2",
+        "frozen": True,
+        "complete": True,
+        "formal_design_complete": True,
+        "formal_training_seed_complete": True,
+        "formal_mask_seed_complete": True,
+        "run_unit_complete": True,
+        "evidence_complete": True,
+        "finite_predictions": True,
+        "finite_event_metrics": True,
+        "checkpoint_contract_complete": True,
+        "retryable_run_keys": [],
+        "retryable_run_unit_count": 0,
+        "expected_run_unit_count": count,
+        "completed_run_unit_count": count,
+        "structural_skip_run_unit_count": 0,
+        "expected_evidence_run_unit_count": count,
+        "completed_evidence_run_unit_count": count,
+        "expected_run_unit_keys_sha256": "7" * 64,
+        "completed_run_unit_keys_sha256": "7" * 64,
+        "daily_rows": len(prediction_rows),
+        "event_rows": len(event_rows),
+        "artifacts": {
+            "predictions": {
+                "path": str(predictions_path.resolve()),
+                "size": predictions_path.stat().st_size,
+                "sha256": _sha256(predictions_path),
+            },
+            "event_metrics": {
+                "path": str(events_path.resolve()),
+                "size": events_path.stat().st_size,
+                "sha256": _sha256(events_path),
+            },
+        },
+    }
+    manifest_path = root / "run_manifest.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    return predictions_path, events_path, manifest_path
+
+
+def _clean_code_identity() -> dict[str, object]:
+    return {
+        "schema_version": "analysis_code_identity_v1",
+        "relevant_source_digest": "a" * 64,
+        "relevant_source_file_count": 6,
+        "files": [],
+        "tracked_relevant_source_clean": True,
+        "dirty_tracked_paths": [],
+        "relevant_untracked_paths": [],
+        "missing_paths": [],
+        "git_audit_available": True,
+        "status": "clean",
+    }
+
+
+def test_frozen_statistics_lock_numerics_and_one_hinge_fit() -> None:
+    statistics = load_frozen_statistics(DESIGN)
+    assert statistics.bootstrap_replicates == 2000
+    assert statistics.bootstrap_seed == 20260815
+    assert statistics.confidence == pytest.approx(0.95)
+    assert statistics.application_criteria is None
+    assert statistics.denominator_guard["thresholds_by_target"]["T"]["value"] == 0.05
+
+    estimate = one_hinge_breakpoint(
+        [1, 3, 7, 14, 30, 60],
+        [0.9, 0.85, 0.75, 0.55, 0.10, -0.50],
+        [1, 1, 1, 2, 2, 2],
+    )
+    assert estimate["reason"] is None
+    assert estimate["breakpoint_days"] in {3.0, 7.0, 14.0, 30.0}
+    assert np.isfinite(estimate["weighted_sse"])
+
+
+def test_guarded_skill_pairs_units_before_ratio_and_withholds_equality() -> None:
+    guard = load_frozen_statistics(DESIGN).denominator_guard
+    rows = []
+    for scenario, target, denominator, numerator in (
+        ("t-ok", "T", 1.0, 0.25),
+        ("t-equal", "T", 0.05, 0.01),
+        ("f-equal", "F", 0.5, 0.1),
+        ("l-equal", "L", 0.005, 0.001),
+    ):
+        rows.extend(
+            [
+                {
+                    "experiment": "SCI_DENSE",
+                    "scenario_id": scenario,
+                    "station_id": "B1",
+                    "target": target,
+                    "model": "candidate",
+                    "MAE": numerator,
+                },
+                {
+                    "experiment": "SCI_DENSE",
+                    "scenario_id": scenario,
+                    "station_id": "B1",
+                    "target": target,
+                    "model": "climatology",
+                    "MAE": denominator,
+                },
+            ]
+        )
+    shuffled = pd.DataFrame(rows).sample(frac=1.0, random_state=17)
+    result = guarded_model_skill(shuffled, guard).set_index(["scenario_id", "model"])
+    assert result.loc[("t-ok", "candidate"), "skill"] == pytest.approx(0.75)
+    for scenario in ("t-equal", "f-equal", "l-equal"):
+        assert np.isnan(result.loc[(scenario, "candidate"), "skill"])
+        assert result.loc[
+            (scenario, "candidate"), "climatology_denominator_status"
+        ] == ("near_zero_climatology_error")
+
+
+def _dense_fixture() -> tuple[pd.DataFrame, pd.DataFrame]:
+    evidence = _evidence()
+    event_rows: list[dict[str, object]] = []
+    daily_rows: list[dict[str, object]] = []
+    skill_by_gap = {10: 0.8, 30: 0.4, 90: 0.6, 180: -0.2}
+    for anchor_index, anchor in enumerate(("A1", "A2")):
+        anchor_date = pd.Timestamp("2019-01-01") + pd.Timedelta(days=anchor_index * 20)
+        for gap, skill in skill_by_gap.items():
+            scenario = f"{anchor}-D{gap}"
+            for model, seeds in (("climatology", [np.nan]), ("candidate", [11, 22])):
+                for training_seed in seeds:
+                    event_rows.append(
+                        {
+                            **evidence,
+                            "experiment": "SCI_DENSE",
+                            "scenario_id": scenario,
+                            "condition_id": f"dense-D{gap}",
+                            "anchor_id": anchor,
+                            "anchor_year": 2019,
+                            "center_date": anchor_date,
+                            "station_id": "B1",
+                            "target": "T",
+                            "model": model,
+                            "training_seed": training_seed,
+                            "mask_seed": 101 + anchor_index,
+                            "gap_length": gap,
+                            "window_length": 368,
+                            "MAE": 2.0
+                            if model == "climatology"
+                            else 2.0 * (1.0 - skill),
+                        }
+                    )
+            daily_rows.append(
+                {
+                    **evidence,
+                    "experiment": "SCI_DENSE",
+                    "scenario_id": scenario,
+                    "anchor_id": anchor,
+                    "date": anchor_date,
+                    "station_id": "B1",
+                    "target": "T",
+                    "model": "candidate",
+                    "quality_approved": True,
+                    "artificial_mask": True,
+                }
+            )
+    return pd.DataFrame(event_rows), pd.DataFrame(daily_rows)
+
+
+def test_frontier_pipeline_collapses_seeds_clusters_anchors_and_withholds_application() -> (
+    None
+):
+    events, daily = _dense_fixture()
+    overlap = audit_prediction_overlap(daily)
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN),
+        bootstrap_replicates=20,
+        dense_t_gaps=(10.0, 30.0, 90.0, 180.0),
+    )
+    result = analyze_frontiers(events, overlap, statistics)
+    candidate = result.statistical.loc[
+        result.statistical["model"].eq("candidate")
+    ].iloc[0]
+    assert candidate["n_anchors"] == 2
+    assert candidate["n_years"] == 1
+    assert bool(candidate["training_seeds_collapsed_first"])
+    assert candidate["n_bootstrap_samples"] == 20
+    assert set(
+        FRONTIER_REQUIRED := [
+            "station_id",
+            "target",
+            "data_version",
+            "model",
+            "information_combination",
+            "window",
+        ]
+    ).issubset(result.statistical.columns)
+    assert len(FRONTIER_REQUIRED) == 6
+    application = result.application.loc[
+        result.application["model"].eq("candidate")
+    ].iloc[0]
+    assert application["application_threshold_status"] == "not_declared"
+    assert np.isnan(application["operational_boundary_days"])
+    monotone = result.monotone.loc[result.monotone["model"].eq("candidate")]
+    assert monotone.sort_values("gap_length")[
+        "frontier_value"
+    ].tolist() == pytest.approx([0.8, 0.5, 0.5, -0.2])
+    assert (
+        len(
+            result.bootstrap_samples.loc[
+                result.bootstrap_samples["model"].eq("candidate")
+            ]
+        )
+        == 80
+    )
+    for _, draw in result.bootstrap_samples.loc[
+        result.bootstrap_samples["model"].eq("candidate")
+    ].groupby("bootstrap_id"):
+        assert draw["sampled_cluster_ids"].nunique() == 1
+        assert draw["sampled_anchor_ids"].nunique() == 1
+
+
+def test_information_seed_collapse_and_estimands_never_mix() -> None:
+    evidence = _evidence()
+    rows = []
+    weights = {"A": 1.0, "B": 2.0, "C": 3.0, "D": 4.0}
+    for subset in information_combinations():
+        label = (
+            "S0"
+            if not subset
+            else "S0+"
+            + "+".join(source for source in ("A", "B", "C", "D") if source in subset)
+        )
+        for seed, offset in ((11, -0.5), (22, 0.5)):
+            rows.append(
+                {
+                    **evidence,
+                    "experiment": "SCI_COMP",
+                    "scenario_id": "unit-1",
+                    "anchor_id": "A1",
+                    "anchor_year": 2019,
+                    "mask_seed": 101,
+                    "station_id": "B1",
+                    "target": "T",
+                    "gap_length": 30,
+                    "window_length": 368,
+                    "model": "information_compensation",
+                    "training_seed": seed,
+                    "information_combination": label,
+                    "information_estimand": "operational_dropout",
+                    "MAE": 20.0 - sum(weights[source] for source in subset) + offset,
+                }
+            )
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN), bootstrap_replicates=20
+    )
+    result = analyze_information(pd.DataFrame(rows), statistics)
+    shapley = result["shapley"].set_index("source")
+    for source, expected in weights.items():
+        assert shapley.loc[source, "shapley"] == pytest.approx(expected)
+    assert set(result["operational"]["information_estimand"]) == {"operational_dropout"}
+    assert result["retrained"].empty
+    assert result["metrics"]["n_units"].eq(1).all()
+
+    bad = pd.DataFrame(rows)
+    bad["information_estimand"] = "unknown"
+    with pytest.raises(ValueError, match="unknown information estimand"):
+        analyze_information(bad, statistics)
+
+
+def test_event_episode_control_inference_collapses_training_seeds_first() -> None:
+    evidence = _evidence()
+    rows = []
+    for pair_index in range(3):
+        for role, mae in (("event_episode", 2.0), ("matched_control", 1.0)):
+            for seed, offset in ((11, -0.2), (22, 0.2)):
+                rows.append(
+                    {
+                        **evidence,
+                        "experiment": "M7b",
+                        "pair_id": f"P{pair_index}",
+                        "anchor_id": f"P{pair_index}-{role}",
+                        "event_id": f"E{pair_index}",
+                        "control_id": f"C{pair_index}",
+                        "catalog_role": role,
+                        "anchor_year": 2019 + pair_index // 2,
+                        "station_id": "B1",
+                        "target": "T",
+                        "event_type": "high_temperature",
+                        "model": "candidate",
+                        "training_seed": seed,
+                        "window_length": 15,
+                        "station": "B1",
+                        "event_start": "2019-07-01",
+                        "event_end": "2019-07-03",
+                        "event_peak_date": "2019-07-02",
+                        "event_length": 3,
+                        "matched_control_id": f"C{pair_index}",
+                        "MAE": mae + offset,
+                        "RMSE": mae + 0.1 + offset,
+                        "peak_error": mae + offset,
+                        "timing_error": mae - 1.0 + offset,
+                        "coverage_90": 0.9,
+                        "interval_width_90": 2.0,
+                    }
+                )
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN), bootstrap_replicates=30
+    )
+    result = analyze_event_pairs(pd.DataFrame(rows), statistics)
+    mae = result["comparisons"].loc[result["comparisons"]["metric"].eq("MAE")].iloc[0]
+    assert mae["event_minus_control"] == pytest.approx(1.0)
+    assert mae["ci_lower"] == pytest.approx(1.0)
+    assert mae["ci_upper"] == pytest.approx(1.0)
+    assert mae["n_event_episodes"] == 3
+    assert mae["n_years"] == 2
+    assert mae["hypothesis_family"] == "event_vs_matched_control"
+    assert result["episodes"]["training_seeds_collapsed_first"].all()
+    assert {
+        "event_id",
+        "station",
+        "event_type",
+        "event_start",
+        "event_end",
+        "event_peak_date",
+        "event_length",
+        "matched_control_id",
+        "MAE",
+        "peak_error",
+        "timing_error",
+        "coverage_90",
+        "interval_width_90",
+    }.issubset(result["episodes"].columns)
+
+
+def test_resilience_requires_and_summarizes_complete_three_site_powersets() -> None:
+    evidence = _evidence()
+    sites = ("B1", "B2", "B3")
+    failure_sets = [
+        tuple(subset)
+        for size in range(len(sites) + 1)
+        for subset in combinations(sites, size)
+    ]
+    rows = []
+    for target_gap_id, year in (("G1", 2019), ("G2", 2020)):
+        for failed in failure_sets:
+            failed_label = "+".join(failed)
+            for model, seeds in (
+                ("climatology", [np.nan]),
+                ("candidate", [11, 22]),
+            ):
+                for training_seed in seeds:
+                    rows.append(
+                        {
+                            **evidence,
+                            "experiment": "SCI_NET",
+                            "scenario_id": f"{target_gap_id}-{failed_label or 'none'}",
+                            "target_gap_id": target_gap_id,
+                            "anchor_year": year,
+                            "mask_seed": 101,
+                            "station_id": "B1",
+                            "target_station_id": "B1",
+                            "target": "T",
+                            "model": model,
+                            "training_seed": training_seed,
+                            "gap_length": 30,
+                            "failed_stations": failed_label,
+                            "network_size": 3,
+                            "MAE": (
+                                2.0
+                                if model == "climatology"
+                                else 1.0 + 0.1 * len(failed)
+                            ),
+                        }
+                    )
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN), bootstrap_replicates=20
+    )
+    result = analyze_resilience_outputs(pd.DataFrame(rows), statistics)
+    candidate_auc = (
+        result["auc"]
+        .loc[result["auc"]["model"].eq("candidate"), "resilience_auc"]
+        .iloc[0]
+    )
+    assert candidate_auc == pytest.approx(0.85)
+    assert set(result["curves"]["failure_count"]) == {0, 1, 2, 3}
+    assert set(result["importance"]["failed_station_id"]) == set(sites)
+    assert result["failure_sets"]["n_units"].eq(2).all()
+    assert set(result["hypotheses"]["hypothesis_family"]) == {"network_failure_set"}
+    assert result["hypotheses"]["n_anchor_units"].eq(2).all()
+
+    incomplete = pd.DataFrame(rows).loc[
+        lambda frame: (
+            ~(
+                frame["target_gap_id"].eq("G2")
+                & frame["model"].eq("candidate")
+                & frame["failed_stations"].eq("B1+B2+B3")
+            )
+        )
+    ]
+    with pytest.raises(ValueError, match="incomplete"):
+        analyze_resilience_outputs(incomplete, statistics)
+
+
+def test_calibration_collapses_seeds_and_reports_all_difficulty_axes() -> None:
+    evidence = _evidence()
+    rows = []
+    for scenario_index, (gap, failure_count, event_type) in enumerate(
+        ((10, 0, "ordinary"), (30, 1, "high_temperature"))
+    ):
+        for training_seed in (11, 22):
+            width = 1.0 + gap / 30 + failure_count
+            rows.append(
+                {
+                    **evidence,
+                    "experiment": "SCI_NET",
+                    "scenario_id": f"C{scenario_index}",
+                    "training_seed": training_seed,
+                    "mask_seed": 101 + scenario_index,
+                    "station_id": "B1",
+                    "target": "T",
+                    "model": "candidate",
+                    "gap_length": gap,
+                    "failure_count": failure_count,
+                    "event_type": event_type,
+                    "quality_approved": True,
+                    "artificial_mask": True,
+                    "y_true": 0.0,
+                    "q05": -width,
+                    "q95": width,
+                }
+            )
+    result = analyze_calibration(pd.DataFrame(rows))
+    assert result["by_gap"]["n_training_seeds"].eq(2).all()
+    assert result["by_gap"]["training_seeds_collapsed_first"].all()
+    assert set(result["difficulty"]["difficulty_axis"]) == {
+        "gap_length",
+        "failure_count",
+        "event_type",
+    }
+    assert result["difficulty"]["training_seeds_collapsed_first"].all()
+
+
+def test_data_version_sensitivity_pairs_separate_bundles_on_persistent_anchors() -> (
+    None
+):
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN), bootstrap_replicates=25
+    )
+    frames: dict[str, pd.DataFrame] = {}
+    for version, version_offset in (
+        ("published_v1", 0.0),
+        ("no_s2_suspect_v1", 0.5),
+    ):
+        rows = []
+        for anchor_index, anchor in enumerate(("A1", "A2")):
+            for seed, seed_offset in ((11, -0.1), (22, 0.1)):
+                rows.append(
+                    {
+                        "data_version": version,
+                        "evaluation_split": "development_test",
+                        "experiment": "SCI_DENSE",
+                        "condition_id": "D30",
+                        "scenario_id": f"scenario-{anchor}",
+                        "anchor_id": anchor,
+                        "anchor_year": 2019 + anchor_index,
+                        "mask_seed": 101 + anchor_index,
+                        "station_id": "B1",
+                        "target": "T",
+                        "model": "candidate",
+                        "training_seed": seed,
+                        "gap_length": 30,
+                        "window_length": 368,
+                        "MAE": 1.0 + anchor_index + version_offset + seed_offset,
+                    }
+                )
+        frames[version] = pd.DataFrame(rows)
+    result = analyze_data_version_sensitivity(
+        frames["published_v1"],
+        {"no_s2_suspect_v1": frames["no_s2_suspect_v1"]},
+        statistics,
+    )
+    assert len(result) == 1
+    row = result.iloc[0]
+    assert row["primary_data_version"] == "published_v1"
+    assert row["sensitivity_data_version"] == "no_s2_suspect_v1"
+    assert row["MAE_difference"] == pytest.approx(0.5)
+    assert row["ci_lower"] == pytest.approx(0.5)
+    assert row["ci_upper"] == pytest.approx(0.5)
+    assert row["n_paired_anchors"] == 2
+    assert row["n_years"] == 2
+    assert row["hypothesis_family"] == "data_version_sensitivity"
+    assert bool(row["training_seeds_collapsed_first"])
+
+
+def test_separate_frozen_sensitivity_bundles_run_end_to_end(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        frozen_pipeline_module,
+        "build_analysis_code_identity",
+        _clean_code_identity,
+    )
+    primary_paths = _write_anchored_bundle(
+        tmp_path / "primary", "published_v1", mae_offset=0.0
+    )
+    sensitivity_paths = _write_anchored_bundle(
+        tmp_path / "sensitivity", "no_s2_suspect_v1", mae_offset=0.5
+    )
+    primary = load_frozen_inputs(*primary_paths, DESIGN)
+    sensitivity = load_frozen_inputs_from_manifest(sensitivity_paths[2], DESIGN)
+    output = tmp_path / "analysis"
+    manifest = run_frozen_analysis(
+        primary,
+        output,
+        sensitivity_inputs=[sensitivity],
+    )
+    table = pd.read_csv(output / "data_version_sensitivity.csv")
+    assert len(table) == 1
+    assert table.loc[0, "sensitivity_data_version"] == "no_s2_suspect_v1"
+    assert table.loc[0, "MAE_difference"] == pytest.approx(0.5)
+    sensitivity_manifest = json.loads(
+        (output / "data_version_sensitivity_manifest.json").read_text()
+    )
+    assert sensitivity_manifest["status"] == "complete"
+    assert sensitivity_manifest["available_sensitivity_data_versions"] == [
+        "no_s2_suspect_v1"
+    ]
+    assert manifest["data_version_inputs"]["no_s2_suspect_v1"]["status"] == (
+        "available"
+    )
+    assert manifest["data_version_inputs"]["b1_no_level_v1"]["status"] == (
+        "unavailable"
+    )
+
+
+def test_frozen_bundle_rejects_hash_contract_and_completeness_mismatches(
+    tmp_path: Path,
+) -> None:
+    predictions, events, manifest = _write_minimal_bundle(tmp_path)
+    loaded = load_frozen_inputs(predictions, events, manifest, DESIGN)
+    assert len(loaded.predictions) == 1
+
+    value = json.loads(manifest.read_text())
+    value["complete"] = False
+    manifest.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(ValueError, match="not complete"):
+        load_frozen_inputs(predictions, events, manifest, DESIGN)
+
+    predictions, events, manifest = _write_minimal_bundle(tmp_path)
+    value = json.loads(manifest.read_text())
+    value["predictions_sha256"] = "0" * 64
+    manifest.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(ValueError, match="content hash"):
+        load_frozen_inputs(predictions, events, manifest, DESIGN)
+
+    predictions, events, manifest = _write_minimal_bundle(tmp_path)
+    value = json.loads(manifest.read_text())
+    value["design_hash"] = "f" * 64
+    manifest.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(ValueError, match="self-consistent"):
+        load_frozen_inputs(predictions, events, manifest, DESIGN)
+
+
+def test_dynamic_absence_writes_all_outputs_with_explicit_status(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        frozen_pipeline_module,
+        "build_analysis_code_identity",
+        _clean_code_identity,
+    )
+    predictions, events, manifest = _write_minimal_bundle(tmp_path)
+    inputs = load_frozen_inputs(predictions, events, manifest, DESIGN)
+    output = tmp_path / "analysis"
+    result = run_frozen_analysis(inputs, output)
+    assert result["status"] == "complete"
+    assert set(result["artifacts"]) == set(FIXED_ARTIFACTS)
+    assert all((output / name).is_file() for name in FIXED_ARTIFACTS)
+    assert result["artifacts"]["statistical_frontiers.csv"]["status"] == ("unavailable")
+    empty_frontier = pd.read_csv(output / "statistical_frontiers.csv")
+    assert empty_frontier.empty
+    assert "statistical_frontier_days" in empty_frontier
+    assert (
+        result["artifacts"]["retrained_information_upper_bounds.csv"]["status"]
+        == "unavailable"
+    )
+
+
+def test_analysis_run_fails_before_writing_when_analysis_source_is_dirty(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    predictions, events, manifest = _write_minimal_bundle(tmp_path)
+    inputs = load_frozen_inputs(predictions, events, manifest, DESIGN)
+    dirty = _clean_code_identity()
+    dirty.update(
+        {
+            "status": "dirty",
+            "tracked_relevant_source_clean": False,
+            "dirty_tracked_paths": ["scripts/09_analyze_results.py"],
+        }
+    )
+    monkeypatch.setattr(
+        frozen_pipeline_module,
+        "build_analysis_code_identity",
+        lambda: dirty,
+    )
+    output = tmp_path / "must-not-exist"
+    with pytest.raises(RuntimeError, match="analysis code identity is not clean"):
+        run_frozen_analysis(inputs, output)
+    assert not output.exists()
+
+
+def test_analysis_code_identity_is_clone_stable_and_audits_git_scope() -> None:
+    identity = build_analysis_code_identity(PROJECT_ROOT)
+    assert identity["schema_version"] == "analysis_code_identity_v1"
+    assert len(identity["relevant_source_digest"]) == 64
+    assert identity["relevant_source_file_count"] == 6
+    assert [item["path"] for item in identity["files"]] == sorted(
+        item["path"] for item in identity["files"]
+    )
+    assert "git_commit" not in identity
+    if identity["status"] != "clean":
+        assert (
+            identity["dirty_tracked_paths"]
+            or identity["relevant_untracked_paths"]
+            or identity["missing_paths"]
+        )
