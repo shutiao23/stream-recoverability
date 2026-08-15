@@ -1453,6 +1453,7 @@ def compute_training_information_metrics(
         )
     stations = tuple(str(value) for value in station_ids)
     rows: list[dict[str, Any]] = []
+    te_hypotheses: dict[str, tuple[dict[str, Any], int]] = {}
     pair_index = 0
     for target_station in stations:
         target_column = f"{target_station}_T"
@@ -1465,6 +1466,9 @@ def compute_training_information_metrics(
                     "source_variable": None,
                     "information_group": None,
                     "metric": "input_status",
+                    "hypothesis_id": None,
+                    "hypothesis_duplicate": False,
+                    "seed": np.nan,
                     "direction": "not_evaluated",
                     "lag": np.nan,
                     "estimate": np.nan,
@@ -1503,6 +1507,9 @@ def compute_training_information_metrics(
                         "source_variable": source_variable,
                         "information_group": group,
                         "metric": "input_status",
+                        "hypothesis_id": None,
+                        "hypothesis_duplicate": False,
+                        "seed": np.nan,
                         "direction": "not_evaluated",
                         "lag": np.nan,
                         "estimate": np.nan,
@@ -1536,6 +1543,9 @@ def compute_training_information_metrics(
                     "training_day_of_year_anomaly" if deseasonalize else "raw"
                 ),
             }
+            target_series = f"{target_station}_T"
+            source_series = f"{source_station}_{source_variable}"
+            mi_seed = seed + pair_index
             if np.unique(x[np.isfinite(x)]).size < 2 or np.unique(y[np.isfinite(y)]).size < 2:
                 mi = {
                     "mutual_information": np.nan,
@@ -1544,11 +1554,18 @@ def compute_training_information_metrics(
                     "reason": "both paired series need at least two distinct values",
                 }
             else:
-                mi = knn_mutual_information(x, y, n_neighbors=n_neighbors, seed=seed + pair_index)
+                mi = knn_mutual_information(
+                    x, y, n_neighbors=n_neighbors, seed=mi_seed
+                )
             rows.append(
                 {
                     **common,
                     "metric": "knn_mutual_information",
+                    "hypothesis_id": (
+                        f"MI:{source_series}~{target_series}:target={target_series}"
+                    ),
+                    "hypothesis_duplicate": False,
+                    "seed": mi_seed,
                     "direction": "contemporaneous_association",
                     "lag": 0,
                     "estimate": mi["mutual_information"],
@@ -1565,19 +1582,41 @@ def compute_training_information_metrics(
                     (y, x, "target_to_source"),
                 )
             ):
+                driver_series, response_series = (
+                    (source_series, target_series)
+                    if direction == "source_to_target"
+                    else (target_series, source_series)
+                )
                 for lag_index, lag in enumerate(lags):
-                    te = transfer_entropy(
-                        driver,
-                        response,
-                        lag=int(lag),
-                        n_bins=n_bins,
-                        n_permutations=n_permutations,
-                        seed=seed + pair_index * 100 + direction_index * 20 + lag_index,
+                    hypothesis_id = (
+                        f"TE:{driver_series}->{response_series}:lag={int(lag)}"
                     )
+                    duplicate = hypothesis_id in te_hypotheses
+                    if duplicate:
+                        te, te_seed = te_hypotheses[hypothesis_id]
+                    else:
+                        te_seed = (
+                            seed
+                            + pair_index * 100
+                            + direction_index * 20
+                            + lag_index
+                        )
+                        te = transfer_entropy(
+                            driver,
+                            response,
+                            lag=int(lag),
+                            n_bins=n_bins,
+                            n_permutations=n_permutations,
+                            seed=te_seed,
+                        )
+                        te_hypotheses[hypothesis_id] = (te, te_seed)
                     rows.append(
                         {
                             **common,
                             "metric": "transfer_entropy",
+                            "hypothesis_id": hypothesis_id,
+                            "hypothesis_duplicate": duplicate,
+                            "seed": te_seed,
                             "direction": direction,
                             "lag": int(lag),
                             "estimate": te["transfer_entropy"],
@@ -1602,7 +1641,18 @@ def compute_training_information_metrics(
         )
         if "p_value" not in result:
             result["p_value"] = np.nan
-        result["p_fdr_bh"] = benjamini_hochberg_fdr(result["p_value"])
+        result["p_fdr_bh"] = np.nan
+        te_rows = result["metric"].eq("transfer_entropy") & result[
+            "hypothesis_id"
+        ].notna()
+        unique_te = result.loc[te_rows].drop_duplicates("hypothesis_id", keep="first")
+        adjusted = benjamini_hochberg_fdr(unique_te["p_value"])
+        adjusted_by_hypothesis = dict(
+            zip(unique_te["hypothesis_id"], adjusted, strict=True)
+        )
+        result.loc[te_rows, "p_fdr_bh"] = result.loc[
+            te_rows, "hypothesis_id"
+        ].map(adjusted_by_hypothesis)
         result["significant_fdr_05"] = result["p_fdr_bh"].le(0.05)
     return result
 

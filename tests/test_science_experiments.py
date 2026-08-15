@@ -10,7 +10,11 @@ import pandas.testing as pdt
 import pytest
 import torch
 
-from stream_recoverability.analysis.compensation import combination_label
+import stream_recoverability.experiments.science as science_module
+from stream_recoverability.analysis.compensation import (
+    benjamini_hochberg_fdr,
+    combination_label,
+)
 from stream_recoverability.experiments.runner import ExperimentRunner
 from stream_recoverability.experiments.science import (
     _training_doy_anomaly,
@@ -300,8 +304,19 @@ def _information_wide() -> pd.DataFrame:
     return frame
 
 
-def test_information_metrics_are_training_only_and_bidirectional() -> None:
+def test_information_metrics_are_training_only_and_bidirectional(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     wide = _information_wide()
+    transfer_entropy = science_module.transfer_entropy
+    te_call_count = 0
+
+    def counted_transfer_entropy(*args: object, **kwargs: object) -> dict[str, object]:
+        nonlocal te_call_count
+        te_call_count += 1
+        return transfer_entropy(*args, **kwargs)
+
+    monkeypatch.setattr(science_module, "transfer_entropy", counted_transfer_entropy)
     first = compute_training_information_metrics(
         wide,
         station_ids=("B1", "S2"),
@@ -310,6 +325,7 @@ def test_information_metrics_are_training_only_and_bidirectional() -> None:
         n_permutations=2,
         seed=5,
     )
+    assert te_call_count == 38
     changed = wide.copy()
     nontrain = changed["split"] != "train"
     measurement_columns = [column for column in changed if "_" in column]
@@ -322,11 +338,43 @@ def test_information_metrics_are_training_only_and_bidirectional() -> None:
         n_permutations=2,
         seed=5,
     )
+    assert te_call_count == 76
     assert set(first["metric"]) == {"knn_mutual_information", "transfer_entropy"}
-    assert set(first.loc[first["metric"] == "transfer_entropy", "direction"]) == {
+    te = first.loc[first["metric"] == "transfer_entropy"].copy()
+    assert set(te["direction"]) == {
         "source_to_target",
         "target_to_source",
     }
+    assert len(te) == 40
+    assert te["hypothesis_id"].nunique() == 38
+    assert int(te["hypothesis_duplicate"].sum()) == 2
+    duplicate_hypotheses = te.loc[
+        te["hypothesis_duplicate"], "hypothesis_id"
+    ].tolist()
+    for hypothesis_id in duplicate_hypotheses:
+        displayed = te.loc[te["hypothesis_id"] == hypothesis_id]
+        assert len(displayed) == 2
+        assert displayed[
+            [
+                "estimate",
+                "p_value",
+                "null_mean",
+                "null_std",
+                "z_score",
+                "n",
+                "seed",
+                "p_fdr_bh",
+            ]
+        ].nunique(dropna=False).eq(1).all()
+    unique_te = te.drop_duplicates("hypothesis_id", keep="first")
+    expected_fdr = benjamini_hochberg_fdr(unique_te["p_value"])
+    expected_by_hypothesis = dict(
+        zip(unique_te["hypothesis_id"], expected_fdr, strict=True)
+    )
+    np.testing.assert_allclose(
+        te["p_fdr_bh"], te["hypothesis_id"].map(expected_by_hypothesis)
+    )
+    assert first["seed"].notna().all()
     assert first["fit_split"].eq("train").all()
     assert first["series_preprocessing"].eq("training_day_of_year_anomaly").all()
     assert first["series_preprocessing_definition"].str.contains(
