@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run dense-frontier, information-compensation, or training information studies."""
+"""Run dense, resilience, information-compensation, or information studies."""
 
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ from stream_recoverability.experiments.runner import SUPPORTED_MODELS
 from stream_recoverability.experiments.science import (
     run_dense_experiments,
     run_information_compensation,
+    run_resilience_experiments,
     write_training_information_metrics,
 )
 
@@ -48,6 +49,35 @@ def build_parser() -> argparse.ArgumentParser:
     dense.add_argument("--max-scenarios", type=int)
     dense.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
 
+    resilience = subparsers.add_parser(
+        "resilience", help="run the matched three-station failure powerset"
+    )
+    resilience.add_argument("--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml")
+    resilience.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml")
+    resilience.add_argument(
+        "--data", type=Path, default=PROJECT_ROOT / "data/processed/daily_wide.parquet"
+    )
+    resilience.add_argument(
+        "--quality-data",
+        type=Path,
+        default=PROJECT_ROOT / "data/processed/daily_long.parquet",
+    )
+    resilience.add_argument(
+        "--output-dir",
+        type=Path,
+        default=PROJECT_ROOT / "results/science_experiments/resilience",
+    )
+    resilience.add_argument(
+        "--mask-dir", type=Path, default=PROJECT_ROOT / "masks/science_resilience"
+    )
+    resilience.add_argument("--models", nargs="+", default=["climatology", "linear"])
+    resilience.add_argument("--training-seeds", nargs="+", type=int)
+    resilience.add_argument("--mask-seeds", nargs="+", type=int)
+    resilience.add_argument("--shard-index", type=int, default=0)
+    resilience.add_argument("--shard-count", type=int, default=1)
+    resilience.add_argument("--max-scenarios", type=int)
+    resilience.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
+
     compensation = subparsers.add_parser(
         "compensation", help="evaluate S0 and all 15 checkpoint source subsets"
     )
@@ -64,10 +94,23 @@ def build_parser() -> argparse.ArgumentParser:
         "--mask-dir", type=Path, default=PROJECT_ROOT / "masks/science_compensation"
     )
     compensation.add_argument("--checkpoint", type=Path)
-    compensation.add_argument("--training-seed", type=int, default=11)
+    compensation.add_argument(
+        "--checkpoint-dir",
+        type=Path,
+        default=PROJECT_ROOT / "results/experiments/checkpoints",
+    )
+    compensation.add_argument(
+        "--checkpoint-template",
+        default="proposed-S{seed}-W{window}-{protocol}.pt",
+    )
+    compensation.add_argument("--training-seed", type=int)
+    compensation.add_argument("--training-seeds", nargs="+", type=int)
     compensation.add_argument("--mask-seeds", nargs="+", type=int)
     compensation.add_argument("--max-scenarios", type=int)
     compensation.add_argument("--device", default="cpu")
+    compensation.add_argument(
+        "--resume", action=argparse.BooleanOptionalAction, default=True
+    )
 
     information = subparsers.add_parser(
         "information", help="compute training-only kNN MI and bidirectional TE"
@@ -92,12 +135,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    if args.command == "dense":
+    if args.command in {"dense", "resilience"}:
         try:
             models = _models(args.models)
         except argparse.ArgumentTypeError as error:
             raise SystemExit(str(error)) from error
-        daily, events = run_dense_experiments(
+        run_experiments = (
+            run_dense_experiments if args.command == "dense" else run_resilience_experiments
+        )
+        daily, events = run_experiments(
             manifest_path=args.manifest,
             config_path=args.config,
             wide_path=args.data,
@@ -120,28 +166,29 @@ def main() -> None:
             "output_dir": str(args.output_dir),
         }
     elif args.command == "compensation":
-        checkpoint = args.checkpoint or (
-            PROJECT_ROOT
-            / "results/experiments/checkpoints"
-            / f"proposed-S{args.training_seed}-W368-seen_length.pt"
-        )
         daily, events, skipped = run_information_compensation(
-            checkpoint_path=checkpoint,
+            checkpoint_path=args.checkpoint,
+            checkpoint_dir=args.checkpoint_dir,
+            checkpoint_template=args.checkpoint_template,
             manifest_path=args.manifest,
             config_path=args.config,
             wide_path=args.data,
             quality_path=args.quality_data,
             output_dir=args.output_dir,
             mask_dir=args.mask_dir,
+            training_seeds=args.training_seeds,
             training_seed=args.training_seed,
             mask_seeds=args.mask_seeds,
             max_scenarios=args.max_scenarios,
             device=args.device,
+            resume=args.resume,
         )
         summary = {
             "command": args.command,
+            "training_seeds": args.training_seeds,
             "training_seed": args.training_seed,
-            "checkpoint": str(checkpoint),
+            "checkpoint": str(args.checkpoint) if args.checkpoint else None,
+            "checkpoint_dir": str(args.checkpoint_dir),
             "daily_rows": len(daily),
             "event_rows": len(events),
             "skipped_rows": len(skipped),

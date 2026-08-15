@@ -118,7 +118,7 @@ def _safe_masked_softmax(logits: Tensor, valid: Tensor, dim: int = -1) -> Tensor
 class MissingAwareMultisourceImputer(nn.Module):
     """Four-branch quantile imputer with explicit source availability gating."""
 
-    quantile_levels = (0.05, 0.50, 0.95)
+    quantile_levels = (0.05, 0.25, 0.50, 0.75, 0.95)
 
     def __init__(self, config: ProposedModelConfig | None = None) -> None:
         super().__init__()
@@ -191,7 +191,7 @@ class MissingAwareMultisourceImputer(nn.Module):
         self.quantile_head = nn.Sequential(
             nn.Linear(hidden + station_size, hidden),
             nn.GELU(),
-            nn.Linear(hidden, 3),
+            nn.Linear(hidden, len(self.quantile_levels)),
         )
 
     def _value_encoder(self, input_size: int, hidden: int) -> nn.Sequential:
@@ -389,30 +389,45 @@ class MissingAwareMultisourceImputer(nn.Module):
             enabled_groups, group_mask, (batch, steps, stations), values.device
         )
         valid_branches = enabled & (branch_availability > 0)
+        masked_branches = branches * enabled.unsqueeze(-1).to(values.dtype)
+        masked_availability = branch_availability * enabled.to(values.dtype)
         gate_input = torch.cat(
             (
-                branches.flatten(start_dim=-2),
-                branch_availability,
+                masked_branches.flatten(start_dim=-2),
+                masked_availability,
                 station_context,
             ),
             dim=-1,
         )
         gate_logits = self.gate(gate_input)
         gate_weights = _safe_masked_softmax(gate_logits, valid_branches)
-        fused = (branches * gate_weights.unsqueeze(-1)).sum(dim=-2)
+        fused = (masked_branches * gate_weights.unsqueeze(-1)).sum(dim=-2)
 
         raw_quantiles = self.quantile_head(torch.cat((fused, station_context), dim=-1))
         median = raw_quantiles[..., 0]
-        lower_distance = F.softplus(raw_quantiles[..., 1]) + 1e-6
-        upper_distance = F.softplus(raw_quantiles[..., 2]) + 1e-6
-        quantiles = torch.stack(
-            (median - lower_distance, median, median + upper_distance), dim=-1
+        median_spacing = (
+            4.0 * torch.finfo(raw_quantiles.dtype).eps * (median.detach().abs() + 1.0)
         )
+        lower_inner = F.softplus(raw_quantiles[..., 1]) + median_spacing
+        upper_inner = F.softplus(raw_quantiles[..., 3]) + median_spacing
+        q25 = median - lower_inner
+        q75 = median + upper_inner
+        lower_outer = F.softplus(raw_quantiles[..., 2]) + (
+            4.0 * torch.finfo(raw_quantiles.dtype).eps * (q25.detach().abs() + 1.0)
+        )
+        upper_outer = F.softplus(raw_quantiles[..., 4]) + (
+            4.0 * torch.finfo(raw_quantiles.dtype).eps * (q75.detach().abs() + 1.0)
+        )
+        q05 = q25 - lower_outer
+        q95 = q75 + upper_outer
+        quantiles = torch.stack((q05, q25, median, q75, q95), dim=-1)
         return {
             "quantiles": quantiles,
             "q05": quantiles[..., 0],
-            "q50": quantiles[..., 1],
-            "q95": quantiles[..., 2],
+            "q25": quantiles[..., 1],
+            "q50": quantiles[..., 2],
+            "q75": quantiles[..., 3],
+            "q95": quantiles[..., 4],
             "gate_weights": gate_weights,
             "branch_availability": branch_availability,
             "effective_available_mask": available,
@@ -436,24 +451,24 @@ def masked_imputation_loss(
     """Masked-only Huber + pinball loss with optional observed consistency."""
 
     quantiles = output["quantiles"] if isinstance(output, Mapping) else output
-    if quantiles.shape[:-1] != target.shape or quantiles.shape[-1] != 3:
-        raise ValueError("quantiles must have shape target.shape + (3,)")
+    if quantiles.shape[:-1] != target.shape or quantiles.shape[-1] != 5:
+        raise ValueError("quantiles must have shape target.shape + (5,)")
     eligible = artificial_target_mask.bool() & torch.isfinite(target)
     if quality_mask is not None:
         eligible &= quality_mask.bool()
     truth = torch.nan_to_num(target)
 
-    huber_values = F.huber_loss(quantiles[..., 1], truth, delta=huber_delta, reduction="none")
+    huber_values = F.huber_loss(quantiles[..., 2], truth, delta=huber_delta, reduction="none")
     count = eligible.sum()
     denominator = count.clamp_min(1).to(quantiles.dtype)
     huber = (huber_values * eligible.to(huber_values.dtype)).sum() / denominator
 
-    levels = quantiles.new_tensor((0.05, 0.50, 0.95))
+    levels = quantiles.new_tensor(MissingAwareMultisourceImputer.quantile_levels)
     error = truth.unsqueeze(-1) - quantiles
     pinball_values = torch.maximum(levels * error, (levels - 1.0) * error)
     pinball = (
         pinball_values * eligible.unsqueeze(-1).to(pinball_values.dtype)
-    ).sum() / (denominator * 3.0)
+    ).sum() / (denominator * float(len(MissingAwareMultisourceImputer.quantile_levels)))
 
     consistency = quantiles.sum() * 0.0
     if consistency_weight > 0:
@@ -462,7 +477,7 @@ def masked_imputation_loss(
         consistent = observed_mask.bool() & torch.isfinite(observed_target)
         consistent_count = consistent.sum().clamp_min(1).to(quantiles.dtype)
         consistency_values = F.smooth_l1_loss(
-            quantiles[..., 1], torch.nan_to_num(observed_target), reduction="none"
+            quantiles[..., 2], torch.nan_to_num(observed_target), reduction="none"
         )
         consistency = (consistency_values * consistent.to(quantiles.dtype)).sum() / consistent_count
 

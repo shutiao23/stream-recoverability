@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import copy
+import pickle
+import random
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
-import random
-from typing import Any, Iterable, Mapping
+from typing import Any
 
 import numpy as np
 import torch
@@ -40,6 +42,7 @@ class ProposedTrainingResult:
     best_epoch: int
     best_validation_loss: float
     epochs_run: int
+    hit_epoch_limit: bool
     history: tuple[dict[str, float], ...]
 
 
@@ -174,7 +177,9 @@ def _run_epoch(
         total += float(losses["loss"].detach().cpu())
         batch_count += 1
     if batch_count == 0:
-        raise ValueError("training and validation iterables must each contain at least one batch")
+        raise ValueError(
+            "training and validation iterables must each contain at least one batch"
+        )
     return total / batch_count
 
 
@@ -207,6 +212,7 @@ def train_proposed_model(
     best_loss = float("inf")
     best_epoch = 0
     best_state = copy.deepcopy(model.state_dict())
+    best_optimizer_state = copy.deepcopy(optimizer.state_dict())
     bad_epochs = 0
     history: list[dict[str, float]] = []
     for epoch in range(1, config.epochs + 1):
@@ -226,13 +232,22 @@ def train_proposed_model(
             optimizer=None,
             source_generator=None,
         )
+        if not np.isfinite(train_loss) or not np.isfinite(validation_loss):
+            raise RuntimeError(
+                "proposed training produced a non-finite train or validation loss"
+            )
         history.append(
-            {"epoch": float(epoch), "train_loss": train_loss, "validation_loss": validation_loss}
+            {
+                "epoch": float(epoch),
+                "train_loss": train_loss,
+                "validation_loss": validation_loss,
+            }
         )
         if validation_loss < best_loss - config.min_delta:
             best_loss = validation_loss
             best_epoch = epoch
             best_state = copy.deepcopy(model.state_dict())
+            best_optimizer_state = copy.deepcopy(optimizer.state_dict())
             bad_epochs = 0
             if path is not None:
                 torch.save(
@@ -251,13 +266,140 @@ def train_proposed_model(
             if bad_epochs >= config.patience:
                 break
 
+    if best_epoch < 1 or not np.isfinite(best_loss):
+        raise RuntimeError("proposed training did not produce a finite validation checkpoint")
     model.load_state_dict(best_state)
+    hit_epoch_limit = len(history) == config.epochs
+    if path is not None:
+        torch.save(
+            {
+                "model_state_dict": best_state,
+                "optimizer_state_dict": best_optimizer_state,
+                "model_config": asdict(model.config),
+                "training_config": asdict(config),
+                "epoch": best_epoch,
+                "best_epoch": best_epoch,
+                "best_validation_loss": best_loss,
+                "epochs_run": len(history),
+                "hit_epoch_limit": hit_epoch_limit,
+                "history": history,
+            },
+            path,
+        )
     return ProposedTrainingResult(
         best_epoch=best_epoch,
         best_validation_loss=best_loss,
         epochs_run=len(history),
+        hit_epoch_limit=hit_epoch_limit,
         history=tuple(history),
     )
+
+
+def _contract_mismatches(
+    stored: object, expected: Mapping[str, Any]
+) -> dict[str, tuple[Any, Any]]:
+    if not isinstance(stored, Mapping):
+        return {"<mapping>": (type(stored).__name__, "mapping")}
+    keys = set(stored).union(expected)
+    return {
+        str(field): (stored.get(field), expected.get(field))
+        for field in sorted(keys, key=str)
+        if stored.get(field) != expected.get(field)
+        or (field in stored) != (field in expected)
+    }
+
+
+def _validate_finite_state_dict(state_dict: object) -> None:
+    if not isinstance(state_dict, Mapping) or not state_dict:
+        raise ValueError("checkpoint model_state_dict must be a non-empty mapping")
+    for name, value in state_dict.items():
+        if not isinstance(value, torch.Tensor) or not torch.isfinite(value).all().item():
+            raise ValueError(f"checkpoint model_state_dict entry {name!r} must be finite")
+
+
+def validate_proposed_checkpoint_contract(
+    checkpoint: Mapping[str, Any],
+    *,
+    expected_model_config: ProposedModelConfig,
+    expected_training_config: ProposedTrainingConfig,
+    expected_training_context: Mapping[str, Any],
+) -> None:
+    """Reject checkpoints that differ from the requested model/training estimand."""
+
+    model_mismatches = _contract_mismatches(
+        checkpoint.get("model_config"), asdict(expected_model_config)
+    )
+    training_mismatches = _contract_mismatches(
+        checkpoint.get("training_config"), asdict(expected_training_config)
+    )
+    context_mismatches = _contract_mismatches(
+        checkpoint.get("training_context"), dict(expected_training_context)
+    )
+    if model_mismatches or training_mismatches or context_mismatches:
+        raise ValueError(
+            "checkpoint contract mismatch: "
+            f"model_config={model_mismatches}, "
+            f"training_config={training_mismatches}, "
+            f"training_context={context_mismatches}"
+        )
+
+    _validate_finite_state_dict(checkpoint.get("model_state_dict"))
+
+    best_epoch = checkpoint.get("best_epoch")
+    epochs_run = checkpoint.get("epochs_run")
+    best_loss = checkpoint.get("best_validation_loss")
+    history = checkpoint.get("history")
+    if (
+        isinstance(best_epoch, bool)
+        or not isinstance(best_epoch, (int, np.integer))
+        or int(best_epoch) < 1
+    ):
+        raise ValueError("checkpoint best_epoch must be a positive integer")
+    if (
+        isinstance(epochs_run, bool)
+        or not isinstance(epochs_run, (int, np.integer))
+        or int(epochs_run) < int(best_epoch)
+        or int(epochs_run) > expected_training_config.epochs
+    ):
+        raise ValueError(
+            "checkpoint epochs_run must satisfy best_epoch <= epochs_run <= configured epochs"
+        )
+    if not isinstance(best_loss, (int, float, np.integer, np.floating)) or not np.isfinite(
+        float(best_loss)
+    ):
+        raise ValueError("checkpoint best_validation_loss must be finite")
+    if not isinstance(history, Sequence) or isinstance(history, (str, bytes)):
+        raise TypeError("checkpoint history must be a non-empty epoch sequence")
+    if len(history) != int(epochs_run) or not history:
+        raise ValueError("checkpoint history length must equal epochs_run")
+    for index, row in enumerate(history, start=1):
+        if not isinstance(row, Mapping):
+            raise TypeError("checkpoint history rows must be mappings")
+        try:
+            epoch = float(row["epoch"])
+            train_loss = float(row["train_loss"])
+            validation_loss = float(row["validation_loss"])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError(
+                "checkpoint history rows require epoch/train_loss/validation_loss"
+            ) from error
+        if epoch != index or not np.isfinite(train_loss) or not np.isfinite(
+            validation_loss
+        ):
+            raise ValueError(
+                "checkpoint history epochs must be sequential with finite losses"
+            )
+    best_history_loss = float(history[int(best_epoch) - 1]["validation_loss"])
+    if not np.isclose(best_history_loss, float(best_loss), rtol=1e-12, atol=0.0):
+        raise ValueError(
+            "checkpoint best_validation_loss does not match its best_epoch history row"
+        )
+    if checkpoint.get("epoch") != int(best_epoch):
+        raise ValueError("checkpoint epoch must equal best_epoch")
+    hit_epoch_limit = checkpoint.get("hit_epoch_limit")
+    expected_hit_limit = int(epochs_run) == expected_training_config.epochs
+    if not isinstance(hit_epoch_limit, bool) or hit_epoch_limit != expected_hit_limit:
+        raise ValueError("checkpoint hit_epoch_limit is inconsistent with epochs_run")
 
 
 def load_proposed_checkpoint(
@@ -268,11 +410,26 @@ def load_proposed_checkpoint(
 ) -> tuple[MissingAwareMultisourceImputer, dict[str, Any]]:
     """Load a saved best checkpoint and return the model plus metadata."""
 
-    checkpoint = torch.load(checkpoint_path, map_location=map_location, weights_only=False)
+    try:
+        checkpoint = torch.load(
+            checkpoint_path, map_location=map_location, weights_only=False
+        )
+    except pickle.UnpicklingError as error:
+        raise ValueError("proposed checkpoint payload cannot be decoded") from error
+    if not isinstance(checkpoint, Mapping):
+        raise TypeError("proposed checkpoint payload must be a mapping")
+    state_dict = checkpoint.get("model_state_dict")
+    _validate_finite_state_dict(state_dict)
     if model is None:
-        model = MissingAwareMultisourceImputer(ProposedModelConfig(**checkpoint["model_config"]))
-    model.load_state_dict(checkpoint["model_state_dict"])
-    return model, checkpoint
+        try:
+            model = MissingAwareMultisourceImputer(
+                ProposedModelConfig(**checkpoint["model_config"])
+            )
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError("proposed checkpoint model_config is invalid") from error
+    model.load_state_dict(state_dict)
+    _validate_finite_state_dict(model.state_dict())
+    return model, dict(checkpoint)
 
 
 __all__ = [
@@ -282,4 +439,5 @@ __all__ = [
     "sample_source_dropout",
     "set_deterministic_seed",
     "train_proposed_model",
+    "validate_proposed_checkpoint_contract",
 ]

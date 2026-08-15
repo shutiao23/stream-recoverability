@@ -77,9 +77,7 @@ def test_deep_baseline_is_deterministic(name: str) -> None:
 @pytest.mark.parametrize("name", ["brits", "saits"])
 def test_hidden_truth_is_not_an_input(name: str) -> None:
     values, train_mask, _ = _data()
-    model = _model(name).fit(
-        values, train_mask, epochs=1, batch_size=2, patience=1
-    )
+    model = _model(name).fit(values, train_mask, epochs=1, batch_size=2, patience=1)
     altered = values.copy()
     altered[train_mask] += 10000.0
     original_prediction = model.predict(values, train_mask)
@@ -92,17 +90,79 @@ def test_hidden_truth_is_not_an_input(name: str) -> None:
 @pytest.mark.parametrize("name", ["brits", "saits"])
 def test_checkpoint_round_trip(name: str, tmp_path) -> None:
     values, train_mask, _ = _data()
-    model = _model(name).fit(
-        values, train_mask, epochs=1, batch_size=2, patience=1
-    )
+    model = _model(name).fit(values, train_mask, epochs=1, batch_size=2, patience=1)
     expected = model.predict(values, train_mask)
     checkpoint = model.save_checkpoint(tmp_path / f"{name}.pt")
     loaded = type(model).load_checkpoint(checkpoint)
     assert np.array_equal(expected, loaded.predict(values, train_mask))
+    assert loaded.training_config_["epochs"] == 1
+    assert loaded.history_["best_epoch"] == 1
+    assert loaded.history_["hit_epoch_limit"] is True
+
+
+@pytest.mark.parametrize("name", ["brits", "saits"])
+def test_deep_checkpoint_contract_rejects_mismatch_incomplete_and_corrupt(
+    name: str, tmp_path
+) -> None:
+    values, train_mask, _ = _data()
+    model = _model(name).fit(
+        values, train_mask, epochs=2, batch_size=2, patience=1
+    )
+    checkpoint = model.save_checkpoint(tmp_path / f"{name}.pt")
+    expected_config = dict(model._config)
+    expected_training = dict(model.training_config_)
+    type(model).load_checkpoint(
+        checkpoint,
+        expected_config=expected_config,
+        expected_training_config=expected_training,
+    )
+
+    wrong_architecture = dict(expected_config)
+    architecture_field = "hidden_size" if name == "brits" else "d_model"
+    wrong_architecture[architecture_field] += 8
+    with pytest.raises(ValueError, match="architecture mismatch"):
+        type(model).load_checkpoint(
+            checkpoint,
+            expected_config=wrong_architecture,
+            expected_training_config=expected_training,
+        )
+
+    wrong_training = dict(expected_training)
+    wrong_training["learning_rate"] = 0.01
+    with pytest.raises(ValueError, match="training contract"):
+        type(model).load_checkpoint(
+            checkpoint,
+            expected_config=expected_config,
+            expected_training_config=wrong_training,
+        )
+
+    payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
+    payload["history"]["validation_loss"][0] = float("inf")
+    incomplete = tmp_path / f"{name}-incomplete.pt"
+    torch.save(payload, incomplete)
+    with pytest.raises(ValueError, match="finite"):
+        type(model).load_checkpoint(incomplete)
+
+    payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
+    state_name = next(
+        key
+        for key, value in payload["state_dict"].items()
+        if torch.is_floating_point(value)
+    )
+    payload["state_dict"][state_name] = payload["state_dict"][state_name].clone()
+    payload["state_dict"][state_name].reshape(-1)[0] = float("nan")
+    nonfinite_state = tmp_path / f"{name}-nonfinite-state.pt"
+    torch.save(payload, nonfinite_state)
+    with pytest.raises(ValueError, match="state_dict.*finite"):
+        type(model).load_checkpoint(nonfinite_state)
+
+    corrupt = tmp_path / f"{name}-corrupt.pt"
+    corrupt.write_bytes(b"not a torch checkpoint")
+    with pytest.raises(ValueError, match="cannot be decoded"):
+        type(model).load_checkpoint(corrupt)
 
 
 def test_brits_time_gap_accumulates_through_missing_steps() -> None:
     observed = torch.tensor([[[True], [False], [False], [True]]])
     gaps = compute_time_gaps(observed)
     assert torch.equal(gaps[:, :, 0], torch.tensor([[0.0, 1.0, 2.0, 3.0]]))
-

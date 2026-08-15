@@ -232,11 +232,8 @@ def temperature_metrics(
         normalization_std=normalization_std,
     )
     selected = evaluation_mask(truth, prediction, quality, artificial)
-    reference = quality & np.isfinite(truth)
     if high_threshold is None:
-        high_threshold = (
-            float(np.quantile(truth[reference], 0.90)) if reference.any() else float("nan")
-        )
+        high_threshold = float("nan")
     extreme = selected & (truth >= high_threshold)
     result["high_temp_threshold"] = float(high_threshold)
     result["high_temp_n"] = int(extreme.sum())
@@ -256,20 +253,44 @@ def temperature_metrics(
         else float("nan")
     )
 
-    threshold = high_threshold if ecological_threshold is None else float(ecological_threshold)
+    ecological = (
+        float("nan") if ecological_threshold is None else float(ecological_threshold)
+    )
+    result["ecological_threshold"] = ecological
     result["threshold_days_bias"] = (
-        int(np.sum(prediction[selected] >= threshold) - np.sum(truth[selected] >= threshold))
-        if selected.any()
+        int(
+            np.sum(prediction[selected] >= ecological)
+            - np.sum(truth[selected] >= ecological)
+        )
+        if selected.any() and np.isfinite(ecological)
         else float("nan")
     )
     reconstructed = truth.copy()
     reconstructed[selected] = prediction[selected]
     valid_sequence = quality & np.isfinite(truth) & np.isfinite(reconstructed)
-    true_hot = valid_sequence & (truth >= threshold)
-    recovered_hot = valid_sequence & (reconstructed >= threshold)
-    result["heatwave_duration_error"] = float(
-        _longest_run(recovered_hot) - _longest_run(true_hot)
+    duration_scope = np.zeros(len(truth), dtype=bool)
+    if selected.any():
+        if dates is not None:
+            parsed_for_duration = pd.DatetimeIndex(pd.to_datetime(dates))
+            if len(parsed_for_duration) != len(truth):
+                raise ValueError("dates must align with y_true")
+            evaluated_years = np.unique(parsed_for_duration.year[selected])
+            duration_scope = np.isin(parsed_for_duration.year, evaluated_years)
+            duration_scope_label = "years_intersecting_artificial_mask"
+        else:
+            positions = np.flatnonzero(selected)
+            duration_scope[positions[0] : positions[-1] + 1] = True
+            duration_scope_label = "span_intersecting_artificial_mask"
+    else:
+        duration_scope_label = None
+    true_hot = valid_sequence & duration_scope & (truth >= high_threshold)
+    recovered_hot = valid_sequence & duration_scope & (reconstructed >= high_threshold)
+    result["heatwave_duration_error"] = (
+        float(_longest_run(recovered_hot) - _longest_run(true_hot))
+        if np.isfinite(high_threshold) and selected.any()
+        else float("nan")
     )
+    result["heatwave_duration_scope"] = duration_scope_label
 
     adjacent_artificial = artificial[1:] | artificial[:-1]
     valid_change = (
@@ -365,6 +386,12 @@ def flow_metrics(
         normalization_std=normalization_std,
     )
     selected = evaluation_mask(truth, prediction, quality, artificial)
+    if high_threshold is None:
+        high_threshold = float("nan")
+    if low_threshold is None:
+        low_threshold = float("nan")
+    result["high_flow_threshold"] = float(high_threshold)
+    result["low_flow_threshold"] = float(low_threshold)
     if not selected.any():
         result.update(
             {
@@ -394,11 +421,6 @@ def flow_metrics(
     result["nse"] = _nse(observed, simulated)
     result["kge"] = _kge(observed, simulated)
 
-    reference = quality & np.isfinite(truth)
-    if high_threshold is None:
-        high_threshold = float(np.quantile(truth[reference], 0.90)) if reference.any() else float("nan")
-    if low_threshold is None:
-        low_threshold = float(np.quantile(truth[reference], 0.10)) if reference.any() else float("nan")
     high = selected & (truth >= high_threshold)
     low = selected & (truth <= low_threshold)
     result["high_flow_mae"] = (
@@ -451,16 +473,16 @@ def level_metrics(
         normalization_std=normalization_std,
     )
     selected = evaluation_mask(truth, prediction, quality, artificial)
-    reference = quality & np.isfinite(truth)
     if high_threshold is None:
-        high_threshold = float(np.quantile(truth[reference], 0.90)) if reference.any() else float("nan")
+        high_threshold = float("nan")
+    result["high_level_threshold"] = float(high_threshold)
     high = selected & (truth >= high_threshold)
     result["high_level_mae"] = (
         float(np.mean(np.abs(prediction[high] - truth[high]))) if high.any() else float("nan")
     )
     result["high_level_duration_bias"] = (
         int(np.sum(prediction[selected] >= high_threshold) - np.sum(truth[selected] >= high_threshold))
-        if selected.any()
+        if selected.any() and np.isfinite(high_threshold)
         else float("nan")
     )
     if not selected.any():

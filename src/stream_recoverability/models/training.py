@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from typing import Any
 
 import numpy as np
@@ -64,7 +63,9 @@ def _as_numpy(values: np.ndarray | torch.Tensor, *, name: str) -> np.ndarray:
     else:
         result = np.asarray(values)
     if result.ndim not in {2, 3}:
-        raise ValueError(f"{name} must have shape (time, feature) or (batch, time, feature)")
+        raise ValueError(
+            f"{name} must have shape (time, feature) or (batch, time, feature)"
+        )
     return result
 
 
@@ -97,7 +98,9 @@ def _validated_pair(
 ) -> tuple[np.ndarray, np.ndarray, bool]:
     array, squeeze = as_3d_values(values)
     if array.shape[-1] != n_features:
-        raise ValueError(f"values has {array.shape[-1]} features, expected {n_features}")
+        raise ValueError(
+            f"values has {array.shape[-1]} features, expected {n_features}"
+        )
     hidden = as_3d_mask(artificial_mask, array.shape)
     if np.any(hidden & ~np.isfinite(array)):
         raise ValueError("artificial_mask covers a non-finite/ineligible target")
@@ -106,7 +109,9 @@ def _validated_pair(
     return array, hidden, squeeze
 
 
-def feature_statistics(values: np.ndarray, artificial_mask: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def feature_statistics(
+    values: np.ndarray, artificial_mask: np.ndarray
+) -> tuple[np.ndarray, np.ndarray]:
     observed = np.isfinite(values) & ~artificial_mask
     means = np.empty(values.shape[-1], dtype=np.float32)
     stds = np.empty(values.shape[-1], dtype=np.float32)
@@ -129,9 +134,9 @@ def _model_tensors(
     finite = np.isfinite(values)
     observed = finite & ~artificial_mask
     normalized = np.zeros_like(values, dtype=np.float32)
-    normalized[finite] = (
-        (values - mean.reshape(1, 1, -1)) / std.reshape(1, 1, -1)
-    )[finite]
+    normalized[finite] = ((values - mean.reshape(1, 1, -1)) / std.reshape(1, 1, -1))[
+        finite
+    ]
     model_input = np.where(observed, normalized, 0.0).astype(np.float32)
     target = np.where(finite, normalized, 0.0).astype(np.float32)
     target_mask = artificial_mask & finite
@@ -154,9 +159,14 @@ def _loss_for_batches(
     with torch.no_grad():
         for start in range(0, len(inputs), batch_size):
             selection = slice(start, start + batch_size)
-            components = model.forward_components(inputs[selection], observed[selection])
+            components = model.forward_components(
+                inputs[selection], observed[selection]
+            )
             loss = model.training_loss(
-                components, targets[selection], target_masks[selection], observed[selection]
+                components,
+                targets[selection],
+                target_masks[selection],
+                observed[selection],
             )
             losses.append(float(loss.detach()))
     return float(np.mean(losses))
@@ -184,7 +194,9 @@ def fit_imputer(
     if learning_rate <= 0 or weight_decay < 0 or min_delta < 0:
         raise ValueError("invalid optimizer or early-stopping setting")
     if (validation_values is None) != (validation_mask is None):
-        raise ValueError("validation_values and validation_mask must be supplied together")
+        raise ValueError(
+            "validation_values and validation_mask must be supplied together"
+        )
 
     set_deterministic(model.seed)
     train_values, train_hidden, _ = _validated_pair(
@@ -269,6 +281,7 @@ def fit_imputer(
     history["epochs_ran"] = len(history["train_loss"])
     history["best_epoch"] = best_epoch + 1
     history["best_validation_loss"] = best_loss
+    history["hit_epoch_limit"] = history["epochs_ran"] == int(epochs)
     return history
 
 
@@ -287,7 +300,9 @@ def predict_imputer(
         raise ValueError("batch_size must be positive")
     array, squeeze = as_3d_values(values)
     if array.shape[-1] != model.n_features:
-        raise ValueError(f"values has {array.shape[-1]} features, expected {model.n_features}")
+        raise ValueError(
+            f"values has {array.shape[-1]} features, expected {model.n_features}"
+        )
     if artificial_mask is None:
         hidden = np.zeros_like(array, dtype=bool)
     else:
@@ -350,4 +365,3 @@ def make_windows(
     if len(value_windows) == 0:
         raise ValueError("no generated window contains an artificial target")
     return value_windows, mask_windows
-

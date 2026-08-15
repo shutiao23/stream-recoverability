@@ -33,8 +33,19 @@ M9:
 
 runner:
   default_models: [climatology, linear]
-  deep_epochs: 3
-  proposed_epochs: 3
-  patience: 2
   batch_size: 8
   device: cpu
+  smoke:
+    train_mask_repeats: 1
+    validation_mask_repeats: 1
+    deep_epochs: 3
+    deep_patience: 2
+    proposed_epochs: 3
+    proposed_patience: 2
+  formal:
+    train_mask_repeats: 5
+    validation_mask_repeats: 1
+    deep_epochs: 50
+    deep_patience: 8
+    proposed_epochs: 20
+    proposed_patience: 5

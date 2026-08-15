@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from typing import Any
 
 import numpy as np
@@ -14,6 +14,35 @@ from stream_recoverability.evaluation.metrics import (
     flow_metrics,
     level_metrics,
     temperature_metrics,
+)
+
+SCIENTIFIC_GROUP_COLUMNS = (
+    "scenario_id",
+    "training_seed",
+    "mask_seed",
+    "experiment",
+    "mask_type",
+    "layout",
+    "outage_mode",
+    "overlap_ratio",
+    "window_length",
+    "training_protocol",
+    "fit_split",
+    "tuning_split",
+    "evaluation_split",
+    "validation_scope",
+    "is_external_validation",
+    "external_validation_status",
+    "station_id",
+    "target",
+    "model",
+    "variable_pattern",
+    "pattern",
+    "gap_length",
+    "missing_rate",
+    "event_type",
+    "information_combination",
+    "component_estimator",
 )
 
 
@@ -28,7 +57,9 @@ def _ordered_valid_series(
         parsed = pd.Series(times)
         if len(parsed) != len(y):
             raise ValueError("times and values must align")
-        if pd.api.types.is_datetime64_any_dtype(parsed) or not pd.api.types.is_numeric_dtype(parsed):
+        if pd.api.types.is_datetime64_any_dtype(
+            parsed
+        ) or not pd.api.types.is_numeric_dtype(parsed):
             converted = pd.to_datetime(parsed, errors="coerce")
             origin = converted.min()
             x = (converted - origin).dt.total_seconds().to_numpy(dtype=float) / 86400.0
@@ -104,8 +135,14 @@ def mann_kendall_test(
             z_score = 0.0
         p_value = float(2.0 * norm.sf(abs(z_score)))
         reason = None
-    direction = "increasing" if score > 0 else "decreasing" if score < 0 else "no_change"
-    significant = direction if np.isfinite(p_value) and p_value < alpha else "no_significant_trend"
+    direction = (
+        "increasing" if score > 0 else "decreasing" if score < 0 else "no_change"
+    )
+    significant = (
+        direction
+        if np.isfinite(p_value) and p_value < alpha
+        else "no_significant_trend"
+    )
     return {
         "n": int(n),
         "s": int(score),
@@ -188,7 +225,7 @@ def sen_slope(
         "slope": slope,
         "intercept": intercept,
         "n": int(n),
-        "pairs_used": int(len(slopes)),
+        "pairs_used": len(slopes),
         "total_pairs": int(total_pairs),
         "method": method,
         "reason": None,
@@ -241,9 +278,17 @@ def trend_preservation(
         ),
         "true_mk_p": true_mk["p_value"],
         "pred_mk_p": predicted_mk["p_value"],
-        "trend_direction_match": true_mk["direction"] == predicted_mk["direction"],
+        "trend_direction_match": (
+            true_mk["direction"] == predicted_mk["direction"]
+            if true_mk["direction"] is not None
+            and predicted_mk["direction"] is not None
+            else None
+        ),
         "trend_significance_match": (
             true_mk["significant_trend"] == predicted_mk["significant_trend"]
+            if true_mk["significant_trend"] is not None
+            and predicted_mk["significant_trend"] is not None
+            else None
         ),
         "true_sen_slope": true_sen["slope"],
         "pred_sen_slope": predicted_sen["slope"],
@@ -254,14 +299,150 @@ def trend_preservation(
         ),
         "true_sen_method": true_sen["method"],
         "pred_sen_method": predicted_sen["method"],
-        "reason": true_mk["reason"] or predicted_mk["reason"] or true_sen["reason"] or predicted_sen["reason"],
+        "reason": true_mk["reason"]
+        or predicted_mk["reason"]
+        or true_sen["reason"]
+        or predicted_sen["reason"],
     }
+
+
+def _local_slope_summary(
+    group: pd.DataFrame,
+    *,
+    truth_col: str,
+    prediction_col: str,
+    quality_col: str,
+    artificial_col: str,
+    date_col: str,
+    max_sen_pairs: int,
+    seed: int,
+) -> dict[str, Any]:
+    truth = pd.to_numeric(group[truth_col], errors="coerce")
+    prediction = pd.to_numeric(group[prediction_col], errors="coerce")
+    selected = (
+        group[quality_col].fillna(False).astype(bool)
+        & group[artificial_col].fillna(False).astype(bool)
+        & truth.notna()
+        & prediction.notna()
+    )
+    dates = group.loc[selected, date_col]
+    true_sen = sen_slope(
+        truth.loc[selected], times=dates, max_pairs=max_sen_pairs, seed=seed
+    )
+    pred_sen = sen_slope(
+        prediction.loc[selected],
+        times=dates,
+        max_pairs=max_sen_pairs,
+        seed=seed + 1,
+    )
+
+    def shape(slope: float) -> str | None:
+        if not np.isfinite(slope):
+            return None
+        if slope > 0:
+            return "increasing"
+        if slope < 0:
+            return "decreasing"
+        return "flat"
+
+    true_shape = shape(true_sen["slope"])
+    pred_shape = shape(pred_sen["slope"])
+    return {
+        "n_local_slope": int(selected.sum()),
+        "local_true_sen_slope": true_sen["slope"],
+        "local_pred_sen_slope": pred_sen["slope"],
+        "local_sen_slope_error": (
+            pred_sen["slope"] - true_sen["slope"]
+            if np.isfinite(pred_sen["slope"]) and np.isfinite(true_sen["slope"])
+            else np.nan
+        ),
+        "local_true_shape": true_shape,
+        "local_pred_shape": pred_shape,
+        "local_shape_match": (
+            true_shape == pred_shape
+            if true_shape is not None and pred_shape is not None
+            else None
+        ),
+        "local_true_sen_method": true_sen["method"],
+        "local_pred_sen_method": pred_sen["method"],
+        "local_reason": true_sen["reason"] or pred_sen["reason"],
+    }
+
+
+def _unavailable_long_term(reason: str) -> dict[str, Any]:
+    return {
+        "n_trend": 0,
+        "true_mk_tau": np.nan,
+        "pred_mk_tau": np.nan,
+        "mk_tau_error": np.nan,
+        "true_mk_p": np.nan,
+        "pred_mk_p": np.nan,
+        "trend_direction_match": None,
+        "trend_significance_match": None,
+        "true_sen_slope": np.nan,
+        "pred_sen_slope": np.nan,
+        "sen_slope_error": np.nan,
+        "true_sen_method": None,
+        "pred_sen_method": None,
+        "reason": reason,
+    }
+
+
+def _complete_test_reconstruction(
+    group: pd.DataFrame,
+    *,
+    truth_col: str,
+    prediction_col: str,
+    quality_col: str,
+    artificial_col: str,
+    date_col: str,
+    complete_period_col: str,
+) -> tuple[pd.Series | None, str | None]:
+    if complete_period_col not in group:
+        return None, f"missing {complete_period_col!r} completeness declaration"
+    declared = group[complete_period_col].fillna(False).astype(bool)
+    if not declared.all():
+        return None, "test-period coverage is not declared complete"
+    if (
+        "evaluation_split" in group
+        and not group["evaluation_split"].astype(str).eq("test").all()
+    ):
+        return None, "rows do not all belong to the test split"
+
+    dates = pd.to_datetime(group[date_col], errors="coerce")
+    if dates.isna().any() or dates.duplicated().any():
+        return None, "complete reconstruction requires unique finite daily dates"
+    ordered_dates = dates.sort_values()
+    if (
+        len(ordered_dates) > 1
+        and not ordered_dates.diff().dropna().eq(pd.Timedelta(days=1)).all()
+    ):
+        return None, "complete reconstruction requires an unbroken daily test axis"
+
+    artificial = group[artificial_col].fillna(False).astype(bool)
+    if not artificial.any() or artificial.all():
+        return (
+            None,
+            "complete reconstruction requires both observed and predicted test cells",
+        )
+    quality = group[quality_col].fillna(False).astype(bool)
+    truth = pd.to_numeric(group[truth_col], errors="coerce")
+    prediction = pd.to_numeric(group[prediction_col], errors="coerce")
+    if (quality & truth.isna()).any():
+        return None, "approved test truth is incomplete"
+    if (quality & artificial & prediction.isna()).any():
+        return None, "approved artificial test predictions are incomplete"
+    reconstructed = truth.copy()
+    reconstructed.loc[artificial] = prediction.loc[artificial]
+    if int((quality & truth.notna() & reconstructed.notna()).sum()) < 3:
+        return None, "fewer than three reconstructed test observations are available"
+    return reconstructed, None
 
 
 def scientific_metrics_by_event(
     daily_predictions: pd.DataFrame,
     *,
-    group_cols: Sequence[str] = ("scenario_id", "station_id", "target", "model", "mask_seed"),
+    group_cols: Sequence[str] = SCIENTIFIC_GROUP_COLUMNS,
     truth_col: str = "y_true",
     prediction_col: str = "y_pred",
     quality_col: str = "quality_approved",
@@ -269,6 +450,9 @@ def scientific_metrics_by_event(
     date_col: str = "date",
     high_threshold_col: str = "high_threshold",
     low_threshold_col: str = "low_threshold",
+    complete_period_col: str = "test_period_complete",
+    max_sen_pairs: int = 2_000_000,
+    seed: int = 0,
 ) -> pd.DataFrame:
     """Evaluate T/F/L extremes, thresholds, water balance, and trend preservation."""
 
@@ -284,27 +468,38 @@ def scientific_metrics_by_event(
     if missing:
         raise ValueError(f"scientific metrics require columns: {missing}")
     active_groups = [column for column in group_cols if column in daily_predictions]
-    grouped = daily_predictions.groupby(active_groups, dropna=False, observed=True) if active_groups else [((), daily_predictions)]
+    grouped = (
+        daily_predictions.groupby(active_groups, dropna=False, observed=True)
+        if active_groups
+        else [((), daily_predictions)]
+    )
     rows: list[dict[str, Any]] = []
     for group_key, group in grouped:
         if active_groups and not isinstance(group_key, tuple):
             group_key = (group_key,)
-        metadata = dict(zip(active_groups, group_key if active_groups else (), strict=True))
+        metadata = dict(
+            zip(active_groups, group_key if active_groups else (), strict=True)
+        )
         group = group.sort_values(date_col)
         target = str(group["target"].iloc[0]).split("_")[-1].upper()
-        high_threshold = (
-            float(pd.to_numeric(group[high_threshold_col], errors="coerce").dropna().iloc[0])
-            if high_threshold_col in group and pd.to_numeric(group[high_threshold_col], errors="coerce").notna().any()
-            else None
+        high_values = (
+            pd.to_numeric(group[high_threshold_col], errors="coerce")
+            if high_threshold_col in group
+            else pd.Series(dtype=float)
         )
-        low_threshold = (
-            float(pd.to_numeric(group[low_threshold_col], errors="coerce").dropna().iloc[0])
-            if low_threshold_col in group and pd.to_numeric(group[low_threshold_col], errors="coerce").notna().any()
-            else None
+        high_values = high_values.loc[np.isfinite(high_values)]
+        high_threshold = float(high_values.iloc[0]) if len(high_values) else None
+        low_values = (
+            pd.to_numeric(group[low_threshold_col], errors="coerce")
+            if low_threshold_col in group
+            else pd.Series(dtype=float)
         )
+        low_values = low_values.loc[np.isfinite(low_values)]
+        low_threshold = float(low_values.iloc[0]) if len(low_values) else None
+        threshold_reasons: list[str] = []
         common = {
             "dates": group[date_col],
-            "climatology_pred": group["climatology_pred"] if "climatology_pred" in group else None,
+            "climatology_pred": group.get("climatology_pred", None),
         }
         if target == "T":
             metrics = temperature_metrics(
@@ -312,7 +507,9 @@ def scientific_metrics_by_event(
                 group[prediction_col],
                 group[quality_col],
                 group[artificial_col],
-                high_threshold=high_threshold,
+                high_threshold=(
+                    high_threshold if high_threshold is not None else np.nan
+                ),
                 **common,
             )
             keep = {
@@ -330,14 +527,28 @@ def scientific_metrics_by_event(
                     "annual_peak_timing_error_days",
                 )
             }
+            if high_threshold is None:
+                threshold_reasons.append("missing training-derived high_threshold")
+                for key in (
+                    "high_temp_threshold",
+                    "high_temp_n",
+                    "high_temp_mae",
+                    "high_temp_bias",
+                    "extreme_peak_error",
+                    "threshold_days_bias",
+                    "heatwave_duration_error",
+                ):
+                    keep[key] = np.nan
         elif target == "F":
             metrics = flow_metrics(
                 group[truth_col],
                 group[prediction_col],
                 group[quality_col],
                 group[artificial_col],
-                high_threshold=high_threshold,
-                low_threshold=low_threshold,
+                high_threshold=(
+                    high_threshold if high_threshold is not None else np.nan
+                ),
+                low_threshold=(low_threshold if low_threshold is not None else np.nan),
                 **common,
             )
             keep = {
@@ -354,13 +565,21 @@ def scientific_metrics_by_event(
                     "peak_timing_error_days",
                 )
             }
+            if high_threshold is None:
+                threshold_reasons.append("missing training-derived high_threshold")
+                keep["high_flow_mae"] = np.nan
+            if low_threshold is None:
+                threshold_reasons.append("missing training-derived low_threshold")
+                keep["low_flow_mae"] = np.nan
         elif target == "L":
             metrics = level_metrics(
                 group[truth_col],
                 group[prediction_col],
                 group[quality_col],
                 group[artificial_col],
-                high_threshold=high_threshold,
+                high_threshold=(
+                    high_threshold if high_threshold is not None else np.nan
+                ),
                 **common,
             )
             keep = {
@@ -372,46 +591,112 @@ def scientific_metrics_by_event(
                     "peak_timing_error_days",
                 )
             }
+            if high_threshold is None:
+                threshold_reasons.append("missing training-derived high_threshold")
+                keep["high_level_mae"] = np.nan
+                keep["high_level_duration_bias"] = np.nan
         else:
             keep = {}
-        artificial_values = group[artificial_col].fillna(False).astype(bool)
-        quality_values = group[quality_col].fillna(False).astype(bool)
-        if ((~artificial_values) & quality_values).any():
-            reconstructed = pd.to_numeric(group[truth_col], errors="coerce").copy()
-            reconstructed.loc[artificial_values] = pd.to_numeric(
-                group.loc[artificial_values, prediction_col], errors="coerce"
+        local = _local_slope_summary(
+            group,
+            truth_col=truth_col,
+            prediction_col=prediction_col,
+            quality_col=quality_col,
+            artificial_col=artificial_col,
+            date_col=date_col,
+            max_sen_pairs=max_sen_pairs,
+            seed=seed,
+        )
+        reconstructed, reconstruction_reason = _complete_test_reconstruction(
+            group,
+            truth_col=truth_col,
+            prediction_col=prediction_col,
+            quality_col=quality_col,
+            artificial_col=artificial_col,
+            date_col=date_col,
+            complete_period_col=complete_period_col,
+        )
+        sequence_metric_reason: str | None = None
+        if target == "T":
+            sequence_keys = (
+                "heatwave_duration_error",
+                "daily_change_mae",
+                "annual_max_error",
+                "annual_peak_timing_error_days",
             )
+            if reconstructed is None:
+                for key in sequence_keys:
+                    keep[key] = np.nan
+                sequence_metric_reason = (
+                    "complete test reconstruction unavailable: "
+                    f"{reconstruction_reason}"
+                )
+            else:
+                complete_metrics = temperature_metrics(
+                    group[truth_col],
+                    reconstructed,
+                    group[quality_col],
+                    group[artificial_col],
+                    high_threshold=(
+                        high_threshold if high_threshold is not None else np.nan
+                    ),
+                    ecological_threshold=None,
+                    dates=group[date_col],
+                )
+                for key in sequence_keys:
+                    keep[key] = complete_metrics[key]
+        if reconstructed is not None:
             trends = trend_preservation(
                 group[truth_col],
                 reconstructed,
                 dates=group[date_col],
                 quality_approved=group[quality_col],
+                max_sen_pairs=max_sen_pairs,
+                seed=seed,
             )
-            trend_scope = "provided full reconstruction"
+            long_term_available = trends["reason"] is None
+            trend_scope = "complete_test_period_reconstruction"
+            trend_reason = trends["reason"]
         else:
-            trends = trend_preservation(
-                group[truth_col],
-                group[prediction_col],
-                dates=group[date_col],
-                quality_approved=group[quality_col],
-                artificial_mask=group[artificial_col],
+            trend_reason = (
+                "long-term trend unavailable: "
+                f"{reconstruction_reason}; reporting masked-period local slopes only"
             )
-            trend_scope = "artificial cells only; full-series trend unavailable"
+            trends = _unavailable_long_term(trend_reason)
+            long_term_available = False
+            trend_scope = "masked_period_local_shape_only"
         rows.append(
             {
                 **metadata,
                 **keep,
                 **trends,
+                **local,
                 "trend_scope": trend_scope,
-                "threshold_source": (
-                    high_threshold_col if high_threshold is not None else "evaluated-truth 90th percentile"
+                "long_term_trend_available": bool(long_term_available),
+                "trend_reason": trend_reason,
+                "high_threshold_source": high_threshold_col
+                if high_threshold is not None
+                else None,
+                "low_threshold_source": low_threshold_col
+                if low_threshold is not None
+                else None,
+                "ecological_threshold_source": None,
+                "ecological_threshold_reason": (
+                    "no predeclared ecological threshold"
+                    if target == "T"
+                    else None
                 ),
+                "threshold_reason": "; ".join(threshold_reasons)
+                if threshold_reasons
+                else None,
+                "sequence_metric_reason": sequence_metric_reason,
             }
         )
     return pd.DataFrame(rows)
 
 
 __all__ = [
+    "SCIENTIFIC_GROUP_COLUMNS",
     "mann_kendall_test",
     "scientific_metrics_by_event",
     "sen_slope",
