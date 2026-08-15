@@ -1,0 +1,494 @@
+"""Small missing-aware multisource model for stream-temperature recovery.
+
+The model uses four explicit information groups:
+
+``A`` local target history (masked value, availability, forward/backward gap),
+``B`` same-station FLOW/WLEVEL, ``C`` other-station T/F/L through a small
+masked attention summary, and ``D`` same-station meteorology plus calendar
+features.  The cross-station branch is deliberately not a graph neural network;
+it is suitable for the current three-station case study.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from itertools import product
+import math
+from typing import Collection, Mapping, Sequence
+
+import torch
+from torch import Tensor, nn
+import torch.nn.functional as F
+
+
+INFORMATION_GROUPS = ("A", "B", "C", "D")
+GROUP_ALIASES = {
+    "A": "A",
+    "LOCAL": "A",
+    "LOCAL_TEMPORAL": "A",
+    "B": "B",
+    "HYDRO": "B",
+    "SAME_STATION_HYDRO": "B",
+    "C": "C",
+    "CROSS_STATION": "C",
+    "D": "D",
+    "MET": "D",
+    "METEOROLOGY": "D",
+    "METEOROLOGY_SEASON": "D",
+}
+
+
+@dataclass(frozen=True)
+class ProposedModelConfig:
+    station_ids: tuple[str, ...] = ("B1", "S2", "P3")
+    variable_names: tuple[str, ...] = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+    target_variable: str = "T"
+    hydro_variables: tuple[str, ...] = ("F", "L")
+    cross_station_variables: tuple[str, ...] = ("T", "F", "L")
+    meteorology_variables: tuple[str, ...] = ("Ta", "P", "W", "RH", "DH")
+    hidden_size: int = 32
+    station_embedding_size: int = 8
+    variable_embedding_size: int = 4
+    seasonal_feature_size: int = 4
+    dropout: float = 0.1
+    max_time_gap: float = 736.0
+
+
+def information_group_mask(groups: Collection[str], *, device: torch.device | None = None) -> Tensor:
+    """Convert group names or aliases to a four-element A/B/C/D mask."""
+
+    selected: set[str] = set()
+    for group in groups:
+        key = str(group).strip().upper().replace("-", "_").replace(" ", "_")
+        if key not in GROUP_ALIASES:
+            raise ValueError(f"Unknown information group {group!r}; use A, B, C, or D")
+        selected.add(GROUP_ALIASES[key])
+    return torch.tensor([group in selected for group in INFORMATION_GROUPS], dtype=torch.bool, device=device)
+
+
+def all_information_group_combinations() -> tuple[tuple[str, ...], ...]:
+    """Return the 16 A/B/C/D combinations used for ablation analysis."""
+
+    return tuple(
+        tuple(group for group, enabled in zip(INFORMATION_GROUPS, flags) if enabled)
+        for flags in product((False, True), repeat=4)
+    )
+
+
+def compute_bidirectional_time_gaps(available_target: Tensor, max_gap: float = 736.0) -> Tensor:
+    """Compute days since previous and until next available target value."""
+
+    if available_target.ndim != 3:
+        raise ValueError("available_target must have shape [batch, time, station]")
+    available = available_target.bool()
+    batch, steps, stations = available.shape
+    previous = torch.empty((batch, steps, stations), dtype=torch.float32, device=available.device)
+    following = torch.empty_like(previous)
+
+    counter = torch.full((batch, stations), float(max_gap), device=available.device)
+    for index in range(steps):
+        counter = torch.where(
+            available[:, index],
+            torch.zeros_like(counter),
+            torch.clamp(counter + 1.0, max=float(max_gap)),
+        )
+        previous[:, index] = counter
+
+    counter.fill_(float(max_gap))
+    for index in range(steps - 1, -1, -1):
+        counter = torch.where(
+            available[:, index],
+            torch.zeros_like(counter),
+            torch.clamp(counter + 1.0, max=float(max_gap)),
+        )
+        following[:, index] = counter
+    return torch.stack((previous, following), dim=-1)
+
+
+def _safe_masked_softmax(logits: Tensor, valid: Tensor, dim: int = -1) -> Tensor:
+    valid = valid.bool()
+    finite_floor = torch.finfo(logits.dtype).min
+    masked = logits.masked_fill(~valid, finite_floor)
+    maximum = masked.max(dim=dim, keepdim=True).values
+    maximum = torch.where(valid.any(dim=dim, keepdim=True), maximum, torch.zeros_like(maximum))
+    weights = torch.exp(masked - maximum) * valid.to(logits.dtype)
+    return weights / weights.sum(dim=dim, keepdim=True).clamp_min(1e-12)
+
+
+class MissingAwareMultisourceImputer(nn.Module):
+    """Four-branch quantile imputer with explicit source availability gating."""
+
+    quantile_levels = (0.05, 0.50, 0.95)
+
+    def __init__(self, config: ProposedModelConfig | None = None) -> None:
+        super().__init__()
+        self.config = config or ProposedModelConfig()
+        if self.config.hidden_size < 4:
+            raise ValueError("hidden_size must be at least 4")
+        if not self.config.station_ids:
+            raise ValueError("At least one station is required")
+        if not 0.0 <= self.config.dropout < 1.0:
+            raise ValueError("dropout must be in [0, 1)")
+
+        self.variable_index = {name: index for index, name in enumerate(self.config.variable_names)}
+        required = {
+            self.config.target_variable,
+            *self.config.hydro_variables,
+            *self.config.cross_station_variables,
+        }
+        absent = sorted(required.difference(self.variable_index))
+        if absent:
+            raise ValueError(f"variable_names is missing required channels: {absent}")
+        self.target_index = self.variable_index[self.config.target_variable]
+        self.hydro_indices = tuple(self.variable_index[name] for name in self.config.hydro_variables)
+        self.cross_indices = tuple(self.variable_index[name] for name in self.config.cross_station_variables)
+        self.met_indices = tuple(
+            self.variable_index[name]
+            for name in self.config.meteorology_variables
+            if name in self.variable_index
+        )
+
+        hidden = self.config.hidden_size
+        station_size = self.config.station_embedding_size
+        variable_size = self.config.variable_embedding_size
+        self.station_embedding = nn.Embedding(len(self.config.station_ids), station_size)
+        self.variable_embedding = nn.Embedding(len(self.config.variable_names), variable_size)
+
+        temporal_input_size = 4 + station_size + variable_size
+        direction_size = max(2, math.ceil(hidden / 2))
+        self.temporal_encoder = nn.GRU(
+            temporal_input_size,
+            direction_size,
+            batch_first=True,
+            bidirectional=True,
+        )
+        self.temporal_projection = nn.Sequential(
+            nn.Linear(direction_size * 2, hidden), nn.GELU(), nn.Dropout(self.config.dropout)
+        )
+
+        variable_input_size = 2 + variable_size
+        self.hydro_value_encoder = self._value_encoder(variable_input_size, hidden)
+        self.cross_value_encoder = self._value_encoder(variable_input_size, hidden)
+        self.met_value_encoder = self._value_encoder(variable_input_size, hidden)
+
+        self.cross_station_projection = nn.Sequential(
+            nn.Linear(hidden + station_size, hidden), nn.GELU()
+        )
+        self.cross_key = nn.Linear(hidden, hidden, bias=False)
+        self.cross_query = nn.Linear(station_size, hidden, bias=False)
+
+        self.met_projection = nn.Sequential(
+            nn.Linear(hidden + self.config.seasonal_feature_size + station_size, hidden),
+            nn.GELU(),
+            nn.Dropout(self.config.dropout),
+        )
+        gate_input_size = hidden * 4 + 4 + station_size
+        self.gate = nn.Sequential(
+            nn.Linear(gate_input_size, hidden),
+            nn.GELU(),
+            nn.Linear(hidden, 4),
+        )
+        self.quantile_head = nn.Sequential(
+            nn.Linear(hidden + station_size, hidden),
+            nn.GELU(),
+            nn.Linear(hidden, 3),
+        )
+
+    def _value_encoder(self, input_size: int, hidden: int) -> nn.Sequential:
+        return nn.Sequential(
+            nn.Linear(input_size, hidden),
+            nn.GELU(),
+            nn.Dropout(self.config.dropout),
+            nn.Linear(hidden, hidden),
+        )
+
+    def _validate_inputs(self, values: Tensor, natural_mask: Tensor, artificial_mask: Tensor | None) -> None:
+        if values.ndim != 4:
+            raise ValueError("values must have shape [batch, time, station, variable]")
+        if natural_mask.shape != values.shape:
+            raise ValueError("natural_mask must have the same shape as values")
+        if artificial_mask is not None and artificial_mask.shape != values.shape:
+            raise ValueError("artificial_mask must have the same shape as values")
+        if values.shape[2] != len(self.config.station_ids):
+            raise ValueError("values station axis does not match config.station_ids")
+        if values.shape[3] != len(self.config.variable_names):
+            raise ValueError("values variable axis does not match config.variable_names")
+
+    def _encode_variables(
+        self,
+        filled_values: Tensor,
+        available: Tensor,
+        indices: Sequence[int],
+        encoder: nn.Module,
+    ) -> tuple[Tensor, Tensor]:
+        selected_values = filled_values[..., list(indices)]
+        selected_mask = available[..., list(indices)]
+        ids = torch.tensor(indices, dtype=torch.long, device=filled_values.device)
+        embeddings = self.variable_embedding(ids)
+        view_shape = (1,) * (selected_values.ndim - 1) + embeddings.shape
+        embeddings = embeddings.view(view_shape).expand(*selected_values.shape, embeddings.shape[-1])
+        features = torch.cat(
+            (selected_values.unsqueeze(-1), selected_mask.to(filled_values.dtype).unsqueeze(-1), embeddings),
+            dim=-1,
+        )
+        encoded = encoder(features) * selected_mask.unsqueeze(-1).to(filled_values.dtype)
+        denominator = selected_mask.sum(dim=-1, keepdim=True).clamp_min(1).to(filled_values.dtype)
+        summary = encoded.sum(dim=-2) / denominator
+        availability = selected_mask.to(filled_values.dtype).mean(dim=-1)
+        return summary, availability
+
+    def _time_gaps(self, time_gap: Tensor | None, target_available: Tensor, values: Tensor) -> Tensor:
+        computed = compute_bidirectional_time_gaps(target_available, self.config.max_time_gap)
+        if time_gap is None:
+            result = computed
+        elif time_gap.shape == (*target_available.shape, 2):
+            result = time_gap
+        elif time_gap.shape == target_available.shape:
+            result = torch.stack((time_gap, computed[..., 1]), dim=-1)
+        elif time_gap.shape == values.shape:
+            result = torch.stack((time_gap[..., self.target_index], computed[..., 1]), dim=-1)
+        elif time_gap.shape == (*values.shape, 2):
+            result = time_gap[..., self.target_index, :]
+        else:
+            raise ValueError(
+                "time_gap must be [B,T,N], [B,T,N,2], [B,T,N,V], or [B,T,N,V,2]"
+            )
+        return torch.nan_to_num(result.to(values.dtype), nan=self.config.max_time_gap).clamp(
+            min=0.0, max=self.config.max_time_gap
+        ) / self.config.max_time_gap
+
+    def _group_enabled(
+        self,
+        enabled_groups: Collection[str] | Tensor | None,
+        group_mask: Tensor | None,
+        shape: tuple[int, int, int],
+        device: torch.device,
+    ) -> Tensor:
+        batch, steps, stations = shape
+        if enabled_groups is not None and group_mask is not None:
+            raise ValueError("Pass enabled_groups or group_mask, not both")
+        if group_mask is not None:
+            mask = group_mask.to(device=device, dtype=torch.bool)
+        elif isinstance(enabled_groups, Tensor):
+            mask = enabled_groups.to(device=device, dtype=torch.bool)
+        elif enabled_groups is None:
+            mask = torch.ones(4, dtype=torch.bool, device=device)
+        else:
+            mask = information_group_mask(enabled_groups, device=device)
+        if mask.shape == (4,):
+            return mask.view(1, 1, 1, 4).expand(batch, steps, stations, 4)
+        if mask.shape == (batch, 4):
+            return mask[:, None, None, :].expand(batch, steps, stations, 4)
+        if mask.shape == (batch, steps, stations, 4):
+            return mask
+        raise ValueError("group mask must have shape [4], [batch,4], or [batch,time,station,4]")
+
+    def forward(
+        self,
+        values: Tensor,
+        natural_mask: Tensor,
+        artificial_mask: Tensor | None = None,
+        time_gap: Tensor | None = None,
+        seasonal_features: Tensor | None = None,
+        *,
+        enabled_groups: Collection[str] | Tensor | None = None,
+        group_mask: Tensor | None = None,
+    ) -> dict[str, Tensor]:
+        self._validate_inputs(values, natural_mask, artificial_mask)
+        artificial = (
+            torch.zeros_like(natural_mask, dtype=torch.bool)
+            if artificial_mask is None
+            else artificial_mask.bool()
+        )
+        available = natural_mask.bool() & ~artificial & torch.isfinite(values)
+        filled = torch.where(available, torch.nan_to_num(values), torch.zeros_like(values))
+        batch, steps, stations, _ = values.shape
+        station_ids = torch.arange(stations, device=values.device)
+        station_embedding = self.station_embedding(station_ids)
+        station_context = station_embedding.view(1, 1, stations, -1).expand(batch, steps, -1, -1)
+
+        # A: same-station target values with explicit two-sided temporal context.
+        target_available = available[..., self.target_index]
+        target_values = filled[..., self.target_index]
+        gaps = self._time_gaps(time_gap, target_available, values)
+        target_variable_embedding = self.variable_embedding.weight[self.target_index]
+        target_variable_context = target_variable_embedding.view(1, 1, 1, -1).expand(
+            batch, steps, stations, -1
+        )
+        temporal_input = torch.cat(
+            (
+                target_values.unsqueeze(-1),
+                target_available.to(values.dtype).unsqueeze(-1),
+                gaps,
+                station_context,
+                target_variable_context,
+            ),
+            dim=-1,
+        )
+        temporal_flat = temporal_input.permute(0, 2, 1, 3).reshape(batch * stations, steps, -1)
+        temporal_encoded, _ = self.temporal_encoder(temporal_flat)
+        branch_a = self.temporal_projection(temporal_encoded).reshape(
+            batch, stations, steps, self.config.hidden_size
+        ).permute(0, 2, 1, 3)
+        availability_a = target_available.to(values.dtype).mean(dim=1, keepdim=True).expand(-1, steps, -1)
+
+        # B: same-station hydrological variables F/L.
+        branch_b, availability_b = self._encode_variables(
+            filled, available, self.hydro_indices, self.hydro_value_encoder
+        )
+
+        # C: masked attention over other stations' T/F/L summaries (not a GNN).
+        cross_source, cross_source_availability = self._encode_variables(
+            filled, available, self.cross_indices, self.cross_value_encoder
+        )
+        cross_source = self.cross_station_projection(torch.cat((cross_source, station_context), dim=-1))
+        keys = self.cross_key(cross_source)
+        queries = self.cross_query(station_embedding)
+        logits = torch.einsum("btsh,nh->btns", keys, queries) / math.sqrt(self.config.hidden_size)
+        donor_available = cross_source_availability > 0
+        donor_valid = donor_available[:, :, None, :].expand(batch, steps, stations, stations).clone()
+        donor_valid &= ~torch.eye(stations, dtype=torch.bool, device=values.device).view(1, 1, stations, stations)
+        cross_attention = _safe_masked_softmax(logits, donor_valid)
+        branch_c = torch.einsum("btns,btsh->btnh", cross_attention, cross_source)
+        availability_c = donor_valid.any(dim=-1).to(values.dtype)
+
+        # D: same-station meteorology and supplied seasonal/calendar features.
+        if self.met_indices:
+            met_summary, met_availability = self._encode_variables(
+                filled, available, self.met_indices, self.met_value_encoder
+            )
+        else:
+            met_summary = torch.zeros_like(branch_a)
+            met_availability = torch.zeros((batch, steps, stations), device=values.device, dtype=values.dtype)
+        if seasonal_features is None:
+            seasonal = torch.zeros(
+                (batch, steps, stations, self.config.seasonal_feature_size),
+                device=values.device,
+                dtype=values.dtype,
+            )
+            seasonal_available = torch.zeros((batch, steps, stations), device=values.device, dtype=values.dtype)
+        else:
+            if seasonal_features.shape == (batch, steps, self.config.seasonal_feature_size):
+                seasonal = seasonal_features[:, :, None, :].expand(-1, -1, stations, -1)
+            elif seasonal_features.shape == (batch, steps, stations, self.config.seasonal_feature_size):
+                seasonal = seasonal_features
+            else:
+                raise ValueError(
+                    "seasonal_features must have shape [B,T,S] or [B,T,N,S] matching seasonal_feature_size"
+                )
+            seasonal_available = torch.isfinite(seasonal).all(dim=-1).to(values.dtype)
+            seasonal = torch.nan_to_num(seasonal.to(values.dtype))
+        branch_d = self.met_projection(torch.cat((met_summary, seasonal, station_context), dim=-1))
+        availability_d = torch.maximum(met_availability, seasonal_available)
+
+        branches = torch.stack((branch_a, branch_b, branch_c, branch_d), dim=-2)
+        branch_availability = torch.stack(
+            (availability_a, availability_b, availability_c, availability_d), dim=-1
+        )
+        enabled = self._group_enabled(
+            enabled_groups, group_mask, (batch, steps, stations), values.device
+        )
+        valid_branches = enabled & (branch_availability > 0)
+        gate_input = torch.cat(
+            (
+                branches.flatten(start_dim=-2),
+                branch_availability,
+                station_context,
+            ),
+            dim=-1,
+        )
+        gate_logits = self.gate(gate_input)
+        gate_weights = _safe_masked_softmax(gate_logits, valid_branches)
+        fused = (branches * gate_weights.unsqueeze(-1)).sum(dim=-2)
+
+        raw_quantiles = self.quantile_head(torch.cat((fused, station_context), dim=-1))
+        median = raw_quantiles[..., 0]
+        lower_distance = F.softplus(raw_quantiles[..., 1]) + 1e-6
+        upper_distance = F.softplus(raw_quantiles[..., 2]) + 1e-6
+        quantiles = torch.stack(
+            (median - lower_distance, median, median + upper_distance), dim=-1
+        )
+        return {
+            "quantiles": quantiles,
+            "q05": quantiles[..., 0],
+            "q50": quantiles[..., 1],
+            "q95": quantiles[..., 2],
+            "gate_weights": gate_weights,
+            "branch_availability": branch_availability,
+            "effective_available_mask": available,
+            "cross_station_attention": cross_attention,
+        }
+
+
+def masked_imputation_loss(
+    output: Mapping[str, Tensor] | Tensor,
+    target: Tensor,
+    artificial_target_mask: Tensor,
+    *,
+    quality_mask: Tensor | None = None,
+    observed_target: Tensor | None = None,
+    observed_mask: Tensor | None = None,
+    huber_weight: float = 1.0,
+    pinball_weight: float = 1.0,
+    consistency_weight: float = 0.0,
+    huber_delta: float = 1.0,
+) -> dict[str, Tensor]:
+    """Masked-only Huber + pinball loss with optional observed consistency."""
+
+    quantiles = output["quantiles"] if isinstance(output, Mapping) else output
+    if quantiles.shape[:-1] != target.shape or quantiles.shape[-1] != 3:
+        raise ValueError("quantiles must have shape target.shape + (3,)")
+    eligible = artificial_target_mask.bool() & torch.isfinite(target)
+    if quality_mask is not None:
+        eligible &= quality_mask.bool()
+    truth = torch.nan_to_num(target)
+
+    huber_values = F.huber_loss(quantiles[..., 1], truth, delta=huber_delta, reduction="none")
+    count = eligible.sum()
+    denominator = count.clamp_min(1).to(quantiles.dtype)
+    huber = (huber_values * eligible.to(huber_values.dtype)).sum() / denominator
+
+    levels = quantiles.new_tensor((0.05, 0.50, 0.95))
+    error = truth.unsqueeze(-1) - quantiles
+    pinball_values = torch.maximum(levels * error, (levels - 1.0) * error)
+    pinball = (
+        pinball_values * eligible.unsqueeze(-1).to(pinball_values.dtype)
+    ).sum() / (denominator * 3.0)
+
+    consistency = quantiles.sum() * 0.0
+    if consistency_weight > 0:
+        if observed_target is None or observed_mask is None:
+            raise ValueError("observed_target and observed_mask are required for consistency loss")
+        consistent = observed_mask.bool() & torch.isfinite(observed_target)
+        consistent_count = consistent.sum().clamp_min(1).to(quantiles.dtype)
+        consistency_values = F.smooth_l1_loss(
+            quantiles[..., 1], torch.nan_to_num(observed_target), reduction="none"
+        )
+        consistency = (consistency_values * consistent.to(quantiles.dtype)).sum() / consistent_count
+
+    total = huber_weight * huber + pinball_weight * pinball + consistency_weight * consistency
+    return {
+        "loss": total,
+        "huber": huber,
+        "pinball": pinball,
+        "consistency": consistency,
+        "masked_count": count,
+    }
+
+
+# Short aliases keep experiment scripts readable without introducing wrappers.
+ProposedImputer = MissingAwareMultisourceImputer
+ProposedModel = MissingAwareMultisourceImputer
+
+
+__all__ = [
+    "INFORMATION_GROUPS",
+    "MissingAwareMultisourceImputer",
+    "ProposedImputer",
+    "ProposedModel",
+    "ProposedModelConfig",
+    "all_information_group_combinations",
+    "compute_bidirectional_time_gaps",
+    "information_group_mask",
+    "masked_imputation_loss",
+]
