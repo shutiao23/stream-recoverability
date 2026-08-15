@@ -1,0 +1,4 @@
+station_id,start_date,end_date,row_count,unique_date_count,expected_day_count,duplicate_date_count,missing_date_count,is_daily_continuous
+B1,2006-01-01,2020-12-31,5479,5479,5479,0,0,True
+P3,2006-01-01,2020-12-31,5479,5479,5479,0,0,True
+S2,2006-01-01,2020-12-31,5479,5479,5479,0,0,True

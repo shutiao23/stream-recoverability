@@ -1,0 +1,10 @@
+qc_status,meaning,quality_approved
+observed_good,Published source value with no known problem,1
+observed_unflagged,Published value but no per-value source quality flag is available,1
+observed_suspect,Value retained for audit but excluded as artificial-gap ground truth,0
+source_missing,Missing in the supplied source or represented by a confirmed source missing code,0
+derived_value,Value explicitly derived from another variable,0
+corrected_value,Value corrected by the source provider and documented as such,1
+artificial_hidden,Quality-approved value hidden only for an experiment,0
+imputed_output,Model recovery output rather than ground truth,0
+

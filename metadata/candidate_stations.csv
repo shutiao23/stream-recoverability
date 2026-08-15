@@ -1,0 +1,7 @@
+station_id,station_name,latitude,longitude,river_name,upstream_downstream_role,river_distance_km,drainage_area,elevation,regulated,has_T,has_F,has_L,has_meteorology,start_date,end_date,overlap_years,coverage_T,coverage_F,coverage_L,quality_flags_available,selected,selection_reason
+ZMD,Zhimenda,,,Jinsha River,upstream of B1,,137700,,no,yes,yes,unknown,yes,2006-01-01,2020-12-31,15,,,,unknown,no,"Daily values are held in China Hydrological Yearbooks; only monthly observed values were publicly downloadable during this audit"
+GT,Gangtuo,,,Jinsha River,upstream of B1,,,,yes,yes,unknown,yes,2006-01-01,2018-12-31,13,,,,unknown,no,"Daily values are held in China Hydrological Yearbooks; public Figshare release contains monthly observations"
+BZL,Benzilan,,,Jinsha River,between B1 and S2,,,,unknown,yes,unknown,yes,1980-01-01,2021-12-31,15,,,,unknown,no,"Published daily discharge exists; an equivalent public daily water-temperature series was not found"
+JAQ,Jinanqiao,,,Jinsha River,between S2 and P3,,239853,,yes,unknown,yes,yes,yes,,,,,,unknown,no,"Candidate regulated comparison station; daily stream-temperature access not established"
+SDZ,Sanduizi,,,Jinsha River,downstream of P3,,,yes,yes,yes,yes,yes,,,,,,unknown,no,"Candidate external regulated-site validation; published data are available on request"
+
