@@ -1426,6 +1426,50 @@ def add_guarded_climatology_skill(
     return result
 
 
+def resolve_climatology_denominator_threshold(
+    guard: Mapping[str, Any],
+    target: str,
+) -> float:
+    """Resolve the frozen target-unit MAE floor from a design contract.
+
+    This keeps the denominator choice out of result-dependent analysis code.
+    The only accepted rule is the measurement-resolution rule frozen in
+    ``design_freeze_v1.yaml``; unknown targets or malformed declarations fail
+    closed instead of silently falling back to an epsilon.
+    """
+
+    expected_rule = "denominator_must_exceed_half_the_published_measurement_resolution"
+    if guard.get("metric") != "MAE" or guard.get("rule") != expected_rule:
+        raise ValueError("unsupported climatology denominator guard declaration")
+    thresholds = guard.get("thresholds_by_target")
+    if not isinstance(thresholds, Mapping):
+        raise TypeError("climatology guard thresholds_by_target must be a mapping")
+    normalized_target = str(target).strip().upper().split("_")[-1]
+    if normalized_target not in thresholds:
+        raise ValueError(
+            f"no predeclared climatology denominator threshold for {target!r}"
+        )
+    declaration = thresholds[normalized_target]
+    if not isinstance(declaration, Mapping):
+        raise TypeError("climatology target threshold must be a mapping")
+    try:
+        threshold = float(declaration["value"])
+        resolution = float(declaration["published_resolution"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("malformed climatology denominator threshold") from error
+    if (
+        not np.isfinite(threshold)
+        or not np.isfinite(resolution)
+        or threshold <= 0
+        or resolution <= 0
+        or not np.isclose(threshold, resolution / 2.0, rtol=0.0, atol=1e-12)
+    ):
+        raise ValueError(
+            "climatology threshold must equal half the positive published resolution"
+        )
+    return threshold
+
+
 def assess_application_boundary(
     curve: pd.DataFrame,
     criteria: Mapping[str, tuple[str, float]] | None,
@@ -1609,5 +1653,6 @@ __all__ = [
     "average_training_seeds_by_anchor",
     "benjamini_hochberg_by_family",
     "raw_and_monotone_frontier",
+    "resolve_climatology_denominator_threshold",
     "weighted_pava",
 ]

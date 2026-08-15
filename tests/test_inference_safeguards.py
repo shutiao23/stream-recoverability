@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
+import yaml
 
 from stream_recoverability.analysis.inference_safeguards import (
     add_guarded_climatology_skill,
@@ -13,6 +16,7 @@ from stream_recoverability.analysis.inference_safeguards import (
     average_training_seeds_by_anchor,
     benjamini_hochberg_by_family,
     raw_and_monotone_frontier,
+    resolve_climatology_denominator_threshold,
     weighted_pava,
 )
 
@@ -322,6 +326,16 @@ def test_climatology_guard_and_absent_application_threshold_withhold_boundaries(
     )
     assert guarded.loc[3, "climatology_denominator_status"] == ("nonfinite_model_error")
     assert guarded.loc[1:, "skill"].isna().all()
+
+    design = yaml.safe_load(
+        Path("configs/design_freeze_v1.yaml").read_text(encoding="utf-8")
+    )
+    declaration = design["statistics"]["climatology_denominator_guard"]
+    assert resolve_climatology_denominator_threshold(declaration, "T") == 0.05
+    assert resolve_climatology_denominator_threshold(declaration, "B1_F") == 0.5
+    assert resolve_climatology_denominator_threshold(declaration, "L") == 0.005
+    with pytest.raises(ValueError, match="no predeclared"):
+        resolve_climatology_denominator_threshold(declaration, "Ta")
 
     absent = assess_application_boundary(
         pd.DataFrame({"gap_length": [10, 30], "MAE": [0.2, 0.4]}), None
