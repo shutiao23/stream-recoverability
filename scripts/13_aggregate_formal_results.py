@@ -57,6 +57,11 @@ REQUIRED_EVIDENCE_FIELDS = (
     "model_schema_version",
     "statistics_schema_version",
 )
+REQUIRED_MANIFEST_CONTRACT_FIELDS = (
+    *REQUIRED_EVIDENCE_FIELDS,
+    "input_digests",
+    "code_identity",
+)
 RUN_UNIT_LIST_FIELDS = (
     "expected_run_unit_keys",
     "completed_run_unit_keys",
@@ -273,12 +278,12 @@ def _parse_run_unit_key(value: str, label: str) -> tuple[str, str, str]:
 def _require_evidence_contract(
     value: Mapping[str, Any], expected: Mapping[str, Any], label: str
 ) -> None:
-    missing = sorted(set(REQUIRED_EVIDENCE_FIELDS).difference(value))
+    missing = sorted(set(REQUIRED_MANIFEST_CONTRACT_FIELDS).difference(value))
     if missing:
         raise ValueError(f"{label} is stale or pre-freeze; missing {missing}")
     mismatch = {
         field: (value.get(field), expected.get(field))
-        for field in REQUIRED_EVIDENCE_FIELDS
+        for field in REQUIRED_MANIFEST_CONTRACT_FIELDS
         if value.get(field) != expected.get(field)
     }
     if mismatch:

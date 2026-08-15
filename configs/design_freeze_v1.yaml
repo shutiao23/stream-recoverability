@@ -339,6 +339,8 @@ evidence_contract:
     - mask_schema_version
     - model_schema_version
     - statistics_schema_version
+    - code_identity
+    - code_provenance
   stale_artifact_policy: reject_never_mix_or_resume
   paper_evidence_requires:
     - one_complete_top_level_manifest
