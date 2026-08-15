@@ -2237,7 +2237,16 @@ class ExperimentRunner:
             if not has_evidence or not contract_matches or not checkpoint_valid:
                 invalidated.add(run_key)
 
-        for run_key in invalidated | retryable_run_keys:
+        runs_to_reset = invalidated | retryable_run_keys
+        for model_name, training_seed in run_keys:
+            run_key = (
+                f"{model_name}:none"
+                if training_seed is None
+                else f"{model_name}:{training_seed}"
+            )
+            if run_key not in runs_to_reset:
+                continue
+            self._clear_model_cache(scenario, model_name, training_seed)
             completed.discard(run_key)
             terminal_run_keys.discard(run_key)
             stored_contracts.pop(run_key, None)
@@ -2247,9 +2256,9 @@ class ExperimentRunner:
                 row for row in skipped_runs if row.get("run_key") != run_key
             ]
 
-        if daily_path.exists() and (invalidated or retryable_run_keys):
+        if daily_path.exists() and runs_to_reset:
             _atomic_parquet(daily, daily_path)
-        if event_path.exists() and (invalidated or retryable_run_keys):
+        if event_path.exists() and runs_to_reset:
             _atomic_parquet(events, event_path)
 
         for model_name, training_seed in run_keys:
@@ -2260,7 +2269,6 @@ class ExperimentRunner:
             )
             if run_key in completed:
                 continue
-            self._clear_model_cache(scenario, model_name, training_seed)
             daily = _without_run(daily, run_key)
             events = _without_run(events, run_key)
             skipped_runs = [
@@ -2391,6 +2399,7 @@ class ExperimentRunner:
                 }.values()
             )
             if retryable_failure:
+                self._clear_model_cache(scenario, model_name, training_seed)
                 completed.discard(run_key)
                 retryable_run_keys.add(run_key)
                 terminal_run_keys.discard(run_key)
