@@ -1,0 +1,49 @@
+study:
+  name: jinsha_stream_temperature_recoverability
+  title: Recoverability Frontiers and Multisource Information Compensation for Stream Temperature Under Multiscale Monitoring Outages
+  resolution: daily
+  primary_target: T
+  secondary_targets: [F, L]
+  scope: three_station_case_study
+
+task:
+  primary: offline_imputation
+  secondary: online_recovery
+
+data_panels:
+  core:
+    name: Core-15Y
+    stations: [B1, S2, P3]
+    period: {start: 2006-01-01, end: 2020-12-31}
+  network:
+    name: Network-Common
+    stations: [B1, S2, P3]
+    period: {start: 2006-01-01, end: 2020-12-31}
+    limitation: No additional public daily stream-temperature series was available at audit time.
+
+window:
+  main: 368
+  sensitivity: [184, 736]
+
+splits:
+  train: {start: 2006-01-01, end: 2015-12-31}
+  validation: {start: 2016-01-01, end: 2017-12-31}
+  test: {start: 2018-01-01, end: 2020-12-31}
+
+point_missing_rates: [0.10, 0.30, 0.50]
+block_lengths: [10, 30, 90, 180]
+dense_T_block_lengths: [1, 3, 7, 10, 14, 21, 30, 45, 60, 90, 120, 150, 180, 240, 365]
+dense_FL_block_lengths: [3, 10, 30, 60, 90, 120, 180, 365]
+primary_variable_patterns: [T, T_F, T_L, T_F_L]
+secondary_variable_patterns: [F, L, F_L]
+training_seeds: [11, 22, 33, 44, 55]
+mask_seeds: [101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+             111, 112, 113, 114, 115, 116, 117, 118, 119, 120]
+
+information_groups:
+  S0: [day_of_year, month, training_climatology]
+  A: [target_before_gap, target_after_gap, distance_to_observation]
+  B: [same_site_flow, same_site_water_level]
+  C: [other_site_temperature, other_site_flow, other_site_water_level]
+  D: [air_temperature, precipitation, wind_speed, relative_humidity, sunshine_duration]
+

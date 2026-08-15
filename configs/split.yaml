@@ -1,0 +1,6 @@
+train: {start: 2006-01-01, end: 2015-12-31}
+validation: {start: 2016-01-01, end: 2017-12-31}
+test: {start: 2018-01-01, end: 2020-12-31}
+windows: [184, 368, 736]
+main_window: 368
+

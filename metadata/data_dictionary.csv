@@ -1,0 +1,11 @@
+raw_name,standard_name,meaning,raw_unit,standard_unit,aggregation,source,missing_codes,conversion_factor,quality_flag_available,notes
+DATE,date,observation date,local calendar day,local calendar day,daily,"source CSV",,1.0,no,"Time zone and hydrological-day cutoff are not present in the supplied files"
+WTEMP,T,mean stream water temperature,degC,degC,daily mean,"Hydrological Yearbook of the People's Republic of China, Volume VI",,1.0,no,"Published daily hydrological value; per-value source flag absent"
+WLEVEL,L,mean river water-surface level,m,m,daily mean,"Hydrological Yearbook of the People's Republic of China, Volume VI",,1.0,no,"Station datum is not included in the supplied files"
+FLOW,F,mean discharge,m3/s,m3/s,daily mean,"Hydrological Yearbook of the People's Republic of China, Volume VI",,1.0,no,"Daily discharge is normally derived from stage-discharge measurements/rating procedures; relation is audited per station"
+TEMP,Ta,mean air temperature,degC,degC,daily mean,"WMO/CMA station series; TEMP values independently match converted NOAA GSOD records",,1.0,no,"Already converted to Celsius in supplied files"
+WDSP,W,mean wind speed,knot,m/s,daily mean,"WMO station series independently matched to NOAA GSOD","999.9",0.514444,no,"Supplied values retain GSOD knots"
+PRCP,P,total precipitation,inch,mm/day,daily total,"WMO station series independently matched to NOAA GSOD","99.99",25.4,no,"Supplied values retain GSOD inches"
+RHMEAN,RH,mean relative humidity,percent,percent,daily mean,"China surface climate daily value dataset V3.0 variable RHMEAN",,1.0,no,"Source quality field was not supplied"
+DH,DH,bright sunshine duration,hour,hour,daily total,"China surface climate daily value dataset V3.0 variable DH",,1.0,no,"DH is sunshine duration, not an unidentified hydrological variable"
+

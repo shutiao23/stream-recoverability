@@ -1,0 +1,12 @@
+mask_type: block
+lengths: [10, 30, 90, 180]
+primary_patterns: [T, T_F, T_L, T_F_L]
+secondary_patterns: [F, L, F_L]
+layouts: [single, fixed_budget_multiblock]
+fixed_budget_parts:
+  10: [3, 3, 4]
+  30: [10, 10, 10]
+  90: [30, 30, 30]
+  180: [60, 60, 60]
+minimum_separation_days: 30
+

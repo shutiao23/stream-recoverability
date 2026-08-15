@@ -1,0 +1,16 @@
+raw_dir: data/raw
+interim_dir: data/interim
+processed_dir: data/processed
+metadata_dir: metadata
+station_files:
+  B1: b1.csv
+  S2: s2.csv
+  P3: p3.csv
+raw_columns: [DATE, WTEMP, WLEVEL, FLOW, TEMP, WDSP, PRCP, RHMEAN, DH]
+special_missing_codes:
+  WDSP: [999.9]
+  PRCP: [99.99]
+unit_conversions:
+  WDSP: {factor: 0.514444, offset: 0.0, from: knot, to: m/s}
+  PRCP: {factor: 25.4, offset: 0.0, from: inch, to: mm/day}
+

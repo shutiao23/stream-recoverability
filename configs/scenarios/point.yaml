@@ -1,0 +1,6 @@
+mask_type: point
+rates: [0.10, 0.30, 0.50]
+patterns: [T, F, L, T_F_L]
+repeats: 20
+sampling: exact_without_replacement
+
