@@ -1,6 +1,6 @@
 all_variables: [T, F, L, Ta, P, W, RH, DH]
 windows: [184, 368, 736]
-external_validation_status: unavailable
+external_validation_status: pending_frozen_protocol
 
 M1:
   patterns: [T, F, L, T_F_L]
@@ -9,6 +9,7 @@ M4:
   outage_modes: [hydro-only, full-site]
 
 M6:
+  variable_patterns: [T_F, T_L, F_L, T_F_L]
   station_pairs: [[B1, S2], [B1, P3], [S2, P3]]
   overlap_ratios: [1.0, 0.5, 0.0]
 
@@ -45,7 +46,7 @@ runner:
   formal:
     train_mask_repeats: 5
     validation_mask_repeats: 1
-    deep_epochs: 50
-    deep_patience: 8
-    proposed_epochs: 20
-    proposed_patience: 5
+    deep_epochs: 200
+    deep_patience: 20
+    proposed_epochs: 200
+    proposed_patience: 20
