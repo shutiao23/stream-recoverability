@@ -38,3 +38,6 @@ GSOD documents `WDSP` as knots with `999.9` meaning no report, and `PRCP` as inc
 - Wei et al., *Flow composition mediates the sensitivity to air temperature of streams in a Qinghai-Tibetan watershed*: https://www.nature.com/articles/s43247-026-03340-2
 - Wang et al., *Analysis of Water Temperature Variations in the Yangtze River's Upper and Middle Reaches*: https://doi.org/10.3390/w16121669
 - Station inventory for Shigu and Panzhihua: https://doi.org/10.1007/s11629-018-4924-3
+- Published Zhimenda station coordinates and drainage area: https://doi.org/10.1007/s11629-014-3180-4
+- Gangtuo candidate coordinate proxy (river sampling site): https://pmc.ncbi.nlm.nih.gov/articles/PMC12984315/
+- Benzilan candidate coordinate proxy (river sampling site): https://doi.org/10.3390/ani12233412
