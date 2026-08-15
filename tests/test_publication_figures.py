@@ -107,7 +107,17 @@ def _write_synthetic_inputs(root: Path) -> dict[str, Path]:
     for token, event_type, target, base in event_specs:
         scenario = f"M7-EVENT-B1-{token}-R0101"
         truth = base + np.linspace(-1.0, 1.0, len(dates))
-        for model, offset in (("linear", 0.4), ("kalman", 0.2), ("proposed", 0.1)):
+        model_offsets = (
+            (("linear", 0.4), ("kalman", 0.2), ("proposed", 0.1))
+            if target == "T"
+            else (
+                ("linear", 0.4),
+                ("kalman", 0.2),
+                ("pchip", 0.3),
+                ("climatology", 0.05),
+            )
+        )
+        for model, offset in model_offsets:
             for date, value in zip(dates, truth, strict=True):
                 daily_rows.append(
                     {
@@ -257,6 +267,10 @@ def test_missing_inputs_are_explicitly_skipped_without_placeholder_results(tmp_p
 
 def test_all_core_figures_and_tables_are_generated_from_synthetic_results(tmp_path):
     inputs = _write_synthetic_inputs(tmp_path)
+    daily = pd.read_parquet(inputs["daily"])
+    assert not (
+        daily["target"].eq("F") & daily["model"].eq("proposed")
+    ).any()
     manifest = _generate(tmp_path, inputs)
     assert {value["status"] for value in manifest["figures"].values()} == {"generated"}
     assert {value["status"] for value in manifest["tables"].values()} == {"generated"}
@@ -270,6 +284,21 @@ def test_all_core_figures_and_tables_are_generated_from_synthetic_results(tmp_pa
     assert frozen["daily_predictions"]["rows"] > 0
     assert frozen["event_metrics"]["scenario_count"] > 0
     assert "proposed" in frozen["event_metrics"]["models"]
+
+    event_details = {
+        item["event"]: item
+        for item in manifest["figures"]["figure_07"]["details"]["selected_cases"]
+    }
+    assert event_details["High temperature"]["comparison_models"] == [
+        "linear",
+        "kalman",
+        "proposed",
+    ]
+    assert event_details["High temperature"]["uncertainty_model"] == "proposed"
+    for event in ("Flood peak", "Long low flow"):
+        assert event_details[event]["strongest_distinct_baseline"] == "kalman"
+        assert event_details[event]["comparison_models"] == ["linear", "kalman"]
+        assert event_details[event]["uncertainty_model"] is None
 
 
 def test_loso_figure_is_labeled_internal_and_never_as_external_validation(tmp_path):

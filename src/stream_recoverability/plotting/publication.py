@@ -48,6 +48,14 @@ MODEL_COLORS = {
     model: plt.get_cmap("tab20")(index / max(1, len(MODEL_ORDER) - 1))
     for index, model in enumerate(MODEL_ORDER)
 }
+FLOW_EVENT_BASELINE_MODELS = (
+    "kalman",
+    "pchip",
+    "random_forest",
+    "xgboost",
+    "rating_curve",
+    "independent_flow",
+)
 
 
 class ArtifactUnavailable(ValueError):
@@ -745,7 +753,13 @@ def _contiguous_spans(dates: pd.Series) -> list[tuple[pd.Timestamp, pd.Timestamp
     return spans
 
 
-def _select_event_case(data: pd.DataFrame, event_type: str, target: str) -> tuple[pd.DataFrame, str]:
+def _select_event_case(
+    data: pd.DataFrame,
+    event_type: str,
+    target: str,
+    *,
+    require_proposed_interval: bool,
+) -> tuple[pd.DataFrame, str]:
     candidates = data.loc[
         data["event_type"].astype(str).eq(event_type)
         & data["target"].astype(str).str.upper().eq(target)
@@ -756,31 +770,51 @@ def _select_event_case(data: pd.DataFrame, event_type: str, target: str) -> tupl
     options: list[tuple[int, str, pd.DataFrame, str]] = []
     for keys, group in candidates.groupby(grouping, dropna=False, observed=True):
         models = set(group["model"].dropna().astype(str))
-        required = {"linear", "proposed"}
-        alternatives = sorted(models - required)
-        if not required.issubset(models) or not alternatives:
-            continue
-        proposed = group.loc[group["model"].astype(str).eq("proposed")]
-        if not {"q05", "q95"}.issubset(proposed) or not proposed[["q05", "q95"]].apply(pd.to_numeric, errors="coerce").notna().all(axis=1).any():
-            continue
+        if require_proposed_interval:
+            required = {"linear", "proposed"}
+            alternatives = sorted(models - required)
+            if not required.issubset(models) or not alternatives:
+                continue
+            proposed = group.loc[group["model"].astype(str).eq("proposed")]
+            if not {"q05", "q95"}.issubset(proposed) or not proposed[
+                ["q05", "q95"]
+            ].apply(pd.to_numeric, errors="coerce").notna().all(axis=1).any():
+                continue
+        else:
+            if "linear" not in models:
+                continue
+            alternatives = [
+                model for model in FLOW_EVENT_BASELINE_MODELS if model in models
+            ]
+            if not alternatives:
+                continue
         errors = []
-        for model in alternatives:
+        for model_order, model in enumerate(alternatives):
             selected = group.loc[group["model"].astype(str).eq(model)]
             truth = pd.to_numeric(selected["y_true"], errors="coerce")
             prediction = pd.to_numeric(selected["y_pred"], errors="coerce")
             valid = truth.notna() & prediction.notna()
             if valid.any():
-                errors.append((float(np.mean(np.abs(truth[valid] - prediction[valid]))), model))
+                errors.append(
+                    (
+                        float(np.mean(np.abs(truth[valid] - prediction[valid]))),
+                        model_order,
+                        model,
+                    )
+                )
         if not errors:
             continue
-        best_baseline = min(errors)[1]
+        best_baseline = min(errors)[2]
         scenario = str(group["scenario_id"].iloc[0])
         options.append((int(pd.to_datetime(group["date"]).nunique()), scenario, group, best_baseline))
     if not options:
-        raise ArtifactUnavailable(
-            f"{event_type} case lacks linear, proposed q05/q95, and a distinct baseline"
+        requirement = (
+            "linear, proposed q05/q95, and a distinct baseline"
+            if require_proposed_interval
+            else "linear and an available F-compatible deterministic baseline"
         )
-    _, _, selected, best = sorted(options, key=lambda item: (-item[0], item[1]))[0]
+        raise ArtifactUnavailable(f"{event_type} case lacks {requirement}")
+    _, _, selected, best = min(options, key=lambda item: (-item[0], item[1]))
     return selected.copy(), best
 
 
@@ -795,18 +829,29 @@ def _figure_07(path: Path, daily: pd.DataFrame | None) -> dict[str, Any]:
         data = data.loc[data["experiment"].astype(str).eq("M7")]
     else:
         data = data.loc[data["event_type"].notna()]
-    cases: list[tuple[str, str, pd.DataFrame, str]] = []
-    for label, event_type, target in (
-        ("High temperature", "high_temperature", "T"),
-        ("Flood peak", "flood", "F"),
-        ("Long low flow", "low_flow", "F"),
+    cases: list[tuple[str, str, pd.DataFrame, str, bool]] = []
+    for label, event_type, target, require_proposed_interval in (
+        ("High temperature", "high_temperature", "T", True),
+        ("Flood peak", "flood", "F", False),
+        ("Long low flow", "low_flow", "F", False),
     ):
-        group, baseline = _select_event_case(data, event_type, target)
-        cases.append((label, target, group, baseline))
+        group, baseline = _select_event_case(
+            data,
+            event_type,
+            target,
+            require_proposed_interval=require_proposed_interval,
+        )
+        cases.append((label, target, group, baseline, require_proposed_interval))
 
     figure, axes = plt.subplots(3, 1, figsize=(11.2, 9.2), constrained_layout=True)
     selected_details = []
-    for axis, (label, target, group, best_baseline) in zip(axes, cases, strict=True):
+    for axis, (
+        label,
+        target,
+        group,
+        best_baseline,
+        require_proposed_interval,
+    ) in zip(axes, cases, strict=True):
         aggregated = (
             group.groupby(["date", "model"], dropna=False, observed=True)
             .agg(y_true=("y_true", "mean"), y_pred=("y_pred", "mean"), q05=("q05", "mean"), q95=("q95", "mean"))
@@ -817,13 +862,16 @@ def _figure_07(path: Path, daily: pd.DataFrame | None) -> dict[str, Any]:
         axis.plot(truth["date"], truth["y_true"], color="black", linewidth=1.8, marker="o", markersize=2.5, label="observed truth")
         for start, end in _contiguous_spans(truth["date"]):
             axis.axvspan(start - pd.Timedelta(hours=12), end + pd.Timedelta(hours=12), color="#999999", alpha=0.13)
-        for model, style in (("linear", "--"), (best_baseline, "-."), ("proposed", "-")):
+        plotted_models = [("linear", "--"), (best_baseline, "-.")]
+        if require_proposed_interval:
+            plotted_models.append(("proposed", "-"))
+        for model, style in plotted_models:
             selected = aggregated.loc[aggregated["model"].astype(str).eq(model)]
             axis.plot(
                 selected["date"], selected["y_pred"], linestyle=style, linewidth=1.4,
                 color=MODEL_COLORS.get(model), label=model,
             )
-            if model == "proposed":
+            if model == "proposed" and require_proposed_interval:
                 finite = selected[["date", "q05", "q95"]].dropna()
                 axis.fill_between(finite["date"], finite["q05"], finite["q95"], color=MODEL_COLORS.get(model), alpha=0.18, label="proposed 90% interval")
         station = str(group["station_id"].iloc[0]) if "station_id" in group else ""
@@ -837,6 +885,10 @@ def _figure_07(path: Path, daily: pd.DataFrame | None) -> dict[str, Any]:
                 "scenario_id": str(group["scenario_id"].iloc[0]),
                 "station_id": station,
                 "strongest_distinct_baseline": best_baseline,
+                "comparison_models": [model for model, _ in plotted_models],
+                "uncertainty_model": (
+                    "proposed" if require_proposed_interval else None
+                ),
             }
         )
     axes[-1].set_xlabel("Date (shading denotes artificially hidden dates)")
