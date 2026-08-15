@@ -159,10 +159,12 @@ def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
     repository = tmp_path / "repository"
     source = repository / "src/stream_recoverability/experiments/runner.py"
     script = repository / "scripts/08_run_experiments.py"
+    confirmatory_script = repository / "scripts/20_run_confirmatory_evaluation.py"
     config = repository / "configs/design.yaml"
     for path, value in (
         (source, "VALUE = 1\n"),
         (script, "#!/usr/bin/env python3\n"),
+        (confirmatory_script, "#!/usr/bin/env python3\n"),
         (config, "design: frozen\n"),
         (repository / "pyproject.toml", "[project]\nname='fixture'\n"),
         (repository / "README.md", "first\n"),
@@ -194,6 +196,22 @@ def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
     assert initial["relevant_source_digest"] == docs_only["relevant_source_digest"]
     assert docs_only["tracked_worktree_clean"] is True
     assert docs_only["relevant_source_clean"] is True
+
+    confirmatory_script.write_text(
+        "#!/usr/bin/env python3\nVALUE = 2\n", encoding="utf-8"
+    )
+    dirty_confirmation = build_code_provenance(
+        repository_root=repository,
+        additional_relevant_paths=(config,),
+    )
+    assert dirty_confirmation["dirty_tracked_paths"] == [
+        "scripts/20_run_confirmatory_evaluation.py"
+    ]
+    assert (
+        dirty_confirmation["relevant_source_digest"]
+        != docs_only["relevant_source_digest"]
+    )
+    confirmatory_script.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
 
     source.write_text("VALUE = 2\n", encoding="utf-8")
     dirty = build_code_provenance(
