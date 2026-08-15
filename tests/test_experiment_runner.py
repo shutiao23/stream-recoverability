@@ -17,12 +17,17 @@ from stream_recoverability.experiments.grid import (
 from stream_recoverability.experiments.runner import (
     SUPPORTED_MODELS,
     ExperimentRunner,
+    _window_starts,
     apply_full_artificial_mask,
     make_training_mask,
 )
 from stream_recoverability.models.proposed import (
     MissingAwareMultisourceImputer,
     ProposedModelConfig,
+)
+from stream_recoverability.models.proposed_curriculum import (
+    CURRICULUM_SCENARIOS,
+    FROZEN_VALIDATION_SCENARIOS,
 )
 from stream_recoverability.models.proposed_training import ProposedTrainingConfig
 
@@ -107,20 +112,12 @@ def _write_runner_proposed_checkpoint(
     scenario: ExperimentScenario,
     checkpoint_path: Path,
 ) -> dict[str, object]:
-    model = MissingAwareMultisourceImputer(
-        ProposedModelConfig(
-            station_ids=runner.data.station_ids,
-            variable_names=runner.data.variable_names,
-            hidden_size=24,
-            dropout=0.0,
-        )
+    model_config, config, training_context = runner._proposed_contract(
+        11,
+        scenario.condition.window_length,
+        scenario.condition.training_protocol,
     )
-    config = ProposedTrainingConfig(
-        epochs=runner.training_settings["proposed_epochs"],
-        patience=runner.training_settings["proposed_patience"],
-        seed=11,
-        device=runner.training_settings["device"],
-    )
+    model = MissingAwareMultisourceImputer(model_config)
     _write_synthetic_proposed_checkpoint(model, config, checkpoint_path)
     payload = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
     mean, scale = runner._proposed_scaler()
@@ -133,18 +130,7 @@ def _write_runner_proposed_checkpoint(
                 "station_ids": list(runner.data.station_ids),
                 "variable_names": list(runner.data.variable_names),
             },
-            "training_context": {
-                "profile": runner.training_profile_name,
-                "train_mask_repeats": runner.training_settings[
-                    "train_mask_repeats"
-                ],
-                "validation_mask_repeats": runner.training_settings[
-                    "validation_mask_repeats"
-                ],
-                "window": scenario.condition.window_length,
-                "protocol": scenario.condition.training_protocol,
-                "input_files": runner._training_input_identities(),
-            },
+            "training_context": training_context,
         }
     )
     torch.save(payload, checkpoint_path)
@@ -163,8 +149,8 @@ def test_core_counts_and_fixed_seeds() -> None:
 
 def test_full_grid_has_windows_protocols_and_honest_validation_labels() -> None:
     grid = build_experiment_grid(MANIFEST, CONFIG, suite="full")
-    assert len(grid.conditions) == 300
-    assert len(grid.scenarios) == 5_943
+    assert len(grid.conditions) == 444
+    assert len(grid.scenarios) == 8_595
     assert {
         condition.window_length
         for condition in grid.conditions
@@ -191,14 +177,25 @@ def test_full_grid_has_windows_protocols_and_honest_validation_labels() -> None:
         for scenario in grid.scenarios
         if scenario.condition.experiment == "M10"
     } == {101}
-    assert grid.external_validation_status == "unavailable"
-    synchronous = [
+    assert grid.external_validation_status == "pending_frozen_protocol"
+    variable_async = [
         condition
         for condition in grid.conditions
-        if condition.experiment == "M6" and condition.overlap_ratio == 1.0
+        if condition.experiment == "M6a"
     ]
-    assert synchronous
-    assert all(condition.mask_type == "network_outage" for condition in synchronous)
+    station_async = [
+        condition for condition in grid.conditions if condition.experiment == "M6b"
+    ]
+    assert len(variable_async) == 144
+    assert len(station_async) == 36
+    assert all(
+        condition.mask_type == "async" and condition.async_axis == "variable"
+        for condition in variable_async
+    )
+    assert all(
+        condition.mask_type == "async" and condition.async_axis == "station"
+        for condition in station_async
+    )
 
 
 def test_training_masks_are_fixed_and_unseen_protocol_excludes_180_day_blocks() -> None:
@@ -250,18 +247,76 @@ def test_smoke_and_formal_training_profiles_are_separate(tmp_path: Path) -> None
         models=("climatology",),
     )
     assert smoke.training_profile_name == "smoke"
-    assert smoke.training_settings["train_mask_repeats"] == 1
+    assert smoke.training_settings == {
+        "train_mask_repeats": 1,
+        "validation_mask_repeats": 1,
+        "deep_epochs": 3,
+        "deep_patience": 2,
+        "proposed_epochs": 3,
+        "proposed_patience": 2,
+        "batch_size": 8,
+        "device": "cpu",
+    }
     assert formal.training_profile_name == "formal"
     assert formal.training_settings == {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
-        "deep_epochs": 50,
-        "deep_patience": 8,
-        "proposed_epochs": 20,
-        "proposed_patience": 5,
+        "deep_epochs": 200,
+        "deep_patience": 20,
+        "proposed_epochs": 200,
+        "proposed_patience": 20,
         "batch_size": 8,
         "device": "cpu",
     }
+
+    for model_name, legacy_epochs, legacy_patience in (
+        ("brits_lite", 50, 8),
+        ("saits_lite", 50, 8),
+    ):
+        model_class, model_config, expected_training = formal._deep_contract(
+            model_name, 11, 368, "seen_length"
+        )
+        assert expected_training["epochs"] == 200
+        assert expected_training["patience"] == 20
+        legacy_training = {
+            **expected_training,
+            "epochs": legacy_epochs,
+            "patience": legacy_patience,
+        }
+        checkpoint = tmp_path / f"legacy-{model_name}.pt"
+        torch.save(
+            {
+                "class_name": model_class.__name__,
+                "config": model_config,
+                "training_config": legacy_training,
+            },
+            checkpoint,
+        )
+        with pytest.raises(ValueError, match="training contract mismatch"):
+            model_class.load_checkpoint(
+                checkpoint,
+                expected_config=model_config,
+                expected_training_config=expected_training,
+            )
+
+    scenario = formal_grid.scenarios[0]
+    proposed_checkpoint = tmp_path / "legacy-proposed.pt"
+    payload = _write_runner_proposed_checkpoint(
+        formal, scenario, proposed_checkpoint
+    )
+    payload["training_config"]["epochs"] = 20
+    payload["training_config"]["patience"] = 5
+    torch.save(payload, proposed_checkpoint)
+    with pytest.raises(
+        RuntimeError,
+        match="incompatible model, training, or completion contract",
+    ):
+        formal._load_proposed_model_checkpoint(
+            proposed_checkpoint,
+            11,
+            scenario.condition.window_length,
+            scenario.condition.training_protocol,
+        )
 
 
 def test_full_artificial_mask_hides_every_selected_channel() -> None:
@@ -293,7 +348,7 @@ def test_generated_full_site_mask_is_complete_3d_and_test_only(tmp_path: Path) -
     assert np.all(station_mask.any(axis=1) == station_mask.all(axis=1))
     assert metadata["fit_split"] == "train"
     assert metadata["tuning_split"] == "validation"
-    assert metadata["evaluation_split"] == "test"
+    assert metadata["evaluation_split"] == "development_test"
 
 
 def test_masks_use_one_shared_axis_and_compact_packbits(tmp_path: Path) -> None:
@@ -368,7 +423,7 @@ def test_event_thresholds_use_only_approved_finite_training_values(
         scenario = next(
             value
             for value in grid.scenarios
-            if value.condition.experiment == "M7"
+            if value.condition.experiment == "M7a"
             and value.condition.event_type == event_type
         )
         station = runner.data.station_ids.index(scenario.condition.station_ids[0])
@@ -383,7 +438,7 @@ def test_event_thresholds_use_only_approved_finite_training_values(
     high_temperature = next(
         value
         for value in grid.scenarios
-        if value.condition.experiment == "M7"
+        if value.condition.experiment == "M7a"
         and value.condition.event_type == "high_temperature"
     )
     station = runner.data.station_ids.index(
@@ -391,7 +446,7 @@ def test_event_thresholds_use_only_approved_finite_training_values(
     )
     target = runner.data.variable_names.index("T")
     runner.data.quality_approved[runner.train_rows, station, target] = False
-    with pytest.raises(ValueError, match="no approved finite training"):
+    with pytest.raises(ValueError, match="insufficient_training_climatology_samples"):
         runner._event_condition(high_temperature)
 
 
@@ -411,7 +466,7 @@ def test_rapid_warming_threshold_requires_adjacent_approved_training_pairs(
     scenario = next(
         value
         for value in grid.scenarios
-        if value.condition.experiment == "M7"
+        if value.condition.experiment == "M7a"
         and value.condition.event_type == "rapid_warming"
     )
     station = runner.data.station_ids.index(scenario.condition.station_ids[0])
@@ -419,7 +474,7 @@ def test_rapid_warming_threshold_requires_adjacent_approved_training_pairs(
     train_indices = np.flatnonzero(runner.train_rows)
     runner.data.quality_approved[train_indices, station, target] = False
     runner.data.quality_approved[train_indices[::2], station, target] = True
-    with pytest.raises(ValueError, match="no adjacent approved finite training"):
+    with pytest.raises(ValueError, match="insufficient_training_threshold_samples"):
         runner._event_condition(scenario)
 
 
@@ -444,14 +499,14 @@ def test_existing_baselines_are_runner_models_and_only_trainable_models_repeat_s
         output_dir=tmp_path / "results",
         mask_dir=tmp_path / "masks",
         config_path=CONFIG,
-        models=("climatology", "air_only", "brits", "proposed"),
+        models=("climatology", "air_only", "brits_ref", "proposed"),
         training_seeds=(11, 22),
     )
     assert runner._run_keys() == [
         ("climatology", None),
         ("air_only", None),
-        ("brits", 11),
-        ("brits", 22),
+        ("brits_ref", 11),
+        ("brits_ref", 22),
         ("proposed", 11),
         ("proposed", 22),
     ]
@@ -482,7 +537,7 @@ def test_air_hydro_prediction_cannot_see_masked_auxiliary_truth(tmp_path: Path) 
 def test_deep_prediction_is_stitched_from_condition_sized_windows(
     tmp_path: Path, monkeypatch
 ) -> None:
-    runner = _runner(tmp_path, models=("saits",))
+    runner = _runner(tmp_path, models=("saits_lite",))
     scenario = runner.grid.scenarios[0]
     mask, _ = runner._generate_mask(scenario)
     calls: list[int] = []
@@ -497,7 +552,7 @@ def test_deep_prediction_is_stitched_from_condition_sized_windows(
             return result
 
     monkeypatch.setattr(runner, "_deep_model", lambda *args: FakeImputer())
-    prediction, _ = runner._model_prediction("saits", 11, scenario, mask)
+    prediction, _ = runner._model_prediction("saits_lite", 11, scenario, mask)
     assert calls
     assert max(calls) <= scenario.condition.window_length
     assert max(calls) < len(runner.data.dates)
@@ -534,14 +589,108 @@ def test_proposed_scaler_is_train_only_and_is_recorded_in_checkpoint(
     assert checkpoint["quantile_levels"] == [0.05, 0.25, 0.5, 0.75, 0.95]
     assert checkpoint["training_config"]["epochs"] == 3
     assert checkpoint["training_config"]["patience"] == 2
-    assert checkpoint["training_context"] == {
-        "profile": "smoke",
-        "train_mask_repeats": 1,
-        "validation_mask_repeats": 1,
-        "window": 184,
-        "protocol": "seen_length",
-        "input_files": runner._training_input_identities(),
+    assert checkpoint["training_context"] == runner._proposed_contract(
+        11, 184, "seen_length"
+    )[2]
+
+
+def test_proposed_batches_use_half_window_stride_and_final_alignment(
+    tmp_path: Path,
+) -> None:
+    runner = _runner(tmp_path, models=("proposed",))
+    mean, scale = runner._proposed_scaler()
+    normalized = (runner.data.values - mean[None]) / scale[None]
+    selected = normalized[runner.train_rows]
+    artificial = np.zeros_like(selected, dtype=bool)
+    target = runner.data.variable_names.index("T")
+    artificial[..., target] = True
+
+    batches = runner._proposed_batches(
+        normalized,
+        runner.train_rows,
+        artificial.reshape(len(artificial), -1),
+        736,
+    )
+    starts = [
+        int(batch["curriculum_metadata"]["window_start"]) for batch in batches
+    ]
+
+    assert starts == _window_starts(len(selected), 736)
+    assert starts[1] - starts[0] == 368
+    assert starts[-1] == len(selected) - 736
+
+
+def test_proposed_curriculum_batches_are_deterministic_and_unseen_capped(
+    tmp_path: Path,
+) -> None:
+    runner = _runner(tmp_path, models=("proposed",))
+    mean, scale = runner._proposed_scaler()
+    normalized = (runner.data.values - mean[None]) / scale[None]
+    config = runner._proposed_contract(11, 184, "unseen_length")[1]
+    kwargs = {
+        "curriculum_config": config.curriculum,
+        "curriculum_seed": 11,
+        "protocol": "unseen_length",
+        "repeats": 2,
     }
+    first = runner._proposed_batches(
+        normalized, runner.train_rows, None, 184, **kwargs
+    )
+    second = runner._proposed_batches(
+        normalized, runner.train_rows, None, 184, **kwargs
+    )
+
+    assert len(first) == len(_window_starts(int(runner.train_rows.sum()), 184)) * 2
+    assert {batch["training_mask_type"] for batch in first} == set(
+        CURRICULUM_SCENARIOS
+    )
+    for left, right in zip(first, second, strict=True):
+        assert left["curriculum_metadata"] == right["curriculum_metadata"]
+        assert torch.equal(left["artificial_mask"], right["artificial_mask"])
+        metadata = left["curriculum_metadata"]
+        assert metadata["training_gap_length"] <= 90
+        assert metadata["training_masked_cells"] == int(
+            left["artificial_mask"].sum()
+        )
+        assert torch.all(
+            ~left["artificial_mask"]
+            | (
+                left["natural_mask"]
+                & torch.isfinite(left["values"])
+            )
+        )
+
+
+def test_proposed_runner_builds_all_frozen_validation_scenarios(
+    tmp_path: Path, monkeypatch
+) -> None:
+    runner = _runner(tmp_path, models=("proposed",))
+    captured: dict[str, tuple[dict[str, object], ...]] = {}
+
+    def fake_train(
+        model, train_batches, validation_batches, config, *, checkpoint_path
+    ):
+        captured["train"] = tuple(train_batches)
+        captured["validation"] = tuple(validation_batches)
+        _write_synthetic_proposed_checkpoint(model, config, checkpoint_path)
+
+    monkeypatch.setattr(
+        "stream_recoverability.experiments.runner.train_proposed_model", fake_train
+    )
+    runner._proposed_model(11, 184, "seen_length")
+
+    assert {batch["training_mask_type"] for batch in captured["train"]} == set(
+        CURRICULUM_SCENARIOS
+    )
+    validation = captured["validation"]
+    assert {batch["validation_scenario"] for batch in validation} == set(
+        FROZEN_VALIDATION_SCENARIOS
+    )
+    assert all(
+        batch["curriculum_metadata"]["validation_scenario"]
+        == batch["validation_scenario"]
+        for batch in validation
+    )
 
 
 def test_proposed_initialization_is_seeded_before_construction(
@@ -668,18 +817,32 @@ def test_proposed_prediction_uses_requested_windows_and_only_covers_hidden_t(
         def eval(self):
             return self
 
-        def __call__(self, values, natural, hidden, *, seasonal_features):
+        def __call__(
+            self,
+            values,
+            natural,
+            hidden,
+            *,
+            seasonal_features,
+            training_climatology,
+        ):
             steps = values.shape[1]
             calls.append(steps)
             median = torch.full(
                 (1, steps, values.shape[2]), float(steps), dtype=values.dtype
             )
-            return {
+            output = {
                 "quantiles": torch.stack(
                     (median - 2.0, median - 1.0, median, median + 1.0, median + 2.0),
                     dim=-1,
                 )
             }
+            available = torch.ones_like(median, dtype=torch.bool)
+            gate = torch.full_like(median, 0.25)
+            for group in ("A", "B", "C", "D"):
+                output[f"source_available_{group}"] = available
+                output[f"gate_{group}"] = gate
+            return output
 
     mean = np.zeros(runner.data.values.shape[1:], dtype=np.float32)
     scale = np.ones_like(mean)
@@ -1142,6 +1305,36 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
     assert run_manifest["aggregate_scenario_count"] == len(runner.grid.scenarios)
     assert run_manifest["aggregate_run_count"] == run_manifest["expected_run_count"]
     assert run_manifest["complete"] is True
+    assert run_manifest["run_unit_complete"] is True
+    assert run_manifest["evidence_complete"] is True
+    assert run_manifest["finite_predictions"] is True
+    assert run_manifest["finite_event_metrics"] is True
+    assert run_manifest["checkpoint_contract_complete"] is True
+    assert run_manifest["retryable_run_unit_keys"] == []
+    assert run_manifest["structural_skip_run_unit_keys"] == []
+    assert (
+        run_manifest["expected_run_unit_keys"]
+        == run_manifest["completed_run_unit_keys"]
+    )
+    assert (
+        run_manifest["expected_evidence_run_unit_keys"]
+        == run_manifest["completed_evidence_run_unit_keys"]
+    )
+    assert run_manifest["completed_daily_rows"] == len(first_daily)
+    assert run_manifest["completed_event_rows"] == len(first_events)
+    assert run_manifest["code_identity"] == runner.evidence_contract["code_identity"]
+    assert run_manifest["code_provenance"] == runner.code_provenance
+    scenario_status = json.loads(
+        (
+            runner.output_dir
+            / "scenarios"
+            / runner.grid.scenarios[0].scenario_id
+            / "status.json"
+        ).read_text(encoding="utf-8")
+    )
+    first_contract = next(iter(scenario_status["run_contracts"].values()))
+    assert first_contract["code_identity"] == runner.evidence_contract["code_identity"]
+    assert first_contract["code_provenance"] == runner.code_provenance
     assert len(first_events) == 12
     assert {"q25", "q75", "season", "event_type"}.issubset(first_daily)
     assert set(first_daily["season"]) <= {"DJF", "MAM", "JJA", "SON"}
@@ -1173,7 +1366,7 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
     ).any()
     assert set(first_events["fit_split"]) == {"train"}
     assert set(first_events["tuning_split"]) == {"validation"}
-    assert set(first_events["evaluation_split"]) == {"test"}
+    assert set(first_events["evaluation_split"]) == {"development_test"}
 
     for row in first_events.itertuples(index=False):
         library = runner._generate_mask(
