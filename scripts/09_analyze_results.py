@@ -141,10 +141,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--sensitivity-manifest",
         type=Path,
         action="append",
-        default=[],
+        required=True,
         help=(
-            "repeatable formal_aggregate_manifest_v2 for one separately frozen "
-            "sensitivity data version"
+            "required exactly three times: one formal_aggregate_manifest_v2 for "
+            "each frozen sensitivity data version"
         ),
     )
     parser.add_argument("--design", type=Path, default=DEFAULT_DESIGN)
@@ -153,7 +153,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    if len(args.sensitivity_manifest) != 3:
+        parser.error(
+            "--sensitivity-manifest must be supplied exactly three times "
+            "(no_s2_suspect_v1, b1_no_level_v1, b1_shift_sensitivity_v1)"
+        )
     inputs = load_frozen_inputs(
         args.predictions,
         args.event_metrics,
@@ -179,7 +185,7 @@ def main(argv: list[str] | None = None) -> int:
             ensure_ascii=False,
         )
     )
-    return 0
+    return 0 if manifest["status"] == "complete" else 2
 
 
 if __name__ == "__main__":
