@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 from stream_recoverability.experiments.contracts import (
+    CODE_PROVENANCE_SCHEMA_VERSION,
+    build_code_provenance,
     build_design_contract,
+    canonical_code_identity,
     canonical_evaluation_split,
 )
 from stream_recoverability.experiments.grid import build_experiment_grid
@@ -17,6 +21,14 @@ MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
 DESIGN = REPO_ROOT / "configs" / "design_freeze_v1.yaml"
 VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+
+
+def _git(repository: Path, *arguments: str) -> None:
+    subprocess.run(
+        ("git", "-C", str(repository), *arguments),
+        check=True,
+        capture_output=True,
+    )
 
 
 def _wide(path: Path, *, data_version: str = "published_v1") -> Path:
@@ -81,6 +93,119 @@ def test_design_hash_changes_with_data_version_and_is_reproducible() -> None:
     assert first["mask_schema_version"] == "mask_schema_v2"
     assert first["model_schema_version"] == "model_schema_v2"
     assert first["statistics_schema_version"] == "statistics_schema_v2"
+    assert len(first["code_identity"]["relevant_source_digest"]) == 64
+
+
+def test_design_hash_excludes_noncanonical_git_audit_fields() -> None:
+    source_digest = "a" * 64
+    first_provenance = {
+        "schema_version": CODE_PROVENANCE_SCHEMA_VERSION,
+        "git_commit": "1" * 40,
+        "tracked_worktree_clean": True,
+        "relevant_source_clean": True,
+        "relevant_source_digest": source_digest,
+        "relevant_source_file_count": 12,
+        "dirty_tracked_paths": [],
+        "relevant_untracked_paths": [],
+        "external_relevant_input_count": 0,
+        "status": "clean",
+    }
+    docs_only_commit = {
+        **first_provenance,
+        "git_commit": "2" * 40,
+        "tracked_worktree_clean": False,
+        "status": "dirty",
+        "dirty_tracked_paths": ["README.md"],
+    }
+    first = build_design_contract(
+        design_path=DESIGN,
+        manifest_path=MANIFEST,
+        experiment_config_path=CONFIG,
+        data_version="published_v1",
+        evaluation_split="development_test",
+        code_provenance=first_provenance,
+    )
+    second = build_design_contract(
+        design_path=DESIGN,
+        manifest_path=MANIFEST,
+        experiment_config_path=CONFIG,
+        data_version="published_v1",
+        evaluation_split="development_test",
+        code_provenance=docs_only_commit,
+    )
+
+    assert canonical_code_identity(first_provenance) == canonical_code_identity(
+        docs_only_commit
+    )
+    assert first["design_hash"] == second["design_hash"]
+    assert first["code_identity"] == second["code_identity"]
+    assert first["code_provenance"] != second["code_provenance"]
+
+    changed_source = {**docs_only_commit, "relevant_source_digest": "b" * 64}
+    changed = build_design_contract(
+        design_path=DESIGN,
+        manifest_path=MANIFEST,
+        experiment_config_path=CONFIG,
+        data_version="published_v1",
+        evaluation_split="development_test",
+        code_provenance=changed_source,
+    )
+    assert changed["design_hash"] != first["design_hash"]
+
+
+def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
+    tmp_path: Path,
+) -> None:
+    repository = tmp_path / "repository"
+    source = repository / "src/stream_recoverability/experiments/runner.py"
+    script = repository / "scripts/08_run_experiments.py"
+    config = repository / "configs/design.yaml"
+    for path, value in (
+        (source, "VALUE = 1\n"),
+        (script, "#!/usr/bin/env python3\n"),
+        (config, "design: frozen\n"),
+        (repository / "pyproject.toml", "[project]\nname='fixture'\n"),
+        (repository / "README.md", "first\n"),
+    ):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(value, encoding="utf-8")
+    _git(repository, "init")
+    _git(repository, "config", "user.email", "test@example.com")
+    _git(repository, "config", "user.name", "Test")
+    _git(repository, "add", ".")
+    _git(repository, "commit", "-m", "initial")
+
+    initial = build_code_provenance(
+        repository_root=repository,
+        additional_relevant_paths=(config,),
+    )
+    generated = repository / "results/generated.json"
+    generated.parent.mkdir(parents=True)
+    generated.write_text("{}\n", encoding="utf-8")
+    (repository / "README.md").write_text("second\n", encoding="utf-8")
+    _git(repository, "add", "README.md")
+    _git(repository, "commit", "-m", "docs only")
+    docs_only = build_code_provenance(
+        repository_root=repository,
+        additional_relevant_paths=(config,),
+    )
+
+    assert initial["git_commit"] != docs_only["git_commit"]
+    assert initial["relevant_source_digest"] == docs_only["relevant_source_digest"]
+    assert docs_only["tracked_worktree_clean"] is True
+    assert docs_only["relevant_source_clean"] is True
+
+    source.write_text("VALUE = 2\n", encoding="utf-8")
+    dirty = build_code_provenance(
+        repository_root=repository,
+        additional_relevant_paths=(config,),
+    )
+    assert dirty["tracked_worktree_clean"] is False
+    assert dirty["relevant_source_clean"] is False
+    assert dirty["dirty_tracked_paths"] == [
+        "src/stream_recoverability/experiments/runner.py"
+    ]
+    assert dirty["relevant_source_digest"] != docs_only["relevant_source_digest"]
 
 
 def test_stored_test_alias_is_canonicalised_to_development_test() -> None:

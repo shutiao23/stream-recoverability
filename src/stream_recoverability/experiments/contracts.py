@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
-from collections.abc import Mapping
+import subprocess
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +15,28 @@ DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v1.yaml")
 DEFAULT_MANIFEST_PATH = Path("study_manifest.yaml")
 SUPPORTED_EVALUATION_SPLITS = frozenset(
     {"validation", "development_test", "test", "confirmatory"}
+)
+CODE_PROVENANCE_SCHEMA_VERSION = "code_provenance_v1"
+_RELEVANT_CODE_DIRECTORIES = (
+    "src/stream_recoverability/evaluation",
+    "src/stream_recoverability/experiments",
+    "src/stream_recoverability/masks",
+    "src/stream_recoverability/models",
+)
+_RELEVANT_CODE_FILES = (
+    "src/stream_recoverability/__init__.py",
+    "src/stream_recoverability/analysis/compensation.py",
+    "scripts/05_train_deep_baselines.py",
+    "scripts/08_run_experiments.py",
+    "scripts/12_run_science_experiments.py",
+    "scripts/13_aggregate_formal_results.py",
+    "scripts/15_run_validation_funnel.py",
+    "pyproject.toml",
+)
+_FUTURE_ORCHESTRATION_PATTERNS = (
+    "scripts/*ablation*.py",
+    "scripts/*retrain*.py",
+    "scripts/*upper_bound*.py",
 )
 
 
@@ -62,6 +85,192 @@ def _canonical_digest(value: Mapping[str, Any]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def _git_output(repository_root: Path, *arguments: str) -> bytes:
+    try:
+        completed = subprocess.run(
+            ("git", "-C", str(repository_root), *arguments),
+            check=False,
+            capture_output=True,
+            timeout=15,
+        )
+    except (OSError, subprocess.TimeoutExpired) as error:
+        raise RuntimeError("git command unavailable") from error
+    if completed.returncode:
+        raise RuntimeError("git command failed")
+    return completed.stdout
+
+
+def _repository_root() -> Path:
+    source_checkout = Path(__file__).resolve().parents[3]
+    root = _git_output(source_checkout, "rev-parse", "--show-toplevel")
+    return Path(root.decode("utf-8").strip()).resolve()
+
+
+def _repo_relative(path: str | Path, repository_root: Path) -> str | None:
+    candidate = Path(path)
+    if not candidate.is_absolute():
+        candidate = Path.cwd() / candidate
+    try:
+        return candidate.resolve().relative_to(repository_root).as_posix()
+    except ValueError:
+        return None
+
+
+def _is_future_orchestration_path(path: str) -> bool:
+    candidate = Path(path)
+    return any(candidate.match(pattern) for pattern in _FUTURE_ORCHESTRATION_PATTERNS)
+
+
+def build_code_provenance(
+    *,
+    repository_root: str | Path | None = None,
+    additional_relevant_paths: Sequence[str | Path] = (),
+) -> dict[str, Any]:
+    """Return a clone-stable identity for code that can affect an experiment.
+
+    The clean-worktree check is deliberately scoped to the runner's import
+    surface, its entry point, dependency declaration, and the frozen config
+    inputs supplied by the caller.  Untracked masks, checkpoints, results, and
+    other generated outputs therefore cannot block a formal run, while an
+    untracked Python file inside the relevant source roots still does.
+    """
+
+    try:
+        root = (
+            Path(repository_root).resolve()
+            if repository_root is not None
+            else _repository_root()
+        )
+        commit = _git_output(root, "rev-parse", "HEAD").decode("ascii").strip()
+    except RuntimeError:
+        return {
+            "schema_version": CODE_PROVENANCE_SCHEMA_VERSION,
+            "git_commit": None,
+            "tracked_worktree_clean": False,
+            "relevant_source_clean": False,
+            "relevant_source_digest": None,
+            "relevant_source_file_count": 0,
+            "dirty_tracked_paths": [],
+            "relevant_untracked_paths": [],
+            "external_relevant_input_count": len(additional_relevant_paths),
+            "status": "git_repository_unavailable",
+        }
+
+    explicit_paths = set(_RELEVANT_CODE_FILES)
+    external_relevant_inputs = 0
+    for path in additional_relevant_paths:
+        relative = _repo_relative(path, root)
+        if relative is None:
+            external_relevant_inputs += 1
+        else:
+            explicit_paths.add(relative)
+
+    pathspecs = [*_RELEVANT_CODE_DIRECTORIES, "scripts", *sorted(explicit_paths)]
+    tracked_output = _git_output(root, "ls-files", "-z", "--", *pathspecs)
+    tracked_paths = {
+        value.decode("utf-8")
+        for value in tracked_output.split(b"\0")
+        if value
+    }
+    tracked_paths = {
+        path
+        for path in tracked_paths
+        if path in explicit_paths
+        or _is_future_orchestration_path(path)
+        or (
+            path.endswith(".py")
+            and any(
+                path.startswith(f"{directory}/")
+                for directory in _RELEVANT_CODE_DIRECTORIES
+            )
+        )
+    }
+
+    filesystem_paths = {
+        path
+        for path in explicit_paths
+        if (root / path).is_file()
+    }
+    for pattern in _FUTURE_ORCHESTRATION_PATTERNS:
+        filesystem_paths.update(
+            path.relative_to(root).as_posix()
+            for path in root.glob(pattern)
+            if path.is_file()
+        )
+    for directory in _RELEVANT_CODE_DIRECTORIES:
+        source_root = root / directory
+        if source_root.is_dir():
+            filesystem_paths.update(
+                path.relative_to(root).as_posix()
+                for path in source_root.rglob("*.py")
+                if path.is_file()
+            )
+    relevant_paths = tracked_paths | filesystem_paths
+    dirty_output = _git_output(
+        root,
+        "diff",
+        "--name-only",
+        "--no-ext-diff",
+        "-z",
+        "HEAD",
+        "--",
+        *sorted(relevant_paths),
+    )
+    dirty_tracked_paths = sorted(
+        value.decode("utf-8")
+        for value in dirty_output.split(b"\0")
+        if value
+    )
+    relevant_untracked_paths = sorted(filesystem_paths.difference(tracked_paths))
+    file_identities = [
+        {
+            "path": path,
+            "sha256": file_sha256(root / path) if (root / path).is_file() else None,
+        }
+        for path in sorted(relevant_paths)
+    ]
+    tracked_worktree_clean = not dirty_tracked_paths
+    relevant_source_clean = bool(
+        tracked_worktree_clean
+        and not relevant_untracked_paths
+        and not external_relevant_inputs
+    )
+    return {
+        "schema_version": CODE_PROVENANCE_SCHEMA_VERSION,
+        "git_commit": commit,
+        "tracked_worktree_clean": tracked_worktree_clean,
+        "relevant_source_clean": relevant_source_clean,
+        "relevant_source_digest": _canonical_digest({"files": file_identities}),
+        "relevant_source_file_count": len(file_identities),
+        "dirty_tracked_paths": dirty_tracked_paths,
+        "relevant_untracked_paths": relevant_untracked_paths,
+        "external_relevant_input_count": external_relevant_inputs,
+        "status": "clean" if relevant_source_clean else "dirty",
+    }
+
+
+def canonical_code_identity(provenance: Mapping[str, Any]) -> dict[str, Any]:
+    """Select only clone-stable implementation fields for design hashing."""
+
+    identity = {
+        "schema_version": provenance.get("schema_version"),
+        "relevant_source_digest": provenance.get("relevant_source_digest"),
+        "relevant_source_file_count": provenance.get(
+            "relevant_source_file_count"
+        ),
+    }
+    if not isinstance(identity["schema_version"], str):
+        raise TypeError("code provenance is missing schema_version")
+    digest = identity["relevant_source_digest"]
+    if not isinstance(digest, str):
+        raise TypeError("code provenance source digest must be a string")
+    if len(digest) != 64:
+        raise ValueError("code provenance is missing a SHA-256 source digest")
+    if not isinstance(identity["relevant_source_file_count"], int):
+        raise TypeError("code provenance is missing relevant_source_file_count")
+    return identity
+
+
 def build_design_contract(
     *,
     design_path: str | Path = DEFAULT_DESIGN_PATH,
@@ -70,6 +279,7 @@ def build_design_contract(
     data_version: str,
     evaluation_split: str,
     data_version_manifest_path: str | Path | None = None,
+    code_provenance: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the canonical contract whose digest invalidates stale evidence."""
 
@@ -105,6 +315,14 @@ def build_design_contract(
             file_sha256(version_manifest) if version_manifest is not None else None
         ),
     }
+    provenance = dict(
+        code_provenance
+        if code_provenance is not None
+        else build_code_provenance(
+            additional_relevant_paths=(design_file, study_file, experiment_file)
+        )
+    )
+    code_identity = canonical_code_identity(provenance)
     canonical_split = canonical_evaluation_split(evaluation_split)
     contract = {
         "design_version": str(design["design_version"]),
@@ -114,8 +332,10 @@ def build_design_contract(
         "model_schema_version": str(training["schema_version"]),
         "statistics_schema_version": str(statistics["schema_version"]),
         "input_digests": inputs,
+        "code_identity": code_identity,
     }
     contract["design_hash"] = _canonical_digest(contract)
+    contract["code_provenance"] = provenance
     missing = set(evidence.get("required_fields", ())).difference(contract)
     if missing:
         raise ValueError(
@@ -126,10 +346,13 @@ def build_design_contract(
 
 
 __all__ = [
+    "CODE_PROVENANCE_SCHEMA_VERSION",
     "DEFAULT_DESIGN_PATH",
     "DEFAULT_MANIFEST_PATH",
     "SUPPORTED_EVALUATION_SPLITS",
+    "build_code_provenance",
     "build_design_contract",
+    "canonical_code_identity",
     "canonical_evaluation_split",
     "file_sha256",
 ]
