@@ -1,0 +1,348 @@
+design_version: design_freeze_v1
+status: frozen_for_validation
+frozen_on: "2026-08-15"
+freeze_context:
+  development_data_visibility: development_test_was_visible_before_this_audit
+  permitted_use: protocol_repair_and_validation_only_model_selection
+  prohibited_use: tune_against_development_test_or_confirmatory_results
+  confirmatory_performance_seen: false
+
+study:
+  primary_target: T
+  primary_task: offline_historical_recovery
+  secondary_task: causal_online_recovery_supplement
+  scope: upper_jinsha_three_station_case_study
+  novelty_position: recoverability_framework_not_novel_spatiotemporal_architecture
+
+primary_claims:
+  - recoverability_frontier
+  - scale_dependent_information_compensation
+  - internal_network_resilience
+  - uncertainty_calibration
+
+claim_boundaries:
+  external_generalisation: prohibited_until_confirmatory_data_passes
+  operational_recoverability: not_claimed
+  causal_information_attribution: not_claimed
+  upstream_sensor_truth: not_claimed
+  graph_learning: not_claimed
+
+periods:
+  train: {start: "2006-01-01", end: "2015-12-31"}
+  validation: {start: "2016-01-01", end: "2017-12-31"}
+  development_evaluation: {start: "2018-01-01", end: "2020-12-31"}
+  canonical_evaluation_label: development_test
+  stored_data_split_alias: {development_test: test}
+
+confirmatory_dataset:
+  status: pending
+  access_rule: evaluate_once_after_protocol_and_finalists_are_frozen
+  preferred:
+    - same_sites_2021_2025
+    - external_connected_daily_stream_temperature_network
+  fallback_interpretation: no_confirmatory_or_external_generalisation_claim
+  frozen_external_protocol:
+    provider: usgs_water_services
+    network: lower_chattahoochee_mainstem_case_study
+    site_ids: ["02334430", "02335000", "02335450", "02336000", "02337170"]
+    daily_statistics: {temperature: "00010:00003", discharge: "00060:00003", level: "00065:00003"}
+    meteorology:
+      provider: nasa_power_daily_point
+      community: AG
+      time_standard: UTC
+      variables:
+        Ta: T2M
+        P: PRECTOTCORR
+        W: WS2M
+        RH: RH2M
+        DH: ALLSKY_SFC_SW_DWN
+      DH_interpretation: daily_shortwave_radiation_proxy_not_sunshine_duration
+      spatial_rule: nearest_POWER_grid_cell_to_each_USGS_site_coordinate
+    train: {start: "2012-01-01", end: "2020-12-31"}
+    validation: {start: "2021-01-01", end: "2022-12-31"}
+    confirmatory: {start: "2023-01-01", end: "2025-12-31"}
+    quality_rule: retain_approved_and_estimated_flagged_values_exclude_provisional
+    scenarios:
+      point_T_rates: [0.30]
+      block_T_days: [30, 90, 180]
+      hydrological_station_outage_days: [90, 180]
+      frontier_information_conditions: [full_information, no_meteorology]
+    fitting_rule: retrain_frozen_architecture_on_external_train_only
+    tuning_rule: frozen_hyperparameters_validation_for_early_stopping_only
+    interpretation: external_temporal_replication_not_zero_shot_transfer
+
+data_versions:
+  primary: published_v1
+  required_sensitivity:
+    - no_s2_suspect_v1
+    - b1_no_level_v1
+    - b1_shift_sensitivity_v1
+  definitions:
+    published_v1: published_unflagged_values_unchanged
+    no_s2_suspect_v1: exclude_S2_hydrology_2013_2019_without_reordering
+    b1_no_level_v1: exclude_B1_water_level_from_analysis
+    b1_shift_sensitivity_v1: hypothetical_minus_8_48_m_B1_level_from_2019_only
+
+information_groups:
+  S0:
+    role: permanent_baseline
+    sources: [calendar, training_climatology, static_station_identity]
+  A:
+    role: switchable
+    sources: [local_target_before_gap, local_target_after_gap, distance_to_observation]
+  B:
+    role: switchable
+    sources: [same_site_discharge, same_site_water_level]
+  C:
+    role: switchable
+    sources: [other_site_temperature, other_site_discharge, other_site_water_level]
+  D:
+    role: switchable
+    sources: [air_temperature, precipitation, wind_speed, relative_humidity, sunshine_duration]
+  attribution_estimands:
+    operational_dropout: one_shared_checkpoint
+    retrained_upper_bound: one_checkpoint_per_declared_information_coalition
+    pooling_rule: never_mix_estimands
+
+mask_design:
+  schema_version: mask_schema_v2
+  point_rates: [0.10, 0.30, 0.50]
+  point_rule: one_season_balanced_seeded_ranking_with_prefix_nesting
+  block_lengths: [10, 30, 90, 180]
+  dense_T_block_lengths: [1, 3, 7, 10, 14, 21, 30, 45, 60, 90, 120, 150, 180, 240, 365]
+  dense_FL_block_lengths: [3, 10, 30, 60, 90, 120, 180, 365]
+  block_rule: fixed_center_nested_anchors
+  anchors_per_station_target: 20
+  anchors_per_season: 5
+  seasons: [DJF, MAM, JJA, SON]
+  event_design:
+    deterministic_stress: one_scenario_per_station_event
+    episode_unit: event_id
+    matched_control: same_station_season_and_length_non_event
+  asynchronous_design:
+    same_station_variable: required
+    cross_station: required
+    same_station_variable_patterns: [T_F, T_L, F_L, T_F_L]
+    gap_lengths: [10, 30, 90, 180]
+    overlap_ratios: [1.0, 0.5, 0.0]
+    axes:
+      M6a: variable
+      M6b: station
+  overlap_audit: required_before_inference
+
+training:
+  schema_version: model_schema_v2
+  window_stride: half_window_plus_final_right_alignment
+  epoch_loss: sum_masked_cell_loss_over_total_masked_cells
+  early_stopping: frozen_multiscenario_validation_score
+  curriculum:
+    point: 0.20
+    single_block: 0.25
+    multiblock: 0.15
+    synchronous_variable_group: 0.15
+    hydrological_station_outage: 0.10
+    meteorology_dropout: 0.05
+    same_station_variable_async: 0.05
+    cross_station_async: 0.05
+  curriculum_gap_lengths: [3, 7, 10, 14, 30, 60, 90, 120, 180]
+  seen_length_max_days: 180
+  unseen_length_train_max_days: 90
+  training_seeds: [11, 22, 33, 44, 55]
+  required_logs:
+    - training_mask_type
+    - training_gap_length
+    - training_pattern
+    - training_station_count
+    - training_masked_cells
+    - validation_score_by_scenario
+    - parameter_count
+    - best_epoch
+    - epochs_run
+    - hit_epoch_limit
+    - training_time_seconds
+    - inference_time_seconds
+  fixed_model_protocols:
+    common:
+      optimizer: Adam
+      learning_rate: 0.001
+      weight_decay: 0.0
+      gradient_clip: 1.0
+      batch_size: 8
+      max_epochs: 200
+      patience: 20
+      minimum_delta: 0.0
+    brits_ref:
+      implementation: pypots_1.5_official_core
+      rnn_hidden_size: 64
+      target_only_MIT_weight: 1.0
+    saits_ref:
+      implementation: pypots_1.5_official_core
+      n_layers: 2
+      d_model: 64
+      n_heads: 4
+      d_k: 16
+      d_v: 16
+      d_ffn: 128
+      dropout: 0.0
+      attention_dropout: 0.0
+      ORT_weight: 1.0
+      MIT_weight: 1.0
+    csdi:
+      implementation: pypots_1.5_official_core
+      n_layers: 4
+      n_heads: 8
+      n_channels: 64
+      time_embedding_size: 128
+      feature_embedding_size: 16
+      diffusion_embedding_size: 128
+      diffusion_steps: 50
+      schedule: quad
+      beta_start: 0.0001
+      beta_end: 0.5
+      validation_samples: 10
+      formal_prediction_samples: 100
+      target_strategy: random
+      unconditional: false
+    proposed:
+      architecture_version: s0_abcd_v2
+      hidden_size: 32
+      station_embedding_size: 8
+      variable_embedding_size: 4
+      temporal_bidirectional_size_per_direction: 16
+      dropout: 0.10
+      quantiles: [0.05, 0.25, 0.50, 0.75, 0.95]
+    selection_rule: no_hyperparameter_change_after_validation_funnel
+
+model_funnel:
+  selection_split: validation
+  stage_1_traditional:
+    models:
+      - climatology
+      - linear
+      - pchip
+      - kalman
+      - air_only
+      - air_hydro
+      - donor_regression
+      - random_forest
+      - xgboost
+    anchors_per_condition: 5
+  stage_2_deep_single_seed:
+    seed: 11
+    models: [brits_ref, saits_ref, csdi, proposed]
+    retention_rule:
+      require_finite_predictions: true
+      require_finite_validation_score: true
+      reject_if_no_finite_best_epoch: true
+      retain_if_within_mean_skill_of_best: 0.05
+      mandatory_diagnostic_candidates: [csdi, proposed]
+  stage_3_deep_stability:
+    seeds: [11, 22, 33]
+    rule: only_stage_2_finalists
+  proposed_go_no_go:
+    decision_rule: all_required_criteria_must_pass_else_framework_only_paper
+    required_criteria:
+      stable_90_day_gain:
+        mean_skill_gain_over_best_traditional_minimum: 0.02
+        every_training_seed_gain_must_be_positive: true
+      difficult_case_gain:
+        mean_skill_gain_minimum: 0.02
+        pass_if_either: [T_block_180d, hydrological_station_outage_90d]
+      seed_direction:
+        required_positive_seed_count: 3
+        required_seed_count: 3
+      interval_calibration:
+        nominal_coverage: 0.90
+        acceptable_mean_coverage: [0.85, 0.95]
+      station_robustness:
+        minimum_stations_with_positive_gain: 2
+        maximum_single_station_share_of_positive_gain: 0.60
+      branch_ablation:
+        short_gap_A_removal_must_increase_MAE: true
+        long_gap_at_least_one_of_B_C_D_removal_must_increase_MAE: true
+        numerical_tolerance_MAE: 0.000001
+
+formal_model_candidates:
+  traditional:
+    - climatology
+    - linear
+    - pchip
+    - kalman
+    - air_only
+    - air_hydro
+    - donor_regression
+    - random_forest
+    - xgboost
+    - rating_curve
+    - independent_flow
+  deep_deterministic: [brits_ref, saits_ref]
+  probabilistic: [csdi]
+  proposed: [proposed]
+  development_only: [brits_lite, saits_lite]
+
+statistics:
+  schema_version: statistics_schema_v2
+  primary_unit: anchor_or_event_episode
+  aggregation_order:
+    - average_training_seeds_within_model_mask_anchor
+    - cluster_by_anchor_and_year
+    - compare_models_or_gap_lengths
+  bootstrap_unit: anchor_with_station_year_strata
+  bootstrap_replicates: 2000
+  bootstrap_seed: 20260815
+  confidence_level: 0.95
+  report_raw_frontier: true
+  report_monotone_frontier: true
+  monotone_method: weighted_PAVA_nonincreasing
+  breakpoint_method: one_internal_hinge_weighted_least_squares
+  climatology_denominator_guard:
+    metric: MAE
+    rule: denominator_must_exceed_half_the_published_measurement_resolution
+    thresholds_by_target:
+      T: {value: 0.05, unit: degC, published_resolution: 0.1}
+      F: {value: 0.5, unit: m3_per_s, published_resolution: 1.0}
+      L: {value: 0.005, unit: m, published_resolution: 0.01}
+    nonfinite_policy: withhold_skill_and_frontier_unit
+    equality_policy: withhold_when_denominator_less_than_or_equal_to_threshold
+  multiplicity: benjamini_hochberg_within_declared_hypothesis_family
+  hypothesis_families:
+    - frontier_model_vs_climatology
+    - operational_information_dropout
+    - retrained_information_upper_bound
+    - network_failure_set
+    - event_vs_matched_control
+    - data_version_sensitivity
+  application_thresholds:
+    status: not_declared
+    consequence: do_not_report_operational_recoverability_boundary
+
+primary_outputs:
+  figures:
+    - data_and_design_overview
+    - nested_recoverability_frontiers
+    - information_compensation_by_scale
+    - internal_network_resilience
+    - event_and_uncertainty_diagnostics
+  tables:
+    - data_provenance_and_versions
+    - validation_funnel_and_finalists
+    - core_model_comparison
+    - statistical_and_application_frontiers
+    - sensitivity_confirmation_and_calibration
+
+evidence_contract:
+  required_fields:
+    - design_version
+    - design_hash
+    - data_version
+    - evaluation_split
+    - mask_schema_version
+    - model_schema_version
+    - statistics_schema_version
+  stale_artifact_policy: reject_never_mix_or_resume
+  paper_evidence_requires:
+    - one_complete_top_level_manifest
+    - no_retryable_failures
+    - exact_mask_checkpoint_prediction_metric_contract_match
+    - all_required_data_versions
+    - confirmatory_status_reported
