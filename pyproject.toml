@@ -23,6 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+reference = ["pypots==1.5"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
