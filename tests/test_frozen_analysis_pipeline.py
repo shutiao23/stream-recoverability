@@ -16,6 +16,7 @@ from stream_recoverability.analysis.compensation import information_combinations
 from stream_recoverability.analysis.frozen_pipeline import (
     EVIDENCE_FIELDS,
     FIXED_ARTIFACTS,
+    RETRAINED_INFORMATION_COMBINATIONS,
     analyze_calibration,
     analyze_data_version_sensitivity,
     analyze_event_pairs,
@@ -467,6 +468,111 @@ def test_information_seed_collapse_and_estimands_never_mix() -> None:
         analyze_information(bad, statistics)
 
 
+def test_retrained_information_uses_exact_nine_without_shapley() -> None:
+    evidence = _evidence()
+    weights = {"A": 1.0, "B": 2.0, "C": 3.0, "D": 4.0}
+    rows = []
+    for anchor_index, anchor in enumerate(("A1", "A2")):
+        for subset in RETRAINED_INFORMATION_COMBINATIONS:
+            label = (
+                "S0"
+                if not subset
+                else "S0+"
+                + "+".join(
+                    source for source in ("A", "B", "C", "D") if source in subset
+                )
+            )
+            for seed, seed_offset in ((11, -0.25), (22, 0.25)):
+                rows.append(
+                    {
+                        **evidence,
+                        "experiment": "SCI_COMP_RETRAINED",
+                        "scenario_id": f"unit-{anchor}",
+                        "anchor_id": anchor,
+                        "anchor_year": 2019 + anchor_index,
+                        "mask_seed": 101 + anchor_index,
+                        "station_id": "B1",
+                        "target": "T",
+                        "gap_length": 30,
+                        "window_length": 368,
+                        "model": "information_compensation_retrained",
+                        "training_seed": seed,
+                        "information_combination": label,
+                        "information_estimand": "retrained_upper_bound",
+                        "MAE": 20.0
+                        - sum(weights[source] for source in subset)
+                        + seed_offset,
+                    }
+                )
+    statistics = dataclasses.replace(
+        load_frozen_statistics(DESIGN), bootstrap_replicates=20
+    )
+    result = analyze_information(pd.DataFrame(rows), statistics)
+    assert result["operational"].empty
+    assert result["shapley"].empty
+    assert result["interactions"].empty
+    assert len(result["metrics"]) == 9
+    assert len(result["retrained"]) == 8
+    ab = (
+        result["retrained"]
+        .loc[result["retrained"]["information_combination"].eq("S0+A+B")]
+        .iloc[0]
+    )
+    assert ab["reference_information_combination"] == "S0"
+    assert ab["MAE_gain_vs_S0"] == pytest.approx(3.0)
+    assert ab["n_units"] == 2
+    assert set(result["retrained"]["hypothesis_family"]) == {
+        "retrained_information_upper_bound"
+    }
+    assert set(result["hypotheses"]["hypothesis_family"]) == {
+        "retrained_information_upper_bound"
+    }
+
+    missing = pd.DataFrame(rows).loc[
+        lambda frame: (
+            ~(
+                frame["anchor_id"].eq("A2")
+                & frame["information_combination"].eq("S0+A+B+C+D")
+            )
+        )
+    ]
+    with pytest.raises(ValueError, match="requires exactly 9 coalitions"):
+        analyze_information(missing, statistics)
+
+
+def test_information_rejects_estimand_mixing_within_one_unit() -> None:
+    evidence = _evidence()
+    rows = []
+    for subset in information_combinations():
+        rows.append(
+            {
+                **evidence,
+                "experiment": "SCI_COMP",
+                "scenario_id": "mixed-unit",
+                "anchor_id": "A1",
+                "anchor_year": 2019,
+                "mask_seed": 101,
+                "station_id": "B1",
+                "target": "T",
+                "gap_length": 30,
+                "window_length": 368,
+                "model": "information_compensation",
+                "training_seed": 11,
+                "information_combination": (
+                    "S0" if not subset else "S0+" + "+".join(sorted(subset))
+                ),
+                "information_estimand": (
+                    "retrained_upper_bound"
+                    if subset == frozenset({"A"})
+                    else "operational_dropout"
+                ),
+                "MAE": 1.0,
+            }
+        )
+    with pytest.raises(ValueError, match="mixes operational and retrained"):
+        analyze_information(pd.DataFrame(rows), load_frozen_statistics(DESIGN))
+
+
 def test_event_episode_control_inference_collapses_training_seeds_first() -> None:
     evidence = _evidence()
     rows = []
@@ -776,6 +882,21 @@ def test_dynamic_absence_writes_all_outputs_with_explicit_status(
     output = tmp_path / "analysis"
     result = run_frozen_analysis(inputs, output)
     assert result["status"] == "complete"
+    assert (
+        result["information_estimand_contracts"]["operational_dropout"][
+            "required_coalition_count"
+        ]
+        == 16
+    )
+    assert (
+        result["information_estimand_contracts"]["retrained_upper_bound"][
+            "required_coalition_count"
+        ]
+        == 9
+    )
+    assert not result["information_estimand_contracts"]["retrained_upper_bound"][
+        "exact_shapley"
+    ]
     assert set(result["artifacts"]) == set(FIXED_ARTIFACTS)
     assert all((output / name).is_file() for name in FIXED_ARTIFACTS)
     assert result["artifacts"]["statistical_frontiers.csv"]["status"] == ("unavailable")
