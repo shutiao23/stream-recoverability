@@ -27,6 +27,7 @@ from scipy.stats import wilcoxon
 from stream_recoverability.analysis.compensation import (
     INFORMATION_SOURCES,
     build_value_function,
+    combination_label,
     compensation_gains,
     information_combinations,
     normalize_combination,
@@ -108,6 +109,18 @@ ANALYSIS_CODE_PATHS = (
     "src/stream_recoverability/analysis/compensation.py",
     "src/stream_recoverability/analysis/resilience.py",
     "src/stream_recoverability/analysis/uncertainty.py",
+)
+OPERATIONAL_INFORMATION_COMBINATIONS = tuple(information_combinations())
+RETRAINED_INFORMATION_COMBINATIONS = (
+    frozenset(),
+    frozenset({"A"}),
+    frozenset({"B"}),
+    frozenset({"C"}),
+    frozenset({"D"}),
+    frozenset({"A", "B"}),
+    frozenset({"A", "C"}),
+    frozenset({"A", "D"}),
+    frozenset(INFORMATION_SOURCES),
 )
 
 
@@ -1376,20 +1389,8 @@ def analyze_frontiers(
     )
 
 
-def _information_estimand(frame: pd.DataFrame) -> pd.Series:
-    if "information_estimand" in frame:
-        result = frame["information_estimand"].astype("string").str.strip().str.lower()
-    elif "component_estimand" in frame:
-        result = frame["component_estimand"].astype("string").str.strip().str.lower()
-    elif (
-        "model" in frame
-        and frame["model"].astype(str).eq("information_compensation").all()
-    ):
-        result = pd.Series("operational_dropout", index=frame.index, dtype="string")
-    else:
-        raise ValueError(
-            "information rows require an explicit operational/retrained estimand"
-        )
+def _normalize_information_estimand(series: pd.Series) -> pd.Series:
+    result = series.astype("string").str.strip().str.lower()
     aliases = {
         "operational": "operational_dropout",
         "shared_checkpoint": "operational_dropout",
@@ -1403,6 +1404,166 @@ def _information_estimand(frame: pd.DataFrame) -> pd.Series:
             "unknown information estimand; operational and retrained may not be pooled"
         )
     return normalized
+
+
+def _information_estimand(frame: pd.DataFrame) -> pd.Series:
+    declared = [
+        column
+        for column in ("information_estimand", "component_estimand")
+        if column in frame
+    ]
+    if not declared:
+        raise ValueError(
+            "information rows require an explicit operational/retrained estimand"
+        )
+    normalized = _normalize_information_estimand(frame[declared[0]])
+    for alias_column in declared[1:]:
+        alias = _normalize_information_estimand(frame[alias_column])
+        if not alias.equals(normalized):
+            raise ValueError(
+                "information_estimand and component_estimand mix incompatible estimands"
+            )
+    return normalized
+
+
+def _validate_information_coalitions(
+    frame: pd.DataFrame,
+    *,
+    unit_cols: Sequence[str],
+) -> None:
+    """Require each seed-level estimand unit to have its exact frozen coalition set."""
+
+    _require_columns(
+        frame,
+        [
+            *unit_cols,
+            "training_seed",
+            "information_estimand",
+            "information_combination",
+        ],
+        "information coalition contract",
+    )
+    numeric_seed = pd.to_numeric(frame["training_seed"], errors="coerce")
+    if (
+        numeric_seed.isna().any()
+        or not np.isfinite(numeric_seed).all()
+        or not np.isclose(numeric_seed, np.round(numeric_seed)).all()
+    ):
+        raise ValueError(
+            "information coalition units require finite integer training seeds"
+        )
+
+    mixed_unit_cols = [
+        column
+        for column in unit_cols
+        if column not in {"information_estimand", "information_combination"}
+    ]
+    mixed = frame.groupby(
+        [*mixed_unit_cols, "training_seed"],
+        dropna=False,
+        observed=True,
+        sort=True,
+    )["information_estimand"].nunique(dropna=False)
+    if mixed.gt(1).any():
+        raise ValueError(
+            "one information unit mixes operational and retrained estimands"
+        )
+
+    contract_unit_cols = [
+        column for column in unit_cols if column != "information_combination"
+    ]
+    for key, group in frame.groupby(
+        [*contract_unit_cols, "training_seed"],
+        dropna=False,
+        observed=True,
+        sort=True,
+    ):
+        key_tuple = key if isinstance(key, tuple) else (key,)
+        metadata = dict(
+            zip([*contract_unit_cols, "training_seed"], key_tuple, strict=True)
+        )
+        estimand = str(metadata["information_estimand"])
+        expected = (
+            set(OPERATIONAL_INFORMATION_COMBINATIONS)
+            if estimand == "operational_dropout"
+            else set(RETRAINED_INFORMATION_COMBINATIONS)
+        )
+        observed = group["information_combination"].map(normalize_combination)
+        counts = observed.value_counts()
+        observed_set = set(observed)
+        missing = sorted(
+            combination_label(value) for value in expected.difference(observed_set)
+        )
+        extra = sorted(
+            combination_label(value) for value in observed_set.difference(expected)
+        )
+        duplicates = sorted(
+            combination_label(value) for value, count in counts.items() if count != 1
+        )
+        if missing or extra or duplicates or len(group) != len(expected):
+            expected_count = len(expected)
+            raise ValueError(
+                f"{estimand} requires exactly {expected_count} coalitions per "
+                f"training-seed unit; missing={missing}, extra={extra}, "
+                f"duplicates={duplicates}"
+            )
+
+
+def _retrained_upper_bound_units(
+    collapsed: pd.DataFrame,
+    *,
+    value_unit_cols: Sequence[str],
+) -> pd.DataFrame:
+    """Contrast every declared retrained coalition with its retrained S0 fit."""
+
+    if collapsed.empty:
+        return pd.DataFrame()
+    rows: list[dict[str, Any]] = []
+    for key, group in collapsed.groupby(
+        list(value_unit_cols), dropna=False, observed=True, sort=True
+    ):
+        metadata = dict(
+            zip(
+                value_unit_cols,
+                key if isinstance(key, tuple) else (key,),
+                strict=True,
+            )
+        )
+        mapping = {
+            normalize_combination(label): float(mae)
+            for label, mae in group[["information_combination", "MAE"]].itertuples(
+                index=False, name=None
+            )
+        }
+        if set(mapping) != set(RETRAINED_INFORMATION_COMBINATIONS):
+            raise ValueError(
+                "retrained upper-bound unit violates its 9-coalition contract"
+            )
+        baseline = mapping[frozenset()]
+        if not np.isfinite(list(mapping.values())).all():
+            raise ValueError("retrained upper-bound coalitions require finite MAE")
+        for coalition in RETRAINED_INFORMATION_COMBINATIONS[1:]:
+            coalition_mae = mapping[coalition]
+            gain = baseline - coalition_mae
+            rows.append(
+                {
+                    **metadata,
+                    "information_combination": combination_label(coalition),
+                    "reference_information_combination": "S0",
+                    "source": "+".join(
+                        source for source in INFORMATION_SOURCES if source in coalition
+                    ),
+                    "contrast_type": "declared_retrained_coalition_vs_retrained_S0",
+                    "coalition_MAE": coalition_mae,
+                    "reference_MAE": baseline,
+                    "MAE_gain_vs_S0": gain,
+                    "relative_MAE_gain_vs_S0": (
+                        gain / abs(baseline) if baseline != 0 else np.nan
+                    ),
+                    "training_seeds_collapsed_first": True,
+                }
+            )
+    return pd.DataFrame(rows)
 
 
 def _seed_collapse(
@@ -1469,7 +1630,7 @@ def analyze_information(
     events: pd.DataFrame,
     statistics: FrozenStatistics,
 ) -> dict[str, pd.DataFrame]:
-    """Analyse exact 2^4 coalitions without mixing operational and retrained fits."""
+    """Analyse the distinct frozen operational-16 and retrained-9 estimands."""
 
     if "information_combination" not in events:
         return {
@@ -1493,7 +1654,13 @@ def analyze_information(
     _require_columns(
         info, ["scenario_id", "training_seed", "MAE", "model"], "information analysis"
     )
+    info["MAE"] = pd.to_numeric(info["MAE"], errors="coerce")
+    if info["MAE"].isna().any() or not np.isfinite(info["MAE"]).all():
+        raise ValueError("information coalition units require finite MAE")
     info["information_estimand"] = _information_estimand(info)
+    info["information_combination"] = info["information_combination"].map(
+        combination_label
+    )
     info["year"] = _year_column(info, context="information analysis")
     if "window" not in info:
         info["window"] = info.get("window_length", np.nan)
@@ -1518,16 +1685,12 @@ def analyze_information(
         )
         if column in info
     ]
+    _validate_information_coalitions(info, unit_cols=unit_cols)
     collapsed = _seed_collapse(info, unit_cols=unit_cols, value_cols=("MAE",))
     value_unit_cols = [
         column for column in unit_cols if column != "information_combination"
     ]
     collapsed["training_seed"] = "seed_collapsed"
-    value_table = build_value_function(
-        collapsed,
-        metric="MAE",
-        group_cols=value_unit_cols,
-    )
     metric_groups = [
         "station_id",
         "target",
@@ -1546,13 +1709,30 @@ def analyze_information(
     )
     metrics["training_seeds_collapsed_first"] = True
 
-    shapley_units = shapley_table(
-        value_table,
-        group_cols=value_unit_cols,
+    operational_collapsed = collapsed.loc[
+        collapsed["information_estimand"].eq("operational_dropout")
+    ].copy()
+    retrained_collapsed = collapsed.loc[
+        collapsed["information_estimand"].eq("retrained_upper_bound")
+    ].copy()
+    operational_values = (
+        build_value_function(
+            operational_collapsed,
+            metric="MAE",
+            group_cols=value_unit_cols,
+        )
+        if not operational_collapsed.empty
+        else pd.DataFrame()
     )
-    gain_units = compensation_gains(
-        value_table,
-        group_cols=value_unit_cols,
+    shapley_units = (
+        shapley_table(operational_values, group_cols=value_unit_cols)
+        if not operational_values.empty
+        else pd.DataFrame()
+    )
+    operational_gain_units = (
+        compensation_gains(operational_values, group_cols=value_unit_cols)
+        if not operational_values.empty
+        else pd.DataFrame()
     )
     summary_groups = [
         "station_id",
@@ -1566,7 +1746,9 @@ def analyze_information(
         "source",
     ]
     shapley = _summarize_unit_values(
-        shapley_units.loc[~shapley_units["excluded"]],
+        shapley_units.loc[~shapley_units["excluded"]]
+        if not shapley_units.empty
+        else shapley_units,
         group_cols=summary_groups,
         value_cols=(
             "shapley",
@@ -1576,8 +1758,10 @@ def analyze_information(
             "efficiency_residual",
         ),
     )
-    gains = _summarize_unit_values(
-        gain_units.loc[~gain_units["excluded"]],
+    operational = _summarize_unit_values(
+        operational_gain_units.loc[~operational_gain_units["excluded"]]
+        if not operational_gain_units.empty
+        else operational_gain_units,
         group_cols=summary_groups,
         value_cols=(
             "full_removal_gain",
@@ -1585,51 +1769,125 @@ def analyze_information(
             "mean_relative_compensation",
         ),
     )
-    hypothesis_rows: list[dict[str, Any]] = []
+    operational_hypothesis_rows: list[dict[str, Any]] = []
     active_summary_groups = [
-        column for column in summary_groups if column in gain_units
+        column for column in summary_groups if column in operational_gain_units
     ]
-    for key, group in gain_units.loc[~gain_units["excluded"]].groupby(
-        active_summary_groups, dropna=False, observed=True, sort=True
-    ):
-        metadata = dict(
-            zip(
-                active_summary_groups,
-                key if isinstance(key, tuple) else (key,),
-                strict=True,
+    if not operational_gain_units.empty:
+        for key, group in operational_gain_units.loc[
+            ~operational_gain_units["excluded"]
+        ].groupby(active_summary_groups, dropna=False, observed=True, sort=True):
+            metadata = dict(
+                zip(
+                    active_summary_groups,
+                    key if isinstance(key, tuple) else (key,),
+                    strict=True,
+                )
             )
-        )
-        family = (
-            "operational_information_dropout"
-            if metadata["information_estimand"] == "operational_dropout"
-            else "retrained_information_upper_bound"
-        )
-        hypothesis_rows.append(
-            {
-                **metadata,
-                "estimate": float(group["full_removal_gain"].mean()),
-                "p_value": _wilcoxon_p(group["full_removal_gain"]),
-                "n_anchor_units": len(group),
-                "hypothesis_family": family,
-            }
-        )
-    hypotheses = pd.DataFrame(hypothesis_rows)
+            operational_hypothesis_rows.append(
+                {
+                    **metadata,
+                    "estimate": float(group["full_removal_gain"].mean()),
+                    "p_value": _wilcoxon_p(group["full_removal_gain"]),
+                    "n_anchor_units": len(group),
+                    "hypothesis_family": "operational_information_dropout",
+                }
+            )
+
+    retrained_units = _retrained_upper_bound_units(
+        retrained_collapsed,
+        value_unit_cols=value_unit_cols,
+    )
+    retrained_groups = [
+        "station_id",
+        "target",
+        "data_version",
+        "model",
+        "information_estimand",
+        "gap_length",
+        "window",
+        "evaluation_split",
+        "information_combination",
+        "reference_information_combination",
+        "source",
+        "contrast_type",
+    ]
+    retrained = _summarize_unit_values(
+        retrained_units,
+        group_cols=retrained_groups,
+        value_cols=(
+            "coalition_MAE",
+            "reference_MAE",
+            "MAE_gain_vs_S0",
+            "relative_MAE_gain_vs_S0",
+        ),
+    )
+    retrained_hypothesis_rows: list[dict[str, Any]] = []
+    active_retrained_groups = [
+        column for column in retrained_groups if column in retrained_units
+    ]
+    if not retrained_units.empty:
+        for key, group in retrained_units.groupby(
+            active_retrained_groups, dropna=False, observed=True, sort=True
+        ):
+            metadata = dict(
+                zip(
+                    active_retrained_groups,
+                    key if isinstance(key, tuple) else (key,),
+                    strict=True,
+                )
+            )
+            retrained_hypothesis_rows.append(
+                {
+                    **metadata,
+                    "estimate": float(group["MAE_gain_vs_S0"].mean()),
+                    "p_value": _wilcoxon_p(group["MAE_gain_vs_S0"]),
+                    "n_anchor_units": len(group),
+                    "hypothesis_family": "retrained_information_upper_bound",
+                }
+            )
+    hypotheses = pd.DataFrame(
+        [*operational_hypothesis_rows, *retrained_hypothesis_rows]
+    )
     if not hypotheses.empty:
         hypotheses = benjamini_hochberg_by_family(hypotheses)
+    if operational_hypothesis_rows:
         merge_cols = [*active_summary_groups]
-        gains = gains.merge(
+        operational = operational.merge(
             hypotheses.loc[
-                :, [*merge_cols, "p_value", "p_bh", "bh_reject", "hypothesis_family"]
+                hypotheses["hypothesis_family"].eq("operational_information_dropout"),
+                [*merge_cols, "p_value", "p_bh", "bh_reject", "hypothesis_family"],
             ],
             on=merge_cols,
             how="left",
             validate="one_to_one",
         )
+    if retrained_hypothesis_rows:
+        retrained = retrained.merge(
+            hypotheses.loc[
+                hypotheses["hypothesis_family"].eq("retrained_information_upper_bound"),
+                [
+                    *active_retrained_groups,
+                    "p_value",
+                    "p_bh",
+                    "bh_reject",
+                    "hypothesis_family",
+                ],
+            ],
+            on=active_retrained_groups,
+            how="left",
+            validate="one_to_one",
+        )
 
     interaction_rows: list[dict[str, Any]] = []
-    for key, unit in value_table.groupby(
-        value_unit_cols, dropna=False, observed=True, sort=True
-    ):
+    operational_groups = (
+        operational_values.groupby(
+            value_unit_cols, dropna=False, observed=True, sort=True
+        )
+        if not operational_values.empty
+        else ()
+    )
+    for key, unit in operational_groups:
         metadata = dict(
             zip(value_unit_cols, key if isinstance(key, tuple) else (key,), strict=True)
         )
@@ -1671,16 +1929,6 @@ def analyze_information(
         ],
         value_cols=("interaction",),
     )
-    operational = gains.loc[
-        gains.get("information_estimand", pd.Series(dtype=str)).eq(
-            "operational_dropout"
-        )
-    ].copy()
-    retrained = gains.loc[
-        gains.get("information_estimand", pd.Series(dtype=str)).eq(
-            "retrained_upper_bound"
-        )
-    ].copy()
     return {
         "metrics": metrics,
         "operational": operational,
@@ -2365,8 +2613,12 @@ EMPTY_SCHEMAS: dict[str, tuple[str, ...]] = {
     ),
     "retrained_information_upper_bounds.csv": (
         "information_estimand",
+        "information_combination",
+        "reference_information_combination",
         "source",
-        "full_removal_gain",
+        "coalition_MAE",
+        "reference_MAE",
+        "MAE_gain_vs_S0",
         "status",
     ),
     "shapley_contributions.csv": (
@@ -2590,10 +2842,14 @@ def run_frozen_analysis(
         ),
         "operational_dropout_gains.csv": "no complete operational 2^4 coalition units",
         "retrained_information_upper_bounds.csv": (
-            "no complete retrained-upper-bound 2^4 coalition units"
+            "no complete retrained-upper-bound exact 9-coalition units"
         ),
-        "shapley_contributions.csv": "no complete 2^4 coalition units",
-        "information_interactions.csv": "no complete 2^4 coalition units",
+        "shapley_contributions.csv": (
+            "no complete operational-dropout 2^4 coalition units"
+        ),
+        "information_interactions.csv": (
+            "no complete operational-dropout 2^4 coalition units"
+        ),
         "resilience_curves.csv": "no frozen complete SCI_NET failure powersets",
         "node_importance.csv": "no frozen complete SCI_NET failure powersets",
         "failure_set_metrics.csv": "no frozen complete SCI_NET failure powersets",
@@ -2684,6 +2940,28 @@ def run_frozen_analysis(
             if inputs.statistics.application_criteria is None
             else "declared"
         ),
+        "information_estimand_contracts": {
+            "operational_dropout": {
+                "required_coalitions": [
+                    combination_label(value)
+                    for value in OPERATIONAL_INFORMATION_COMBINATIONS
+                ],
+                "required_coalition_count": len(OPERATIONAL_INFORMATION_COMBINATIONS),
+                "exact_shapley": True,
+                "pairwise_interactions": True,
+            },
+            "retrained_upper_bound": {
+                "required_coalitions": [
+                    combination_label(value)
+                    for value in RETRAINED_INFORMATION_COMBINATIONS
+                ],
+                "required_coalition_count": len(RETRAINED_INFORMATION_COMBINATIONS),
+                "contrast_reference": "S0",
+                "exact_shapley": False,
+                "pairwise_interactions": False,
+            },
+            "pooling_rule": "never_mix_estimands",
+        },
         "data_version_inputs": {
             version: {
                 "status": (
@@ -2716,6 +2994,8 @@ def run_frozen_analysis(
 __all__ = [
     "EVIDENCE_FIELDS",
     "FIXED_ARTIFACTS",
+    "OPERATIONAL_INFORMATION_COMBINATIONS",
+    "RETRAINED_INFORMATION_COMBINATIONS",
     "FrontierArtifacts",
     "FrozenInputs",
     "FrozenStatistics",
