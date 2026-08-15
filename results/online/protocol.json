@@ -1,0 +1,24 @@
+{
+  "protocol": "online_causal",
+  "future_values_allowed": false,
+  "backward_interpolation_allowed": false,
+  "smoother_allowed": false,
+  "train_dates": [
+    "2006-01-01",
+    "2015-12-31"
+  ],
+  "validation_dates": [
+    "2016-01-01",
+    "2017-12-31"
+  ],
+  "test_dates": [
+    "2018-01-01",
+    "2020-12-31"
+  ],
+  "models": [
+    "climatology",
+    "persistence",
+    "causal_gru"
+  ],
+  "scenario_count": 180
+}
