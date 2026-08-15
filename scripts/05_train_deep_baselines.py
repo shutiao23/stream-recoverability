@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train CPU BRITS/SAITS baselines with fixed validation masks."""
+"""Train local CPU BRITS-lite/SAITS-lite models with fixed validation masks."""
 
 from __future__ import annotations
 
@@ -30,6 +30,7 @@ DEFAULT_DATA = PROJECT_ROOT / "data/processed/daily_wide.parquet"
 DEFAULT_QUALITY = PROJECT_ROOT / "data/processed/daily_long.parquet"
 DEFAULT_VALIDATION_MASKS = PROJECT_ROOT / "masks/validation"
 DEFAULT_OUTPUT = PROJECT_ROOT / "checkpoints/deep_baselines"
+LEGACY_MODEL_ALIASES = {"brits": "brits_lite", "saits": "saits_lite"}
 
 
 def _ordered_inputs(
@@ -180,12 +181,15 @@ def train(args: argparse.Namespace) -> dict[str, Path]:
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     outputs: dict[str, Path] = {}
-    for model_name in args.models:
-        if model_name == "brits":
+    canonical_models = tuple(
+        dict.fromkeys(LEGACY_MODEL_ALIASES.get(name, name) for name in args.models)
+    )
+    for model_name in canonical_models:
+        if model_name == "brits_lite":
             model = BRITSImputer(
                 values.shape[1], hidden_size=hidden_size, seed=args.seed
             )
-        elif model_name == "saits":
+        elif model_name == "saits_lite":
             model = SAITSImputer(
                 values.shape[1],
                 d_model=d_model,
@@ -242,7 +246,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--quality-data", type=Path, default=DEFAULT_QUALITY)
     parser.add_argument("--validation-masks", type=Path, default=DEFAULT_VALIDATION_MASKS)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--models", nargs="+", choices=["brits", "saits"], default=["brits", "saits"])
+    parser.add_argument(
+        "--models",
+        nargs="+",
+        choices=["brits_lite", "saits_lite", "brits", "saits"],
+        default=["brits_lite", "saits_lite"],
+        help="local lightweight models; brits/saits are migration-only aliases",
+    )
     parser.add_argument("--seed", type=int, default=11)
     parser.add_argument("--window-size", type=int, default=368)
     parser.add_argument("--stride", type=int)

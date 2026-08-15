@@ -39,8 +39,11 @@ MODEL_ORDER = (
     "donor_regression",
     "random_forest",
     "xgboost",
-    "brits",
-    "saits",
+    "brits_lite",
+    "saits_lite",
+    "brits_ref",
+    "saits_ref",
+    "csdi",
     "proposed",
     "pooled_loso",
 )

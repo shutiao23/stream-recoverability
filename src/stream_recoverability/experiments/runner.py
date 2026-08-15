@@ -6,6 +6,7 @@ import json
 import pickle
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -16,12 +17,14 @@ import yaml
 
 from stream_recoverability.evaluation.event_metrics import compute_event_metrics
 from stream_recoverability.masks import (
+    centered_bounds,
+    derive_event_day_condition,
     generate_async_mask,
     generate_block_mask,
     generate_event_mask,
     generate_multiblock_mask,
+    generate_nested_point_mask_family,
     generate_network_outage_mask,
-    generate_point_mask,
     generate_station_outage_mask,
 )
 from stream_recoverability.models.baselines import (
@@ -43,6 +46,14 @@ from stream_recoverability.models.proposed import (
     MissingAwareMultisourceImputer,
     ProposedModelConfig,
 )
+from stream_recoverability.models.proposed_curriculum import (
+    CURRICULUM_SCENARIOS,
+    FROZEN_VALIDATION_SCENARIOS,
+    ProposedCurriculumConfig,
+    ValidationScenario,
+    generate_curriculum_mask,
+    sample_curriculum_scenarios,
+)
 from stream_recoverability.models.proposed_training import (
     ProposedTrainingConfig,
     load_proposed_checkpoint,
@@ -50,11 +61,25 @@ from stream_recoverability.models.proposed_training import (
     train_proposed_model,
     validate_proposed_checkpoint_contract,
 )
+from stream_recoverability.models.reference_baselines import (
+    REFERENCE_IMPLEMENTATION,
+    PyPOTSReferenceImputer,
+    ReferenceProtocolData,
+    ReferenceTrainingConfig,
+    build_reference_protocol_data,
+)
 from stream_recoverability.models.training import make_windows
 
+from .contracts import (
+    DEFAULT_DESIGN_PATH,
+    DEFAULT_MANIFEST_PATH,
+    build_design_contract,
+    file_sha256,
+)
 from .grid import ExperimentGrid, ExperimentScenario
+from .model_registry import FrozenModelDesign, load_frozen_model_design
 
-SUPPORTED_MODELS = (
+TRADITIONAL_MODELS = (
     "climatology",
     "linear",
     "pchip",
@@ -66,11 +91,20 @@ SUPPORTED_MODELS = (
     "xgboost",
     "rating_curve",
     "independent_flow",
-    "brits",
-    "saits",
+)
+LOCAL_DEEP_MODELS = frozenset({"brits_lite", "saits_lite"})
+REFERENCE_MODELS = frozenset({"brits_ref", "saits_ref", "csdi"})
+LEGACY_MODEL_ALIASES = {"brits": "brits_lite", "saits": "saits_lite"}
+SUPPORTED_MODELS = (
+    *TRADITIONAL_MODELS,
+    "brits_lite",
+    "saits_lite",
+    "brits_ref",
+    "saits_ref",
+    "csdi",
     "proposed",
 )
-TRAINABLE_MODELS = {"brits", "saits", "proposed"}
+TRAINABLE_MODELS = {*LOCAL_DEEP_MODELS, *REFERENCE_MODELS, "proposed"}
 STRUCTURAL_SKIP_CODES = {"unsupported_model_target", "required_input_unavailable"}
 DAILY_KEY = [
     "scenario_id",
@@ -89,6 +123,95 @@ EVENT_KEY = [
     "station_id",
     "target",
 ]
+EVENT_DESIGN_FIELD_NAMES = (
+    "anchor_id",
+    "event_id",
+    "control_id",
+    "pair_id",
+    "catalog_role",
+    "event_season",
+    "event_threshold",
+    "threshold",
+    "threshold_quantile",
+    "threshold_operator",
+    "threshold_reference_split",
+    "threshold_reference_scope",
+    "threshold_training_samples",
+    "minimum_training_samples",
+    "source_split",
+    "analysis_eligible",
+    "catalog_schema_version",
+    "episode_length",
+    "event_window_length",
+    "episode_component_count",
+    "raw_episode_length",
+    "raw_episode_start_index",
+    "raw_episode_end_index",
+    "raw_episode_start_date",
+    "raw_episode_end_date",
+    "window_start_index",
+    "window_end_index",
+    "window_center_index",
+    "window_start_date",
+    "window_end_date",
+    "window_center_date",
+    "event_peak_index",
+    "event_peak_date",
+    "event_peak_value",
+    "event_min_index",
+    "event_min_date",
+    "event_min_value",
+    "event_intensity",
+    "rising_phase_start_index",
+    "rising_phase_end_index",
+    "rising_phase_start_date",
+    "rising_phase_end_date",
+    "peak_phase_start_index",
+    "peak_phase_end_index",
+    "peak_phase_start_date",
+    "peak_phase_end_date",
+    "recession_phase_start_index",
+    "recession_phase_end_index",
+    "recession_phase_start_date",
+    "recession_phase_end_date",
+    "control_start_index",
+    "control_end_index",
+    "control_center_index",
+    "control_start_date",
+    "control_end_date",
+    "control_center_date",
+    "event_definition",
+    "minimum_duration_days",
+    "merge_gap_days",
+    "fixed_window_length",
+    "climatology_half_window_days",
+    "threshold_doy_half_window_days",
+    "event_climatology_value",
+    "control_context_days",
+    "event_window_eligible",
+    "event_left_context_available",
+    "event_right_context_available",
+    "analysis_exclusion_reason",
+    "episode_boundary_policy",
+    "control_match_year_distance",
+    "control_match_day_of_year_distance",
+    "control_reuse_policy",
+)
+
+
+def canonical_model_name(value: str) -> str:
+    """Return the emitted model name, accepting legacy lite aliases as input."""
+
+    normalized = str(value).strip().lower()
+    return LEGACY_MODEL_ALIASES.get(normalized, normalized)
+
+
+def _reference_adapter_name(model_name: str) -> str:
+    mapping = {"brits_ref": "brits", "saits_ref": "saits", "csdi": "csdi"}
+    try:
+        return mapping[model_name]
+    except KeyError as error:
+        raise ValueError(f"{model_name!r} is not an official reference model") from error
 
 
 class _CheckpointRetrainingRequired(RuntimeError):
@@ -107,6 +230,7 @@ class _DataBundle:
     natural_observed: np.ndarray
     quality_approved: np.ndarray
     seasonal_features: np.ndarray
+    data_version: str
 
 
 @dataclass(frozen=True)
@@ -241,11 +365,24 @@ def _atomic_parquet(frame: pd.DataFrame, path: Path) -> None:
     temporary.replace(path)
 
 
+def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp")
+    frame.to_csv(temporary, index=False)
+    temporary.replace(path)
+
+
 def _stored_run_key(model: Any, training_seed: Any) -> str:
     if training_seed is None or pd.isna(training_seed):
         return f"{model}:none"
     seed = float(training_seed)
     return f"{model}:{int(seed)}" if seed.is_integer() else f"{model}:{training_seed}"
+
+
+@lru_cache(maxsize=4096)
+def _cached_file_sha256(path: str, size: int, mtime_ns: int) -> str:
+    del size, mtime_ns
+    return file_sha256(path)
 
 
 def _file_identity(path: Path | None) -> dict[str, Any] | None:
@@ -256,6 +393,9 @@ def _file_identity(path: Path | None) -> dict[str, Any] | None:
         "path": str(path.resolve()),
         "size": int(stat.st_size),
         "mtime_ns": int(stat.st_mtime_ns),
+        "sha256": _cached_file_sha256(
+            str(path.resolve()), int(stat.st_size), int(stat.st_mtime_ns)
+        ),
     }
 
 
@@ -383,6 +523,15 @@ def _load_data(
     wide = wide.sort_values("date").reset_index(drop=True)
     if wide["date"].duplicated().any():
         raise ValueError("wide data contains duplicate dates")
+    if "data_version" in wide:
+        wide_versions = tuple(
+            str(value) for value in wide["data_version"].dropna().unique()
+        )
+        if len(wide_versions) != 1:
+            raise ValueError("wide data must contain exactly one data_version")
+        data_version = wide_versions[0]
+    else:
+        data_version = "published_v1"
 
     variables = tuple(str(value) for value in variable_names)
     stations = sorted(
@@ -431,6 +580,18 @@ def _load_data(
             )
         long = long.copy()
         long["date"] = pd.to_datetime(long["date"]).dt.normalize()
+        if "data_version" in long:
+            long_versions = tuple(
+                str(value) for value in long["data_version"].dropna().unique()
+            )
+            if long_versions != (data_version,):
+                raise ValueError(
+                    "wide and quality data must carry the same single data_version"
+                )
+        elif "data_version" in wide:
+            raise ValueError(
+                "versioned wide data requires quality data with explicit data_version"
+            )
         for station_index, station in enumerate(stations):
             for variable_index, variable in enumerate(variables):
                 selected = (
@@ -482,6 +643,7 @@ def _load_data(
         natural_observed=natural,
         quality_approved=quality,
         seasonal_features=seasonal,
+        data_version=data_version,
     )
 
 
@@ -497,23 +659,77 @@ class ExperimentRunner:
         output_dir: str | Path = "results/experiments",
         mask_dir: str | Path = "masks/full",
         config_path: str | Path = "configs/experiments.yaml",
-        models: Sequence[str] = ("climatology", "linear"),
+        design_path: str | Path = DEFAULT_DESIGN_PATH,
+        manifest_path: str | Path = DEFAULT_MANIFEST_PATH,
+        data_version_manifest_path: str | Path | None = None,
+        models: Sequence[str] | None = None,
         training_seeds: Sequence[int] | None = None,
         resume: bool = True,
     ) -> None:
         self.grid = grid
+        self.config_path = Path(config_path)
+        self.design_path = Path(design_path)
+        self.manifest_path = Path(manifest_path)
         self.config = _read_yaml(config_path)
+        self.frozen_model_design: FrozenModelDesign = load_frozen_model_design(
+            self.design_path
+        )
+        undeclared_implementations = sorted(
+            set(self.frozen_model_design.all_candidates).difference(SUPPORTED_MODELS)
+        )
+        if undeclared_implementations:
+            raise ValueError(
+                "design freeze declares models that the runner does not implement: "
+                f"{undeclared_implementations}"
+            )
         runner_config = dict(self.config.get("runner", {}))
         self.training_profile_name = "smoke" if grid.suite == "smoke" else "formal"
         profile = dict(runner_config.get(self.training_profile_name, {}))
+        common_training = self.frozen_model_design.common_training
+        if self.training_profile_name == "formal":
+            configured_formal_budget = {
+                "deep_epochs": profile.get("deep_epochs"),
+                "deep_patience": profile.get("deep_patience"),
+                "proposed_epochs": profile.get("proposed_epochs"),
+                "proposed_patience": profile.get("proposed_patience"),
+                "batch_size": runner_config.get("batch_size"),
+            }
+            frozen_formal_budget = {
+                "deep_epochs": common_training["max_epochs"],
+                "deep_patience": common_training["patience"],
+                "proposed_epochs": common_training["max_epochs"],
+                "proposed_patience": common_training["patience"],
+                "batch_size": common_training["batch_size"],
+            }
+            formal_mismatches = {
+                name: (configured_formal_budget[name], frozen_formal_budget[name])
+                for name in frozen_formal_budget
+                if configured_formal_budget[name] != frozen_formal_budget[name]
+            }
+            if formal_mismatches:
+                raise ValueError(
+                    "formal experiments.yaml training budget disagrees with the "
+                    f"frozen design: {formal_mismatches}"
+                )
+            deep_epochs = int(common_training["max_epochs"])
+            deep_patience = int(common_training["patience"])
+            proposed_epochs = int(common_training["max_epochs"])
+            proposed_patience = int(common_training["patience"])
+            batch_size = int(common_training["batch_size"])
+        else:
+            deep_epochs = int(profile["deep_epochs"])
+            deep_patience = int(profile["deep_patience"])
+            proposed_epochs = int(profile["proposed_epochs"])
+            proposed_patience = int(profile["proposed_patience"])
+            batch_size = int(runner_config["batch_size"])
         self.training_settings = {
             "train_mask_repeats": int(profile["train_mask_repeats"]),
             "validation_mask_repeats": int(profile["validation_mask_repeats"]),
-            "deep_epochs": int(profile["deep_epochs"]),
-            "deep_patience": int(profile["deep_patience"]),
-            "proposed_epochs": int(profile["proposed_epochs"]),
-            "proposed_patience": int(profile["proposed_patience"]),
-            "batch_size": int(runner_config["batch_size"]),
+            "deep_epochs": deep_epochs,
+            "deep_patience": deep_patience,
+            "proposed_epochs": proposed_epochs,
+            "proposed_patience": proposed_patience,
+            "batch_size": batch_size,
             "device": str(runner_config["device"]),
         }
         if any(
@@ -529,14 +745,80 @@ class ExperimentRunner:
         )
         self.wide_path = Path(wide_path)
         self.quality_path = Path(quality_path) if quality_path is not None else None
-        self.config_path = Path(config_path)
         self.data = _load_data(wide_path, quality_path, self.variable_names)
+        grid_versions = {condition.data_version for condition in grid.conditions}
+        if grid_versions != {self.data.data_version}:
+            raise ValueError(
+                "experiment grid and input data_version differ: "
+                f"grid={sorted(grid_versions)}, data={self.data.data_version!r}"
+            )
+        evaluation_splits = {
+            condition.evaluation_split for condition in grid.conditions
+        }
+        if len(evaluation_splits) != 1:
+            raise ValueError("one runner grid cannot mix evaluation_split values")
+        self.evaluation_split = next(iter(evaluation_splits))
+        inferred_version_manifest = self.wide_path.parent / "version_manifest.json"
+        self.data_version_manifest_path = (
+            Path(data_version_manifest_path)
+            if data_version_manifest_path is not None
+            else inferred_version_manifest
+            if inferred_version_manifest.exists()
+            else None
+        )
+        design_contract = build_design_contract(
+            design_path=self.design_path,
+            manifest_path=self.manifest_path,
+            experiment_config_path=self.config_path,
+            data_version=self.data.data_version,
+            evaluation_split=self.evaluation_split,
+            data_version_manifest_path=self.data_version_manifest_path,
+        )
+        self.code_provenance = dict(design_contract.pop("code_provenance"))
+        self.evidence_contract = design_contract
+        self._assert_formal_code_provenance(
+            self.training_profile_name, self.code_provenance
+        )
         self.output_dir = Path(output_dir)
         self.mask_dir = Path(mask_dir)
-        self.models = tuple(dict.fromkeys(str(value).lower() for value in models))
+        requested_models = tuple(
+            runner_config.get("default_models", ())
+            if models is None and self.training_profile_name == "smoke"
+            else self.frozen_model_design.formal_candidates
+            if models is None
+            else models
+        )
+        if not requested_models:
+            raise ValueError("at least one model must be selected")
+        normalized_inputs = tuple(str(value).strip().lower() for value in requested_models)
+        legacy_inputs = sorted(set(normalized_inputs).intersection(LEGACY_MODEL_ALIASES))
+        if legacy_inputs and self.training_profile_name == "formal":
+            raise ValueError(
+                "legacy BRITS/SAITS aliases are migration-only and cannot be used "
+                f"in formal runs: {legacy_inputs}"
+            )
+        self.models = tuple(
+            dict.fromkeys(canonical_model_name(value) for value in normalized_inputs)
+        )
         unknown = sorted(set(self.models).difference(SUPPORTED_MODELS))
         if unknown:
             raise ValueError(f"unsupported models: {unknown}")
+        if self.training_profile_name == "formal":
+            nonformal = sorted(
+                set(self.models).difference(
+                    self.frozen_model_design.formal_candidates
+                )
+            )
+            if nonformal:
+                raise ValueError(
+                    "formal runner models must come from the design freeze formal "
+                    f"candidate registry: {nonformal}"
+                )
+        self.model_request_aliases = {
+            value: canonical_model_name(value)
+            for value in normalized_inputs
+            if value in LEGACY_MODEL_ALIASES
+        }
         requested_seeds = tuple(
             dict.fromkeys(
                 grid.training_seeds
@@ -551,6 +833,18 @@ class ExperimentRunner:
         self.resume = bool(resume)
         self._training_references = self._build_training_references()
         self._deep_cache: dict[tuple[str, int, int, str], Any] = {}
+        self._reference_protocol_cache: dict[
+            tuple[int, int, str], ReferenceProtocolData
+        ] = {}
+        self._reference_cache: dict[
+            tuple[str, int, int, str], PyPOTSReferenceImputer
+        ] = {}
+        self._reference_last_run_diagnostics: dict[
+            tuple[str, int, int, str], dict[str, Any]
+        ] = {}
+        self._reference_inference_seconds: dict[
+            tuple[str, int, int, str], float
+        ] = {}
         self._proposed_cache: dict[
             tuple[int, int, str],
             tuple[MissingAwareMultisourceImputer, np.ndarray, np.ndarray],
@@ -562,6 +856,40 @@ class ExperimentRunner:
         self._traditional_cache: dict[tuple[str, int, int], Any] = {}
         self._loso_cache: dict[int, tuple[Any, np.ndarray, float]] = {}
         self._proposed_scale_cache: tuple[np.ndarray, np.ndarray] | None = None
+        self._proposed_climatology_cache: np.ndarray | None = None
+        self.anchor_availability = self._build_anchor_availability_report()
+        if not self.anchor_availability.empty:
+            identity_failures = self.anchor_availability.loc[
+                self.anchor_availability["reason"].isin(
+                    {
+                        "anchor_mask_seed_mismatch",
+                        "anchor_evaluation_split_mismatch",
+                        "center_identity_mismatch",
+                    }
+                )
+            ]
+            if not identity_failures.empty:
+                raise ValueError(
+                    "fixed anchor identity does not match the current data axis:\n"
+                    + identity_failures.to_string(index=False)
+                )
+
+    @staticmethod
+    def _assert_formal_code_provenance(
+        training_profile_name: str,
+        code_provenance: Mapping[str, Any],
+    ) -> None:
+        if training_profile_name == "formal" and not code_provenance.get(
+            "relevant_source_clean", False
+        ):
+            raise RuntimeError(
+                "formal runs require clean, committed relevant source and frozen "
+                "configuration inputs; code provenance status is "
+                f"{code_provenance.get('status')!r}, dirty tracked paths are "
+                f"{code_provenance.get('dirty_tracked_paths', [])}, and "
+                "relevant untracked paths are "
+                f"{code_provenance.get('relevant_untracked_paths', [])}"
+            )
 
     @property
     def train_rows(self) -> np.ndarray:
@@ -574,6 +902,154 @@ class ExperimentRunner:
     @property
     def test_rows(self) -> np.ndarray:
         return self.data.splits == "test"
+
+    @staticmethod
+    def _stored_split_label(evaluation_split: str) -> str:
+        return "test" if evaluation_split == "development_test" else evaluation_split
+
+    def _evaluation_rows(self, scenario: ExperimentScenario) -> np.ndarray:
+        label = self._stored_split_label(scenario.condition.evaluation_split)
+        rows = self.data.splits == label
+        if not rows.any():
+            raise ValueError(
+                f"input data contains no rows for evaluation_split {label!r}"
+            )
+        return rows
+
+    def _build_anchor_availability_report(self) -> pd.DataFrame:
+        """Report fixed-center truth availability without drawing replacements."""
+
+        rows: list[dict[str, Any]] = []
+        seen: set[tuple[str, str, tuple[str, ...], int]] = set()
+        for scenario in self.grid.scenarios:
+            condition = scenario.condition
+            if condition.anchor_id is None or condition.center_index is None:
+                continue
+            variables = tuple(map(str, condition.variables))
+            audit_length = int(
+                condition.gap_length or condition.anchor_max_supported_length or 1
+            )
+            key = (
+                str(condition.anchor_id),
+                condition.condition_id,
+                variables,
+                audit_length,
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            center_index = int(condition.center_index)
+            center_date = pd.Timestamp(condition.center_date).normalize()
+            center_matches = (
+                0 <= center_index < len(self.data.dates)
+                and self.data.dates[center_index] == center_date
+            )
+            available_cells = 0
+            required_cells = audit_length * len(variables)
+            if condition.mask_type == "async" and condition.async_axis == "station":
+                required_cells *= len(condition.station_ids)
+            layout_start_index: int | None = None
+            layout_end_index: int | None = None
+            reason = "available"
+            if condition.anchor_mask_seed != scenario.mask_seed:
+                reason = "anchor_mask_seed_mismatch"
+            elif condition.anchor_evaluation_split != condition.evaluation_split:
+                reason = "anchor_evaluation_split_mismatch"
+            elif not center_matches:
+                reason = "center_identity_mismatch"
+            else:
+                target_start, target_stop = centered_bounds(
+                    center_index, audit_length, len(self.data.dates)
+                )
+                variable_indices = [
+                    self.data.variable_names.index(variable) for variable in variables
+                ]
+                if condition.mask_type == "async":
+                    shift = round(
+                        audit_length * (1.0 - float(condition.overlap_ratio))
+                    )
+                    if condition.async_axis == "variable":
+                        groups = [
+                            (
+                                [self.data.station_ids.index(condition.station_ids[0])],
+                                [variable],
+                            )
+                            for variable in variable_indices
+                        ]
+                    elif condition.async_axis == "station":
+                        groups = [
+                            ([self.data.station_ids.index(station)], variable_indices)
+                            for station in condition.station_ids
+                        ]
+                    else:
+                        raise ValueError("anchored async condition has an invalid axis")
+                else:
+                    shift = 0
+                    groups = [
+                        (
+                            [self.data.station_ids.index(condition.station_ids[0])],
+                            variable_indices,
+                        )
+                    ]
+                layout_start_index = target_start
+                layout_end_index = target_stop - 1 + shift * (len(groups) - 1)
+                if layout_end_index >= len(self.data.dates):
+                    reason = "fixed_anchor_layout_out_of_bounds"
+                else:
+                    evaluation_rows = self._evaluation_rows(scenario)
+                    for group_index, (station_indices, group_variables) in enumerate(
+                        groups
+                    ):
+                        start = target_start + group_index * shift
+                        stop = start + audit_length
+                        selected = np.ix_(
+                            np.arange(start, stop, dtype=int),
+                            np.asarray(station_indices, dtype=int),
+                            np.asarray(group_variables, dtype=int),
+                        )
+                        available = (
+                            self.data.natural_observed[selected]
+                            & self.data.quality_approved[selected]
+                            & np.isfinite(self.data.values[selected])
+                        )
+                        available &= evaluation_rows[start:stop, None, None]
+                        available_cells += int(available.sum())
+                if available_cells != required_cells and reason == "available":
+                    reason = "incomplete_fixed_anchor_truth"
+            rows.append(
+                {
+                    "anchor_id": str(condition.anchor_id),
+                    "condition_id": condition.condition_id,
+                    "mask_seed": int(scenario.mask_seed),
+                    "station_id": str(condition.station_ids[0]),
+                    "anchor_target": condition.anchor_target,
+                    "required_variables": "_".join(variables),
+                    "gap_length": audit_length,
+                    "center_date": str(condition.center_date),
+                    "center_index": center_index,
+                    "layout_start_index": layout_start_index,
+                    "layout_end_index": layout_end_index,
+                    "anchor_data_version": condition.anchor_data_version,
+                    "data_version": self.data.data_version,
+                    "anchor_evaluation_split": condition.anchor_evaluation_split,
+                    "evaluation_split": condition.evaluation_split,
+                    "source_split": condition.anchor_source_split,
+                    "required_cells": required_cells,
+                    "available_cells": available_cells,
+                    "available": reason == "available",
+                    "reason": reason,
+                    "replacement_allowed": False,
+                }
+            )
+        return pd.DataFrame(rows)
+
+    @staticmethod
+    def _evidence_role(evaluation_split: str) -> str:
+        if evaluation_split == "validation":
+            return "model_selection_only"
+        if evaluation_split in {"test", "development_test"}:
+            return "development_evaluation"
+        return "confirmatory_once"
 
     def _build_training_references(self) -> dict[tuple[int, int], _TrainingReference]:
         references: dict[tuple[int, int], _TrainingReference] = {}
@@ -616,52 +1092,58 @@ class ExperimentRunner:
         ]
         return stations, variables
 
+    @staticmethod
+    def _condition_anchor_metadata(condition: Any) -> dict[str, Any] | None:
+        if condition.anchor_id is None:
+            return None
+        required = {
+            "center_index": condition.center_index,
+            "center_date": condition.center_date,
+            "mask_seed": condition.anchor_mask_seed,
+            "max_supported_length": condition.anchor_max_supported_length,
+            "data_version": condition.anchor_data_version,
+            "evaluation_split": condition.anchor_evaluation_split,
+            "source_split": condition.anchor_source_split,
+            "target": condition.anchor_target,
+        }
+        missing = sorted(key for key, value in required.items() if value is None)
+        if missing:
+            raise ValueError(
+                f"fixed anchor {condition.anchor_id!r} is missing metadata: {missing}"
+            )
+        return {
+            "anchor_id": condition.anchor_id,
+            **required,
+            "start_month": condition.anchor_start_month,
+            "season": condition.anchor_season,
+            "year": condition.anchor_year,
+            "hydrologic_state": condition.anchor_hydrologic_state,
+        }
+
     def _event_condition(self, scenario: ExperimentScenario) -> np.ndarray:
         station = self.data.station_ids.index(scenario.condition.station_ids[0])
-        event = scenario.condition.event_type
+        event = str(scenario.condition.event_type)
         if event in {"high_temperature", "rapid_warming"}:
             variable = self.data.variable_names.index("T")
         else:
             variable = self.data.variable_names.index("F")
         series = self.data.values[:, station, variable]
-        approved_finite = (
-            self.data.quality_approved[:, station, variable] & np.isfinite(series)
+        source_split = (
+            scenario.condition.source_split
+            or self._stored_split_label(scenario.condition.evaluation_split)
         )
-        train_eligible = self.train_rows & approved_finite
-        condition = np.zeros(len(series), dtype=bool)
-        if event == "high_temperature":
-            train = series[train_eligible]
-            if not train.size:
-                raise ValueError("event threshold has no approved finite training samples")
-            condition = (series >= np.quantile(train, 0.9)) & approved_finite
-        elif event == "rapid_warming":
-            differences = np.diff(series, prepend=np.nan)
-            adjacent_eligible = approved_finite & np.roll(approved_finite, 1)
-            adjacent_eligible[0] = False
-            adjacent_train = self.train_rows & np.roll(self.train_rows, 1)
-            adjacent_train[0] = False
-            train_diff = differences[adjacent_train & adjacent_eligible]
-            if not train_diff.size:
-                raise ValueError(
-                    "rapid-warming threshold has no adjacent approved finite "
-                    "training samples"
-                )
-            condition = (
-                differences >= np.quantile(train_diff, 0.9)
-            ) & adjacent_eligible
-        elif event == "flood":
-            train = series[train_eligible]
-            if not train.size:
-                raise ValueError("event threshold has no approved finite training samples")
-            condition = (series >= np.quantile(train, 0.9)) & approved_finite
-        elif event == "low_flow":
-            train = series[train_eligible]
-            if not train.size:
-                raise ValueError("event threshold has no approved finite training samples")
-            condition = (series <= np.quantile(train, 0.1)) & approved_finite
-        else:
-            raise ValueError(f"unsupported event_type: {event}")
-        return condition & self.test_rows
+        derived = derive_event_day_condition(
+            self.data.dates,
+            series,
+            self.data.quality_approved[:, station, variable],
+            self.data.splits,
+            event,
+            source_split=source_split,
+            minimum_training_samples=(
+                scenario.condition.minimum_training_samples or 30
+            ),
+        )
+        return derived.condition & self._evaluation_rows(scenario)
 
     def _generate_mask(
         self, scenario: ExperimentScenario
@@ -690,17 +1172,23 @@ class ExperimentRunner:
                 return mask, metadata
         condition = scenario.condition
         stations, variables = self._indices(scenario)
-        eligible = self.data.quality_approved & self.test_rows[:, None, None]
+        evaluation_rows = self._evaluation_rows(scenario)
+        eligible = (
+            self.data.natural_observed
+            & self.data.quality_approved
+            & np.isfinite(self.data.values)
+            & evaluation_rows[:, None, None]
+        )
         # Offline interpolators need a right boundary; never hide the final
-        # available calendar row where no future endpoint can exist.
+        # available row of the selected evaluation split.
         if condition.mask_type != "loso":
-            eligible[-1] = False
+            eligible[np.flatnonzero(evaluation_rows)[-1]] = False
         common = {
             "eligible": eligible,
             "seed": scenario.mask_seed,
             "station_ids": self.data.station_ids,
             "variable_names": self.data.variable_names,
-            "split": "test",
+            "split": condition.evaluation_split,
             "scenario_id": scenario.scenario_id,
         }
         if condition.mask_type == "loso":
@@ -710,7 +1198,7 @@ class ExperimentRunner:
             mask[:, station, target] = eligible[:, station, target]
             metadata = {
                 "scenario_id": scenario.scenario_id,
-                "split": "test",
+                "split": condition.evaluation_split,
                 "seed": scenario.mask_seed,
                 "mask_type": "loso",
                 "station_ids": [self.data.station_ids[station]],
@@ -718,22 +1206,40 @@ class ExperimentRunner:
                 "masked_cells": int(mask.sum()),
                 "held_out_station": self.data.station_ids[station],
                 "validation_scope": condition.validation_scope,
-                "is_external_validation": False,
+                "is_external_validation": condition.evaluation_split
+                == "confirmatory",
             }
         elif condition.mask_type == "point":
-            mask, metadata = generate_point_mask(
-                missing_rate=float(condition.missing_rate),
+            point_family = generate_nested_point_mask_family(
+                eligible,
+                missing_rates=(0.10, 0.30, 0.50),
                 station_indices=stations,
                 variable_indices=variables,
                 synchronized=True,
-                **common,
+                seed=scenario.mask_seed,
+                dates=self.data.dates.to_numpy(),
+                station_ids=self.data.station_ids,
+                variable_names=self.data.variable_names,
+                split=condition.evaluation_split,
             )
+            try:
+                mask, metadata = point_family[float(condition.missing_rate)]
+            except KeyError as error:
+                raise ValueError(
+                    "point conditions must use the frozen nested rates 0.10/0.30/0.50"
+                ) from error
+            metadata["scenario_id"] = scenario.scenario_id
         elif condition.mask_type == "block":
+            anchor_metadata = self._condition_anchor_metadata(condition)
             mask, metadata = generate_block_mask(
                 length=int(condition.gap_length),
                 station_indices=stations,
                 variable_indices=variables,
                 dates=self.data.dates.to_numpy(),
+                center_index=condition.center_index,
+                center_date=condition.center_date,
+                anchor_id=condition.anchor_id,
+                anchor_metadata=anchor_metadata,
                 **common,
             )
         elif condition.mask_type == "matched_network":
@@ -759,6 +1265,10 @@ class ExperimentRunner:
                 station_indices=stations,
                 variable_indices=variables,
                 dates=self.data.dates.to_numpy(),
+                center_index=condition.center_index,
+                center_date=condition.center_date,
+                anchor_id=condition.anchor_id,
+                anchor_metadata=self._condition_anchor_metadata(condition),
                 **common,
             )
             start = int(metadata["start_indices"][0])
@@ -823,6 +1333,10 @@ class ExperimentRunner:
                 length=int(condition.gap_length),
                 mode=str(condition.outage_mode),
                 dates=self.data.dates.to_numpy(),
+                center_index=condition.center_index,
+                center_date=condition.center_date,
+                anchor_id=condition.anchor_id,
+                anchor_metadata=self._condition_anchor_metadata(condition),
                 **common,
             )
         elif condition.mask_type == "async":
@@ -831,9 +1345,18 @@ class ExperimentRunner:
                 overlap_ratio=float(condition.overlap_ratio),
                 station_indices=stations,
                 variable_indices=variables,
-                axis="station",
+                axis=str(condition.async_axis),
                 dates=self.data.dates.to_numpy(),
+                center_index=condition.center_index,
+                center_date=condition.center_date,
+                anchor_id=condition.anchor_id,
+                anchor_metadata=self._condition_anchor_metadata(condition),
                 **common,
+            )
+            metadata["target_gap_id"] = (
+                f"{condition.experiment}-{condition.station_ids[0]}-"
+                f"{condition.anchor_target}-D{int(condition.gap_length):03d}-"
+                f"{condition.anchor_id}"
             )
         elif condition.mask_type == "network_outage":
             mask, metadata = generate_network_outage_mask(
@@ -843,17 +1366,33 @@ class ExperimentRunner:
                 dates=self.data.dates.to_numpy(),
                 **common,
             )
-        elif condition.mask_type == "event":
-            mask, metadata = generate_event_mask(
-                event_condition=self._event_condition(scenario),
-                event_type=str(condition.event_type),
-                missing_rate=float(condition.missing_rate),
-                station_indices=stations,
-                variable_indices=variables,
-                synchronized=True,
-                dates=self.data.dates.to_numpy(),
-                **common,
-            )
+        elif condition.mask_type in {"event", "event_episode", "event_control"}:
+            event_kwargs: dict[str, Any] = {
+                "event_condition": self._event_condition(scenario),
+                "event_type": str(condition.event_type),
+                "station_indices": stations,
+                "variable_indices": variables,
+                "synchronized": True,
+                "dates": self.data.dates.to_numpy(),
+                "anchor_id": condition.anchor_id,
+                "event_id": condition.event_id,
+                "control_id": condition.control_id,
+                "pair_id": condition.pair_id,
+                "catalog_role": condition.catalog_role or "stress",
+                "event_metadata": condition.as_dict(),
+            }
+            if condition.mask_type == "event":
+                event_kwargs["missing_rate"] = float(condition.missing_rate)
+            else:
+                event_kwargs.update(
+                    {
+                        "length": int(condition.gap_length),
+                        "forced_start_index": int(condition.forced_start_index),
+                        "center_date": condition.center_date,
+                        "context": int(condition.control_context_days or 0),
+                    }
+                )
+            mask, metadata = generate_event_mask(**event_kwargs, **common)
         else:
             raise ValueError(f"unsupported mask type: {condition.mask_type}")
         metadata.update(scenario.as_dict())
@@ -864,9 +1403,14 @@ class ExperimentRunner:
                 "tuning_split": "validation_other_stations"
                 if is_loso
                 else "validation",
-                "evaluation_split": "test",
+                "evaluation_split": condition.evaluation_split,
+                "evidence_role": self._evidence_role(
+                    condition.evaluation_split
+                ),
                 "external_validation_status": self.grid.external_validation_status,
-                "is_external_validation": False,
+                "is_external_validation": condition.evaluation_split
+                == "confirmatory",
+                **self.evidence_contract,
             }
         )
         self._validate_scenario_mask(scenario, mask, metadata)
@@ -888,12 +1432,18 @@ class ExperimentRunner:
     ) -> None:
         if mask.shape != self.data.values.shape or mask.dtype != np.bool_:
             raise ValueError("scenario mask must be boolean and match the current data")
-        if np.any(mask[~self.test_rows]):
-            raise ValueError("scenario mask leaked into train/validation dates")
+        evaluation_rows = self._evaluation_rows(scenario)
+        if np.any(mask[~evaluation_rows]):
+            raise ValueError("scenario mask leaked outside its evaluation split")
         if np.any(mask & ~self.data.quality_approved):
             raise ValueError("scenario mask includes cells not currently quality-approved")
-        if scenario.condition.mask_type != "loso" and mask[-1].any():
-            raise ValueError("offline scenario mask cannot hide the final calendar row")
+        if np.any(mask & ~self.data.natural_observed):
+            raise ValueError("scenario mask includes cells without natural truth")
+        if (
+            scenario.condition.mask_type != "loso"
+            and mask[np.flatnonzero(evaluation_rows)[-1]].any()
+        ):
+            raise ValueError("offline scenario mask cannot hide the final split row")
         expected = json.loads(json.dumps(scenario.as_dict()))
         stored = json.loads(json.dumps(dict(metadata)))
         mismatches = {
@@ -903,6 +1453,33 @@ class ExperimentRunner:
         }
         if mismatches:
             raise ValueError(f"stored mask condition metadata mismatch: {mismatches}")
+        contract_mismatches = {
+            key: (stored.get(key), value)
+            for key, value in self.evidence_contract.items()
+            if stored.get(key) != value
+        }
+        if contract_mismatches:
+            raise ValueError(
+                "stored mask evidence contract mismatch: "
+                f"{contract_mismatches}"
+            )
+        condition = scenario.condition
+        if condition.anchor_id is not None and condition.mask_type in {
+            "async",
+            "block",
+            "station_outage",
+            "matched_network",
+        }:
+            if stored.get("selection_mode") not in {
+                "fixed_center",
+                "fixed_center_and_start",
+                "fixed_target_center",
+            }:
+                raise ValueError("anchored scenario did not use fixed-center selection")
+            if stored.get("anchor_id") != condition.anchor_id:
+                raise ValueError("anchored scenario persisted the wrong anchor_id")
+            if int(stored.get("center_index", -1)) != int(condition.center_index):
+                raise ValueError("anchored scenario persisted the wrong center_index")
 
     def _climatology(self, station: int, variable: int) -> tuple[Any, np.ndarray]:
         key = (station, variable)
@@ -930,6 +1507,8 @@ class ExperimentRunner:
 
     @staticmethod
     def _supports_target(model_name: str, variable_name: str) -> bool:
+        if model_name in {*REFERENCE_MODELS, "proposed"}:
+            return variable_name == "T"
         if model_name in {"air_only", "air_hydro"}:
             return variable_name == "T"
         if model_name in {"rating_curve", "independent_flow", "pooled_loso"}:
@@ -1124,7 +1703,9 @@ class ExperimentRunner:
     def _deep_contract(
         self, name: str, seed: int, window: int, protocol: str
     ) -> tuple[type[BRITSImputer | SAITSImputer], dict[str, Any], dict[str, Any]]:
-        model_class = BRITSImputer if name == "brits" else SAITSImputer
+        if name not in LOCAL_DEEP_MODELS:
+            raise ValueError(f"{name!r} is not a local lightweight deep model")
+        model_class = BRITSImputer if name == "brits_lite" else SAITSImputer
         expected_features = int(self.data.values.shape[1] * self.data.values.shape[2])
         expected_model_config = (
             {
@@ -1133,7 +1714,7 @@ class ExperimentRunner:
                 "hidden_size": 32,
                 "consistency_weight": 0.1,
             }
-            if name == "brits"
+            if name == "brits_lite"
             else {
                 "n_features": expected_features,
                 "seed": int(seed),
@@ -1224,7 +1805,7 @@ class ExperimentRunner:
             min(window, len(validation_values)),
             stride=max(1, window // 2),
         )
-        if name == "brits":
+        if name == "brits_lite":
             model = BRITSImputer(flattened.shape[1], hidden_size=32, seed=seed)
         else:
             model = SAITSImputer(
@@ -1244,56 +1825,388 @@ class ExperimentRunner:
         self._deep_cache[key] = model
         return model
 
+    def _frozen_curriculum_config(self) -> ProposedCurriculumConfig:
+        probabilities = self.frozen_model_design.curriculum_probabilities
+        if tuple(name for name, _ in probabilities) != CURRICULUM_SCENARIOS:
+            raise ValueError(
+                "design freeze curriculum order differs from the implemented protocol"
+            )
+        return ProposedCurriculumConfig(
+            scenario_probabilities=tuple(
+                (name, float(probability)) for name, probability in probabilities
+            ),
+            gap_lengths=self.frozen_model_design.curriculum_gap_lengths,
+            unseen_length_max_days=(
+                self.frozen_model_design.unseen_length_train_max_days
+            ),
+        )
+
+    def _reference_model_kwargs(self, model_name: str) -> dict[str, Any]:
+        frozen = self.frozen_model_design.protocol_for(model_name)
+        implementation = str(frozen.pop("implementation", ""))
+        if implementation != "pypots_1.5_official_core":
+            raise ValueError(
+                f"{model_name} must use the frozen official PyPOTS 1.5 core"
+            )
+        if model_name == "brits_ref":
+            if float(frozen.pop("target_only_MIT_weight", float("nan"))) != 1.0:
+                raise ValueError("brits_ref target-only MIT weight must be 1.0")
+            expected = {"rnn_hidden_size"}
+            kwargs = {"rnn_hidden_size": int(frozen["rnn_hidden_size"])}
+        elif model_name == "saits_ref":
+            expected = {
+                "n_layers",
+                "d_model",
+                "n_heads",
+                "d_k",
+                "d_v",
+                "d_ffn",
+                "dropout",
+                "attention_dropout",
+                "ORT_weight",
+                "MIT_weight",
+            }
+            kwargs = {
+                "n_layers": int(frozen["n_layers"]),
+                "d_model": int(frozen["d_model"]),
+                "n_heads": int(frozen["n_heads"]),
+                "d_k": int(frozen["d_k"]),
+                "d_v": int(frozen["d_v"]),
+                "d_ffn": int(frozen["d_ffn"]),
+                "dropout": float(frozen["dropout"]),
+                "attn_dropout": float(frozen["attention_dropout"]),
+                "diagonal_attention_mask": True,
+                "ORT_weight": float(frozen["ORT_weight"]),
+                "MIT_weight": float(frozen["MIT_weight"]),
+            }
+        elif model_name == "csdi":
+            frozen.pop("validation_samples", None)
+            frozen.pop("formal_prediction_samples", None)
+            expected = {
+                "n_layers",
+                "n_heads",
+                "n_channels",
+                "time_embedding_size",
+                "feature_embedding_size",
+                "diffusion_embedding_size",
+                "diffusion_steps",
+                "schedule",
+                "beta_start",
+                "beta_end",
+                "target_strategy",
+                "unconditional",
+            }
+            kwargs = {
+                "n_layers": int(frozen["n_layers"]),
+                "n_heads": int(frozen["n_heads"]),
+                "n_channels": int(frozen["n_channels"]),
+                "d_time_embedding": int(frozen["time_embedding_size"]),
+                "d_feature_embedding": int(frozen["feature_embedding_size"]),
+                "d_diffusion_embedding": int(
+                    frozen["diffusion_embedding_size"]
+                ),
+                "n_diffusion_steps": int(frozen["diffusion_steps"]),
+                "target_strategy": str(frozen["target_strategy"]),
+                "is_unconditional": bool(frozen["unconditional"]),
+                "schedule": str(frozen["schedule"]),
+                "beta_start": float(frozen["beta_start"]),
+                "beta_end": float(frozen["beta_end"]),
+            }
+        else:
+            raise ValueError(f"{model_name!r} is not a reference model")
+        unexpected = sorted(set(frozen).difference(expected))
+        missing = sorted(expected.difference(frozen))
+        if missing or unexpected:
+            raise ValueError(
+                f"frozen {model_name} protocol mismatch: "
+                f"missing={missing}, unexpected={unexpected}"
+            )
+        return kwargs
+
+    def _reference_training_config(self, seed: int) -> ReferenceTrainingConfig:
+        common = self.frozen_model_design.common_training
+        csdi = self.frozen_model_design.protocol_for("csdi")
+        return ReferenceTrainingConfig(
+            epochs=self.training_settings["deep_epochs"],
+            patience=self.training_settings["deep_patience"],
+            batch_size=self.training_settings["batch_size"],
+            learning_rate=float(common["learning_rate"]),
+            weight_decay=float(common["weight_decay"]),
+            min_delta=float(common["minimum_delta"]),
+            gradient_clip=float(common["gradient_clip"]),
+            seed=int(seed),
+            device=self.training_settings["device"],
+            validation_sampling_times=int(csdi["validation_samples"]),
+            prediction_sampling_times=(
+                int(csdi["formal_prediction_samples"])
+                if self.training_profile_name == "formal"
+                else int(csdi["validation_samples"])
+            ),
+        )
+
+    def _reference_protocol(
+        self, seed: int, window: int, protocol: str
+    ) -> ReferenceProtocolData:
+        key = (int(seed), int(window), str(protocol))
+        if key not in self._reference_protocol_cache:
+            train_values = self.data.values[self.train_rows]
+            validation_values = self.data.values[self.validation_rows]
+            train_eligible = (
+                self.data.natural_observed[self.train_rows]
+                & self.data.quality_approved[self.train_rows]
+                & np.isfinite(train_values)
+            )
+            validation_eligible = (
+                self.data.natural_observed[self.validation_rows]
+                & self.data.quality_approved[self.validation_rows]
+                & np.isfinite(validation_values)
+            )
+            self._reference_protocol_cache[key] = build_reference_protocol_data(
+                train_values,
+                validation_values,
+                variable_names=self.data.variable_names,
+                station_ids=self.data.station_ids,
+                train_eligible=train_eligible,
+                validation_eligible=validation_eligible,
+                window_size=int(window),
+                protocol=str(protocol),
+                seed=int(seed),
+                train_mask_repeats=self.training_settings["train_mask_repeats"],
+                validation_mask_repeats=self.training_settings[
+                    "validation_mask_repeats"
+                ],
+                curriculum_config=self._frozen_curriculum_config(),
+            )
+        return self._reference_protocol_cache[key]
+
+    def _reference_contract(
+        self, model_name: str, seed: int, window: int, protocol: str
+    ) -> tuple[
+        ReferenceProtocolData,
+        dict[str, Any],
+        ReferenceTrainingConfig,
+        dict[str, Any],
+    ]:
+        reference_protocol = self._reference_protocol(seed, window, protocol)
+        model_kwargs = self._reference_model_kwargs(model_name)
+        adapter_config = {
+            "n_steps": reference_protocol.window_size,
+            "n_features": reference_protocol.train.n_features,
+            "model_kwargs": model_kwargs,
+        }
+        training_config = self._reference_training_config(seed)
+        context = {
+            "implementation": REFERENCE_IMPLEMENTATION,
+            "formal_model_name": model_name,
+            "adapter_model_name": _reference_adapter_name(model_name),
+            "profile": self.training_profile_name,
+            "training_budget_source": (
+                "design_freeze"
+                if self.training_profile_name == "formal"
+                else "smoke_profile"
+            ),
+            "design_version": self.frozen_model_design.design_version,
+            "protocol_fingerprint": reference_protocol.fingerprint,
+            "protocol_metadata": reference_protocol.metadata,
+            "curriculum_config": reference_protocol.curriculum_config,
+            "input_files": self._training_input_identities(),
+        }
+        return reference_protocol, adapter_config, training_config, context
+
+    def _reference_checkpoint_path(
+        self, model_name: str, seed: int, window: int, protocol: str
+    ) -> Path:
+        return (
+            self.output_dir
+            / "checkpoints"
+            / f"{model_name}-S{seed}-W{window}-{protocol}.pt"
+        )
+
+    @staticmethod
+    def _quarantine_reference_checkpoint_files(checkpoint: Path) -> Path | None:
+        quarantined = _quarantine_file(checkpoint)
+        _quarantine_file(Path(str(checkpoint) + ".sha256"))
+        return quarantined
+
+    def _reference_model(
+        self, model_name: str, seed: int, window: int, protocol: str
+    ) -> PyPOTSReferenceImputer:
+        key = (model_name, int(seed), int(window), str(protocol))
+        if key in self._reference_cache:
+            return self._reference_cache[key]
+        reference_protocol, adapter_config, training_config, _ = (
+            self._reference_contract(model_name, seed, window, protocol)
+        )
+        checkpoint = self._reference_checkpoint_path(
+            model_name, seed, window, protocol
+        )
+        sidecar = Path(str(checkpoint) + ".sha256")
+        if self.resume and (checkpoint.exists() or sidecar.exists()):
+            try:
+                model = PyPOTSReferenceImputer.load_checkpoint(
+                    checkpoint,
+                    expected_model_name=_reference_adapter_name(model_name),
+                    expected_protocol_fingerprint=reference_protocol.fingerprint,
+                    expected_adapter_config=adapter_config,
+                    expected_training_config=asdict(training_config),
+                )
+            except (
+                EOFError,
+                OSError,
+                KeyError,
+                TypeError,
+                ValueError,
+                pickle.UnpicklingError,
+            ):
+                self._quarantine_reference_checkpoint_files(checkpoint)
+            else:
+                self._reference_cache[key] = model
+                return model
+        model = PyPOTSReferenceImputer(
+            _reference_adapter_name(model_name),
+            adapter_config["n_steps"],
+            adapter_config["n_features"],
+            model_kwargs=adapter_config["model_kwargs"],
+        )
+        model.fit(reference_protocol, training_config)
+        model.save_checkpoint(checkpoint)
+        self._reference_cache[key] = model
+        return model
+
     def _proposed_batches(
         self,
         model_values: np.ndarray,
         rows: np.ndarray,
-        artificial_flat: np.ndarray,
+        artificial_flat: np.ndarray | None,
         window: int,
-    ) -> list[dict[str, torch.Tensor]]:
+        *,
+        curriculum_config: ProposedCurriculumConfig | None = None,
+        curriculum_seed: int | None = None,
+        protocol: str | None = None,
+        repeats: int = 1,
+        validation_scenario: ValidationScenario | None = None,
+    ) -> list[dict[str, Any]]:
         values = model_values[rows]
         natural = self.data.natural_observed[rows]
         quality = self.data.quality_approved[rows]
-        artificial = artificial_flat.reshape(values.shape)
         seasonal = self.data.seasonal_features[rows]
-        starts = list(range(0, len(values) - window + 1, window))
-        final = len(values) - window
-        if final >= 0 and (not starts or starts[-1] != final):
-            starts.append(final)
-        return [
-            {
-                "values": torch.from_numpy(values[start : start + window]).unsqueeze(0),
-                "natural_mask": torch.from_numpy(
-                    natural[start : start + window]
-                ).unsqueeze(0),
-                "artificial_mask": torch.from_numpy(
-                    artificial[start : start + window]
-                ).unsqueeze(0),
-                "target": torch.from_numpy(
-                    values[
-                        start : start + window,
-                        :,
-                        self.data.variable_names.index("T"),
-                    ]
-                ).unsqueeze(0),
-                "quality_mask": torch.from_numpy(
-                    quality[
-                        start : start + window,
-                        :,
-                        self.data.variable_names.index("T"),
-                    ]
-                ).unsqueeze(0),
-                "seasonal_features": torch.from_numpy(
-                    seasonal[start : start + window]
-                ).unsqueeze(0),
-            }
-            for start in starts
-            if artificial[
-                start : start + window,
-                :,
-                self.data.variable_names.index("T"),
-            ].any()
-        ]
+        climatology = self._proposed_training_climatology()[rows]
+        if len(values) < 1:
+            raise ValueError("proposed batches require at least one selected row")
+        window = min(int(window), len(values))
+        starts = _window_starts(len(values), window)
+        target = self.data.variable_names.index("T")
+        if isinstance(repeats, (bool, np.bool_)) or not isinstance(
+            repeats, (int, np.integer)
+        ) or int(repeats) < 1:
+            raise ValueError("repeats must be a positive integer")
+        repeats = int(repeats)
+
+        batches: list[dict[str, Any]] = []
+        if artificial_flat is not None:
+            if (
+                curriculum_seed is not None
+                or protocol is not None
+                or validation_scenario is not None
+                or curriculum_config is not None
+                or repeats != 1
+            ):
+                raise ValueError(
+                    "fixed artificial masks cannot be combined with curriculum options"
+                )
+            artificial = np.asarray(artificial_flat, dtype=bool).reshape(values.shape)
+            schedule: tuple[str, ...] = tuple("fixed_mask" for _ in starts)
+        else:
+            if curriculum_seed is None or protocol is None:
+                raise ValueError(
+                    "curriculum_seed and protocol are required for curriculum batches"
+                )
+            curriculum_config = curriculum_config or ProposedCurriculumConfig()
+            batch_count = len(starts) * repeats
+            schedule = (
+                tuple(validation_scenario for _ in range(batch_count))
+                if validation_scenario is not None
+                else sample_curriculum_scenarios(
+                    batch_count, curriculum_seed, curriculum_config
+                )
+            )
+
+        schedule_index = 0
+        for repeat in range(repeats):
+            for start in starts:
+                end = start + window
+                if artificial_flat is None:
+                    mask_seed = int(
+                        np.random.SeedSequence(
+                            [int(curriculum_seed), repeat, schedule_index]
+                        ).generate_state(1, dtype=np.uint32)[0]
+                    )
+                    eligible = (
+                        natural[start:end]
+                        & quality[start:end]
+                        & np.isfinite(values[start:end])
+                    )
+                    generated = generate_curriculum_mask(
+                        eligible,
+                        self.data.variable_names,
+                        scenario=schedule[schedule_index],
+                        protocol=str(protocol),
+                        seed=mask_seed,
+                        config=curriculum_config,
+                    )
+                    artificial_window = generated.artificial_mask
+                    metadata = {
+                        **generated.metadata,
+                        "window_start": int(start),
+                        "window_end": int(end - 1),
+                        "window_length": int(window),
+                        "repeat": int(repeat),
+                    }
+                else:
+                    artificial_window = artificial[start:end]
+                    metadata = {
+                        "training_mask_type": "fixed_mask",
+                        "training_gap_length": None,
+                        "training_pattern": "fixed_external_mask",
+                        "training_station_count": int(
+                            artificial_window[..., target].any(axis=0).sum()
+                        ),
+                        "training_masked_cells": int(artificial_window.sum()),
+                        "training_target_masked_cells": int(
+                            artificial_window[..., target].sum()
+                        ),
+                        "validation_scenario": None,
+                        "window_start": int(start),
+                        "window_end": int(end - 1),
+                        "window_length": int(window),
+                        "repeat": 0,
+                    }
+                schedule_index += 1
+                if not artificial_window[..., target].any():
+                    continue
+                batch: dict[str, Any] = {
+                    "values": torch.from_numpy(values[start:end]).unsqueeze(0),
+                    "natural_mask": torch.from_numpy(natural[start:end]).unsqueeze(0),
+                    "artificial_mask": torch.from_numpy(artificial_window).unsqueeze(0),
+                    "target": torch.from_numpy(values[start:end, :, target]).unsqueeze(0),
+                    "quality_mask": torch.from_numpy(
+                        quality[start:end, :, target]
+                    ).unsqueeze(0),
+                    "seasonal_features": torch.from_numpy(
+                        seasonal[start:end]
+                    ).unsqueeze(0),
+                    "training_climatology": torch.from_numpy(
+                        climatology[start:end]
+                    ).unsqueeze(0),
+                    "training_mask_type": metadata["training_mask_type"],
+                    "curriculum_metadata": metadata,
+                }
+                if metadata.get("validation_scenario") is not None:
+                    batch["validation_scenario"] = metadata["validation_scenario"]
+                batches.append(batch)
+        if not batches:
+            raise ValueError("proposed batch construction produced no masked target cells")
+        return batches
 
     def _proposed_scaler(self) -> tuple[np.ndarray, np.ndarray]:
         if self._proposed_scale_cache is not None:
@@ -1309,41 +2222,108 @@ class ExperimentRunner:
                     train_quality[:, station, variable] & np.isfinite(values)
                 ]
                 if selected.size == 0:
-                    raise ValueError(
-                        f"no approved training values for {self.data.station_ids[station]}_"
-                        f"{self.data.variable_names[variable]}"
+                    # Sensitivity versions may intentionally remove an input
+                    # channel (for example B1 L). Its values remain missing and
+                    # the neutral scaler prevents an artificial imputation.
+                    mean[station, variable] = 0.0
+                    scale[station, variable] = 1.0
+                else:
+                    mean[station, variable] = float(selected.mean())
+                    standard_deviation = float(selected.std())
+                    scale[station, variable] = (
+                        standard_deviation if standard_deviation >= 1e-6 else 1.0
                     )
-                mean[station, variable] = float(selected.mean())
-                standard_deviation = float(selected.std())
-                scale[station, variable] = (
-                    standard_deviation if standard_deviation >= 1e-6 else 1.0
-                )
         self._proposed_scale_cache = (mean, scale)
         return self._proposed_scale_cache
+
+    def _proposed_training_climatology(self) -> np.ndarray:
+        """Return train-only T climatology on the proposed model's target scale."""
+
+        if self._proposed_climatology_cache is not None:
+            return self._proposed_climatology_cache
+        target = self.data.variable_names.index("T")
+        mean, scale = self._proposed_scaler()
+        climatology = np.column_stack(
+            [
+                self._climatology(station, target)[1]
+                for station in range(len(self.data.station_ids))
+            ]
+        ).astype(np.float32)
+        climatology = (
+            climatology - mean[:, target][None, :]
+        ) / scale[:, target][None, :]
+        self._proposed_climatology_cache = climatology.astype(np.float32)
+        return self._proposed_climatology_cache
 
     def _proposed_contract(
         self, seed: int, window: int, protocol: str
     ) -> tuple[ProposedModelConfig, ProposedTrainingConfig, dict[str, Any]]:
+        frozen = self.frozen_model_design.protocol_for("proposed")
+        common = self.frozen_model_design.common_training
+        required = {
+            "architecture_version",
+            "hidden_size",
+            "station_embedding_size",
+            "variable_embedding_size",
+            "temporal_bidirectional_size_per_direction",
+            "dropout",
+            "quantiles",
+        }
+        missing = sorted(required.difference(frozen))
+        if missing:
+            raise ValueError(f"frozen proposed protocol is incomplete: {missing}")
+        if int(frozen["temporal_bidirectional_size_per_direction"]) * 2 != int(
+            frozen["hidden_size"]
+        ):
+            raise ValueError(
+                "frozen proposed temporal bidirectional size must be half hidden_size"
+            )
+        frozen_quantiles = tuple(float(value) for value in frozen["quantiles"])
+        if frozen_quantiles != MissingAwareMultisourceImputer.quantile_levels:
+            raise ValueError(
+                "frozen proposed quantiles differ from the implemented architecture"
+            )
         return (
             ProposedModelConfig(
                 station_ids=self.data.station_ids,
                 variable_names=self.data.variable_names,
-                hidden_size=24,
-                dropout=0.0,
+                hidden_size=int(frozen["hidden_size"]),
+                station_embedding_size=int(frozen["station_embedding_size"]),
+                variable_embedding_size=int(frozen["variable_embedding_size"]),
+                dropout=float(frozen["dropout"]),
+                architecture_version=str(frozen["architecture_version"]),
             ),
             ProposedTrainingConfig(
                 epochs=self.training_settings["proposed_epochs"],
+                learning_rate=float(common["learning_rate"]),
+                weight_decay=float(common["weight_decay"]),
                 patience=self.training_settings["proposed_patience"],
+                min_delta=float(common["minimum_delta"]),
+                gradient_clip=float(common["gradient_clip"]),
                 seed=seed,
                 device=self.training_settings["device"],
+                curriculum=self._frozen_curriculum_config(),
             ),
             {
                 "profile": self.training_profile_name,
+                "training_budget_source": (
+                    "design_freeze"
+                    if self.training_profile_name == "formal"
+                    else "smoke_profile"
+                ),
+                "design_version": self.frozen_model_design.design_version,
+                "frozen_common_training": dict(common),
+                "frozen_model_protocol": frozen,
                 "train_mask_repeats": self.training_settings["train_mask_repeats"],
                 "validation_mask_repeats": self.training_settings[
                     "validation_mask_repeats"
                 ],
                 "window": int(window),
+                "effective_window": min(
+                    int(window),
+                    int(self.train_rows.sum()),
+                    int(self.validation_rows.sum()),
+                ),
                 "protocol": protocol,
                 "input_files": self._training_input_identities(),
             },
@@ -1472,35 +2452,47 @@ class ExperimentRunner:
             return self._proposed_cache[key]
         mean, scale = self._proposed_scaler()
         normalized_values = (self.data.values - mean[None]) / scale[None]
-        train_values = self.data.values[self.train_rows].reshape(
-            int(self.train_rows.sum()), -1
+        effective_window = min(
+            window,
+            int(self.train_rows.sum()),
+            int(self.validation_rows.sum()),
         )
-        validation_values = self.data.values[self.validation_rows].reshape(
-            int(self.validation_rows.sum()), -1
-        )
-        train_mask = make_training_mask(
-            train_values,
-            seed,
-            protocol,
+        train_window = effective_window
+        validation_window = effective_window
+        training_config = expected_training_config
+        train_batches = self._proposed_batches(
+            normalized_values,
+            self.train_rows,
+            None,
+            train_window,
+            curriculum_config=training_config.curriculum,
+            curriculum_seed=seed,
+            protocol=protocol,
             repeats=self.training_settings["train_mask_repeats"],
         )
-        validation_mask = make_training_mask(
-            validation_values,
-            seed + 10_000,
-            protocol,
-            repeats=self.training_settings["validation_mask_repeats"],
-        )
-        train_window = min(window, len(train_values))
-        validation_window = min(window, len(validation_values))
-        train_batches = self._proposed_batches(
-            normalized_values, self.train_rows, train_mask, train_window
-        )
-        validation_batches = self._proposed_batches(
-            normalized_values, self.validation_rows, validation_mask, validation_window
-        )
+        if tuple(training_config.curriculum.validation_scenarios) != tuple(
+            FROZEN_VALIDATION_SCENARIOS
+        ):
+            raise ValueError("proposed validation scenarios do not match the frozen design")
+        validation_batches: list[dict[str, Any]] = []
+        for scenario_index, validation_scenario in enumerate(
+            FROZEN_VALIDATION_SCENARIOS
+        ):
+            validation_batches.extend(
+                self._proposed_batches(
+                    normalized_values,
+                    self.validation_rows,
+                    None,
+                    validation_window,
+                    curriculum_config=training_config.curriculum,
+                    curriculum_seed=seed + 10_000 + scenario_index,
+                    protocol=protocol,
+                    repeats=self.training_settings["validation_mask_repeats"],
+                    validation_scenario=validation_scenario,
+                )
+            )
         set_deterministic_seed(seed)
         model = MissingAwareMultisourceImputer(expected_model_config)
-        training_config = expected_training_config
         train_proposed_model(
             model,
             train_batches,
@@ -1543,7 +2535,7 @@ class ExperimentRunner:
         seed = int(training_seed)
         condition = scenario.condition
         masked_values = apply_full_artificial_mask(self.data.values, artificial_mask)
-        if model_name in {"brits", "saits"}:
+        if model_name in LOCAL_DEEP_MODELS:
             model = self._deep_model(
                 model_name, seed, condition.window_length, condition.training_protocol
             )
@@ -1572,6 +2564,108 @@ class ExperimentRunner:
             )
             predicted = predicted.reshape(self.data.values.shape)
             return predicted, None
+        if model_name in REFERENCE_MODELS:
+            model = self._reference_model(
+                model_name, seed, condition.window_length, condition.training_protocol
+            )
+            reference_protocol = self._reference_protocol(
+                seed, condition.window_length, condition.training_protocol
+            )
+            available = (
+                self.data.natural_observed
+                & self.data.quality_approved
+                & np.isfinite(self.data.values)
+            )
+            reference_values = np.where(
+                available, self.data.values, np.nan
+            ).astype(np.float32)
+            flat = reference_values.reshape(len(reference_values), -1)
+            flat_mask = artificial_mask.reshape(len(artificial_mask), -1)
+            prediction_sum = np.zeros(flat.shape, dtype=np.float64)
+            prediction_count = np.zeros(flat.shape, dtype=np.int16)
+            sample_sum: np.ndarray | None = None
+            total_inference_seconds = 0.0
+            draws = self._reference_training_config(seed).prediction_sampling_times
+            window = reference_protocol.window_size
+            for start in _window_starts(len(flat), window):
+                end = start + window
+                window_mask = flat_mask[start:end]
+                if not window_mask.any():
+                    continue
+                prediction_seed = int(
+                    np.random.SeedSequence(
+                        [seed, int(scenario.mask_seed), int(start)]
+                    ).generate_state(1, dtype=np.uint32)[0]
+                )
+                output = model.predict(
+                    flat[None, start:end],
+                    window_mask[None],
+                    n_sampling_times=draws,
+                    seed=prediction_seed,
+                )
+                point = np.asarray(output.point[0], dtype=float)
+                prediction_sum[start:end] += np.where(window_mask, point, 0.0)
+                prediction_count[start:end] += window_mask
+                total_inference_seconds += float(output.inference_time_seconds)
+                if model_name == "csdi":
+                    if output.samples is None or output.samples.shape[1] != draws:
+                        raise RuntimeError(
+                            "official CSDI did not return the frozen sampling budget"
+                        )
+                    if sample_sum is None:
+                        sample_sum = np.zeros(
+                            (draws, *flat.shape), dtype=np.float32
+                        )
+                    samples = np.asarray(output.samples[0], dtype=np.float32)
+                    sample_sum[:, start:end] += np.where(
+                        window_mask[None], samples, 0.0
+                    )
+            if np.any(flat_mask & (prediction_count == 0)):
+                raise RuntimeError(
+                    "windowed reference prediction did not cover every hidden cell"
+                )
+            predicted_flat = np.full(flat.shape, np.nan, dtype=float)
+            predicted_flat[flat_mask] = (
+                prediction_sum[flat_mask] / prediction_count[flat_mask]
+            )
+            quantile_result: dict[str, np.ndarray] | None = None
+            if model_name == "csdi":
+                if sample_sum is None:
+                    raise RuntimeError("official CSDI produced no sampled windows")
+                averaged_samples = np.full(sample_sum.shape, np.nan, dtype=np.float32)
+                for draw in range(draws):
+                    averaged_samples[draw][flat_mask] = (
+                        sample_sum[draw][flat_mask] / prediction_count[flat_mask]
+                    )
+                levels = (0.05, 0.25, 0.50, 0.75, 0.95)
+                selected_quantiles = np.quantile(
+                    averaged_samples[:, flat_mask], levels, axis=0
+                )
+                quantile_result = {}
+                for index, name in enumerate(("q05", "q25", "q50", "q75", "q95")):
+                    values = np.full(flat.shape, np.nan, dtype=float)
+                    values[flat_mask] = selected_quantiles[index]
+                    quantile_result[name] = values.reshape(self.data.values.shape)
+                predicted_flat[flat_mask] = selected_quantiles[2]
+            key = (
+                model_name,
+                seed,
+                condition.window_length,
+                condition.training_protocol,
+            )
+            self._reference_inference_seconds[key] = (
+                self._reference_inference_seconds.get(key, 0.0)
+                + total_inference_seconds
+            )
+            self._reference_last_run_diagnostics[key] = {
+                **dict(model.diagnostics_),
+                "inference_time_seconds": total_inference_seconds,
+                "cumulative_inference_time_seconds": (
+                    self._reference_inference_seconds[key]
+                ),
+                "protocol_fingerprint": reference_protocol.fingerprint,
+            }
+            return predicted_flat.reshape(self.data.values.shape), quantile_result
         model, mean, scale = self._proposed_model(
             seed, condition.window_length, condition.training_protocol
         )
@@ -1582,7 +2676,21 @@ class ExperimentRunner:
         target_index = self.data.variable_names.index("T")
         target_hidden = artificial_mask[..., target_index]
         quantile_sum = np.zeros((*target_hidden.shape, 5), dtype=float)
+        diagnostic_names = (
+            "source_available_A",
+            "source_available_B",
+            "source_available_C",
+            "source_available_D",
+            "gate_A",
+            "gate_B",
+            "gate_C",
+            "gate_D",
+        )
+        diagnostic_sum = np.zeros(
+            (*target_hidden.shape, len(diagnostic_names)), dtype=float
+        )
         prediction_count = np.zeros_like(target_hidden, dtype=np.int16)
+        training_climatology = self._proposed_training_climatology()
         window = min(condition.window_length, len(self.data.values))
         for start in _window_starts(len(self.data.values), window):
             end = start + window
@@ -1593,15 +2701,34 @@ class ExperimentRunner:
             natural = torch.from_numpy(self.data.natural_observed[None, start:end])
             artificial = torch.from_numpy(artificial_mask[None, start:end])
             seasonal = torch.from_numpy(self.data.seasonal_features[None, start:end])
+            climatology = torch.from_numpy(
+                training_climatology[None, start:end]
+            )
             with torch.no_grad():
-                output = model(values, natural, artificial, seasonal_features=seasonal)
+                output = model(
+                    values,
+                    natural,
+                    artificial,
+                    seasonal_features=seasonal,
+                    training_climatology=climatology,
+                )
             window_quantiles = output["quantiles"][0].detach().cpu().numpy()
+            window_diagnostics = np.stack(
+                [
+                    output[name][0].detach().cpu().numpy().astype(float)
+                    for name in diagnostic_names
+                ],
+                axis=-1,
+            )
             window_quantiles = (
                 window_quantiles * scale[:, target_index][None, :, None]
                 + mean[:, target_index][None, :, None]
             )
             quantile_sum[start:end] += np.where(
                 window_hidden[..., None], window_quantiles, 0.0
+            )
+            diagnostic_sum[start:end] += np.where(
+                window_hidden[..., None], window_diagnostics, 0.0
             )
             prediction_count[start:end] += window_hidden
         if np.any(target_hidden & (prediction_count == 0)):
@@ -1613,13 +2740,137 @@ class ExperimentRunner:
             quantile_sum[target_hidden] / prediction_count[target_hidden, None]
         )
         prediction[..., target_index][target_hidden] = quantiles[target_hidden, 2]
-        return prediction, {
+        result = {
             "q05": quantiles[..., 0],
             "q25": quantiles[..., 1],
             "q50": quantiles[..., 2],
             "q75": quantiles[..., 3],
             "q95": quantiles[..., 4],
         }
+        for index, name in enumerate(diagnostic_names):
+            values = np.full(target_hidden.shape, np.nan, dtype=float)
+            values[target_hidden] = (
+                diagnostic_sum[..., index][target_hidden]
+                / prediction_count[target_hidden]
+            )
+            result[name] = (
+                values >= 0.5 if name.startswith("source_available_") else values
+            )
+        return prediction, result
+
+    def _model_diagnostic_fields(
+        self,
+        model_name: str,
+        training_seed: int | None,
+        scenario: ExperimentScenario,
+    ) -> dict[str, Any]:
+        try:
+            category = self.frozen_model_design.category_for(model_name)
+        except ValueError:
+            category = "exploratory"
+        fields: dict[str, Any] = {"model_registry_category": category}
+        if training_seed is None:
+            return fields
+        condition = scenario.condition
+        key = (
+            int(training_seed),
+            condition.window_length,
+            condition.training_protocol,
+        )
+        if model_name in REFERENCE_MODELS:
+            model_key = (model_name, *key)
+            model = self._reference_cache.get(model_key)
+            if model is None:
+                return fields
+            diagnostics = self._reference_last_run_diagnostics.get(
+                model_key, dict(model.diagnostics_)
+            )
+            validation_score = diagnostics.get("best_validation_score")
+            checkpoint = self._reference_checkpoint_path(model_name, *key)
+            fields.update(
+                {
+                    "reference_implementation": REFERENCE_IMPLEMENTATION,
+                    "reference_model_name": _reference_adapter_name(model_name),
+                    "reference_protocol_fingerprint": model.protocol_fingerprint_,
+                    "reference_checkpoint_sha256": (
+                        (_file_identity(checkpoint) or {}).get("sha256")
+                    ),
+                    "reference_checkpoint_sidecar_sha256": (
+                        (
+                            _file_identity(Path(str(checkpoint) + ".sha256"))
+                            or {}
+                        ).get("sha256")
+                    ),
+                    "parameter_count": diagnostics.get("parameter_count"),
+                    "best_epoch": diagnostics.get("best_epoch"),
+                    "epochs_run": diagnostics.get("epochs_run"),
+                    "hit_epoch_limit": diagnostics.get("hit_epoch_limit"),
+                    "validation_score_by_scenario": json.dumps(
+                        diagnostics.get("validation_score_by_scenario", {}),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "finite_predictions": True,
+                    "finite_validation_score": bool(
+                        validation_score is not None
+                        and np.isfinite(float(validation_score))
+                    ),
+                    "training_time_seconds": diagnostics.get(
+                        "training_time_seconds"
+                    ),
+                    "inference_time_seconds": diagnostics.get(
+                        "inference_time_seconds"
+                    ),
+                    "cumulative_inference_time_seconds": diagnostics.get(
+                        "cumulative_inference_time_seconds"
+                    ),
+                }
+            )
+        elif model_name == "proposed":
+            metadata = self._proposed_checkpoint_metadata.get(key, {})
+            history = list(metadata.get("history", ()))
+            best_epoch = metadata.get("best_epoch", metadata.get("epoch"))
+            selected_history = next(
+                (
+                    row
+                    for row in history
+                    if int(float(row.get("epoch", -1))) == int(best_epoch or -1)
+                ),
+                {},
+            )
+            by_scenario = {
+                scenario_name: selected_history.get(
+                    f"validation_{scenario_name}_loss"
+                )
+                for scenario_name in FROZEN_VALIDATION_SCENARIOS
+                if selected_history.get(f"validation_{scenario_name}_loss")
+                is not None
+            }
+            validation_score = metadata.get(
+                "best_validation_score", metadata.get("best_validation_loss")
+            )
+            cached = self._proposed_cache.get(key)
+            fields.update(
+                {
+                    "parameter_count": (
+                        sum(parameter.numel() for parameter in cached[0].parameters())
+                        if cached is not None
+                        else None
+                    ),
+                    "best_epoch": best_epoch,
+                    "epochs_run": metadata.get("epochs_run"),
+                    "hit_epoch_limit": metadata.get("hit_epoch_limit"),
+                    "validation_score_by_scenario": json.dumps(
+                        by_scenario, sort_keys=True, separators=(",", ":")
+                    ),
+                    "finite_predictions": True,
+                    "finite_validation_score": bool(
+                        validation_score is not None
+                        and np.isfinite(float(validation_score))
+                    ),
+                }
+            )
+        return fields
 
     def _prediction_rows(
         self,
@@ -1636,8 +2887,43 @@ class ExperimentRunner:
             self.data.station_ids.index(value)
             for value in scenario.condition.station_ids
         ]
+        run_key = (
+            f"{model_name}:none"
+            if training_seed is None
+            else f"{model_name}:{training_seed}"
+        )
+        unsupported_rows = [
+            {
+                "run_key": run_key,
+                "model": model_name,
+                "training_seed": training_seed,
+                "station_id": self.data.station_ids[station],
+                "target": variable_name,
+                "reason_code": "unsupported_model_target",
+                "reason": f"{model_name} does not estimate target {variable_name}",
+            }
+            for station in station_indices
+            for variable_name in evaluation_variables
+            if artificial_mask[
+                :, station, self.data.variable_names.index(variable_name)
+            ].any()
+            and not self._supports_target(model_name, variable_name)
+        ]
+        has_supported_target = any(
+            artificial_mask[
+                :, station, self.data.variable_names.index(variable_name)
+            ].any()
+            and self._supports_target(model_name, variable_name)
+            for station in station_indices
+            for variable_name in evaluation_variables
+        )
+        if not has_supported_target:
+            return pd.DataFrame(), pd.DataFrame(), unsupported_rows
         shared_prediction, quantiles = self._model_prediction(
             model_name, training_seed, scenario, artificial_mask
+        )
+        model_diagnostic_fields = self._model_diagnostic_fields(
+            model_name, training_seed, scenario
         )
         daily_parts: list[pd.DataFrame] = []
         event_rows: list[dict[str, Any]] = []
@@ -1645,6 +2931,8 @@ class ExperimentRunner:
         is_loso = scenario.condition.mask_type == "loso"
         fit_split = "train_other_stations" if is_loso else "train"
         tuning_split = "validation_other_stations" if is_loso else "validation"
+        evaluation_split = scenario.condition.evaluation_split
+        evidence_role = self._evidence_role(evaluation_split)
         if (
             scenario.condition.experiment == "SCI_NET"
             or scenario.condition.failed_station_ids
@@ -1685,9 +2973,7 @@ class ExperimentRunner:
                 hidden = artificial_mask[:, station, variable]
                 if not hidden.any():
                     continue
-                if (
-                    model_name == "proposed" and variable_name != "T"
-                ) or not self._supports_target(model_name, variable_name):
+                if not self._supports_target(model_name, variable_name):
                     skipped_rows.append(
                         {
                             "run_key": (
@@ -1760,11 +3046,28 @@ class ExperimentRunner:
                     q = None
                 else:
                     prediction = shared_prediction[:, station, variable]
-                    q = (
-                        {name: values[:, station] for name, values in quantiles.items()}
-                        if quantiles is not None
-                        else None
-                    )
+                    if quantiles is None:
+                        q = None
+                    else:
+                        q = {}
+                        for name, values in quantiles.items():
+                            array = np.asarray(values)
+                            if array.ndim == 3:
+                                q[name] = array[:, station, variable]
+                            elif array.ndim == 2:
+                                q[name] = array[:, station]
+                            else:
+                                raise ValueError(
+                                    f"prediction diagnostic {name!r} has an invalid shape"
+                                )
+                metric_quantiles = (
+                    {
+                        name: q[name]
+                        for name in ("q05", "q25", "q50", "q75", "q95")
+                    }
+                    if q is not None
+                    else None
+                )
                 if not np.isfinite(prediction[positions]).all():
                     skipped_rows.append(
                         {
@@ -1792,6 +3095,11 @@ class ExperimentRunner:
                     f"SCI-NET-{target_station_id}-{variable_name}-"
                     f"D{int(scenario.condition.gap_length):03d}-R{scenario.mask_seed:04d}"
                     if scenario.condition.experiment == "SCI_NET"
+                    else (
+                        str(metadata["target_gap_id"])
+                    )
+                    if scenario.condition.mask_type == "async"
+                    and scenario.condition.anchor_id is not None
                     else None
                 )
                 design_fields = {
@@ -1805,11 +3113,46 @@ class ExperimentRunner:
                     "layout": scenario.condition.layout,
                     "outage_mode": scenario.condition.outage_mode,
                     "overlap_ratio": scenario.condition.overlap_ratio,
+                    "async_axis": scenario.condition.async_axis,
+                    "anchor_id": scenario.condition.anchor_id,
+                    "anchor_target": scenario.condition.anchor_target,
+                    "anchor_mask_seed": scenario.condition.anchor_mask_seed,
+                    "center_date": scenario.condition.center_date,
+                    "center_index": scenario.condition.center_index,
+                    "anchor_data_version": scenario.condition.anchor_data_version,
+                    "anchor_evaluation_split": (
+                        scenario.condition.anchor_evaluation_split
+                    ),
+                    "anchor_source_split": scenario.condition.anchor_source_split,
+                    "anchor_max_supported_length": (
+                        scenario.condition.anchor_max_supported_length
+                    ),
+                    "anchor_start_month": scenario.condition.anchor_start_month,
+                    "anchor_season": scenario.condition.anchor_season,
+                    "anchor_year": scenario.condition.anchor_year,
+                    "anchor_hydrologic_state": (
+                        scenario.condition.anchor_hydrologic_state
+                    ),
                     "event_type": scenario.condition.event_type,
                     "window_length": scenario.condition.window_length,
+                    "model_window_length": scenario.condition.window_length,
                     "training_protocol": scenario.condition.training_protocol,
                     "held_out_station": scenario.condition.held_out_station,
                     "validation_scope": scenario.condition.validation_scope,
+                    "data_version": self.data.data_version,
+                    "evaluation_split": evaluation_split,
+                    "evidence_role": evidence_role,
+                    "design_version": self.evidence_contract["design_version"],
+                    "design_hash": self.evidence_contract["design_hash"],
+                    "mask_schema_version": self.evidence_contract[
+                        "mask_schema_version"
+                    ],
+                    "model_schema_version": self.evidence_contract[
+                        "model_schema_version"
+                    ],
+                    "statistics_schema_version": self.evidence_contract[
+                        "statistics_schema_version"
+                    ],
                     "target_station_id": target_station_id,
                     "failed_station_ids": failed_stations_json,
                     "failed_stations": failed_stations_json,
@@ -1821,6 +3164,10 @@ class ExperimentRunner:
                     "target_gap_end_index": gap_end_index,
                     "target_gap_start_date": gap_start_date,
                     "target_gap_end_date": gap_end_date,
+                    **{
+                        name: getattr(scenario.condition, name)
+                        for name in EVENT_DESIGN_FIELD_NAMES
+                    },
                 }
                 reference_fields = {
                     "high_threshold": reference.q90,
@@ -1849,7 +3196,7 @@ class ExperimentRunner:
                     metadata=row_metadata,
                     climatology_pred=climatology,
                     dates=self.data.dates,
-                    quantile_predictions=q,
+                    quantile_predictions=metric_quantiles,
                     high_threshold=reference.q90,
                     low_threshold=reference.q10,
                     ecological_threshold=None,
@@ -1861,13 +3208,20 @@ class ExperimentRunner:
                         "experiment": scenario.condition.experiment,
                         "fit_split": fit_split,
                         "tuning_split": tuning_split,
-                        "evaluation_split": "test",
+                        "evaluation_split": evaluation_split,
+                        "evidence_role": evidence_role,
                         "external_validation_status": self.grid.external_validation_status,
-                        "is_external_validation": False,
+                        "is_external_validation": evaluation_split
+                        == "confirmatory",
                         **design_fields,
                         **reference_fields,
+                        **model_diagnostic_fields,
                     }
                 )
+                if scenario.condition.event_window_length is not None:
+                    event_row["window_length"] = (
+                        scenario.condition.event_window_length
+                    )
                 if model_name == "pooled_loso":
                     event_row["selected_alpha"] = self._pooled_loso_prediction(station)[
                         2
@@ -1924,14 +3278,56 @@ class ExperimentRunner:
                         "q50": q["q50"][positions] if q else prediction[positions],
                         "q75": q["q75"][positions] if q else np.nan,
                         "q95": q["q95"][positions] if q else np.nan,
+                        "source_available_A": (
+                            q["source_available_A"][positions]
+                            if q and "source_available_A" in q
+                            else np.nan
+                        ),
+                        "source_available_B": (
+                            q["source_available_B"][positions]
+                            if q and "source_available_B" in q
+                            else np.nan
+                        ),
+                        "source_available_C": (
+                            q["source_available_C"][positions]
+                            if q and "source_available_C" in q
+                            else np.nan
+                        ),
+                        "source_available_D": (
+                            q["source_available_D"][positions]
+                            if q and "source_available_D" in q
+                            else np.nan
+                        ),
+                        "gate_A": (
+                            q["gate_A"][positions]
+                            if q and "gate_A" in q
+                            else np.nan
+                        ),
+                        "gate_B": (
+                            q["gate_B"][positions]
+                            if q and "gate_B" in q
+                            else np.nan
+                        ),
+                        "gate_C": (
+                            q["gate_C"][positions]
+                            if q and "gate_C" in q
+                            else np.nan
+                        ),
+                        "gate_D": (
+                            q["gate_D"][positions]
+                            if q and "gate_D" in q
+                            else np.nan
+                        ),
                         "season": seasons,
                         "event_type": scenario.condition.event_type,
                         "quality_approved": quality[positions],
                         "artificial_mask": hidden[positions],
                         "external_validation_status": self.grid.external_validation_status,
-                        "is_external_validation": False,
+                        "is_external_validation": evaluation_split
+                        == "confirmatory",
                         **design_fields,
                         **reference_fields,
+                        **model_diagnostic_fields,
                     }
                 )
                 daily_parts.append(daily)
@@ -1972,7 +3368,9 @@ class ExperimentRunner:
         training_seed: int | None,
     ) -> dict[str, Any]:
         condition = scenario.condition
-        if model_name in {"brits", "saits"}:
+        reference_fingerprint: str | None = None
+        reference_implementation: str | None = None
+        if model_name in LOCAL_DEEP_MODELS:
             _, model_config, training_config = self._deep_contract(
                 model_name,
                 int(training_seed),
@@ -1980,6 +3378,21 @@ class ExperimentRunner:
                 condition.training_protocol,
             )
             training_context: dict[str, Any] | None = None
+        elif model_name in REFERENCE_MODELS:
+            (
+                reference_protocol,
+                model_config,
+                reference_training,
+                training_context,
+            ) = self._reference_contract(
+                model_name,
+                int(training_seed),
+                condition.window_length,
+                condition.training_protocol,
+            )
+            training_config = asdict(reference_training)
+            reference_fingerprint = reference_protocol.fingerprint
+            reference_implementation = REFERENCE_IMPLEMENTATION
         elif model_name == "proposed":
             proposed_model, proposed_training, training_context = (
                 self._proposed_contract(
@@ -1996,13 +3409,22 @@ class ExperimentRunner:
             training_context = None
         scenario_dir = self.mask_dir / "scenarios"
         contract = {
+            **self.evidence_contract,
+            "code_provenance": dict(self.code_provenance),
             "suite": self.grid.suite,
             "training_profile": self.training_profile_name,
             "model": model_name,
+            "model_registry_category": (
+                self.frozen_model_design.category_for(model_name)
+                if model_name != "pooled_loso"
+                else "exploratory"
+            ),
             "model_config": model_config,
             "training_seed": training_seed,
             "training_config": training_config,
             "training_context": training_context,
+            "reference_implementation": reference_implementation,
+            "reference_protocol_fingerprint": reference_fingerprint,
             "runner_training_settings": dict(self.training_settings),
             "mask_seed": scenario.mask_seed,
             "window_length": condition.window_length,
@@ -2012,6 +3434,11 @@ class ExperimentRunner:
                 "wide": _file_identity(self.wide_path),
                 "quality": _file_identity(self.quality_path),
                 "config": _file_identity(self.config_path),
+                "design": _file_identity(self.design_path),
+                "study_manifest": _file_identity(self.manifest_path),
+                "data_version_manifest": _file_identity(
+                    self.data_version_manifest_path
+                ),
             },
             "mask_files": {
                 "axes": _file_identity(self.mask_dir / "axes.json"),
@@ -2025,8 +3452,31 @@ class ExperimentRunner:
             "checkpoint": _file_identity(
                 self._checkpoint_path(model_name, training_seed, scenario)
             ),
+            "checkpoint_sidecar": _file_identity(
+                Path(
+                    str(self._checkpoint_path(model_name, training_seed, scenario))
+                    + ".sha256"
+                )
+                if model_name in REFERENCE_MODELS
+                else None
+            ),
         }
         return json.loads(json.dumps(contract))
+
+    @staticmethod
+    def _execution_contract_matches(
+        stored: Mapping[str, Any] | None,
+        current: Mapping[str, Any],
+    ) -> bool:
+        """Compare scientific identity while retaining non-invalidating git audit."""
+
+        if not isinstance(stored, Mapping):
+            return False
+        stored_identity = dict(stored)
+        current_identity = dict(current)
+        stored_identity.pop("code_provenance", None)
+        current_identity.pop("code_provenance", None)
+        return stored_identity == current_identity
 
     def _clear_model_cache(
         self,
@@ -2041,8 +3491,11 @@ class ExperimentRunner:
             scenario.condition.window_length,
             scenario.condition.training_protocol,
         )
-        if model_name in {"brits", "saits"}:
+        if model_name in LOCAL_DEEP_MODELS:
             self._deep_cache.pop((model_name, *key), None)
+        elif model_name in REFERENCE_MODELS:
+            self._reference_cache.pop((model_name, *key), None)
+            self._reference_last_run_diagnostics.pop((model_name, *key), None)
         elif model_name == "proposed":
             self._proposed_cache.pop(key, None)
             self._proposed_checkpoint_metadata.pop(key, None)
@@ -2061,7 +3514,7 @@ class ExperimentRunner:
         condition = scenario.condition
         self._clear_model_cache(scenario, model_name, training_seed)
         try:
-            if model_name in {"brits", "saits"}:
+            if model_name in LOCAL_DEEP_MODELS:
                 model_class, model_config, training_config = self._deep_contract(
                     model_name,
                     int(training_seed),
@@ -2081,7 +3534,31 @@ class ExperimentRunner:
                         condition.training_protocol,
                     )
                 ] = model
-            else:
+            elif model_name in REFERENCE_MODELS:
+                reference_protocol, adapter_config, training_config, _ = (
+                    self._reference_contract(
+                        model_name,
+                        int(training_seed),
+                        condition.window_length,
+                        condition.training_protocol,
+                    )
+                )
+                model = PyPOTSReferenceImputer.load_checkpoint(
+                    checkpoint,
+                    expected_model_name=_reference_adapter_name(model_name),
+                    expected_protocol_fingerprint=reference_protocol.fingerprint,
+                    expected_adapter_config=adapter_config,
+                    expected_training_config=asdict(training_config),
+                )
+                self._reference_cache[
+                    (
+                        model_name,
+                        int(training_seed),
+                        condition.window_length,
+                        condition.training_protocol,
+                    )
+                ] = model
+            elif model_name == "proposed":
                 model, metadata, mean, scale = self._load_proposed_model_checkpoint(
                     checkpoint,
                     int(training_seed),
@@ -2095,6 +3572,10 @@ class ExperimentRunner:
                 )
                 self._proposed_cache[key] = (model, mean, scale)
                 self._proposed_checkpoint_metadata[key] = metadata
+            else:
+                raise ValueError(
+                    f"no strict checkpoint validator for trainable model {model_name!r}"
+                )
         except (
             EOFError,
             OSError,
@@ -2117,7 +3598,11 @@ class ExperimentRunner:
         checkpoint = self._checkpoint_path(model_name, training_seed, scenario)
         if checkpoint is None or not checkpoint.exists():
             return None
-        candidate = _quarantine_file(checkpoint)
+        candidate = (
+            self._quarantine_reference_checkpoint_files(checkpoint)
+            if model_name in REFERENCE_MODELS
+            else _quarantine_file(checkpoint)
+        )
         self._clear_model_cache(scenario, model_name, training_seed)
         return candidate
 
@@ -2225,9 +3710,10 @@ class ExperimentRunner:
             has_evidence = (
                 run_key in daily_run_keys and run_key in event_run_keys
             ) or run_key in valid_terminal_run_keys
-            contract_matches = stored_contracts.get(
-                run_key
-            ) == self._run_execution_contract(scenario, model_name, training_seed)
+            contract_matches = self._execution_contract_matches(
+                stored_contracts.get(run_key),
+                self._run_execution_contract(scenario, model_name, training_seed),
+            )
             checkpoint_valid = model_name not in TRAINABLE_MODELS or (
                 contract_matches
                 and self._strict_checkpoint_valid(
@@ -2438,9 +3924,16 @@ class ExperimentRunner:
                 "tuning_split": (
                     "validation_other_stations" if is_loso else "validation"
                 ),
-                "evaluation_split": "test",
+                "evaluation_split": scenario.condition.evaluation_split,
+                "data_version": self.data.data_version,
+                "evidence_role": self._evidence_role(
+                    scenario.condition.evaluation_split
+                ),
                 "validation_scope": scenario.condition.validation_scope,
-                "is_external_validation": False,
+                "is_external_validation": scenario.condition.evaluation_split
+                == "confirmatory",
+                **self.evidence_contract,
+                "code_provenance": dict(self.code_provenance),
             },
             status_path,
         )
@@ -2495,10 +3988,11 @@ class ExperimentRunner:
                     if training_seed is None
                     else f"{model_name}:{training_seed}"
                 )
-                if run_key in completed and contracts.get(
-                    run_key
-                ) == self._run_execution_contract(
-                    scenario, model_name, training_seed
+                if run_key in completed and self._execution_contract_matches(
+                    contracts.get(run_key),
+                    self._run_execution_contract(
+                        scenario, model_name, training_seed
+                    ),
                 ):
                     contracted.add(run_key)
             daily_frame = (
@@ -2566,6 +4060,9 @@ class ExperimentRunner:
             self._deep_cache.items()
         ):
             history = dict(model.history_)
+            checkpoint = self._reference_checkpoint_path(
+                model_name, seed, window, protocol
+            )
             summaries.append(
                 {
                     "model": model_name,
@@ -2577,11 +4074,68 @@ class ExperimentRunner:
                     "best_epoch": history.get("best_epoch"),
                     "epochs_run": history.get("epochs_ran"),
                     "hit_epoch_limit": history.get("hit_epoch_limit"),
+                    "checkpoint": _file_identity(checkpoint),
+                    "checkpoint_sidecar": None,
+                    "checkpoint_contract_valid": checkpoint.is_file(),
+                }
+            )
+        for (model_name, seed, window, protocol), model in sorted(
+            self._reference_cache.items()
+        ):
+            checkpoint = self._reference_checkpoint_path(
+                model_name, seed, window, protocol
+            )
+            sidecar = Path(str(checkpoint) + ".sha256")
+            diagnostics = dict(model.diagnostics_)
+            diagnostics["cumulative_inference_time_seconds"] = (
+                self._reference_inference_seconds.get(
+                    (model_name, seed, window, protocol), 0.0
+                )
+            )
+            summaries.append(
+                {
+                    "model": model_name,
+                    "reference_model_name": model.model_name,
+                    "reference_implementation": REFERENCE_IMPLEMENTATION,
+                    "training_seed": seed,
+                    "window": window,
+                    "protocol": protocol,
+                    "protocol_fingerprint": model.protocol_fingerprint_,
+                    "protocol_metadata": dict(model.protocol_metadata_),
+                    "adapter_config": {
+                        "n_steps": model.n_steps,
+                        "n_features": model.n_features,
+                        "model_kwargs": dict(model.model_kwargs),
+                    },
+                    "training_config": dict(model.training_config_),
+                    "reference_metadata": dict(model.metadata_),
+                    "diagnostics": diagnostics,
+                    "parameter_count": diagnostics.get("parameter_count"),
+                    "best_epoch": diagnostics.get("best_epoch"),
+                    "epochs_run": diagnostics.get("epochs_run"),
+                    "hit_epoch_limit": diagnostics.get("hit_epoch_limit"),
+                    "validation_score_by_scenario": diagnostics.get(
+                        "validation_score_by_scenario", {}
+                    ),
+                    "training_time_seconds": diagnostics.get(
+                        "training_time_seconds"
+                    ),
+                    "inference_time_seconds": diagnostics.get(
+                        "cumulative_inference_time_seconds"
+                    ),
+                    "checkpoint": _file_identity(checkpoint),
+                    "checkpoint_sidecar": _file_identity(sidecar),
+                    "checkpoint_contract_valid": (
+                        checkpoint.is_file() and sidecar.is_file()
+                    ),
                 }
             )
         for (seed, window, protocol), metadata in sorted(
             self._proposed_checkpoint_metadata.items()
         ):
+            checkpoint = self._reference_checkpoint_path(
+                "proposed", seed, window, protocol
+            )
             summaries.append(
                 {
                     "model": "proposed",
@@ -2591,9 +4145,18 @@ class ExperimentRunner:
                     "training_config": dict(metadata.get("training_config", {})),
                     "training_context": dict(metadata.get("training_context", {})),
                     "history": list(metadata.get("history", [])),
+                    "training_curriculum": dict(
+                        metadata.get("training_curriculum", {})
+                    ),
+                    "validation_curriculum": dict(
+                        metadata.get("validation_curriculum", {})
+                    ),
                     "best_epoch": metadata.get("best_epoch", metadata.get("epoch")),
                     "epochs_run": metadata.get("epochs_run"),
                     "hit_epoch_limit": metadata.get("hit_epoch_limit"),
+                    "checkpoint": _file_identity(checkpoint),
+                    "checkpoint_sidecar": None,
+                    "checkpoint_contract_valid": checkpoint.is_file(),
                 }
             )
         return summaries
@@ -2610,6 +4173,11 @@ class ExperimentRunner:
             if max_scenarios < 1:
                 raise ValueError("max_scenarios must be positive")
             selected = selected[:max_scenarios]
+        if not self.anchor_availability.empty:
+            _atomic_csv(
+                self.anchor_availability,
+                self.output_dir / "anchor_availability.csv",
+            )
         statuses = {"complete": 0, "skipped": 0}
         for scenario in selected:
             outcome = self._run_scenario(scenario)
@@ -2628,9 +4196,52 @@ class ExperimentRunner:
             )
         }
         aggregate_runs = aggregate_daily_runs & aggregate_event_runs
+        finite_daily_runs = (
+            {
+                (str(scenario_id), _stored_run_key(model, training_seed))
+                for (scenario_id, model, training_seed), frame in daily.groupby(
+                    ["scenario_id", "model", "training_seed"],
+                    dropna=False,
+                    sort=False,
+                )
+                if np.isfinite(
+                    pd.to_numeric(frame["y_true"], errors="coerce")
+                ).all()
+                and np.isfinite(
+                    pd.to_numeric(frame["y_pred"], errors="coerce")
+                ).all()
+            }
+            if {"y_true", "y_pred"}.issubset(daily.columns)
+            else set()
+        )
+        finite_metric_runs = (
+            {
+                (str(scenario_id), _stored_run_key(model, training_seed))
+                for (scenario_id, model, training_seed), frame in events.groupby(
+                    ["scenario_id", "model", "training_seed"],
+                    dropna=False,
+                    sort=False,
+                )
+                if np.isfinite(
+                    pd.to_numeric(frame["MAE"], errors="coerce")
+                ).all()
+                and np.isfinite(
+                    pd.to_numeric(frame["RMSE"], errors="coerce")
+                ).all()
+            }
+            if {"MAE", "RMSE"}.issubset(events.columns)
+            else set()
+        )
         expected_run_count = 0
         completed_status_run_count = 0
         grid_complete = True
+        expected_run_units: set[str] = set()
+        completed_run_units: set[str] = set()
+        retryable_run_units: set[str] = set()
+        structural_skip_run_units: set[str] = set()
+        checkpoint_required_run_units: set[str] = set()
+        checkpoint_valid_run_units: set[str] = set()
+        checkpoint_validity_cache: dict[tuple[str, int, int, str], bool] = {}
         for scenario in self.grid.scenarios:
             expected_runs = {
                 "pooled_loso:none"
@@ -2643,6 +4254,9 @@ class ExperimentRunner:
                 )
             }
             expected_run_count += len(expected_runs)
+            expected_run_units.update(
+                f"{scenario.scenario_id}|{run_key}" for run_key in expected_runs
+            )
             status_path = (
                 self.output_dir / "scenarios" / scenario.scenario_id / "status.json"
             )
@@ -2651,7 +4265,12 @@ class ExperimentRunner:
                 continue
             status = json.loads(status_path.read_text(encoding="utf-8"))
             completed_runs = set(status.get("completed_runs", ()))
-            completed_runs.difference_update(status.get("retryable_run_keys", ()))
+            scenario_retryable = set(status.get("retryable_run_keys", ()))
+            retryable_run_units.update(
+                f"{scenario.scenario_id}|{run_key}"
+                for run_key in scenario_retryable.intersection(expected_runs)
+            )
+            completed_runs.difference_update(scenario_retryable)
             raw_contracts = status.get("run_contracts", {})
             contracts = raw_contracts if isinstance(raw_contracts, Mapping) else {}
             terminal_runs = set(status.get("terminal_run_keys", ()))
@@ -2683,6 +4302,29 @@ class ExperimentRunner:
                     if training_seed is None
                     else f"{model_name}:{training_seed}"
                 )
+                run_unit = f"{scenario.scenario_id}|{run_key}"
+                checkpoint_valid = True
+                if (
+                    model_name in TRAINABLE_MODELS
+                    and training_seed is not None
+                    and run_key not in valid_terminal_runs
+                ):
+                    checkpoint_required_run_units.add(run_unit)
+                    checkpoint_key = (
+                        model_name,
+                        int(training_seed),
+                        scenario.condition.window_length,
+                        scenario.condition.training_protocol,
+                    )
+                    if checkpoint_key not in checkpoint_validity_cache:
+                        checkpoint_validity_cache[checkpoint_key] = (
+                            self._strict_checkpoint_valid(
+                                scenario, model_name, training_seed
+                            )
+                        )
+                    checkpoint_valid = checkpoint_validity_cache[checkpoint_key]
+                    if checkpoint_valid and run_key in completed_runs:
+                        checkpoint_valid_run_units.add(run_unit)
                 has_evidence = (
                     scenario.scenario_id,
                     run_key,
@@ -2690,18 +4332,52 @@ class ExperimentRunner:
                 if (
                     run_key in completed_runs
                     and has_evidence
-                    and contracts.get(run_key)
-                    == self._run_execution_contract(
-                        scenario, model_name, training_seed
+                    and checkpoint_valid
+                    and self._execution_contract_matches(
+                        contracts.get(run_key),
+                        self._run_execution_contract(
+                            scenario, model_name, training_seed
+                        ),
                     )
                 ):
                     valid_completed.add(run_key)
+                    completed_run_units.add(run_unit)
+            structural_skip_run_units.update(
+                f"{scenario.scenario_id}|{run_key}"
+                for run_key in valid_terminal_runs.intersection(valid_completed)
+            )
             completed_status_run_count += len(
                 expected_runs.intersection(valid_completed)
             )
             grid_complete &= status.get(
                 "status"
             ) == "complete" and expected_runs.issubset(valid_completed)
+        del checkpoint_validity_cache
+        completed_evidence_run_units = {
+            f"{scenario_id}|{run_key}" for scenario_id, run_key in aggregate_runs
+        }
+        expected_evidence_run_units = (
+            expected_run_units - structural_skip_run_units
+        )
+        finite_prediction_run_units = {
+            f"{scenario_id}|{run_key}" for scenario_id, run_key in finite_daily_runs
+        }
+        finite_event_metric_run_units = {
+            f"{scenario_id}|{run_key}" for scenario_id, run_key in finite_metric_runs
+        }
+        run_unit_complete = expected_run_units == completed_run_units
+        evidence_complete = (
+            expected_evidence_run_units == completed_evidence_run_units
+        )
+        finite_predictions = (
+            expected_evidence_run_units == finite_prediction_run_units
+        )
+        finite_event_metrics = (
+            expected_evidence_run_units == finite_event_metric_run_units
+        )
+        checkpoint_contract_complete = (
+            checkpoint_required_run_units == checkpoint_valid_run_units
+        )
         aggregate_scenarios = {scenario_id for scenario_id, _ in aggregate_runs}
         requires_training_seeds = any(
             model in TRAINABLE_MODELS for model in self.models
@@ -2716,6 +4392,11 @@ class ExperimentRunner:
         )
         formal_design_complete = bool(
             grid_complete
+            and run_unit_complete
+            and evidence_complete
+            and finite_predictions
+            and finite_event_metrics
+            and checkpoint_contract_complete
             and formal_training_seed_complete
             and formal_mask_seed_complete
         )
@@ -2723,16 +4404,106 @@ class ExperimentRunner:
             {
                 "suite": self.grid.suite,
                 "models": list(self.models),
+                "formal_model_candidates": list(
+                    self.frozen_model_design.formal_candidates
+                ),
+                "development_only_models": list(
+                    self.frozen_model_design.development_only
+                ),
+                "model_request_aliases": dict(self.model_request_aliases),
                 "training_seeds": list(self.training_seeds),
                 "mask_seeds": list(self.grid.mask_seeds),
+                "frontier_anchor_catalog_path": (
+                    self.grid.frontier_anchor_catalog_path
+                ),
+                "frontier_anchor_catalog_sha256": (
+                    self.grid.frontier_anchor_catalog_sha256
+                ),
+                "frontier_anchor_count": self.grid.frontier_anchor_count,
+                "validation_anchor_catalog_path": (
+                    self.grid.validation_anchor_catalog_path
+                ),
+                "validation_anchor_catalog_sha256": (
+                    self.grid.validation_anchor_catalog_sha256
+                ),
+                "validation_anchor_count": self.grid.validation_anchor_count,
+                "anchor_availability_rows": len(self.anchor_availability),
+                "anchor_unavailable_rows": (
+                    int((~self.anchor_availability["available"]).sum())
+                    if not self.anchor_availability.empty
+                    else 0
+                ),
                 "shard_index": shard_index,
                 "shard_count": shard_count,
                 "selected_scenarios": len(selected),
                 "grid_scenario_count": len(self.grid.scenarios),
+                "event_catalog_path": self.grid.event_catalog_path,
+                "event_catalog_sha256": self.grid.event_catalog_sha256,
+                "event_catalog_episode_count": (
+                    self.grid.event_catalog_episode_count
+                ),
+                "event_catalog_analysis_count": (
+                    self.grid.event_catalog_analysis_count
+                ),
                 "expected_run_count": expected_run_count,
                 "completed_status_run_count": completed_status_run_count,
                 "aggregate_scenario_count": len(aggregate_scenarios),
                 "aggregate_run_count": len(aggregate_runs),
+                "expected_run_unit_keys": sorted(expected_run_units),
+                "expected_run_unit_count": len(expected_run_units),
+                "completed_run_unit_keys": sorted(completed_run_units),
+                "completed_run_unit_count": len(completed_run_units),
+                "retryable_run_keys": sorted(retryable_run_units),
+                "retryable_run_unit_keys": sorted(retryable_run_units),
+                "retryable_run_unit_count": len(retryable_run_units),
+                "structural_skip_run_keys": sorted(structural_skip_run_units),
+                "structural_skip_run_unit_keys": sorted(
+                    structural_skip_run_units
+                ),
+                "structural_skip_run_unit_count": len(
+                    structural_skip_run_units
+                ),
+                "expected_evidence_run_unit_keys": sorted(
+                    expected_evidence_run_units
+                ),
+                "expected_evidence_run_unit_count": len(
+                    expected_evidence_run_units
+                ),
+                "completed_evidence_run_unit_keys": sorted(
+                    completed_evidence_run_units
+                ),
+                "completed_evidence_run_unit_count": len(
+                    completed_evidence_run_units
+                ),
+                "finite_prediction_run_unit_keys": sorted(
+                    finite_prediction_run_units
+                ),
+                "finite_prediction_run_unit_count": len(
+                    finite_prediction_run_units
+                ),
+                "finite_event_metric_run_unit_keys": sorted(
+                    finite_event_metric_run_units
+                ),
+                "finite_event_metric_run_unit_count": len(
+                    finite_event_metric_run_units
+                ),
+                "checkpoint_required_run_unit_keys": sorted(
+                    checkpoint_required_run_units
+                ),
+                "checkpoint_required_run_count": len(
+                    checkpoint_required_run_units
+                ),
+                "checkpoint_valid_run_unit_keys": sorted(
+                    checkpoint_valid_run_units
+                ),
+                "checkpoint_valid_run_count": len(checkpoint_valid_run_units),
+                "completed_daily_rows": len(daily),
+                "completed_event_rows": len(events),
+                "run_unit_complete": run_unit_complete,
+                "evidence_complete": evidence_complete,
+                "finite_predictions": finite_predictions,
+                "finite_event_metrics": finite_event_metrics,
+                "checkpoint_contract_complete": checkpoint_contract_complete,
                 "complete": formal_design_complete,
                 "formal_design_complete": formal_design_complete,
                 "formal_training_seed_complete": formal_training_seed_complete,
@@ -2742,12 +4513,18 @@ class ExperimentRunner:
                 "status_counts": statuses,
                 "fit_split": "train",
                 "tuning_split": "validation",
-                "evaluation_split": "test_once",
+                "evaluation_split": self.evaluation_split,
+                "data_version": self.data.data_version,
+                "evidence_role": self._evidence_role(self.evaluation_split),
+                "is_external_validation": self.evaluation_split
+                == "confirmatory",
                 "external_validation_status": self.grid.external_validation_status,
                 "loso_scope": "exploratory_internal_not_external_validation",
                 "training_profile": self.training_profile_name,
                 "training_settings": self.training_settings,
                 "training_checkpoints": self._training_checkpoint_summaries(),
+                **self.evidence_contract,
+                "code_provenance": dict(self.code_provenance),
             },
             self.output_dir / "run_manifest.json",
         )
@@ -2766,9 +4543,14 @@ def run_experiments(
 
 
 __all__ = [
+    "LEGACY_MODEL_ALIASES",
+    "LOCAL_DEEP_MODELS",
+    "REFERENCE_MODELS",
     "SUPPORTED_MODELS",
+    "TRAINABLE_MODELS",
     "ExperimentRunner",
     "apply_full_artificial_mask",
+    "canonical_model_name",
     "make_training_mask",
     "run_experiments",
 ]
