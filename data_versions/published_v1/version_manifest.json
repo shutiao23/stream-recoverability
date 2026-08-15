@@ -1,0 +1,63 @@
+{
+  "manifest_schema_version": 1,
+  "data_version": "published_v1",
+  "definition": {
+    "name": "published_v1",
+    "description": "Published values with no additional quality exclusions or adjustments.",
+    "evidence_role": "published_reference",
+    "sensitivity_only": false
+  },
+  "input_path": "data/processed/daily_long.parquet",
+  "input_sha256": "5d3e953314077a07f00977a976bdd49816f8351309b395aeb89ae0c677651e19",
+  "input_counts": {
+    "long_rows": 131496,
+    "dates": 5479,
+    "stations": 3,
+    "variables": 8,
+    "analysis_values": 131426,
+    "natural_observed_values": 131426,
+    "quality_approved_values": 131426
+  },
+  "output_counts": {
+    "long_rows": 131496,
+    "wide_rows": 5479,
+    "analysis_values": 131426,
+    "natural_observed_values": 131426,
+    "quality_approved_values": 131426,
+    "split_wide_rows": {
+      "train": 3652,
+      "validation": 731,
+      "test": 1096
+    },
+    "scaled_features": 24,
+    "excluded_scaler_features": 0
+  },
+  "transformation_counts": {
+    "target_rows": 0,
+    "analysis_values_excluded": 0,
+    "quality_eligibility_removed": 0,
+    "analysis_values_adjusted": 0,
+    "raw_values_changed": 0,
+    "natural_observed_flags_changed": 0
+  },
+  "artifacts": {
+    "daily_long.parquet": {
+      "sha256": "a688ab17b938ba4fd589aa596c549fe1df70b70c44dc87a0ee1e6c73d2a0f9ad"
+    },
+    "daily_wide.parquet": {
+      "sha256": "e11bf8b82560be0934a128f0d9c885d8f988e65e95b30e531af8b39e4394fc86"
+    },
+    "scaler.json": {
+      "sha256": "361db48f7716d43dcc58bdca862cc6eb9839a2186432bf53bac96b398cda7439"
+    },
+    "splits/train.parquet": {
+      "sha256": "c7eba3b26e816bf772379a8dc8cab26658768fe709dd194c570ccb99946d4ce3"
+    },
+    "splits/validation.parquet": {
+      "sha256": "56ea623da74c84621c94f9fde5a7ca59973ec98e871a4787172267ffee6f8d67"
+    },
+    "splits/test.parquet": {
+      "sha256": "d52a0979a54e77cacd24ab1ceb11d4b6fc3486b73ab9b5b3851cab2df2e8e09f"
+    }
+  }
+}

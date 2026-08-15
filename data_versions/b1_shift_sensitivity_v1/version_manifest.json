@@ -1,0 +1,63 @@
+{
+  "manifest_schema_version": 1,
+  "data_version": "b1_shift_sensitivity_v1",
+  "definition": {
+    "name": "b1_shift_sensitivity_v1",
+    "description": "Hypothetical sensitivity only: subtracts exactly 8.48 m from B1 L analysis values on and after 2019-01-01. This is not a factual correction.",
+    "evidence_role": "hypothetical_shift_sensitivity",
+    "sensitivity_only": true
+  },
+  "input_path": "data/processed/daily_long.parquet",
+  "input_sha256": "5d3e953314077a07f00977a976bdd49816f8351309b395aeb89ae0c677651e19",
+  "input_counts": {
+    "long_rows": 131496,
+    "dates": 5479,
+    "stations": 3,
+    "variables": 8,
+    "analysis_values": 131426,
+    "natural_observed_values": 131426,
+    "quality_approved_values": 131426
+  },
+  "output_counts": {
+    "long_rows": 131496,
+    "wide_rows": 5479,
+    "analysis_values": 131426,
+    "natural_observed_values": 131426,
+    "quality_approved_values": 131426,
+    "split_wide_rows": {
+      "train": 3652,
+      "validation": 731,
+      "test": 1096
+    },
+    "scaled_features": 24,
+    "excluded_scaler_features": 0
+  },
+  "transformation_counts": {
+    "target_rows": 731,
+    "analysis_values_excluded": 0,
+    "quality_eligibility_removed": 0,
+    "analysis_values_adjusted": 731,
+    "raw_values_changed": 0,
+    "natural_observed_flags_changed": 0
+  },
+  "artifacts": {
+    "daily_long.parquet": {
+      "sha256": "4eb5a3cbc4a30341e5c78a086dd1af3875b1eff11f96d4b2a764e345781841c3"
+    },
+    "daily_wide.parquet": {
+      "sha256": "03ffc3f2c6d5918e426c6ab0d6e3f5a272727697263a6fe8096089f387c3aaa7"
+    },
+    "scaler.json": {
+      "sha256": "651196d61007a00bf44009b8d484db8101d392eaca5f3700f2bd0aa9d43f6351"
+    },
+    "splits/train.parquet": {
+      "sha256": "e4e9810869ff6d9008bf67296e465bbc7705d539c5e99fc16c7e936b0062a284"
+    },
+    "splits/validation.parquet": {
+      "sha256": "b2d0507b1b8ccfd0ad73901ac13ef0befb837bd9d00ab6037d263bba3c3881bc"
+    },
+    "splits/test.parquet": {
+      "sha256": "fa9eb680b9b7ddd21867f8dec2498274268102750266ea8c895da0e2c5f5923b"
+    }
+  }
+}
