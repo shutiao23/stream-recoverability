@@ -1,0 +1,40 @@
+all_variables: [T, F, L, Ta, P, W, RH, DH]
+windows: [184, 368, 736]
+external_validation_status: unavailable
+
+M1:
+  patterns: [T, F, L, T_F_L]
+
+M4:
+  outage_modes: [hydro-only, full-site]
+
+M6:
+  station_pairs: [[B1, S2], [B1, P3], [S2, P3]]
+  overlap_ratios: [1.0, 0.5, 0.0]
+
+M7:
+  missing_rate: 1.0
+  events:
+    high_temperature: T
+    rapid_warming: T
+    flood: F
+    low_flow: F
+
+M8:
+  anchors:
+    - {mask_type: block, station: B1, variables: T, length: 30}
+    - {mask_type: block, station: B1, variables: T, length: 90}
+    - {mask_type: block, station: B1, variables: T, length: 180}
+    - {mask_type: station_outage, station: B1, variables: T_F_L, length: 90, outage_mode: hydro-only}
+    - {mask_type: station_outage, station: B1, variables: T_F_L, length: 180, outage_mode: hydro-only}
+
+M9:
+  protocols: [seen_length, unseen_length]
+
+runner:
+  default_models: [climatology, linear]
+  deep_epochs: 3
+  proposed_epochs: 3
+  patience: 2
+  batch_size: 8
+  device: cpu
