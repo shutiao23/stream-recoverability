@@ -574,6 +574,88 @@ def test_proposed_initialization_is_seeded_before_construction(
     assert not torch.equal(initial_states[0], initial_states[2])
 
 
+def test_no_resume_reuses_shared_trainable_model_and_completes_manifest(
+    tmp_path: Path, monkeypatch
+) -> None:
+    grid = build_experiment_grid(MANIFEST, CONFIG, suite="smoke")
+    runner = ExperimentRunner(
+        grid,
+        wide_path=_wide_data(tmp_path / "wide.parquet"),
+        quality_path=None,
+        output_dir=tmp_path / "results",
+        mask_dir=tmp_path / "masks",
+        config_path=CONFIG,
+        models=("proposed",),
+        resume=False,
+    )
+    training_calls = 0
+
+    def fake_train(
+        model, train_batches, validation_batches, config, *, checkpoint_path
+    ):
+        nonlocal training_calls
+        training_calls += 1
+        assert list(train_batches) and list(validation_batches)
+        _write_synthetic_proposed_checkpoint(model, config, checkpoint_path)
+
+    def fake_prediction_rows(
+        scenario, metadata, artificial, model_name, training_seed
+    ):
+        del metadata, artificial
+        runner._proposed_model(
+            int(training_seed),
+            scenario.condition.window_length,
+            scenario.condition.training_protocol,
+        )
+        daily = pd.DataFrame(
+            [
+                {
+                    "scenario_id": scenario.scenario_id,
+                    "model": model_name,
+                    "training_seed": training_seed,
+                    "mask_seed": scenario.mask_seed,
+                    "date": runner.data.dates[-2],
+                    "station_id": "B1",
+                    "target": "T",
+                    "y_true": 1.0,
+                    "y_pred": 1.0,
+                }
+            ]
+        )
+        events = pd.DataFrame(
+            [
+                {
+                    "scenario_id": scenario.scenario_id,
+                    "model": model_name,
+                    "training_seed": training_seed,
+                    "mask_seed": scenario.mask_seed,
+                    "station_id": "B1",
+                    "target": "T",
+                    "MAE": 0.0,
+                    "RMSE": 0.0,
+                }
+            ]
+        )
+        return daily, events, []
+
+    monkeypatch.setattr(
+        "stream_recoverability.experiments.runner.train_proposed_model", fake_train
+    )
+    monkeypatch.setattr(runner, "_prediction_rows", fake_prediction_rows)
+    daily, events = runner.run()
+
+    manifest = json.loads(
+        (runner.output_dir / "run_manifest.json").read_text(encoding="utf-8")
+    )
+    assert training_calls == 1
+    assert manifest["complete"] is True
+    assert manifest["expected_run_count"] == len(grid.scenarios)
+    assert manifest["completed_status_run_count"] == len(grid.scenarios)
+    assert manifest["aggregate_run_count"] == len(grid.scenarios)
+    assert daily["scenario_id"].nunique() == len(grid.scenarios)
+    assert events["scenario_id"].nunique() == len(grid.scenarios)
+
+
 def test_proposed_prediction_uses_requested_windows_and_only_covers_hidden_t(
     tmp_path: Path, monkeypatch
 ) -> None:
