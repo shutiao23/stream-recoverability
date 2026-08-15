@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
+import importlib.util
 import json
 from itertools import combinations
 from pathlib import Path
@@ -89,10 +90,229 @@ def _contract(data_version: str = "published_v1") -> dict[str, object]:
 
 def _evidence(data_version: str = "published_v1") -> dict[str, object]:
     contract = _contract(data_version)
-    return {field: contract[field] for field in EVIDENCE_FIELDS}
+    return {
+        **{field: contract[field] for field in EVIDENCE_FIELDS},
+        "formal_evidence": True,
+        "evidence_role": "formal_development_evaluation",
+    }
 
 
-def _write_minimal_bundle(tmp_path: Path) -> tuple[Path, Path, Path]:
+def _file_identity(path: Path) -> dict[str, object]:
+    return {
+        "path": str(path.resolve()),
+        "bytes": path.stat().st_size,
+        "sha256": _sha256(path),
+    }
+
+
+def _registry_builder_identity() -> dict[str, object]:
+    source_paths = (
+        PROJECT_ROOT / "scripts/21_build_formal_suite_registry.py",
+        PROJECT_ROOT / "src/stream_recoverability/analysis/formal_registry.py",
+    )
+    value: dict[str, object] = {
+        "schema_version": "formal_registry_builder_identity_v1",
+        "sources": [
+            {
+                "path": path.relative_to(PROJECT_ROOT).as_posix(),
+                "bytes": path.stat().st_size,
+                "sha256": _sha256(path),
+            }
+            for path in source_paths
+        ],
+        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
+    }
+    value["identity_sha256"] = _canonical_digest(value)
+    return value
+
+
+def _formal_registry_fields(
+    root: Path,
+    data_version: str,
+    *,
+    framework_only: bool = False,
+) -> dict[str, object]:
+    primary = data_version == "published_v1"
+    selected_models = ["linear"] if framework_only else ["linear", "csdi", "proposed"]
+    decision = "framework_only" if framework_only else "include_proposed_formally"
+    bundle_directory_names = {
+        "primary",
+        "published_v1",
+        "no_s2_suspect_v1",
+        "b1_no_level_v1",
+        "b1_shift_sensitivity_v1",
+    }
+    roster_root = root.parent if root.name in bundle_directory_names else root
+    roster_path = roster_root / "finalized_model_roster.json"
+    roster_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "finalized_model_roster_v1",
+                "selected_models": selected_models,
+                "proposed_decision": decision,
+            }
+        ),
+        encoding="utf-8",
+    )
+    roster = {
+        "path": str(roster_path.resolve()),
+        "sha256": _sha256(roster_path),
+        "selected_models": selected_models,
+        "proposed_decision": decision,
+    }
+    if primary:
+        required_roles = [
+            "core_full",
+            "dense_frontier",
+            "network_resilience",
+            "event_uncertainty",
+            "operational_dropout",
+            "retrained_upper_bound",
+        ]
+        role_sources = {
+            "core_full": ("full", [*selected_models, "independent_flow", "rating_curve"]),
+            "dense_frontier": (
+                "science_dense",
+                [*selected_models, "independent_flow", "rating_curve"],
+            ),
+            "network_resilience": ("science_resilience", selected_models),
+            "event_uncertainty": (
+                "full",
+                [*selected_models, "independent_flow", "rating_curve"],
+            ),
+            "operational_dropout": (
+                "science_compensation",
+                ["information_compensation"],
+            ),
+            "retrained_upper_bound": (
+                "retrained_information_upper_bounds",
+                ["retrained_information_upper_bound"],
+            ),
+        }
+        proposed_roles = {"operational_dropout", "retrained_upper_bound"}
+        bundle_role = "primary"
+        bundle_kind = "primary"
+    else:
+        required_roles = [
+            "sensitivity_core_T",
+            "sensitivity_dense_frontier",
+            "sensitivity_operational_dropout",
+        ]
+        role_sources = {
+            "sensitivity_core_T": ("core", selected_models),
+            "sensitivity_dense_frontier": ("science_dense", selected_models),
+            "sensitivity_operational_dropout": (
+                "science_compensation",
+                ["information_compensation"],
+            ),
+        }
+        proposed_roles = {"sensitivity_operational_dropout"}
+        bundle_role = "sensitivity_compact"
+        bundle_kind = "sensitivity"
+
+    source_by_suite: dict[str, dict[str, object]] = {}
+    for suite, models in dict(role_sources.values()).items():
+        directory = root / "registry_sources" / suite
+        directory.mkdir(parents=True, exist_ok=True)
+        path = directory / "run_manifest.json"
+        path.write_text(json.dumps({"suite": suite, "models": models}), encoding="utf-8")
+        source_by_suite[suite] = {
+            "suite": suite,
+            "run_directory": str(directory.resolve()),
+            "manifest": _file_identity(path),
+            "models": models,
+        }
+    suite_roles: list[dict[str, object]] = []
+    for role in required_roles:
+        if framework_only and role in proposed_roles:
+            suite_roles.append(
+                {
+                    "role": role,
+                    "status": "not_applicable",
+                    "reason": "proposed_decision=framework_only",
+                    "manifest_suites": [],
+                    "source_manifest_sha256": [],
+                    "expected_models": [],
+                }
+            )
+            continue
+        suite, models = role_sources[role]
+        source = source_by_suite[suite]
+        suite_roles.append(
+            {
+                "role": role,
+                "status": "complete",
+                "reason": None,
+                "manifest_suites": [suite],
+                "source_manifest_sha256": [source["manifest"]["sha256"]],
+                "expected_models": models,
+            }
+        )
+    if framework_only:
+        used_suites = {
+            role_sources[role][0]
+            for role in required_roles
+            if role not in proposed_roles
+        }
+        source_by_suite = {
+            suite: source
+            for suite, source in source_by_suite.items()
+            if suite in used_suites
+        }
+    version_manifest = PROJECT_ROOT / f"data_versions/{data_version}/version_manifest.json"
+    anchors = PROJECT_ROOT / "metadata/frontier_anchors.csv"
+    registry: dict[str, object] = {
+        "schema_version": "formal_suite_registry_v1",
+        "finalized": True,
+        "bundle_kind": bundle_kind,
+        "bundle_role": bundle_role,
+        "data_version": data_version,
+        "evaluation_split": "development_test",
+        "design_hash": _contract(data_version)["design_hash"],
+        "code_identity": _contract(data_version)["code_identity"],
+        "registry_builder_identity": _registry_builder_identity(),
+        "data_version_manifest": _file_identity(version_manifest),
+        "frontier_anchor_catalog": {
+            **_file_identity(anchors),
+            "count": len(pd.read_csv(anchors)),
+            "data_version": "published_v1",
+            "evaluation_split": "development_test",
+        },
+        "formal_root": str(root.resolve()),
+        "finalized_model_roster": roster,
+        "not_applicable_suites": [],
+        "required_suite_roles": required_roles,
+        "suite_roles": suite_roles,
+        "sources": list(source_by_suite.values()),
+        "suites": [
+            {"name": suite, "path": source["run_directory"]}
+            for suite, source in source_by_suite.items()
+        ],
+        "registry_hash_scope": "canonical_json_excluding_registry_sha256",
+    }
+    registry["registry_sha256"] = _canonical_digest(registry)
+    registry_path = root / "formal_suite_registry.json"
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    return {
+        "formal_evidence": True,
+        "evidence_role": "formal_development_evaluation",
+        "bundle_kind": bundle_kind,
+        "bundle_role": bundle_role,
+        "finalized_model_roster": roster,
+        "required_suite_roles": required_roles,
+        "suite_roles": suite_roles,
+        "suite_registry": {
+            "source": "registry_file",
+            "path": str(registry_path.resolve()),
+            "size": registry_path.stat().st_size,
+            "sha256": _sha256(registry_path),
+        },
+    }
+
+
+def _write_minimal_bundle(
+    tmp_path: Path, *, framework_only: bool = False
+) -> tuple[Path, Path, Path]:
     evidence = _evidence()
     predictions = pd.DataFrame(
         [
@@ -125,6 +345,9 @@ def _write_minimal_bundle(tmp_path: Path) -> tuple[Path, Path, Path]:
     events.to_parquet(events_path, index=False)
     manifest = {
         **_contract(),
+        **_formal_registry_fields(
+            tmp_path, "published_v1", framework_only=framework_only
+        ),
         "schema_version": "formal_aggregate_manifest_v2",
         "frozen": True,
         "complete": True,
@@ -161,6 +384,7 @@ def _write_anchored_bundle(
     data_version: str,
     *,
     mae_offset: float,
+    framework_only: bool = False,
 ) -> tuple[Path, Path, Path]:
     root.mkdir(parents=True, exist_ok=True)
     evidence = _evidence(data_version)
@@ -206,6 +430,9 @@ def _write_anchored_bundle(
     count = len(event_rows)
     manifest = {
         **_contract(data_version),
+        **_formal_registry_fields(
+            root, data_version, framework_only=framework_only
+        ),
         "schema_version": "formal_aggregate_manifest_v2",
         "frozen": True,
         "complete": True,
@@ -247,11 +474,18 @@ def _write_anchored_bundle(
 
 
 def _clean_code_identity() -> dict[str, object]:
+    builder: dict[str, object] = {
+        "schema_version": "frozen_analysis_builder_identity_v1",
+        "sources": [],
+        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
+    }
+    builder["identity_sha256"] = _canonical_digest(builder)
     return {
         "schema_version": "analysis_code_identity_v1",
         "relevant_source_digest": "a" * 64,
         "relevant_source_file_count": 6,
         "files": [],
+        "frozen_analysis_builder": builder,
         "tracked_relevant_source_clean": True,
         "dirty_tracked_paths": [],
         "relevant_untracked_paths": [],
@@ -810,34 +1044,49 @@ def test_separate_frozen_sensitivity_bundles_run_end_to_end(
     primary_paths = _write_anchored_bundle(
         tmp_path / "primary", "published_v1", mae_offset=0.0
     )
-    sensitivity_paths = _write_anchored_bundle(
-        tmp_path / "sensitivity", "no_s2_suspect_v1", mae_offset=0.5
-    )
+    sensitivity_paths = [
+        _write_anchored_bundle(tmp_path / version, version, mae_offset=offset)
+        for version, offset in (
+            ("no_s2_suspect_v1", 0.5),
+            ("b1_no_level_v1", 0.25),
+            ("b1_shift_sensitivity_v1", -0.25),
+        )
+    ]
     primary = load_frozen_inputs(*primary_paths, DESIGN)
-    sensitivity = load_frozen_inputs_from_manifest(sensitivity_paths[2], DESIGN)
+    sensitivities = [
+        load_frozen_inputs_from_manifest(paths[2], DESIGN)
+        for paths in sensitivity_paths
+    ]
     output = tmp_path / "analysis"
     manifest = run_frozen_analysis(
         primary,
         output,
-        sensitivity_inputs=[sensitivity],
+        sensitivity_inputs=sensitivities,
     )
     table = pd.read_csv(output / "data_version_sensitivity.csv")
-    assert len(table) == 1
-    assert table.loc[0, "sensitivity_data_version"] == "no_s2_suspect_v1"
-    assert table.loc[0, "MAE_difference"] == pytest.approx(0.5)
+    assert len(table) == 3
+    assert set(table["sensitivity_data_version"]) == {
+        "no_s2_suspect_v1",
+        "b1_no_level_v1",
+        "b1_shift_sensitivity_v1",
+    }
     sensitivity_manifest = json.loads(
         (output / "data_version_sensitivity_manifest.json").read_text()
     )
     assert sensitivity_manifest["status"] == "complete"
     assert sensitivity_manifest["available_sensitivity_data_versions"] == [
-        "no_s2_suspect_v1"
+        "b1_no_level_v1",
+        "b1_shift_sensitivity_v1",
+        "no_s2_suspect_v1",
     ]
     assert manifest["data_version_inputs"]["no_s2_suspect_v1"]["status"] == (
         "available"
     )
-    assert manifest["data_version_inputs"]["b1_no_level_v1"]["status"] == (
-        "unavailable"
-    )
+    assert manifest["data_version_inputs"]["b1_no_level_v1"]["status"] == "available"
+    assert manifest["status"] == "incomplete"
+    assert "recoverability_frontier" in manifest["completion_gate"][
+        "unavailable_domains"
+    ]
 
 
 def test_frozen_bundle_rejects_hash_contract_and_completeness_mismatches(
@@ -879,9 +1128,23 @@ def test_dynamic_absence_writes_all_outputs_with_explicit_status(
     )
     predictions, events, manifest = _write_minimal_bundle(tmp_path)
     inputs = load_frozen_inputs(predictions, events, manifest, DESIGN)
+    sensitivities = [
+        load_frozen_inputs_from_manifest(
+            _write_anchored_bundle(tmp_path / version, version, mae_offset=0.1)[2],
+            DESIGN,
+        )
+        for version in (
+            "no_s2_suspect_v1",
+            "b1_no_level_v1",
+            "b1_shift_sensitivity_v1",
+        )
+    ]
     output = tmp_path / "analysis"
-    result = run_frozen_analysis(inputs, output)
-    assert result["status"] == "complete"
+    result = run_frozen_analysis(
+        inputs, output, sensitivity_inputs=sensitivities
+    )
+    assert result["status"] == "incomplete"
+    assert not result["complete"]
     assert (
         result["information_estimand_contracts"]["operational_dropout"][
             "required_coalition_count"
@@ -907,6 +1170,7 @@ def test_dynamic_absence_writes_all_outputs_with_explicit_status(
         result["artifacts"]["retrained_information_upper_bounds.csv"]["status"]
         == "unavailable"
     )
+    assert (output / "analysis_input_manifest.json").is_file()
 
 
 def test_analysis_run_fails_before_writing_when_analysis_source_is_dirty(
@@ -932,6 +1196,266 @@ def test_analysis_run_fails_before_writing_when_analysis_source_is_dirty(
     with pytest.raises(RuntimeError, match="analysis code identity is not clean"):
         run_frozen_analysis(inputs, output)
     assert not output.exists()
+
+
+def _completion_frames(*, framework_only: bool) -> dict[str, pd.DataFrame]:
+    frames = {
+        name: pd.DataFrame({"value": [1.0]}) for name in FIXED_ARTIFACTS
+    }
+    if framework_only:
+        for name in (
+            "information_combination_metrics.csv",
+            "operational_dropout_gains.csv",
+            "retrained_information_upper_bounds.csv",
+            "shapley_contributions.csv",
+            "information_interactions.csv",
+            "calibration_by_gap.csv",
+            "calibration_overall.csv",
+            "uncertainty_growth.csv",
+            "uncertainty_by_difficulty.csv",
+        ):
+            frames[name] = pd.DataFrame()
+        hypothesis_families = [
+            "frontier_model_vs_climatology",
+            "network_failure_set",
+            "event_vs_matched_control",
+            "data_version_sensitivity",
+        ]
+    else:
+        frames["information_combination_metrics.csv"] = pd.DataFrame(
+            {
+                "information_estimand": [
+                    "operational_dropout",
+                    "retrained_upper_bound",
+                ]
+            }
+        )
+        hypothesis_families = list(load_frozen_statistics(DESIGN).hypothesis_families)
+    frames["data_version_sensitivity.csv"] = pd.DataFrame(
+        {
+            "sensitivity_data_version": [
+                "no_s2_suspect_v1",
+                "b1_no_level_v1",
+                "b1_shift_sensitivity_v1",
+            ]
+        }
+    )
+    frames["hypothesis_tests.csv"] = pd.DataFrame(
+        {
+            "hypothesis_family": hypothesis_families,
+            "p_value": [0.5] * len(hypothesis_families),
+            "p_bh": [0.5] * len(hypothesis_families),
+        }
+    )
+    return frames
+
+
+def test_completion_gate_requires_every_domain_and_all_sensitivity_versions() -> None:
+    statistics = load_frozen_statistics(DESIGN)
+    complete = frozen_pipeline_module._analysis_completion_gate(
+        _completion_frames(framework_only=False),
+        overlap_summary={"status": "ok"},
+        statistics=statistics,
+        proposed_decision="include_proposed_formally",
+        selected_models=["linear", "csdi", "proposed"],
+    )
+    assert complete["status"] == "complete"
+    assert complete["complete"]
+    assert complete["unavailable_domains"] == []
+
+    missing_domain = _completion_frames(framework_only=False)
+    missing_domain["resilience_auc.csv"] = pd.DataFrame()
+    unavailable = frozen_pipeline_module._analysis_completion_gate(
+        missing_domain,
+        overlap_summary={"status": "ok"},
+        statistics=statistics,
+        proposed_decision="include_proposed_formally",
+        selected_models=["linear", "csdi", "proposed"],
+    )
+    assert unavailable["status"] == "incomplete"
+    assert unavailable["unavailable_domains"] == ["network_resilience"]
+
+    missing_version = _completion_frames(framework_only=False)
+    missing_version["data_version_sensitivity.csv"] = missing_version[
+        "data_version_sensitivity.csv"
+    ].iloc[:2]
+    unavailable = frozen_pipeline_module._analysis_completion_gate(
+        missing_version,
+        overlap_summary={"status": "ok"},
+        statistics=statistics,
+        proposed_decision="include_proposed_formally",
+        selected_models=["linear", "csdi", "proposed"],
+    )
+    assert "data_version_sensitivity" in unavailable["unavailable_domains"]
+
+
+def test_framework_only_allows_only_structural_na_and_not_missing_core_domains() -> None:
+    statistics = load_frozen_statistics(DESIGN)
+    framework = frozen_pipeline_module._analysis_completion_gate(
+        _completion_frames(framework_only=True),
+        overlap_summary={"status": "ok"},
+        statistics=statistics,
+        proposed_decision="framework_only",
+        selected_models=["linear"],
+    )
+    assert framework["status"] == "complete"
+    assert framework["claim_downgrades"] == [
+        "uncertainty_calibration_not_claimed"
+    ]
+    statuses = {item["domain"]: item["status"] for item in framework["domains"]}
+    assert statuses["operational_information"] == "not_applicable"
+    assert statuses["retrained_information"] == "not_applicable"
+    assert statuses["uncertainty_calibration"] == "not_applicable"
+    assert statuses["network_resilience"] == "complete"
+
+    missing_dense = _completion_frames(framework_only=True)
+    missing_dense["statistical_frontiers.csv"] = pd.DataFrame()
+    failed = frozen_pipeline_module._analysis_completion_gate(
+        missing_dense,
+        overlap_summary={"status": "ok"},
+        statistics=statistics,
+        proposed_decision="framework_only",
+        selected_models=["linear"],
+    )
+    assert failed["status"] == "incomplete"
+    assert "recoverability_frontier" in failed["unavailable_domains"]
+
+
+def test_frozen_analysis_rejects_missing_or_duplicate_sensitivity_manifests(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        frozen_pipeline_module,
+        "build_analysis_code_identity",
+        _clean_code_identity,
+    )
+    primary = load_frozen_inputs(
+        *_write_anchored_bundle(
+            tmp_path / "primary", "published_v1", mae_offset=0.0
+        ),
+        DESIGN,
+    )
+    sensitivities = [
+        load_frozen_inputs_from_manifest(
+            _write_anchored_bundle(tmp_path / version, version, mae_offset=0.1)[2],
+            DESIGN,
+        )
+        for version in (
+            "no_s2_suspect_v1",
+            "b1_no_level_v1",
+            "b1_shift_sensitivity_v1",
+        )
+    ]
+    output = tmp_path / "must-not-exist"
+    with pytest.raises(ValueError, match="every sensitivity version"):
+        run_frozen_analysis(primary, output, sensitivity_inputs=sensitivities[:2])
+    assert not output.exists()
+    with pytest.raises(ValueError, match="duplicate sensitivity bundle"):
+        run_frozen_analysis(
+            primary,
+            output,
+            sensitivity_inputs=[sensitivities[0], sensitivities[0], sensitivities[2]],
+        )
+    assert not output.exists()
+
+
+def test_analysis_input_manifest_closes_registry_sources_and_builder_identity(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        frozen_pipeline_module,
+        "build_analysis_code_identity",
+        _clean_code_identity,
+    )
+    primary = load_frozen_inputs(
+        *_write_anchored_bundle(
+            tmp_path / "primary", "published_v1", mae_offset=0.0
+        ),
+        DESIGN,
+    )
+    sensitivities = [
+        load_frozen_inputs_from_manifest(
+            _write_anchored_bundle(tmp_path / version, version, mae_offset=0.1)[2],
+            DESIGN,
+        )
+        for version in (
+            "no_s2_suspect_v1",
+            "b1_no_level_v1",
+            "b1_shift_sensitivity_v1",
+        )
+    ]
+    output = tmp_path / "analysis"
+    run_frozen_analysis(primary, output, sensitivity_inputs=sensitivities)
+    value = json.loads((output / "analysis_input_manifest.json").read_text())
+    assert value["status"] == "complete"
+    assert value["registry_count"] == 4
+    bundles = [value["bundles"]["primary"], *value["bundles"]["sensitivity"]]
+    for bundle in bundles:
+        registry = bundle["formal_registry"]
+        assert len(registry["registry_file"]["sha256"]) == 64
+        assert len(registry["registry_builder_identity"]["sources"]) == 2
+        assert registry["source_manifests"]
+        assert registry["suite_roles"]
+
+
+def test_frozen_input_rejects_tampered_registry_source_identity(tmp_path: Path) -> None:
+    predictions, events, manifest_path = _write_minimal_bundle(tmp_path)
+    aggregate = json.loads(manifest_path.read_text())
+    registry_path = Path(aggregate["suite_registry"]["path"])
+    registry = json.loads(registry_path.read_text())
+    source_path = Path(registry["sources"][0]["manifest"]["path"])
+    source_path.write_text(
+        source_path.read_text(encoding="utf-8") + "\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="recorded bytes/SHA-256"):
+        load_frozen_inputs(predictions, events, manifest_path, DESIGN)
+
+
+def test_analysis_cli_requires_exactly_three_explicit_sensitivity_manifests(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    script = PROJECT_ROOT / "scripts/09_analyze_results.py"
+    specification = importlib.util.spec_from_file_location(
+        "frozen_analysis_cli_test", script
+    )
+    assert specification is not None and specification.loader is not None
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    with pytest.raises(SystemExit) as error:
+        module.main(["--sensitivity-manifest", "only-one.json"])
+    assert error.value.code == 2
+
+    sentinel = object()
+    loaded: list[Path] = []
+    monkeypatch.setattr(module, "load_frozen_inputs", lambda *args: sentinel)
+
+    def load_sensitivity(path: Path, _design: Path) -> object:
+        loaded.append(path)
+        return sentinel
+
+    monkeypatch.setattr(module, "load_frozen_inputs_from_manifest", load_sensitivity)
+    monkeypatch.setattr(
+        module,
+        "run_frozen_analysis",
+        lambda *args, **kwargs: {"status": "complete", "artifacts": {}},
+    )
+    assert (
+        module.main(
+            [
+                "--sensitivity-manifest",
+                "no_s2.json",
+                "--sensitivity-manifest",
+                "no_level.json",
+                "--sensitivity-manifest",
+                "shift.json",
+            ]
+        )
+        == 0
+    )
+    assert loaded == [Path("no_s2.json"), Path("no_level.json"), Path("shift.json")]
 
 
 def test_analysis_code_identity_is_clone_stable_and_audits_git_scope() -> None:

@@ -110,6 +110,49 @@ ANALYSIS_CODE_PATHS = (
     "src/stream_recoverability/analysis/resilience.py",
     "src/stream_recoverability/analysis/uncertainty.py",
 )
+ANALYSIS_BUILDER_PATHS = (
+    "scripts/09_analyze_results.py",
+    "src/stream_recoverability/analysis/frozen_pipeline.py",
+)
+FROZEN_PRIMARY_DATA_VERSION = "published_v1"
+FROZEN_SENSITIVITY_DATA_VERSIONS = (
+    "no_s2_suspect_v1",
+    "b1_no_level_v1",
+    "b1_shift_sensitivity_v1",
+)
+PRIMARY_REQUIRED_SUITE_ROLES = (
+    "core_full",
+    "dense_frontier",
+    "network_resilience",
+    "event_uncertainty",
+    "operational_dropout",
+    "retrained_upper_bound",
+)
+SENSITIVITY_REQUIRED_SUITE_ROLES = (
+    "sensitivity_core_T",
+    "sensitivity_dense_frontier",
+    "sensitivity_operational_dropout",
+)
+PROPOSED_PRIMARY_ROLES = frozenset(
+    {"operational_dropout", "retrained_upper_bound"}
+)
+PROPOSED_SENSITIVITY_ROLES = frozenset({"sensitivity_operational_dropout"})
+FORMAL_REGISTRY_BUILDER_PATHS = (
+    "scripts/21_build_formal_suite_registry.py",
+    "src/stream_recoverability/analysis/formal_registry.py",
+)
+REQUIRED_ANALYSIS_DOMAINS = (
+    "formal_input_roles",
+    "overlap_audit",
+    "recoverability_frontier",
+    "operational_information",
+    "retrained_information",
+    "network_resilience",
+    "event_uncertainty",
+    "uncertainty_calibration",
+    "data_version_sensitivity",
+    "hypothesis_families",
+)
 OPERATIONAL_INFORMATION_COMBINATIONS = tuple(information_combinations())
 RETRAINED_INFORMATION_COMBINATIONS = (
     frozenset(),
@@ -152,6 +195,9 @@ class FrozenInputs:
     events_path: Path
     manifest_path: Path
     design_path: Path
+    registry: dict[str, Any]
+    registry_path: Path
+    registry_identity: dict[str, Any]
 
 
 @dataclass(frozen=True)
@@ -192,7 +238,7 @@ def _file_sha256(path: Path) -> str:
 def build_analysis_code_identity(
     repository_root: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Return a clone-stable digest and scoped Git cleanliness audit."""
+    """Return clone-stable layered identities and a scoped Git cleanliness audit."""
 
     root = (
         Path(repository_root).resolve()
@@ -206,7 +252,13 @@ def build_analysis_code_identity(
         if not path.is_file():
             missing.append(relative)
         else:
-            identities.append({"path": relative, "sha256": _file_sha256(path)})
+            identities.append(
+                {
+                    "path": relative,
+                    "bytes": path.stat().st_size,
+                    "sha256": _file_sha256(path),
+                }
+            )
     try:
         dirty_process = subprocess.run(
             (
@@ -260,11 +312,20 @@ def build_analysis_code_identity(
         else []
     )
     clean = bool(git_available and not missing and not dirty and not untracked)
+    by_path = {item["path"]: item for item in identities}
+    builder_sources = [by_path[path] for path in ANALYSIS_BUILDER_PATHS if path in by_path]
+    builder_identity: dict[str, Any] = {
+        "schema_version": "frozen_analysis_builder_identity_v1",
+        "sources": builder_sources,
+        "identity_hash_scope": "canonical_json_excluding_identity_sha256",
+    }
+    builder_identity["identity_sha256"] = _canonical_digest(builder_identity)
     return {
         "schema_version": "analysis_code_identity_v1",
         "relevant_source_digest": _canonical_digest({"files": identities}),
         "relevant_source_file_count": len(identities),
         "files": identities,
+        "frozen_analysis_builder": builder_identity,
         "tracked_relevant_source_clean": not dirty if git_available else False,
         "dirty_tracked_paths": dirty,
         "relevant_untracked_paths": untracked,
@@ -380,6 +441,17 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
                 float(declaration["value"]),
             )
 
+    primary_data_version = str(design["data_versions"]["primary"])
+    sensitivity_data_versions = tuple(
+        str(value) for value in design["data_versions"]["required_sensitivity"]
+    )
+    if primary_data_version != FROZEN_PRIMARY_DATA_VERSION:
+        raise ValueError("analysis design changed the frozen primary data version")
+    if sensitivity_data_versions != FROZEN_SENSITIVITY_DATA_VERSIONS:
+        raise ValueError(
+            "analysis design changed the exact ordered sensitivity data versions"
+        )
+
     return FrozenStatistics(
         bootstrap,
         seed,
@@ -389,8 +461,8 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
         application_criteria,
         tuple(float(value) for value in mask_design["dense_T_block_lengths"]),
         tuple(float(value) for value in mask_design["dense_FL_block_lengths"]),
-        str(design["data_versions"]["primary"]),
-        tuple(str(value) for value in design["data_versions"]["required_sensitivity"]),
+        primary_data_version,
+        sensitivity_data_versions,
     )
 
 
@@ -487,11 +559,124 @@ def _manifest_contracts(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
     return contracts
 
 
+def _lower_sha256(value: object, label: str) -> str:
+    if (
+        not isinstance(value, str)
+        or len(value) != 64
+        or any(character not in "0123456789abcdef" for character in value)
+    ):
+        raise ValueError(f"{label} must be a lowercase SHA-256")
+    return value
+
+
+def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    bundle_role = manifest.get("bundle_role")
+    if bundle_role == "primary":
+        expected_kind = "primary"
+        required_roles = list(PRIMARY_REQUIRED_SUITE_ROLES)
+        proposed_roles = PROPOSED_PRIMARY_ROLES
+    elif bundle_role == "sensitivity_compact":
+        expected_kind = "sensitivity"
+        required_roles = list(SENSITIVITY_REQUIRED_SUITE_ROLES)
+        proposed_roles = PROPOSED_SENSITIVITY_ROLES
+    else:
+        raise ValueError("top manifest has an unknown or missing bundle_role")
+    if manifest.get("bundle_kind") != expected_kind:
+        raise ValueError("top manifest bundle_kind disagrees with bundle_role")
+    if manifest.get("required_suite_roles") != required_roles:
+        raise ValueError("top manifest required suite-role inventory is incomplete")
+    roster = manifest.get("finalized_model_roster")
+    if not isinstance(roster, Mapping):
+        raise TypeError("top manifest lacks finalized_model_roster")
+    selected = roster.get("selected_models")
+    decision = roster.get("proposed_decision")
+    if (
+        not isinstance(selected, list)
+        or not selected
+        or len(set(selected)) != len(selected)
+        or decision not in {"include_proposed_formally", "framework_only"}
+        or ("proposed" in selected) != (decision == "include_proposed_formally")
+    ):
+        raise ValueError("top manifest finalized roster is inconsistent")
+    roster_sha = _lower_sha256(roster.get("sha256"), "finalized roster SHA-256")
+    roster_path = roster.get("path")
+    if not isinstance(roster_path, str) or not roster_path:
+        raise ValueError("top manifest finalized roster lacks a path")
+
+    raw_roles = manifest.get("suite_roles")
+    if not isinstance(raw_roles, list) or len(raw_roles) != len(required_roles):
+        raise ValueError("top manifest suite_roles does not close required roles")
+    if [item.get("role") if isinstance(item, Mapping) else None for item in raw_roles] != required_roles:
+        raise ValueError("top manifest suite_roles is missing, reordered, or duplicated")
+    roles: list[dict[str, Any]] = []
+    for raw, role in zip(raw_roles, required_roles, strict=True):
+        if not isinstance(raw, Mapping):
+            raise TypeError("top manifest suite role rows must be mappings")
+        if set(raw) != {
+            "role",
+            "status",
+            "reason",
+            "manifest_suites",
+            "source_manifest_sha256",
+            "expected_models",
+        }:
+            raise ValueError(f"top manifest role {role} fields are not frozen")
+        item = dict(raw)
+        should_be_na = decision == "framework_only" and role in proposed_roles
+        if should_be_na:
+            expected = {
+                "role": role,
+                "status": "not_applicable",
+                "reason": "proposed_decision=framework_only",
+                "manifest_suites": [],
+                "source_manifest_sha256": [],
+                "expected_models": [],
+            }
+            if item != expected:
+                raise ValueError(f"top manifest role {role} must be not_applicable")
+        else:
+            if item.get("status") != "complete" or item.get("reason") is not None:
+                raise ValueError(f"top manifest role {role} is not complete")
+            for field in (
+                "manifest_suites",
+                "source_manifest_sha256",
+                "expected_models",
+            ):
+                values = item.get(field)
+                if (
+                    not isinstance(values, list)
+                    or not values
+                    or not all(isinstance(value, str) and value for value in values)
+                    or len(values) != len(set(values))
+                ):
+                    raise ValueError(f"top manifest role {role} has invalid {field}")
+            for digest in item["source_manifest_sha256"]:
+                _lower_sha256(digest, f"top manifest role {role} source hash")
+        roles.append(item)
+    return {
+        "bundle_kind": expected_kind,
+        "bundle_role": bundle_role,
+        "required_suite_roles": required_roles,
+        "suite_roles": roles,
+        "finalized_model_roster": {
+            "path": roster_path,
+            "sha256": roster_sha,
+            "selected_models": list(selected),
+            "proposed_decision": decision,
+        },
+    }
+
+
 def _validate_completion(manifest: Mapping[str, Any]) -> None:
     if manifest.get("schema_version") != "formal_aggregate_manifest_v2":
         raise ValueError("analysis requires formal_aggregate_manifest_v2")
     if manifest.get("frozen") is not True:
         raise ValueError("top manifest must declare frozen=true")
+    if manifest.get("formal_evidence") is not True:
+        raise ValueError("top manifest must declare formal_evidence=true")
+    if manifest.get("evidence_role") != "formal_development_evaluation":
+        raise ValueError("top manifest is not formal development evidence")
+    _validate_bundle_roles(manifest)
     for field in (
         "complete",
         "formal_design_complete",
@@ -560,11 +745,21 @@ def _validate_table_contract(
     *,
     context: str,
 ) -> None:
-    _require_columns(frame, EVIDENCE_FIELDS, context)
+    _require_columns(
+        frame,
+        (*EVIDENCE_FIELDS, "formal_evidence", "evidence_role"),
+        context,
+    )
     if frame.empty:
         raise ValueError(f"{context} is empty")
     if frame.loc[:, EVIDENCE_FIELDS].isna().any().any():
         raise ValueError(f"{context} contains null evidence-contract fields")
+    if not frame["formal_evidence"].eq(True).all():
+        raise ValueError(f"{context} requires formal_evidence=true")
+    if not frame["evidence_role"].astype(str).eq(
+        "formal_development_evaluation"
+    ).all():
+        raise ValueError(f"{context} is not formal development evidence")
     observed = {
         tuple(str(value) for value in row)
         for row in frame.loc[:, EVIDENCE_FIELDS]
@@ -580,6 +775,364 @@ def _validate_table_contract(
             f"{context} evidence contracts differ from the top manifest: "
             f"observed={sorted(observed)}, declared={sorted(declared)}"
         )
+
+
+def _repository_path(value: object, *, declaring_file: Path, label: str) -> Path:
+    if not isinstance(value, str) or not value or value.strip() != value:
+        raise ValueError(f"{label} must be a normalized non-empty path")
+    candidate = Path(value)
+    if candidate.is_absolute():
+        return candidate.resolve()
+    repository_candidate = Path(__file__).resolve().parents[3] / candidate
+    local_candidate = declaring_file.parent / candidate
+    if repository_candidate.exists() or not local_candidate.exists():
+        return repository_candidate.resolve()
+    return local_candidate.resolve()
+
+
+def _verified_file_identity(
+    value: object,
+    *,
+    declaring_file: Path,
+    label: str,
+    allowed_fields: frozenset[str] | None = None,
+) -> tuple[Path, dict[str, Any]]:
+    if not isinstance(value, Mapping):
+        raise TypeError(f"{label} must be a file identity mapping")
+    fields = set(value)
+    if allowed_fields is not None and fields != set(allowed_fields):
+        raise ValueError(f"{label} fields are not frozen: {sorted(fields)}")
+    path = _repository_path(
+        value.get("path"), declaring_file=declaring_file, label=f"{label}.path"
+    )
+    if not path.is_file():
+        raise FileNotFoundError(f"{label} does not exist: {path}")
+    byte_count = value.get("bytes", value.get("size"))
+    digest = value.get("sha256")
+    if type(byte_count) is not int or byte_count < 0:
+        raise ValueError(f"{label} has an invalid byte count")
+    if (
+        not isinstance(digest, str)
+        or len(digest) != 64
+        or any(character not in "0123456789abcdef" for character in digest)
+    ):
+        raise ValueError(f"{label} has a malformed SHA-256")
+    if byte_count != path.stat().st_size or digest != _file_sha256(path):
+        raise ValueError(f"{label} differs from its recorded bytes/SHA-256")
+    return path, {"path": str(path), "bytes": byte_count, "sha256": digest}
+
+
+def _validate_registry_builder_identity(
+    value: object, *, registry_path: Path
+) -> dict[str, Any]:
+    if not isinstance(value, Mapping):
+        raise TypeError("formal registry requires registry_builder_identity")
+    if set(value) != {
+        "schema_version",
+        "sources",
+        "identity_hash_scope",
+        "identity_sha256",
+    }:
+        raise ValueError("formal registry builder identity fields are not frozen")
+    if value.get("schema_version") != "formal_registry_builder_identity_v1":
+        raise ValueError("formal registry builder identity schema is not frozen")
+    if value.get("identity_hash_scope") != (
+        "canonical_json_excluding_identity_sha256"
+    ):
+        raise ValueError("formal registry builder identity hash scope is unknown")
+    unsigned = {key: item for key, item in value.items() if key != "identity_sha256"}
+    if value.get("identity_sha256") != _canonical_digest(unsigned):
+        raise ValueError("formal registry builder identity SHA-256 is inconsistent")
+    sources = value.get("sources")
+    if not isinstance(sources, list) or len(sources) != len(
+        FORMAL_REGISTRY_BUILDER_PATHS
+    ):
+        raise ValueError("formal registry builder source inventory is incomplete")
+    observed_paths: list[str] = []
+    for index, source in enumerate(sources):
+        path, _ = _verified_file_identity(
+            source,
+            declaring_file=registry_path,
+            label=f"registry_builder_identity.sources[{index}]",
+            allowed_fields=frozenset({"path", "bytes", "sha256"}),
+        )
+        relative = path.resolve().relative_to(Path(__file__).resolve().parents[3])
+        observed_paths.append(relative.as_posix())
+    if tuple(observed_paths) != FORMAL_REGISTRY_BUILDER_PATHS:
+        raise ValueError("formal registry builder sources/order are not frozen")
+    return json.loads(json.dumps(dict(value)))
+
+
+def _load_formal_registry(
+    aggregate_manifest: Mapping[str, Any],
+    *,
+    aggregate_manifest_path: Path,
+    contract: Mapping[str, Any],
+) -> tuple[dict[str, Any], Path, dict[str, Any]]:
+    """Reverse-load and close the registry trust chain for one aggregate."""
+
+    raw_identity = aggregate_manifest.get("suite_registry")
+    registry_path, registry_file = _verified_file_identity(
+        raw_identity,
+        declaring_file=aggregate_manifest_path,
+        label="aggregate suite_registry",
+        allowed_fields=frozenset({"source", "path", "size", "sha256"}),
+    )
+    if raw_identity.get("source") != "registry_file":
+        raise ValueError("analysis requires a persisted registry_file input")
+    registry = _read_mapping(registry_path)
+    if registry.get("schema_version") != "formal_suite_registry_v1":
+        raise ValueError("analysis requires formal_suite_registry_v1")
+    if registry.get("finalized") is not True:
+        raise ValueError("formal suite registry must declare finalized=true")
+    if registry.get("registry_hash_scope") != (
+        "canonical_json_excluding_registry_sha256"
+    ):
+        raise ValueError("formal suite registry hash scope is unknown")
+    unsigned = {
+        key: item for key, item in registry.items() if key != "registry_sha256"
+    }
+    if registry.get("registry_sha256") != _canonical_digest(unsigned):
+        raise ValueError("formal suite registry canonical SHA-256 is inconsistent")
+
+    data_version = str(contract["data_version"])
+    expected_primary = data_version == FROZEN_PRIMARY_DATA_VERSION
+    expected_roles = (
+        PRIMARY_REQUIRED_SUITE_ROLES
+        if expected_primary
+        else SENSITIVITY_REQUIRED_SUITE_ROLES
+    )
+    expected_bundle_role = "primary" if expected_primary else "sensitivity_compact"
+    expected_bundle_kind = "primary" if expected_primary else "sensitivity"
+    for field, expected in (
+        ("data_version", data_version),
+        ("evaluation_split", contract["evaluation_split"]),
+        ("design_hash", contract["design_hash"]),
+        ("code_identity", contract["code_identity"]),
+        ("bundle_role", expected_bundle_role),
+        ("bundle_kind", expected_bundle_kind),
+        ("required_suite_roles", list(expected_roles)),
+    ):
+        if registry.get(field) != expected:
+            raise ValueError(f"formal suite registry {field} is inconsistent")
+
+    builder_identity = _validate_registry_builder_identity(
+        registry.get("registry_builder_identity"), registry_path=registry_path
+    )
+    _, data_version_manifest_identity = _verified_file_identity(
+        registry.get("data_version_manifest"),
+        declaring_file=registry_path,
+        label="formal registry data_version_manifest",
+        allowed_fields=frozenset({"path", "bytes", "sha256"}),
+    )
+    raw_anchor_catalog = registry.get("frontier_anchor_catalog")
+    if not isinstance(raw_anchor_catalog, Mapping) or set(raw_anchor_catalog) != {
+        "path",
+        "bytes",
+        "sha256",
+        "count",
+        "data_version",
+        "evaluation_split",
+    }:
+        raise ValueError("formal registry frontier anchor identity is not frozen")
+    anchor_path, anchor_identity = _verified_file_identity(
+        {
+            field: raw_anchor_catalog[field]
+            for field in ("path", "bytes", "sha256")
+        },
+        declaring_file=registry_path,
+        label="formal registry frontier_anchor_catalog",
+        allowed_fields=frozenset({"path", "bytes", "sha256"}),
+    )
+    anchor_count = raw_anchor_catalog.get("count")
+    if (
+        type(anchor_count) is not int
+        or anchor_count <= 0
+        or len(pd.read_csv(anchor_path)) != anchor_count
+        or raw_anchor_catalog.get("data_version") != FROZEN_PRIMARY_DATA_VERSION
+        or raw_anchor_catalog.get("evaluation_split") != "development_test"
+    ):
+        raise ValueError("formal registry frontier anchor catalog is inconsistent")
+    frontier_anchor_identity = {
+        **anchor_identity,
+        "count": anchor_count,
+        "data_version": raw_anchor_catalog["data_version"],
+        "evaluation_split": raw_anchor_catalog["evaluation_split"],
+    }
+    raw_roster = registry.get("finalized_model_roster")
+    if not isinstance(raw_roster, Mapping) or set(raw_roster) != {
+        "path",
+        "sha256",
+        "selected_models",
+        "proposed_decision",
+    }:
+        raise ValueError("formal suite registry roster identity is not frozen")
+    roster_path = _repository_path(
+        raw_roster.get("path"),
+        declaring_file=registry_path,
+        label="finalized_model_roster.path",
+    )
+    if not roster_path.is_file() or _file_sha256(roster_path) != raw_roster.get(
+        "sha256"
+    ):
+        raise ValueError("finalized model roster hash is stale")
+    roster_document = _read_mapping(roster_path)
+    selected_models = raw_roster.get("selected_models")
+    proposed_decision = raw_roster.get("proposed_decision")
+    if (
+        not isinstance(selected_models, list)
+        or not selected_models
+        or len(set(selected_models)) != len(selected_models)
+        or roster_document.get("selected_models") != selected_models
+        or roster_document.get("proposed_decision") != proposed_decision
+    ):
+        raise ValueError("finalized model roster selection fields are inconsistent")
+    if proposed_decision not in {"include_proposed_formally", "framework_only"}:
+        raise ValueError("finalized model roster has an unknown proposed decision")
+
+    raw_sources = registry.get("sources")
+    if not isinstance(raw_sources, list) or not raw_sources:
+        raise ValueError("formal suite registry requires source manifests")
+    source_by_hash: dict[str, dict[str, Any]] = {}
+    for index, raw_source in enumerate(raw_sources):
+        if not isinstance(raw_source, Mapping) or set(raw_source) != {
+            "suite",
+            "run_directory",
+            "manifest",
+            "models",
+        }:
+            raise ValueError("formal suite registry source fields are not frozen")
+        models = raw_source.get("models")
+        suite = raw_source.get("suite")
+        if (
+            not isinstance(suite, str)
+            or not suite
+            or not isinstance(models, list)
+            or not models
+            or len(set(models)) != len(models)
+        ):
+            raise ValueError("formal suite registry source suite/models are invalid")
+        source_path, source_identity = _verified_file_identity(
+            raw_source.get("manifest"),
+            declaring_file=registry_path,
+            label=f"formal registry source {index}",
+            allowed_fields=frozenset({"path", "bytes", "sha256"}),
+        )
+        run_directory = _repository_path(
+            raw_source.get("run_directory"),
+            declaring_file=registry_path,
+            label=f"formal registry source {index} run_directory",
+        )
+        if source_path.parent != run_directory:
+            raise ValueError("formal registry source directory/manifest disagree")
+        source_manifest = _read_mapping(source_path)
+        if source_manifest.get("suite") != suite or source_manifest.get(
+            "models"
+        ) != models:
+            raise ValueError("formal registry source manifest suite/models disagree")
+        if source_identity["sha256"] in source_by_hash:
+            raise ValueError("formal registry source manifests are duplicated")
+        source_by_hash[source_identity["sha256"]] = {
+            "suite": suite,
+            "run_directory": str(run_directory),
+            "manifest": source_identity,
+            "models": list(models),
+        }
+
+    raw_roles = registry.get("suite_roles")
+    if not isinstance(raw_roles, list) or len(raw_roles) != len(expected_roles):
+        raise ValueError("formal suite registry role inventory is incomplete")
+    roles: dict[str, dict[str, Any]] = {}
+    for raw_role in raw_roles:
+        if not isinstance(raw_role, Mapping) or set(raw_role) != {
+            "role",
+            "status",
+            "reason",
+            "manifest_suites",
+            "source_manifest_sha256",
+            "expected_models",
+        }:
+            raise ValueError("formal suite registry role fields are not frozen")
+        role = raw_role.get("role")
+        if not isinstance(role, str) or role in roles:
+            raise ValueError("formal suite registry roles are missing or duplicated")
+        roles[role] = dict(raw_role)
+    if set(roles) != set(expected_roles):
+        raise ValueError("formal suite registry roles differ from frozen requirements")
+    allowed_not_applicable = (
+        PROPOSED_PRIMARY_ROLES if expected_primary else PROPOSED_SENSITIVITY_ROLES
+    )
+    for role in expected_roles:
+        item = roles[role]
+        should_be_na = (
+            proposed_decision == "framework_only" and role in allowed_not_applicable
+        )
+        if should_be_na:
+            if item != {
+                "role": role,
+                "status": "not_applicable",
+                "reason": "proposed_decision=framework_only",
+                "manifest_suites": [],
+                "source_manifest_sha256": [],
+                "expected_models": [],
+            }:
+                raise ValueError(f"formal suite role {role} must be not_applicable")
+            continue
+        if item.get("status") != "complete" or item.get("reason") is not None:
+            raise ValueError(f"formal suite role {role} is not complete")
+        hashes = item.get("source_manifest_sha256")
+        suites = item.get("manifest_suites")
+        expected_models = item.get("expected_models")
+        if (
+            not isinstance(hashes, list)
+            or not hashes
+            or len(set(hashes)) != len(hashes)
+            or not set(hashes).issubset(source_by_hash)
+            or not isinstance(suites, list)
+            or not suites
+            or set(suites)
+            != {source_by_hash[digest]["suite"] for digest in hashes}
+            or not isinstance(expected_models, list)
+            or not expected_models
+            or len(set(expected_models)) != len(expected_models)
+            or set(expected_models)
+            != {
+                model
+                for digest in hashes
+                for model in source_by_hash[digest]["models"]
+            }
+        ):
+            raise ValueError(f"formal suite role {role} source binding is incomplete")
+
+    registry_identity = {
+        "schema_version": "analysis_registry_input_v1",
+        "registry_file": registry_file,
+        "registry_sha256": registry["registry_sha256"],
+        "registry_builder_identity": builder_identity,
+        "data_version_manifest": data_version_manifest_identity,
+        "frontier_anchor_catalog": frontier_anchor_identity,
+        "bundle_kind": expected_bundle_kind,
+        "bundle_role": expected_bundle_role,
+        "data_version": data_version,
+        "evaluation_split": contract["evaluation_split"],
+        "design_hash": contract["design_hash"],
+        "code_identity": dict(contract["code_identity"]),
+        "finalized_model_roster": {
+            "path": str(roster_path),
+            "sha256": raw_roster["sha256"],
+            "selected_models": list(selected_models),
+            "proposed_decision": proposed_decision,
+        },
+        "required_suite_roles": list(expected_roles),
+        "suite_roles": [roles[role] for role in expected_roles],
+        "source_manifests": [
+            source_by_hash[digest] for digest in sorted(source_by_hash)
+        ],
+    }
+    registry_identity["input_identity_sha256"] = _canonical_digest(
+        registry_identity
+    )
+    return registry, registry_path, registry_identity
 
 
 def load_frozen_inputs(
@@ -632,6 +1185,11 @@ def load_frozen_inputs(
             allowed_versions = set(design["data_versions"]["definitions"])
             if contract["data_version"] not in allowed_versions:
                 raise ValueError("evidence contract uses an undeclared data version")
+    registry, registry_path, registry_identity = _load_formal_registry(
+        manifest,
+        aggregate_manifest_path=manifest_file,
+        contract=contracts[0],
+    )
     for kind, path in (
         ("predictions", predictions_file),
         ("event_metrics", events_file),
@@ -669,6 +1227,9 @@ def load_frozen_inputs(
         events_file,
         manifest_file,
         design_file,
+        registry,
+        registry_path,
+        registry_identity,
     )
 
 
@@ -2669,15 +3230,25 @@ EMPTY_SCHEMAS: dict[str, tuple[str, ...]] = {
 
 
 def _prepare_output(
-    frame: pd.DataFrame, name: str, reason: str | None = None
+    frame: pd.DataFrame,
+    name: str,
+    reason: str | None = None,
+    empty_status: str = "unavailable",
+    nonempty_status: str = "ok",
 ) -> pd.DataFrame:
     if frame.empty:
         result = pd.DataFrame(columns=EMPTY_SCHEMAS[name])
-        result.attrs["status"] = "unavailable"
+        if empty_status not in {"unavailable", "not_applicable"}:
+            raise ValueError(f"unknown empty artifact status: {empty_status}")
+        result.attrs["status"] = empty_status
         result.attrs["reason"] = reason or "no eligible frozen rows"
         return result
+    if nonempty_status not in {"ok", "not_applicable"}:
+        raise ValueError(f"unknown non-empty artifact status: {nonempty_status}")
     result = frame.copy()
-    result["status"] = "ok"
+    result["status"] = nonempty_status
+    result.attrs["status"] = nonempty_status
+    result.attrs["reason"] = reason if nonempty_status != "ok" else None
     return result
 
 
@@ -2723,6 +3294,322 @@ def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
     temporary.replace(path)
 
 
+def _bundle_input_identity(inputs: FrozenInputs) -> dict[str, Any]:
+    contract = _manifest_contracts(inputs.manifest)[0]
+    value: dict[str, Any] = {
+        "data_version": contract["data_version"],
+        "evaluation_split": contract["evaluation_split"],
+        "design_hash": contract["design_hash"],
+        "code_identity": contract["code_identity"],
+        "aggregate_manifest": {
+            "path": str(inputs.manifest_path),
+            "bytes": inputs.manifest_path.stat().st_size,
+            "sha256": _file_sha256(inputs.manifest_path),
+        },
+        "predictions": {
+            "path": str(inputs.predictions_path),
+            "bytes": inputs.predictions_path.stat().st_size,
+            "sha256": _file_sha256(inputs.predictions_path),
+        },
+        "event_metrics": {
+            "path": str(inputs.events_path),
+            "bytes": inputs.events_path.stat().st_size,
+            "sha256": _file_sha256(inputs.events_path),
+        },
+        "formal_registry": inputs.registry_identity,
+    }
+    value["bundle_input_sha256"] = _canonical_digest(value)
+    return value
+
+
+def _close_analysis_inputs(
+    inputs: FrozenInputs,
+    sensitivity_by_version: Mapping[str, FrozenInputs],
+) -> tuple[dict[str, Any], str]:
+    """Close four aggregate/registry identities against one frozen roster."""
+
+    required = inputs.statistics.sensitivity_data_versions
+    if tuple(sensitivity_by_version) != required:
+        raise ValueError("sensitivity inputs are not in frozen data-version order")
+    all_inputs = [inputs, *(sensitivity_by_version[version] for version in required)]
+    if len({bundle.manifest_path for bundle in all_inputs}) != len(all_inputs):
+        raise ValueError("analysis aggregate manifests are duplicated")
+    if len({bundle.registry_path for bundle in all_inputs}) != len(all_inputs):
+        raise ValueError("analysis formal registries are duplicated")
+    for bundle in all_inputs:
+        aggregate_roles = _validate_bundle_roles(bundle.manifest)
+        registry_roles = bundle.registry_identity
+        for field in (
+            "bundle_kind",
+            "bundle_role",
+            "required_suite_roles",
+            "suite_roles",
+        ):
+            if aggregate_roles[field] != registry_roles[field]:
+                raise ValueError(
+                    f"aggregate and formal registry disagree on {field}"
+                )
+        aggregate_roster = aggregate_roles["finalized_model_roster"]
+        registry_roster = registry_roles["finalized_model_roster"]
+        for field in ("sha256", "selected_models", "proposed_decision"):
+            if aggregate_roster[field] != registry_roster[field]:
+                raise ValueError(
+                    f"aggregate and formal registry roster disagree on {field}"
+                )
+    roster_keys = {
+        _canonical_digest(bundle.registry_identity["finalized_model_roster"])
+        for bundle in all_inputs
+    }
+    if len(roster_keys) != 1:
+        raise ValueError("formal registries do not bind one finalized model roster")
+    roster = inputs.registry_identity["finalized_model_roster"]
+    manifest: dict[str, Any] = {
+        "schema_version": "frozen_analysis_input_manifest_v1",
+        "status": "complete",
+        "primary_data_version": inputs.statistics.primary_data_version,
+        "required_sensitivity_data_versions": list(required),
+        "finalized_model_roster": roster,
+        "registry_count": len(all_inputs),
+        "aggregate_manifest_count": len(all_inputs),
+        "bundles": {
+            "primary": _bundle_input_identity(inputs),
+            "sensitivity": [
+                _bundle_input_identity(sensitivity_by_version[version])
+                for version in required
+            ],
+        },
+        "hash_scope": "canonical_json_excluding_input_manifest_sha256",
+    }
+    manifest["input_manifest_sha256"] = _canonical_digest(manifest)
+    return manifest, str(roster["proposed_decision"])
+
+
+def _domain_record(
+    name: str,
+    *,
+    complete: bool,
+    artifacts: Sequence[str],
+    reason: str | None = None,
+    not_applicable: bool = False,
+) -> dict[str, Any]:
+    status = (
+        "not_applicable"
+        if not_applicable
+        else ("complete" if complete else "unavailable")
+    )
+    return {
+        "domain": name,
+        "status": status,
+        "reason": None if status == "complete" else reason,
+        "artifacts": list(artifacts),
+    }
+
+
+def _analysis_completion_gate(
+    frames: Mapping[str, pd.DataFrame],
+    *,
+    overlap_summary: Mapping[str, Any],
+    statistics: FrozenStatistics,
+    proposed_decision: str,
+    selected_models: Sequence[str],
+) -> dict[str, Any]:
+    """Assess protocol-required domains without treating empty output as success."""
+
+    framework_only = proposed_decision == "framework_only"
+    probabilistic_model_selected = bool(
+        set(selected_models).intersection({"csdi", "proposed"})
+    )
+
+    def all_nonempty(names: Sequence[str]) -> bool:
+        return all(not frames[name].empty for name in names)
+
+    overlap_artifacts = (
+        "pairwise_jaccard.csv",
+        "unique_date_coverage.csv",
+        "effective_replication_summary.csv",
+        "overlap_clusters.csv",
+    )
+    frontier_artifacts = (
+        "frontier_raw_curves.csv",
+        "frontier_monotone_curves.csv",
+        "statistical_frontiers.csv",
+        "frontier_breakpoints.csv",
+        "frontier_bootstrap_samples.parquet",
+    )
+    operational_artifacts = (
+        "information_combination_metrics.csv",
+        "operational_dropout_gains.csv",
+        "shapley_contributions.csv",
+        "information_interactions.csv",
+    )
+    retrained_artifacts = (
+        "information_combination_metrics.csv",
+        "retrained_information_upper_bounds.csv",
+    )
+    resilience_artifacts = (
+        "resilience_curves.csv",
+        "node_importance.csv",
+        "failure_set_metrics.csv",
+        "resilience_auc.csv",
+    )
+    event_artifacts = (
+        "event_episode_metrics.csv",
+        "event_vs_matched_control.csv",
+    )
+    calibration_artifacts = (
+        "calibration_by_gap.csv",
+        "calibration_overall.csv",
+        "uncertainty_growth.csv",
+        "uncertainty_by_difficulty.csv",
+    )
+    metrics = frames["information_combination_metrics.csv"]
+    estimands = (
+        set(metrics["information_estimand"].dropna().astype(str))
+        if "information_estimand" in metrics
+        else set()
+    )
+    sensitivity = frames["data_version_sensitivity.csv"]
+    sensitivity_versions = (
+        set(sensitivity["sensitivity_data_version"].dropna().astype(str))
+        if "sensitivity_data_version" in sensitivity
+        else set()
+    )
+    hypotheses = frames["hypothesis_tests.csv"]
+    observed_families = (
+        set(hypotheses["hypothesis_family"].dropna().astype(str))
+        if "hypothesis_family" in hypotheses
+        else set()
+    )
+    expected_families = set(statistics.hypothesis_families)
+    if framework_only:
+        expected_families.difference_update(
+            {"operational_information_dropout", "retrained_information_upper_bound"}
+        )
+    finite_hypotheses = False
+    if not hypotheses.empty and {"p_value", "p_bh"}.issubset(hypotheses):
+        p_values = pd.to_numeric(hypotheses["p_value"], errors="coerce")
+        adjusted = pd.to_numeric(hypotheses["p_bh"], errors="coerce")
+        finite_hypotheses = bool(
+            np.isfinite(p_values).all() and np.isfinite(adjusted).all()
+        )
+    domains = [
+        _domain_record("formal_input_roles", complete=True, artifacts=()),
+        _domain_record(
+            "overlap_audit",
+            complete=(
+                overlap_summary.get("status") == "ok"
+                and all_nonempty(overlap_artifacts)
+            ),
+            artifacts=overlap_artifacts,
+            reason="overlap audit lacks complete dense-anchor evidence",
+        ),
+        _domain_record(
+            "recoverability_frontier",
+            complete=all_nonempty(frontier_artifacts),
+            artifacts=frontier_artifacts,
+            reason="recoverability frontier artifacts are empty or unavailable",
+        ),
+        _domain_record(
+            "operational_information",
+            complete=(
+                all_nonempty(operational_artifacts)
+                and "operational_dropout" in estimands
+            ),
+            artifacts=operational_artifacts,
+            reason=(
+                "proposed_decision=framework_only"
+                if framework_only
+                else "operational information estimand is unavailable"
+            ),
+            not_applicable=framework_only,
+        ),
+        _domain_record(
+            "retrained_information",
+            complete=(
+                all_nonempty(retrained_artifacts)
+                and "retrained_upper_bound" in estimands
+            ),
+            artifacts=retrained_artifacts,
+            reason=(
+                "proposed_decision=framework_only"
+                if framework_only
+                else "retrained information upper bound is unavailable"
+            ),
+            not_applicable=framework_only,
+        ),
+        _domain_record(
+            "network_resilience",
+            complete=all_nonempty(resilience_artifacts),
+            artifacts=resilience_artifacts,
+            reason="network resilience artifacts are empty or unavailable",
+        ),
+        _domain_record(
+            "event_uncertainty",
+            complete=all_nonempty(event_artifacts),
+            artifacts=event_artifacts,
+            reason="event/control analysis artifacts are empty or unavailable",
+        ),
+        _domain_record(
+            "uncertainty_calibration",
+            complete=all_nonempty(calibration_artifacts),
+            artifacts=calibration_artifacts,
+            reason=(
+                "uncertainty calibration artifacts are empty or unavailable"
+                if probabilistic_model_selected
+                else "no finalized probabilistic model; uncertainty claim downgraded"
+            ),
+            not_applicable=not probabilistic_model_selected,
+        ),
+        _domain_record(
+            "data_version_sensitivity",
+            complete=(
+                not sensitivity.empty
+                and sensitivity_versions == set(statistics.sensitivity_data_versions)
+            ),
+            artifacts=("data_version_sensitivity.csv",),
+            reason="all three sensitivity versions lack paired analysis evidence",
+        ),
+        _domain_record(
+            "hypothesis_families",
+            complete=(
+                observed_families == expected_families and finite_hypotheses
+            ),
+            artifacts=("hypothesis_tests.csv",),
+            reason=(
+                "required hypothesis families are missing or have non-finite tests: "
+                f"expected={sorted(expected_families)}, "
+                f"observed={sorted(observed_families)}"
+            ),
+        ),
+    ]
+    if tuple(item["domain"] for item in domains) != REQUIRED_ANALYSIS_DOMAINS:
+        raise AssertionError("analysis completion domain inventory drifted")
+    complete = all(
+        item["status"] in {"complete", "not_applicable"} for item in domains
+    )
+    return {
+        "status": "complete" if complete else "incomplete",
+        "complete": complete,
+        "framework_only": framework_only,
+        "required_domains": list(REQUIRED_ANALYSIS_DOMAINS),
+        "domains": domains,
+        "complete_domain_count": sum(
+            item["status"] == "complete" for item in domains
+        ),
+        "not_applicable_domain_count": sum(
+            item["status"] == "not_applicable" for item in domains
+        ),
+        "unavailable_domains": [
+            item["domain"] for item in domains if item["status"] == "unavailable"
+        ],
+        "claim_downgrades": (
+            []
+            if probabilistic_model_selected
+            else ["uncertainty_calibration_not_claimed"]
+        ),
+    }
+
+
 def run_frozen_analysis(
     inputs: FrozenInputs,
     output_dir: str | Path,
@@ -2733,12 +3620,25 @@ def run_frozen_analysis(
 
     analysis_code_identity = build_analysis_code_identity()
     require_clean_analysis_code(analysis_code_identity)
+    primary_bundle_contract = _validate_bundle_roles(inputs.manifest)
+    if primary_bundle_contract["bundle_role"] != "primary":
+        raise ValueError("the primary analysis input must have bundle_role=primary")
     primary_versions = set(inputs.events["data_version"].dropna().astype(str))
     if primary_versions != {inputs.statistics.primary_data_version}:
         raise ValueError("the primary frozen bundle has the wrong data version")
     sensitivity_by_version: dict[str, FrozenInputs] = {}
     primary_splits = set(inputs.events["evaluation_split"].dropna().astype(str))
     for bundle in sensitivity_inputs:
+        bundle_contract = _validate_bundle_roles(bundle.manifest)
+        if bundle_contract["bundle_role"] != "sensitivity_compact":
+            raise ValueError(
+                "each sensitivity analysis input must be a sensitivity_compact bundle"
+            )
+        if (
+            bundle_contract["finalized_model_roster"]
+            != primary_bundle_contract["finalized_model_roster"]
+        ):
+            raise ValueError("sensitivity and primary bundles use different rosters")
         versions = set(bundle.events["data_version"].dropna().astype(str))
         if len(versions) != 1:
             raise ValueError(
@@ -2757,6 +3657,26 @@ def run_frozen_analysis(
                 "sensitivity and primary bundles use different evaluation splits"
             )
         sensitivity_by_version[version] = bundle
+
+    required_sensitivity_versions = set(inputs.statistics.sensitivity_data_versions)
+    if set(sensitivity_by_version) != required_sensitivity_versions:
+        missing = sorted(
+            required_sensitivity_versions.difference(sensitivity_by_version)
+        )
+        unexpected = sorted(
+            set(sensitivity_by_version).difference(required_sensitivity_versions)
+        )
+        raise ValueError(
+            "frozen analysis requires one independent compact bundle for every "
+            f"sensitivity version: missing={missing}, unexpected={unexpected}"
+        )
+    sensitivity_by_version = {
+        version: sensitivity_by_version[version]
+        for version in inputs.statistics.sensitivity_data_versions
+    }
+    analysis_input_manifest, proposed_decision = _close_analysis_inputs(
+        inputs, sensitivity_by_version
+    )
 
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -2828,6 +3748,45 @@ def run_frozen_analysis(
         "data_version_sensitivity.csv": sensitivity,
         "hypothesis_tests.csv": hypotheses,
     }
+    completion_gate = _analysis_completion_gate(
+        frames,
+        overlap_summary=overlap.summary,
+        statistics=inputs.statistics,
+        proposed_decision=proposed_decision,
+        selected_models=primary_bundle_contract["finalized_model_roster"][
+            "selected_models"
+        ],
+    )
+    framework_information_artifacts = {
+        "information_combination_metrics.csv",
+        "operational_dropout_gains.csv",
+        "retrained_information_upper_bounds.csv",
+        "shapley_contributions.csv",
+        "information_interactions.csv",
+    }
+    calibration_artifacts = {
+        "calibration_by_gap.csv",
+        "calibration_overall.csv",
+        "uncertainty_growth.csv",
+        "uncertainty_by_difficulty.csv",
+    }
+    probabilistic_model_selected = bool(
+        set(primary_bundle_contract["finalized_model_roster"]["selected_models"])
+        .intersection({"csdi", "proposed"})
+    )
+    if proposed_decision == "framework_only" and any(
+        not frames[name].empty for name in framework_information_artifacts
+    ):
+        raise ValueError(
+            "framework-only analysis contains proposed information estimands"
+        )
+    if not probabilistic_model_selected and any(
+        not frames[name].empty for name in calibration_artifacts
+    ):
+        raise ValueError(
+            "analysis contains probabilistic outputs without a finalized "
+            "probabilistic model"
+        )
     unavailability_reasons = {
         "frontier_raw_curves.csv": "no frozen SCI_DENSE rows",
         "frontier_monotone_curves.csv": "no frozen SCI_DENSE rows",
@@ -2869,25 +3828,69 @@ def run_frozen_analysis(
     }
     artifact_manifest: dict[str, Any] = {}
     for name in FIXED_ARTIFACTS:
+        framework_not_applicable = (
+            proposed_decision == "framework_only"
+            and name in framework_information_artifacts
+        )
+        calibration_not_applicable = (
+            not probabilistic_model_selected and name in calibration_artifacts
+        )
+        application_not_applicable = (
+            name == "application_frontiers.csv"
+            and inputs.statistics.application_criteria is None
+        )
+        explicit_not_applicable = (
+            framework_not_applicable
+            or calibration_not_applicable
+            or application_not_applicable
+        )
+        not_applicable_reason = (
+            "proposed_decision=framework_only"
+            if framework_not_applicable
+            else (
+                "no_finalized_probabilistic_model_claim_downgrade"
+                if calibration_not_applicable
+                else "withheld_no_predeclared_application_threshold"
+            )
+        )
         prepared = _prepare_output(
-            frames[name], name, reason=unavailability_reasons.get(name)
+            frames[name],
+            name,
+            reason=(
+                not_applicable_reason
+                if explicit_not_applicable
+                else unavailability_reasons.get(name)
+            ),
+            empty_status=(
+                "not_applicable" if explicit_not_applicable else "unavailable"
+            ),
+            nonempty_status=(
+                "not_applicable" if explicit_not_applicable else "ok"
+            ),
         )
         path = output / name
         _atomic_table(prepared, path)
         artifact_manifest[name] = {
-            "status": "ok"
-            if len(prepared)
-            else prepared.attrs.get("status", "unavailable"),
-            "reason": None if len(prepared) else prepared.attrs.get("reason"),
+            "status": prepared.attrs.get(
+                "status", "ok" if len(prepared) else "unavailable"
+            ),
+            "reason": prepared.attrs.get("reason"),
             "rows": len(prepared),
             "sha256": _file_sha256(path),
         }
     _atomic_json(overlap.summary, output / "overlap_audit.json")
+    analysis_input_path = output / "analysis_input_manifest.json"
+    _atomic_json(analysis_input_manifest, analysis_input_path)
+    sensitivity_domain = next(
+        item
+        for item in completion_gate["domains"]
+        if item["domain"] == "data_version_sensitivity"
+    )
     sensitivity_manifest = {
-        "status": "complete" if len(sensitivity) else "unavailable",
+        "status": sensitivity_domain["status"],
         "reason": (
             None
-            if len(sensitivity)
+            if sensitivity_domain["status"] == "complete"
             else "no separately frozen sensitivity bundle shares persistent primary anchors"
         ),
         "primary_data_version": inputs.statistics.primary_data_version,
@@ -2898,6 +3901,11 @@ def run_frozen_analysis(
         "primary_bundle": {
             "manifest": str(inputs.manifest_path),
             "manifest_sha256": _file_sha256(inputs.manifest_path),
+            "bundle_role": primary_bundle_contract["bundle_role"],
+            "required_suite_roles": primary_bundle_contract[
+                "required_suite_roles"
+            ],
+            "suite_roles": primary_bundle_contract["suite_roles"],
         },
         "sensitivity_bundles": [
             {
@@ -2905,19 +3913,30 @@ def run_frozen_analysis(
                 "manifest": str(bundle.manifest_path),
                 "manifest_sha256": _file_sha256(bundle.manifest_path),
                 "events_sha256": _file_sha256(bundle.events_path),
+                "bundle_role": bundle.manifest["bundle_role"],
+                "required_suite_roles": bundle.manifest["required_suite_roles"],
+                "suite_roles": bundle.manifest["suite_roles"],
             }
             for version, bundle in sorted(sensitivity_by_version.items())
         ],
         "pairing_unit": "persistent anchor/scenario intersection after seed collapse",
         "rows": len(sensitivity),
         "artifact": artifact_manifest["data_version_sensitivity.csv"],
+        "analysis_input_manifest": {
+            "path": str(analysis_input_path),
+            "bytes": analysis_input_path.stat().st_size,
+            "sha256": _file_sha256(analysis_input_path),
+        },
     }
     _atomic_json(
         sensitivity_manifest,
         output / "data_version_sensitivity_manifest.json",
     )
     analysis_manifest = {
-        "status": "complete",
+        "schema_version": "frozen_analysis_manifest_v2",
+        "status": completion_gate["status"],
+        "complete": completion_gate["complete"],
+        "completion_gate": completion_gate,
         "source_manifest": str(inputs.manifest_path),
         "source_manifest_sha256": _file_sha256(inputs.manifest_path),
         "predictions": str(inputs.predictions_path),
@@ -2930,6 +3949,23 @@ def run_frozen_analysis(
         "bootstrap_seed": inputs.statistics.bootstrap_seed,
         "confidence_level": inputs.statistics.confidence,
         "analysis_code_identity": analysis_code_identity,
+        "analysis_builder_identity": analysis_code_identity[
+            "frozen_analysis_builder"
+        ],
+        "analysis_input_manifest": {
+            "path": str(analysis_input_path),
+            "bytes": analysis_input_path.stat().st_size,
+            "sha256": _file_sha256(analysis_input_path),
+            "input_manifest_sha256": analysis_input_manifest[
+                "input_manifest_sha256"
+            ],
+        },
+        "required_analysis_domains": list(REQUIRED_ANALYSIS_DOMAINS),
+        "primary_bundle_contract": primary_bundle_contract,
+        "sensitivity_bundle_contracts": {
+            version: _validate_bundle_roles(bundle.manifest)
+            for version, bundle in sorted(sensitivity_by_version.items())
+        },
         "aggregation_order": [
             "average_training_seeds_within_model_mask_anchor",
             "cluster_by_anchor_or_event_episode_and_year",
