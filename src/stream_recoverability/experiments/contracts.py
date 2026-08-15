@@ -31,6 +31,7 @@ _RELEVANT_CODE_FILES = (
     "scripts/12_run_science_experiments.py",
     "scripts/13_aggregate_formal_results.py",
     "scripts/15_run_validation_funnel.py",
+    "scripts/20_run_confirmatory_evaluation.py",
     "pyproject.toml",
 )
 _FUTURE_ORCHESTRATION_PATTERNS = (
@@ -168,9 +169,7 @@ def build_code_provenance(
     pathspecs = [*_RELEVANT_CODE_DIRECTORIES, "scripts", *sorted(explicit_paths)]
     tracked_output = _git_output(root, "ls-files", "-z", "--", *pathspecs)
     tracked_paths = {
-        value.decode("utf-8")
-        for value in tracked_output.split(b"\0")
-        if value
+        value.decode("utf-8") for value in tracked_output.split(b"\0") if value
     }
     tracked_paths = {
         path
@@ -186,11 +185,7 @@ def build_code_provenance(
         )
     }
 
-    filesystem_paths = {
-        path
-        for path in explicit_paths
-        if (root / path).is_file()
-    }
+    filesystem_paths = {path for path in explicit_paths if (root / path).is_file()}
     for pattern in _FUTURE_ORCHESTRATION_PATTERNS:
         filesystem_paths.update(
             path.relative_to(root).as_posix()
@@ -217,9 +212,7 @@ def build_code_provenance(
         *sorted(relevant_paths),
     )
     dirty_tracked_paths = sorted(
-        value.decode("utf-8")
-        for value in dirty_output.split(b"\0")
-        if value
+        value.decode("utf-8") for value in dirty_output.split(b"\0") if value
     )
     relevant_untracked_paths = sorted(filesystem_paths.difference(tracked_paths))
     file_identities = [
@@ -255,9 +248,7 @@ def canonical_code_identity(provenance: Mapping[str, Any]) -> dict[str, Any]:
     identity = {
         "schema_version": provenance.get("schema_version"),
         "relevant_source_digest": provenance.get("relevant_source_digest"),
-        "relevant_source_file_count": provenance.get(
-            "relevant_source_file_count"
-        ),
+        "relevant_source_file_count": provenance.get("relevant_source_file_count"),
     }
     if not isinstance(identity["schema_version"], str):
         raise TypeError("code provenance is missing schema_version")
