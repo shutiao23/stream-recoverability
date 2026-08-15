@@ -17,6 +17,7 @@ from stream_recoverability.data import confirmatory as external
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
     DH_INTERPRETATION,
+    FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
     FROZEN_SITE_IDS,
     FROZEN_VARIABLES,
     FT3_S_TO_M3_S,
@@ -28,12 +29,55 @@ from stream_recoverability.data.confirmatory import (
     build_confirmatory_request_plan,
     fetch_ogc_feature_collection,
     load_confirmatory_protocol,
+    load_finalized_model_roster,
     parse_usgs_daily_values,
     strict_json_loads,
     write_immutable_request_plan,
 )
+from stream_recoverability.experiments.contracts import build_design_contract
 
 DESIGN = Path("configs/design_freeze_v1.yaml")
+STUDY_MANIFEST = Path("study_manifest.yaml")
+EXPERIMENT_CONFIG = Path("configs/experiments.yaml")
+SELECTION_VERSION_MANIFEST = Path("data_versions/published_v1/version_manifest.json")
+
+
+def _write_finalized_roster(tmp_path: Path) -> tuple[Path, dict[str, Any]]:
+    artifacts: dict[str, dict[str, Any]] = {}
+    for name, suffix in (
+        ("ranking", ".csv"),
+        ("stage2_selection", ".csv"),
+        ("go_no_go", ".json"),
+    ):
+        path = tmp_path / f"{name}{suffix}"
+        path.write_text(f"frozen validation artifact: {name}\n", encoding="utf-8")
+        artifacts[name] = {
+            "path": str(path.resolve()),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        }
+    contract = build_design_contract(
+        design_path=DESIGN,
+        manifest_path=STUDY_MANIFEST,
+        experiment_config_path=EXPERIMENT_CONFIG,
+        data_version="published_v1",
+        evaluation_split="validation",
+        data_version_manifest_path=SELECTION_VERSION_MANIFEST,
+    )
+    document = {
+        "schema_version": FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
+        "finalized": True,
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+        "selected_models": ["linear", "proposed"],
+        "best_traditional_model": "linear",
+        "proposed_decision": "include_proposed_formally",
+        "artifacts": artifacts,
+        **contract,
+    }
+    roster = tmp_path / "finalized_model_roster.json"
+    roster.write_text(json.dumps(document), encoding="utf-8")
+    return roster, document
 
 
 def _json_response(
@@ -496,15 +540,139 @@ def test_alignment_has_complete_frozen_axes_splits_and_dh_proxy() -> None:
     assert "02337170_DH" in wide
 
 
+@pytest.mark.parametrize(
+    ("problem", "message"),
+    [
+        ("schema", "schema_version"),
+        ("not_finalized", "finalized=true"),
+        ("split", "evaluation_split=validation"),
+        ("formal", "formal_evidence=false"),
+        ("data_version", "contract mismatch"),
+        ("design_hash", "contract mismatch"),
+        ("empty_models", "non-empty selected_models"),
+        ("decision", "inconsistent"),
+        ("artifact_hash", "SHA-256 does not match"),
+        ("unexpected_performance", "fields differ from the frozen schema"),
+    ],
+)
+def test_finalized_roster_gate_fails_closed_before_network_or_directory_creation(
+    tmp_path: Path,
+    problem: str,
+    message: str,
+) -> None:
+    roster, document = _write_finalized_roster(tmp_path)
+    if problem == "schema":
+        document["schema_version"] = "legacy_selection_manifest"
+    elif problem == "not_finalized":
+        document["finalized"] = False
+    elif problem == "split":
+        document["evaluation_split"] = "development_test"
+    elif problem == "formal":
+        document["formal_evidence"] = True
+    elif problem == "data_version":
+        document["data_version"] = CONFIRMATORY_DATA_VERSION
+    elif problem == "design_hash":
+        document["design_hash"] = "0" * 64
+    elif problem == "empty_models":
+        document["selected_models"] = []
+    elif problem == "decision":
+        document["proposed_decision"] = "framework_only"
+    elif problem == "artifact_hash":
+        document["artifacts"]["ranking"]["sha256"] = "0" * 64
+    else:
+        document["confirmatory_performance"] = {"MAE": 0.0}
+    roster.write_text(json.dumps(document), encoding="utf-8")
+    fetch_calls = 0
+
+    def forbidden_fetcher(url: str, headers: dict[str, str]) -> HTTPResponse:
+        nonlocal fetch_calls
+        del url, headers
+        fetch_calls += 1
+        raise AssertionError("network must remain closed")
+
+    output = tmp_path / "uncreated-parent" / "external"
+    with pytest.raises((TypeError, ValueError), match=message):
+        build_confirmatory_data(
+            DESIGN,
+            output,
+            finalized_model_roster_path=roster,
+            fetcher=forbidden_fetcher,
+        )
+    assert fetch_calls == 0
+    assert not output.parent.exists()
+
+
+def test_stage2_selection_manifest_cannot_unlock_confirmatory_values(
+    tmp_path: Path,
+) -> None:
+    roster, document = _write_finalized_roster(tmp_path)
+    document["schema_version"] = "stage2_finalist_selection_v1"
+    document["command"] = "select-finalists"
+    document.pop("finalized")
+    roster.write_text(json.dumps(document), encoding="utf-8")
+    output = tmp_path / "uncreated" / "external"
+
+    with pytest.raises(ValueError, match="finalized_model_roster_v1"):
+        build_confirmatory_data(
+            DESIGN,
+            output,
+            finalized_model_roster_path=roster,
+        )
+    assert not output.parent.exists()
+
+
+def test_docs_only_provenance_change_does_not_invalidate_canonical_roster(
+    tmp_path: Path,
+) -> None:
+    roster, document = _write_finalized_roster(tmp_path)
+    document["code_provenance"]["git_commit"] = "f" * 40
+    document["code_provenance"]["status"] = "historical_frozen_audit"
+    roster.write_text(json.dumps(document), encoding="utf-8")
+
+    validated = load_finalized_model_roster(roster)
+
+    assert "code_provenance" not in validated.selection_contract
+    assert validated.selection_contract["code_identity"] == document["code_identity"]
+    assert validated.selection_code_provenance["git_commit"] == "f" * 40
+
+
+def test_selection_data_version_identity_is_required_before_access(
+    tmp_path: Path,
+) -> None:
+    roster, _ = _write_finalized_roster(tmp_path)
+    output = tmp_path / "uncreated" / "external"
+
+    with pytest.raises(FileNotFoundError, match="data-version manifest"):
+        build_confirmatory_data(
+            DESIGN,
+            output,
+            finalized_model_roster_path=roster,
+            selection_data_version_manifest_path=tmp_path / "missing-version.json",
+        )
+    assert not output.parent.exists()
+
+    with pytest.raises(ValueError, match="published_v1"):
+        build_confirmatory_data(
+            DESIGN,
+            output,
+            finalized_model_roster_path=roster,
+            selection_data_version="b1_no_level_v1",
+        )
+    assert not output.parent.exists()
+
+
 def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     tmp_path: Path,
 ) -> None:
     fetcher = FrozenMockFetcher()
+    roster, roster_document = _write_finalized_roster(tmp_path)
+    validated_roster = load_finalized_model_roster(roster)
+    assert validated_roster.selected_models == ("linear", "proposed")
     output = tmp_path / "external_v1"
     manifest = build_confirmatory_data(
         DESIGN,
         output,
-        finalists_frozen=True,
+        finalized_model_roster_path=roster,
         fetcher=fetcher,
         usgs_api_key="not-persisted-secret",
     )
@@ -514,6 +682,19 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     assert manifest["performance_metrics_computed"] is False
     assert manifest["confirmatory_evaluation_executed"] is False
     assert manifest["dh_interpretation"] == DH_INTERPRETATION
+    gate = manifest["confirmatory_access_gate"]
+    assert gate["manifest_path"] == str(roster.resolve())
+    assert gate["manifest_sha256"] == hashlib.sha256(roster.read_bytes()).hexdigest()
+    assert gate["selected_models"] == roster_document["selected_models"]
+    assert gate["best_traditional_model"] == "linear"
+    assert gate["proposed_decision"] == "include_proposed_formally"
+    assert gate["selection_contract"]["data_version"] == "published_v1"
+    assert gate["selection_contract"]["evaluation_split"] == "validation"
+    assert (
+        gate["selection_data_version_manifest"]["sha256"]
+        == hashlib.sha256(SELECTION_VERSION_MANIFEST.read_bytes()).hexdigest()
+    )
+    assert set(gate["artifacts"]) == {"ranking", "stage2_selection", "go_no_go"}
     expected_files = {
         "daily_long.parquet",
         "daily_wide.parquet",
@@ -583,7 +764,7 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
         build_confirmatory_data(
             DESIGN,
             output,
-            finalists_frozen=True,
+            finalized_model_roster_path=roster,
             fetcher=fetcher,
         )
     assert len(fetcher.calls) == calls_before
@@ -598,22 +779,23 @@ def test_access_gate_and_failed_fetch_leave_no_output(tmp_path: Path) -> None:
         calls += 1
         raise RuntimeError("synthetic failure")
 
-    locked = tmp_path / "locked"
-    with pytest.raises(PermissionError, match="locked"):
+    locked = tmp_path / "locked-parent" / "locked"
+    with pytest.raises(FileNotFoundError, match="finalized model roster"):
         build_confirmatory_data(
             DESIGN,
             locked,
-            finalists_frozen=False,
+            finalized_model_roster_path=tmp_path / "missing-roster.json",
             fetcher=forbidden_fetcher,
         )
-    assert calls == 0 and not locked.exists()
+    assert calls == 0 and not locked.parent.exists()
 
+    roster, _ = _write_finalized_roster(tmp_path)
     failed = tmp_path / "failed"
     with pytest.raises(RuntimeError, match="synthetic failure"):
         build_confirmatory_data(
             DESIGN,
             failed,
-            finalists_frozen=True,
+            finalized_model_roster_path=roster,
             fetcher=forbidden_fetcher,
         )
     assert calls == 1 and not failed.exists()
@@ -621,7 +803,7 @@ def test_access_gate_and_failed_fetch_leave_no_output(tmp_path: Path) -> None:
     assert not (tmp_path / ".failed.build.lock").exists()
 
 
-def test_cli_build_requires_attestation_before_network_or_output(
+def test_cli_build_requires_finalized_roster_before_network_or_output(
     tmp_path: Path,
 ) -> None:
     output = tmp_path / "must-not-exist"
@@ -640,5 +822,5 @@ def test_cli_build_requires_attestation_before_network_or_output(
         text=True,
     )
     assert result.returncode == 2
-    assert "--finalists-frozen" in result.stderr
+    assert "--finalized-model-roster" in result.stderr
     assert not output.exists()
