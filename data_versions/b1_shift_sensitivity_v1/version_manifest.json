@@ -8,28 +8,28 @@
     "sensitivity_only": true
   },
   "input_path": "data/processed/daily_long.parquet",
-  "input_sha256": "5d3e953314077a07f00977a976bdd49816f8351309b395aeb89ae0c677651e19",
+  "input_sha256": "ed2d2e04c1a592a514dd1f151b98b0490f9e03c35ff3586a9eca9fcde5c460d7",
   "input_counts": {
-    "long_rows": 131496,
+    "long_rows": 147933,
     "dates": 5479,
     "stations": 3,
-    "variables": 8,
-    "analysis_values": 131426,
-    "natural_observed_values": 131426,
-    "quality_approved_values": 131426
+    "variables": 9,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863
   },
   "output_counts": {
-    "long_rows": 131496,
+    "long_rows": 147933,
     "wide_rows": 5479,
-    "analysis_values": 131426,
-    "natural_observed_values": 131426,
-    "quality_approved_values": 131426,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
     "split_wide_rows": {
       "train": 3652,
       "validation": 731,
       "test": 1096
     },
-    "scaled_features": 24,
+    "scaled_features": 27,
     "excluded_scaler_features": 0
   },
   "transformation_counts": {
@@ -42,22 +42,22 @@
   },
   "artifacts": {
     "daily_long.parquet": {
-      "sha256": "4eb5a3cbc4a30341e5c78a086dd1af3875b1eff11f96d4b2a764e345781841c3"
+      "sha256": "7f20e0a8e4ffe1e0e4c9ce90e2dc087147e3d7d011fb7196b85472ba6aedd7a6"
     },
     "daily_wide.parquet": {
-      "sha256": "03ffc3f2c6d5918e426c6ab0d6e3f5a272727697263a6fe8096089f387c3aaa7"
+      "sha256": "e2aba935f0382e7d329b5fc42be0a65c95b4b0b85ded39ff0880ee71a5ab054f"
     },
     "scaler.json": {
-      "sha256": "651196d61007a00bf44009b8d484db8101d392eaca5f3700f2bd0aa9d43f6351"
+      "sha256": "02c068ec8bfe3f7763e19c9ee0effaa2711d5cc051c6e0911edc8322ef725e23"
     },
     "splits/train.parquet": {
-      "sha256": "e4e9810869ff6d9008bf67296e465bbc7705d539c5e99fc16c7e936b0062a284"
+      "sha256": "1649fc19ae581de881452b28bd587136fad2b336f0f1bf56a1c6530224b31f62"
     },
     "splits/validation.parquet": {
-      "sha256": "b2d0507b1b8ccfd0ad73901ac13ef0befb837bd9d00ab6037d263bba3c3881bc"
+      "sha256": "6ddfb036a1691a9f97e42219a499685975e3b9b893a1d5ac8aad6804f0fc64f1"
     },
     "splits/test.parquet": {
-      "sha256": "fa9eb680b9b7ddd21867f8dec2498274268102750266ea8c895da0e2c5f5923b"
+      "sha256": "8781dcaac25b0b4e6b57fe8b8bed34f43b4bb7dc01c929d5cd657e760b1ea1c6"
     }
   }
 }

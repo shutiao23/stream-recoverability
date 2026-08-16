@@ -1,0 +1,77 @@
+{
+  "schema_version": "internal_nasa_rs_rebuild_v1",
+  "start": "2006-01-01",
+  "end": "2020-12-31",
+  "community": "AG",
+  "time_standard": "UTC",
+  "provider_code": "ALLSKY_SFC_SW_DWN",
+  "interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+  "stations": [
+    {
+      "time_standard": "UTC",
+      "fill_value": -999.0,
+      "response_longitude": 99.083,
+      "response_latitude": 29.85,
+      "n_days": 5479,
+      "n_finite": 5479,
+      "station_id": "B1",
+      "requested_longitude": 99.083333,
+      "requested_latitude": 29.85,
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=99.083333&latitude=29.85&start=20060101&end=20201231&format=JSON&time-standard=UTC",
+      "final_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=99.083333&latitude=29.85&start=20060101&end=20201231&format=JSON&time-standard=UTC"
+    },
+    {
+      "time_standard": "UTC",
+      "fill_value": -999.0,
+      "response_longitude": 99.948,
+      "response_latitude": 26.907,
+      "n_days": 5479,
+      "n_finite": 5479,
+      "station_id": "S2",
+      "requested_longitude": 99.947778,
+      "requested_latitude": 26.906667,
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=99.947778&latitude=26.906667&start=20060101&end=20201231&format=JSON&time-standard=UTC",
+      "final_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=99.947778&latitude=26.906667&start=20060101&end=20201231&format=JSON&time-standard=UTC"
+    },
+    {
+      "time_standard": "UTC",
+      "fill_value": -999.0,
+      "response_longitude": 101.745,
+      "response_latitude": 26.639,
+      "n_days": 5479,
+      "n_finite": 5479,
+      "station_id": "P3",
+      "requested_longitude": 101.744722,
+      "requested_latitude": 26.638611,
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=101.744722&latitude=26.638611&start=20060101&end=20201231&format=JSON&time-standard=UTC",
+      "final_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN&community=AG&longitude=101.744722&latitude=26.638611&start=20060101&end=20201231&format=JSON&time-standard=UTC"
+    }
+  ],
+  "source_long_rows": 131496,
+  "rebuilt_long_rows": 147933,
+  "rs_rows": 16437,
+  "processed_daily_long_sha256": "ed2d2e04c1a592a514dd1f151b98b0490f9e03c35ff3586a9eca9fcde5c460d7",
+  "processed_daily_wide_sha256": "0f1a57fbdd60c48d3dbcf46b4f9edc8afbaa109e908ac2a2cd1a2db9a0d24950",
+  "data_version_artifacts": {
+    "published_v1": {
+      "daily_long_sha256": "be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e",
+      "daily_wide_sha256": "407b622865502d7c81f1582f019a15e6a8df91dd306d4285bca5d4da0c9a706c",
+      "version_manifest_sha256": "a92d4f46cf367796f8f3e4f5ad4cd5d34d0a703ca875164f376b1483df218cf4"
+    },
+    "no_s2_suspect_v1": {
+      "daily_long_sha256": "4761db26da16455ae3265da8babb26ffe62e500ce6f011eec4aef10e32d6ba61",
+      "daily_wide_sha256": "3c3353463b82567b49425c77f9992bf1f83349297e6cd99f810aebdd271a8f87",
+      "version_manifest_sha256": "f995e9f19b8253c1a34ceed16708eafb6af80ad35923549625fbe51f0d74080f"
+    },
+    "b1_no_level_v1": {
+      "daily_long_sha256": "d05e9941570e5ac366be6c178a777aeccda97ca5d8c1b657f29b069b507d4ea0",
+      "daily_wide_sha256": "76c4fd0abfca8ac4d32b0e065f955cf4fc1131f15fac9fa7832ded73935e2263",
+      "version_manifest_sha256": "82c4e612148f5b08c8656b13825ae4f0d1fe035b5474ea61f5c54b5731b65d60"
+    },
+    "b1_shift_sensitivity_v1": {
+      "daily_long_sha256": "7f20e0a8e4ffe1e0e4c9ce90e2dc087147e3d7d011fb7196b85472ba6aedd7a6",
+      "daily_wide_sha256": "e2aba935f0382e7d329b5fc42be0a65c95b4b0b85ded39ff0880ee71a5ab054f",
+      "version_manifest_sha256": "0ecb76ed72141ab3552f502f519575afd665c3f19f78246377584971cddb45d6"
+    }
+  }
+}

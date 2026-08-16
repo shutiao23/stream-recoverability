@@ -8,28 +8,28 @@
     "sensitivity_only": true
   },
   "input_path": "data/processed/daily_long.parquet",
-  "input_sha256": "5d3e953314077a07f00977a976bdd49816f8351309b395aeb89ae0c677651e19",
+  "input_sha256": "ed2d2e04c1a592a514dd1f151b98b0490f9e03c35ff3586a9eca9fcde5c460d7",
   "input_counts": {
-    "long_rows": 131496,
+    "long_rows": 147933,
     "dates": 5479,
     "stations": 3,
-    "variables": 8,
-    "analysis_values": 131426,
-    "natural_observed_values": 131426,
-    "quality_approved_values": 131426
+    "variables": 9,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863
   },
   "output_counts": {
-    "long_rows": 131496,
+    "long_rows": 147933,
     "wide_rows": 5479,
-    "analysis_values": 125947,
-    "natural_observed_values": 131426,
-    "quality_approved_values": 125947,
+    "analysis_values": 142384,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 142384,
     "split_wide_rows": {
       "train": 3652,
       "validation": 731,
       "test": 1096
     },
-    "scaled_features": 23,
+    "scaled_features": 26,
     "excluded_scaler_features": 1
   },
   "transformation_counts": {
@@ -42,22 +42,22 @@
   },
   "artifacts": {
     "daily_long.parquet": {
-      "sha256": "8813252e9267ce5b43170c78036cf75ea702d96cce6fb11969f9861e63d5f37b"
+      "sha256": "d05e9941570e5ac366be6c178a777aeccda97ca5d8c1b657f29b069b507d4ea0"
     },
     "daily_wide.parquet": {
-      "sha256": "05ab1d3eef7d5b081acd9833d934a9a36d6af0c1ffd7db8f497e5d95cba86d7e"
+      "sha256": "76c4fd0abfca8ac4d32b0e065f955cf4fc1131f15fac9fa7832ded73935e2263"
     },
     "scaler.json": {
-      "sha256": "1e27c40dee4d5db207969919e5588dc26d5cb860a5bd4cfe01c8bfd78a500546"
+      "sha256": "04ae8300fab69f139f0948348cea02ca36db30ae3a11b88a0bbcb1d210a62b24"
     },
     "splits/train.parquet": {
-      "sha256": "82c833093f6b454911b002377fd09f1aefce4af8fd5623babad831cc7cdca51a"
+      "sha256": "b86a0a6fdbe55da920de9628aa9e57ad01a08a50851c368f3eeed95e99aaea18"
     },
     "splits/validation.parquet": {
-      "sha256": "b4743594087c51aad1b94d94b4efd5e99d60641dd7c6630013d977fe8156576d"
+      "sha256": "9194905dfff1ef3b7f39354334bdb3c11b1bd11c82457db6a42c0d8602359d8d"
     },
     "splits/test.parquet": {
-      "sha256": "4c526a6b2d58a11deabea4ce4ab5e297e60bef8134ec96cc226429035f96b8df"
+      "sha256": "07f98e358d1a2dba44ed37d66ecab2a5bd14eec7e5da57f7e450dda8da4d1744"
     }
   }
 }

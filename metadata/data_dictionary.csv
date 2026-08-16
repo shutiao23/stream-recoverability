@@ -7,5 +7,6 @@ TEMP,Ta,mean air temperature,degC,degC,daily mean,"WMO/CMA station series; TEMP 
 WDSP,W,mean wind speed,knot,m/s,daily mean,"WMO station series independently matched to NOAA GSOD","999.9",0.514444,no,"Supplied values retain GSOD knots"
 PRCP,P,total precipitation,inch,mm/day,daily total,"WMO station series independently matched to NOAA GSOD","99.99",25.4,no,"Supplied values retain GSOD inches"
 RHMEAN,RH,mean relative humidity,percent,percent,daily mean,"China surface climate daily value dataset V3.0 variable RHMEAN",,1.0,no,"Source quality field was not supplied"
-DH,DH,bright sunshine duration,hour,hour,daily total,"China surface climate daily value dataset V3.0 variable DH",,1.0,no,"DH is sunshine duration, not an unidentified hydrological variable"
+DH,DH,bright sunshine duration,hour,hour,daily total,"China surface climate daily value dataset V3.0 variable DH",,1.0,no,"Jinsha-only sensitivity channel. Not the main Group D meteorology channel. Main architecture uses Rs (NASA ALLSKY_SFC_SW_DWN, MJ/m^2/day) on both networks."
+Rs,Rs,all-sky surface shortwave radiation,MJ/m^2/day,MJ/m^2/day,daily total,"NASA POWER ALLSKY_SFC_SW_DWN; main Group D meteorology on both networks",,1.0,no,"Main architecture channel. Do not name this DH. Jinsha sunshine duration remains a separate sensitivity-only DH column. Internal Rs is added by scripts/24_rebuild_internal_nasa_rs.py."
 
