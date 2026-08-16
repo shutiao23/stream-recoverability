@@ -1,0 +1,13 @@
+scope,station_id,target,n_anchors,window_days,union_days,effective_n,formula,unique_years
+station_target,B1,F,20,365,1086,2.9753424657534246,union_days/window_days,2018|2019|2020
+station_target,B1,L,20,365,963,2.638356164383562,union_days/window_days,2018|2019|2020
+station_target,B1,T,20,365,1026,2.8109589041095893,union_days/window_days,2018|2019|2020
+station_target,P3,F,20,365,1080,2.958904109589041,union_days/window_days,2018|2019|2020
+station_target,P3,L,20,365,1029,2.819178082191781,union_days/window_days,2018|2019|2020
+station_target,P3,T,20,365,1075,2.9452054794520546,union_days/window_days,2018|2019|2020
+station_target,S2,F,20,365,987,2.7041095890410958,union_days/window_days,2018|2019|2020
+station_target,S2,L,20,365,947,2.5945205479452054,union_days/window_days,2018|2019|2020
+station_target,S2,T,20,365,1005,2.7534246575342465,union_days/window_days,2018|2019|2020
+station,B1,ALL,60,365,1090,2.9863013698630136,union_days/window_days,2018|2019|2020
+station,P3,ALL,60,365,1082,2.9643835616438357,union_days/window_days,2018|2019|2020
+station,S2,ALL,60,365,1094,2.9972602739726026,union_days/window_days,2018|2019|2020

@@ -1,0 +1,10 @@
+finding_id,finding_name,n_value,fraction,statement
+control_rule_station_season_length_only,control_matching_rule,355,NA,"matched controls use station, season, and exact window length only; year and day-of-year enter only as ranking distances, not hard constraints"
+abutting_gap_zero,event_control_abutting_fraction,296,0.8338028169014085,296 of 355 event/control pairs abut (gap=0; fraction 0.834). Gap status: computed_from_catalog.
+pre_event_covariates,pre_event_T_F_Ta,0,NA,covariate_status=not_in_catalog for pre-event T/F/Ta; SMDs are not invented
+n_lt5_strata,descriptive_only_station_event_season,20,NA,20 station/event_type/season strata have n<5; listed in event_n_lt5_strata.csv
+missing_strata,absent_station_event_season_cells,7,NA,7 station/event_type/season cells have zero episodes; listed in event_missing_strata.csv
+same_type_flood_window_overlaps,flood_same_type_overlap_pairs,12,NA,12 same-station same-type flood window-overlap pairs; listed in event_flood_same_type_overlaps.csv
+cross_type_window_overlaps,cross_type_same_station_overlaps,139,NA,139 same-station cross-type window overlaps (flood/high_temperature/low_flow/rapid_warming sharing dates)
+cluster_effective_n,date_overlap_effective_n,80,0.22535211267605634,Date-overlap clustering yields effective_n=80 versus 355 episodes; M7a is not mixed into this M7b table
+m7_family_not_mixed,m7b_only,355,NA,experiment_family=M7b; M7a rows are refused

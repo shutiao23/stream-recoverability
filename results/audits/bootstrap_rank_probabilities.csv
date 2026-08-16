@@ -1,0 +1,2 @@
+model,rank,bootstrap_probability,n_bootstrap,pending_validation_results,reason
+NA,NA,NA,NA,True,ranking_cannot_be_computed_without_validation_funnel_outputs;do_not_interpret_as_model_rank_stability;validation ranking must not treat 105 units (3 stations × 5 anchors × 7 strata) as iid; the five 180-day anchors per station share calendar dates

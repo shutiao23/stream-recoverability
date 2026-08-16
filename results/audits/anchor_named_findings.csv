@@ -1,0 +1,11 @@
+finding_id,finding_name,left_anchor_label,right_anchor_label,left_anchor_id,right_anchor_id,left_center_date,right_center_date,overlap_days,jaccard,n_years,n_anchors,effective_n,statement,must_not_treat_as_iid
+b1_december_2016_double_anchor,B1-R0105 (2016-12-02) ↔ B1-R0101 (2016-12-19),B1-R0105,B1-R0101,VALANCHOR-publishedv1-validation-B1-R0105,VALANCHOR-publishedv1-validation-B1-R0101,2016-12-02,2016-12-19,163,0.8274111675126904,NA,NA,NA,B1-R0105 (2016-12-02) and B1-R0101 (2016-12-19) share a 163-day window overlap (Jaccard 0.827). These two DJF anchors are not independent validation units.,True
+unique_years_B1,B1_years_not_equal_anchors,NA,NA,NA,NA,NA,NA,NA,NA,2,5,NA,"B1 unique years = {2016,2017}; n_years=2 ≠ n_anchors=5",True
+unique_years_P3,P3_years_not_equal_anchors,NA,NA,NA,NA,NA,NA,NA,NA,2,5,NA,"P3 unique years = {2016,2017}; n_years=2 ≠ n_anchors=5",True
+unique_years_S2,S2_years_not_equal_anchors,NA,NA,NA,NA,NA,NA,NA,NA,2,5,NA,"S2 unique years = {2016,2017}; n_years=2 ≠ n_anchors=5",True
+effective_n_B1,B1_union_days_over_window,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,2.3444444444444446,B1 effective_n = union_days/window_days = 422/180 = 2.34,True
+effective_n_P3,P3_union_days_over_window,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,2.966666666666667,P3 effective_n = union_days/window_days = 534/180 = 2.97,True
+effective_n_S2,S2_union_days_over_window,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,2.488888888888889,S2 effective_n = union_days/window_days = 448/180 = 2.49,True
+cross_station_identical_center,B1-R0102 = S2-R0105 = 2017-03-27,B1-R0102,S2-R0105,VALANCHOR-publishedv1-validation-B1-R0102,VALANCHOR-publishedv1-validation-S2-R0105,2017-03-27,2017-03-27,180,1.0,NA,NA,NA,B1-R0102 and S2-R0105 share the identical center date 2017-03-27. Cross-station ranking units on this date are not independent.,True
+validation_units_not_iid,do_not_treat_105_units_as_iid,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,validation ranking must not treat 105 units (3 stations × 5 anchors × 7 strata) as iid; the five 180-day anchors per station share calendar dates. Apparent unit count = 3 stations × 5 anchors × 7 strata = 105.,True
+same_station_jaccard_ge_0_5,high_same_station_jaccard_pairs,NA,NA,NA,NA,NA,NA,NA,NA,NA,7,NA,7 same-station pairs have Jaccard ≥ 0.5; full 30-pair table is anchor_same_station_pairwise_jaccard.csv,True

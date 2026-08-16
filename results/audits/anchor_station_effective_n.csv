@@ -1,0 +1,4 @@
+station_id,n_anchors,window_days,union_days,effective_n,formula,note
+B1,5,180,422,2.3444444444444446,union_days/window_days,B1 five anchors collapse to 2.34 independent 180-day windows
+P3,5,180,534,2.966666666666667,union_days/window_days,P3 five anchors collapse to 2.97 independent 180-day windows
+S2,5,180,448,2.488888888888889,union_days/window_days,S2 five anchors collapse to 2.49 independent 180-day windows
