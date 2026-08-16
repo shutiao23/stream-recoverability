@@ -1,0 +1,69 @@
+{
+  "schema_version": "compute_plan_v1",
+  "status": "pre_validation_budget",
+  "roster_state": "pending_finalized_model_roster_v1",
+  "budget_assumption": "all_deep_candidates_retained_for_formal_T",
+  "selected_formal_models": null,
+  "candidate_deep_models": [
+    "brits_ref",
+    "saits_ref",
+    "csdi",
+    "proposed"
+  ],
+  "formal_training_seeds": [11, 22, 33, 44, 55],
+  "checkpoint_key_schema": "{model}-S{seed}-W{window}-{protocol}.pt",
+  "unique_wp_keys": [
+    {"window_length": 368, "training_protocol": "seen_length"},
+    {"window_length": 368, "training_protocol": "unseen_length"},
+    {"window_length": 184, "training_protocol": "seen_length"},
+    {"window_length": 736, "training_protocol": "seen_length"}
+  ],
+  "unique_full_suite_deep_checkpoints": 80,
+  "unique_full_suite_deep_checkpoints_arithmetic": "4 models × 5 seeds × 4 WP keys = 80",
+  "suites": {
+    "validation_funnel": {
+      "evidence_role": "model_selection_only",
+      "stage_2": {
+        "models": "candidate_deep_models",
+        "seeds": [11]
+      },
+      "stage_3": {
+        "models": "stage_2_retained_only",
+        "seeds": [11, 22, 33]
+      }
+    },
+    "formal_full": {
+      "scenarios": 9299,
+      "conditions": 1148,
+      "unique_deep_checkpoints_if_all_candidates": 80,
+      "deep_inference_run_units_if_all_candidates": 185980,
+      "note": "train once per checkpoint key; evaluate across masks"
+    },
+    "sci_dense": {
+      "scenarios": 1860,
+      "wp_keys": [[736, "seen_length"]]
+    },
+    "sci_compensation": {
+      "scenarios": 240,
+      "checkpoint_policy": "one_shared_proposed_per_seed"
+    },
+    "sci_net": {
+      "scenarios": 1920,
+      "wp_keys": [[368, "seen_length"]]
+    },
+    "sci_retrained": {
+      "applicable_if": "proposed_gate_pass",
+      "coalitions": 9,
+      "extra_proposed_checkpoints": 45
+    }
+  },
+  "data_versions": {
+    "primary": "published_v1",
+    "sensitivity_multiplier_note": "retrain deep models per version unless shared checkpoint store is proven safe"
+  },
+  "drop_policy": "forbidden_after_formal_start; revise plan and re-hash before any suite",
+  "hardware": {
+    "device_class": "TBD",
+    "estimated_gpu_hours": null
+  }
+}

@@ -1,0 +1,18 @@
+# Derived companion for conda users. NOT the source of truth and NOT consumed
+# by CI. The lock GitHub Actions installs from is constraints.txt (pip-tools):
+#   pip install --extra-index-url https://download.pytorch.org/whl/cpu \
+#     -c constraints.txt -e ".[dev,reference]"
+#
+# This file only wraps that same pip-tools lock. Do not conda-lock it as if it
+# were authoritative. CPU torch is intentional for CI; GPU installs are
+# documented in README.
+name: stream-recoverability
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10,<3.12
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cpu
+      - -c constraints.txt
+      - -e ".[dev,reference]"
