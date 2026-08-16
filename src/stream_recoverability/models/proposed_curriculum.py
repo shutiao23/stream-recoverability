@@ -165,6 +165,8 @@ def sample_curriculum_scenarios(
 
 def _variable_indices(
     variable_names: tuple[str, ...],
+    *,
+    jinsha_sunshine_sensitivity: bool = False,
 ) -> tuple[int, int, int, tuple[int, ...]]:
     normalized = {
         str(name).strip().upper(): index for index, name in enumerate(variable_names)
@@ -172,8 +174,24 @@ def _variable_indices(
     missing = [name for name in ("T", "F", "L") if name not in normalized]
     if missing:
         raise ValueError(f"curriculum requires T/F/L channels; missing {missing}")
+    if jinsha_sunshine_sensitivity:
+        if "RS" in normalized:
+            raise ValueError(
+                "Jinsha DH sunshine sensitivity cannot include main Rs; "
+                "use a DH-only roster"
+            )
+        if "DH" not in normalized:
+            raise ValueError("Jinsha sunshine sensitivity requires DH")
+        meteorology_names = ("TA", "P", "W", "RH", "DH")
+    else:
+        if "RS" not in normalized:
+            raise ValueError(
+                "main s0_abcd_rs_v1 curriculum requires Rs; "
+                "DH sunshine hours are not a silent Group D fallback"
+            )
+        meteorology_names = ("TA", "P", "W", "RH", "RS")
     meteorology = tuple(
-        normalized[name] for name in ("TA", "P", "W", "RH", "DH") if name in normalized
+        normalized[name] for name in meteorology_names if name in normalized
     )
     if not meteorology:
         raise ValueError("curriculum requires at least one meteorology channel")
@@ -251,6 +269,7 @@ def generate_curriculum_mask(
     protocol: str,
     seed: int,
     config: ProposedCurriculumConfig | None = None,
+    jinsha_sunshine_sensitivity: bool = False,
 ) -> CurriculumMask:
     """Generate one typed batch mask, intersected with finite eligible cells."""
 
@@ -266,7 +285,10 @@ def generate_curriculum_mask(
         raise ValueError("eligible contains no finite cells")
     seed = _validate_seed(seed)
     rng = np.random.default_rng(seed)
-    target, flow, level, meteorology = _variable_indices(variable_names)
+    target, flow, level, meteorology = _variable_indices(
+        variable_names,
+        jinsha_sunshine_sensitivity=jinsha_sunshine_sensitivity,
+    )
     (
         mask_type,
         forced_length,

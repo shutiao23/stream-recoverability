@@ -20,6 +20,10 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor, nn
 
+MAIN_ARCHITECTURE_VERSION = "s0_abcd_rs_v1"
+RETIRED_SUNSHINE_DH_ARCHITECTURE_VERSION = "s0_abcd_v2"
+MAIN_METEOROLOGY_VARIABLES = ("Ta", "P", "W", "RH", "Rs")
+MAIN_VARIABLE_NAMES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 INFORMATION_GROUPS = ("A", "B", "C", "D")
 GROUP_ALIASES = {
     "A": "A",
@@ -40,18 +44,55 @@ GROUP_ALIASES = {
 @dataclass(frozen=True)
 class ProposedModelConfig:
     station_ids: tuple[str, ...] = ("B1", "S2", "P3")
-    variable_names: tuple[str, ...] = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+    variable_names: tuple[str, ...] = MAIN_VARIABLE_NAMES
     target_variable: str = "T"
     hydro_variables: tuple[str, ...] = ("F", "L")
     cross_station_variables: tuple[str, ...] = ("T", "F", "L")
-    meteorology_variables: tuple[str, ...] = ("Ta", "P", "W", "RH", "DH")
+    meteorology_variables: tuple[str, ...] = MAIN_METEOROLOGY_VARIABLES
     hidden_size: int = 32
     station_embedding_size: int = 8
     variable_embedding_size: int = 4
     seasonal_feature_size: int = 4
     dropout: float = 0.1
     max_time_gap: float = 736.0
-    architecture_version: str = "s0_abcd_v2"
+    architecture_version: str = MAIN_ARCHITECTURE_VERSION
+
+
+def require_main_rs_architecture(
+    *,
+    architecture_version: str,
+    meteorology_variables: Sequence[str],
+    variable_names: Sequence[str] | None = None,
+) -> None:
+    """Fail closed if Group D is Rs while the architecture token stays on DH."""
+
+    version = str(architecture_version)
+    meteorology = tuple(str(name) for name in meteorology_variables)
+    names = tuple(str(name) for name in (variable_names or ()))
+    uses_rs = "Rs" in meteorology or "Rs" in names
+    if version == RETIRED_SUNSHINE_DH_ARCHITECTURE_VERSION:
+        raise ValueError(
+            "architecture_version 's0_abcd_v2' is retired for the main model; "
+            "Group D now uses Rs (s0_abcd_rs_v1). Jinsha DH sunshine hours are "
+            "sensitivity-only. s0_abcd_v2 cannot be used while Rs is the main "
+            "meteorology channel."
+        )
+    if version != MAIN_ARCHITECTURE_VERSION:
+        raise ValueError(
+            f"architecture_version must be {MAIN_ARCHITECTURE_VERSION!r}"
+        )
+    if meteorology != MAIN_METEOROLOGY_VARIABLES:
+        raise ValueError(
+            "main Group D meteorology must be Ta, P, W, RH, Rs; "
+            f"got {meteorology}"
+        )
+    if "DH" in meteorology:
+        raise ValueError(
+            "DH sunshine hours are sensitivity-only and cannot be a main "
+            "Group D channel"
+        )
+    if uses_rs is False:
+        raise ValueError("main architecture_version s0_abcd_rs_v1 requires Rs")
 
 
 def information_group_mask(
@@ -137,8 +178,11 @@ class MissingAwareMultisourceImputer(nn.Module):
         self.config = config or ProposedModelConfig()
         if self.config.hidden_size < 4:
             raise ValueError("hidden_size must be at least 4")
-        if self.config.architecture_version != "s0_abcd_v2":
-            raise ValueError("architecture_version must be 's0_abcd_v2'")
+        require_main_rs_architecture(
+            architecture_version=self.config.architecture_version,
+            meteorology_variables=self.config.meteorology_variables,
+            variable_names=self.config.variable_names,
+        )
         if not self.config.station_ids:
             raise ValueError("At least one station is required")
         if not 0.0 <= self.config.dropout < 1.0:
@@ -680,12 +724,17 @@ ProposedModel = MissingAwareMultisourceImputer
 
 __all__ = [
     "INFORMATION_GROUPS",
+    "MAIN_ARCHITECTURE_VERSION",
+    "MAIN_METEOROLOGY_VARIABLES",
+    "MAIN_VARIABLE_NAMES",
     "MissingAwareMultisourceImputer",
     "ProposedImputer",
     "ProposedModel",
     "ProposedModelConfig",
+    "RETIRED_SUNSHINE_DH_ARCHITECTURE_VERSION",
     "all_information_group_combinations",
     "compute_bidirectional_time_gaps",
     "information_group_mask",
     "masked_imputation_loss",
+    "require_main_rs_architecture",
 ]

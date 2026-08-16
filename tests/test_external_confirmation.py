@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -9,6 +10,7 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import pytest
+import yaml
 
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
@@ -27,16 +29,22 @@ from stream_recoverability.experiments.external_confirmation import (
     ExternalConfirmationRunner,
     build_external_confirmation_grid,
     run_confirmatory_evaluation,
+    run_confirmatory_feasibility,
 )
+from stream_recoverability.experiments.grid import build_experiment_grid
 from stream_recoverability.experiments.model_registry import (
     load_frozen_model_design,
 )
-from stream_recoverability.experiments.runner import ExperimentRunner
+from stream_recoverability.experiments.runner import (
+    CONFIRMATORY_ONCE_PATH_REQUIRED,
+    ExperimentRunner,
+)
 from stream_recoverability.experiments.validation import (
     validation_anchor_catalog_identity,
 )
+from stream_recoverability.models.proposed import require_main_rs_architecture
 
-DESIGN = Path("configs/design_freeze_v1.yaml")
+DESIGN = Path("configs/design_freeze_v2.yaml")
 STUDY_MANIFEST = Path("study_manifest.yaml")
 EXPERIMENT_CONFIG = Path("configs/experiments.yaml")
 
@@ -315,7 +323,7 @@ def _fake_inputs(tmp_path: Path) -> ConfirmatoryEvaluationInputs:
     long.write_bytes(b"long")
     code_identity = roster.selection_contract["code_identity"]
     contract = {
-        "design_version": "design_freeze_v1",
+        "design_version": "design_freeze_v2",
         "design_hash": "d" * 64,
         "data_version": CONFIRMATORY_DATA_VERSION,
         "evaluation_split": "confirmatory",
@@ -434,6 +442,11 @@ def test_evaluate_once_execution_is_atomic_and_identity_complete(
     monkeypatch.setattr(
         external, "preflight_confirmatory_evaluation", lambda **_kwargs: _FAKE_INPUTS
     )
+    monkeypatch.setattr(
+        external,
+        "assert_confirmatory_masks_constructable",
+        lambda **_kwargs: pd.DataFrame(),
+    )
     output = tmp_path / "published" / "external_confirmation"
     lock = external.confirmatory_once_lock_path(_FAKE_INPUTS.data_root)
 
@@ -484,6 +497,11 @@ def test_failed_execution_keeps_nonretryable_once_lock(
     monkeypatch.setattr(
         external, "preflight_confirmatory_evaluation", lambda **_kwargs: _FAKE_INPUTS
     )
+    monkeypatch.setattr(
+        external,
+        "assert_confirmatory_masks_constructable",
+        lambda **_kwargs: pd.DataFrame(),
+    )
 
     class FailingRunner(_SuccessfulFakeRunner):
         def run(self) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -513,3 +531,276 @@ def test_failed_execution_keeps_nonretryable_once_lock(
             once_lock_path=lock,
             runner_factory=_SuccessfulFakeRunner,
         )
+
+
+def _load_script(filename: str) -> Any:
+    path = Path("scripts") / filename
+    spec = importlib.util.spec_from_file_location(path.stem, path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _write_availability_long(path: Path) -> None:
+    rows: list[dict[str, Any]] = []
+    for label, _, _ in FROZEN_PERIODS:
+        for site_id in FROZEN_SITE_IDS:
+            for variable in FROZEN_VARIABLES:
+                rows.append(
+                    {
+                        "split": label,
+                        "site_id": site_id,
+                        "variable": variable,
+                        "value": 1.0,
+                        "natural_observed": True,
+                        "quality_approved": True,
+                        "estimated_qualifier": False,
+                        "qc_status": "approved",
+                        "data_version": CONFIRMATORY_DATA_VERSION,
+                    }
+                )
+    pd.DataFrame(rows).to_parquet(path, index=False)
+
+
+def _patch_feasibility_masks(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    corrupt_target_truth: bool = False,
+) -> None:
+    n_dates = 400
+    n_stations = len(FROZEN_SITE_IDS)
+    n_variables = len(FROZEN_VARIABLES)
+
+    def fake_init(self, grid: Any, **kwargs: Any) -> None:
+        del grid
+        self.mask_dir = Path(kwargs["mask_dir"])
+        self.mask_dir.mkdir(parents=True, exist_ok=True)
+        values = np.ones((n_dates, n_stations, n_variables), dtype=np.float32)
+        quality = np.ones_like(values, dtype=bool)
+        natural = np.ones_like(values, dtype=bool)
+        if corrupt_target_truth:
+            values[:, :, 0] = np.nan
+            quality[:, :, 0] = False
+            natural[:, :, 0] = False
+        self.data = SimpleNamespace(
+            dates=pd.date_range("2023-01-01", periods=n_dates, freq="D"),
+            station_ids=tuple(FROZEN_SITE_IDS),
+            variable_names=tuple(FROZEN_VARIABLES),
+            values=values,
+            natural_observed=natural,
+            quality_approved=quality,
+        )
+
+    def fake_generate(
+        self, scenario: Any
+    ) -> tuple[np.ndarray, dict[str, Any]]:
+        mask = np.zeros((n_dates, n_stations, n_variables), dtype=bool)
+        station_index = FROZEN_SITE_IDS.index(scenario.condition.station_ids[0])
+        mask[10, station_index, 0] = True
+        if external._information_condition(scenario.condition) == "no_meteorology":
+            for variable_index in range(3, n_variables):
+                mask[10, :, variable_index] = True
+        scenarios = self.mask_dir / "scenarios"
+        scenarios.mkdir(parents=True, exist_ok=True)
+        (scenarios / f"{scenario.scenario_id}.npz").write_bytes(
+            scenario.scenario_id.encode("utf-8")
+        )
+        (scenarios / f"{scenario.scenario_id}.json").write_text(
+            json.dumps({"scenario_id": scenario.scenario_id}), encoding="utf-8"
+        )
+        return mask, {"scenario_id": scenario.scenario_id}
+
+    def forbid_training(*_args: Any, **_kwargs: Any) -> None:
+        raise AssertionError("feasibility must not train models")
+
+    monkeypatch.setattr(ExternalConfirmationRunner, "__init__", fake_init)
+    monkeypatch.setattr(ExternalConfirmationRunner, "_generate_mask", fake_generate)
+    monkeypatch.setattr(ExperimentRunner, "run", forbid_training)
+
+
+def test_feasibility_only_builds_sixty_masks_without_lock_or_metrics(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    global _FAKE_INPUTS
+    _FAKE_INPUTS = _fake_inputs(tmp_path)
+    _write_availability_long(_FAKE_INPUTS.long_path)
+    monkeypatch.setattr(
+        external, "preflight_confirmatory_evaluation", lambda **_kwargs: _FAKE_INPUTS
+    )
+    _patch_feasibility_masks(monkeypatch)
+    output = tmp_path / "feasibility"
+    lock = external.confirmatory_once_lock_path(_FAKE_INPUTS.data_root)
+
+    result = run_confirmatory_feasibility(
+        data_root=_FAKE_INPUTS.data_root,
+        finalized_model_roster_path=_FAKE_INPUTS.roster.manifest_path,
+        output_dir=output,
+        design_path=DESIGN,
+        study_manifest_path=STUDY_MANIFEST,
+        experiment_config_path=EXPERIMENT_CONFIG,
+    )
+
+    assert result.once_lock_created is False
+    assert result.performance_metrics_computed is False
+    assert result.models_trained is False
+    assert result.report["scenario_count"] == 60
+    assert result.report["performance_metrics_computed"] is False
+    assert result.report["models_trained"] is False
+    assert result.report["once_lock_created"] is False
+    assert result.report["status"] == "passed"
+    assert len(result.mask_contract) == 60
+    assert not lock.exists()
+    mask_files = list((output / "masks" / "scenarios").glob("*.npz"))
+    assert len(mask_files) == 60
+    assert not (output / "daily_predictions.parquet").exists()
+    assert not (output / "event_metrics.parquet").exists()
+
+
+def test_feasibility_fails_if_once_lock_already_exists(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    global _FAKE_INPUTS
+    _FAKE_INPUTS = _fake_inputs(tmp_path)
+    monkeypatch.setattr(
+        external, "preflight_confirmatory_evaluation", lambda **_kwargs: _FAKE_INPUTS
+    )
+    output = tmp_path / "feasibility"
+    lock = external.confirmatory_once_lock_path(_FAKE_INPUTS.data_root)
+    lock.write_text(json.dumps({"status": "complete"}), encoding="utf-8")
+
+    with pytest.raises(FileExistsError, match="once-lock already exists"):
+        run_confirmatory_feasibility(
+            data_root=_FAKE_INPUTS.data_root,
+            finalized_model_roster_path=_FAKE_INPUTS.roster.manifest_path,
+            output_dir=output,
+            design_path=DESIGN,
+        )
+    assert lock.exists()
+    assert not output.exists()
+
+
+def test_feasibility_requires_roster_but_does_not_create_lock(tmp_path: Path) -> None:
+    data_root = tmp_path / "external-data"
+    data_root.mkdir()
+    missing_roster = tmp_path / "missing_roster.json"
+    output = tmp_path / "feasibility"
+    lock = external.confirmatory_once_lock_path(data_root)
+
+    with pytest.raises(FileNotFoundError):
+        run_confirmatory_feasibility(
+            data_root=data_root,
+            finalized_model_roster_path=missing_roster,
+            output_dir=output,
+            design_path=DESIGN,
+        )
+    assert not lock.exists()
+    assert not output.exists()
+
+
+def test_feasibility_rejects_nonfinite_or_unapproved_masked_target_truth(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    global _FAKE_INPUTS
+    _FAKE_INPUTS = _fake_inputs(tmp_path)
+    monkeypatch.setattr(
+        external, "preflight_confirmatory_evaluation", lambda **_kwargs: _FAKE_INPUTS
+    )
+    _patch_feasibility_masks(monkeypatch, corrupt_target_truth=True)
+    output = tmp_path / "feasibility"
+    lock = external.confirmatory_once_lock_path(_FAKE_INPUTS.data_root)
+
+    with pytest.raises(ValueError, match="approved finite truth"):
+        run_confirmatory_feasibility(
+            data_root=_FAKE_INPUTS.data_root,
+            finalized_model_roster_path=_FAKE_INPUTS.roster.manifest_path,
+            output_dir=output,
+            design_path=DESIGN,
+        )
+    assert not lock.exists()
+    assert not output.exists()
+
+
+def test_cli_feasibility_only_flag_is_mutual_exclusive_with_preflight() -> None:
+    parser = _load_script("20_run_confirmatory_evaluation.py").build_parser()
+    with pytest.raises(SystemExit):
+        parser.parse_args(
+            [
+                "--feasibility-only",
+                "--preflight-only",
+                "--finalized-model-roster",
+                "roster.json",
+            ]
+        )
+
+
+def test_script_08_and_experiment_runner_cannot_use_confirmatory_split(
+    tmp_path: Path,
+) -> None:
+    grid = build_external_confirmation_grid(training_seeds=(11,))
+    with pytest.raises(ValueError, match=CONFIRMATORY_ONCE_PATH_REQUIRED):
+        ExperimentRunner(
+            grid,
+            wide_path=tmp_path / "missing.parquet",
+            output_dir=tmp_path / "results",
+            mask_dir=tmp_path / "masks",
+            config_path=EXPERIMENT_CONFIG,
+            design_path=DESIGN,
+            manifest_path=STUDY_MANIFEST,
+            models=("climatology",),
+        )
+    with pytest.raises(ValueError, match="reserved for the once-locked"):
+        build_experiment_grid(evaluation_split="confirmatory")
+    parser = _load_script("08_run_experiments.py").build_parser()
+    with pytest.raises(SystemExit):
+        parser.parse_args(["--evaluation-split", "confirmatory"])
+    with pytest.raises((FileNotFoundError, OSError, ValueError, KeyError)) as allowed:
+        ExternalConfirmationRunner(
+            grid,
+            wide_path=tmp_path / "missing.parquet",
+            output_dir=tmp_path / "results",
+            mask_dir=tmp_path / "masks",
+            config_path=EXPERIMENT_CONFIG,
+            design_path=DESIGN,
+            manifest_path=STUDY_MANIFEST,
+            models=("climatology",),
+        )
+    assert CONFIRMATORY_ONCE_PATH_REQUIRED not in str(allowed.value)
+
+
+def test_architecture_version_s0_abcd_v2_fails_closed_when_rs_is_main_channel(
+    tmp_path: Path,
+) -> None:
+    with pytest.raises(ValueError, match="s0_abcd_v2"):
+        require_main_rs_architecture(
+            architecture_version="s0_abcd_v2",
+            meteorology_variables=("Ta", "P", "W", "RH", "Rs"),
+            variable_names=FROZEN_VARIABLES,
+        )
+    mutated = DESIGN.read_text(encoding="utf-8").replace(
+        "architecture_version: s0_abcd_rs_v1",
+        "architecture_version: s0_abcd_v2",
+        1,
+    )
+    path = tmp_path / "design_freeze_rs_collision.yaml"
+    path.write_text(mutated, encoding="utf-8")
+    with pytest.raises(ValueError, match="s0_abcd_v2"):
+        load_confirmatory_protocol(path)
+    with pytest.raises(ValueError, match="s0_abcd_v2"):
+        load_frozen_model_design(path)
+
+
+def test_one_network_not_five_basins_language_exists_in_design_freeze_v2() -> None:
+    text = DESIGN.read_text(encoding="utf-8")
+    document = yaml.safe_load(text)
+    geography = document["confirmatory_dataset"]["frozen_external_protocol"][
+        "network_geography"
+    ]
+    assert document["claim_boundaries"]["confirmatory_panel"] == (
+        "one_upper_middle_chattahoochee_mainstem_network"
+    )
+    assert document["claim_boundaries"]["confirmatory_not_five_independent_basins"] is True
+    assert geography["claim_unit"] == "one_connected_mainstem_network_panel"
+    assert geography["not_five_independent_basins"] is True
+    assert "not_five_independent_basins" in text
+    assert "one_connected_mainstem_network_panel" in text

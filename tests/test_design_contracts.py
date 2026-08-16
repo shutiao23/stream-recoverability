@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 
@@ -8,10 +9,12 @@ import pandas as pd
 
 from stream_recoverability.experiments.contracts import (
     CODE_PROVENANCE_SCHEMA_VERSION,
+    DEFAULT_DESIGN_PATH,
     build_code_provenance,
     build_design_contract,
     canonical_code_identity,
     canonical_evaluation_split,
+    file_sha256,
 )
 from stream_recoverability.experiments.grid import build_experiment_grid
 from stream_recoverability.experiments.runner import ExperimentRunner
@@ -19,8 +22,8 @@ from stream_recoverability.experiments.runner import ExperimentRunner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
-DESIGN = REPO_ROOT / "configs" / "design_freeze_v1.yaml"
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+DESIGN = REPO_ROOT / DEFAULT_DESIGN_PATH
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 
 def _git(repository: Path, *arguments: str) -> None:
@@ -80,7 +83,7 @@ def test_design_hash_changes_with_data_version_and_is_reproducible() -> None:
         evaluation_split="validation",
     )
     relative = build_design_contract(
-        design_path="configs/design_freeze_v1.yaml",
+        design_path=str(DEFAULT_DESIGN_PATH),
         manifest_path="study_manifest.yaml",
         experiment_config_path="configs/experiments.yaml",
         data_version="published_v1",
@@ -262,12 +265,52 @@ def test_stored_test_alias_is_canonicalised_to_development_test() -> None:
     assert legacy_alias == canonical
 
 
+def _quality_long(wide_path: Path, quality_path: Path) -> Path:
+    wide = pd.read_parquet(wide_path)
+    frames = [
+        pd.DataFrame(
+            {
+                "date": wide["date"],
+                "station_id": station,
+                "variable": variable,
+                "quality_approved": True,
+                "natural_observed": True,
+                "data_version": "published_v1",
+            }
+        )
+        for station in ("B1", "S2", "P3")
+        for variable in VARIABLES
+    ]
+    pd.concat(frames, ignore_index=True).to_parquet(quality_path, index=False)
+    return quality_path
+
+
 def test_validation_grid_masks_only_validation_and_persists_contract(
     tmp_path: Path,
 ) -> None:
-    version_root = REPO_ROOT / "data_versions" / "published_v1"
-    wide = version_root / "daily_wide.parquet"
-    quality = version_root / "daily_long.parquet"
+    version_root = tmp_path / "published_v1"
+    version_root.mkdir()
+    wide = _wide(version_root / "daily_wide.parquet")
+    quality = _quality_long(wide, version_root / "daily_long.parquet")
+    manifest = version_root / "version_manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "data_version": "published_v1",
+                "artifacts": {
+                    "daily_wide.parquet": {
+                        "sha256": file_sha256(wide),
+                        "bytes": wide.stat().st_size,
+                    },
+                    "daily_long.parquet": {
+                        "sha256": file_sha256(quality),
+                        "bytes": quality.stat().st_size,
+                    },
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     grid = build_experiment_grid(
         MANIFEST,
         CONFIG,
@@ -279,7 +322,7 @@ def test_validation_grid_masks_only_validation_and_persists_contract(
         grid,
         wide_path=wide,
         quality_path=quality,
-        data_version_manifest_path=version_root / "version_manifest.json",
+        data_version_manifest_path=manifest,
         output_dir=tmp_path / "results",
         mask_dir=tmp_path / "masks",
         config_path=CONFIG,

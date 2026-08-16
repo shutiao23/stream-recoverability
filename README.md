@@ -40,6 +40,7 @@ In particular:
 
 - 2018–2020 is called `development_test`. It was visible before
   `design_freeze_v1` and is not presented as a previously unseen test set.
+  The executable freeze is now `design_freeze_v2`; v1 remains historical.
 - Model selection is now restricted to 2016–2017 validation data and must end
   in a hash-verified `finalized_model_roster_v1` before any formal
   development-test or confirmatory execution.
@@ -64,18 +65,22 @@ In particular:
 | Development evaluation | 2018–2020 (`development_test`; stored-data alias `test`) |
 | Primary target | Stream temperature (`T`) |
 | Secondary targets | Discharge (`F`) and water level (`L`) |
-| Meteorology | Air temperature (`Ta`), precipitation (`P`), wind (`W`), relative humidity (`RH`), sunshine duration (`DH`) |
+| Meteorology | Air temperature (`Ta`), precipitation (`P`), wind (`W`), relative humidity (`RH`), surface shortwave radiation (`Rs`; NASA POWER `ALLSKY_SFC_SW_DWN`, MJ/m²/day). Jinsha sunshine duration (`DH`, hours) is sensitivity-only and is not the main Group D channel. |
 | Main / dense windows | 368 / 736 days; 184 and 736 days are window sensitivities |
 | Formal training seeds | `11`, `22`, `33`, `44`, `55` |
 | Formal mask seeds | `101`–`120` |
 | Internal data versions | `published_v1` plus three frozen provenance sensitivities |
-| Confirmatory design | Lower Chattahoochee, 2023–2025, evaluate once after roster freeze |
+| Confirmatory design | One Upper–Middle Chattahoochee mainstem network panel (HUCs `03130001`/`03130002`; not Lower `03130004`; not five basins; not external M1), 2023–2025, evaluate once after roster freeze |
 
 The authoritative contracts are
+[`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml)
+(executable) and the historical
 [`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml),
-[`study_manifest.yaml`](study_manifest.yaml), and
-[`configs/experiments.yaml`](configs/experiments.yaml). Variable definitions
-and provenance are documented in
+plus [`study_manifest.yaml`](study_manifest.yaml) and
+[`configs/experiments.yaml`](configs/experiments.yaml). The v1→v2 protocol
+change is recorded in
+[`docs/protocol_change_v1_to_v2.md`](docs/protocol_change_v1_to_v2.md).
+Variable definitions and provenance are documented in
 [`metadata/data_dictionary.csv`](metadata/data_dictionary.csv) and
 [`metadata/source_documentation/README.md`](metadata/source_documentation/README.md).
 
@@ -92,10 +97,11 @@ The pipeline separates four roles that must not be pooled or relabelled:
    on `development_test`. Their manifests must match the frozen design, data
    version, masks, checkpoints, code identity, seeds, expected models, and
    run-unit inventory.
-4. **External temporal confirmation.** An immutable Lower Chattahoochee data
-   bundle may be opened only after the roster is finalized. The frozen models
-   are retrained on the external training period and evaluated once on the
-   confirmatory period.
+4. **External temporal confirmation.** An immutable Upper–Middle Chattahoochee
+   mainstem data bundle may be opened only after the roster is finalized. The
+   frozen models are retrained on the external training period and evaluated
+   once on the confirmatory period. This is one connected network panel, not
+   five independent basins and not internal nested-point M1.
 
 Formal aggregation is registry-driven. A `formal_suite_registry_v1` names
 explicit completed run manifests; historical-directory discovery is not used.
@@ -163,7 +169,7 @@ The proposed model's information definition is fixed as follows:
 | `A` | Local target context before and after the gap and distance to observations |
 | `B` | Same-site discharge and water level |
 | `C` | Other-site temperature, discharge, and water level |
-| `D` | Same-site air temperature, precipitation, wind, relative humidity, and sunshine duration |
+| `D` | Same-site air temperature, precipitation, wind, relative humidity, and surface shortwave radiation (`Rs`). Jinsha sunshine duration (`DH`, hours) is sensitivity-only, not the main Group D channel |
 
 Two information estimands remain separate. Operational dropout evaluates `S0`
 and all 15 non-empty A–D subsets with one shared checkpoint and permits exact
@@ -227,7 +233,19 @@ provides five fixed anchors per season for every station–target group.
 ## Installation
 
 Python 3.10 or newer is required. Formal reference models require the pinned
-`reference` extra.
+`reference` extra. GitHub Actions installs **from** the pip-tools lock
+[`constraints.txt`](constraints.txt) on Python **3.10 and 3.11**:
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install \
+  --extra-index-url https://download.pytorch.org/whl/cpu \
+  -c constraints.txt \
+  -e ".[dev,reference]"
+```
+
+A floating `pip install -e ".[dev,reference]"` without `-c constraints.txt` is
+not the CI path and will not reproduce the locked tree.
 
 ```bash
 git clone https://github.com/shutiao23/stream-recoverability.git
@@ -236,13 +254,30 @@ cd stream-recoverability
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -e ".[dev,reference]"
+python -m pip install \
+  --extra-index-url https://download.pytorch.org/whl/cpu \
+  -c constraints.txt \
+  -e ".[dev,reference]"
 pytest
 ```
 
-The main dependencies are declared in
-[`pyproject.toml`](pyproject.toml). `pypots==1.5` is intentionally exact rather
-than a lower bound.
+[`pyproject.toml`](pyproject.toml) keeps intent ranges (`numpy>=1.24,<3`,
+`pandas>=2.0,<4`, `xgboost>=2.0,<3`, `pypots==1.5`). Exact versions live in
+`constraints.txt`. [`environment.yml`](environment.yml) is a derived conda
+wrapper around that lock, not a second source of truth.
+
+The committed lock pins **CPU** PyTorch (`torch==2.13.0+cpu`) from
+`https://download.pytorch.org/whl/cpu` so GitHub Actions does not download
+CUDA torch. `nvidia-nccl-cu12` appears only as a Linux **XGBoost** wheel
+dependency. For GPU training, install a CUDA torch of the same base version
+from the matching PyTorch index (for example
+`https://download.pytorch.org/whl/cu124`), then install the remaining tree
+with `-c constraints.txt` after overriding the `+cpu` torch pin. Do not copy
+CUDA torch wheels into the GitHub Actions lock.
+
+The pre-validation compute budget is
+[`results/compute_plan.json`](results/compute_plan.json) (candidate deep
+models only; the formal roster is still pending).
 
 ## Safe smoke check
 
@@ -301,7 +336,7 @@ gate-driven and therefore not simply numerical.
 | `17_build_event_catalog.py` | Build or audit the deterministic M7b event/control catalog. |
 | `18_generate_validation_anchors.py` | Generate the frozen five-anchor-per-station validation catalog. |
 | `19_build_confirmatory_data.py` | Print the external request plan, or build immutable external data after roster authorization; never computes metrics. |
-| `20_run_confirmatory_evaluation.py` | Preflight or execute the frozen external evaluation exactly once. |
+| `20_run_confirmatory_evaluation.py` | Preflight, `--feasibility-only` 60-mask dry-run, or execute the frozen external evaluation exactly once. |
 | `21_build_formal_suite_registry.py` | Build one immutable registry from explicitly named completed suite manifests. |
 
 Use `python scripts/<script>.py --help` before running a stage. The high-level
@@ -322,10 +357,11 @@ validation-only funnel -> finalized model roster
 formal development suites       build immutable external data
       |                          |
       v                          v
-formal suite registries         preflight -> evaluate once
-      |
-      v
+formal suite registries         feasibility (60 masks, no lock)
+      |                          |
+      v                          v
 strict aggregation -> frozen analysis -> figures and tables
+                                evaluate once (lock after dry-run)
 ```
 
 Formal development execution must pass the finalized roster explicitly. A
@@ -360,23 +396,34 @@ sensitivity bundles and reports matched sensitivity results separately.
 ## External evaluate-once confirmation
 
 The confirmatory protocol is frozen in
-[`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml). It uses five
-Lower Chattahoochee main-stem USGS sites (`02334430`, `02335000`, `02335450`,
-`02336000`, and `02337170`) with USGS daily `T`, `F`, and `L` and nearest-cell
-NASA POWER meteorology.
+[`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml). It uses five
+USGS sites on **one** Upper–Middle Chattahoochee mainstem network
+(`02334430`, `02335000`, `02335450`, `02336000`, and `02337170`; HUCs
+`03130001`/`03130002`, not Lower `03130004`) with USGS daily `T`, `F`, and `L`
+and nearest-cell NASA POWER meteorology. This is not five independent basins
+and not an external copy of nested-point M1.
 
 The external periods are 2012–2020 for fitting, 2021–2022 for early stopping,
 and 2023–2025 for confirmation. The design contains a 30% point mask; 30-, 90-,
 and 180-day `T` blocks; and 90- and 180-day hydrological station outages, each
 under full-information and no-meteorology conditions. This gives 60 fixed
-scenarios. External `DH` is explicitly a daily shortwave-radiation proxy, not
-the internal sunshine-duration measurement.
+scenarios. Main Group D meteorology is `Ta`, `P`, `W`, `RH`, and `Rs`
+(NASA POWER `ALLSKY_SFC_SW_DWN`, MJ/m²/day) on both networks. Jinsha sunshine
+`DH` hours are sensitivity-only.
+
+NASA POWER requests keep `time_standard=UTC`. USGS daily values are
+station-local civil days; POWER without an override defaults to LST. That
+mismatch is a calendar-day label-alignment issue, not travel time. Lags
+`{-1, 0, +1}` are predeclared and must not be tuned on confirmatory
+performance.
 
 This is external temporal replication with the frozen architecture retrained
 on external training data, not zero-shot geographic transfer. Data acquisition
-requires a hash-verified finalized roster. The evaluation command validates
-the immutable bundle and all contracts before creating a persistent once-lock;
-`--preflight-only` performs the checks without opening the evaluation path.
+requires a hash-verified finalized roster. `--feasibility-only` constructs all
+60 masks and checks approved finite `T` truth without training, scoring, or
+creating a once-lock. Evaluate-once may create the persistent once-lock only
+after that 60-mask dry-run succeeds. `scripts/08_run_experiments.py` cannot
+target confirmatory splits.
 
 No confirmatory data or performance result is claimed by the current evidence
 status above. If the external sources cannot satisfy the frozen data contract,
@@ -446,7 +493,9 @@ figures/                    study-area, diagnostic, and publication figures
 ## Documentation
 
 - [Detailed executable methods](paper/methods.md)
-- [Frozen design](configs/design_freeze_v1.yaml)
+- [Frozen design (executable v2)](configs/design_freeze_v2.yaml)
+- [Historical freeze v1](configs/design_freeze_v1.yaml)
+- [Protocol change v1 to v2](docs/protocol_change_v1_to_v2.md)
 - [Study manifest](study_manifest.yaml)
 - [Data dictionary](metadata/data_dictionary.csv)
 - [Source and provenance notes](metadata/source_documentation/README.md)

@@ -34,7 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v1.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v2.yaml",
     )
     plan.add_argument(
         "--output",
@@ -52,7 +52,7 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v1.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v2.yaml",
     )
     build.add_argument(
         "--output",

@@ -1088,7 +1088,7 @@ def run_retrained_information_upper_bounds(
     finalized_model_roster_path: str | Path,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = "configs/design_freeze_v2.yaml",
     data_version_manifest_path: str | Path | None = None,
     selection_data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",

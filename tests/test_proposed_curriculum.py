@@ -13,7 +13,7 @@ from stream_recoverability.models.proposed_curriculum import (
     sample_curriculum_scenarios,
 )
 
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 
 def test_frozen_curriculum_probabilities_and_schedule_are_deterministic() -> None:
@@ -192,3 +192,34 @@ def test_unseen_curriculum_caps_gaps_and_validation_suite_is_frozen() -> None:
         )
         assert result.metadata["validation_scenario"] == scenario
         assert result.metadata["training_gap_length"] == expected_lengths[scenario]
+
+
+def test_main_curriculum_requires_rs_and_rejects_silent_dh_fallback() -> None:
+    eligible = np.ones((184, 3, 8), dtype=bool)
+    dh_only = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+    with pytest.raises(ValueError, match="requires Rs"):
+        generate_curriculum_mask(
+            eligible,
+            dh_only,
+            scenario="point",
+            protocol="seen_length",
+            seed=0,
+        )
+    sensitivity = generate_curriculum_mask(
+        eligible,
+        dh_only,
+        scenario="point",
+        protocol="seen_length",
+        seed=0,
+        jinsha_sunshine_sensitivity=True,
+    )
+    assert sensitivity.artificial_mask[..., 0].any()
+    with pytest.raises(ValueError, match="cannot include main Rs"):
+        generate_curriculum_mask(
+            eligible,
+            VARIABLES,
+            scenario="point",
+            protocol="seen_length",
+            seed=0,
+            jinsha_sunshine_sensitivity=True,
+        )

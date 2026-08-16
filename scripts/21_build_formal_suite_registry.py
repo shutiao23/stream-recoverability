@@ -58,7 +58,7 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
-        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v1.yaml"
+        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v2.yaml"
     )
     parser.add_argument(
         "--study-manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"

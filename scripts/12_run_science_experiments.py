@@ -60,7 +60,7 @@ def _add_anchor_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v1.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v2.yaml",
     )
     parser.add_argument(
         "--data-root",
@@ -207,7 +207,7 @@ def build_parser() -> argparse.ArgumentParser:
     information.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v1.yaml",
+        default=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
     )
     information.add_argument("--data-version", default="published_v1")
     information.add_argument(

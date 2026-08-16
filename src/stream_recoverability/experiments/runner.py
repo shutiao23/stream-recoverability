@@ -74,6 +74,7 @@ from .contracts import (
     DEFAULT_DESIGN_PATH,
     DEFAULT_MANIFEST_PATH,
     build_design_contract,
+    canonical_evaluation_split,
     file_sha256,
     validate_data_version_inputs,
 )
@@ -652,8 +653,17 @@ def _load_data(
     )
 
 
+CONFIRMATORY_ONCE_PATH_REQUIRED = (
+    "evaluation_split=confirmatory is prohibited outside the once-locked "
+    "scripts/20 confirmatory path; scripts/08 and ExperimentRunner cannot "
+    "train or write skill on confirmatory splits"
+)
+
+
 class ExperimentRunner:
     """Execute scenario shards and atomically aggregate resume-safe outputs."""
+
+    _allow_confirmatory_evaluation = False
 
     def __init__(
         self,
@@ -746,7 +756,7 @@ class ExperimentRunner:
             raise ValueError("runner training settings must be positive")
         self.variable_names = tuple(
             self.config.get(
-                "all_variables", ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+                "all_variables", ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
             )
         )
         self.wide_path = Path(wide_path)
@@ -761,6 +771,9 @@ class ExperimentRunner:
         if len(evaluation_splits) != 1:
             raise ValueError("one runner grid cannot mix evaluation_split values")
         self.evaluation_split = next(iter(evaluation_splits))
+        if canonical_evaluation_split(self.evaluation_split) == "confirmatory":
+            if not self._allow_confirmatory_evaluation:
+                raise ValueError(CONFIRMATORY_ONCE_PATH_REQUIRED)
         inferred_version_manifest = self.wide_path.parent / "version_manifest.json"
         self.data_version_manifest_path = (
             Path(data_version_manifest_path)
@@ -1629,7 +1642,7 @@ class ExperimentRunner:
                 f"{station_id}_P",
                 f"{station_id}_W",
                 f"{station_id}_RH",
-                f"{station_id}_DH",
+                f"{station_id}_Rs",
             ]
             model = IndependentFlowBaseline(
                 feature_cols,
@@ -4623,6 +4636,7 @@ def run_experiments(
 
 
 __all__ = [
+    "CONFIRMATORY_ONCE_PATH_REQUIRED",
     "LEGACY_MODEL_ALIASES",
     "LOCAL_DEEP_MODELS",
     "REFERENCE_MODELS",

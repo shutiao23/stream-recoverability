@@ -101,7 +101,7 @@ def _add_contract_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v1.yaml",
+        default=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
     )
     parser.add_argument(
         "--data-root", type=Path, default=PROJECT_ROOT / "data_versions"

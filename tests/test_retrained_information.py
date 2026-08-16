@@ -36,7 +36,7 @@ from stream_recoverability.models.proposed_curriculum import (
 from stream_recoverability.models.proposed_training import ProposedTrainingConfig
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 
 @pytest.fixture(autouse=True)
@@ -379,7 +379,7 @@ def test_partial_retrained_run_writes_exact_retryable_and_hash_gates(
         finalized_model_roster_path=tmp_path / "roster.json",
         manifest_path=PROJECT_ROOT / "study_manifest.yaml",
         config_path=PROJECT_ROOT / "configs/experiments.yaml",
-        design_path=PROJECT_ROOT / "configs/design_freeze_v1.yaml",
+        design_path=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
         wide_path=wide_path,
         quality_path=quality_path,
         output_dir=output,

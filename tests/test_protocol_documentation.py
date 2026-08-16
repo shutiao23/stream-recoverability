@@ -82,3 +82,12 @@ def test_readme_and_methods_grid_counts_follow_executable_builders() -> None:
     methods = _documented_counts(REPOSITORY_ROOT / "paper/methods.md")
     assert readme == computed
     assert methods == computed
+
+
+def test_pre_freeze_tombstone_exists_and_is_linked_from_readme() -> None:
+    tombstone = REPOSITORY_ROOT / "results/formal/PRE_FREEZE_INVALID.md"
+    assert tombstone.is_file()
+    text = tombstone.read_text(encoding="utf-8")
+    assert "not scientific evidence" in text.lower()
+    readme = (REPOSITORY_ROOT / "README.md").read_text(encoding="utf-8")
+    assert "results/formal/PRE_FREEZE_INVALID.md" in readme

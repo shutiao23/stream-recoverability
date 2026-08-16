@@ -73,12 +73,16 @@ DEFAULT_VARIABLE_SPECS = {
     },
     "DH": {
         "standard_name": "DH",
-        "raw_unit": "unknown",
-        "unit": "unknown",
+        "raw_unit": "hour",
+        "unit": "hour",
         "unit_conversion": "identity",
         "missing_codes": (),
     },
 }
+
+# Jinsha raw DH is bright sunshine duration (hours) and is sensitivity-only.
+# The main cross-network Group D channel is Rs (NASA ALLSKY_SFC_SW_DWN, MJ/m^2/day).
+MAIN_ARCHITECTURE_VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 SPLIT_RANGES = {
     "train": ("2006-01-01", "2015-12-31"),

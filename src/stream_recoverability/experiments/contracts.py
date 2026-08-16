@@ -11,7 +11,7 @@ from typing import Any
 
 import yaml
 
-DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v1.yaml")
+DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v2.yaml")
 DEFAULT_MANIFEST_PATH = Path("study_manifest.yaml")
 SUPPORTED_EVALUATION_SPLITS = frozenset(
     {"validation", "development_test", "test", "confirmatory"}

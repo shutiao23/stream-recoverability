@@ -695,6 +695,13 @@ def test_analysis_script_rejects_unmanifested_result_tables(tmp_path):
     output_dir = tmp_path / "analysis"
     pd.DataFrame(event_rows).to_csv(events_path, index=False)
     pd.DataFrame(daily_rows).to_csv(daily_path, index=False)
+    sensitivity_manifests = [
+        tmp_path / "no_s2.json",
+        tmp_path / "no_level.json",
+        tmp_path / "shift.json",
+    ]
+    for path in sensitivity_manifests:
+        path.write_text("{}", encoding="utf-8")
     script = Path(__file__).parents[1] / "scripts/09_analyze_results.py"
     completed = subprocess.run(
         [
@@ -706,6 +713,12 @@ def test_analysis_script_rejects_unmanifested_result_tables(tmp_path):
             str(daily_path),
             "--top-manifest",
             str(tmp_path / "missing-top-manifest.json"),
+            "--sensitivity-manifest",
+            str(sensitivity_manifests[0]),
+            "--sensitivity-manifest",
+            str(sensitivity_manifests[1]),
+            "--sensitivity-manifest",
+            str(sensitivity_manifests[2]),
             "--output-dir",
             str(output_dir),
         ],

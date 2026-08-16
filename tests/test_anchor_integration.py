@@ -23,7 +23,7 @@ from stream_recoverability.masks import (
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = PROJECT_ROOT / "study_manifest.yaml"
 CONFIG = PROJECT_ROOT / "configs/experiments.yaml"
-DESIGN = PROJECT_ROOT / "configs/design_freeze_v1.yaml"
+DESIGN = PROJECT_ROOT / "configs/design_freeze_v2.yaml"
 FRONTIER_ANCHORS = PROJECT_ROOT / "metadata/frontier_anchors.csv"
 VALIDATION_ANCHORS = PROJECT_ROOT / "metadata/validation_anchors.csv"
 PRIMARY_ROOT = PROJECT_ROOT / "data_versions/published_v1"

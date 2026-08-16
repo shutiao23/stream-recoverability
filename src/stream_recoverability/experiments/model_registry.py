@@ -221,6 +221,18 @@ def load_frozen_model_design(path: str | Path) -> FrozenModelDesign:
         name: _mapping(fixed[name], f"fixed_model_protocols.{name}")
         for name in required_protocols
     }
+    architecture = str(protocols["proposed"].get("architecture_version", "")).strip()
+    if design_version != "design_freeze_v1":
+        if architecture == "s0_abcd_v2":
+            raise ValueError(
+                "architecture_version s0_abcd_v2 cannot remain the main token "
+                "while Group D uses Rs; use s0_abcd_rs_v1"
+            )
+        if architecture != "s0_abcd_rs_v1":
+            raise ValueError(
+                "executable design freeze proposed architecture_version must be "
+                "s0_abcd_rs_v1"
+            )
     return FrozenModelDesign(
         design_version=design_version,
         categories=categories,

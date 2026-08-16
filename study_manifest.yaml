@@ -46,4 +46,5 @@ information_groups:
   A: [target_before_gap, target_after_gap, distance_to_observation]
   B: [same_site_flow, same_site_water_level]
   C: [other_site_temperature, other_site_flow, other_site_water_level]
-  D: [air_temperature, precipitation, wind_speed, relative_humidity, sunshine_duration]
+  D: [air_temperature, precipitation, wind_speed, relative_humidity, surface_shortwave_radiation]
+  jinsha_sunshine_duration_DH: sensitivity_only_not_main_architecture

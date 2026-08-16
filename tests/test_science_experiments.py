@@ -42,7 +42,7 @@ from stream_recoverability.models.proposed import (
 from stream_recoverability.models.proposed_training import ProposedTrainingConfig
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 
 @pytest.fixture(autouse=True)
@@ -366,7 +366,7 @@ def _information_wide() -> pd.DataFrame:
         frame[f"{station}_P"] = (time % 7) + station_index
         frame[f"{station}_W"] = (time % 5) / 2 + station_index
         frame[f"{station}_RH"] = 50 + 5 * base
-        frame[f"{station}_DH"] = 8 + np.cos(time / 4.0)
+        frame[f"{station}_Rs"] = 8 + np.cos(time / 4.0)
     return frame
 
 
@@ -511,7 +511,7 @@ def _write_compensation_checkpoint(
 ) -> None:
     station_ids = ("B1", "P3", "S2")
     frozen_design = load_frozen_model_design(
-        PROJECT_ROOT / "configs" / "design_freeze_v1.yaml"
+        PROJECT_ROOT / "configs" / "design_freeze_v2.yaml"
     )
     frozen_model = frozen_design.protocol_for("proposed")
     common = frozen_design.common_training

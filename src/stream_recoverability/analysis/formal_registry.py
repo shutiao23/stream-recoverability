@@ -1719,7 +1719,7 @@ def build_formal_suite_registry(
     data_version: str,
     evaluation_split: str,
     design_hash: str,
-    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v1.yaml",
+    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v2.yaml",
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
     data_version_manifest_path: str | Path | None = None,

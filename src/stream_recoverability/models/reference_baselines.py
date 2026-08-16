@@ -516,7 +516,7 @@ def build_reference_protocol_data(
     normalized_variables = {value.strip().upper() for value in variables}
     if not {"T", "F", "L"}.issubset(normalized_variables):
         raise ValueError("reference curriculum requires T/F/L variables")
-    if not normalized_variables.intersection({"TA", "P", "W", "RH", "DH"}):
+    if not normalized_variables.intersection({"TA", "P", "W", "RH", "RS", "DH"}):
         raise ValueError("reference curriculum requires a meteorology variable")
     protocol = str(protocol)
     if protocol not in {"seen_length", "unseen_length"}:

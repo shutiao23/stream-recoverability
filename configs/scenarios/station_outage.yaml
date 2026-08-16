@@ -2,6 +2,6 @@ mask_type: station_outage
 lengths: [10, 30, 90, 180]
 outage_types:
   hydro_only: [T, F, L]
-  full_site: [T, F, L, Ta, P, W, RH, DH]
+  full_site: [T, F, L, Ta, P, W, RH, Rs]
 layouts: [single, fixed_budget_multiblock]
 
