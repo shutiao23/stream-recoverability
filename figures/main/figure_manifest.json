@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "artifacts": {
+    "figure_01": {
+      "status": "generated",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_01.png",
+      "title": "Study area, monitoring variables, and data availability",
+      "reason": null,
+      "source_rows": 30,
+      "details": {
+        "stations": [
+          "B1",
+          "P3",
+          "S2"
+        ],
+        "availability_source": "EDA availability image"
+      }
+    },
+    "figure_02": {
+      "status": "generated",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_02.png",
+      "title": "Missingness experiments and recoverability framework",
+      "reason": null,
+      "source_rows": 0,
+      "details": {
+        "patterns": [
+          "random point",
+          "single block",
+          "multiple blocks",
+          "single variable",
+          "multivariable",
+          "whole station",
+          "two-station",
+          "asynchronous"
+        ],
+        "information_sources": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    },
+    "figure_03": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_03.png",
+      "title": "Temperature recovery across core missingness conditions",
+      "reason": "event metrics input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "figure_04": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_04.png",
+      "title": "Temperature recoverability frontiers with 95% confidence intervals",
+      "reason": "recoverability skill curves input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "figure_05": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_05.png",
+      "title": "Information compensation across missing-gap duration",
+      "reason": "information Shapley results input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "figure_06": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_06.png",
+      "title": "Monitoring-network resilience under station failures",
+      "reason": "network resilience curve input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "figure_07": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_07.png",
+      "title": "Recovery during observed high-temperature, flood, and low-flow events",
+      "reason": "daily event predictions input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "figure_08": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/figures/main/figure_08.png",
+      "title": "Exploratory internal leave-one-station-out (not external validation)",
+      "reason": "event metrics input is missing",
+      "source_rows": null,
+      "details": {}
+    }
+  },
+  "result_inputs": {
+    "daily_predictions": {
+      "rows": 0,
+      "columns": [],
+      "models": [],
+      "scenario_count": 0,
+      "scenario_summary": []
+    },
+    "event_metrics": {
+      "rows": 0,
+      "columns": [],
+      "models": [],
+      "scenario_count": 0,
+      "scenario_summary": []
+    }
+  }
+}

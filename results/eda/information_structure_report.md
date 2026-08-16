@@ -2,7 +2,7 @@
 
 All thresholds and lag selection diagnostics use the training split only.
 Step candidates are flagged for review and are not removed.
-November 2018 is retained: 720 long-format rows, 718 quality-approved values.
+November 2018 is retained: 810 long-format rows, 808 quality-approved values.
 
 ## Train-only event thresholds
 
