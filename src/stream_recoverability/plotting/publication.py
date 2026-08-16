@@ -27,7 +27,7 @@ SOURCE_LABELS = {
     "A": "A: local temporal",
     "B": "B: same-site hydro",
     "C": "C: cross-station",
-    "D": "D: meteorology/season",
+    "D": "D: meteorology (Rs)",
 }
 MODEL_ORDER = (
     "climatology",

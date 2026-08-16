@@ -6,7 +6,7 @@
 
 We submit a protocol-locked recoverability study of daily stream temperature, discharge, and water level at three Upper Jinsha River stations (2006–2020). The scientific object is not a new graph architecture. It is a leakage-controlled evaluation of how reconstruction skill depends on gap geometry and on which auxiliary sources remain.
 
-**What is complete in this repository version.** The executable design freeze (`design_freeze_v2`), MIT software licence, data-rights matrix, environment lock, confirmatory feasibility gate (no once-lock, no confirmatory skill), and independence audits of validation anchors and event matching.
+**What is complete in this repository version.** The executable design freeze (`design_freeze_v2`), MIT software licence, data-rights matrix, environment lock, confirmatory feasibility gate (no once-lock, no confirmatory skill), independence audits of validation anchors and event matching, NASA POWER $R_s$ rebuild of the internal Group D channel, and the AGU file set in `paper/` (manuscript with empty Results, extended methods, SI index, Key Points, plain-language summary, and figure captions). Descriptive Figure 1–2 and Table 1 may exist; result Figures 3–8 are omitted until current-protocol formal artifacts exist.
 
 **What is not claimed.** This cover letter does not assert MAE, climatology-relative skill, recoverability frontiers, or that the proposed model outperforms baselines. README evidence status remains `validation_funnel=pending_execution` until a hash-verified `finalized_model_roster_v1` exists. Pre-freeze files under `results/formal/` are invalid for inference.
 
