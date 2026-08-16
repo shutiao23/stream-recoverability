@@ -1,0 +1,11 @@
+# Extra compile inputs folded into constraints.txt by pip-tools.
+# The lock CI consumes is constraints.txt, not this file.
+#
+# CPU PyTorch for GitHub Actions. Do not resolve CUDA torch / nvidia CUDA
+# runtime libraries into the GHA lock. GPU workstations should install a
+# CUDA torch build separately (see README).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0+cpu
+build
+wheel
+ruff==0.16.2
