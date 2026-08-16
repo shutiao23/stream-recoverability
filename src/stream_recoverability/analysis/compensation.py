@@ -14,6 +14,27 @@ import pandas as pd
 from sklearn.feature_selection import mutual_info_regression
 
 INFORMATION_SOURCES = ("A", "B", "C", "D")
+
+
+def _preserve_optional_text(frame: pd.DataFrame, *columns: str) -> pd.DataFrame:
+    """Keep explicit None sentinels that pandas 3 would coerce to NaN."""
+
+    if frame.empty:
+        return frame
+    result = frame.copy()
+    for column in columns:
+        if column not in result.columns:
+            continue
+        values = [
+            None
+            if not isinstance(value, str) and (value is None or pd.isna(value))
+            else value
+            for value in result[column].tolist()
+        ]
+        result[column] = pd.Series(values, index=result.index, dtype=object)
+    return result
+
+
 INFORMATION_UNIT_GROUP_COLUMNS = (
     "scenario_id",
     "training_seed",
@@ -331,7 +352,7 @@ def shapley_table(
                     "reason": reason,
                 }
             )
-    return pd.DataFrame(rows)
+    return _preserve_optional_text(pd.DataFrame(rows), "reason")
 
 
 def compensation_gains(

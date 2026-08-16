@@ -597,12 +597,12 @@ def estimate_frontiers(
         if panel.empty:
             curve = pd.DataFrame()
         else:
-            curve_data = (
-                panel.rename_axis(columns="gap_length")
-                .stack(dropna=False)
-                .rename("skill")
-                .reset_index()
-            )
+            stacked = panel.rename_axis(columns="gap_length")
+            try:
+                curve_series = stacked.stack(future_stack=True)
+            except TypeError:
+                curve_series = stacked.stack(dropna=False)
+            curve_data = curve_series.rename("skill").reset_index()
             curve = skill_curve(
                 curve_data,
                 cluster_col="_frontier_unit",

@@ -15,6 +15,7 @@ from scipy.stats import rankdata
 
 
 ArrayLike = Sequence[float] | Sequence[bool] | np.ndarray | pd.Series
+_trapezoid = getattr(np, "trapezoid", None) or np.trapz
 
 
 def _numeric(values: ArrayLike, *, name: str) -> np.ndarray:
@@ -639,7 +640,7 @@ def quantile_metrics(
             losses.append(np.maximum(quantile * error, (quantile - 1.0) * error))
         loss_matrix = np.stack(losses, axis=1)
         result["approx_crps"] = float(
-            np.mean(2.0 * np.trapz(loss_matrix, x=np.asarray(quantiles), axis=1))
+            np.mean(2.0 * _trapezoid(loss_matrix, x=np.asarray(quantiles), axis=1))
         )
     return result
 

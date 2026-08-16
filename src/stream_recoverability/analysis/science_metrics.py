@@ -16,6 +16,26 @@ from stream_recoverability.evaluation.metrics import (
     temperature_metrics,
 )
 
+
+def _preserve_optional_text(frame: pd.DataFrame, *columns: str) -> pd.DataFrame:
+    """Keep explicit None sentinels that pandas 3 would coerce to NaN."""
+
+    if frame.empty:
+        return frame
+    result = frame.copy()
+    for column in columns:
+        if column not in result.columns:
+            continue
+        values = [
+            None
+            if not isinstance(value, str) and (value is None or pd.isna(value))
+            else value
+            for value in result[column].tolist()
+        ]
+        result[column] = pd.Series(values, index=result.index, dtype=object)
+    return result
+
+
 SCIENTIFIC_GROUP_COLUMNS = (
     "scenario_id",
     "training_seed",
@@ -692,7 +712,16 @@ def scientific_metrics_by_event(
                 "sequence_metric_reason": sequence_metric_reason,
             }
         )
-    return pd.DataFrame(rows)
+    return _preserve_optional_text(
+        pd.DataFrame(rows),
+        "sequence_metric_reason",
+        "trend_reason",
+        "threshold_reason",
+        "ecological_threshold_reason",
+        "high_threshold_source",
+        "low_threshold_source",
+        "ecological_threshold_source",
+    )
 
 
 __all__ = [

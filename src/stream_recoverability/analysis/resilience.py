@@ -11,7 +11,29 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+_trapezoid = getattr(np, "trapezoid", None) or np.trapz
 RESILIENCE_EXPERIMENT = "SCI_NET"
+
+
+def _preserve_optional_text(frame: pd.DataFrame, *columns: str) -> pd.DataFrame:
+    """Keep explicit None sentinels that pandas 3 would coerce to NaN."""
+
+    if frame.empty:
+        return frame
+    result = frame.copy()
+    for column in columns:
+        if column not in result.columns:
+            continue
+        values = [
+            None
+            if not isinstance(value, str) and (value is None or pd.isna(value))
+            else value
+            for value in result[column].tolist()
+        ]
+        result[column] = pd.Series(values, index=result.index, dtype=object)
+    return result
+
+
 RESILIENCE_NETWORK_SIZE = 3
 RESILIENCE_GROUP_COLUMNS = (
     "experiment",
@@ -342,7 +364,9 @@ def resilience_auc(
             and np.isclose(points["failure_fraction"].iloc[-1], 1.0)
         )
         if spans_full_range:
-            auc = float(np.trapz(points["relative_skill"], points["failure_fraction"]))
+            auc = float(
+                _trapezoid(points["relative_skill"], points["failure_fraction"])
+            )
             reason = None
         else:
             auc = np.nan
@@ -355,7 +379,7 @@ def resilience_auc(
                 "reason": reason,
             }
         )
-    return pd.DataFrame(rows)
+    return _preserve_optional_text(pd.DataFrame(rows), "reason")
 
 
 def node_importance(
