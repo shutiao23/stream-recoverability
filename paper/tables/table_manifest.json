@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "artifacts": {
+    "table_01": {
+      "status": "generated",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/tables/table_01.csv",
+      "title": "Dataset and station information",
+      "reason": null,
+      "source_rows": 3,
+      "details": {
+        "rows": 3,
+        "columns": [
+          "station_id",
+          "station_name",
+          "river_name",
+          "network_order",
+          "latitude",
+          "longitude",
+          "drainage_area_km2",
+          "regulated_or_unregulated",
+          "data_period",
+          "hydrology_source",
+          "met_station_id",
+          "met_station_name",
+          "variables",
+          "variable_count",
+          "mean_coverage",
+          "minimum_coverage"
+        ]
+      }
+    },
+    "table_02": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/tables/table_02.csv",
+      "title": "Random-point temperature recovery",
+      "reason": "event metrics input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "table_03": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/tables/table_03.csv",
+      "title": "Continuous-gap temperature recovery",
+      "reason": "event metrics input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "table_04": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/tables/table_04.csv",
+      "title": "Whole-station outage recovery",
+      "reason": "event metrics input is missing",
+      "source_rows": null,
+      "details": {}
+    },
+    "table_05": {
+      "status": "skipped",
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/tables/table_05.csv",
+      "title": "Recoverability frontiers and information compensation",
+      "reason": "neither recoverability frontiers nor Shapley compensation results are available",
+      "source_rows": 0,
+      "details": {}
+    }
+  },
+  "result_inputs": {
+    "event_metrics": {
+      "rows": 0,
+      "columns": [],
+      "models": [],
+      "scenario_count": 0,
+      "scenario_summary": []
+    },
+    "analysis_tables": {
+      "information_compensation_gains.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "information_shapley.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "network_resilience_auc.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "network_resilience_curve.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "node_importance.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "paired_comparisons.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "recoverability_frontiers.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "scientific_metrics.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "skill_curves.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "uncertainty_by_gap.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "uncertainty_growth.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      },
+      "uncertainty_overall.csv": {
+        "rows": 0,
+        "columns": [],
+        "models": [],
+        "scenario_count": 0,
+        "scenario_summary": []
+      }
+    }
+  }
+}

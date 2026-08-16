@@ -1,0 +1,4 @@
+station_id,station_name,river_name,network_order,latitude,longitude,drainage_area_km2,regulated_or_unregulated,data_period,hydrology_source,met_station_id,met_station_name,variables,variable_count,mean_coverage,minimum_coverage
+B1,Batang,Jinsha River,1,29.85,99.083333,187507,largely_unregulated_in_study_period,2006-01-01/2020-12-31,China Hydrological Yearbook Vol. VI,56247099999,Batang,DH;F;L;P;RH;Rs;T;Ta;W,9,0.9994524548275232,0.997079759080124
+S2,Shigu,Jinsha River,2,26.906667,99.947778,214184,largely_unregulated_in_study_period,2006-01-01/2020-12-31,China Hydrological Yearbook Vol. VI,56651099999,Lijiang,DH;F;L;P;RH;Rs;T;Ta;W,9,0.9997972054916752,0.9990874247125388
+P3,Panzhihua,Jinsha River,3,26.638611,101.744722,259177,regulated_after_cascade_impoundment,2006-01-01/2020-12-31,China Hydrological Yearbook Vol. VI,56671099999,Huili,DH;F;L;P;RH;Rs;T;Ta;W,9,0.9993307781225285,0.996897244022632
