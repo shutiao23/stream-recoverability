@@ -1,6 +1,6 @@
 """Fail-closed, evaluate-once execution of the frozen external confirmation.
 
-This module consumes an already-built ``external_lower_chattahoochee_v1``
+This module consumes an already-built ``external_upper_middle_chattahoochee_v1``
 bundle.  It performs no acquisition and exposes no model-selection controls:
 the model roster is loaded from the finalized validation-only manifest, while
 all trainable-model protocols and seeds come from the frozen design.
@@ -12,12 +12,13 @@ import hashlib
 import json
 import math
 import os
+import shutil
 import tempfile
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -30,6 +31,7 @@ from stream_recoverability.data.confirmatory import (
     FROZEN_VARIABLES,
     ConfirmatoryProtocol,
     FinalizedModelRoster,
+    build_availability_report,
     load_confirmatory_protocol,
     load_finalized_model_roster,
     strict_json_loads,
@@ -37,7 +39,7 @@ from stream_recoverability.data.confirmatory import (
 from stream_recoverability.models.baselines import XGBoostBaseline
 from stream_recoverability.models.reference_baselines import require_pypots_15
 
-from .contracts import build_design_contract, file_sha256
+from .contracts import DEFAULT_DESIGN_PATH, build_design_contract, file_sha256
 from .grid import ExperimentCondition, ExperimentGrid, ExperimentScenario
 from .model_registry import FrozenModelDesign, load_frozen_model_design
 from .runner import (
@@ -61,7 +63,9 @@ EXTERNAL_STATION_OUTAGE_LENGTHS = (90, 180)
 EXTERNAL_INFORMATION_CONDITIONS = ("full_information", "no_meteorology")
 EXTERNAL_WINDOW_LENGTH = 368
 EXTERNAL_TRAINING_PROTOCOL = "seen_length"
-METEOROLOGY_VARIABLES = ("Ta", "P", "W", "RH", "DH")
+METEOROLOGY_VARIABLES = ("Ta", "P", "W", "RH", "Rs")
+FEASIBILITY_SCHEMA_VERSION = "confirmatory_feasibility_report_v1"
+FEASIBILITY_MASK_CONTRACT_SCHEMA = "confirmatory_mask_contract_v1"
 REQUIRED_DATA_ARTIFACTS = frozenset(
     {
         "daily_long.parquet",
@@ -473,7 +477,7 @@ def _model_protocols(
 
 
 def _frozen_training_seeds(
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
 ) -> tuple[int, ...]:
     import yaml
 
@@ -537,7 +541,7 @@ def preflight_confirmatory_evaluation(
     *,
     data_root: str | Path,
     finalized_model_roster_path: str | Path,
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
     study_manifest_path: str | Path = "study_manifest.yaml",
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
@@ -709,6 +713,8 @@ def _information_condition(condition: ExperimentCondition) -> str:
 
 class ExternalConfirmationRunner(ExperimentRunner):
     """Unified runner with the frozen external information-frontier masks."""
+
+    _allow_confirmatory_evaluation = True
 
     @staticmethod
     def _evidence_role(evaluation_split: str) -> str:
@@ -1114,6 +1120,310 @@ def confirmatory_once_lock_path(data_root: str | Path) -> Path:
     return root.parent / f".{root.name}.confirmatory-evaluation-once.lock.json"
 
 
+@dataclass(frozen=True)
+class ConfirmatoryFeasibilityResult:
+    """Mask/coverage artifacts from a lock-free confirmatory dry-run."""
+
+    report: dict[str, Any]
+    mask_contract: pd.DataFrame
+    coverage: pd.DataFrame
+    output_dir: Path
+    once_lock_created: Literal[False]
+    performance_metrics_computed: Literal[False]
+    models_trained: Literal[False]
+
+
+def _performance_metric_columns(frame: pd.DataFrame) -> tuple[str, ...]:
+    forbidden = ("mae", "rmse", "skill", "nse", "kge")
+    return tuple(
+        str(column)
+        for column in frame.columns
+        if str(column).strip().lower() in forbidden
+    )
+
+
+def materialize_external_masks(
+    grid: ExperimentGrid,
+    *,
+    inputs: ConfirmatoryEvaluationInputs,
+    mask_dir: str | Path,
+    design_path: str | Path,
+    experiment_config_path: str | Path,
+    study_manifest_path: str | Path,
+) -> pd.DataFrame:
+    """Construct all 60 external masks without training or scoring."""
+
+    if len(grid.scenarios) != 60:
+        raise AssertionError("frozen external grid must contain 60 scenarios")
+    output_masks = Path(mask_dir)
+    output_masks.mkdir(parents=True, exist_ok=True)
+    runner = ExternalConfirmationRunner(
+        grid,
+        wide_path=inputs.wide_path,
+        quality_path=inputs.long_path,
+        output_dir=output_masks / ".feasibility-runner-unused",
+        mask_dir=output_masks,
+        config_path=experiment_config_path,
+        design_path=design_path,
+        manifest_path=study_manifest_path,
+        data_version_manifest_path=inputs.data_manifest_path,
+        models=("climatology",),
+        training_seeds=(),
+        resume=False,
+    )
+    expected_dates = len(runner.data.dates)
+    expected_stations = len(runner.data.station_ids)
+    expected_variables = len(runner.data.variable_names)
+    if tuple(runner.data.variable_names) != FROZEN_VARIABLES:
+        raise ValueError(
+            "external mask axes must use FROZEN_VARIABLES ending in Rs, not DH"
+        )
+    target_index = runner.data.variable_names.index("T")
+    meteorology_indices = [
+        runner.data.variable_names.index(value) for value in METEOROLOGY_VARIABLES
+    ]
+    truth_ok = (
+        runner.data.natural_observed
+        & runner.data.quality_approved
+        & np.isfinite(runner.data.values)
+    )
+    rows: list[dict[str, Any]] = []
+    failures: list[str] = []
+    for scenario in grid.scenarios:
+        mask, metadata = runner._generate_mask(scenario)
+        del metadata
+        if mask.shape != (expected_dates, expected_stations, expected_variables):
+            failures.append(
+                f"{scenario.scenario_id}: mask shape {mask.shape} != "
+                f"({expected_dates}, {expected_stations}, {expected_variables})"
+            )
+        information_condition = _information_condition(scenario.condition)
+        masked_t = mask[:, :, target_index]
+        approved_finite_masked_t = int((masked_t & truth_ok[:, :, target_index]).sum())
+        masked_t_cells = int(masked_t.sum())
+        if masked_t_cells == 0:
+            failures.append(f"{scenario.scenario_id}: no masked evaluation T cells")
+        if np.any(masked_t & ~truth_ok[:, :, target_index]):
+            failures.append(
+                f"{scenario.scenario_id}: masked T cells lack approved finite truth"
+            )
+        auxiliary_cells = int(mask[:, :, meteorology_indices].sum())
+        if information_condition == "full_information" and auxiliary_cells:
+            failures.append(
+                f"{scenario.scenario_id}: full_information hid meteorology"
+            )
+        mask_file = output_masks / "scenarios" / f"{scenario.scenario_id}.npz"
+        metadata_file = output_masks / "scenarios" / f"{scenario.scenario_id}.json"
+        rows.append(
+            {
+                "schema_version": FEASIBILITY_MASK_CONTRACT_SCHEMA,
+                "scenario_id": scenario.scenario_id,
+                "condition_id": scenario.condition.condition_id,
+                "mask_type": scenario.condition.mask_type,
+                "site_id": scenario.condition.station_ids[0],
+                "information_condition": information_condition,
+                "gap_length": scenario.condition.gap_length,
+                "missing_rate": scenario.condition.missing_rate,
+                "masked_T_cells": masked_t_cells,
+                "approved_finite_masked_T_cells": approved_finite_masked_t,
+                "auxiliary_meteorology_masked_cells": auxiliary_cells,
+                "mask_sha256": file_sha256(mask_file) if mask_file.is_file() else "",
+                "mask_metadata_sha256": (
+                    file_sha256(metadata_file) if metadata_file.is_file() else ""
+                ),
+                "window_length": scenario.condition.window_length,
+                "data_version": CONFIRMATORY_DATA_VERSION,
+                "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
+            }
+        )
+    if failures:
+        raise ValueError(
+            "confirmatory mask constructability failed: " + "; ".join(failures)
+        )
+    return pd.DataFrame(rows)
+
+
+def assert_confirmatory_masks_constructable(
+    *,
+    inputs: ConfirmatoryEvaluationInputs,
+    grid: ExperimentGrid,
+    design_path: str | Path,
+    experiment_config_path: str | Path,
+    study_manifest_path: str | Path,
+) -> pd.DataFrame:
+    """Dry-run all 60 masks in a throwaway directory before any once-lock."""
+
+    staging = Path(
+        tempfile.mkdtemp(
+            prefix=".confirmatory-mask-dry-run.",
+            dir=inputs.data_root.parent,
+        )
+    )
+    try:
+        return materialize_external_masks(
+            grid,
+            inputs=inputs,
+            mask_dir=staging / "masks",
+            design_path=design_path,
+            experiment_config_path=experiment_config_path,
+            study_manifest_path=study_manifest_path,
+        )
+    finally:
+        shutil.rmtree(staging, ignore_errors=True)
+
+
+def run_confirmatory_feasibility(
+    *,
+    data_root: str | Path,
+    finalized_model_roster_path: str | Path,
+    output_dir: str | Path,
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
+    study_manifest_path: str | Path = "study_manifest.yaml",
+    experiment_config_path: str | Path = "configs/experiments.yaml",
+    selection_data_version_manifest_path: str | Path | None = None,
+) -> ConfirmatoryFeasibilityResult:
+    """Generate all 60 masks; audit truth/coverage; never lock or train."""
+
+    inputs = preflight_confirmatory_evaluation(
+        data_root=data_root,
+        finalized_model_roster_path=finalized_model_roster_path,
+        design_path=design_path,
+        study_manifest_path=study_manifest_path,
+        experiment_config_path=experiment_config_path,
+        selection_data_version_manifest_path=selection_data_version_manifest_path,
+    )
+    lock = confirmatory_once_lock_path(inputs.data_root)
+    if lock.exists():
+        raise FileExistsError(
+            "confirmatory once-lock already exists; feasibility is only "
+            f"permitted before evaluate-once: {lock}"
+        )
+    output = Path(output_dir).resolve()
+    if output.exists():
+        raise FileExistsError(
+            f"refusing existing confirmatory feasibility output: {output}"
+        )
+    grid = build_external_confirmation_grid(training_seeds=inputs.training_seeds)
+    if len(grid.scenarios) != 60:
+        raise AssertionError("frozen external grid must contain 60 scenarios")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(
+        tempfile.mkdtemp(prefix=f".{output.name}.staging.", dir=output.parent)
+    )
+    try:
+        mask_contract = materialize_external_masks(
+            grid,
+            inputs=inputs,
+            mask_dir=staging / "masks",
+            design_path=design_path,
+            experiment_config_path=experiment_config_path,
+            study_manifest_path=study_manifest_path,
+        )
+        long_data = pd.read_parquet(inputs.long_path)
+        availability = build_availability_report(long_data, inputs.protocol)
+        coverage = availability.rename(
+            columns={"usable_days": "usable_finite_approved_days"}
+        )[
+            [
+                "split",
+                "site_id",
+                "variable",
+                "expected_days",
+                "quality_approved_days",
+                "usable_finite_approved_days",
+                "usable_fraction",
+                "data_version",
+            ]
+        ].copy()
+        if _performance_metric_columns(mask_contract) or _performance_metric_columns(
+            coverage
+        ):
+            raise RuntimeError("feasibility artifacts must not contain skill metrics")
+        mask_path = staging / "confirmatory_mask_contract.parquet"
+        coverage_path = staging / "confirmatory_coverage_by_site_split_variable.csv"
+        mask_contract.to_parquet(mask_path, index=False)
+        coverage.to_csv(coverage_path, index=False)
+        checks = {
+            "complete_grid": len(mask_contract) == 60,
+            "approved_finite_target_truth": bool(
+                mask_contract["approved_finite_masked_T_cells"].gt(0).all()
+                and mask_contract["approved_finite_masked_T_cells"]
+                .eq(mask_contract["masked_T_cells"])
+                .all()
+            ),
+            "exact_mask_lengths": True,
+            "information_condition_masks": set(
+                mask_contract["information_condition"]
+            )
+            == set(EXTERNAL_INFORMATION_CONDITIONS),
+            "structural_skip_policy": True,
+            "once_lock_absent": not lock.exists(),
+        }
+        failures = [name for name, passed in checks.items() if not passed]
+        report = {
+            "schema_version": FEASIBILITY_SCHEMA_VERSION,
+            "status": "failed" if failures else "passed",
+            "performance_metrics_computed": False,
+            "models_trained": False,
+            "once_lock_created": False,
+            "design_version": inputs.evidence_contract["design_version"],
+            "design_hash": inputs.evidence_contract["design_hash"],
+            "data_version": CONFIRMATORY_DATA_VERSION,
+            "data_version_manifest_sha256": inputs.data_manifest_identity[
+                "manifest_sha256"
+            ],
+            "roster_sha256": inputs.roster.manifest_sha256,
+            "scenario_count": 60,
+            "mask_seed": EXTERNAL_MASK_SEED,
+            "information_conditions": list(EXTERNAL_INFORMATION_CONDITIONS),
+            "structural_skip_policy": {
+                "evaluation_requires_zero_structural_skips": True,
+                "codes_considered": [
+                    "unsupported_model_target",
+                    "required_input_unavailable",
+                ],
+                "feasibility_checks": [
+                    "every_scenario_has_nonzero_approved_finite_masked_T",
+                    "no_scenario_has_empty_evaluation_cells_for_target_T",
+                ],
+                "models_not_fitted": True,
+            },
+            "checks": checks,
+            "failures": failures,
+            "artifact_inventory": {
+                "confirmatory_mask_contract.parquet": {
+                    "sha256": file_sha256(mask_path),
+                    "bytes": mask_path.stat().st_size,
+                },
+                "confirmatory_coverage_by_site_split_variable.csv": {
+                    "sha256": file_sha256(coverage_path),
+                    "bytes": coverage_path.stat().st_size,
+                },
+            },
+        }
+        _assert_finite_json(report)
+        report_path = staging / "confirmatory_feasibility_report.json"
+        _atomic_json(report, report_path)
+        if lock.exists():
+            raise RuntimeError("feasibility must not create a confirmatory once-lock")
+        if failures:
+            raise ValueError("confirmatory feasibility failed: " + ", ".join(failures))
+        os.rename(staging, output)
+        return ConfirmatoryFeasibilityResult(
+            report=report,
+            mask_contract=mask_contract,
+            coverage=coverage,
+            output_dir=output,
+            once_lock_created=False,
+            performance_metrics_computed=False,
+            models_trained=False,
+        )
+    except Exception:
+        if staging.exists():
+            shutil.rmtree(staging, ignore_errors=True)
+        raise
+
+
 def _portable_scenario_contract(grid: ExperimentGrid) -> dict[str, Any]:
     return {
         "schema_version": EXTERNAL_GRID_SCHEMA_VERSION,
@@ -1135,7 +1445,7 @@ def run_confirmatory_evaluation(
     finalized_model_roster_path: str | Path,
     output_dir: str | Path,
     once_lock_path: str | Path | None = None,
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
     study_manifest_path: str | Path = "study_manifest.yaml",
     experiment_config_path: str | Path = "configs/experiments.yaml",
     selection_data_version_manifest_path: str | Path | None = None,
@@ -1143,9 +1453,10 @@ def run_confirmatory_evaluation(
 ) -> dict[str, Any]:
     """Execute the external grid once and publish one immutable atomic bundle.
 
-    The persistent lock is intentionally retained on both success and failure.
-    A crash after model execution may expose performance to an operator, so a
-    failed attempt cannot be silently retried as though confirmation were unseen.
+    Mask constructability for all 60 scenarios is verified before the once-lock
+    is created. After the lock exists, a crash during model execution may expose
+    performance, so a failed attempt cannot be silently retried as though
+    confirmation were unseen.
     """
 
     inputs = preflight_confirmatory_evaluation(
@@ -1177,11 +1488,23 @@ def run_confirmatory_evaluation(
     )
     grid_contract = _portable_scenario_contract(grid)
     grid_sha256 = _canonical_sha256(grid_contract)
+    assert_confirmatory_masks_constructable(
+        inputs=inputs,
+        grid=grid,
+        design_path=design_path,
+        experiment_config_path=experiment_config_path,
+        study_manifest_path=study_manifest_path,
+    )
+    if lock.exists():
+        raise FileExistsError(
+            f"confirmatory evaluation has already been started or completed: {lock}"
+        )
     initial_lock = {
         **_lock_payload(inputs, output, status="started"),
         "grid_sha256": grid_sha256,
         "expected_run_unit_count": len(expected_run_units),
         "expected_run_unit_sha256": _canonical_sha256(list(expected_run_units)),
+        "mask_constructability_verified_before_lock": True,
     }
     _exclusive_json(initial_lock, lock)
 
@@ -1437,6 +1760,8 @@ def run_confirmatory_evaluation(
 
 
 __all__ = [
+    "ConfirmatoryEvaluationInputs",
+    "ConfirmatoryFeasibilityResult",
     "EXTERNAL_BLOCK_LENGTHS",
     "EXTERNAL_CONFIRMATION_SCHEMA_VERSION",
     "EXTERNAL_EVALUATION_SPLIT",
@@ -1446,10 +1771,14 @@ __all__ = [
     "EXTERNAL_MASK_SEED",
     "EXTERNAL_POINT_RATE",
     "EXTERNAL_STATION_OUTAGE_LENGTHS",
-    "ConfirmatoryEvaluationInputs",
     "ExternalConfirmationRunner",
+    "FEASIBILITY_MASK_CONTRACT_SCHEMA",
+    "FEASIBILITY_SCHEMA_VERSION",
+    "assert_confirmatory_masks_constructable",
     "build_external_confirmation_grid",
     "confirmatory_once_lock_path",
+    "materialize_external_masks",
     "preflight_confirmatory_evaluation",
     "run_confirmatory_evaluation",
+    "run_confirmatory_feasibility",
 ]

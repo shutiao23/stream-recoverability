@@ -26,7 +26,7 @@ from stream_recoverability.analysis.frozen_pipeline import (
 DEFAULT_PREDICTIONS = PROJECT_ROOT / "results/frozen/predictions.parquet"
 DEFAULT_EVENTS = PROJECT_ROOT / "results/frozen/event_metrics.parquet"
 DEFAULT_MANIFEST = PROJECT_ROOT / "results/frozen/top_manifest.json"
-DEFAULT_DESIGN = PROJECT_ROOT / "configs/design_freeze_v1.yaml"
+DEFAULT_DESIGN = PROJECT_ROOT / "configs/design_freeze_v2.yaml"
 DEFAULT_OUTPUT = PROJECT_ROOT / "results/analysis"
 FIXED_TRAINING_SEEDS = frozenset({11, 22, 33, 44, 55})
 CANONICAL_TRAINABLE_MODELS = frozenset(

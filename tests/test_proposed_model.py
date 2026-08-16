@@ -6,17 +6,21 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
+import numpy as np
 import pytest
 import torch
 
 import stream_recoverability.models.proposed_training as proposed_training_module
 from stream_recoverability.models.proposed import (
+    MAIN_ARCHITECTURE_VERSION,
     MissingAwareMultisourceImputer,
     ProposedModelConfig,
     all_information_group_combinations,
     compute_bidirectional_time_gaps,
     masked_imputation_loss,
+    require_main_rs_architecture,
 )
+from stream_recoverability.models.proposed_curriculum import generate_curriculum_mask
 from stream_recoverability.models.proposed_training import (
     ProposedTrainingConfig,
     load_proposed_checkpoint,
@@ -497,7 +501,9 @@ def test_training_early_stops_and_saves_loadable_checkpoint(tmp_path: Path) -> N
         "proposed_training_v2"
     )
     assert metadata["training_config"]["loss_aggregation"] == ("masked_cell_weighted")
-    assert metadata["model_config"]["architecture_version"] == "s0_abcd_v2"
+    assert metadata["model_config"]["architecture_version"] == (
+        MAIN_ARCHITECTURE_VERSION
+    )
     assert metadata["history"][0]["train_masked_cells"] > 0
     assert metadata["history"][0]["validation_masked_cells"] > 0
     assert metadata["training_curriculum"]["target_masked_cells"] > 0
@@ -575,3 +581,38 @@ def test_cli_smoke_runs_on_cpu_and_saves_checkpoint(tmp_path: Path) -> None:
     assert summary["mode"] == "smoke"
     assert summary["quantile_shape"][-1] == 5
     assert checkpoint.exists()
+
+
+def test_architecture_version_s0_abcd_v2_fails_closed_when_rs_is_main_channel() -> None:
+    with pytest.raises(ValueError, match="s0_abcd_v2"):
+        require_main_rs_architecture(
+            architecture_version="s0_abcd_v2",
+            meteorology_variables=("Ta", "P", "W", "RH", "Rs"),
+            variable_names=("T", "F", "L", "Ta", "P", "W", "RH", "Rs"),
+        )
+    with pytest.raises(ValueError, match="s0_abcd_v2"):
+        MissingAwareMultisourceImputer(
+            ProposedModelConfig(architecture_version="s0_abcd_v2")
+        )
+
+
+def test_main_curriculum_requires_rs_and_rejects_silent_dh_fallback() -> None:
+    eligible = np.ones((64, 3, 8), dtype=bool)
+    dh_only = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+    with pytest.raises(ValueError, match="requires Rs"):
+        generate_curriculum_mask(
+            eligible,
+            dh_only,
+            scenario="point",
+            protocol="seen_length",
+            seed=0,
+        )
+    sensitivity = generate_curriculum_mask(
+        eligible,
+        dh_only,
+        scenario="point",
+        protocol="seen_length",
+        seed=0,
+        jinsha_sunshine_sensitivity=True,
+    )
+    assert sensitivity.artificial_mask[..., 0].any()

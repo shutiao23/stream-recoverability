@@ -1311,7 +1311,7 @@ def aggregate_formal_results(
     results_root: str | Path,
     *,
     suite_registry: Mapping[str, Any] | str | Path,
-    design_path: str | Path = PROJECT_ROOT / "configs/design_freeze_v1.yaml",
+    design_path: str | Path = PROJECT_ROOT / "configs/design_freeze_v2.yaml",
     manifest_path: str | Path = PROJECT_ROOT / "study_manifest.yaml",
     config_path: str | Path = PROJECT_ROOT / "configs/experiments.yaml",
     data_version: str = "published_v1",
@@ -1549,7 +1549,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--results-root", type=Path, required=True)
     parser.add_argument("--suite-registry", type=Path, required=True)
     parser.add_argument(
-        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v1.yaml"
+        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v2.yaml"
     )
     parser.add_argument(
         "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"

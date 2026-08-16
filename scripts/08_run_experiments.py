@@ -18,6 +18,7 @@ from stream_recoverability.experiments import (
     build_experiment_grid,
 )
 from stream_recoverability.experiments.contracts import (
+    DEFAULT_DESIGN_PATH,
     build_design_contract,
     canonical_evaluation_split,
     file_sha256,
@@ -26,6 +27,7 @@ from stream_recoverability.experiments.formal_authorization import (
     authorize_roster_suite,
 )
 from stream_recoverability.experiments.runner import (
+    CONFIRMATORY_ONCE_PATH_REQUIRED,
     LEGACY_MODEL_ALIASES,
     SUPPORTED_MODELS,
 )
@@ -65,12 +67,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v1.yaml",
+        default=PROJECT_ROOT / DEFAULT_DESIGN_PATH,
     )
     parser.add_argument("--data-version", default="published_v1")
     parser.add_argument(
         "--evaluation-split",
-        choices=("validation", "test", "development_test", "confirmatory"),
+        choices=("validation", "test", "development_test"),
         default="development_test",
     )
     parser.add_argument(
@@ -101,6 +103,8 @@ def main() -> None:
     except argparse.ArgumentTypeError as error:
         raise SystemExit(str(error)) from error
     canonical_split = canonical_evaluation_split(args.evaluation_split)
+    if canonical_split == "confirmatory":
+        raise SystemExit(CONFIRMATORY_ONCE_PATH_REQUIRED)
     version_root = PROJECT_ROOT / "data_versions" / args.data_version
     version_manifest = version_root / "version_manifest.json"
     if not version_root.is_dir():

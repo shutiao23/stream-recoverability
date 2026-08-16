@@ -356,7 +356,7 @@ def run_dense_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = "configs/design_freeze_v2.yaml",
     data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
@@ -409,7 +409,7 @@ def run_resilience_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = "configs/design_freeze_v2.yaml",
     data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
@@ -1290,7 +1290,7 @@ def run_information_compensation(
     checkpoint_template: str = "proposed-S{seed}-W{window}-{protocol}.pt",
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = "configs/design_freeze_v2.yaml",
     data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
@@ -1934,7 +1934,7 @@ def compute_training_information_metrics(
             *[(target_station, variable, "B") for variable in ("F", "L")],
             *[
                 (target_station, variable, "D")
-                for variable in ("Ta", "P", "W", "RH", "DH")
+                for variable in ("Ta", "P", "W", "RH", "Rs")
             ],
             *[
                 (source_station, variable, "C")

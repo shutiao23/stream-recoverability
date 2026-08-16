@@ -11,7 +11,10 @@ import pytest
 import yaml
 
 import stream_recoverability.experiments.contracts as contract_module
-from stream_recoverability.experiments.contracts import build_code_provenance
+from stream_recoverability.experiments.contracts import (
+    build_code_provenance,
+    file_sha256,
+)
 from stream_recoverability.experiments.grid import build_experiment_grid
 from stream_recoverability.experiments.model_registry import (
     load_frozen_model_design,
@@ -28,8 +31,8 @@ from stream_recoverability.models.reference_baselines import (
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
-DESIGN = REPO_ROOT / "configs" / "design_freeze_v1.yaml"
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+DESIGN = REPO_ROOT / "configs" / "design_freeze_v2.yaml"
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 FORMAL_PROVENANCE_GATE = ExperimentRunner._assert_formal_code_provenance
 
 
@@ -65,8 +68,45 @@ def _wide_data(path: Path) -> Path:
         frame[f"{station}_P"] = np.maximum(0, np.sin(day / 7.0))
         frame[f"{station}_W"] = 2 + 0.2 * np.cos(day / 11.0)
         frame[f"{station}_RH"] = 55 + 4 * np.sin(day / 17.0)
-        frame[f"{station}_DH"] = 8 + 2 * np.cos(day / 58.0)
+        frame[f"{station}_Rs"] = 8 + 2 * np.cos(day / 58.0)
     frame.to_parquet(path, index=False)
+    return path
+
+
+def _quality_data(wide_path: Path, quality_path: Path) -> Path:
+    wide = pd.read_parquet(wide_path)
+    rows = []
+    for station in ("B1", "S2", "P3"):
+        for variable in VARIABLES:
+            column = f"{station}_{variable}"
+            for date, value in zip(wide["date"], wide[column], strict=True):
+                rows.append(
+                    {
+                        "date": date,
+                        "station_id": station,
+                        "variable": variable,
+                        "value": value,
+                        "quality_approved": True,
+                    }
+                )
+    pd.DataFrame(rows).to_parquet(quality_path, index=False)
+    return quality_path
+
+
+def _version_manifest(root: Path, wide_path: Path, quality_path: Path) -> Path:
+    path = root / "version_manifest.json"
+    path.write_text(
+        json.dumps(
+            {
+                "data_version": "published_v1",
+                "artifacts": {
+                    "daily_wide.parquet": {"sha256": file_sha256(wide_path)},
+                    "daily_long.parquet": {"sha256": file_sha256(quality_path)},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     return path
 
 
@@ -78,6 +118,14 @@ def _runner(
     evaluation_split: str = "development_test",
 ) -> ExperimentRunner:
     tmp_path.mkdir(parents=True, exist_ok=True)
+    wide_path = _wide_data(tmp_path / "wide.parquet")
+    quality_path = None
+    data_version_manifest_path = None
+    if evaluation_split == "validation":
+        quality_path = _quality_data(wide_path, tmp_path / "long.parquet")
+        data_version_manifest_path = _version_manifest(
+            tmp_path, wide_path, quality_path
+        )
     grid = build_experiment_grid(
         MANIFEST,
         CONFIG,
@@ -86,8 +134,9 @@ def _runner(
     )
     return ExperimentRunner(
         grid,
-        wide_path=_wide_data(tmp_path / "wide.parquet"),
-        quality_path=None,
+        wide_path=wide_path,
+        quality_path=quality_path,
+        data_version_manifest_path=data_version_manifest_path,
         output_dir=tmp_path / "results",
         mask_dir=tmp_path / "masks",
         config_path=CONFIG,
@@ -240,7 +289,9 @@ def test_reference_and_proposed_target_roster_is_t_only_without_training(
         (runner.output_dir / "run_manifest.json").read_text(encoding="utf-8")
     )
     expected_unit = f"{scenario.scenario_id}|csdi:11"
-    assert run_manifest["complete"] is True
+    assert run_manifest["complete"] is False
+    assert run_manifest["formal_design_complete"] is False
+    assert run_manifest["run_complete"] is True
     assert run_manifest["structural_skip_run_unit_keys"] == [expected_unit]
     assert run_manifest["checkpoint_required_run_unit_keys"] == []
     assert run_manifest["checkpoint_contract_complete"] is True

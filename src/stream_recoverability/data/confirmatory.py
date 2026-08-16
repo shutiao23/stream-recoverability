@@ -1,6 +1,6 @@
 """Immutable acquisition and preparation of the frozen confirmatory data.
 
-The builder implements the external protocol in ``design_freeze_v1.yaml``.  It
+The builder implements the external protocol in ``design_freeze_v2.yaml``.  It
 uses the modern USGS OGC API and the NASA POWER daily point API, records every
 non-secret request and raw response by SHA-256, and materialises no performance
 metrics. Full acquisition is deliberately gated by a hash-verified finalized
@@ -35,6 +35,7 @@ import pandas as pd
 import yaml
 
 from stream_recoverability.experiments.contracts import (
+    DEFAULT_DESIGN_PATH,
     build_design_contract,
     validate_data_version_inputs,
 )
@@ -42,7 +43,7 @@ from stream_recoverability.experiments.contracts import (
 from .prepare import TIME_FEATURE_COLUMNS, add_time_features
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
-CONFIRMATORY_DATA_VERSION = "external_lower_chattahoochee_v1"
+CONFIRMATORY_DATA_VERSION = "external_upper_middle_chattahoochee_v1"
 CONFIRMATORY_SCHEMA_VERSION = "confirmatory_external_data_v1"
 REQUEST_PLAN_SCHEMA_VERSION = "confirmatory_request_plan_v1"
 REQUEST_LOG_SCHEMA_VERSION = "external_http_request_log_v1"
@@ -86,7 +87,9 @@ FROZEN_SITE_IDS = (
     "02336000",
     "02337170",
 )
-FROZEN_VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+FROZEN_NETWORK = "upper_to_middle_chattahoochee_mainstem_case_study"
+FROZEN_NETWORK_HUC8 = ("03130001", "03130002")
+FROZEN_VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 FROZEN_HYDROLOGY = (
     ("T", "00010", "00003"),
     ("F", "00060", "00003"),
@@ -97,7 +100,7 @@ FROZEN_METEOROLOGY = (
     ("P", "PRECTOTCORR"),
     ("W", "WS2M"),
     ("RH", "RH2M"),
-    ("DH", "ALLSKY_SFC_SW_DWN"),
+    ("Rs", "ALLSKY_SFC_SW_DWN"),
 )
 FROZEN_PERIODS = (
     ("train", "2012-01-01", "2020-12-31"),
@@ -105,7 +108,7 @@ FROZEN_PERIODS = (
     ("confirmatory", "2023-01-01", "2025-12-31"),
 )
 FROZEN_QUALITY_RULE = "retain_approved_and_estimated_flagged_values_exclude_provisional"
-DH_INTERPRETATION = "daily_shortwave_radiation_proxy_not_sunshine_duration"
+RS_INTERPRETATION = "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day"
 
 FT3_S_TO_M3_S = 0.028316846592
 FT_TO_M = 0.3048
@@ -205,7 +208,7 @@ METEOROLOGY_SPECS = (
         "daily_relative_humidity_at_2_m",
     ),
     ExternalVariableSpec(
-        "DH",
+        "Rs",
         "nasa_power_daily_point",
         "ALLSKY_SFC_SW_DWN",
         None,
@@ -213,7 +216,7 @@ METEOROLOGY_SPECS = (
         "MJ/m^2/day",
         1.0,
         "identity",
-        DH_INTERPRETATION,
+        RS_INTERPRETATION,
     ),
 )
 VARIABLE_SPECS = HYDROLOGY_SPECS + METEOROLOGY_SPECS
@@ -239,7 +242,8 @@ class ConfirmatoryProtocol:
     nasa_community: str
     nasa_time_standard: str
     nasa_spatial_rule: str
-    dh_interpretation: str
+    rs_interpretation: str
+    network_huc8: tuple[str, ...]
 
     @property
     def start(self) -> str:
@@ -484,7 +488,7 @@ def require_clean_confirmatory_builder_sources(
 
 
 def load_confirmatory_protocol(
-    design_path: str | Path = "configs/design_freeze_v1.yaml",
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
 ) -> ConfirmatoryProtocol:
     """Load and strictly validate the frozen external-data protocol."""
 
@@ -495,7 +499,36 @@ def load_confirmatory_protocol(
     document = yaml.safe_load(raw)
     if not isinstance(document, Mapping):
         raise TypeError("design freeze must contain a mapping")
-    _expect_equal(document.get("design_version"), "design_freeze_v1", "design_version")
+    _expect_equal(document.get("design_version"), "design_freeze_v2", "design_version")
+    proposed = (
+        document.get("training", {})
+        .get("fixed_model_protocols", {})
+        .get("proposed", {})
+        if isinstance(document.get("training"), Mapping)
+        else {}
+    )
+    architecture_version = (
+        proposed.get("architecture_version") if isinstance(proposed, Mapping) else None
+    )
+    if architecture_version == "s0_abcd_v2":
+        raise ValueError(
+            "architecture_version s0_abcd_v2 cannot remain the main token while "
+            "Group D uses Rs; design_freeze_v2 requires s0_abcd_rs_v1"
+        )
+    _expect_equal(architecture_version, "s0_abcd_rs_v1", "proposed.architecture_version")
+    group_d = document.get("information_groups", {})
+    if isinstance(group_d, Mapping):
+        sources = tuple(group_d.get("D", {}).get("sources", ()))
+        if "sunshine_duration" in sources:
+            raise ValueError(
+                "main Group D cannot list sunshine_duration; use "
+                "surface_shortwave_radiation / Rs"
+            )
+        _expect_equal(
+            sources[-1] if sources else None,
+            "surface_shortwave_radiation",
+            "information_groups.D.sources[-1]",
+        )
     dataset = document.get("confirmatory_dataset")
     if not isinstance(dataset, Mapping):
         raise TypeError("design freeze must contain confirmatory_dataset")
@@ -515,8 +548,28 @@ def load_confirmatory_protocol(
     )
     _expect_equal(
         protocol.get("network"),
-        "lower_chattahoochee_mainstem_case_study",
+        FROZEN_NETWORK,
         "frozen_external_protocol.network",
+    )
+    geography = protocol.get("network_geography")
+    if not isinstance(geography, Mapping):
+        raise TypeError("frozen_external_protocol.network_geography must be a mapping")
+    _expect_equal(
+        tuple(str(value) for value in geography.get("huc8", ())),
+        FROZEN_NETWORK_HUC8,
+        "frozen_external_protocol.network_geography.huc8",
+    )
+    if "03130004" in tuple(str(value) for value in geography.get("huc8", ())):
+        raise ValueError("external protocol must not use Lower Chattahoochee HUC 03130004")
+    _expect_equal(
+        geography.get("not_five_independent_basins"),
+        True,
+        "frozen_external_protocol.network_geography.not_five_independent_basins",
+    )
+    _expect_equal(
+        geography.get("not_internal_M1_nested_points"),
+        True,
+        "frozen_external_protocol.network_geography.not_internal_M1_nested_points",
     )
     _expect_equal(
         tuple(str(value) for value in protocol.get("site_ids", ())),
@@ -535,6 +588,10 @@ def load_confirmatory_protocol(
     meteorology = protocol.get("meteorology")
     if not isinstance(meteorology, Mapping):
         raise TypeError("frozen external protocol meteorology must be a mapping")
+    if "DH" in dict(meteorology.get("variables", {})) or "DH_interpretation" in meteorology:
+        raise ValueError(
+            "v2 meteorology cannot keep DH or DH_interpretation; main Group D uses Rs"
+        )
     _expect_equal(
         meteorology.get("provider"),
         "nasa_power_daily_point",
@@ -556,14 +613,42 @@ def load_confirmatory_protocol(
         "frozen_external_protocol.meteorology.variables",
     )
     _expect_equal(
-        meteorology.get("DH_interpretation"),
-        DH_INTERPRETATION,
-        "frozen_external_protocol.meteorology.DH_interpretation",
+        meteorology.get("Rs_interpretation"),
+        RS_INTERPRETATION,
+        "frozen_external_protocol.meteorology.Rs_interpretation",
     )
     _expect_equal(
         meteorology.get("spatial_rule"),
         "nearest_POWER_grid_cell_to_each_USGS_site_coordinate",
         "frozen_external_protocol.meteorology.spatial_rule",
+    )
+    time_notes = protocol.get("time_label_notes")
+    if not isinstance(time_notes, Mapping):
+        raise TypeError("frozen_external_protocol.time_label_notes must be a mapping")
+    _expect_equal(
+        time_notes.get("nasa_power_this_protocol"),
+        "UTC_explicit_in_request_and_validated_in_response_header",
+        "frozen_external_protocol.time_label_notes.nasa_power_this_protocol",
+    )
+    _expect_equal(
+        time_notes.get("lag_sensitivity_meaning"),
+        "calendar_day_label_alignment_not_hydraulic_travel_time",
+        "frozen_external_protocol.time_label_notes.lag_sensitivity_meaning",
+    )
+    alignment = document.get("required_protocol_sensitivities", {}).get(
+        "meteorology_alignment_v1", {}
+    )
+    if not isinstance(alignment, Mapping):
+        raise TypeError("required_protocol_sensitivities.meteorology_alignment_v1 must be a mapping")
+    _expect_equal(
+        tuple(int(value) for value in alignment.get("lags_days", ())),
+        (-1, 0, 1),
+        "required_protocol_sensitivities.meteorology_alignment_v1.lags_days",
+    )
+    _expect_equal(
+        alignment.get("estimand"),
+        "time_label_alignment_not_travel_time",
+        "required_protocol_sensitivities.meteorology_alignment_v1.estimand",
     )
     for label, start, end in FROZEN_PERIODS:
         _expect_equal(
@@ -579,15 +664,16 @@ def load_confirmatory_protocol(
     return ConfirmatoryProtocol(
         design_path=_portable_path(path),
         design_sha256=_sha256_bytes(raw),
-        design_version="design_freeze_v1",
-        network="lower_chattahoochee_mainstem_case_study",
+        design_version="design_freeze_v2",
+        network=FROZEN_NETWORK,
         site_ids=FROZEN_SITE_IDS,
         periods=tuple(SplitPeriod(*value) for value in FROZEN_PERIODS),
         quality_rule=FROZEN_QUALITY_RULE,
         nasa_community="AG",
         nasa_time_standard="UTC",
         nasa_spatial_rule="nearest_POWER_grid_cell_to_each_USGS_site_coordinate",
-        dh_interpretation=DH_INTERPRETATION,
+        rs_interpretation=RS_INTERPRETATION,
+        network_huc8=FROZEN_NETWORK_HUC8,
     )
 
 
@@ -923,7 +1009,7 @@ def _validated_roster_artifacts(
 def load_finalized_model_roster(
     roster_manifest_path: str | Path,
     *,
-    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v1.yaml",
+    design_path: str | Path = REPOSITORY_ROOT / DEFAULT_DESIGN_PATH,
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
     selection_data_version: str = DEFAULT_SELECTION_DATA_VERSION,
@@ -2057,7 +2143,7 @@ def build_quality_report(
         "source_missing_rows": int(long_data["qc_status"].eq("source_missing").sum()),
         "duplicate_observations": 0,
         "conflicting_observations": 0,
-        "dh_interpretation": DH_INTERPRETATION,
+        "rs_interpretation": RS_INTERPRETATION,
         "performance_metrics_computed": False,
     }
     return grouped, summary
@@ -2233,7 +2319,7 @@ def _build_into_staging(
         },
         "quality_summary": quality_summary,
         "unit_conversions": [asdict(spec) for spec in VARIABLE_SPECS],
-        "dh_interpretation": DH_INTERPRETATION,
+        "rs_interpretation": RS_INTERPRETATION,
         "confirmatory_evaluation_executed": False,
         "performance_metrics_computed": False,
         "artifacts": artifacts,
@@ -2319,7 +2405,9 @@ __all__ = [
     "CONFIRMATORY_DATA_VERSION",
     "CONFIRMATORY_SCHEMA_VERSION",
     "DEFAULT_SELECTION_DATA_VERSION",
-    "DH_INTERPRETATION",
+    "RS_INTERPRETATION",
+    "FROZEN_NETWORK",
+    "FROZEN_NETWORK_HUC8",
     "FINALIZED_MODEL_ROSTER_SCHEMA_VERSION",
     "FROZEN_HYDROLOGY",
     "FROZEN_METEOROLOGY",

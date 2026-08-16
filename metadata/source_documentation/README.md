@@ -24,7 +24,7 @@ The first five supplied `TEMP`, `WDSP`, and `PRCP` records match the NOAA Global
 
 GSOD documents `WDSP` as knots with `999.9` meaning no report, and `PRCP` as inches with `99.99` meaning no report. Processing therefore converts valid wind values by `0.514444` to m/s and precipitation by `25.4` to mm/day.
 
-`RHMEAN` and `DH` are the standard variable names used by China's surface climate daily value dataset V3.0 for mean relative humidity (%) and sunshine duration (h), respectively. `DH` is therefore not used as an unidentified feature.
+`RHMEAN` and `DH` are the standard variable names used by China's surface climate daily value dataset V3.0 for mean relative humidity (%) and sunshine duration (h), respectively. `DH` is therefore not used as an unidentified feature. In the v2 executable freeze, Jinsha `DH` sunshine hours are a sensitivity-only channel. The main Group D meteorology channel on both networks is `Rs` (NASA POWER `ALLSKY_SFC_SW_DWN`, MJ/m²/day). Do not treat confirmatory shortwave as sunshine duration under the name `DH`.
 
 ## Known limitations
 

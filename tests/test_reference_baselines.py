@@ -24,7 +24,7 @@ from stream_recoverability.models.reference_baselines import (
     require_pypots_15,
 )
 
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 STATIONS = ("A", "B", "C")
 
 

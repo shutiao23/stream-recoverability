@@ -18,7 +18,7 @@ from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION,
     CONFIRMATORY_BUILDER_SOURCE_PATHS,
     CONFIRMATORY_DATA_VERSION,
-    DH_INTERPRETATION,
+    RS_INTERPRETATION,
     FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
     FROZEN_SITE_IDS,
     FROZEN_VARIABLES,
@@ -44,7 +44,8 @@ from stream_recoverability.experiments.validation import (
     validation_anchor_catalog_identity,
 )
 
-DESIGN = Path("configs/design_freeze_v1.yaml")
+DESIGN = Path("configs/design_freeze_v2.yaml")
+HISTORICAL_V1_DESIGN = Path("configs/design_freeze_v1.yaml")
 STUDY_MANIFEST = Path("study_manifest.yaml")
 EXPERIMENT_CONFIG = Path("configs/experiments.yaml")
 SELECTION_VERSION_MANIFEST = Path("data_versions/published_v1/version_manifest.json")
@@ -279,6 +280,11 @@ class FrozenMockFetcher:
 def test_protocol_and_plan_are_exact_and_network_free(tmp_path: Path) -> None:
     protocol = load_confirmatory_protocol(DESIGN)
     assert protocol.site_ids == FROZEN_SITE_IDS
+    assert protocol.network == "upper_to_middle_chattahoochee_mainstem_case_study"
+    assert protocol.network_huc8 == ("03130001", "03130002")
+    assert protocol.rs_interpretation == RS_INTERPRETATION
+    assert protocol.nasa_time_standard == "UTC"
+    assert protocol.design_version == "design_freeze_v2"
     assert [
         (period.label, period.start, period.end) for period in protocol.periods
     ] == [
@@ -307,6 +313,8 @@ def test_protocol_and_plan_are_exact_and_network_free(tmp_path: Path) -> None:
     assert "community=AG" in power["url"]
     assert "time-standard=UTC" in power["url"]
     assert "ALLSKY_SFC_SW_DWN" in power["url"]
+    assert "parameters=" in power["url"]
+    assert protocol.rs_interpretation == RS_INTERPRETATION
     assert len(plan["plan_sha256"]) == 64
     builder_identity = plan["confirmatory_builder_identity"]
     assert (
@@ -655,7 +663,7 @@ def test_duplicate_and_conflicting_observations_are_rejected() -> None:
         strict_json_loads(b'{"value":1,"value":2}')
 
 
-def test_alignment_has_complete_frozen_axes_splits_and_dh_proxy() -> None:
+def test_alignment_has_complete_frozen_axes_and_rs_channel() -> None:
     protocol = load_confirmatory_protocol(DESIGN)
     empty = pd.DataFrame()
     long_data, wide = assemble_confirmatory_frames(empty, empty, protocol)
@@ -669,12 +677,26 @@ def test_alignment_has_complete_frozen_axes_splits_and_dh_proxy() -> None:
         "validation": 730 * 5 * 8,
         "confirmatory": 1096 * 5 * 8,
     }
-    dh = long_data["variable"].eq("DH")
-    assert long_data.loc[dh, "interpretation"].eq(DH_INTERPRETATION).all()
-    assert long_data.loc[dh, "raw_name"].eq("ALLSKY_SFC_SW_DWN").all()
+    rs = long_data["variable"].eq("Rs")
+    assert long_data.loc[rs, "interpretation"].eq(RS_INTERPRETATION).all()
+    assert long_data.loc[rs, "raw_name"].eq("ALLSKY_SFC_SW_DWN").all()
+    assert not long_data["variable"].eq("DH").any()
     assert not long_data["quality_approved"].any()
     assert "02334430_T" in wide
-    assert "02337170_DH" in wide
+    assert "02337170_Rs" in wide
+    assert "02337170_DH" not in wide
+
+
+def test_v1_freeze_file_remains_historical_lower_chattahoochee_dh_proxy() -> None:
+    text = HISTORICAL_V1_DESIGN.read_text(encoding="utf-8")
+    document = yaml.safe_load(text)
+    assert document["design_version"] == "design_freeze_v1"
+    protocol = document["confirmatory_dataset"]["frozen_external_protocol"]
+    assert protocol["network"] == "lower_chattahoochee_mainstem_case_study"
+    assert protocol["meteorology"]["variables"]["DH"] == "ALLSKY_SFC_SW_DWN"
+    assert "DH_interpretation" in protocol["meteorology"]
+    with pytest.raises(ValueError, match="design_freeze_v2"):
+        load_confirmatory_protocol(HISTORICAL_V1_DESIGN)
 
 
 @pytest.mark.parametrize(
@@ -818,7 +840,8 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     assert manifest["raw_response_count"] == 40
     assert manifest["performance_metrics_computed"] is False
     assert manifest["confirmatory_evaluation_executed"] is False
-    assert manifest["dh_interpretation"] == DH_INTERPRETATION
+    assert manifest["rs_interpretation"] == RS_INTERPRETATION
+    assert "dh_interpretation" not in manifest
     builder_identity = manifest["confirmatory_builder_identity"]
     assert validate_confirmatory_builder_identity(builder_identity) == builder_identity
     assert [source["path"] for source in builder_identity["sources"]] == list(
@@ -861,20 +884,27 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
     assert len(long_data) == 204_560
     assert len(wide) == 5_114
     assert set(long_data["data_version"]) == {CONFIRMATORY_DATA_VERSION}
-    estimated = long_data.query(
-        "site_id == '02334430' and variable == 'T' and date == '2012-01-01'"
-    ).iloc[0]
+    dates = pd.to_datetime(long_data["date"]).dt.normalize()
+    estimated = long_data.loc[
+        (long_data["site_id"] == "02334430")
+        & (long_data["variable"] == "T")
+        & (dates == pd.Timestamp("2012-01-01"))
+    ].iloc[0]
     assert bool(estimated["quality_approved"])
     assert bool(estimated["estimated_qualifier"])
-    provisional = long_data.query(
-        "site_id == '02334430' and variable == 'F' and date == '2023-01-01'"
-    ).iloc[0]
+    provisional = long_data.loc[
+        (long_data["site_id"] == "02334430")
+        & (long_data["variable"] == "F")
+        & (dates == pd.Timestamp("2023-01-01"))
+    ].iloc[0]
     assert provisional["raw_value"] == 100
     assert np.isnan(provisional["value"])
     assert provisional["qc_status"] == "excluded_provisional"
-    flow = long_data.query(
-        "site_id == '02334430' and variable == 'F' and date == '2012-01-01'"
-    ).iloc[0]
+    flow = long_data.loc[
+        (long_data["site_id"] == "02334430")
+        & (long_data["variable"] == "F")
+        & (dates == pd.Timestamp("2012-01-01"))
+    ].iloc[0]
     assert flow["raw_value"] == 100
     assert flow["value"] == pytest.approx(100 * FT3_S_TO_M3_S, abs=0)
     assert len(pd.read_parquet(output / "metadata/site_metadata.parquet")) == 5

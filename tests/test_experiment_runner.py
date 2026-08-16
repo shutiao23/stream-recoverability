@@ -34,7 +34,7 @@ from stream_recoverability.models.proposed_training import ProposedTrainingConfi
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
-VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "DH")
+VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 
 
 def _wide_data(path: Path) -> Path:
@@ -61,7 +61,7 @@ def _wide_data(path: Path) -> Path:
         frame[f"{station}_P"] = np.maximum(0, np.sin(day / 7.0))
         frame[f"{station}_W"] = 2 + 0.2 * np.cos(day / 11.0)
         frame[f"{station}_RH"] = 55 + 4 * np.sin(day / 17.0)
-        frame[f"{station}_DH"] = 8 + 2 * np.cos(day / 58.0)
+        frame[f"{station}_Rs"] = 8 + 2 * np.cos(day / 58.0)
     frame.to_parquet(path, index=False)
     return path
 

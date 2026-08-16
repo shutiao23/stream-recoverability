@@ -427,7 +427,7 @@ def _runner_wide(source: pd.DataFrame, path: Path) -> Path:
     wide["B1_P"] = np.maximum(0.0, np.sin(day / 7.0))
     wide["B1_W"] = 2.0 + 0.1 * np.cos(day / 9.0)
     wide["B1_RH"] = 60.0 + np.sin(day / 11.0)
-    wide["B1_DH"] = 8.0 + np.cos(day / 13.0)
+    wide["B1_Rs"] = 8.0 + np.cos(day / 13.0)
     days_in_year = np.where(pd.DatetimeIndex(wide["date"]).is_leap_year, 366.0, 365.0)
     phase = 2 * np.pi * (pd.DatetimeIndex(wide["date"]).dayofyear - 1) / days_in_year
     wide["day_of_year_sin"] = np.sin(phase)

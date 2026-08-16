@@ -2,5 +2,21 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+dist/
+build/
+*.egg-info/
 checkpoints/*.pt
 checkpoints/*.pth
+
+# Invalid pre-freeze formal dumps; keep only the tombstone README links.
+results/formal/**
+!results/formal/PRE_FREEZE_INVALID.md
+
+# Local generated masks and experiment dumps
+masks/full/
+masks/science_compensation/
+masks/science_dense/
+masks/science_resilience/
+masks/v2/
+results/experiments_v2/
+data_versions_pre_rs/

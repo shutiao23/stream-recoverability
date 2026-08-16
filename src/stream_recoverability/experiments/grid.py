@@ -801,6 +801,12 @@ def build_experiment_grid(
     if suite not in {"smoke", "core", "full"}:
         raise ValueError("suite must be smoke, core, or full")
     evaluation_split = canonical_evaluation_split(evaluation_split)
+    if evaluation_split == "confirmatory":
+        raise ValueError(
+            "evaluation_split=confirmatory is reserved for the once-locked "
+            "scripts/20 external confirmation path; ordinary M1-M10 grids "
+            "cannot target confirmatory"
+        )
     data_version = str(data_version).strip()
     if not data_version:
         raise ValueError("data_version must not be empty")
