@@ -492,6 +492,12 @@ figures/                    study-area, diagnostic, and publication figures
 
 ## Documentation
 
+- [Manuscript source](paper/manuscript.md)
+- [AGU Key Points](paper/key_points.md)
+- [Plain-language summary](paper/plain_language_summary.md)
+- [Cover letter](paper/cover_letter.md)
+- [Supporting Information index](paper/si.md)
+- [Submission checklist](paper/submission_checklist.md)
 - [Detailed executable methods](paper/methods.md)
 - [Frozen design (executable v2)](configs/design_freeze_v2.yaml)
 - [Historical freeze v1](configs/design_freeze_v1.yaml)
