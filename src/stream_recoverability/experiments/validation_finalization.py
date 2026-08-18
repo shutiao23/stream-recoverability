@@ -317,7 +317,7 @@ def _expected_scenario_ids() -> set[str]:
         )
         for condition_id in condition_ids:
             for seed in VALIDATION_MASK_SEEDS:
-                result.add(f"{condition_id}-R{seed:04d}")
+                result.add(f"{condition_id}-VALIDATION-R{seed:04d}")
     return result
 
 

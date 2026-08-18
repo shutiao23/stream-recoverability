@@ -111,9 +111,11 @@ def test_initial_ranking_uses_only_stage1_and_seed11_stage2_inputs(
 
 
 def _scenario_parts(scenario_id: str) -> tuple[str, str, int]:
-    condition_id, raw_seed = scenario_id.rsplit("-R", maxsplit=1)
-    station = condition_id.split("-")[2]
-    return condition_id, station, int(raw_seed)
+    rest, raw_seed = scenario_id.rsplit("-R", maxsplit=1)
+    if rest.endswith("-VALIDATION"):
+        rest = rest[: -len("-VALIDATION")]
+    station = rest.split("-")[2]
+    return rest, station, int(raw_seed)
 
 
 def _write_completed_stage(
@@ -659,3 +661,17 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
             anchor_catalog_path="metadata/validation_anchors.csv",
             expected_contract=contract,
         )
+
+
+def test_expected_scenario_ids_include_validation_split_token() -> None:
+    ids = finalization._expected_scenario_ids()
+    conditions_per_station = 7
+    assert len(ids) == (
+        len(VALIDATION_STATIONS) * conditions_per_station * len(VALIDATION_MASK_SEEDS)
+    )
+    for station in VALIDATION_STATIONS:
+        for seed in VALIDATION_MASK_SEEDS:
+            assert f"VAL-PNT-{station}-T-P30-VALIDATION-R{seed:04d}" in ids
+            assert f"VAL-BLK1-{station}-T-D010-VALIDATION-R{seed:04d}" in ids
+            assert f"VAL-PNT-{station}-T-P30-R{seed:04d}" not in ids
+    assert all("-VALIDATION-R" in item for item in ids)
