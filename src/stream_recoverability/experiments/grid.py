@@ -192,11 +192,15 @@ class ExperimentGrid:
         if count < 1 or not 0 <= index < count:
             raise ValueError("shard index/count must satisfy 0 <= index < count")
         scenarios = tuple(
-            scenario for position, scenario in enumerate(self.scenarios) if position % count == index
+            scenario
+            for position, scenario in enumerate(self.scenarios)
+            if position % count == index
         )
         condition_ids = {scenario.condition.condition_id for scenario in scenarios}
         conditions = tuple(
-            condition for condition in self.conditions if condition.condition_id in condition_ids
+            condition
+            for condition in self.conditions
+            if condition.condition_id in condition_ids
         )
         return ExperimentGrid(
             suite=self.suite,
@@ -322,12 +326,16 @@ def bind_frontier_anchor(
     )
 
 
-def _core_conditions(manifest: dict[str, Any], config: dict[str, Any]) -> list[ExperimentCondition]:
+def _core_conditions(
+    manifest: dict[str, Any], config: dict[str, Any]
+) -> list[ExperimentCondition]:
     stations = tuple(manifest["data_panels"]["core"]["stations"])
     rates = tuple(float(value) for value in manifest["point_missing_rates"])
     lengths = tuple(int(value) for value in manifest["block_lengths"])
     point_patterns = tuple(_variables(value) for value in config["M1"]["patterns"])
-    primary_patterns = tuple(_variables(value) for value in manifest["primary_variable_patterns"])
+    primary_patterns = tuple(
+        _variables(value) for value in manifest["primary_variable_patterns"]
+    )
     main_window = int(manifest["window"]["main"])
     conditions: list[ExperimentCondition] = []
 
@@ -385,7 +393,9 @@ def _core_conditions(manifest: dict[str, Any], config: dict[str, Any]) -> list[E
                         f"M4-SITE-{station}-{str(mode).upper().replace('-', '')}-D{length:03d}",
                         "station_outage",
                         (station,),
-                        ("T", "F", "L") if mode == "hydro-only" else tuple(config["all_variables"]),
+                        ("T", "F", "L")
+                        if mode == "hydro-only"
+                        else tuple(config["all_variables"]),
                         evaluation_variables=("T", "F", "L"),
                         gap_length=length,
                         layout="single",
@@ -397,7 +407,9 @@ def _core_conditions(manifest: dict[str, Any], config: dict[str, Any]) -> list[E
     counts = Counter(condition.experiment for condition in conditions)
     actual = {name: counts[name] for name in CORE_EXPECTED_COUNTS}
     if actual != CORE_EXPECTED_COUNTS:
-        raise AssertionError(f"Core experiment count mismatch: {actual} != {CORE_EXPECTED_COUNTS}")
+        raise AssertionError(
+            f"Core experiment count mismatch: {actual} != {CORE_EXPECTED_COUNTS}"
+        )
     return conditions
 
 
@@ -418,7 +430,10 @@ def _full_only_conditions(
     for station in stations:
         for length in lengths:
             for variables in map(_variables, manifest["secondary_variable_patterns"]):
-                for layout, mask_type in (("single", "block"), ("fixed_total_budget", "multiblock")):
+                for layout, mask_type in (
+                    ("single", "block"),
+                    ("fixed_total_budget", "multiblock"),
+                ):
                     conditions.append(
                         ExperimentCondition(
                             "M5",
@@ -526,9 +541,7 @@ def _full_only_conditions(
                     ),
                     analysis_eligible=True,
                     event_definition=event_definition.definition,
-                    minimum_duration_days=(
-                        event_definition.minimum_duration_days
-                    ),
+                    minimum_duration_days=(event_definition.minimum_duration_days),
                     merge_gap_days=event_definition.merge_gap_days,
                     fixed_window_length=event_definition.fixed_window_length,
                     climatology_half_window_days=(
@@ -615,13 +628,9 @@ def _full_only_conditions(
                 "event_min_date": _catalog_text(row.event_min_date),
                 "event_min_value": _catalog_float(row.event_min_value),
                 "event_intensity": float(row.event_intensity),
-                "rising_phase_start_index": _catalog_int(
-                    row.rising_phase_start_index
-                ),
+                "rising_phase_start_index": _catalog_int(row.rising_phase_start_index),
                 "rising_phase_end_index": _catalog_int(row.rising_phase_end_index),
-                "rising_phase_start_date": _catalog_text(
-                    row.rising_phase_start_date
-                ),
+                "rising_phase_start_date": _catalog_text(row.rising_phase_start_date),
                 "rising_phase_end_date": _catalog_text(row.rising_phase_end_date),
                 "peak_phase_start_index": _catalog_int(row.peak_phase_start_index),
                 "peak_phase_end_index": _catalog_int(row.peak_phase_end_index),
@@ -636,9 +645,7 @@ def _full_only_conditions(
                 "recession_phase_start_date": _catalog_text(
                     row.recession_phase_start_date
                 ),
-                "recession_phase_end_date": _catalog_text(
-                    row.recession_phase_end_date
-                ),
+                "recession_phase_end_date": _catalog_text(row.recession_phase_end_date),
                 "control_start_index": int(row.control_start_index),
                 "control_end_index": int(row.control_end_index),
                 "control_center_index": int(row.control_center_index),
@@ -649,28 +656,20 @@ def _full_only_conditions(
                 "minimum_duration_days": int(row.minimum_duration_days),
                 "merge_gap_days": int(row.merge_gap_days),
                 "fixed_window_length": int(row.fixed_window_length),
-                "climatology_half_window_days": int(
-                    row.climatology_half_window_days
-                ),
+                "climatology_half_window_days": int(row.climatology_half_window_days),
                 "threshold_doy_half_window_days": int(
                     row.threshold_doy_half_window_days
                 ),
-                "event_climatology_value": _catalog_float(
-                    row.event_climatology_value
-                ),
+                "event_climatology_value": _catalog_float(row.event_climatology_value),
                 "control_context_days": int(row.control_context_days),
                 "event_window_eligible": bool(row.event_window_eligible),
-                "event_left_context_available": bool(
-                    row.event_left_context_available
-                ),
+                "event_left_context_available": bool(row.event_left_context_available),
                 "event_right_context_available": bool(
                     row.event_right_context_available
                 ),
                 "analysis_exclusion_reason": str(row.analysis_exclusion_reason),
                 "episode_boundary_policy": str(row.episode_boundary_policy),
-                "control_match_year_distance": int(
-                    row.control_match_year_distance
-                ),
+                "control_match_year_distance": int(row.control_match_year_distance),
                 "control_match_day_of_year_distance": int(
                     row.control_match_day_of_year_distance
                 ),
@@ -715,7 +714,9 @@ def _full_only_conditions(
                     mask_type,
                     (station,),
                     variables,
-                    evaluation_variables=("T", "F", "L") if mask_type == "station_outage" else variables,
+                    evaluation_variables=("T", "F", "L")
+                    if mask_type == "station_outage"
+                    else variables,
                     gap_length=length,
                     layout="single",
                     outage_mode=anchor.get("outage_mode"),
@@ -759,7 +760,9 @@ def _full_only_conditions(
     return conditions
 
 
-def _smoke_conditions(conditions: list[ExperimentCondition]) -> list[ExperimentCondition]:
+def _smoke_conditions(
+    conditions: list[ExperimentCondition],
+) -> list[ExperimentCondition]:
     selectors = (
         ("M1", "B1", "T", None, 0.30),
         ("M2", "B1", "T", 30, None),
@@ -790,6 +793,7 @@ def build_experiment_grid(
     evaluation_split: str = "development_test",
     event_catalog_path: str | Path | None = None,
     frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
+    frontier_anchor_data_version: str = "published_v1",
 ) -> ExperimentGrid:
     """Build ``smoke``, ``core`` (M1--M4), or ``full`` (M1--M10).
 
@@ -826,17 +830,18 @@ def build_experiment_grid(
     frontier_catalog = (
         load_frontier_anchor_catalog(
             frontier_anchor_path,
-            expected_data_version="published_v1",
+            expected_data_version=frontier_anchor_data_version,
             expected_evaluation_split="development_test",
             required_stations=tuple(manifest["data_panels"]["core"]["stations"]),
             required_targets=("T", "F", "L"),
         )
-        if frontier_anchor_path is not None
-        and evaluation_split == "development_test"
+        if frontier_anchor_path is not None and evaluation_split == "development_test"
         else None
     )
     configured_mask_seeds = tuple(int(value) for value in manifest["mask_seeds"])
-    configured_training_seeds = tuple(int(value) for value in manifest["training_seeds"])
+    configured_training_seeds = tuple(
+        int(value) for value in manifest["training_seeds"]
+    )
     if configured_mask_seeds != tuple(range(101, 121)):
         raise AssertionError("mask_seeds must be fixed at 101..120")
     if configured_training_seeds != (11, 22, 33, 44, 55):
@@ -933,7 +938,9 @@ def build_experiment_grid(
             if frontier_catalog is not None and frontier_anchor_path is not None
             else None
         ),
-        frontier_anchor_count=(len(frontier_catalog) if frontier_catalog is not None else 0),
+        frontier_anchor_count=(
+            len(frontier_catalog) if frontier_catalog is not None else 0
+        ),
     )
 
 

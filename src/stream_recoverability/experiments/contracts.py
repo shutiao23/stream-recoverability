@@ -6,16 +6,17 @@ import hashlib
 import json
 import subprocess
 from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import yaml
 
-DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v3.yaml")
+DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v4.yaml")
 SUPPORTED_EXECUTABLE_DESIGN_VERSIONS = frozenset(
-    {"design_freeze_v2", "design_freeze_v3"}
+    {"design_freeze_v2", "design_freeze_v3", "design_freeze_v4"}
 )
-EXECUTABLE_DESIGN_VERSION = "design_freeze_v3"
+EXECUTABLE_DESIGN_VERSION = "design_freeze_v4"
 DEFAULT_MANIFEST_PATH = Path("study_manifest.yaml")
 SUPPORTED_EVALUATION_SPLITS = frozenset(
     {"validation", "development_test", "test", "confirmatory"}
@@ -44,6 +45,60 @@ _FUTURE_ORCHESTRATION_PATTERNS = (
     "scripts/*retrain*.py",
     "scripts/*upper_bound*.py",
 )
+
+
+@dataclass(frozen=True)
+class FrozenDataVersions:
+    """The primary and required sensitivity versions declared by a design."""
+
+    primary: str
+    sensitivities: tuple[str, ...]
+
+    def manifest_path(
+        self, data_root: str | Path, data_version: str | None = None
+    ) -> Path:
+        version = self.primary if data_version is None else str(data_version)
+        if version not in {self.primary, *self.sensitivities}:
+            raise ValueError(
+                f"data version {version!r} is outside the frozen inventory"
+            )
+        return Path(data_root) / version / "version_manifest.json"
+
+
+def load_frozen_data_versions(
+    design_path: str | Path = DEFAULT_DESIGN_PATH,
+) -> FrozenDataVersions:
+    """Load the authoritative data-version inventory from a design freeze."""
+
+    design = _mapping_yaml(Path(design_path))
+    raw = design.get("data_versions")
+    if not isinstance(raw, Mapping):
+        raise TypeError("design freeze data_versions must be a mapping")
+    primary = raw.get("primary")
+    sensitivities = raw.get("required_sensitivity")
+    definitions = raw.get("definitions")
+    if not isinstance(primary, str) or not primary or primary.strip() != primary:
+        raise ValueError("design freeze requires one normalized primary data version")
+    if (
+        not isinstance(sensitivities, list)
+        or not sensitivities
+        or not all(
+            isinstance(value, str) and value and value.strip() == value
+            for value in sensitivities
+        )
+    ):
+        raise ValueError("design freeze requires normalized sensitivity data versions")
+    frozen_sensitivities = tuple(sensitivities)
+    if len(set(frozen_sensitivities)) != len(frozen_sensitivities):
+        raise ValueError("design freeze sensitivity data versions must be unique")
+    if primary in frozen_sensitivities:
+        raise ValueError("primary data version cannot also be a sensitivity")
+    if not isinstance(definitions, Mapping) or not {
+        primary,
+        *frozen_sensitivities,
+    }.issubset(definitions):
+        raise ValueError("design freeze lacks definitions for executable data versions")
+    return FrozenDataVersions(primary=primary, sensitivities=frozen_sensitivities)
 
 
 def canonical_evaluation_split(value: str) -> str:
@@ -98,7 +153,9 @@ def validate_data_version_inputs(
     if not isinstance(document, Mapping):
         raise TypeError("data-version manifest must be a JSON mapping")
     if document.get("data_version") != str(data_version):
-        raise ValueError("data-version manifest identity differs from the experiment grid")
+        raise ValueError(
+            "data-version manifest identity differs from the experiment grid"
+        )
     artifacts = document.get("artifacts")
     if not isinstance(artifacts, Mapping):
         raise TypeError("data-version manifest artifacts must be a mapping")
@@ -416,6 +473,7 @@ __all__ = [
     "DEFAULT_DESIGN_PATH",
     "DEFAULT_MANIFEST_PATH",
     "EXECUTABLE_DESIGN_VERSION",
+    "FrozenDataVersions",
     "SUPPORTED_EXECUTABLE_DESIGN_VERSIONS",
     "SUPPORTED_EVALUATION_SPLITS",
     "build_code_provenance",
@@ -423,5 +481,6 @@ __all__ = [
     "canonical_code_identity",
     "canonical_evaluation_split",
     "file_sha256",
+    "load_frozen_data_versions",
     "validate_data_version_inputs",
 ]

@@ -6,7 +6,7 @@ This checklist records what a Water Resources Research package can honestly cont
 
 | File | Role | Status |
 | --- | --- | --- |
-| `manuscript.md` | Main text; Results are `RESULTS_PENDING` | Present; no MAE/skill/frontier claims; executable freeze is v3 |
+| `manuscript.md` | Main text; Results are `RESULTS_PENDING` | Present; no MAE/skill/frontier claims; executable freeze is v4 |
 | `methods.md` | Extended methods for SI | Present; grid counts locked to builders |
 | `si.md` / `si_independence_audits.md` | Supplement | Present; audits are not ranks |
 | `cover_letter.md` | Editor letter | Present; no performance claim |
@@ -29,8 +29,8 @@ This checklist records what a Water Resources Research package can honestly cont
 
 ## Protocol gates (not optional)
 
-1. Validation funnel stages complete **under `design_freeze_v3`**, including diagnostics, stability, go/no-go, and branch ablation or the frozen not-applicable path. v2 artifacts are not reusable.
-2. Hash-verified `finalized_model_roster_v1` with no `budget_unstable` retained model.
+1. Validation funnel stages complete **under `design_freeze_v4`**, including diagnostics, stability, go/no-go, and branch ablation or the frozen not-applicable path. v2 artifacts are not reusable.
+2. Contract-validated `finalized_model_roster_v1` with no `budget_unstable` retained model.
 3. Formal internal suites on `published_v2` using that roster only.
 4. Three sensitivity data versions (`no_s2_suspect_v2`, `b1_no_level_v2`, `b1_shift_sensitivity_v2`), separately registered.
 5. Frozen statistics: climatology-relative **and** best-simple-baseline-relative frontiers; donor-C lag/permutation falsification; no application frontier unless predeclared.

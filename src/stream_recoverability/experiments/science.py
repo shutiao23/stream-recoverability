@@ -150,10 +150,15 @@ def _science_grid(
     ):
         raise AssertionError("science condition IDs must be unique")
     stations = tuple(manifest["data_panels"]["core"]["stations"])
+    anchor_data_version = (
+        "published_v2"
+        if str(data_version) == "published_v2" or str(data_version).endswith("_v2")
+        else "published_v1"
+    )
     anchor_catalog = (
         load_frontier_anchor_catalog(
             frontier_anchor_path,
-            expected_data_version="published_v1",
+            expected_data_version=anchor_data_version,
             expected_evaluation_split="development_test",
             required_stations=stations,
             required_targets=("T", "F", "L"),
@@ -356,7 +361,7 @@ def run_dense_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v3.yaml",
+    design_path: str | Path = "configs/design_freeze_v4.yaml",
     data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
@@ -409,7 +414,7 @@ def run_resilience_experiments(
     *,
     manifest_path: str | Path = "study_manifest.yaml",
     config_path: str | Path = "configs/experiments.yaml",
-    design_path: str | Path = "configs/design_freeze_v3.yaml",
+    design_path: str | Path = "configs/design_freeze_v4.yaml",
     data_version_manifest_path: str | Path | None = None,
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
@@ -1284,7 +1289,7 @@ def run_information_compensation(
     finalized_model_roster_path: str
     | Path = "results/validation_funnel/finalized_model_roster.json",
     selection_data_version_manifest_path: str
-    | Path = "data_versions/published_v1/version_manifest.json",
+    | Path = "data_versions/published_v2/version_manifest.json",
     checkpoint_path: str | Path | None = None,
     checkpoint_dir: str | Path = "results/experiments/checkpoints",
     checkpoint_template: str = "proposed-S{seed}-W{window}-{protocol}.pt",
@@ -1327,9 +1332,7 @@ def run_information_compensation(
             "formal_design_complete": False,
             "attribution_estimand": "operational_dropout",
             "information_estimand": "operational_dropout",
-            "not_applicable_reason": (
-                "proposed validation decision is framework_only"
-            ),
+            "not_applicable_reason": ("proposed validation decision is framework_only"),
             "proposed_decision": roster.proposed_decision,
             "models": ["information_compensation"],
             "expected_formal_models": [],

@@ -64,8 +64,12 @@ def apply_donor_lag(
     result = wide.copy()
     if int(lag_days) == 0:
         return result
-    for column in donor_columns(result.columns, target_station=target_station, variables=variables):
-        result[column] = pd.to_numeric(result[column], errors="coerce").shift(int(lag_days))
+    for column in donor_columns(
+        result.columns, target_station=target_station, variables=variables
+    ):
+        result[column] = pd.to_numeric(result[column], errors="coerce").shift(
+            int(lag_days)
+        )
     return result
 
 
@@ -92,9 +96,13 @@ def permute_donor_station_identity(
 ) -> pd.DataFrame:
     """Swap donor-station identities while keeping the target series fixed."""
 
-    donors = [str(station) for station in stations if str(station) != str(target_station)]
+    donors = [
+        str(station) for station in stations if str(station) != str(target_station)
+    ]
     if len(donors) < 2:
-        raise ValueError("station identity permutation requires at least two donor stations")
+        raise ValueError(
+            "station identity permutation requires at least two donor stations"
+        )
     rng = np.random.default_rng(int(seed))
     order = [str(station) for station in rng.permutation(donors)]
     if order == donors:
@@ -148,9 +156,15 @@ def block_permute_donor_residuals(
             for start in shuffled_starts
         ]
     )
-    for column in donor_columns(result.columns, target_station=target_station, variables=variables):
+    for column in donor_columns(
+        result.columns, target_station=target_station, variables=variables
+    ):
         values = pd.to_numeric(result[column], errors="coerce")
-        seasonal = pd.Series(values.to_numpy(), index=result.index).groupby(doy).transform("mean")
+        seasonal = (
+            pd.Series(values.to_numpy(), index=result.index)
+            .groupby(doy)
+            .transform("mean")
+        )
         residual = values - seasonal
         shuffled = residual.to_numpy()[new_index[:n_rows]]
         result[column] = seasonal.to_numpy() + shuffled
@@ -213,7 +227,12 @@ def falsification_grid(
     return experiments
 
 
-def interpret_falsification(summary: pd.DataFrame) -> dict[str, Any]:
+def interpret_falsification(
+    summary: pd.DataFrame,
+    *,
+    minimum_meaningful_difference: float = 0.01,
+    require_confidence_intervals: bool = False,
+) -> dict[str, Any]:
     """Map a completed contrast table to the predeclared wording rule.
 
     The function does not invent performance numbers. It only classifies an
@@ -225,8 +244,12 @@ def interpret_falsification(summary: pd.DataFrame) -> dict[str, Any]:
     if missing:
         raise ValueError(f"falsification summary requires columns: {missing}")
     data = summary.copy()
+    if minimum_meaningful_difference <= 0:
+        raise ValueError("minimum_meaningful_difference must be positive")
     data["skill_gain"] = pd.to_numeric(data["skill_gain"], errors="coerce")
-    reference = data.loc[data["contrast"].astype(str).eq("observed_same_day_C"), "skill_gain"]
+    reference = data.loc[
+        data["contrast"].astype(str).eq("observed_same_day_C"), "skill_gain"
+    ]
     if reference.empty or not np.isfinite(reference.iloc[0]):
         return {
             "interpretation": "unavailable",
@@ -242,16 +265,53 @@ def interpret_falsification(summary: pd.DataFrame) -> dict[str, Any]:
         & pd.to_numeric(data.get("lag_days", np.nan), errors="coerce").lt(0),
         "skill_gain",
     ]
-    permutation_survives = bool(
-        not permutation.empty
-        and np.isfinite(permutation.iloc[0])
-        and float(permutation.iloc[0]) >= ref_gain - 1e-12
-    )
-    implausible_survives = bool(
-        not implausible.empty
-        and np.isfinite(implausible.to_numpy(dtype=float)).all()
-        and float(np.nanmin(implausible.to_numpy(dtype=float))) >= ref_gain - 1e-12
-    )
+    has_intervals = {"ci_lower", "ci_upper"}.issubset(data.columns)
+    if require_confidence_intervals and not has_intervals:
+        return {
+            "interpretation": "unavailable",
+            "reason": "paired confidence intervals are required",
+            "claim_language": "withhold_group_C_claim",
+        }
+    if has_intervals:
+        reference_rows = data.loc[
+            data["contrast"].astype(str).eq("observed_same_day_C")
+        ]
+        permutation_rows = data.loc[
+            data["contrast"].astype(str).eq("station_identity_permutation")
+        ]
+        implausible_rows = data.loc[
+            data["contrast"].astype(str).eq("lagged_C")
+            & pd.to_numeric(data.get("lag_days", np.nan), errors="coerce").lt(0)
+        ]
+        ref_lower = pd.to_numeric(reference_rows["ci_lower"], errors="coerce").min()
+        permutation_upper = pd.to_numeric(
+            permutation_rows["ci_upper"], errors="coerce"
+        ).max()
+        implausible_upper = pd.to_numeric(
+            implausible_rows["ci_upper"], errors="coerce"
+        ).max()
+        permutation_survives = bool(
+            not np.isfinite(ref_lower)
+            or not np.isfinite(permutation_upper)
+            or ref_lower - permutation_upper < minimum_meaningful_difference
+        )
+        implausible_survives = bool(
+            not np.isfinite(ref_lower)
+            or not np.isfinite(implausible_upper)
+            or ref_lower - implausible_upper < minimum_meaningful_difference
+        )
+    else:
+        permutation_survives = bool(
+            not permutation.empty
+            and np.isfinite(permutation.iloc[0])
+            and float(permutation.iloc[0]) >= ref_gain - minimum_meaningful_difference
+        )
+        implausible_survives = bool(
+            not implausible.empty
+            and np.isfinite(implausible.to_numpy(dtype=float)).all()
+            and float(np.nanmax(implausible.to_numpy(dtype=float)))
+            >= ref_gain - minimum_meaningful_difference
+        )
     if permutation_survives and implausible_survives:
         language = "correlated_predictive_source_only"
         interpretation = "falsified_network_propagation"
@@ -265,6 +325,8 @@ def interpret_falsification(summary: pd.DataFrame) -> dict[str, Any]:
         "interpretation": interpretation,
         "claim_language": language,
         "reference_skill_gain": ref_gain,
+        "minimum_meaningful_difference": minimum_meaningful_difference,
+        "confidence_intervals_used": has_intervals,
         "permutation_survives": permutation_survives,
         "implausible_lag_survives": implausible_survives,
     }

@@ -22,6 +22,7 @@ from stream_recoverability.experiments.contracts import (
     build_design_contract,
     canonical_evaluation_split,
     file_sha256,
+    load_frozen_data_versions,
 )
 from stream_recoverability.experiments.formal_authorization import (
     authorize_roster_suite,
@@ -62,8 +63,12 @@ def build_parser() -> argparse.ArgumentParser:
             "for development_test core/full formal evidence"
         ),
     )
-    parser.add_argument("--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml")
-    parser.add_argument("--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml")
+    parser.add_argument(
+        "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"
+    )
+    parser.add_argument(
+        "--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml"
+    )
     parser.add_argument(
         "--design",
         type=Path,
@@ -78,7 +83,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--frontier-anchors",
         type=Path,
-        default=PROJECT_ROOT / "metadata" / "frontier_anchors.csv",
+        default=PROJECT_ROOT / "metadata" / "frontier_anchors_v2.csv",
     )
     parser.add_argument(
         "--event-catalog",
@@ -103,6 +108,12 @@ def main() -> None:
     except argparse.ArgumentTypeError as error:
         raise SystemExit(str(error)) from error
     canonical_split = canonical_evaluation_split(args.evaluation_split)
+    frozen_versions = load_frozen_data_versions(args.design)
+    if args.data_version not in {
+        frozen_versions.primary,
+        *frozen_versions.sensitivities,
+    }:
+        raise ValueError("--data-version is outside the design's frozen inventory")
     if canonical_split == "confirmatory":
         raise SystemExit(CONFIRMATORY_ONCE_PATH_REQUIRED)
     version_root = PROJECT_ROOT / "data_versions" / args.data_version
@@ -139,9 +150,7 @@ def main() -> None:
         if not isinstance(artifact, dict) or not isinstance(
             artifact.get("sha256"), str
         ):
-            raise TypeError(
-                f"data version manifest lacks a SHA-256 for {logical_name}"
-            )
+            raise TypeError(f"data version manifest lacks a SHA-256 for {logical_name}")
         actual_digest = file_sha256(path)
         if actual_digest != artifact["sha256"]:
             raise ValueError(
@@ -183,19 +192,21 @@ def main() -> None:
         evaluation_split=canonical_split,
         event_catalog_path=args.event_catalog,
         frontier_anchor_path=args.frontier_anchors,
+        frontier_anchor_data_version=frozen_versions.primary,
     )
     formal_authorization = None
-    is_formal_evidence_suite = (
-        canonical_split == "development_test" and args.suite in {"core", "full"}
-    )
+    is_formal_evidence_suite = canonical_split == "development_test" and args.suite in {
+        "core",
+        "full",
+    }
     if is_formal_evidence_suite:
         if args.finalized_model_roster is None:
             raise SystemExit(
                 "--finalized-model-roster is required for development_test "
                 "core/full formal evidence"
             )
-        selection_manifest = (
-            PROJECT_ROOT / "data_versions/published_v1/version_manifest.json"
+        selection_manifest = frozen_versions.manifest_path(
+            PROJECT_ROOT / "data_versions"
         )
         expected_models, formal_authorization = authorize_roster_suite(
             args.finalized_model_roster,

@@ -1,7 +1,7 @@
 """Immutable acquisition and preparation of the frozen confirmatory data.
 
 The builder implements the external protocol in the executable design freeze
-(``design_freeze_v3.yaml``, accepting the historical v2 file).  It
+(``design_freeze_v4.yaml``, accepting the historical v2/v3 files).  It
 uses the modern USGS OGC API and the NASA POWER daily point API, records every
 non-secret request and raw response by SHA-256, and materialises no performance
 metrics. Full acquisition is deliberately gated by a hash-verified finalized
@@ -38,6 +38,7 @@ import yaml
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     build_design_contract,
+    load_frozen_data_versions,
     validate_data_version_inputs,
 )
 
@@ -50,12 +51,16 @@ REQUEST_PLAN_SCHEMA_VERSION = "confirmatory_request_plan_v1"
 REQUEST_LOG_SCHEMA_VERSION = "external_http_request_log_v1"
 CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION = "confirmatory_builder_identity_v1"
 FINALIZED_MODEL_ROSTER_SCHEMA_VERSION = "finalized_model_roster_v1"
-DEFAULT_SELECTION_DATA_VERSION = "published_v1"
+DEFAULT_SELECTION_DATA_VERSION = "published_v2"
 CONFIRMATORY_BUILDER_SOURCE_PATHS = (
     "scripts/19_build_confirmatory_data.py",
     "src/stream_recoverability/data/confirmatory.py",
 )
 FINALIST_ARTIFACT_NAMES = ("ranking", "stage2_selection", "go_no_go")
+V4_FINALIST_ARTIFACT_NAMES = (
+    *FINALIST_ARTIFACT_NAMES,
+    "best_simple_baseline_lookup",
+)
 FINALIZED_MODEL_ROSTER_FIELDS = frozenset(
     {
         "schema_version",
@@ -308,8 +313,7 @@ def _portable_path(path: Path) -> str:
 
 def _confirmatory_builder_source_paths(repository_root: Path) -> tuple[Path, ...]:
     return tuple(
-        repository_root / relative
-        for relative in CONFIRMATORY_BUILDER_SOURCE_PATHS
+        repository_root / relative for relative in CONFIRMATORY_BUILDER_SOURCE_PATHS
     )
 
 
@@ -336,9 +340,7 @@ def build_confirmatory_builder_identity(
         strict=True,
     ):
         if not path.is_file():
-            raise FileNotFoundError(
-                f"missing confirmatory builder source: {relative}"
-            )
+            raise FileNotFoundError(f"missing confirmatory builder source: {relative}")
         sources.append(
             {
                 "path": relative,
@@ -373,10 +375,7 @@ def validate_confirmatory_builder_identity(
     }
     if set(identity) != expected_fields:
         raise ValueError("confirmatory builder identity fields are not frozen")
-    if (
-        identity.get("schema_version")
-        != CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION
-    ):
+    if identity.get("schema_version") != CONFIRMATORY_BUILDER_IDENTITY_SCHEMA_VERSION:
         raise ValueError("confirmatory builder identity schema is not frozen")
     if (
         identity.get("identity_hash_scope")
@@ -410,11 +409,11 @@ def validate_confirmatory_builder_identity(
             or any(character not in "0123456789abcdef" for character in digest)
         ):
             raise ValueError(f"{label} has invalid SHA-256")
-    unsigned = {
-        key: item for key, item in identity.items() if key != "identity_sha256"
-    }
+    unsigned = {key: item for key, item in identity.items() if key != "identity_sha256"}
     if identity.get("identity_sha256") != _canonical_json_sha256(unsigned):
-        raise ValueError("confirmatory builder canonical identity SHA-256 does not match")
+        raise ValueError(
+            "confirmatory builder canonical identity SHA-256 does not match"
+        )
     expected = build_confirmatory_builder_identity(repository_root)
     if identity != expected:
         raise ValueError(
@@ -432,7 +431,9 @@ def _run_builder_git_command(repository_root: Path, *arguments: str) -> bytes:
             timeout=15,
         )
     except (OSError, subprocess.TimeoutExpired) as error:
-        raise RuntimeError("git is unavailable for confirmatory builder audit") from error
+        raise RuntimeError(
+            "git is unavailable for confirmatory builder audit"
+        ) from error
     if result.returncode:
         raise RuntimeError("git command failed during confirmatory builder audit")
     return result.stdout
@@ -501,9 +502,13 @@ def load_confirmatory_protocol(
     if not isinstance(document, Mapping):
         raise TypeError("design freeze must contain a mapping")
     design_version = document.get("design_version")
-    if design_version not in {"design_freeze_v2", "design_freeze_v3"}:
+    if design_version not in {
+        "design_freeze_v2",
+        "design_freeze_v3",
+        "design_freeze_v4",
+    }:
         raise ValueError(
-            "design_version must be design_freeze_v2 or design_freeze_v3, "
+            "design_version must be design_freeze_v2, v3, or v4, "
             f"got {design_version!r}"
         )
     proposed = (
@@ -521,7 +526,9 @@ def load_confirmatory_protocol(
             "architecture_version s0_abcd_v2 cannot remain the main token while "
             "Group D uses Rs; design_freeze_v2/v3 requires s0_abcd_rs_v1"
         )
-    _expect_equal(architecture_version, "s0_abcd_rs_v1", "proposed.architecture_version")
+    _expect_equal(
+        architecture_version, "s0_abcd_rs_v1", "proposed.architecture_version"
+    )
     group_d = document.get("information_groups", {})
     if isinstance(group_d, Mapping):
         sources = tuple(group_d.get("D", {}).get("sources", ()))
@@ -566,7 +573,9 @@ def load_confirmatory_protocol(
         "frozen_external_protocol.network_geography.huc8",
     )
     if "03130004" in tuple(str(value) for value in geography.get("huc8", ())):
-        raise ValueError("external protocol must not use Lower Chattahoochee HUC 03130004")
+        raise ValueError(
+            "external protocol must not use Lower Chattahoochee HUC 03130004"
+        )
     _expect_equal(
         geography.get("not_five_independent_basins"),
         True,
@@ -594,7 +603,10 @@ def load_confirmatory_protocol(
     meteorology = protocol.get("meteorology")
     if not isinstance(meteorology, Mapping):
         raise TypeError("frozen external protocol meteorology must be a mapping")
-    if "DH" in dict(meteorology.get("variables", {})) or "DH_interpretation" in meteorology:
+    if (
+        "DH" in dict(meteorology.get("variables", {}))
+        or "DH_interpretation" in meteorology
+    ):
         raise ValueError(
             "v2 meteorology cannot keep DH or DH_interpretation; main Group D uses Rs"
         )
@@ -645,7 +657,9 @@ def load_confirmatory_protocol(
         "meteorology_alignment_v1", {}
     )
     if not isinstance(alignment, Mapping):
-        raise TypeError("required_protocol_sensitivities.meteorology_alignment_v1 must be a mapping")
+        raise TypeError(
+            "required_protocol_sensitivities.meteorology_alignment_v1 must be a mapping"
+        )
     _expect_equal(
         tuple(int(value) for value in alignment.get("lags_days", ())),
         (-1, 0, 1),
@@ -959,12 +973,15 @@ def _resolve_roster_artifact_path(value: str, roster_path: Path) -> Path:
 
 
 def _validated_roster_artifacts(
-    value: object, roster_path: Path
+    value: object,
+    roster_path: Path,
+    *,
+    required_names: Sequence[str] = FINALIST_ARTIFACT_NAMES,
 ) -> dict[str, dict[str, Any]]:
     if not isinstance(value, Mapping):
         raise TypeError("finalized model roster artifacts must be a mapping")
-    missing = sorted(set(FINALIST_ARTIFACT_NAMES).difference(value))
-    unexpected = sorted(set(value).difference(FINALIST_ARTIFACT_NAMES))
+    missing = sorted(set(required_names).difference(value))
+    unexpected = sorted(set(value).difference(required_names))
     if missing or unexpected:
         raise ValueError(
             "finalized model roster artifact set is not frozen: "
@@ -972,7 +989,7 @@ def _validated_roster_artifacts(
         )
     validated: dict[str, dict[str, Any]] = {}
     resolved_paths: set[Path] = set()
-    for name in FINALIST_ARTIFACT_NAMES:
+    for name in required_names:
         identity = value[name]
         if not isinstance(identity, Mapping):
             raise TypeError(f"finalized roster artifact {name} must be a mapping")
@@ -1018,7 +1035,7 @@ def load_finalized_model_roster(
     design_path: str | Path = REPOSITORY_ROOT / DEFAULT_DESIGN_PATH,
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
-    selection_data_version: str = DEFAULT_SELECTION_DATA_VERSION,
+    selection_data_version: str | None = None,
     selection_data_version_manifest_path: str | Path | None = None,
 ) -> FinalizedModelRoster:
     """Validate the validation-only roster before any confirmatory I/O begins."""
@@ -1026,8 +1043,17 @@ def load_finalized_model_roster(
     roster_path = Path(roster_manifest_path)
     if not roster_path.is_file():
         raise FileNotFoundError(f"finalized model roster not found: {roster_path}")
-    if selection_data_version != DEFAULT_SELECTION_DATA_VERSION:
-        raise ValueError("confirmatory selection must be frozen against published_v1")
+    frozen_primary = load_frozen_data_versions(design_path).primary
+    selection_data_version = (
+        frozen_primary
+        if selection_data_version is None
+        else str(selection_data_version)
+    )
+    if selection_data_version != frozen_primary:
+        raise ValueError(
+            "confirmatory selection must use the design primary data version: "
+            f"{frozen_primary}"
+        )
     version_manifest = (
         Path(selection_data_version_manifest_path)
         if selection_data_version_manifest_path is not None
@@ -1135,7 +1161,14 @@ def load_finalized_model_roster(
     proposed_selected = "proposed" in selected
     if proposed_selected != (decision == "include_proposed_formally"):
         raise ValueError("selected_models and proposed_decision are inconsistent")
-    artifacts = _validated_roster_artifacts(document.get("artifacts"), roster_path)
+    required_artifacts = (
+        V4_FINALIST_ARTIFACT_NAMES
+        if expected_contract["design_version"] == "design_freeze_v4"
+        else FINALIST_ARTIFACT_NAMES
+    )
+    artifacts = _validated_roster_artifacts(
+        document.get("artifacts"), roster_path, required_names=required_artifacts
+    )
     raw_provenance = document.get("code_provenance")
     if raw_provenance is not None and not isinstance(raw_provenance, Mapping):
         raise TypeError("finalized model roster code_provenance must be a mapping")
@@ -1158,9 +1191,7 @@ def load_finalized_model_roster(
             "sha256": file_sha256(version_manifest),
             "bytes": version_manifest.stat().st_size,
         },
-        validation_anchor_catalog=json.loads(
-            json.dumps(expected_validation_anchors)
-        ),
+        validation_anchor_catalog=json.loads(json.dumps(expected_validation_anchors)),
         artifacts=artifacts,
     )
 
@@ -2278,9 +2309,7 @@ def _build_into_staging(
     }
     _write_json(request_log, metadata_root / "request_log.json")
     _write_json(
-        build_confirmatory_request_plan(
-            protocol, builder_identity=builder_identity
-        ),
+        build_confirmatory_request_plan(protocol, builder_identity=builder_identity),
         metadata_root / "request_plan.json",
     )
     split_root = staging / "splits"
@@ -2345,7 +2374,7 @@ def build_confirmatory_data(
     finalized_model_roster_path: str | Path,
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
-    selection_data_version: str = DEFAULT_SELECTION_DATA_VERSION,
+    selection_data_version: str | None = None,
     selection_data_version_manifest_path: str | Path | None = None,
     fetcher: HTTPFetcher = urlopen_fetcher,
     usgs_api_key: str | None = None,

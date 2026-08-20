@@ -58,7 +58,7 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
-        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v3.yaml"
+        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v4.yaml"
     )
     parser.add_argument(
         "--study-manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"
@@ -71,14 +71,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--selection-data-version-manifest",
         type=Path,
-        default=PROJECT_ROOT / "data_versions/published_v1/version_manifest.json",
-        help="published_v1 manifest against which the validation roster was frozen",
+        help="selection manifest; defaults from data_versions.primary in --design",
     )
     parser.add_argument(
         "--frontier-anchor-catalog",
         type=Path,
-        default=DEFAULT_FRONTIER_ANCHOR_PATH,
-        help="canonical published_v1 development-test frontier anchor catalog",
+        default=PROJECT_ROOT / "metadata/frontier_anchors_v2.csv",
+        help="canonical primary-version development-test frontier anchor catalog",
     )
     return parser
 

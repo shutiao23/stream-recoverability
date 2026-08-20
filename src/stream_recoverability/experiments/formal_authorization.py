@@ -14,7 +14,7 @@ from stream_recoverability.masks.event_catalog import (
     load_event_episode_catalog,
 )
 
-from .contracts import file_sha256
+from .contracts import file_sha256, load_frozen_data_versions
 from .model_registry import load_frozen_model_design
 
 if TYPE_CHECKING:
@@ -26,6 +26,9 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 CANONICAL_FRONTIER_ANCHOR_PATH = (
     REPOSITORY_ROOT / "metadata/frontier_anchors.csv"
 ).resolve()
+CANONICAL_V2_FRONTIER_ANCHOR_PATH = (
+    REPOSITORY_ROOT / "metadata/frontier_anchors_v2.csv"
+).resolve()
 FORMAL_FRONTIER_SUITES = frozenset(
     {
         "core",
@@ -34,6 +37,7 @@ FORMAL_FRONTIER_SUITES = frozenset(
         "science_compensation",
         "science_resilience",
         "retrained_information_upper_bounds",
+        "science_donor_falsification",
     }
 )
 FRONTIER_ANCHORED_MASK_TYPES = frozenset(
@@ -73,13 +77,26 @@ def _validate_frontier_anchor_grid(grid: Any) -> dict[str, Any]:
     path = _resolve_repository_path(path_value)
     if not path.is_file():
         raise FileNotFoundError(f"formal frontier anchor catalog is missing: {path}")
-    if path.resolve() != CANONICAL_FRONTIER_ANCHOR_PATH:
+    anchor_versions = {
+        str(scenario.condition.anchor_data_version)
+        for scenario in grid.scenarios
+        if scenario.condition.anchor_data_version is not None
+    }
+    if len(anchor_versions) != 1:
+        raise ValueError("formal grid must carry one frontier anchor data version")
+    anchor_version = next(iter(anchor_versions))
+    canonical_path = (
+        CANONICAL_V2_FRONTIER_ANCHOR_PATH
+        if anchor_version == "published_v2"
+        else CANONICAL_FRONTIER_ANCHOR_PATH
+    )
+    if path.resolve() != canonical_path:
         raise ValueError("formal execution must use the canonical frontier catalog")
     if digest != file_sha256(path):
         raise ValueError("formal frontier anchor catalog file SHA-256 mismatch")
     catalog = load_frontier_anchor_catalog(
         path,
-        expected_data_version="published_v1",
+        expected_data_version=anchor_version,
         expected_evaluation_split="development_test",
     )
     if isinstance(count, bool) or not isinstance(count, int) or count != len(catalog):
@@ -174,7 +191,11 @@ def validate_formal_grid_contract(grid: Any) -> dict[str, Any]:
         or any(character not in "0123456789abcdef" for character in digest)
     ):
         raise ValueError("formal full suite requires an event catalog SHA-256")
-    if isinstance(analysis_count, bool) or not isinstance(analysis_count, int) or analysis_count < 1:
+    if (
+        isinstance(analysis_count, bool)
+        or not isinstance(analysis_count, int)
+        or analysis_count < 1
+    ):
         raise ValueError("formal full suite requires analysis-eligible event pairs")
     data_versions = {str(condition.data_version) for condition in grid.conditions}
     evaluation_splits = {
@@ -195,14 +216,22 @@ def validate_formal_grid_contract(grid: Any) -> dict[str, Any]:
         raise ValueError("formal full grid event catalog episode count mismatch")
 
     m7a = tuple(
-        scenario for scenario in grid.scenarios if scenario.condition.experiment == "M7a"
+        scenario
+        for scenario in grid.scenarios
+        if scenario.condition.experiment == "M7a"
     )
     if len(m7a) != 12 or {scenario.mask_seed for scenario in m7a} != {0}:
-        raise ValueError("formal full grid must retain exactly twelve seed-0 M7a stresses")
+        raise ValueError(
+            "formal full grid must retain exactly twelve seed-0 M7a stresses"
+        )
     m7b = tuple(
-        scenario for scenario in grid.scenarios if scenario.condition.experiment == "M7b"
+        scenario
+        for scenario in grid.scenarios
+        if scenario.condition.experiment == "M7b"
     )
-    if len(m7b) != 2 * eligible_count or {scenario.mask_seed for scenario in m7b} != {0}:
+    if len(m7b) != 2 * eligible_count or {scenario.mask_seed for scenario in m7b} != {
+        0
+    }:
         raise ValueError(
             "formal full grid M7b inventory must be two seed-0 scenarios per eligible pair"
         )
@@ -235,12 +264,13 @@ def _load_authorizing_roster(
     experiment_config_path: str | Path,
     selection_data_version_manifest_path: str | Path,
 ) -> FinalizedModelRoster:
+    selection_data_version = load_frozen_data_versions(design_path).primary
     roster = _load_finalized_model_roster(
         roster_path,
         design_path=design_path,
         study_manifest_path=study_manifest_path,
         experiment_config_path=experiment_config_path,
-        selection_data_version="published_v1",
+        selection_data_version=selection_data_version,
         selection_data_version_manifest_path=selection_data_version_manifest_path,
     )
     design = load_frozen_model_design(design_path)
@@ -257,8 +287,7 @@ def _load_authorizing_roster(
     )
     if missing_structural:
         raise ValueError(
-            "design freeze omits internal structural baselines: "
-            f"{missing_structural}"
+            f"design freeze omits internal structural baselines: {missing_structural}"
         )
     return roster
 
@@ -289,9 +318,7 @@ def _authorization(
             "proposed_decision": roster.proposed_decision,
             "selection_data_version": roster.selection_data_version,
             "selection_design_hash": roster.selection_design_hash,
-            "selection_contract": json.loads(
-                json.dumps(roster.selection_contract)
-            ),
+            "selection_contract": json.loads(json.dumps(roster.selection_contract)),
             "selection_data_version_manifest": json.loads(
                 json.dumps(roster.selection_data_version_manifest)
             ),
@@ -392,13 +419,12 @@ def validate_formal_authorization(
     """Validate the in-memory authorization before a runner can claim evidence."""
 
     document = json.loads(json.dumps(dict(value)))
-    if (
-        document.get("schema_version")
-        != FORMAL_EXECUTION_AUTHORIZATION_SCHEMA_VERSION
-    ):
+    if document.get("schema_version") != FORMAL_EXECUTION_AUTHORIZATION_SCHEMA_VERSION:
         raise ValueError("formal execution authorization schema is not frozen")
     if document.get("formal_evidence") is not True:
-        raise ValueError("formal execution authorization must declare formal_evidence=true")
+        raise ValueError(
+            "formal execution authorization must declare formal_evidence=true"
+        )
     if document.get("suite") != expected_suite:
         raise ValueError("formal execution authorization is bound to another suite")
     models = document.get("expected_models")
@@ -442,12 +468,13 @@ def validate_formal_authorization(
     selection_path = Path(selection_path_value)
     if not selection_path.is_absolute():
         selection_path = REPOSITORY_ROOT / selection_path
+    selection_data_version = load_frozen_data_versions(design_path).primary
     reloaded = _load_finalized_model_roster(
         roster_path,
         design_path=design_path,
         study_manifest_path=study_manifest_path,
         experiment_config_path=experiment_config_path,
-        selection_data_version="published_v1",
+        selection_data_version=selection_data_version,
         selection_data_version_manifest_path=selection_path,
     )
     reloaded_fields = {
@@ -475,7 +502,9 @@ def validate_formal_authorization(
             raise ValueError("framework-only roster cannot authorize proposed estimand")
     unauthorized = sorted(set(expected_models).difference(allowed))
     if unauthorized:
-        raise ValueError(f"authorization expected_models are outside roster: {unauthorized}")
+        raise ValueError(
+            f"authorization expected_models are outside roster: {unauthorized}"
+        )
     return document
 
 

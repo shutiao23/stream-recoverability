@@ -21,8 +21,13 @@ import pandas as pd
 import yaml
 
 from stream_recoverability.evaluation.event_metrics import compute_event_metrics
+from stream_recoverability.analysis.frontiers import select_best_simple_baselines
 
-from .contracts import file_sha256, validate_data_version_inputs
+from .contracts import (
+    file_sha256,
+    load_frozen_data_versions,
+    validate_data_version_inputs,
+)
 from .model_registry import load_frozen_model_design
 from .selection import assess_proposed_go_no_go, select_stage2_finalists
 from .validation import (
@@ -151,8 +156,8 @@ def _canonical_contract(contract: Mapping[str, Any]) -> dict[str, Any]:
     result = {field: contract[field] for field in _CANONICAL_CONTRACT_FIELDS}
     if result["evaluation_split"] != "validation":
         raise ValueError("validation finalization rejects non-validation contracts")
-    if result["data_version"] != "published_v1":
-        raise ValueError("validation finalization is frozen to published_v1")
+    if not isinstance(result["data_version"], str) or not result["data_version"]:
+        raise ValueError("validation finalization requires a data version")
     return json.loads(json.dumps(result))
 
 
@@ -1820,10 +1825,7 @@ def validate_branch_ablation_not_applicable_artifact(
 
     path = Path(artifact_path)
     document = _read_json(path)
-    if (
-        document.get("schema_version")
-        != BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION
-    ):
+    if document.get("schema_version") != BRANCH_ABLATION_NOT_APPLICABLE_SCHEMA_VERSION:
         raise ValueError("branch not-applicable schema is not frozen")
     _validate_contract(document, expected_contract, context="branch not-applicable")
     _validate_selection_labels(document, context="branch not-applicable")
@@ -1840,7 +1842,9 @@ def validate_branch_ablation_not_applicable_artifact(
     }
     if mismatches:
         raise ValueError(f"branch not-applicable contract mismatch: {mismatches}")
-    finalists = tuple(str(value) for value in document.get("stage2_selected_models", ()))
+    finalists = tuple(
+        str(value) for value in document.get("stage2_selected_models", ())
+    )
     if finalists != tuple(expected_finalists) or "proposed" in finalists:
         raise ValueError("branch not-applicable finalist roster is inconsistent")
     identities = (
@@ -2086,8 +2090,9 @@ def finalize_validation_roster(
     validation_anchor_identity = validation_anchor_catalog_identity(
         anchor_catalog_path,
         require_canonical_path=True,
+        expected_data_version=str(expected_contract["data_version"]),
     )
-    ranking, _ = validate_ranking_artifact(
+    ranking, ranking_manifest = validate_ranking_artifact(
         ranking_path, expected_contract=expected_contract
     )
     _, finalists, _ = validate_stage2_selection_artifact(
@@ -2134,7 +2139,9 @@ def finalize_validation_roster(
         if set(branch["training_seed"].astype(int)) != set(VALIDATION_DEEP_SEEDS):
             raise ValueError("branch ablation is not complete for stage-3 seeds")
         if decision.get("assessment_mode", "full_stage3") != "full_stage3":
-            raise ValueError("proposed stage-3 finalist requires full go/no-go evidence")
+            raise ValueError(
+                "proposed stage-3 finalist requires full go/no-go evidence"
+            )
     elif decision.get("assessment_mode") != "early_framework_only":
         raise ValueError(
             "proposed stage-2 exclusion requires explicit early framework-only evidence"
@@ -2171,6 +2178,35 @@ def finalize_validation_roster(
         "stage2_selection": _file_identity(stage2_selection_path),
         "go_no_go": _file_identity(go_no_go_path),
     }
+    if str(expected_contract.get("design_version")) == "design_freeze_v4":
+        raw_event_inputs = ranking_manifest.get("event_metrics")
+        if not isinstance(raw_event_inputs, list) or not raw_event_inputs:
+            raise ValueError(
+                "v4 roster requires validation event inputs for best-simple lookup"
+            )
+        ranking_manifest_path = Path(ranking_path).with_suffix(".manifest.json")
+        event_paths = [
+            _verify_file_identity(
+                identity,
+                relative_to=ranking_manifest_path.parent,
+                context="best-simple validation event input",
+            )[0]
+            for identity in raw_event_inputs
+        ]
+        validation_events = read_validation_event_tables(event_paths)
+        best_simple = select_best_simple_baselines(validation_events)
+        best_simple = best_simple.loc[best_simple["target"].astype(str).eq("T")].copy()
+        if best_simple.empty:
+            raise ValueError("v4 best-simple lookup contains no target-T families")
+        best_simple["data_version"] = str(expected_contract["data_version"])
+        best_simple["design_hash"] = str(expected_contract["design_hash"])
+        lookup_path = Path(output_path).parent / "best_simple_baseline_lookup.csv"
+        if lookup_path.exists():
+            raise FileExistsError(
+                f"refusing to overwrite immutable lookup: {lookup_path}"
+            )
+        _atomic_csv(best_simple, lookup_path)
+        artifacts["best_simple_baseline_lookup"] = _file_identity(lookup_path)
     # The confirmatory loader requires artifact identities to be exactly path/hash.
     artifacts = {
         name: {"path": identity["path"], "sha256": identity["sha256"]}
@@ -2200,12 +2236,13 @@ def finalize_validation_roster(
     from stream_recoverability.data.confirmatory import load_finalized_model_roster
 
     try:
+        selection_version = load_frozen_data_versions(design_path).primary
         validated = load_finalized_model_roster(
             output,
             design_path=design_path,
             study_manifest_path=study_manifest_path,
             experiment_config_path=experiment_config_path,
-            selection_data_version="published_v1",
+            selection_data_version=selection_version,
             selection_data_version_manifest_path=data_version_manifest_path,
         )
     except Exception:

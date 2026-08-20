@@ -23,8 +23,31 @@ def main() -> None:
         action="store_true",
         help="Write the report and exit 0 even when the gate is no-go.",
     )
+    for option in (
+        "roster",
+        "primary-registry",
+        "primary-aggregate-manifest",
+        "analysis-manifest",
+        "confirmatory-data-manifest",
+        "confirmatory-run-manifest",
+        "once-lock",
+        "rights-audit",
+        "reproduction-report",
+    ):
+        parser.add_argument(f"--{option}", type=Path)
     args = parser.parse_args()
-    report = submission_gate(PROJECT_ROOT)
+    report = submission_gate(
+        PROJECT_ROOT,
+        roster=args.roster,
+        primary_registry=args.primary_registry,
+        primary_aggregate_manifest=args.primary_aggregate_manifest,
+        analysis_manifest=args.analysis_manifest,
+        confirmatory_data_manifest=args.confirmatory_data_manifest,
+        confirmatory_run_manifest=args.confirmatory_run_manifest,
+        once_lock=args.once_lock,
+        rights_audit=args.rights_audit,
+        reproduction_report=args.reproduction_report,
+    )
     write_json(args.output, report)
     print(args.output)
     print(report["decision"])

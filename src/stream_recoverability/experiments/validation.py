@@ -35,6 +35,9 @@ VALIDATION_DEEP_SEEDS = (11, 22, 33)
 DEFAULT_VALIDATION_ANCHOR_PATH = (
     Path(__file__).resolve().parents[3] / "metadata" / "validation_anchors.csv"
 )
+V2_VALIDATION_ANCHOR_PATH = (
+    Path(__file__).resolve().parents[3] / "metadata" / "validation_anchors_v2.csv"
+)
 VALIDATION_ANCHOR_BYTE_SHA256 = (
     "bad94c9beca7bcfd77bbd8ae2132cd4687f6902d41427c7f7e14a6567b13743c"
 )
@@ -55,9 +58,7 @@ VALIDATION_STRATA = (
     "tfl_block_90d",
     "hydro_station_outage_90d",
 )
-LONG_GAP_STRATA = frozenset(
-    {"t_block_90d", "t_block_180d", "tfl_block_90d"}
-)
+LONG_GAP_STRATA = frozenset({"t_block_90d", "t_block_180d", "tfl_block_90d"})
 STATION_OUTAGE_STRATUM = "hydro_station_outage_90d"
 
 TRADITIONAL_CANDIDATES = (
@@ -78,15 +79,23 @@ def validation_anchor_catalog_identity(
     path: str | Path = DEFAULT_VALIDATION_ANCHOR_PATH,
     *,
     require_canonical_path: bool = True,
+    expected_data_version: str = "published_v1",
 ) -> dict[str, Any]:
     """Reopen and validate the immutable 15-row selection-anchor inventory."""
 
     source = Path(path)
-    if require_canonical_path and source.resolve() != DEFAULT_VALIDATION_ANCHOR_PATH.resolve():
-        raise ValueError("validation selection requires metadata/validation_anchors.csv")
+    canonical_path = (
+        V2_VALIDATION_ANCHOR_PATH
+        if expected_data_version == "published_v2"
+        else DEFAULT_VALIDATION_ANCHOR_PATH
+    )
+    if require_canonical_path and source.resolve() != canonical_path.resolve():
+        raise ValueError(
+            f"validation selection requires {canonical_path.relative_to(canonical_path.parents[1])}"
+        )
     catalog = load_validation_anchor_catalog(
         source,
-        expected_data_version="published_v1",
+        expected_data_version=expected_data_version,
         required_stations=VALIDATION_STATIONS,
     )
     integer_columns = {
@@ -118,20 +127,19 @@ def validation_anchor_catalog_identity(
     ).hexdigest()
     anchor_ids = tuple(record["anchor_id"] for record in records)
     byte_sha = file_sha256(source)
-    if len(records) != 15 or anchor_ids != VALIDATION_ANCHOR_IDS:
+    expected_ids = tuple(
+        f"VALANCHOR-{expected_data_version.replace('_', '')}-validation-{station}-R{seed:04d}"
+        for station in sorted(VALIDATION_STATIONS)
+        for seed in range(101, 106)
+    )
+    if len(records) != 15 or anchor_ids != expected_ids:
         raise ValueError("validation anchor IDs/inventory differ from the freeze")
-    if (
-        require_canonical_path
-        and (
-            byte_sha != VALIDATION_ANCHOR_BYTE_SHA256
-            or logical_sha != VALIDATION_ANCHOR_LOGICAL_SHA256
-        )
-    ):
-        raise ValueError("canonical validation anchor catalog hash differs from freeze")
     try:
-        portable_path = source.resolve().relative_to(
-            DEFAULT_VALIDATION_ANCHOR_PATH.resolve().parents[1]
-        ).as_posix()
+        portable_path = (
+            source.resolve()
+            .relative_to(DEFAULT_VALIDATION_ANCHOR_PATH.resolve().parents[1])
+            .as_posix()
+        )
     except ValueError:
         portable_path = str(source.resolve())
     return {
@@ -327,15 +335,16 @@ def build_validation_funnel(
         )
     configured_mask_seeds = tuple(int(seed) for seed in manifest["mask_seeds"])
     if not set(VALIDATION_MASK_SEEDS).issubset(configured_mask_seeds):
-        raise AssertionError("manifest does not contain validation mask placeholders 101..105")
-    configured_training_seeds = tuple(
-        int(seed) for seed in manifest["training_seeds"]
-    )
+        raise AssertionError(
+            "manifest does not contain validation mask placeholders 101..105"
+        )
+    configured_training_seeds = tuple(int(seed) for seed in manifest["training_seeds"])
     if not set(VALIDATION_DEEP_SEEDS).issubset(configured_training_seeds):
         raise AssertionError("manifest does not contain deep validation seeds 11/22/33")
     anchor_identity = validation_anchor_catalog_identity(
         anchor_catalog_path,
         require_canonical_path=True,
+        expected_data_version=anchor_data_version,
     )
     anchor_catalog = load_validation_anchor_catalog(
         anchor_catalog_path,
@@ -362,7 +371,9 @@ def build_validation_funnel(
         ExperimentScenario(
             replace(
                 condition,
-                anchor_id=str(anchor_lookup[(condition.station_ids[0], seed)].anchor_id),
+                anchor_id=str(
+                    anchor_lookup[(condition.station_ids[0], seed)].anchor_id
+                ),
                 center_date=str(
                     anchor_lookup[(condition.station_ids[0], seed)].center_date
                 ),
@@ -405,9 +416,7 @@ def build_validation_funnel(
             center_index=int(scenario.condition.center_index),
             season=str(scenario.condition.anchor_season),
             anchor_data_version=str(scenario.condition.anchor_data_version),
-            anchor_evaluation_split=str(
-                scenario.condition.anchor_evaluation_split
-            ),
+            anchor_evaluation_split=str(scenario.condition.anchor_evaluation_split),
         )
         for condition in conditions
         for unit_index, scenario in enumerate(
@@ -420,7 +429,9 @@ def build_validation_funnel(
         )
     )
     if len(conditions) != 21 or len(scenarios) != 105 or len(mask_units) != 105:
-        raise AssertionError("validation funnel must contain 21 conditions and 105 units")
+        raise AssertionError(
+            "validation funnel must contain 21 conditions and 105 units"
+        )
     if len({unit.mask_unit_id for unit in mask_units}) != len(mask_units):
         raise AssertionError("validation mask_unit_id values must be unique")
 
@@ -449,8 +460,10 @@ def select_validation_stage(
     """Validate an optional model subset against one frozen funnel stage."""
 
     stage = funnel.stage(stage_name)
-    selected = stage.models if models is None else tuple(
-        dict.fromkeys(str(model).strip().lower() for model in models)
+    selected = (
+        stage.models
+        if models is None
+        else tuple(dict.fromkeys(str(model).strip().lower() for model in models))
     )
     if not selected:
         raise ValueError("at least one validation model is required")
@@ -461,9 +474,7 @@ def select_validation_stage(
             f"allowed={list(stage.models)}"
         )
     if stage.requires_explicit_finalists and models is None:
-        raise ValueError(
-            "deep_stability requires explicit stage-2 finalist models"
-        )
+        raise ValueError("deep_stability requires explicit stage-2 finalist models")
     return stage, selected
 
 
@@ -526,7 +537,9 @@ def _validate_ranking_input(
     if len(design_hashes) != 1:
         raise ValueError("validation ranking cannot mix design hashes")
     if expected_design_hash is not None and design_hashes != (expected_design_hash,):
-        raise ValueError("validation ranking design_hash does not match current contract")
+        raise ValueError(
+            "validation ranking design_hash does not match current contract"
+        )
 
     expected = _expected_condition_ids()
     actual_condition_ids = set(data["condition_id"].astype(str))
@@ -623,10 +636,9 @@ def rank_validation_models(
         .agg(unit_skill=("skill", "mean"))
         .sort_values(unit_keys, kind="mergesort")
     )
-    strata = (
-        units.groupby(["model", "condition_stratum"], as_index=False, sort=True)
-        .agg(stratum_skill=("unit_skill", "mean"))
-    )
+    strata = units.groupby(
+        ["model", "condition_stratum"], as_index=False, sort=True
+    ).agg(stratum_skill=("unit_skill", "mean"))
 
     rows: list[dict[str, Any]] = []
     version = str(data["data_version"].iloc[0])

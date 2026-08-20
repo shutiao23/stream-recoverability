@@ -41,6 +41,8 @@ from stream_recoverability.analysis.inference_safeguards import (
     raw_and_monotone_frontier,
     resolve_climatology_denominator_threshold,
 )
+from stream_recoverability.analysis.frontiers import estimate_dual_frontiers
+from stream_recoverability.analysis.falsification import interpret_falsification
 from stream_recoverability.analysis.resilience import (
     RESILIENCE_GROUP_COLUMNS,
     complete_resilience_units,
@@ -74,6 +76,13 @@ FRONTIER_GROUPS = (
     "design_hash",
 )
 FIXED_ARTIFACTS = (
+    "best_simple_baseline_lookup.csv",
+    "relative_skill_events.parquet",
+    "frontier_climatology_curves.csv",
+    "frontier_climatology_summary.csv",
+    "frontier_best_simple_curves.csv",
+    "frontier_best_simple_summary.csv",
+    "dual_frontier_comparison.csv",
     "frontier_raw_curves.csv",
     "frontier_monotone_curves.csv",
     "statistical_frontiers.csv",
@@ -101,6 +110,8 @@ FIXED_ARTIFACTS = (
     "uncertainty_by_difficulty.csv",
     "data_version_sensitivity.csv",
     "hypothesis_tests.csv",
+    "donor_c_falsification_effects.csv",
+    "donor_c_falsification_decision.csv",
 )
 ANALYSIS_CODE_PATHS = (
     "scripts/09_analyze_results.py",
@@ -109,16 +120,12 @@ ANALYSIS_CODE_PATHS = (
     "src/stream_recoverability/analysis/compensation.py",
     "src/stream_recoverability/analysis/resilience.py",
     "src/stream_recoverability/analysis/uncertainty.py",
+    "src/stream_recoverability/analysis/frontiers.py",
+    "src/stream_recoverability/analysis/falsification.py",
 )
 ANALYSIS_BUILDER_PATHS = (
     "scripts/09_analyze_results.py",
     "src/stream_recoverability/analysis/frozen_pipeline.py",
-)
-FROZEN_PRIMARY_DATA_VERSION = "published_v1"
-FROZEN_SENSITIVITY_DATA_VERSIONS = (
-    "no_s2_suspect_v1",
-    "b1_no_level_v1",
-    "b1_shift_sensitivity_v1",
 )
 PRIMARY_REQUIRED_SUITE_ROLES = (
     "core_full",
@@ -127,6 +134,10 @@ PRIMARY_REQUIRED_SUITE_ROLES = (
     "event_uncertainty",
     "operational_dropout",
     "retrained_upper_bound",
+    "donor_c_falsification",
+)
+LEGACY_PRIMARY_REQUIRED_SUITE_ROLES = tuple(
+    role for role in PRIMARY_REQUIRED_SUITE_ROLES if role != "donor_c_falsification"
 )
 SENSITIVITY_REQUIRED_SUITE_ROLES = (
     "sensitivity_core_T",
@@ -134,7 +145,7 @@ SENSITIVITY_REQUIRED_SUITE_ROLES = (
     "sensitivity_operational_dropout",
 )
 PROPOSED_PRIMARY_ROLES = frozenset(
-    {"operational_dropout", "retrained_upper_bound"}
+    {"operational_dropout", "retrained_upper_bound", "donor_c_falsification"}
 )
 PROPOSED_SENSITIVITY_ROLES = frozenset({"sensitivity_operational_dropout"})
 FORMAL_REGISTRY_BUILDER_PATHS = (
@@ -151,6 +162,7 @@ REQUIRED_ANALYSIS_DOMAINS = (
     "event_uncertainty",
     "uncertainty_calibration",
     "data_version_sensitivity",
+    "donor_c_falsification",
     "hypothesis_families",
 )
 OPERATIONAL_INFORMATION_COMBINATIONS = tuple(information_combinations())
@@ -313,7 +325,9 @@ def build_analysis_code_identity(
     )
     clean = bool(git_available and not missing and not dirty and not untracked)
     by_path = {item["path"]: item for item in identities}
-    builder_sources = [by_path[path] for path in ANALYSIS_BUILDER_PATHS if path in by_path]
+    builder_sources = [
+        by_path[path] for path in ANALYSIS_BUILDER_PATHS if path in by_path
+    ]
     builder_identity: dict[str, Any] = {
         "schema_version": "frozen_analysis_builder_identity_v1",
         "sources": builder_sources,
@@ -445,12 +459,14 @@ def load_frozen_statistics(design_path: str | Path) -> FrozenStatistics:
     sensitivity_data_versions = tuple(
         str(value) for value in design["data_versions"]["required_sensitivity"]
     )
-    if primary_data_version != FROZEN_PRIMARY_DATA_VERSION:
-        raise ValueError("analysis design changed the frozen primary data version")
-    if sensitivity_data_versions != FROZEN_SENSITIVITY_DATA_VERSIONS:
+    if not primary_data_version or not sensitivity_data_versions:
         raise ValueError(
-            "analysis design changed the exact ordered sensitivity data versions"
+            "analysis design requires primary and sensitivity data versions"
         )
+    if primary_data_version in sensitivity_data_versions or len(
+        set(sensitivity_data_versions)
+    ) != len(sensitivity_data_versions):
+        raise ValueError("analysis design data-version inventory is inconsistent")
 
     return FrozenStatistics(
         bootstrap,
@@ -573,8 +589,17 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
     bundle_role = manifest.get("bundle_role")
     if bundle_role == "primary":
         expected_kind = "primary"
-        required_roles = list(PRIMARY_REQUIRED_SUITE_ROLES)
-        proposed_roles = PROPOSED_PRIMARY_ROLES
+        require_donor = manifest.get("design_version") == "design_freeze_v4"
+        required_roles = list(
+            PRIMARY_REQUIRED_SUITE_ROLES
+            if require_donor
+            else LEGACY_PRIMARY_REQUIRED_SUITE_ROLES
+        )
+        proposed_roles = (
+            PROPOSED_PRIMARY_ROLES
+            if require_donor
+            else PROPOSED_PRIMARY_ROLES.difference({"donor_c_falsification"})
+        )
     elif bundle_role == "sensitivity_compact":
         expected_kind = "sensitivity"
         required_roles = list(SENSITIVITY_REQUIRED_SUITE_ROLES)
@@ -606,8 +631,12 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
     raw_roles = manifest.get("suite_roles")
     if not isinstance(raw_roles, list) or len(raw_roles) != len(required_roles):
         raise ValueError("top manifest suite_roles does not close required roles")
-    if [item.get("role") if isinstance(item, Mapping) else None for item in raw_roles] != required_roles:
-        raise ValueError("top manifest suite_roles is missing, reordered, or duplicated")
+    if [
+        item.get("role") if isinstance(item, Mapping) else None for item in raw_roles
+    ] != required_roles:
+        raise ValueError(
+            "top manifest suite_roles is missing, reordered, or duplicated"
+        )
     roles: list[dict[str, Any]] = []
     for raw, role in zip(raw_roles, required_roles, strict=True):
         if not isinstance(raw, Mapping):
@@ -756,9 +785,7 @@ def _validate_table_contract(
         raise ValueError(f"{context} contains null evidence-contract fields")
     if not frame["formal_evidence"].eq(True).all():
         raise ValueError(f"{context} requires formal_evidence=true")
-    if not frame["evidence_role"].astype(str).eq(
-        "formal_development_evaluation"
-    ).all():
+    if not frame["evidence_role"].astype(str).eq("formal_development_evaluation").all():
         raise ValueError(f"{context} is not formal development evidence")
     observed = {
         tuple(str(value) for value in row)
@@ -836,9 +863,7 @@ def _validate_registry_builder_identity(
         raise ValueError("formal registry builder identity fields are not frozen")
     if value.get("schema_version") != "formal_registry_builder_identity_v1":
         raise ValueError("formal registry builder identity schema is not frozen")
-    if value.get("identity_hash_scope") != (
-        "canonical_json_excluding_identity_sha256"
-    ):
+    if value.get("identity_hash_scope") != ("canonical_json_excluding_identity_sha256"):
         raise ValueError("formal registry builder identity hash scope is unknown")
     unsigned = {key: item for key, item in value.items() if key != "identity_sha256"}
     if value.get("identity_sha256") != _canonical_digest(unsigned):
@@ -868,6 +893,7 @@ def _load_formal_registry(
     *,
     aggregate_manifest_path: Path,
     contract: Mapping[str, Any],
+    primary_data_version: str,
 ) -> tuple[dict[str, Any], Path, dict[str, Any]]:
     """Reverse-load and close the registry trust chain for one aggregate."""
 
@@ -889,16 +915,18 @@ def _load_formal_registry(
         "canonical_json_excluding_registry_sha256"
     ):
         raise ValueError("formal suite registry hash scope is unknown")
-    unsigned = {
-        key: item for key, item in registry.items() if key != "registry_sha256"
-    }
+    unsigned = {key: item for key, item in registry.items() if key != "registry_sha256"}
     if registry.get("registry_sha256") != _canonical_digest(unsigned):
         raise ValueError("formal suite registry canonical SHA-256 is inconsistent")
 
     data_version = str(contract["data_version"])
-    expected_primary = data_version == FROZEN_PRIMARY_DATA_VERSION
+    expected_primary = data_version == primary_data_version
     expected_roles = (
-        PRIMARY_REQUIRED_SUITE_ROLES
+        (
+            PRIMARY_REQUIRED_SUITE_ROLES
+            if contract.get("design_version") == "design_freeze_v4"
+            else LEGACY_PRIMARY_REQUIRED_SUITE_ROLES
+        )
         if expected_primary
         else SENSITIVITY_REQUIRED_SUITE_ROLES
     )
@@ -936,10 +964,7 @@ def _load_formal_registry(
     }:
         raise ValueError("formal registry frontier anchor identity is not frozen")
     anchor_path, anchor_identity = _verified_file_identity(
-        {
-            field: raw_anchor_catalog[field]
-            for field in ("path", "bytes", "sha256")
-        },
+        {field: raw_anchor_catalog[field] for field in ("path", "bytes", "sha256")},
         declaring_file=registry_path,
         label="formal registry frontier_anchor_catalog",
         allowed_fields=frozenset({"path", "bytes", "sha256"}),
@@ -949,7 +974,7 @@ def _load_formal_registry(
         type(anchor_count) is not int
         or anchor_count <= 0
         or len(pd.read_csv(anchor_path)) != anchor_count
-        or raw_anchor_catalog.get("data_version") != FROZEN_PRIMARY_DATA_VERSION
+        or raw_anchor_catalog.get("data_version") != primary_data_version
         or raw_anchor_catalog.get("evaluation_split") != "development_test"
     ):
         raise ValueError("formal registry frontier anchor catalog is inconsistent")
@@ -1048,9 +1073,10 @@ def _load_formal_registry(
                 "formal registry source event_metrics path is not canonical"
             )
         source_manifest = _read_mapping(source_path)
-        if source_manifest.get("suite") != suite or source_manifest.get(
-            "models"
-        ) != models:
+        if (
+            source_manifest.get("suite") != suite
+            or source_manifest.get("models") != models
+        ):
             raise ValueError("formal registry source manifest suite/models disagree")
         if source_identity["sha256"] in source_by_hash:
             raise ValueError("formal registry source manifests are duplicated")
@@ -1114,16 +1140,13 @@ def _load_formal_registry(
             or not set(hashes).issubset(source_by_hash)
             or not isinstance(suites, list)
             or not suites
-            or set(suites)
-            != {source_by_hash[digest]["suite"] for digest in hashes}
+            or set(suites) != {source_by_hash[digest]["suite"] for digest in hashes}
             or not isinstance(expected_models, list)
             or not expected_models
             or len(set(expected_models)) != len(expected_models)
             or set(expected_models)
             != {
-                model
-                for digest in hashes
-                for model in source_by_hash[digest]["models"]
+                model for digest in hashes for model in source_by_hash[digest]["models"]
             }
         ):
             raise ValueError(f"formal suite role {role} source binding is incomplete")
@@ -1153,9 +1176,7 @@ def _load_formal_registry(
             source_by_hash[digest] for digest in sorted(source_by_hash)
         ],
     }
-    registry_identity["input_identity_sha256"] = _canonical_digest(
-        registry_identity
-    )
+    registry_identity["input_identity_sha256"] = _canonical_digest(registry_identity)
     return registry, registry_path, registry_identity
 
 
@@ -1213,6 +1234,7 @@ def load_frozen_inputs(
         manifest,
         aggregate_manifest_path=manifest_file,
         contract=contracts[0],
+        primary_data_version=statistics.primary_data_version,
     )
     for kind, path in (
         ("predictions", predictions_file),
@@ -3136,6 +3158,43 @@ def analyze_calibration(predictions: pd.DataFrame) -> dict[str, pd.DataFrame]:
 
 
 EMPTY_SCHEMAS: dict[str, tuple[str, ...]] = {
+    "best_simple_baseline_lookup.csv": (
+        "condition_family",
+        "best_simple_baseline",
+        "status",
+    ),
+    "relative_skill_events.parquet": (
+        "scenario_id",
+        "model",
+        "skill_vs_climatology",
+        "skill_vs_best_simple",
+        "status",
+    ),
+    "frontier_climatology_curves.csv": (
+        "gap_length",
+        "mean_skill",
+        "status",
+    ),
+    "frontier_climatology_summary.csv": (
+        "statistical_frontier_days",
+        "frontier_denominator",
+        "status",
+    ),
+    "frontier_best_simple_curves.csv": (
+        "gap_length",
+        "mean_skill",
+        "status",
+    ),
+    "frontier_best_simple_summary.csv": (
+        "statistical_frontier_days",
+        "frontier_denominator",
+        "status",
+    ),
+    "dual_frontier_comparison.csv": (
+        "frontier_denominator",
+        "statistical_frontier_days",
+        "status",
+    ),
     "frontier_raw_curves.csv": (
         *FRONTIER_GROUPS,
         "gap_length",
@@ -3250,6 +3309,19 @@ EMPTY_SCHEMAS: dict[str, tuple[str, ...]] = {
         "status",
     ),
     "hypothesis_tests.csv": ("hypothesis_family", "p_value", "p_bh", "status"),
+    "donor_c_falsification_effects.csv": (
+        "contrast",
+        "skill_gain",
+        "ci_lower",
+        "ci_upper",
+        "status",
+    ),
+    "donor_c_falsification_decision.csv": (
+        "interpretation",
+        "claim_language",
+        "p_value",
+        "status",
+    ),
 }
 
 
@@ -3370,9 +3442,7 @@ def _close_analysis_inputs(
             "suite_roles",
         ):
             if aggregate_roles[field] != registry_roles[field]:
-                raise ValueError(
-                    f"aggregate and formal registry disagree on {field}"
-                )
+                raise ValueError(f"aggregate and formal registry disagree on {field}")
         aggregate_roster = aggregate_roles["finalized_model_roster"]
         registry_roster = registry_roles["finalized_model_roster"]
         for field in ("sha256", "selected_models", "proposed_decision"):
@@ -3440,6 +3510,9 @@ def _analysis_completion_gate(
     """Assess protocol-required domains without treating empty output as success."""
 
     framework_only = proposed_decision == "framework_only"
+    donor_falsification_required = (
+        "donor_c_falsification" in statistics.hypothesis_families and not framework_only
+    )
     probabilistic_model_selected = bool(
         set(selected_models).intersection({"csdi", "proposed"})
     )
@@ -3453,6 +3526,13 @@ def _analysis_completion_gate(
         "effective_replication_summary.csv",
         "overlap_clusters.csv",
     )
+    dual_frontier_artifacts = (
+        "frontier_climatology_curves.csv",
+        "frontier_climatology_summary.csv",
+        "frontier_best_simple_curves.csv",
+        "frontier_best_simple_summary.csv",
+        "dual_frontier_comparison.csv",
+    )
     frontier_artifacts = (
         "frontier_raw_curves.csv",
         "frontier_monotone_curves.csv",
@@ -3460,6 +3540,8 @@ def _analysis_completion_gate(
         "frontier_breakpoints.csv",
         "frontier_bootstrap_samples.parquet",
     )
+    if statistics.primary_data_version == "published_v2":
+        frontier_artifacts = (*dual_frontier_artifacts, *frontier_artifacts)
     operational_artifacts = (
         "information_combination_metrics.csv",
         "operational_dropout_gains.csv",
@@ -3507,7 +3589,11 @@ def _analysis_completion_gate(
     expected_families = set(statistics.hypothesis_families)
     if framework_only:
         expected_families.difference_update(
-            {"operational_information_dropout", "retrained_information_upper_bound"}
+            {
+                "operational_information_dropout",
+                "retrained_information_upper_bound",
+                "donor_c_falsification",
+            }
         )
     finite_hypotheses = False
     if not hypotheses.empty and {"p_value", "p_bh"}.issubset(hypotheses):
@@ -3594,10 +3680,29 @@ def _analysis_completion_gate(
             reason="all three sensitivity versions lack paired analysis evidence",
         ),
         _domain_record(
-            "hypothesis_families",
-            complete=(
-                observed_families == expected_families and finite_hypotheses
+            "donor_c_falsification",
+            complete=all_nonempty(
+                (
+                    "donor_c_falsification_effects.csv",
+                    "donor_c_falsification_decision.csv",
+                )
             ),
+            artifacts=(
+                "donor_c_falsification_effects.csv",
+                "donor_c_falsification_decision.csv",
+            ),
+            reason=(
+                "proposed_decision=framework_only"
+                if framework_only
+                else "not declared by the historical design"
+                if "donor_c_falsification" not in statistics.hypothesis_families
+                else "formal donor-C contrasts are unavailable"
+            ),
+            not_applicable=not donor_falsification_required,
+        ),
+        _domain_record(
+            "hypothesis_families",
+            complete=(observed_families == expected_families and finite_hypotheses),
             artifacts=("hypothesis_tests.csv",),
             reason=(
                 "required hypothesis families are missing or have non-finite tests: "
@@ -3608,18 +3713,14 @@ def _analysis_completion_gate(
     ]
     if tuple(item["domain"] for item in domains) != REQUIRED_ANALYSIS_DOMAINS:
         raise AssertionError("analysis completion domain inventory drifted")
-    complete = all(
-        item["status"] in {"complete", "not_applicable"} for item in domains
-    )
+    complete = all(item["status"] in {"complete", "not_applicable"} for item in domains)
     return {
         "status": "complete" if complete else "incomplete",
         "complete": complete,
         "framework_only": framework_only,
         "required_domains": list(REQUIRED_ANALYSIS_DOMAINS),
         "domains": domains,
-        "complete_domain_count": sum(
-            item["status"] == "complete" for item in domains
-        ),
+        "complete_domain_count": sum(item["status"] == "complete" for item in domains),
         "not_applicable_domain_count": sum(
             item["status"] == "not_applicable" for item in domains
         ),
@@ -3632,6 +3733,131 @@ def _analysis_completion_gate(
             else ["uncertainty_calibration_not_claimed"]
         ),
     }
+
+
+def _load_best_simple_lookup(inputs: FrozenInputs) -> pd.DataFrame:
+    """Load the validation-frozen lookup carried by the finalized v4 roster."""
+
+    raw_roster = inputs.registry.get("finalized_model_roster")
+    if not isinstance(raw_roster, Mapping):
+        raise TypeError("formal registry lacks finalized_model_roster")
+    roster_path = _repository_path(
+        raw_roster.get("path"),
+        declaring_file=inputs.registry_path,
+        label="finalized_model_roster.path",
+    )
+    roster = _read_mapping(roster_path)
+    artifacts = roster.get("artifacts")
+    if not isinstance(artifacts, Mapping):
+        raise TypeError("finalized roster lacks artifacts")
+    identity = artifacts.get("best_simple_baseline_lookup")
+    if not isinstance(identity, Mapping):
+        raise ValueError("v4 finalized roster lacks best-simple baseline lookup")
+    lookup_path = _repository_path(
+        identity.get("path"),
+        declaring_file=roster_path,
+        label="best_simple_baseline_lookup.path",
+    )
+    lookup = _read_table(lookup_path)
+    required = {
+        "condition_family",
+        "best_simple_baseline",
+        "station_id",
+        "target",
+        "mask_geometry",
+        "data_version",
+        "design_hash",
+    }
+    _require_columns(lookup, required, "best-simple baseline lookup")
+    if set(lookup["data_version"].astype(str)) != {
+        inputs.statistics.primary_data_version
+    }:
+        raise ValueError("best-simple lookup uses another selection data version")
+    if set(lookup["design_hash"].astype(str)) != {str(inputs.manifest["design_hash"])}:
+        raise ValueError("best-simple lookup uses another design contract")
+    if lookup["condition_family"].duplicated().any():
+        raise ValueError("best-simple lookup contains duplicate families")
+    return lookup
+
+
+def _analyze_donor_falsification(
+    events: pd.DataFrame, statistics: FrozenStatistics
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Summarize an explicitly labelled formal donor-C suite, if present."""
+
+    if "experiment" not in events:
+        return pd.DataFrame(), pd.DataFrame()
+    data = events.loc[
+        events["experiment"].astype(str).eq("SCI_DONOR_FALSIFICATION")
+    ].copy()
+    if data.empty:
+        return pd.DataFrame(), pd.DataFrame()
+    required = {"contrast", "skill_gain", "anchor_id"}
+    _require_columns(data, required, "donor-C falsification")
+    data["skill_gain"] = pd.to_numeric(data["skill_gain"], errors="coerce")
+    effects = (
+        data.groupby(
+            [
+                column
+                for column in ("station_id", "target", "contrast", "lag_days")
+                if column in data
+            ],
+            dropna=False,
+            observed=True,
+        )["skill_gain"]
+        .agg(["mean", "count", "std"])
+        .reset_index()
+        .rename(columns={"mean": "skill_gain", "count": "n_anchor_events"})
+    )
+    effects["standard_error"] = effects["std"] / np.sqrt(effects["n_anchor_events"])
+    effects["ci_lower"] = effects["skill_gain"] - 1.96 * effects["standard_error"]
+    effects["ci_upper"] = effects["skill_gain"] + 1.96 * effects["standard_error"]
+    decision = interpret_falsification(
+        effects,
+        minimum_meaningful_difference=0.01,
+        require_confidence_intervals=True,
+    )
+    pair_columns = [
+        column
+        for column in (
+            "anchor_id",
+            "station_id",
+            "target",
+            "mask_seed",
+            "training_seed",
+        )
+        if column in data
+    ]
+    paired = (
+        data.groupby([*pair_columns, "contrast"], observed=True)["skill_gain"]
+        .mean()
+        .unstack("contrast")
+    )
+    if {"observed_same_day_C", "station_identity_permutation"}.issubset(paired):
+        paired_difference = (
+            paired["observed_same_day_C"] - paired["station_identity_permutation"]
+        ).dropna()
+        p_value = _wilcoxon_p(paired_difference)
+    else:
+        paired_difference = pd.Series(dtype=float)
+        p_value = np.nan
+    decision_frame = pd.DataFrame(
+        [
+            {
+                **decision,
+                "hypothesis_family": "donor_c_falsification",
+                "contrast": "observed_same_day_C_vs_station_identity_permutation",
+                "estimate": (
+                    float(paired_difference.mean())
+                    if not paired_difference.empty
+                    else np.nan
+                ),
+                "n_pairs": int(len(paired_difference)),
+                "p_value": p_value,
+            }
+        ]
+    )
+    return effects, decision_frame
 
 
 def run_frozen_analysis(
@@ -3706,6 +3932,27 @@ def run_frozen_analysis(
     output.mkdir(parents=True, exist_ok=True)
     overlap = audit_prediction_overlap(inputs.predictions)
     frontiers = analyze_frontiers(inputs.events, overlap, inputs.statistics)
+    if inputs.statistics.primary_data_version == "published_v2":
+        best_simple_lookup = _load_best_simple_lookup(inputs)
+        dual_frontiers = estimate_dual_frontiers(
+            inputs.events,
+            best_simple=best_simple_lookup,
+            n_boot=inputs.statistics.bootstrap_replicates,
+            seed=inputs.statistics.bootstrap_seed,
+        )
+    else:
+        best_simple_lookup = pd.DataFrame()
+        dual_frontiers = {
+            "scored_events": pd.DataFrame(),
+            "climatology_curves": pd.DataFrame(),
+            "climatology_frontiers": pd.DataFrame(),
+            "best_simple_curves": pd.DataFrame(),
+            "best_simple_frontiers": pd.DataFrame(),
+            "dual_frontiers": pd.DataFrame(),
+        }
+    falsification_effects, falsification_decision = _analyze_donor_falsification(
+        inputs.events, inputs.statistics
+    )
     information = analyze_information(inputs.events, inputs.statistics)
     resilience = analyze_resilience_outputs(inputs.events, inputs.statistics)
     event_pairs = analyze_event_pairs(inputs.events, inputs.statistics)
@@ -3725,6 +3972,7 @@ def run_frozen_analysis(
                     resilience["hypotheses"],
                     event_pairs["hypotheses"],
                     sensitivity,
+                    falsification_decision,
                 )
                 if not frame.empty and "p_value" in frame
             ],
@@ -3738,12 +3986,20 @@ def run_frozen_analysis(
                 resilience["hypotheses"],
                 event_pairs["hypotheses"],
                 sensitivity,
+                falsification_decision,
             )
         )
         else pd.DataFrame()
     )
 
     frames = {
+        "best_simple_baseline_lookup.csv": best_simple_lookup,
+        "relative_skill_events.parquet": dual_frontiers["scored_events"],
+        "frontier_climatology_curves.csv": dual_frontiers["climatology_curves"],
+        "frontier_climatology_summary.csv": dual_frontiers["climatology_frontiers"],
+        "frontier_best_simple_curves.csv": dual_frontiers["best_simple_curves"],
+        "frontier_best_simple_summary.csv": dual_frontiers["best_simple_frontiers"],
+        "dual_frontier_comparison.csv": dual_frontiers["dual_frontiers"],
         "frontier_raw_curves.csv": frontiers.raw,
         "frontier_monotone_curves.csv": frontiers.monotone,
         "statistical_frontiers.csv": frontiers.statistical,
@@ -3771,6 +4027,8 @@ def run_frozen_analysis(
         "uncertainty_by_difficulty.csv": calibration["difficulty"],
         "data_version_sensitivity.csv": sensitivity,
         "hypothesis_tests.csv": hypotheses,
+        "donor_c_falsification_effects.csv": falsification_effects,
+        "donor_c_falsification_decision.csv": falsification_decision,
     }
     completion_gate = _analysis_completion_gate(
         frames,
@@ -3795,8 +4053,9 @@ def run_frozen_analysis(
         "uncertainty_by_difficulty.csv",
     }
     probabilistic_model_selected = bool(
-        set(primary_bundle_contract["finalized_model_roster"]["selected_models"])
-        .intersection({"csdi", "proposed"})
+        set(
+            primary_bundle_contract["finalized_model_roster"]["selected_models"]
+        ).intersection({"csdi", "proposed"})
     )
     if proposed_decision == "framework_only" and any(
         not frames[name].empty for name in framework_information_artifacts
@@ -3812,6 +4071,13 @@ def run_frozen_analysis(
             "probabilistic model"
         )
     unavailability_reasons = {
+        "best_simple_baseline_lookup.csv": "validation-frozen target-T lookup is unavailable",
+        "relative_skill_events.parquet": "dual-frontier relative skills are unavailable",
+        "frontier_climatology_curves.csv": "no complete climatology-relative dense curves",
+        "frontier_climatology_summary.csv": "no complete climatology-relative dense frontiers",
+        "frontier_best_simple_curves.csv": "no complete best-simple-relative dense curves",
+        "frontier_best_simple_summary.csv": "no complete best-simple-relative dense frontiers",
+        "dual_frontier_comparison.csv": "dual frontier evidence is unavailable",
         "frontier_raw_curves.csv": "no frozen SCI_DENSE rows",
         "frontier_monotone_curves.csv": "no frozen SCI_DENSE rows",
         "statistical_frontiers.csv": "no complete frozen SCI_DENSE anchor curves",
@@ -3849,6 +4115,12 @@ def run_frozen_analysis(
             "primary and sensitivity versions are not jointly present on persistent anchors"
         ),
         "hypothesis_tests.csv": "no eligible frozen hypothesis families",
+        "donor_c_falsification_effects.csv": "no formal donor-C contrast rows",
+        "donor_c_falsification_decision.csv": "no formal donor-C decision",
+    }
+    falsification_artifacts = {
+        "donor_c_falsification_effects.csv",
+        "donor_c_falsification_decision.csv",
     }
     artifact_manifest: dict[str, Any] = {}
     for name in FIXED_ARTIFACTS:
@@ -3863,14 +4135,19 @@ def run_frozen_analysis(
             name == "application_frontiers.csv"
             and inputs.statistics.application_criteria is None
         )
+        falsification_not_applicable = (
+            proposed_decision == "framework_only"
+            or "donor_c_falsification" not in inputs.statistics.hypothesis_families
+        ) and name in falsification_artifacts
         explicit_not_applicable = (
             framework_not_applicable
             or calibration_not_applicable
             or application_not_applicable
+            or falsification_not_applicable
         )
         not_applicable_reason = (
             "proposed_decision=framework_only"
-            if framework_not_applicable
+            if framework_not_applicable or falsification_not_applicable
             else (
                 "no_finalized_probabilistic_model_claim_downgrade"
                 if calibration_not_applicable
@@ -3888,9 +4165,7 @@ def run_frozen_analysis(
             empty_status=(
                 "not_applicable" if explicit_not_applicable else "unavailable"
             ),
-            nonempty_status=(
-                "not_applicable" if explicit_not_applicable else "ok"
-            ),
+            nonempty_status=("not_applicable" if explicit_not_applicable else "ok"),
         )
         path = output / name
         _atomic_table(prepared, path)
@@ -3926,9 +4201,7 @@ def run_frozen_analysis(
             "manifest": str(inputs.manifest_path),
             "manifest_sha256": _file_sha256(inputs.manifest_path),
             "bundle_role": primary_bundle_contract["bundle_role"],
-            "required_suite_roles": primary_bundle_contract[
-                "required_suite_roles"
-            ],
+            "required_suite_roles": primary_bundle_contract["required_suite_roles"],
             "suite_roles": primary_bundle_contract["suite_roles"],
         },
         "sensitivity_bundles": [
@@ -3973,16 +4246,12 @@ def run_frozen_analysis(
         "bootstrap_seed": inputs.statistics.bootstrap_seed,
         "confidence_level": inputs.statistics.confidence,
         "analysis_code_identity": analysis_code_identity,
-        "analysis_builder_identity": analysis_code_identity[
-            "frozen_analysis_builder"
-        ],
+        "analysis_builder_identity": analysis_code_identity["frozen_analysis_builder"],
         "analysis_input_manifest": {
             "path": str(analysis_input_path),
             "bytes": analysis_input_path.stat().st_size,
             "sha256": _file_sha256(analysis_input_path),
-            "input_manifest_sha256": analysis_input_manifest[
-                "input_manifest_sha256"
-            ],
+            "input_manifest_sha256": analysis_input_manifest["input_manifest_sha256"],
         },
         "required_analysis_domains": list(REQUIRED_ANALYSIS_DOMAINS),
         "primary_bundle_contract": primary_bundle_contract,

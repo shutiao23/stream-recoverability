@@ -637,15 +637,12 @@ def estimate_frontiers(
         else:
             missing_gaps = coverage["missing_recommended_gap_lengths"]
             incomplete_reason = (
-                "incomplete predeclared dense gap grid; missing "
-                f"{missing_gaps}"
+                f"incomplete predeclared dense gap grid; missing {missing_gaps}"
             )
             statistical = {
                 "statistical_frontier_days": np.nan,
                 "frontier_censoring": None,
-                "frontier_definition": (
-                    "monotone_first_loss_lower_confidence_bound"
-                ),
+                "frontier_definition": ("monotone_first_loss_lower_confidence_bound"),
                 "reason": incomplete_reason,
             }
             knee = {
@@ -727,21 +724,21 @@ DEFAULT_RELATIVE_PAIR_COLUMNS = (
 
 
 def condition_family_key(frame: pd.DataFrame) -> pd.Series:
-    """Stable per-condition family used to freeze a best simple baseline."""
+    """Return a cross-split family that never includes exact gap or condition ID."""
 
-    station = frame["station_id"].astype(str) if "station_id" in frame else pd.Series("NA", index=frame.index)
-    target = frame["target"].astype(str) if "target" in frame else pd.Series("T", index=frame.index)
-    if "condition_id" in frame:
-        condition = frame["condition_id"].astype(str)
-    elif "mask_type" in frame and "gap_length" in frame:
-        condition = (
-            frame["mask_type"].astype(str)
-            + "|"
-            + pd.to_numeric(frame["gap_length"], errors="coerce").astype("string")
+    def values(column: str, default: str) -> pd.Series:
+        return (
+            frame[column].fillna(default).astype(str)
+            if column in frame
+            else pd.Series(default, index=frame.index, dtype="string")
         )
-    else:
-        condition = pd.Series("unspecified", index=frame.index)
-    return station + "|" + target + "|" + condition
+
+    station = values("station_id", "NA")
+    target = values("target", "T")
+    geometry = values("mask_type", "block")
+    information = values("information_combination", "S0+A+B+C+D")
+    mode = values("recovery_mode", "offline")
+    return station + "|" + target + "|" + geometry + "|" + information + "|" + mode
 
 
 def select_best_simple_baselines(
@@ -768,15 +765,52 @@ def select_best_simple_baselines(
     data[metric] = pd.to_numeric(data[metric], errors="coerce")
     data = data.dropna(subset=[metric])
     data["condition_family"] = condition_family_key(data)
-    ranked = (
-        data.groupby(["condition_family", "model"], as_index=False, observed=True)[metric]
-        .mean()
-        .sort_values(["condition_family", metric, "model"], kind="mergesort")
+    data["selection_gap"] = pd.to_numeric(
+        data["gap_length"]
+        if "gap_length" in data
+        else pd.Series(np.nan, index=data.index),
+        errors="coerce",
+    ).fillna(-1)
+    scenario_means = data.groupby(
+        ["condition_family", "model", "selection_gap"],
+        as_index=False,
+        observed=True,
+    )[metric].mean()
+    ranked = scenario_means.groupby(
+        ["condition_family", "model"], as_index=False, observed=True
+    )[metric].mean()
+    tie_order = {model: index for index, model in enumerate(models)}
+    ranked["tie_break_order"] = ranked["model"].map(tie_order).fillna(len(tie_order))
+    ranked = ranked.sort_values(
+        ["condition_family", metric, "tie_break_order"], kind="mergesort"
     )
     best = ranked.groupby("condition_family", as_index=False, observed=True).first()
-    best = best.rename(columns={"model": "best_simple_baseline", metric: "best_simple_metric"})
+    best = best.rename(
+        columns={"model": "best_simple_baseline", metric: "validation_mean_MAE"}
+    )
+    counts = (
+        scenario_means.groupby("condition_family", as_index=False, observed=True)[
+            "selection_gap"
+        ]
+        .nunique()
+        .rename(columns={"selection_gap": "validation_scenario_count"})
+    )
+    best = best.merge(counts, on="condition_family", how="left", validate="one_to_one")
+    family_parts = best["condition_family"].str.split("|", expand=True)
+    for index, column in enumerate(
+        (
+            "station_id",
+            "target",
+            "mask_geometry",
+            "information_contract",
+            "recovery_mode",
+        )
+    ):
+        best[column] = family_parts[index]
     best["selection_split"] = "validation"
     best["formal_evidence"] = False
+    best["selection_rule"] = "equal_weight_across_validation_gap_lengths"
+    best["tie_break_rule"] = "frozen_simple_model_order"
     return best
 
 
