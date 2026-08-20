@@ -666,6 +666,7 @@ def _build(
         data_version=str(evidence["data_version"]),
         evaluation_split=str(evidence["evaluation_split"]),
         design_hash=str(evidence["design_hash"]),
+        design_path=DESIGN,
         data_version_manifest_path=target_version_manifest,
         selection_data_version_manifest_path=VERSION_MANIFEST,
     )
@@ -965,6 +966,7 @@ def test_rejects_target_contract_mismatch(tmp_path: Path) -> None:
             data_version="published_v1",
             evaluation_split="development_test",
             design_hash="0" * 64,
+            design_path=DESIGN,
             selection_data_version_manifest_path=VERSION_MANIFEST,
         )
 
@@ -1229,6 +1231,7 @@ def test_rejects_validation_or_confirmatory_registry_target(tmp_path: Path) -> N
             data_version="published_v1",
             evaluation_split="validation",
             design_hash=str(evidence["design_hash"]),
+            design_path=DESIGN,
             selection_data_version_manifest_path=VERSION_MANIFEST,
         )
 

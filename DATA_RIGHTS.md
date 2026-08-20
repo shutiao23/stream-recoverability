@@ -98,7 +98,9 @@ Do not treat “available upon request” as the access story. No private-reposi
 
 ## Public-hosting defect
 
-Restricted hydrological and meteorological columns are presently in the public GitHub tree (`data/raw/*.csv`, processed parquets, `data_versions/*` tables, and date-bearing mask manifests). That hosting fact is a remaining defect. It must not be cited as open or FAIR study data. Public-hosting remediation (remove restricted columns from the public git tip and history) remains a separate wave.
+Restricted hydrological and meteorological columns are presently in the public GitHub tree (`data/raw/*.csv`, processed parquets, `data_versions/*` tables, and date-bearing mask manifests). That hosting fact is a remaining defect. It must not be cited as open or FAIR study data.
+
+This wave records the defect with `scripts/26_audit_restricted_hosting.py`. It does not rewrite git history. History rewrite requires an institutional immutable mirror first, then a coordinated public-history cleanup. Until that happens, the public tip remains defective.
 
 ## What still blocks an AGU Availability Statement
 

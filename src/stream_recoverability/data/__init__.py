@@ -2,6 +2,7 @@
 
 from .audit import audit_raw_data, build_audit_tables
 from .loading import load_stations, load_variable_specs, read_station_csv
+from .quality import attach_qc_fields, load_quality_codebook
 from .prepare import (
     add_time_features,
     align_daily_calendar,
@@ -29,6 +30,7 @@ __all__ = [
     "DataVersionDefinition",
     "add_time_features",
     "align_daily_calendar",
+    "attach_qc_fields",
     "apply_data_version",
     "apply_scaler",
     "assign_time_split",
@@ -39,6 +41,7 @@ __all__ = [
     "build_windows",
     "fit_train_scaler",
     "get_data_version_definition",
+    "load_quality_codebook",
     "load_stations",
     "load_variable_specs",
     "prepare_daily_data",

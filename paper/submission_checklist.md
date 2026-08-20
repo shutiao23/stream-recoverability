@@ -6,7 +6,7 @@ This checklist records what a Water Resources Research package can honestly cont
 
 | File | Role | Status |
 | --- | --- | --- |
-| `manuscript.md` | Main text; Results are `RESULTS_PENDING` | Present; no MAE/skill/frontier claims |
+| `manuscript.md` | Main text; Results are `RESULTS_PENDING` | Present; no MAE/skill/frontier claims; executable freeze is v3 |
 | `methods.md` | Extended methods for SI | Present; grid counts locked to builders |
 | `si.md` / `si_independence_audits.md` | Supplement | Present; audits are not ranks |
 | `cover_letter.md` | Editor letter | Present; no performance claim |
@@ -29,17 +29,17 @@ This checklist records what a Water Resources Research package can honestly cont
 
 ## Protocol gates (not optional)
 
-1. Validation funnel stages complete, including diagnostics, stability, go/no-go, and branch ablation or the frozen not-applicable path.
-2. Hash-verified `finalized_model_roster_v1`.
-3. Formal internal suites on `published_v1` using that roster only.
-4. Three sensitivity data versions, separately registered.
-5. Frozen statistics: climatology-relative **and** best-simple-baseline-relative frontiers; no application frontier unless predeclared.
+1. Validation funnel stages complete **under `design_freeze_v3`**, including diagnostics, stability, go/no-go, and branch ablation or the frozen not-applicable path. v2 artifacts are not reusable.
+2. Hash-verified `finalized_model_roster_v1` with no `budget_unstable` retained model.
+3. Formal internal suites on `published_v2` using that roster only.
+4. Three sensitivity data versions (`no_s2_suspect_v2`, `b1_no_level_v2`, `b1_shift_sensitivity_v2`), separately registered.
+5. Frozen statistics: climatology-relative **and** best-simple-baseline-relative frontiers; donor-C lag/permutation falsification; no application frontier unless predeclared.
 6. Confirmatory feasibility 60/60, then exactly-once performance after once-lock.
 7. README evidence-status JSON updated only after those facts are true.
 8. Archival software DOI minted only after a real deposit; do not invent Zenodo.
 
 ## Known remaining defects (do not hide)
 
-- Restricted Jinsha columns are still present on the public GitHub development host. That is a hosting defect, not an open-data release.
+- Restricted Jinsha columns are still present on the public GitHub development host. `scripts/26_audit_restricted_hosting.py` records that defect. History rewrite is not performed in this wave.
 - No archival DOI exists.
 - Pre-freeze `results/formal/` dumps are invalid and must not be submitted as results.

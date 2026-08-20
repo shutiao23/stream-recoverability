@@ -261,9 +261,9 @@ def test_smoke_and_formal_training_profiles_are_separate(tmp_path: Path) -> None
     assert formal.training_settings == {
         "train_mask_repeats": 5,
         "validation_mask_repeats": 1,
-        "deep_epochs": 200,
+        "deep_epochs": 400,
         "deep_patience": 20,
-        "proposed_epochs": 200,
+        "proposed_epochs": 400,
         "proposed_patience": 20,
         "batch_size": 8,
         "device": "cpu",
@@ -276,7 +276,7 @@ def test_smoke_and_formal_training_profiles_are_separate(tmp_path: Path) -> None
         model_class, model_config, expected_training = formal._deep_contract(
             model_name, 11, 368, "seen_length"
         )
-        assert expected_training["epochs"] == 200
+        assert expected_training["epochs"] == 400
         assert expected_training["patience"] == 20
         legacy_training = {
             **expected_training,

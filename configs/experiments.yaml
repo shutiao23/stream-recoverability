@@ -46,7 +46,7 @@ runner:
   formal:
     train_mask_repeats: 5
     validation_mask_repeats: 1
-    deep_epochs: 200
+    deep_epochs: 400
     deep_patience: 20
-    proposed_epochs: 200
+    proposed_epochs: 400
     proposed_patience: 20

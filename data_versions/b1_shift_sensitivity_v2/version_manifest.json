@@ -1,0 +1,68 @@
+{
+  "manifest_schema_version": 1,
+  "data_version": "b1_shift_sensitivity_v2",
+  "definition": {
+    "name": "b1_shift_sensitivity_v2",
+    "description": "published_v2 plus a hypothetical -8.48 m adjustment to B1 L on and after 2019-01-01. This is not a factual correction.",
+    "evidence_role": "hypothetical_shift_sensitivity",
+    "sensitivity_only": true
+  },
+  "input_path": "data_versions/published_v1/daily_long.parquet",
+  "input_sha256": "be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e",
+  "input_counts": {
+    "long_rows": 147933,
+    "dates": 5479,
+    "stations": 3,
+    "variables": 9,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
+    "source_analysis_eligible_values": 0,
+    "source_provider_qc_unknown_values": 0,
+    "source_provider_qc_approved_values": 0,
+    "source_known_issue_values": 0,
+    "source_legacy_quality_approved_values": 147863
+  },
+  "output_counts": {
+    "long_rows": 147933,
+    "wide_rows": 5479,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
+    "split_wide_rows": {
+      "train": 3652,
+      "validation": 731,
+      "test": 1096
+    },
+    "scaled_features": 27,
+    "excluded_scaler_features": 0
+  },
+  "transformation_counts": {
+    "target_rows": 731,
+    "analysis_values_excluded": 0,
+    "quality_eligibility_removed": 0,
+    "analysis_values_adjusted": 731,
+    "raw_values_changed": 0,
+    "natural_observed_flags_changed": 0
+  },
+  "artifacts": {
+    "daily_long.parquet": {
+      "sha256": "cd635c92dcc062189feccf5387fa5c333425f553dd8bd340f9b3e453324f220f"
+    },
+    "daily_wide.parquet": {
+      "sha256": "74799ee5196aa3f8bff3fa10d6eb782fad775b217835af3cb4096f3acf49c623"
+    },
+    "scaler.json": {
+      "sha256": "9cf6c56b41f45e38fffeb2cb64e114b53d6b2946a1d3a615ba144da83b08cfd4"
+    },
+    "splits/train.parquet": {
+      "sha256": "267e1573c6587bb8b05f12dc31afab658ebeff70346bc9226196a88242725697"
+    },
+    "splits/validation.parquet": {
+      "sha256": "2b2131be356b65370125f877a4f3db87c090302d9381118fd7d3025e7bafca28"
+    },
+    "splits/test.parquet": {
+      "sha256": "b934ba66e43d4e8ec164e2954023585ec85aaa250fc48491a9c6a004747c1124"
+    }
+  }
+}

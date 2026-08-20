@@ -1,0 +1,68 @@
+{
+  "manifest_schema_version": 1,
+  "data_version": "published_v2",
+  "definition": {
+    "name": "published_v2",
+    "description": "Published values with split QC fields. observed_unflagged rows are analysis-eligible with provider_qc_status=unknown. B1 level from 2019-01-01 and S2 hydrology for 2013-2019 are flagged, not silently edited.",
+    "evidence_role": "published_reference",
+    "sensitivity_only": false
+  },
+  "input_path": "data_versions/published_v1/daily_long.parquet",
+  "input_sha256": "be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e",
+  "input_counts": {
+    "long_rows": 147933,
+    "dates": 5479,
+    "stations": 3,
+    "variables": 9,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
+    "source_analysis_eligible_values": 0,
+    "source_provider_qc_unknown_values": 0,
+    "source_provider_qc_approved_values": 0,
+    "source_known_issue_values": 0,
+    "source_legacy_quality_approved_values": 147863
+  },
+  "output_counts": {
+    "long_rows": 147933,
+    "wide_rows": 5479,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
+    "split_wide_rows": {
+      "train": 3652,
+      "validation": 731,
+      "test": 1096
+    },
+    "scaled_features": 27,
+    "excluded_scaler_features": 0
+  },
+  "transformation_counts": {
+    "target_rows": 0,
+    "analysis_values_excluded": 0,
+    "quality_eligibility_removed": 0,
+    "analysis_values_adjusted": 0,
+    "raw_values_changed": 0,
+    "natural_observed_flags_changed": 0
+  },
+  "artifacts": {
+    "daily_long.parquet": {
+      "sha256": "06a658663c3f9c1a438f481560b1932e32143ea8494e69685f75e123faaa2da3"
+    },
+    "daily_wide.parquet": {
+      "sha256": "361afb6608fa9a16278f5d4b8697c1eb092a564ec65b638b1f16aad7fd5a768e"
+    },
+    "scaler.json": {
+      "sha256": "1b98ece9db90de4f02b2f1bd0208dda68cd2d86ed5dd0dfa18a298fb86858300"
+    },
+    "splits/train.parquet": {
+      "sha256": "d41e9e040e5395d8edb9b7920bc54243cd2977211d3886cec81507c2c2ec127b"
+    },
+    "splits/validation.parquet": {
+      "sha256": "e3647e7560d212a6ec8d4ad68e5f401394e4bc70fe4cc8dc496bf29474db1642"
+    },
+    "splits/test.parquet": {
+      "sha256": "ca13a32fe6d59dda56d1b04157c83e9d1b32e84b2cbe78bcb91b27a5987e9dc2"
+    }
+  }
+}

@@ -67,3 +67,9 @@ jobs:
 
       - name: Run the complete test suite
         run: python -m pytest
+
+      - name: Record evidence snapshot and fail-closed submission gate
+        run: |
+          python scripts/25_build_evidence_snapshot.py
+          python scripts/26_audit_restricted_hosting.py
+          python scripts/27_submission_gate.py --allow-no-go

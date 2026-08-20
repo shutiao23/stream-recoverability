@@ -62,6 +62,24 @@ def align_daily_calendar(long_data: pd.DataFrame) -> pd.DataFrame:
 
     aligned["natural_observed"] = aligned["natural_observed"].fillna(False).astype(bool)
     aligned["quality_approved"] = aligned["quality_approved"].fillna(False).astype(bool)
+    if "analysis_eligible" in aligned:
+        aligned["analysis_eligible"] = aligned["analysis_eligible"].fillna(False).astype(bool)
+    else:
+        aligned["analysis_eligible"] = aligned["quality_approved"]
+    if "provider_qc_status" in aligned:
+        aligned["provider_qc_status"] = aligned["provider_qc_status"].fillna("missing")
+    else:
+        aligned["provider_qc_status"] = np.where(
+            aligned["analysis_eligible"], "unknown", "missing"
+        )
+    if "known_issue_flag" in aligned:
+        aligned["known_issue_flag"] = aligned["known_issue_flag"].fillna(False).astype(bool)
+    else:
+        aligned["known_issue_flag"] = False
+    if "known_issue_code" in aligned:
+        aligned["known_issue_code"] = aligned["known_issue_code"].fillna("")
+    else:
+        aligned["known_issue_code"] = ""
     aligned["qc_status"] = aligned["qc_status"].fillna("source_missing")
     aligned["raw_value"] = aligned["raw_value"].astype(float)
     aligned["value"] = aligned["value"].astype(float)

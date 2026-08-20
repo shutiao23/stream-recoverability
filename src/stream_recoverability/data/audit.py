@@ -296,7 +296,9 @@ def render_audit_report(
                 "downstream treatment rather than deletion. The B1 November 2018 high-flow event "
                 f"is also retained (monthly peak FLOW={float(peak['value']):.0f} on "
                 f"{pd.Timestamp(peak['date']).date()}). Both remain `observed_unflagged` and "
-                "`quality_approved=true`; neither is silently removed by this pipeline."
+                "analysis-eligible (`quality_approved=true` as a legacy eligibility alias, "
+                "`provider_qc_status=unknown`, and a `known_issue_flag` on the 2019 B1 level "
+                "shift); neither is silently removed by this pipeline."
             )
     return "\n".join(
         [
@@ -352,7 +354,10 @@ def render_audit_report(
             "",
             "The source CSV files contain no per-value quality flags. Consequently, `quality_approved` only "
             "excludes literal source missing values and the confirmed WDSP=999.9 / PRCP=99.99 codes. It must "
-            "not be interpreted as proof that every remaining value was individually approved by the provider.",
+            "not be interpreted as proof that every remaining value was individually approved by the provider. "
+            "The split fields are `analysis_eligible` (current-analysis membership), "
+            "`provider_qc_status` (`unknown` for unflagged published values; never rewritten as approved), "
+            "and `known_issue_flag` (B1 2019 level datum and S2 2013-2019 provenance discrepancy).",
             "",
             dh_statement,
             "",

@@ -25,7 +25,7 @@ def _validation_run_root() -> Path:
     from stream_recoverability.experiments.contracts import build_design_contract
 
     contract = build_design_contract(
-        design_path=ROOT / "configs/design_freeze_v2.yaml",
+        design_path=ROOT / "configs/design_freeze_v3.yaml",
         manifest_path=ROOT / "study_manifest.yaml",
         experiment_config_path=ROOT / "configs/experiments.yaml",
         data_version="published_v1",

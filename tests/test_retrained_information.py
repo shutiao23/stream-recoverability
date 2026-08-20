@@ -379,7 +379,7 @@ def test_partial_retrained_run_writes_exact_retryable_and_hash_gates(
         finalized_model_roster_path=tmp_path / "roster.json",
         manifest_path=PROJECT_ROOT / "study_manifest.yaml",
         config_path=PROJECT_ROOT / "configs/experiments.yaml",
-        design_path=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
+        design_path=PROJECT_ROOT / "configs/design_freeze_v3.yaml",
         wide_path=wide_path,
         quality_path=quality_path,
         output_dir=output,

@@ -11,7 +11,11 @@ from typing import Any
 
 import yaml
 
-DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v2.yaml")
+DEFAULT_DESIGN_PATH = Path("configs/design_freeze_v3.yaml")
+SUPPORTED_EXECUTABLE_DESIGN_VERSIONS = frozenset(
+    {"design_freeze_v2", "design_freeze_v3"}
+)
+EXECUTABLE_DESIGN_VERSION = "design_freeze_v3"
 DEFAULT_MANIFEST_PATH = Path("study_manifest.yaml")
 SUPPORTED_EVALUATION_SPLITS = frozenset(
     {"validation", "development_test", "test", "confirmatory"}
@@ -411,6 +415,8 @@ __all__ = [
     "CODE_PROVENANCE_SCHEMA_VERSION",
     "DEFAULT_DESIGN_PATH",
     "DEFAULT_MANIFEST_PATH",
+    "EXECUTABLE_DESIGN_VERSION",
+    "SUPPORTED_EXECUTABLE_DESIGN_VERSIONS",
     "SUPPORTED_EVALUATION_SPLITS",
     "build_code_provenance",
     "build_design_contract",

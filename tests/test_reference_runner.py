@@ -31,7 +31,7 @@ from stream_recoverability.models.reference_baselines import (
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = REPO_ROOT / "study_manifest.yaml"
 CONFIG = REPO_ROOT / "configs" / "experiments.yaml"
-DESIGN = REPO_ROOT / "configs" / "design_freeze_v2.yaml"
+DESIGN = REPO_ROOT / "configs" / "design_freeze_v3.yaml"
 VARIABLES = ("T", "F", "L", "Ta", "P", "W", "RH", "Rs")
 FORMAL_PROVENANCE_GATE = ExperimentRunner._assert_formal_code_provenance
 
@@ -180,7 +180,7 @@ def test_frozen_registry_separates_formal_reference_and_lite_models(
     )
     assert formal_model.hidden_size == 32
     assert formal_model.dropout == pytest.approx(0.10)
-    assert formal_training.epochs == 200
+    assert formal_training.epochs == 400
     assert formal_training.patience == 20
     assert formal_training.learning_rate == pytest.approx(0.001)
     assert formal_training.weight_decay == 0.0
@@ -329,7 +329,7 @@ def test_proposed_and_reference_contracts_use_the_frozen_design(
     assert proposed_training.weight_decay == 0.0
     assert proposed_training.min_delta == 0.0
     assert proposed_training.gradient_clip == 1.0
-    assert context["frozen_common_training"]["max_epochs"] == 200
+    assert context["frozen_common_training"]["max_epochs"] == 400
 
     contracts = {
         name: runner._reference_contract(name, 11, 184, "seen_length")

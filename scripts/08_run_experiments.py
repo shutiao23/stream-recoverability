@@ -69,7 +69,7 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=PROJECT_ROOT / DEFAULT_DESIGN_PATH,
     )
-    parser.add_argument("--data-version", default="published_v1")
+    parser.add_argument("--data-version", default="published_v2")
     parser.add_argument(
         "--evaluation-split",
         choices=("validation", "test", "development_test"),

@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 
 from .prepare import assign_time_split, fit_train_scaler, to_daily_wide
+from .quality import attach_qc_fields, qc_counts
 
 
 @dataclass(frozen=True)
@@ -64,12 +65,70 @@ _DEFINITIONS = {
         evidence_role="hypothetical_shift_sensitivity",
         sensitivity_only=True,
     ),
+    "published_v2": DataVersionDefinition(
+        name="published_v2",
+        description=(
+            "Published values with split QC fields. observed_unflagged rows are "
+            "analysis-eligible with provider_qc_status=unknown. B1 level from "
+            "2019-01-01 and S2 hydrology for 2013-2019 are flagged, not silently edited."
+        ),
+        evidence_role="published_reference",
+    ),
+    "no_s2_suspect_v2": DataVersionDefinition(
+        name="no_s2_suspect_v2",
+        description=(
+            "published_v2 plus exclusion of S2 T, F, and L analysis values from "
+            "2013-01-01 through 2019-12-31."
+        ),
+        evidence_role="quality_exclusion_sensitivity",
+        sensitivity_only=True,
+    ),
+    "b1_no_level_v2": DataVersionDefinition(
+        name="b1_no_level_v2",
+        description=(
+            "published_v2 plus exclusion of B1 water-level (L) analysis values "
+            "over the full record."
+        ),
+        evidence_role="information_ablation",
+        sensitivity_only=True,
+    ),
+    "b1_shift_sensitivity_v2": DataVersionDefinition(
+        name="b1_shift_sensitivity_v2",
+        description=(
+            "published_v2 plus a hypothetical -8.48 m adjustment to B1 L on and "
+            "after 2019-01-01. This is not a factual correction."
+        ),
+        evidence_role="hypothetical_shift_sensitivity",
+        sensitivity_only=True,
+    ),
 }
 
 DATA_VERSION_DEFINITIONS: Mapping[str, DataVersionDefinition] = MappingProxyType(
     _DEFINITIONS
 )
 DATA_VERSION_NAMES = tuple(DATA_VERSION_DEFINITIONS)
+_V1_VERSIONS = frozenset(
+    {
+        "published_v1",
+        "no_s2_suspect_v1",
+        "b1_no_level_v1",
+        "b1_shift_sensitivity_v1",
+    }
+)
+_V2_VERSIONS = frozenset(
+    {
+        "published_v2",
+        "no_s2_suspect_v2",
+        "b1_no_level_v2",
+        "b1_shift_sensitivity_v2",
+    }
+)
+_TRANSFORM_ALIASES = {
+    "published_v2": "published_v1",
+    "no_s2_suspect_v2": "no_s2_suspect_v1",
+    "b1_no_level_v2": "b1_no_level_v1",
+    "b1_shift_sensitivity_v2": "b1_shift_sensitivity_v1",
+}
 
 _REQUIRED_LONG_COLUMNS = {
     "date",
@@ -99,7 +158,13 @@ def get_data_version_definition(data_version: str) -> DataVersionDefinition:
         ) from error
 
 
-def _validate_source_long(long_data: pd.DataFrame) -> None:
+def _transform_key(data_version: str) -> str:
+    return _TRANSFORM_ALIASES.get(data_version, data_version)
+
+
+def _validate_source_long(
+    long_data: pd.DataFrame, data_version: str | None = None
+) -> None:
     missing = sorted(_REQUIRED_LONG_COLUMNS.difference(long_data.columns))
     if missing:
         raise KeyError(f"Prepared daily_long is missing required columns: {missing}")
@@ -110,7 +175,13 @@ def _validate_source_long(long_data: pd.DataFrame) -> None:
 
     if "data_version" in long_data:
         source_versions = set(long_data["data_version"].dropna().astype(str).unique())
-        if source_versions and source_versions != {"published_v1"}:
+        if not source_versions:
+            return
+        if data_version in _V2_VERSIONS:
+            allowed = {"published_v1", "published_v2"}
+        else:
+            allowed = {"published_v1"}
+        if source_versions - allowed:
             raise ValueError(
                 "Data versions must be built from an unversioned or published_v1 source; "
                 f"found {sorted(source_versions)}"
@@ -121,17 +192,18 @@ def _target_mask(long_data: pd.DataFrame, data_version: str) -> pd.Series:
     dates = pd.to_datetime(long_data["date"]).dt.normalize()
     stations = long_data["station_id"].astype(str)
     variables = long_data["variable"].astype(str)
-    if data_version == "published_v1":
+    transform = _transform_key(data_version)
+    if transform == "published_v1":
         return pd.Series(False, index=long_data.index)
-    if data_version == "no_s2_suspect_v1":
+    if transform == "no_s2_suspect_v1":
         return (
             stations.eq("S2")
             & variables.isin(("T", "F", "L"))
             & dates.between(_S2_SUSPECT_START, _S2_SUSPECT_END, inclusive="both")
         )
-    if data_version == "b1_no_level_v1":
+    if transform == "b1_no_level_v1":
         return stations.eq("B1") & variables.eq("L")
-    if data_version == "b1_shift_sensitivity_v1":
+    if transform == "b1_shift_sensitivity_v1":
         return stations.eq("B1") & variables.eq("L") & dates.ge(_B1_SHIFT_START)
     raise AssertionError(f"Unhandled registered data version: {data_version}")
 
@@ -150,31 +222,43 @@ def apply_data_version(long_data: pd.DataFrame, data_version: str) -> pd.DataFra
     """
 
     get_data_version_definition(data_version)
-    _validate_source_long(long_data)
+    _validate_source_long(long_data, data_version)
     result = long_data.copy()
     raw_before = result["raw_value"].copy()
     observed_before = result["natural_observed"].copy()
+    transform = _transform_key(data_version)
+    if data_version in _V2_VERSIONS:
+        result = attach_qc_fields(result)
 
     result["data_version"] = data_version
     result["data_version_action"] = "unchanged"
     target = _target_mask(result, data_version)
 
-    if data_version == "no_s2_suspect_v1":
+    if transform == "no_s2_suspect_v1":
         result.loc[target, "value"] = np.nan
         result.loc[target, "quality_approved"] = False
+        if "analysis_eligible" in result:
+            result.loc[target, "analysis_eligible"] = False
         result.loc[target, "qc_status"] = "excluded_s2_suspect_period"
         result.loc[target, "data_version_action"] = "excluded_s2_hydrology_2013_2019"
-    elif data_version == "b1_no_level_v1":
+    elif transform == "b1_no_level_v1":
         result.loc[target, "value"] = np.nan
         result.loc[target, "quality_approved"] = False
+        if "analysis_eligible" in result:
+            result.loc[target, "analysis_eligible"] = False
         result.loc[target, "qc_status"] = "excluded_b1_level"
         result.loc[target, "data_version_action"] = "excluded_b1_level"
-    elif data_version == "b1_shift_sensitivity_v1":
+    elif transform == "b1_shift_sensitivity_v1":
         result.loc[target, "value"] = (
             pd.to_numeric(result.loc[target, "value"], errors="coerce")
             - _B1_SHIFT_METRES
         )
         result.loc[target, "data_version_action"] = "hypothetical_b1_level_minus_8.48_m"
+    if data_version in _V2_VERSIONS:
+        flagged = result["known_issue_flag"].fillna(False).astype(bool)
+        result.loc[flagged & result["data_version_action"].eq("unchanged"), "data_version_action"] = (
+            "flagged_known_issue"
+        )
 
     if _changed_count(raw_before, result["raw_value"]):
         raise RuntimeError("A data-version transformation altered raw_value")
@@ -284,6 +368,10 @@ def _counts(
         "quality_approved_values": int(
             source_long["quality_approved"].fillna(False).sum()
         ),
+        **{
+            f"source_{key}": value
+            for key, value in qc_counts(source_long).items()
+        },
     }
     output_counts: dict[str, Any] = {
         "long_rows": len(versioned_long),

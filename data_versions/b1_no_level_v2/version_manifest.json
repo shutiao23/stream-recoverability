@@ -1,0 +1,68 @@
+{
+  "manifest_schema_version": 1,
+  "data_version": "b1_no_level_v2",
+  "definition": {
+    "name": "b1_no_level_v2",
+    "description": "published_v2 plus exclusion of B1 water-level (L) analysis values over the full record.",
+    "evidence_role": "information_ablation",
+    "sensitivity_only": true
+  },
+  "input_path": "data_versions/published_v1/daily_long.parquet",
+  "input_sha256": "be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e",
+  "input_counts": {
+    "long_rows": 147933,
+    "dates": 5479,
+    "stations": 3,
+    "variables": 9,
+    "analysis_values": 147863,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 147863,
+    "source_analysis_eligible_values": 0,
+    "source_provider_qc_unknown_values": 0,
+    "source_provider_qc_approved_values": 0,
+    "source_known_issue_values": 0,
+    "source_legacy_quality_approved_values": 147863
+  },
+  "output_counts": {
+    "long_rows": 147933,
+    "wide_rows": 5479,
+    "analysis_values": 142384,
+    "natural_observed_values": 147863,
+    "quality_approved_values": 142384,
+    "split_wide_rows": {
+      "train": 3652,
+      "validation": 731,
+      "test": 1096
+    },
+    "scaled_features": 26,
+    "excluded_scaler_features": 1
+  },
+  "transformation_counts": {
+    "target_rows": 5479,
+    "analysis_values_excluded": 5479,
+    "quality_eligibility_removed": 5479,
+    "analysis_values_adjusted": 0,
+    "raw_values_changed": 0,
+    "natural_observed_flags_changed": 0
+  },
+  "artifacts": {
+    "daily_long.parquet": {
+      "sha256": "7c16f993be7631a7863ed2b52b0dd77dce76182e8e0cf061dc15ed7cfffed0b9"
+    },
+    "daily_wide.parquet": {
+      "sha256": "ef398e19fcca0964cb191a0f57749a9516857b8b01c71791744bacf27ed1d84a"
+    },
+    "scaler.json": {
+      "sha256": "e5708412ab14b3e182e779f9890e937b663793890b73e814d18260fa73f4e4c4"
+    },
+    "splits/train.parquet": {
+      "sha256": "b9b550ad4014550ae9e4de00936db623a92bd8979a1b2c04665151d019f4d71a"
+    },
+    "splits/validation.parquet": {
+      "sha256": "1715d2415800b3f97f119b6fd518db17253797e532530247d96f05900ab244a7"
+    },
+    "splits/test.parquet": {
+      "sha256": "80245b59aae8af020e3f6b02e52cca40de215e024da971f91997c2c846270825"
+    }
+  }
+}
