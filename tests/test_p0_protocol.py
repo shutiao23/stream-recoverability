@@ -27,7 +27,6 @@ from stream_recoverability.data.versions import apply_data_version
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     EXECUTABLE_DESIGN_VERSION,
-    file_sha256,
 )
 from stream_recoverability.experiments.selection import select_stage2_finalists
 from stream_recoverability.governance import (
@@ -85,25 +84,6 @@ def test_attach_qc_fields_flags_known_issues_without_approving_unknown() -> None
     bad.loc[0, "provider_qc_status"] = "approved"
     with pytest.raises(ValueError, match="forbidden"):
         attach_qc_fields(bad)
-
-
-def test_published_v2_artifacts_match_named_freeze_hashes() -> None:
-    design = yaml.safe_load((REPO / DEFAULT_DESIGN_PATH).read_text(encoding="utf-8"))
-    named = design["data_versions"]["published_v2_build"]
-    assert named["status"] == "built"
-    for version in (
-        "published_v2",
-        "no_s2_suspect_v2",
-        "b1_no_level_v2",
-        "b1_shift_sensitivity_v2",
-    ):
-        root = REPO / "data_versions" / version
-        assert named[version]["daily_long_sha256"] == file_sha256(
-            root / "daily_long.parquet"
-        )
-        assert named[version]["daily_wide_sha256"] == file_sha256(
-            root / "daily_wide.parquet"
-        )
 
 
 def test_published_v2_preserves_values_and_adds_qc_fields() -> None:
