@@ -27,6 +27,7 @@ from stream_recoverability.experiments.contracts import (
     canonical_code_identity,
     canonical_evaluation_split,
     file_sha256,
+    load_frozen_data_versions,
     validate_data_version_inputs,
 )
 from stream_recoverability.masks.anchors import (
@@ -44,6 +45,7 @@ REGISTRY_SCHEMA_VERSION = "formal_suite_registry_v1"
 REGISTRY_BUILDER_IDENTITY_SCHEMA_VERSION = "formal_registry_builder_identity_v1"
 ROSTER_SCHEMA_VERSION = "finalized_model_roster_v1"
 DEFAULT_FRONTIER_ANCHOR_PATH = REPOSITORY_ROOT / "metadata/frontier_anchors.csv"
+V2_FRONTIER_ANCHOR_PATH = REPOSITORY_ROOT / "metadata/frontier_anchors_v2.csv"
 REGISTRY_BUILDER_SOURCE_PATHS = (
     REPOSITORY_ROOT / "scripts/21_build_formal_suite_registry.py",
     Path(__file__).resolve(),
@@ -58,7 +60,7 @@ DERIVED_SUITE_MODELS = {
         {"retrained_information_upper_bound"}
     ),
 }
-PROPOSED_ONLY_SUITES = frozenset(DERIVED_SUITE_MODELS)
+PROPOSED_ONLY_SUITES = frozenset({*DERIVED_SUITE_MODELS, "science_donor_falsification"})
 FRONTIER_ANCHORED_MASK_TYPES = frozenset(
     {"async", "block", "station_outage", "matched_network"}
 )
@@ -84,6 +86,7 @@ PRIMARY_SUITE_ROLES = (
     "event_uncertainty",
     "operational_dropout",
     "retrained_upper_bound",
+    "donor_c_falsification",
 )
 PRIMARY_SUITE_ROLE_EQUIVALENTS = {
     "full": ("core_full", "event_uncertainty"),
@@ -91,6 +94,7 @@ PRIMARY_SUITE_ROLE_EQUIVALENTS = {
     "science_resilience": ("network_resilience",),
     "science_compensation": ("operational_dropout",),
     "retrained_information_upper_bounds": ("retrained_upper_bound",),
+    "science_donor_falsification": ("donor_c_falsification",),
 }
 SENSITIVITY_SUITE_ROLES = (
     "sensitivity_core_T",
@@ -280,7 +284,9 @@ def build_registry_builder_identity() -> dict[str, Any]:
     for source in REGISTRY_BUILDER_SOURCE_PATHS:
         resolved = source.resolve()
         if not resolved.is_file():
-            raise FileNotFoundError(f"missing formal registry builder source: {resolved}")
+            raise FileNotFoundError(
+                f"missing formal registry builder source: {resolved}"
+            )
         sources.append(
             {
                 "path": _portable_path(resolved),
@@ -340,16 +346,13 @@ def validate_registry_builder_identity(value: object) -> dict[str, Any]:
         path = _repository_path(path_value, f"{label}.path")
         if not path.is_file():
             raise FileNotFoundError(f"missing registry builder source: {path}")
-        if (
-            source.get("bytes") != path.stat().st_size
-            or source.get("sha256") != file_sha256(path)
-        ):
+        if source.get("bytes") != path.stat().st_size or source.get(
+            "sha256"
+        ) != file_sha256(path):
             raise ValueError(f"{label} does not match current source bytes/SHA-256")
     if len(set(observed_paths)) != len(observed_paths):
         raise ValueError("registry builder source paths are duplicated")
-    unsigned = {
-        key: item for key, item in identity.items() if key != "identity_sha256"
-    }
+    unsigned = {key: item for key, item in identity.items() if key != "identity_sha256"}
     if identity.get("identity_sha256") != _canonical_sha256(unsigned):
         raise ValueError("registry builder canonical identity SHA-256 does not match")
     return identity
@@ -361,7 +364,10 @@ def _path_within(path: Path, root: Path) -> bool:
 
 
 def _load_frontier_anchor_reference(
-    path: str | Path, study_manifest_path: str | Path
+    path: str | Path,
+    study_manifest_path: str | Path,
+    *,
+    expected_data_version: str,
 ) -> _FrontierAnchorReference:
     catalog_path = Path(path).resolve()
     if not catalog_path.is_file():
@@ -393,7 +399,7 @@ def _load_frontier_anchor_reference(
         raise ValueError("study manifest core station/target inventory is invalid")
     catalog = load_frontier_anchor_catalog(
         catalog_path,
-        expected_data_version="published_v1",
+        expected_data_version=expected_data_version,
         expected_evaluation_split="development_test",
         required_stations=stations,
         required_targets=targets,
@@ -436,9 +442,7 @@ def _load_m7a_condition_targets(
         raise ValueError(
             "frozen M7a inventory must contain three stations and four events"
         )
-    events = {
-        str(event): str(target) for event, target in raw_events.items()
-    }
+    events = {str(event): str(target) for event, target in raw_events.items()}
     if (
         any(not event or event.strip() != event for event in events)
         or any(target not in {"T", "F", "L"} for target in events.values())
@@ -455,9 +459,7 @@ def _load_m7a_condition_targets(
     return condition_targets
 
 
-def _data_version_bundle_kind(
-    design_path: str | Path, data_version: str
-) -> str:
+def _data_version_bundle_kind(design_path: str | Path, data_version: str) -> str:
     design = yaml.safe_load(Path(design_path).read_text(encoding="utf-8"))
     if not isinstance(design, Mapping):
         raise TypeError("design freeze must be a YAML mapping")
@@ -763,9 +765,7 @@ def _frontier_table_bindings(
                     values["anchor_mask_seed"],
                     f"{label} scenario {scenario}.anchor_mask_seed",
                 ),
-                "center_date": pd.Timestamp(values["center_date"]).strftime(
-                    "%Y-%m-%d"
-                ),
+                "center_date": pd.Timestamp(values["center_date"]).strftime("%Y-%m-%d"),
                 "center_index": _integer_scalar(
                     values["center_index"],
                     f"{label} scenario {scenario}.center_index",
@@ -805,7 +805,9 @@ def _frontier_table_bindings(
             }
             records.append(record)
         unique_records = {
-            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            json.dumps(
+                record, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+            )
             for record in records
         }
         if len(unique_records) != 1:
@@ -874,7 +876,10 @@ def _validate_frontier_anchor_source(
         raise ValueError(f"{label} does not use the canonical frontier anchor path")
     if expected_sha256 != reference.sha256 or file_sha256(path) != reference.sha256:
         raise ValueError(f"{label} frontier anchor catalog SHA-256 does not match")
-    if _nonnegative_int(expected_count, f"{label}.frontier_anchor_count") != reference.count:
+    if (
+        _nonnegative_int(expected_count, f"{label}.frontier_anchor_count")
+        != reference.count
+    ):
         raise ValueError(f"{label} frontier anchor catalog count does not match")
     daily_bindings = _frontier_table_bindings(
         daily,
@@ -979,9 +984,7 @@ def _validate_tables(
                 frame.loc[frame["model"].astype(str).eq(model), "target"].astype(str)
             )
             if targets and targets != {"F"}:
-                raise ValueError(
-                    f"{table_path} violates F-only semantics for {model}"
-                )
+                raise ValueError(f"{table_path} violates F-only semantics for {model}")
     final_stats = {
         path: (path.stat().st_ino, path.stat().st_size, path.stat().st_mtime_ns)
         for path in (daily_path, event_path)
@@ -1211,9 +1214,7 @@ def _validate_run_authorizations(
             )
         raw_authorization = manifest.get("formal_execution_authorization")
         if not isinstance(raw_authorization, Mapping):
-            raise TypeError(
-                f"{run.manifest_path} lacks formal_execution_authorization"
-            )
+            raise TypeError(f"{run.manifest_path} lacks formal_execution_authorization")
         execution_models: Sequence[str] = (
             ("proposed",) if run.suite in DERIVED_SUITE_MODELS else run.models
         )
@@ -1289,6 +1290,8 @@ def _expected_models_for_role(
         return ("information_compensation",)
     if role == "retrained_upper_bound":
         return ("retrained_information_upper_bound",)
+    if role == "donor_c_falsification":
+        return ("proposed",)
     if role in {"sensitivity_core_T", "sensitivity_dense_frontier"}:
         return selected
     if role == "sensitivity_operational_dropout":
@@ -1380,10 +1383,9 @@ def _validate_event_uncertainty_source(
         experiment_values = table["experiment"].astype(str)
         m7a_rows = scenario_values.isin(expected_m7a_scenarios)
         m7b_rows = scenario_values.isin(expected_m7b_scenarios)
-        if (
-            (m7a_rows & ~experiment_values.eq("M7a")).any()
-            or (m7b_rows & ~experiment_values.eq("M7b")).any()
-        ):
+        if (m7a_rows & ~experiment_values.eq("M7a")).any() or (
+            m7b_rows & ~experiment_values.eq("M7b")
+        ).any():
             raise ValueError(
                 f"full {table_name} mixes event experiment labels within scenarios"
             )
@@ -1398,20 +1400,14 @@ def _validate_event_uncertainty_source(
                 f"full {table_name} M7a targets differ from the frozen event design"
             )
         table_m7a = set(
-            table.loc[
-                experiment_values.eq("M7a"), "scenario_id"
-            ].astype(str)
+            table.loc[experiment_values.eq("M7a"), "scenario_id"].astype(str)
         )
         table_m7b = set(
-            table.loc[
-                experiment_values.eq("M7b"), "scenario_id"
-            ].astype(str)
+            table.loc[experiment_values.eq("M7b"), "scenario_id"].astype(str)
         )
         prefixed = set(
             table.loc[
-                table["scenario_id"]
-                .astype(str)
-                .str.startswith(("M7A-", "M7B-")),
+                table["scenario_id"].astype(str).str.startswith(("M7A-", "M7B-")),
                 "scenario_id",
             ].astype(str)
         )
@@ -1464,10 +1460,13 @@ def _validate_suite_roles(
     selected_models: Sequence[str],
     proposed_decision: str,
     m7a_condition_targets: Mapping[str, str],
+    require_donor_falsification: bool = False,
 ) -> tuple[str, list[str], list[dict[str, Any]]]:
     if bundle_kind == "primary":
         bundle_role = "primary"
         required_roles = list(PRIMARY_SUITE_ROLES)
+        if not require_donor_falsification:
+            required_roles.remove("donor_c_falsification")
         role_sources: dict[str, list[_ValidatedRun]] = {
             role: [] for role in required_roles
         }
@@ -1484,7 +1483,12 @@ def _validate_suite_roles(
             sources = role_sources[role]
             expected_models = _expected_models_for_role(role, selected_models)
             if (
-                role in {"operational_dropout", "retrained_upper_bound"}
+                role
+                in {
+                    "operational_dropout",
+                    "retrained_upper_bound",
+                    "donor_c_falsification",
+                }
                 and proposed_decision == "framework_only"
             ):
                 if sources:
@@ -1506,9 +1510,7 @@ def _validate_suite_roles(
                 raise ValueError(f"primary registry is missing required role {role}")
             if role == "event_uncertainty":
                 for source in sources:
-                    _validate_event_uncertainty_source(
-                        source, m7a_condition_targets
-                    )
+                    _validate_event_uncertainty_source(source, m7a_condition_targets)
             observed_models = {model for source in sources for model in source.models}
             if observed_models != set(expected_models):
                 raise ValueError(
@@ -1719,12 +1721,12 @@ def build_formal_suite_registry(
     data_version: str,
     evaluation_split: str,
     design_hash: str,
-    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v3.yaml",
+    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v4.yaml",
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
     data_version_manifest_path: str | Path | None = None,
     selection_data_version_manifest_path: str | Path | None = None,
-    frontier_anchor_catalog_path: str | Path = DEFAULT_FRONTIER_ANCHOR_PATH,
+    frontier_anchor_catalog_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Validate explicit completed suites and atomically create one registry."""
 
@@ -1774,8 +1776,17 @@ def build_formal_suite_registry(
             "requested design_hash does not match the current frozen data/config/code "
             "contract"
         )
+    selection_version = load_frozen_data_versions(design_path).primary
+    if frontier_anchor_catalog_path is None:
+        frontier_anchor_catalog_path = (
+            V2_FRONTIER_ANCHOR_PATH
+            if selection_version == "published_v2"
+            else DEFAULT_FRONTIER_ANCHOR_PATH
+        )
     frontier_anchor_reference = _load_frontier_anchor_reference(
-        frontier_anchor_catalog_path, study_manifest_path
+        frontier_anchor_catalog_path,
+        study_manifest_path,
+        expected_data_version=selection_version,
     )
     m7a_condition_targets = _load_m7a_condition_targets(
         study_manifest_path, experiment_config_path
@@ -1849,6 +1860,9 @@ def build_formal_suite_registry(
         selected_models=roster.selected_models,
         proposed_decision=roster.proposed_decision,
         m7a_condition_targets=m7a_condition_targets,
+        require_donor_falsification=(
+            expected_contract["design_version"] == "design_freeze_v4"
+        ),
     )
     _revalidate_run_artifact_identities(runs)
     sources = [
@@ -1867,7 +1881,11 @@ def build_formal_suite_registry(
         for run in sorted(runs, key=lambda item: (item.suite, str(item.run_directory)))
     ]
     not_applicable_suite_names = (
-        PROPOSED_ONLY_SUITES
+        (
+            PROPOSED_ONLY_SUITES
+            if expected_contract["design_version"] == "design_freeze_v4"
+            else frozenset(DERIVED_SUITE_MODELS)
+        )
         if bundle_kind == "primary"
         else frozenset({"science_compensation"})
     )
@@ -1907,7 +1925,7 @@ def build_formal_suite_registry(
             "bytes": frontier_anchor_reference.bytes,
             "sha256": frontier_anchor_reference.sha256,
             "count": frontier_anchor_reference.count,
-            "data_version": "published_v1",
+            "data_version": selection_version,
             "evaluation_split": "development_test",
         },
         "formal_root": _portable_path(root),

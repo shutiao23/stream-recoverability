@@ -6,10 +6,9 @@ results or mint DOIs.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import subprocess
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +18,6 @@ from stream_recoverability.data.quality import load_quality_codebook
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     EXECUTABLE_DESIGN_VERSION,
-    file_sha256,
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
@@ -71,7 +69,9 @@ def worktree_clean(repository: Path = REPOSITORY_ROOT) -> bool:
     return _git("status", "--porcelain", cwd=repository) == ""
 
 
-def load_design(path: str | Path = REPOSITORY_ROOT / DEFAULT_DESIGN_PATH) -> dict[str, Any]:
+def load_design(
+    path: str | Path = REPOSITORY_ROOT / DEFAULT_DESIGN_PATH,
+) -> dict[str, Any]:
     document = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
     if not isinstance(document, dict):
         raise TypeError("design freeze must be a mapping")
@@ -84,7 +84,10 @@ def restricted_tracked_paths(repository: Path = REPOSITORY_ROOT) -> list[str]:
         return []
     paths = []
     for relative in listing.splitlines():
-        if any(relative.startswith(prefix) or relative == prefix.rstrip("/") for prefix in RESTRICTED_PATH_PREFIXES):
+        if any(
+            relative.startswith(prefix) or relative == prefix.rstrip("/")
+            for prefix in RESTRICTED_PATH_PREFIXES
+        ):
             paths.append(relative)
     return paths
 
@@ -94,7 +97,9 @@ def audit_restricted_hosting(repository: Path = REPOSITORY_ROOT) -> dict[str, An
 
     paths = restricted_tracked_paths(repository)
     return {
-        "status": "public_hosting_defect" if paths else "restricted_bytes_absent_from_tip",
+        "status": "public_hosting_defect"
+        if paths
+        else "restricted_bytes_absent_from_tip",
         "public_hosting_defect": bool(paths),
         "restricted_tracked_path_count": len(paths),
         "restricted_tracked_paths": paths,
@@ -109,7 +114,9 @@ def audit_restricted_hosting(repository: Path = REPOSITORY_ROOT) -> dict[str, An
 
 
 def roster_path(repository: Path = REPOSITORY_ROOT) -> Path | None:
-    candidates = sorted(repository.glob("results/validation_funnel/**/finalized_model_roster_v1.json"))
+    candidates = sorted(
+        repository.glob("results/validation_funnel/**/finalized_model_roster.json")
+    )
     return candidates[-1] if candidates else None
 
 
@@ -135,7 +142,6 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         "worktree_clean": worktree_clean(repository),
         "executable_design": EXECUTABLE_DESIGN_VERSION,
         "design_path": str(DEFAULT_DESIGN_PATH),
-        "design_sha256": file_sha256(design_path),
         "design_version": design.get("design_version"),
         "primary_data_version": design.get("data_versions", {}).get("primary"),
         "max_epochs": design.get("training", {})
@@ -143,7 +149,9 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         .get("common", {})
         .get("max_epochs"),
         "hit_epoch_limit_rejected": bool(
-            design.get("training", {}).get("budget_rule", {}).get("reject_if_hit_epoch_limit")
+            design.get("training", {})
+            .get("budget_rule", {})
+            .get("reject_if_hit_epoch_limit")
         ),
         "dual_frontier_required": (
             design.get("statistics", {})
@@ -158,7 +166,9 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         "observed_unflagged_provider_qc_status": str(unflagged["provider_qc_status"]),
         "hosting": hosting,
         "finalized_model_roster": "present" if roster is not None else "pending",
-        "roster_path": str(roster.relative_to(repository)) if roster is not None else None,
+        "roster_path": str(roster.relative_to(repository))
+        if roster is not None
+        else None,
         "formal_results_manifest": "present" if formal.is_file() else "pending",
         "manuscript_results_pending_markers": pending,
         "current_protocol_result_claims": "none" if pending else "see_manuscript",
@@ -167,25 +177,115 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     }
 
 
-def submission_gate(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
-    """Fail closed until the P0 evidence chain actually exists."""
+def _load_release_record(
+    path: str | Path | None, label: str
+) -> tuple[dict[str, Any] | None, str | None]:
+    if path is None:
+        return None, f"{label} was not supplied"
+    source = Path(path)
+    if not source.is_file():
+        return None, f"{label} is missing: {source}"
+    try:
+        value = json.loads(source.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return None, f"{label} is unreadable: {error}"
+    if not isinstance(value, dict):
+        return None, f"{label} must be a JSON mapping"
+    return value, None
+
+
+def _record_complete(value: Mapping[str, Any]) -> bool:
+    if value.get("complete") is True or value.get("finalized") is True:
+        return True
+    return str(value.get("status", "")).lower() in {
+        "complete",
+        "completed",
+        "ok",
+        "passed",
+    }
+
+
+def submission_gate(
+    repository: Path = REPOSITORY_ROOT,
+    *,
+    roster: str | Path | None = None,
+    primary_registry: str | Path | None = None,
+    primary_aggregate_manifest: str | Path | None = None,
+    analysis_manifest: str | Path | None = None,
+    confirmatory_data_manifest: str | Path | None = None,
+    confirmatory_run_manifest: str | Path | None = None,
+    once_lock: str | Path | None = None,
+    rights_audit: str | Path | None = None,
+    reproduction_report: str | Path | None = None,
+) -> dict[str, Any]:
+    """Validate explicit release evidence; never discover a convenient file by glob."""
 
     snapshot = evidence_snapshot(repository)
     blockers: list[str] = []
     if snapshot["design_version"] != EXECUTABLE_DESIGN_VERSION:
-        blockers.append("executable design is not design_freeze_v3")
+        blockers.append(f"executable design is not {EXECUTABLE_DESIGN_VERSION}")
     if snapshot["observed_unflagged_provider_qc_status"] == "approved":
         blockers.append("observed_unflagged is still marked provider-approved")
-    if snapshot["finalized_model_roster"] != "present":
-        blockers.append("finalized_model_roster_v1 is absent")
-    if snapshot["formal_results_manifest"] != "present":
-        blockers.append("current-protocol formal results manifest is absent")
+    supplied = {
+        "finalized roster": roster,
+        "primary formal registry": primary_registry,
+        "primary aggregate manifest": primary_aggregate_manifest,
+        "analysis manifest": analysis_manifest,
+        "confirmatory data manifest": confirmatory_data_manifest,
+        "confirmatory run manifest": confirmatory_run_manifest,
+        "confirmatory once-lock": once_lock,
+        "rights audit": rights_audit,
+        "reproduction report": reproduction_report,
+    }
+    records: dict[str, dict[str, Any]] = {}
+    for label, path in supplied.items():
+        value, error = _load_release_record(path, label)
+        if error is not None:
+            blockers.append(error)
+        else:
+            assert value is not None
+            records[label] = value
+    roster_record = records.get("finalized roster")
+    if roster_record is not None and (
+        roster_record.get("finalized") is not True
+        or roster_record.get("design_version") != EXECUTABLE_DESIGN_VERSION
+        or roster_record.get("data_version") != snapshot["primary_data_version"]
+        or "best_simple_baseline_lookup" not in roster_record.get("artifacts", {})
+    ):
+        blockers.append("finalized roster does not satisfy the current v4 contract")
+    for label in (
+        "primary formal registry",
+        "primary aggregate manifest",
+        "analysis manifest",
+        "confirmatory data manifest",
+        "confirmatory run manifest",
+        "rights audit",
+        "reproduction report",
+    ):
+        record = records.get(label)
+        if record is not None and not _record_complete(record):
+            blockers.append(f"{label} is not complete")
+    aggregate = records.get("primary aggregate manifest")
+    if aggregate is not None and aggregate.get("retryable_run_unit_count", 0) != 0:
+        blockers.append("primary aggregate contains retryable failures")
+    analysis = records.get("analysis manifest")
+    required_analysis = {
+        "dual_frontier_comparison.csv",
+        "donor_c_falsification_effects.csv",
+        "donor_c_falsification_decision.csv",
+    }
+    if analysis is not None:
+        artifacts = analysis.get("artifacts", {})
+        if not isinstance(artifacts, Mapping) or not required_analysis.issubset(
+            artifacts
+        ):
+            blockers.append(
+                "analysis manifest lacks dual-frontier/falsification artifacts"
+            )
     if snapshot["manuscript_results_pending_markers"]:
         blockers.append("manuscript still contains RESULTS_PENDING markers")
     if snapshot["hosting"]["public_hosting_defect"]:
         blockers.append("restricted bytes remain on the public development tip")
-    if snapshot["confirmatory_evaluation"] != "complete":
-        blockers.append("external evaluate-once confirmation has not completed")
     if not snapshot["dual_frontier_required"]:
         blockers.append("best-simple frontier is not required")
     passed = not blockers
@@ -194,6 +294,10 @@ def submission_gate(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         "decision": "go" if passed else "no_go",
         "blockers": blockers,
         "snapshot": snapshot,
+        "explicit_inputs": {
+            label: str(path) if path is not None else None
+            for label, path in supplied.items()
+        },
         "note": "A failing gate is the correct state until formal evidence exists.",
     }
 
@@ -201,10 +305,6 @@ def submission_gate(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
 def write_json(path: str | Path, payload: dict[str, Any]) -> Path:
     destination = Path(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    digest = hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
-    ).hexdigest()
-    payload = {**payload, "document_sha256": digest}
     destination.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )

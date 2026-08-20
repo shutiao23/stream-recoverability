@@ -26,7 +26,7 @@ from stream_recoverability.analysis.frozen_pipeline import (
 DEFAULT_PREDICTIONS = PROJECT_ROOT / "results/frozen/predictions.parquet"
 DEFAULT_EVENTS = PROJECT_ROOT / "results/frozen/event_metrics.parquet"
 DEFAULT_MANIFEST = PROJECT_ROOT / "results/frozen/top_manifest.json"
-DEFAULT_DESIGN = PROJECT_ROOT / "configs/design_freeze_v3.yaml"
+DEFAULT_DESIGN = PROJECT_ROOT / "configs/design_freeze_v4.yaml"
 DEFAULT_OUTPUT = PROJECT_ROOT / "results/analysis"
 FIXED_TRAINING_SEEDS = frozenset({11, 22, 33, 44, 55})
 CANONICAL_TRAINABLE_MODELS = frozenset(
@@ -158,7 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     if len(args.sensitivity_manifest) != 3:
         parser.error(
             "--sensitivity-manifest must be supplied exactly three times "
-            "(no_s2_suspect_v1, b1_no_level_v1, b1_shift_sensitivity_v1)"
+            "(no_s2_suspect_v2, b1_no_level_v2, b1_shift_sensitivity_v2)"
         )
     inputs = load_frozen_inputs(
         args.predictions,

@@ -55,7 +55,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--selection-data-version-manifest",
         type=Path,
-        default=PROJECT_ROOT / "data_versions/published_v1/version_manifest.json",
+        help="selection manifest; defaults from data_versions.primary in --design",
     )
     parser.add_argument(
         "--results-root",
@@ -96,9 +96,7 @@ def main() -> None:
     )
     canonical_root = args.results_root / inputs.evidence_contract["data_version"]
     design_hash = inputs.evidence_contract["design_hash"]
-    output = args.output_dir or (
-        canonical_root / design_hash / "external_confirmation"
-    )
+    output = args.output_dir or (canonical_root / design_hash / "external_confirmation")
     lock = confirmatory_once_lock_path(inputs.data_root)
     if args.feasibility_only:
         feasibility_output = args.output_dir or (
@@ -111,9 +109,7 @@ def main() -> None:
             design_path=args.design,
             study_manifest_path=args.study_manifest,
             experiment_config_path=args.experiment_config,
-            selection_data_version_manifest_path=(
-                args.selection_data_version_manifest
-            ),
+            selection_data_version_manifest_path=(args.selection_data_version_manifest),
         )
         print(
             json.dumps(

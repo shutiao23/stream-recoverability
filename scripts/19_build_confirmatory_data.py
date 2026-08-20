@@ -16,7 +16,6 @@ if str(SRC_ROOT) not in sys.path:
 
 from stream_recoverability.data.confirmatory import (
     CONFIRMATORY_DATA_VERSION,
-    DEFAULT_SELECTION_DATA_VERSION,
     build_confirmatory_data,
     build_confirmatory_request_plan,
     load_confirmatory_protocol,
@@ -34,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v3.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v4.yaml",
     )
     plan.add_argument(
         "--output",
@@ -52,7 +51,7 @@ def build_parser() -> argparse.ArgumentParser:
     build.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v3.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v4.yaml",
     )
     build.add_argument(
         "--output",
@@ -80,18 +79,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     build.add_argument(
         "--selection-data-version",
-        default=DEFAULT_SELECTION_DATA_VERSION,
-        help="frozen validation data version (must remain published_v1)",
+        help="frozen validation version; defaults to data_versions.primary in --design",
     )
     build.add_argument(
         "--selection-data-version-manifest",
         type=Path,
-        default=(
-            PROJECT_ROOT
-            / "data_versions"
-            / DEFAULT_SELECTION_DATA_VERSION
-            / "version_manifest.json"
-        ),
+        help="selection manifest; defaults from data_versions.primary in --design",
     )
     build.add_argument(
         "--usgs-api-key-env",

@@ -14,8 +14,13 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from stream_recoverability.experiments.contracts import (
+    DEFAULT_DESIGN_PATH,
     build_design_contract,
     canonical_evaluation_split,
+    load_frozen_data_versions,
+)
+from stream_recoverability.experiments.donor_falsification import (
+    run_donor_falsification,
 )
 from stream_recoverability.experiments.formal_authorization import (
     authorize_roster_suite,
@@ -55,12 +60,12 @@ def _add_anchor_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--frontier-anchors",
         type=Path,
-        default=PROJECT_ROOT / "metadata" / "frontier_anchors.csv",
+        default=PROJECT_ROOT / "metadata" / "frontier_anchors_v2.csv",
     )
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v3.yaml",
+        default=PROJECT_ROOT / DEFAULT_DESIGN_PATH,
     )
     parser.add_argument(
         "--data-root",
@@ -85,9 +90,7 @@ def build_parser() -> argparse.ArgumentParser:
     dense.add_argument("--output-dir", type=Path)
     dense.add_argument("--mask-dir", type=Path)
     dense.add_argument("--models", nargs="+")
-    dense.add_argument(
-        "--finalized-model-roster", type=Path, required=True
-    )
+    dense.add_argument("--finalized-model-roster", type=Path, required=True)
     dense.add_argument("--training-seeds", nargs="+", type=int)
     dense.add_argument("--mask-seeds", nargs="+", type=int)
     dense.add_argument("--shard-index", type=int, default=0)
@@ -110,9 +113,7 @@ def build_parser() -> argparse.ArgumentParser:
     resilience.add_argument("--output-dir", type=Path)
     resilience.add_argument("--mask-dir", type=Path)
     resilience.add_argument("--models", nargs="+")
-    resilience.add_argument(
-        "--finalized-model-roster", type=Path, required=True
-    )
+    resilience.add_argument("--finalized-model-roster", type=Path, required=True)
     resilience.add_argument("--training-seeds", nargs="+", type=int)
     resilience.add_argument("--mask-seeds", nargs="+", type=int)
     resilience.add_argument("--shard-index", type=int, default=0)
@@ -147,9 +148,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     compensation.add_argument("--training-seed", type=int)
     compensation.add_argument("--training-seeds", nargs="+", type=int)
-    compensation.add_argument(
-        "--finalized-model-roster", type=Path, required=True
-    )
+    compensation.add_argument("--finalized-model-roster", type=Path, required=True)
     compensation.add_argument("--mask-seeds", nargs="+", type=int)
     compensation.add_argument("--max-scenarios", type=int)
     compensation.add_argument("--device", default="cpu")
@@ -157,6 +156,29 @@ def build_parser() -> argparse.ArgumentParser:
         "--resume", action=argparse.BooleanOptionalAction, default=True
     )
     _add_anchor_arguments(compensation)
+
+    donor = subparsers.add_parser(
+        "donor-falsification",
+        help="run the frozen same-checkpoint target-donor lag/permutation suite",
+    )
+    donor.add_argument(
+        "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"
+    )
+    donor.add_argument(
+        "--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml"
+    )
+    donor.add_argument("--data", type=Path)
+    donor.add_argument("--quality-data", type=Path)
+    donor.add_argument("--output-dir", type=Path)
+    donor.add_argument("--mask-dir", type=Path)
+    donor.add_argument("--checkpoint-dir", type=Path)
+    donor.add_argument("--training-seeds", nargs="+", type=int)
+    donor.add_argument("--finalized-model-roster", type=Path, required=True)
+    donor.add_argument("--mask-seeds", nargs="+", type=int)
+    donor.add_argument("--max-scenarios", type=int)
+    donor.add_argument("--device", default="cpu")
+    donor.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
+    _add_anchor_arguments(donor)
 
     retrained = subparsers.add_parser(
         "retrained-information",
@@ -207,7 +229,7 @@ def build_parser() -> argparse.ArgumentParser:
     information.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v3.yaml",
+        default=PROJECT_ROOT / DEFAULT_DESIGN_PATH,
     )
     information.add_argument("--data-version", default="published_v2")
     information.add_argument(
@@ -241,13 +263,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
+    frozen_versions = load_frozen_data_versions(args.design)
+    if args.data_version not in {
+        frozen_versions.primary,
+        *frozen_versions.sensitivities,
+    }:
+        raise ValueError("--data-version is outside the design's frozen inventory")
     if args.command in {"dense", "resilience"}:
         canonical_split = canonical_evaluation_split(args.evaluation_split)
         version_root = args.data_root / args.data_version
         version_manifest = version_root / "version_manifest.json"
-        selection_version_manifest = (
-            args.data_root / "published_v1" / "version_manifest.json"
-        )
+        selection_version_manifest = frozen_versions.manifest_path(args.data_root)
         if not version_manifest.is_file() or not selection_version_manifest.is_file():
             raise FileNotFoundError(
                 "versioned data manifests are required: "
@@ -335,18 +361,14 @@ def main() -> None:
             "evaluation_split": canonical_split,
             "design_hash": contract["design_hash"],
             "formal_evidence": True,
-            "finalized_model_roster": formal_authorization[
-                "finalized_model_roster"
-            ],
+            "finalized_model_roster": formal_authorization["finalized_model_roster"],
             "expected_formal_models": list(models),
         }
     elif args.command == "compensation":
         canonical_split = canonical_evaluation_split(args.evaluation_split)
         version_root = args.data_root / args.data_version
         version_manifest = version_root / "version_manifest.json"
-        selection_version_manifest = (
-            args.data_root / "published_v1" / "version_manifest.json"
-        )
+        selection_version_manifest = frozen_versions.manifest_path(args.data_root)
         if not version_manifest.is_file() or not selection_version_manifest.is_file():
             raise FileNotFoundError(
                 "versioned data manifests are required: "
@@ -431,20 +453,90 @@ def main() -> None:
             "design_hash": contract["design_hash"],
             "status": compensation_manifest["status"],
             "formal_evidence": compensation_manifest["formal_evidence"],
-            "finalized_model_roster": compensation_manifest[
-                "finalized_model_roster"
-            ],
-            "expected_formal_models": compensation_manifest[
-                "expected_formal_models"
-            ],
+            "finalized_model_roster": compensation_manifest["finalized_model_roster"],
+            "expected_formal_models": compensation_manifest["expected_formal_models"],
+        }
+    elif args.command == "donor-falsification":
+        canonical_split = canonical_evaluation_split(args.evaluation_split)
+        version_root = args.data_root / args.data_version
+        version_manifest = version_root / "version_manifest.json"
+        selection_version_manifest = frozen_versions.manifest_path(args.data_root)
+        for required in (version_manifest, selection_version_manifest):
+            if not required.is_file():
+                raise FileNotFoundError(
+                    f"versioned data manifest is required: {required}"
+                )
+        contract = build_design_contract(
+            design_path=args.design,
+            manifest_path=args.manifest,
+            experiment_config_path=args.config,
+            data_version=args.data_version,
+            evaluation_split=canonical_split,
+            data_version_manifest_path=version_manifest,
+        )
+        run_root = (
+            PROJECT_ROOT
+            / "results/science_experiments"
+            / args.data_version
+            / contract["design_hash"]
+            / canonical_split
+        )
+        output_dir = args.output_dir or run_root / "donor_falsification"
+        mask_dir = args.mask_dir or (
+            PROJECT_ROOT
+            / "masks/science_donor_falsification"
+            / args.data_version
+            / contract["design_hash"]
+            / canonical_split
+        )
+        checkpoint_dir = args.checkpoint_dir or (
+            PROJECT_ROOT
+            / "results/experiments_v2"
+            / args.data_version
+            / contract["design_hash"]
+            / canonical_split
+            / "full/checkpoints"
+        )
+        daily, events, skipped = run_donor_falsification(
+            finalized_model_roster_path=args.finalized_model_roster,
+            selection_data_version_manifest_path=selection_version_manifest,
+            checkpoint_dir=checkpoint_dir,
+            manifest_path=args.manifest,
+            config_path=args.config,
+            design_path=args.design,
+            data_version_manifest_path=version_manifest,
+            wide_path=args.data or version_root / "daily_wide.parquet",
+            quality_path=args.quality_data or version_root / "daily_long.parquet",
+            output_dir=output_dir,
+            mask_dir=mask_dir,
+            training_seeds=args.training_seeds,
+            mask_seeds=args.mask_seeds,
+            data_version=args.data_version,
+            evaluation_split=canonical_split,
+            frontier_anchor_path=args.frontier_anchors,
+            max_scenarios=args.max_scenarios,
+            device=args.device,
+            resume=args.resume,
+        )
+        run_manifest = json.loads(
+            (output_dir / "run_manifest.json").read_text(encoding="utf-8")
+        )
+        summary = {
+            "command": args.command,
+            "status": run_manifest["status"],
+            "complete": run_manifest["complete"],
+            "daily_rows": len(daily),
+            "event_rows": len(events),
+            "skipped_rows": len(skipped),
+            "output_dir": str(output_dir),
+            "data_version": args.data_version,
+            "design_hash": contract["design_hash"],
         }
     elif args.command == "retrained-information":
         canonical_split = canonical_evaluation_split(args.evaluation_split)
         version_root = args.data_root / args.data_version
         version_manifest = version_root / "version_manifest.json"
-        selection_version_manifest = (
-            args.data_root / "published_v1" / "version_manifest.json"
-        )
+        selection_version_manifest = frozen_versions.manifest_path(args.data_root)
         for required in (version_manifest, selection_version_manifest):
             if not required.is_file():
                 raise FileNotFoundError(

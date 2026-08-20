@@ -170,7 +170,10 @@ def _formal_registry_fields(
             "retrained_upper_bound",
         ]
         role_sources = {
-            "core_full": ("full", [*selected_models, "independent_flow", "rating_curve"]),
+            "core_full": (
+                "full",
+                [*selected_models, "independent_flow", "rating_curve"],
+            ),
             "dense_frontier": (
                 "science_dense",
                 [*selected_models, "independent_flow", "rating_curve"],
@@ -219,7 +222,9 @@ def _formal_registry_fields(
         pd.DataFrame({"suite": [suite]}).to_parquet(daily_path, index=False)
         pd.DataFrame({"suite": [suite]}).to_parquet(event_path, index=False)
         path = directory / "run_manifest.json"
-        path.write_text(json.dumps({"suite": suite, "models": models}), encoding="utf-8")
+        path.write_text(
+            json.dumps({"suite": suite, "models": models}), encoding="utf-8"
+        )
         source_by_suite[suite] = {
             "suite": suite,
             "run_directory": str(directory.resolve()),
@@ -265,7 +270,9 @@ def _formal_registry_fields(
             for suite, source in source_by_suite.items()
             if suite in used_suites
         }
-    version_manifest = PROJECT_ROOT / f"data_versions/{data_version}/version_manifest.json"
+    version_manifest = (
+        PROJECT_ROOT / f"data_versions/{data_version}/version_manifest.json"
+    )
     anchors = PROJECT_ROOT / "metadata/frontier_anchors.csv"
     registry: dict[str, object] = {
         "schema_version": "formal_suite_registry_v1",
@@ -436,9 +443,7 @@ def _write_anchored_bundle(
     count = len(event_rows)
     manifest = {
         **_contract(data_version),
-        **_formal_registry_fields(
-            root, data_version, framework_only=framework_only
-        ),
+        **_formal_registry_fields(root, data_version, framework_only=framework_only),
         "schema_version": "formal_aggregate_manifest_v2",
         "frozen": True,
         "complete": True,
@@ -1090,9 +1095,9 @@ def test_separate_frozen_sensitivity_bundles_run_end_to_end(
     )
     assert manifest["data_version_inputs"]["b1_no_level_v1"]["status"] == "available"
     assert manifest["status"] == "incomplete"
-    assert "recoverability_frontier" in manifest["completion_gate"][
-        "unavailable_domains"
-    ]
+    assert (
+        "recoverability_frontier" in manifest["completion_gate"]["unavailable_domains"]
+    )
 
 
 def test_frozen_bundle_rejects_hash_contract_and_completeness_mismatches(
@@ -1146,9 +1151,7 @@ def test_dynamic_absence_writes_all_outputs_with_explicit_status(
         )
     ]
     output = tmp_path / "analysis"
-    result = run_frozen_analysis(
-        inputs, output, sensitivity_inputs=sensitivities
-    )
+    result = run_frozen_analysis(inputs, output, sensitivity_inputs=sensitivities)
     assert result["status"] == "incomplete"
     assert not result["complete"]
     assert (
@@ -1205,9 +1208,7 @@ def test_analysis_run_fails_before_writing_when_analysis_source_is_dirty(
 
 
 def _completion_frames(*, framework_only: bool) -> dict[str, pd.DataFrame]:
-    frames = {
-        name: pd.DataFrame({"value": [1.0]}) for name in FIXED_ARTIFACTS
-    }
+    frames = {name: pd.DataFrame({"value": [1.0]}) for name in FIXED_ARTIFACTS}
     if framework_only:
         for name in (
             "information_combination_metrics.csv",
@@ -1295,7 +1296,9 @@ def test_completion_gate_requires_every_domain_and_all_sensitivity_versions() ->
     assert "data_version_sensitivity" in unavailable["unavailable_domains"]
 
 
-def test_framework_only_allows_only_structural_na_and_not_missing_core_domains() -> None:
+def test_framework_only_allows_only_structural_na_and_not_missing_core_domains() -> (
+    None
+):
     statistics = load_frozen_statistics(DESIGN)
     framework = frozen_pipeline_module._analysis_completion_gate(
         _completion_frames(framework_only=True),
@@ -1305,9 +1308,7 @@ def test_framework_only_allows_only_structural_na_and_not_missing_core_domains()
         selected_models=["linear"],
     )
     assert framework["status"] == "complete"
-    assert framework["claim_downgrades"] == [
-        "uncertainty_calibration_not_claimed"
-    ]
+    assert framework["claim_downgrades"] == ["uncertainty_calibration_not_claimed"]
     statuses = {item["domain"]: item["status"] for item in framework["domains"]}
     assert statuses["operational_information"] == "not_applicable"
     assert statuses["retrained_information"] == "not_applicable"
@@ -1337,9 +1338,7 @@ def test_frozen_analysis_rejects_missing_or_duplicate_sensitivity_manifests(
         _clean_code_identity,
     )
     primary = load_frozen_inputs(
-        *_write_anchored_bundle(
-            tmp_path / "primary", "published_v1", mae_offset=0.0
-        ),
+        *_write_anchored_bundle(tmp_path / "primary", "published_v1", mae_offset=0.0),
         DESIGN,
     )
     sensitivities = [
@@ -1376,9 +1375,7 @@ def test_analysis_input_manifest_closes_registry_sources_and_builder_identity(
         _clean_code_identity,
     )
     primary = load_frozen_inputs(
-        *_write_anchored_bundle(
-            tmp_path / "primary", "published_v1", mae_offset=0.0
-        ),
+        *_write_anchored_bundle(tmp_path / "primary", "published_v1", mae_offset=0.0),
         DESIGN,
     )
     sensitivities = [
@@ -1479,7 +1476,11 @@ def test_analysis_code_identity_is_clone_stable_and_audits_git_scope() -> None:
     identity = build_analysis_code_identity(PROJECT_ROOT)
     assert identity["schema_version"] == "analysis_code_identity_v1"
     assert len(identity["relevant_source_digest"]) == 64
-    assert identity["relevant_source_file_count"] == 6
+    assert identity["relevant_source_file_count"] == 8
+    assert {
+        "src/stream_recoverability/analysis/frontiers.py",
+        "src/stream_recoverability/analysis/falsification.py",
+    }.issubset({item["path"] for item in identity["files"]})
     assert [item["path"] for item in identity["files"]] == sorted(
         item["path"] for item in identity["files"]
     )

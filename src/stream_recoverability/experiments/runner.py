@@ -217,7 +217,9 @@ def _reference_adapter_name(model_name: str) -> str:
     try:
         return mapping[model_name]
     except KeyError as error:
-        raise ValueError(f"{model_name!r} is not an official reference model") from error
+        raise ValueError(
+            f"{model_name!r} is not an official reference model"
+        ) from error
 
 
 class _CheckpointRetrainingRequired(RuntimeError):
@@ -579,13 +581,28 @@ def _load_data(
             if Path(quality_path).suffix.lower() == ".parquet"
             else pd.read_csv(quality_path)
         )
-        required_long = {"date", "station_id", "variable", "quality_approved"}
+        v2_quality_contract = data_version == "published_v2" or data_version.endswith(
+            "_v2"
+        )
+        quality_column = (
+            "analysis_eligible" if v2_quality_contract else "quality_approved"
+        )
+        required_long = {"date", "station_id", "variable", quality_column}
+        if v2_quality_contract:
+            required_long.update({"provider_qc_status", "known_issue_flag"})
         if not required_long.issubset(long):
             raise KeyError(
                 f"quality data is missing {sorted(required_long.difference(long.columns))}"
             )
         long = long.copy()
         long["date"] = pd.to_datetime(long["date"]).dt.normalize()
+        if "quality_approved" in long and "analysis_eligible" in long:
+            legacy = long["quality_approved"].fillna(False).astype(bool)
+            current = long["analysis_eligible"].fillna(False).astype(bool)
+            if not legacy.equals(current):
+                raise ValueError(
+                    "quality_approved legacy alias differs from analysis_eligible"
+                )
         if "data_version" in long:
             long_versions = tuple(
                 str(value) for value in long["data_version"].dropna().unique()
@@ -610,12 +627,12 @@ def _load_data(
                 )
                 aligned = selected.reindex(pd.DatetimeIndex(wide["date"]))
                 quality[:, station_index, variable_index] = (
-                    aligned["quality_approved"].fillna(False).astype(bool).to_numpy()
+                    aligned[quality_column].fillna(False).astype(bool).to_numpy()
                 )
                 natural_column = (
                     "natural_observed"
                     if "natural_observed" in aligned
-                    else "quality_approved"
+                    else quality_column
                 )
                 natural[:, station_index, variable_index] = (
                     aligned[natural_column].fillna(False).astype(bool).to_numpy()
@@ -823,8 +840,12 @@ class ExperimentRunner:
         )
         if not requested_models:
             raise ValueError("at least one model must be selected")
-        normalized_inputs = tuple(str(value).strip().lower() for value in requested_models)
-        legacy_inputs = sorted(set(normalized_inputs).intersection(LEGACY_MODEL_ALIASES))
+        normalized_inputs = tuple(
+            str(value).strip().lower() for value in requested_models
+        )
+        legacy_inputs = sorted(
+            set(normalized_inputs).intersection(LEGACY_MODEL_ALIASES)
+        )
         if legacy_inputs and self.training_profile_name == "formal":
             raise ValueError(
                 "legacy BRITS/SAITS aliases are migration-only and cannot be used "
@@ -838,9 +859,7 @@ class ExperimentRunner:
             raise ValueError(f"unsupported models: {unknown}")
         if self.training_profile_name == "formal":
             nonformal = sorted(
-                set(self.models).difference(
-                    self.frozen_model_design.formal_candidates
-                )
+                set(self.models).difference(self.frozen_model_design.formal_candidates)
             )
             if nonformal:
                 raise ValueError(
@@ -869,9 +888,7 @@ class ExperimentRunner:
         )
         self.formal_evidence = self.formal_authorization is not None
         self.formal_grid_contract = (
-            validate_formal_grid_contract(self.grid)
-            if self.formal_evidence
-            else None
+            validate_formal_grid_contract(self.grid) if self.formal_evidence else None
         )
         self.model_request_aliases = {
             value: canonical_model_name(value)
@@ -901,9 +918,7 @@ class ExperimentRunner:
         self._reference_last_run_diagnostics: dict[
             tuple[str, int, int, str], dict[str, Any]
         ] = {}
-        self._reference_inference_seconds: dict[
-            tuple[str, int, int, str], float
-        ] = {}
+        self._reference_inference_seconds: dict[tuple[str, int, int, str], float] = {}
         self._proposed_cache: dict[
             tuple[int, int, str],
             tuple[MissingAwareMultisourceImputer, np.ndarray, np.ndarray],
@@ -1024,9 +1039,7 @@ class ExperimentRunner:
                     self.data.variable_names.index(variable) for variable in variables
                 ]
                 if condition.mask_type == "async":
-                    shift = round(
-                        audit_length * (1.0 - float(condition.overlap_ratio))
-                    )
+                    shift = round(audit_length * (1.0 - float(condition.overlap_ratio)))
                     if condition.async_axis == "variable":
                         groups = [
                             (
@@ -1190,9 +1203,8 @@ class ExperimentRunner:
         else:
             variable = self.data.variable_names.index("F")
         series = self.data.values[:, station, variable]
-        source_split = (
-            scenario.condition.source_split
-            or self._stored_split_label(scenario.condition.evaluation_split)
+        source_split = scenario.condition.source_split or self._stored_split_label(
+            scenario.condition.evaluation_split
         )
         derived = derive_event_day_condition(
             self.data.dates,
@@ -1217,14 +1229,13 @@ class ExperimentRunner:
             expected_axes = _mask_axes(
                 self.data.dates, self.data.station_ids, self.data.variable_names
             )
-            if not axes_path.exists() or json.loads(
-                axes_path.read_text(encoding="utf-8")
-            ) != expected_axes:
+            if (
+                not axes_path.exists()
+                or json.loads(axes_path.read_text(encoding="utf-8")) != expected_axes
+            ):
                 raise ValueError("stored mask axes do not match the current data")
             try:
-                mask, metadata = _load_compact_mask(
-                    self.mask_dir, scenario.scenario_id
-                )
+                mask, metadata = _load_compact_mask(self.mask_dir, scenario.scenario_id)
                 self._validate_scenario_mask(scenario, mask, metadata)
             except (KeyError, ValueError):
                 # Current quality or scenario metadata can legitimately invalidate
@@ -1268,8 +1279,7 @@ class ExperimentRunner:
                 "masked_cells": int(mask.sum()),
                 "held_out_station": self.data.station_ids[station],
                 "validation_scope": condition.validation_scope,
-                "is_external_validation": condition.evaluation_split
-                == "confirmatory",
+                "is_external_validation": condition.evaluation_split == "confirmatory",
             }
         elif condition.mask_type == "point":
             point_family = generate_nested_point_mask_family(
@@ -1466,13 +1476,10 @@ class ExperimentRunner:
                 if is_loso
                 else "validation",
                 "evaluation_split": condition.evaluation_split,
-                "evidence_role": self._evidence_role(
-                    condition.evaluation_split
-                ),
+                "evidence_role": self._evidence_role(condition.evaluation_split),
                 "formal_evidence": self.formal_evidence,
                 "external_validation_status": self.grid.external_validation_status,
-                "is_external_validation": condition.evaluation_split
-                == "confirmatory",
+                "is_external_validation": condition.evaluation_split == "confirmatory",
                 **self.evidence_contract,
             }
         )
@@ -1499,7 +1506,9 @@ class ExperimentRunner:
         if np.any(mask[~evaluation_rows]):
             raise ValueError("scenario mask leaked outside its evaluation split")
         if np.any(mask & ~self.data.quality_approved):
-            raise ValueError("scenario mask includes cells not currently quality-approved")
+            raise ValueError(
+                "scenario mask includes cells not currently quality-approved"
+            )
         if np.any(mask & ~self.data.natural_observed):
             raise ValueError("scenario mask includes cells without natural truth")
         if (
@@ -1523,8 +1532,7 @@ class ExperimentRunner:
         }
         if contract_mismatches:
             raise ValueError(
-                "stored mask evidence contract mismatch: "
-                f"{contract_mismatches}"
+                f"stored mask evidence contract mismatch: {contract_mismatches}"
             )
         condition = scenario.condition
         if condition.anchor_id is not None and condition.mask_type in {
@@ -1965,9 +1973,7 @@ class ExperimentRunner:
                 "n_channels": int(frozen["n_channels"]),
                 "d_time_embedding": int(frozen["time_embedding_size"]),
                 "d_feature_embedding": int(frozen["feature_embedding_size"]),
-                "d_diffusion_embedding": int(
-                    frozen["diffusion_embedding_size"]
-                ),
+                "d_diffusion_embedding": int(frozen["diffusion_embedding_size"]),
                 "n_diffusion_steps": int(frozen["diffusion_steps"]),
                 "target_strategy": str(frozen["target_strategy"]),
                 "is_unconditional": bool(frozen["unconditional"]),
@@ -2100,9 +2106,7 @@ class ExperimentRunner:
         reference_protocol, adapter_config, training_config, _ = (
             self._reference_contract(model_name, seed, window, protocol)
         )
-        checkpoint = self._reference_checkpoint_path(
-            model_name, seed, window, protocol
-        )
+        checkpoint = self._reference_checkpoint_path(model_name, seed, window, protocol)
         sidecar = Path(str(checkpoint) + ".sha256")
         if self.resume and (checkpoint.exists() or sidecar.exists()):
             try:
@@ -2159,9 +2163,11 @@ class ExperimentRunner:
         window = min(int(window), len(values))
         starts = _window_starts(len(values), window)
         target = self.data.variable_names.index("T")
-        if isinstance(repeats, (bool, np.bool_)) or not isinstance(
-            repeats, (int, np.integer)
-        ) or int(repeats) < 1:
+        if (
+            isinstance(repeats, (bool, np.bool_))
+            or not isinstance(repeats, (int, np.integer))
+            or int(repeats) < 1
+        ):
             raise ValueError("repeats must be a positive integer")
         repeats = int(repeats)
 
@@ -2251,7 +2257,9 @@ class ExperimentRunner:
                     "values": torch.from_numpy(values[start:end]).unsqueeze(0),
                     "natural_mask": torch.from_numpy(natural[start:end]).unsqueeze(0),
                     "artificial_mask": torch.from_numpy(artificial_window).unsqueeze(0),
-                    "target": torch.from_numpy(values[start:end, :, target]).unsqueeze(0),
+                    "target": torch.from_numpy(values[start:end, :, target]).unsqueeze(
+                        0
+                    ),
                     "quality_mask": torch.from_numpy(
                         quality[start:end, :, target]
                     ).unsqueeze(0),
@@ -2268,7 +2276,9 @@ class ExperimentRunner:
                     batch["validation_scenario"] = metadata["validation_scenario"]
                 batches.append(batch)
         if not batches:
-            raise ValueError("proposed batch construction produced no masked target cells")
+            raise ValueError(
+                "proposed batch construction produced no masked target cells"
+            )
         return batches
 
     def _proposed_scaler(self) -> tuple[np.ndarray, np.ndarray]:
@@ -2312,9 +2322,9 @@ class ExperimentRunner:
                 for station in range(len(self.data.station_ids))
             ]
         ).astype(np.float32)
-        climatology = (
-            climatology - mean[:, target][None, :]
-        ) / scale[:, target][None, :]
+        climatology = (climatology - mean[:, target][None, :]) / scale[:, target][
+            None, :
+        ]
         self._proposed_climatology_cache = climatology.astype(np.float32)
         return self._proposed_climatology_cache
 
@@ -2419,9 +2429,10 @@ class ExperimentRunner:
                 "five-quantile architecture; retrain it",
                 reason_code="checkpoint_incompatible_model",
             ) from error
-        if tuple(model.config.station_ids) != self.data.station_ids or tuple(
-            model.config.variable_names
-        ) != self.data.variable_names:
+        if (
+            tuple(model.config.station_ids) != self.data.station_ids
+            or tuple(model.config.variable_names) != self.data.variable_names
+        ):
             raise _CheckpointRetrainingRequired(
                 f"proposed checkpoint {checkpoint} axes do not match the current data; "
                 "retrain it",
@@ -2429,8 +2440,7 @@ class ExperimentRunner:
             )
         try:
             stored_quantile_levels = tuple(
-                float(value)
-                for value in checkpoint_metadata.get("quantile_levels", ())
+                float(value) for value in checkpoint_metadata.get("quantile_levels", ())
             )
         except (TypeError, ValueError):
             stored_quantile_levels = ()
@@ -2506,9 +2516,7 @@ class ExperimentRunner:
         )
         if checkpoint.exists() and self.resume:
             model, checkpoint_metadata, mean, scale = (
-                self._load_proposed_model_checkpoint(
-                    checkpoint, seed, window, protocol
-                )
+                self._load_proposed_model_checkpoint(checkpoint, seed, window, protocol)
             )
             self._proposed_checkpoint_metadata[key] = checkpoint_metadata
             self._proposed_cache[key] = (model, mean, scale)
@@ -2536,7 +2544,9 @@ class ExperimentRunner:
         if tuple(training_config.curriculum.validation_scenarios) != tuple(
             FROZEN_VALIDATION_SCENARIOS
         ):
-            raise ValueError("proposed validation scenarios do not match the frozen design")
+            raise ValueError(
+                "proposed validation scenarios do not match the frozen design"
+            )
         validation_batches: list[dict[str, Any]] = []
         for scenario_index, validation_scenario in enumerate(
             FROZEN_VALIDATION_SCENARIOS
@@ -2639,9 +2649,9 @@ class ExperimentRunner:
                 & self.data.quality_approved
                 & np.isfinite(self.data.values)
             )
-            reference_values = np.where(
-                available, self.data.values, np.nan
-            ).astype(np.float32)
+            reference_values = np.where(available, self.data.values, np.nan).astype(
+                np.float32
+            )
             flat = reference_values.reshape(len(reference_values), -1)
             flat_mask = artificial_mask.reshape(len(artificial_mask), -1)
             prediction_sum = np.zeros(flat.shape, dtype=np.float64)
@@ -2676,9 +2686,7 @@ class ExperimentRunner:
                             "official CSDI did not return the frozen sampling budget"
                         )
                     if sample_sum is None:
-                        sample_sum = np.zeros(
-                            (draws, *flat.shape), dtype=np.float32
-                        )
+                        sample_sum = np.zeros((draws, *flat.shape), dtype=np.float32)
                     samples = np.asarray(output.samples[0], dtype=np.float32)
                     sample_sum[:, start:end] += np.where(
                         window_mask[None], samples, 0.0
@@ -2764,9 +2772,7 @@ class ExperimentRunner:
             natural = torch.from_numpy(self.data.natural_observed[None, start:end])
             artificial = torch.from_numpy(artificial_mask[None, start:end])
             seasonal = torch.from_numpy(self.data.seasonal_features[None, start:end])
-            climatology = torch.from_numpy(
-                training_climatology[None, start:end]
-            )
+            climatology = torch.from_numpy(training_climatology[None, start:end])
             with torch.no_grad():
                 output = model(
                     values,
@@ -2859,10 +2865,9 @@ class ExperimentRunner:
                         (_file_identity(checkpoint) or {}).get("sha256")
                     ),
                     "reference_checkpoint_sidecar_sha256": (
-                        (
-                            _file_identity(Path(str(checkpoint) + ".sha256"))
-                            or {}
-                        ).get("sha256")
+                        (_file_identity(Path(str(checkpoint) + ".sha256")) or {}).get(
+                            "sha256"
+                        )
                     ),
                     "parameter_count": diagnostics.get("parameter_count"),
                     "best_epoch": diagnostics.get("best_epoch"),
@@ -2878,12 +2883,8 @@ class ExperimentRunner:
                         validation_score is not None
                         and np.isfinite(float(validation_score))
                     ),
-                    "training_time_seconds": diagnostics.get(
-                        "training_time_seconds"
-                    ),
-                    "inference_time_seconds": diagnostics.get(
-                        "inference_time_seconds"
-                    ),
+                    "training_time_seconds": diagnostics.get("training_time_seconds"),
+                    "inference_time_seconds": diagnostics.get("inference_time_seconds"),
                     "cumulative_inference_time_seconds": diagnostics.get(
                         "cumulative_inference_time_seconds"
                     ),
@@ -2902,12 +2903,9 @@ class ExperimentRunner:
                 {},
             )
             by_scenario = {
-                scenario_name: selected_history.get(
-                    f"validation_{scenario_name}_loss"
-                )
+                scenario_name: selected_history.get(f"validation_{scenario_name}_loss")
                 for scenario_name in FROZEN_VALIDATION_SCENARIOS
-                if selected_history.get(f"validation_{scenario_name}_loss")
-                is not None
+                if selected_history.get(f"validation_{scenario_name}_loss") is not None
             }
             validation_score = metadata.get(
                 "best_validation_score", metadata.get("best_validation_loss")
@@ -3124,10 +3122,7 @@ class ExperimentRunner:
                                     f"prediction diagnostic {name!r} has an invalid shape"
                                 )
                 metric_quantiles = (
-                    {
-                        name: q[name]
-                        for name in ("q05", "q25", "q50", "q75", "q95")
-                    }
+                    {name: q[name] for name in ("q05", "q25", "q50", "q75", "q95")}
                     if q is not None
                     else None
                 )
@@ -3158,9 +3153,7 @@ class ExperimentRunner:
                     f"SCI-NET-{target_station_id}-{variable_name}-"
                     f"D{int(scenario.condition.gap_length):03d}-R{scenario.mask_seed:04d}"
                     if scenario.condition.experiment == "SCI_NET"
-                    else (
-                        str(metadata["target_gap_id"])
-                    )
+                    else (str(metadata["target_gap_id"]))
                     if scenario.condition.mask_type == "async"
                     and scenario.condition.anchor_id is not None
                     else None
@@ -3276,17 +3269,14 @@ class ExperimentRunner:
                         "evidence_role": evidence_role,
                         "formal_evidence": self.formal_evidence,
                         "external_validation_status": self.grid.external_validation_status,
-                        "is_external_validation": evaluation_split
-                        == "confirmatory",
+                        "is_external_validation": evaluation_split == "confirmatory",
                         **design_fields,
                         **reference_fields,
                         **model_diagnostic_fields,
                     }
                 )
                 if scenario.condition.event_window_length is not None:
-                    event_row["window_length"] = (
-                        scenario.condition.event_window_length
-                    )
+                    event_row["window_length"] = scenario.condition.event_window_length
                 if model_name == "pooled_loso":
                     event_row["selected_alpha"] = self._pooled_loso_prediction(station)[
                         2
@@ -3364,32 +3354,23 @@ class ExperimentRunner:
                             else np.nan
                         ),
                         "gate_A": (
-                            q["gate_A"][positions]
-                            if q and "gate_A" in q
-                            else np.nan
+                            q["gate_A"][positions] if q and "gate_A" in q else np.nan
                         ),
                         "gate_B": (
-                            q["gate_B"][positions]
-                            if q and "gate_B" in q
-                            else np.nan
+                            q["gate_B"][positions] if q and "gate_B" in q else np.nan
                         ),
                         "gate_C": (
-                            q["gate_C"][positions]
-                            if q and "gate_C" in q
-                            else np.nan
+                            q["gate_C"][positions] if q and "gate_C" in q else np.nan
                         ),
                         "gate_D": (
-                            q["gate_D"][positions]
-                            if q and "gate_D" in q
-                            else np.nan
+                            q["gate_D"][positions] if q and "gate_D" in q else np.nan
                         ),
                         "season": seasons,
                         "event_type": scenario.condition.event_type,
                         "quality_approved": quality[positions],
                         "artificial_mask": hidden[positions],
                         "external_validation_status": self.grid.external_validation_status,
-                        "is_external_validation": evaluation_split
-                        == "confirmatory",
+                        "is_external_validation": evaluation_split == "confirmatory",
                         **design_fields,
                         **reference_fields,
                         **model_diagnostic_fields,
@@ -3507,9 +3488,7 @@ class ExperimentRunner:
             },
             "mask_files": {
                 "axes": _file_identity(self.mask_dir / "axes.json"),
-                "mask": _file_identity(
-                    scenario_dir / f"{scenario.scenario_id}.npz"
-                ),
+                "mask": _file_identity(scenario_dir / f"{scenario.scenario_id}.npz"),
                 "metadata": _file_identity(
                     scenario_dir / f"{scenario.scenario_id}.json"
                 ),
@@ -3750,13 +3729,7 @@ class ExperimentRunner:
         valid_terminal_run_keys = {
             run_key
             for run_key in terminal_run_keys
-            if (
-                rows := [
-                    row
-                    for row in skipped_runs
-                    if row.get("run_key") == run_key
-                ]
-            )
+            if (rows := [row for row in skipped_runs if row.get("run_key") == run_key])
             and all(
                 not row.get("retryable")
                 and row.get("reason_code") in STRUCTURAL_SKIP_CODES
@@ -3781,9 +3754,7 @@ class ExperimentRunner:
             )
             checkpoint_valid = model_name not in TRAINABLE_MODELS or (
                 contract_matches
-                and self._strict_checkpoint_valid(
-                    scenario, model_name, training_seed
-                )
+                and self._strict_checkpoint_valid(scenario, model_name, training_seed)
             )
             if not has_evidence or not contract_matches or not checkpoint_valid:
                 invalidated.add(run_key)
@@ -3861,9 +3832,7 @@ class ExperimentRunner:
                 "nonfinite_prediction",
                 "nonfinite_event_metrics",
             }
-            if any(
-                row.get("reason_code") in hard_failure_codes for row in new_skips
-            ):
+            if any(row.get("reason_code") in hard_failure_codes for row in new_skips):
                 retryable_failure = True
                 for row in new_skips:
                     if row.get("reason_code") in hard_failure_codes:
@@ -3877,8 +3846,7 @@ class ExperimentRunner:
                 and bool(new_skips)
                 and all(not row.get("retryable") for row in new_skips)
                 and all(
-                    row.get("reason_code") in STRUCTURAL_SKIP_CODES
-                    for row in new_skips
+                    row.get("reason_code") in STRUCTURAL_SKIP_CODES for row in new_skips
                 )
             )
             if (
@@ -4008,9 +3976,7 @@ class ExperimentRunner:
     def _aggregate(self) -> tuple[pd.DataFrame, pd.DataFrame]:
         daily_frames = []
         event_frames = []
-        scenarios = {
-            scenario.scenario_id: scenario for scenario in self.grid.scenarios
-        }
+        scenarios = {scenario.scenario_id: scenario for scenario in self.grid.scenarios}
         allowed_models = set(self.models)
         if any(condition.mask_type == "loso" for condition in self.grid.conditions):
             allowed_models.add("pooled_loso")
@@ -4056,9 +4022,7 @@ class ExperimentRunner:
                 )
                 if run_key in completed and self._execution_contract_matches(
                     contracts.get(run_key),
-                    self._run_execution_contract(
-                        scenario, model_name, training_seed
-                    ),
+                    self._run_execution_contract(scenario, model_name, training_seed),
                 ):
                     contracted.add(run_key)
             daily_frame = (
@@ -4072,18 +4036,15 @@ class ExperimentRunner:
                 else pd.DataFrame()
             )
             result_run_keys = (
-                contracted
-                & _frame_run_keys(daily_frame)
-                & _frame_run_keys(event_frame)
+                contracted & _frame_run_keys(daily_frame) & _frame_run_keys(event_frame)
             )
             if daily_path.exists():
                 selected = np.fromiter(
                     (
-                        _stored_run_key(row.model, row.training_seed)
-                        in result_run_keys
-                        for row in daily_frame[
-                            ["model", "training_seed"]
-                        ].itertuples(index=False)
+                        _stored_run_key(row.model, row.training_seed) in result_run_keys
+                        for row in daily_frame[["model", "training_seed"]].itertuples(
+                            index=False
+                        )
                     ),
                     dtype=bool,
                     count=len(daily_frame),
@@ -4094,11 +4055,10 @@ class ExperimentRunner:
             if event_path.exists():
                 selected = np.fromiter(
                     (
-                        _stored_run_key(row.model, row.training_seed)
-                        in result_run_keys
-                        for row in event_frame[
-                            ["model", "training_seed"]
-                        ].itertuples(index=False)
+                        _stored_run_key(row.model, row.training_seed) in result_run_keys
+                        for row in event_frame[["model", "training_seed"]].itertuples(
+                            index=False
+                        )
                     ),
                     dtype=bool,
                     count=len(event_frame),
@@ -4183,9 +4143,7 @@ class ExperimentRunner:
                     "validation_score_by_scenario": diagnostics.get(
                         "validation_score_by_scenario", {}
                     ),
-                    "training_time_seconds": diagnostics.get(
-                        "training_time_seconds"
-                    ),
+                    "training_time_seconds": diagnostics.get("training_time_seconds"),
                     "inference_time_seconds": diagnostics.get(
                         "cumulative_inference_time_seconds"
                     ),
@@ -4270,12 +4228,8 @@ class ExperimentRunner:
                     dropna=False,
                     sort=False,
                 )
-                if np.isfinite(
-                    pd.to_numeric(frame["y_true"], errors="coerce")
-                ).all()
-                and np.isfinite(
-                    pd.to_numeric(frame["y_pred"], errors="coerce")
-                ).all()
+                if np.isfinite(pd.to_numeric(frame["y_true"], errors="coerce")).all()
+                and np.isfinite(pd.to_numeric(frame["y_pred"], errors="coerce")).all()
             }
             if {"y_true", "y_pred"}.issubset(daily.columns)
             else set()
@@ -4288,12 +4242,8 @@ class ExperimentRunner:
                     dropna=False,
                     sort=False,
                 )
-                if np.isfinite(
-                    pd.to_numeric(frame["MAE"], errors="coerce")
-                ).all()
-                and np.isfinite(
-                    pd.to_numeric(frame["RMSE"], errors="coerce")
-                ).all()
+                if np.isfinite(pd.to_numeric(frame["MAE"], errors="coerce")).all()
+                and np.isfinite(pd.to_numeric(frame["RMSE"], errors="coerce")).all()
             }
             if {"MAE", "RMSE"}.issubset(events.columns)
             else set()
@@ -4422,9 +4372,7 @@ class ExperimentRunner:
         completed_evidence_run_units = {
             f"{scenario_id}|{run_key}" for scenario_id, run_key in aggregate_runs
         }
-        expected_evidence_run_units = (
-            expected_run_units - structural_skip_run_units
-        )
+        expected_evidence_run_units = expected_run_units - structural_skip_run_units
         finite_prediction_run_units = {
             f"{scenario_id}|{run_key}" for scenario_id, run_key in finite_daily_runs
         }
@@ -4432,12 +4380,8 @@ class ExperimentRunner:
             f"{scenario_id}|{run_key}" for scenario_id, run_key in finite_metric_runs
         }
         run_unit_complete = expected_run_units == completed_run_units
-        evidence_complete = (
-            expected_evidence_run_units == completed_evidence_run_units
-        )
-        finite_predictions = (
-            expected_evidence_run_units == finite_prediction_run_units
-        )
+        evidence_complete = expected_evidence_run_units == completed_evidence_run_units
+        finite_predictions = expected_evidence_run_units == finite_prediction_run_units
         finite_event_metrics = (
             expected_evidence_run_units == finite_event_metric_run_units
         )
@@ -4448,14 +4392,12 @@ class ExperimentRunner:
         requires_training_seeds = any(
             model in TRAINABLE_MODELS for model in self.models
         )
-        formal_training_seed_complete = (
-            not requires_training_seeds
-            or set(self.training_seeds) == set(self.grid.training_seeds)
-        )
-        formal_mask_seed_complete = (
-            self.training_profile_name == "smoke"
-            or set(self.grid.mask_seeds) == set(range(101, 121))
-        )
+        formal_training_seed_complete = not requires_training_seeds or set(
+            self.training_seeds
+        ) == set(self.grid.training_seeds)
+        formal_mask_seed_complete = self.training_profile_name == "smoke" or set(
+            self.grid.mask_seeds
+        ) == set(range(101, 121))
         run_complete = bool(
             grid_complete
             and run_unit_complete
@@ -4517,9 +4459,7 @@ class ExperimentRunner:
                 "grid_scenario_count": len(self.grid.scenarios),
                 "event_catalog_path": self.grid.event_catalog_path,
                 "event_catalog_sha256": self.grid.event_catalog_sha256,
-                "event_catalog_episode_count": (
-                    self.grid.event_catalog_episode_count
-                ),
+                "event_catalog_episode_count": (self.grid.event_catalog_episode_count),
                 "event_catalog_analysis_count": (
                     self.grid.event_catalog_analysis_count
                 ),
@@ -4535,30 +4475,16 @@ class ExperimentRunner:
                 "retryable_run_unit_keys": sorted(retryable_run_units),
                 "retryable_run_unit_count": len(retryable_run_units),
                 "structural_skip_run_keys": sorted(structural_skip_run_units),
-                "structural_skip_run_unit_keys": sorted(
-                    structural_skip_run_units
-                ),
-                "structural_skip_run_unit_count": len(
-                    structural_skip_run_units
-                ),
-                "expected_evidence_run_unit_keys": sorted(
-                    expected_evidence_run_units
-                ),
-                "expected_evidence_run_unit_count": len(
-                    expected_evidence_run_units
-                ),
+                "structural_skip_run_unit_keys": sorted(structural_skip_run_units),
+                "structural_skip_run_unit_count": len(structural_skip_run_units),
+                "expected_evidence_run_unit_keys": sorted(expected_evidence_run_units),
+                "expected_evidence_run_unit_count": len(expected_evidence_run_units),
                 "completed_evidence_run_unit_keys": sorted(
                     completed_evidence_run_units
                 ),
-                "completed_evidence_run_unit_count": len(
-                    completed_evidence_run_units
-                ),
-                "finite_prediction_run_unit_keys": sorted(
-                    finite_prediction_run_units
-                ),
-                "finite_prediction_run_unit_count": len(
-                    finite_prediction_run_units
-                ),
+                "completed_evidence_run_unit_count": len(completed_evidence_run_units),
+                "finite_prediction_run_unit_keys": sorted(finite_prediction_run_units),
+                "finite_prediction_run_unit_count": len(finite_prediction_run_units),
                 "finite_event_metric_run_unit_keys": sorted(
                     finite_event_metric_run_units
                 ),
@@ -4568,12 +4494,8 @@ class ExperimentRunner:
                 "checkpoint_required_run_unit_keys": sorted(
                     checkpoint_required_run_units
                 ),
-                "checkpoint_required_run_count": len(
-                    checkpoint_required_run_units
-                ),
-                "checkpoint_valid_run_unit_keys": sorted(
-                    checkpoint_valid_run_units
-                ),
+                "checkpoint_required_run_count": len(checkpoint_required_run_units),
+                "checkpoint_valid_run_unit_keys": sorted(checkpoint_valid_run_units),
                 "checkpoint_valid_run_count": len(checkpoint_valid_run_units),
                 "completed_daily_rows": len(daily),
                 "completed_event_rows": len(events),
@@ -4609,8 +4531,7 @@ class ExperimentRunner:
                 "expected_formal_models": (
                     list(self.models) if self.formal_evidence else []
                 ),
-                "is_external_validation": self.evaluation_split
-                == "confirmatory",
+                "is_external_validation": self.evaluation_split == "confirmatory",
                 "external_validation_status": self.grid.external_validation_status,
                 "loso_scope": "exploratory_internal_not_external_validation",
                 "training_profile": self.training_profile_name,

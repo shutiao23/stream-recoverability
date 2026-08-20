@@ -19,13 +19,8 @@ import time
 from pathlib import Path
 from typing import Any
 
-ROOT = Path("/home/lzq/workspace/parttime/stream-recoverability")
+ROOT = Path(__file__).resolve().parents[2]
 PYTHON = sys.executable
-SENSITIVITY_VERSIONS = (
-    "no_s2_suspect_v1",
-    "b1_no_level_v1",
-    "b1_shift_sensitivity_v1",
-)
 FORMAL_ROOT = ROOT / "results"
 EVENT_CATALOG = ROOT / "metadata/event_episode_catalog.csv"
 CONFIRMATORY_VERSION = "external_upper_middle_chattahoochee_v1"
@@ -39,23 +34,31 @@ SRC = str(ROOT / "src")
 if SRC not in sys.path:
     sys.path.insert(0, SRC)
 
+from stream_recoverability.experiments.contracts import load_frozen_data_versions
+
+DESIGN_PATH = ROOT / "configs/design_freeze_v4.yaml"
+FROZEN_DATA_VERSIONS = load_frozen_data_versions(DESIGN_PATH)
+PRIMARY_DATA_VERSION = FROZEN_DATA_VERSIONS.primary
+SENSITIVITY_VERSIONS = FROZEN_DATA_VERSIONS.sensitivities
+
 
 def _validation_run_root() -> Path:
     from stream_recoverability.experiments.contracts import build_design_contract
 
     contract = build_design_contract(
-        design_path=ROOT / "configs/design_freeze_v3.yaml",
+        design_path=DESIGN_PATH,
         manifest_path=ROOT / "study_manifest.yaml",
         experiment_config_path=ROOT / "configs/experiments.yaml",
-        data_version="published_v1",
+        data_version=PRIMARY_DATA_VERSION,
         evaluation_split="validation",
         data_version_manifest_path=(
-            ROOT / "data_versions/published_v1/version_manifest.json"
+            FROZEN_DATA_VERSIONS.manifest_path(ROOT / "data_versions")
         ),
     )
     return (
         ROOT
-        / "results/validation_funnel/published_v1"
+        / "results/validation_funnel"
+        / PRIMARY_DATA_VERSION
         / str(contract["design_hash"])
     )
 
@@ -143,7 +146,7 @@ def design_hash(data_version: str, evaluation_split: str = "development_test") -
     from stream_recoverability.experiments.contracts import build_design_contract
 
     contract = build_design_contract(
-        design_path=ROOT / "configs/design_freeze_v3.yaml",
+        design_path=DESIGN_PATH,
         manifest_path=ROOT / "study_manifest.yaml",
         experiment_config_path=ROOT / "configs/experiments.yaml",
         data_version=data_version,
@@ -171,6 +174,7 @@ def science_dir(data_version: str, command: str) -> Path:
         "dense": "dense",
         "resilience": "resilience",
         "compensation": "compensation",
+        "donor-falsification": "donor_falsification",
         "retrained-information": "retrained_information_upper_bounds",
     }[command]
     return (
@@ -204,7 +208,9 @@ def trainable_checkpoint_count() -> int:
     return len(selected) * 5
 
 
-def run_sharded(args: list[str], output: Path, logfile: Path, *, bootstrap: bool) -> int:
+def run_sharded(
+    args: list[str], output: Path, logfile: Path, *, bootstrap: bool
+) -> int:
     minimum = trainable_checkpoint_count()
     command = [
         PYTHON,
@@ -299,8 +305,8 @@ def run_information(status: dict[str, Any]) -> None:
     output = (
         ROOT
         / "results/analysis"
-        / "published_v1"
-        / design_hash("published_v1")
+        / PRIMARY_DATA_VERSION
+        / design_hash(PRIMARY_DATA_VERSION)
         / "training_information_metrics.csv"
     )
     if output.is_file():
@@ -313,7 +319,7 @@ def run_information(status: dict[str, Any]) -> None:
             str(ROOT / "scripts/12_run_science_experiments.py"),
             "information",
             "--data-version",
-            "published_v1",
+            PRIMARY_DATA_VERSION,
         ],
         RUN / "training_information.log",
     )
@@ -323,18 +329,24 @@ def run_information(status: dict[str, Any]) -> None:
 def run_optional_proposed(status: dict[str, Any], data_version: str) -> bool:
     if not proposed_included():
         mark(status, f"12_compensation_{data_version}", "skipped_framework_only")
-        if data_version == "published_v1":
-            mark(status, "12_retrained_information_published_v1", "skipped_framework_only")
+        if data_version == PRIMARY_DATA_VERSION:
+            mark(
+                status,
+                f"12_retrained_information_{PRIMARY_DATA_VERSION}",
+                "skipped_framework_only",
+            )
         return True
-    checkpoint_suite = "full" if data_version == "published_v1" else "core"
+    checkpoint_suite = "full" if data_version == PRIMARY_DATA_VERSION else "core"
     extra = [
         "--checkpoint-dir",
         str(suite_dir(data_version, checkpoint_suite) / "checkpoints"),
     ]
     if not run_12(status, "compensation", data_version, extra):
         return False
-    if data_version == "published_v1":
+    if data_version == PRIMARY_DATA_VERSION:
         if not run_12(status, "retrained-information", data_version):
+            return False
+        if not run_12(status, "donor-falsification", data_version, extra):
             return False
     return True
 
@@ -345,15 +357,17 @@ def registry_path(data_version: str) -> Path:
 
 def primary_manifests() -> list[Path]:
     paths = [
-        suite_dir("published_v1", "full") / "run_manifest.json",
-        science_dir("published_v1", "dense") / "run_manifest.json",
-        science_dir("published_v1", "resilience") / "run_manifest.json",
+        suite_dir(PRIMARY_DATA_VERSION, "full") / "run_manifest.json",
+        science_dir(PRIMARY_DATA_VERSION, "dense") / "run_manifest.json",
+        science_dir(PRIMARY_DATA_VERSION, "resilience") / "run_manifest.json",
     ]
     if proposed_included():
         paths.extend(
             [
-                science_dir("published_v1", "compensation") / "run_manifest.json",
-                science_dir("published_v1", "retrained-information")
+                science_dir(PRIMARY_DATA_VERSION, "compensation") / "run_manifest.json",
+                science_dir(PRIMARY_DATA_VERSION, "retrained-information")
+                / "run_manifest.json",
+                science_dir(PRIMARY_DATA_VERSION, "donor-falsification")
                 / "run_manifest.json",
             ]
         )
@@ -378,7 +392,7 @@ def run_registry(status: dict[str, Any], data_version: str) -> bool:
         return True
     manifests = (
         primary_manifests()
-        if data_version == "published_v1"
+        if data_version == PRIMARY_DATA_VERSION
         else sensitivity_manifests(data_version)
     )
     missing = [str(path) for path in manifests if not path.is_file()]
@@ -468,7 +482,7 @@ def run_analyze(status: dict[str, Any]) -> bool:
         if doc.get("status") == "complete":
             mark(status, name, "complete")
             return True
-    for version in ("published_v1", *SENSITIVITY_VERSIONS):
+    for version in (PRIMARY_DATA_VERSION, *SENSITIVITY_VERSIONS):
         if not run_aggregate(status, version):
             return False
     mark(status, name, "running")
@@ -476,11 +490,11 @@ def run_analyze(status: dict[str, Any]) -> bool:
         PYTHON,
         str(ROOT / "scripts/09_analyze_results.py"),
         "--predictions",
-        str(frozen_dir("published_v1") / "predictions.parquet"),
+        str(frozen_dir(PRIMARY_DATA_VERSION) / "predictions.parquet"),
         "--event-metrics",
-        str(frozen_dir("published_v1") / "event_metrics.parquet"),
+        str(frozen_dir(PRIMARY_DATA_VERSION) / "event_metrics.parquet"),
         "--top-manifest",
-        str(frozen_dir("published_v1") / "top_manifest.json"),
+        str(frozen_dir(PRIMARY_DATA_VERSION) / "top_manifest.json"),
         "--output-dir",
         str(ROOT / "results/analysis"),
     ]
@@ -507,9 +521,9 @@ def run_figures(status: dict[str, Any]) -> bool:
             PYTHON,
             str(ROOT / "scripts/11_make_figures.py"),
             "--daily-predictions",
-            str(frozen_dir("published_v1") / "predictions.parquet"),
+            str(frozen_dir(PRIMARY_DATA_VERSION) / "predictions.parquet"),
             "--event-metrics",
-            str(frozen_dir("published_v1") / "event_metrics.parquet"),
+            str(frozen_dir(PRIMARY_DATA_VERSION) / "event_metrics.parquet"),
             "--analysis-dir",
             str(ROOT / "results/analysis"),
         ],
@@ -674,7 +688,9 @@ def _table_sentences(path: Path, *, limit: int = 12) -> str | None:
     return " ".join(f"({item})" for item in rows) + more
 
 
-def _csv_sentences(path: Path, columns: tuple[str, ...], *, limit: int = 8) -> str | None:
+def _csv_sentences(
+    path: Path, columns: tuple[str, ...], *, limit: int = 8
+) -> str | None:
     if not path.is_file() or path.stat().st_size == 0:
         return None
     import pandas as pd
@@ -736,7 +752,7 @@ def fill_results(status: dict[str, Any]) -> bool:
         mark(status, name, "blocked_analysis_incomplete")
         return False
     roster = roster_doc()
-    top = read_json(frozen_dir("published_v1") / "top_manifest.json") or {}
+    top = read_json(frozen_dir(PRIMARY_DATA_VERSION) / "top_manifest.json") or {}
     analysis_dir = ROOT / "results/analysis"
     tables = ROOT / "paper/tables"
     r1 = (
@@ -775,8 +791,8 @@ def fill_results(status: dict[str, Any]) -> bool:
     info_csv = (
         ROOT
         / "results/analysis"
-        / "published_v1"
-        / design_hash("published_v1")
+        / PRIMARY_DATA_VERSION
+        / design_hash(PRIMARY_DATA_VERSION)
         / "training_information_metrics.csv"
     )
     r7 = _csv_sentences(info_csv, ("pair", "metric", "estimate", "p_value"))
@@ -787,7 +803,10 @@ def fill_results(status: dict[str, Any]) -> bool:
     r9_table = _table_sentences(tables / "table_04.csv")
     r9 = (
         "Internal leave-one-station-out and station-outage rows are reported separately from the online supplement. "
-        + (r9_table or "Online metrics under results/online were not present; R9 therefore reports only offline LOSO/outage evidence.")
+        + (
+            r9_table
+            or "Online metrics under results/online were not present; R9 therefore reports only offline LOSO/outage evidence."
+        )
     )
     d1 = (
         "Interpretation is restricted to the complete frozen analysis. "
@@ -866,7 +885,11 @@ def fill_results(status: dict[str, Any]) -> bool:
     updated = PLACEHOLDER_RE.sub(replace, original)
     remaining = PLACEHOLDER_RE.findall(updated)
     manuscript.write_text(updated, encoding="utf-8")
-    claims = "populated_from_frozen_analysis" if not remaining else "partial_pending_placeholders"
+    claims = (
+        "populated_from_frozen_analysis"
+        if not remaining
+        else "partial_pending_placeholders"
+    )
     update_readme_evidence(
         {
             "validation_funnel": "complete_selection_only",
@@ -876,9 +899,7 @@ def fill_results(status: dict[str, Any]) -> bool:
                 "built" if confirmatory_data_ready() else "not_opened"
             ),
             "confirmatory_evaluation": (
-                "complete"
-                if eval_doc.get("complete") is True
-                else "not_run"
+                "complete" if eval_doc.get("complete") is True else "not_run"
             ),
             "current_protocol_result_claims": claims,
         }
@@ -928,14 +949,14 @@ def main() -> int:
     log(f"after_roster_start pid={os.getpid()}")
     status = load_status()
     update_readme_after_roster()
-    if not run_08(status, "published_v1", "full"):
-        log("formal full published_v1 incomplete; retry later")
+    if not run_08(status, PRIMARY_DATA_VERSION, "full"):
+        log(f"formal full {PRIMARY_DATA_VERSION} incomplete; retry later")
         return 1
-    if not run_12(status, "dense", "published_v1"):
+    if not run_12(status, "dense", PRIMARY_DATA_VERSION):
         return 1
-    if not run_12(status, "resilience", "published_v1"):
+    if not run_12(status, "resilience", PRIMARY_DATA_VERSION):
         return 1
-    if not run_optional_proposed(status, "published_v1"):
+    if not run_optional_proposed(status, PRIMARY_DATA_VERSION):
         return 1
     run_information(status)
     for version in SENSITIVITY_VERSIONS:
@@ -946,7 +967,7 @@ def main() -> int:
             return 1
         if not run_optional_proposed(status, version):
             return 1
-    for version in ("published_v1", *SENSITIVITY_VERSIONS):
+    for version in (PRIMARY_DATA_VERSION, *SENSITIVITY_VERSIONS):
         if not run_aggregate(status, version):
             return 1
     if not run_analyze(status):

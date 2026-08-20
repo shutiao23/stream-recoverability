@@ -37,7 +37,7 @@ def main() -> None:
     parser.add_argument(
         "--with-stage1",
         action="store_true",
-        help="Launch v3 Stage 1 only. This is expensive and still model_selection_only.",
+        help="Launch v4 Stage 1 only. This is expensive and still model_selection_only.",
     )
     args = parser.parse_args()
     steps = [
@@ -96,7 +96,10 @@ def main() -> None:
         ),
     }
     write_json(PROJECT_ROOT / "results/audits/p0_pipeline_report.json", report)
-    print(json.dumps({"failed_steps": [step for step in steps if step["returncode"]]}, indent=2))
+    failed_steps = [step for step in steps if step["returncode"]]
+    print(json.dumps({"failed_steps": failed_steps}, indent=2))
+    if failed_steps:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -27,8 +28,10 @@ from stream_recoverability.data.versions import apply_data_version
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     EXECUTABLE_DESIGN_VERSION,
+    load_frozen_data_versions,
 )
 from stream_recoverability.experiments.selection import select_stage2_finalists
+from stream_recoverability.experiments.runner import _load_data
 from stream_recoverability.governance import (
     audit_restricted_hosting,
     submission_gate,
@@ -38,7 +41,7 @@ from stream_recoverability.governance import (
 REPO = Path(__file__).resolve().parents[1]
 
 
-def test_executable_freeze_is_v3_with_budget_and_dual_frontier() -> None:
+def test_executable_freeze_is_v4_with_budget_and_dual_frontier() -> None:
     design = yaml.safe_load((REPO / DEFAULT_DESIGN_PATH).read_text(encoding="utf-8"))
     assert design["design_version"] == EXECUTABLE_DESIGN_VERSION
     assert design["training"]["fixed_model_protocols"]["common"]["max_epochs"] == 400
@@ -52,6 +55,31 @@ def test_executable_freeze_is_v3_with_budget_and_dual_frontier() -> None:
     assert design["data_versions"]["primary"] == "published_v2"
     assert design["statistics"]["application_thresholds"]["status"] == "not_declared"
     assert "donor_c_falsification_v1" in design["required_protocol_sensitivities"]
+    versions = load_frozen_data_versions(REPO / DEFAULT_DESIGN_PATH)
+    assert versions.primary == "published_v2"
+    assert versions.sensitivities == (
+        "no_s2_suspect_v2",
+        "b1_no_level_v2",
+        "b1_shift_sensitivity_v2",
+    )
+
+
+def test_anchor_bridge_is_complete_without_digest_pinning() -> None:
+    bridge = json.loads(
+        (REPO / "metadata/anchor_bridge_published_v1_to_v2.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert bridge["status"] == "complete"
+    assert bridge["date_axis_equal"] is True
+    assert bridge["row_index_equal"] is True
+    assert "sha256" not in str(bridge).lower()
+    validation = pd.read_csv(REPO / "metadata/validation_anchors_v2.csv")
+    frontier = pd.read_csv(REPO / "metadata/frontier_anchors_v2.csv")
+    assert len(validation) == 15
+    assert len(frontier) == 180
+    assert set(validation["data_version"]) == {"published_v2"}
+    assert set(frontier["data_version"]) == {"published_v2"}
 
 
 def test_quality_codebook_keeps_unknown_unflagged_out_of_approved() -> None:
@@ -107,6 +135,38 @@ def test_published_v2_preserves_values_and_adds_qc_fields() -> None:
     assert not bool(versioned.loc[1, "known_issue_flag"])
 
 
+def test_v2_runner_requires_analysis_eligible_and_rejects_alias_drift(
+    tmp_path: Path,
+) -> None:
+    dates = pd.date_range("2016-01-01", periods=2, freq="D")
+    wide = pd.DataFrame(
+        {
+            "date": dates,
+            "split": ["validation", "validation"],
+            "data_version": ["published_v2", "published_v2"],
+            "B1_T": [1.0, 2.0],
+        }
+    )
+    long = pd.DataFrame(
+        {
+            "date": dates,
+            "station_id": ["B1", "B1"],
+            "variable": ["T", "T"],
+            "data_version": ["published_v2", "published_v2"],
+            "analysis_eligible": [True, True],
+            "quality_approved": [True, False],
+            "provider_qc_status": ["unknown", "unknown"],
+            "known_issue_flag": [False, False],
+        }
+    )
+    wide_path = tmp_path / "wide.parquet"
+    long_path = tmp_path / "long.parquet"
+    wide.to_parquet(wide_path, index=False)
+    long.to_parquet(long_path, index=False)
+    with pytest.raises(ValueError, match="legacy alias differs"):
+        _load_data(wide_path, long_path, ("T",))
+
+
 def test_dual_frontier_uses_validation_selected_simple_baseline() -> None:
     events = pd.DataFrame(
         {
@@ -124,6 +184,9 @@ def test_dual_frontier_uses_validation_selected_simple_baseline() -> None:
     )
     best = select_best_simple_baselines(events)
     assert set(best["best_simple_baseline"]) == {"linear"}
+    assert len(best) == 1
+    assert "T10" not in best.iloc[0]["condition_family"]
+    assert "T30" not in best.iloc[0]["condition_family"]
     scored = add_relative_skills(events, best_simple=best)
     proposed = scored.loc[scored["model"].eq("proposed")].set_index("gap_length")
     assert proposed.loc[10, "skill_vs_climatology"] == pytest.approx(0.75)
@@ -192,7 +255,9 @@ def test_hit_epoch_limit_is_budget_unstable() -> None:
             "hit_epoch_limit": [True, False, False, False],
         }
     )
-    selected = select_stage2_finalists(ranking, diagnostics=diagnostics).set_index("model")
+    selected = select_stage2_finalists(ranking, diagnostics=diagnostics).set_index(
+        "model"
+    )
     assert not bool(selected.loc["brits_ref", "diagnostic_pass"])
     assert "budget_stable" in selected.loc["brits_ref", "selection_reason"] or (
         "failed diagnostics" in selected.loc["brits_ref", "selection_reason"]
@@ -204,6 +269,11 @@ def test_submission_gate_is_fail_closed_without_formal_evidence() -> None:
     gate = submission_gate(REPO)
     assert gate["decision"] == "no_go"
     assert gate["passed"] is False
-    assert any("RESULTS_PENDING" in item or "roster" in item for item in gate["blockers"])
+    assert any(
+        "RESULTS_PENDING" in item or "roster" in item for item in gate["blockers"]
+    )
     hosting = audit_restricted_hosting(REPO)
-    assert "public_hosting_defect" in hosting["status"] or hosting["restricted_tracked_path_count"] >= 0
+    assert (
+        "public_hosting_defect" in hosting["status"]
+        or hosting["restricted_tracked_path_count"] >= 0
+    )

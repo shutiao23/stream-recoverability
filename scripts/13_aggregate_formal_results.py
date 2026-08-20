@@ -30,6 +30,7 @@ from stream_recoverability.experiments.contracts import (
     build_design_contract,
     canonical_evaluation_split,
     file_sha256,
+    load_frozen_data_versions,
     validate_data_version_inputs,
 )
 from stream_recoverability.experiments.formal_authorization import (
@@ -49,6 +50,10 @@ PRIMARY_SUITE_ROLES = (
     "event_uncertainty",
     "operational_dropout",
     "retrained_upper_bound",
+    "donor_c_falsification",
+)
+LEGACY_PRIMARY_SUITE_ROLES = tuple(
+    role for role in PRIMARY_SUITE_ROLES if role != "donor_c_falsification"
 )
 SENSITIVITY_SUITE_ROLES = (
     "sensitivity_core_T",
@@ -56,17 +61,24 @@ SENSITIVITY_SUITE_ROLES = (
     "sensitivity_operational_dropout",
 )
 STRUCTURAL_BASELINES = ("independent_flow", "rating_curve")
-CANONICAL_FRONTIER_ANCHOR_PATH = PROJECT_ROOT / "metadata/frontier_anchors.csv"
+CANONICAL_FRONTIER_ANCHOR_PATHS = {
+    "published_v1": PROJECT_ROOT / "metadata/frontier_anchors.csv",
+    "published_v2": PROJECT_ROOT / "metadata/frontier_anchors_v2.csv",
+}
 DERIVED_FORMAL_MODELS = {
     "science_compensation": "information_compensation",
     "retrained_information_upper_bounds": "retrained_information_upper_bound",
 }
+PROPOSED_ONLY_FORMAL_SUITES = frozenset(
+    {*DERIVED_FORMAL_MODELS, "science_donor_falsification"}
+)
 PRIMARY_SUITE_ROLE_EQUIVALENTS = {
     "full": ("core_full", "event_uncertainty"),
     "science_dense": ("dense_frontier",),
     "science_resilience": ("network_resilience",),
     "science_compensation": ("operational_dropout",),
     "retrained_information_upper_bounds": ("retrained_upper_bound",),
+    "science_donor_falsification": ("donor_c_falsification",),
 }
 SENSITIVITY_SUITE_ROLE_EQUIVALENTS = {
     "core": ("sensitivity_core_T",),
@@ -241,10 +253,7 @@ def _load_registry(
         )
     if value.get("finalized") is not True:
         raise ValueError("suite registry must be explicitly finalized")
-    if (
-        value.get("registry_hash_scope")
-        != "canonical_json_excluding_registry_sha256"
-    ):
+    if value.get("registry_hash_scope") != "canonical_json_excluding_registry_sha256":
         raise ValueError("suite registry has an unknown canonical hash scope")
     persisted_hash = value.get("registry_sha256")
     unsigned = {key: item for key, item in value.items() if key != "registry_sha256"}
@@ -292,9 +301,7 @@ def _registry_file_identity(
     return path
 
 
-def _expected_role_models(
-    role: str, selected_models: Sequence[str]
-) -> list[str]:
+def _expected_role_models(role: str, selected_models: Sequence[str]) -> list[str]:
     selected = list(selected_models)
     if role in {"core_full", "dense_frontier", "event_uncertainty"}:
         return [*selected, *STRUCTURAL_BASELINES]
@@ -304,6 +311,8 @@ def _expected_role_models(
         return ["information_compensation"]
     if role == "retrained_upper_bound":
         return ["retrained_information_upper_bound"]
+    if role == "donor_c_falsification":
+        return ["proposed"]
     if role in {"sensitivity_core_T", "sensitivity_dense_frontier"}:
         return selected
     raise ValueError(f"unknown registry suite role {role!r}")
@@ -323,12 +332,10 @@ def _validate_registry_contract(
 ) -> dict[str, Any]:
     """Revalidate every trust-bearing field emitted by the registry builder."""
 
-    expected_bundle_role = (
-        "primary" if data_version == "published_v1" else "sensitivity_compact"
-    )
-    expected_bundle_kind = (
-        "primary" if data_version == "published_v1" else "sensitivity"
-    )
+    frozen_versions = load_frozen_data_versions(design_path)
+    is_primary = data_version == frozen_versions.primary
+    expected_bundle_role = "primary" if is_primary else "sensitivity_compact"
+    expected_bundle_kind = "primary" if is_primary else "sensitivity"
     for field, expected in (
         ("bundle_role", expected_bundle_role),
         ("bundle_kind", expected_bundle_kind),
@@ -359,9 +366,9 @@ def _validate_registry_contract(
         design_path=design_path,
         study_manifest_path=study_manifest_path,
         experiment_config_path=config_path,
-        selection_data_version="published_v1",
-        selection_data_version_manifest_path=(
-            PROJECT_ROOT / "data_versions/published_v1/version_manifest.json"
+        selection_data_version=frozen_versions.primary,
+        selection_data_version_manifest_path=frozen_versions.manifest_path(
+            PROJECT_ROOT / "data_versions"
         ),
     )
     expected_roster = {
@@ -371,10 +378,16 @@ def _validate_registry_contract(
         "proposed_decision": roster.proposed_decision,
     }
     if dict(raw_roster) != expected_roster:
-        raise ValueError("suite registry finalized roster metadata is stale or tampered")
+        raise ValueError(
+            "suite registry finalized roster metadata is stale or tampered"
+        )
 
     required_roles = (
-        list(PRIMARY_SUITE_ROLES)
+        list(
+            PRIMARY_SUITE_ROLES
+            if expected_evidence.get("design_version") == "design_freeze_v4"
+            else LEGACY_PRIMARY_SUITE_ROLES
+        )
         if expected_bundle_role == "primary"
         else list(SENSITIVITY_SUITE_ROLES)
     )
@@ -443,7 +456,10 @@ def _validate_registry_contract(
         if digest in source_by_hash:
             raise ValueError("suite registry contains duplicate source manifests")
         source_manifest = _read_mapping(source_path, "registry source manifest")
-        if source_manifest.get("suite") != suite or source_manifest.get("models") != models:
+        if (
+            source_manifest.get("suite") != suite
+            or source_manifest.get("models") != models
+        ):
             raise ValueError("registry source suite/models differ from its manifest")
         source_by_hash[digest] = {
             "manifest_sha256": digest,
@@ -464,7 +480,11 @@ def _validate_registry_contract(
                 "status": "not_applicable",
                 "reason": "proposed_decision=framework_only",
             }
-            for suite in sorted(DERIVED_FORMAL_MODELS)
+            for suite in sorted(
+                PROPOSED_ONLY_FORMAL_SUITES
+                if expected_evidence.get("design_version") == "design_freeze_v4"
+                else DERIVED_FORMAL_MODELS
+            )
         ]
         if roster.proposed_decision == "framework_only"
         else []
@@ -473,7 +493,11 @@ def _validate_registry_contract(
         raise ValueError("suite registry not_applicable_suites is incomplete")
 
     proposed_not_applicable = (
-        {"operational_dropout", "retrained_upper_bound"}
+        (
+            {"operational_dropout", "retrained_upper_bound", "donor_c_falsification"}
+            if expected_evidence.get("design_version") == "design_freeze_v4"
+            else {"operational_dropout", "retrained_upper_bound"}
+        )
         if expected_bundle_role == "primary"
         else {"sensitivity_operational_dropout"}
     )
@@ -501,7 +525,9 @@ def _validate_registry_contract(
                 "source_manifest_sha256": [],
                 "expected_models": [],
             }:
-                raise ValueError(f"registry role {role} must be explicitly not_applicable")
+                raise ValueError(
+                    f"registry role {role} must be explicitly not_applicable"
+                )
             continue
         if item.get("status") != "complete" or item.get("reason") is not None:
             raise ValueError(f"registry role {role} is not complete")
@@ -526,9 +552,7 @@ def _validate_registry_contract(
         if item.get("expected_models") != expected_models:
             raise ValueError(f"registry role {role} model contract is stale")
         observed_models = {
-            model
-            for source in expected_sources.values()
-            for model in source["models"]
+            model for source in expected_sources.values() for model in source["models"]
         }
         if observed_models != set(expected_models):
             raise ValueError(f"registry role {role} source models are incomplete")
@@ -639,9 +663,7 @@ def _require_table_contract(
             )
     if not frame["formal_evidence"].eq(True).all():
         raise ValueError(f"{label} requires formal_evidence=true")
-    if not frame["evidence_role"].astype(str).eq(
-        "formal_development_evaluation"
-    ).all():
+    if not frame["evidence_role"].astype(str).eq("formal_development_evaluation").all():
         raise ValueError(f"{label} is not formal development evidence")
 
 
@@ -751,16 +773,12 @@ def _require_complete_manifest(manifest: Mapping[str, Any], label: str) -> None:
         raise ValueError(f"{label} training_profile must be formal")
 
 
-def _resolve_run_artifact(
-    value: object, *, run_directory: Path, label: str
-) -> Path:
+def _resolve_run_artifact(value: object, *, run_directory: Path, label: str) -> Path:
     if not isinstance(value, str) or not value:
         raise ValueError(f"{label} must be a non-empty path")
     raw = Path(value)
     candidates = (
-        (raw,)
-        if raw.is_absolute()
-        else (run_directory / raw, PROJECT_ROOT / raw)
+        (raw,) if raw.is_absolute() else (run_directory / raw, PROJECT_ROOT / raw)
     )
     existing = {candidate.resolve() for candidate in candidates if candidate.is_file()}
     if not existing:
@@ -803,22 +821,30 @@ def _validate_frontier_anchor_tables(
         run_directory=run_directory,
         label=f"{label}.frontier_anchor_catalog_path",
     )
-    if catalog_path != CANONICAL_FRONTIER_ANCHOR_PATH.resolve():
+    anchor_versions = {
+        str(value)
+        for frame in (daily, events)
+        for value in frame["anchor_data_version"].dropna().unique()
+    }
+    if len(anchor_versions) != 1:
+        raise ValueError(f"{label} must contain one anchor data version")
+    anchor_version = next(iter(anchor_versions))
+    canonical_path = CANONICAL_FRONTIER_ANCHOR_PATHS.get(anchor_version)
+    if canonical_path is None or catalog_path != canonical_path.resolve():
         raise ValueError(f"{label} does not use the canonical frontier catalog")
     observed_sha = file_sha256(catalog_path)
     if manifest.get("frontier_anchor_catalog_sha256") != observed_sha:
         raise ValueError(f"{label} frontier anchor catalog SHA-256 mismatch")
     catalog = load_frontier_anchor_catalog(
         catalog_path,
-        expected_data_version="published_v1",
+        expected_data_version=anchor_version,
         expected_evaluation_split="development_test",
     )
     if manifest.get("frontier_anchor_count") != len(catalog):
         raise ValueError(f"{label} frontier anchor catalog count mismatch")
     grid_contract = manifest.get("formal_grid_contract")
-    if (
-        manifest.get("formal_grid_contract_complete") is not True
-        or not isinstance(grid_contract, Mapping)
+    if manifest.get("formal_grid_contract_complete") is not True or not isinstance(
+        grid_contract, Mapping
     ):
         raise ValueError(f"{label} lacks a completed formal grid contract")
     for field, expected in (
@@ -869,8 +895,8 @@ def _validate_frontier_anchor_tables(
         if anchored.empty or anchored.loc[:, required_columns].isna().any().any():
             raise ValueError(f"{label} {table_label} lacks frontier anchor bindings")
         inventory: set[tuple[str, str, int]] = set()
-        for row in anchored.loc[:, required_columns].drop_duplicates().itertuples(
-            index=False
+        for row in (
+            anchored.loc[:, required_columns].drop_duplicates().itertuples(index=False)
         ):
             anchor_id = str(row.anchor_id)
             if anchor_id not in catalog_by_id.index:
@@ -1311,10 +1337,10 @@ def aggregate_formal_results(
     results_root: str | Path,
     *,
     suite_registry: Mapping[str, Any] | str | Path,
-    design_path: str | Path = PROJECT_ROOT / "configs/design_freeze_v3.yaml",
+    design_path: str | Path = PROJECT_ROOT / "configs/design_freeze_v4.yaml",
     manifest_path: str | Path = PROJECT_ROOT / "study_manifest.yaml",
     config_path: str | Path = PROJECT_ROOT / "configs/experiments.yaml",
-    data_version: str = "published_v1",
+    data_version: str = "published_v2",
     evaluation_split: str = "development_test",
     data_version_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
@@ -1383,8 +1409,7 @@ def aggregate_formal_results(
             "suite registry declares the same run directory more than once"
         )
     expected_sources = {
-        str(source["manifest_path"]): source
-        for source in registry_contract["sources"]
+        str(source["manifest_path"]): source for source in registry_contract["sources"]
     }
     actual_sources = {
         str(Path(run["source"]["manifest"]["path"]).resolve()): {
@@ -1395,9 +1420,7 @@ def aggregate_formal_results(
             "daily_predictions_path": Path(
                 run["source"]["daily_predictions"]["path"]
             ).resolve(),
-            "daily_predictions_sha256": run["source"]["daily_predictions"][
-                "sha256"
-            ],
+            "daily_predictions_sha256": run["source"]["daily_predictions"]["sha256"],
             "event_metrics_path": Path(
                 run["source"]["event_metrics"]["path"]
             ).resolve(),
@@ -1549,7 +1572,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--results-root", type=Path, required=True)
     parser.add_argument("--suite-registry", type=Path, required=True)
     parser.add_argument(
-        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v3.yaml"
+        "--design", type=Path, default=PROJECT_ROOT / "configs/design_freeze_v4.yaml"
     )
     parser.add_argument(
         "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"
@@ -1557,7 +1580,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--config", type=Path, default=PROJECT_ROOT / "configs/experiments.yaml"
     )
-    parser.add_argument("--data-version", default="published_v1")
+    parser.add_argument("--data-version", default="published_v2")
     parser.add_argument("--evaluation-split", default="development_test")
     parser.add_argument("--data-version-manifest", type=Path)
     return parser

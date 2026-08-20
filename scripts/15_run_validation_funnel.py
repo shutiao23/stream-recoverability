@@ -23,8 +23,10 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from stream_recoverability.experiments.contracts import (
+    DEFAULT_DESIGN_PATH,
     build_design_contract,
     file_sha256,
+    load_frozen_data_versions,
 )
 from stream_recoverability.experiments.runner import (
     SUPPORTED_MODELS,
@@ -101,7 +103,7 @@ def _add_contract_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v3.yaml",
+        default=PROJECT_ROOT / DEFAULT_DESIGN_PATH,
     )
     parser.add_argument(
         "--data-root", type=Path, default=PROJECT_ROOT / "data_versions"
@@ -114,7 +116,7 @@ def _add_contract_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--anchor-catalog",
         type=Path,
-        default=PROJECT_ROOT / "metadata" / "validation_anchors.csv",
+        default=PROJECT_ROOT / "metadata" / "validation_anchors_v2.csv",
     )
 
 
@@ -247,6 +249,12 @@ def build_parser() -> argparse.ArgumentParser:
 def _contract(
     args: argparse.Namespace, *, require_version_manifest: bool
 ) -> tuple[dict[str, Any], Path]:
+    frozen_versions = load_frozen_data_versions(args.design)
+    if args.data_version != frozen_versions.primary:
+        raise ValueError(
+            "validation selection must use the design primary data version: "
+            f"{frozen_versions.primary}"
+        )
     version_root = args.data_root / args.data_version
     version_manifest = version_root / "version_manifest.json"
     if require_version_manifest and not version_manifest.is_file():
@@ -316,6 +324,7 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
         args.config,
         data_version=args.data_version,
         anchor_catalog_path=args.anchor_catalog,
+        anchor_data_version=args.data_version,
     )
     stage, models = select_validation_stage(
         funnel,
@@ -453,9 +462,7 @@ def _validate_initial_ranking_inventory(events: pd.DataFrame) -> None:
         raise ValueError(
             "initial validation ranking rejects deep_stability seed 22/33 rows"
         )
-    traditional = events.loc[
-        events["model"].astype(str).isin(TRADITIONAL_CANDIDATES)
-    ]
+    traditional = events.loc[events["model"].astype(str).isin(TRADITIONAL_CANDIDATES)]
     if pd.to_numeric(traditional["training_seed"], errors="coerce").notna().any():
         raise ValueError("traditional validation ranking rows must be seedless")
 
@@ -636,9 +643,7 @@ def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
     contract, run_root = _contract(args, require_version_manifest=False)
     ranking_path = args.ranking or run_root / "validation_model_ranking.csv"
     stage2_path = args.stage2_selection or run_root / "stage2_finalist_selection.csv"
-    ranking, _ = validate_ranking_artifact(
-        ranking_path, expected_contract=contract
-    )
+    ranking, _ = validate_ranking_artifact(ranking_path, expected_contract=contract)
     _, finalists, _ = validate_stage2_selection_artifact(
         stage2_path,
         ranking=ranking,
@@ -771,17 +776,12 @@ def _freeze_roster(args: argparse.Namespace) -> dict[str, Any]:
     ranking = args.ranking or run_root / "validation_model_ranking.csv"
     stage2 = args.stage2_selection or run_root / "stage2_finalist_selection.csv"
     stage3 = args.stage3_dir or run_root / "deep_stability"
-    branch = (
-        args.branch_ablations
-        or (
+    branch = args.branch_ablations or (
+        run_root / "proposed_go_no_go" / "branch_ablation_not_applicable.json"
+        if (
             run_root / "proposed_go_no_go" / "branch_ablation_not_applicable.json"
-            if (
-                run_root
-                / "proposed_go_no_go"
-                / "branch_ablation_not_applicable.json"
-            ).is_file()
-            else run_root / "branch_ablation" / "branch_ablation_metrics.parquet"
-        )
+        ).is_file()
+        else run_root / "branch_ablation" / "branch_ablation_metrics.parquet"
     )
     go_no_go = (
         args.go_no_go

@@ -24,9 +24,9 @@ artifacts.
 <!-- evidence-status:start -->
 ```json
 {
-  "design_freeze": "design_freeze_v3",
+  "design_freeze": "design_freeze_v4",
   "development_test_visibility": "seen_before_design_freeze",
-  "validation_funnel": "must_be_rerun_under_v3",
+  "validation_funnel": "must_be_rerun_under_v4",
   "finalized_model_roster": "pending",
   "development_test_formal_evidence": "pending_current_protocol",
   "confirmatory_data": "not_opened",
@@ -40,9 +40,9 @@ In particular:
 
 - 2018–2020 is called `development_test`. It was visible before
   `design_freeze_v1` and is not presented as a previously unseen test set.
-  The executable freeze is now `design_freeze_v3`. v1 and v2 remain historical.
+  The executable freeze is now `design_freeze_v4`. v1 and v2 remain historical.
 - Model selection is now restricted to 2016–2017 validation data and must end
-  in a hash-verified `finalized_model_roster_v1` before any formal
+  in a contract-validated `finalized_model_roster_v1` before any formal
   development-test or confirmatory execution.
 - Smoke, truncated, partial, development-only, and validation-funnel runs are
   not performance evidence. A complete smoke manifest proves only that its
@@ -73,14 +73,15 @@ In particular:
 | Confirmatory design | One Upper–Middle Chattahoochee mainstem network panel (HUCs `03130001`/`03130002`; not Lower `03130004`; not five basins; not external M1), 2023–2025, evaluate once after roster freeze |
 
 The authoritative contracts are
-[`configs/design_freeze_v3.yaml`](configs/design_freeze_v3.yaml)
+[`configs/design_freeze_v4.yaml`](configs/design_freeze_v4.yaml)
 (executable) and the historical
 [`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml) and
 [`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml),
 plus [`study_manifest.yaml`](study_manifest.yaml) and
 [`configs/experiments.yaml`](configs/experiments.yaml). Protocol amendments
 are [`docs/protocol_change_v1_to_v2.md`](docs/protocol_change_v1_to_v2.md)
-and [`docs/protocol_change_v2_to_v3.md`](docs/protocol_change_v2_to_v3.md).
+[`docs/protocol_change_v2_to_v3.md`](docs/protocol_change_v2_to_v3.md), and
+[`docs/protocol_change_v3_to_v4.md`](docs/protocol_change_v3_to_v4.md).
 Variable definitions and provenance are documented in
 [`metadata/data_dictionary.csv`](metadata/data_dictionary.csv) and
 [`metadata/source_documentation/README.md`](metadata/source_documentation/README.md).
@@ -398,7 +399,7 @@ sensitivity bundles and reports matched sensitivity results separately.
 ## External evaluate-once confirmation
 
 The confirmatory protocol is frozen in
-[`configs/design_freeze_v3.yaml`](configs/design_freeze_v3.yaml). It uses five
+[`configs/design_freeze_v4.yaml`](configs/design_freeze_v4.yaml). It uses five
 USGS sites on **one** Upper–Middle Chattahoochee mainstem network
 (`02334430`, `02335000`, `02335450`, `02336000`, and `02337170`; HUCs
 `03130001`/`03130002`, not Lower `03130004`) with USGS daily `T`, `F`, and `L`
@@ -501,11 +502,12 @@ figures/                    study-area, diagnostic, and publication figures
 - [Supporting Information index](paper/si.md)
 - [Submission checklist](paper/submission_checklist.md)
 - [Detailed executable methods](paper/methods.md)
-- [Frozen design (executable v3)](configs/design_freeze_v3.yaml)
+- [Frozen design (executable v4)](configs/design_freeze_v4.yaml)
 - [Historical freeze v2](configs/design_freeze_v2.yaml)
 - [Historical freeze v1](configs/design_freeze_v1.yaml)
 - [Protocol change v1 to v2](docs/protocol_change_v1_to_v2.md)
 - [Protocol change v2 to v3](docs/protocol_change_v2_to_v3.md)
+- [Protocol change v3 to v4](docs/protocol_change_v3_to_v4.md)
 - [Terminology](paper/terminology.md)
 - [Submission gate](scripts/27_submission_gate.py)
 - [Study manifest](study_manifest.yaml)
