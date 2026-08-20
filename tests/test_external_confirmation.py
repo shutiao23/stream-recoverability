@@ -745,7 +745,7 @@ def test_script_08_and_experiment_runner_cannot_use_confirmatory_split(
             output_dir=tmp_path / "results",
             mask_dir=tmp_path / "masks",
             config_path=EXPERIMENT_CONFIG,
-            design_path=DESIGN,
+            design_path=Path("configs/design_freeze_v3.yaml"),
             manifest_path=STUDY_MANIFEST,
             models=("climatology",),
         )

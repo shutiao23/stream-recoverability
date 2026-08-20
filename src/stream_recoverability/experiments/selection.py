@@ -125,6 +125,13 @@ def select_stage2_finalists(
                     and 1 <= epoch <= epochs_run
                 ),
             }
+            if "hit_epoch_limit" in indexed.columns:
+                hit_limit = _strict_boolean(
+                    row["hit_epoch_limit"],
+                    field="hit_epoch_limit",
+                    model=model,
+                )
+                checks["budget_stable"] = not hit_limit
             diagnostic_pass[model] = all(checks.values())
             failed = [name for name, passed in checks.items() if not passed]
             diagnostic_reason[model] = (

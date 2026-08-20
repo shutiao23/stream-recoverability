@@ -788,7 +788,7 @@ def test_docs_only_provenance_change_does_not_invalidate_canonical_roster(
     document["code_provenance"]["status"] = "historical_frozen_audit"
     roster.write_text(json.dumps(document), encoding="utf-8")
 
-    validated = load_finalized_model_roster(roster)
+    validated = load_finalized_model_roster(roster, design_path=DESIGN)
 
     assert "code_provenance" not in validated.selection_contract
     assert validated.selection_contract["code_identity"] == document["code_identity"]
@@ -825,7 +825,7 @@ def test_full_mocked_build_is_atomic_immutable_and_provenance_complete(
 ) -> None:
     fetcher = FrozenMockFetcher()
     roster, roster_document = _write_finalized_roster(tmp_path)
-    validated_roster = load_finalized_model_roster(roster)
+    validated_roster = load_finalized_model_roster(roster, design_path=DESIGN)
     assert validated_roster.selected_models == ("linear", "proposed")
     output = tmp_path / "external_v1"
     manifest = build_confirmatory_data(

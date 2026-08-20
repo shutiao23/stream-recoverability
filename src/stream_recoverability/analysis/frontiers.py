@@ -703,16 +703,206 @@ def estimate_frontiers(
     )
 
 
+SIMPLE_BASELINE_MODELS = (
+    "climatology",
+    "linear",
+    "pchip",
+    "kalman",
+    "air_only",
+    "air_hydro",
+    "donor_regression",
+    "random_forest",
+    "xgboost",
+)
+DEFAULT_RELATIVE_PAIR_COLUMNS = (
+    "experiment",
+    "scenario_id",
+    "station_id",
+    "target",
+    "gap_length",
+    "mask_seed",
+    "window_length",
+    "condition_id",
+)
+
+
+def condition_family_key(frame: pd.DataFrame) -> pd.Series:
+    """Stable per-condition family used to freeze a best simple baseline."""
+
+    station = frame["station_id"].astype(str) if "station_id" in frame else pd.Series("NA", index=frame.index)
+    target = frame["target"].astype(str) if "target" in frame else pd.Series("T", index=frame.index)
+    if "condition_id" in frame:
+        condition = frame["condition_id"].astype(str)
+    elif "mask_type" in frame and "gap_length" in frame:
+        condition = (
+            frame["mask_type"].astype(str)
+            + "|"
+            + pd.to_numeric(frame["gap_length"], errors="coerce").astype("string")
+        )
+    else:
+        condition = pd.Series("unspecified", index=frame.index)
+    return station + "|" + target + "|" + condition
+
+
+def select_best_simple_baselines(
+    validation_events: pd.DataFrame,
+    *,
+    metric: str = "MAE",
+    models: Sequence[str] = SIMPLE_BASELINE_MODELS,
+) -> pd.DataFrame:
+    """Freeze one best traditional baseline per validation condition family.
+
+    Selection uses validation events only. Development-test or confirmatory
+    tables must consume this lookup and not re-rank baselines.
+    """
+
+    required = {"model", metric}
+    missing = sorted(required.difference(validation_events.columns))
+    if missing:
+        raise ValueError(f"best-simple baseline selection requires columns: {missing}")
+    data = validation_events.loc[
+        validation_events["model"].astype(str).isin(set(models))
+    ].copy()
+    if data.empty:
+        raise ValueError("best-simple baseline selection found no traditional models")
+    data[metric] = pd.to_numeric(data[metric], errors="coerce")
+    data = data.dropna(subset=[metric])
+    data["condition_family"] = condition_family_key(data)
+    ranked = (
+        data.groupby(["condition_family", "model"], as_index=False, observed=True)[metric]
+        .mean()
+        .sort_values(["condition_family", metric, "model"], kind="mergesort")
+    )
+    best = ranked.groupby("condition_family", as_index=False, observed=True).first()
+    best = best.rename(columns={"model": "best_simple_baseline", metric: "best_simple_metric"})
+    best["selection_split"] = "validation"
+    best["formal_evidence"] = False
+    return best
+
+
+def add_relative_skills(
+    events: pd.DataFrame,
+    *,
+    climatology_model: str = "climatology",
+    best_simple: pd.DataFrame | None = None,
+    metric: str = "MAE",
+    pair_columns: Sequence[str] = DEFAULT_RELATIVE_PAIR_COLUMNS,
+) -> pd.DataFrame:
+    """Add climatology-relative and best-simple-relative skill columns."""
+
+    if metric not in events.columns:
+        raise ValueError(f"relative skill requires column {metric!r}")
+    result = events.copy()
+    result[metric] = pd.to_numeric(result[metric], errors="coerce")
+    keys = [column for column in pair_columns if column in result.columns]
+    if not keys:
+        raise ValueError("relative skill requires at least one pairing column")
+
+    climatology = (
+        result.loc[result["model"].astype(str).eq(climatology_model), [*keys, metric]]
+        .groupby(keys, as_index=False, observed=True)[metric]
+        .mean()
+        .rename(columns={metric: "climatology_mae"})
+    )
+    result = result.merge(climatology, on=keys, how="left")
+    denom = result["climatology_mae"]
+    result["skill_vs_climatology"] = np.where(
+        np.isfinite(result[metric]) & np.isfinite(denom) & (denom > 0),
+        1.0 - result[metric] / denom,
+        np.nan,
+    )
+
+    if best_simple is None:
+        result["skill_vs_best_simple"] = np.nan
+        result["best_simple_baseline"] = pd.NA
+        return result
+    if "condition_family" not in result.columns:
+        result["condition_family"] = condition_family_key(result)
+    lookup = best_simple.loc[
+        :, ["condition_family", "best_simple_baseline"]
+    ].drop_duplicates("condition_family")
+    result = result.merge(lookup, on="condition_family", how="left")
+    baseline_rows = result.loc[
+        result["model"].astype(str).eq(result["best_simple_baseline"].astype(str)),
+        [*keys, metric],
+    ].rename(columns={metric: "best_simple_mae"})
+    baseline_rows = baseline_rows.groupby(keys, as_index=False, observed=True)[
+        "best_simple_mae"
+    ].mean()
+    result = result.merge(baseline_rows, on=keys, how="left")
+    simple_denom = result["best_simple_mae"]
+    result["skill_vs_best_simple"] = np.where(
+        np.isfinite(result[metric]) & np.isfinite(simple_denom) & (simple_denom > 0),
+        1.0 - result[metric] / simple_denom,
+        np.nan,
+    )
+    return result
+
+
+def estimate_dual_frontiers(
+    events: pd.DataFrame,
+    *,
+    best_simple: pd.DataFrame | None = None,
+    n_boot: int = 2000,
+    seed: int = 0,
+) -> dict[str, pd.DataFrame]:
+    """Estimate climatology-relative and best-simple-relative frontiers."""
+
+    scored = add_relative_skills(events, best_simple=best_simple)
+    climatology_events = scored.copy()
+    climatology_events["skill"] = climatology_events["skill_vs_climatology"]
+    climatology_curves, climatology_summary = estimate_frontiers(
+        climatology_events, n_boot=n_boot, seed=seed
+    )
+    climatology_summary["frontier_denominator"] = "climatology"
+    climatology_summary["hypothesis_family"] = "frontier_model_vs_climatology"
+    simple_events = scored.copy()
+    simple_events["skill"] = simple_events["skill_vs_best_simple"]
+    if best_simple is None or not np.isfinite(simple_events["skill"]).any():
+        simple_curves = pd.DataFrame()
+        simple_summary = pd.DataFrame(
+            [
+                {
+                    "frontier_denominator": "best_simple_baseline",
+                    "hypothesis_family": "frontier_model_vs_best_simple_baseline",
+                    "statistical_frontier_days": np.nan,
+                    "reason": "best-simple baseline lookup is missing or has no finite skill",
+                }
+            ]
+        )
+    else:
+        simple_curves, simple_summary = estimate_frontiers(
+            simple_events, n_boot=n_boot, seed=seed + 10_000
+        )
+        simple_summary["frontier_denominator"] = "best_simple_baseline"
+        simple_summary["hypothesis_family"] = "frontier_model_vs_best_simple_baseline"
+    return {
+        "scored_events": scored,
+        "climatology_curves": climatology_curves,
+        "climatology_frontiers": climatology_summary,
+        "best_simple_curves": simple_curves,
+        "best_simple_frontiers": simple_summary,
+        "dual_frontiers": pd.concat(
+            [climatology_summary, simple_summary], ignore_index=True, sort=False
+        ),
+    }
+
+
 __all__ = [
     "DENSE_FLOW_LEVEL_GAPS",
     "DENSE_T_GAPS",
+    "SIMPLE_BASELINE_MODELS",
+    "add_relative_skills",
     "application_frontier",
     "cluster_bootstrap_frontier_ci",
+    "condition_family_key",
     "dense_gap_coverage",
+    "estimate_dual_frontiers",
     "estimate_frontiers",
     "frontier_design_subset",
     "interpolate_threshold_crossing",
     "segmented_sse_breakpoint",
+    "select_best_simple_baselines",
     "skill_curve",
     "statistical_frontier",
 ]

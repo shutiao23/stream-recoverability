@@ -1,10 +1,11 @@
-qc_status,meaning,quality_approved
-observed_good,Published source value with no known problem,1
-observed_unflagged,Published value but no per-value source quality flag is available,1
-observed_suspect,Value retained for audit but excluded as artificial-gap ground truth,0
-source_missing,Missing in the supplied source or represented by a confirmed source missing code,0
-derived_value,Value explicitly derived from another variable,0
-corrected_value,Value corrected by the source provider and documented as such,1
-artificial_hidden,Quality-approved value hidden only for an experiment,0
-imputed_output,Model recovery output rather than ground truth,0
-
+qc_status,meaning,analysis_eligible,provider_qc_status,known_issue_flag,quality_approved
+observed_good,Published source value with a documented provider quality approval,1,approved,0,1
+observed_unflagged,Published value but no per-value source quality flag is available. quality_approved is analysis eligibility only,1,unknown,0,1
+observed_suspect,Value retained for audit but excluded as artificial-gap ground truth,0,unknown,1,0
+source_missing,Missing in the supplied source or represented by a confirmed source missing code,0,missing,0,0
+derived_value,Value explicitly derived from another variable,0,unknown,0,0
+corrected_value,Value corrected by the source provider and documented as such,1,approved,0,1
+artificial_hidden,Quality-eligible value hidden only for an experiment,0,unknown,0,0
+imputed_output,Model recovery output rather than ground truth,0,missing,0,0
+excluded_s2_suspect_period,Analysis exclusion of S2 hydrology for the 2013-2019 provenance discrepancy,0,unknown,1,0
+excluded_b1_level,Analysis exclusion of B1 water level,0,unknown,1,0

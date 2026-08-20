@@ -46,7 +46,7 @@ def _models(values: list[str]) -> list[str]:
 
 
 def _add_anchor_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--data-version", default="published_v1")
+    parser.add_argument("--data-version", default="published_v2")
     parser.add_argument(
         "--evaluation-split",
         choices=("development_test", "test"),
@@ -60,7 +60,7 @@ def _add_anchor_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs" / "design_freeze_v2.yaml",
+        default=PROJECT_ROOT / "configs" / "design_freeze_v3.yaml",
     )
     parser.add_argument(
         "--data-root",
@@ -207,9 +207,9 @@ def build_parser() -> argparse.ArgumentParser:
     information.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
+        default=PROJECT_ROOT / "configs/design_freeze_v3.yaml",
     )
-    information.add_argument("--data-version", default="published_v1")
+    information.add_argument("--data-version", default="published_v2")
     information.add_argument(
         "--evaluation-split",
         choices=("development_test", "test"),

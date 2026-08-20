@@ -476,7 +476,7 @@ def _data_version_bundle_kind(
         or len(set(sensitivities)) != len(sensitivities)
         or primary in sensitivities
         or not isinstance(definitions, Mapping)
-        or set(definitions) != {primary, *sensitivities}
+        or not {primary, *sensitivities}.issubset(set(definitions))
     ):
         raise ValueError("design freeze data-version inventory is invalid")
     if data_version == primary:
@@ -1719,7 +1719,7 @@ def build_formal_suite_registry(
     data_version: str,
     evaluation_split: str,
     design_hash: str,
-    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v2.yaml",
+    design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v3.yaml",
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
     data_version_manifest_path: str | Path | None = None,

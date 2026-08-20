@@ -511,7 +511,7 @@ def _write_compensation_checkpoint(
 ) -> None:
     station_ids = ("B1", "P3", "S2")
     frozen_design = load_frozen_model_design(
-        PROJECT_ROOT / "configs" / "design_freeze_v2.yaml"
+        PROJECT_ROOT / "configs" / "design_freeze_v3.yaml"
     )
     frozen_model = frozen_design.protocol_for("proposed")
     common = frozen_design.common_training
@@ -783,7 +783,7 @@ def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     assert run_manifest["anchor_replacement_allowed"] is False
     assert run_manifest["training_profile"] == "formal"
     assert run_manifest["training_settings"]["train_mask_repeats"] == 5
-    assert run_manifest["training_settings"]["proposed_epochs"] == 200
+    assert run_manifest["training_settings"]["proposed_epochs"] == 400
     assert run_manifest["training_settings"]["proposed_patience"] == 20
     assert run_manifest["attribution_estimand"] == "operational_dropout"
     assert run_manifest["component_estimator"] == "proposed_checkpoint"

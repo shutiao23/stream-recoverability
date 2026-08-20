@@ -89,7 +89,7 @@ def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
 
 
 def _add_contract_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--data-version", default="published_v1")
+    parser.add_argument("--data-version", default="published_v2")
     parser.add_argument(
         "--manifest", type=Path, default=PROJECT_ROOT / "study_manifest.yaml"
     )
@@ -101,7 +101,7 @@ def _add_contract_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--design",
         type=Path,
-        default=PROJECT_ROOT / "configs/design_freeze_v2.yaml",
+        default=PROJECT_ROOT / "configs/design_freeze_v3.yaml",
     )
     parser.add_argument(
         "--data-root", type=Path, default=PROJECT_ROOT / "data_versions"

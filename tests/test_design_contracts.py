@@ -94,8 +94,8 @@ def test_design_hash_changes_with_data_version_and_is_reproducible() -> None:
     assert first == relative
     assert first["design_hash"] != changed["design_hash"]
     assert first["mask_schema_version"] == "mask_schema_v2"
-    assert first["model_schema_version"] == "model_schema_v2"
-    assert first["statistics_schema_version"] == "statistics_schema_v2"
+    assert first["model_schema_version"] == "model_schema_v3"
+    assert first["statistics_schema_version"] == "statistics_schema_v3"
     assert len(first["code_identity"]["relevant_source_digest"]) == 64
 
 

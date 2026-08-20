@@ -1,6 +1,7 @@
 """Immutable acquisition and preparation of the frozen confirmatory data.
 
-The builder implements the external protocol in ``design_freeze_v2.yaml``.  It
+The builder implements the external protocol in the executable design freeze
+(``design_freeze_v3.yaml``, accepting the historical v2 file).  It
 uses the modern USGS OGC API and the NASA POWER daily point API, records every
 non-secret request and raw response by SHA-256, and materialises no performance
 metrics. Full acquisition is deliberately gated by a hash-verified finalized
@@ -499,7 +500,12 @@ def load_confirmatory_protocol(
     document = yaml.safe_load(raw)
     if not isinstance(document, Mapping):
         raise TypeError("design freeze must contain a mapping")
-    _expect_equal(document.get("design_version"), "design_freeze_v2", "design_version")
+    design_version = document.get("design_version")
+    if design_version not in {"design_freeze_v2", "design_freeze_v3"}:
+        raise ValueError(
+            "design_version must be design_freeze_v2 or design_freeze_v3, "
+            f"got {design_version!r}"
+        )
     proposed = (
         document.get("training", {})
         .get("fixed_model_protocols", {})
@@ -513,7 +519,7 @@ def load_confirmatory_protocol(
     if architecture_version == "s0_abcd_v2":
         raise ValueError(
             "architecture_version s0_abcd_v2 cannot remain the main token while "
-            "Group D uses Rs; design_freeze_v2 requires s0_abcd_rs_v1"
+            "Group D uses Rs; design_freeze_v2/v3 requires s0_abcd_rs_v1"
         )
     _expect_equal(architecture_version, "s0_abcd_rs_v1", "proposed.architecture_version")
     group_d = document.get("information_groups", {})
@@ -664,7 +670,7 @@ def load_confirmatory_protocol(
     return ConfirmatoryProtocol(
         design_path=_portable_path(path),
         design_sha256=_sha256_bytes(raw),
-        design_version="design_freeze_v2",
+        design_version=str(design_version),
         network=FROZEN_NETWORK,
         site_ids=FROZEN_SITE_IDS,
         periods=tuple(SplitPeriod(*value) for value in FROZEN_PERIODS),

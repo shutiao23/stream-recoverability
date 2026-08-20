@@ -9,6 +9,7 @@ from typing import Any, Mapping
 import numpy as np
 import pandas as pd
 
+from .quality import attach_qc_fields
 from .schema import DEFAULT_VARIABLE_SPECS, RAW_VARIABLES, STATION_FILES
 
 KNOT_TO_METRES_PER_SECOND = 0.5144444444444445
@@ -162,12 +163,11 @@ def read_station_csv(
                 "raw_unit": str(spec.get("raw_unit", "unknown")),
                 "unit": str(spec.get("unit", "unknown")),
                 "natural_observed": natural_observed.astype(bool),
-                "quality_approved": natural_observed.astype(bool),
                 "qc_status": np.where(natural_observed, "observed_unflagged", "source_missing"),
                 "source": str(spec.get("source", path.name)),
             }
         )
-        frames.append(frame)
+        frames.append(attach_qc_fields(frame))
 
     return pd.concat(frames, ignore_index=True)
 

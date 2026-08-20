@@ -1,6 +1,6 @@
 # Protocol change: `design_freeze_v1` to `design_freeze_v2`
 
-`configs/design_freeze_v1.yaml` remains the historical freeze. It is not silently rewritten. The executable default is `configs/design_freeze_v2.yaml`.
+`configs/design_freeze_v1.yaml` remains the historical freeze. It is not silently rewritten. v2 was the executable default until `design_freeze_v3`. The later amendment is `docs/protocol_change_v2_to_v3.md`.
 
 This document records protocol repairs made before confirmatory performance is observed. It does not report confirmatory results, invented data hashes, or frontier numbers.
 

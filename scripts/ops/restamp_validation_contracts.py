@@ -40,7 +40,7 @@ def log(message: str) -> None:
 
 def current_contract() -> dict[str, Any]:
     return build_design_contract(
-        design_path=ROOT / "configs/design_freeze_v2.yaml",
+        design_path=ROOT / "configs/design_freeze_v3.yaml",
         manifest_path=ROOT / "study_manifest.yaml",
         experiment_config_path=ROOT / "configs/experiments.yaml",
         data_version="published_v1",

@@ -83,6 +83,8 @@ def test_metadata_conversion_codes_and_raw_values_are_preserved(tmp_path: Path) 
     assert normal_wind["value"] == pytest.approx(1.0)
     assert normal_rain["value"] == pytest.approx(10.0)
     assert normal_wind["quality_approved"]
+    assert normal_wind["analysis_eligible"]
+    assert normal_wind["provider_qc_status"] == "unknown"
     assert normal_wind["qc_status"] == "observed_unflagged"
 
 
@@ -173,9 +175,19 @@ def test_prepare_writes_expected_tables_splits_and_train_scaler(tmp_path: Path) 
     )
     assert len(wide_data) == 5479
     assert len(long_data) == 5479 * 3 * 8
-    assert {"raw_value", "value", "natural_observed", "quality_approved", "qc_status"}.issubset(
-        long_data.columns
-    )
+    assert {
+        "raw_value",
+        "value",
+        "natural_observed",
+        "quality_approved",
+        "qc_status",
+        "analysis_eligible",
+        "provider_qc_status",
+        "known_issue_flag",
+    }.issubset(long_data.columns)
+    unflagged = long_data.loc[long_data["qc_status"].eq("observed_unflagged")]
+    assert unflagged["provider_qc_status"].eq("unknown").all()
+    assert not unflagged["provider_qc_status"].eq("approved").any()
     assert {"B1_T", "S2_F", "P3_Ta", "day_of_year_sin", "is_leap_year", "split"}.issubset(
         wide_data.columns
     )

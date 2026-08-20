@@ -24,9 +24,9 @@ artifacts.
 <!-- evidence-status:start -->
 ```json
 {
-  "design_freeze": "frozen_for_validation",
+  "design_freeze": "design_freeze_v3",
   "development_test_visibility": "seen_before_design_freeze",
-  "validation_funnel": "pending_execution",
+  "validation_funnel": "must_be_rerun_under_v3",
   "finalized_model_roster": "pending",
   "development_test_formal_evidence": "pending_current_protocol",
   "confirmatory_data": "not_opened",
@@ -40,7 +40,7 @@ In particular:
 
 - 2018–2020 is called `development_test`. It was visible before
   `design_freeze_v1` and is not presented as a previously unseen test set.
-  The executable freeze is now `design_freeze_v2`; v1 remains historical.
+  The executable freeze is now `design_freeze_v3`. v1 and v2 remain historical.
 - Model selection is now restricted to 2016–2017 validation data and must end
   in a hash-verified `finalized_model_roster_v1` before any formal
   development-test or confirmatory execution.
@@ -69,17 +69,18 @@ In particular:
 | Main / dense windows | 368 / 736 days; 184 and 736 days are window sensitivities |
 | Formal training seeds | `11`, `22`, `33`, `44`, `55` |
 | Formal mask seeds | `101`–`120` |
-| Internal data versions | `published_v1` plus three frozen provenance sensitivities |
+| Internal data versions | `published_v2` plus three frozen provenance sensitivities; `published_v1` remains historical |
 | Confirmatory design | One Upper–Middle Chattahoochee mainstem network panel (HUCs `03130001`/`03130002`; not Lower `03130004`; not five basins; not external M1), 2023–2025, evaluate once after roster freeze |
 
 The authoritative contracts are
-[`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml)
+[`configs/design_freeze_v3.yaml`](configs/design_freeze_v3.yaml)
 (executable) and the historical
+[`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml) and
 [`configs/design_freeze_v1.yaml`](configs/design_freeze_v1.yaml),
 plus [`study_manifest.yaml`](study_manifest.yaml) and
-[`configs/experiments.yaml`](configs/experiments.yaml). The v1→v2 protocol
-change is recorded in
-[`docs/protocol_change_v1_to_v2.md`](docs/protocol_change_v1_to_v2.md).
+[`configs/experiments.yaml`](configs/experiments.yaml). Protocol amendments
+are [`docs/protocol_change_v1_to_v2.md`](docs/protocol_change_v1_to_v2.md)
+and [`docs/protocol_change_v2_to_v3.md`](docs/protocol_change_v2_to_v3.md).
 Variable definitions and provenance are documented in
 [`metadata/data_dictionary.csv`](metadata/data_dictionary.csv) and
 [`metadata/source_documentation/README.md`](metadata/source_documentation/README.md).
@@ -380,13 +381,14 @@ roster. Dense, resilience, compensation, and retrained-information commands in
 
 ## Data versions and sensitivity analysis
 
-The primary version, `published_v1`, retains published unflagged values. Three
-frozen sensitivity versions change one documented provenance decision at a
-time:
+The primary version, `published_v2`, retains published values and adds split
+QC fields. `observed_unflagged` is analysis-eligible with
+`provider_qc_status=unknown`; it is not provider-approved. Three frozen
+sensitivity versions change one documented provenance decision at a time:
 
-- `no_s2_suspect_v1`: excludes S2 hydrology for 2013–2019 without reordering;
-- `b1_no_level_v1`: excludes B1 water level;
-- `b1_shift_sensitivity_v1`: applies a hypothetical −8.48 m adjustment to B1
+- `no_s2_suspect_v2`: excludes S2 hydrology for 2013–2019 without reordering;
+- `b1_no_level_v2`: excludes B1 water level;
+- `b1_shift_sensitivity_v2`: applies a hypothetical −8.48 m adjustment to B1
   level from 2019 onward.
 
 Each version has its own immutable manifest and design hash. Aggregation never
@@ -396,7 +398,7 @@ sensitivity bundles and reports matched sensitivity results separately.
 ## External evaluate-once confirmation
 
 The confirmatory protocol is frozen in
-[`configs/design_freeze_v2.yaml`](configs/design_freeze_v2.yaml). It uses five
+[`configs/design_freeze_v3.yaml`](configs/design_freeze_v3.yaml). It uses five
 USGS sites on **one** Upper–Middle Chattahoochee mainstem network
 (`02334430`, `02335000`, `02335450`, `02336000`, and `02337170`; HUCs
 `03130001`/`03130002`, not Lower `03130004`) with USGS daily `T`, `F`, and `L`
@@ -499,9 +501,13 @@ figures/                    study-area, diagnostic, and publication figures
 - [Supporting Information index](paper/si.md)
 - [Submission checklist](paper/submission_checklist.md)
 - [Detailed executable methods](paper/methods.md)
-- [Frozen design (executable v2)](configs/design_freeze_v2.yaml)
+- [Frozen design (executable v3)](configs/design_freeze_v3.yaml)
+- [Historical freeze v2](configs/design_freeze_v2.yaml)
 - [Historical freeze v1](configs/design_freeze_v1.yaml)
 - [Protocol change v1 to v2](docs/protocol_change_v1_to_v2.md)
+- [Protocol change v2 to v3](docs/protocol_change_v2_to_v3.md)
+- [Terminology](paper/terminology.md)
+- [Submission gate](scripts/27_submission_gate.py)
 - [Study manifest](study_manifest.yaml)
 - [Data dictionary](metadata/data_dictionary.csv)
 - [Source and provenance notes](metadata/source_documentation/README.md)
