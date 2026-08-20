@@ -7,7 +7,7 @@ paper and it does not waive the submission gate.
 | --- | --- | --- |
 | P0-00 | Protocol complete; GitHub admin settings not flipped from here | Snapshot helper and CI record exist. Branch protection needs repository admin. |
 | P0-01 | Recorded, not history-rewritten | Restricted bytes remain on the public tip. Audit script writes the defect. Git history is not rewritten in this wave. |
-| P0-02 | Complete | Split QC fields are implemented. `published_v2` and the three v2 sensitivities were built from `published_v1` and named in `design_freeze_v3.yaml`. Provider QC is `unknown`, never `approved`. |
+| P0-02 | Complete | Split QC fields are implemented. `published_v2` and the three v2 sensitivities were built from `published_v1`. Provider QC is `unknown`, never `approved`. Artifact hashes are not pinned in the freeze. |
 | P0-03 | Complete | `design_freeze_v3.yaml` and `docs/protocol_change_v2_to_v3.md`. Formal epoch budget is 400. |
 | P0-04 | Pipeline ready; not silently stamped from v2 | Stage 1/2 must be re-run under the v3 hash. Old 945 units are not v3 evidence. |
 | P0-05 | Gate implemented; roster absent | `hit_epoch_limit` is `budget_unstable`. No roster is issued from stale diagnostics. |

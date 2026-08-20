@@ -134,20 +134,8 @@ data_versions:
     status: built
     builder: scripts/14_build_data_versions.py
     source: data_versions/published_v1/daily_long.parquet
-    source_sha256: be1e7dd21c854c67f34f0edec29452a73026d7f854fbbfed801b3817dd929b3e
-    published_v2:
-      daily_long_sha256: 06a658663c3f9c1a438f481560b1932e32143ea8494e69685f75e123faaa2da3
-      daily_wide_sha256: 361afb6608fa9a16278f5d4b8697c1eb092a564ec65b638b1f16aad7fd5a768e
-    no_s2_suspect_v2:
-      daily_long_sha256: e194c6d15fbd7d6859122d976d6887916b6143dea3ab3ba452a78f7a890fe9e6
-      daily_wide_sha256: 780978d6a4b69c6a054c426e5665681206fc3c24bae97da2e26235043b5428e2
-    b1_no_level_v2:
-      daily_long_sha256: 7c16f993be7631a7863ed2b52b0dd77dce76182e8e0cf061dc15ed7cfffed0b9
-      daily_wide_sha256: ef398e19fcca0964cb191a0f57749a9516857b8b01c71791744bacf27ed1d84a
-    b1_shift_sensitivity_v2:
-      daily_long_sha256: cd635c92dcc062189feccf5387fa5c333425f553dd8bd340f9b3e453324f220f
-      daily_wide_sha256: 74799ee5196aa3f8bff3fa10d6eb782fad775b217835af3cb4096f3acf49c623
-  note: v1_hashes_remain_historical_v2_hashes_were_named_after_scripts_14_build
+    note: do_not_name_artifact_hashes_in_this_freeze
+  note: v2_directories_exist_hashes_are_not_pinned_here
 
 required_protocol_sensitivities:
   meteorology_alignment_v1:

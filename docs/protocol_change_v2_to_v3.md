@@ -69,8 +69,7 @@ propagation.”
 ## What is not claimed
 
 - No development-test or confirmatory performance.
-- `published_v2` artifact hashes are named in `design_freeze_v3.yaml` only after
-  `scripts/14_build_data_versions.py` wrote the immutable directories.
+- `published_v2` directories exist; this freeze does not name their artifact hashes.
 - No operational recoverability boundary (application thresholds remain undeclared).
 - v2 Stage 1/2/3 artifacts are not v3 selection evidence.
 
