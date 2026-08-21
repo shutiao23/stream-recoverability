@@ -1088,7 +1088,8 @@ def load_finalized_model_roster(
     )
 
     expected_validation_anchors = validation_anchor_catalog_identity(
-        require_canonical_path=True
+        require_canonical_path=True,
+        expected_data_version=selection_data_version,
     )
     raw = roster_path.read_bytes()
     document = strict_json_loads(raw)

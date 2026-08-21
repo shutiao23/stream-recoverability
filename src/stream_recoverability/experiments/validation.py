@@ -75,20 +75,25 @@ TRADITIONAL_CANDIDATES = (
 DEEP_CANDIDATES = ("brits_ref", "saits_ref", "csdi", "proposed")
 
 
+def canonical_validation_anchor_path(data_version: str) -> Path:
+    """Return the frozen catalog for a data version, not a later design hash."""
+
+    version = str(data_version).strip()
+    if version == "published_v2":
+        return V2_VALIDATION_ANCHOR_PATH
+    return DEFAULT_VALIDATION_ANCHOR_PATH
+
+
 def validation_anchor_catalog_identity(
-    path: str | Path = DEFAULT_VALIDATION_ANCHOR_PATH,
+    path: str | Path | None = None,
     *,
     require_canonical_path: bool = True,
     expected_data_version: str = "published_v1",
 ) -> dict[str, Any]:
     """Reopen and validate the immutable 15-row selection-anchor inventory."""
 
-    source = Path(path)
-    canonical_path = (
-        V2_VALIDATION_ANCHOR_PATH
-        if expected_data_version == "published_v2"
-        else DEFAULT_VALIDATION_ANCHOR_PATH
-    )
+    canonical_path = canonical_validation_anchor_path(expected_data_version)
+    source = canonical_path if path is None else Path(path)
     if require_canonical_path and source.resolve() != canonical_path.resolve():
         raise ValueError(
             f"validation selection requires {canonical_path.relative_to(canonical_path.parents[1])}"
@@ -751,8 +756,10 @@ __all__ = [
     "ValidationMaskUnit",
     "ValidationStage",
     "build_validation_funnel",
+    "canonical_validation_anchor_path",
     "rank_validation_models",
     "select_validation_stage",
+    "validation_anchor_catalog_identity",
     "validation_condition_stratum",
     "write_validation_model_ranking",
 ]

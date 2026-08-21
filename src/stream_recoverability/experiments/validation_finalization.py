@@ -32,6 +32,7 @@ from .model_registry import load_frozen_model_design
 from .selection import assess_proposed_go_no_go, select_stage2_finalists
 from .validation import (
     DEEP_CANDIDATES,
+    STATION_OUTAGE_STRATUM,
     TRADITIONAL_CANDIDATES,
     VALIDATION_DEEP_SEEDS,
     VALIDATION_MASK_SEEDS,
@@ -2057,6 +2058,193 @@ def validate_go_no_go_artifact(
     return document, events, event_paths
 
 
+def _require_checkpoint_metadata(
+    checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
+    models: Sequence[str],
+    seeds: Sequence[int] = VALIDATION_DEEP_SEEDS,
+) -> dict[tuple[str, int], Mapping[str, Any]]:
+    required = {(str(model), int(seed)) for model in models for seed in seeds}
+    missing = sorted(required.difference(checkpoint_metadata))
+    if missing:
+        raise ValueError(f"stage-3 checkpoint metadata missing for {missing}")
+    return {key: checkpoint_metadata[key] for key in required}
+
+
+def stage3_budget_unstable_models(
+    checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
+    models: Sequence[str],
+    seeds: Sequence[int] = VALIDATION_DEEP_SEEDS,
+) -> tuple[str, ...]:
+    """Return models that hit the epoch cap on any required seed."""
+
+    metadata = _require_checkpoint_metadata(checkpoint_metadata, models, seeds)
+    unstable: list[str] = []
+    for model in models:
+        if any(
+            _strict_bool(
+                metadata[(str(model), int(seed))]["hit_epoch_limit"],
+                field=f"{model}/{seed} hit_epoch_limit",
+            )
+            for seed in seeds
+        ):
+            unstable.append(str(model))
+    return tuple(dict.fromkeys(unstable))
+
+
+def summarize_stage3_stability(
+    events: pd.DataFrame,
+    checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
+    *,
+    expected_data_version: str | None = None,
+    expected_design_hash: str | None = None,
+) -> pd.DataFrame:
+    """One scientific stability row per completed Stage 3 model-seed pair."""
+
+    if events.empty:
+        raise ValueError("stage-3 stability requires completed event metrics")
+    models = tuple(dict.fromkeys(model for model, _ in checkpoint_metadata))
+    if not models:
+        raise ValueError("stage-3 stability requires checkpoint metadata")
+    metadata = _require_checkpoint_metadata(checkpoint_metadata, models)
+    rows: list[dict[str, Any]] = []
+    for model in models:
+        for seed in VALIDATION_DEEP_SEEDS:
+            subset = events.loc[
+                events["model"].astype(str).eq(model)
+                & pd.to_numeric(events["training_seed"], errors="coerce").eq(seed)
+            ].copy()
+            ranking = rank_validation_models(
+                subset,
+                expected_data_version=expected_data_version,
+                expected_design_hash=expected_design_hash,
+            )
+            if len(ranking) != 1:
+                raise ValueError(f"stage-3 stability ranking is not unique for {model}/{seed}")
+            scored = ranking.iloc[0]
+            coverage = np.nan
+            if "coverage_90" in subset.columns:
+                coverage_values = pd.to_numeric(subset["coverage_90"], errors="coerce")
+                if coverage_values.notna().any():
+                    coverage = float(coverage_values.mean())
+            item = metadata[(model, seed)]
+            rows.append(
+                {
+                    "model": model,
+                    "seed": int(seed),
+                    "overall_skill": float(scored["mean_skill_across_strata"]),
+                    "long_gap_skill": float(scored["long_gap_mean_skill"]),
+                    "outage_skill": float(scored["station_outage_mean_skill"]),
+                    "worst_station_skill": float(scored["worst_station_mean_skill"]),
+                    "coverage_90": coverage,
+                    "hit_epoch_limit": bool(item["hit_epoch_limit"]),
+                    "best_epoch": int(item["best_epoch"]),
+                    "epochs_run": int(item["epochs_run"]),
+                    "event_rows": int(len(subset)),
+                    "budget_status": (
+                        "budget_unstable" if item["hit_epoch_limit"] else "budget_stable"
+                    ),
+                    "evaluation_split": "validation",
+                    "evidence_role": "model_selection_only",
+                    "formal_evidence": False,
+                    "data_version": str(scored["data_version"]),
+                    "design_hash": str(scored["design_hash"]),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+PROPOSED_DONOR_KEY_STRATA = (
+    "t_block_90d",
+    "t_block_180d",
+    "tfl_block_90d",
+    STATION_OUTAGE_STRATUM,
+)
+
+
+def assess_proposed_versus_donor(
+    events: pd.DataFrame,
+    *,
+    donor_model: str = "donor_regression",
+    key_strata: Sequence[str] = PROPOSED_DONOR_KEY_STRATA,
+) -> dict[str, Any]:
+    """Compare proposed to donor regression on the predeclared hard cases.
+
+    This is a validation-only claim rule.  It does not create formal evidence.
+    """
+
+    data = events.copy()
+    data["condition_stratum"] = data["condition_id"].map(validation_condition_stratum)
+    data["skill"] = pd.to_numeric(data["skill"], errors="coerce")
+    proposed = data.loc[data["model"].astype(str).eq("proposed")].copy()
+    donor = data.loc[data["model"].astype(str).eq(donor_model)].copy()
+    if proposed.empty:
+        return {
+            "claim": "not_in_stage3",
+            "donor_model": donor_model,
+            "n_compared_cells": 0,
+            "n_proposed_better": 0,
+            "n_donor_better": 0,
+            "cells": [],
+            "evaluation_split": "validation",
+            "evidence_role": "model_selection_only",
+            "formal_evidence": False,
+        }
+    if donor.empty:
+        raise ValueError(f"proposed-versus-donor comparison requires {donor_model}")
+    proposed["training_seed"] = pd.to_numeric(
+        proposed["training_seed"], errors="coerce"
+    ).astype(int)
+    keys = ["condition_stratum", "station_id"]
+    donor_means = (
+        donor.groupby(keys, as_index=False, dropna=False, sort=True)
+        .agg(donor_skill=("skill", "mean"))
+    )
+    proposed_means = (
+        proposed.groupby([*keys, "training_seed"], as_index=False, dropna=False, sort=True)
+        .agg(proposed_skill=("skill", "mean"))
+    )
+    paired = proposed_means.merge(donor_means, on=keys, how="inner", validate="many_to_one")
+    paired = paired.loc[paired["condition_stratum"].isin(set(key_strata))].copy()
+    if paired.empty:
+        raise ValueError("proposed-versus-donor comparison has no key-stratum cells")
+    paired["proposed_better"] = paired["proposed_skill"] > paired["donor_skill"]
+    n_better = int(paired["proposed_better"].sum())
+    n_total = int(len(paired))
+    seeds = tuple(sorted(int(seed) for seed in paired["training_seed"].unique()))
+    stations = tuple(sorted(paired["station_id"].astype(str).unique()))
+    all_seeds_all_stations = n_better == n_total
+    any_difficult = bool(
+        paired.loc[
+            paired["condition_stratum"].isin(
+                {"t_block_90d", "t_block_180d", "tfl_block_90d", STATION_OUTAGE_STRATUM}
+            ),
+            "proposed_better",
+        ].any()
+    )
+    if all_seeds_all_stations and set(seeds) == set(VALIDATION_DEEP_SEEDS) and set(
+        stations
+    ) == set(VALIDATION_STATIONS):
+        claim = "supporting_contribution"
+    elif any_difficult:
+        claim = "conditional"
+    else:
+        claim = "no_superiority"
+    return {
+        "claim": claim,
+        "donor_model": donor_model,
+        "n_compared_cells": n_total,
+        "n_proposed_better": n_better,
+        "n_donor_better": n_total - n_better,
+        "training_seeds": list(seeds),
+        "stations": list(stations),
+        "key_strata": list(key_strata),
+        "cells": paired.to_dict(orient="records"),
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+    }
+
+
 def finalize_validation_roster(
     *,
     ranking_path: str | Path,
@@ -2105,13 +2293,14 @@ def finalize_validation_roster(
         design_path=design_path,
         expected_contract=expected_contract,
     )
-    stage3_events, _, _ = validate_completed_deep_stage(
+    stage3_events, checkpoint_metadata, _ = validate_completed_deep_stage(
         stage3_dir,
         expected_models=finalists,
         expected_seeds=VALIDATION_DEEP_SEEDS,
         expected_contract=expected_contract,
         expected_stage_name="deep_stability",
     )
+    budget_unstable = stage3_budget_unstable_models(checkpoint_metadata, finalists)
     decision, _, go_event_paths = validate_go_no_go_artifact(
         go_no_go_path,
         branch_metrics_path=branch_metrics_path,
@@ -2159,10 +2348,13 @@ def finalize_validation_roster(
     if decision.get("best_traditional_model") != best_traditional:
         raise ValueError("go/no-go and ranking best traditional models disagree")
     proposed_decision = str(decision["decision"])
+    if "proposed" in budget_unstable:
+        proposed_decision = "framework_only"
     selected_deep = [
         model
         for model in finalists
-        if model != "proposed" or proposed_decision == "include_proposed_formally"
+        if model not in budget_unstable
+        and (model != "proposed" or proposed_decision == "include_proposed_formally")
     ]
     selected_models = [*TRADITIONAL_CANDIDATES, *selected_deep]
     if set(selected_models).intersection({"rating_curve", "independent_flow"}):
@@ -2270,10 +2462,14 @@ __all__ = [
     "GO_NO_GO_SCHEMA_VERSION",
     "RANKING_MANIFEST_SCHEMA_VERSION",
     "STAGE2_SELECTION_MANIFEST_SCHEMA_VERSION",
+    "PROPOSED_DONOR_KEY_STRATA",
+    "assess_proposed_versus_donor",
     "execute_validation_branch_ablation",
     "extract_stage2_diagnostics",
     "finalize_validation_roster",
     "read_validation_event_tables",
+    "stage3_budget_unstable_models",
+    "summarize_stage3_stability",
     "validate_branch_ablation_artifact",
     "validate_branch_ablation_not_applicable_artifact",
     "validate_completed_deep_stage",

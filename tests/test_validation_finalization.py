@@ -12,6 +12,10 @@ import pytest
 
 from stream_recoverability.experiments import validation_finalization as finalization
 from stream_recoverability.experiments.contracts import build_design_contract
+from stream_recoverability.data.confirmatory import (
+    FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
+    load_finalized_model_roster,
+)
 from stream_recoverability.experiments.validation import (
     DEEP_CANDIDATES,
     TRADITIONAL_CANDIDATES,
@@ -19,6 +23,8 @@ from stream_recoverability.experiments.validation import (
     VALIDATION_MASK_SEEDS,
     VALIDATION_STATIONS,
     build_validation_funnel,
+    canonical_validation_anchor_path,
+    validation_anchor_catalog_identity,
 )
 
 
@@ -543,6 +549,25 @@ def test_branch_artifact_has_exact_shared_cells_masks_and_checkpoint_seeds(
         )
 
 
+def _checkpoint_metadata(
+    models: tuple[str, ...],
+    *,
+    hit: dict[tuple[str, int], bool] | None = None,
+) -> dict[tuple[str, int], dict[str, Any]]:
+    hits = hit or {}
+    return {
+        (model, seed): {
+            "model": model,
+            "training_seed": seed,
+            "best_epoch": 2,
+            "epochs_run": 4,
+            "hit_epoch_limit": bool(hits.get((model, seed), False)),
+        }
+        for model in models
+        for seed in VALIDATION_DEEP_SEEDS
+    }
+
+
 def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -602,7 +627,11 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
     monkeypatch.setattr(
         finalization,
         "validate_completed_deep_stage",
-        lambda *args, **kwargs: (stage3_events, {}, {}),
+        lambda *args, **kwargs: (
+            stage3_events,
+            _checkpoint_metadata(finalists),
+            {},
+        ),
     )
     monkeypatch.setattr(
         finalization,
@@ -661,6 +690,415 @@ def test_finalized_roster_is_t_capable_framework_only_and_immutable(
             anchor_catalog_path="metadata/validation_anchors.csv",
             expected_contract=contract,
         )
+
+
+def test_stage3_hit_epoch_limit_excludes_model_from_roster(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    ranking_path = tmp_path / "ranking.csv"
+    stage2_path = tmp_path / "stage2.csv"
+    go_path = tmp_path / "go.json"
+    stage3_dir = tmp_path / "stage3"
+    branch_path = tmp_path / "branch.parquet"
+    stage3_dir.mkdir()
+    stage3_events_path = stage3_dir / "event_metrics.parquet"
+    for path in (ranking_path, stage2_path, go_path, branch_path, stage3_events_path):
+        path.write_bytes(path.name.encode())
+
+    contract = build_design_contract(
+        design_path="configs/design_freeze_v1.yaml",
+        manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version="published_v1",
+        evaluation_split="validation",
+        data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+    )
+    contract["code_provenance"] = {
+        **contract["code_provenance"],
+        "relevant_source_clean": True,
+        "tracked_worktree_clean": True,
+        "status": "clean",
+        "dirty_tracked_paths": [],
+        "relevant_untracked_paths": [],
+    }
+    ranking = pd.DataFrame(
+        {
+            "rank": range(1, len(TRADITIONAL_CANDIDATES) + 1),
+            "model": list(TRADITIONAL_CANDIDATES),
+        }
+    )
+    ranking.loc[0, "model"] = "linear"
+    finalists = ("brits_ref", "csdi", "proposed")
+    stage3_events = pd.DataFrame({"model": list(finalists)})
+    branch = pd.DataFrame({"training_seed": list(VALIDATION_DEEP_SEEDS)})
+    decision = {
+        "decision": "include_proposed_formally",
+        "best_traditional_model": "linear",
+    }
+    monkeypatch.setattr(
+        finalization,
+        "validate_ranking_artifact",
+        lambda *args, **kwargs: (ranking, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_stage2_selection_artifact",
+        lambda *args, **kwargs: (pd.DataFrame(), finalists, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_completed_deep_stage",
+        lambda *args, **kwargs: (
+            stage3_events,
+            _checkpoint_metadata(finalists, hit={("csdi", 33): True}),
+            {},
+        ),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_branch_ablation_artifact",
+        lambda *args, **kwargs: (branch, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_go_no_go_artifact",
+        lambda *args, **kwargs: (decision, pd.DataFrame(), (stage3_events_path,)),
+    )
+    output = tmp_path / "finalized_model_roster.json"
+    roster = finalization.finalize_validation_roster(
+        ranking_path=ranking_path,
+        stage2_selection_path=stage2_path,
+        stage3_dir=stage3_dir,
+        branch_metrics_path=branch_path,
+        go_no_go_path=go_path,
+        output_path=output,
+        design_path="configs/design_freeze_v1.yaml",
+        study_manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+        anchor_catalog_path="metadata/validation_anchors.csv",
+        expected_contract=contract,
+    )
+
+    assert "csdi" not in roster["selected_models"]
+    assert "brits_ref" in roster["selected_models"]
+    assert "proposed" in roster["selected_models"]
+    assert roster["proposed_decision"] == "include_proposed_formally"
+
+
+def test_stage3_proposed_hit_epoch_limit_is_framework_only(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    ranking_path = tmp_path / "ranking.csv"
+    stage2_path = tmp_path / "stage2.csv"
+    go_path = tmp_path / "go.json"
+    stage3_dir = tmp_path / "stage3"
+    branch_path = tmp_path / "branch.parquet"
+    stage3_dir.mkdir()
+    stage3_events_path = stage3_dir / "event_metrics.parquet"
+    for path in (ranking_path, stage2_path, go_path, branch_path, stage3_events_path):
+        path.write_bytes(path.name.encode())
+
+    contract = build_design_contract(
+        design_path="configs/design_freeze_v1.yaml",
+        manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version="published_v1",
+        evaluation_split="validation",
+        data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+    )
+    contract["code_provenance"] = {
+        **contract["code_provenance"],
+        "relevant_source_clean": True,
+        "tracked_worktree_clean": True,
+        "status": "clean",
+        "dirty_tracked_paths": [],
+        "relevant_untracked_paths": [],
+    }
+    ranking = pd.DataFrame(
+        {
+            "rank": range(1, len(TRADITIONAL_CANDIDATES) + 1),
+            "model": list(TRADITIONAL_CANDIDATES),
+        }
+    )
+    ranking.loc[0, "model"] = "linear"
+    finalists = ("brits_ref", "csdi", "proposed")
+    stage3_events = pd.DataFrame({"model": list(finalists)})
+    branch = pd.DataFrame({"training_seed": list(VALIDATION_DEEP_SEEDS)})
+    decision = {
+        "decision": "include_proposed_formally",
+        "best_traditional_model": "linear",
+    }
+    monkeypatch.setattr(
+        finalization,
+        "validate_ranking_artifact",
+        lambda *args, **kwargs: (ranking, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_stage2_selection_artifact",
+        lambda *args, **kwargs: (pd.DataFrame(), finalists, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_completed_deep_stage",
+        lambda *args, **kwargs: (
+            stage3_events,
+            _checkpoint_metadata(finalists, hit={("proposed", 22): True}),
+            {},
+        ),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_branch_ablation_artifact",
+        lambda *args, **kwargs: (branch, {}),
+    )
+    monkeypatch.setattr(
+        finalization,
+        "validate_go_no_go_artifact",
+        lambda *args, **kwargs: (decision, pd.DataFrame(), (stage3_events_path,)),
+    )
+    output = tmp_path / "finalized_model_roster.json"
+    roster = finalization.finalize_validation_roster(
+        ranking_path=ranking_path,
+        stage2_selection_path=stage2_path,
+        stage3_dir=stage3_dir,
+        branch_metrics_path=branch_path,
+        go_no_go_path=go_path,
+        output_path=output,
+        design_path="configs/design_freeze_v1.yaml",
+        study_manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version_manifest_path="data_versions/published_v1/version_manifest.json",
+        anchor_catalog_path="metadata/validation_anchors.csv",
+        expected_contract=contract,
+    )
+
+    assert "proposed" not in roster["selected_models"]
+    assert roster["proposed_decision"] == "framework_only"
+    assert "brits_ref" in roster["selected_models"]
+    assert "csdi" in roster["selected_models"]
+
+
+def test_v4_roster_reloads_published_v2_anchor_catalog(tmp_path: Path) -> None:
+    artifacts: dict[str, dict[str, Any]] = {}
+    for name, suffix in (
+        ("ranking", ".csv"),
+        ("stage2_selection", ".csv"),
+        ("go_no_go", ".json"),
+        ("best_simple_baseline_lookup", ".csv"),
+    ):
+        path = tmp_path / f"{name}{suffix}"
+        path.write_text(f"frozen validation artifact: {name}\n", encoding="utf-8")
+        artifacts[name] = {
+            "path": str(path.resolve()),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        }
+    contract = build_design_contract(
+        design_path="configs/design_freeze_v4.yaml",
+        manifest_path="study_manifest.yaml",
+        experiment_config_path="configs/experiments.yaml",
+        data_version="published_v2",
+        evaluation_split="validation",
+        data_version_manifest_path="data_versions/published_v2/version_manifest.json",
+    )
+    document = {
+        "schema_version": FINALIZED_MODEL_ROSTER_SCHEMA_VERSION,
+        "finalized": True,
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+        "selected_models": ["donor_regression", "xgboost"],
+        "best_traditional_model": "donor_regression",
+        "proposed_decision": "framework_only",
+        "validation_anchor_catalog": validation_anchor_catalog_identity(
+            expected_data_version="published_v2"
+        ),
+        "artifacts": artifacts,
+        **contract,
+    }
+    roster = tmp_path / "finalized_model_roster.json"
+    roster.write_text(json.dumps(document), encoding="utf-8")
+
+    loaded = load_finalized_model_roster(
+        roster, design_path="configs/design_freeze_v4.yaml"
+    )
+
+    assert loaded.selected_models == ("donor_regression", "xgboost")
+    assert loaded.selection_data_version == "published_v2"
+    assert loaded.validation_anchor_catalog["path"].endswith(
+        "metadata/validation_anchors_v2.csv"
+    )
+    historical = validation_anchor_catalog_identity()
+    assert historical["path"].endswith("metadata/validation_anchors.csv")
+    assert historical["sha256"] != loaded.validation_anchor_catalog["sha256"]
+    assert canonical_validation_anchor_path("published_v2").name == (
+        "validation_anchors_v2.csv"
+    )
+
+
+def test_historical_designs_still_read_v1_anchor_catalog() -> None:
+    identity = validation_anchor_catalog_identity(expected_data_version="published_v1")
+    assert identity["path"].endswith("metadata/validation_anchors.csv")
+    assert canonical_validation_anchor_path("published_v1").name == (
+        "validation_anchors.csv"
+    )
+
+
+def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
+    events = []
+    for station in VALIDATION_STATIONS:
+        for seed in VALIDATION_MASK_SEEDS:
+            events.append(
+                {
+                    "condition_id": f"VAL-BLK1-{station}-T-D090",
+                    "station_id": station,
+                    "mask_seed": seed,
+                    "model": "donor_regression",
+                    "training_seed": np.nan,
+                    "skill": 0.22,
+                    "target": "T",
+                    "evaluation_split": "validation",
+                    "data_version": "published_v1",
+                    "design_hash": "d" * 64,
+                    "evidence_role": "model_selection_only",
+                }
+            )
+            events.append(
+                {
+                    "condition_id": f"VAL-BLK1-{station}-T-D180",
+                    "station_id": station,
+                    "mask_seed": seed,
+                    "model": "donor_regression",
+                    "training_seed": np.nan,
+                    "skill": 0.20,
+                    "target": "T",
+                    "evaluation_split": "validation",
+                    "data_version": "published_v1",
+                    "design_hash": "d" * 64,
+                    "evidence_role": "model_selection_only",
+                }
+            )
+            events.append(
+                {
+                    "condition_id": f"VAL-BLK1-{station}-TFL-D090",
+                    "station_id": station,
+                    "mask_seed": seed,
+                    "model": "donor_regression",
+                    "training_seed": np.nan,
+                    "skill": 0.21,
+                    "target": "T",
+                    "evaluation_split": "validation",
+                    "data_version": "published_v1",
+                    "design_hash": "d" * 64,
+                    "evidence_role": "model_selection_only",
+                }
+            )
+            events.append(
+                {
+                    "condition_id": f"VAL-SITE-{station}-HYDROONLY-D090",
+                    "station_id": station,
+                    "mask_seed": seed,
+                    "model": "donor_regression",
+                    "training_seed": np.nan,
+                    "skill": 0.19,
+                    "target": "T",
+                    "evaluation_split": "validation",
+                    "data_version": "published_v1",
+                    "design_hash": "d" * 64,
+                    "evidence_role": "model_selection_only",
+                }
+            )
+            for training_seed in VALIDATION_DEEP_SEEDS:
+                events.append(
+                    {
+                        "condition_id": f"VAL-BLK1-{station}-T-D090",
+                        "station_id": station,
+                        "mask_seed": seed,
+                        "model": "proposed",
+                        "training_seed": training_seed,
+                        "skill": 0.16 if station != "P3" else 0.24,
+                        "target": "T",
+                        "evaluation_split": "validation",
+                        "data_version": "published_v1",
+                        "design_hash": "d" * 64,
+                        "evidence_role": "model_selection_only",
+                    }
+                )
+                events.append(
+                    {
+                        "condition_id": f"VAL-BLK1-{station}-T-D180",
+                        "station_id": station,
+                        "mask_seed": seed,
+                        "model": "proposed",
+                        "training_seed": training_seed,
+                        "skill": 0.15,
+                        "target": "T",
+                        "evaluation_split": "validation",
+                        "data_version": "published_v1",
+                        "design_hash": "d" * 64,
+                        "evidence_role": "model_selection_only",
+                    }
+                )
+                events.append(
+                    {
+                        "condition_id": f"VAL-BLK1-{station}-TFL-D090",
+                        "station_id": station,
+                        "mask_seed": seed,
+                        "model": "proposed",
+                        "training_seed": training_seed,
+                        "skill": 0.14,
+                        "target": "T",
+                        "evaluation_split": "validation",
+                        "data_version": "published_v1",
+                        "design_hash": "d" * 64,
+                        "evidence_role": "model_selection_only",
+                    }
+                )
+                events.append(
+                    {
+                        "condition_id": f"VAL-SITE-{station}-HYDROONLY-D090",
+                        "station_id": station,
+                        "mask_seed": seed,
+                        "model": "proposed",
+                        "training_seed": training_seed,
+                        "skill": 0.13,
+                        "target": "T",
+                        "evaluation_split": "validation",
+                        "data_version": "published_v1",
+                        "design_hash": "d" * 64,
+                        "evidence_role": "model_selection_only",
+                    }
+                )
+    comparison = finalization.assess_proposed_versus_donor(pd.DataFrame(events))
+    assert comparison["claim"] == "conditional"
+    assert comparison["n_compared_cells"] == 36
+    assert comparison["n_proposed_better"] == 3
+    assert comparison["formal_evidence"] is False
+
+
+def test_stage3_stability_table_is_one_row_per_model_seed(tmp_path: Path) -> None:
+    stage = _write_completed_stage(
+        tmp_path / "deep_stability",
+        models=("proposed",),
+        seeds=VALIDATION_DEEP_SEEDS,
+        stage_name="deep_stability",
+    )
+    events, checkpoints, _ = finalization.validate_completed_deep_stage(
+        stage,
+        expected_models=("proposed",),
+        expected_seeds=VALIDATION_DEEP_SEEDS,
+        expected_contract=_contract(),
+        expected_stage_name="deep_stability",
+    )
+    checkpoints[("proposed", 33)]["hit_epoch_limit"] = True
+    table = finalization.summarize_stage3_stability(events, checkpoints)
+    assert len(table) == 3
+    assert set(table["seed"]) == set(VALIDATION_DEEP_SEEDS)
+    assert set(table["event_rows"]) == {105}
+    assert table.loc[table["seed"].eq(33), "budget_status"].iloc[0] == "budget_unstable"
+    assert table.loc[table["seed"].eq(11), "budget_status"].iloc[0] == "budget_stable"
+    assert table["formal_evidence"].eq(False).all()
 
 
 def test_expected_scenario_ids_include_validation_split_token() -> None:

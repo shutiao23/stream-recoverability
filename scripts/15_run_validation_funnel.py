@@ -50,8 +50,12 @@ from stream_recoverability.experiments.validation_finalization import (
     GO_NO_GO_SCHEMA_VERSION,
     RANKING_MANIFEST_SCHEMA_VERSION,
     STAGE2_SELECTION_MANIFEST_SCHEMA_VERSION,
+    assess_proposed_versus_donor,
     execute_validation_branch_ablation,
     finalize_validation_roster,
+    read_validation_event_tables,
+    summarize_stage3_stability,
+    validate_completed_deep_stage,
     validate_ranking_artifact,
     validate_stage2_selection_artifact,
     write_early_framework_only_decision,
@@ -243,6 +247,20 @@ def build_parser() -> argparse.ArgumentParser:
     freeze.add_argument("--branch-ablations", type=Path)
     freeze.add_argument("--go-no-go", type=Path)
     freeze.add_argument("--output", type=Path)
+
+    summarize = commands.add_parser(
+        "summarize-stage3",
+        help="write the Stage 3 stability table and proposed-versus-donor claim",
+    )
+    _add_contract_arguments(summarize)
+    summarize.add_argument("--stage3-dir", type=Path)
+    summarize.add_argument(
+        "--event-metrics",
+        type=Path,
+        nargs="+",
+        help="traditional plus Stage 3 event tables for the proposed-versus-donor claim",
+    )
+    summarize.add_argument("--output-dir", type=Path)
     return parser
 
 
@@ -806,6 +824,54 @@ def _freeze_roster(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def _summarize_stage3(args: argparse.Namespace) -> dict[str, Any]:
+    contract, run_root = _contract(args, require_version_manifest=True)
+    stage3 = args.stage3_dir or run_root / "deep_stability"
+    stage_manifest = json.loads(
+        (stage3 / "validation_stage_manifest.json").read_text(encoding="utf-8")
+    )
+    models = tuple(str(model) for model in stage_manifest.get("models", ()))
+    events, checkpoints, _ = validate_completed_deep_stage(
+        stage3,
+        expected_models=models,
+        expected_seeds=VALIDATION_DEEP_SEEDS,
+        expected_contract=contract,
+        expected_stage_name="deep_stability",
+    )
+    output_dir = args.output_dir or run_root
+    stability = summarize_stage3_stability(
+        events,
+        checkpoints,
+        expected_data_version=str(contract["data_version"]),
+        expected_design_hash=str(contract["design_hash"]),
+    )
+    stability_path = output_dir / "stage3_stability.csv"
+    _atomic_csv(stability, stability_path)
+    event_paths = args.event_metrics or [
+        run_root / "traditional" / "event_metrics.parquet",
+        stage3 / "event_metrics.parquet",
+    ]
+    comparison = assess_proposed_versus_donor(read_validation_event_tables(event_paths))
+    comparison_path = output_dir / "proposed_versus_donor.json"
+    _atomic_json(
+        {key: value for key, value in comparison.items() if key != "cells"},
+        comparison_path,
+    )
+    cells_path = output_dir / "proposed_versus_donor_cells.csv"
+    _atomic_csv(pd.DataFrame(comparison["cells"]), cells_path)
+    return {
+        "stability": str(stability_path),
+        "proposed_versus_donor": str(comparison_path),
+        "claim": comparison["claim"],
+        "budget_unstable_models": sorted(
+            set(stability.loc[stability["hit_epoch_limit"], "model"].astype(str))
+        ),
+        "evaluation_split": "validation",
+        "evidence_role": "model_selection_only",
+        "formal_evidence": False,
+    }
+
+
 def main() -> None:
     args = build_parser().parse_args()
     if args.command == "run":
@@ -820,6 +886,8 @@ def main() -> None:
         summary = _extract_diagnostics(args)
     elif args.command == "run-branch-ablation":
         summary = _run_branch_ablation(args)
+    elif args.command == "summarize-stage3":
+        summary = _summarize_stage3(args)
     else:
         summary = _freeze_roster(args)
     print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
