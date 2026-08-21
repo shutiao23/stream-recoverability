@@ -675,3 +675,9 @@ def test_expected_scenario_ids_include_validation_split_token() -> None:
             assert f"VAL-BLK1-{station}-T-D010-VALIDATION-R{seed:04d}" in ids
             assert f"VAL-PNT-{station}-T-P30-R{seed:04d}" not in ids
     assert all("-VALIDATION-R" in item for item in ids)
+
+
+def test_expected_v2_scenario_ids_include_data_version_token() -> None:
+    ids = finalization._expected_scenario_ids("published_v2")
+    assert "VAL-BLK1-B1-T-D010-PUBLISHED_V2-VALIDATION-R0101" in ids
+    assert "VAL-BLK1-B1-T-D010-VALIDATION-R0101" not in ids

@@ -308,7 +308,10 @@ def _immutable_json(value: Mapping[str, Any], path: Path) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def _expected_scenario_ids() -> set[str]:
+def _expected_scenario_ids(data_version: str = "published_v1") -> set[str]:
+    version_suffix = (
+        "" if data_version == "published_v1" else f"-{data_version.upper()}"
+    )
     result: set[str] = set()
     for station in VALIDATION_STATIONS:
         condition_ids = (
@@ -322,7 +325,7 @@ def _expected_scenario_ids() -> set[str]:
         )
         for condition_id in condition_ids:
             for seed in VALIDATION_MASK_SEEDS:
-                result.add(f"{condition_id}-VALIDATION-R{seed:04d}")
+                result.add(f"{condition_id}{version_suffix}-VALIDATION-R{seed:04d}")
     return result
 
 
@@ -428,7 +431,7 @@ def validate_completed_deep_stage(
     if tuple(map(int, run_manifest.get("training_seeds", ()))) != seeds:
         raise ValueError("deep-stage run manifest training seeds are not frozen")
 
-    scenario_ids = _expected_scenario_ids()
+    scenario_ids = _expected_scenario_ids(str(expected_contract["data_version"]))
     run_keys = {_training_seed_key(model, seed) for model in models for seed in seeds}
     expected_units = {
         f"{scenario_id}|{run_key}"
