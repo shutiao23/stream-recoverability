@@ -11,6 +11,7 @@ This SI package is the markdown source for a Water Resources Research supplement
 - **Text S5.** Confirmatory *feasibility* (constructability of the Upper-to-Middle Chattahoochee panel) is a protocol gate. It is not confirmatory performance. USGS hydrology remains `not_opened` until `finalized_model_roster_v1`.
 - **Text S6.** Validation-only training-budget diagnostics. Under `design_freeze_v4` a required seed with `hit_epoch_limit=true` is `budget_unstable` and cannot enter the roster. The common cap is 400 epochs and is not raised again. Historical v2 seed-11 diagnostics that hit a 200-epoch cap are not v4 selection evidence. This paragraph is `model_selection_only` and `formal_evidence=false`; it is not a development-test result and contains no MAE, skill, or frontier number.
 - **Text S7.** Terminology ([`terminology.md`](terminology.md)) and the fail-closed submission gate (`scripts/27_submission_gate.py`).
+- **Text S8.** Analyses demoted from the main story: complete $F$/$L$ frontiers, the online causal protocol, mutual information and transfer entropy unless they explain a retained donor result, full Shapley allocation unless proposed remains a formal model, and the full model ranking.
 
 ## What this SI does not include
 

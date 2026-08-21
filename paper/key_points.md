@@ -1,7 +1,7 @@
 # Key Points (AGU)
 
-Each point is at most 140 characters. None of these points asserts MAE, skill, a frontier day, or that the proposed model outperforms a baseline.
+Each point is at most 140 characters. None asserts a formal frontier day or that the proposed model is best.
 
-- Recoverability of daily stream temperature is defined by gap geometry and remaining auxiliaries, not by a single average-error ranking.
-- A leakage-controlled three-station Upper Jinsha case study separates validation-only model selection from formal and confirmatory evaluation.
-- Numerical Results, frontiers, and confirmatory skill are omitted until a hash-verified model roster and complete current-protocol manifests exist.
+- Structured gap length and surviving information jointly set statistical recoverability of daily stream temperature.
+- Neighbour-station observations can dominate recovery on a connected reach; their physical meaning needs lag and permutation tests.
+- Formal frontiers, network-failure costs, and external replication remain unreported until those experiments are complete.

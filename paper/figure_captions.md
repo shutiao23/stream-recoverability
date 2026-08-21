@@ -1,27 +1,29 @@
 # Figure and table captions
 
-Status is taken from `results/final_results_manifest.json` after `scripts/11_make_figures.py`. Result figures are omitted rather than filled with invented numbers. Validation-funnel tables are model-selection evidence only and are not used as these publication inputs.
+Main-text figures are limited to five. Result panels are omitted rather than
+filled with invented numbers. Validation-funnel tables are model-selection
+evidence only.
 
 ## Generated from descriptive inputs
 
-**Figure 1.** Study area, monitoring variables, and data availability. (a) Core hydrological stations Batang (B1), Shigu (S2), and Panzhihua (P3) on the Upper Jinsha River, with paired meteorological sites. (b) Quality-eligible coverage by station and variable from the published analysis panel. Group D on the main path is $T_a$, $P$, $W$, $RH$, and NASA POWER $R_s$; Jinsha sunshine duration $DH$ is sensitivity-only.
-
-**Figure 2.** Missingness experiments and recoverability framework. (a) Schematic artificial-gap geometries used in the locked design. (b) Four observed information groups A–D that may be present or hidden; calendar terms belong to S0 and are not counted again in D.
+**Figure 1.** Study area, structured outages, and the recoverability idea. (a) Batang (B1), Shigu (S2), and Panzhihua (P3) on the Upper Jinsha River. (b) Point, block, synchronized T+F+L, and station-outage masks. (c) Information groups A–D as process-linked predictive sources, not a fitted heat budget.
 
 **Table 1.** Dataset and station information for the three-station case study, including drainage area, regulation note, meteorological pairing, and mean quality-eligible coverage. Coverage is a descriptive eligibility summary, not a model-performance result.
 
-## Omitted until current-protocol formal artifacts exist
+## Omitted until the named formal artifacts exist
 
-**Figure 3.** Temperature recovery across core missingness conditions. *Not generated:* no current-protocol formal event-metric table.
+**Figure 2.** Temperature recoverability skill against gap length at B1, S2, and P3. Main series: donor regression, BRITS, proposed if it remains scientifically useful, and climatology. *Not generated:* no complete `SCI_DENSE` T table.
 
-**Figure 4.** Temperature recoverability frontiers with 95% confidence intervals. *Not generated:* no complete `SCI_DENSE` frozen-statistics table.
+**Table 2.** Station-by-model climatology frontier, best-simple frontier, confidence interval, and censoring. *Not generated.*
 
-**Figure 5.** Information compensation across missing-gap duration. *Not generated:* no complete Shapley/compensation table.
+**Figure 3.** Donor-information contrasts by target station, with 95% CI, upstream/downstream labels, and lag. *Not generated:* no donor-C falsification table.
 
-**Figure 6.** Monitoring-network resilience under station failures. *Not generated:* no complete `SCI_NET` table.
+**Figure 4.** Network resilience: relative recoverability versus failed-station fraction, faceted by target station and gap length. *Not generated:* no complete `SCI_NET` table.
 
-**Figure 7.** Recovery during observed high-temperature, flood, and low-flow events. *Not generated:* no current-protocol formal daily predictions.
+**Table 3.** Failed-station costs: target, gap, ΔMAE, frontier change, and interpretation. *Not generated.*
 
-**Figure 8.** Exploratory internal leave-one-station-out (not external validation). *Not generated:* no current-protocol LOSO event metrics.
+**Figure 5.** External Upper-to-Middle Chattahoochee replication, partial transfer, or failure. *Not generated:* confirmatory hydrology is not opened.
 
-**Tables 2–5.** Random-point, continuous-gap, station-outage, frontier, and compensation summaries. *Not generated* for the same reason as Figures 3–5.
+## Supporting Information only
+
+Full model ranking, F/L frontiers, online protocol, MI/TE, Shapley, data-version sensitivity detail, and training diagnostics. These are not additional main-text claims.
