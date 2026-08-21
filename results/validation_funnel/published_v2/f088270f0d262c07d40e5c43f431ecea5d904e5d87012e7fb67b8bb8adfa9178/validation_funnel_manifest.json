@@ -1,0 +1,119 @@
+{
+  "anchor_catalog_logical_sha256": "477d8acdff7f874edc057b784f0de2e2dca5e015c20d9e4bd470ec2d38aa6082",
+  "anchor_catalog_path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/validation_anchors_v2.csv",
+  "anchor_catalog_rows": 15,
+  "anchor_catalog_sha256": "8519a2b59cb202e98bf8a1837eb1debbe78b029afdf1649238096e243dbdefb7",
+  "anchor_ids": [
+    "VALANCHOR-publishedv2-validation-B1-R0101",
+    "VALANCHOR-publishedv2-validation-B1-R0102",
+    "VALANCHOR-publishedv2-validation-B1-R0103",
+    "VALANCHOR-publishedv2-validation-B1-R0104",
+    "VALANCHOR-publishedv2-validation-B1-R0105",
+    "VALANCHOR-publishedv2-validation-P3-R0101",
+    "VALANCHOR-publishedv2-validation-P3-R0102",
+    "VALANCHOR-publishedv2-validation-P3-R0103",
+    "VALANCHOR-publishedv2-validation-P3-R0104",
+    "VALANCHOR-publishedv2-validation-P3-R0105",
+    "VALANCHOR-publishedv2-validation-S2-R0101",
+    "VALANCHOR-publishedv2-validation-S2-R0102",
+    "VALANCHOR-publishedv2-validation-S2-R0103",
+    "VALANCHOR-publishedv2-validation-S2-R0104",
+    "VALANCHOR-publishedv2-validation-S2-R0105"
+  ],
+  "anchor_integration_status": "bound_centered_anchor_v1",
+  "anchor_season_counts": {
+    "DJF": 4,
+    "JJA": 4,
+    "MAM": 4,
+    "SON": 3
+  },
+  "code_identity": {
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "schema_version": "code_provenance_v1"
+  },
+  "code_provenance": {
+    "dirty_tracked_paths": [],
+    "external_relevant_input_count": 0,
+    "git_commit": "3c2145c3e64f454ce4114d98397258f42a705717",
+    "relevant_source_clean": true,
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "clean",
+    "tracked_worktree_clean": true
+  },
+  "condition_count": 21,
+  "data_version": "published_v2",
+  "design_hash": "f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "input_digests": {
+    "data_version_manifest": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de",
+    "design_freeze": "6350d790a4023e31d1bd917e6f0fd6a2e0cdfa69cf0ffc1a453d26856cd76277",
+    "experiment_config": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39",
+    "study_manifest": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+  },
+  "mask_schema_version": "mask_schema_v2",
+  "mask_seed_placeholders": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "mask_unit_count": 105,
+  "mask_units_per_condition": 5,
+  "model_schema_version": "model_schema_v3",
+  "stages": [
+    {
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "name": "traditional",
+      "requires_explicit_finalists": false,
+      "training_seeds": []
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_single_seed",
+      "requires_explicit_finalists": false,
+      "training_seeds": [
+        11
+      ]
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_stability",
+      "requires_explicit_finalists": true,
+      "training_seeds": [
+        11,
+        22,
+        33
+      ]
+    }
+  ],
+  "statistics_schema_version": "statistics_schema_v3",
+  "suite": "validation_funnel"
+}

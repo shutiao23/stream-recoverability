@@ -8,6 +8,32 @@ build/
 checkpoints/*.pt
 checkpoints/*.pth
 
+# Runtime-only validation artifacts.  Keep compact aggregate evidence explicit;
+# never add checkpoints, per-scenario files, logs, masks, or dated predictions.
+masks/validation_funnel/
+masks/validation_branch_ablation/
+results/validation_funnel/**/checkpoints/
+results/validation_funnel/**/scenarios/
+results/validation_funnel/**/shard_logs/
+results/validation_funnel/**/shards/
+results/validation_funnel/**/daily_predictions.parquet
+results/validation_funnel/**/anchor_availability.csv
+results/validation_funnel/**/run_manifest.json
+results/validation_funnel/**/validation_stage_manifest.json
+results/validation_funnel/**/*.log
+results/validation_funnel/**/*.pid
+results/validation_funnel/**/shard_pids.txt
+results/validation_funnel/**/watchdog*.py
+results/validation_funnel/**/launch_once.sh
+results/validation_funnel/**/restart_shard0.sh
+results/validation_funnel/**/after_roster_pipeline.py
+results/validation_funnel/**/branch_ablation_daily_predictions.parquet
+
+# Historical/pre-fix local runs are retained on disk but are not release evidence.
+results/validation_funnel/published_v1/
+results/validation_funnel/published_v2/aad01e417fc233cff287deb6a6afd578046a1f7d7c15f9cff7b8ba936fe5d0fd/
+results/remaining_execution_plan.json
+
 # Invalid pre-freeze formal dumps; keep only the tombstone README links.
 results/formal/**
 !results/formal/PRE_FREEZE_INVALID.md

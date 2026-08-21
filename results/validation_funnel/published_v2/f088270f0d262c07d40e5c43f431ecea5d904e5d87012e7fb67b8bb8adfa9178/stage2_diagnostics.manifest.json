@@ -1,0 +1,63 @@
+{
+  "code_identity": {
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "schema_version": "code_provenance_v1"
+  },
+  "code_provenance": {
+    "dirty_tracked_paths": [],
+    "external_relevant_input_count": 0,
+    "git_commit": "3c2145c3e64f454ce4114d98397258f42a705717",
+    "relevant_source_clean": true,
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "clean",
+    "tracked_worktree_clean": true
+  },
+  "data_version": "published_v2",
+  "design_hash": "f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "event_metrics": {
+    "bytes": 203805,
+    "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/deep_single_seed/event_metrics.parquet",
+    "sha256": "a106b023f49adeb25c0cb66336312c9fabd44e60ef2a8964efcdbd1ab83aa2ce"
+  },
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "input_digests": {
+    "data_version_manifest": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de",
+    "design_freeze": "6350d790a4023e31d1bd917e6f0fd6a2e0cdfa69cf0ffc1a453d26856cd76277",
+    "experiment_config": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39",
+    "study_manifest": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+  },
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "models": [
+    "brits_ref",
+    "saits_ref",
+    "csdi",
+    "proposed"
+  ],
+  "output": {
+    "bytes": 1759,
+    "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/stage2_diagnostics.csv",
+    "sha256": "2e3f40526c9c38dc9f65d5492e897c7de263fe8f1b3b328a2e2f2e9b14ba7f53"
+  },
+  "run_manifest": {
+    "bytes": 648273,
+    "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/deep_single_seed/run_manifest.json",
+    "sha256": "3ff0857442a5ee645afde174227ddeed433294d8c929db5d1f81e7da75c5be8d"
+  },
+  "schema_version": "validation_stage2_diagnostics_manifest_v1",
+  "stage": "deep_single_seed",
+  "stage_manifest": {
+    "bytes": 3226,
+    "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/deep_single_seed/validation_stage_manifest.json",
+    "sha256": "02dba7be48daf0cfe42cb2bb70d482a04c56b1c809bf5eb0f0e2482851bf8993"
+  },
+  "statistics_schema_version": "statistics_schema_v3",
+  "training_seed": 11
+}

@@ -1,0 +1,54 @@
+{
+  "code_identity": {
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "schema_version": "code_provenance_v1"
+  },
+  "code_provenance": {
+    "dirty_tracked_paths": [],
+    "external_relevant_input_count": 0,
+    "git_commit": "3c2145c3e64f454ce4114d98397258f42a705717",
+    "relevant_source_clean": true,
+    "relevant_source_digest": "0adc600c737b3cb8abb376b70ad6510657d18775c624a07454038f4fe2c22059",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "clean",
+    "tracked_worktree_clean": true
+  },
+  "command": "rank",
+  "data_version": "published_v2",
+  "design_hash": "f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "event_metrics": [
+    {
+      "bytes": 208388,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/traditional/event_metrics.parquet",
+      "sha256": "9704f28a2f4a401f1147ac7550fcd6b0d20a0213d5ecfd0008fd4ada23e483ba"
+    },
+    {
+      "bytes": 203805,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/deep_single_seed/event_metrics.parquet",
+      "sha256": "a106b023f49adeb25c0cb66336312c9fabd44e60ef2a8964efcdbd1ab83aa2ce"
+    }
+  ],
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "input_digests": {
+    "data_version_manifest": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de",
+    "design_freeze": "6350d790a4023e31d1bd917e6f0fd6a2e0cdfa69cf0ffc1a453d26856cd76277",
+    "experiment_config": "1b1637423395d09121b79a391e7cf5234546a7f4a807e492c6c54a946d5c1a39",
+    "study_manifest": "757db8f1191d64dcf17fa0cabf8b05642d924c080718678c7ca1e0421ba97ab4"
+  },
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "models_ranked": 13,
+  "output": {
+    "bytes": 4422,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/validation_model_ranking.csv",
+    "sha256": "2f653d73bd7336695f5c5db36a51e2cc3fb54d9baa2ce78504237f3afdab87b9"
+  },
+  "schema_version": "validation_model_ranking_manifest_v1",
+  "statistics_schema_version": "statistics_schema_v3"
+}
