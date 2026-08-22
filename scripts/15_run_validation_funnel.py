@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from collections.abc import Sequence
 from pathlib import Path
@@ -25,8 +26,8 @@ if str(SRC_ROOT) not in sys.path:
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     build_design_contract,
-    file_sha256,
     load_frozen_data_versions,
+    result_run_root,
 )
 from stream_recoverability.experiments.runner import (
     SUPPORTED_MODELS,
@@ -79,7 +80,7 @@ def _model_list(values: Sequence[str] | None) -> tuple[str, ...] | None:
 
 def _atomic_json(value: dict[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     temporary.write_text(
         json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True),
         encoding="utf-8",
@@ -89,7 +90,7 @@ def _atomic_json(value: dict[str, Any], path: Path) -> None:
 
 def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     frame.to_csv(temporary, index=False)
     temporary.replace(path)
 
@@ -289,7 +290,7 @@ def _contract(
             version_manifest if version_manifest.is_file() else None
         ),
     )
-    run_root = args.output_root / args.data_version / contract["design_hash"]
+    run_root = result_run_root(args.output_root, args.data_version)
     return contract, run_root
 
 
@@ -316,11 +317,7 @@ def _write_funnel_registry(
             "mask_seed_placeholders": list(funnel.grid.mask_seeds),
             "anchor_integration_status": "bound_centered_anchor_v1",
             "anchor_catalog_path": funnel.grid.validation_anchor_catalog_path,
-            "anchor_catalog_sha256": funnel.grid.validation_anchor_catalog_sha256,
             "anchor_catalog_rows": funnel.grid.validation_anchor_count,
-            "anchor_catalog_logical_sha256": (
-                funnel.grid.validation_anchor_catalog_logical_sha256
-            ),
             "anchor_ids": list(funnel.grid.validation_anchor_ids),
             "anchor_season_counts": (
                 units.drop_duplicates("anchor_id")["season"]
@@ -363,8 +360,9 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
         if not path.is_file():
             raise FileNotFoundError(path)
     stage_output = run_root / args.stage
-    mask_dir = args.mask_root / args.data_version / contract["design_hash"]
-    _write_funnel_registry(funnel, contract, run_root)
+    mask_dir = result_run_root(args.mask_root, args.data_version)
+    if int(args.shard_index) == 0:
+        _write_funnel_registry(funnel, contract, run_root)
 
     selected_trainable = set(models).intersection(TRAINABLE_MODELS)
     training_seeds: tuple[int, ...] = stage.training_seeds if selected_trainable else ()
@@ -401,10 +399,6 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
         "condition_count": len(funnel.grid.conditions),
         "mask_unit_count": len(funnel.mask_units),
         "anchor_catalog": str(args.anchor_catalog),
-        "anchor_catalog_sha256": funnel.grid.validation_anchor_catalog_sha256,
-        "anchor_catalog_logical_sha256": (
-            funnel.grid.validation_anchor_catalog_logical_sha256
-        ),
         "anchor_catalog_rows": funnel.grid.validation_anchor_count,
         "anchor_ids": list(funnel.grid.validation_anchor_ids),
         "daily_rows": len(daily),
@@ -450,7 +444,6 @@ def _read_ranking_inputs(paths: Sequence[Path]) -> pd.DataFrame:
             "skill",
             "evaluation_split",
             "data_version",
-            "design_hash",
         ]
         for _, group in combined.loc[duplicates].groupby(
             duplicate_key, dropna=False, sort=False
@@ -516,7 +509,7 @@ def _validate_validation_artifact(
     contract: dict[str, Any],
     artifact_name: str,
 ) -> None:
-    required = {"evaluation_split", "data_version", "design_hash"}
+    required = {"evaluation_split", "data_version"}
     missing = sorted(required.difference(frame.columns))
     if missing:
         raise ValueError(f"{artifact_name} is missing contract columns: {missing}")
@@ -525,7 +518,6 @@ def _validate_validation_artifact(
     expected = {
         "evaluation_split": "validation",
         "data_version": str(contract["data_version"]),
-        "design_hash": str(contract["design_hash"]),
     }
     for column, value in expected.items():
         observed = set(frame[column].astype(str))
@@ -595,7 +587,6 @@ def _rank(args: argparse.Namespace) -> dict[str, Any]:
         events,
         output,
         expected_data_version=args.data_version,
-        expected_design_hash=contract["design_hash"],
     )
     manifest = {
         "schema_version": RANKING_MANIFEST_SCHEMA_VERSION,
@@ -632,8 +623,7 @@ def _select_finalists(args: argparse.Namespace) -> dict[str, Any]:
         diagnostics=diagnostics,
         **_selection_settings(_load_design(args.design)),
     )
-    for key in ("data_version", "design_hash"):
-        selected[key] = contract[key]
+    selected["data_version"] = contract["data_version"]
     output = args.output or run_root / "stage2_finalist_selection.csv"
     _atomic_csv(selected, output)
     finalists = (
@@ -711,7 +701,6 @@ def _go_no_go(args: argparse.Namespace) -> dict[str, Any]:
     criteria = decision.criteria.copy()
     criteria["evidence_role"] = "model_selection_only"
     criteria["data_version"] = contract["data_version"]
-    criteria["design_hash"] = contract["design_hash"]
     _atomic_csv(criteria, criteria_path)
     payload = {
         "schema_version": GO_NO_GO_SCHEMA_VERSION,
@@ -747,7 +736,6 @@ def _artifact_identity(path: Path) -> dict[str, Any]:
         raise FileNotFoundError(path)
     return {
         "path": str(path),
-        "sha256": file_sha256(path),
         "bytes": path.stat().st_size,
     }
 
@@ -771,7 +759,7 @@ def _run_branch_ablation(args: argparse.Namespace) -> dict[str, Any]:
     wide_path = args.data or version_root / "daily_wide.parquet"
     quality_path = args.quality_data or version_root / "daily_long.parquet"
     output_dir = args.output_dir or run_root / "branch_ablation"
-    mask_dir = args.mask_root / args.data_version / contract["design_hash"]
+    mask_dir = result_run_root(args.mask_root, args.data_version)
     return execute_validation_branch_ablation(
         stage3_dir=stage3_dir,
         stage3_models=models,
@@ -843,7 +831,6 @@ def _summarize_stage3(args: argparse.Namespace) -> dict[str, Any]:
         events,
         checkpoints,
         expected_data_version=str(contract["data_version"]),
-        expected_design_hash=str(contract["design_hash"]),
     )
     stability_path = output_dir / "stage3_stability.csv"
     _atomic_csv(stability, stability_path)

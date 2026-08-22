@@ -1326,7 +1326,8 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
     )
     assert run_manifest["completed_daily_rows"] == len(first_daily)
     assert run_manifest["completed_event_rows"] == len(first_events)
-    assert run_manifest["code_identity"] == runner.evidence_contract["code_identity"]
+    assert "code_identity" not in runner.evidence_contract
+    assert "design_hash" not in runner.evidence_contract
     assert run_manifest["code_provenance"] == runner.code_provenance
     scenario_status = json.loads(
         (
@@ -1337,7 +1338,8 @@ def test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates(
         ).read_text(encoding="utf-8")
     )
     first_contract = next(iter(scenario_status["run_contracts"].values()))
-    assert first_contract["code_identity"] == runner.evidence_contract["code_identity"]
+    assert "code_identity" not in first_contract
+    assert "design_hash" not in first_contract
     assert first_contract["code_provenance"] == runner.code_provenance
     assert len(first_events) == 12
     assert {"q25", "q75", "season", "event_type"}.issubset(first_daily)

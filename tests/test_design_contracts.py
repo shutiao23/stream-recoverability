@@ -92,11 +92,12 @@ def test_design_hash_changes_with_data_version_and_is_reproducible() -> None:
 
     assert first == repeated
     assert first == relative
-    assert first["design_hash"] != changed["design_hash"]
+    assert first["data_version"] != changed["data_version"]
+    assert "design_hash" not in first
+    assert "code_identity" not in first
     assert first["mask_schema_version"] == "mask_schema_v2"
     assert first["model_schema_version"] == "model_schema_v3"
     assert first["statistics_schema_version"] == "statistics_schema_v3"
-    assert len(first["code_identity"]["relevant_source_digest"]) == 64
 
 
 def test_design_hash_excludes_noncanonical_git_audit_fields() -> None:
@@ -140,8 +141,18 @@ def test_design_hash_excludes_noncanonical_git_audit_fields() -> None:
     assert canonical_code_identity(first_provenance) == canonical_code_identity(
         docs_only_commit
     )
-    assert first["design_hash"] == second["design_hash"]
-    assert first["code_identity"] == second["code_identity"]
+    scientific = (
+        "design_version",
+        "data_version",
+        "evaluation_split",
+        "mask_schema_version",
+        "model_schema_version",
+        "statistics_schema_version",
+    )
+    assert {key: first[key] for key in scientific} == {
+        key: second[key] for key in scientific
+    }
+    assert "design_hash" not in first
     assert first["code_provenance"] != second["code_provenance"]
 
     changed_source = {**docs_only_commit, "relevant_source_digest": "b" * 64}
@@ -153,7 +164,9 @@ def test_design_hash_excludes_noncanonical_git_audit_fields() -> None:
         evaluation_split="development_test",
         code_provenance=changed_source,
     )
-    assert changed["design_hash"] != first["design_hash"]
+    assert {key: changed[key] for key in scientific} == {
+        key: first[key] for key in scientific
+    }
 
 
 def test_code_provenance_ignores_docs_and_generated_outputs_but_not_source(
@@ -340,13 +353,13 @@ def test_validation_grid_masks_only_validation_and_persists_contract(
     assert metadata["evaluation_split"] == "validation"
     assert metadata["evidence_role"] == "model_selection_only"
     assert metadata["data_version"] == "published_v1"
-    assert metadata["design_hash"] == runner.evidence_contract["design_hash"]
+    assert "design_hash" not in runner.evidence_contract
 
     daily, events = runner.run(max_scenarios=1)
     for frame in (daily, events):
         assert set(frame["evaluation_split"]) == {"validation"}
         assert set(frame["data_version"]) == {"published_v1"}
-        assert set(frame["design_hash"]) == {runner.evidence_contract["design_hash"]}
+        assert "design_hash" not in frame.columns
 
 
 def test_runner_rejects_grid_data_version_mismatch(tmp_path: Path) -> None:

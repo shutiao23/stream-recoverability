@@ -274,13 +274,13 @@ def test_extract_diagnostics_is_derived_from_complete_units_and_checkpoints(
     assert set(diagnostics["event_rows"]) == {105}
     assert diagnostics["finite_predictions"].all()
     assert diagnostics["finite_validation_score"].all()
-    assert diagnostics["checkpoint_sha256"].str.len().eq(64).all()
+    assert diagnostics["checkpoint_path"].astype(str).str.len().gt(0).all()
     assert set(diagnostics["evaluation_split"]) == {"validation"}
     assert not diagnostics["formal_evidence"].any()
 
     proposed = Path(diagnostics.set_index("model").loc["proposed", "checkpoint_path"])
     proposed.write_bytes(b"tampered")
-    with pytest.raises(ValueError, match="SHA-256"):
+    with pytest.raises(ValueError, match="byte count"):
         finalization.extract_stage2_diagnostics(stage, expected_contract=_contract())
 
 
@@ -313,7 +313,6 @@ def _write_ranking_artifact(tmp_path: Path, deep_events_path: Path) -> Path:
     ranking = finalization.rank_validation_models(
         combined,
         expected_data_version=contract["data_version"],
-        expected_design_hash=contract["design_hash"],
     )
     ranking_path = tmp_path / "validation_model_ranking.csv"
     ranking.to_csv(ranking_path, index=False)
@@ -356,7 +355,6 @@ def test_ranking_and_stage2_selection_are_recomputed_from_bound_artifacts(
         **finalization._selection_settings("configs/design_freeze_v1.yaml"),
     )
     selected["data_version"] = _contract()["data_version"]
-    selected["design_hash"] = _contract()["design_hash"]
     selection_path = tmp_path / "stage2_finalist_selection.csv"
     selected.to_csv(selection_path, index=False)
     finalists = selected.loc[selected["selected_for_stability"], "model"].tolist()
@@ -471,7 +469,7 @@ def _write_branch_artifact(root: Path) -> Path:
                             "information_combination": combination,
                             "attribution_estimand": "operational_dropout",
                             "component_estimator": "proposed_checkpoint",
-                            "checkpoint_sha256": checkpoints[str(seed)]["sha256"],
+                            "checkpoint_path": checkpoints[str(seed)]["path"],
                             "anchor_id": f"A-{station}-{mask_seed}",
                             "mask_sha256": mask_inventory[scenario_id]["mask"][
                                 "sha256"
@@ -537,13 +535,13 @@ def test_branch_artifact_has_exact_shared_cells_masks_and_checkpoint_seeds(
     assert len(events) == 675
 
     changed = pd.read_parquet(path)
-    changed.loc[0, "score_cells_sha256"] = "f" * 64
+    changed.loc[0, "score_cell_count"] = int(changed.loc[0, "score_cell_count"]) + 1
     changed.to_parquet(path, index=False)
     manifest_path = path.parent / "branch_ablation_manifest.json"
     manifest = json.loads(manifest_path.read_text())
     manifest["event_metrics"] = _identity(path)
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
-    with pytest.raises(ValueError, match="do not share score_cells_sha256"):
+    with pytest.raises(ValueError, match="do not share score_cell_count"):
         finalization.validate_branch_ablation_artifact(
             path, expected_contract=_contract()
         )
@@ -931,7 +929,7 @@ def test_v4_roster_reloads_published_v2_anchor_catalog(tmp_path: Path) -> None:
     )
     historical = validation_anchor_catalog_identity()
     assert historical["path"].endswith("metadata/validation_anchors.csv")
-    assert historical["sha256"] != loaded.validation_anchor_catalog["sha256"]
+    assert historical["path"] != loaded.validation_anchor_catalog["path"]
     assert canonical_validation_anchor_path("published_v2").name == (
         "validation_anchors_v2.csv"
     )

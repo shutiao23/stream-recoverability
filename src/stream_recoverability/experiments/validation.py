@@ -6,7 +6,6 @@ must never be mixed with development, confirmatory, or formal-result artifacts.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections.abc import Sequence
 from dataclasses import asdict, dataclass, replace
@@ -22,7 +21,6 @@ from stream_recoverability.masks import (
     load_validation_anchor_catalog,
 )
 
-from .contracts import file_sha256
 from .grid import (
     ExperimentCondition,
     ExperimentGrid,
@@ -37,12 +35,6 @@ DEFAULT_VALIDATION_ANCHOR_PATH = (
 )
 V2_VALIDATION_ANCHOR_PATH = (
     Path(__file__).resolve().parents[3] / "metadata" / "validation_anchors_v2.csv"
-)
-VALIDATION_ANCHOR_BYTE_SHA256 = (
-    "bad94c9beca7bcfd77bbd8ae2132cd4687f6902d41427c7f7e14a6567b13743c"
-)
-VALIDATION_ANCHOR_LOGICAL_SHA256 = (
-    "d1764a228cc672eb0d8906933b1f1f0395221b126428ab6ccb07726b29b58d3e"
 )
 VALIDATION_ANCHOR_IDS = tuple(
     f"VALANCHOR-publishedv1-validation-{station}-R{seed:04d}"
@@ -122,16 +114,7 @@ def validation_anchor_catalog_identity(
                 for column, value in zip(VALIDATION_ANCHOR_COLUMNS, row, strict=True)
             }
         )
-    logical_sha = hashlib.sha256(
-        json.dumps(
-            records,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
     anchor_ids = tuple(record["anchor_id"] for record in records)
-    byte_sha = file_sha256(source)
     expected_ids = tuple(
         f"VALANCHOR-{expected_data_version.replace('_', '')}-validation-{station}-R{seed:04d}"
         for station in sorted(VALIDATION_STATIONS)
@@ -149,9 +132,7 @@ def validation_anchor_catalog_identity(
         portable_path = str(source.resolve())
     return {
         "path": portable_path,
-        "sha256": byte_sha,
         "bytes": source.stat().st_size,
-        "logical_sha256": logical_sha,
         "row_count": len(records),
         "anchor_ids": list(anchor_ids),
     }
@@ -448,9 +429,7 @@ def build_validation_funnel(
         training_seeds=VALIDATION_DEEP_SEEDS,
         external_validation_status=str(config["external_validation_status"]),
         validation_anchor_catalog_path=str(Path(anchor_catalog_path)),
-        validation_anchor_catalog_sha256=anchor_identity["sha256"],
         validation_anchor_count=anchor_identity["row_count"],
-        validation_anchor_catalog_logical_sha256=anchor_identity["logical_sha256"],
         validation_anchor_ids=tuple(anchor_identity["anchor_ids"]),
     )
     return ValidationFunnel(grid=grid, mask_units=mask_units)
@@ -504,7 +483,6 @@ def _validate_ranking_input(
     event_metrics: pd.DataFrame,
     *,
     expected_data_version: str | None,
-    expected_design_hash: str | None,
 ) -> pd.DataFrame:
     required = {
         "condition_id",
@@ -517,7 +495,6 @@ def _validate_ranking_input(
         "skill",
         "evaluation_split",
         "data_version",
-        "design_hash",
     }
     missing = sorted(required.difference(event_metrics.columns))
     if missing:
@@ -538,14 +515,6 @@ def _validate_ranking_input(
             f"validation ranking data_version mismatch: {versions[0]!r} != "
             f"{expected_data_version!r}"
         )
-    design_hashes = tuple(sorted(data["design_hash"].astype(str).unique()))
-    if len(design_hashes) != 1:
-        raise ValueError("validation ranking cannot mix design hashes")
-    if expected_design_hash is not None and design_hashes != (expected_design_hash,):
-        raise ValueError(
-            "validation ranking design_hash does not match current contract"
-        )
-
     expected = _expected_condition_ids()
     actual_condition_ids = set(data["condition_id"].astype(str))
     extra = sorted(actual_condition_ids.difference(expected))
@@ -614,7 +583,6 @@ def rank_validation_models(
     event_metrics: pd.DataFrame,
     *,
     expected_data_version: str | None = None,
-    expected_design_hash: str | None = None,
 ) -> pd.DataFrame:
     """Rank complete models using equal-weight validation condition strata.
 
@@ -627,7 +595,6 @@ def rank_validation_models(
     data = _validate_ranking_input(
         event_metrics,
         expected_data_version=expected_data_version,
-        expected_design_hash=expected_design_hash,
     )
     unit_keys = [
         "model",
@@ -647,7 +614,6 @@ def rank_validation_models(
 
     rows: list[dict[str, Any]] = []
     version = str(data["data_version"].iloc[0])
-    design_hash = str(data["design_hash"].iloc[0])
     for model, model_units in units.groupby("model", sort=True):
         model_strata = strata.loc[strata["model"].eq(model)].copy()
         observed_strata = set(model_strata["condition_stratum"])
@@ -696,7 +662,6 @@ def rank_validation_models(
                 "training_seeds": json.dumps(list(non_null_seeds)),
                 "evaluation_split": "validation",
                 "data_version": version,
-                "design_hash": design_hash,
                 "evidence_role": "model_selection_only",
                 "formal_evidence": False,
             }
@@ -725,14 +690,12 @@ def write_validation_model_ranking(
     output_path: str | Path,
     *,
     expected_data_version: str | None = None,
-    expected_design_hash: str | None = None,
 ) -> pd.DataFrame:
     """Write the deterministic validation-only ranking CSV."""
 
     ranking = rank_validation_models(
         event_metrics,
         expected_data_version=expected_data_version,
-        expected_design_hash=expected_design_hash,
     )
     destination = Path(output_path)
     destination.parent.mkdir(parents=True, exist_ok=True)

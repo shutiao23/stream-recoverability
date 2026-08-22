@@ -41,7 +41,6 @@ EVIDENCE_ROW = {
     field: EVIDENCE[field]
     for field in (
         "design_version",
-        "design_hash",
         "data_version",
         "evaluation_split",
         "mask_schema_version",
@@ -685,8 +684,6 @@ def _fixture(
         "bundle_role": "primary",
         "data_version": "published_v1",
         "evaluation_split": "development_test",
-        "design_hash": EVIDENCE["design_hash"],
-        "code_identity": EVIDENCE["code_identity"],
         "registry_builder_identity": _builder_identity(),
         "data_version_manifest": _file_identity(VERSION_MANIFEST),
         "data_version_input_identity": _data_version_input_identity(),
@@ -853,7 +850,7 @@ def test_rejects_stale_contract_in_manifest_or_table(tmp_path: Path) -> None:
     formal, results, registry = _fixture(tmp_path)
     _mutate_manifest(
         formal / "full/run_manifest.json",
-        lambda data: data.__setitem__("design_hash", "stale"),
+        lambda data: data.__setitem__("design_version", "stale"),
     )
     module = _load_script()
 
@@ -861,17 +858,19 @@ def test_rejects_stale_contract_in_manifest_or_table(tmp_path: Path) -> None:
         _aggregate(module, formal, results, registry)
 
 
-def test_rejects_stale_relevant_source_identity(tmp_path: Path) -> None:
+def test_ignores_leftover_source_identity_fields(tmp_path: Path) -> None:
     formal, results, registry = _fixture(tmp_path)
 
     def mutation(data):
-        data["code_identity"]["relevant_source_digest"] = "0" * 64
+        data["code_identity"] = {"relevant_source_digest": "0" * 64}
+        data["design_hash"] = "0" * 64
+        data["input_digests"] = {"design_freeze": "0" * 64}
 
     _mutate_manifest(formal / "full/run_manifest.json", mutation)
     module = _load_script()
 
-    with pytest.raises(ValueError, match="evidence contract mismatch"):
-        _aggregate(module, formal, results, registry)
+    result = _aggregate(module, formal, results, registry)
+    assert result["complete"] is True
 
 
 def test_accepts_historical_git_audit_when_code_identity_matches(

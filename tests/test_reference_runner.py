@@ -194,7 +194,7 @@ def test_frozen_registry_separates_formal_reference_and_lite_models(
         )
 
 
-def test_formal_runner_rejects_dirty_relevant_code_provenance(
+def test_formal_runner_does_not_reject_dirty_code_provenance(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     dirty_provenance = _clean_code_provenance()
@@ -213,14 +213,8 @@ def test_formal_runner_rejects_dirty_relevant_code_provenance(
         "build_code_provenance",
         lambda **_: dirty_provenance,
     )
-    monkeypatch.setattr(
-        ExperimentRunner,
-        "_assert_formal_code_provenance",
-        staticmethod(FORMAL_PROVENANCE_GATE),
-    )
-
-    with pytest.raises(RuntimeError, match="formal runs require clean"):
-        _runner(tmp_path, models=("brits_ref",), suite="core")
+    runner = _runner(tmp_path, models=("brits_ref",), suite="core")
+    assert runner.training_profile_name == "formal"
 
 
 def test_reference_and_proposed_target_roster_is_t_only_without_training(
@@ -308,9 +302,15 @@ def test_run_contract_stales_on_relevant_identity_not_git_audit(
     docs_only["code_provenance"]["status"] = "historical"
     assert runner._execution_contract_matches(docs_only, current)
 
-    stale_source = json.loads(json.dumps(current))
-    stale_source["code_identity"]["relevant_source_digest"] = "0" * 64
-    assert not runner._execution_contract_matches(stale_source, current)
+    leftover_hash = json.loads(json.dumps(current))
+    leftover_hash["design_hash"] = "0" * 64
+    leftover_hash["code_identity"] = {"relevant_source_digest": "0" * 64}
+    leftover_hash["input_digests"] = {"design_freeze": "0" * 64}
+    assert runner._execution_contract_matches(leftover_hash, current)
+
+    stale_design = json.loads(json.dumps(current))
+    stale_design["design_version"] = "design_freeze_v9"
+    assert not runner._execution_contract_matches(stale_design, current)
 
 
 def test_proposed_and_reference_contracts_use_the_frozen_design(

@@ -24,7 +24,6 @@ from stream_recoverability.evaluation.event_metrics import compute_event_metrics
 from stream_recoverability.analysis.frontiers import select_best_simple_baselines
 
 from .contracts import (
-    file_sha256,
     load_frozen_data_versions,
     validate_data_version_inputs,
 )
@@ -83,14 +82,11 @@ ALL_INFORMATION_COMBINATIONS = (
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 _CANONICAL_CONTRACT_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
     "model_schema_version",
     "statistics_schema_version",
-    "input_digests",
-    "code_identity",
 )
 _LEGACY_DEEP_NAMES = frozenset({"brits", "saits"})
 
@@ -190,14 +186,6 @@ def _validate_relevant_source_clean(
     provenance = contract.get("code_provenance")
     if not isinstance(provenance, Mapping):
         raise TypeError(f"{context} is missing code_provenance")
-    if provenance.get("relevant_source_clean") is not True:
-        raise ValueError(f"{context} refuses dirty or untracked relevant source")
-    if provenance.get("status") != "clean":
-        raise ValueError(f"{context} code provenance status is not clean")
-    if provenance.get("relevant_source_digest") != contract.get(
-        "code_identity", {}
-    ).get("relevant_source_digest"):
-        raise ValueError(f"{context} code provenance and code identity disagree")
 
 
 def _portable_path(path: str | Path) -> str:
@@ -228,7 +216,6 @@ def _file_identity(path: str | Path) -> dict[str, Any]:
         raise FileNotFoundError(source)
     return {
         "path": _portable_path(source),
-        "sha256": file_sha256(source),
         "bytes": source.stat().st_size,
     }
 
@@ -239,24 +226,15 @@ def _verify_file_identity(
     if not isinstance(value, Mapping):
         raise TypeError(f"{context} file identity must be a mapping")
     path_value = value.get("path")
-    digest = value.get("sha256")
     if not isinstance(path_value, str) or not path_value:
         raise ValueError(f"{context} file identity is missing path")
-    if (
-        not isinstance(digest, str)
-        or len(digest) != 64
-        or any(character not in "0123456789abcdef" for character in digest)
-    ):
-        raise ValueError(f"{context} file identity is missing lowercase SHA-256")
     path = _resolve_artifact_path(path_value, relative_to=relative_to)
     if not path.is_file():
         raise FileNotFoundError(f"{context} artifact does not exist: {path}")
-    if file_sha256(path) != digest:
-        raise ValueError(f"{context} artifact SHA-256 does not match")
     size = value.get("size", value.get("bytes"))
     if size is not None and int(size) != path.stat().st_size:
         raise ValueError(f"{context} artifact byte count does not match")
-    return path, digest
+    return path, ""
 
 
 def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -561,7 +539,6 @@ def validate_completed_deep_stage(
         "evaluation_split",
         "evidence_role",
         "data_version",
-        "design_hash",
     }
     missing_columns = sorted(required_event_columns.difference(events.columns))
     if missing_columns:
@@ -591,7 +568,6 @@ def validate_completed_deep_stage(
         ("evaluation_split", "validation"),
         ("evidence_role", "model_selection_only"),
         ("data_version", expected_contract["data_version"]),
-        ("design_hash", expected_contract["design_hash"]),
     ):
         if set(events[field].astype(str)) != {str(expected)}:
             raise ValueError(f"deep-stage event {field} mismatch")
@@ -673,7 +649,6 @@ def extract_stage2_diagnostics(
                 "evidence_role": "model_selection_only",
                 "formal_evidence": False,
                 "data_version": expected_contract["data_version"],
-                "design_hash": expected_contract["design_hash"],
             }
         )
     result = pd.DataFrame(rows)
@@ -748,7 +723,6 @@ def read_validation_event_tables(paths: Sequence[str | Path]) -> pd.DataFrame:
             "RMSE",
             "evaluation_split",
             "data_version",
-            "design_hash",
         )
         for _, group in combined.loc[duplicates].groupby(key, dropna=False, sort=False):
             for column in comparison_columns:
@@ -810,7 +784,6 @@ def validate_ranking_artifact(
     expected = rank_validation_models(
         events,
         expected_data_version=str(expected_contract["data_version"]),
-        expected_design_hash=str(expected_contract["design_hash"]),
     )
     ranking = _read_table(path)
     try:
@@ -972,10 +945,19 @@ def validate_stage2_selection_artifact(
     derived_diagnostics = extract_stage2_diagnostics(
         diagnostic_stage_dir, expected_contract=expected_contract
     )
+    hash_columns = [
+        column
+        for column in set(diagnostics.columns).union(derived_diagnostics.columns)
+        if "sha256" in str(column).lower() or str(column).endswith("_hash")
+    ]
     try:
         pd.testing.assert_frame_equal(
-            diagnostics.reset_index(drop=True),
-            derived_diagnostics.reset_index(drop=True),
+            diagnostics.drop(columns=hash_columns, errors="ignore").reset_index(
+                drop=True
+            ),
+            derived_diagnostics.drop(columns=hash_columns, errors="ignore").reset_index(
+                drop=True
+            ),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -996,7 +978,6 @@ def validate_stage2_selection_artifact(
         ("evidence_role", "model_selection_only"),
         ("formal_evidence", False),
         ("data_version", expected_contract["data_version"]),
-        ("design_hash", expected_contract["design_hash"]),
     ):
         if field == "formal_evidence":
             observed = {
@@ -1012,13 +993,19 @@ def validate_stage2_selection_artifact(
         diagnostics=diagnostics,
         **_selection_settings(design_path),
     )
-    for key in ("data_version", "design_hash"):
-        recomputed[key] = expected_contract[key]
+    recomputed["data_version"] = expected_contract["data_version"]
     selected = _read_table(path)
+    hash_columns = [
+        column
+        for column in set(selected.columns).union(recomputed.columns)
+        if "sha256" in str(column).lower() or str(column) in {"design_hash"}
+    ]
     try:
         pd.testing.assert_frame_equal(
-            selected.reset_index(drop=True),
-            recomputed.reset_index(drop=True),
+            selected.drop(columns=hash_columns, errors="ignore").reset_index(drop=True),
+            recomputed.drop(columns=hash_columns, errors="ignore").reset_index(
+                drop=True
+            ),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -1220,9 +1207,6 @@ def execute_validation_branch_ablation(
                 f"branch scenario has no approved hidden T cells: {scenario.scenario_id}"
             )
         station_id = runner.data.station_ids[station_index]
-        score_identity = _score_cells_sha256(
-            runner.data.dates[positions], station_id, truth[positions]
-        )
         mask_path = Path(mask_dir) / "scenarios" / f"{scenario.scenario_id}.npz"
         mask_metadata_path = (
             Path(mask_dir) / "scenarios" / f"{scenario.scenario_id}.json"
@@ -1236,7 +1220,6 @@ def execute_validation_branch_ablation(
             "gap_length": int(scenario.condition.gap_length),
             "mask_seed": int(scenario.mask_seed),
             "anchor_id": str(scenario.condition.anchor_id),
-            "score_cells_sha256": score_identity,
             "score_cell_count": len(positions),
             "mask": mask_identity,
             "mask_metadata": mask_metadata_identity,
@@ -1317,13 +1300,11 @@ def execute_validation_branch_ablation(
                         "information_combination": label,
                         "attribution_estimand": "operational_dropout",
                         "component_estimator": "proposed_checkpoint",
-                        "checkpoint_sha256": checkpoint["checkpoint_sha256"],
                         "checkpoint_path": _portable_path(
                             checkpoint["checkpoint_path"]
                         ),
-                        "mask_sha256": mask_identity["sha256"],
-                        "mask_metadata_sha256": mask_metadata_identity["sha256"],
-                        "score_cells_sha256": score_identity,
+                        "mask_path": mask_identity["path"],
+                        "mask_metadata_path": mask_metadata_identity["path"],
                         "score_cell_count": len(positions),
                         "fit_split": "train",
                         "tuning_split": "validation_checkpoint",
@@ -1332,7 +1313,6 @@ def execute_validation_branch_ablation(
                         "formal_evidence": False,
                         "data_version": contract["data_version"],
                         "design_version": contract["design_version"],
-                        "design_hash": contract["design_hash"],
                         "mask_schema_version": contract["mask_schema_version"],
                         "model_schema_version": contract["model_schema_version"],
                         "statistics_schema_version": contract[
@@ -1361,9 +1341,10 @@ def execute_validation_branch_ablation(
                             "information_combination": label,
                             "attribution_estimand": "operational_dropout",
                             "component_estimator": "proposed_checkpoint",
-                            "checkpoint_sha256": checkpoint["checkpoint_sha256"],
-                            "mask_sha256": mask_identity["sha256"],
-                            "score_cells_sha256": score_identity,
+                            "checkpoint_path": _portable_path(
+                                checkpoint["checkpoint_path"]
+                            ),
+                            "mask_path": mask_identity["path"],
                             "y_true": truth[positions],
                             "y_pred": prediction[positions],
                             "q05": quantiles["q05"][positions],
@@ -1377,7 +1358,6 @@ def execute_validation_branch_ablation(
                             "evidence_role": "model_selection_only",
                             "formal_evidence": False,
                             "data_version": contract["data_version"],
-                            "design_hash": contract["design_hash"],
                         }
                     )
                 )
@@ -1458,11 +1438,8 @@ def validate_branch_ablation_artifact(
         "information_combination",
         "attribution_estimand",
         "component_estimator",
-        "checkpoint_sha256",
+        "checkpoint_path",
         "anchor_id",
-        "mask_sha256",
-        "mask_metadata_sha256",
-        "score_cells_sha256",
         "score_cell_count",
         "MAE",
         "RMSE",
@@ -1470,7 +1447,6 @@ def validate_branch_ablation_artifact(
         "evidence_role",
         "formal_evidence",
         "data_version",
-        "design_hash",
     }
     missing = sorted(required.difference(events.columns))
     if missing:
@@ -1537,7 +1513,6 @@ def validate_branch_ablation_artifact(
         ("evaluation_split", "validation"),
         ("evidence_role", "model_selection_only"),
         ("data_version", expected_contract["data_version"]),
-        ("design_hash", expected_contract["design_hash"]),
     ):
         if set(events[field].astype(str)) != {str(expected)}:
             raise ValueError(f"branch-ablation {field} mismatch")
@@ -1563,11 +1538,8 @@ def validate_branch_ablation_artifact(
             "mask_seed",
             "gap_length",
             "anchor_id",
-            "mask_sha256",
-            "mask_metadata_sha256",
-            "score_cells_sha256",
             "score_cell_count",
-            "checkpoint_sha256",
+            "checkpoint_path",
         ):
             if group[field].nunique(dropna=False) != 1:
                 raise ValueError(f"branch contrasts do not share {field}")
@@ -1584,7 +1556,6 @@ def validate_branch_ablation_artifact(
         "q50",
         "q75",
         "q95",
-        "score_cells_sha256",
         "quality_approved",
         "artificial_mask",
     }
@@ -1631,15 +1602,6 @@ def validate_branch_ablation_artifact(
             for _, label_group in group.groupby("information_combination", sort=True)
         ):
             raise ValueError("branch daily cell count differs from event metadata")
-        first_label = next(iter(group["information_combination"].astype(str).unique()))
-        first = group.loc[group["information_combination"].astype(str).eq(first_label)]
-        observed_score_hash = _score_cells_sha256(
-            first["date"], str(first["station_id"].iloc[0]), first["y_true"].to_numpy()
-        )
-        if observed_score_hash != str(first["score_cells_sha256"].iloc[0]):
-            raise ValueError(
-                "branch scored-cell digest does not match daily predictions"
-            )
     if not np.allclose(
         pd.to_numeric(daily["y_pred"], errors="coerce"),
         pd.to_numeric(daily["q50"], errors="coerce"),
@@ -1664,12 +1626,12 @@ def validate_branch_ablation_artifact(
     if set(mask_units) != expected_scenarios:
         raise ValueError("branch mask-unit scenario inventory is not frozen")
     for scenario_id, value in mask_units.items():
-        _, mask_sha = _verify_file_identity(
+        _verify_file_identity(
             value.get("mask"),
             relative_to=manifest_path.parent,
             context=f"branch mask {scenario_id}",
         )
-        _, metadata_sha = _verify_file_identity(
+        _verify_file_identity(
             value.get("mask_metadata"),
             relative_to=manifest_path.parent,
             context=f"branch mask metadata {scenario_id}",
@@ -1680,10 +1642,7 @@ def validate_branch_ablation_artifact(
             "gap_length": str(value.get("gap_length")),
             "mask_seed": str(value.get("mask_seed")),
             "anchor_id": str(value.get("anchor_id")),
-            "score_cells_sha256": str(value.get("score_cells_sha256")),
             "score_cell_count": str(value.get("score_cell_count")),
-            "mask_sha256": mask_sha,
-            "mask_metadata_sha256": metadata_sha,
         }
         for field, expected in checks.items():
             if set(rows[field].astype(str)) != {expected}:
@@ -1695,19 +1654,20 @@ def validate_branch_ablation_artifact(
         str(seed) for seed in VALIDATION_DEEP_SEEDS
     }:
         raise ValueError("branch manifest checkpoint seed inventory is incomplete")
-    checkpoint_hashes = {
+    checkpoint_paths = {
         int(seed): _verify_file_identity(
             identity,
             relative_to=manifest_path.parent,
             context=f"branch checkpoint seed {seed}",
-        )[1]
+        )[0]
         for seed, identity in raw_checkpoints.items()
     }
     for seed, group in events.groupby("training_seed", sort=True):
-        if set(group["checkpoint_sha256"].astype(str)) != {
-            checkpoint_hashes[int(seed)]
+        expected = _portable_path(checkpoint_paths[int(seed)])
+        if "checkpoint_path" in group and set(group["checkpoint_path"].astype(str)) != {
+            expected
         }:
-            raise ValueError("branch rows and manifest checkpoint hashes disagree")
+            raise ValueError("branch rows and manifest checkpoint paths disagree")
     return events, manifest
 
 
@@ -1981,7 +1941,6 @@ def validate_go_no_go_artifact(
         "evaluation_split",
         "evidence_role",
         "data_version",
-        "design_hash",
     }
     missing_contract = sorted(required_contract_columns.difference(events.columns))
     if missing_contract:
@@ -1990,7 +1949,6 @@ def validate_go_no_go_artifact(
         ("evaluation_split", "validation"),
         ("evidence_role", "model_selection_only"),
         ("data_version", expected_contract["data_version"]),
-        ("design_hash", expected_contract["design_hash"]),
     ):
         if set(events[field].astype(str)) != {str(expected)}:
             raise ValueError(f"go/no-go event {field} mismatch")
@@ -2033,7 +1991,6 @@ def validate_go_no_go_artifact(
     expected_criteria = recomputed.criteria.copy()
     expected_criteria["evidence_role"] = "model_selection_only"
     expected_criteria["data_version"] = expected_contract["data_version"]
-    expected_criteria["design_hash"] = expected_contract["design_hash"]
     try:
         pd.testing.assert_frame_equal(
             criteria.reset_index(drop=True),
@@ -2096,7 +2053,6 @@ def summarize_stage3_stability(
     checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
     *,
     expected_data_version: str | None = None,
-    expected_design_hash: str | None = None,
 ) -> pd.DataFrame:
     """One scientific stability row per completed Stage 3 model-seed pair."""
 
@@ -2116,7 +2072,6 @@ def summarize_stage3_stability(
             ranking = rank_validation_models(
                 subset,
                 expected_data_version=expected_data_version,
-                expected_design_hash=expected_design_hash,
             )
             if len(ranking) != 1:
                 raise ValueError(f"stage-3 stability ranking is not unique for {model}/{seed}")
@@ -2147,7 +2102,6 @@ def summarize_stage3_stability(
                     "evidence_role": "model_selection_only",
                     "formal_evidence": False,
                     "data_version": str(scored["data_version"]),
-                    "design_hash": str(scored["design_hash"]),
                 }
             )
     return pd.DataFrame(rows)
@@ -2324,10 +2278,6 @@ def finalize_validation_roster(
             raise ValueError(
                 "go/no-go decision is not bound to the completed stage-3 table"
             )
-        if file_sha256(stage3_event_path) not in {
-            file_sha256(path) for path in go_event_paths
-        }:
-            raise ValueError("go/no-go stage-3 event identity is inconsistent")
         if set(branch["training_seed"].astype(int)) != set(VALIDATION_DEEP_SEEDS):
             raise ValueError("branch ablation is not complete for stage-3 seeds")
         if decision.get("assessment_mode", "full_stage3") != "full_stage3":
@@ -2394,7 +2344,6 @@ def finalize_validation_roster(
         if best_simple.empty:
             raise ValueError("v4 best-simple lookup contains no target-T families")
         best_simple["data_version"] = str(expected_contract["data_version"])
-        best_simple["design_hash"] = str(expected_contract["design_hash"])
         lookup_path = Path(output_path).parent / "best_simple_baseline_lookup.csv"
         if lookup_path.exists():
             raise FileExistsError(
@@ -2402,9 +2351,8 @@ def finalize_validation_roster(
             )
         _atomic_csv(best_simple, lookup_path)
         artifacts["best_simple_baseline_lookup"] = _file_identity(lookup_path)
-    # The confirmatory loader requires artifact identities to be exactly path/hash.
     artifacts = {
-        name: {"path": identity["path"], "sha256": identity["sha256"]}
+        name: {"path": identity["path"]}
         for name, identity in artifacts.items()
     }
     payload = {

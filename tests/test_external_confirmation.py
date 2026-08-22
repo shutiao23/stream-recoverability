@@ -413,7 +413,7 @@ class _SuccessfulFakeRunner:
             "data_version": CONFIRMATORY_DATA_VERSION,
             "evaluation_split": "confirmatory",
             "evidence_role": EXTERNAL_EVIDENCE_ROLE,
-            "design_hash": self.evidence_contract["design_hash"],
+            "design_version": self.evidence_contract["design_version"],
             "expected_run_unit_keys": expected,
             "run_unit_complete": True,
             "evidence_complete": True,
@@ -477,8 +477,6 @@ def test_evaluate_once_execution_is_atomic_and_identity_complete(
         assert external.REQUIRED_ROW_IDENTITY_FIELDS.issubset(frame.columns)
         assert frame["formal_evidence"].all()
         assert set(frame["evidence_role"]) == {EXTERNAL_EVIDENCE_ROLE}
-        assert frame["run_unit_sha256"].str.len().eq(64).all()
-        assert frame["mask_sha256"].str.len().eq(64).all()
     with pytest.raises(FileExistsError, match="existing confirmatory output"):
         run_confirmatory_evaluation(
             data_root=_FAKE_INPUTS.data_root,

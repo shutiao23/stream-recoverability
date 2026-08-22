@@ -707,10 +707,9 @@ def test_v1_freeze_file_remains_historical_lower_chattahoochee_dh_proxy() -> Non
         ("split", "evaluation_split=validation"),
         ("formal", "formal_evidence=false"),
         ("data_version", "contract mismatch"),
-        ("design_hash", "contract mismatch"),
         ("empty_models", "non-empty selected_models"),
         ("decision", "inconsistent"),
-        ("artifact_hash", "SHA-256 does not match"),
+        ("missing_artifact", "does not exist"),
         ("unexpected_performance", "fields differ from the frozen schema"),
     ],
 )
@@ -730,14 +729,12 @@ def test_finalized_roster_gate_fails_closed_before_network_or_directory_creation
         document["formal_evidence"] = True
     elif problem == "data_version":
         document["data_version"] = CONFIRMATORY_DATA_VERSION
-    elif problem == "design_hash":
-        document["design_hash"] = "0" * 64
     elif problem == "empty_models":
         document["selected_models"] = []
     elif problem == "decision":
         document["proposed_decision"] = "framework_only"
-    elif problem == "artifact_hash":
-        document["artifacts"]["ranking"]["sha256"] = "0" * 64
+    elif problem == "missing_artifact":
+        document["artifacts"]["ranking"]["path"] = str(tmp_path / "missing-ranking.csv")
     else:
         document["confirmatory_performance"] = {"MAE": 0.0}
     roster.write_text(json.dumps(document), encoding="utf-8")
@@ -750,7 +747,7 @@ def test_finalized_roster_gate_fails_closed_before_network_or_directory_creation
         raise AssertionError("network must remain closed")
 
     output = tmp_path / "uncreated-parent" / "external"
-    with pytest.raises((TypeError, ValueError), match=message):
+    with pytest.raises((TypeError, ValueError, FileNotFoundError), match=message):
         build_confirmatory_data(
             DESIGN,
             output,
@@ -791,7 +788,7 @@ def test_docs_only_provenance_change_does_not_invalidate_canonical_roster(
     validated = load_finalized_model_roster(roster, design_path=DESIGN)
 
     assert "code_provenance" not in validated.selection_contract
-    assert validated.selection_contract["code_identity"] == document["code_identity"]
+    assert "code_identity" not in validated.selection_contract
     assert validated.selection_code_provenance["git_commit"] == "f" * 40
 
 

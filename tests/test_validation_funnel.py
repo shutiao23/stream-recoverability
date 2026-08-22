@@ -186,7 +186,6 @@ def test_validation_ranking_is_complete_equal_stratum_weighted_and_deterministic
     ranking = rank_validation_models(
         events.sample(frac=1.0, random_state=47),
         expected_data_version="published_v1",
-        expected_design_hash="frozen-design-hash",
     )
 
     assert list(ranking["model"]) == ["proposed", "linear"]
@@ -216,7 +215,6 @@ def test_validation_ranking_is_complete_equal_stratum_weighted_and_deterministic
         events,
         output,
         expected_data_version="published_v1",
-        expected_design_hash="frozen-design-hash",
     )
     assert output.is_file()
     pdt.assert_frame_equal(pd.read_csv(output), written, check_dtype=False)

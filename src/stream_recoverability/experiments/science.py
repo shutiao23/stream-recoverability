@@ -65,7 +65,6 @@ INFORMATION_COMBINATION_LABELS = tuple(
 )
 EVIDENCE_TABLE_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
@@ -205,8 +204,13 @@ def build_dense_science_grid(
     data_version: str = "published_v1",
     evaluation_split: str = "development_test",
     frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
+    variables: Sequence[str] | None = None,
 ) -> ExperimentGrid:
-    """Build the 93-condition, 1,860-scenario dense single-gap grid."""
+    """Build the dense single-gap grid.
+
+    The frozen inventory is 93 conditions (T+F+L). Passing ``variables=('T',)``
+    selects the 45-condition temperature frontier first.
+    """
 
     manifest = _read_yaml(manifest_path)
     stations = tuple(
@@ -219,6 +223,17 @@ def build_dense_science_grid(
     window = int(manifest["window"]["science_dense"])
     if window != 736:
         raise AssertionError("the dense science window must be fixed at 736 days")
+    selected = (
+        ("T", "F", "L")
+        if variables is None
+        else tuple(dict.fromkeys(str(value) for value in variables))
+    )
+    unknown = sorted(set(selected).difference({"T", "F", "L"}))
+    if unknown:
+        raise ValueError(f"dense variables must be T, F, or L: {unknown}")
+    if not selected:
+        raise ValueError("dense experiments require at least one variable")
+    lengths_by_variable = {"T": t_lengths, "F": fl_lengths, "L": fl_lengths}
     conditions = [
         ExperimentCondition(
             experiment="SCI_DENSE",
@@ -233,12 +248,8 @@ def build_dense_science_grid(
             validation_scope="internal_test",
         )
         for station in stations
-        for variable, lengths in (
-            ("T", t_lengths),
-            ("F", fl_lengths),
-            ("L", fl_lengths),
-        )
-        for length in lengths
+        for variable in selected
+        for length in lengths_by_variable[variable]
     ]
     return _science_grid(
         manifest,
@@ -374,6 +385,7 @@ def run_dense_experiments(
     data_version: str = "published_v1",
     evaluation_split: str = "development_test",
     frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
+    variables: Sequence[str] | None = None,
     shard_index: int = 0,
     shard_count: int = 1,
     max_scenarios: int | None = None,
@@ -387,6 +399,7 @@ def run_dense_experiments(
         data_version=data_version,
         evaluation_split=evaluation_split,
         frontier_anchor_path=frontier_anchor_path,
+        variables=variables,
     )
     runner = ExperimentRunner(
         grid,

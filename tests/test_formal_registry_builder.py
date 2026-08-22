@@ -204,7 +204,6 @@ def _write_formal_run(
         key: run_contract[key]
         for key in (
             "design_version",
-            "design_hash",
             "data_version",
             "evaluation_split",
             "mask_schema_version",
@@ -446,7 +445,7 @@ def _write_formal_run(
         **roster_mirror,
         "best_traditional_model": roster_document["best_traditional_model"],
         "selection_data_version": "published_v1",
-        "selection_design_hash": validation_contract["design_hash"],
+        "selection_design_hash": validation_contract["design_version"],
         "selection_contract": {
             key: value
             for key, value in validation_contract.items()
@@ -665,7 +664,6 @@ def _build(
         output_path=tmp_path / output_name,
         data_version=str(evidence["data_version"]),
         evaluation_split=str(evidence["evaluation_split"]),
-        design_hash=str(evidence["design_hash"]),
         design_path=DESIGN,
         data_version_manifest_path=target_version_manifest,
         selection_data_version_manifest_path=VERSION_MANIFEST,
@@ -930,11 +928,11 @@ def test_include_proposed_authorizes_only_bound_derived_suite(tmp_path: Path) ->
     assert operational["finalized_models"] == ["information_compensation"]
 
 
-def test_rejects_mixed_code_identity(tmp_path: Path) -> None:
+def test_rejects_mixed_design_version(tmp_path: Path) -> None:
     roster = _write_roster(tmp_path)
     first_contract = _contract("development_test")
     second_contract = json.loads(json.dumps(first_contract))
-    second_contract["code_identity"]["sha256"] = "f" * 64
+    second_contract["design_version"] = "design_freeze_v9"
     first = _write_formal_run(
         tmp_path / "formal/core",
         suite="core",
@@ -948,7 +946,7 @@ def test_rejects_mixed_code_identity(tmp_path: Path) -> None:
         contract=second_contract,
     )
 
-    with pytest.raises(ValueError, match="code provenance/identity is inconsistent"):
+    with pytest.raises(ValueError, match="mix evidence contracts"):
         _build(tmp_path, [first, second], roster, contract=first_contract)
 
 
@@ -957,15 +955,14 @@ def test_rejects_target_contract_mismatch(tmp_path: Path) -> None:
     contract = _contract("development_test")
     manifest = _write_formal_run(tmp_path / "formal/core", contract=contract)
 
-    with pytest.raises(ValueError, match="design_hash"):
+    with pytest.raises(ValueError, match="data_version"):
         build_formal_suite_registry(
             manifest_paths=[manifest],
             finalized_model_roster_path=roster,
             formal_root=tmp_path / "formal",
             output_path=tmp_path / "registry.json",
-            data_version="published_v1",
+            data_version="b1_no_level_v1",
             evaluation_split="development_test",
-            design_hash="0" * 64,
             design_path=DESIGN,
             selection_data_version_manifest_path=VERSION_MANIFEST,
         )
@@ -1230,7 +1227,6 @@ def test_rejects_validation_or_confirmatory_registry_target(tmp_path: Path) -> N
             output_path=tmp_path / "registry.json",
             data_version="published_v1",
             evaluation_split="validation",
-            design_hash=str(evidence["design_hash"]),
             design_path=DESIGN,
             selection_data_version_manifest_path=VERSION_MANIFEST,
         )

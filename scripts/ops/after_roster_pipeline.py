@@ -55,12 +55,7 @@ def _validation_run_root() -> Path:
             FROZEN_DATA_VERSIONS.manifest_path(ROOT / "data_versions")
         ),
     )
-    return (
-        ROOT
-        / "results/validation_funnel"
-        / PRIMARY_DATA_VERSION
-        / str(contract["design_hash"])
-    )
+    return ROOT / "results/validation_funnel" / PRIMARY_DATA_VERSION
 
 
 RUN = _validation_run_root()
@@ -142,28 +137,11 @@ def proposed_included() -> bool:
     return roster_doc().get("proposed_decision") == "include_proposed_formally"
 
 
-def design_hash(data_version: str, evaluation_split: str = "development_test") -> str:
-    from stream_recoverability.experiments.contracts import build_design_contract
-
-    contract = build_design_contract(
-        design_path=DESIGN_PATH,
-        manifest_path=ROOT / "study_manifest.yaml",
-        experiment_config_path=ROOT / "configs/experiments.yaml",
-        data_version=data_version,
-        evaluation_split=evaluation_split,
-        data_version_manifest_path=(
-            ROOT / "data_versions" / data_version / "version_manifest.json"
-        ),
-    )
-    return str(contract["design_hash"])
-
-
 def suite_dir(data_version: str, suite: str) -> Path:
     return (
         ROOT
         / "results/experiments_v2"
         / data_version
-        / design_hash(data_version)
         / "development_test"
         / suite
     )
@@ -181,7 +159,6 @@ def science_dir(data_version: str, command: str) -> Path:
         ROOT
         / "results/science_experiments"
         / data_version
-        / design_hash(data_version)
         / "development_test"
         / folder
     )
@@ -306,7 +283,6 @@ def run_information(status: dict[str, Any]) -> None:
         ROOT
         / "results/analysis"
         / PRIMARY_DATA_VERSION
-        / design_hash(PRIMARY_DATA_VERSION)
         / "training_information_metrics.csv"
     )
     if output.is_file():
@@ -346,8 +322,6 @@ def run_optional_proposed(status: dict[str, Any], data_version: str) -> bool:
     if data_version == PRIMARY_DATA_VERSION:
         if not run_12(status, "retrained-information", data_version):
             return False
-        if not run_12(status, "donor-falsification", data_version, extra):
-            return False
     return True
 
 
@@ -356,22 +330,11 @@ def registry_path(data_version: str) -> Path:
 
 
 def primary_manifests() -> list[Path]:
-    paths = [
-        suite_dir(PRIMARY_DATA_VERSION, "full") / "run_manifest.json",
+    return [
         science_dir(PRIMARY_DATA_VERSION, "dense") / "run_manifest.json",
+        science_dir(PRIMARY_DATA_VERSION, "donor-falsification") / "run_manifest.json",
         science_dir(PRIMARY_DATA_VERSION, "resilience") / "run_manifest.json",
     ]
-    if proposed_included():
-        paths.extend(
-            [
-                science_dir(PRIMARY_DATA_VERSION, "compensation") / "run_manifest.json",
-                science_dir(PRIMARY_DATA_VERSION, "retrained-information")
-                / "run_manifest.json",
-                science_dir(PRIMARY_DATA_VERSION, "donor-falsification")
-                / "run_manifest.json",
-            ]
-        )
-    return paths
 
 
 def sensitivity_manifests(data_version: str) -> list[Path]:
@@ -414,8 +377,6 @@ def run_registry(status: dict[str, Any], data_version: str) -> bool:
         data_version,
         "--evaluation-split",
         "development_test",
-        "--design-hash",
-        design_hash(data_version),
         "--data-version-manifest",
         str(ROOT / "data_versions" / data_version / "version_manifest.json"),
     ]
@@ -544,7 +505,6 @@ def confirmatory_feasibility_report() -> Path:
         ROOT
         / "results/confirmatory"
         / CONFIRMATORY_VERSION
-        / design_hash(CONFIRMATORY_VERSION, "confirmatory")
         / "feasibility"
         / "confirmatory_feasibility_report.json"
     )
@@ -611,7 +571,6 @@ def run_confirmatory(status: dict[str, Any]) -> bool:
         ROOT
         / "results/confirmatory"
         / CONFIRMATORY_VERSION
-        / design_hash(CONFIRMATORY_VERSION, "confirmatory")
         / "external_confirmation"
         / "run_manifest.json"
     )
@@ -792,7 +751,6 @@ def fill_results(status: dict[str, Any]) -> bool:
         ROOT
         / "results/analysis"
         / PRIMARY_DATA_VERSION
-        / design_hash(PRIMARY_DATA_VERSION)
         / "training_information_metrics.csv"
     )
     r7 = _csv_sentences(info_csv, ("pair", "metric", "estimate", "p_value"))
@@ -826,7 +784,6 @@ def fill_results(status: dict[str, Any]) -> bool:
             ROOT
             / "results/confirmatory"
             / CONFIRMATORY_VERSION
-            / design_hash(CONFIRMATORY_VERSION, "confirmatory")
             / "external_confirmation"
             / "run_manifest.json"
         )
@@ -844,7 +801,7 @@ def fill_results(status: dict[str, Any]) -> bool:
         f"Current commit {git_commit}. No Zenodo DOI is registered (CITATION.cff doi unset)."
     )
     a2 = (
-        "Archived scientific artifacts are the hash-verified roster, the four frozen "
+        "Archived scientific artifacts are the finalized roster, the four frozen "
         "aggregates under results/frozen/, results/analysis/analysis_manifest.json, "
         "and generated paper/tables files whose status is generated. Restricted hydrology "
         "and CMA/GSOD-matched columns are not redistributed."
@@ -893,7 +850,7 @@ def fill_results(status: dict[str, Any]) -> bool:
     update_readme_evidence(
         {
             "validation_funnel": "complete_selection_only",
-            "finalized_model_roster": "hash_verified",
+            "finalized_model_roster": "finalized",
             "development_test_formal_evidence": "complete_current_protocol",
             "confirmatory_data": (
                 "built" if confirmatory_data_ready() else "not_opened"
@@ -914,7 +871,7 @@ def update_readme_after_roster() -> None:
     update_readme_evidence(
         {
             "validation_funnel": "complete_selection_only",
-            "finalized_model_roster": "hash_verified",
+            "finalized_model_roster": "finalized",
             "development_test_formal_evidence": "pending_current_protocol",
             "current_protocol_result_claims": "none",
         }
@@ -923,10 +880,10 @@ def update_readme_after_roster() -> None:
     text = cover.read_text(encoding="utf-8")
     old = (
         "README evidence status remains `validation_funnel=pending_execution` "
-        "until a hash-verified `finalized_model_roster_v1` exists."
+        "until a `finalized_model_roster_v1` exists."
     )
     new = (
-        "A hash-verified `finalized_model_roster_v1` now exists "
+        "A `finalized_model_roster_v1` now exists "
         f"(proposed_decision={roster.get('proposed_decision')}; "
         f"selected_models={roster.get('selected_models')}). "
         "README still reports `current_protocol_result_claims=none` until the "
@@ -949,21 +906,27 @@ def main() -> int:
     log(f"after_roster_start pid={os.getpid()}")
     status = load_status()
     update_readme_after_roster()
-    if not run_08(status, PRIMARY_DATA_VERSION, "full"):
-        log(f"formal full {PRIMARY_DATA_VERSION} incomplete; retry later")
+    if not run_12(
+        status, "dense", PRIMARY_DATA_VERSION, extra=["--variables", "T"]
+    ):
+        log(f"T dense {PRIMARY_DATA_VERSION} incomplete; retry later")
         return 1
-    if not run_12(status, "dense", PRIMARY_DATA_VERSION):
+    if not run_12(
+        status,
+        "donor-falsification",
+        PRIMARY_DATA_VERSION,
+        extra=["--estimator", "donor_regression"],
+    ):
         return 1
     if not run_12(status, "resilience", PRIMARY_DATA_VERSION):
         return 1
     if not run_optional_proposed(status, PRIMARY_DATA_VERSION):
         return 1
-    run_information(status)
     for version in SENSITIVITY_VERSIONS:
         if not run_08(status, version, "core"):
             log(f"sensitivity core {version} incomplete")
             return 1
-        if not run_12(status, "dense", version):
+        if not run_12(status, "dense", version, extra=["--variables", "T"]):
             return 1
         if not run_optional_proposed(status, version):
             return 1

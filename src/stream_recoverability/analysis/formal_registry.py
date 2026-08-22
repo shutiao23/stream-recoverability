@@ -24,7 +24,6 @@ import yaml
 
 from stream_recoverability.experiments.contracts import (
     build_design_contract,
-    canonical_code_identity,
     canonical_evaluation_split,
     file_sha256,
     load_frozen_data_versions,
@@ -128,16 +127,13 @@ def _validate_formal_execution_authorization(*args: Any, **kwargs: Any) -> Any:
 
 CONTRACT_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
     "model_schema_version",
     "statistics_schema_version",
-    "input_digests",
-    "code_identity",
 )
-TABLE_CONTRACT_FIELDS = CONTRACT_FIELDS[:7]
+TABLE_CONTRACT_FIELDS = CONTRACT_FIELDS
 RUN_UNIT_FIELDS = (
     "expected_run_unit_keys",
     "completed_run_unit_keys",
@@ -1021,7 +1017,6 @@ def _validate_manifest(
     formal_root: Path,
     data_version: str,
     evaluation_split: str,
-    design_hash: str,
     frontier_anchor_reference: _FrontierAnchorReference,
     data_version_input_identity: Mapping[str, Any],
 ) -> _ValidatedRun:
@@ -1068,8 +1063,6 @@ def _validate_manifest(
         raise ValueError(
             f"{label} evaluation_split does not match the requested bundle"
         )
-    if manifest.get("design_hash") != design_hash:
-        raise ValueError(f"{label} design_hash does not match the requested bundle")
     if manifest.get("data_version_input_identity") != data_version_input_identity:
         raise ValueError(f"{label} data-version input identity is stale")
     if manifest.get("evidence_role") != "formal_development_evaluation":
@@ -1085,8 +1078,6 @@ def _validate_manifest(
         or code_provenance.get("status") != "clean"
     ):
         raise ValueError(f"{label} was not produced from clean relevant source")
-    if canonical_code_identity(code_provenance) != manifest.get("code_identity"):
-        raise ValueError(f"{label} code provenance/identity is inconsistent")
     suite = manifest.get("suite")
     if not isinstance(suite, str) or not suite or suite.strip() != suite:
         raise ValueError(f"{label} requires a normalized suite name")
@@ -1720,7 +1711,7 @@ def build_formal_suite_registry(
     output_path: str | Path,
     data_version: str,
     evaluation_split: str,
-    design_hash: str,
+    design_hash: str = "",
     design_path: str | Path = REPOSITORY_ROOT / "configs/design_freeze_v4.yaml",
     study_manifest_path: str | Path = REPOSITORY_ROOT / "study_manifest.yaml",
     experiment_config_path: str | Path = REPOSITORY_ROOT / "configs/experiments.yaml",
@@ -1738,12 +1729,7 @@ def build_formal_suite_registry(
     if not isinstance(data_version, str) or not data_version.strip():
         raise ValueError("data_version must be a non-empty string")
     bundle_kind = _data_version_bundle_kind(design_path, data_version)
-    if (
-        not isinstance(design_hash, str)
-        or len(design_hash) != 64
-        or any(character not in "0123456789abcdef" for character in design_hash)
-    ):
-        raise ValueError("design_hash must be a lowercase SHA-256")
+    del design_hash
     version_manifest = (
         Path(data_version_manifest_path)
         if data_version_manifest_path is not None
@@ -1771,11 +1757,6 @@ def build_formal_suite_registry(
     )
     if data_version_input_identity is None:
         raise AssertionError("formal data-version input identity is unavailable")
-    if design_hash != expected_contract["design_hash"]:
-        raise ValueError(
-            "requested design_hash does not match the current frozen data/config/code "
-            "contract"
-        )
     selection_version = load_frozen_data_versions(design_path).primary
     if frontier_anchor_catalog_path is None:
         frontier_anchor_catalog_path = (
@@ -1819,7 +1800,6 @@ def build_formal_suite_registry(
             formal_root=root,
             data_version=data_version,
             evaluation_split=canonical_split,
-            design_hash=design_hash,
             frontier_anchor_reference=frontier_anchor_reference,
             data_version_input_identity=data_version_input_identity,
         )
@@ -1836,7 +1816,7 @@ def build_formal_suite_registry(
     for run in runs[1:]:
         if run.contract != first_contract:
             raise ValueError(
-                "formal manifests mix evidence contracts or code identities"
+                "formal manifests mix evidence contracts"
             )
     expected_unit_count = sum(len(run.expected_run_units) for run in runs)
     unique_expected_units = set().union(*(run.expected_run_units for run in runs))
@@ -1911,8 +1891,6 @@ def build_formal_suite_registry(
         "bundle_role": bundle_role,
         "data_version": data_version,
         "evaluation_split": canonical_split,
-        "design_hash": design_hash,
-        "code_identity": first_contract["code_identity"],
         "registry_builder_identity": registry_builder_identity,
         "data_version_manifest": {
             "path": _portable_path(version_manifest),

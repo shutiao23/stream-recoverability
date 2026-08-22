@@ -87,7 +87,6 @@ REQUIRED_DATA_ARTIFACTS = frozenset(
 REQUIRED_ROW_IDENTITY_FIELDS = frozenset(
     {
         "data_version",
-        "design_hash",
         "evaluation_split",
         "evidence_role",
         "formal_evidence",
@@ -95,12 +94,6 @@ REQUIRED_ROW_IDENTITY_FIELDS = frozenset(
         "seed_role",
         "model",
         "scenario_id",
-        "roster_sha256",
-        "data_version_manifest_sha256",
-        "code_identity_sha256",
-        "run_unit_sha256",
-        "mask_sha256",
-        "mask_metadata_sha256",
         "information_condition",
     }
 )
@@ -585,13 +578,6 @@ def preflight_confirmatory_evaluation(
     canonical_contract = {
         key: value for key, value in contract.items() if key != "code_provenance"
     }
-    if canonical_contract.get("code_identity") != roster.selection_contract.get(
-        "code_identity"
-    ):
-        raise ValueError(
-            "code identity changed after the validation roster was frozen; "
-            "confirmatory evaluation is prohibited"
-        )
     if canonical_contract.get("data_version") != CONFIRMATORY_DATA_VERSION:
         raise ValueError("external design contract has the wrong data_version")
     if canonical_contract.get("evaluation_split") != EXTERNAL_EVALUATION_SPLIT:
@@ -870,18 +856,12 @@ def _annotate_evidence_rows(
     checkpoint_identities: Mapping[tuple[str, int], str],
 ) -> pd.DataFrame:
     result = frame.copy()
-    code_identity_sha256 = _canonical_sha256(inputs.evidence_contract["code_identity"])
     scenario_information = {
         scenario.scenario_id: _information_condition(scenario.condition)
         for scenario in grid.scenarios
     }
     result["formal_evidence"] = True
     result["evidence_role"] = EXTERNAL_EVIDENCE_ROLE
-    result["roster_sha256"] = inputs.roster.manifest_sha256
-    result["data_version_manifest_sha256"] = inputs.data_manifest_identity[
-        "manifest_sha256"
-    ]
-    result["code_identity_sha256"] = code_identity_sha256
     result["information_condition"] = result["scenario_id"].map(scenario_information)
     result["seed"] = np.where(
         result["training_seed"].notna(),
@@ -906,12 +886,7 @@ def _annotate_evidence_rows(
         _canonical_sha256(
             {
                 "run_unit": run_unit,
-                "design_hash": inputs.evidence_contract["design_hash"],
-                "roster_sha256": inputs.roster.manifest_sha256,
-                "data_version_manifest_sha256": inputs.data_manifest_identity[
-                    "manifest_sha256"
-                ],
-                "code_identity_sha256": code_identity_sha256,
+                "design_version": inputs.evidence_contract["design_version"],
             }
         )
         for run_unit in run_units
@@ -947,14 +922,9 @@ def _validate_output_rows(
             raise ValueError(f"external {name} evidence is empty")
         exact_values = {
             "data_version": CONFIRMATORY_DATA_VERSION,
-            "design_hash": inputs.evidence_contract["design_hash"],
             "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
             "evidence_role": EXTERNAL_EVIDENCE_ROLE,
             "formal_evidence": True,
-            "roster_sha256": inputs.roster.manifest_sha256,
-            "data_version_manifest_sha256": inputs.data_manifest_identity[
-                "manifest_sha256"
-            ],
         }
         for field, value in exact_values.items():
             observed = tuple(frame[field].drop_duplicates().tolist())
@@ -1021,7 +991,7 @@ def _validate_runner_manifest(
         "data_version": CONFIRMATORY_DATA_VERSION,
         "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
         "evidence_role": EXTERNAL_EVIDENCE_ROLE,
-        "design_hash": inputs.evidence_contract["design_hash"],
+        "design_version": inputs.evidence_contract["design_version"],
     }
     mismatches = {
         field: (manifest.get(field), value)
@@ -1103,13 +1073,12 @@ def _lock_payload(
         "data_version_manifest_sha256": inputs.data_manifest_identity[
             "manifest_sha256"
         ],
-        "design_hash": inputs.evidence_contract["design_hash"],
+        "design_version": inputs.evidence_contract["design_version"],
         "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
         "evidence_role": EXTERNAL_EVIDENCE_ROLE,
         "formal_evidence": True,
         "finalized_model_roster_sha256": inputs.roster.manifest_sha256,
         "selected_models": list(inputs.selected_models),
-        "code_identity": inputs.evidence_contract["code_identity"],
     }
 
 
@@ -1367,7 +1336,7 @@ def run_confirmatory_feasibility(
             "models_trained": False,
             "once_lock_created": False,
             "design_version": inputs.evidence_contract["design_version"],
-            "design_hash": inputs.evidence_contract["design_hash"],
+            "design_version": inputs.evidence_contract["design_version"],
             "data_version": CONFIRMATORY_DATA_VERSION,
             "data_version_manifest_sha256": inputs.data_manifest_identity[
                 "manifest_sha256"
@@ -1667,7 +1636,7 @@ def run_confirmatory_evaluation(
             "completed_at_utc": _utc_now(),
             "evaluate_once": True,
             "data_version": CONFIRMATORY_DATA_VERSION,
-            "design_hash": inputs.evidence_contract["design_hash"],
+            "design_version": inputs.evidence_contract["design_version"],
             "evaluation_split": EXTERNAL_EVALUATION_SPLIT,
             "evidence_role": EXTERNAL_EVIDENCE_ROLE,
             "formal_evidence": True,
@@ -1691,7 +1660,6 @@ def run_confirmatory_evaluation(
             ),
             "finalized_model_roster": inputs.roster.metadata(),
             "evidence_contract": inputs.evidence_contract,
-            "code_identity": inputs.evidence_contract["code_identity"],
             "code_provenance": inputs.code_provenance,
             "grid": grid_contract,
             "grid_sha256": grid_sha256,

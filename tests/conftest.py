@@ -20,5 +20,5 @@ def _committed_test_code_provenance(
     monkeypatch.setattr(
         ExperimentRunner,
         "_assert_formal_code_provenance",
-        staticmethod(lambda training_profile_name, code_provenance: None),
+        staticmethod(lambda training_profile_name, code_provenance, **_kwargs: None),
     )

@@ -105,18 +105,13 @@ EVENT_KEY = (
 )
 REQUIRED_EVIDENCE_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
     "model_schema_version",
     "statistics_schema_version",
 )
-REQUIRED_MANIFEST_CONTRACT_FIELDS = (
-    *REQUIRED_EVIDENCE_FIELDS,
-    "input_digests",
-    "code_identity",
-)
+REQUIRED_MANIFEST_CONTRACT_FIELDS = REQUIRED_EVIDENCE_FIELDS
 RUN_UNIT_LIST_FIELDS = (
     "expected_run_unit_keys",
     "completed_run_unit_keys",
@@ -341,8 +336,6 @@ def _validate_registry_contract(
         ("bundle_kind", expected_bundle_kind),
         ("data_version", data_version),
         ("evaluation_split", evaluation_split),
-        ("design_hash", expected_evidence["design_hash"]),
-        ("code_identity", expected_evidence["code_identity"]),
     ):
         if registry.get(field) != expected:
             raise ValueError(f"suite registry {field} does not match frozen execution")

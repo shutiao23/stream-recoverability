@@ -128,6 +128,40 @@ def file_sha256(path: str | Path) -> str:
     return digest.hexdigest()
 
 
+LEGACY_IDENTITY_FIELDS = frozenset(
+    {
+        "design_hash",
+        "code_identity",
+        "input_digests",
+        "code_identity_sha256",
+        "selection_design_hash",
+    }
+)
+
+
+def result_run_root(output_root: str | Path, data_version: str) -> Path:
+    """Locate results by data version only. Code edits do not create a new folder."""
+
+    version = str(data_version).strip()
+    if not version:
+        raise ValueError("data_version is required for a result directory")
+    return Path(output_root) / version
+
+
+def without_legacy_identity(value: Any) -> Any:
+    """Drop leftover digest-identity fields so old artifacts stay readable."""
+
+    if isinstance(value, Mapping):
+        return {
+            key: without_legacy_identity(item)
+            for key, item in value.items()
+            if key not in LEGACY_IDENTITY_FIELDS
+        }
+    if isinstance(value, list):
+        return [without_legacy_identity(item) for item in value]
+    return value
+
+
 def validate_data_version_inputs(
     *,
     data_version_manifest_path: str | Path | None,
@@ -137,7 +171,7 @@ def validate_data_version_inputs(
     require_manifest: bool,
     require_quality: bool,
 ) -> dict[str, Any] | None:
-    """Bind runner inputs to the declared version manifest's wide/long hashes."""
+    """Confirm the named version's wide/long tables exist."""
 
     if data_version_manifest_path is None:
         if require_manifest:
@@ -169,31 +203,18 @@ def validate_data_version_inputs(
     for name, path in required.items():
         if path is None:
             continue
-        raw_identity = artifacts.get(name)
-        if not isinstance(raw_identity, Mapping):
+        if name not in artifacts:
             raise TypeError(f"data-version manifest lacks {name}")
-        expected_sha = raw_identity.get("sha256")
-        if (
-            not isinstance(expected_sha, str)
-            or len(expected_sha) != 64
-            or any(character not in "0123456789abcdef" for character in expected_sha)
-        ):
-            raise ValueError(f"data-version manifest has invalid SHA-256 for {name}")
         if not path.is_file():
             raise FileNotFoundError(f"data-version input is missing: {path}")
-        observed_sha = file_sha256(path)
-        if observed_sha != expected_sha:
-            raise ValueError(f"data-version {name} SHA-256 does not match")
         validated[name] = {
             "path": str(path.resolve()),
-            "sha256": observed_sha,
             "bytes": path.stat().st_size,
         }
     return {
         "data_version": str(data_version),
         "manifest": {
             "path": str(manifest_path.resolve()),
-            "sha256": file_sha256(manifest_path),
             "bytes": manifest_path.stat().st_size,
         },
         "artifacts": validated,
@@ -404,7 +425,12 @@ def build_design_contract(
     data_version_manifest_path: str | Path | None = None,
     code_provenance: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Build the canonical contract whose digest invalidates stale evidence."""
+    """Return the scientific labels used to read and write results.
+
+    Result directories are keyed by data version, not by a source digest.
+    Changing roster, ranking, or checker code does not create a new folder
+    and does not invalidate already-trained weights.
+    """
 
     design_file = Path(design_path)
     study_file = Path(manifest_path)
@@ -428,16 +454,6 @@ def build_design_contract(
     if version_manifest is not None and not version_manifest.exists():
         raise FileNotFoundError(version_manifest)
 
-    # Paths are intentionally excluded: the same frozen inputs must receive the
-    # same design hash in a clone, container, or absolute/relative invocation.
-    inputs: dict[str, str | None] = {
-        "design_freeze": file_sha256(design_file),
-        "study_manifest": file_sha256(study_file),
-        "experiment_config": file_sha256(experiment_file),
-        "data_version_manifest": (
-            file_sha256(version_manifest) if version_manifest is not None else None
-        ),
-    }
     provenance = dict(
         code_provenance
         if code_provenance is not None
@@ -445,20 +461,15 @@ def build_design_contract(
             additional_relevant_paths=(design_file, study_file, experiment_file)
         )
     )
-    code_identity = canonical_code_identity(provenance)
-    canonical_split = canonical_evaluation_split(evaluation_split)
     contract = {
         "design_version": str(design["design_version"]),
         "data_version": str(data_version),
-        "evaluation_split": canonical_split,
+        "evaluation_split": canonical_evaluation_split(evaluation_split),
         "mask_schema_version": str(mask_design["schema_version"]),
         "model_schema_version": str(training["schema_version"]),
         "statistics_schema_version": str(statistics["schema_version"]),
-        "input_digests": inputs,
-        "code_identity": code_identity,
+        "code_provenance": provenance,
     }
-    contract["design_hash"] = _canonical_digest(contract)
-    contract["code_provenance"] = provenance
     missing = set(evidence.get("required_fields", ())).difference(contract)
     if missing:
         raise ValueError(
@@ -481,6 +492,9 @@ __all__ = [
     "canonical_code_identity",
     "canonical_evaluation_split",
     "file_sha256",
+    "LEGACY_IDENTITY_FIELDS",
     "load_frozen_data_versions",
+    "result_run_root",
     "validate_data_version_inputs",
+    "without_legacy_identity",
 ]

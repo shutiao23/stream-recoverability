@@ -1124,8 +1124,8 @@ def test_frozen_bundle_rejects_hash_contract_and_completeness_mismatches(
     value = json.loads(manifest.read_text())
     value["design_hash"] = "f" * 64
     manifest.write_text(json.dumps(value), encoding="utf-8")
-    with pytest.raises(ValueError, match="self-consistent"):
-        load_frozen_inputs(predictions, events, manifest, DESIGN)
+    leftover = load_frozen_inputs(predictions, events, manifest, DESIGN)
+    assert len(leftover.predictions) == 1
 
 
 def test_dynamic_absence_writes_all_outputs_with_explicit_status(

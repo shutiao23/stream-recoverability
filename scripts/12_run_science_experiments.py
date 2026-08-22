@@ -97,6 +97,12 @@ def build_parser() -> argparse.ArgumentParser:
     dense.add_argument("--shard-count", type=int, default=1)
     dense.add_argument("--max-scenarios", type=int)
     dense.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
+    dense.add_argument(
+        "--variables",
+        nargs="+",
+        default=None,
+        help="subset of T/F/L; default is the full frozen dense inventory",
+    )
     _add_anchor_arguments(dense)
 
     resilience = subparsers.add_parser(
@@ -177,6 +183,12 @@ def build_parser() -> argparse.ArgumentParser:
     donor.add_argument("--mask-seeds", nargs="+", type=int)
     donor.add_argument("--max-scenarios", type=int)
     donor.add_argument("--device", default="cpu")
+    donor.add_argument(
+        "--estimator",
+        choices=("donor_regression", "proposed"),
+        default="donor_regression",
+        help="donor_regression is the primary mechanism test; proposed is optional",
+    )
     donor.add_argument("--resume", action=argparse.BooleanOptionalAction, default=True)
     _add_anchor_arguments(donor)
 
@@ -294,7 +306,6 @@ def main() -> None:
             / "results"
             / "science_experiments"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
             / args.command
         )
@@ -303,13 +314,21 @@ def main() -> None:
             / "masks"
             / f"science_{args.command}"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
+        )
+        dense_variables = (
+            tuple(args.variables)
+            if args.command == "dense" and getattr(args, "variables", None)
+            else None
         )
         models, formal_authorization = authorize_roster_suite(
             args.finalized_model_roster,
             suite="science_dense" if args.command == "dense" else "science_resilience",
-            target_scope=("T", "F", "L") if args.command == "dense" else ("T",),
+            target_scope=(
+                dense_variables
+                if dense_variables is not None
+                else (("T", "F", "L") if args.command == "dense" else ("T",))
+            ),
             design_path=args.design,
             study_manifest_path=args.manifest,
             experiment_config_path=args.config,
@@ -350,6 +369,11 @@ def main() -> None:
             shard_count=args.shard_count,
             max_scenarios=args.max_scenarios,
             resume=args.resume,
+            **(
+                {"variables": dense_variables}
+                if args.command == "dense" and dense_variables is not None
+                else {}
+            ),
         )
         summary = {
             "command": args.command,
@@ -359,7 +383,6 @@ def main() -> None:
             "output_dir": str(output_dir),
             "data_version": args.data_version,
             "evaluation_split": canonical_split,
-            "design_hash": contract["design_hash"],
             "formal_evidence": True,
             "finalized_model_roster": formal_authorization["finalized_model_roster"],
             "expected_formal_models": list(models),
@@ -389,7 +412,6 @@ def main() -> None:
             / "results"
             / "science_experiments"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
             / "compensation"
         )
@@ -398,7 +420,6 @@ def main() -> None:
             / "masks"
             / "science_compensation"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
         )
         checkpoint_dir = args.checkpoint_dir or (
@@ -406,7 +427,6 @@ def main() -> None:
             / "results"
             / "experiments_v2"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
             / "full"
             / "checkpoints"
@@ -450,7 +470,6 @@ def main() -> None:
             "output_dir": str(output_dir),
             "data_version": args.data_version,
             "evaluation_split": canonical_split,
-            "design_hash": contract["design_hash"],
             "status": compensation_manifest["status"],
             "formal_evidence": compensation_manifest["formal_evidence"],
             "finalized_model_roster": compensation_manifest["finalized_model_roster"],
@@ -478,7 +497,6 @@ def main() -> None:
             PROJECT_ROOT
             / "results/science_experiments"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
         )
         output_dir = args.output_dir or run_root / "donor_falsification"
@@ -486,14 +504,12 @@ def main() -> None:
             PROJECT_ROOT
             / "masks/science_donor_falsification"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
         )
         checkpoint_dir = args.checkpoint_dir or (
             PROJECT_ROOT
             / "results/experiments_v2"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
             / "full/checkpoints"
         )
@@ -516,6 +532,7 @@ def main() -> None:
             frontier_anchor_path=args.frontier_anchors,
             max_scenarios=args.max_scenarios,
             device=args.device,
+            estimator=args.estimator,
             resume=args.resume,
         )
         run_manifest = json.loads(
@@ -530,7 +547,6 @@ def main() -> None:
             "skipped_rows": len(skipped),
             "output_dir": str(output_dir),
             "data_version": args.data_version,
-            "design_hash": contract["design_hash"],
         }
     elif args.command == "retrained-information":
         canonical_split = canonical_evaluation_split(args.evaluation_split)
@@ -557,7 +573,6 @@ def main() -> None:
             / "results"
             / "science_experiments"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
             / "retrained_information_upper_bounds"
         )
@@ -566,7 +581,6 @@ def main() -> None:
             / "masks"
             / "science_retrained_information"
             / args.data_version
-            / contract["design_hash"]
             / canonical_split
         )
         daily, events, run_manifest = run_retrained_information_upper_bounds(
@@ -599,7 +613,6 @@ def main() -> None:
             "output_dir": str(output_dir),
             "data_version": args.data_version,
             "evaluation_split": canonical_split,
-            "design_hash": contract["design_hash"],
             "attribution_estimand": "retrained_upper_bound",
         }
     else:
@@ -625,7 +638,6 @@ def main() -> None:
             / "results"
             / "analysis"
             / args.data_version
-            / contract["design_hash"]
             / "training_information_metrics.csv"
         )
         result = write_training_information_metrics(
@@ -647,7 +659,6 @@ def main() -> None:
             "te_rows": int((result["metric"] == "transfer_entropy").sum()),
             "output": str(output),
             "data_version": args.data_version,
-            "design_hash": contract["design_hash"],
             "fit_split": "train",
             "formal_evidence": False,
             "interpretation": "association/directional information only; not causal",

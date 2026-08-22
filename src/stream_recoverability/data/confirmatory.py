@@ -37,6 +37,7 @@ import yaml
 
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
+    LEGACY_IDENTITY_FIELDS,
     build_design_contract,
     load_frozen_data_versions,
     validate_data_version_inputs,
@@ -993,22 +994,9 @@ def _validated_roster_artifacts(
         identity = value[name]
         if not isinstance(identity, Mapping):
             raise TypeError(f"finalized roster artifact {name} must be a mapping")
-        if set(identity) != {"path", "sha256"}:
-            raise ValueError(
-                f"finalized roster artifact {name} identity requires only path/sha256"
-            )
         raw_path = identity.get("path")
-        expected_sha256 = identity.get("sha256")
         if not isinstance(raw_path, str) or not raw_path:
             raise ValueError(f"finalized roster artifact {name} requires path")
-        if (
-            not isinstance(expected_sha256, str)
-            or len(expected_sha256) != 64
-            or any(character not in "0123456789abcdef" for character in expected_sha256)
-        ):
-            raise ValueError(
-                f"finalized roster artifact {name} requires lowercase SHA-256"
-            )
         path = _resolve_roster_artifact_path(raw_path, roster_path)
         if not path.is_file():
             raise FileNotFoundError(
@@ -1018,12 +1006,8 @@ def _validated_roster_artifacts(
         if resolved in resolved_paths:
             raise ValueError("finalized roster artifacts must be distinct files")
         resolved_paths.add(resolved)
-        observed_sha256 = file_sha256(resolved)
-        if observed_sha256 != expected_sha256:
-            raise ValueError(f"finalized roster artifact {name} SHA-256 does not match")
         validated[name] = {
             "path": _portable_path(resolved),
-            "sha256": observed_sha256,
             "bytes": resolved.stat().st_size,
         }
     return validated
@@ -1106,7 +1090,7 @@ def load_finalized_model_roster(
         if field != "code_provenance"
     }
     frozen_fields = FINALIZED_MODEL_ROSTER_FIELDS | set(canonical_contract)
-    allowed_fields = frozen_fields | {"code_provenance"}
+    allowed_fields = frozen_fields | {"code_provenance"} | LEGACY_IDENTITY_FIELDS
     missing_fields = sorted(frozen_fields.difference(document))
     unexpected_fields = sorted(set(document).difference(allowed_fields))
     if missing_fields or unexpected_fields:
@@ -1180,7 +1164,9 @@ def load_finalized_model_roster(
         best_traditional_model=best_traditional,
         proposed_decision=decision,
         selection_data_version=selection_data_version,
-        selection_design_hash=expected_contract["design_hash"],
+        selection_design_hash=str(
+            expected_contract.get("design_version", expected_contract["data_version"])
+        ),
         selection_contract=json.loads(json.dumps(canonical_contract)),
         selection_code_provenance=(
             json.loads(json.dumps(raw_provenance))

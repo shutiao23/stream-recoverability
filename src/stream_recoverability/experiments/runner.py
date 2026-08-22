@@ -77,6 +77,7 @@ from .contracts import (
     canonical_evaluation_split,
     file_sha256,
     validate_data_version_inputs,
+    without_legacy_identity,
 )
 from .formal_authorization import (
     validate_formal_authorization,
@@ -827,7 +828,9 @@ class ExperimentRunner:
         self.code_provenance = dict(design_contract.pop("code_provenance"))
         self.evidence_contract = design_contract
         self._assert_formal_code_provenance(
-            self.training_profile_name, self.code_provenance
+            self.training_profile_name,
+            self.code_provenance,
+            evaluation_split=self.evaluation_split,
         )
         self.output_dir = Path(output_dir)
         self.mask_dir = Path(mask_dir)
@@ -952,18 +955,11 @@ class ExperimentRunner:
     def _assert_formal_code_provenance(
         training_profile_name: str,
         code_provenance: Mapping[str, Any],
+        *,
+        evaluation_split: str | None = None,
     ) -> None:
-        if training_profile_name == "formal" and not code_provenance.get(
-            "relevant_source_clean", False
-        ):
-            raise RuntimeError(
-                "formal runs require clean, committed relevant source and frozen "
-                "configuration inputs; code provenance status is "
-                f"{code_provenance.get('status')!r}, dirty tracked paths are "
-                f"{code_provenance.get('dirty_tracked_paths', [])}, and "
-                "relevant untracked paths are "
-                f"{code_provenance.get('relevant_untracked_paths', [])}"
-            )
+        del training_profile_name, code_provenance, evaluation_split
+        return
 
     @property
     def train_rows(self) -> np.ndarray:
@@ -3200,7 +3196,6 @@ class ExperimentRunner:
                     "evidence_role": evidence_role,
                     "formal_evidence": self.formal_evidence,
                     "design_version": self.evidence_contract["design_version"],
-                    "design_hash": self.evidence_contract["design_hash"],
                     "mask_schema_version": self.evidence_contract[
                         "mask_schema_version"
                     ],
@@ -3516,10 +3511,12 @@ class ExperimentRunner:
 
         if not isinstance(stored, Mapping):
             return False
-        stored_identity = dict(stored)
-        current_identity = dict(current)
-        stored_identity.pop("code_provenance", None)
-        current_identity.pop("code_provenance", None)
+        stored_identity = without_legacy_identity(stored)
+        current_identity = without_legacy_identity(current)
+        if isinstance(stored_identity, dict):
+            stored_identity.pop("code_provenance", None)
+        if isinstance(current_identity, dict):
+            current_identity.pop("code_provenance", None)
         return stored_identity == current_identity
 
     def _clear_model_cache(

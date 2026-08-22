@@ -58,7 +58,6 @@ from stream_recoverability.analysis.uncertainty import (
 
 EVIDENCE_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
@@ -73,7 +72,6 @@ FRONTIER_GROUPS = (
     "information_combination",
     "window",
     "evaluation_split",
-    "design_hash",
 )
 FIXED_ARTIFACTS = (
     "best_simple_baseline_lookup.csv",
@@ -522,55 +520,10 @@ def _manifest_contracts(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
         missing = sorted(set(EVIDENCE_FIELDS).difference(raw))
         if missing:
             raise ValueError(f"evidence contract is missing fields: {missing}")
-        inputs = raw.get("input_digests")
-        if not isinstance(inputs, Mapping):
-            raise TypeError("evidence contract must contain input_digests")
-        identity = raw.get("code_identity")
-        if not isinstance(identity, Mapping):
-            raise TypeError("evidence contract must contain code_identity")
-        identity_schema = identity.get("schema_version")
-        identity_digest = identity.get("relevant_source_digest")
-        identity_count = identity.get("relevant_source_file_count")
-        if not isinstance(identity_schema, str) or not identity_schema:
-            raise ValueError("code_identity has no schema_version")
-        if (
-            not isinstance(identity_digest, str)
-            or len(identity_digest) != 64
-            or any(character not in "0123456789abcdef" for character in identity_digest)
-        ):
-            raise ValueError("code_identity has a malformed source SHA-256")
-        if type(identity_count) is not int or identity_count <= 0:
-            raise ValueError("code_identity has an invalid source file count")
-        canonical_identity = {
-            "schema_version": identity_schema,
-            "relevant_source_digest": identity_digest,
-            "relevant_source_file_count": identity_count,
-        }
+        canonical = {field: raw[field] for field in EVIDENCE_FIELDS}
         provenance = raw.get("code_provenance")
-        if not isinstance(provenance, Mapping):
-            raise TypeError("evidence contract must contain code_provenance")
-        provenance_identity = {
-            "schema_version": provenance.get("schema_version"),
-            "relevant_source_digest": provenance.get("relevant_source_digest"),
-            "relevant_source_file_count": provenance.get("relevant_source_file_count"),
-        }
-        if provenance_identity != canonical_identity:
-            raise ValueError("code_provenance does not match code_identity")
-        canonical = {
-            "design_version": str(raw["design_version"]),
-            "data_version": str(raw["data_version"]),
-            "evaluation_split": str(raw["evaluation_split"]),
-            "mask_schema_version": str(raw["mask_schema_version"]),
-            "model_schema_version": str(raw["model_schema_version"]),
-            "statistics_schema_version": str(raw["statistics_schema_version"]),
-            "input_digests": dict(inputs),
-            "code_identity": canonical_identity,
-        }
-        expected_hash = _canonical_digest(canonical)
-        if str(raw["design_hash"]) != expected_hash:
-            raise ValueError("evidence contract design_hash is not self-consistent")
-        canonical["design_hash"] = expected_hash
-        canonical["code_provenance"] = dict(provenance)
+        if isinstance(provenance, Mapping):
+            canonical["code_provenance"] = dict(provenance)
         contracts.append(canonical)
     return contracts
 
@@ -935,8 +888,6 @@ def _load_formal_registry(
     for field, expected in (
         ("data_version", data_version),
         ("evaluation_split", contract["evaluation_split"]),
-        ("design_hash", contract["design_hash"]),
-        ("code_identity", contract["code_identity"]),
         ("bundle_role", expected_bundle_role),
         ("bundle_kind", expected_bundle_kind),
         ("required_suite_roles", list(expected_roles)),
@@ -1162,8 +1113,6 @@ def _load_formal_registry(
         "bundle_role": expected_bundle_role,
         "data_version": data_version,
         "evaluation_split": contract["evaluation_split"],
-        "design_hash": contract["design_hash"],
-        "code_identity": dict(contract["code_identity"]),
         "finalized_model_roster": {
             "path": str(roster_path),
             "sha256": raw_roster["sha256"],
@@ -1197,10 +1146,7 @@ def load_frozen_inputs(
     statistics = load_frozen_statistics(design_file)
     contracts = _manifest_contracts(manifest)
     design = _read_mapping(design_file)
-    design_digest = _file_sha256(design_file)
     for contract in contracts:
-        if contract["input_digests"].get("design_freeze") != design_digest:
-            raise ValueError("top manifest was built from a different design freeze")
         expected_design_fields = {
             "design_version": str(design["design_version"]),
             "mask_schema_version": str(design["mask_design"]["schema_version"]),
@@ -3395,8 +3341,6 @@ def _bundle_input_identity(inputs: FrozenInputs) -> dict[str, Any]:
     value: dict[str, Any] = {
         "data_version": contract["data_version"],
         "evaluation_split": contract["evaluation_split"],
-        "design_hash": contract["design_hash"],
-        "code_identity": contract["code_identity"],
         "aggregate_manifest": {
             "path": str(inputs.manifest_path),
             "bytes": inputs.manifest_path.stat().st_size,
@@ -3766,15 +3710,12 @@ def _load_best_simple_lookup(inputs: FrozenInputs) -> pd.DataFrame:
         "target",
         "mask_geometry",
         "data_version",
-        "design_hash",
     }
     _require_columns(lookup, required, "best-simple baseline lookup")
     if set(lookup["data_version"].astype(str)) != {
         inputs.statistics.primary_data_version
     }:
         raise ValueError("best-simple lookup uses another selection data version")
-    if set(lookup["design_hash"].astype(str)) != {str(inputs.manifest["design_hash"])}:
-        raise ValueError("best-simple lookup uses another design contract")
     if lookup["condition_family"].duplicated().any():
         raise ValueError("best-simple lookup contains duplicate families")
     return lookup

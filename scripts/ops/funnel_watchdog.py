@@ -37,7 +37,6 @@ def _validation_run_root() -> Path:
     return (
         ROOT
         / "results/validation_funnel/published_v1"
-        / str(contract["design_hash"])
     )
 
 

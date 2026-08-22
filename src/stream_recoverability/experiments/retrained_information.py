@@ -82,7 +82,6 @@ RETRAINED_COALITION_LABELS = tuple(
 )
 REQUIRED_EVIDENCE_FIELDS = (
     "design_version",
-    "design_hash",
     "data_version",
     "evaluation_split",
     "mask_schema_version",
@@ -284,8 +283,6 @@ def _base_training_contract(
         "training_seed": int(training_seed),
         "data_version": runner.data.data_version,
         "design_version": runner.evidence_contract["design_version"],
-        "design_hash": runner.evidence_contract["design_hash"],
-        "code_identity": runner.evidence_contract["code_identity"],
         "model_config": asdict(model_config),
         "training_config": asdict(training_config),
         "training_context": training_context,
@@ -694,8 +691,7 @@ def _train_or_load_checkpoint(
             "allowed_information_groups": list(coalition),
             "training_seed": int(training_seed),
             "data_version": runner.data.data_version,
-            "design_hash": runner.evidence_contract["design_hash"],
-            "code_identity": runner.evidence_contract["code_identity"],
+            "design_version": runner.evidence_contract["design_version"],
             "input_hashes": contract["input_hashes"],
             "fit_split": "train",
             "early_stopping_split": "validation",

@@ -176,12 +176,7 @@ def main() -> None:
         for key, value in resolved_contract.items()
         if key != "code_provenance"
     }
-    run_token = (
-        Path(args.data_version)
-        / resolved_contract["design_hash"]
-        / canonical_split
-        / args.suite
-    )
+    run_token = Path(args.data_version) / canonical_split / args.suite
     output_dir = args.output_dir or PROJECT_ROOT / "results/experiments_v2" / run_token
     mask_dir = args.mask_dir or PROJECT_ROOT / "masks/v2" / run_token
     grid = build_experiment_grid(
@@ -266,7 +261,6 @@ def main() -> None:
                 "output_dir": str(output_dir),
                 "data_version": args.data_version,
                 "evaluation_split": canonical_split,
-                "design_hash": runner.evidence_contract["design_hash"],
                 "mask_dir": str(mask_dir),
                 "data_version_manifest": str(version_manifest),
                 "event_catalog": (

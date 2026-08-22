@@ -36,7 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--finalized-model-roster",
         type=Path,
         required=True,
-        help="hash-verified finalized_model_roster_v1 from validation only",
+        help="finalized_model_roster_v1 from validation only",
     )
     parser.add_argument(
         "--formal-root",
@@ -47,14 +47,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--data-version", required=True)
     parser.add_argument("--evaluation-split", required=True)
-    parser.add_argument("--design-hash", required=True)
+    parser.add_argument("--design-hash", default="")
     parser.add_argument(
         "--data-version-manifest",
         type=Path,
         required=True,
         help=(
-            "target version_manifest.json used to recompute and verify the "
-            "requested design hash and code identity"
+            "target version_manifest.json for the requested data version"
         ),
     )
     parser.add_argument(

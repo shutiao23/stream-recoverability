@@ -95,13 +95,10 @@ def main() -> None:
         selection_data_version_manifest_path=(args.selection_data_version_manifest),
     )
     canonical_root = args.results_root / inputs.evidence_contract["data_version"]
-    design_hash = inputs.evidence_contract["design_hash"]
-    output = args.output_dir or (canonical_root / design_hash / "external_confirmation")
+    output = args.output_dir or (canonical_root / "external_confirmation")
     lock = confirmatory_once_lock_path(inputs.data_root)
     if args.feasibility_only:
-        feasibility_output = args.output_dir or (
-            canonical_root / design_hash / "feasibility"
-        )
+        feasibility_output = args.output_dir or (canonical_root / "feasibility")
         result = run_confirmatory_feasibility(
             data_root=args.data_root,
             finalized_model_roster_path=args.finalized_model_roster,
@@ -121,8 +118,6 @@ def main() -> None:
                     "scenario_count": result.report["scenario_count"],
                     "output_dir": str(result.output_dir),
                     "data_version": result.report["data_version"],
-                    "design_hash": result.report["design_hash"],
-                    "finalized_model_roster_sha256": result.report["roster_sha256"],
                 },
                 ensure_ascii=False,
                 sort_keys=True,
@@ -138,7 +133,6 @@ def main() -> None:
                     "models": list(inputs.selected_models),
                     "training_seeds": list(inputs.training_seeds),
                     "data_version": inputs.evidence_contract["data_version"],
-                    "design_hash": inputs.evidence_contract["design_hash"],
                     "evaluation_split": inputs.evidence_contract["evaluation_split"],
                     "finalized_model_roster_sha256": (inputs.roster.manifest_sha256),
                     "data_version_manifest_sha256": (
@@ -169,7 +163,6 @@ def main() -> None:
                 "output_dir": str(output),
                 "once_lock": str(lock),
                 "data_version": manifest["data_version"],
-                "design_hash": manifest["design_hash"],
                 "evaluation_split": manifest["evaluation_split"],
                 "evidence_role": manifest["evidence_role"],
                 "formal_evidence": manifest["formal_evidence"],

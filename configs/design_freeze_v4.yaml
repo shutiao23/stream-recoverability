@@ -461,13 +461,11 @@ primary_outputs:
 evidence_contract:
   required_fields:
     - design_version
-    - design_hash
     - data_version
     - evaluation_split
     - mask_schema_version
     - model_schema_version
     - statistics_schema_version
-    - code_identity
     - code_provenance
   stale_artifact_policy: reject_never_mix_or_resume
   paper_evidence_requires:

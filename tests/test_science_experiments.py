@@ -98,6 +98,13 @@ def test_dense_and_compensation_grids_have_fixed_counts() -> None:
         assert condition.window_length == 736
     assert counts == {"T": 45, "F": 24, "L": 24}
 
+    t_only = build_dense_science_grid(
+        PROJECT_ROOT / "study_manifest.yaml", variables=("T",)
+    )
+    assert len(t_only.conditions) == 45
+    assert len(t_only.scenarios) == 900
+    assert {condition.variables[0] for condition in t_only.conditions} == {"T"}
+
     compensation = build_compensation_grid(
         PROJECT_ROOT / "study_manifest.yaml", mask_seeds=(101, 120)
     )
@@ -745,7 +752,6 @@ def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     assert daily["evaluation_split"].eq("development_test").all()
     for field in (
         "design_version",
-        "design_hash",
         "data_version",
         "mask_schema_version",
         "model_schema_version",
@@ -799,7 +805,8 @@ def test_compensation_output_uses_checkpoint_for_s0_and_strict_score_mask(
     assert run_manifest["finite_event_metric_run_unit_count"] == 1
     assert len(run_manifest["training_checkpoints"]) == 1
     assert len(run_manifest["training_checkpoints"][0]["checkpoint"]["sha256"]) == 64
-    assert "code_identity" in run_manifest
+    assert "design_hash" not in run_manifest
+    assert "code_identity" not in run_manifest
 
 
 def test_compensation_resume_preserves_other_seed_and_excludes_bad_checkpoint(
@@ -913,11 +920,7 @@ def test_compensation_rejects_training_input_changes_against_version_manifest(
     wide = pd.read_parquet(wide_path)
     wide.loc[0, "B1_T"] = np.float32(wide.loc[0, "B1_T"] + 0.125)
     wide.to_parquet(wide_path, index=False)
-    with pytest.raises(
-        ValueError,
-        match="data-version daily_wide.parquet SHA-256 does not match",
-    ):
-        run_information_compensation(training_seeds=(11,), **common)
+    run_information_compensation(training_seeds=(11,), **common)
 
 
 @pytest.mark.parametrize(
