@@ -2113,6 +2113,50 @@ PROPOSED_DONOR_KEY_STRATA = (
     "tfl_block_90d",
     STATION_OUTAGE_STRATUM,
 )
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+PROPOSED_VERSUS_DONOR_DESIGN_PATH = _REPO_ROOT / "configs/design_freeze_v4.yaml"
+
+
+def load_proposed_versus_donor_rule(
+    design_path: str | Path = PROPOSED_VERSUS_DONOR_DESIGN_PATH,
+) -> dict[str, Any]:
+    """Return the frozen Stage 3 proposed-versus-donor claim rule."""
+
+    with Path(design_path).open(encoding="utf-8") as handle:
+        design = yaml.safe_load(handle)
+    if not isinstance(design, Mapping):
+        raise TypeError("design freeze must be a mapping")
+    try:
+        rule = design["model_funnel"]["proposed_versus_donor"]
+    except (KeyError, TypeError) as error:
+        raise ValueError("design freeze omits proposed_versus_donor") from error
+    if not isinstance(rule, Mapping):
+        raise TypeError("proposed_versus_donor must be a mapping")
+    strata = tuple(str(value) for value in rule["difficult_strata"])
+    seeds = tuple(int(value) for value in rule["required_seeds"])
+    stations = tuple(str(value) for value in rule["required_stations"])
+    if strata != PROPOSED_DONOR_KEY_STRATA:
+        raise ValueError("proposed_versus_donor difficult_strata drifted from code")
+    if seeds != VALIDATION_DEEP_SEEDS:
+        raise ValueError("proposed_versus_donor required_seeds drifted from code")
+    if stations != VALIDATION_STATIONS:
+        raise ValueError("proposed_versus_donor required_stations drifted from code")
+    if str(rule["comparator"]) != "donor_regression":
+        raise ValueError("proposed_versus_donor comparator must be donor_regression")
+    if str(rule["better_rule"]) != "proposed_mean_skill_strictly_greater_than_donor":
+        raise ValueError("proposed_versus_donor better_rule is not the frozen strict inequality")
+    if str(rule["tie_rule"]) != "count_as_not_proposed_better":
+        raise ValueError("proposed_versus_donor tie_rule must not count ties as wins")
+    return {
+        "comparator": str(rule["comparator"]),
+        "difficult_strata": strata,
+        "required_seeds": seeds,
+        "required_stations": stations,
+        "better_rule": str(rule["better_rule"]),
+        "tie_rule": str(rule["tie_rule"]),
+        "formal_evidence": bool(rule["formal_evidence"]),
+        "evidence_role": str(rule["evidence_role"]),
+    }
 
 
 def assess_proposed_versus_donor(
@@ -2120,11 +2164,22 @@ def assess_proposed_versus_donor(
     *,
     donor_model: str = "donor_regression",
     key_strata: Sequence[str] = PROPOSED_DONOR_KEY_STRATA,
+    design_path: str | Path | None = PROPOSED_VERSUS_DONOR_DESIGN_PATH,
 ) -> dict[str, Any]:
     """Compare proposed to donor regression on the predeclared hard cases.
 
     This is a validation-only claim rule.  It does not create formal evidence.
     """
+
+    if design_path is not None:
+        rule = load_proposed_versus_donor_rule(design_path)
+        donor_model = rule["comparator"]
+        key_strata = rule["difficult_strata"]
+        required_seeds = rule["required_seeds"]
+        required_stations = rule["required_stations"]
+    else:
+        required_seeds = VALIDATION_DEEP_SEEDS
+        required_stations = VALIDATION_STATIONS
 
     data = events.copy()
     data["condition_stratum"] = data["condition_id"].map(validation_condition_stratum)
@@ -2169,15 +2224,15 @@ def assess_proposed_versus_donor(
     all_seeds_all_stations = n_better == n_total
     any_difficult = bool(
         paired.loc[
-            paired["condition_stratum"].isin(
-                {"t_block_90d", "t_block_180d", "tfl_block_90d", STATION_OUTAGE_STRATUM}
-            ),
+            paired["condition_stratum"].isin(set(key_strata)),
             "proposed_better",
         ].any()
     )
-    if all_seeds_all_stations and set(seeds) == set(VALIDATION_DEEP_SEEDS) and set(
-        stations
-    ) == set(VALIDATION_STATIONS):
+    if (
+        all_seeds_all_stations
+        and set(seeds) == set(required_seeds)
+        and set(stations) == set(required_stations)
+    ):
         claim = "supporting_contribution"
     elif any_difficult:
         claim = "conditional"
@@ -2185,6 +2240,14 @@ def assess_proposed_versus_donor(
         claim = "no_superiority"
     return {
         "claim": claim,
+        "rule": {
+            "comparison_unit": "stratum_by_station_mean_skill",
+            "better_rule": "proposed_mean_skill_strictly_greater_than_donor",
+            "tie_rule": "count_as_not_proposed_better",
+            "supporting": "every_stratum_station_seed_cell_strictly_above_donor",
+            "conditional": "at_least_one_difficult_cell_strictly_above_donor",
+            "no_superiority": "no_difficult_cell_strictly_above_donor",
+        },
         "donor_model": donor_model,
         "n_compared_cells": n_total,
         "n_proposed_better": n_better,
@@ -2411,6 +2474,7 @@ __all__ = [
     "RANKING_MANIFEST_SCHEMA_VERSION",
     "STAGE2_SELECTION_MANIFEST_SCHEMA_VERSION",
     "PROPOSED_DONOR_KEY_STRATA",
+    "load_proposed_versus_donor_rule",
     "assess_proposed_versus_donor",
     "execute_validation_branch_ablation",
     "extract_stage2_diagnostics",

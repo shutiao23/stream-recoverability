@@ -54,6 +54,23 @@ def test_executable_freeze_is_v4_with_budget_and_dual_frontier() -> None:
     )
     assert design["data_versions"]["primary"] == "published_v2"
     assert design["statistics"]["application_thresholds"]["status"] == "not_declared"
+    recoverability = design["statistics"]["statistical_recoverability"]
+    assert recoverability["status"] == "declared"
+    assert recoverability["recoverability_event"] == (
+        "lower_95_percent_skill_ci_strictly_above_zero"
+    )
+    assert recoverability["frontier_definition"] == (
+        "monotone_first_loss_lower_confidence_bound"
+    )
+    assert recoverability["threshold"] == 0.0
+    assert recoverability["not_an_application_or_regulatory_threshold"] is True
+    versus_donor = design["model_funnel"]["proposed_versus_donor"]
+    assert versus_donor["comparator"] == "donor_regression"
+    assert versus_donor["better_rule"] == (
+        "proposed_mean_skill_strictly_greater_than_donor"
+    )
+    assert versus_donor["tie_rule"] == "count_as_not_proposed_better"
+    assert versus_donor["formal_evidence"] is False
     assert "donor_c_falsification_v1" in design["required_protocol_sensitivities"]
     versions = load_frozen_data_versions(REPO / DEFAULT_DESIGN_PATH)
     assert versions.primary == "published_v2"

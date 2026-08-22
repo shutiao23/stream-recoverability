@@ -15,6 +15,8 @@ freeze_context:
     - freeze_cross_split_best_simple_baseline_families
     - formalize_dual_frontier_and_donor_C_falsification_outputs
     - validate_release_evidence_content_instead_of_path_presence
+    - freeze_proposed_versus_donor_claim_rule_before_stage3_aggregation
+    - freeze_statistical_recoverability_frontier_criterion
   performance_seen_before_amendment: false
   no_further_epoch_cap_increase: true
 
@@ -350,6 +352,35 @@ model_funnel:
   stage_3_deep_stability:
     seeds: [11, 22, 33]
     rule: only_stage_2_finalists
+  proposed_versus_donor:
+    evidence_role: model_selection_only
+    formal_evidence: false
+    comparator: donor_regression
+    comparison_unit: stratum_by_station_mean_skill
+    proposed_aggregation: mean_skill_within_stratum_station_and_training_seed
+    donor_aggregation: mean_skill_within_stratum_and_station
+    required_seeds: [11, 22, 33]
+    required_stations: [B1, S2, P3]
+    difficult_strata:
+      - t_block_90d
+      - t_block_180d
+      - tfl_block_90d
+      - hydro_station_outage_90d
+    better_rule: proposed_mean_skill_strictly_greater_than_donor
+    tie_rule: count_as_not_proposed_better
+    supporting_contribution:
+      every_compared_cell_must_be_proposed_better: true
+      required_seed_inventory_must_be_complete: true
+      required_station_inventory_must_be_complete: true
+    conditional:
+      at_least_one_difficult_cell_proposed_better: true
+    no_superiority:
+      no_difficult_cell_proposed_better: true
+    note: >
+      Validation-only claim rule, frozen before Stage 3 aggregation.
+      "Stable" means every stratum-station-seed cell is strictly above the
+      donor stratum-station mean. Ties are not proposed-better.
+      This is not formal 2018-2020 evidence.
   proposed_go_no_go:
     decision_rule: all_required_criteria_must_pass_else_framework_only_paper
     required_criteria:
@@ -440,6 +471,23 @@ statistics:
     - data_version_sensitivity
     - meteorology_alignment_sensitivity
     - donor_c_falsification
+  statistical_recoverability:
+    status: declared
+    skill_definition: one_minus_mae_ratio_to_named_baseline
+    recoverability_event: lower_95_percent_skill_ci_strictly_above_zero
+    frontier_definition: monotone_first_loss_lower_confidence_bound
+    threshold: 0.0
+    interpolation: adjacent_tested_gaps_only
+    censoring_labels: [left, right, in_range]
+    dual_baseline_required:
+      - climatology
+      - validation_selected_best_simple
+    not_an_application_or_regulatory_threshold: true
+    note: >
+      A gap remains statistically recoverable relative to a named baseline
+      only while the 95% lower confidence bound on event-level skill is
+      strictly above zero. The frontier is the first loss of that bound.
+      Beating climatology alone is not a model-superiority claim.
   application_thresholds:
     status: not_declared
     consequence: do_not_report_operational_recoverability_boundary

@@ -1,8 +1,8 @@
 {
   "schema_version": "compute_plan_v1",
-  "status": "pre_validation_budget",
+  "status": "stage3_inference_running",
   "roster_state": "pending_finalized_model_roster_v1",
-  "budget_assumption": "all_deep_candidates_retained_for_formal_T",
+  "budget_assumption": "stage2_finalists_only_for_stage3; formal_T_after_roster",
   "selected_formal_models": null,
   "candidate_deep_models": [
     "brits_ref",
@@ -10,6 +10,16 @@
     "csdi",
     "proposed"
   ],
+  "stage3_inference": {
+    "mode": "inference_only",
+    "data_version": "published_v2",
+    "checkpoint_root": "results/validation_funnel/published_v2/deep_stability/checkpoints",
+    "models": ["brits_ref", "proposed", "csdi"],
+    "seeds": [11, 22, 33],
+    "scenarios": 105,
+    "model_seed_units": 945,
+    "note": "status.json is written after all nine model-seed runs in a scenario finish. SAITS was not selected for Stage 3. Do not use the aborted published_v2/ccb12d2a... tree."
+  },
   "formal_training_seeds": [11, 22, 33, 44, 55],
   "checkpoint_key_schema": "{model}-S{seed}-W{window}-{protocol}.pt",
   "unique_wp_keys": [
@@ -37,10 +47,11 @@
       "conditions": 1148,
       "unique_deep_checkpoints_if_all_candidates": 80,
       "deep_inference_run_units_if_all_candidates": 185980,
-      "note": "train once per checkpoint key; evaluate across masks"
+      "note": "train once per checkpoint key; evaluate across masks. After-roster science starts with T SCI_DENSE, not this full suite."
     },
     "sci_dense": {
       "scenarios": 1860,
+      "t_only_scenarios": 900,
       "wp_keys": [[736, "seen_length"]]
     },
     "sci_compensation": {
@@ -58,12 +69,12 @@
     }
   },
   "data_versions": {
-    "primary": "published_v1",
+    "primary": "published_v2",
     "sensitivity_multiplier_note": "retrain deep models per version unless shared checkpoint store is proven safe"
   },
-  "drop_policy": "forbidden_after_formal_start; revise plan and re-hash before any suite",
+  "drop_policy": "forbidden_after_formal_start; revise plan before any suite",
   "hardware": {
-    "device_class": "TBD",
+    "device_class": "CPU_for_stage3_csdi_predict",
     "estimated_gpu_hours": null
   }
 }

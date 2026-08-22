@@ -26,6 +26,7 @@ from stream_recoverability.analysis.frontiers import (
     cluster_bootstrap_frontier_ci,
     estimate_frontiers,
     interpolate_threshold_crossing,
+    load_statistical_recoverability_rule,
     segmented_sse_breakpoint,
     statistical_frontier,
 )
@@ -264,6 +265,12 @@ def test_frontier_crossing_is_linearly_interpolated_and_knee_is_finite():
     )
     assert statistical["statistical_frontier_days"] == pytest.approx(2.0)
     assert "lower_confidence_bound" in statistical["frontier_definition"]
+    rule = load_statistical_recoverability_rule()
+    assert rule["frontier_definition"] == statistical["frontier_definition"]
+    assert rule["threshold"] == 0.0
+    assert rule["recoverability_event"] == (
+        "lower_95_percent_skill_ci_strictly_above_zero"
+    )
 
     invalid_application = application_frontier(
         pd.DataFrame(

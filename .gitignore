@@ -32,6 +32,7 @@ results/validation_funnel/**/branch_ablation_daily_predictions.parquet
 # Historical/pre-fix local runs are retained on disk but are not release evidence.
 results/validation_funnel/published_v1/
 results/validation_funnel/published_v2/aad01e417fc233cff287deb6a6afd578046a1f7d7c15f9cff7b8ba936fe5d0fd/
+results/validation_funnel/published_v2/ccb12d2a528308c5c16bfaefea5b7d5a1d1f221fa1519b06dfd4f539d9d96832/
 results/remaining_execution_plan.json
 
 # Invalid pre-freeze formal dumps; keep only the tombstone README links.

@@ -13,4 +13,6 @@ below are model-selection evidence only.
 | C4. Network resilience is controlled by a small number of station-specific information dependencies | Supporting | Complete `SCI_NET` table | pending |
 | C5. Recoverability patterns do or do not replicate on a second connected river network | External boundary | Evaluate-once Chattahoochee tables | not opened |
 | Validation ranking exists | Selection only | published_v2 validation ranking | present; not a formal result |
+| Proposed-versus-donor claim rule frozen | Gate | `design_freeze_v4` `model_funnel.proposed_versus_donor` | frozen before Stage 3 aggregation; comparator is donor regression; ties are not wins |
+| Statistical T-frontier recoverability rule frozen | Gate | `design_freeze_v4` `statistics.statistical_recoverability` | frozen; recoverable iff 95% lower skill CI $> 0$; not an application threshold |
 | Model roster frozen | Gate | `finalized_model_roster_v1` with no `budget_unstable` retained model | pending |

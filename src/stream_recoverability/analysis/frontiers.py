@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+import yaml
 
 DENSE_T_GAPS = (1, 3, 7, 10, 14, 21, 30, 45, 60, 90, 120, 150, 180, 240, 365)
 DENSE_FLOW_LEVEL_GAPS = (3, 10, 30, 60, 90, 120, 180, 365)
@@ -260,8 +262,64 @@ def skill_curve(
     )
 
 
-def statistical_frontier(curve: pd.DataFrame) -> dict[str, Any]:
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+STATISTICAL_RECOVERABILITY_DESIGN_PATH = _REPO_ROOT / "configs/design_freeze_v4.yaml"
+STATISTICAL_FRONTIER_DEFINITION = "monotone_first_loss_lower_confidence_bound"
+STATISTICAL_FRONTIER_THRESHOLD = 0.0
+
+
+def load_statistical_recoverability_rule(
+    design_path: str | Path = STATISTICAL_RECOVERABILITY_DESIGN_PATH,
+) -> dict[str, Any]:
+    """Return the frozen T-frontier recoverability criterion."""
+
+    with Path(design_path).open(encoding="utf-8") as handle:
+        design = yaml.safe_load(handle)
+    if not isinstance(design, Mapping):
+        raise TypeError("design freeze must be a mapping")
+    try:
+        rule = design["statistics"]["statistical_recoverability"]
+    except (KeyError, TypeError) as error:
+        raise ValueError("design freeze omits statistical_recoverability") from error
+    if not isinstance(rule, Mapping):
+        raise TypeError("statistical_recoverability must be a mapping")
+    definition = str(rule["frontier_definition"])
+    threshold = float(rule["threshold"])
+    event = str(rule["recoverability_event"])
+    if definition != STATISTICAL_FRONTIER_DEFINITION:
+        raise ValueError("statistical_recoverability frontier_definition drifted from code")
+    if not abs(threshold - STATISTICAL_FRONTIER_THRESHOLD) <= 1e-12:
+        raise ValueError("statistical_recoverability threshold drifted from code")
+    if event != "lower_95_percent_skill_ci_strictly_above_zero":
+        raise ValueError("statistical_recoverability event is not the frozen CI>0 rule")
+    if bool(rule.get("not_an_application_or_regulatory_threshold")) is not True:
+        raise ValueError("statistical recoverability must not be treated as an application threshold")
+    return {
+        "status": str(rule["status"]),
+        "recoverability_event": event,
+        "frontier_definition": definition,
+        "threshold": threshold,
+        "interpolation": str(rule["interpolation"]),
+        "dual_baseline_required": tuple(
+            str(value) for value in rule["dual_baseline_required"]
+        ),
+    }
+
+
+def statistical_frontier(
+    curve: pd.DataFrame,
+    *,
+    design_path: str | Path | None = STATISTICAL_RECOVERABILITY_DESIGN_PATH,
+) -> dict[str, Any]:
     """Monotone first-loss frontier where the 95% lower skill CI loses zero."""
+
+    if design_path is not None:
+        rule = load_statistical_recoverability_rule(design_path)
+        definition = rule["frontier_definition"]
+        threshold = float(rule["threshold"])
+    else:
+        definition = STATISTICAL_FRONTIER_DEFINITION
+        threshold = STATISTICAL_FRONTIER_THRESHOLD
 
     required = {"gap_length", "ci_lower"}
     missing = sorted(required - set(curve.columns))
@@ -272,16 +330,16 @@ def statistical_frontier(curve: pd.DataFrame) -> dict[str, Any]:
         return {
             "statistical_frontier_days": np.nan,
             "frontier_censoring": None,
-            "frontier_definition": "monotone_first_loss_lower_confidence_bound",
+            "frontier_definition": definition,
             "reason": "no finite lower confidence bounds",
         }
     estimate = _monotone_first_loss_frontier(
-        usable["gap_length"], usable["ci_lower"], threshold=0.0
+        usable["gap_length"], usable["ci_lower"], threshold=threshold
     )
     return {
         "statistical_frontier_days": estimate["frontier_days"],
         "frontier_censoring": estimate["censoring"],
-        "frontier_definition": "monotone_first_loss_lower_confidence_bound",
+        "frontier_definition": definition,
         "reason": estimate["reason"],
     }
 
@@ -933,6 +991,7 @@ __all__ = [
     "dense_gap_coverage",
     "estimate_dual_frontiers",
     "estimate_frontiers",
+    "load_statistical_recoverability_rule",
     "frontier_design_subset",
     "interpolate_threshold_crossing",
     "segmented_sse_breakpoint",

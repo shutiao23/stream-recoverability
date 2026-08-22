@@ -838,7 +838,10 @@ def _summarize_stage3(args: argparse.Namespace) -> dict[str, Any]:
         run_root / "traditional" / "event_metrics.parquet",
         stage3 / "event_metrics.parquet",
     ]
-    comparison = assess_proposed_versus_donor(read_validation_event_tables(event_paths))
+    comparison = assess_proposed_versus_donor(
+        read_validation_event_tables(event_paths),
+        design_path=args.design,
+    )
     comparison_path = output_dir / "proposed_versus_donor.json"
     _atomic_json(
         {key: value for key, value in comparison.items() if key != "cells"},

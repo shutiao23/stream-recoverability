@@ -1073,6 +1073,82 @@ def test_stage3_stability_and_proposed_versus_donor_use_key_cells() -> None:
     assert comparison["n_compared_cells"] == 36
     assert comparison["n_proposed_better"] == 3
     assert comparison["formal_evidence"] is False
+    assert comparison["rule"]["tie_rule"] == "count_as_not_proposed_better"
+
+
+def _proposed_donor_events(*, proposed_skill: float, donor_skill: float = 0.20) -> pd.DataFrame:
+    events = []
+    for station in VALIDATION_STATIONS:
+        for seed in VALIDATION_MASK_SEEDS:
+            for condition_id, skill in (
+                (f"VAL-BLK1-{station}-T-D090", donor_skill),
+                (f"VAL-BLK1-{station}-T-D180", donor_skill),
+                (f"VAL-BLK1-{station}-TFL-D090", donor_skill),
+                (f"VAL-SITE-{station}-HYDROONLY-D090", donor_skill),
+            ):
+                events.append(
+                    {
+                        "condition_id": condition_id,
+                        "station_id": station,
+                        "mask_seed": seed,
+                        "model": "donor_regression",
+                        "training_seed": np.nan,
+                        "skill": skill,
+                        "target": "T",
+                        "evaluation_split": "validation",
+                    }
+                )
+            for training_seed in VALIDATION_DEEP_SEEDS:
+                for condition_id in (
+                    f"VAL-BLK1-{station}-T-D090",
+                    f"VAL-BLK1-{station}-T-D180",
+                    f"VAL-BLK1-{station}-TFL-D090",
+                    f"VAL-SITE-{station}-HYDROONLY-D090",
+                ):
+                    events.append(
+                        {
+                            "condition_id": condition_id,
+                            "station_id": station,
+                            "mask_seed": seed,
+                            "model": "proposed",
+                            "training_seed": training_seed,
+                            "skill": proposed_skill,
+                            "target": "T",
+                            "evaluation_split": "validation",
+                        }
+                    )
+    return pd.DataFrame(events)
+
+
+def test_proposed_versus_donor_rule_is_frozen_in_v4() -> None:
+    rule = finalization.load_proposed_versus_donor_rule()
+    assert rule["comparator"] == "donor_regression"
+    assert rule["difficult_strata"] == finalization.PROPOSED_DONOR_KEY_STRATA
+    assert rule["required_seeds"] == VALIDATION_DEEP_SEEDS
+    assert rule["required_stations"] == VALIDATION_STATIONS
+    assert rule["formal_evidence"] is False
+
+
+def test_proposed_versus_donor_supporting_requires_every_cell() -> None:
+    comparison = finalization.assess_proposed_versus_donor(
+        _proposed_donor_events(proposed_skill=0.30)
+    )
+    assert comparison["claim"] == "supporting_contribution"
+    assert comparison["n_compared_cells"] == 36
+    assert comparison["n_proposed_better"] == 36
+
+
+def test_proposed_versus_donor_ties_are_not_wins() -> None:
+    tied = finalization.assess_proposed_versus_donor(
+        _proposed_donor_events(proposed_skill=0.20, donor_skill=0.20)
+    )
+    assert tied["claim"] == "no_superiority"
+    assert tied["n_proposed_better"] == 0
+    weaker = finalization.assess_proposed_versus_donor(
+        _proposed_donor_events(proposed_skill=0.10, donor_skill=0.20)
+    )
+    assert weaker["claim"] == "no_superiority"
+    assert weaker["n_proposed_better"] == 0
 
 
 def test_stage3_stability_table_is_one_row_per_model_seed(tmp_path: Path) -> None:
