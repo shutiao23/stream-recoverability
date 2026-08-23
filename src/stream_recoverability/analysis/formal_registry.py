@@ -1556,6 +1556,14 @@ def _validate_suite_roles(
     for role in required_roles:
         sources = role_sources[role]
         expected_models = _expected_models_for_role(role, selected_models)
+        if role == "sensitivity_core_T" and any(
+            set(source.models).intersection(F_ONLY_STRUCTURAL_BASELINES)
+            for source in sources
+        ):
+            expected_models = (
+                *expected_models,
+                *sorted(F_ONLY_STRUCTURAL_BASELINES),
+            )
         if (
             role == "sensitivity_operational_dropout"
             and proposed_decision == "framework_only"

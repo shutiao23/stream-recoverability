@@ -544,7 +544,7 @@ def _validate_registry_contract(
         if suites != expected_suites or hashes != sorted(expected_sources):
             raise ValueError(f"registry role {role} source bindings are stale")
         expected_models = _expected_role_models(role, roster.selected_models)
-        if role == "dense_frontier" and any(
+        if role in {"dense_frontier", "sensitivity_core_T"} and any(
             set(source["models"]).intersection(STRUCTURAL_BASELINES)
             for source in expected_sources.values()
         ):
