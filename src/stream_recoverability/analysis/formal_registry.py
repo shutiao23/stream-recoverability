@@ -171,6 +171,7 @@ class _ValidatedRun:
     run_directory: Path
     suite: str
     models: tuple[str, ...]
+    target_scope: tuple[str, ...]
     contract: dict[str, Any]
     expected_run_units: frozenset[str]
     manifest_sha256: str
@@ -1135,6 +1136,10 @@ def _validate_manifest(
         run_directory=path.parent,
         suite=suite,
         models=tuple(models),
+        target_scope=tuple(
+            str(value)
+            for value in manifest["formal_execution_authorization"]["target_scope"]
+        ),
         contract=json.loads(json.dumps(contract)),
         expected_run_units=frozenset(expected),
         manifest_sha256=final_manifest_sha256,
@@ -1274,8 +1279,10 @@ def _expected_models_for_role(
     role: str, selected_models: Sequence[str]
 ) -> tuple[str, ...]:
     selected = tuple(selected_models)
-    if role in {"core_full", "dense_frontier", "event_uncertainty"}:
+    if role in {"core_full", "event_uncertainty"}:
         return (*selected, *sorted(F_ONLY_STRUCTURAL_BASELINES))
+    if role == "dense_frontier":
+        return selected
     if role == "network_resilience":
         return selected
     if role == "operational_dropout":
@@ -1283,7 +1290,7 @@ def _expected_models_for_role(
     if role == "retrained_upper_bound":
         return ("retrained_information_upper_bound",)
     if role == "donor_c_falsification":
-        return ("proposed",)
+        return ("donor_regression",)
     if role in {"sensitivity_core_T", "sensitivity_dense_frontier"}:
         return selected
     if role == "sensitivity_operational_dropout":
@@ -1474,12 +1481,19 @@ def _validate_suite_roles(
         for role in required_roles:
             sources = role_sources[role]
             expected_models = _expected_models_for_role(role, selected_models)
+            if role == "dense_frontier" and any(
+                set(source.target_scope).intersection({"F", "L"})
+                for source in sources
+            ):
+                expected_models = (
+                    *expected_models,
+                    *sorted(F_ONLY_STRUCTURAL_BASELINES),
+                )
             if (
                 role
                 in {
                     "operational_dropout",
                     "retrained_upper_bound",
-                    "donor_c_falsification",
                 }
                 and proposed_decision == "framework_only"
             ):
