@@ -2849,7 +2849,6 @@ def analyze_data_version_sensitivity(
             "evaluation_split",
             "experiment",
             "condition_id",
-            "scenario_id",
             "sensitivity_anchor_id",
             "mask_seed",
             "station_id",
@@ -2865,7 +2864,7 @@ def analyze_data_version_sensitivity(
             "year",
             "data_version",
         )
-        if column in selected
+        if column in selected and not selected[column].isna().all()
     ]
     collapsed = _seed_collapse(selected, unit_cols=unit_cols, value_cols=("MAE",))
     pairing_cols = [column for column in unit_cols if column != "data_version"]
