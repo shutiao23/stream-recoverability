@@ -641,6 +641,9 @@ def _run_donor_regression_falsification(
         "evidence_complete": complete,
         "finite_predictions": complete,
         "finite_event_metrics": complete,
+        "checkpoint_contract_complete": True,
+        "formal_grid_contract_complete": runner.formal_grid_contract is not None,
+        "formal_grid_contract": runner.formal_grid_contract,
         "retryable_run_keys": exact["retryable_run_unit_keys"],
         **exact,
         **counts,
@@ -649,13 +652,22 @@ def _run_donor_regression_falsification(
         "daily_rows": len(daily),
         "event_rows": len(events),
         "training_profile": runner.training_profile_name,
+        "training_checkpoints": [],
         "data_version": runner.data.data_version,
+        "data_version_input_identity": runner.data_version_input_identity,
         "evaluation_split": runner.evaluation_split,
+        "frontier_anchor_catalog_path": grid.frontier_anchor_catalog_path,
+        "frontier_anchor_catalog_sha256": grid.frontier_anchor_catalog_sha256,
+        "frontier_anchor_count": grid.frontier_anchor_count,
         "formal_evidence": complete,
         "evidence_role": "formal_development_evaluation",
         "formal_execution_authorization": runner.formal_authorization,
+        "finalized_model_roster": runner.formal_authorization[
+            "finalized_model_roster"
+        ],
         "interpretation": interpretation,
         **runner.evidence_contract,
+        "code_provenance": runner.code_provenance,
     }
     _atomic_json(manifest, output / "run_manifest.json")
     return daily, events, skipped
