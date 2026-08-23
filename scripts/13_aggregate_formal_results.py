@@ -70,7 +70,7 @@ DERIVED_FORMAL_MODELS = {
     "retrained_information_upper_bounds": "retrained_information_upper_bound",
 }
 PROPOSED_ONLY_FORMAL_SUITES = frozenset(
-    {*DERIVED_FORMAL_MODELS, "science_donor_falsification"}
+    DERIVED_FORMAL_MODELS
 )
 PRIMARY_SUITE_ROLE_EQUIVALENTS = {
     "full": ("core_full", "event_uncertainty"),
@@ -298,8 +298,10 @@ def _registry_file_identity(
 
 def _expected_role_models(role: str, selected_models: Sequence[str]) -> list[str]:
     selected = list(selected_models)
-    if role in {"core_full", "dense_frontier", "event_uncertainty"}:
+    if role in {"core_full", "event_uncertainty"}:
         return [*selected, *STRUCTURAL_BASELINES]
+    if role == "dense_frontier":
+        return selected
     if role == "network_resilience":
         return selected
     if role in {"operational_dropout", "sensitivity_operational_dropout"}:
@@ -307,7 +309,7 @@ def _expected_role_models(role: str, selected_models: Sequence[str]) -> list[str
     if role == "retrained_upper_bound":
         return ["retrained_information_upper_bound"]
     if role == "donor_c_falsification":
-        return ["proposed"]
+        return ["donor_regression"]
     if role in {"sensitivity_core_T", "sensitivity_dense_frontier"}:
         return selected
     raise ValueError(f"unknown registry suite role {role!r}")
@@ -487,7 +489,7 @@ def _validate_registry_contract(
 
     proposed_not_applicable = (
         (
-            {"operational_dropout", "retrained_upper_bound", "donor_c_falsification"}
+            {"operational_dropout", "retrained_upper_bound"}
             if expected_evidence.get("design_version") == "design_freeze_v4"
             else {"operational_dropout", "retrained_upper_bound"}
         )
@@ -542,6 +544,11 @@ def _validate_registry_contract(
         if suites != expected_suites or hashes != sorted(expected_sources):
             raise ValueError(f"registry role {role} source bindings are stale")
         expected_models = _expected_role_models(role, roster.selected_models)
+        if role == "dense_frontier" and any(
+            set(source["models"]).intersection(STRUCTURAL_BASELINES)
+            for source in expected_sources.values()
+        ):
+            expected_models = [*expected_models, *STRUCTURAL_BASELINES]
         if item.get("expected_models") != expected_models:
             raise ValueError(f"registry role {role} model contract is stale")
         observed_models = {
