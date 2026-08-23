@@ -626,6 +626,12 @@ def _run_donor_regression_falsification(
     counts = {
         f"{key.removesuffix('_keys')}_count": len(value) for key, value in exact.items()
     }
+    counts["checkpoint_required_run_count"] = counts.pop(
+        "checkpoint_required_run_unit_count"
+    )
+    counts["checkpoint_valid_run_count"] = counts.pop(
+        "checkpoint_valid_run_unit_count"
+    )
     manifest = {
         "schema_version": "donor_c_falsification_run_v1",
         "suite": SUITE,
