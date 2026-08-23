@@ -814,6 +814,7 @@ class ExperimentRunner:
             require_quality=strict_version_binding,
         )
         self.data = _load_data(wide_path, quality_path, self.variable_names)
+        self._event_value_cache: dict[str, np.ndarray] = {}
         if grid_versions != {self.data.data_version}:
             raise ValueError(
                 "experiment grid and input data_version differ: "
@@ -1205,7 +1206,13 @@ class ExperimentRunner:
             variable = self.data.variable_names.index("T")
         else:
             variable = self.data.variable_names.index("F")
-        series = self.data.values[:, station, variable]
+        column = f"{self.data.station_ids[station]}_{self.data.variable_names[variable]}"
+        if column not in self._event_value_cache:
+            self._event_value_cache[column] = pd.to_numeric(
+                pd.read_parquet(self.wide_path, columns=[column])[column],
+                errors="coerce",
+            ).to_numpy(dtype=float)
+        series = self._event_value_cache[column]
         source_split = scenario.condition.source_split or self._stored_split_label(
             scenario.condition.evaluation_split
         )
