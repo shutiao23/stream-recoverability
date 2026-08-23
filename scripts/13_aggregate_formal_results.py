@@ -477,8 +477,8 @@ def _validate_registry_contract(
             }
             for suite in sorted(
                 PROPOSED_ONLY_FORMAL_SUITES
-                if expected_evidence.get("design_version") == "design_freeze_v4"
-                else DERIVED_FORMAL_MODELS
+                if expected_bundle_role == "primary"
+                else {"science_compensation"}
             )
         ]
         if roster.proposed_decision == "framework_only"
