@@ -3995,6 +3995,8 @@ def run_frozen_analysis(
         )
         else pd.DataFrame()
     )
+    if not hypotheses.empty:
+        hypotheses = benjamini_hochberg_by_family(hypotheses)
 
     frames = {
         "best_simple_baseline_lookup.csv": best_simple_lookup,
