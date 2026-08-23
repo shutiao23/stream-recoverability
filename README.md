@@ -380,7 +380,7 @@ formal full run also requires the frozen event catalog:
 ```bash
 python scripts/08_run_experiments.py \
   --suite full \
-  --event-catalog metadata/event_episode_catalog.csv \
+  --event-catalog metadata/event_episode_catalog_v2.csv \
   --finalized-model-roster results/validation_funnel/ROSTER_PATH/finalized_model_roster.json
 ```
 

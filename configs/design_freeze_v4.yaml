@@ -144,6 +144,9 @@ data_versions:
     development_frontier: metadata/frontier_anchors_v2.csv
     equivalence_bridge: metadata/anchor_bridge_published_v1_to_v2.json
     identity_rule: structural_columns_and_truth_equivalence_without_digest_pinning
+  event_catalogs:
+    development: metadata/event_episode_catalog_v2.csv
+    historical_reference: metadata/event_episode_catalog.csv
   published_v2_build:
     status: built
     builder: scripts/14_build_data_versions.py

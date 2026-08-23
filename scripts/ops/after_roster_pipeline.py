@@ -22,7 +22,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 PYTHON = sys.executable
 FORMAL_ROOT = ROOT / "results"
-EVENT_CATALOG = ROOT / "metadata/event_episode_catalog.csv"
+EVENT_CATALOG = ROOT / "metadata/event_episode_catalog_v2.csv"
 CONFIRMATORY_VERSION = "external_upper_middle_chattahoochee_v1"
 PLACEHOLDER_RE = re.compile(
     r"<!-- RESULTS_PENDING: ([A-Z0-9_]+) — .*?-->",
