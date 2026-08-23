@@ -1124,8 +1124,11 @@ def _validate_run_directory(
         run_directory=directory,
         label=str(manifest_path),
     )
+    allowed_run_models = set(allowed_table_models)
+    if expected_suite == "full":
+        allowed_run_models.add("pooled_loso")
     observed_models = set(daily["model"].astype(str)).union(events["model"].astype(str))
-    if not observed_models.issubset(allowed_table_models):
+    if not observed_models.issubset(allowed_run_models):
         raise ValueError(f"{directory} has models outside the finalized registry")
 
     keys = _manifest_key_sets(manifest, str(manifest_path))
@@ -1148,7 +1151,7 @@ def _validate_run_directory(
     expected_models_in_keys = {
         _parse_run_unit_key(key, str(manifest_path))[1] for key in expected
     }
-    if not expected_models_in_keys.issubset(allowed_table_models):
+    if not expected_models_in_keys.issubset(allowed_run_models):
         raise ValueError(f"{manifest_path} run-unit contract contains unlisted models")
     daily_keys = _run_unit_keys(daily, str(daily_path))
     event_keys = _run_unit_keys(events, str(event_path))
