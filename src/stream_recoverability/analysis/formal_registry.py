@@ -1108,7 +1108,8 @@ def _validate_manifest(
     ] != required_checkpoints or not required_checkpoints.issubset(expected):
         raise ValueError(f"{label} has an incomplete checkpoint run-unit contract")
     expected_models = {_parse_run_unit(key, label)[1] for key in expected}
-    if expected_models != set(models):
+    internal_models = {"pooled_loso"} if suite == "full" else set()
+    if expected_models.difference(internal_models) != set(models):
         raise ValueError(f"{label} manifest models differ from exact run units")
     daily_models, event_models, daily_identity, event_identity = _validate_tables(
         path.parent,
