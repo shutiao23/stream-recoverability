@@ -35,6 +35,7 @@ artifacts.
   "current_protocol_result_claims": "none"
 }
 ```
+<!-- evidence-status:end -->
 
 The v5 scope amendment is recorded in
 `docs/protocol_change_v4_to_v5.md`. CSDI is a reduced probabilistic diagnostic,
@@ -42,7 +43,6 @@ not a formal frontier model. Deep candidates with any required
 `best_epoch < 50` are labelled `training_unstable` and excluded. The primary
 question is whether the frozen covariance budget predicts measured
 recoverability, not which imputation model wins.
-<!-- evidence-status:end -->
 
 In particular:
 
