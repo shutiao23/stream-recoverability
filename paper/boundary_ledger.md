@@ -34,3 +34,15 @@ seed-11 probabilistic diagnostic at gaps 7, 30, 90, and 180 days.
 
 **Boundary.** This is a scope amendment after validation evidence and before a
 dense aggregate, recorded in `docs/protocol_change_v4_to_v5.md`.
+
+## BL-003 — External station typology before evaluate-once
+
+**Observed without performance.** Feasibility passed 60/60 scenarios. A
+2012--2020 train-only covariance calculation classified four Chattahoochee sites
+as donor-dominated and one as memory-dominated.
+
+**Prediction.** The four donor-dominated sites should show comparatively flat
+long-gap curves; site 02334430 should decay more strongly with gap length.
+
+**Boundary.** No model was trained, no recovery metric was computed, and no
+once-lock was created. Whether these predictions are accurate remains unopened.

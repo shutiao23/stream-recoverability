@@ -28,6 +28,13 @@ results/validation_funnel/**/launch_once.sh
 results/validation_funnel/**/restart_shard0.sh
 results/validation_funnel/**/after_roster_pipeline.py
 results/validation_funnel/**/branch_ablation_daily_predictions.parquet
+results/validation_funnel/**/after_roster_status.json
+results/validation_funnel/**/*_pre_v5.json
+results/validation_funnel/**/*_pre_usgs_unit_fix.json
+results/validation_funnel/**/*_pre_protocol_normalization.json
+results/validation_funnel/**/*_pre_v5.csv
+results/validation_funnel/**/*_pre_usgs_unit_fix.csv
+results/validation_funnel/**/*_pre_protocol_normalization.csv
 
 # Historical/pre-fix local runs are retained on disk but are not release evidence.
 results/validation_funnel/published_v1/
@@ -46,6 +53,10 @@ masks/science_dense/
 masks/science_resilience/
 masks/v2/
 results/experiments_v2/
+results/science_experiments/
+results/confirmatory/
+data_versions/external_upper_middle_chattahoochee_v1/
+data_versions/external_upper_middle_chattahoochee_v1_pre_protocol_normalization/
 data_versions_pre_rs/
 results/test_audit/*.xml
 results/test_audit/*stdout.txt

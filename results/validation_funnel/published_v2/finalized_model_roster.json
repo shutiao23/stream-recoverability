@@ -1,0 +1,94 @@
+{
+  "artifacts": {
+    "best_simple_baseline_lookup": {
+      "path": "results/validation_funnel/published_v2/best_simple_baseline_lookup.csv"
+    },
+    "go_no_go": {
+      "path": "results/validation_funnel/published_v2/proposed_go_no_go/proposed_go_no_go_decision.json"
+    },
+    "ranking": {
+      "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/validation_model_ranking.csv"
+    },
+    "stage2_selection": {
+      "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/stage2_finalist_selection.csv"
+    }
+  },
+  "best_traditional_model": "donor_regression",
+  "code_provenance": {
+    "dirty_tracked_paths": [],
+    "external_relevant_input_count": 0,
+    "git_commit": "ffb74594d63c7d66de9272fafe4b051163a2ced2",
+    "relevant_source_clean": true,
+    "relevant_source_digest": "e36214ea1d42bf96750ef4fa5c2d8dabe0949edbf75f9cf9543096f46d47e827",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "clean",
+    "tracked_worktree_clean": true
+  },
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "diagnostic_models": [
+    "csdi"
+  ],
+  "diagnostic_protocols": {
+    "csdi": {
+      "evidence_role": "probabilistic_diagnostic_only",
+      "gap_lengths_days": [
+        7,
+        30,
+        90,
+        180
+      ],
+      "seed": 11
+    }
+  },
+  "evaluation_split": "validation",
+  "evidence_role": "model_selection_only",
+  "finalized": true,
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "minimum_best_epoch": 50,
+  "model_schema_version": "model_schema_v3",
+  "proposed_decision": "framework_only",
+  "schema_version": "finalized_model_roster_v1",
+  "selected_models": [
+    "climatology",
+    "linear",
+    "pchip",
+    "kalman",
+    "air_only",
+    "air_hydro",
+    "donor_regression",
+    "random_forest",
+    "xgboost"
+  ],
+  "statistics_schema_version": "statistics_schema_v3",
+  "training_unstable_models": [
+    "brits_ref",
+    "proposed",
+    "csdi"
+  ],
+  "validation_anchor_catalog": {
+    "anchor_ids": [
+      "VALANCHOR-publishedv2-validation-B1-R0101",
+      "VALANCHOR-publishedv2-validation-B1-R0102",
+      "VALANCHOR-publishedv2-validation-B1-R0103",
+      "VALANCHOR-publishedv2-validation-B1-R0104",
+      "VALANCHOR-publishedv2-validation-B1-R0105",
+      "VALANCHOR-publishedv2-validation-P3-R0101",
+      "VALANCHOR-publishedv2-validation-P3-R0102",
+      "VALANCHOR-publishedv2-validation-P3-R0103",
+      "VALANCHOR-publishedv2-validation-P3-R0104",
+      "VALANCHOR-publishedv2-validation-P3-R0105",
+      "VALANCHOR-publishedv2-validation-S2-R0101",
+      "VALANCHOR-publishedv2-validation-S2-R0102",
+      "VALANCHOR-publishedv2-validation-S2-R0103",
+      "VALANCHOR-publishedv2-validation-S2-R0104",
+      "VALANCHOR-publishedv2-validation-S2-R0105"
+    ],
+    "bytes": 2288,
+    "path": "metadata/validation_anchors_v2.csv",
+    "row_count": 15
+  }
+}

@@ -1,0 +1,10 @@
+model,seed,overall_skill,long_gap_skill,outage_skill,worst_station_skill,coverage_90,hit_epoch_limit,best_epoch,epochs_run,event_rows,budget_status,evaluation_split,evidence_role,formal_evidence,data_version
+brits_ref,11,0.18322183507217651,0.061174525002596486,-0.03171934329693561,0.09156988836694886,,False,125,145,105,stable,validation,model_selection_only,False,published_v2
+brits_ref,22,-0.18949753266210576,-0.2794734222286373,-0.18778872064135774,-0.5545426386989665,,False,5,25,105,training_unstable,validation,model_selection_only,False,published_v2
+brits_ref,33,0.0688294307623705,-0.01574757809149607,-0.037431918639335524,-0.11641143244757615,,False,56,76,105,stable,validation,model_selection_only,False,published_v2
+csdi,11,-0.15698425825644927,-0.18585078787568893,-0.18994534407720393,-0.57896776999392,0.4139537580633471,False,81,101,105,stable,validation,model_selection_only,False,published_v2
+csdi,22,-1.256210920769411,-1.3108575637460598,-1.3447136105241195,-2.6310877914626607,0.7140327607450896,False,13,33,105,training_unstable,validation,model_selection_only,False,published_v2
+csdi,33,-0.05204309253442135,-0.10065688357394197,-0.07185246675757205,-0.5701146870615503,0.4523447126186852,False,101,121,105,stable,validation,model_selection_only,False,published_v2
+proposed,11,0.12696594693908544,0.15084389218160255,0.1668788270891358,-0.02235379969051575,0.8573037616873235,False,214,234,105,stable,validation,model_selection_only,False,published_v2
+proposed,22,-0.666619962521181,-0.6064766632214058,-0.7557603793852502,-1.0821498521971353,1.0,False,33,53,105,training_unstable,validation,model_selection_only,False,published_v2
+proposed,33,0.11707173143930508,0.10876750532062372,0.11665020042238106,-0.011222056901940643,0.8669449880408786,False,173,193,105,stable,validation,model_selection_only,False,published_v2

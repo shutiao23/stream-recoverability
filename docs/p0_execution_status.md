@@ -22,3 +22,4 @@ paper and it does not waive the submission gate.
 | P0.2-v5 | Complete | Validation objective/scaler/loss histories were diagnosed. `best_epoch < 50` is now `training_unstable` and excludes a model from the roster. |
 | P0.3-v5 | Complete | `recoverability_prediction_v1.json` is frozen from 2006--2015 before a dense aggregate. |
 | P1-v5 | Complete | Claim matrix converted to an effect ledger; `paper/boundary_ledger.md` records counterevidence and claim changes. |
+| P3-v5 | Complete without opening performance | Chattahoochee feasibility passed 60/60 scenarios. The 2012--2020 train-only predictor found four donor-dominated and one memory-dominated site; no model, metric, or once-lock was created. |

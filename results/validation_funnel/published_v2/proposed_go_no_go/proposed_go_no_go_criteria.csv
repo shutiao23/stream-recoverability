@@ -1,0 +1,8 @@
+criterion,observed,threshold,passed,evaluation_split,formal_evidence,evidence_role,data_version
+stable_90_day_gain,-0.31637037198356216,>=0.02 and every seed >0,False,validation,False,model_selection_only,published_v2
+difficult_case_gain,-0.32323623863573414,180-day or outage gain >=0.02,False,validation,False,model_selection_only,published_v2
+seed_direction,0.0,3 of 3 positive,False,validation,False,model_selection_only,published_v2
+interval_calibration,0.9201851851851851,0.85 <= mean coverage <= 0.95,True,validation,False,model_selection_only,published_v2
+station_robustness,1.0,>=2 positive stations and max share <=0.6,False,validation,False,model_selection_only,published_v2
+short_gap_A_ablation,0.02345974598229207,>1e-06,True,validation,False,model_selection_only,published_v2
+long_gap_nonlocal_ablation,0.07878625978832676,at least one B/C/D removal delta >1e-06,True,validation,False,model_selection_only,published_v2

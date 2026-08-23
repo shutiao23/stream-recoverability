@@ -1,0 +1,10 @@
+condition_family,best_simple_baseline,validation_mean_MAE,tie_break_order,validation_scenario_count,station_id,target,mask_geometry,information_contract,recovery_mode,selection_split,formal_evidence,selection_rule,tie_break_rule,data_version
+B1|T|block|S0+A+B+C+D|offline,xgboost,0.44628973219129775,8,4,B1,T,block,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+B1|T|point|S0+A+B+C+D|offline,pchip,0.19182063804948848,2,1,B1,T,point,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+B1|T|station_outage|S0+A+B+C+D|offline,xgboost,0.40357574330435864,8,1,B1,T,station_outage,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+P3|T|block|S0+A+B+C+D|offline,kalman,0.4581931852648192,3,4,P3,T,block,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+P3|T|point|S0+A+B+C+D|offline,linear,0.09477630815549529,1,1,P3,T,point,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+P3|T|station_outage|S0+A+B+C+D|offline,kalman,0.4676034757617371,3,1,P3,T,station_outage,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+S2|T|block|S0+A+B+C+D|offline,donor_regression,0.35671943171914183,6,4,S2,T,block,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+S2|T|point|S0+A+B+C+D|offline,kalman,0.1271662835845921,3,1,S2,T,point,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2
+S2|T|station_outage|S0+A+B+C+D|offline,donor_regression,0.39377887975683706,6,1,S2,T,station_outage,S0+A+B+C+D,offline,validation,False,equal_weight_across_validation_gap_lengths,frozen_simple_model_order,published_v2

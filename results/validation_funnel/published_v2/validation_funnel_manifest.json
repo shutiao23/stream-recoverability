@@ -1,0 +1,107 @@
+{
+  "anchor_catalog_path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/validation_anchors_v2.csv",
+  "anchor_catalog_rows": 15,
+  "anchor_ids": [
+    "VALANCHOR-publishedv2-validation-B1-R0101",
+    "VALANCHOR-publishedv2-validation-B1-R0102",
+    "VALANCHOR-publishedv2-validation-B1-R0103",
+    "VALANCHOR-publishedv2-validation-B1-R0104",
+    "VALANCHOR-publishedv2-validation-B1-R0105",
+    "VALANCHOR-publishedv2-validation-P3-R0101",
+    "VALANCHOR-publishedv2-validation-P3-R0102",
+    "VALANCHOR-publishedv2-validation-P3-R0103",
+    "VALANCHOR-publishedv2-validation-P3-R0104",
+    "VALANCHOR-publishedv2-validation-P3-R0105",
+    "VALANCHOR-publishedv2-validation-S2-R0101",
+    "VALANCHOR-publishedv2-validation-S2-R0102",
+    "VALANCHOR-publishedv2-validation-S2-R0103",
+    "VALANCHOR-publishedv2-validation-S2-R0104",
+    "VALANCHOR-publishedv2-validation-S2-R0105"
+  ],
+  "anchor_integration_status": "bound_centered_anchor_v1",
+  "anchor_season_counts": {
+    "DJF": 4,
+    "JJA": 4,
+    "MAM": 4,
+    "SON": 3
+  },
+  "code_provenance": {
+    "dirty_tracked_paths": [
+      "src/stream_recoverability/experiments/runner.py"
+    ],
+    "external_relevant_input_count": 0,
+    "git_commit": "98ee106acf37f2bfc70f6527c4398e8904ade9e6",
+    "relevant_source_clean": false,
+    "relevant_source_digest": "963e45e88a76ee06cedb25d870524cf83f7f3f1c979349d2ce6733ba78e6b6a8",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "dirty",
+    "tracked_worktree_clean": false
+  },
+  "condition_count": 21,
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "validation",
+  "evidence_role": "model_selection_only",
+  "formal_evidence": false,
+  "mask_schema_version": "mask_schema_v2",
+  "mask_seed_placeholders": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "mask_unit_count": 105,
+  "mask_units_per_condition": 5,
+  "model_schema_version": "model_schema_v3",
+  "stages": [
+    {
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "name": "traditional",
+      "requires_explicit_finalists": false,
+      "training_seeds": []
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_single_seed",
+      "requires_explicit_finalists": false,
+      "training_seeds": [
+        11
+      ]
+    },
+    {
+      "models": [
+        "brits_ref",
+        "saits_ref",
+        "csdi",
+        "proposed"
+      ],
+      "name": "deep_stability",
+      "requires_explicit_finalists": true,
+      "training_seeds": [
+        11,
+        22,
+        33
+      ]
+    }
+  ],
+  "statistics_schema_version": "statistics_schema_v3",
+  "suite": "validation_funnel"
+}

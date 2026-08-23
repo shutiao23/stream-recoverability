@@ -126,7 +126,7 @@ The train-only donor anomaly $R^2$ was 0.464 at B1, 0.470 at S2, and 0.106 at P3
 
 ### 3.7 External replication
 
-2018--2020 is a formal development-period evaluation, not an independent test. The Upper-to-Middle Chattahoochee panel is the external object.
+Chattahoochee feasibility passed all 60 frozen scenarios without training, scoring, or creating a once-lock. A prediction using only 2012--2020 classified site 02334430 as memory-dominated and the other four sites as donor-dominated. Predicted 30-day skill ranged from 0.644 to 0.763. At 365 days, the four donor-dominated sites retained predicted skill from 0.630 to 0.733, whereas 02334430 declined to 0.314. These are external train-only predictions, not measured replication; the 2023--2025 recovery outcomes remain unopened for scoring.
 
 <!-- RESULTS_PENDING: R6_EXTERNAL — After roster freeze and evaluate-once, report whether recoverability patterns and information dependencies replicate, transfer with basin-dependent frontier locations, replicate only for some outage types, or fail. Do not change stations, years, or the model roster after seeing the result. -->
 
