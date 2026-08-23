@@ -29,10 +29,10 @@ artifacts.
   "validation_funnel": "complete_selection_only",
   "finalized_model_roster": "finalized",
   "analytic_recoverability_prediction": "frozen_train_only_before_dense_aggregate",
-  "development_test_formal_evidence": "pending_current_protocol",
-  "confirmatory_data": "not_opened",
+  "development_test_formal_evidence": "complete_current_protocol",
+  "confirmatory_data": "built_feasibility_passed_no_performance",
   "confirmatory_evaluation": "not_run",
-  "current_protocol_result_claims": "none"
+  "current_protocol_result_claims": "populated_internal_external_pending"
 }
 ```
 <!-- evidence-status:end -->

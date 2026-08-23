@@ -1,4 +1,4 @@
-# Predicting Stream-Temperature Recoverability from Monitoring-Network Information Budgets
+# A Covariance Budget Predicts Stream-Temperature Recoverability Shape but Not Its Ceiling
 
 ## 1. Introduction
 
@@ -10,7 +10,7 @@ We use *recoverability* to mean the ability to reconstruct a predeclared missing
 
 > Can a monitoring network's recoverability be predicted analytically from its observed covariance structure before any imputation model is trained?
 
-We decompose the available information into a seasonal component, simultaneous donor-station anomaly covariance, and local anomaly memory that decays with distance from a gap boundary. This produces three falsifiable predictions: donor-dominated stations should have nearly flat long-gap skill, memory-dominated stations should decay with gap length, and no stable learner should systematically exceed the analytic information budget. Models are tests of those predictions rather than the scientific object.
+We decompose the available information into a seasonal component, simultaneous donor-station anomaly covariance, and local anomaly memory that decays with distance from a gap boundary. This produces three falsifiable predictions: donor-dominated stations should have nearly flat long-gap skill, memory-dominated stations should decay with gap length, and a proposed analytic ceiling should bound stable learners. Models are tests of those predictions rather than the scientific object.
 
 Related multi-station stream-temperature work has jointly modelled discharge and temperature, compared river-network graph models under unseen conditions, and injected process knowledge into temperature models [@sadler2022multitask; @topp2023shifting; @read2019pgdl]. The remaining gap is not another imputation benchmark. It is a portable rule for estimating recoverability, sensor priority, and useful outage duration from data already observed by a network.
 
@@ -94,7 +94,7 @@ A formal design is complete only when every expected run has contracted daily an
 
 ## 3. Results
 
-Formal 2018--2020 numbers are not reported in this draft. The only completed numerical evidence is validation-only model selection on 2016--2017. Those ranks decide which models may later enter the roster; they are not development-test or confirmatory results.
+The complete formal bundle contains 134,359 contracted run units, including 116,994 evidence units and 17,365 declared structural skips. It combines the full M1--M10 suite, 900 dense temperature scenarios, 1,920 network-resilience scenarios, 6,720 donor-falsification scenarios, and three independently aggregated sensitivity versions. Confirmatory recovery performance remains unopened.
 
 ### 3.1 Validation-only model selection
 
@@ -102,27 +102,29 @@ On the frozen 105-unit validation funnel, donor regression had the highest equal
 
 Stage 3 exposed a validity boundary. Proposed seed 22 had overall skill -0.667 and selected epoch 33, versus epochs 214 and 173 for seeds 11 and 33. BRITS and CSDI also contained required seeds selecting before epoch 50. The validation objective covered point, short-block, long-block, and station-outage masks and all recorded losses were finite; scaling was train-only and seed-independent. The v5 amendment therefore labels any model with a required `best_epoch < 50` as `training_unstable` and excludes it from the formal roster. This rule was added after validation stability evidence and before a dense aggregate; affected runs cannot support a claim that deep learning is ineffective. CSDI is separately demoted to a seed-11 probabilistic diagnostic at 7, 30, 90, and 180 days.
 
-<!-- RESULTS_PENDING: R1_STAGE3_STABILITY — Insert the Stage 3 model-by-seed table: overall skill, long-gap skill, outage skill, worst station, coverage, and hit-cap status. State the proposed-versus-donor claim as supporting, conditional, or withdrawn. -->
+The proposed model lost to donor regression in 27 of 36 difficult validation cells. Because its seed-22 checkpoint was training-unstable, this withdraws the proposed-performance claim but does not establish that deep models are generally ineffective.
 
 ### 3.2 Frozen analytic prediction
 
-The train-only donor anomaly $R^2$ was 0.464 at B1, 0.470 at S2, and 0.106 at P3. At 30 days, predicted skill was 0.309, 0.328, and 0.416; at 90 days it was 0.274, 0.278, and 0.270. B1 and S2 were donor-dominated, so their predicted curves approached flat long-gap floors. P3 was memory-dominated at 30 days and declined from predicted skill 0.771 at one day to 0.061 at 365 days. These are frozen predictions, not development-test measurements or confidence intervals.
+The train-only donor anomaly $R^2$ was 0.464 at B1, 0.470 at S2, and 0.106 at P3. At 30 days, predicted skill was 0.309, 0.328, and 0.416; at 90 days it was 0.274, 0.278, and 0.270. B1 and S2 were donor-dominated, so their predicted curves approached flat long-gap floors. P3 was memory-dominated and declined from predicted skill 0.771 at one day to 0.061 at 365 days.
+
+Against the completed best-model envelope, prediction correlations were 0.72 at B1, 0.94 at S2, and 0.95 at P3; mean absolute skill errors were 0.077, 0.085, and 0.122. Thus the decomposition predicted broad curve shape. It did not define an upper bound: the best stable model exceeded the prediction in 20 of 45 station-gap cells, and its 95% lower confidence bound exceeded the prediction in eight P3 cells. The information-ceiling hypothesis is therefore rejected.
 
 ### 3.3 Temperature recoverability frontiers
 
-<!-- RESULTS_PENDING: R2_T_FRONTIERS — From complete SCI_DENSE T curves only, report skill against climatology and against the validation-selected simple baseline by station and gap. State the first day the climatology-relative lower confidence bound is not above zero, whether any complex model still beats donor regression, whether station frontiers agree, and whether the curve is left-censored, right-censored, or crossed in range. Main display: Figure 2 and Table 2. -->
+No fixed model dominated all stations and lengths. Random forest and XGBoost retained a positive climatology-relative lower confidence bound through 365 days at B1 and S2; XGBoost did so at P3. Linear, PCHIP, and Kalman frontiers crossed in range at approximately 7--9 days at B1, 21--23 days at S2, and 93--160 days at P3. Donor-regression skill was poor at the shortest gaps and increased later, so the predeclared non-increasing frontier labelled it left-censored even where its long-gap mean became positive. No fixed model had positive mean skill against the validation-selected best-simple family across the complete dense curve.
 
 ### 3.4 Donor information and information-source mechanism
 
-<!-- RESULTS_PENDING: R3_DONOR_FALSIFICATION — Report same-day, past-only, lagged, implausible-lead, identity-permutation, and seasonal-residual contrasts by target--donor pair, with 95% CI and upstream/downstream labels. Use the predeclared language: network-specific predictive information, mixed predictive attribution, or correlated seasonal/regional source. Do not upgrade a surviving correlation into a transport mechanism. -->
+Observed same-day donor information exceeded the station-identity permutation by 0.057 skill across 60 paired units ($p=0.000179$). However, the gain also survived permutation and implausible lags under the predeclared decision rule. The resulting interpretation is `falsified_network_propagation`; allowed claim language is `correlated_predictive_source_only`.
 
 ### 3.5 Network resilience
 
-<!-- RESULTS_PENDING: R4_NETWORK_RESILIENCE — From complete SCI_NET powersets, report which station failure costs most, whether single- and dual-station losses are approximately additive, whether upstream and downstream information differ, and whether station importance changes from 10-day to 180-day gaps. Main display: Figure 4 and Table 3. The management sentence is which stations and information channels to keep, not that a powerset benchmark was run. -->
+Network dependence was directional and target-specific. Across gap lengths, removing S2 increased B1 donor-regression MAE by 2.42 degrees C on average, whereas removing B1 increased S2 MAE by 1.98 degrees C. P3 donor dependence was much smaller and mixed. Sensor-protection priorities therefore follow target-specific dependencies: protect S2 for B1 recovery and B1 for S2 recovery rather than applying one global station ranking.
 
 ### 3.6 Data-quality and hydrological-state robustness
 
-<!-- RESULTS_PENDING: R5_ROBUSTNESS — Report whether ranking, frontier location, or donor value changes after excluding the S2 suspect period, excluding B1 level, shifting B1 level, shifting meteorology by -1/0/+1 day, and stratifying by season, flow state, and extreme heat or flood. State which conclusions depend on a data version. -->
+Across target-$T$ paired units, mean MAE differences relative to `published_v2` were +0.026 degrees C for `no_s2_suspect_v2`, -0.047 degrees C for `b1_no_level_v2`, and -0.042 degrees C for `b1_shift_sensitivity_v2`; model- and regime-specific ranges were wider. The meteorology -1/0/+1-day alignment suite was not implemented, so no alignment claim is made.
 
 ### 3.7 External replication
 
@@ -134,27 +136,21 @@ Chattahoochee feasibility passed all 60 frozen scenarios without training, scori
 
 ### 4.1 Recoverability as a property of information
 
-The analytic budget changes the interpretation of model comparisons. Seasonal structure is a low-cost component, donor covariance supplies a gap-length-independent floor, and local anomaly memory is the only term that must decay with gap length. A flat long-gap curve can therefore be expected rather than paradoxical. Shared forcing, regulation, transport, preprocessing, or stable correlation can all generate donor covariance; until the falsification contrasts exist, other-station observations are a major predictive source, not an identified heat-transport mechanism.
-
-<!-- RESULTS_PENDING: D1_DONOR_MECHANISM — Interpret the completed donor contrasts without causal overreach. -->
+The analytic budget is useful because it predicted best-envelope shape with no model fitting, especially the P3 decay and the B1/S2 long-gap plateau. Its failure as a ceiling is equally informative. Two-sided boundary interpolation, nonlinear covariates, and gap-specific model switching contain information not represented by simultaneous donor $R^2$ plus one autocorrelation value. Recoverability is partly a property of observed information structure, but the decomposition needs empirical calibration before network-design use. Donor falsification further restricts the physical reading: other-station observations are a correlated predictive source, not an identified transport mechanism.
 
 ### 4.2 Station, season, and regulation differences
 
-A single mean skill hides station and regime differences. Formal results must say which station pulls the proposed worst-station skill negative, and whether that is associated with the more distant P3 meteorological pairing, the S2 2013--2019 provenance issue, the B1 2019 level datum change, or a change in cascade-reservoir operations. Those are hydrological explanations, not model-tuning notes.
-
-<!-- RESULTS_PENDING: D2_HETEROGENEITY — Relate station and season differences to known data and regulation limitations. -->
+A single mean skill hides station and regime differences. P3 supplied the strongest counterexample to the ceiling: eight best-model lower confidence bounds exceeded the prediction. B1 and S2 instead showed the expected long-gap plateau, but their best models were random forest or XGBoost rather than donor regression alone. The S2 provenance exclusion and B1 level sensitivities changed some model-specific errors without reversing the need for station-specific interpretation.
 
 ### 4.3 When automatic fill should stop
 
 No ecological or management error threshold was declared before analysis. The paper therefore cannot say that a 90-day gap is safe to fill. It can say, after the frontier exists, that a statistical advantage relative to a named baseline is or is not supported by a confidence interval beyond a stated gap. High-uncertainty reconstructions should be labelled rather than silently written into a published series.
 
-<!-- RESULTS_PENDING: D3_OPERATIONAL_STOP — State the statistical stop rule actually supported by the frontier CIs. -->
+The results support statistical, model-specific boundaries only. Random forest and XGBoost were right-censored at 365 days in several stations, whereas interpolation and Kalman methods crossed much earlier. These are advantages over climatology, not declarations that an imputed value is operationally safe.
 
 ### 4.4 Scope, masks, and one-network limits
 
-The study contains three stations on one river system over 2006--2020. Artificial masks give known truth for published, unflagged cells; they estimate recoverability under controlled outages, not the probability of real faults. The `SCI_NET` analysis quantifies redundancy inside this small panel. It is not a general river-network resilience law. External non-replication would itself be a result: single-network reconstruction studies can overstate transferability. The executable freeze is `design_freeze_v4`.
-
-<!-- RESULTS_PENDING: D4_CONCLUSION — State what the completed evidence supports, what remains uncertain, and the narrow implication for which information and stations to keep. -->
+The study contains three stations on one river system over 2006--2020. Artificial masks give known truth for published, unflagged cells; they estimate recoverability under controlled outages, not the probability of real faults. The `SCI_NET` analysis quantifies redundancy inside this small panel, not a general river-network law. The central conclusion is narrower than the proposed theory: a train-only covariance budget can anticipate recoverability shape and station class, but it is not an information ceiling. Monitoring design can use it as rapid screening, followed by calibration with structured masks. The executable freeze is `design_freeze_v4` with the recorded v5 amendment.
 
 ## 5. Data and Code Availability
 
@@ -176,6 +172,6 @@ Independence and matching audits of the frozen validation anchors and M7b event 
 
 **NASA POWER $R_s$.** Internal all-sky shortwave (`ALLSKY_SFC_SW_DWN`, UTC) is requested from the NASA POWER daily point API at hydrological-station coordinates. That product is generally publishable after acquisition and citation. Jinsha sunshine duration $DH$ remains a sensitivity-only channel and is not renamed to $R_s$.
 
-**USGS confirmatory hydrology and NASA POWER meteorology for the Upper–Middle Chattahoochee panel** remain `not_opened` until a hash-verified `finalized_model_roster_v1` authorises the evaluate-once path.
+**USGS confirmatory hydrology and NASA POWER meteorology for the Upper–Middle Chattahoochee panel** were acquired after roster finalization for coverage feasibility. No confirmatory recovery metric was computed and no once-lock was created.
 
-**What this draft does not claim.** No current-protocol MAE, skill, frontier day, or “proposed exceeds baseline” statement is reported. Pre-freeze files under `results/formal/` are invalid for inference (`results/formal/PRE_FREEZE_INVALID.md`).
+**What this draft does not claim.** It does not claim an analytic information ceiling, a generally superior proposed model, an operationally safe fill length, a meteorology-alignment effect, or external replication. Pre-freeze files under `results/formal/` remain invalid for inference (`results/formal/PRE_FREEZE_INVALID.md`).

@@ -1,0 +1,109 @@
+experiment,mask_type,layout,outage_mode,overlap_ratio,pattern,window_length,training_protocol,fit_split,tuning_split,evaluation_split,validation_scope,target_station_id,station_id,target,model,gap_length,resilience_auc,n_failure_levels,reason,status
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_hydro,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_hydro,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_hydro,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_hydro,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_only,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_only,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_only,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,air_only,180.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,climatology,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,climatology,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,climatology,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,climatology,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,donor_regression,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,donor_regression,30.0,-24.814490489640583,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,donor_regression,90.0,-57.96159234198079,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,donor_regression,180.0,-11.77863908093451,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,kalman,10.0,0.9999999999999991,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,kalman,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,kalman,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,kalman,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,linear,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,linear,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,linear,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,linear,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,pchip,10.0,1.0000000000000002,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,pchip,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,pchip,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,pchip,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,random_forest,10.0,-16.871675474672802,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,random_forest,30.0,-9.240689038711754,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,random_forest,90.0,-11.87507949167184,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,random_forest,180.0,-9.759817810951443,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,xgboost,10.0,-29.860108430104987,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,xgboost,30.0,-13.33571925578803,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,xgboost,90.0,-13.368268238275173,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,B1,B1,T,xgboost,180.0,-9.55306249892115,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_hydro,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_hydro,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_hydro,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_hydro,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_only,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_only,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_only,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,air_only,180.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,climatology,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,climatology,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,climatology,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,climatology,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,donor_regression,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,donor_regression,30.0,-2.8902746354313233,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,donor_regression,90.0,-2.1437440875416507,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,donor_regression,180.0,-2.2620588951231513,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,kalman,10.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,kalman,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,kalman,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,kalman,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,linear,10.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,linear,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,linear,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,linear,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,pchip,10.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,pchip,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,pchip,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,pchip,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,random_forest,10.0,-340.777450759135,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,random_forest,30.0,-10.669987461827024,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,random_forest,90.0,-6.173199652766958,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,random_forest,180.0,-5.931077242957629,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,xgboost,10.0,-16.505578849909057,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,xgboost,30.0,-4.173455231612328,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,xgboost,90.0,-2.9634677409427255,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,P3,P3,T,xgboost,180.0,-2.724349369008263,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_hydro,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_hydro,30.0,-0.3091820877867583,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_hydro,90.0,-0.647987082851355,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_hydro,180.0,-0.4499086990568313,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_only,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_only,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_only,90.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,air_only,180.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,climatology,10.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,climatology,30.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,climatology,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,climatology,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,donor_regression,10.0,-15.131847992780266,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,donor_regression,30.0,-9.36038990360174,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,donor_regression,90.0,-9.024563353486908,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,donor_regression,180.0,-9.738475234300612,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,kalman,10.0,0.9999999999999999,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,kalman,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,kalman,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,kalman,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,linear,10.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,linear,30.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,linear,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,linear,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,pchip,10.0,1.0,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,pchip,30.0,0.9999999999999978,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,pchip,90.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,pchip,180.0,,0,resilience curve must span failed fractions 0 and 1,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,random_forest,10.0,-36.117954803667025,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,random_forest,30.0,-15.436823534107136,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,random_forest,90.0,-12.70967008802134,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,random_forest,180.0,-13.727622558542086,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,xgboost,10.0,-36.0232851237795,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,xgboost,30.0,-12.91951782841722,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,xgboost,90.0,-9.688701144293326,4,,ok
+SCI_NET,matched_network,matched_target_gap,hydro-only,,T,368,seen_length,train,validation,development_test,development_evaluation,S2,S2,T,xgboost,180.0,-10.504648601877973,4,,ok

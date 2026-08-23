@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "audit_unit": "unique evaluated station-target-date cell per frozen anchor",
+  "n_anchors": 60,
+  "n_overlap_edges": 391,
+  "n_overlap_clusters": 3,
+  "n_unique_masked_cells": 3103,
+  "anchors_not_assumed_independent": true
+}

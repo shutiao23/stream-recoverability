@@ -46,3 +46,22 @@ long-gap curves; site 02334430 should decay more strongly with gap length.
 
 **Boundary.** No model was trained, no recovery metric was computed, and no
 once-lock was created. Whether these predictions are accurate remains unopened.
+
+## BL-004 — Analytic budget versus completed dense curves
+
+**Observed.** The frozen prediction tracked the best-model envelope shape well
+(station correlations 0.72, 0.94, and 0.95; skill MAE 0.077--0.122). However,
+the best stable model exceeded the predicted value in 20 of 45 station-gap
+cells, and its 95% lower confidence bound exceeded the prediction in eight,
+all at P3.
+
+**Expected.** The formula was proposed as a tight information ceiling that no
+stable learner could exceed.
+
+**Claim update.** The ceiling claim is falsified. The decomposition remains a
+useful pre-training shape predictor and station-typology heuristic, but it needs
+calibration and cannot be called an upper bound.
+
+**Paper role.** This counterexample is a primary result: local two-sided
+interpolation and flexible covariate models recover information not represented
+by the additive donor-$R^2$ plus single-lag-memory approximation.

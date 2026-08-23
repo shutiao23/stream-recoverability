@@ -1,0 +1,372 @@
+{
+  "status": "complete",
+  "reason": null,
+  "primary_data_version": "published_v2",
+  "requested_sensitivity_data_versions": [
+    "no_s2_suspect_v2",
+    "b1_no_level_v2",
+    "b1_shift_sensitivity_v2"
+  ],
+  "available_sensitivity_data_versions": [
+    "b1_no_level_v2",
+    "b1_shift_sensitivity_v2",
+    "no_s2_suspect_v2"
+  ],
+  "primary_bundle": {
+    "manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/published_v2/top_manifest.json",
+    "manifest_sha256": "d02dca918bd0dd8cf0d9ab043a18ce3fbd68cdb9e724b4fa4009dfdaec215a13",
+    "bundle_role": "primary",
+    "required_suite_roles": [
+      "core_full",
+      "dense_frontier",
+      "network_resilience",
+      "event_uncertainty",
+      "operational_dropout",
+      "retrained_upper_bound",
+      "donor_c_falsification"
+    ],
+    "suite_roles": [
+      {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost",
+          "independent_flow",
+          "rating_curve"
+        ],
+        "manifest_suites": [
+          "full"
+        ],
+        "reason": null,
+        "role": "core_full",
+        "source_manifest_sha256": [
+          "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
+        ],
+        "status": "complete"
+      },
+      {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost"
+        ],
+        "manifest_suites": [
+          "science_dense"
+        ],
+        "reason": null,
+        "role": "dense_frontier",
+        "source_manifest_sha256": [
+          "4a322dac18121043792b4ca3581ecaef7bca3e099419b9e5b924b4545c1b940b"
+        ],
+        "status": "complete"
+      },
+      {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost"
+        ],
+        "manifest_suites": [
+          "science_resilience"
+        ],
+        "reason": null,
+        "role": "network_resilience",
+        "source_manifest_sha256": [
+          "d442c46b15a6567d35ff5cef987903e2797b4a7f398bbde6f42770a2f2f691db"
+        ],
+        "status": "complete"
+      },
+      {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost",
+          "independent_flow",
+          "rating_curve"
+        ],
+        "manifest_suites": [
+          "full"
+        ],
+        "reason": null,
+        "role": "event_uncertainty",
+        "source_manifest_sha256": [
+          "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
+        ],
+        "status": "complete"
+      },
+      {
+        "expected_models": [],
+        "manifest_suites": [],
+        "reason": "proposed_decision=framework_only",
+        "role": "operational_dropout",
+        "source_manifest_sha256": [],
+        "status": "not_applicable"
+      },
+      {
+        "expected_models": [],
+        "manifest_suites": [],
+        "reason": "proposed_decision=framework_only",
+        "role": "retrained_upper_bound",
+        "source_manifest_sha256": [],
+        "status": "not_applicable"
+      },
+      {
+        "expected_models": [
+          "donor_regression"
+        ],
+        "manifest_suites": [
+          "science_donor_falsification"
+        ],
+        "reason": null,
+        "role": "donor_c_falsification",
+        "source_manifest_sha256": [
+          "8e44678abce34c82caa7fa19c56f5fa8e30f385d17f96f29117e77f4aa0b788c"
+        ],
+        "status": "complete"
+      }
+    ]
+  },
+  "sensitivity_bundles": [
+    {
+      "data_version": "b1_no_level_v2",
+      "manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/b1_no_level_v2/top_manifest.json",
+      "manifest_sha256": "ce7521c6619ea88856a725abbca8b2a6c3fb89b2de0cc6037776dfc740d26d64",
+      "events_sha256": "7a1c7cf39a3ac798eaca0338060dee498fe5caca82106bb6644828976d725bdd",
+      "bundle_role": "sensitivity_compact",
+      "required_suite_roles": [
+        "sensitivity_core_T",
+        "sensitivity_dense_frontier",
+        "sensitivity_operational_dropout"
+      ],
+      "suite_roles": [
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost",
+            "independent_flow",
+            "rating_curve"
+          ],
+          "manifest_suites": [
+            "core"
+          ],
+          "reason": null,
+          "role": "sensitivity_core_T",
+          "source_manifest_sha256": [
+            "aecbb0300d5268dc42ede696abf09284f0278f3603c7410acded8641f295d8ca"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "manifest_suites": [
+            "science_dense"
+          ],
+          "reason": null,
+          "role": "sensitivity_dense_frontier",
+          "source_manifest_sha256": [
+            "e583f53ea359307ee6b31b637123fb7f76877edfdd8d439d618083c8f6b72e55"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [],
+          "manifest_suites": [],
+          "reason": "proposed_decision=framework_only",
+          "role": "sensitivity_operational_dropout",
+          "source_manifest_sha256": [],
+          "status": "not_applicable"
+        }
+      ]
+    },
+    {
+      "data_version": "b1_shift_sensitivity_v2",
+      "manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/b1_shift_sensitivity_v2/top_manifest.json",
+      "manifest_sha256": "92622cca29fe7751cd4abaa1031aad5a60496362dad114a09d9b9e966a6a8718",
+      "events_sha256": "b9cc15dbd644e61a23c32f8dabf53e07ada11fe430bd8740459d906ff67cc688",
+      "bundle_role": "sensitivity_compact",
+      "required_suite_roles": [
+        "sensitivity_core_T",
+        "sensitivity_dense_frontier",
+        "sensitivity_operational_dropout"
+      ],
+      "suite_roles": [
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost",
+            "independent_flow",
+            "rating_curve"
+          ],
+          "manifest_suites": [
+            "core"
+          ],
+          "reason": null,
+          "role": "sensitivity_core_T",
+          "source_manifest_sha256": [
+            "9c2b9756f35d11015922fc64947744ee0fd682454474778d4e49a4ff6b50b982"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "manifest_suites": [
+            "science_dense"
+          ],
+          "reason": null,
+          "role": "sensitivity_dense_frontier",
+          "source_manifest_sha256": [
+            "962e3ead54213faa4a8b56d9220a2eaa24db238c42b3f44778e7f2f095244077"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [],
+          "manifest_suites": [],
+          "reason": "proposed_decision=framework_only",
+          "role": "sensitivity_operational_dropout",
+          "source_manifest_sha256": [],
+          "status": "not_applicable"
+        }
+      ]
+    },
+    {
+      "data_version": "no_s2_suspect_v2",
+      "manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/no_s2_suspect_v2/top_manifest.json",
+      "manifest_sha256": "4b2ee1b2d03b85a44494e4b224e8d88ce7e3a9c29087248600d90d9901a26741",
+      "events_sha256": "7d4c8f2c377df61a46f8c44d549be32f15d19fb10add135759b9c2fc5f42d367",
+      "bundle_role": "sensitivity_compact",
+      "required_suite_roles": [
+        "sensitivity_core_T",
+        "sensitivity_dense_frontier",
+        "sensitivity_operational_dropout"
+      ],
+      "suite_roles": [
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost",
+            "independent_flow",
+            "rating_curve"
+          ],
+          "manifest_suites": [
+            "core"
+          ],
+          "reason": null,
+          "role": "sensitivity_core_T",
+          "source_manifest_sha256": [
+            "3128521a00c853424b68a40ac3dc02f8ea9cc9c9778fc612c035b8ba376dd396"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "manifest_suites": [
+            "science_dense"
+          ],
+          "reason": null,
+          "role": "sensitivity_dense_frontier",
+          "source_manifest_sha256": [
+            "5d8ff672d32a34845b6fd7604938479bb3b491dcef4639f198cbb145821c3e2e"
+          ],
+          "status": "complete"
+        },
+        {
+          "expected_models": [],
+          "manifest_suites": [],
+          "reason": "proposed_decision=framework_only",
+          "role": "sensitivity_operational_dropout",
+          "source_manifest_sha256": [],
+          "status": "not_applicable"
+        }
+      ]
+    }
+  ],
+  "pairing_unit": "persistent anchor/scenario intersection after seed collapse",
+  "rows": 2842,
+  "artifact": {
+    "status": "ok",
+    "reason": null,
+    "rows": 2842,
+    "sha256": "5b511b61918bf154b5704e10bf21106995fa5a55db35edd3009dbf9c59428917"
+  },
+  "analysis_input_manifest": {
+    "path": "results/analysis/analysis_input_manifest.json",
+    "bytes": 41777,
+    "sha256": "07a2101bfc9324849156bca260680a1b738512946d7851a1681098b75fbe4810"
+  }
+}
