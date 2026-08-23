@@ -312,6 +312,12 @@ def test_run_contract_stales_on_relevant_identity_not_git_audit(
     stale_design["design_version"] = "design_freeze_v9"
     assert not runner._execution_contract_matches(stale_design, current)
 
+    claim_rule_only = json.loads(json.dumps(current))
+    claim_rule_only["input_files"]["design"]["sha256"] = "a" * 64
+    claim_rule_only["input_files"]["design"]["mtime_ns"] = 1
+    claim_rule_only["input_files"]["design"]["size"] = 1
+    assert runner._execution_contract_matches(claim_rule_only, current)
+
 
 def test_proposed_and_reference_contracts_use_the_frozen_design(
     tmp_path: Path,

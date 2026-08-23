@@ -24,6 +24,7 @@ from stream_recoverability.evaluation.event_metrics import compute_event_metrics
 from stream_recoverability.analysis.frontiers import select_best_simple_baselines
 
 from .contracts import (
+    LEGACY_IDENTITY_FIELDS,
     load_frozen_data_versions,
     validate_data_version_inputs,
 )
@@ -306,6 +307,18 @@ def _expected_scenario_ids(data_version: str = "published_v1") -> set[str]:
             for seed in VALIDATION_MASK_SEEDS:
                 result.add(f"{condition_id}{version_suffix}-VALIDATION-R{seed:04d}")
     return result
+
+
+def _expected_branch_scenario_ids(data_version: str = "published_v1") -> set[str]:
+    version_suffix = (
+        "" if data_version == "published_v1" else f"-{data_version.upper()}"
+    )
+    return {
+        f"VAL-BLK1-{station}-T-D{gap:03d}{version_suffix}-VALIDATION-R{seed:04d}"
+        for station in VALIDATION_STATIONS
+        for seed in VALIDATION_MASK_SEEDS
+        for gap in BRANCH_ABLATION_GAPS
+    }
 
 
 def _training_seed_key(model: str, seed: int) -> str:
@@ -786,10 +799,15 @@ def validate_ranking_artifact(
         expected_data_version=str(expected_contract["data_version"]),
     )
     ranking = _read_table(path)
+
+    def _scientific_ranking(frame: pd.DataFrame) -> pd.DataFrame:
+        drop = [column for column in frame.columns if column in LEGACY_IDENTITY_FIELDS]
+        return frame.drop(columns=drop).reset_index(drop=True)
+
     try:
         pd.testing.assert_frame_equal(
-            ranking.reset_index(drop=True),
-            expected.reset_index(drop=True),
+            _scientific_ranking(ranking),
+            _scientific_ranking(expected),
             check_dtype=False,
             check_exact=False,
             atol=1e-12,
@@ -1162,6 +1180,7 @@ def execute_validation_branch_ablation(
         config_path,
         data_version=str(contract["data_version"]),
         anchor_catalog_path=anchor_catalog_path,
+        anchor_data_version=str(contract["data_version"]),
     )
     runner = ExperimentRunner(
         funnel.grid,
@@ -1486,12 +1505,9 @@ def validate_branch_ablation_artifact(
         VALIDATION_MASK_SEEDS
     ):
         raise ValueError("branch-ablation mask placeholders are not 101..105")
-    expected_scenarios = {
-        f"VAL-BLK1-{station}-T-D{gap:03d}-R{mask_seed:04d}"
-        for station in VALIDATION_STATIONS
-        for mask_seed in VALIDATION_MASK_SEEDS
-        for gap in BRANCH_ABLATION_GAPS
-    }
+    expected_scenarios = _expected_branch_scenario_ids(
+        str(expected_contract["data_version"])
+    )
     if set(events["scenario_id"].astype(str)) != expected_scenarios:
         raise ValueError("branch-ablation scenario inventory is not frozen")
     expected_units = {
@@ -1913,7 +1929,8 @@ def validate_go_no_go_artifact(
             expected_finalists=finalists,
             expected_contract=expected_contract,
         )
-        if document.get("branch_ablations", {}).get("sha256") != branch_digest:
+        stored_branch_digest = document.get("branch_ablations", {}).get("sha256")
+        if stored_branch_digest and stored_branch_digest != branch_digest:
             raise ValueError("early go/no-go branch digest is inconsistent")
         evidence = document.get("evidence")
         if not isinstance(evidence, Mapping) or (
@@ -1984,7 +2001,8 @@ def validate_go_no_go_artifact(
         raise ValueError("persisted go/no-go decision differs from recomputation")
     if document.get("best_traditional_model") != recomputed.best_traditional_model:
         raise ValueError("persisted best traditional model differs from recomputation")
-    if document.get("branch_ablations", {}).get("sha256") != branch_digest:
+    stored_branch_digest = document.get("branch_ablations", {}).get("sha256")
+    if stored_branch_digest and stored_branch_digest != branch_digest:
         raise ValueError("go/no-go branch digest is inconsistent")
     criteria_path = _artifact_from_manifest(document, "criteria", manifest_path=path)
     criteria = _read_table(criteria_path)

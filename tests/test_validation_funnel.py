@@ -90,6 +90,22 @@ def test_validation_funnel_has_frozen_counts_labels_and_mask_units() -> None:
     assert not unit_frame["formal_evidence"].any()
 
 
+def test_published_v2_funnel_uses_v2_anchor_catalog() -> None:
+    funnel = build_validation_funnel(
+        MANIFEST,
+        CONFIG,
+        data_version="published_v2",
+        anchor_catalog_path=PROJECT_ROOT / "metadata/validation_anchors_v2.csv",
+        anchor_data_version="published_v2",
+    )
+    assert Path(funnel.grid.validation_anchor_catalog_path).name == (
+        "validation_anchors_v2.csv"
+    )
+    assert all(
+        unit.anchor_data_version == "published_v2" for unit in funnel.mask_units
+    )
+
+
 def test_validation_stages_freeze_candidates_seeds_and_finalist_gate() -> None:
     funnel = build_validation_funnel(MANIFEST, CONFIG)
 

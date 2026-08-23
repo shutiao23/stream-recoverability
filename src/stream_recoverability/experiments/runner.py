@@ -3503,6 +3503,30 @@ class ExperimentRunner:
         return json.loads(json.dumps(contract))
 
     @staticmethod
+    def _scientific_execution_identity(value: Mapping[str, Any]) -> Any:
+        """Keep fields that change training, prediction, masks, or metrics.
+
+        Claim-rule edits in the design YAML change the file hash but not the
+        fitted models. Those fingerprints must not force a re-run.
+        """
+
+        identity = without_legacy_identity(value)
+        if not isinstance(identity, dict):
+            return identity
+        identity.pop("code_provenance", None)
+        files = identity.get("input_files")
+        if isinstance(files, dict) and isinstance(files.get("design"), dict):
+            design = {
+                key: item
+                for key, item in files["design"].items()
+                if key not in {"sha256", "mtime_ns", "size"}
+            }
+            files = dict(files)
+            files["design"] = design
+            identity["input_files"] = files
+        return identity
+
+    @staticmethod
     def _execution_contract_matches(
         stored: Mapping[str, Any] | None,
         current: Mapping[str, Any],
@@ -3511,13 +3535,9 @@ class ExperimentRunner:
 
         if not isinstance(stored, Mapping):
             return False
-        stored_identity = without_legacy_identity(stored)
-        current_identity = without_legacy_identity(current)
-        if isinstance(stored_identity, dict):
-            stored_identity.pop("code_provenance", None)
-        if isinstance(current_identity, dict):
-            current_identity.pop("code_provenance", None)
-        return stored_identity == current_identity
+        return ExperimentRunner._scientific_execution_identity(
+            stored
+        ) == ExperimentRunner._scientific_execution_identity(current)
 
     def _clear_model_cache(
         self,

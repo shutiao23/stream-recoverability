@@ -26,8 +26,8 @@ artifacts.
 {
   "design_freeze": "design_freeze_v4",
   "development_test_visibility": "seen_before_design_freeze",
-  "validation_funnel": "must_be_rerun_under_v4",
-  "finalized_model_roster": "pending",
+  "validation_funnel": "complete_selection_only",
+  "finalized_model_roster": "finalized",
   "development_test_formal_evidence": "pending_current_protocol",
   "confirmatory_data": "not_opened",
   "confirmatory_evaluation": "not_run",

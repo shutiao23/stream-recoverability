@@ -432,7 +432,10 @@ def _write_branch_artifact(root: Path) -> Path:
         for station in VALIDATION_STATIONS:
             for mask_seed in VALIDATION_MASK_SEEDS:
                 for gap in finalization.BRANCH_ABLATION_GAPS:
-                    scenario_id = f"VAL-BLK1-{station}-T-D{gap:03d}-R{mask_seed:04d}"
+                    condition_id = f"VAL-BLK1-{station}-T-D{gap:03d}"
+                    scenario_id = (
+                        f"{condition_id}-VALIDATION-R{mask_seed:04d}"
+                    )
                     score_hash = finalization._score_cells_sha256(
                         ["2017-01-01"], station, np.asarray([1.0])
                     )
@@ -446,7 +449,7 @@ def _write_branch_artifact(root: Path) -> Path:
                         )
                         mask_inventory[scenario_id] = {
                             "scenario_id": scenario_id,
-                            "condition_id": scenario_id.rsplit("-R", 1)[0],
+                            "condition_id": condition_id,
                             "station_id": station,
                             "gap_length": gap,
                             "mask_seed": mask_seed,
@@ -461,7 +464,7 @@ def _write_branch_artifact(root: Path) -> Path:
                     ):
                         common = {
                             "scenario_id": scenario_id,
-                            "condition_id": scenario_id.rsplit("-R", 1)[0],
+                            "condition_id": condition_id,
                             "station_id": station,
                             "training_seed": seed,
                             "mask_seed": mask_seed,
