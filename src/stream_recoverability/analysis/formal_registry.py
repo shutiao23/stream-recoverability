@@ -59,7 +59,7 @@ DERIVED_SUITE_MODELS = {
         {"retrained_information_upper_bound"}
     ),
 }
-PROPOSED_ONLY_SUITES = frozenset({*DERIVED_SUITE_MODELS, "science_donor_falsification"})
+PROPOSED_ONLY_SUITES = frozenset(DERIVED_SUITE_MODELS)
 FRONTIER_ANCHORED_MASK_TYPES = frozenset(
     {"async", "block", "station_outage", "matched_network"}
 )
