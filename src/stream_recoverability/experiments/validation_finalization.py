@@ -2066,11 +2066,33 @@ def stage3_budget_unstable_models(
     return tuple(dict.fromkeys(unstable))
 
 
+def stage3_training_unstable_models(
+    checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
+    models: Sequence[str],
+    *,
+    minimum_best_epoch: int,
+    seeds: Sequence[int] = VALIDATION_DEEP_SEEDS,
+) -> tuple[str, ...]:
+    """Return models with a prematurely selected required-seed checkpoint."""
+
+    metadata = _require_checkpoint_metadata(checkpoint_metadata, models, seeds)
+    return tuple(
+        str(model)
+        for model in models
+        if any(
+            int(metadata[(str(model), int(seed))]["best_epoch"])
+            < int(minimum_best_epoch)
+            for seed in seeds
+        )
+    )
+
+
 def summarize_stage3_stability(
     events: pd.DataFrame,
     checkpoint_metadata: Mapping[tuple[str, int], Mapping[str, Any]],
     *,
     expected_data_version: str | None = None,
+    minimum_best_epoch: int = 1,
 ) -> pd.DataFrame:
     """One scientific stability row per completed Stage 3 model-seed pair."""
 
@@ -2114,7 +2136,11 @@ def summarize_stage3_stability(
                     "epochs_run": int(item["epochs_run"]),
                     "event_rows": int(len(subset)),
                     "budget_status": (
-                        "budget_unstable" if item["hit_epoch_limit"] else "budget_stable"
+                        "budget_unstable"
+                        if item["hit_epoch_limit"]
+                        else "training_unstable"
+                        if int(item["best_epoch"]) < int(minimum_best_epoch)
+                        else "stable"
                     ),
                     "evaluation_split": "validation",
                     "evidence_role": "model_selection_only",
@@ -2336,6 +2362,18 @@ def finalize_validation_roster(
         expected_stage_name="deep_stability",
     )
     budget_unstable = stage3_budget_unstable_models(checkpoint_metadata, finalists)
+    with Path(design_path).open(encoding="utf-8") as handle:
+        design = yaml.safe_load(handle)
+    minimum_best_epoch = int(
+        design.get("training", {}).get("validity_rule", {}).get(
+            "minimum_best_epoch", 1
+        )
+    )
+    training_unstable = stage3_training_unstable_models(
+        checkpoint_metadata,
+        finalists,
+        minimum_best_epoch=minimum_best_epoch,
+    )
     decision, _, go_event_paths = validate_go_no_go_artifact(
         go_no_go_path,
         branch_metrics_path=branch_metrics_path,
@@ -2381,10 +2419,19 @@ def finalize_validation_roster(
     proposed_decision = str(decision["decision"])
     if "proposed" in budget_unstable:
         proposed_decision = "framework_only"
+    if "proposed" in training_unstable:
+        proposed_decision = "framework_only"
+    csdi_scope = design.get("model_funnel", {}).get(
+        "csdi_scope",
+        {"formal_frontier_model": True, "seed": 11, "gap_lengths_days": [], "role": "formal"},
+    )
+    diagnostic_models = ["csdi"] if not bool(csdi_scope["formal_frontier_model"]) else []
     selected_deep = [
         model
         for model in finalists
         if model not in budget_unstable
+        and model not in training_unstable
+        and model not in diagnostic_models
         and (model != "proposed" or proposed_decision == "include_proposed_formally")
     ]
     selected_models = [*TRADITIONAL_CANDIDATES, *selected_deep]
@@ -2443,6 +2490,22 @@ def finalize_validation_roster(
         "evidence_role": "model_selection_only",
         "formal_evidence": False,
         "selected_models": selected_models,
+        "diagnostic_models": diagnostic_models,
+        "diagnostic_protocols": (
+            {
+                "csdi": {
+                    "seed": int(csdi_scope["seed"]),
+                    "gap_lengths_days": [
+                        int(value) for value in csdi_scope["gap_lengths_days"]
+                    ],
+                    "evidence_role": str(csdi_scope["role"]),
+                }
+            }
+            if diagnostic_models
+            else {}
+        ),
+        "training_unstable_models": list(training_unstable),
+        "minimum_best_epoch": minimum_best_epoch,
         "best_traditional_model": best_traditional,
         "proposed_decision": proposed_decision,
         "validation_anchor_catalog": validation_anchor_identity,
@@ -2499,6 +2562,7 @@ __all__ = [
     "finalize_validation_roster",
     "read_validation_event_tables",
     "stage3_budget_unstable_models",
+    "stage3_training_unstable_models",
     "summarize_stage3_stability",
     "validate_branch_ablation_artifact",
     "validate_branch_ablation_not_applicable_artifact",

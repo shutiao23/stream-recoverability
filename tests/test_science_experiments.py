@@ -105,6 +105,20 @@ def test_dense_and_compensation_grids_have_fixed_counts() -> None:
     assert len(t_only.scenarios) == 900
     assert {condition.variables[0] for condition in t_only.conditions} == {"T"}
 
+    csdi_diagnostic = build_dense_science_grid(
+        PROJECT_ROOT / "study_manifest.yaml",
+        variables=("T",),
+        gap_lengths=(7, 30, 90, 180),
+    )
+    assert len(csdi_diagnostic.conditions) == 12
+    assert len(csdi_diagnostic.scenarios) == 240
+    assert {condition.gap_length for condition in csdi_diagnostic.conditions} == {
+        7,
+        30,
+        90,
+        180,
+    }
+
     compensation = build_compensation_grid(
         PROJECT_ROOT / "study_manifest.yaml", mask_seeds=(101, 120)
     )

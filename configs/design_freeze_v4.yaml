@@ -2,12 +2,14 @@ design_version: design_freeze_v4
 status: frozen_for_validation
 frozen_on: "2026-08-20"
 supersedes: design_freeze_v3
+protocol_amendment_id: v5
+amended_on: "2026-08-23"
 freeze_context:
   development_data_visibility: development_test_was_visible_before_design_freeze_v1
   permitted_use: protocol_repair_and_validation_only_model_selection
   prohibited_use: tune_against_development_test_or_confirmatory_results
   confirmatory_performance_seen: false
-  protocol_change_log: docs/protocol_change_v3_to_v4.md
+  protocol_change_log: docs/protocol_change_v4_to_v5.md
   historical_freeze: design_freeze_v3
   amendment_scope:
     - derive_data_versions_from_design_across_the_execution_chain
@@ -17,7 +19,11 @@ freeze_context:
     - validate_release_evidence_content_instead_of_path_presence
     - freeze_proposed_versus_donor_claim_rule_before_stage3_aggregation
     - freeze_statistical_recoverability_frontier_criterion
-  performance_seen_before_amendment: false
+    - demote_csdi_to_reduced_probabilistic_diagnostic
+    - add_deep_training_stability_validity_rule
+    - freeze_train_only_recoverability_budget_prediction
+  validation_performance_seen_before_amendment: true
+  dense_development_aggregate_seen_before_amendment: false
   no_further_epoch_cap_increase: true
 
 study:
@@ -28,10 +34,11 @@ study:
   novelty_position: recoverability_framework_not_novel_spatiotemporal_architecture
 
 primary_claims:
-  - recoverability_frontier
-  - scale_dependent_information_compensation
+  - analytic_recoverability_budget
+  - donor_dominated_vs_memory_dominated_station_typology
+  - tight_information_ceiling
   - internal_network_resilience
-  - uncertainty_calibration
+  - external_prediction_test
 
 claim_boundaries:
   external_generalisation: prohibited_until_confirmatory_data_passes
@@ -273,6 +280,12 @@ training:
     label: budget_unstable
     no_further_epoch_cap_increase: true
     roster_rule: retained_model_must_not_hit_epoch_limit_on_any_required_seed
+  validity_rule:
+    minimum_best_epoch: 50
+    label_below_minimum: training_unstable
+    roster_rule: exclude_model_if_any_required_seed_is_training_unstable
+    evidence_timing: amended_after_validation_stability_before_dense_aggregate
+    interpretation: excluded_runs_cannot_support_a_deep_model_utility_claim
   fixed_model_protocols:
     common:
       optimizer: Adam
@@ -349,9 +362,20 @@ model_funnel:
       reject_if_hit_epoch_limit: true
       retain_if_within_mean_skill_of_best: 0.05
       mandatory_diagnostic_candidates: [csdi, proposed]
+      note: csdi_stage3_evidence_is_historical_validation_diagnostic_only_under_v5
   stage_3_deep_stability:
     seeds: [11, 22, 33]
     rule: only_stage_2_finalists
+  csdi_scope:
+    role: probabilistic_diagnostic_only
+    formal_frontier_model: false
+    seed: 11
+    gap_lengths_days: [7, 30, 90, 180]
+    validation_mean_skill: -0.156984
+    validation_rank: 11
+    validation_model_count: 13
+    reason: below_climatology_and_cannot_define_the_main_frontier
+    dense_evidence_at_amendment: {completed_scenarios: 1, planned_scenarios: 900, aggregate_exists: false}
   proposed_versus_donor:
     evidence_role: model_selection_only
     formal_evidence: false

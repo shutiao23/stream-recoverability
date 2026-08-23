@@ -18,3 +18,7 @@ paper and it does not waive the submission gate.
 | P0-10 | Infrastructure only | Makefile, Dockerfile, snapshot, and gate exist. No DOI is invented. |
 | P0-11 | Consistency rewrite | RESULTS_PENDING remains. 6,000-scenario and local-vs-official contradictions are repaired. |
 | P0-12 | Fail-closed | `scripts/27_submission_gate.py` is `no_go` until formal evidence exists. |
+| P0.1-v5 | Complete | The old dense process was stopped with 1/900 scenarios present. CSDI is diagnostic-only at seed 11 and gaps 7/30/90/180. |
+| P0.2-v5 | Complete | Validation objective/scaler/loss histories were diagnosed. `best_epoch < 50` is now `training_unstable` and excludes a model from the roster. |
+| P0.3-v5 | Complete | `recoverability_prediction_v1.json` is frozen from 2006--2015 before a dense aggregate. |
+| P1-v5 | Complete | Claim matrix converted to an effect ledger; `paper/boundary_ledger.md` records counterevidence and claim changes. |

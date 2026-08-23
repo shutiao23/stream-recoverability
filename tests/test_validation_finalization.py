@@ -1174,8 +1174,19 @@ def test_stage3_stability_table_is_one_row_per_model_seed(tmp_path: Path) -> Non
     assert set(table["seed"]) == set(VALIDATION_DEEP_SEEDS)
     assert set(table["event_rows"]) == {105}
     assert table.loc[table["seed"].eq(33), "budget_status"].iloc[0] == "budget_unstable"
-    assert table.loc[table["seed"].eq(11), "budget_status"].iloc[0] == "budget_stable"
+    assert table.loc[table["seed"].eq(11), "budget_status"].iloc[0] == "stable"
     assert table["formal_evidence"].eq(False).all()
+
+
+def test_stage3_training_instability_uses_required_seed_floor() -> None:
+    checkpoints = {
+        ("proposed", 11): {"best_epoch": 214, "hit_epoch_limit": False},
+        ("proposed", 22): {"best_epoch": 33, "hit_epoch_limit": False},
+        ("proposed", 33): {"best_epoch": 173, "hit_epoch_limit": False},
+    }
+    assert finalization.stage3_training_unstable_models(
+        checkpoints, ("proposed",), minimum_best_epoch=50
+    ) == ("proposed",)
 
 
 def test_expected_scenario_ids_include_validation_split_token() -> None:

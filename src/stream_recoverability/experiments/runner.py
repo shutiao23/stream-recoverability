@@ -690,6 +690,7 @@ class ExperimentRunner:
         wide_path: str | Path = "data/processed/daily_wide.parquet",
         quality_path: str | Path | None = "data/processed/daily_long.parquet",
         output_dir: str | Path = "results/experiments",
+        checkpoint_dir: str | Path | None = None,
         mask_dir: str | Path = "masks/full",
         config_path: str | Path = "configs/experiments.yaml",
         design_path: str | Path = DEFAULT_DESIGN_PATH,
@@ -833,6 +834,11 @@ class ExperimentRunner:
             evaluation_split=self.evaluation_split,
         )
         self.output_dir = Path(output_dir)
+        self.checkpoint_dir = (
+            Path(checkpoint_dir)
+            if checkpoint_dir is not None
+            else self.output_dir / "checkpoints"
+        )
         self.mask_dir = Path(mask_dir)
         requested_models = tuple(
             runner_config.get("default_models", ())
@@ -1822,7 +1828,7 @@ class ExperimentRunner:
         if key in self._deep_cache:
             return self._deep_cache[key]
         checkpoint = (
-            self.output_dir / "checkpoints" / f"{name}-S{seed}-W{window}-{protocol}.pt"
+            self.checkpoint_dir / f"{name}-S{seed}-W{window}-{protocol}.pt"
         )
         model_class, expected_model_config, expected_training_config = (
             self._deep_contract(name, seed, window, protocol)
@@ -2082,9 +2088,7 @@ class ExperimentRunner:
         self, model_name: str, seed: int, window: int, protocol: str
     ) -> Path:
         return (
-            self.output_dir
-            / "checkpoints"
-            / f"{model_name}-S{seed}-W{window}-{protocol}.pt"
+            self.checkpoint_dir / f"{model_name}-S{seed}-W{window}-{protocol}.pt"
         )
 
     @staticmethod
@@ -2503,9 +2507,7 @@ class ExperimentRunner:
         if key in self._proposed_cache:
             return self._proposed_cache[key]
         checkpoint = (
-            self.output_dir
-            / "checkpoints"
-            / f"proposed-S{seed}-W{window}-{protocol}.pt"
+            self.checkpoint_dir / f"proposed-S{seed}-W{window}-{protocol}.pt"
         )
         expected_model_config, expected_training_config, expected_context = (
             self._proposed_contract(seed, window, protocol)
@@ -3394,8 +3396,7 @@ class ExperimentRunner:
             return None
         condition = scenario.condition
         return (
-            self.output_dir
-            / "checkpoints"
+            self.checkpoint_dir
             / (
                 f"{model_name}-S{training_seed}-W{condition.window_length}-"
                 f"{condition.training_protocol}.pt"

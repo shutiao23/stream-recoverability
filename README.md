@@ -28,12 +28,20 @@ artifacts.
   "development_test_visibility": "seen_before_design_freeze",
   "validation_funnel": "complete_selection_only",
   "finalized_model_roster": "finalized",
+  "analytic_recoverability_prediction": "frozen_train_only_before_dense_aggregate",
   "development_test_formal_evidence": "pending_current_protocol",
   "confirmatory_data": "not_opened",
   "confirmatory_evaluation": "not_run",
   "current_protocol_result_claims": "none"
 }
 ```
+
+The v5 scope amendment is recorded in
+`docs/protocol_change_v4_to_v5.md`. CSDI is a reduced probabilistic diagnostic,
+not a formal frontier model. Deep candidates with any required
+`best_epoch < 50` are labelled `training_unstable` and excluded. The primary
+question is whether the frozen covariance budget predicts measured
+recoverability, not which imputation model wins.
 <!-- evidence-status:end -->
 
 In particular:

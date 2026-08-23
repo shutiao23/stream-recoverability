@@ -2,6 +2,6 @@
 
 Each point is at most 140 characters. None asserts a formal frontier day or that the proposed model is best.
 
-- Structured gap length and surviving information jointly set statistical recoverability of daily stream temperature.
-- Neighbour-station observations can dominate recovery on a connected reach; their physical meaning needs lag and permutation tests.
-- Formal frontiers, network-failure costs, and external replication remain unreported until those experiments are complete.
+- A train-only covariance budget predicts stream-temperature recoverability before any imputation model is trained.
+- B1 and S2 are donor-dominated; P3 is memory-dominated, predicting different gap-length responses.
+- Stable learners test the information ceiling; unstable deep runs and CSDI diagnostics cannot define it.

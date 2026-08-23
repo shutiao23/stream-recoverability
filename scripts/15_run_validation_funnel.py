@@ -827,10 +827,14 @@ def _summarize_stage3(args: argparse.Namespace) -> dict[str, Any]:
         expected_stage_name="deep_stability",
     )
     output_dir = args.output_dir or run_root
+    design = _load_design(args.design)
     stability = summarize_stage3_stability(
         events,
         checkpoints,
         expected_data_version=str(contract["data_version"]),
+        minimum_best_epoch=int(
+            design["training"]["validity_rule"]["minimum_best_epoch"]
+        ),
     )
     stability_path = output_dir / "stage3_stability.csv"
     _atomic_csv(stability, stability_path)

@@ -76,6 +76,14 @@ FINALIZED_MODEL_ROSTER_FIELDS = frozenset(
         "artifacts",
     }
 )
+FINALIZED_MODEL_ROSTER_OPTIONAL_FIELDS = frozenset(
+    {
+        "diagnostic_models",
+        "diagnostic_protocols",
+        "training_unstable_models",
+        "minimum_best_epoch",
+    }
+)
 
 USGS_OGC_BASE = "https://api.waterdata.usgs.gov/ogcapi/v0/collections"
 NASA_POWER_DAILY_POINT_URL = "https://power.larc.nasa.gov/api/temporal/daily/point"
@@ -1090,7 +1098,12 @@ def load_finalized_model_roster(
         if field != "code_provenance"
     }
     frozen_fields = FINALIZED_MODEL_ROSTER_FIELDS | set(canonical_contract)
-    allowed_fields = frozen_fields | {"code_provenance"} | LEGACY_IDENTITY_FIELDS
+    allowed_fields = (
+        frozen_fields
+        | FINALIZED_MODEL_ROSTER_OPTIONAL_FIELDS
+        | {"code_provenance"}
+        | LEGACY_IDENTITY_FIELDS
+    )
     missing_fields = sorted(frozen_fields.difference(document))
     unexpected_fields = sorted(set(document).difference(allowed_fields))
     if missing_fields or unexpected_fields:

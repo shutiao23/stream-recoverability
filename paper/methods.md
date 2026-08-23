@@ -32,7 +32,7 @@ The principal sequence length was 368 days, with 184- and 736-day window sensiti
 
 Model selection is confined to a frozen validation funnel with seven strata at each of the three internal stations: a 30% $T$ point mask; 10-, 30-, 90-, and 180-day $T$ blocks; a synchronized 90-day $T+F+L$ block; and a 90-day hydrological station outage. Each condition is evaluated at five immutable station-specific anchors. Historical `published_v1` selection uses `metadata/validation_anchors.csv`. The executable `published_v2` selection uses `metadata/validation_anchors_v2.csv`. This gives 21 conditions and 105 validation mask units. These artifacts are labelled `model_selection_only`, set `formal_evidence = false`, and cannot enter development or confirmatory performance tables. A required Stage 3 seed that hits the 400-epoch cap is `budget_unstable` and cannot enter the roster.
 
-The first stage evaluates nine traditional candidates. The second stage evaluates official PyPOTS BRITS, SAITS, and CSDI and the proposed model at seed 11, then applies frozen finite-prediction, finite-validation-score, checkpoint, and convergence diagnostics. Candidates retained within the frozen skill tolerance enter a three-seed stability stage with seeds 11, 22, and 33. If the proposed model enters that stage, it must pass all predeclared skill-gain, seed-direction, interval-calibration, station-robustness, and same-checkpoint branch-ablation criteria. If it does not enter the stability stage, the pipeline issues a hash-bound early `framework_only` decision and a separate branch-ablation not-applicable artifact rather than synthesising performance. The immutable `finalized_model_roster_v1` is issued only after the ranking, selection, stability, proposed-model decision, validation-anchor identity, data manifest, and relevant source identity all validate. Formal $T$ suites must use that exact roster; $F/L$ suites may add only the fixed `rating_curve` and `independent_flow` structural baselines.
+The first stage evaluates nine traditional candidates. The second stage evaluates official PyPOTS BRITS, SAITS, and CSDI and the proposed model at seed 11, then applies finite-prediction, finite-validation-score, checkpoint, and convergence diagnostics. Candidates retained within the frozen skill tolerance enter a three-seed stability stage with seeds 11, 22, and 33. A model is excluded when any required seed hits the epoch cap (`budget_unstable`) or selects its best checkpoint before epoch 50 (`training_unstable`). The latter is a v5 validity amendment made after validation stability evidence and before a dense aggregate. CSDI is restricted to a seed-11 probabilistic diagnostic at 7, 30, 90, and 180 days and is never a formal frontier model. Affected runs cannot support a general claim about deep-model utility.
 
 ## Artificial missingness and experiment suites
 
@@ -106,6 +106,28 @@ The `compensation` entry point in `scripts/12_run_science_experiments.py` writes
 The separately labelled retrained upper-bound estimand fits one checkpoint per declared coalition and seed using train-only fitting and validation-only early stopping, then evaluates the frozen development masks. Its nine coalitions are S0, S0+A, S0+B, S0+C, S0+D, S0+A+B, S0+A+C, S0+A+D, and S0+A+B+C+D. Because these are only nine of the sixteen possible coalitions and each changes the fitted model, the analysis reports predeclared contrasts and never computes an exact Shapley allocation from them. Operational dropout and retrained upper bounds are stored, aggregated, and analysed separately. Both are formally not applicable when the validation decision is `framework_only`.
 
 The fixed descriptive information metrics use only finite, quality-eligible training observations. By default, each series is converted to an exact month-day training anomaly on a stable leap-year calendar before continuous mutual information is estimated with a five-neighbour k-nearest-neighbour estimator [@shannon1948communication; @kraskov2004mutualinformation]. Directional transfer entropy independently discretises source and target into four empirical-quantile bins and evaluates lags 1, 2, 3, and 7 in both directions. Its null distribution uses 199 circular shifts of the source-bin sequence, preserving source serial dependence while breaking alignment with the target; the permutation $p$-value uses a plus-one correction [@schreiber2000transferentropy]. Reciprocal display rows representing the same directed source--response--lag relation share one hypothesis identifier, estimate, null calculation, and random seed. Benjamini--Hochberg adjustment is applied once to the 288 unique finite transfer-entropy hypotheses, then mapped back to all 312 display rows, including 24 duplicate displays. These measures describe association and directional predictive information, remain sensitive to serial dependence, discretisation, common drivers, missingness, and sample size, and do not establish causality [@jeung2026informationquality].
+
+## Analytic recoverability budget
+
+The prediction uses only the fitting period. For each station, exact
+calendar-day training medians are subtracted from target and donor temperature.
+An ordinary least-squares regression of target anomalies on simultaneous donor
+anomalies gives $R^2_{\mathrm{donor}}$. Target-anomaly autocorrelation supplies
+local memory at $d/4$, the mean distance from an interior point of a two-sided
+block of length $d$ to its nearest observed boundary. One day is the minimum
+identifiable lag; fractional lags above one day are linearly interpolated.
+
+The available budget and implied MAE skill approximation are
+
+$$R^2_{\mathrm{avail}}=R^2_{\mathrm{donor}}+
+(1-R^2_{\mathrm{donor}})\rho^2(d/4),$$
+
+$$\widehat{\mathrm{skill}}=1-\sqrt{1-R^2_{\mathrm{avail}}}.$$
+
+The 30-day decomposition classifies a station as donor-dominated when its donor
+component is at least its memory component, and memory-dominated otherwise.
+`recoverability_prediction_v1` was written before a dense development aggregate
+existed. It contains no validation, development-test, or confirmatory outcome.
 
 ## Recoverability frontiers and monitoring-network resilience
 

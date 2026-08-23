@@ -205,6 +205,7 @@ def build_dense_science_grid(
     evaluation_split: str = "development_test",
     frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
     variables: Sequence[str] | None = None,
+    gap_lengths: Sequence[int] | None = None,
 ) -> ExperimentGrid:
     """Build the dense single-gap grid.
 
@@ -234,6 +235,12 @@ def build_dense_science_grid(
     if not selected:
         raise ValueError("dense experiments require at least one variable")
     lengths_by_variable = {"T": t_lengths, "F": fl_lengths, "L": fl_lengths}
+    if gap_lengths is not None:
+        requested_gaps = {int(value) for value in gap_lengths}
+        lengths_by_variable = {
+            variable: tuple(value for value in lengths if value in requested_gaps)
+            for variable, lengths in lengths_by_variable.items()
+        }
     conditions = [
         ExperimentCondition(
             experiment="SCI_DENSE",
@@ -377,6 +384,7 @@ def run_dense_experiments(
     wide_path: str | Path = "data/processed/daily_wide.parquet",
     quality_path: str | Path | None = "data/processed/daily_long.parquet",
     output_dir: str | Path = "results/science_experiments/dense",
+    checkpoint_dir: str | Path | None = None,
     mask_dir: str | Path = "masks/science_dense",
     models: Sequence[str] = ("climatology", "linear"),
     training_seeds: Sequence[int] | None = None,
@@ -386,6 +394,7 @@ def run_dense_experiments(
     evaluation_split: str = "development_test",
     frontier_anchor_path: str | Path | None = DEFAULT_FRONTIER_ANCHOR_PATH,
     variables: Sequence[str] | None = None,
+    gap_lengths: Sequence[int] | None = None,
     shard_index: int = 0,
     shard_count: int = 1,
     max_scenarios: int | None = None,
@@ -400,12 +409,14 @@ def run_dense_experiments(
         evaluation_split=evaluation_split,
         frontier_anchor_path=frontier_anchor_path,
         variables=variables,
+        gap_lengths=gap_lengths,
     )
     runner = ExperimentRunner(
         grid,
         wide_path=wide_path,
         quality_path=quality_path,
         output_dir=output_dir,
+        checkpoint_dir=checkpoint_dir,
         mask_dir=mask_dir,
         config_path=config_path,
         design_path=design_path,
