@@ -1748,7 +1748,8 @@ def analyze_frontiers(
         collapsed_match = collapsed.copy()
         for column, value in metadata.items():
             summary_match = summary_match.loc[summary_match[column].eq(value)]
-            sample_match = sample_match.loc[sample_match[column].eq(value)]
+            if not sample_match.empty:
+                sample_match = sample_match.loc[sample_match[column].eq(value)]
             collapsed_match = collapsed_match.loc[collapsed_match[column].eq(value)]
         weights = pd.to_numeric(group["n_complete_anchor_curves"], errors="coerce")
         for curve_type, value_col in (
