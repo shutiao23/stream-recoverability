@@ -1058,6 +1058,7 @@ def anchor_year_frontier_bootstrap(
             strata.append(clusters)
         n_clusters = int(sum(len(stratum) for stratum in strata))
         n_resampleable_strata = int(sum(len(stratum) >= 2 for stratum in strata))
+        all_clusters = [cluster for stratum in strata for cluster in stratum]
         point_raw = panel_values.mean(axis=0)
         point_monotone, _ = weighted_pava(point_raw, non_increasing=True)
         point_raw_frontier = _first_loss_frontier(gaps, point_raw, threshold)
@@ -1069,16 +1070,21 @@ def anchor_year_frontier_bootstrap(
             bootstrap_reason = (
                 "at least two complete anchor curves are required for bootstrap"
             )
-        elif n_resampleable_strata == 0:
+        elif n_resampleable_strata == 0 and n_clusters < 2:
             bootstrap_reason = (
-                "no station/year stratum contains two anchor clusters to resample"
+                "fewer than two station-year overlap clusters are available"
             )
         else:
             sample_matrix = np.empty((n_boot, len(gaps)), dtype=float)
             for bootstrap_id in range(n_boot):
                 sampled_positions: list[int] = []
                 sampled_cluster_ids: list[tuple[Any, ...]] = []
-                for stratum in strata:
+                selected_strata = (
+                    strata
+                    if n_resampleable_strata > 0
+                    else [all_clusters]
+                )
+                for stratum in selected_strata:
                     chosen = rng.integers(0, len(stratum), size=len(stratum))
                     for position in chosen:
                         cluster_label, panel_rows = stratum[int(position)]
@@ -1161,6 +1167,8 @@ def anchor_year_frontier_bootstrap(
                 "monotone_frontier_censoring": point_monotone_frontier["censoring"],
                 "bootstrap_unit": (
                     "connected_overlap_cluster_within_station_year_strata"
+                    if overlap_cluster_col is not None and n_resampleable_strata > 0
+                    else "station_year_overlap_cluster"
                     if overlap_cluster_col is not None
                     else "anchor_within_station_year_strata"
                 ),

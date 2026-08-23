@@ -43,3 +43,12 @@ generator now excludes the final evaluation row before selecting maximum-length
 anchors. Catalogs were regenerated deterministically and all affected cached
 scenarios are invalidated by their changed anchor metadata. This is an
 off-by-one validity repair made with no dense aggregate available.
+
+## Bootstrap degeneracy rule
+
+Maximum-length nested masks can connect every anchor within a station-year into
+one overlap cluster. When this leaves no year stratum with two clusters, the
+bootstrap resamples the available station-year overlap clusters as whole blocks.
+It never resamples individual days or overlapping anchors. The output records
+`bootstrap_unit=station_year_overlap_cluster`; fewer than two such blocks still
+withholds the interval.
