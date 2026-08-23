@@ -1308,7 +1308,10 @@ def test_framework_only_allows_only_structural_na_and_not_missing_core_domains()
         selected_models=["linear"],
     )
     assert framework["status"] == "complete"
-    assert framework["claim_downgrades"] == ["uncertainty_calibration_not_claimed"]
+    assert framework["claim_downgrades"] == [
+        "uncertainty_calibration_not_claimed",
+        "meteorology_alignment_not_evaluated",
+    ]
     statuses = {item["domain"]: item["status"] for item in framework["domains"]}
     assert statuses["operational_information"] == "not_applicable"
     assert statuses["retrained_information"] == "not_applicable"

@@ -3527,12 +3527,12 @@ def _analysis_completion_gate(
         else set()
     )
     expected_families = set(statistics.hypothesis_families)
+    expected_families.discard("meteorology_alignment_sensitivity")
     if framework_only:
         expected_families.difference_update(
             {
                 "operational_information_dropout",
                 "retrained_information_upper_bound",
-                "donor_c_falsification",
             }
         )
     finite_hypotheses = False
@@ -3665,11 +3665,14 @@ def _analysis_completion_gate(
         "unavailable_domains": [
             item["domain"] for item in domains if item["status"] == "unavailable"
         ],
-        "claim_downgrades": (
-            []
-            if probabilistic_model_selected
-            else ["uncertainty_calibration_not_claimed"]
-        ),
+        "claim_downgrades": [
+            *(
+                []
+                if probabilistic_model_selected
+                else ["uncertainty_calibration_not_claimed"]
+            ),
+            "meteorology_alignment_not_evaluated",
+        ],
     }
 
 
