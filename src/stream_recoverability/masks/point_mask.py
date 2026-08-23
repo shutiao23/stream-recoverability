@@ -75,6 +75,8 @@ def _seeded_candidate_ranking(
     season_balanced: bool,
 ) -> np.ndarray:
     rng = np.random.default_rng(seed)
+    if candidates.size == 0:
+        return np.empty(0, dtype=int)
     if not season_balanced:
         return rng.permutation(candidates)
     if dates is None:

@@ -3669,6 +3669,68 @@ class ExperimentRunner:
         self._clear_model_cache(scenario, model_name, training_seed)
         return candidate
 
+    def _write_structural_scenario_skip(
+        self, scenario: ExperimentScenario, reason: str
+    ) -> str:
+        scenario_dir = self.output_dir / "scenarios" / scenario.scenario_id
+        status_path = scenario_dir / "status.json"
+        run_keys = (
+            [("pooled_loso", None)]
+            if scenario.condition.mask_type == "loso"
+            else self._run_keys()
+        )
+        completed = []
+        skipped = []
+        contracts = {}
+        for model_name, training_seed in run_keys:
+            run_key = (
+                f"{model_name}:none"
+                if training_seed is None
+                else f"{model_name}:{training_seed}"
+            )
+            completed.append(run_key)
+            skipped.append(
+                {
+                    "run_key": run_key,
+                    "model": model_name,
+                    "training_seed": training_seed,
+                    "station_id": str(scenario.condition.station_ids[0]),
+                    "target": "_".join(scenario.condition.variables),
+                    "reason_code": "required_input_unavailable",
+                    "reason": reason,
+                    "retryable": False,
+                }
+            )
+            contracts[run_key] = self._run_execution_contract(
+                scenario, model_name, training_seed
+            )
+        _atomic_json(
+            {
+                "scenario_id": scenario.scenario_id,
+                "status": "complete",
+                "completed_runs": sorted(completed),
+                "terminal_run_keys": sorted(completed),
+                "run_contracts": contracts,
+                "skipped_runs": skipped,
+                "skipped_run_count": len(skipped),
+                "retryable_run_keys": [],
+                "fit_split": "train",
+                "tuning_split": "validation",
+                "evaluation_split": scenario.condition.evaluation_split,
+                "data_version": self.data.data_version,
+                "evidence_role": self._evidence_role(
+                    scenario.condition.evaluation_split
+                ),
+                "formal_evidence": self.formal_evidence,
+                "validation_scope": scenario.condition.validation_scope,
+                "is_external_validation": False,
+                **self.evidence_contract,
+                "code_provenance": dict(self.code_provenance),
+            },
+            status_path,
+        )
+        return "complete"
+
     def _run_scenario(self, scenario: ExperimentScenario) -> str:
         scenario_dir = self.output_dir / "scenarios" / scenario.scenario_id
         status_path = scenario_dir / "status.json"
@@ -3682,63 +3744,30 @@ class ExperimentRunner:
             & ~self.anchor_availability["available"].astype(bool)
         ] if not self.anchor_availability.empty else pd.DataFrame()
         if not unavailable.empty:
-            run_keys = (
-                [("pooled_loso", None)]
-                if scenario.condition.mask_type == "loso"
-                else self._run_keys()
-            )
-            completed = []
-            skipped = []
-            contracts = {}
             reason = str(unavailable.iloc[0]["reason"])
-            for model_name, training_seed in run_keys:
-                run_key = (
-                    f"{model_name}:none"
-                    if training_seed is None
-                    else f"{model_name}:{training_seed}"
-                )
-                completed.append(run_key)
-                skipped.append(
-                    {
-                        "run_key": run_key,
-                        "model": model_name,
-                        "training_seed": training_seed,
-                        "station_id": str(scenario.condition.station_ids[0]),
-                        "target": "_".join(scenario.condition.variables),
-                        "reason_code": "required_input_unavailable",
-                        "reason": f"fixed anchor unavailable: {reason}",
-                        "retryable": False,
-                    }
-                )
-                contracts[run_key] = self._run_execution_contract(
-                    scenario, model_name, training_seed
-                )
-            _atomic_json(
-                {
-                    "scenario_id": scenario.scenario_id,
-                    "status": "complete",
-                    "completed_runs": sorted(completed),
-                    "terminal_run_keys": sorted(completed),
-                    "run_contracts": contracts,
-                    "skipped_runs": skipped,
-                    "skipped_run_count": len(skipped),
-                    "retryable_run_keys": [],
-                    "fit_split": "train",
-                    "tuning_split": "validation",
-                    "evaluation_split": scenario.condition.evaluation_split,
-                    "data_version": self.data.data_version,
-                    "evidence_role": self._evidence_role(
-                        scenario.condition.evaluation_split
-                    ),
-                    "formal_evidence": self.formal_evidence,
-                    "validation_scope": scenario.condition.validation_scope,
-                    "is_external_validation": False,
-                    **self.evidence_contract,
-                    "code_provenance": dict(self.code_provenance),
-                },
-                status_path,
+            return self._write_structural_scenario_skip(
+                scenario, f"fixed anchor unavailable: {reason}"
             )
-            return "complete"
+        if scenario.condition.mask_type != "loso":
+            station_indices, variable_indices = self._indices(scenario)
+            evaluation_rows = self._evaluation_rows(scenario)
+            available = (
+                self.data.natural_observed
+                & self.data.quality_approved
+                & np.isfinite(self.data.values)
+                & evaluation_rows[:, None, None]
+            )
+            missing_channels = [
+                f"{self.data.station_ids[station]}_{self.data.variable_names[variable]}"
+                for station in station_indices
+                for variable in variable_indices
+                if not available[:, station, variable].any()
+            ]
+            if missing_channels:
+                return self._write_structural_scenario_skip(
+                    scenario,
+                    "scenario channels unavailable: " + ", ".join(missing_channels),
+                )
         status = (
             json.loads(status_path.read_text(encoding="utf-8"))
             if self.resume and status_path.exists()

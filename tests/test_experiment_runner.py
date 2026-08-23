@@ -1452,6 +1452,31 @@ def test_unavailable_fixed_anchor_is_a_terminal_structural_skip(
     assert status["skipped_runs"][0]["reason_code"] == "required_input_unavailable"
 
 
+def test_wholly_unavailable_scenario_channel_is_a_terminal_skip(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    runner = _runner(tmp_path, models=("linear",))
+    scenario = runner.grid.scenarios[0]
+    station, variable = runner._indices(scenario)
+    runner.data.natural_observed[:, station[0], variable[0]] = False
+    monkeypatch.setattr(
+        runner,
+        "_generate_mask",
+        lambda value: pytest.fail(f"mask generation should not run for {value}"),
+    )
+    assert runner._run_scenario(scenario) == "complete"
+    status = json.loads(
+        (
+            runner.output_dir
+            / "scenarios"
+            / scenario.scenario_id
+            / "status.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert status["terminal_run_keys"] == ["linear:none"]
+    assert "scenario channels unavailable" in status["skipped_runs"][0]["reason"]
+
+
 def test_unidentifiable_rating_curve_is_structurally_skipped(tmp_path: Path) -> None:
     runner = _runner(tmp_path, models=("rating_curve",))
     scenario = next(
