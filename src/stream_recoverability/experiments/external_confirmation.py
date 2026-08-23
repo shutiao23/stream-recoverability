@@ -380,7 +380,9 @@ def _validate_access_gate(
         raise ValueError("confirmatory data design_version mismatch")
     if manifest.get("design_sha256") != protocol.design_sha256:
         raise ValueError("confirmatory data design SHA-256 mismatch")
-    if manifest.get("protocol") != protocol.metadata():
+    expected_protocol = json.loads(json.dumps(protocol.metadata()))
+    observed_protocol = json.loads(json.dumps(manifest.get("protocol")))
+    if observed_protocol != expected_protocol:
         raise ValueError("confirmatory data protocol does not match the design freeze")
     if manifest.get("confirmatory_evaluation_executed") is not False:
         raise ValueError("confirmatory data manifest indicates prior evaluation")
