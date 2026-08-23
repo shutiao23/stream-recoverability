@@ -3801,6 +3801,64 @@ def _analyze_donor_falsification(
     return effects, decision_frame
 
 
+def _best_simple_hypotheses(scored_events: pd.DataFrame) -> pd.DataFrame:
+    """Test dense model skill against the validation-selected simple family."""
+
+    required = {
+        "experiment",
+        "station_id",
+        "target",
+        "model",
+        "anchor_id",
+        "best_simple_baseline",
+        "skill_vs_best_simple",
+    }
+    if not required.issubset(scored_events):
+        return pd.DataFrame()
+    data = scored_events.loc[
+        scored_events["experiment"].astype(str).eq("SCI_DENSE")
+        & scored_events["target"].astype(str).eq("T")
+        & scored_events["anchor_id"].notna()
+    ].copy()
+    data["skill_vs_best_simple"] = pd.to_numeric(
+        data["skill_vs_best_simple"], errors="coerce"
+    )
+    data = data.loc[
+        np.isfinite(data["skill_vs_best_simple"])
+        & data["model"].astype(str).ne(data["best_simple_baseline"].astype(str))
+    ]
+    if data.empty:
+        return pd.DataFrame()
+    data["year"] = _partially_available_year(data)
+    anchor_skill = (
+        data.groupby(
+            ["station_id", "target", "model", "anchor_id", "year"],
+            dropna=False,
+            observed=True,
+        )["skill_vs_best_simple"]
+        .mean()
+        .reset_index()
+    )
+    rows = []
+    for (station, target, model), group in anchor_skill.groupby(
+        ["station_id", "target", "model"], observed=True, sort=True
+    ):
+        values = group["skill_vs_best_simple"]
+        rows.append(
+            {
+                "station_id": station,
+                "target": target,
+                "model": model,
+                "estimate": float(values.mean()),
+                "n_pairs": int(len(values)),
+                "p_value": _wilcoxon_p(values),
+                "hypothesis_estimand": "mean_skill_vs_best_simple_across_gaps_per_anchor",
+                "hypothesis_family": "frontier_model_vs_best_simple_baseline",
+            }
+        )
+    return benjamini_hochberg_by_family(pd.DataFrame(rows))
+
+
 def run_frozen_analysis(
     inputs: FrozenInputs,
     output_dir: str | Path,
@@ -3894,6 +3952,9 @@ def run_frozen_analysis(
     falsification_effects, falsification_decision = _analyze_donor_falsification(
         inputs.events, inputs.statistics
     )
+    best_simple_hypotheses = _best_simple_hypotheses(
+        dual_frontiers["scored_events"]
+    )
     information = analyze_information(inputs.events, inputs.statistics)
     resilience = analyze_resilience_outputs(inputs.events, inputs.statistics)
     event_pairs = analyze_event_pairs(inputs.events, inputs.statistics)
@@ -3909,6 +3970,7 @@ def run_frozen_analysis(
                 frame
                 for frame in (
                     frontiers.statistical,
+                    best_simple_hypotheses,
                     information["hypotheses"],
                     resilience["hypotheses"],
                     event_pairs["hypotheses"],
@@ -3923,6 +3985,7 @@ def run_frozen_analysis(
             not frame.empty and "p_value" in frame
             for frame in (
                 frontiers.statistical,
+                best_simple_hypotheses,
                 information["hypotheses"],
                 resilience["hypotheses"],
                 event_pairs["hypotheses"],
