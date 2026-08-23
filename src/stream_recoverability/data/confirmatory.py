@@ -148,7 +148,7 @@ HYDROLOGY_SPECS = (
         "usgs_ogc_daily",
         "00010",
         "00003",
-        "deg C",
+        "degC",
         "degC",
         1.0,
         "identity",
