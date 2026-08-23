@@ -143,7 +143,7 @@ SENSITIVITY_REQUIRED_SUITE_ROLES = (
     "sensitivity_operational_dropout",
 )
 PROPOSED_PRIMARY_ROLES = frozenset(
-    {"operational_dropout", "retrained_upper_bound", "donor_c_falsification"}
+    {"operational_dropout", "retrained_upper_bound"}
 )
 PROPOSED_SENSITIVITY_ROLES = frozenset({"sensitivity_operational_dropout"})
 FORMAL_REGISTRY_BUILDER_PATHS = (
@@ -548,11 +548,7 @@ def _validate_bundle_roles(manifest: Mapping[str, Any]) -> dict[str, Any]:
             if require_donor
             else LEGACY_PRIMARY_REQUIRED_SUITE_ROLES
         )
-        proposed_roles = (
-            PROPOSED_PRIMARY_ROLES
-            if require_donor
-            else PROPOSED_PRIMARY_ROLES.difference({"donor_c_falsification"})
-        )
+        proposed_roles = PROPOSED_PRIMARY_ROLES
     elif bundle_role == "sensitivity_compact":
         expected_kind = "sensitivity"
         required_roles = list(SENSITIVITY_REQUIRED_SUITE_ROLES)
@@ -3455,7 +3451,7 @@ def _analysis_completion_gate(
 
     framework_only = proposed_decision == "framework_only"
     donor_falsification_required = (
-        "donor_c_falsification" in statistics.hypothesis_families and not framework_only
+        "donor_c_falsification" in statistics.hypothesis_families
     )
     probabilistic_model_selected = bool(
         set(selected_models).intersection({"csdi", "proposed"})
@@ -3636,9 +3632,7 @@ def _analysis_completion_gate(
                 "donor_c_falsification_decision.csv",
             ),
             reason=(
-                "proposed_decision=framework_only"
-                if framework_only
-                else "not declared by the historical design"
+                "not declared by the historical design"
                 if "donor_c_falsification" not in statistics.hypothesis_families
                 else "formal donor-C contrasts are unavailable"
             ),
@@ -4077,8 +4071,7 @@ def run_frozen_analysis(
             and inputs.statistics.application_criteria is None
         )
         falsification_not_applicable = (
-            proposed_decision == "framework_only"
-            or "donor_c_falsification" not in inputs.statistics.hypothesis_families
+            "donor_c_falsification" not in inputs.statistics.hypothesis_families
         ) and name in falsification_artifacts
         explicit_not_applicable = (
             framework_not_applicable
