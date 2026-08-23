@@ -598,8 +598,29 @@ def _run_donor_regression_falsification(
         daily_path = unit / "daily_predictions.parquet"
         event_path = unit / "event_metrics.parquet"
         if daily_path.is_file() and event_path.is_file():
-            daily_parts.append(pd.read_parquet(daily_path))
-            event_parts.append(pd.read_parquet(event_path))
+            daily_frame = pd.read_parquet(daily_path)
+            event_frame = pd.read_parquet(event_path)
+            condition = scenario.condition
+            bindings = {
+                "anchor_id": condition.anchor_id,
+                "anchor_target": condition.anchor_target,
+                "anchor_mask_seed": condition.anchor_mask_seed,
+                "center_date": condition.center_date,
+                "center_index": condition.center_index,
+                "anchor_data_version": condition.anchor_data_version,
+                "anchor_evaluation_split": condition.anchor_evaluation_split,
+                "anchor_source_split": condition.anchor_source_split,
+                "anchor_max_supported_length": condition.anchor_max_supported_length,
+                "anchor_start_month": condition.anchor_start_month,
+                "anchor_season": condition.anchor_season,
+                "anchor_year": condition.anchor_year,
+                "anchor_hydrologic_state": condition.anchor_hydrologic_state,
+            }
+            for column, value in bindings.items():
+                daily_frame[column] = value
+                event_frame[column] = value
+            daily_parts.append(daily_frame)
+            event_parts.append(event_frame)
             completed_keys.append(f"{scenario.scenario_id}|donor_regression:none")
     daily = pd.concat(daily_parts, ignore_index=True) if daily_parts else pd.DataFrame()
     events = (
