@@ -3767,7 +3767,7 @@ def _analyze_donor_falsification(
             "mask_seed",
             "training_seed",
         )
-        if column in data
+        if column in data and not data[column].isna().all()
     ]
     paired = (
         data.groupby([*pair_columns, "contrast"], observed=True)["skill_gain"]
