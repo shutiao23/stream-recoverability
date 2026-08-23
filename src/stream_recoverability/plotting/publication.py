@@ -1184,6 +1184,15 @@ def generate_publication_outputs(
             inputs,
             f"analysis/{Path(name).stem}",
         )
+    analysis_aliases = {
+        "skill_curves.csv": "frontier_climatology_curves.csv",
+        "recoverability_frontiers.csv": "statistical_frontiers.csv",
+        "network_resilience_curve.csv": "resilience_curves.csv",
+        "network_resilience_auc.csv": "resilience_auc.csv",
+    }
+    for expected_name, current_name in analysis_aliases.items():
+        if analysis_tables.get(expected_name) is None:
+            analysis_tables[expected_name] = analysis_tables.get(current_name)
 
     online_metrics = _load_optional_table(online_root / "metrics.csv", inputs, "online/metrics")
     online_horizons = _load_optional_table(online_root / "horizon_metrics.csv", inputs, "online/horizon_metrics")
