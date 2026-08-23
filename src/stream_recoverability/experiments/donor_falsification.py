@@ -635,6 +635,7 @@ def _run_donor_regression_falsification(
         "status": "complete" if complete else "partial",
         "complete": complete,
         "formal_design_complete": complete,
+        "formal_training_seed_complete": True,
         "formal_mask_seed_complete": set(grid.mask_seeds) == set(range(101, 121)),
         "run_unit_complete": complete,
         "evidence_complete": complete,

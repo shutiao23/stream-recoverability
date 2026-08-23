@@ -331,6 +331,7 @@ def registry_path(data_version: str) -> Path:
 
 def primary_manifests() -> list[Path]:
     return [
+        suite_dir(PRIMARY_DATA_VERSION, "full") / "run_manifest.json",
         science_dir(PRIMARY_DATA_VERSION, "dense") / "run_manifest.json",
         science_dir(PRIMARY_DATA_VERSION, "donor-falsification") / "run_manifest.json",
         science_dir(PRIMARY_DATA_VERSION, "resilience") / "run_manifest.json",
@@ -906,6 +907,9 @@ def main() -> int:
     log(f"after_roster_start pid={os.getpid()}")
     status = load_status()
     update_readme_after_roster()
+    if not run_08(status, PRIMARY_DATA_VERSION, "full"):
+        log(f"primary full {PRIMARY_DATA_VERSION} incomplete")
+        return 1
     if not run_12(
         status, "dense", PRIMARY_DATA_VERSION, extra=["--variables", "T"]
     ):
