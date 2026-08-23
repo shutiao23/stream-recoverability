@@ -1462,7 +1462,7 @@ def guarded_model_skill(
             "failed_stations",
             "information_combination",
         )
-        if column in data
+        if column in data and not data[column].isna().all()
     ]
     baseline = data.loc[
         data["model"].astype(str).eq(baseline_model), [*unit_cols, "MAE"]
