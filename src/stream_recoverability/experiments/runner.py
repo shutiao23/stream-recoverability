@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import pickle
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
@@ -360,7 +361,7 @@ def _read_yaml(path: str | Path) -> dict[str, Any]:
 
 def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary = path.with_suffix(path.suffix + f".{os.getpid()}.tmp")
     temporary.write_text(
         json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
@@ -369,14 +370,14 @@ def _atomic_json(value: Mapping[str, Any], path: Path) -> None:
 
 def _atomic_parquet(frame: pd.DataFrame, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.stem + ".tmp.parquet")
+    temporary = path.with_name(path.stem + f".{os.getpid()}.tmp.parquet")
     frame.to_parquet(temporary, index=False)
     temporary.replace(path)
 
 
 def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     frame.to_csv(temporary, index=False)
     temporary.replace(path)
 
