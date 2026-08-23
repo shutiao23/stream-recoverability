@@ -161,6 +161,10 @@ def _eligible_centers(
             eligible &= (
                 aligned["natural_observed"].fillna(False).astype(bool).to_numpy()
             )
+        evaluation_positions = np.flatnonzero(
+            aligned["split"].astype(str).eq(evaluation_split).to_numpy()
+        )
+        eligible[evaluation_positions[-1]] = False
     starts = valid_block_starts(eligible, max_supported_length)
     return starts + (max_supported_length - 1) // 2
 
@@ -193,6 +197,10 @@ def _joint_eligible_centers(
                 aligned["natural_observed"].fillna(False).astype(bool).to_numpy()
             )
         eligible &= channel_eligible
+    evaluation_positions = np.flatnonzero(
+        aligned["split"].astype(str).eq(evaluation_split).to_numpy()
+    )
+    eligible[evaluation_positions[-1]] = False
     starts = valid_block_starts(eligible, max_supported_length)
     return starts + (max_supported_length - 1) // 2
 

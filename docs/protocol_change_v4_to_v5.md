@@ -32,3 +32,14 @@ evidence. It is not represented as an original preregistration, and affected
 models cannot support a "deep learning is ineffective" claim without a stable
 rerun. No model hyperparameter, mask, split, target, or development outcome was
 tuned by this amendment.
+
+## Anchor boundary repair
+
+The first post-amendment dense execution stopped before aggregation because
+some 365-day catalog anchors included the final evaluation row. The runner
+correctly reserves that row as the right boundary required by offline
+interpolators, but the catalog generator had not applied the same rule. The
+generator now excludes the final evaluation row before selecting maximum-length
+anchors. Catalogs were regenerated deterministically and all affected cached
+scenarios are invalidated by their changed anchor metadata. This is an
+off-by-one validity repair made with no dense aggregate available.

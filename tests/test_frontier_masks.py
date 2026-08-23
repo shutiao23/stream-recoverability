@@ -243,9 +243,14 @@ def test_frontier_catalog_is_deterministic_balanced_and_quality_eligible() -> No
         "high_flow",
         "unknown",
     }
+    dates = pd.DatetimeIndex(sorted(source["date"].unique()))
+    for anchor in catalog.itertuples(index=False):
+        _, stop = centered_bounds(
+            int(anchor.center_index), int(anchor.max_supported_length), len(dates)
+        )
+        assert stop <= len(dates) - 1
 
     first = catalog.iloc[0]
-    dates = pd.DatetimeIndex(sorted(source["date"].unique()))
     start, stop = centered_bounds(
         int(first["center_index"]), int(first["max_supported_length"]), len(dates)
     )
