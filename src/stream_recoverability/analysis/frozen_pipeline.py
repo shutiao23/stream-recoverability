@@ -3304,6 +3304,9 @@ def _jsonable_columns(frame: pd.DataFrame) -> pd.DataFrame:
                         sorted(value) if isinstance(value, set) else value,
                         ensure_ascii=False,
                         separators=(",", ":"),
+                        default=lambda item: (
+                            item.item() if isinstance(item, np.generic) else str(item)
+                        ),
                     )
                     if isinstance(value, (tuple, list, dict, set))
                     else value
