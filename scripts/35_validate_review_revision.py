@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
 from pathlib import Path
 
 import pandas as pd
@@ -115,6 +116,47 @@ def main() -> None:
     assert external_manifest["complete"] is True
     assert external_manifest["completed_run_unit_count"] == 540
     assert external_manifest["model_selection_on_confirmatory"] is False
+    external_root = (
+        ROOT
+        / "results/confirmatory/external_upper_middle_chattahoochee_v1"
+        / "external_confirmation"
+    )
+    inventory = external_manifest["artifact_inventory"]
+    assert external_manifest["artifact_count"] == len(inventory) == 306
+    for relative, identity in inventory.items():
+        artifact = external_root / relative
+        assert artifact.is_file(), artifact
+        assert artifact.stat().st_size == identity["bytes"], artifact
+        assert _sha256(artifact) == identity["sha256"], artifact
+    completion_path = external_root / "completion_manifest.json"
+    sidecar = (external_root / "completion_manifest.json.sha256").read_text().strip()
+    assert _sha256(completion_path) == sidecar
+    once_lock_path = (
+        ROOT
+        / "data_versions"
+        / ".external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json"
+    )
+    once_lock = json.loads(once_lock_path.read_text(encoding="utf-8"))
+    assert once_lock["status"] == "complete"
+    assert once_lock["completion_manifest_sha256"] == sidecar
+    tracked = set(
+        subprocess.run(
+            ["git", "ls-files"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+    )
+    required_tracked = {
+        str(path.relative_to(ROOT))
+        for path in external_root.rglob("*")
+        if path.is_file()
+    }
+    required_tracked.add(str(once_lock_path.relative_to(ROOT)))
+    assert required_tracked.issubset(tracked), sorted(
+        required_tracked.difference(tracked)
+    )
     external = pd.read_csv(
         ROOT / "results/revision/external_confirmation_summary.csv",
         dtype={"station_id": str},
@@ -155,6 +197,7 @@ def main() -> None:
                 "finite_frontier_tests": 24,
                 "node_importance_rows": len(importance),
                 "external_run_units": 540,
+                "tracked_external_artifacts": len(required_tracked),
                 "figures": figure_count,
                 "tables": table_count,
             },

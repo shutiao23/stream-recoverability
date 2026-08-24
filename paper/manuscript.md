@@ -118,7 +118,7 @@ The corrected node estimator changed both magnitude and interpretation (Figure 4
 
 ### 3.5 External confirmation transfers type, not absolute magnitude
 
-The frozen qualitative external ordering was observed (Figure 5). At site 02334430 below Buford Dam, Kalman was the best method at all three block lengths and skill declined from 0.536 at 30 days to 0.156 at 90 days and 0.141 at 180 days. This was the largest 30-to-180-day decline and the lowest 180-day skill in the panel. At the four donor-dominated sites, best 180-day skill was 0.726, 0.555, 0.746, and 0.729. XGBoost or random forest was best at those long gaps.
+The frozen qualitative type ordering was observed at 90 and 180 days (Figure 5). At 30 days, site 02334430 below Buford Dam ranked in the middle of the five-site best envelope across the two frozen information conditions; the type separation was not yet present. Its Kalman skill then declined from 0.536 at 30 days to 0.156 at 90 days and 0.141 at 180 days, consistent with the predicted memory-dominated decay. At 90 and 180 days it had the weakest recovery in the panel. The four donor-dominated sites retained best 180-day skill of 0.726, 0.575, 0.746, and 0.729. XGBoost or random forest was best at those long gaps.
 
 The analytic magnitudes did not transfer exactly. It overpredicted best skill at 02334430 by 0.108--0.359 and at several downstream cells, while underpredicting some high-skill downstream cells. The external result therefore confirms the regulation-linked donor/memory shape distinction and its monitoring implication, not universal frontier locations.
 
@@ -144,7 +144,7 @@ The absolute scale is important. A climatology-only fill already has roughly 0.6
 
 The Jinsha analysis has three stations on one river and no natural missing hydrological day. Controlled masks estimate recoverable information under specified outages, not the probability or geometry of field failures. The P3 change is temporally and physically consistent with Guanyinyan operation, but causal attribution remains observational. The external confirmation has five sites on one mainstem and one frozen anchor per cell; it is a clean temporal/network confirmation, not five independent basins or a population estimate.
 
-The external train-only curves and donor/memory labels were frozen before confirmatory performance was opened, but no numeric effect threshold was frozen. The result is therefore confirmatory for the qualitative type ordering, not for a minimum effect size. The Jinsha state-matched and annual-demeaned analyses are explicitly reviewer-triggered post-hoc diagnostics. Deep models were excluded by stability rules, so this paper makes no claim about their general performance.
+The external train-only curves and donor/memory labels were frozen before confirmatory performance was opened, but no numeric effect threshold was frozen. The result is therefore confirmatory for the qualitative type ordering at 90 and 180 days, not for a minimum effect size or all tested gaps. The Jinsha state-matched and annual-demeaned analyses are post-hoc diagnostics added after the frozen analysis and labelled as such. Deep models were excluded by stability rules, so this paper makes no claim about their general performance.
 
 ## 5. Conclusions
 
