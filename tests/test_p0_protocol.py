@@ -30,13 +30,13 @@ from stream_recoverability.experiments.contracts import (
     EXECUTABLE_DESIGN_VERSION,
     load_frozen_data_versions,
 )
-from stream_recoverability.experiments.selection import select_stage2_finalists
 from stream_recoverability.experiments.runner import _load_data
+from stream_recoverability.experiments.selection import select_stage2_finalists
 from stream_recoverability.governance import (
     audit_restricted_hosting,
+    public_export_exclude,
     submission_gate,
 )
-
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -293,4 +293,22 @@ def test_submission_gate_is_fail_closed_without_formal_evidence() -> None:
     assert (
         "public_hosting_defect" in hosting["status"]
         or hosting["restricted_tracked_path_count"] >= 0
+    )
+
+
+def test_public_export_excludes_validation_date_level_artifacts() -> None:
+    restricted = (
+        "masks/validation_funnel/published_v2/scenarios/example.npz",
+        "masks/validation_branch_ablation/published_v2/scenarios/example.json",
+        "results/validation_funnel/published_v1/example/event_metrics.parquet",
+        "results/validation_funnel/published_v2/deep_stability/event_metrics.parquet",
+        "results/validation_funnel/published_v2/validation_mask_units.csv",
+        "results/validation_funnel/published_v2/branch_ablation/branch_ablation_metrics.parquet",
+    )
+    assert all(public_export_exclude(path) for path in restricted)
+    assert not public_export_exclude(
+        "results/validation_funnel/published_v2/finalized_model_roster.json"
+    )
+    assert not public_export_exclude(
+        "results/validation_funnel/published_v2/best_simple_baseline_lookup.csv"
     )

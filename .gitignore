@@ -17,9 +17,12 @@ results/validation_funnel/**/scenarios/
 results/validation_funnel/**/shard_logs/
 results/validation_funnel/**/shards/
 results/validation_funnel/**/daily_predictions.parquet
+results/validation_funnel/**/event_metrics.parquet
 results/validation_funnel/**/anchor_availability.csv
 results/validation_funnel/**/run_manifest.json
 results/validation_funnel/**/validation_stage_manifest.json
+results/validation_funnel/**/validation_mask_units.csv
+results/validation_funnel/**/branch_ablation_metrics.parquet
 results/validation_funnel/**/*.log
 results/validation_funnel/**/*.pid
 results/validation_funnel/**/shard_pids.txt

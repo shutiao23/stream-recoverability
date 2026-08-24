@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import subprocess
 from collections.abc import Mapping, Sequence
+from fnmatch import fnmatchcase
 from pathlib import Path
 from typing import Any
 
@@ -31,9 +32,27 @@ RESTRICTED_PATH_PREFIXES = (
     "data_versions/b1_shift_sensitivity_",
     "masks/test/",
     "masks/validation/",
+    "masks/validation_funnel/",
+    "masks/validation_branch_ablation/",
+    "results/validation_funnel/published_v1/",
     "metadata/validation_anchors.csv",
     "metadata/frontier_anchors.csv",
     "metadata/event_episode_catalog.csv",
+)
+RESTRICTED_PATH_GLOBS = (
+    "results/validation_funnel/**/scenarios/**",
+    "results/validation_funnel/**/checkpoints/**",
+    "results/validation_funnel/**/shards/**",
+    "results/validation_funnel/**/shard_logs/**",
+    "results/validation_funnel/**/daily_predictions.parquet",
+    "results/validation_funnel/**/event_metrics.parquet",
+    "results/validation_funnel/**/anchor_availability.csv",
+    "results/validation_funnel/**/run_manifest.json",
+    "results/validation_funnel/**/validation_stage_manifest.json",
+    "results/validation_funnel/**/validation_mask_units.csv",
+    "results/validation_funnel/**/branch_ablation_metrics.parquet",
+    "results/validation_funnel/**/traditional",
+    "results/validation_funnel/**/deep_single_seed",
 )
 PUBLIC_SAFE_PREFIXES = (
     "src/",
@@ -84,10 +103,7 @@ def restricted_tracked_paths(repository: Path = REPOSITORY_ROOT) -> list[str]:
         return []
     paths = []
     for relative in listing.splitlines():
-        if any(
-            relative.startswith(prefix) or relative == prefix.rstrip("/")
-            for prefix in RESTRICTED_PATH_PREFIXES
-        ):
+        if public_export_exclude(relative):
             paths.append(relative)
     return paths
 
@@ -366,9 +382,12 @@ def write_json(path: str | Path, payload: dict[str, Any]) -> Path:
 
 
 def public_export_exclude(relative: str) -> bool:
-    return any(
+    prefix_match = any(
         relative.startswith(prefix) or relative == prefix.rstrip("/")
         for prefix in RESTRICTED_PATH_PREFIXES
+    )
+    return prefix_match or any(
+        fnmatchcase(relative, pattern) for pattern in RESTRICTED_PATH_GLOBS
     )
 
 
@@ -377,6 +396,7 @@ def public_safe_paths(paths: Sequence[str]) -> list[str]:
 
 
 __all__ = [
+    "RESTRICTED_PATH_GLOBS",
     "RESTRICTED_PATH_PREFIXES",
     "audit_restricted_hosting",
     "evidence_snapshot",
