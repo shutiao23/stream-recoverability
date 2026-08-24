@@ -1,0 +1,292 @@
+{
+  "schema_version": "major_revision_analysis_v1",
+  "status": "complete",
+  "review_triggered_post_hoc": true,
+  "frozen_prediction_unchanged": true,
+  "frozen_prediction_path": "results/predictions/recoverability_prediction_v1.json",
+  "artifacts": {
+    "annual_thermal_metrics.csv": {
+      "rows": 45,
+      "columns": [
+        "station_id",
+        "year",
+        "annual_minimum_degC",
+        "annual_maximum_degC",
+        "annual_mean_degC",
+        "annual_amplitude_degC",
+        "n_days"
+      ]
+    },
+    "period_thermal_metrics.csv": {
+      "rows": 15,
+      "columns": [
+        "station_id",
+        "period",
+        "start_date",
+        "end_date",
+        "n_days",
+        "annual_minimum_range_degC",
+        "annual_amplitude_range_degC",
+        "median_annual_amplitude_degC",
+        "anomaly_mean_degC",
+        "anomaly_sd_degC",
+        "acf30",
+        "acf90",
+        "anomaly_skewness",
+        "anomaly_excess_kurtosis",
+        "seasonal_variance_fraction"
+      ]
+    },
+    "regulation_fingerprint.csv": {
+      "rows": 8,
+      "columns": [
+        "station_id",
+        "median_annual_amplitude_degC",
+        "training_observed_range_degC",
+        "climatology_range_degC",
+        "anomaly_sd_degC",
+        "acf30",
+        "acf90",
+        "seasonal_variance_fraction",
+        "R2_donor",
+        "memory_component_30d",
+        "donor_component_30d",
+        "recoverability_type",
+        "memory_range_index_per_degC",
+        "memory_range_index_definition",
+        "memory_range_rank_within_network",
+        "network",
+        "network_order",
+        "station_name",
+        "regulation_context",
+        "dam_distance_km",
+        "dam_distance_basis"
+      ]
+    },
+    "expanded_covariate_budget.csv": {
+      "rows": 3,
+      "columns": [
+        "station_id",
+        "donor_temperature_R2",
+        "expanded_covariate_R2",
+        "incremental_R2",
+        "donor_only_long_gap_skill",
+        "expanded_long_gap_skill",
+        "expanded_predictors"
+      ]
+    },
+    "stationarity_controlled_budgets.csv": {
+      "rows": 135,
+      "columns": [
+        "station_id",
+        "donors",
+        "gap_length",
+        "average_boundary_distance_days",
+        "effective_acf_lag_days",
+        "seasonal_variance_fraction",
+        "anomaly_sd_degC",
+        "R2_donor",
+        "rho",
+        "donor_component",
+        "memory_component",
+        "R2_avail",
+        "predicted_skill",
+        "calibration",
+        "post_hoc_state_control"
+      ]
+    },
+    "dense_skill_sensitivities.csv": {
+      "rows": 1620,
+      "columns": [
+        "analysis",
+        "station_id",
+        "model",
+        "gap_length",
+        "mean_skill",
+        "skill_ci_lower",
+        "skill_ci_upper",
+        "mean_MAE_degC",
+        "mean_climatology_MAE_degC",
+        "n_anchors",
+        "n_anchor_year_units"
+      ]
+    },
+    "best_envelope_sensitivities.csv": {
+      "rows": 177,
+      "columns": [
+        "analysis",
+        "station_id",
+        "gap_length",
+        "best_model",
+        "mean_skill",
+        "skill_ci_lower",
+        "skill_ci_upper",
+        "mean_MAE_degC",
+        "mean_climatology_MAE_degC",
+        "n_anchors",
+        "n_anchor_year_units"
+      ]
+    },
+    "budget_evaluation_cells.csv": {
+      "rows": 135,
+      "columns": [
+        "analysis",
+        "station_id",
+        "gap_length",
+        "best_model",
+        "mean_skill",
+        "skill_ci_lower",
+        "skill_ci_upper",
+        "mean_MAE_degC",
+        "mean_climatology_MAE_degC",
+        "n_anchors",
+        "n_anchor_year_units",
+        "R2_donor",
+        "rho",
+        "predicted_skill",
+        "calibration",
+        "best_exceeds_budget",
+        "best_lower_ci_exceeds_budget",
+        "prediction_error"
+      ]
+    },
+    "budget_evaluation_summary.csv": {
+      "rows": 9,
+      "columns": [
+        "analysis",
+        "station_id",
+        "correlation",
+        "mean_absolute_skill_error",
+        "best_exceeds_budget_count",
+        "best_lower_ci_exceeds_budget_count",
+        "comparison_cells"
+      ]
+    },
+    "annual_demeaned_skill_events.csv": {
+      "rows": 8100,
+      "columns": [
+        "scenario_id",
+        "station_id",
+        "model",
+        "training_seed",
+        "mask_seed",
+        "gap_length",
+        "anchor_id",
+        "anchor_year",
+        "annual_demeaned_MAE",
+        "annual_demeaned_climatology_MAE",
+        "n_evaluated",
+        "annual_demeaned_skill",
+        "denominator_guard_degC",
+        "detrending_definition"
+      ]
+    },
+    "frontier_hypothesis_tests_corrected.csv": {
+      "rows": 24,
+      "columns": [
+        "station_id",
+        "model",
+        "estimate",
+        "n_anchor_year_units",
+        "p_value",
+        "hypothesis_family",
+        "alternative",
+        "bug_fixed",
+        "p_bh",
+        "bh_family_size",
+        "bh_finite_hypotheses",
+        "bh_reject",
+        "bh_alpha",
+        "bh_scope"
+      ]
+    },
+    "node_importance_best_available.csv": {
+      "rows": 36,
+      "columns": [
+        "experiment",
+        "mask_type",
+        "layout",
+        "outage_mode",
+        "overlap_ratio",
+        "pattern",
+        "window_length",
+        "training_protocol",
+        "fit_split",
+        "tuning_split",
+        "evaluation_split",
+        "validation_scope",
+        "target_station_id",
+        "station_id",
+        "target",
+        "gap_length",
+        "model",
+        "failed_station_id",
+        "full_network_value",
+        "failed_value",
+        "full_network_climatology_value",
+        "failed_climatology_value",
+        "full_network_best_model",
+        "failed_best_model",
+        "full_network_best_model_counts",
+        "failed_best_model_counts",
+        "impact",
+        "value_metric",
+        "impact_definition",
+        "hard_cap_model",
+        "n_events",
+        "reason"
+      ]
+    },
+    "external_confirmation_cells.csv": {
+      "rows": 15,
+      "columns": [
+        "station_id",
+        "gap_length",
+        "best_model",
+        "pattern",
+        "mask_type",
+        "information_condition",
+        "best_MAE_degC",
+        "best_skill",
+        "n_evaluated",
+        "predicted_skill",
+        "R2_donor",
+        "rho",
+        "prediction_error"
+      ]
+    },
+    "external_confirmation_summary.csv": {
+      "rows": 5,
+      "columns": [
+        "station_id",
+        "predicted_type",
+        "observed_best_skill_30d",
+        "observed_best_skill_90d",
+        "observed_best_skill_180d",
+        "observed_30_to_180d_decline",
+        "best_model_30d",
+        "best_model_90d",
+        "best_model_180d",
+        "evaluate_once",
+        "model_selection_on_confirmatory",
+        "qualitative_prediction_consistent",
+        "consistency_rule"
+      ]
+    }
+  },
+  "figures": [
+    "figures/main/figure_01.png",
+    "figures/main/figure_02.png",
+    "figures/main/figure_03.png",
+    "figures/main/figure_04.png",
+    "figures/main/figure_05.png"
+  ],
+  "main_tables": [
+    "paper/tables/table_01.csv",
+    "paper/tables/table_02.csv",
+    "paper/tables/table_03.csv",
+    "paper/tables/table_04.csv",
+    "paper/tables/table_05.csv"
+  ],
+  "interpretation_guard": "state-matched and annual-demeaned analyses are reviewer-requested post-hoc diagnostics, not a replacement for the frozen prediction"
+}

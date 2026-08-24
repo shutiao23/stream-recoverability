@@ -5,15 +5,13 @@ message: >-
   Cite this software using the metadata below. This file cites the
   software only. It does not license or open the observational data.
 title: >-
-  stream-recoverability: Recoverability Frontiers and Multisource
-  Information Compensation for Stream Temperature Under Multiscale
-  Monitoring Outages
+  Reservoir Regulation Reshapes Recoverable Information in Daily
+  Stream-Temperature Records
 abstract: >-
-  Software for testing when daily stream observations remain
-  recoverable under structured monitoring outages. The case study
-  uses three Upper Jinsha River stations (Batang, Shigu, Panzhihua).
-  This citation is for the software. Study data remain restricted;
-  see DATA_RIGHTS.md.
+  Software for detecting regulation-linked donor and memory structure with
+  controlled stream-temperature outages. The study uses three Upper Jinsha
+  stations and an evaluate-once five-site Chattahoochee confirmation. This
+  citation is for software only; Jinsha observations remain restricted.
 type: software
 authors:
   - family-names: shutiao23
@@ -38,9 +36,8 @@ identifiers:
 preferred-citation:
   type: software
   title: >-
-    stream-recoverability: Recoverability Frontiers and Multisource
-    Information Compensation for Stream Temperature Under Multiscale
-    Monitoring Outages
+    Reservoir Regulation Reshapes Recoverable Information in Daily
+    Stream-Temperature Records
   authors:
     - family-names: shutiao23
       alias: shutiao23

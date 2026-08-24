@@ -152,7 +152,7 @@
   "confidence_level": 0.95,
   "analysis_code_identity": {
     "schema_version": "analysis_code_identity_v1",
-    "relevant_source_digest": "07ee22a0e96895a68ce94b9c2cc71acdb1db5bc949cdb9c70cf8376f0f3fb181",
+    "relevant_source_digest": "128807f0692f0d65ba550eac1199b2b2070af2c5b1694000d019cbab64b5fa3b",
     "relevant_source_file_count": 8,
     "files": [
       {
@@ -177,8 +177,8 @@
       },
       {
         "path": "src/stream_recoverability/analysis/frozen_pipeline.py",
-        "bytes": 165759,
-        "sha256": "ae6c0470602ae9b88c0b6d2a194f29bd9fef2ac41e7e60f7876050c7c3dcff93"
+        "bytes": 169747,
+        "sha256": "9292143f08f05c6559af4dd66492613665c0706799a5746fee12cf7754117075"
       },
       {
         "path": "src/stream_recoverability/analysis/inference_safeguards.py",
@@ -187,8 +187,8 @@
       },
       {
         "path": "src/stream_recoverability/analysis/resilience.py",
-        "bytes": 17208,
-        "sha256": "671399abaee87b13f2dcf0c8c6e893cc896ef06daf274debbfaa36e1a52be124"
+        "bytes": 22984,
+        "sha256": "93a2aef365272f345199e77c838c08c9166939f058133c3fc6b85883b589fd50"
       },
       {
         "path": "src/stream_recoverability/analysis/uncertainty.py",
@@ -206,12 +206,12 @@
         },
         {
           "path": "src/stream_recoverability/analysis/frozen_pipeline.py",
-          "bytes": 165759,
-          "sha256": "ae6c0470602ae9b88c0b6d2a194f29bd9fef2ac41e7e60f7876050c7c3dcff93"
+          "bytes": 169747,
+          "sha256": "9292143f08f05c6559af4dd66492613665c0706799a5746fee12cf7754117075"
         }
       ],
       "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-      "identity_sha256": "2ae2d1c3274ffed149ba0e0a23ba49f0ca710c73494d6570824c5749d09582b2"
+      "identity_sha256": "7dc4b6fcfb60d0d8e330c1b021a6ecf5b780d38dcf4a95849b4b11d5008fd265"
     },
     "tracked_relevant_source_clean": true,
     "dirty_tracked_paths": [],
@@ -230,12 +230,12 @@
       },
       {
         "path": "src/stream_recoverability/analysis/frozen_pipeline.py",
-        "bytes": 165759,
-        "sha256": "ae6c0470602ae9b88c0b6d2a194f29bd9fef2ac41e7e60f7876050c7c3dcff93"
+        "bytes": 169747,
+        "sha256": "9292143f08f05c6559af4dd66492613665c0706799a5746fee12cf7754117075"
       }
     ],
     "identity_hash_scope": "canonical_json_excluding_identity_sha256",
-    "identity_sha256": "2ae2d1c3274ffed149ba0e0a23ba49f0ca710c73494d6570824c5749d09582b2"
+    "identity_sha256": "7dc4b6fcfb60d0d8e330c1b021a6ecf5b780d38dcf4a95849b4b11d5008fd265"
   },
   "analysis_input_manifest": {
     "path": "results/analysis/analysis_input_manifest.json",
@@ -739,31 +739,31 @@
       "status": "ok",
       "reason": null,
       "rows": 405,
-      "sha256": "f2122e1e5b7ea69818f52a4b59d9d8c228e0089240181fb4302a4e72657ef5ee"
+      "sha256": "599eadb7b8424ef0f0316c15208ddec4a666b6b2c8b056906d620f070668cbcc"
     },
     "frontier_climatology_summary.csv": {
       "status": "ok",
       "reason": null,
       "rows": 27,
-      "sha256": "60ed777b92f87f44264751b1b07969b77f7f76e606555dcab607bcb7ce6eae6c"
+      "sha256": "8228f4a605906912fe7d2f115463c413857d6556a2d36b9dd57ed2ffbe2ff670"
     },
     "frontier_best_simple_curves.csv": {
       "status": "ok",
       "reason": null,
       "rows": 405,
-      "sha256": "0b727ffb6fdf0269453b8383f4bd0c5a0c0022dca912e230bf47eb899c6f92a8"
+      "sha256": "0c42415486e3dad429ed64e496cf33e30a903670e3fe8c915b3096aeeab87d8c"
     },
     "frontier_best_simple_summary.csv": {
       "status": "ok",
       "reason": null,
       "rows": 27,
-      "sha256": "5de6f82b07927e6813b10b5c307d0d607db2f86ae3d519b08bafbb854b9b8161"
+      "sha256": "ee9bf6b3cdad5f4d183b51f66d4fa086aed1e500ee9f3a65fb39a03d2c512377"
     },
     "dual_frontier_comparison.csv": {
       "status": "ok",
       "reason": null,
       "rows": 54,
-      "sha256": "45829c2c3f45d3b68621e9c8910976ae79b65acf48b29e9ff4783dedafd4c1cf"
+      "sha256": "28ac69869a6dc1b4111cdaedd1dad39ea51b485c3e591f348e52a8e331878db9"
     },
     "frontier_raw_curves.csv": {
       "status": "ok",
@@ -781,7 +781,7 @@
       "status": "ok",
       "reason": null,
       "rows": 27,
-      "sha256": "218ac9bc0bbaf01580aff1904ae9426cfce1037f93326efa1ed506c0c54d8fe3"
+      "sha256": "588fdcaa159d7ad3618c411137a3a6bf8a055f98dfb0f73ad778b40d61c07adf"
     },
     "application_frontiers.csv": {
       "status": "not_applicable",
@@ -817,7 +817,7 @@
       "status": "ok",
       "reason": null,
       "rows": 60,
-      "sha256": "7756c143987a8b0c855e42dcaf473f097cd05771374bef22665a413b4fd32a77"
+      "sha256": "664ad2699a678b18e8c5521b44c18e7052aaee8ce4fda21243321fa97a0f4bd7"
     },
     "overlap_clusters.csv": {
       "status": "ok",
@@ -864,8 +864,8 @@
     "node_importance.csv": {
       "status": "ok",
       "reason": null,
-      "rows": 324,
-      "sha256": "f290fef8f138451d34436e9ec95c475c1000fc3b469b006ef2ffb2859d2196a6"
+      "rows": 36,
+      "sha256": "9411ff32c67dd3f64001f012d7774590d8feb2f4d55b4010b537e7d7f9dc2d1b"
     },
     "failure_set_metrics.csv": {
       "status": "ok",
@@ -925,7 +925,7 @@
       "status": "ok",
       "reason": null,
       "rows": 4514,
-      "sha256": "2dbc8c64a5dfe10fe0a7a630881a5ac5450bc36f4d1cdc2f23171f5df402502b"
+      "sha256": "9bc1f814da53bcd45485b00f9b43dcabf803146b4b8c064c737a5441cc1d9211"
     },
     "donor_c_falsification_effects.csv": {
       "status": "ok",

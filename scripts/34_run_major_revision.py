@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -82,6 +83,18 @@ MODEL_COLORS = {
     "random_forest": "#e45756",
     "xgboost": "#9d755d",
 }
+
+
+def _file_identity(path: Path) -> dict[str, Any]:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return {
+        "path": str(path.relative_to(PROJECT_ROOT)),
+        "bytes": path.stat().st_size,
+        "sha256": digest.hexdigest(),
+    }
 
 
 def _load_dense_predictions() -> pd.DataFrame:
@@ -510,7 +523,7 @@ def _figure_01(
         chatt["training_observed_range_degC"],
         marker="o",
         color="#4c78a8",
-        label="Annual amplitude",
+        label="Observed range",
     )
     memory_axis = axes[1, 1].twinx()
     memory_axis.plot(
@@ -769,11 +782,6 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
         station_type = str(types.loc[str(station)])
         decline = float(curve.loc[30.0, "best_skill"] - curve.loc[180.0, "best_skill"])
         long_skill = float(curve.loc[180.0, "best_skill"])
-        shape_confirmed = (
-            decline > 0.25 and long_skill < 0.25
-            if station_type == "memory_dominated"
-            else long_skill > 0.40
-        )
         rows.append(
             {
                 "station_id": station,
@@ -785,17 +793,27 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
                 "best_model_30d": str(curve.loc[30.0, "best_model"]),
                 "best_model_90d": str(curve.loc[90.0, "best_model"]),
                 "best_model_180d": str(curve.loc[180.0, "best_model"]),
-                "shape_rule": (
-                    "decline_gt_0.25_and_180d_skill_lt_0.25"
-                    if station_type == "memory_dominated"
-                    else "180d_skill_gt_0.40"
-                ),
-                "shape_confirmed": bool(shape_confirmed),
                 "evaluate_once": True,
                 "model_selection_on_confirmatory": False,
             }
         )
-    return best, pd.DataFrame(rows)
+    summary = pd.DataFrame(rows)
+    memory = summary.loc[summary["predicted_type"].eq("memory_dominated")]
+    donors = summary.loc[summary["predicted_type"].eq("donor_dominated")]
+    if len(memory) != 1 or donors.empty:
+        raise ValueError("external prediction requires one memory and surviving donors")
+    memory_decline = float(memory.iloc[0]["observed_30_to_180d_decline"])
+    memory_long_skill = float(memory.iloc[0]["observed_best_skill_180d"])
+    summary["qualitative_prediction_consistent"] = np.where(
+        summary["predicted_type"].eq("memory_dominated"),
+        (memory_decline > donors["observed_30_to_180d_decline"].max())
+        & (memory_long_skill < donors["observed_best_skill_180d"].min()),
+        summary["observed_best_skill_180d"].gt(memory_long_skill),
+    )
+    summary["consistency_rule"] = (
+        "frozen qualitative type ordering; no post-outcome numeric threshold"
+    )
+    return best, summary
 
 
 def _figure_05(
@@ -916,6 +934,36 @@ def main() -> None:
         climatology_mae_col="climatology_MAE",
         analysis="original_training_climatology",
     )
+    canonical = pd.read_csv(
+        PROJECT_ROOT / "results/analysis/frontier_climatology_curves.csv"
+    )
+    canonical = canonical.loc[canonical["target"].astype(str).eq("T")].rename(
+        columns={
+            "mean_skill": "canonical_mean_skill",
+            "ci_lower": "canonical_skill_ci_lower",
+            "ci_upper": "canonical_skill_ci_upper",
+        }
+    )
+    original_curves = original_curves.merge(
+        canonical[
+            [
+                "station_id",
+                "model",
+                "gap_length",
+                "canonical_mean_skill",
+                "canonical_skill_ci_lower",
+                "canonical_skill_ci_upper",
+            ]
+        ],
+        on=["station_id", "model", "gap_length"],
+        how="left",
+        validate="one_to_one",
+    )
+    if original_curves["canonical_mean_skill"].isna().any():
+        raise ValueError("canonical formal curve does not cover revision MAE rows")
+    original_curves["mean_skill"] = original_curves.pop("canonical_mean_skill")
+    original_curves["skill_ci_lower"] = original_curves.pop("canonical_skill_ci_lower")
+    original_curves["skill_ci_upper"] = original_curves.pop("canonical_skill_ci_upper")
     bridge_events = rescore_with_state_climatology(
         dense,
         internal,
@@ -996,6 +1044,53 @@ def main() -> None:
     _figure_04(importance)
     _figure_05(external_cells, external_summary, fingerprints)
 
+    figure_titles = {
+        1: "Reservoir-regulation fingerprint across two networks",
+        2: "Frozen prediction and post-hoc thermal-state control",
+        3: "Recoverability in relative and absolute units",
+        4: "Best-available node importance",
+        5: "Evaluate-once Chattahoochee confirmation",
+    }
+    figure_manifest = {
+        "schema_version": "major_revision_figure_manifest_v1",
+        "status": "complete",
+        "figures": {
+            f"figure_{index:02d}": {
+                **_file_identity(FIGURES / f"figure_{index:02d}.png"),
+                "title": title,
+            }
+            for index, title in figure_titles.items()
+        },
+    }
+    (FIGURES / "figure_manifest.json").write_text(
+        json.dumps(figure_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    table_titles = {
+        1: "Eight-station regulation fingerprint",
+        2: "Annual Upper Jinsha thermal statistics",
+        3: "Frozen and stationarity-controlled budget evaluation",
+        4: "Dense recoverability in relative and absolute units",
+        5: "Corrected best-available node importance",
+    }
+    table_manifest = {
+        "schema_version": "major_revision_table_manifest_v1",
+        "status": "complete",
+        "tables": {
+            f"table_{index:02d}": {
+                **_file_identity(TABLES / f"table_{index:02d}.csv"),
+                "title": title,
+                "rows": len(pd.read_csv(TABLES / f"table_{index:02d}.csv")),
+            }
+            for index, title in table_titles.items()
+        },
+    }
+    (TABLES / "table_manifest.json").write_text(
+        json.dumps(table_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
     manifest = {
         "schema_version": "major_revision_analysis_v1",
         "status": "complete",
@@ -1015,6 +1110,23 @@ def main() -> None:
     }
     (OUTPUT / "revision_analysis_manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    final_manifest = {
+        "schema_version": "major_revision_publication_manifest_v1",
+        "status": "complete",
+        "analysis_manifest": _file_identity(OUTPUT / "revision_analysis_manifest.json"),
+        "formal_internal_manifest": _file_identity(
+            PROJECT_ROOT / "results/analysis/analysis_manifest.json"
+        ),
+        "external_completion_manifest": _file_identity(
+            EXTERNAL_RESULTS / "completion_manifest.json"
+        ),
+        "figure_manifest": _file_identity(FIGURES / "figure_manifest.json"),
+        "table_manifest": _file_identity(TABLES / "table_manifest.json"),
+    }
+    (PROJECT_ROOT / "results/final_results_manifest.json").write_text(
+        json.dumps(final_manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
     )
     print(json.dumps({"status": "complete", "artifacts": len(outputs)}, sort_keys=True))
 

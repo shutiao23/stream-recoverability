@@ -1,45 +1,40 @@
 # WRR / AGU GEMS submission checklist
 
-This checklist records what a Water Resources Research package can honestly contain. Items that require unobserved performance remain open. Do not tick them by inventing numbers.
+## Scientific revision
 
-## Journal files
-
-| File | Role | Status |
+| Requirement | Evidence | Status |
 | --- | --- | --- |
-| `manuscript.md` | Main text; Results are `RESULTS_PENDING` | Present; no MAE/skill/frontier claims; executable freeze is v4 |
-| `methods.md` | Extended methods for SI | Present; grid counts locked to builders |
-| `si.md` / `si_independence_audits.md` | Supplement | Present; audits are not ranks |
-| `cover_letter.md` | Editor letter | Present; no performance claim |
-| `key_points.md` | AGU Key Points | Present; ≤140 characters; no ranks |
-| `plain_language_summary.md` | AGU PLS | Present; no ranks |
-| `figure_captions.md` | Caption inventory | Present |
-| `references.bib` | Bibliography | Present |
-| `CITATION.cff` | Software citation | Present; `doi` unset |
-| `LICENSE` | MIT software only | Present |
-| `DATA_RIGHTS.md` | Restricted observations | Present; GEMS reviewer route |
+| Regulation mechanism and title | P3 transition, Guanyinyan history, 8-site fingerprint | Complete |
+| P3 annual minima/amplitudes | `results/revision/annual_thermal_metrics.csv` | Complete |
+| Stationarity-controlled budget | 2016--2017 and post-hoc 2016--2020 tables | Complete |
+| Low-frequency robustness | Annual-mean-removed skill table | Complete |
+| Expanded measured-covariate budget | `expanded_covariate_budget.csv` | Complete |
+| One frontier code path | 27/27 climatology cells asserted identical | Complete |
+| Nondegenerate hypothesis family | 24 finite tests + 3 reference rows; BH reported | Complete |
+| Best-available node importance | 36 corrected target-gap-failure rows | Complete |
+| Absolute MAE in main evidence | Figure 3 and Table 4 | Complete |
+| Natural-missingness disclosure | 0 missing hydrological days; masks described as probes | Complete |
+| Deep material moved to SI | Main text limited to roster outcome | Complete |
+| Evaluate-once confirmation | 540/540 units; complete once-lock and manifest | Complete |
+| Manuscript/Key Points/PLS/captions | Regulation-focused revision | Complete |
 
-## Figures and tables
+## Evidence gates
 
-| Artifact | Expected input | Honest outcome until roster + formal manifests |
+- `results/analysis/analysis_manifest.json`: `status=complete`.
+- `statistical_frontiers.csv` and climatology rows of `dual_frontier_comparison.csv`: 27 matched cells.
+- `frontier_model_vs_climatology`: 24 finite tests; climatology rows are `reference_not_tested`.
+- External `completion_manifest.json`: `complete=true`, `formal_evidence=true`, 540 completed units.
+- External once-lock: `status=complete`; evaluate-once cannot be rerun.
+- Frozen internal and external predictions remain unmodified.
+
+## Submission blockers
+
+| Item | Status | Required action |
 | --- | --- | --- |
-| Figure 1 | Station metadata + EDA coverage | Generated from descriptive files |
-| Figure 2 | None (schematic) | Generated |
-| Table 1 | Station metadata + EDA coverage | Generated |
-| Figures 3–8, Tables 2–5 | Current-protocol formal results | Skipped; files must not exist as placeholders |
+| Restricted Jinsha bytes on public development history | **Blocking / open** | Follow `docs/public_release_remediation.md`: create a clean code-only repository or coordinate a verified history rewrite |
+| Archival software DOI | **Blocking / open** | Deposit the sanitized release in a real archive and insert the minted DOI in `CITATION.cff` and manuscript |
+| GEMS confidential reviewer data upload | Open | Upload restricted working files via AGU GEMS Data Files for Peer Review |
+| Public external derived-data archive | Open | Archive USGS/NASA provenance and permitted aggregate outputs with the software release |
+| Reproduction report on sanitized release | Open | Run tests and manuscript artifact checks from the archive candidate |
 
-## Protocol gates (not optional)
-
-1. Validation funnel stages complete **under `design_freeze_v4`**, including diagnostics, stability, go/no-go, and branch ablation or the frozen not-applicable path. v2 artifacts are not reusable.
-2. Contract-validated `finalized_model_roster_v1` with no `budget_unstable` retained model.
-3. Formal internal suites on `published_v2` using that roster only.
-4. Three sensitivity data versions (`no_s2_suspect_v2`, `b1_no_level_v2`, `b1_shift_sensitivity_v2`), separately registered.
-5. Frozen statistics: climatology-relative **and** best-simple-baseline-relative frontiers; donor-C lag/permutation falsification; no application frontier unless predeclared.
-6. Confirmatory feasibility 60/60, then exactly-once performance after once-lock.
-7. README evidence-status JSON updated only after those facts are true.
-8. Archival software DOI minted only after a real deposit; do not invent Zenodo.
-
-## Known remaining defects (do not hide)
-
-- Restricted Jinsha columns are still present on the public GitHub development host. `scripts/26_audit_restricted_hosting.py` records that defect. History rewrite is not performed in this wave.
-- No archival DOI exists.
-- Pre-freeze `results/formal/` dumps are invalid and must not be submitted as results.
+The package remains **NO-GO for submission** until every blocking item is closed. No placeholder DOI or claim that restricted data are open is permitted.

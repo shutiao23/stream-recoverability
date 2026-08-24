@@ -1,7 +1,5 @@
 # Key Points (AGU)
 
-Each point is at most 140 characters. None asserts a formal frontier day or that the proposed model is best.
-
-- A train-only covariance budget predicts the best-model skill shape, but it is not an information ceiling.
-- Best-envelope prediction correlations are 0.72--0.95; eight lower confidence bounds exceed the budget.
-- B1 depends most on S2, S2 on B1, while donor tests support correlation rather than network propagation.
+- Reservoir regulation shifts stream-temperature recovery from donor dependence toward persistent local memory.
+- Dam-proximal memory-dominated stations recur in the Jinsha and Chattahoochee networks.
+- Covariance screens recovery type, while local calibration and best-available node costs guide monitoring design.

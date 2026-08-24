@@ -4,13 +4,13 @@
   "dense_analysis_status": "complete",
   "comparison_cells": 45,
   "best_exceeds_prediction_count": 20,
-  "best_ci_lower_exceeds_prediction_count": 8,
+  "best_ci_lower_exceeds_prediction_count": 9,
   "analytic_information_ceiling_supported": false,
   "station_metrics": {
     "B1": {
       "best_envelope_prediction_mae": 0.07748445594157789,
       "best_envelope_prediction_rmse": 0.13033068552308866,
-      "best_envelope_prediction_correlation": 0.722375129199613,
+      "best_envelope_prediction_correlation": 0.7223751291996129,
       "donor_prediction_mae": 0.38254183536360636,
       "donor_prediction_rmse": 0.5337329755515104,
       "donor_prediction_correlation": -0.665149413872295,
@@ -18,14 +18,14 @@
       "best_ci_lower_exceeds_prediction_count": 0
     },
     "P3": {
-      "best_envelope_prediction_mae": 0.12155947657729475,
+      "best_envelope_prediction_mae": 0.12155947657729473,
       "best_envelope_prediction_rmse": 0.14063113165853144,
       "best_envelope_prediction_correlation": 0.9530038045259961,
       "donor_prediction_mae": 0.3987464964460571,
       "donor_prediction_rmse": 0.5533493633390358,
-      "donor_prediction_correlation": -0.8415018211998504,
+      "donor_prediction_correlation": -0.8415018211998505,
       "best_exceeds_prediction_count": 15,
-      "best_ci_lower_exceeds_prediction_count": 8
+      "best_ci_lower_exceeds_prediction_count": 9
     },
     "S2": {
       "best_envelope_prediction_mae": 0.08501505945338018,

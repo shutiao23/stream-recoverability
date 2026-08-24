@@ -97,7 +97,8 @@ def audit_restricted_hosting(repository: Path = REPOSITORY_ROOT) -> dict[str, An
 
     paths = restricted_tracked_paths(repository)
     return {
-        "status": "public_hosting_defect"
+        "status": "complete",
+        "finding": "public_hosting_defect"
         if paths
         else "restricted_bytes_absent_from_tip",
         "public_hosting_defect": bool(paths),
@@ -136,6 +137,33 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     formal = formal_manifest_path(repository)
     manuscript = (repository / "paper/manuscript.md").read_text(encoding="utf-8")
     pending = manuscript.count("RESULTS_PENDING")
+    citation = yaml.safe_load((repository / "CITATION.cff").read_text(encoding="utf-8"))
+    citation_doi = citation.get("doi") if isinstance(citation, Mapping) else None
+    external_manifest_path = (
+        repository
+        / "results/confirmatory/external_upper_middle_chattahoochee_v1"
+        / "external_confirmation/completion_manifest.json"
+    )
+    external_lock_path = (
+        repository
+        / "data_versions"
+        / ".external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json"
+    )
+    external_manifest = (
+        json.loads(external_manifest_path.read_text(encoding="utf-8"))
+        if external_manifest_path.is_file()
+        else {}
+    )
+    external_lock = (
+        json.loads(external_lock_path.read_text(encoding="utf-8"))
+        if external_lock_path.is_file()
+        else {}
+    )
+    external_complete = bool(
+        external_manifest.get("complete") is True
+        and external_manifest.get("formal_evidence") is True
+        and external_lock.get("status") == "complete"
+    )
     return {
         "snapshot_schema_version": "evidence_snapshot_v3",
         "git_commit": current_commit(repository),
@@ -170,10 +198,18 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
         if roster is not None
         else None,
         "formal_results_manifest": "present" if formal.is_file() else "pending",
+        "archival_software_doi": str(citation_doi) if citation_doi else None,
         "manuscript_results_pending_markers": pending,
         "current_protocol_result_claims": "none" if pending else "see_manuscript",
-        "confirmatory_data": "not_opened",
-        "confirmatory_evaluation": "not_run",
+        "confirmatory_data": "opened_after_roster_freeze"
+        if external_complete
+        else "not_opened",
+        "confirmatory_evaluation": "complete_evaluate_once"
+        if external_complete
+        else "not_run",
+        "confirmatory_completed_run_units": int(
+            external_manifest.get("completed_run_unit_count", 0)
+        ),
     }
 
 
@@ -195,7 +231,11 @@ def _load_release_record(
 
 
 def _record_complete(value: Mapping[str, Any]) -> bool:
-    if value.get("complete") is True or value.get("finalized") is True:
+    if (
+        value.get("complete") is True
+        or value.get("finalized") is True
+        or value.get("immutable") is True
+    ):
         return True
     return str(value.get("status", "")).lower() in {
         "complete",
@@ -282,10 +322,24 @@ def submission_gate(
             blockers.append(
                 "analysis manifest lacks dual-frontier/falsification artifacts"
             )
+    confirmatory = records.get("confirmatory run manifest")
+    if confirmatory is not None and (
+        confirmatory.get("formal_evidence") is not True
+        or confirmatory.get("completed_run_unit_count")
+        != confirmatory.get("expected_run_unit_count")
+    ):
+        blockers.append(
+            "confirmatory run is not complete formal evaluate-once evidence"
+        )
+    lock = records.get("confirmatory once-lock")
+    if lock is not None and lock.get("status") != "complete":
+        blockers.append("confirmatory once-lock is not complete")
     if snapshot["manuscript_results_pending_markers"]:
         blockers.append("manuscript still contains RESULTS_PENDING markers")
     if snapshot["hosting"]["public_hosting_defect"]:
         blockers.append("restricted bytes remain on the public development tip")
+    if not snapshot.get("archival_software_doi"):
+        blockers.append("archival software DOI has not been minted")
     if not snapshot["dual_frontier_required"]:
         blockers.append("best-simple frontier is not required")
     passed = not blockers

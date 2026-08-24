@@ -1,20 +1,18 @@
 # Cover letter (Water Resources Research)
 
-**Manuscript title.** A Covariance Budget Predicts Stream-Temperature Recoverability Shape but Not Its Ceiling
+**Manuscript title:** Reservoir Regulation Reshapes Recoverable Information in Daily Stream-Temperature Records: Evidence From the Upper Jinsha and Chattahoochee Rivers
 
 **Dear Editors,**
 
-We submit a protocol-locked test of whether daily stream-temperature recoverability can be predicted from a monitoring network's observed covariance structure before any imputation model is trained. The budget predicts best-model curve shape well (station correlations 0.72--0.95), but formal structured outages falsify its interpretation as an information ceiling. This counterexample is a central result rather than an implementation failure.
+We submit a substantially restructured manuscript in which controlled missing-data experiments are used to reveal a hydrological mechanism rather than to rank imputation models. The central result is that reservoir regulation reorganizes the information available to reconstruct daily stream temperature: seasonal and donor signals are suppressed near regulated releases, while local thermal memory is extended.
 
-**What is complete in this repository version.** The current formal bundle closes 134,359 run units across the full, dense, resilience, donor-falsification, and three sensitivity designs. The analysis manifest is complete, with 36 declared artifacts. Chattahoochee feasibility passed 60/60 scenarios without model training, performance scoring, or a once-lock.
+At Panzhihua, 27 km below Guanyinyan Dam, the 2015 transition raises annual minimum temperature, compresses annual amplitude, and approximately doubles 30-day anomaly persistence. A covariance budget, without dam metadata, uniquely classifies that station as memory-dominated. It makes the same independent classification for USGS 02334430 immediately below Buford Dam. In a completed evaluate-once 2023--2025 confirmation, that site's best skill falls from 0.536 at 30 days to 0.141 at 180 days, whereas four downstream donor-dominated sites retain 0.555--0.746 skill.
 
-**What is not claimed.** We do not claim an analytic ceiling, a generally superior proposed model, a safe operational fill length, identified network propagation, a meteorology-alignment effect, or external replication. Training-unstable deep runs are excluded from model-class conclusions; CSDI remains outside the formal frontier.
+The revision also addresses the statistical boundaries directly. We withdraw the universal information-ceiling claim because all lower-confidence-bound violations occur at nonstationary P3; post-hoc state matching reduces them from nine to one. We repaired the two divergent frontier paths, replaced 27 degenerate $p=1$ values with 24 identifiable tests plus three explicit reference rows, and redefined node importance as loss of best-achievable performance with a climatology cap. The corrected S2-to-B1 sensor cost is 0.132 degrees C rather than 2.42 degrees C.
 
-**Data access.** Yearbook hydrology, CMA sunshine/humidity, and WMO/CMA series that match GSOD are **not** open. Reviewer access is through AGU GEMS Data Files for Peer Review (editor-mediated). NASA POWER shortwave is a generally citable US-government product. USGS/NASA external data were acquired after roster freeze for feasibility; confirmatory recovery performance remains unopened.
+Official deep candidates did not pass the frozen stability roster, so their validation rankings and architecture are confined to Supporting Information and no model-class conclusion is made. Every main result reports absolute MAE alongside relative skill. The manuscript also states plainly that the Jinsha hydrological records have no natural missing day and that artificial masks probe information rather than estimate real fault frequency.
 
-**External confirmation design.** One Upper-to-Middle Chattahoochee mainstem network panel (not five basins; not Lower Chattahoochee; not nested-point M1), evaluate once after roster freeze.
-
-We ask that the analytic-budget counterevidence be evaluated as a falsifiable characterization result, not as a failed model leaderboard.
+The internal analysis manifest is complete, both climatology frontier tables agree in all 27 cells, and the external once-lock contains all 540 expected run units. Restricted Jinsha observations will be supplied through AGU GEMS Data Files for Peer Review. We will not submit until the public code-only archive has had restricted bytes removed from its history and a genuine archival DOI has been minted.
 
 Sincerely,  
 Corresponding author (repository identity: shutiao23)

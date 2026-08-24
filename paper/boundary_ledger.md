@@ -1,67 +1,47 @@
 # Boundary ledger
 
-## BL-001 — Proposed model versus donor regression
+## BL-001 — Proposed/deep model roster
 
-**Observed.** Proposed lost to donor regression in 27 of 36 difficult validation
-cells. Proposed seed 22 had overall skill -0.667, long-gap skill -0.606, and
-outage skill -0.756; it selected epoch 33 versus 214 and 173 for seeds 11 and 33.
+**Observed.** Required seeds for BRITS, CSDI, and the proposed model selected before epoch 50 or otherwise failed the frozen stability path. Proposed lost 27 of 36 difficult validation cells to donor regression.
 
-**Expected.** The gated multisource model was expected to equal or exceed donor
-regression on compound or long gaps.
+**Update.** No deep model enters the formal roster. All rankings and architectures move to SI. Excluded runs cannot support a model-class conclusion.
 
-**Difference decomposition.** Experimental validity is implicated because one
-required seed selected a premature checkpoint. A regime boundary is also
-plausible: train-only anomaly donor $R^2$ is 0.464 at B1, 0.470 at S2, and 0.106
-at P3. The validation objective itself includes point, short-block, long-block,
-and station-outage masks, losses are finite, and scaling is seed-independent.
+## BL-002 — Universal analytic ceiling
 
-**Claim update.** C3, "the proposed model adds value," is withdrawn. C3' asks
-whether any stable learner exceeds the frozen analytic information budget.
-Unstable runs cannot answer that question. The gated architecture remains an
-ablation instrument for mechanism consistency, not a performance contribution.
+**Observed.** The frozen curve tracks internal best-envelope shape, but 20 of 45 point estimates and nine lower confidence bounds exceed it. Every lower-bound exceedance is at thermally nonstationary P3; B1/S2 have none.
 
-**Next action.** Apply the `best_epoch >= 50` roster validity rule and compare
-only stable formal models with the prediction frozen before dense aggregation.
+**State controls.** A post-hoc 2016--2020 calibration/denominator reduces lower-bound exceedances to one and reverses 365-day P3 XGBoost skill from 0.209 to -0.588. Annual demeaning retains 0.164 skill.
 
-## BL-002 — CSDI compute scope
+**Update.** Withdraw the universal information-ceiling claim. Retain a conditional state-specific shape heuristic. Do not claim that three stations prove a stationary ceiling.
 
-**Observed.** CSDI validation skill was -0.157 (rank 11/13). At amendment time,
-one of 900 dense scenarios and no aggregate existed; one CPU seed required about
-eight hours of training.
+## BL-003 — Frontier-path divergence
 
-**Claim update.** CSDI cannot define the main frontier. It is retained only as a
-seed-11 probabilistic diagnostic at gaps 7, 30, 90, and 180 days.
+**Observed.** `statistical_frontiers.csv` and `dual_frontier_comparison.csv` used different resampling paths and disagreed on identical climatology cells.
 
-**Boundary.** This is a scope amendment after validation evidence and before a
-dense aggregate, recorded in `docs/protocol_change_v4_to_v5.md`.
+**Correction.** Both denominators now use the canonical overlap-aware anchor/year path. All 27 climatology frontier/censoring cells match exactly. See `docs/protocol_change_v5_to_v6.md`.
 
-## BL-003 — External station typology before evaluate-once
+## BL-004 — Degenerate climatology p-values
 
-**Observed without performance.** Feasibility passed 60/60 scenarios. A
-2012--2020 train-only covariance calculation classified four Chattahoochee sites
-as donor-dominated and one as memory-dominated.
+**Observed.** All anchors at one station were collapsed to one connected overlap component, so a Wilcoxon test with $n=1$ returned $p=1$ in every row.
 
-**Prediction.** The four donor-dominated sites should show comparatively flat
-long-gap curves; site 02334430 should decay more strongly with gap length.
+**Correction.** Use one cross-gap mean per anchor/year after seed collapse. There are 24 actual finite tests and three explicit reference rows. Fourteen pass BH; seven are positive and seven negative.
 
-**Boundary.** No model was trained, no recovery metric was computed, and no
-once-lock was created. Whether these predictions are accurate remains unopened.
+## BL-005 — Model-damage node importance
 
-## BL-004 — Analytic budget versus completed dense curves
+**Observed.** The old same-model estimator produced B1/S2 donor-regression impacts of 2.42/1.98 °C because impaired models performed far worse than climatology.
 
-**Observed.** The frozen prediction tracked the best-model envelope shape well
-(station correlations 0.72, 0.94, and 0.95; skill MAE 0.077--0.122). However,
-the best stable model exceeded the predicted value in 20 of 45 station-gap
-cells, and its 95% lower confidence bound exceeded the prediction in eight,
-all at P3.
+**Correction.** Reselect the best method after failure and include climatology as a cap. Mean S2→B1 and B1→S2 costs are 0.132 and 0.070 °C. Negative impacts remain visible.
 
-**Expected.** The formula was proposed as a tight information ceiling that no
-stable learner could exceed.
+## BL-006 — External confirmation
 
-**Claim update.** The ceiling claim is falsified. The decomposition remains a
-useful pre-training shape predictor and station-typology heuristic, but it needs
-calibration and cannot be called an upper bound.
+**Frozen prediction.** Site 02334430 was the only memory-dominated site; the other four were donor-dominated. Full predicted curves were written before confirmation.
 
-**Paper role.** This counterexample is a primary result: local two-sided
-interpolation and flexible covariate models recover information not represented
-by the additive donor-$R^2$ plus single-lag-memory approximation.
+**Observed once.** All 540 run units completed. Site 02334430 has the largest 30-to-180-day decline and lowest 180-day skill. All four donor sites retain higher 180-day skill. Absolute prediction errors remain basin/site dependent.
+
+**Update.** Claim qualitative external type confirmation, not universal skill magnitude or five independent-basin replication. No retroactive numeric threshold is called preregistered.
+
+## BL-007 — Submission compliance
+
+**Open.** Restricted Jinsha bytes remain in the development repository history, and no archival software DOI exists.
+
+**Boundary.** The manuscript is scientifically revised but must not be submitted until a coordinated code-only history/release and real archival DOI exist. Reviewer access to restricted data is through AGU GEMS confidential files.

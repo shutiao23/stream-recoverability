@@ -80,9 +80,9 @@ The paired manifests list the full restricted-series date axis and, for block sc
 
 Original code under `src/`, `scripts/`, `tests/`, and project-authored configs/docs is MIT, separate from data. `CITATION.cff` is the software citation. No archival DOI has been minted (`doi` is unset; not a Zenodo record). GitHub is the development URL, not the AGU archive.
 
-## Confirmatory USGS / NASA (not opened)
+## Confirmatory USGS / NASA (evaluate-once complete)
 
-The frozen external protocol uses five USGS sites on **one** Upper-to-Middle Chattahoochee mainstem network panel (not Lower Chattahoochee) and NASA POWER meteorology. USGS and NASA POWER products are generally publishable after acquisition and citation. Current evidence status is `confirmatory_data: not_opened`. Planned public confirmatory data do **not** sanitize or replace restricted Jinsha inputs.
+The frozen external protocol uses five USGS sites on **one** Upper-to-Middle Chattahoochee mainstem network panel (not Lower Chattahoochee) and NASA POWER meteorology. USGS and NASA POWER products are generally publishable after acquisition and citation. Acquisition, feasibility, and the 540-unit evaluate-once run are complete. These public-source external data and permitted derived aggregates may be archived with their request/provenance records. They do **not** sanitize or replace restricted Jinsha inputs.
 
 Internal NASA POWER `Rs` (`ALLSKY_SFC_SW_DWN`, UTC) was added to `published_v1` without editing yearbook or CMA/GSOD columns. That shortwave series is generally citable. It does not license `T`/`F`/`L`/`RH`/`DH`/`TEMP`/`WDSP`/`PRCP`.
 
@@ -94,7 +94,7 @@ Do not treat “available upon request” as the access story. No private-reposi
 2. **Restricted Jinsha working tree** (raw CSVs, processed/versioned tables, mask libraries, and metadata that embed dates or values). Concrete process: upload the restricted working tree through **AGU GEMS → Data Files for Peer Review** (confidential review files). Editors then mediate reviewer access under GEMS confidentiality. That upload is not a sublicense, not a CMA transfer, not a grant to provide non-U.S. GSOD-matched columns or derived products to other users, and not a public data release. Yearbook permission was not established; a yearbook or rights-holder confirmation would still be required before any public or post-review release of `T`/`F`/`L`.
 3. **Figshare v4.** Reviewers may inspect the CC BY 4.0 package for provenance only. It is not a substitute for the analysed daily files.
 4. **NOAA GSOD and CMA portals.** Reviewers may obtain those products under each provider’s own terms. Independent download does not license the supplied mixed CSVs.
-5. **USGS / NASA confirmatory.** Not opened. After roster authorization, acquisition would use the documented public APIs. That path is independent of Jinsha rights and does not sanitize Jinsha inputs.
+5. **USGS / NASA confirmatory.** Acquired from documented public APIs after roster authorization; evaluate-once evidence is complete. This path is independent of Jinsha rights and does not sanitize Jinsha inputs.
 
 ## Public-hosting defect
 
@@ -113,7 +113,7 @@ An honest AGU Data and Code Availability statement cannot yet say that the study
 5. Processed and versioned tables inherit those restrictions; `published_v1` remains restricted even after the additive NASA `Rs` rebuild.
 6. Public GitHub currently hosts those restricted columns (defect; not a FAIR dataset).
 7. GitHub is not an AGU archival software repository; no software DOI has been minted (`CITATION.cff` `doi` unset).
-8. Confirmatory USGS/NASA data are `not_opened` and, when opened, do not sanitize Jinsha inputs.
+8. Confirmatory USGS/NASA data and aggregates require an explicit public archive entry; their public status does not sanitize Jinsha inputs.
 9. `pyproject.toml` license metadata is a follow-on and is not set in this wave.
 10. Public-hosting remediation (remove restricted columns from the public git tip and history) remains a separate wave.
 

@@ -1,7 +1,7 @@
-# Stream Recoverability
+# Reservoir Regulation and Stream-Temperature Recoverability
 
-A reproducible framework for testing when daily stream observations remain
-recoverable under structured monitoring outages.
+A reproducible study of how reservoir regulation reshapes the information
+available to recover daily stream temperature under monitoring outages.
 
 ![Upper Jinsha River study area and monitoring stations](figures/study_area.png)
 
@@ -11,9 +11,10 @@ study. The primary task is offline reconstruction of stream temperature (`T`);
 discharge (`F`) and water level (`L`) are secondary targets and information
 sources. A separate online protocol is strictly causal.
 
-The scientific contribution is the recoverability framework—nested gap
-frontiers, information compensation, internal network resilience, uncertainty,
-and event-conditioned stress—not a claim of a novel graph architecture.
+The scientific contribution is a cross-network regulation fingerprint:
+dam-proximal reaches become memory-dominated, whereas less regulated or
+downstream re-equilibrated reaches are donor-dominated. Controlled masks probe
+that information structure; they are not presented as observed fault records.
 
 ## Evidence status
 
@@ -30,15 +31,16 @@ artifacts.
   "finalized_model_roster": "finalized",
   "analytic_recoverability_prediction": "frozen_train_only_before_dense_aggregate",
   "development_test_formal_evidence": "complete_current_protocol",
-  "confirmatory_data": "built_feasibility_passed_no_performance",
-  "confirmatory_evaluation": "not_run",
-  "current_protocol_result_claims": "populated_internal_external_pending"
+  "confirmatory_data": "built_feasibility_passed",
+  "confirmatory_evaluation": "complete_evaluate_once_540_of_540",
+  "current_protocol_result_claims": "internal_complete_external_type_confirmed"
 }
 ```
 <!-- evidence-status:end -->
 
 The v5 scope amendment is recorded in
-`docs/protocol_change_v4_to_v5.md`. CSDI is a reduced probabilistic diagnostic,
+`docs/protocol_change_v4_to_v5.md`; major-review corrections are recorded in
+`docs/protocol_change_v5_to_v6.md`. CSDI is a reduced probabilistic diagnostic,
 not a formal frontier model. Deep candidates with any required
 `best_epoch < 50` are labelled `training_unstable` and excluded. The primary
 question is whether the frozen covariance budget predicts measured
@@ -57,8 +59,8 @@ In particular:
   four-scenario software check ran.
 - The pre-freeze artifacts under `results/formal/` are explicitly invalid for
   inference; see `results/formal/PRE_FREEZE_INVALID.md`.
-- No numerical result or scientific conclusion from the repaired protocol is
-  asserted in this README.
+- Formal internal evidence and the external evaluate-once bundle are complete.
+  Reviewer-triggered state controls remain explicitly post-hoc.
 
 ## Frozen study design
 
@@ -107,11 +109,11 @@ The pipeline separates four roles that must not be pooled or relabelled:
    on `development_test`. Their manifests must match the frozen design, data
    version, masks, checkpoints, code identity, seeds, expected models, and
    run-unit inventory.
-4. **External temporal confirmation.** An immutable Upper–Middle Chattahoochee
-   mainstem data bundle may be opened only after the roster is finalized. The
-   frozen models are retrained on the external training period and evaluated
-   once on the confirmatory period. This is one connected network panel, not
-   five independent basins and not internal nested-point M1.
+4. **External temporal confirmation.** The immutable Upper–Middle Chattahoochee
+   mainstem bundle was opened after roster finalization. All 540 expected
+   model--scenario units completed behind a persistent once-lock. This is one
+   connected network panel, not five independent basins and not internal
+   nested-point M1.
 
 Formal aggregation is registry-driven. A `formal_suite_registry_v1` names
 explicit completed run manifests; historical-directory discovery is not used.
@@ -348,6 +350,8 @@ gate-driven and therefore not simply numerical.
 | `19_build_confirmatory_data.py` | Print the external request plan, or build immutable external data after roster authorization; never computes metrics. |
 | `20_run_confirmatory_evaluation.py` | Preflight, `--feasibility-only` 60-mask dry-run, or execute the frozen external evaluation exactly once. |
 | `21_build_formal_suite_registry.py` | Build one immutable registry from explicitly named completed suite manifests. |
+| `34_run_major_revision.py` | Rebuild regulation fingerprints, stationarity controls, absolute-MAE tables, corrected node summaries, external confirmation summaries, and five main figures. |
+| `35_validate_review_revision.py` | Assert manuscript/result counts, frontier-path identity, p-value inventory, node schema, external completion, citations, and figure/table hashes. |
 
 Use `python scripts/<script>.py --help` before running a stage. The high-level
 order is:
@@ -430,16 +434,18 @@ performance.
 
 This is external temporal replication with the frozen architecture retrained
 on external training data, not zero-shot geographic transfer. Data acquisition
-requires a hash-verified finalized roster. `--feasibility-only` constructs all
-60 masks and checks approved finite `T` truth without training, scoring, or
-creating a once-lock. Evaluate-once may create the persistent once-lock only
-after that 60-mask dry-run succeeds. `scripts/08_run_experiments.py` cannot
+required a hash-verified finalized roster. `--feasibility-only` constructed all
+60 masks and checked approved finite `T` truth before the once-lock existed.
+The completed evaluate-once run contains 540/540 model--scenario units and may
+not be rerun as a tuning opportunity. `scripts/08_run_experiments.py` cannot
 target confirmatory splits.
 
-No confirmatory data or performance result is claimed by the current evidence
-status above. If the external sources cannot satisfy the frozen data contract,
-the correct outcome is an unavailable confirmation—not a substituted site,
-period, or scenario.
+The external result confirms the frozen qualitative type ordering: memory-
+dominated site 02334430 below Buford Dam shows the largest 30-to-180-day skill
+decline and the weakest 180-day recovery, while four donor-dominated downstream
+sites retain stronger long-gap recovery. Exact predicted skill magnitudes do
+not transfer. This is one connected-network confirmation, not five independent
+basins.
 
 ## Outputs and reproducibility controls
 
@@ -516,6 +522,9 @@ figures/                    study-area, diagnostic, and publication figures
 - [Protocol change v1 to v2](docs/protocol_change_v1_to_v2.md)
 - [Protocol change v2 to v3](docs/protocol_change_v2_to_v3.md)
 - [Protocol change v3 to v4](docs/protocol_change_v3_to_v4.md)
+- [Protocol change v4 to v5](docs/protocol_change_v4_to_v5.md)
+- [Major-review corrections v5 to v6](docs/protocol_change_v5_to_v6.md)
+- [Public release remediation](docs/public_release_remediation.md)
 - [Terminology](paper/terminology.md)
 - [Submission gate](scripts/27_submission_gate.py)
 - [Study manifest](study_manifest.yaml)

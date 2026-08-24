@@ -10,6 +10,12 @@ after seeing outcomes.
 | `test` | Stored-data alias of `development_test` only. |
 | `confirmatory` | External 2023–2025 evaluate-once panel after roster freeze. |
 | `external temporal replication` | Retrain the frozen architecture on the external training period. Not zero-shot transfer. |
+| `memory-dominated` | At 30 days, the frozen local-memory budget component exceeds the simultaneous donor component. |
+| `donor-dominated` | At 30 days, the frozen simultaneous donor component is at least the local-memory component. |
+| `regulation fingerprint` | Co-occurring compressed temperature range and extended anomaly memory; observational and not alone causal. |
+| `state-matched diagnostic` | Post-hoc budget and climatology recalibration to 2016--2020; overlaps evaluation and is not predictive evidence. |
+| `best-available node importance` | Failed-network best MAE minus full-network best MAE, with climatology included as a hard cap. |
+| `reference_not_tested` | Baseline self-comparison retained for table completeness with no p-value. |
 | `offline recovery` | Reconstruction that may use both gap boundaries. |
 | `online recovery` | Causal, forward-only recovery. Never pooled with offline ranks. |
 | `analysis_eligible` | Allowed in the current analysis. |
