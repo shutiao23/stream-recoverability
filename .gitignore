@@ -23,6 +23,10 @@ results/validation_funnel/**/run_manifest.json
 results/validation_funnel/**/validation_stage_manifest.json
 results/validation_funnel/**/validation_mask_units.csv
 results/validation_funnel/**/branch_ablation_metrics.parquet
+results/validation_funnel/**/branch_ablation/
+results/validation_funnel/**/deep_stability/
+results/validation_funnel/**/deep_single_seed
+results/validation_funnel/**/traditional
 results/validation_funnel/**/*.log
 results/validation_funnel/**/*.pid
 results/validation_funnel/**/shard_pids.txt
