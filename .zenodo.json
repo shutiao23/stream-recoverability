@@ -1,0 +1,27 @@
+{
+  "title": "Reservoir Regulation Reshapes Recoverable Information in Daily Stream-Temperature Records",
+  "upload_type": "software",
+  "description": "Reproducible code and public aggregate evidence for detecting regulation-linked donor and memory structure with controlled stream-temperature outages in the Upper Jinsha and Chattahoochee networks, including an independently frozen US regulation-panel generalization test. Restricted Jinsha observations are excluded from the complete public history.",
+  "creators": [
+    {
+      "name": "shutiao23"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "stream temperature",
+    "reservoir regulation",
+    "recoverability",
+    "thermal memory",
+    "monitoring networks",
+    "missing data"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/shutiao23/stream-recoverability",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
