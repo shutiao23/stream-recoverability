@@ -1,0 +1,35 @@
+{
+  "schema_version": "public_history_validation_scrub_v1",
+  "status": "verified",
+  "pre_scrub_tip": "e170b10a872d64a34c00c841463c63aa1ceebf40",
+  "post_filter_tip": "6575ec972930a7027ae37a31606b3bea7f4a65e9",
+  "backup": {
+    "filename": "stream-recoverability-pre-validation-scrub-20260824.bundle",
+    "storage": "private local workspace outside the public repository",
+    "bytes": 12255750,
+    "sha256": "79c2e12ddb717d89fe4b49ccabeffc589cc6fe4bc536fa3ff658b8cd185fb871",
+    "git_bundle_verify": "complete history; 2 refs; verified okay",
+    "public_release_allowed": false
+  },
+  "removed_classes": [
+    "validation-funnel and branch-ablation date masks",
+    "published_v1 validation-funnel scenario outputs",
+    "date-level validation event metrics and mask-unit tables",
+    "validation checkpoints, shards, predictions, and runtime manifests"
+  ],
+  "preserved_public_evidence": [
+    "finalized_model_roster.json",
+    "best_simple_baseline_lookup.csv",
+    "validation_model_ranking.csv",
+    "stage2_finalist_selection.csv",
+    "proposed_go_no_go_decision.json"
+  ],
+  "reachable_history_path_scan": {
+    "status": "pass",
+    "matching_object_count": 0
+  },
+  "tip_governance_audit": {
+    "status": "pass",
+    "restricted_tracked_path_count": 0
+  }
+}
