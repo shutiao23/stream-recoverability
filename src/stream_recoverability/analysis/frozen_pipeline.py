@@ -3569,10 +3569,15 @@ def _analysis_completion_gate(
         )
     finite_hypotheses = False
     if not hypotheses.empty and {"p_value", "p_bh"}.issubset(hypotheses):
-        p_values = pd.to_numeric(hypotheses["p_value"], errors="coerce")
-        adjusted = pd.to_numeric(hypotheses["p_bh"], errors="coerce")
+        status = hypotheses.get(
+            "hypothesis_status",
+            pd.Series("tested", index=hypotheses.index, dtype="string"),
+        ).astype("string")
+        tested = ~status.eq("reference_not_tested").fillna(False)
+        p_values = pd.to_numeric(hypotheses.loc[tested, "p_value"], errors="coerce")
+        adjusted = pd.to_numeric(hypotheses.loc[tested, "p_bh"], errors="coerce")
         finite_hypotheses = bool(
-            np.isfinite(p_values).all() and np.isfinite(adjusted).all()
+            tested.any() and np.isfinite(p_values).all() and np.isfinite(adjusted).all()
         )
     domains = [
         _domain_record("formal_input_roles", complete=True, artifacts=()),
