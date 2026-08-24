@@ -35,10 +35,10 @@
 
 | Item | Status | Required action |
 | --- | --- | --- |
-| Restricted Jinsha bytes on public development history | **Blocking / open** | Follow `docs/public_release_remediation.md`: create a clean code-only repository or coordinate a verified history rewrite |
+| Restricted Jinsha bytes on public history | Complete | Verified private bundle + commit map; rewritten public history; remote/tree audit reports zero restricted paths |
 | Archival software DOI | **Blocking / open** | Deposit the sanitized release in a real archive and insert the minted DOI in `CITATION.cff` and manuscript |
 | GEMS confidential reviewer data upload | Open | Upload restricted working files via AGU GEMS Data Files for Peer Review |
 | Public external derived-data archive | Open | Archive USGS/NASA provenance and permitted aggregate outputs with the software release |
 | Reproduction report on sanitized release | Open | Run tests and manuscript artifact checks from the archive candidate |
 
-The package remains **NO-GO for submission** until every blocking item is closed. No placeholder DOI or claim that restricted data are open is permitted.
+The package remains **NO-GO for submission** until the archival DOI and remaining upload/reproduction release tasks are closed. No placeholder DOI or claim that restricted data are open is permitted.

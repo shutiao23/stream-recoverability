@@ -39,6 +39,8 @@ artifacts.
   "external_validation_placement_scale": "complete_20_seeds_no_confirmatory_access",
   "p3_change_point": "complete_method_sensitive",
   "national_regulation_panel": "complete_transport_limited_primary_null_N335",
+  "public_history": "code_only_rewrite_complete_zero_restricted_paths",
+  "archival_doi": "pending",
   "current_protocol_result_claims": "internal_complete_external_type_confirmed"
 }
 ```

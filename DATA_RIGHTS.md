@@ -100,11 +100,9 @@ Do not treat “available upon request” as the access story. No private-reposi
 4. **NOAA GSOD and CMA portals.** Reviewers may obtain those products under each provider’s own terms. Independent download does not license the supplied mixed CSVs.
 5. **USGS / NASA confirmatory.** Acquired from documented public APIs after roster authorization; evaluate-once evidence is complete. This path is independent of Jinsha rights and does not sanitize Jinsha inputs.
 
-## Public-hosting defect
+## Public-history remediation
 
-Restricted hydrological and meteorological columns are presently in the public GitHub tree (`data/raw/*.csv`, processed parquets, `data_versions/*` tables, and date-bearing mask manifests). That hosting fact is a remaining defect. It must not be cited as open or FAIR study data.
-
-This wave records the defect with `scripts/26_audit_restricted_hosting.py`. It does not rewrite git history. History rewrite requires an institutional immutable mirror first, then a coordinated public-history cleanup. Until that happens, the public tip remains defective.
+The historical public Git tree was rewritten to remove raw/processed Jinsha observations, internal data versions, date-bearing masks/catalogs, and other restricted daily artifacts from every public commit. Before the rewrite, a complete private Git bundle was verified and hashed; the public release includes an old-to-new commit map but not the restricted bundle. `scripts/26_audit_restricted_hosting.py --fail-if-present` now passes with zero restricted tracked paths. This remediation is not a grant to redistribute the private working inputs.
 
 ## What still blocks an AGU Availability Statement
 
@@ -115,10 +113,10 @@ An honest AGU Data and Code Availability statement cannot yet say that the study
 3. `TEMP`/`WDSP`/`PRCP`: WMO/CMA series independently matching GSOD; NCEI WMO Resolution 40 language forbids providing non-U.S. GSOD data or derived products to other users. Contested/restricted, not NOAA-open.
 4. Figshare CC BY 4.0 does not license the supplied daily CSVs.
 5. Processed and versioned tables inherit those restrictions; `published_v1` remains restricted even after the additive NASA `Rs` rebuild.
-6. Public GitHub currently hosts those restricted columns (defect; not a FAIR dataset).
+6. Public history remediation is complete; future releases must keep the restricted-path audit at zero.
 7. GitHub is not an AGU archival software repository; no software DOI has been minted (`CITATION.cff` `doi` unset).
 8. Confirmatory USGS/NASA data and aggregates require an explicit public archive entry; their public status does not sanitize Jinsha inputs.
 9. `pyproject.toml` license metadata is a follow-on and is not set in this wave.
-10. Public-hosting remediation (remove restricted columns from the public git tip and history) remains a separate wave.
+10. The public release must retain the private-history backup ledger and commit map so pre-rewrite evidence hashes remain auditable.
 
-Until those are resolved, the Availability Statement should remain the restricted wording already in `paper/manuscript.md` §5, plus a software-archive DOI after one exists.
+Until the DOI and confidential-review upload are resolved, the Availability Statement should retain the restricted wording in `paper/manuscript.md` §6 and add the real software archive identifier only after it exists.

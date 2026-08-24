@@ -42,9 +42,9 @@
 
 ## BL-007 — Submission compliance
 
-**Open.** Restricted Jinsha bytes remain in the development repository history, and no archival software DOI exists.
+**Release status.** The public history is rewritten to code-only scope after creating a verified private bundle and old-to-new commit map. The public audit reports zero restricted tracked paths. No archival software DOI yet exists.
 
-**Boundary.** The manuscript is scientifically revised but must not be submitted until a coordinated code-only history/release and real archival DOI exist. Reviewer access to restricted data is through AGU GEMS confidential files.
+**Boundary.** The manuscript must not be submitted until a real archival DOI exists and confidential reviewer files are uploaded through AGU GEMS. Restricted data remain outside the public release.
 
 ## BL-008 — P3 change-date localization
 

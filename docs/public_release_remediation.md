@@ -1,9 +1,9 @@
-# Public-release remediation plan
+# Public-release remediation record
 
-The current development repository is not a submission archive because 75
-tracked paths contain or inherit restricted Jinsha observations. This document
-does not execute a history rewrite or force-push. Those operations require the
-repository owner, an institutional backup, and coordination with all clones.
+The public history remediation described below was completed after the scientific
+revision. A verified private bundle and old-to-new commit map were created before
+the force-push. The sanitized public history contains no path flagged by the
+restricted-hosting audit. The private bundle remains outside the public repository.
 
 ## Preferred option: new code-only archival repository
 
