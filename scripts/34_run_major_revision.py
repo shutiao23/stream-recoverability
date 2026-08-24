@@ -820,23 +820,35 @@ def _figure_05(
     cells: pd.DataFrame,
     summary: pd.DataFrame,
     fingerprints: pd.DataFrame,
+    placement: pd.DataFrame,
 ) -> None:
-    if cells.empty or summary.empty:
+    if cells.empty or summary.empty or placement.empty:
         return
+    placement = placement.copy()
+    placement["station_id"] = placement["station_id"].astype(str).str.zfill(8)
     figure, axes = plt.subplots(1, 2, figsize=(10.8, 4.1), constrained_layout=True)
     for station in EXTERNAL_STATIONS:
         curve = cells.loc[cells["station_id"].astype(str).eq(station)].sort_values(
             "gap_length"
         )
+        uncertainty = placement.loc[
+            placement["station_id"].eq(station)
+            & placement["gap_length"].isin(curve["gap_length"])
+        ].sort_values("gap_length")
+        if len(uncertainty) != len(curve):
+            raise ValueError(f"validation placement SD is incomplete for {station}")
         memory = station == "02334430"
         color = "#e45756" if memory else "#777777"
         alpha = 1.0 if memory else 0.65
-        axes[0].plot(
+        axes[0].errorbar(
             curve["gap_length"],
             curve["best_skill"],
+            yerr=uncertainty["envelope_skill_sd"],
             color=color,
             alpha=alpha,
             marker="o",
+            capsize=2,
+            linewidth=1.2,
             label=station,
         )
         axes[0].plot(
@@ -856,10 +868,11 @@ def _figure_05(
     axes[0].grid(alpha=0.2)
     axes[0].legend(frameon=False, fontsize=7, ncol=2)
     axes[0].text(
+        0.98,
         0.02,
-        0.02,
-        "Solid: observed; dashed: train-only prediction",
+        "Solid: observed; dashed: prediction; bars: validation placement SD",
         transform=axes[0].transAxes,
+        ha="right",
         fontsize=7,
     )
 
@@ -869,12 +882,22 @@ def _figure_05(
     plotted = summary.merge(chatt, on="station_id", validate="one_to_one")
     for row in plotted.itertuples(index=False):
         memory = row.predicted_type == "memory_dominated"
-        axes[1].scatter(
-            row.acf30,
-            row.observed_best_skill_180d,
+        placement_sd = float(
+            placement.loc[
+                placement["station_id"].eq(str(row.station_id))
+                & placement["gap_length"].eq(180),
+                "envelope_skill_sd",
+            ].iloc[0]
+        )
+        axes[1].errorbar(
+            [row.acf30],
+            [row.observed_best_skill_180d],
+            yerr=[placement_sd],
             marker="s" if memory else "o",
             color="#e45756" if memory else "#4c78a8",
-            s=70,
+            markersize=7,
+            capsize=3,
+            linestyle="none",
         )
         axes[1].annotate(
             row.station_id,
@@ -1011,6 +1034,15 @@ def main() -> None:
     ].copy()
     importance = node_importance(network_events, value_col="MAE")
     external_cells, external_summary = _external_confirmation_tables()
+    placement_path = (
+        OUTPUT
+        / "external_validation_uncertainty/external_validation_uncertainty_envelope.csv"
+    )
+    if not placement_path.is_file():
+        raise FileNotFoundError(
+            "run scripts/36_run_external_validation_uncertainty.py before revision figures"
+        )
+    external_placement = pd.read_csv(placement_path, dtype={"station_id": str})
 
     outputs = {
         "annual_thermal_metrics.csv": annual,
@@ -1042,7 +1074,12 @@ def main() -> None:
     _figure_02(budget_cells)
     _figure_03(curves)
     _figure_04(importance)
-    _figure_05(external_cells, external_summary, fingerprints)
+    _figure_05(
+        external_cells,
+        external_summary,
+        fingerprints,
+        external_placement,
+    )
 
     figure_titles = {
         1: "Reservoir-regulation fingerprint across two networks",
@@ -1120,6 +1157,10 @@ def main() -> None:
         ),
         "external_completion_manifest": _file_identity(
             EXTERNAL_RESULTS / "completion_manifest.json"
+        ),
+        "external_validation_uncertainty_manifest": _file_identity(
+            OUTPUT
+            / "external_validation_uncertainty/external_validation_uncertainty_manifest.json"
         ),
         "figure_manifest": _file_identity(FIGURES / "figure_manifest.json"),
         "table_manifest": _file_identity(TABLES / "table_manifest.json"),

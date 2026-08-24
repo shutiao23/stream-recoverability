@@ -163,6 +163,49 @@ def main() -> None:
     )
     assert external["qualitative_prediction_consistent"].all()
 
+    placement_root = ROOT / "results/revision/external_validation_uncertainty"
+    placement_manifest = json.loads(
+        (placement_root / "external_validation_uncertainty_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert placement_manifest["status"] == "complete"
+    assert placement_manifest["evaluation_split"] == "validation"
+    assert placement_manifest["confirmatory_outcomes_read"] is False
+    assert placement_manifest["confirmatory_metric_uses"] == 0
+    assert placement_manifest["once_lock_read"] is False
+    assert placement_manifest["once_lock_modified"] is False
+    for name, identity in placement_manifest["artifacts"].items():
+        artifact = placement_root / name
+        assert artifact.is_file(), artifact
+        assert artifact.stat().st_size == identity["bytes"], artifact
+        assert _sha256(artifact) == identity["sha256"], artifact
+    placement_cells = pd.read_csv(
+        placement_root / "external_validation_uncertainty_cells.csv"
+    )
+    assert len(placement_cells) == 135
+    assert placement_cells["n_mask_seeds"].eq(20).all()
+    paired_scale = pd.read_csv(
+        placement_root / "external_validation_uncertainty_paired_differences.csv",
+        dtype={"donor_station_id": str},
+    )
+    assert len(paired_scale) == 12
+    confirm_cells = pd.read_csv(
+        ROOT / "results/revision/external_confirmation_cells.csv",
+        dtype={"station_id": str},
+    )
+    confirm_180 = confirm_cells.loc[confirm_cells["gap_length"].eq(180)].set_index(
+        "station_id"
+    )
+    dam_skill = float(confirm_180.loc["02334430", "best_skill"])
+    ratios = []
+    for row in paired_scale.loc[paired_scale["gap_length"].eq(180)].itertuples():
+        difference = float(
+            confirm_180.loc[row.donor_station_id, "best_skill"] - dam_skill
+        )
+        ratios.append(difference / float(row.paired_difference_sd))
+    assert min(ratios) > 3.0 and max(ratios) < 6.0
+
     change_manifest = json.loads(
         (ROOT / "results/revision/p3_change_point_manifest.json").read_text(
             encoding="utf-8"
@@ -219,6 +262,7 @@ def main() -> None:
                 "finite_frontier_tests": 24,
                 "node_importance_rows": len(importance),
                 "external_run_units": 540,
+                "external_validation_seed_cells": 2700,
                 "p3_change_point_methods": 2,
                 "tracked_external_artifacts": len(required_tracked),
                 "figures": figure_count,

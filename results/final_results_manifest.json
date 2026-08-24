@@ -16,10 +16,15 @@
     "bytes": 678826,
     "sha256": "7564975ef0d16a77d833e820997a7b0939ca7a7bec6dafe5004bb2b6cf97c68a"
   },
+  "external_validation_uncertainty_manifest": {
+    "path": "results/revision/external_validation_uncertainty/external_validation_uncertainty_manifest.json",
+    "bytes": 64724,
+    "sha256": "2c155195fc9fbecb8488356589183c73698b3007eab1642f9fb6cc820b9a5fa8"
+  },
   "figure_manifest": {
     "path": "figures/main/figure_manifest.json",
     "bytes": 1297,
-    "sha256": "fc99670fdb717603c9168c14c83bea64333c0f70c85d6a3bae247fa3096e2f32"
+    "sha256": "bd192baefbb50b98282ad0e792a3f7c8a4218188321561d2858ed5307c802d72"
   },
   "table_manifest": {
     "path": "paper/tables/table_manifest.json",

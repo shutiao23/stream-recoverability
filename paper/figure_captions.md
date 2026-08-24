@@ -12,7 +12,7 @@
 
 **Figure 4. Best-available node importance.** Mean increase in best-achievable MAE after each singleton station failure, faceted by target station and averaged over the four network gap lengths. The method may reselect after failure, and climatology is a hard error cap. Negative bars are retained finite-sample/model-selection outcomes and do not imply that failure creates physical information.
 
-**Figure 5. Evaluate-once Chattahoochee confirmation.** (a) Solid curves are the observed best-model envelope at 30, 90, and 180 days; dashed curves are the frozen train-only covariance predictions. Red identifies memory-dominated site 02334430 below Buford Dam. (b) Fitting-period anomaly memory versus observed 180-day best skill. The external panel confirms the qualitative donor/memory ordering but not universal prediction magnitudes. Each cell has one frozen external mask and is descriptive rather than a population confidence interval.
+**Figure 5. Evaluate-once Chattahoochee confirmation with an independent placement-noise scale.** (a) Solid curves are the observed full-information best-model envelope at 30, 90, and 180 days; dashed curves are the frozen train-only covariance predictions. Error bars are plus or minus one best-roster placement SD estimated from 20 masks on the 2021--2022 validation period; they are not confirmatory confidence intervals. Red identifies memory-dominated site 02334430 below Buford Dam. (b) Fitting-period anomaly memory versus observed 180-day best skill with the same validation-period SD scale. Type separation is absent at 30 days but present at 90 and 180 days. Each confirmatory cell still has one frozen mask.
 
 ## Main tables
 
