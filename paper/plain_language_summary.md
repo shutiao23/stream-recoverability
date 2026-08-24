@@ -4,4 +4,6 @@ We use artificial gaps not because the study records are incomplete--their daily
 
 The same calculation, without being told where a dam is, independently selects the gauge immediately below Buford Dam in Georgia. When its previously locked 2023--2025 observations are evaluated once, recovery performance declines sharply as gaps lengthen. Four sites farther downstream retain much stronger long-gap recovery as the released water re-equilibrates with the atmosphere.
 
+We then froze a separate test before examining a national panel of 335 US stream gauges. The index was larger near major dams and declined with distance within regulated watersheds, but by itself it did not distinguish dammed from undammed sites when whole ecological regions were held out. The fingerprint is therefore a local diagnostic that needs geographic and river context, not a universal dam detector.
+
 The covariance equation predicts this qualitative recovery type but not exact performance. It is also sensitive to changes in thermal state. Monitoring agencies can use it as a rapid screening tool, then calibrate absolute errors locally. In this study the relevant gains and sensor-failure costs are usually tenths of a degree Celsius, and no gap length is declared ecologically safe to fill.

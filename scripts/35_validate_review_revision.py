@@ -227,6 +227,30 @@ def main() -> None:
     assert sensitivity_change["point_date"] == "2014-10-18"
     assert bool(sensitivity_change["event_in_95pct_bootstrap_ci"])
 
+    panel_root = ROOT / "results/regulation_panel_v1_legacy_transport"
+    panel_manifest = json.loads(
+        (panel_root / "artifact_manifest.json").read_text(encoding="utf-8")
+    )
+    assert panel_manifest["confirmatory_path_access_audit_passed"] is True
+    for identity in panel_manifest["artifacts"]:
+        artifact = ROOT / identity["path"]
+        assert artifact.is_file(), artifact
+        assert artifact.stat().st_size == identity["bytes"], artifact
+        assert _sha256(artifact) == identity["sha256"], artifact
+    panel_report = json.loads((panel_root / "report.json").read_text(encoding="utf-8"))
+    assert panel_report["complete"] is True
+    assert panel_report["confirmatory_network_touched"] is False
+    assert panel_report["flow"]["eligible_stations"] == 335
+    assert panel_report["flow"]["regulated_stations"] == 209
+    assert panel_report["flow"]["unregulated_stations"] == 126
+    assert panel_report["scientific_conclusion"]["primary_discrimination"] == (
+        "not_supported"
+    )
+    assert (
+        panel_report["primary"]["pooled_leave_ecoregion_out_auc"] == 0.40749601275917063
+    )
+    assert panel_report["transport_equivalence_audit"]["pass_fraction"] == 1.0
+
     manuscript = (ROOT / "paper/manuscript.md").read_text(encoding="utf-8")
     assert "RESULTS_PENDING" not in manuscript
     assert "changed abruptly at the end of 2014" not in manuscript
@@ -251,6 +275,7 @@ def main() -> None:
     figure_count = _assert_manifest_identities(
         ROOT / "figures/main/figure_manifest.json", "figures"
     )
+    assert figure_count == 6
     table_count = _assert_manifest_identities(
         ROOT / "paper/tables/table_manifest.json", "tables"
     )
@@ -264,6 +289,7 @@ def main() -> None:
                 "external_run_units": 540,
                 "external_validation_seed_cells": 2700,
                 "p3_change_point_methods": 2,
+                "regulation_panel_stations": 335,
                 "tracked_external_artifacts": len(required_tracked),
                 "figures": figure_count,
                 "tables": table_count,

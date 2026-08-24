@@ -24,3 +24,5 @@ paper and it does not waive the submission gate.
 | P1-v5 | Complete | Claim matrix converted to an effect ledger; `paper/boundary_ledger.md` records counterevidence and claim changes. |
 | P3-v5 | Complete evaluate-once | Feasibility passed 60/60; the 2012--2020 predictor found four donor and one memory site; 2023--2025 outcomes were opened once after the review corrections and all 540 units completed. |
 | v6 review | Complete scientifically | P3 regulation transition, stationarity controls, absolute MAE, 8-site fingerprint, frontier/p-value repairs, corrected node importance, and external confirmation are complete. |
+| v6 P0(a--c) | Complete | External validation placement SD uses 20 seeds without confirmation access; confirmatory bundle/lock are tracked; P3 change date is method-sensitive and reported accordingly. |
+| v6 P1 | Complete with primary null | Independently frozen transport-limited national panel N=335. Stand-alone LOEO discrimination fails; adjusted/distance signals are supporting only. |

@@ -45,7 +45,19 @@ def test_series_selection_never_splices_and_counts_complete_years() -> None:
     config["eligibility"]["minimum_approved_distinct_days_per_qualifying_year"] = 3
     rows = []
     for series, dates in (
-        ("long", pd.to_datetime(["2000-01-01", "2000-01-02", "2000-01-03", "2001-01-01", "2001-01-02", "2001-01-03"])),
+        (
+            "long",
+            pd.to_datetime(
+                [
+                    "2000-01-01",
+                    "2000-01-02",
+                    "2000-01-03",
+                    "2001-01-01",
+                    "2001-01-02",
+                    "2001-01-03",
+                ]
+            ),
+        ),
         ("short", pd.to_datetime(["2002-01-01", "2002-01-02", "2002-01-03"])),
     ):
         for index, date in enumerate(dates):

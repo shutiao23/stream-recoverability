@@ -8,6 +8,9 @@
 | P3 annual minima/amplitudes | `results/revision/annual_thermal_metrics.csv` | Complete |
 | Stationarity-controlled budget | 2016--2017 and post-hoc 2016--2020 tables | Complete |
 | Low-frequency robustness | Annual-mean-removed skill table | Complete |
+| External placement uncertainty | 20 validation seeds; 2,700 cells; confirmation/lock untouched | Complete |
+| Formal P3 change-date sensitivity | Pettitt + least-squares, year-block permutation, block-bootstrap CI | Complete |
+| Independently frozen national panel | N=335; primary null, adjusted/distance sensitivities, isolation audit | Complete |
 | Expanded measured-covariate budget | `expanded_covariate_budget.csv` | Complete |
 | One frontier code path | 27/27 climatology cells asserted identical | Complete |
 | Nondegenerate hypothesis family | 24 finite tests + 3 reference rows; BH reported | Complete |
@@ -16,6 +19,7 @@
 | Natural-missingness disclosure | 0 missing hydrological days; masks described as probes | Complete |
 | Deep material moved to SI | Main text limited to roster outcome | Complete |
 | Evaluate-once confirmation | 540/540 units; complete once-lock and manifest | Complete |
+| Confirmatory artifact preservation | 308 output files + once-lock tracked at original hashes | Complete |
 | Manuscript/Key Points/PLS/captions | Regulation-focused revision | Complete |
 
 ## Evidence gates

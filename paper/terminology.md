@@ -16,6 +16,9 @@ after seeing outcomes.
 | `state-matched diagnostic` | Post-hoc budget and climatology recalibration to 2016--2020; overlaps evaluation and is not predictive evidence. |
 | `best-available node importance` | Failed-network best MAE minus full-network best MAE, with climatology included as a hard cap. |
 | `reference_not_tested` | Baseline self-comparison retained for table completeness with no p-value. |
+| `validation placement SD` | Sample SD across 20 masks on 2021--2022 external validation data; a noise scale, not a confirmatory CI. |
+| `transport-limited maximum legal panel` | National panel after frozen official API fallback and exclusion of ambiguous multi-series sites. |
+| `primary discrimination not supported` | National unadjusted/LOEO result; adjusted and distance profiles cannot overwrite it. |
 | `offline recovery` | Reconstruction that may use both gap boundaries. |
 | `online recovery` | Causal, forward-only recovery. Never pooled with offline ranks. |
 | `analysis_eligible` | Allowed in the current analysis. |

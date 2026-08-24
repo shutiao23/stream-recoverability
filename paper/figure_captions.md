@@ -14,6 +14,8 @@
 
 **Figure 5. Evaluate-once Chattahoochee confirmation with an independent placement-noise scale.** (a) Solid curves are the observed full-information best-model envelope at 30, 90, and 180 days; dashed curves are the frozen train-only covariance predictions. Error bars are plus or minus one best-roster placement SD estimated from 20 masks on the 2021--2022 validation period; they are not confirmatory confidence intervals. Red identifies memory-dominated site 02334430 below Buford Dam. (b) Fitting-period anomaly memory versus observed 180-day best skill with the same validation-period SD scale. Type separation is absent at 30 days but present at 90 and 180 days. Each confirmatory cell still has one frozen mask.
 
+**Figure 6. Independently frozen US regulation-panel test.** (a) Memory--range index by 2009 GAGES-II upstream-major-dam label for 335 eligible stations. (b) Frozen leave-one-aggregated-ecoregion-out ROC curve; AUC 0.407 and the cluster-bootstrap interval includes 0.5, so standalone national discrimination is not supported. (c) Within regulated watersheds, median index and acf30 decline across 0--5, 5--20, 20--50, and 50--100 km nearest-major-dam bins; the greater-than-100-km bin contains one station and is not interpreted. Results use the transport-limited maximum legal panel after a frozen official API fallback.
+
 ## Main tables
 
 **Table 1. Eight-station regulation fingerprint.** Fitting-period observed range, climatological range, anomaly variability and memory, donor and memory budget components, covariance type, within-network memory--range rank, station order, and dam context.

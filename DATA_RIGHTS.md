@@ -84,6 +84,10 @@ Original code under `src/`, `scripts/`, `tests/`, and project-authored configs/d
 
 The frozen external protocol uses five USGS sites on **one** Upper-to-Middle Chattahoochee mainstem network panel (not Lower Chattahoochee) and NASA POWER meteorology. USGS and NASA POWER products are generally publishable after acquisition and citation. Acquisition, feasibility, and the 540-unit evaluate-once run are complete. These public-source external data and permitted derived aggregates may be archived with their request/provenance records. They do **not** sanitize or replace restricted Jinsha inputs.
 
+## National USGS/GAGES-II regulation panel
+
+The separately frozen national panel uses USGS daily water temperature and metadata, the USGS GAGES-II data release, and an official legacy USGS daily-values fallback after modern API rate limiting. These are public US-government sources and the compact aggregate panel outputs may be archived with citations and request/source hashes. Re-downloadable raw caches are excluded from Git because they contain millions of public rows and a 55 MB source archive; `artifact_manifest.json` records their identities. The national pipeline statically and dynamically excludes all Chattahoochee confirmatory paths.
+
 Internal NASA POWER `Rs` (`ALLSKY_SFC_SW_DWN`, UTC) was added to `published_v1` without editing yearbook or CMA/GSOD columns. That shortwave series is generally citable. It does not license `T`/`F`/`L`/`RH`/`DH`/`TEMP`/`WDSP`/`PRCP`.
 
 ## Reviewer access route

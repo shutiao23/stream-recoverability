@@ -21,10 +21,20 @@
     "bytes": 64724,
     "sha256": "2c155195fc9fbecb8488356589183c73698b3007eab1642f9fb6cc820b9a5fa8"
   },
+  "p3_change_point_manifest": {
+    "path": "results/revision/p3_change_point_manifest.json",
+    "bytes": 1853,
+    "sha256": "11f4a8e7cb286e31c3b9cb02931cd4b55e9881d740575d1a9c1d330787459ac9"
+  },
+  "regulation_panel_manifest": {
+    "path": "results/regulation_panel_v1_legacy_transport/artifact_manifest.json",
+    "bytes": 5356,
+    "sha256": "b8233d18ec5d9802cd4806eab4a264fb71a4e03ad682b560e338d356fe8fd3bf"
+  },
   "figure_manifest": {
     "path": "figures/main/figure_manifest.json",
-    "bytes": 1297,
-    "sha256": "bd192baefbb50b98282ad0e792a3f7c8a4218188321561d2858ed5307c802d72"
+    "bytes": 1539,
+    "sha256": "d830899e8beb140b171fb4e4ab03fe22f7419ee7529c159149b09242a54ffffe"
   },
   "table_manifest": {
     "path": "paper/tables/table_manifest.json",

@@ -76,7 +76,11 @@ def file_identity(path: Path) -> dict[str, Any]:
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
-    return {"path": str(path), "bytes": path.stat().st_size, "sha256": digest.hexdigest()}
+    return {
+        "path": str(path),
+        "bytes": path.stat().st_size,
+        "sha256": digest.hexdigest(),
+    }
 
 
 def portable_file_identity(path: Path, project_root: Path) -> dict[str, Any]:
@@ -92,7 +96,11 @@ def portable_file_identity(path: Path, project_root: Path) -> dict[str, Any]:
 
 def _url_with_query(url: str, params: Mapping[str, Any]) -> str:
     query = urllib.parse.urlencode(
-        [(key, value) for key, raw in params.items() for value in ([raw] if not isinstance(raw, (list, tuple)) else raw)]
+        [
+            (key, value)
+            for key, raw in params.items()
+            for value in ([raw] if not isinstance(raw, (list, tuple)) else raw)
+        ]
     )
     return f"{url}?{query}"
 
@@ -103,7 +111,10 @@ def _request_bytes(url: str, *, attempts: int = 5, timeout: int = 180) -> bytes:
         try:
             headers = {"User-Agent": USER_AGENT}
             api_key = os.environ.get("USGS_WATERDATA_API_KEY")
-            if api_key and urllib.parse.urlparse(url).hostname == "api.waterdata.usgs.gov":
+            if (
+                api_key
+                and urllib.parse.urlparse(url).hostname == "api.waterdata.usgs.gov"
+            ):
                 headers["api_key"] = api_key
             request = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(request, timeout=timeout) as response:
@@ -112,7 +123,9 @@ def _request_bytes(url: str, *, attempts: int = 5, timeout: int = 180) -> bytes:
             last_error = error
             if attempt + 1 < attempts:
                 time.sleep(min(2**attempt, 15))
-    raise RuntimeError(f"request failed after {attempts} attempts: {url}") from last_error
+    raise RuntimeError(
+        f"request failed after {attempts} attempts: {url}"
+    ) from last_error
 
 
 def _request_json(url: str) -> dict[str, Any]:
@@ -159,7 +172,9 @@ def discover_temperature_series(
             "computation_identifier": spec["computation_identifier"],
         },
     )
-    raw = fetch_json_cache(url, cache_dir / "usgs_time_series_metadata.json", offline=offline)
+    raw = fetch_json_cache(
+        url, cache_dir / "usgs_time_series_metadata.json", offline=offline
+    )
     if any(link.get("rel") == "next" for link in raw.get("links", [])):
         raise RuntimeError("temperature metadata exceeded the frozen one-page limit")
     records: list[dict[str, Any]] = []
@@ -201,15 +216,25 @@ def _sciencebase_archive(
         "https://www.sciencebase.gov/catalog/item/"
         f"{spec['sciencebase_item_id']}?format=json"
     )
-    item = fetch_json_cache(item_url, cache_dir / "gages_ii_sciencebase_item.json", offline=offline)
-    candidates = [file for file in item.get("files", []) if file.get("name") == spec["archive_name"]]
+    item = fetch_json_cache(
+        item_url, cache_dir / "gages_ii_sciencebase_item.json", offline=offline
+    )
+    candidates = [
+        file
+        for file in item.get("files", [])
+        if file.get("name") == spec["archive_name"]
+    ]
     if len(candidates) != 1:
-        raise RuntimeError(f"ScienceBase did not expose exactly one {spec['archive_name']}")
+        raise RuntimeError(
+            f"ScienceBase did not expose exactly one {spec['archive_name']}"
+        )
     archive = cache_dir / spec["archive_name"]
     if not archive.exists():
         if offline:
             raise FileNotFoundError(f"offline cache is missing: {archive}")
-        _atomic_bytes(archive, _request_bytes(candidates[0]["downloadUri"], timeout=300))
+        _atomic_bytes(
+            archive, _request_bytes(candidates[0]["downloadUri"], timeout=300)
+        )
     md5 = hashlib.md5(archive.read_bytes(), usedforsecurity=False).hexdigest()
     if md5 != str(spec["archive_md5"]):
         raise RuntimeError(f"GAGES-II archive MD5 mismatch: {md5}")
@@ -225,6 +250,7 @@ def load_gages_ii(
     with zipfile.ZipFile(archive) as outer:
         nested_payload = outer.read("spreadsheets-in-csv-format.zip")
     with zipfile.ZipFile(io.BytesIO(nested_payload)) as nested:
+
         def table(name: str) -> pd.DataFrame:
             return pd.read_csv(
                 nested.open(name), dtype={"STAID": str}, encoding="cp1252"
@@ -274,7 +300,11 @@ def fetch_monitoring_locations(
         for offset in range(0, len(values), batch_size):
             url = _url_with_query(
                 endpoint,
-                {"f": "json", "limit": batch_size, "id": ",".join(values[offset : offset + batch_size])},
+                {
+                    "f": "json",
+                    "limit": batch_size,
+                    "id": ",".join(values[offset : offset + batch_size]),
+                },
             )
             while url:
                 response = _request_json(url)
@@ -372,7 +402,7 @@ def fetch_daily_values(
             missing.append((number, selected, parquet, manifest_path))
 
     def populate(
-        job: tuple[int, list[str], Path, Path]
+        job: tuple[int, list[str], Path, Path],
     ) -> tuple[int, pd.DataFrame, dict[str, Any]]:
         number, selected, parquet, manifest_path = job
         frame, requests = _daily_batch(
@@ -414,7 +444,9 @@ def fetch_daily_values(
     return pd.concat(frames, ignore_index=True, sort=False), manifests
 
 
-def _parse_legacy_rdb(payload: bytes, series_by_station: Mapping[str, str]) -> pd.DataFrame:
+def _parse_legacy_rdb(
+    payload: bytes, series_by_station: Mapping[str, str]
+) -> pd.DataFrame:
     """Parse the repeated per-site RDB tables returned by legacy USGS ``/dv``."""
 
     lines = payload.decode("utf-8", errors="strict").splitlines()
@@ -431,7 +463,9 @@ def _parse_legacy_rdb(payload: bytes, series_by_station: Mapping[str, str]) -> p
             if column.endswith("_00010_00003") and not column.endswith("_cd")
         ]
         if len(value_columns) != 1:
-            raise RuntimeError(f"legacy RDB table has ambiguous temperature columns: {columns}")
+            raise RuntimeError(
+                f"legacy RDB table has ambiguous temperature columns: {columns}"
+            )
         value_column = value_columns[0]
         qualifier_column = f"{value_column}_cd"
         index += 2  # Skip the RDB width/type row.
@@ -446,7 +480,9 @@ def _parse_legacy_rdb(payload: bytes, series_by_station: Mapping[str, str]) -> p
             record = dict(zip(columns, values, strict=True))
             station = str(record["site_no"])
             if station not in series_by_station:
-                raise RuntimeError(f"legacy response contained an unrequested station: {station}")
+                raise RuntimeError(
+                    f"legacy response contained an unrequested station: {station}"
+                )
             rows.append(
                 {
                     "time_series_id": series_by_station[station],
@@ -481,7 +517,9 @@ def fetch_legacy_daily_values(
 
     counts = metadata.groupby("station_id", observed=True)["id"].nunique()
     if not counts.eq(1).all():
-        raise ValueError("legacy transport is restricted to exactly one primary series per station")
+        raise ValueError(
+            "legacy transport is restricted to exactly one primary series per station"
+        )
     series_by_station = metadata.set_index("station_id")["id"].astype(str).to_dict()
     stations = sorted(series_by_station)
     batch_dir = cache_dir / "legacy_daily_batches"
@@ -565,7 +603,9 @@ def audit_modern_legacy_equivalence(
             "scripts/38_run_regulation_panel.py --legacy-transport "
             "--bootstrap-equivalence-batches 26"
         )
-    modern = pd.concat([pd.read_parquet(path) for path in modern_paths], ignore_index=True)
+    modern = pd.concat(
+        [pd.read_parquet(path) for path in modern_paths], ignore_index=True
+    )
     single_series = set(metadata["id"].astype(str))
 
     def normalize(frame: pd.DataFrame) -> pd.DataFrame:
@@ -576,11 +616,14 @@ def audit_modern_legacy_equivalence(
         data["station_id"] = data["monitoring_location_id"].str.replace(
             r"^USGS-", "", regex=True
         )
-        data["date"] = pd.to_datetime(data["time"], errors="coerce").dt.tz_localize(None).dt.normalize()
+        data["date"] = (
+            pd.to_datetime(data["time"], errors="coerce")
+            .dt.tz_localize(None)
+            .dt.normalize()
+        )
         data["temperature_degC"] = pd.to_numeric(data["value"], errors="coerce")
-        return (
-            data.groupby(["station_id", "date"], observed=True, as_index=False)
-            .agg(temperature_degC=("temperature_degC", "median"))
+        return data.groupby(["station_id", "date"], observed=True, as_index=False).agg(
+            temperature_degC=("temperature_degC", "median")
         )
 
     modern_values = normalize(modern).rename(columns={"temperature_degC": "modern"})
@@ -588,9 +631,8 @@ def audit_modern_legacy_equivalence(
     comparison = modern_values.merge(
         legacy_values, on=["station_id", "date"], how="left", validate="one_to_one"
     )
-    comparison["exact_match"] = (
-        comparison["legacy"].notna()
-        & np.isclose(comparison["modern"], comparison["legacy"], rtol=0.0, atol=1e-12)
+    comparison["exact_match"] = comparison["legacy"].notna() & np.isclose(
+        comparison["modern"], comparison["legacy"], rtol=0.0, atol=1e-12
     )
     result = {
         "completed_modern_batch_count": len(modern_paths),
@@ -616,26 +658,37 @@ def select_station_series(
         return daily.copy(), pd.DataFrame()
     spec = config["data_sources"]["usgs"]
     data = daily.copy()
-    data["date"] = pd.to_datetime(data["time"], errors="coerce").dt.tz_localize(None).dt.normalize()
+    data["date"] = (
+        pd.to_datetime(data["time"], errors="coerce")
+        .dt.tz_localize(None)
+        .dt.normalize()
+    )
     data["temperature_degC"] = pd.to_numeric(data["value"], errors="coerce")
-    data["station_id"] = data["monitoring_location_id"].str.replace(r"^USGS-", "", regex=True)
+    data["station_id"] = data["monitoring_location_id"].str.replace(
+        r"^USGS-", "", regex=True
+    )
     valid = (
         data["approval_status"].eq(spec["approval_status_retained"])
         & np.isfinite(data["temperature_degC"])
         & data["date"].notna()
     )
     data = data.loc[valid].copy()
-    data = (
-        data.groupby(["station_id", "time_series_id", "date"], observed=True, as_index=False)
-        .agg(temperature_degC=("temperature_degC", "median"))
-    )
+    data = data.groupby(
+        ["station_id", "time_series_id", "date"], observed=True, as_index=False
+    ).agg(temperature_degC=("temperature_degC", "median"))
     counts = (
         data.groupby(["station_id", "time_series_id"], observed=True)
         .agg(approved_distinct_dates=("date", "nunique"))
         .reset_index()
     )
-    begin = metadata[["id", "begin"]].drop_duplicates("id").rename(columns={"id": "time_series_id"})
-    counts = counts.merge(begin, on="time_series_id", how="left", validate="many_to_one")
+    begin = (
+        metadata[["id", "begin"]]
+        .drop_duplicates("id")
+        .rename(columns={"id": "time_series_id"})
+    )
+    counts = counts.merge(
+        begin, on="time_series_id", how="left", validate="many_to_one"
+    )
     counts = counts.sort_values(
         ["station_id", "approved_distinct_dates", "begin", "time_series_id"],
         ascending=[True, False, True, True],
@@ -654,9 +707,13 @@ def select_station_series(
         .agg(approved_distinct_days=("date", "nunique"))
         .reset_index()
     )
-    threshold = int(config["eligibility"]["minimum_approved_distinct_days_per_qualifying_year"])
+    threshold = int(
+        config["eligibility"]["minimum_approved_distinct_days_per_qualifying_year"]
+    )
     qualifying = years.loc[years["approved_distinct_days"].ge(threshold)]
-    n_years = qualifying.groupby("station_id")["year"].nunique().rename("n_qualifying_years")
+    n_years = (
+        qualifying.groupby("station_id")["year"].nunique().rename("n_qualifying_years")
+    )
     chosen = chosen.merge(n_years, on="station_id", how="left")
     chosen["n_qualifying_years"] = chosen["n_qualifying_years"].fillna(0).astype(int)
     minimum = int(config["eligibility"]["minimum_qualifying_calendar_years"])
@@ -703,7 +760,9 @@ def compute_station_metrics(
         values = group["temperature_degC"].to_numpy(float)
         observed_range = float(np.max(values) - np.min(values))
         if not np.isfinite(observed_range) or observed_range <= 0:
-            exclusions.append({"station_id": str(station), "reason": "zero_temperature_range"})
+            exclusions.append(
+                {"station_id": str(station), "reason": "zero_temperature_range"}
+            )
             continue
         climatology = circular_doy_climatology(
             group["date"], values, half_window_days=half_window
@@ -715,9 +774,13 @@ def compute_station_metrics(
         acf30, pairs30 = exact_lag_acf(anomalies, 30)
         acf90, pairs90 = exact_lag_acf(anomalies, 90)
         if pairs30 < minimum_pairs or pairs90 < minimum_pairs:
-            exclusions.append({"station_id": str(station), "reason": "insufficient_exact_lag_pairs"})
+            exclusions.append(
+                {"station_id": str(station), "reason": "insufficient_exact_lag_pairs"}
+            )
             continue
-        annual = group.loc[group["qualifying_year"]].groupby("year", observed=True)["temperature_degC"]
+        annual = group.loc[group["qualifying_year"]].groupby("year", observed=True)[
+            "temperature_degC"
+        ]
         amplitudes = annual.max() - annual.min()
         raw_variance = float(np.var(values, ddof=0))
         anomaly_variance = float(np.var(anomalies.to_numpy(float), ddof=0))
@@ -725,7 +788,9 @@ def compute_station_metrics(
             {
                 "station_id": str(station),
                 "n_approved_days": len(group),
-                "n_qualifying_years": int(group.loc[group["qualifying_year"], "year"].nunique()),
+                "n_qualifying_years": int(
+                    group.loc[group["qualifying_year"], "year"].nunique()
+                ),
                 "first_date": group["date"].min().date().isoformat(),
                 "last_date": group["date"].max().date().isoformat(),
                 "median_annual_amplitude_degC": float(amplitudes.median()),
@@ -734,7 +799,9 @@ def compute_station_metrics(
                 "acf90": acf90,
                 "n_exact_pairs_30d": pairs30,
                 "n_exact_pairs_90d": pairs90,
-                "seasonal_variance_fraction": float(1.0 - anomaly_variance / raw_variance),
+                "seasonal_variance_fraction": float(
+                    1.0 - anomaly_variance / raw_variance
+                ),
                 "observed_temperature_range_degC": observed_range,
                 "memory_range_index_per_degC": float(acf30 / observed_range),
             }
@@ -742,25 +809,44 @@ def compute_station_metrics(
     metrics = pd.DataFrame(rows)
     attributes = gages.rename(columns={"STAID": "station_id"}).copy()
     required = [
-        "station_id", "STANAME", "DRAIN_SQKM", "LAT_GAGE", "LNG_GAGE",
-        "STATE", "CLASS", "AGGECOREGION", "NDAMS_2009", "STOR_NID_2009",
-        "STOR_NOR_2009", "MAJ_NDAMS_2009", "RAW_DIS_NEAREST_DAM",
+        "station_id",
+        "STANAME",
+        "DRAIN_SQKM",
+        "LAT_GAGE",
+        "LNG_GAGE",
+        "STATE",
+        "CLASS",
+        "AGGECOREGION",
+        "NDAMS_2009",
+        "STOR_NID_2009",
+        "STOR_NOR_2009",
+        "MAJ_NDAMS_2009",
+        "RAW_DIS_NEAREST_DAM",
         "RAW_DIS_NEAREST_MAJ_DAM",
     ]
     for column in required:
         if column not in attributes:
             attributes[column] = np.nan
-    metrics = metrics.merge(attributes[required], on="station_id", how="left", validate="one_to_one")
+    metrics = metrics.merge(
+        attributes[required], on="station_id", how="left", validate="one_to_one"
+    )
     dam_count = pd.to_numeric(metrics["MAJ_NDAMS_2009"], errors="coerce")
     missing = metrics.loc[dam_count.isna(), "station_id"]
     exclusions.extend(
-        {"station_id": str(station), "reason": "missing_required_GAGES_II_dam_attribute"}
+        {
+            "station_id": str(station),
+            "reason": "missing_required_GAGES_II_dam_attribute",
+        }
         for station in missing
     )
     metrics = metrics.loc[dam_count.notna()].copy()
-    metrics["upstream_major_dam_2009"] = dam_count.loc[dam_count.notna()].ge(1).astype(int)
+    metrics["upstream_major_dam_2009"] = (
+        dam_count.loc[dam_count.notna()].ge(1).astype(int)
+    )
     for column in ("RAW_DIS_NEAREST_DAM", "RAW_DIS_NEAREST_MAJ_DAM"):
-        metrics[column] = pd.to_numeric(metrics[column], errors="coerce").replace(-999, np.nan)
+        metrics[column] = pd.to_numeric(metrics[column], errors="coerce").replace(
+            -999, np.nan
+        )
     return metrics.reset_index(drop=True), pd.DataFrame(exclusions)
 
 
@@ -794,7 +880,9 @@ def logistic_models(metrics: pd.DataFrame) -> pd.DataFrame:
     data["z_memory_range_index"] = (
         data["memory_range_index_per_degC"] - data["memory_range_index_per_degC"].mean()
     ) / data["memory_range_index_per_degC"].std(ddof=0)
-    data["log1p_drainage_area"] = np.log1p(pd.to_numeric(data["DRAIN_SQKM"], errors="coerce"))
+    data["log1p_drainage_area"] = np.log1p(
+        pd.to_numeric(data["DRAIN_SQKM"], errors="coerce")
+    )
     data["z_log1p_drainage_area"] = (
         data["log1p_drainage_area"] - data["log1p_drainage_area"].mean()
     ) / data["log1p_drainage_area"].std(ddof=0)
@@ -805,10 +893,14 @@ def logistic_models(metrics: pd.DataFrame) -> pd.DataFrame:
 
     adjusted_data = data.dropna(subset=["z_log1p_drainage_area", "AGGECOREGION"]).copy()
     region = pd.get_dummies(
-        adjusted_data["AGGECOREGION"].astype(str), prefix="ecoregion", drop_first=True, dtype=float
+        adjusted_data["AGGECOREGION"].astype(str),
+        prefix="ecoregion",
+        drop_first=True,
+        dtype=float,
     )
     adjusted_x = pd.concat(
-        [adjusted_data[["z_memory_range_index", "z_log1p_drainage_area"]], region], axis=1
+        [adjusted_data[["z_memory_range_index", "z_log1p_drainage_area"]], region],
+        axis=1,
     )
     adjusted_x = sm.add_constant(adjusted_x, has_constant="add")
     adjusted = sm.GLM(
@@ -824,7 +916,11 @@ def leave_ecoregion_out_predictions(metrics: pd.DataFrame) -> pd.DataFrame:
     """Return frozen leave-one-aggregated-ecoregion-out probabilities."""
 
     data = metrics.dropna(
-        subset=["memory_range_index_per_degC", "AGGECOREGION", "upstream_major_dam_2009"]
+        subset=[
+            "memory_range_index_per_degC",
+            "AGGECOREGION",
+            "upstream_major_dam_2009",
+        ]
     ).copy()
     predictions: list[pd.DataFrame] = []
     for region in sorted(data["AGGECOREGION"].astype(str).unique()):
@@ -834,11 +930,16 @@ def leave_ecoregion_out_predictions(metrics: pd.DataFrame) -> pd.DataFrame:
         test_x = data.loc[test, ["memory_range_index_per_degC"]].to_numpy(float)
         mean = train_x.mean(axis=0)
         scale = train_x.std(axis=0, ddof=0)
-        if np.any(scale <= 0) or data.loc[train, "upstream_major_dam_2009"].nunique() < 2:
+        if (
+            np.any(scale <= 0)
+            or data.loc[train, "upstream_major_dam_2009"].nunique() < 2
+        ):
             raise RuntimeError(f"invalid leave-ecoregion-out training fold: {region}")
         model = LogisticRegression(C=1e6, solver="lbfgs", max_iter=10000)
         model.fit((train_x - mean) / scale, data.loc[train, "upstream_major_dam_2009"])
-        fold = data.loc[test, ["station_id", "AGGECOREGION", "upstream_major_dam_2009"]].copy()
+        fold = data.loc[
+            test, ["station_id", "AGGECOREGION", "upstream_major_dam_2009"]
+        ].copy()
         fold["oof_probability"] = model.predict_proba((test_x - mean) / scale)[:, 1]
         fold["held_out_ecoregion"] = region
         predictions.append(fold)
@@ -850,7 +951,9 @@ def cluster_bootstrap_auc(
 ) -> tuple[float, float, int]:
     """Cluster-bootstrap pooled AUC by aggregated ecoregion."""
 
-    groups = [group.copy() for _, group in predictions.groupby("AGGECOREGION", observed=True)]
+    groups = [
+        group.copy() for _, group in predictions.groupby("AGGECOREGION", observed=True)
+    ]
     rng = np.random.default_rng(seed)
     values: list[float] = []
     for _ in range(replicates):
@@ -860,26 +963,40 @@ def cluster_bootstrap_auc(
         )
         if sample["upstream_major_dam_2009"].nunique() == 2:
             values.append(
-                float(roc_auc_score(sample["upstream_major_dam_2009"], sample["oof_probability"]))
+                float(
+                    roc_auc_score(
+                        sample["upstream_major_dam_2009"], sample["oof_probability"]
+                    )
+                )
             )
     if not values:
         return np.nan, np.nan, 0
-    return float(np.quantile(values, 0.025)), float(np.quantile(values, 0.975)), len(values)
+    return (
+        float(np.quantile(values, 0.025)),
+        float(np.quantile(values, 0.975)),
+        len(values),
+    )
 
 
-def distance_profile(
-    metrics: pd.DataFrame, config: Mapping[str, Any]
-) -> pd.DataFrame:
+def distance_profile(metrics: pd.DataFrame, config: Mapping[str, Any]) -> pd.DataFrame:
     """Summarize the frozen nearest-major-dam distance bins."""
 
     spec = config["distance_profile"]
-    data = metrics.loc[metrics["upstream_major_dam_2009"].eq(1)].dropna(
-        subset=[spec["distance_field"], "AGGECOREGION"]
-    ).copy()
+    data = (
+        metrics.loc[metrics["upstream_major_dam_2009"].eq(1)]
+        .dropna(subset=[spec["distance_field"], "AGGECOREGION"])
+        .copy()
+    )
     bins = [float(value) for value in spec["bins_km"]]
-    labels = [f"[{bins[index]:g},{bins[index + 1]:g})" for index in range(len(bins) - 1)]
+    labels = [
+        f"[{bins[index]:g},{bins[index + 1]:g})" for index in range(len(bins) - 1)
+    ]
     data["distance_bin_km"] = pd.cut(
-        data[spec["distance_field"]], bins=bins, labels=labels, right=False, include_lowest=True
+        data[spec["distance_field"]],
+        bins=bins,
+        labels=labels,
+        right=False,
+        include_lowest=True,
     )
     rng = np.random.default_rng(int(spec["uncertainty"]["seed"]))
     replicates = int(spec["uncertainty"]["replicates"])
@@ -897,7 +1014,9 @@ def distance_profile(
             "distance_upper_km": bins[labels.index(label) + 1],
             "station_count": len(group),
         }
-        clusters = [values.copy() for _, values in group.groupby("AGGECOREGION", observed=True)]
+        clusters = [
+            values.copy() for _, values in group.groupby("AGGECOREGION", observed=True)
+        ]
         for field in fields:
             output_field = field if field.startswith("median_") else f"median_{field}"
             row[output_field] = float(group[field].median()) if len(group) else np.nan
@@ -905,12 +1024,21 @@ def distance_profile(
             if clusters:
                 for _ in range(replicates):
                     sample = pd.concat(
-                        [clusters[index] for index in rng.integers(0, len(clusters), size=len(clusters))],
+                        [
+                            clusters[index]
+                            for index in rng.integers(
+                                0, len(clusters), size=len(clusters)
+                            )
+                        ],
                         ignore_index=True,
                     )
                     draws.append(float(sample[field].median()))
-            row[f"{output_field}_ci_low"] = float(np.quantile(draws, 0.025)) if draws else np.nan
-            row[f"{output_field}_ci_high"] = float(np.quantile(draws, 0.975)) if draws else np.nan
+            row[f"{output_field}_ci_low"] = (
+                float(np.quantile(draws, 0.025)) if draws else np.nan
+            )
+            row[f"{output_field}_ci_high"] = (
+                float(np.quantile(draws, 0.975)) if draws else np.nan
+            )
         rows.append(row)
     return pd.DataFrame(rows)
 
@@ -960,7 +1088,10 @@ def make_regulation_panel_figure(
             linewidths=0,
             rasterized=True,
         )
-    axes[0].set_xticks([0, 1], [f"{labels[0]}\n(n={len(values[0])})", f"{labels[1]}\n(n={len(values[1])})"])
+    axes[0].set_xticks(
+        [0, 1],
+        [f"{labels[0]}\n(n={len(values[0])})", f"{labels[1]}\n(n={len(values[1])})"],
+    )
     axes[0].set_ylabel(r"Memory–range index ($^°$C$^{-1}$)")
     axes[0].set_title("Station-level contrast")
 
@@ -969,7 +1100,12 @@ def make_regulation_panel_figure(
     )
     axes[1].plot(false_positive, true_positive, color="#7A5195", linewidth=2.0)
     axes[1].plot([0, 1], [0, 1], color="#777777", linestyle="--", linewidth=1.0)
-    axes[1].set(xlim=(0, 1), ylim=(0, 1), xlabel="False-positive rate", ylabel="True-positive rate")
+    axes[1].set(
+        xlim=(0, 1),
+        ylim=(0, 1),
+        xlabel="False-positive rate",
+        ylabel="True-positive rate",
+    )
     axes[1].set_aspect("equal", adjustable="box")
     axes[1].set_title("Leave-ecoregion-out discrimination")
     axes[1].text(
@@ -1113,7 +1249,9 @@ def run_regulation_panel(
     metadata = discover_temperature_series(config, cache_dir, offline=offline)
     metadata = metadata.loc[metadata["station_id"].isin(set(gages["STAID"]))].copy()
     exact_overlap_n = int(metadata["station_id"].nunique())
-    exact_overlap_series_counts = metadata.groupby("station_id", observed=True)["id"].nunique()
+    exact_overlap_series_counts = metadata.groupby("station_id", observed=True)[
+        "id"
+    ].nunique()
     exact_overlap_multiple_series_n = int(exact_overlap_series_counts.gt(1).sum())
     locations = fetch_monitoring_locations(
         metadata["station_id"].unique(), config, cache_dir, offline=offline
@@ -1121,7 +1259,9 @@ def run_regulation_panel(
     stream_ids = set(
         locations.loc[
             locations["agency_code"].eq("USGS")
-            & locations["site_type_code"].eq(config["data_sources"]["usgs"]["site_type_code"]),
+            & locations["site_type_code"].eq(
+                config["data_sources"]["usgs"]["site_type_code"]
+            ),
             "monitoring_location_number",
         ].astype(str)
     )
@@ -1131,7 +1271,9 @@ def run_regulation_panel(
     full_stream_metadata = metadata.copy()
     if transport not in {"modern", "legacy_single_series"}:
         raise ValueError(f"unsupported USGS daily transport: {transport}")
-    metadata_series_counts = metadata.groupby("station_id", observed=True)["id"].nunique()
+    metadata_series_counts = metadata.groupby("station_id", observed=True)[
+        "id"
+    ].nunique()
     transport_ambiguous: list[str] = []
     equivalence_audit: dict[str, Any] | None = None
     if transport == "legacy_single_series":
@@ -1149,14 +1291,20 @@ def run_regulation_panel(
                 cache_dir,
                 offline=offline,
             )
-        transport_ambiguous = sorted(metadata_series_counts.loc[metadata_series_counts.ne(1)].index)
-        metadata = metadata.loc[~metadata["station_id"].isin(transport_ambiguous)].copy()
+        transport_ambiguous = sorted(
+            metadata_series_counts.loc[metadata_series_counts.ne(1)].index
+        )
+        metadata = metadata.loc[
+            ~metadata["station_id"].isin(transport_ambiguous)
+        ].copy()
         daily, batch_manifests = fetch_legacy_daily_values(
             metadata, config, cache_dir, offline=offline
         )
         equivalence_audit = audit_modern_legacy_equivalence(daily, metadata, cache_dir)
     else:
-        daily, batch_manifests = fetch_daily_values(metadata, config, cache_dir, offline=offline)
+        daily, batch_manifests = fetch_daily_values(
+            metadata, config, cache_dir, offline=offline
+        )
     retained, choices = select_station_series(daily, metadata, config)
     metrics, metric_exclusions = compute_station_metrics(retained, gages, config)
 
@@ -1219,9 +1367,11 @@ def run_regulation_panel(
     ecoregion_class_counts = pd.crosstab(
         metrics["AGGECOREGION"], metrics["upstream_major_dam_2009"]
     ).reindex(columns=[0, 1], fill_value=0)
-    single_class_ecoregions = ecoregion_class_counts.loc[
-        ecoregion_class_counts.eq(0).any(axis=1)
-    ].index.astype(str).tolist()
+    single_class_ecoregions = (
+        ecoregion_class_counts.loc[ecoregion_class_counts.eq(0).any(axis=1)]
+        .index.astype(str)
+        .tolist()
+    )
     module_path = Path(__file__).resolve()
     module_text = module_path.read_text(encoding="utf-8").lower()
     forbidden_tokens = [
@@ -1270,7 +1420,11 @@ def run_regulation_panel(
             else None
         ),
         "flow": {
-            "metadata_series_discovered": len(json.loads((cache_dir / "usgs_time_series_metadata.json").read_text())["features"]),
+            "metadata_series_discovered": len(
+                json.loads((cache_dir / "usgs_time_series_metadata.json").read_text())[
+                    "features"
+                ]
+            ),
             "exact_GAGES_II_overlap_stations": exact_overlap_n,
             "stream_site_overlap_stations": stream_overlap_n,
             "transport_unambiguous_stations": int(metadata["station_id"].nunique()),
@@ -1285,7 +1439,9 @@ def run_regulation_panel(
             "cluster_bootstrap_auc_ci_low": auc_low,
             "cluster_bootstrap_auc_ci_high": auc_high,
             "cluster_bootstrap_valid_draws": valid_draws,
-            "logistic_coefficient_per_index_sd": float(primary_term["coefficient_log_odds"]),
+            "logistic_coefficient_per_index_sd": float(
+                primary_term["coefficient_log_odds"]
+            ),
             "odds_ratio_per_index_sd": float(primary_term["odds_ratio"]),
             "odds_ratio_ci_low": float(primary_term["odds_ratio_ci_low"]),
             "odds_ratio_ci_high": float(primary_term["odds_ratio_ci_high"]),
@@ -1332,7 +1488,8 @@ def run_regulation_panel(
             )
         ),
         "exclusion_counts": {
-            str(key): int(value) for key, value in all_exclusions["reason"].value_counts().items()
+            str(key): int(value)
+            for key, value in all_exclusions["reason"].value_counts().items()
         },
         "source_identities": {
             "freeze": portable_file_identity(config_path, project_root),
@@ -1345,7 +1502,8 @@ def run_regulation_panel(
             ),
             "transport_amendment": (
                 portable_file_identity(
-                    project_root / "configs/regulation_panel_transport_amendment_v1.yaml",
+                    project_root
+                    / "configs/regulation_panel_transport_amendment_v1.yaml",
                     project_root,
                 )
                 if transport == "legacy_single_series"

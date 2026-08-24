@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 import sys
 from pathlib import Path
 from typing import Any
@@ -1080,6 +1081,15 @@ def main() -> None:
         fingerprints,
         external_placement,
     )
+    regulation_panel_figure = (
+        PROJECT_ROOT
+        / "results/regulation_panel_v1_legacy_transport/figure_06_regulation_panel.png"
+    )
+    if not regulation_panel_figure.is_file():
+        raise FileNotFoundError(
+            "run scripts/38_run_regulation_panel.py before revision figures"
+        )
+    shutil.copyfile(regulation_panel_figure, FIGURES / "figure_06.png")
 
     figure_titles = {
         1: "Reservoir-regulation fingerprint across two networks",
@@ -1087,6 +1097,7 @@ def main() -> None:
         3: "Recoverability in relative and absolute units",
         4: "Best-available node importance",
         5: "Evaluate-once Chattahoochee confirmation",
+        6: "Nationwide regulation-panel generalization test",
     }
     figure_manifest = {
         "schema_version": "major_revision_figure_manifest_v1",
@@ -1161,6 +1172,13 @@ def main() -> None:
         "external_validation_uncertainty_manifest": _file_identity(
             OUTPUT
             / "external_validation_uncertainty/external_validation_uncertainty_manifest.json"
+        ),
+        "p3_change_point_manifest": _file_identity(
+            OUTPUT / "p3_change_point_manifest.json"
+        ),
+        "regulation_panel_manifest": _file_identity(
+            PROJECT_ROOT
+            / "results/regulation_panel_v1_legacy_transport/artifact_manifest.json"
         ),
         "figure_manifest": _file_identity(FIGURES / "figure_manifest.json"),
         "table_manifest": _file_identity(TABLES / "table_manifest.json"),

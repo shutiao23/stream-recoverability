@@ -19,6 +19,8 @@ p0-protocol: evidence-snapshot hosting-audit submission-gate
 
 reproduce-paper:
 	@echo "Rebuilding the major-revision analysis, figures, tables, and manifests."
+	$(PYTHON) scripts/36_run_external_validation_uncertainty.py
+	$(PYTHON) scripts/37_run_p3_change_point.py
 	$(PYTHON) scripts/34_run_major_revision.py
 	$(PYTHON) scripts/35_validate_review_revision.py
 

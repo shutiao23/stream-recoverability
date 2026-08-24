@@ -15,6 +15,9 @@ The scientific contribution is a cross-network regulation fingerprint:
 dam-proximal reaches become memory-dominated, whereas less regulated or
 downstream re-equilibrated reaches are donor-dominated. Controlled masks probe
 that information structure; they are not presented as observed fault records.
+An independently frozen 335-site US panel adds a generalization boundary: the
+index weakens with distance below major dams but fails stand-alone
+leave-one-ecoregion-out dam classification.
 
 ## Evidence status
 
@@ -33,6 +36,9 @@ artifacts.
   "development_test_formal_evidence": "complete_current_protocol",
   "confirmatory_data": "built_feasibility_passed",
   "confirmatory_evaluation": "complete_evaluate_once_540_of_540",
+  "external_validation_placement_scale": "complete_20_seeds_no_confirmatory_access",
+  "p3_change_point": "complete_method_sensitive",
+  "national_regulation_panel": "complete_transport_limited_primary_null_N335",
   "current_protocol_result_claims": "internal_complete_external_type_confirmed"
 }
 ```
@@ -352,6 +358,9 @@ gate-driven and therefore not simply numerical.
 | `21_build_formal_suite_registry.py` | Build one immutable registry from explicitly named completed suite manifests. |
 | `34_run_major_revision.py` | Rebuild regulation fingerprints, stationarity controls, absolute-MAE tables, corrected node summaries, external confirmation summaries, and five main figures. |
 | `35_validate_review_revision.py` | Assert manuscript/result counts, frontier-path identity, p-value inventory, node schema, external completion, citations, and figure/table hashes. |
+| `36_run_external_validation_uncertainty.py` | Estimate 20-seed mask-placement SDs on the external 2021--2022 validation period without reading confirmation or the once-lock. |
+| `37_run_p3_change_point.py` | Run dependence-aware Pettitt and least-squares P3 change-date diagnostics with block permutation and bootstrap intervals. |
+| `38_run_regulation_panel.py` | Run the separately frozen nationwide USGS/GAGES-II fingerprint test with confirmatory-path isolation and restartable official-source caches. |
 
 Use `python scripts/<script>.py --help` before running a stage. The high-level
 order is:

@@ -13,6 +13,9 @@
 | `cdt2026guanyinyan` / `nea2016powerreport` | 核实首台机组 2014-12-20 投产、2015 年三台投产及 2016 年五台全部运行。 | 企业/行业时间线与观测转折一致；仍以“regulation-consistent”措辞。 |
 | `usgs1973buford` | USGS 站点说明给出 02334430 位于 Buford Dam 下游 1,200 ft（366 m）。 | 历史站点位置依据；当前元数据名称也独立核对。 |
 | `usace2017buford` | USACE 说明水电机组从水库近底层释放冷水，并描述分层与下游水质。 | 支持冷水下泄机制，不把单站协方差当成完整热量平衡。 |
+| `falcone2011gagesii` | GAGES-II 提供按流域路由的 2009 年大型坝数量、距坝距离、流域面积和聚合生态区。 | 是全国面板主标签；不是时变运行或选择性下泄记录。 |
+| `usgs2026waterapi` | USGS 官方 modern OGC API 提供 daily values、时间序列和站点元数据。 | 现代接口发生 429 后，仅按结果前冻结的官方 legacy fallback；必须报告 transport limitation。 |
+| `usace2026nid` | NID 官方公开 GIS 服务可核对字段与来源。 | 禁止把欧氏最近坝点冒充上游坝；主分析使用 GAGES-II 路由属性。 |
 
 ## 时间序列插补模型与 benchmark
 

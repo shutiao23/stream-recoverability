@@ -57,3 +57,11 @@
 **Observed.** The confirmatory panel has one frozen mask per station--gap--information cell. Type ordering is not present at 30 days. On 2021--2022 validation data, 20-seed best-roster placement SD ranges from 0.038 to 0.182 at 180 days; seed-paired donor-minus-02334430 SD is 0.109--0.128.
 
 **Update.** Report external ordering only at 90 and 180 days. The full-information 180-day donor advantages are 3.33--5.39 validation placement SDs. Error bars use that independent validation scale and are explicitly not confirmatory confidence intervals or a second confirmation.
+
+## BL-010 — National generalization
+
+**Frozen primary result.** In the transport-limited maximum legal panel ($N=335$), the unadjusted index association is not significant (OR 1.23, 95% CI 0.93--1.61; $p=0.144$) and leave-one-ecoregion-out AUC is 0.407 (0.222--0.515). Stand-alone national discrimination is not supported.
+
+**Supporting structure.** The adjusted OR is 2.52 (1.18--5.36) but has a fixed-effect separation warning. Within regulated watersheds, median index declines monotonically from 0.0110 within 5 km to 0.00463 at 50--100 km.
+
+**Update.** Retain the primary null and restrict the mechanism to a geography-dependent local fingerprint. Do not call the index a universal dam classifier.
