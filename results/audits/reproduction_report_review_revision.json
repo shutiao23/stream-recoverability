@@ -2,19 +2,19 @@
   "schema_version": "review_revision_reproduction_report_v1",
   "status": "complete",
   "complete": true,
-  "executed_at_utc": "2026-08-24T22:52:58Z",
-  "git_commit_at_test_start": "630d627070810d67a1715f7a9269e3347b8241b8",
-  "test_command": "PYTHONPATH=src pytest -q --junitxml=results/test_audit/pytest_review_revision.xml",
-  "tests": 454,
+  "executed_at_utc": "2026-08-24T23:21:07Z",
+  "git_commit_at_test_start": "1ea7db9de08bb5614b1ac15d3663bda2477c63bd",
+  "test_command": "PYTHONPATH=src python -m pytest -q --junitxml=results/test_audit/pytest_review_revision_final.xml",
+  "tests": 455,
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "wall_time_seconds": 223.934,
+  "wall_time_seconds": 220.919,
   "warnings": 820,
   "warning_scope": "812 repeated sklearn/pandas sparse-dtype deprecations plus pandas future concatenation and PyPOTS transformer advisories; no failed test",
   "junit": {
-    "path": "results/test_audit/pytest_review_revision.xml",
-    "sha256": "5d42284737e0f5baf903958b8034c77cd713faab83d22c783cdecd3171a0132b"
+    "path": "results/test_audit/pytest_review_revision_final.xml",
+    "sha256": "8d7dcba1c2df65c787bad64eee59b66e5b5c6b2d86bb805801ff0bb7e1c63e08"
   },
   "formal_analysis": {
     "path": "results/analysis/analysis_manifest.json",
@@ -57,5 +57,6 @@
     "sha256_at_report_creation": "6584c5faa1669253835b6ef6c3ff7ec141c94d26ad51a4630e99b942663dce67",
     "status": "complete"
   },
-  "scope_note": "The scientific and software checks are complete. Public-history sanitization and archival DOI minting are separate release blockers."
+  "post_full_suite_verification": "The only later source edits were Ruff formatting of the P3 change-point module, runner, and tests. The deterministic analysis was regenerated, its provenance hashes were refreshed, all five change-point tests passed, and the revision validator remained complete.",
+  "scope_note": "The scientific, software, and public-history checks are complete. Archival DOI minting is the only remaining release blocker."
 }
