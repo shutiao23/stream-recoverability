@@ -1,0 +1,41 @@
+amendment_id: regulation_panel_transport_amendment_v1
+status: frozen_after_modern_API_rate_block_before_any_panel_metric
+frozen_at_utc: "2026-08-24T22:31:00Z"
+base_design: regulation_panel_freeze_v1
+base_design_sha256: 260bd313c879161dad2058fb7122ff11880965ec0a2cffd38aaa70d1f9feaf93
+blocker:
+  endpoint: https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items
+  response_code: 429
+  response_error_code: OVER_RATE_LIMIT
+  completed_atomic_batches_before_block: 26
+  planned_atomic_batches: 56
+  api_key_available: false
+transport_fallback:
+  provider: U.S. Geological Survey Water Services
+  endpoint: https://waterservices.usgs.gov/nwis/dv/
+  official_relationship: legacy_predecessor_of_USGS_Water_Data_daily_collection
+  parameter_code: "00010"
+  statistic_code: "00003"
+  period_start: "2000-01-01"
+  period_end: "2019-12-31"
+  approval_qualifier_retained: A
+  site_status: all
+  only_stations_with_exactly_one_frozen_primary_series: true
+  multiple_primary_series_rule: exclude_as_transport_ambiguous_never_splice
+  batch_size_sites: 50
+  required_equivalence_audit:
+    population: all_single_primary_series_station_dates_in_completed_modern_cache
+    keys: [station_id, date]
+    value_tolerance_degC: 1.0e-12
+    required_pass_fraction: 1.0
+analysis_status_rule:
+  label: transport_limited_maximum_legal_panel
+  may_report_N_AUC_coefficient_and_distance_profile: true
+  may_claim_full_frozen_roster_complete: false
+  must_report:
+    - modern_API_429_blocker
+    - multiple_primary_series_exclusion_count
+    - modern_legacy_equivalence_audit
+    - all_base_freeze_exclusions
+  no_metric_dependent_change: true
+
