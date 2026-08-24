@@ -1,0 +1,115 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1790,
+      "path": "results/regulation_panel_v1_legacy_transport/README.md",
+      "sha256": "451939109ea9b61f5dc3957447ad87b6ba01733860ff86bde0fa03977457b81e"
+    },
+    {
+      "bytes": 840,
+      "path": "results/regulation_panel_v1_legacy_transport/bootstrap_status.json",
+      "sha256": "bd15ecd0200c05f7f03714b5206bc57cb45c32a831fbbed13fdbce1bb56f515c"
+    },
+    {
+      "bytes": 1159,
+      "path": "results/regulation_panel_v1_legacy_transport/distance_profile.csv",
+      "sha256": "20c8ca9442b5b81a1a67fec12dd7675e0e031ed5c28b4b57445efccb1f21e321"
+    },
+    {
+      "bytes": 40673,
+      "path": "results/regulation_panel_v1_legacy_transport/exclusions.csv",
+      "sha256": "2bbf41bb8ee1d5b72a11eda55f1f87ca13027d93afe38057d865d7fed0862cf7"
+    },
+    {
+      "bytes": 365478,
+      "path": "results/regulation_panel_v1_legacy_transport/figure_06_regulation_panel.png",
+      "sha256": "2c3525bf9352f7e89354d2ef7dc5c9e44d0488360ce6d0dc34a42f72c1b1e489"
+    },
+    {
+      "bytes": 16596,
+      "path": "results/regulation_panel_v1_legacy_transport/leave_ecoregion_out_predictions.csv",
+      "sha256": "c91c7354819a35a0f55ffc07355d430e9753ee04d0a4078b59d38deb93fbff02"
+    },
+    {
+      "bytes": 3022,
+      "path": "results/regulation_panel_v1_legacy_transport/logistic_regression.csv",
+      "sha256": "342c27ff78fd6d9c18785b9021e397a4703587c20c87eb60c5dbc99256ae11f2"
+    },
+    {
+      "bytes": 10193,
+      "path": "results/regulation_panel_v1_legacy_transport/report.json",
+      "sha256": "23b93a7367145a0ff5edd400736dc83b68e42b1c69341aa5728cf70e6fd8818f"
+    },
+    {
+      "bytes": 99131,
+      "path": "results/regulation_panel_v1_legacy_transport/series_selection_audit.csv",
+      "sha256": "943e1fc1184b62a8dad41ae07b405c27592fe25cbaef6e88a74b2c11a7890a24"
+    },
+    {
+      "bytes": 94079,
+      "path": "results/regulation_panel_v1_legacy_transport/station_metrics.csv",
+      "sha256": "1fea3afe259bda25b8f9fafaf10af047c095b8363fab2d35c41c2519a79ed9e6"
+    }
+  ],
+  "confirmatory_path_access_audit_passed": true,
+  "design_id": "regulation_panel_freeze_v1",
+  "portable_paths": true,
+  "source_inputs": {
+    "daily_batch_count": 27,
+    "daily_batch_sha256": [
+      "bfa4e000d9f419097ba639e878fa792c7ff9ad31dd304a805f8eda8388b1c32a",
+      "0d8daf71d96e1869e97d766f173daf80b29ea0b017cec1de2ac41afc21f60f10",
+      "5953383ba9b895da157372d4dc1a399a4598503a232736546e861c51e09ca503",
+      "4661ec55b9e34f948ecbedae02b5d07a6686e0dfcc3d90a4041addf122554f6f",
+      "27140aaca36f2cf65ff9adbb7dddbf0468e3ff0522fcd004704592cd5fc32577",
+      "4d6abd03f09e3e7317176fc3b96b430ddeaef8a607e63390fd458a8f39eeef11",
+      "358806003096542a1f1db3b95b514b5bfd933a7c8291ee1253ec3ba600fd2121",
+      "7ed58e0b3cf2b315d65450e4b5619456a249ed4fb7c9bb9b2317c99e0e5195d9",
+      "eedba0a7423db5bb94f092ab5b48ca5d317b6ffe9e570709533bbb1e405a8411",
+      "80d2c6bda887ac3b2cafa272e17b405170f24a3e10fb74733c2576240978484d",
+      "a03b5b105adf425b159378aa5185f15edfc13016fd19049ef28da8562ac9f5bd",
+      "ddab00c65bab601f277a9dcdd901c2a4985fb6cc91198c57403fc3c5ad026efb",
+      "cf7bc328e254e995ef078cd8aaf48786bab03fcc88c11802ba7fa496117e8eb7",
+      "fd0203bd57952be9b9b3ec6b73f071cf9a20ea98c27222ff8a52b61db01673db",
+      "891abe21f1ccbc6c78ab93f490631d15967470d4e14482498c1cc7c2667edd31",
+      "e19a510b06ea62f236932ce101249ee809db13aac4fe984493f9fe2b8c5e9452",
+      "2e975caa40e9486dac602567cc1e3b74e8632e1bd26e81ac6f7a3276667c0290",
+      "d3824a8950e6537a051871725d8ef0d342088ddba668b60b30c34c0a1a005e0b",
+      "ccbb4cc27b379c8534c4c4b8d50dc13f05d244c00e0771ac306e567f88fa6c39",
+      "d311ad478791ef920e1e9bf6d83cdde030236993c9136477c1023f96f6f3a0c9",
+      "c12f9bcc5b84cb044a638aa6207269d04ac0f3332d965fc2452f81db5e593900",
+      "098573e00e6664544f8956a5cf4965598b50fa070dc5898d2daa8bc787b81c96",
+      "129f61894eebe878a1c5d2c04bd5fe03533645bbc360a5c9b68ccb4ca2eb3ca0",
+      "a1dae4571408c1696561093b7a8b8d81967e8bbbcf1cb205fd304484d74dd0ca",
+      "882dab28ccbaa7e8164467a598a4b09fc43af28bdaf325a27966bc1d7ee7ce33",
+      "c5c728a7929c20ca5fde90c52062b1d4b17b83d20f008c254cad45cc8f7366fd",
+      "7ab669668e5022b18ddf8ce7ab962bc273720b385e2a1718fd9af9555d56dcfe"
+    ],
+    "freeze": {
+      "bytes": 6092,
+      "path": "configs/regulation_panel_freeze_v1.yaml",
+      "sha256": "260bd313c879161dad2058fb7122ff11880965ec0a2cffd38aaa70d1f9feaf93"
+    },
+    "gages_ii_archive": {
+      "bytes": 55147470,
+      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
+      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e"
+    },
+    "transport_amendment": {
+      "bytes": 1630,
+      "path": "configs/regulation_panel_transport_amendment_v1.yaml",
+      "sha256": "7d6d6f0f38eaab719e4c08227f27cc57a5576907d5441e47bf7f7034acdcad8a"
+    },
+    "usgs_monitoring_locations": {
+      "bytes": 2489838,
+      "path": "data/cache/regulation_panel_v1/usgs_monitoring_locations.json",
+      "sha256": "3a15db94f455ff2e18f518a6e98c77e7ff978e1e44168d1024b668a9b40a06f9"
+    },
+    "usgs_time_series_metadata": {
+      "bytes": 8292112,
+      "path": "data/cache/regulation_panel_v1/usgs_time_series_metadata.json",
+      "sha256": "e9ae3c9a26b1bb93b1ba1c6eac20e1217a784c97ddf7f8a7bbaaa0b48d3d40d3"
+    }
+  },
+  "transport": "legacy_single_series"
+}

@@ -1,0 +1,12 @@
+{
+  "api_key_secret_handling": "read_from_USGS_WATERDATA_API_KEY_and_never_written_to_manifests",
+  "cached_offline_reproduction_command": "PYTHONPATH=src python scripts/38_run_regulation_panel.py --offline --legacy-transport --bootstrap-equivalence-batches 26 --output-dir results/regulation_panel_v1_legacy_transport",
+  "clean_online_bootstrap_command": "USGS_WATERDATA_API_KEY=<key> PYTHONPATH=src python scripts/38_run_regulation_panel.py --legacy-transport --bootstrap-equivalence-batches 26 --output-dir results/regulation_panel_v1_legacy_transport",
+  "design_id": "regulation_panel_freeze_v1",
+  "legacy_batches_present": 27,
+  "legacy_batches_required": 27,
+  "modern_equivalence_batches_present": 26,
+  "modern_equivalence_batches_required": 26,
+  "modern_legacy_equivalence_passed": true,
+  "transport": "legacy_single_series"
+}

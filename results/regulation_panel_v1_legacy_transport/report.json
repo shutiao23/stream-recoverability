@@ -1,0 +1,231 @@
+{
+  "adjusted_sensitivity": {
+    "fixed_effect_model_separation_warning": true,
+    "interpretation": "exploratory_only_complete_separation_in_at_least_one_ecoregion",
+    "logistic_coefficient_per_index_sd": 0.9230956088433879,
+    "odds_ratio_ci_high": 5.359704034149842,
+    "odds_ratio_ci_low": 1.1820881127011347,
+    "odds_ratio_per_index_sd": 2.517070206880381,
+    "single_class_ecoregions": [
+      "Alaska"
+    ],
+    "wald_p_value": 0.016676725084299196
+  },
+  "claim_status": "transport_limited_maximum_legal_panel_minimum_N_met",
+  "complete": true,
+  "confirmatory_network_touched": false,
+  "confirmatory_path_access_audit": {
+    "audit_scope": "runtime_path_guard_plus_static_pipeline_literal_scan",
+    "checked_runtime_input_paths": [
+      ".",
+      "configs/regulation_panel_freeze_v1.yaml",
+      "data/cache/regulation_panel_v1",
+      "results/regulation_panel_v1_legacy_transport"
+    ],
+    "confirmatory_network_touched": false,
+    "forbidden_literal_matches_in_pipeline_module": [],
+    "forbidden_path_tokens": [
+      "external_upper_middle_chattahoochee_v1",
+      "results/confirmatory",
+      "confirmatory-evaluation-once.lock"
+    ],
+    "passed": true,
+    "pipeline_module": {
+      "bytes": 63109,
+      "path": "src/stream_recoverability/analysis/regulation_panel.py",
+      "sha256": "a783247545810751ceec943f49b6e93d0a3f776d9f4c27e50aa4efd3eb5385f9"
+    }
+  },
+  "design_id": "regulation_panel_freeze_v1",
+  "distance_profile": [
+    {
+      "distance_bin_km": "[0,5)",
+      "distance_lower_km": 0.0,
+      "distance_upper_km": 5.0,
+      "median_acf30": 0.2618255765688126,
+      "median_acf30_ci_high": 0.32684237313551073,
+      "median_acf30_ci_low": 0.17874479826100817,
+      "median_annual_amplitude_degC": 21.5,
+      "median_annual_amplitude_degC_ci_high": 23.85,
+      "median_annual_amplitude_degC_ci_low": 16.7,
+      "median_memory_range_index_per_degC": 0.010996059729843265,
+      "median_memory_range_index_per_degC_ci_high": 0.016473951952305815,
+      "median_memory_range_index_per_degC_ci_low": 0.007181182713467649,
+      "station_count": 83
+    },
+    {
+      "distance_bin_km": "[5,20)",
+      "distance_lower_km": 5.0,
+      "distance_upper_km": 20.0,
+      "median_acf30": 0.17181979042407092,
+      "median_acf30_ci_high": 0.2634845084973922,
+      "median_acf30_ci_low": 0.11569523347314171,
+      "median_annual_amplitude_degC": 23.5,
+      "median_annual_amplitude_degC_ci_high": 26.2,
+      "median_annual_amplitude_degC_ci_low": 19.5,
+      "median_memory_range_index_per_degC": 0.006897517804393932,
+      "median_memory_range_index_per_degC_ci_high": 0.01258725873019874,
+      "median_memory_range_index_per_degC_ci_low": 0.004214384980106264,
+      "station_count": 61
+    },
+    {
+      "distance_bin_km": "[20,50)",
+      "distance_lower_km": 20.0,
+      "distance_upper_km": 50.0,
+      "median_acf30": 0.15723473995062964,
+      "median_acf30_ci_high": 0.1742595642165585,
+      "median_acf30_ci_low": 0.10594051937173811,
+      "median_annual_amplitude_degC": 23.375,
+      "median_annual_amplitude_degC_ci_high": 26.3,
+      "median_annual_amplitude_degC_ci_low": 19.200000000000003,
+      "median_memory_range_index_per_degC": 0.00611256477433207,
+      "median_memory_range_index_per_degC_ci_high": 0.008798699715819506,
+      "median_memory_range_index_per_degC_ci_low": 0.003570471163387339,
+      "station_count": 50
+    },
+    {
+      "distance_bin_km": "[50,100)",
+      "distance_lower_km": 50.0,
+      "distance_upper_km": 100.0,
+      "median_acf30": 0.13461322401962997,
+      "median_acf30_ci_high": 0.1631130272310875,
+      "median_acf30_ci_low": 0.08173067122652455,
+      "median_annual_amplitude_degC": 25.375,
+      "median_annual_amplitude_degC_ci_high": 27.65,
+      "median_annual_amplitude_degC_ci_low": 19.3,
+      "median_memory_range_index_per_degC": 0.004627313786240669,
+      "median_memory_range_index_per_degC_ci_high": 0.0075866524293529075,
+      "median_memory_range_index_per_degC_ci_low": 0.002697381888664177,
+      "station_count": 14
+    },
+    {
+      "distance_bin_km": "[100,inf)",
+      "distance_lower_km": 100.0,
+      "distance_upper_km": null,
+      "median_acf30": 0.07041209186117212,
+      "median_acf30_ci_high": 0.07041209186117212,
+      "median_acf30_ci_low": 0.07041209186117212,
+      "median_annual_amplitude_degC": 27.2,
+      "median_annual_amplitude_degC_ci_high": 27.2,
+      "median_annual_amplitude_degC_ci_low": 27.2,
+      "median_memory_range_index_per_degC": 0.002394969110924222,
+      "median_memory_range_index_per_degC_ci_high": 0.002394969110924222,
+      "median_memory_range_index_per_degC_ci_low": 0.002394969110924222,
+      "station_count": 1
+    }
+  ],
+  "exclusion_counts": {
+    "fewer_than_10_qualifying_years": 970,
+    "multiple_primary_series_legacy_transport_ambiguous": 22,
+    "non_stream_site_type": 17
+  },
+  "flow": {
+    "daily_values_downloaded": 3384748,
+    "eligible_stations": 335,
+    "exact_GAGES_II_overlap_stations": 1361,
+    "metadata_series_discovered": 5707,
+    "multiple_primary_series_at_exact_overlap": 26,
+    "regulated_stations": 209,
+    "stream_site_overlap_stations": 1344,
+    "transport_unambiguous_stations": 1322,
+    "unregulated_stations": 126
+  },
+  "full_frozen_roster_complete": false,
+  "limitations": [
+    "GAGES-II dam attributes are a 2009 watershed snapshot.",
+    "Major-dam presence is not a time-varying operating or thermal-release record.",
+    "GAGES-II nearest-dam distance is straight-line distance within the watershed.",
+    "The analysis is associational and does not estimate a causal dam effect."
+  ],
+  "modern_API_blocker": {
+    "api_key_available": false,
+    "completed_atomic_batches": 26,
+    "error_code": "OVER_RATE_LIMIT",
+    "http_status": 429,
+    "planned_atomic_batches": 56
+  },
+  "primary": {
+    "cluster_bootstrap_auc_ci_high": 0.5152801590458401,
+    "cluster_bootstrap_auc_ci_low": 0.2223343248620563,
+    "cluster_bootstrap_valid_draws": 2000,
+    "logistic_coefficient_per_index_sd": 0.2044372181489474,
+    "odds_ratio_ci_high": 1.613523785221126,
+    "odds_ratio_ci_low": 0.9328171878376753,
+    "odds_ratio_per_index_sd": 1.2268344304914058,
+    "pooled_leave_ecoregion_out_auc": 0.40749601275917063,
+    "wald_p_value": 0.14361516528844614
+  },
+  "scientific_conclusion": {
+    "adjusted_association": "supporting_only_with_fixed_effect_separation_warning",
+    "basis": "leave_ecoregion_out_AUC_below_0.5_with_CI_including_0.5_and_unadjusted_odds_ratio_CI_including_1",
+    "primary_discrimination": "not_supported",
+    "transport_scope": "transport_limited_not_full_frozen_roster",
+    "within_regulated_distance_profile": "monotonic_supporting_association"
+  },
+  "source_identities": {
+    "daily_batch_count": 27,
+    "daily_batch_sha256": [
+      "bfa4e000d9f419097ba639e878fa792c7ff9ad31dd304a805f8eda8388b1c32a",
+      "0d8daf71d96e1869e97d766f173daf80b29ea0b017cec1de2ac41afc21f60f10",
+      "5953383ba9b895da157372d4dc1a399a4598503a232736546e861c51e09ca503",
+      "4661ec55b9e34f948ecbedae02b5d07a6686e0dfcc3d90a4041addf122554f6f",
+      "27140aaca36f2cf65ff9adbb7dddbf0468e3ff0522fcd004704592cd5fc32577",
+      "4d6abd03f09e3e7317176fc3b96b430ddeaef8a607e63390fd458a8f39eeef11",
+      "358806003096542a1f1db3b95b514b5bfd933a7c8291ee1253ec3ba600fd2121",
+      "7ed58e0b3cf2b315d65450e4b5619456a249ed4fb7c9bb9b2317c99e0e5195d9",
+      "eedba0a7423db5bb94f092ab5b48ca5d317b6ffe9e570709533bbb1e405a8411",
+      "80d2c6bda887ac3b2cafa272e17b405170f24a3e10fb74733c2576240978484d",
+      "a03b5b105adf425b159378aa5185f15edfc13016fd19049ef28da8562ac9f5bd",
+      "ddab00c65bab601f277a9dcdd901c2a4985fb6cc91198c57403fc3c5ad026efb",
+      "cf7bc328e254e995ef078cd8aaf48786bab03fcc88c11802ba7fa496117e8eb7",
+      "fd0203bd57952be9b9b3ec6b73f071cf9a20ea98c27222ff8a52b61db01673db",
+      "891abe21f1ccbc6c78ab93f490631d15967470d4e14482498c1cc7c2667edd31",
+      "e19a510b06ea62f236932ce101249ee809db13aac4fe984493f9fe2b8c5e9452",
+      "2e975caa40e9486dac602567cc1e3b74e8632e1bd26e81ac6f7a3276667c0290",
+      "d3824a8950e6537a051871725d8ef0d342088ddba668b60b30c34c0a1a005e0b",
+      "ccbb4cc27b379c8534c4c4b8d50dc13f05d244c00e0771ac306e567f88fa6c39",
+      "d311ad478791ef920e1e9bf6d83cdde030236993c9136477c1023f96f6f3a0c9",
+      "c12f9bcc5b84cb044a638aa6207269d04ac0f3332d965fc2452f81db5e593900",
+      "098573e00e6664544f8956a5cf4965598b50fa070dc5898d2daa8bc787b81c96",
+      "129f61894eebe878a1c5d2c04bd5fe03533645bbc360a5c9b68ccb4ca2eb3ca0",
+      "a1dae4571408c1696561093b7a8b8d81967e8bbbcf1cb205fd304484d74dd0ca",
+      "882dab28ccbaa7e8164467a598a4b09fc43af28bdaf325a27966bc1d7ee7ce33",
+      "c5c728a7929c20ca5fde90c52062b1d4b17b83d20f008c254cad45cc8f7366fd",
+      "7ab669668e5022b18ddf8ce7ab962bc273720b385e2a1718fd9af9555d56dcfe"
+    ],
+    "freeze": {
+      "bytes": 6092,
+      "path": "configs/regulation_panel_freeze_v1.yaml",
+      "sha256": "260bd313c879161dad2058fb7122ff11880965ec0a2cffd38aaa70d1f9feaf93"
+    },
+    "gages_ii_archive": {
+      "bytes": 55147470,
+      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
+      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e"
+    },
+    "transport_amendment": {
+      "bytes": 1630,
+      "path": "configs/regulation_panel_transport_amendment_v1.yaml",
+      "sha256": "7d6d6f0f38eaab719e4c08227f27cc57a5576907d5441e47bf7f7034acdcad8a"
+    },
+    "usgs_monitoring_locations": {
+      "bytes": 2489838,
+      "path": "data/cache/regulation_panel_v1/usgs_monitoring_locations.json",
+      "sha256": "3a15db94f455ff2e18f518a6e98c77e7ff978e1e44168d1024b668a9b40a06f9"
+    },
+    "usgs_time_series_metadata": {
+      "bytes": 8292112,
+      "path": "data/cache/regulation_panel_v1/usgs_time_series_metadata.json",
+      "sha256": "e9ae3c9a26b1bb93b1ba1c6eac20e1217a784c97ddf7f8a7bbaaa0b48d3d40d3"
+    }
+  },
+  "transport": "legacy_single_series",
+  "transport_equivalence_audit": {
+    "completed_modern_batch_count": 26,
+    "exact_station_date_value_matches": 1662961,
+    "legacy_station_dates_present": 1662961,
+    "modern_single_series_station_dates": 1662961,
+    "pass_fraction": 1.0,
+    "passed": true
+  }
+}

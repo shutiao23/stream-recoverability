@@ -66,3 +66,6 @@ data_versions/external_upper_middle_chattahoochee_v1_pre_protocol_normalization/
 data_versions_pre_rs/
 results/test_audit/*.xml
 results/test_audit/*stdout.txt
+
+# Re-downloadable nationwide regulation-panel API/source caches.
+data/cache/regulation_panel_v1/
