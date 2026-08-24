@@ -33,6 +33,8 @@ from stream_recoverability.analysis.compensation import (
     normalize_combination,
     shapley_table,
 )
+from stream_recoverability.analysis.falsification import interpret_falsification
+from stream_recoverability.analysis.frontiers import add_relative_skills
 from stream_recoverability.analysis.inference_safeguards import (
     add_guarded_climatology_skill,
     anchor_year_frontier_bootstrap,
@@ -41,8 +43,6 @@ from stream_recoverability.analysis.inference_safeguards import (
     raw_and_monotone_frontier,
     resolve_climatology_denominator_threshold,
 )
-from stream_recoverability.analysis.frontiers import estimate_dual_frontiers
-from stream_recoverability.analysis.falsification import interpret_falsification
 from stream_recoverability.analysis.resilience import (
     RESILIENCE_GROUP_COLUMNS,
     complete_resilience_units,
@@ -142,9 +142,7 @@ SENSITIVITY_REQUIRED_SUITE_ROLES = (
     "sensitivity_dense_frontier",
     "sensitivity_operational_dropout",
 )
-PROPOSED_PRIMARY_ROLES = frozenset(
-    {"operational_dropout", "retrained_upper_bound"}
-)
+PROPOSED_PRIMARY_ROLES = frozenset({"operational_dropout", "retrained_upper_bound"})
 PROPOSED_SENSITIVITY_ROLES = frozenset({"sensitivity_operational_dropout"})
 FORMAL_REGISTRY_BUILDER_PATHS = (
     "scripts/21_build_formal_suite_registry.py",
@@ -1627,8 +1625,19 @@ def analyze_frontiers(
     events: pd.DataFrame,
     overlap: OverlapArtifacts,
     statistics: FrozenStatistics,
+    *,
+    skill_col: str | None = None,
+    hypothesis_family: str = "frontier_model_vs_climatology",
 ) -> FrontierArtifacts:
-    """Build raw, monotone, statistical, and withheld application frontiers."""
+    """Build all frontier artifacts through one overlap-aware code path.
+
+    When ``skill_col`` is omitted, climatology-relative skill is constructed
+    with the frozen denominator guard.  A named precomputed skill column is
+    used for other denominators (currently the validation-selected best simple
+    baseline).  Keeping both denominators here prevents the independent
+    bootstrap and censoring implementations that previously produced
+    contradictory frontier days for the same climatology-relative estimand.
+    """
 
     dense = (
         events.loc[events["experiment"].astype(str).str.upper().eq("SCI_DENSE")].copy()
@@ -1641,7 +1650,11 @@ def analyze_frontiers(
     _require_columns(
         dense, ["anchor_id", "gap_length", "window_length"], "frontier analysis"
     )
-    dense = guarded_model_skill(dense, statistics.denominator_guard)
+    if skill_col is None:
+        dense = guarded_model_skill(dense, statistics.denominator_guard)
+    else:
+        _require_columns(dense, [skill_col], "precomputed frontier skill")
+        dense["skill"] = pd.to_numeric(dense[skill_col], errors="coerce")
     dense["year"] = _year_column(dense, context="frontier analysis")
     dense["window"] = pd.to_numeric(dense["window_length"], errors="coerce")
     if "information_combination" not in dense:
@@ -1793,10 +1806,20 @@ def analyze_frontiers(
         complete_skill = collapsed_match.loc[
             collapsed_match["frontier_complete_curve"].fillna(False)
         ]
-        cluster_skill = complete_skill.groupby(
-            "overlap_cluster_id", dropna=False, observed=True
+        # The former implementation reduced every station to its single
+        # connected overlap component, so every Wilcoxon test had n=1 and
+        # returned exactly p=1.  The frozen inferential unit is an anchor/event,
+        # with training seeds collapsed first.  Retain one cross-gap mean per
+        # anchor-year here and leave dependence control to the declared joint
+        # anchor/year bootstrap used for the confidence curve.
+        anchor_skill = complete_skill.groupby(
+            ["anchor_id", "year"], dropna=False, observed=True
         )["skill"].mean()
-        p_value = _wilcoxon_p(cluster_skill)
+        is_self_reference = bool(
+            hypothesis_family == "frontier_model_vs_climatology"
+            and str(metadata.get("model")) == "climatology"
+        )
+        p_value = np.nan if is_self_reference else _wilcoxon_p(anchor_skill)
         breakpoint = next(
             row
             for row in breakpoint_rows
@@ -1822,11 +1845,17 @@ def analyze_frontiers(
                 "n_anchors": int(collapsed_match["anchor_id"].nunique()),
                 "n_years": int(collapsed_match["year"].nunique()),
                 "p_value": p_value,
-                "n_hypothesis_clusters": len(cluster_skill),
-                "hypothesis_estimand": (
-                    "mean_skill_across_predeclared_gaps_per_overlap_cluster"
+                "n_hypothesis_units": len(anchor_skill),
+                "n_hypothesis_clusters": int(
+                    complete_skill["overlap_cluster_id"].nunique(dropna=False)
                 ),
-                "hypothesis_family": "frontier_model_vs_climatology",
+                "hypothesis_estimand": (
+                    "mean_skill_across_predeclared_gaps_per_anchor_year"
+                ),
+                "hypothesis_family": hypothesis_family,
+                "hypothesis_status": (
+                    "reference_not_tested" if is_self_reference else "tested"
+                ),
                 "training_seeds_collapsed_first": True,
             }
         )
@@ -3696,7 +3725,7 @@ def _load_best_simple_lookup(inputs: FrozenInputs) -> pd.DataFrame:
         raise TypeError("finalized roster lacks artifacts")
     identity = artifacts.get("best_simple_baseline_lookup")
     if not isinstance(identity, Mapping):
-        raise ValueError("v4 finalized roster lacks best-simple baseline lookup")
+        raise TypeError("v4 finalized roster lacks best-simple baseline lookup")
     lookup_path = _repository_path(
         identity.get("path"),
         declaring_file=roster_path,
@@ -3793,7 +3822,7 @@ def _analyze_donor_falsification(
                     if not paired_difference.empty
                     else np.nan
                 ),
-                "n_pairs": int(len(paired_difference)),
+                "n_pairs": len(paired_difference),
                 "p_value": p_value,
             }
         ]
@@ -3850,13 +3879,42 @@ def _best_simple_hypotheses(scored_events: pd.DataFrame) -> pd.DataFrame:
                 "target": target,
                 "model": model,
                 "estimate": float(values.mean()),
-                "n_pairs": int(len(values)),
+                "n_pairs": len(values),
                 "p_value": _wilcoxon_p(values),
                 "hypothesis_estimand": "mean_skill_vs_best_simple_across_gaps_per_anchor",
                 "hypothesis_family": "frontier_model_vs_best_simple_baseline",
             }
         )
     return benjamini_hochberg_by_family(pd.DataFrame(rows))
+
+
+def _frontier_curve_table(artifacts: FrontierArtifacts) -> pd.DataFrame:
+    """Expose the canonical raw skill curve under the compact public schema."""
+
+    if artifacts.raw.empty:
+        return pd.DataFrame()
+    curve = artifacts.raw.copy()
+    curve["mean_skill"] = pd.to_numeric(curve["frontier_value"], errors="coerce")
+    curve["ci_lower"] = pd.to_numeric(curve["frontier_value_ci_lower"], errors="coerce")
+    curve["ci_upper"] = pd.to_numeric(curve["frontier_value_ci_upper"], errors="coerce")
+    return curve
+
+
+def _frontier_summary_table(
+    artifacts: FrontierArtifacts,
+    *,
+    denominator: str,
+    hypothesis_family: str,
+) -> pd.DataFrame:
+    """Label a canonical frontier summary without recomputing it."""
+
+    if artifacts.statistical.empty:
+        return pd.DataFrame()
+    summary = artifacts.statistical.copy()
+    summary["frontier_denominator"] = denominator
+    summary["hypothesis_family"] = hypothesis_family
+    summary["frontier_code_path"] = "canonical_anchor_year_overlap_aware"
+    return summary
 
 
 def run_frozen_analysis(
@@ -3933,12 +3991,39 @@ def run_frozen_analysis(
     frontiers = analyze_frontiers(inputs.events, overlap, inputs.statistics)
     if inputs.statistics.primary_data_version == "published_v2":
         best_simple_lookup = _load_best_simple_lookup(inputs)
-        dual_frontiers = estimate_dual_frontiers(
+        scored_events = add_relative_skills(
             inputs.events,
             best_simple=best_simple_lookup,
-            n_boot=inputs.statistics.bootstrap_replicates,
-            seed=inputs.statistics.bootstrap_seed,
         )
+        best_simple_frontiers = analyze_frontiers(
+            scored_events,
+            overlap,
+            inputs.statistics,
+            skill_col="skill_vs_best_simple",
+            hypothesis_family="frontier_model_vs_best_simple_baseline",
+        )
+        climatology_summary = _frontier_summary_table(
+            frontiers,
+            denominator="climatology",
+            hypothesis_family="frontier_model_vs_climatology",
+        )
+        simple_summary = _frontier_summary_table(
+            best_simple_frontiers,
+            denominator="best_simple_baseline",
+            hypothesis_family="frontier_model_vs_best_simple_baseline",
+        )
+        dual_frontiers = {
+            "scored_events": scored_events,
+            "climatology_curves": _frontier_curve_table(frontiers),
+            "climatology_frontiers": climatology_summary,
+            "best_simple_curves": _frontier_curve_table(best_simple_frontiers),
+            "best_simple_frontiers": simple_summary,
+            "dual_frontiers": pd.concat(
+                [climatology_summary, simple_summary],
+                ignore_index=True,
+                sort=False,
+            ),
+        }
     else:
         best_simple_lookup = pd.DataFrame()
         dual_frontiers = {
@@ -3952,9 +4037,7 @@ def run_frozen_analysis(
     falsification_effects, falsification_decision = _analyze_donor_falsification(
         inputs.events, inputs.statistics
     )
-    best_simple_hypotheses = _best_simple_hypotheses(
-        dual_frontiers["scored_events"]
-    )
+    best_simple_hypotheses = _best_simple_hypotheses(dual_frontiers["scored_events"])
     information = analyze_information(inputs.events, inputs.statistics)
     resilience = analyze_resilience_outputs(inputs.events, inputs.statistics)
     event_pairs = analyze_event_pairs(inputs.events, inputs.statistics)

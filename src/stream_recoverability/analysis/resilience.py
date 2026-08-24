@@ -387,10 +387,26 @@ def node_importance(
     *,
     value_col: str = "MAE",
     failed_sites_col: str = "failed_stations",
-    higher_is_better: bool = False,
     group_cols: Sequence[str] = RESILIENCE_GROUP_COLUMNS,
+    baseline_model: str = "climatology",
 ) -> pd.DataFrame:
-    """Compare singleton-failure error with the no-failure reference."""
+    """Estimate the loss of *achievable* performance after one node fails.
+
+    The estimand is evaluated within each matched target-gap unit before any
+    averaging::
+
+        min(MAE of all available methods after failure, climatology MAE)
+        - min(MAE of all available methods with the full network,
+              climatology MAE)
+
+    This differs deliberately from damaging one fitted model and measuring how
+    badly that implementation extrapolates with missing inputs.  Including the
+    climatology row in each minimum is the declared hard error cap.  Negative
+    impacts are retained: they indicate that the best observed method in a
+    failed-network condition happened to outperform the best full-network
+    method on the same matched units, not that a failed sensor creates physical
+    information.
+    """
 
     if value_col not in events:
         raise ValueError(f"node importance requires column: {value_col}")
@@ -407,8 +423,35 @@ def node_importance(
         )
         raise ValueError(f"no complete SCI_NET resilience units: {reason}")
     data, _, _ = _with_failures(events, failed_sites_col, total_sites=None)
+    retained = list(
+        dict.fromkeys(
+            [
+                *group_cols,
+                "target_gap_id",
+                "mask_seed",
+                "model",
+                value_col,
+                "failed_sites",
+                "failed_count",
+            ]
+        )
+    )
+    data = data.loc[:, [column for column in retained if column in data]].copy()
     data[value_col] = pd.to_numeric(data[value_col], errors="coerce")
-    active_groups = [column for column in group_cols if column in data]
+    if "model" not in data:
+        raise ValueError("node importance requires a model column")
+    if baseline_model not in set(data["model"].dropna().astype(str)):
+        raise ValueError(f"node importance requires hard-cap model {baseline_model!r}")
+    data["_baseline_tie_order"] = (
+        ~data["model"].astype(str).eq(baseline_model)
+    ).astype(int)
+
+    # A network-level importance has one row per design/target/gap/failed node,
+    # not one row per model.  Model identity is reported for the selected best
+    # full and failed alternatives instead.
+    active_groups = [
+        column for column in group_cols if column in data and column != "model"
+    ]
     grouped = (
         data.groupby(active_groups, dropna=False, observed=True)
         if active_groups
@@ -421,34 +464,132 @@ def node_importance(
         metadata = dict(
             zip(active_groups, group_key if active_groups else (), strict=True)
         )
-        full = group.loc[group["failed_count"].eq(0), value_col].dropna()
-        full_value = float(full.mean()) if len(full) else np.nan
-        singleton = group.loc[group["failed_count"].eq(1)].copy()
-        for sites, values in singleton.groupby("failed_sites", observed=True):
-            failed_value = float(values[value_col].mean())
-            impact = (
-                full_value - failed_value
-                if higher_is_better
-                else failed_value - full_value
+        unit_columns = [
+            column for column in ("target_gap_id", "mask_seed") if column in group
+        ]
+        if not unit_columns:
+            raise ValueError(
+                "node importance requires target_gap_id or mask_seed for pairing"
             )
+        full = group.loc[group["failed_count"].eq(0)].copy()
+        singleton = group.loc[group["failed_count"].eq(1)].copy()
+        if full.empty:
+            raise ValueError("node importance has no zero-failure reference")
+        full_best = (
+            full.sort_values(
+                [*unit_columns, value_col, "_baseline_tie_order", "model"],
+                kind="mergesort",
+            )
+            .groupby(unit_columns, dropna=False, observed=True, as_index=False)
+            .first()
+            .loc[:, [*unit_columns, value_col, "model"]]
+            .rename(
+                columns={
+                    value_col: "full_network_value",
+                    "model": "full_network_best_model",
+                }
+            )
+        )
+        full_climatology = (
+            full.loc[full["model"].astype(str).eq(baseline_model)]
+            .groupby(unit_columns, dropna=False, observed=True, as_index=False)[
+                value_col
+            ]
+            .mean()
+            .rename(columns={value_col: "full_network_climatology_value"})
+        )
+        full_best = full_best.merge(
+            full_climatology,
+            on=unit_columns,
+            how="left",
+            validate="one_to_one",
+        )
+        if full_best["full_network_climatology_value"].isna().any():
+            raise ValueError("node importance lacks a paired full-network climatology")
+
+        for sites, values in singleton.groupby("failed_sites", observed=True):
+            failed_best = (
+                values.sort_values(
+                    [*unit_columns, value_col, "_baseline_tie_order", "model"],
+                    kind="mergesort",
+                )
+                .groupby(unit_columns, dropna=False, observed=True, as_index=False)
+                .first()
+                .loc[:, [*unit_columns, value_col, "model"]]
+                .rename(
+                    columns={
+                        value_col: "failed_value",
+                        "model": "failed_best_model",
+                    }
+                )
+            )
+            failed_climatology = (
+                values.loc[values["model"].astype(str).eq(baseline_model)]
+                .groupby(unit_columns, dropna=False, observed=True, as_index=False)[
+                    value_col
+                ]
+                .mean()
+                .rename(columns={value_col: "failed_climatology_value"})
+            )
+            paired = failed_best.merge(
+                failed_climatology,
+                on=unit_columns,
+                how="left",
+                validate="one_to_one",
+            ).merge(
+                full_best,
+                on=unit_columns,
+                how="inner",
+                validate="one_to_one",
+            )
+            if paired.empty or paired["failed_climatology_value"].isna().any():
+                raise ValueError(
+                    "node importance lacks paired full/failed climatology units"
+                )
+            paired["unit_impact"] = (
+                paired["failed_value"] - paired["full_network_value"]
+            )
+            full_model_counts = (
+                paired["full_network_best_model"].astype(str).value_counts()
+            )
+            failed_model_counts = paired["failed_best_model"].astype(str).value_counts()
             rows.append(
                 {
                     **metadata,
+                    "model": "best_available",
                     "target_station_id": metadata.get(
                         "target_station_id", metadata.get("station_id")
                     ),
                     "failed_station_id": sites[0],
-                    "full_network_value": full_value,
-                    "failed_value": failed_value,
-                    "impact": impact if np.isfinite(full_value) else np.nan,
+                    "full_network_value": float(paired["full_network_value"].mean()),
+                    "failed_value": float(paired["failed_value"].mean()),
+                    "full_network_climatology_value": float(
+                        paired["full_network_climatology_value"].mean()
+                    ),
+                    "failed_climatology_value": float(
+                        paired["failed_climatology_value"].mean()
+                    ),
+                    "full_network_best_model": str(full_model_counts.index[0]),
+                    "failed_best_model": str(failed_model_counts.index[0]),
+                    "full_network_best_model_counts": json.dumps(
+                        full_model_counts.sort_index().to_dict(),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "failed_best_model_counts": json.dumps(
+                        failed_model_counts.sort_index().to_dict(),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "impact": float(paired["unit_impact"].mean()),
                     "value_metric": value_col,
                     "impact_definition": (
-                        "full_minus_failed" if higher_is_better else "failed_minus_full"
+                        "best_available_failed_minus_best_available_full_"
+                        "with_climatology_hard_cap"
                     ),
-                    "n_events": len(values),
-                    "reason": None
-                    if np.isfinite(full_value)
-                    else "no zero-failure reference",
+                    "hard_cap_model": baseline_model,
+                    "n_events": len(paired),
+                    "reason": None,
                 }
             )
     return pd.DataFrame(rows)
@@ -464,7 +605,6 @@ def analyze_resilience(
         events,
         value_col=kwargs.get("value_col", "MAE"),
         failed_sites_col=kwargs.get("failed_sites_col", "failed_stations"),
-        higher_is_better=kwargs.get("higher_is_better", False),
     )
     return curve, auc, importance
 

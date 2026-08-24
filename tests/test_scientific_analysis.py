@@ -508,32 +508,33 @@ def test_network_resilience_requires_complete_three_station_powersets():
     rows = []
     for mask_seed, available in ((101, failure_sets), (102, failure_sets[:-1])):
         for failed in available:
-            rows.append(
-                {
-                    "experiment": "SCI_NET",
-                    "mask_type": "matched_network",
-                    "layout": "single",
-                    "window_length": 736,
-                    "training_protocol": "seen_length",
-                    "station_id": "S1",
-                    "target": "T",
-                    "target_gap_id": f"S1-T-30-{mask_seed}",
-                    "model": "M",
-                    "gap_length": 30,
-                    "mask_seed": mask_seed,
-                    "training_seed": 11,
-                    "network_size": 3,
-                    "failed_stations": failed,
-                    "skill": 1.0 - len(failed) / 3,
-                    "MAE": 1.0 + len(failed),
-                }
-            )
+            for model in ("climatology", "M"):
+                rows.append(
+                    {
+                        "experiment": "SCI_NET",
+                        "mask_type": "matched_network",
+                        "layout": "single",
+                        "window_length": 736,
+                        "training_protocol": "seen_length",
+                        "station_id": "S1",
+                        "target": "T",
+                        "target_gap_id": f"S1-T-30-{mask_seed}",
+                        "model": model,
+                        "gap_length": 30,
+                        "mask_seed": mask_seed,
+                        "training_seed": 11,
+                        "network_size": 3,
+                        "failed_stations": failed,
+                        "skill": 1.0 - len(failed) / 3,
+                        "MAE": (2.0 if model == "climatology" else 1.0 + len(failed)),
+                    }
+                )
     events = pd.DataFrame(rows)
     complete, exclusions = complete_resilience_units(events)
-    assert len(complete) == 8
+    assert len(complete) == 16
     assert complete["mask_seed"].eq(101).all()
-    assert len(exclusions) == 1
-    assert exclusions.loc[0, "n_unique_failure_sets"] == 7
+    assert len(exclusions) == 2
+    assert exclusions["n_unique_failure_sets"].eq(7).all()
 
     curve = resilience_curve(events)
     auc = resilience_auc(curve)
@@ -550,17 +551,25 @@ def test_network_resilience_requires_complete_three_station_powersets():
     assert importance["target_station_id"].eq("S1").all()
     assert set(importance["failed_station_id"]) == {"S1", "S2", "S3"}
     assert importance["value_metric"].eq("MAE").all()
-    assert importance["impact_definition"].eq("failed_minus_full").all()
+    assert importance["model"].eq("best_available").all()
+    assert importance["full_network_best_model"].eq("M").all()
+    assert importance["failed_best_model"].eq("climatology").all()
+    assert (
+        importance["impact_definition"]
+        .eq("best_available_failed_minus_best_available_full_with_climatology_hard_cap")
+        .all()
+    )
 
     nonpositive = events.loc[events["mask_seed"].eq(101)].assign(skill=-1.0)
     unavailable = resilience_curve(nonpositive)
     assert unavailable["relative_skill"].isna().all()
     assert unavailable["reason"].eq("full-network skill is not positive").all()
 
+    one_model = events.loc[events["model"].eq("M")]
     duplicated = pd.concat(
         [
-            events.loc[events["mask_seed"].eq(101)],
-            events.loc[events["mask_seed"].eq(101)].iloc[[0]],
+            one_model.loc[one_model["mask_seed"].eq(101)],
+            one_model.loc[one_model["mask_seed"].eq(101)].iloc[[0]],
         ],
         ignore_index=True,
     )
@@ -569,11 +578,11 @@ def test_network_resilience_requires_complete_three_station_powersets():
     assert "duplicate failure sets" in duplicate_exclusions.loc[0, "reason"]
 
     nonfinite_skill = events.loc[events["mask_seed"].eq(101)].copy()
-    nonfinite_skill.loc[nonfinite_skill.index[1], "skill"] = np.nan
+    nonfinite_skill.loc[nonfinite_skill.index[:2], "skill"] = np.nan
     with pytest.raises(ValueError, match="non-finite skill"):
         resilience_curve(nonfinite_skill)
     nonfinite_mae = events.loc[events["mask_seed"].eq(101)].copy()
-    nonfinite_mae.loc[nonfinite_mae.index[1], "MAE"] = np.nan
+    nonfinite_mae.loc[nonfinite_mae.index[:2], "MAE"] = np.nan
     with pytest.raises(ValueError, match="non-finite MAE"):
         node_importance(nonfinite_mae)
 
