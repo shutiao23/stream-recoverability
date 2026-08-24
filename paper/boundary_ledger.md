@@ -45,3 +45,9 @@
 **Open.** Restricted Jinsha bytes remain in the development repository history, and no archival software DOI exists.
 
 **Boundary.** The manuscript is scientifically revised but must not be submitted until a coordinated code-only history/release and real archival DOI exist. Reviewer access to restricted data is through AGU GEMS confidential files.
+
+## BL-008 — P3 change-date localization
+
+**Observed.** Dependence-aware Pettitt inference estimates 26 May 2013 (95% block-bootstrap interval 14 May 2011--22 October 2013; year-block $p=0.0088$), which does not cover first-unit operation. Least-squares single segmentation estimates 18 October 2014 (interval 16 April 2014--1 January 2015; $p=0.0117$), which does cover it. Lag-1 anomaly autocorrelation is 0.973.
+
+**Update.** Describe a significant but method-sensitive state change and a 2015 annual endpoint shift. Do not state that Pettitt statistically located commissioning or that the break test establishes reservoir causality.

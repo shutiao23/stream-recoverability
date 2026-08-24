@@ -163,8 +163,30 @@ def main() -> None:
     )
     assert external["qualitative_prediction_consistent"].all()
 
+    change_manifest = json.loads(
+        (ROOT / "results/revision/p3_change_point_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert change_manifest["status"] == "complete"
+    for identity in change_manifest["artifacts"]:
+        artifact = ROOT / identity["path"]
+        assert artifact.is_file(), artifact
+        assert artifact.stat().st_size == identity["bytes"], artifact
+        assert _sha256(artifact) == identity["sha256"], artifact
+    change_summary = pd.read_csv(ROOT / "results/revision/p3_change_point_summary.csv")
+    primary_change = change_summary.loc[change_summary["role"].eq("primary")].iloc[0]
+    sensitivity_change = change_summary.loc[
+        change_summary["role"].eq("robust_sensitivity")
+    ].iloc[0]
+    assert primary_change["point_date"] == "2013-05-26"
+    assert not bool(primary_change["event_in_95pct_bootstrap_ci"])
+    assert sensitivity_change["point_date"] == "2014-10-18"
+    assert bool(sensitivity_change["event_in_95pct_bootstrap_ci"])
+
     manuscript = (ROOT / "paper/manuscript.md").read_text(encoding="utf-8")
     assert "RESULTS_PENDING" not in manuscript
+    assert "changed abruptly at the end of 2014" not in manuscript
     abstract = re.search(r"## Abstract\n\n(.*?)\n\n##", manuscript, re.DOTALL)
     assert abstract is not None and len(abstract.group(1).split()) <= 250
     for line in (ROOT / "paper/key_points.md").read_text(encoding="utf-8").splitlines():
@@ -197,6 +219,7 @@ def main() -> None:
                 "finite_frontier_tests": 24,
                 "node_importance_rows": len(importance),
                 "external_run_units": 540,
+                "p3_change_point_methods": 2,
                 "tracked_external_artifacts": len(required_tracked),
                 "figures": figure_count,
                 "tables": table_count,

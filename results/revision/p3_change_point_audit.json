@@ -1,0 +1,188 @@
+{
+  "schema_version": "p3_change_point_analysis_v1",
+  "status": "complete",
+  "analysis_label": "post_hoc_diagnostic_added_after_frozen_analysis",
+  "station_id": "P3",
+  "training_period": {
+    "split": "train",
+    "start": "2006-01-01",
+    "end": "2015-12-31",
+    "n_daily_observations": 3652
+  },
+  "anomaly_definition": {
+    "observed_column": "P3_T",
+    "climatology": "366-day circular day-of-year median",
+    "half_window_days": 7,
+    "fit_period": "same frozen training split"
+  },
+  "commissioning_reference_date": "2014-12-20",
+  "primary": {
+    "role": "primary",
+    "method": "pettitt_rank_location_change",
+    "series": "P3 daily temperature minus frozen-training circular DOY median",
+    "point_date": "2013-05-26",
+    "ci_lower_date": "2011-05-14",
+    "ci_upper_date": "2013-10-22",
+    "event_date": "2014-12-20",
+    "event_in_95pct_bootstrap_ci": false,
+    "earliest_admissible_point_date": "2007-01-01",
+    "latest_admissible_point_date": "2015-01-01",
+    "ci_lower_hits_admissible_boundary": false,
+    "ci_upper_hits_admissible_boundary": false,
+    "statistic": 1317432.0,
+    "signed_statistic": -1317432.0,
+    "asymptotic_p_value_iid": 2.9692771164888905e-93,
+    "iid_permutation_p_value": 0.0001,
+    "iid_permutation_exceedances": 0,
+    "calendar_year_block_permutation_p_value": 0.0088,
+    "calendar_year_block_permutation_exceedances": 87,
+    "n_permutations": 9999,
+    "n_bootstrap": 5000,
+    "bootstrap_block_length_days": 365,
+    "min_segment_days": 365,
+    "n_daily_observations": 3652,
+    "first_segment_level_degC": -0.1999999999999993,
+    "second_segment_level_degC": 0.7000000000000028,
+    "level_change_degC": 0.9000000000000021
+  },
+  "robust_sensitivity": {
+    "role": "robust_sensitivity",
+    "method": "single_binary_segmentation_least_squares",
+    "series": "P3 daily temperature minus frozen-training circular DOY median",
+    "point_date": "2014-10-18",
+    "ci_lower_date": "2014-04-16",
+    "ci_upper_date": "2015-01-01",
+    "event_date": "2014-12-20",
+    "event_in_95pct_bootstrap_ci": true,
+    "earliest_admissible_point_date": "2007-01-01",
+    "latest_admissible_point_date": "2015-01-01",
+    "ci_lower_hits_admissible_boundary": false,
+    "ci_upper_hits_admissible_boundary": true,
+    "statistic": 1207.6479320769993,
+    "signed_statistic": NaN,
+    "asymptotic_p_value_iid": NaN,
+    "iid_permutation_p_value": 0.0001,
+    "iid_permutation_exceedances": 0,
+    "calendar_year_block_permutation_p_value": 0.0117,
+    "calendar_year_block_permutation_exceedances": 116,
+    "n_permutations": 9999,
+    "n_bootstrap": 5000,
+    "bootstrap_block_length_days": 365,
+    "min_segment_days": 365,
+    "n_daily_observations": 3652,
+    "first_segment_level_degC": -0.07334993773349928,
+    "second_segment_level_degC": 1.6931818181818181,
+    "level_change_degC": 1.7665317559153173
+  },
+  "annual_sensitivity": [
+    {
+      "method": "annual_metric_pettitt_sensitivity",
+      "metric": "annual_minimum_degC",
+      "selected_point_date": "2012-01-01",
+      "all_tied_maximizing_dates": "2012-01-01",
+      "statistic": 17.0,
+      "asymptotic_p_value_iid": 0.4134509240660289,
+      "permutation_p_value": 0.2208,
+      "permutation_exceedances": 2207,
+      "n_years": 10,
+      "value_2015_degC": 12.4,
+      "pre_2015_median_degC": 9.6,
+      "endpoint_change_from_pre_2015_median_degC": 2.8000000000000007,
+      "event_date": "2014-12-20",
+      "interpretation": "low-power annual sensitivity; only one frozen-training year is fully post-commissioning"
+    },
+    {
+      "method": "annual_metric_pettitt_sensitivity",
+      "metric": "annual_amplitude_degC",
+      "selected_point_date": "2011-01-01",
+      "all_tied_maximizing_dates": "2011-01-01",
+      "statistic": 9.0,
+      "asymptotic_p_value_iid": 1.0,
+      "permutation_p_value": 0.8607,
+      "permutation_exceedances": 8606,
+      "n_years": 10,
+      "value_2015_degC": 10.700000000000001,
+      "pre_2015_median_degC": 13.1,
+      "endpoint_change_from_pre_2015_median_degC": -2.3999999999999986,
+      "event_date": "2014-12-20",
+      "interpretation": "low-power annual sensitivity; only one frozen-training year is fully post-commissioning"
+    }
+  ],
+  "serial_dependence": {
+    "acf_lag_1_days": 0.972809046923142,
+    "acf_lag_30_days": 0.5900655282866443,
+    "acf_lag_90_days": 0.12528624470789024,
+    "acf_lag_365_days": 0.40718429747825446,
+    "iid_reference_warning": "The asymptotic and individual-day permutation p-values assume exchangeable daily observations and are anti-conservative for this persistent series.",
+    "dependence_aware_null": "Complete calendar years were reordered as ten contiguous blocks, preserving all within-year dependence and seasonal residual shape.",
+    "inference_p_value_used": "calendar_year_block_permutation_p_value"
+  },
+  "bootstrap_contract": {
+    "scheme": "segmentwise_circular_moving_block_residual_bootstrap",
+    "confidence_interval": "2.5th and 97.5th nearest order statistics",
+    "block_length_days": 365,
+    "primary_center": "segment median",
+    "sensitivity_center": "segment mean",
+    "n_bootstrap": 5000,
+    "caveat": "Percentile intervals condition on a fitted one-step model and quantify date instability under segmentwise serial dependence."
+  },
+  "interpretation": {
+    "event_is_in_primary_ci": false,
+    "event_is_in_sensitivity_ci": true,
+    "required_claim": "The daily rank-location change predates commissioning and does not statistically localize the 20 Dec 2014 event. The least-squares single-break sensitivity is compatible with that date, so timing is estimator-sensitive and supports temporal consistency only, not attribution."
+  },
+  "inputs": [
+    {
+      "path": "data_versions/published_v2/daily_wide.parquet",
+      "bytes": 305386,
+      "sha256": "361afb6608fa9a16278f5d4b8697c1eb092a564ec65b638b1f16aad7fd5a768e"
+    },
+    {
+      "path": "src/stream_recoverability/analysis/change_points.py",
+      "bytes": 10588,
+      "sha256": "79d7e843d336e9f9973a3e85ac6a959062f9f6078361d517d359a3ebf4fe9b8e"
+    },
+    {
+      "path": "scripts/37_run_p3_change_point.py",
+      "bytes": 24140,
+      "sha256": "9ec3ea9f76f0a1ee08dfe33d9e91d51241f9c34a105c46cd8cff9e4dde6bd56d"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/revision/p3_change_point_summary.csv",
+      "bytes": 1229,
+      "sha256": "dcad90eb7a0a8dddbbcb254813ee91c48d57f4d0180a399099e8ad34f98bf4fa"
+    },
+    {
+      "path": "results/revision/p3_change_point_bootstrap_dates.csv",
+      "bytes": 557844,
+      "sha256": "c970b3b9fe19df6f2c02eb3d3c8f4ae875eaffd8dfca06130b39c805b03b254c"
+    },
+    {
+      "path": "results/revision/p3_change_point_sensitivity.csv",
+      "bytes": 736,
+      "sha256": "a56d10bd202ceb64933365250fa7696a76cedc34976980534e8cdf2bccfc25ac"
+    },
+    {
+      "path": "results/revision/p3_change_point_annual_metrics.csv",
+      "bytes": 609,
+      "sha256": "3c7804d2454f1aa24a2e020ab75c0326eb8699706697cabe716ea91d20d680a7"
+    },
+    {
+      "path": "results/revision/p3_change_point_series.csv",
+      "bytes": 300586,
+      "sha256": "cf79d91fdefc6a429679ef2f96a286964881d37c6314a12444cc9d2b183ee5ca"
+    },
+    {
+      "path": "results/revision/p3_change_point_diagnostic.png",
+      "bytes": 732514,
+      "sha256": "e84ac655721a25844e25ce748c66651c89f75393eceee8b29797bf5fc0be564f"
+    },
+    {
+      "path": "results/revision/p3_change_point_reporting.md",
+      "bytes": 1747,
+      "sha256": "b238c6047c8559934eb5d4b518014ce2532338b55830b8129f105d531f1540d1"
+    }
+  ]
+}

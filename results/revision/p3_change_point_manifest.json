@@ -1,0 +1,54 @@
+{
+  "schema_version": "p3_change_point_manifest_v1",
+  "status": "complete",
+  "primary_result": {
+    "point_date": "2013-05-26",
+    "ci_lower_date": "2011-05-14",
+    "ci_upper_date": "2013-10-22",
+    "event_in_95pct_bootstrap_ci": false,
+    "iid_day_permutation_p_value_reference_only": 0.0001,
+    "calendar_year_block_permutation_p_value_for_inference": 0.0088
+  },
+  "artifacts": [
+    {
+      "path": "results/revision/p3_change_point_summary.csv",
+      "bytes": 1229,
+      "sha256": "dcad90eb7a0a8dddbbcb254813ee91c48d57f4d0180a399099e8ad34f98bf4fa"
+    },
+    {
+      "path": "results/revision/p3_change_point_bootstrap_dates.csv",
+      "bytes": 557844,
+      "sha256": "c970b3b9fe19df6f2c02eb3d3c8f4ae875eaffd8dfca06130b39c805b03b254c"
+    },
+    {
+      "path": "results/revision/p3_change_point_sensitivity.csv",
+      "bytes": 736,
+      "sha256": "a56d10bd202ceb64933365250fa7696a76cedc34976980534e8cdf2bccfc25ac"
+    },
+    {
+      "path": "results/revision/p3_change_point_annual_metrics.csv",
+      "bytes": 609,
+      "sha256": "3c7804d2454f1aa24a2e020ab75c0326eb8699706697cabe716ea91d20d680a7"
+    },
+    {
+      "path": "results/revision/p3_change_point_series.csv",
+      "bytes": 300586,
+      "sha256": "cf79d91fdefc6a429679ef2f96a286964881d37c6314a12444cc9d2b183ee5ca"
+    },
+    {
+      "path": "results/revision/p3_change_point_diagnostic.png",
+      "bytes": 732514,
+      "sha256": "e84ac655721a25844e25ce748c66651c89f75393eceee8b29797bf5fc0be564f"
+    },
+    {
+      "path": "results/revision/p3_change_point_reporting.md",
+      "bytes": 1747,
+      "sha256": "b238c6047c8559934eb5d4b518014ce2532338b55830b8129f105d531f1540d1"
+    },
+    {
+      "path": "results/revision/p3_change_point_audit.json",
+      "bytes": 7545,
+      "sha256": "6d94bf8b09b5d00d68e3660a85e0fc5d65a642622b13beaf1c35ba55648973ea"
+    }
+  ]
+}
