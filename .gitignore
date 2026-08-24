@@ -42,9 +42,8 @@ results/validation_funnel/published_v2/aad01e417fc233cff287deb6a6afd578046a1f7d7
 results/validation_funnel/published_v2/ccb12d2a528308c5c16bfaefea5b7d5a1d1f221fa1519b06dfd4f539d9d96832/
 results/remaining_execution_plan.json
 
-# Invalid pre-freeze formal dumps; keep only the tombstone README links.
-results/formal/**
-!results/formal/PRE_FREEZE_INVALID.md
+# Invalid pre-freeze formal dumps remain private local artifacts.
+results/formal/
 
 # Local generated masks and experiment dumps
 data/raw/
@@ -88,6 +87,7 @@ results/confirmatory/*
 !results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/**
 results/frozen/**/*.parquet
 results/analysis/relative_skill_events.parquet
+results/analysis/frontier_bootstrap_samples.parquet
 data_versions/external_upper_middle_chattahoochee_v1/
 data_versions/external_upper_middle_chattahoochee_v1_pre_protocol_normalization/
 data_versions_pre_rs/
