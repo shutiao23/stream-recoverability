@@ -21,7 +21,8 @@ authors:
 repository-code: "https://github.com/shutiao23/stream-recoverability"
 url: "https://github.com/shutiao23/stream-recoverability"
 license: MIT
-version: "0.1.0"
+version: "1.0.0"
+date-released: "2026-08-24"
 keywords:
   - stream temperature
   - recoverability
@@ -31,8 +32,11 @@ identifiers:
   - type: url
     value: "https://github.com/shutiao23/stream-recoverability"
     description: >-
-      Development host only. GitHub is not an AGU archival software
-      repository.
+      Public code-only repository after restricted-history remediation; GitHub
+      itself is not the archival DOI record.
+  - type: url
+    value: "https://github.com/shutiao23/stream-recoverability/releases/tag/v1.0.0"
+    description: Code-only release awaiting Zenodo DOI registration.
 preferred-citation:
   type: software
   title: >-
@@ -42,7 +46,7 @@ preferred-citation:
     - family-names: shutiao23
       alias: shutiao23
       email: chestnutlee23@163.com
-  version: "0.1.0"
+  version: "1.0.0"
   url: "https://github.com/shutiao23/stream-recoverability"
   notes: >-
     Software citation only. No archival DOI has been minted (doi
