@@ -1,0 +1,168 @@
+design_id: regulation_panel_freeze_v1
+status: frozen_before_temperature_panel_outcomes
+frozen_at_utc: "2026-08-24T22:13:49Z"
+parent_repository_commit: 42a553f69d
+purpose: >-
+  Independent station-panel test of whether the already defined, observation-only
+  memory-range fingerprint distinguishes USGS stream-temperature sites with at
+  least one upstream major dam in GAGES-II from sites without an upstream major dam.
+
+isolation_contract:
+  confirmatory_network_data_permitted: false
+  confirmatory_results_permitted: false
+  forbidden_path_tokens:
+    - external_upper_middle_chattahoochee_v1
+    - results/confirmatory
+    - confirmatory-evaluation-once.lock
+  note: >-
+    The nationwide panel is a new, separately frozen analysis. It must neither
+    inspect nor derive any inclusion, feature, threshold, or model choice from the
+    Chattahoochee confirmatory data or results.
+
+data_sources:
+  usgs:
+    provider: U.S. Geological Survey Water Data APIs
+    api_root: https://api.waterdata.usgs.gov/ogcapi/v0
+    time_series_metadata_collection: time-series-metadata
+    monitoring_locations_collection: monitoring-locations
+    daily_collection: daily
+    agency_code: USGS
+    site_type_code: ST
+    parameter_code: "00010"
+    statistic_id: "00003"
+    computation_period_identifier: Daily
+    computation_identifier: Mean
+    primary_time_series_only: true
+    approval_status_retained: Approved
+    period_start: "2000-01-01"
+    period_end: "2019-12-31"
+  gages_ii:
+    provider: U.S. Geological Survey
+    doi: 10.5066/P96CPHOT
+    sciencebase_item_id: 631405bbd34e36012efa304a
+    archive_name: basinchar_and_report_sept_2011.zip
+    archive_md5: 88175f5162b01636a319c7b1206dd133
+    release_snapshot: 2009_dam_attributes_released_2011
+    required_tables:
+      - conterm_basinid.txt
+      - conterm_bas_classif.txt
+      - conterm_hydromod_dams.txt
+      - AKHIPR_basinid.txt
+      - AKHIPR_bas_classif.txt
+      - AKHIPR_hydromod_dams.txt
+  nid_audit:
+    provider: U.S. Army Corps of Engineers National Inventory of Dams
+    feature_service: >-
+      https://geospatial.sec.usace.army.mil/dls/rest/services/NID/National_Inventory_of_Dams_Public_Service/FeatureServer/0
+    role: field_availability_and_provenance_audit_only
+    prohibited_shortcut: nearest_euclidean_NID_point_is_not_an_upstream_dam_label
+
+eligibility:
+  station_join: exact_USGS_monitoring_location_number_to_GAGES_II_STAID
+  geography: all_GAGES_II_regions_including_AK_HI_PR
+  minimum_qualifying_calendar_years: 10
+  minimum_approved_distinct_days_per_qualifying_year: 300
+  series_selection: >-
+    Within a station, retain the primary daily-mean water-temperature time series
+    having the most approved distinct dates in 2000-2019; break ties by earliest
+    metadata begin timestamp and then lexical time-series ID. Never splice series.
+  duplicate_date_rule: median_within_selected_time_series_and_date
+  numeric_rule: finite_values_only_no_post_hoc_outlier_trimming
+  exclusion_reasons_are_exhaustive:
+    - not_in_GAGES_II
+    - non_stream_site_type
+    - no_primary_daily_mean_series
+    - fewer_than_10_qualifying_years
+    - zero_temperature_range
+    - insufficient_exact_lag_pairs
+    - missing_required_GAGES_II_dam_attribute
+
+features:
+  climatology:
+    definition: circular_day_of_year_median
+    half_window_days: 7
+    fit_scope: all_retained_approved_days_2000_2019
+  annual_amplitude:
+    definition: annual_maximum_minus_annual_minimum
+    summary: median_across_qualifying_years_only
+  anomaly_sd:
+    ddof: 1
+  autocorrelation:
+    lags_days: [30, 90]
+    pairing: exact_calendar_date_pairs
+    minimum_pairs_each_lag: 300
+  seasonal_variance_fraction:
+    definition: one_minus_anomaly_variance_divided_by_raw_temperature_variance
+  observed_temperature_range:
+    definition: maximum_minus_minimum_over_all_retained_days
+  primary_memory_range_index:
+    column: memory_range_index_per_degC
+    definition: acf30_divided_by_observed_temperature_range
+    direction: larger_values_hypothesized_for_regulated_sites
+
+outcome:
+  primary_binary_label: upstream_major_dam_2009
+  definition: MAJ_NDAMS_2009_greater_than_or_equal_to_1
+  major_dam_definition_from_GAGES_II: >-
+    dam height at least 50 feet (15 m) or storage at least 5,000 acre-feet
+  descriptive_attributes:
+    - NDAMS_2009
+    - STOR_NID_2009
+    - STOR_NOR_2009
+    - MAJ_NDAMS_2009
+    - RAW_DIS_NEAREST_DAM
+    - RAW_DIS_NEAREST_MAJ_DAM
+
+primary_analysis:
+  model: unpenalized_logistic_regression
+  formula: upstream_major_dam_2009 ~ z_memory_range_index
+  coefficient_uncertainty: HC1_robust_95_percent_Wald_interval
+  generalization_metric: pooled_out_of_fold_ROC_AUC
+  cross_validation: leave_one_GAGES_II_aggregated_ecoregion_out
+  auc_uncertainty:
+    method: aggregated_ecoregion_cluster_bootstrap
+    replicates: 2000
+    seed: 20260824
+    confidence_level: 0.95
+  threshold_selection: prohibited
+
+sensitivity_analysis:
+  formula: >-
+    upstream_major_dam_2009 ~ z_memory_range_index + z_log1p_drainage_area
+    + GAGES_II_aggregated_ecoregion_fixed_effects
+  role: geography_and_scale_adjusted_coefficient_sensitivity
+
+distance_profile:
+  population: upstream_major_dam_2009_equals_1
+  distance_field: RAW_DIS_NEAREST_MAJ_DAM
+  bins_km: [0, 5, 20, 50, 100, .inf]
+  summaries:
+    - station_count
+    - median_memory_range_index_per_degC
+    - median_acf30
+    - median_annual_amplitude_degC
+  uncertainty:
+    method: aggregated_ecoregion_cluster_bootstrap
+    replicates: 2000
+    seed: 20260825
+    confidence_level: 0.95
+
+reporting_rules:
+  report_exact_flow:
+    - metadata_series_discovered
+    - exact_GAGES_II_overlap
+    - daily_values_downloaded
+    - eligible_stations
+    - regulated_stations
+    - unregulated_stations
+  always_report:
+    - N
+    - class_balance
+    - pooled_out_of_fold_AUC_and_interval
+    - logistic_coefficient_odds_ratio_and_interval
+    - adjusted_sensitivity
+    - distance_profile
+    - all_exclusion_counts
+  minimum_N_for_primary_claim: 300
+  if_below_minimum_N: withhold_generalizable_panel_claim_but_report_pipeline_result
+  no_result_contingent_changes: true
