@@ -41,9 +41,7 @@ def test_block_permutation_is_reproducible_and_preserves_auditable_contract() ->
     assert first == second
     assert first["block_count"] == 4
     assert first["scheme"] == "contiguous_block_order_permutation"
-    assert first["p_value"] == pytest.approx(
-        (first["exceedances"] + 1) / 100
-    )
+    assert first["p_value"] == pytest.approx((first["exceedances"] + 1) / 100)
 
 
 def test_residual_block_bootstrap_returns_valid_deterministic_change_indices() -> None:

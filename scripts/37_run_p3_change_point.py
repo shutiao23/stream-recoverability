@@ -80,9 +80,7 @@ def _bootstrap_dates(
             "method": method,
             "bootstrap_draw": np.arange(1, len(indices) + 1),
             "change_index": indices,
-            "first_post_change_date": [
-                _date_string(dates, index) for index in indices
-            ],
+            "first_post_change_date": [_date_string(dates, index) for index in indices],
         }
     )
 
@@ -185,9 +183,7 @@ def _main_figure(
     second_axis.set_ylabel("Annual amplitude (°C)")
     handles1, labels1 = axes[1, 1].get_legend_handles_labels()
     handles2, labels2 = second_axis.get_legend_handles_labels()
-    axes[1, 1].legend(
-        handles1 + handles2, labels1 + labels2, frameon=False, fontsize=7
-    )
+    axes[1, 1].legend(handles1 + handles2, labels1 + labels2, frameon=False, fontsize=7)
 
     for axis in axes.flat:
         axis.grid(alpha=0.2)
@@ -333,18 +329,14 @@ def main() -> None:
     bootstrap_dates = pd.concat(
         [
             _bootstrap_dates(primary_fit["method"], dates, primary_bootstrap),
-            _bootstrap_dates(
-                alternative_fit["method"], dates, alternative_bootstrap
-            ),
+            _bootstrap_dates(alternative_fit["method"], dates, alternative_bootstrap),
         ],
         ignore_index=True,
     )
 
     annual = annual_thermal_metrics(train, ["P3"])
     annual_rows: list[dict[str, Any]] = []
-    for offset, metric in enumerate(
-        ("annual_minimum_degC", "annual_amplitude_degC")
-    ):
+    for offset, metric in enumerate(("annual_minimum_degC", "annual_amplitude_degC")):
         values = annual[metric].to_numpy(float)
         fit = pettitt_change_point(values, min_segment=2)
         randomisation = permutation_p_value(
@@ -491,8 +483,7 @@ def main() -> None:
     )
 
     autocorrelation_values = {
-        f"acf_lag_{lag}_days": autocorrelation(anomaly, lag)
-        for lag in (1, 30, 90, 365)
+        f"acf_lag_{lag}_days": autocorrelation(anomaly, lag) for lag in (1, 30, 90, 365)
     }
     audit = {
         "schema_version": "p3_change_point_analysis_v1",
@@ -555,7 +546,9 @@ def main() -> None:
         },
         "inputs": [
             _identity(INPUT),
-            _identity(PROJECT_ROOT / "src/stream_recoverability/analysis/change_points.py"),
+            _identity(
+                PROJECT_ROOT / "src/stream_recoverability/analysis/change_points.py"
+            ),
             _identity(PROJECT_ROOT / "scripts/37_run_p3_change_point.py"),
         ],
         "outputs": [
@@ -581,9 +574,7 @@ def main() -> None:
             "point_date": primary["point_date"],
             "ci_lower_date": primary["ci_lower_date"],
             "ci_upper_date": primary["ci_upper_date"],
-            "event_in_95pct_bootstrap_ci": primary[
-                "event_in_95pct_bootstrap_ci"
-            ],
+            "event_in_95pct_bootstrap_ci": primary["event_in_95pct_bootstrap_ci"],
             "iid_day_permutation_p_value_reference_only": primary[
                 "iid_permutation_p_value"
             ],

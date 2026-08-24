@@ -71,9 +71,7 @@ def pettitt_change_point(
         + int(admissible.start)
         + 1
     )
-    approximation = 2.0 * np.exp(
-        -6.0 * statistic**2 / (float(n) ** 3 + float(n) ** 2)
-    )
+    approximation = 2.0 * np.exp(-6.0 * statistic**2 / (float(n) ** 3 + float(n) ** 2))
     return {
         "method": "pettitt_rank_location_change",
         "change_index": split_after_index + 1,
@@ -100,9 +98,8 @@ def least_squares_change_point(
     admissible = _admissible_slice(n, min_segment)
     segment_sizes = np.arange(1, n, dtype=float)
     cumulative = np.cumsum(vector)
-    score = (
-        np.square(cumulative[:-1] - segment_sizes * cumulative[-1] / n)
-        / (segment_sizes * (1.0 - segment_sizes / n))
+    score = np.square(cumulative[:-1] - segment_sizes * cumulative[-1] / n) / (
+        segment_sizes * (1.0 - segment_sizes / n)
     )
     candidate = score[admissible]
     split_after_index = int(admissible.start + np.argmax(candidate))
@@ -152,7 +149,9 @@ def permutation_p_value(
         labels = np.asarray(block_labels)
         if labels.ndim != 1 or len(labels) != len(vector):
             raise ValueError("block_labels must be one-dimensional and match values")
-        boundaries = np.r_[0, np.flatnonzero(labels[1:] != labels[:-1]) + 1, len(labels)]
+        boundaries = np.r_[
+            0, np.flatnonzero(labels[1:] != labels[:-1]) + 1, len(labels)
+        ]
         blocks = [
             np.arange(boundaries[index], boundaries[index + 1], dtype=int)
             for index in range(len(boundaries) - 1)
@@ -199,9 +198,9 @@ def _circular_moving_block_sample(
     block_count = int(np.ceil(length / effective_block_length))
     starts = rng.integers(0, length, size=block_count)
     offsets = np.arange(effective_block_length)
-    return np.concatenate(
-        [residuals[(start + offsets) % length] for start in starts]
-    )[:length]
+    return np.concatenate([residuals[(start + offsets) % length] for start in starts])[
+        :length
+    ]
 
 
 def residual_block_bootstrap_change_points(
@@ -252,9 +251,7 @@ def residual_block_bootstrap_change_points(
                 ),
             ]
         )
-        draws[draw] = int(
-            estimator(simulated, min_segment=min_segment)["change_index"]
-        )
+        draws[draw] = int(estimator(simulated, min_segment=min_segment)["change_index"])
     lower, median, upper = np.quantile(
         draws, [0.025, 0.5, 0.975], method="nearest"
     ).astype(int)
