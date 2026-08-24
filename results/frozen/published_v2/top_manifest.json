@@ -1,0 +1,773 @@
+{
+  "artifacts": {
+    "event_metrics": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/published_v2/event_metrics.parquet",
+      "sha256": "2b4d8273f9f6d26e19f3321385046857fb14094c1578d359033604af0d5a34a0",
+      "size": 14557288
+    },
+    "predictions": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/published_v2/predictions.parquet",
+      "sha256": "a9974a3724b587c659cadae0ee32b231569960a1f9063d970ca73e7850db75f7",
+      "size": 189803479
+    },
+    "summary_metrics": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/published_v2/summary_metrics.csv",
+      "sha256": "04c31509a5957367d473bbd694795e2eefdfb0e60dd5dc99659eb3eef3e8c529",
+      "size": 4064020
+    }
+  },
+  "bundle_kind": "primary",
+  "bundle_role": "primary",
+  "checkpoint_contract_complete": true,
+  "code_provenance": {
+    "dirty_tracked_paths": [],
+    "external_relevant_input_count": 0,
+    "git_commit": "49d97b1bf47462417e284cb6bfcb5f2bbafdb89f",
+    "relevant_source_clean": true,
+    "relevant_source_digest": "e8e041dc484a1a4c7eff5a97218b69a8e4f88810c52e97e0cec55402c46df48a",
+    "relevant_source_file_count": 50,
+    "relevant_untracked_paths": [],
+    "schema_version": "code_provenance_v1",
+    "status": "clean",
+    "tracked_worktree_clean": true
+  },
+  "complete": true,
+  "completed_evidence_run_unit_count": 116994,
+  "completed_run_unit_count": 134359,
+  "completed_run_unit_keys_sha256": "c5b4d1e8667d3739a91a1a4f1abbe2fbfab7993a0fcd68b2a0a402898007ee69",
+  "daily_rows": 16961820,
+  "data_version": "published_v2",
+  "design_version": "design_freeze_v4",
+  "evaluation_split": "development_test",
+  "event_rows": 194673,
+  "evidence_complete": true,
+  "evidence_role": "formal_development_evaluation",
+  "evidence_run_unit_keys_sha256": "b74a3ad2ebaaed22b8330b76060432f19b2316620418b38b019221f2e6159109",
+  "expected_evidence_run_unit_count": 116994,
+  "expected_run_unit_count": 134359,
+  "expected_run_unit_keys_sha256": "c5b4d1e8667d3739a91a1a4f1abbe2fbfab7993a0fcd68b2a0a402898007ee69",
+  "finalized_model_roster": {
+    "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+    "proposed_decision": "framework_only",
+    "selected_models": [
+      "climatology",
+      "linear",
+      "pchip",
+      "kalman",
+      "air_only",
+      "air_hydro",
+      "donor_regression",
+      "random_forest",
+      "xgboost"
+    ],
+    "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c"
+  },
+  "finite_event_metrics": true,
+  "finite_predictions": true,
+  "formal_design_complete": true,
+  "formal_evidence": true,
+  "formal_mask_seed_complete": true,
+  "formal_training_seed_complete": true,
+  "frontier_anchor_catalog": {
+    "count": 180,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/frontier_anchors_v2.csv",
+    "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+  },
+  "frozen": true,
+  "mask_schema_version": "mask_schema_v2",
+  "model_schema_version": "model_schema_v3",
+  "required_suite_roles": [
+    "core_full",
+    "dense_frontier",
+    "network_resilience",
+    "event_uncertainty",
+    "operational_dropout",
+    "retrained_upper_bound",
+    "donor_c_falsification"
+  ],
+  "retryable_run_keys": [],
+  "retryable_run_unit_count": 0,
+  "run_unit_complete": true,
+  "schema_version": "formal_aggregate_manifest_v2",
+  "source_run_count": 4,
+  "sources": [
+    {
+      "checkpoint_required_run_unit_count": 0,
+      "completed_run_unit_count": 102259,
+      "daily_predictions": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/experiments_v2/published_v2/development_test/full/daily_predictions.parquet",
+        "sha256": "9b3d62d54735474ed5afd480cb62fd0b1b1993f09f290a871903d7440e358ead",
+        "size": 169652260
+      },
+      "directory": "/home/lzq/workspace/parttime/stream-recoverability/results/experiments_v2/published_v2/development_test/full",
+      "event_catalog": {
+        "analysis_count": 352,
+        "episode_count": 355,
+        "m7a_scenario_count": 12,
+        "m7b_scenario_count": 704,
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/event_episode_catalog_v2.csv",
+        "sha256": "0eade354fcbc56cc3c04bbbb459f659cc8f5f6534deed344a207423b3d46b34b"
+      },
+      "event_metrics": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/experiments_v2/published_v2/development_test/full/event_metrics.parquet",
+        "sha256": "365d734a2ad643fcd1128029cb30602c64b235badd64ca1270e481a1170fce29",
+        "size": 12612952
+      },
+      "expected_evidence_run_unit_count": 84894,
+      "expected_run_unit_count": 102259,
+      "formal_execution_authorization": {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost",
+          "rating_curve",
+          "independent_flow"
+        ],
+        "finalized_model_roster": {
+          "best_traditional_model": "donor_regression",
+          "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+          "proposed_decision": "framework_only",
+          "selected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "selection_contract": {
+            "data_version": "published_v2",
+            "design_version": "design_freeze_v4",
+            "evaluation_split": "validation",
+            "mask_schema_version": "mask_schema_v2",
+            "model_schema_version": "model_schema_v3",
+            "statistics_schema_version": "statistics_schema_v3"
+          },
+          "selection_data_version": "published_v2",
+          "selection_data_version_manifest": {
+            "bytes": 2316,
+            "path": "data_versions/published_v2/version_manifest.json",
+            "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+          },
+          "selection_design_hash": "design_freeze_v4",
+          "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c",
+          "validation_anchor_catalog": {
+            "anchor_ids": [
+              "VALANCHOR-publishedv2-validation-B1-R0101",
+              "VALANCHOR-publishedv2-validation-B1-R0102",
+              "VALANCHOR-publishedv2-validation-B1-R0103",
+              "VALANCHOR-publishedv2-validation-B1-R0104",
+              "VALANCHOR-publishedv2-validation-B1-R0105",
+              "VALANCHOR-publishedv2-validation-P3-R0101",
+              "VALANCHOR-publishedv2-validation-P3-R0102",
+              "VALANCHOR-publishedv2-validation-P3-R0103",
+              "VALANCHOR-publishedv2-validation-P3-R0104",
+              "VALANCHOR-publishedv2-validation-P3-R0105",
+              "VALANCHOR-publishedv2-validation-S2-R0101",
+              "VALANCHOR-publishedv2-validation-S2-R0102",
+              "VALANCHOR-publishedv2-validation-S2-R0103",
+              "VALANCHOR-publishedv2-validation-S2-R0104",
+              "VALANCHOR-publishedv2-validation-S2-R0105"
+            ],
+            "bytes": 2288,
+            "path": "metadata/validation_anchors_v2.csv",
+            "row_count": 15
+          }
+        },
+        "formal_evidence": true,
+        "model_scope": "t_roster_plus_internal_structural_baselines",
+        "schema_version": "formal_execution_authorization_v1",
+        "suite": "full",
+        "target_scope": [
+          "T",
+          "F",
+          "L"
+        ]
+      },
+      "frontier_anchor_catalog": {
+        "count": 180,
+        "observed_evidence_scenario_count": 5999,
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/frontier_anchors_v2.csv",
+        "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+      },
+      "manifest": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/experiments_v2/published_v2/development_test/full/run_manifest.json",
+        "sha256": "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a",
+        "size": 48946512
+      },
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost",
+        "rating_curve",
+        "independent_flow"
+      ],
+      "structural_skip_run_unit_count": 17365
+    },
+    {
+      "checkpoint_required_run_unit_count": 0,
+      "completed_run_unit_count": 8100,
+      "daily_predictions": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/dense/daily_predictions.parquet",
+        "sha256": "625c62fdb4bfb455e02ec1fda0e34110cccfd7f5a6d3a733410eca7fe849a9ad",
+        "size": 9245142
+      },
+      "directory": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/dense",
+      "event_catalog": null,
+      "event_metrics": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/dense/event_metrics.parquet",
+        "sha256": "a0c54b3ca901b07f80ed020702e409eed78319f5555ca73aae5e04a41a060c6b",
+        "size": 1004040
+      },
+      "expected_evidence_run_unit_count": 8100,
+      "expected_run_unit_count": 8100,
+      "formal_execution_authorization": {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost"
+        ],
+        "finalized_model_roster": {
+          "best_traditional_model": "donor_regression",
+          "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+          "proposed_decision": "framework_only",
+          "selected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "selection_contract": {
+            "data_version": "published_v2",
+            "design_version": "design_freeze_v4",
+            "evaluation_split": "validation",
+            "mask_schema_version": "mask_schema_v2",
+            "model_schema_version": "model_schema_v3",
+            "statistics_schema_version": "statistics_schema_v3"
+          },
+          "selection_data_version": "published_v2",
+          "selection_data_version_manifest": {
+            "bytes": 2316,
+            "path": "data_versions/published_v2/version_manifest.json",
+            "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+          },
+          "selection_design_hash": "design_freeze_v4",
+          "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c",
+          "validation_anchor_catalog": {
+            "anchor_ids": [
+              "VALANCHOR-publishedv2-validation-B1-R0101",
+              "VALANCHOR-publishedv2-validation-B1-R0102",
+              "VALANCHOR-publishedv2-validation-B1-R0103",
+              "VALANCHOR-publishedv2-validation-B1-R0104",
+              "VALANCHOR-publishedv2-validation-B1-R0105",
+              "VALANCHOR-publishedv2-validation-P3-R0101",
+              "VALANCHOR-publishedv2-validation-P3-R0102",
+              "VALANCHOR-publishedv2-validation-P3-R0103",
+              "VALANCHOR-publishedv2-validation-P3-R0104",
+              "VALANCHOR-publishedv2-validation-P3-R0105",
+              "VALANCHOR-publishedv2-validation-S2-R0101",
+              "VALANCHOR-publishedv2-validation-S2-R0102",
+              "VALANCHOR-publishedv2-validation-S2-R0103",
+              "VALANCHOR-publishedv2-validation-S2-R0104",
+              "VALANCHOR-publishedv2-validation-S2-R0105"
+            ],
+            "bytes": 2288,
+            "path": "metadata/validation_anchors_v2.csv",
+            "row_count": 15
+          }
+        },
+        "formal_evidence": true,
+        "model_scope": "t_roster_exact",
+        "schema_version": "formal_execution_authorization_v1",
+        "suite": "science_dense",
+        "target_scope": [
+          "T"
+        ]
+      },
+      "frontier_anchor_catalog": {
+        "count": 180,
+        "observed_evidence_scenario_count": 900,
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/frontier_anchors_v2.csv",
+        "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+      },
+      "manifest": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/dense/run_manifest.json",
+        "sha256": "4a322dac18121043792b4ca3581ecaef7bca3e099419b9e5b924b4545c1b940b",
+        "size": 3995990
+      },
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "structural_skip_run_unit_count": 0
+    },
+    {
+      "checkpoint_required_run_unit_count": 0,
+      "completed_run_unit_count": 6720,
+      "daily_predictions": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/donor_falsification/daily_predictions.parquet",
+        "sha256": "5c652f3b623039bcd5e3cf9209fbb0e679167c78b9de2d753df81a2a4d52a7f3",
+        "size": 923996
+      },
+      "directory": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/donor_falsification",
+      "event_catalog": null,
+      "event_metrics": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/donor_falsification/event_metrics.parquet",
+        "sha256": "9df69ce51f5b0979b4e7013131044995699f450cb5090095747738b3a39d639c",
+        "size": 605885
+      },
+      "expected_evidence_run_unit_count": 6720,
+      "expected_run_unit_count": 6720,
+      "formal_execution_authorization": {
+        "expected_models": [
+          "donor_regression"
+        ],
+        "finalized_model_roster": {
+          "best_traditional_model": "donor_regression",
+          "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+          "proposed_decision": "framework_only",
+          "selected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "selection_contract": {
+            "data_version": "published_v2",
+            "design_version": "design_freeze_v4",
+            "evaluation_split": "validation",
+            "mask_schema_version": "mask_schema_v2",
+            "model_schema_version": "model_schema_v3",
+            "statistics_schema_version": "statistics_schema_v3"
+          },
+          "selection_data_version": "published_v2",
+          "selection_data_version_manifest": {
+            "bytes": 2316,
+            "path": "data_versions/published_v2/version_manifest.json",
+            "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+          },
+          "selection_design_hash": "design_freeze_v4",
+          "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c",
+          "validation_anchor_catalog": {
+            "anchor_ids": [
+              "VALANCHOR-publishedv2-validation-B1-R0101",
+              "VALANCHOR-publishedv2-validation-B1-R0102",
+              "VALANCHOR-publishedv2-validation-B1-R0103",
+              "VALANCHOR-publishedv2-validation-B1-R0104",
+              "VALANCHOR-publishedv2-validation-B1-R0105",
+              "VALANCHOR-publishedv2-validation-P3-R0101",
+              "VALANCHOR-publishedv2-validation-P3-R0102",
+              "VALANCHOR-publishedv2-validation-P3-R0103",
+              "VALANCHOR-publishedv2-validation-P3-R0104",
+              "VALANCHOR-publishedv2-validation-P3-R0105",
+              "VALANCHOR-publishedv2-validation-S2-R0101",
+              "VALANCHOR-publishedv2-validation-S2-R0102",
+              "VALANCHOR-publishedv2-validation-S2-R0103",
+              "VALANCHOR-publishedv2-validation-S2-R0104",
+              "VALANCHOR-publishedv2-validation-S2-R0105"
+            ],
+            "bytes": 2288,
+            "path": "metadata/validation_anchors_v2.csv",
+            "row_count": 15
+          }
+        },
+        "formal_evidence": true,
+        "model_scope": "authorized_donor_regression_estimand",
+        "schema_version": "formal_execution_authorization_v1",
+        "suite": "science_donor_falsification",
+        "target_scope": [
+          "T"
+        ]
+      },
+      "frontier_anchor_catalog": {
+        "count": 180,
+        "observed_evidence_scenario_count": 6720,
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/frontier_anchors_v2.csv",
+        "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+      },
+      "manifest": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/donor_falsification/run_manifest.json",
+        "sha256": "8e44678abce34c82caa7fa19c56f5fa8e30f385d17f96f29117e77f4aa0b788c",
+        "size": 4035015
+      },
+      "models": [
+        "donor_regression"
+      ],
+      "structural_skip_run_unit_count": 0
+    },
+    {
+      "checkpoint_required_run_unit_count": 0,
+      "completed_run_unit_count": 17280,
+      "daily_predictions": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/resilience/daily_predictions.parquet",
+        "sha256": "0b6670064689218f2499f403b36e4c2d75a71a82bfa3aaa55c66c580b9436536",
+        "size": 7395521
+      },
+      "directory": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/resilience",
+      "event_catalog": null,
+      "event_metrics": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/resilience/event_metrics.parquet",
+        "sha256": "b49f36ddaa5de36f730968d16716b2ad19c1f12728719cf685fecbe65af6c2ea",
+        "size": 1005429
+      },
+      "expected_evidence_run_unit_count": 17280,
+      "expected_run_unit_count": 17280,
+      "formal_execution_authorization": {
+        "expected_models": [
+          "climatology",
+          "linear",
+          "pchip",
+          "kalman",
+          "air_only",
+          "air_hydro",
+          "donor_regression",
+          "random_forest",
+          "xgboost"
+        ],
+        "finalized_model_roster": {
+          "best_traditional_model": "donor_regression",
+          "path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+          "proposed_decision": "framework_only",
+          "selected_models": [
+            "climatology",
+            "linear",
+            "pchip",
+            "kalman",
+            "air_only",
+            "air_hydro",
+            "donor_regression",
+            "random_forest",
+            "xgboost"
+          ],
+          "selection_contract": {
+            "data_version": "published_v2",
+            "design_version": "design_freeze_v4",
+            "evaluation_split": "validation",
+            "mask_schema_version": "mask_schema_v2",
+            "model_schema_version": "model_schema_v3",
+            "statistics_schema_version": "statistics_schema_v3"
+          },
+          "selection_data_version": "published_v2",
+          "selection_data_version_manifest": {
+            "bytes": 2316,
+            "path": "data_versions/published_v2/version_manifest.json",
+            "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+          },
+          "selection_design_hash": "design_freeze_v4",
+          "sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c",
+          "validation_anchor_catalog": {
+            "anchor_ids": [
+              "VALANCHOR-publishedv2-validation-B1-R0101",
+              "VALANCHOR-publishedv2-validation-B1-R0102",
+              "VALANCHOR-publishedv2-validation-B1-R0103",
+              "VALANCHOR-publishedv2-validation-B1-R0104",
+              "VALANCHOR-publishedv2-validation-B1-R0105",
+              "VALANCHOR-publishedv2-validation-P3-R0101",
+              "VALANCHOR-publishedv2-validation-P3-R0102",
+              "VALANCHOR-publishedv2-validation-P3-R0103",
+              "VALANCHOR-publishedv2-validation-P3-R0104",
+              "VALANCHOR-publishedv2-validation-P3-R0105",
+              "VALANCHOR-publishedv2-validation-S2-R0101",
+              "VALANCHOR-publishedv2-validation-S2-R0102",
+              "VALANCHOR-publishedv2-validation-S2-R0103",
+              "VALANCHOR-publishedv2-validation-S2-R0104",
+              "VALANCHOR-publishedv2-validation-S2-R0105"
+            ],
+            "bytes": 2288,
+            "path": "metadata/validation_anchors_v2.csv",
+            "row_count": 15
+          }
+        },
+        "formal_evidence": true,
+        "model_scope": "t_roster_exact",
+        "schema_version": "formal_execution_authorization_v1",
+        "suite": "science_resilience",
+        "target_scope": [
+          "T"
+        ]
+      },
+      "frontier_anchor_catalog": {
+        "count": 180,
+        "observed_evidence_scenario_count": 1920,
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/metadata/frontier_anchors_v2.csv",
+        "sha256": "49b6e5f22ee9f94fe1fe4ca8d53eec794e040b934769d2fb95be7b0c2b07f8ba"
+      },
+      "manifest": {
+        "path": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/resilience/run_manifest.json",
+        "sha256": "d442c46b15a6567d35ff5cef987903e2797b4a7f398bbde6f42770a2f2f691db",
+        "size": 8668102
+      },
+      "models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "structural_skip_run_unit_count": 0
+    }
+  ],
+  "statistics_schema_version": "statistics_schema_v3",
+  "structural_skip_run_unit_count": 17365,
+  "structural_skip_run_unit_keys_sha256": "b4bbe995b187b759a234ba8aa8dac562011594bd31e07591caa1f0f4aaed8e39",
+  "suite_count": 4,
+  "suite_registry": {
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/frozen/published_v2/suite_registry.json",
+    "sha256": "d5e0d70c7bb91f0d366e013c665232613acf17b534153e6abf61c05d49176977",
+    "size": 12248,
+    "source": "registry_file"
+  },
+  "suite_registry_sha256": "22aa7f4b47f7c12ee6deea47cdb1cddd044ef265c079fdb8cfeef00c5058cc9e",
+  "suite_roles": [
+    {
+      "expected_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost",
+        "independent_flow",
+        "rating_curve"
+      ],
+      "manifest_suites": [
+        "full"
+      ],
+      "reason": null,
+      "role": "core_full",
+      "source_manifest_sha256": [
+        "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
+      ],
+      "status": "complete"
+    },
+    {
+      "expected_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "manifest_suites": [
+        "science_dense"
+      ],
+      "reason": null,
+      "role": "dense_frontier",
+      "source_manifest_sha256": [
+        "4a322dac18121043792b4ca3581ecaef7bca3e099419b9e5b924b4545c1b940b"
+      ],
+      "status": "complete"
+    },
+    {
+      "expected_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "manifest_suites": [
+        "science_resilience"
+      ],
+      "reason": null,
+      "role": "network_resilience",
+      "source_manifest_sha256": [
+        "d442c46b15a6567d35ff5cef987903e2797b4a7f398bbde6f42770a2f2f691db"
+      ],
+      "status": "complete"
+    },
+    {
+      "expected_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost",
+        "independent_flow",
+        "rating_curve"
+      ],
+      "manifest_suites": [
+        "full"
+      ],
+      "reason": null,
+      "role": "event_uncertainty",
+      "source_manifest_sha256": [
+        "5ea01e2dbf97e4108ff8f490024e673c7f71b309513acf7fefb6b8e726a5815a"
+      ],
+      "status": "complete"
+    },
+    {
+      "expected_models": [],
+      "manifest_suites": [],
+      "reason": "proposed_decision=framework_only",
+      "role": "operational_dropout",
+      "source_manifest_sha256": [],
+      "status": "not_applicable"
+    },
+    {
+      "expected_models": [],
+      "manifest_suites": [],
+      "reason": "proposed_decision=framework_only",
+      "role": "retrained_upper_bound",
+      "source_manifest_sha256": [],
+      "status": "not_applicable"
+    },
+    {
+      "expected_models": [
+        "donor_regression"
+      ],
+      "manifest_suites": [
+        "science_donor_falsification"
+      ],
+      "reason": null,
+      "role": "donor_c_falsification",
+      "source_manifest_sha256": [
+        "8e44678abce34c82caa7fa19c56f5fa8e30f385d17f96f29117e77f4aa0b788c"
+      ],
+      "status": "complete"
+    }
+  ],
+  "suites": [
+    {
+      "allowed_derived_models": [],
+      "completed_evidence_run_unit_count": 84894,
+      "expected_run_unit_count": 102259,
+      "finalized_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost",
+        "rating_curve",
+        "independent_flow"
+      ],
+      "layout": "direct",
+      "manifest_suite": "full",
+      "name": "full",
+      "root": "/home/lzq/workspace/parttime/stream-recoverability/results/experiments_v2/published_v2/development_test/full",
+      "source_run_count": 1,
+      "structural_skip_run_unit_count": 17365
+    },
+    {
+      "allowed_derived_models": [],
+      "completed_evidence_run_unit_count": 8100,
+      "expected_run_unit_count": 8100,
+      "finalized_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "layout": "direct",
+      "manifest_suite": "science_dense",
+      "name": "science_dense",
+      "root": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/dense",
+      "source_run_count": 1,
+      "structural_skip_run_unit_count": 0
+    },
+    {
+      "allowed_derived_models": [],
+      "completed_evidence_run_unit_count": 6720,
+      "expected_run_unit_count": 6720,
+      "finalized_models": [
+        "donor_regression"
+      ],
+      "layout": "direct",
+      "manifest_suite": "science_donor_falsification",
+      "name": "science_donor_falsification",
+      "root": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/donor_falsification",
+      "source_run_count": 1,
+      "structural_skip_run_unit_count": 0
+    },
+    {
+      "allowed_derived_models": [],
+      "completed_evidence_run_unit_count": 17280,
+      "expected_run_unit_count": 17280,
+      "finalized_models": [
+        "climatology",
+        "linear",
+        "pchip",
+        "kalman",
+        "air_only",
+        "air_hydro",
+        "donor_regression",
+        "random_forest",
+        "xgboost"
+      ],
+      "layout": "direct",
+      "manifest_suite": "science_resilience",
+      "name": "science_resilience",
+      "root": "/home/lzq/workspace/parttime/stream-recoverability/results/science_experiments/published_v2/development_test/resilience",
+      "source_run_count": 1,
+      "structural_skip_run_unit_count": 0
+    }
+  ],
+  "summary_rows": 10284,
+  "training_profile": "formal"
+}

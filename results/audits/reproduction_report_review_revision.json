@@ -1,0 +1,61 @@
+{
+  "schema_version": "review_revision_reproduction_report_v1",
+  "status": "complete",
+  "complete": true,
+  "executed_at_utc": "2026-08-24T22:52:58Z",
+  "git_commit_at_test_start": "630d627070810d67a1715f7a9269e3347b8241b8",
+  "test_command": "PYTHONPATH=src pytest -q --junitxml=results/test_audit/pytest_review_revision.xml",
+  "tests": 454,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "wall_time_seconds": 223.934,
+  "warnings": 820,
+  "warning_scope": "812 repeated sklearn/pandas sparse-dtype deprecations plus pandas future concatenation and PyPOTS transformer advisories; no failed test",
+  "junit": {
+    "path": "results/test_audit/pytest_review_revision.xml",
+    "sha256": "5d42284737e0f5baf903958b8034c77cd713faab83d22c783cdecd3171a0132b"
+  },
+  "formal_analysis": {
+    "path": "results/analysis/analysis_manifest.json",
+    "sha256": "0746c8e119e45f162ef2805e8d7652f943a50c055a9837790c5ecf39be0841e2",
+    "status": "complete",
+    "climatology_frontier_cells_identical_across_outputs": 27,
+    "actual_finite_model_vs_climatology_tests": 24,
+    "reference_not_tested_rows": 3,
+    "bh_rejections": 14,
+    "best_available_node_importance_rows": 36
+  },
+  "external_confirmation": {
+    "status": "complete",
+    "expected_run_units": 540,
+    "completed_run_units": 540,
+    "once_lock_status": "complete",
+    "model_selection_on_confirmatory": false
+  },
+  "external_validation_placement": {
+    "status": "complete",
+    "mask_seeds": 20,
+    "seed_cells": 2700,
+    "confirmatory_outcomes_read": false,
+    "once_lock_modified": false
+  },
+  "p3_change_point": {
+    "status": "complete",
+    "methods": 2,
+    "primary_event_date_in_interval": false,
+    "sensitivity_event_date_in_interval": true
+  },
+  "national_regulation_panel": {
+    "status": "complete_transport_limited",
+    "stations": 335,
+    "primary_discrimination": "not_supported",
+    "confirmatory_path_access_audit": "passed"
+  },
+  "publication_manifest": {
+    "path": "results/final_results_manifest.json",
+    "sha256_at_report_creation": "6584c5faa1669253835b6ef6c3ff7ec141c94d26ad51a4630e99b942663dce67",
+    "status": "complete"
+  },
+  "scope_note": "The scientific and software checks are complete. Public-history sanitization and archival DOI minting are separate release blockers."
+}

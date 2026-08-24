@@ -1,0 +1,759 @@
+{
+  "artifacts": {
+    "daily_long.parquet": {
+      "bytes": 4001986,
+      "sha256": "123ee7c85785068e48ea8cb4b919a3cf4f0c0120cb7d5e847cbe2508a2e72a16"
+    },
+    "daily_wide.parquet": {
+      "bytes": 633066,
+      "sha256": "dcec5897a4eba2ca034789871d24d7f7c0316dc8539f77517681ac7b88661ccc"
+    },
+    "metadata/availability_report.json": {
+      "bytes": 47515,
+      "sha256": "16d82b21ccd71992523f705079875fa9a0b3fe250350b6416fcf0fda9efd1609"
+    },
+    "metadata/availability_report.parquet": {
+      "bytes": 10277,
+      "sha256": "ea5f2dbc2fcdcfb0be252530bba712057ab4559ca126e897d5782cf4ab605fa1"
+    },
+    "metadata/power_point_metadata.parquet": {
+      "bytes": 18786,
+      "sha256": "4da93eafd03d0b0bbe97048c7f5c0e20e5a7f7e481d63ef7894113533c6980ef"
+    },
+    "metadata/quality_detail.parquet": {
+      "bytes": 5401,
+      "sha256": "5a10ad68a43aeda14862c4dc6c28b368fe14d24338c39a19496b945a6387948b"
+    },
+    "metadata/quality_report.json": {
+      "bytes": 606,
+      "sha256": "98bbf90f4fc2e4e3c29eb2953a5fb10cdd2f44966fb95617e0e3c5c7727c3f71"
+    },
+    "metadata/request_log.json": {
+      "bytes": 43925,
+      "sha256": "3dcf41a89a6620cacafff899b61897bc4c39d71df7ff06f34a7bd8396cf42cb4"
+    },
+    "metadata/request_plan.json": {
+      "bytes": 20945,
+      "sha256": "520f052c2a6a6a429c641317601f493c64b6b13abcdaea345fd534e727babfb7"
+    },
+    "metadata/site_metadata.parquet": {
+      "bytes": 53838,
+      "sha256": "8d4df75f058521ae60db99e39cfd01e8fb1aca270c5504bf8a119f3042600d32"
+    },
+    "metadata/time_series_metadata.parquet": {
+      "bytes": 35433,
+      "sha256": "be60b578d105c50de6c9a4665080985feead9e8cf5190902b76532bc3d68db99"
+    },
+    "raw/nasa_power/02334430/page_0001.request.json": {
+      "bytes": 398,
+      "sha256": "8cb4b9efab3614a0086732eb390ee6fe420ad230c35f2ecefa9fd24cfe695230"
+    },
+    "raw/nasa_power/02334430/page_0001.response.json": {
+      "bytes": 419651,
+      "sha256": "f33700d71cf2d49fbff2fa93271b2d0598e62bff7798e9d8e4de96a450889800"
+    },
+    "raw/nasa_power/02335000/page_0001.request.json": {
+      "bytes": 398,
+      "sha256": "f8ab30c6d324d00aea14f5f13b48f821ac5298efd34171f78ee85a3a805a4641"
+    },
+    "raw/nasa_power/02335000/page_0001.response.json": {
+      "bytes": 419780,
+      "sha256": "fa10ae2a9669055b4c338c54f698cd3dde92e07e34eacb5a802eba54c0c49405"
+    },
+    "raw/nasa_power/02335450/page_0001.request.json": {
+      "bytes": 398,
+      "sha256": "6b938612325d7dc7850781992defd0f02655a1d468550956ba05f700bc83b279"
+    },
+    "raw/nasa_power/02335450/page_0001.response.json": {
+      "bytes": 419780,
+      "sha256": "0dab4e0a03daaf9085ff3635a0be95ac542bbc051b7acfad7826c1017338e32f"
+    },
+    "raw/nasa_power/02336000/page_0001.request.json": {
+      "bytes": 398,
+      "sha256": "fb1a1d429215ddfa11647dc48bdae7c3ccf64fa5e8416e777b1fc108f253491a"
+    },
+    "raw/nasa_power/02336000/page_0001.response.json": {
+      "bytes": 419780,
+      "sha256": "382a355ae518e52ff77fa46124e4bd577841a4f720d0c9d4f667eceed60328d4"
+    },
+    "raw/nasa_power/02337170/page_0001.request.json": {
+      "bytes": 398,
+      "sha256": "f226b239f09e3840b73be5d5b9c149946b77e0553ccb36f8f3732930d4358ce5"
+    },
+    "raw/nasa_power/02337170/page_0001.response.json": {
+      "bytes": 419829,
+      "sha256": "aa673d8c8ffa88863afcecc34d8325271e6a2247aeebf1c16715719f0100adff"
+    },
+    "raw/usgs/daily/02334430/F/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "593271cd001e30f356331f7bd8d56bbb9553683c315660d2b79a805bdee97f57"
+    },
+    "raw/usgs/daily/02334430/F/page_0001.response.json": {
+      "bytes": 4173842,
+      "sha256": "ad68b08761d65918b6e422234d6e80ef15d73a60d6431336b2760223e58e3fd8"
+    },
+    "raw/usgs/daily/02334430/L/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "087f1beda246063a1767f41039d668b60c1f49ad4296119fb64456f2b3e3ed6a"
+    },
+    "raw/usgs/daily/02334430/L/page_0001.response.json": {
+      "bytes": 4149600,
+      "sha256": "7e4ae3c18b811c00b128fa26f6528f669bb21527c10c2099e3e633b2e0e3eae4"
+    },
+    "raw/usgs/daily/02334430/T/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "0d48256cfb440048587db8d750d0ebbf1f5eac71d3ffeeed239c93a29e96bc45"
+    },
+    "raw/usgs/daily/02334430/T/page_0001.response.json": {
+      "bytes": 4146756,
+      "sha256": "e0721ae92b4ea158e61bae6cf91b9fe76950c965e3ddd80c355e8bb70605afdb"
+    },
+    "raw/usgs/daily/02335000/F/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "9d967d4286401f6345e9628709ecbb76e49011356d2d2d4687c4d5a0b3ad1549"
+    },
+    "raw/usgs/daily/02335000/F/page_0001.response.json": {
+      "bytes": 4174272,
+      "sha256": "6eb6ed691602ca1a54c8adf74b7018d8824989960bccf23ba3665faf53e04292"
+    },
+    "raw/usgs/daily/02335000/L/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "066d7eba7808c9c31aaca1971c8beaaf110452f5beefa439eae4f203626a17ff"
+    },
+    "raw/usgs/daily/02335000/L/page_0001.response.json": {
+      "bytes": 4150286,
+      "sha256": "4b07d09b0e937847af8937f56b1d7a4f052f3919ade50e8dfba08826f4d2c3ff"
+    },
+    "raw/usgs/daily/02335000/T/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "f4c194118c251ef5fa6dfb0f37adf02d46c9ab1bb0678c0ec22166cc43c280b3"
+    },
+    "raw/usgs/daily/02335000/T/page_0001.response.json": {
+      "bytes": 4141813,
+      "sha256": "ee031da754d937dc66ce423673a7556fef12a97e4f6aa97745b2453ba09584e9"
+    },
+    "raw/usgs/daily/02335450/F/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "0b5807aba8c03faa4e210524dc09b347335268f31eb16a7242d410a8c8cb03ca"
+    },
+    "raw/usgs/daily/02335450/F/page_0001.response.json": {
+      "bytes": 4174842,
+      "sha256": "73ceebc6304d84b14755b180d346da52f3ce9ced7c6c2d81dceafcd62543c276"
+    },
+    "raw/usgs/daily/02335450/L/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "268eebe4f5dd6dd1ffea2aca5ff0ce201370032708b225d039974121be5c932e"
+    },
+    "raw/usgs/daily/02335450/L/page_0001.response.json": {
+      "bytes": 4134857,
+      "sha256": "c22a355beccac991509643c6604cf8d1731959d560c552cf02ebb2f8ec3825c7"
+    },
+    "raw/usgs/daily/02335450/T/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "2ed81c3e5a097f2fd11d89fbea279a6927a4219c845a628e162dd54478dbfe68"
+    },
+    "raw/usgs/daily/02335450/T/page_0001.response.json": {
+      "bytes": 3934311,
+      "sha256": "e03b8208f493aecec9aa660d96f84cb815d5fbe3e4043ecf09420abd3f8b672a"
+    },
+    "raw/usgs/daily/02336000/F/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "41b71e9fd4e30da25ab4fd9e52669266ad0d2310d183c48718b0bb79a1dfcb6b"
+    },
+    "raw/usgs/daily/02336000/F/page_0001.response.json": {
+      "bytes": 4179773,
+      "sha256": "3918a6f18bccc630bcb7b34940f8795527cfaadca58d828d90b14aaa6a9a63e3"
+    },
+    "raw/usgs/daily/02336000/L/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "6849203b71d092c6abef1db5ab4ecbda5c08588700610f0bc85bd5401f11a851"
+    },
+    "raw/usgs/daily/02336000/L/page_0001.response.json": {
+      "bytes": 4105952,
+      "sha256": "1fb612dbd5db34dd2ae936a2bb5d384c146d8068b75d56623093adb7767b6195"
+    },
+    "raw/usgs/daily/02336000/T/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "af1e0864801583bf60ed2c7ec76eff2e8b13ce8dc401950907633a66f5629a03"
+    },
+    "raw/usgs/daily/02336000/T/page_0001.response.json": {
+      "bytes": 4132907,
+      "sha256": "a5a5cbc5a3d96e7f0bfce1906d21be3cd8cd8e4706e593c706751bcda5521b8c"
+    },
+    "raw/usgs/daily/02337170/F/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "0282154e8d18e5258e6fc7a01a23d6351668f6e6bf3ce0cc9fd1e92d2027ac7a"
+    },
+    "raw/usgs/daily/02337170/F/page_0001.response.json": {
+      "bytes": 4179897,
+      "sha256": "04d8fba2655d9fae5f336e36ddfa11d870e4a3c96068d114176b4d478e268373"
+    },
+    "raw/usgs/daily/02337170/L/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "6fa89e29db6a722acf6451556ccf2985309036845d5f66682adc3ba8f552a431"
+    },
+    "raw/usgs/daily/02337170/L/page_0001.response.json": {
+      "bytes": 4077433,
+      "sha256": "e18a81991ebbb45c9f95454d203476be6c35fda10f4f748757bbef8efd153923"
+    },
+    "raw/usgs/daily/02337170/T/page_0001.request.json": {
+      "bytes": 361,
+      "sha256": "ee40191b973b2fc63a549b104c897c59387de51aeb93fa8393fc252d9baa86e0"
+    },
+    "raw/usgs/daily/02337170/T/page_0001.response.json": {
+      "bytes": 4124253,
+      "sha256": "ca8672fa1ca5409130f70679f0526a446e48cc70e5e172a1d688cb3b9941c588"
+    },
+    "raw/usgs/monitoring_locations/02334430/page_0001.request.json": {
+      "bytes": 285,
+      "sha256": "7b9b3c7fbe235f0ef2f42724eabb93af8f1e1e83a8f667f2a49849eb901f6028"
+    },
+    "raw/usgs/monitoring_locations/02334430/page_0001.response.json": {
+      "bytes": 4384,
+      "sha256": "46b3792d8f42d54ed2ecae7cf04988a99a99f26a17416b734fc12bf4725a6c6e"
+    },
+    "raw/usgs/monitoring_locations/02335000/page_0001.request.json": {
+      "bytes": 285,
+      "sha256": "fd37ab8ab59318ea117ff1924fce9ec72a01aa649bf02e5aae5bc1e4db3ee5fa"
+    },
+    "raw/usgs/monitoring_locations/02335000/page_0001.response.json": {
+      "bytes": 3955,
+      "sha256": "0fa29102b67a30d713ec0cfefa09f34a4593327eafeab8d2670fd728615ca133"
+    },
+    "raw/usgs/monitoring_locations/02335450/page_0001.request.json": {
+      "bytes": 285,
+      "sha256": "c87b0a0ea8109e03e6bf90415d7e28d05925ce3f92b6aa37197c399be81073f9"
+    },
+    "raw/usgs/monitoring_locations/02335450/page_0001.response.json": {
+      "bytes": 4166,
+      "sha256": "7f1e43ad38dfdd5452d554d972c128dc8661b58d82ea963e94d209a33d4b3129"
+    },
+    "raw/usgs/monitoring_locations/02336000/page_0001.request.json": {
+      "bytes": 285,
+      "sha256": "d2e00ee7a9815bc09925b89951822cc2a3ff208a1fd22d70f446f38e1bff9be7"
+    },
+    "raw/usgs/monitoring_locations/02336000/page_0001.response.json": {
+      "bytes": 4664,
+      "sha256": "b0ad5f963cdfdfe51893a2cf64155d3c10ab209ba1ff2831ee384223ff56dc4f"
+    },
+    "raw/usgs/monitoring_locations/02337170/page_0001.request.json": {
+      "bytes": 285,
+      "sha256": "339ab429ab0abbb24b32c34bb505469ff0ca8f14339c66b08f1336ac5b3ffeea"
+    },
+    "raw/usgs/monitoring_locations/02337170/page_0001.response.json": {
+      "bytes": 4149,
+      "sha256": "3563b2f34a092adf4fa8c8f7e7292be16a2fd8687836f03ec3989b7cf1e3c7d6"
+    },
+    "raw/usgs/time_series_metadata/02334430/F/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "c5f3f09c6c250cedd21f6eb2330f520737e1404a2d6c0f32722beb26dc282c05"
+    },
+    "raw/usgs/time_series_metadata/02334430/F/page_0001.response.json": {
+      "bytes": 3182,
+      "sha256": "8a72fe6b771c02fecf0c7f24c5b0f5ac4742a7fe18e8d8d176db7bc1f8fb3f09"
+    },
+    "raw/usgs/time_series_metadata/02334430/L/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "4a9f89c2a2aceb7463b2925bfa0f22e3a1898f1b61f0b1fef5b1e5fe66ac20ca"
+    },
+    "raw/usgs/time_series_metadata/02334430/L/page_0001.response.json": {
+      "bytes": 3165,
+      "sha256": "e2ffca80cc569ca1551541ba4997d057edf5d78d3c955642731b193bc8eb9ce9"
+    },
+    "raw/usgs/time_series_metadata/02334430/T/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "415815dd3199a6a899f8c0406eb66aaaf6c69b562c41610b18ea0a59c02f4677"
+    },
+    "raw/usgs/time_series_metadata/02334430/T/page_0001.response.json": {
+      "bytes": 3192,
+      "sha256": "e5eae437703f871c8809d2caa2d46a4dc1a22bfa64dff0d9442bf186bb5f3738"
+    },
+    "raw/usgs/time_series_metadata/02335000/F/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "4ac9220108447710ece932162488cc3564d91bc5e8243003374b7e69e05e713f"
+    },
+    "raw/usgs/time_series_metadata/02335000/F/page_0001.response.json": {
+      "bytes": 3182,
+      "sha256": "3f1405df447401c0c0fa8efd576bbb2c489b1d3693f744f5ee25ae8f0ea22357"
+    },
+    "raw/usgs/time_series_metadata/02335000/L/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "2cd458b4247b8b114d9a6632b7f0e33e024b12bc0ee803779da99799589a8e76"
+    },
+    "raw/usgs/time_series_metadata/02335000/L/page_0001.response.json": {
+      "bytes": 3165,
+      "sha256": "672de857e361d7fabebc45ecf2d33c3eab9e1ce23ee646476e452d833bf03719"
+    },
+    "raw/usgs/time_series_metadata/02335000/T/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "6f8365e4336514f67dadbcd4f0be148ad263b3bbf99ad111b46b7db4791c59b3"
+    },
+    "raw/usgs/time_series_metadata/02335000/T/page_0001.response.json": {
+      "bytes": 3192,
+      "sha256": "60b0f21ab04d96da724ab5653fb035bc1fc192f5f5f6bfe912e49fb6b27ce2dc"
+    },
+    "raw/usgs/time_series_metadata/02335450/F/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "1416a6940c6abe609dac6122f7ea9aefeaf32e1b71ef08af1b5b270edefe2271"
+    },
+    "raw/usgs/time_series_metadata/02335450/F/page_0001.response.json": {
+      "bytes": 3182,
+      "sha256": "150837ad92c886cbe607d111f95e45348e0374a9e5619463b592df6226523daa"
+    },
+    "raw/usgs/time_series_metadata/02335450/L/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "431f687977acca5bcd4bdea9f35ed269f25673f82ef6d80b23e3b8ca3bfbb26b"
+    },
+    "raw/usgs/time_series_metadata/02335450/L/page_0001.response.json": {
+      "bytes": 3165,
+      "sha256": "49cc247740ef4d6dcf90f0cbe0f84632f6f9882d7c0de0b58eaeea9125c728a1"
+    },
+    "raw/usgs/time_series_metadata/02335450/T/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "a321185f22f088bd3c2064c9c9ae8fcf05b5b4e5333b2898384a9acb702133f0"
+    },
+    "raw/usgs/time_series_metadata/02335450/T/page_0001.response.json": {
+      "bytes": 3192,
+      "sha256": "813931fe57453b592429c43eb532b93d0dd9e3615ee6232eab82e92796c2aa90"
+    },
+    "raw/usgs/time_series_metadata/02336000/F/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "045ae91e1b727816bdece2f888e9c336c18c66a4b884a6fdc8d04d7ee96410ae"
+    },
+    "raw/usgs/time_series_metadata/02336000/F/page_0001.response.json": {
+      "bytes": 3182,
+      "sha256": "1d009daecbebc5feadf3dc3b4fa212319bcac5c7cde389d9f5ae36065a9e18a3"
+    },
+    "raw/usgs/time_series_metadata/02336000/L/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "ef6eaf0788a2da121e839fcbfe1af59eac729ebef285616615894feba245662e"
+    },
+    "raw/usgs/time_series_metadata/02336000/L/page_0001.response.json": {
+      "bytes": 3165,
+      "sha256": "dbd16714fd07f7d619497cd8d5dfc8c15df13727d16a09f15e7132edbf61060b"
+    },
+    "raw/usgs/time_series_metadata/02336000/T/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "c5048a34316a8eecee7e0bd662d4bac4f50ba1eee649355472bd9b4ea4c3dda2"
+    },
+    "raw/usgs/time_series_metadata/02336000/T/page_0001.response.json": {
+      "bytes": 3192,
+      "sha256": "aa63c9bbcb17654ae81d06917f0ca18c6484e9dd945dd18805f52985b7209e87"
+    },
+    "raw/usgs/time_series_metadata/02337170/F/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "a76929f69d50df7bd4d0fb95c8ccd34ffed39bd6771b28ba93fbcad74d336665"
+    },
+    "raw/usgs/time_series_metadata/02337170/F/page_0001.response.json": {
+      "bytes": 3182,
+      "sha256": "8554c959b5f6071ee0533c14616af89ca473deb4fcca292e6d5c62d42697336e"
+    },
+    "raw/usgs/time_series_metadata/02337170/L/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "b30bd3a4956cb696877819b58e070ae6153059e749639b2137342f17470fd456"
+    },
+    "raw/usgs/time_series_metadata/02337170/L/page_0001.response.json": {
+      "bytes": 3165,
+      "sha256": "b0e84d03254a3bbfdb2e86f26594916a9be262e2db7051cf5aeafee283846c29"
+    },
+    "raw/usgs/time_series_metadata/02337170/T/page_0001.request.json": {
+      "bytes": 345,
+      "sha256": "547cf6fb5fe0923a6a728362d9a00830fabdb4d2f4d4535a8ebca2b706a8c5e3"
+    },
+    "raw/usgs/time_series_metadata/02337170/T/page_0001.response.json": {
+      "bytes": 3192,
+      "sha256": "744dbfbffea350006a61026738ff50c6eb60ef33d3968879b0843eb620b8d0bc"
+    },
+    "splits/confirmatory.parquet": {
+      "bytes": 215382,
+      "sha256": "abb78761d370809e84541c75f6b9d058c3ecf99ebce6d3eacada1138f7aa6eb8"
+    },
+    "splits/train.parquet": {
+      "bytes": 466638,
+      "sha256": "3cf8a82e7ea5b2927b7090cdf3e0a283a49af5ae454bf983bcabc9cdae129041"
+    },
+    "splits/validation.parquet": {
+      "bytes": 166956,
+      "sha256": "404f6d9cfdfc261867238a7b5de5fd2344af55f714a38b5d2425ffc05a2264ca"
+    }
+  },
+  "confirmatory_access_gate": {
+    "artifacts": {
+      "best_simple_baseline_lookup": {
+        "bytes": 2024,
+        "path": "results/validation_funnel/published_v2/best_simple_baseline_lookup.csv"
+      },
+      "go_no_go": {
+        "bytes": 3603,
+        "path": "results/validation_funnel/published_v2/proposed_go_no_go/proposed_go_no_go_decision.json"
+      },
+      "ranking": {
+        "bytes": 4422,
+        "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/validation_model_ranking.csv"
+      },
+      "stage2_selection": {
+        "bytes": 2186,
+        "path": "results/validation_funnel/published_v2/f088270f0d262c07d40e5c43f431ecea5d904e5d87012e7fb67b8bb8adfa9178/stage2_finalist_selection.csv"
+      }
+    },
+    "best_traditional_model": "donor_regression",
+    "manifest_path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+    "manifest_sha256": "4ff6a0a1bed1bed780bf212a5fb343008c394a31003bade9ae9535fa7bfd067c",
+    "proposed_decision": "framework_only",
+    "selected_models": [
+      "climatology",
+      "linear",
+      "pchip",
+      "kalman",
+      "air_only",
+      "air_hydro",
+      "donor_regression",
+      "random_forest",
+      "xgboost"
+    ],
+    "selection_code_provenance": {
+      "dirty_tracked_paths": [],
+      "external_relevant_input_count": 0,
+      "git_commit": "ffb74594d63c7d66de9272fafe4b051163a2ced2",
+      "relevant_source_clean": true,
+      "relevant_source_digest": "e36214ea1d42bf96750ef4fa5c2d8dabe0949edbf75f9cf9543096f46d47e827",
+      "relevant_source_file_count": 50,
+      "relevant_untracked_paths": [],
+      "schema_version": "code_provenance_v1",
+      "status": "clean",
+      "tracked_worktree_clean": true
+    },
+    "selection_contract": {
+      "data_version": "published_v2",
+      "design_version": "design_freeze_v4",
+      "evaluation_split": "validation",
+      "mask_schema_version": "mask_schema_v2",
+      "model_schema_version": "model_schema_v3",
+      "statistics_schema_version": "statistics_schema_v3"
+    },
+    "selection_data_version": "published_v2",
+    "selection_data_version_manifest": {
+      "bytes": 2316,
+      "path": "data_versions/published_v2/version_manifest.json",
+      "sha256": "9d0bc65f4ed5b4ec07190c25cf940bd0aa8ce8d421d4dad6bfdc7a962fc8c1de"
+    },
+    "selection_design_hash": "design_freeze_v4",
+    "validation_anchor_catalog": {
+      "anchor_ids": [
+        "VALANCHOR-publishedv2-validation-B1-R0101",
+        "VALANCHOR-publishedv2-validation-B1-R0102",
+        "VALANCHOR-publishedv2-validation-B1-R0103",
+        "VALANCHOR-publishedv2-validation-B1-R0104",
+        "VALANCHOR-publishedv2-validation-B1-R0105",
+        "VALANCHOR-publishedv2-validation-P3-R0101",
+        "VALANCHOR-publishedv2-validation-P3-R0102",
+        "VALANCHOR-publishedv2-validation-P3-R0103",
+        "VALANCHOR-publishedv2-validation-P3-R0104",
+        "VALANCHOR-publishedv2-validation-P3-R0105",
+        "VALANCHOR-publishedv2-validation-S2-R0101",
+        "VALANCHOR-publishedv2-validation-S2-R0102",
+        "VALANCHOR-publishedv2-validation-S2-R0103",
+        "VALANCHOR-publishedv2-validation-S2-R0104",
+        "VALANCHOR-publishedv2-validation-S2-R0105"
+      ],
+      "bytes": 2288,
+      "path": "metadata/validation_anchors_v2.csv",
+      "row_count": 15
+    }
+  },
+  "confirmatory_builder_identity": {
+    "identity_hash_scope": "canonical_json_excluding_identity_sha256",
+    "identity_sha256": "ab87a5f79934c3b7d980d8315ec3fab5167dfd4ba11c2ec2b55c8febcee7167e",
+    "schema_version": "confirmatory_builder_identity_v1",
+    "sources": [
+      {
+        "bytes": 4209,
+        "path": "scripts/19_build_confirmatory_data.py",
+        "sha256": "a2677c2f71118788a7d11e8fa0e21b86777559b8acc9a6fd7696f47c499d98b4"
+      },
+      {
+        "bytes": 93007,
+        "path": "src/stream_recoverability/data/confirmatory.py",
+        "sha256": "f7d635541f5214f918a64e1f55b0db0c021b028ef9b7afad31b71b6ccadf1322"
+      }
+    ]
+  },
+  "confirmatory_evaluation_executed": false,
+  "created_at_utc": "2026-08-23T14:14:21.395086+00:00",
+  "data_version": "external_upper_middle_chattahoochee_v1",
+  "design_path": "configs/design_freeze_v4.yaml",
+  "design_sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1",
+  "design_version": "design_freeze_v4",
+  "immutable": true,
+  "official_documentation": {
+    "nasa_power_daily": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+    "usgs_ogc": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+  },
+  "output_counts": {
+    "availability_report_rows": 120,
+    "long_rows": 204560,
+    "power_point_metadata_rows": 5,
+    "site_metadata_rows": 5,
+    "split_wide_rows": {
+      "confirmatory": 1096,
+      "train": 3288,
+      "validation": 730
+    },
+    "time_series_metadata_rows": 15,
+    "wide_rows": 5114
+  },
+  "performance_metrics_computed": false,
+  "protocol": {
+    "data_version": "external_upper_middle_chattahoochee_v1",
+    "design_path": "configs/design_freeze_v4.yaml",
+    "design_sha256": "b1cb3823503b6b47a1f90b7314e3d0b25420c67c44f176e49841e21d90919bc1",
+    "design_version": "design_freeze_v4",
+    "hydrology": [
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "daily_mean_water_temperature",
+        "provider": "usgs_ogc_daily",
+        "provider_code": "00010",
+        "source_unit": "degC",
+        "statistic_id": "00003",
+        "unit": "degC",
+        "variable": "T"
+      },
+      {
+        "conversion_factor": 0.028316846592,
+        "conversion_formula": "m3_per_s = ft3_per_s * 0.028316846592",
+        "interpretation": "daily_mean_discharge",
+        "provider": "usgs_ogc_daily",
+        "provider_code": "00060",
+        "source_unit": "ft^3/s",
+        "statistic_id": "00003",
+        "unit": "m3/s",
+        "variable": "F"
+      },
+      {
+        "conversion_factor": 0.3048,
+        "conversion_formula": "m = ft * 0.3048",
+        "interpretation": "daily_mean_gage_height",
+        "provider": "usgs_ogc_daily",
+        "provider_code": "00065",
+        "source_unit": "ft",
+        "statistic_id": "00003",
+        "unit": "m",
+        "variable": "L"
+      }
+    ],
+    "meteorology": [
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "daily_air_temperature_at_2_m",
+        "provider": "nasa_power_daily_point",
+        "provider_code": "T2M",
+        "source_unit": "C",
+        "statistic_id": null,
+        "unit": "degC",
+        "variable": "Ta"
+      },
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "daily_corrected_precipitation",
+        "provider": "nasa_power_daily_point",
+        "provider_code": "PRECTOTCORR",
+        "source_unit": "mm/day",
+        "statistic_id": null,
+        "unit": "mm/day",
+        "variable": "P"
+      },
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "daily_wind_speed_at_2_m",
+        "provider": "nasa_power_daily_point",
+        "provider_code": "WS2M",
+        "source_unit": "m/s",
+        "statistic_id": null,
+        "unit": "m/s",
+        "variable": "W"
+      },
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "daily_relative_humidity_at_2_m",
+        "provider": "nasa_power_daily_point",
+        "provider_code": "RH2M",
+        "source_unit": "%",
+        "statistic_id": null,
+        "unit": "%",
+        "variable": "RH"
+      },
+      {
+        "conversion_factor": 1.0,
+        "conversion_formula": "identity",
+        "interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+        "provider": "nasa_power_daily_point",
+        "provider_code": "ALLSKY_SFC_SW_DWN",
+        "source_unit": "MJ/m^2/day",
+        "statistic_id": null,
+        "unit": "MJ/m^2/day",
+        "variable": "Rs"
+      }
+    ],
+    "nasa_community": "AG",
+    "nasa_spatial_rule": "nearest_POWER_grid_cell_to_each_USGS_site_coordinate",
+    "nasa_time_standard": "UTC",
+    "network": "upper_to_middle_chattahoochee_mainstem_case_study",
+    "network_huc8": [
+      "03130001",
+      "03130002"
+    ],
+    "periods": [
+      {
+        "end": "2020-12-31",
+        "label": "train",
+        "start": "2012-01-01"
+      },
+      {
+        "end": "2022-12-31",
+        "label": "validation",
+        "start": "2021-01-01"
+      },
+      {
+        "end": "2025-12-31",
+        "label": "confirmatory",
+        "start": "2023-01-01"
+      }
+    ],
+    "quality_rule": "retain_approved_and_estimated_flagged_values_exclude_provisional",
+    "rs_interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+    "site_ids": [
+      "02334430",
+      "02335000",
+      "02335450",
+      "02336000",
+      "02337170"
+    ],
+    "variables": [
+      "T",
+      "F",
+      "L",
+      "Ta",
+      "P",
+      "W",
+      "RH",
+      "Rs"
+    ]
+  },
+  "quality_summary": {
+    "conflicting_observations": 0,
+    "data_version": "external_upper_middle_chattahoochee_v1",
+    "duplicate_observations": 0,
+    "estimated_approved_rows": 225,
+    "natural_observed_rows": 203950,
+    "performance_metrics_computed": false,
+    "provider_fill_value_rows": 0,
+    "provisional_excluded_rows": 78,
+    "quality_approved_rows": 203872,
+    "quality_rule": "retain_approved_and_estimated_flagged_values_exclude_provisional",
+    "rs_interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+    "schema_version": "confirmatory_external_data_v1",
+    "source_missing_rows": 610,
+    "total_rows": 204560
+  },
+  "raw_response_count": 40,
+  "request_count": 40,
+  "requests_sha256": "b05212274b2a4ea028547a49e8f10a24641e76da51afcff1dca719cdfb0fd8de",
+  "rs_interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+  "schema_version": "confirmatory_external_data_v1",
+  "unit_conversions": [
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "daily_mean_water_temperature",
+      "provider": "usgs_ogc_daily",
+      "provider_code": "00010",
+      "source_unit": "degC",
+      "statistic_id": "00003",
+      "unit": "degC",
+      "variable": "T"
+    },
+    {
+      "conversion_factor": 0.028316846592,
+      "conversion_formula": "m3_per_s = ft3_per_s * 0.028316846592",
+      "interpretation": "daily_mean_discharge",
+      "provider": "usgs_ogc_daily",
+      "provider_code": "00060",
+      "source_unit": "ft^3/s",
+      "statistic_id": "00003",
+      "unit": "m3/s",
+      "variable": "F"
+    },
+    {
+      "conversion_factor": 0.3048,
+      "conversion_formula": "m = ft * 0.3048",
+      "interpretation": "daily_mean_gage_height",
+      "provider": "usgs_ogc_daily",
+      "provider_code": "00065",
+      "source_unit": "ft",
+      "statistic_id": "00003",
+      "unit": "m",
+      "variable": "L"
+    },
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "daily_air_temperature_at_2_m",
+      "provider": "nasa_power_daily_point",
+      "provider_code": "T2M",
+      "source_unit": "C",
+      "statistic_id": null,
+      "unit": "degC",
+      "variable": "Ta"
+    },
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "daily_corrected_precipitation",
+      "provider": "nasa_power_daily_point",
+      "provider_code": "PRECTOTCORR",
+      "source_unit": "mm/day",
+      "statistic_id": null,
+      "unit": "mm/day",
+      "variable": "P"
+    },
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "daily_wind_speed_at_2_m",
+      "provider": "nasa_power_daily_point",
+      "provider_code": "WS2M",
+      "source_unit": "m/s",
+      "statistic_id": null,
+      "unit": "m/s",
+      "variable": "W"
+    },
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "daily_relative_humidity_at_2_m",
+      "provider": "nasa_power_daily_point",
+      "provider_code": "RH2M",
+      "source_unit": "%",
+      "statistic_id": null,
+      "unit": "%",
+      "variable": "RH"
+    },
+    {
+      "conversion_factor": 1.0,
+      "conversion_formula": "identity",
+      "interpretation": "nasa_power_allsky_sfc_sw_dwn_mj_per_m2_per_day",
+      "provider": "nasa_power_daily_point",
+      "provider_code": "ALLSKY_SFC_SW_DWN",
+      "source_unit": "MJ/m^2/day",
+      "statistic_id": null,
+      "unit": "MJ/m^2/day",
+      "variable": "Rs"
+    }
+  ]
+}

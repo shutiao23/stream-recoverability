@@ -1,0 +1,15 @@
+{
+  "schema_version": "private_history_backup_v1",
+  "status": "verified",
+  "created_before_public_history_rewrite": true,
+  "original_head": "7de341f9a246bda00ed5fee0fa1cb8899ba49308",
+  "original_remote_main": "6e1873528770a895948a4ad4da5cc8c4e41bcce6",
+  "bundle_filename": "stream-recoverability-pre-public-rewrite.bundle",
+  "bundle_bytes": 52808417,
+  "bundle_sha256": "94a9ecb5175dfa1d565db9d06cc124c7bd2bde5b57b7d68e9abda1d3b3379fd8",
+  "git_bundle_verify": "complete history; 6 refs; verified okay",
+  "storage": "private local workspace outside the public repository",
+  "contains_restricted_history": true,
+  "public_release_allowed": false,
+  "reviewer_route_if_needed": "AGU GEMS confidential data files for peer review"
+}

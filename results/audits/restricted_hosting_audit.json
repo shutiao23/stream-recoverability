@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "finding": "restricted_bytes_absent_from_tip",
+  "public_hosting_defect": false,
+  "restricted_tracked_path_count": 0,
+  "restricted_tracked_paths": [],
+  "history_rewrite": "not_performed_in_this_wave",
+  "reviewer_access_route": "agu_gems_confidential_data_files_for_peer_review",
+  "note": "Presence of restricted columns on the public GitHub tip is a hosting defect, not an open-data grant. History rewrite requires an institutional mirror and a coordinated force-push; this helper does not rewrite git."
+}

@@ -1,0 +1,52 @@
+{
+  "passed": false,
+  "decision": "no_go",
+  "blockers": [
+    "archival software DOI has not been minted"
+  ],
+  "snapshot": {
+    "snapshot_schema_version": "evidence_snapshot_v3",
+    "git_commit": "cd7acc02f6ae795425e453cf084a7b3b3e4d0a6e",
+    "worktree_clean": false,
+    "executable_design": "design_freeze_v4",
+    "design_path": "configs/design_freeze_v4.yaml",
+    "design_version": "design_freeze_v4",
+    "primary_data_version": "published_v2",
+    "max_epochs": 400,
+    "hit_epoch_limit_rejected": true,
+    "dual_frontier_required": true,
+    "application_thresholds": "not_declared",
+    "observed_unflagged_provider_qc_status": "unknown",
+    "hosting": {
+      "status": "complete",
+      "finding": "restricted_bytes_absent_from_tip",
+      "public_hosting_defect": false,
+      "restricted_tracked_path_count": 0,
+      "restricted_tracked_paths": [],
+      "history_rewrite": "not_performed_in_this_wave",
+      "reviewer_access_route": "agu_gems_confidential_data_files_for_peer_review",
+      "note": "Presence of restricted columns on the public GitHub tip is a hosting defect, not an open-data grant. History rewrite requires an institutional mirror and a coordinated force-push; this helper does not rewrite git."
+    },
+    "finalized_model_roster": "present",
+    "roster_path": "results/validation_funnel/published_v2/finalized_model_roster.json",
+    "formal_results_manifest": "present",
+    "archival_software_doi": null,
+    "manuscript_results_pending_markers": 0,
+    "current_protocol_result_claims": "see_manuscript",
+    "confirmatory_data": "opened_after_roster_freeze",
+    "confirmatory_evaluation": "complete_evaluate_once",
+    "confirmatory_completed_run_units": 540
+  },
+  "explicit_inputs": {
+    "finalized roster": "results/validation_funnel/published_v2/finalized_model_roster.json",
+    "primary formal registry": "results/frozen/published_v2/suite_registry.json",
+    "primary aggregate manifest": "results/frozen/published_v2/top_manifest.json",
+    "analysis manifest": "results/analysis/analysis_manifest.json",
+    "confirmatory data manifest": "data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
+    "confirmatory run manifest": "results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/completion_manifest.json",
+    "confirmatory once-lock": "data_versions/.external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json",
+    "rights audit": "results/audits/restricted_hosting_audit.json",
+    "reproduction report": "results/audits/reproduction_report_review_revision.json"
+  },
+  "note": "A failing gate is the correct state until formal evidence exists."
+}
