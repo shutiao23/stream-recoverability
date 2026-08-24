@@ -60,6 +60,7 @@ results/frozen/**/*.parquet
 results/analysis/relative_skill_events.parquet
 data_versions/external_upper_middle_chattahoochee_v1/
 data_versions/external_upper_middle_chattahoochee_v1_pre_protocol_normalization/
+data_versions/.external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json
 data_versions_pre_rs/
 results/test_audit/*.xml
 results/test_audit/*stdout.txt
