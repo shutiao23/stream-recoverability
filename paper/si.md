@@ -1,6 +1,6 @@
 # Supporting Information
 
-This Supporting Information accompanies “Reservoir Regulation Reshapes Recoverable Information in Daily Stream-Temperature Records: Evidence From the Upper Jinsha and Chattahoochee Rivers.”
+This Supporting Information accompanies “Reservoir-Associated Thermal Structure Predicts Stream-Temperature Recoverability in the Jinsha and Chattahoochee Rivers.” The submission build expands the referenced source sections and embeds all supplementary figures and compact tables into one self-contained PDF.
 
 ## Contents
 
@@ -14,13 +14,31 @@ This Supporting Information accompanies “Reservoir Regulation Reshapes Recover
 - **Text S7: Omitted-covariate budget.** [`../results/revision/expanded_covariate_budget.csv`](../results/revision/expanded_covariate_budget.csv) adds same-site air temperature, discharge, and level and donor-site air temperature and discharge to the anomaly regression.
 - **Text S8: Frontier-path repair.** The old scenario-resampling dual-frontier path is retired for formal output. Both denominators now use the canonical anchor/year overlap-aware implementation. The climatology rows in [`../results/analysis/dual_frontier_comparison.csv`](../results/analysis/dual_frontier_comparison.csv) match [`../results/analysis/statistical_frontiers.csv`](../results/analysis/statistical_frontiers.csv) cell for cell. The original defect and repair are recorded in `docs/protocol_change_v5_to_v6.md`.
 - **Text S9: Corrected hypothesis family.** The family contains 24 actual model-versus-climatology tests and three explicit `reference_not_tested` climatology rows. Raw and BH-adjusted values are in [`../results/analysis/hypothesis_tests.csv`](../results/analysis/hypothesis_tests.csv).
-- **Text S10: Corrected node importance.** [`../results/analysis/node_importance.csv`](../results/analysis/node_importance.csv) uses best-available model reselection with a climatology cap. Model-specific degradation remains available only as an implementation stress diagnostic and is not interpreted as station information value.
+- **Text S10: Cross-fitted node importance.** [`../results/revision/node_importance_cross_fitted.csv`](../results/revision/node_importance_cross_fitted.csv) selects models on other evaluation years and scores the held-out year. The former event-wise best-available table is a descriptive oracle sensitivity only.
 - **Text S11: Donor falsification.** Same-day, lag, lead, identity-permutation, and seasonal-residual contrasts are in [`../results/analysis/donor_c_falsification_effects.csv`](../results/analysis/donor_c_falsification_effects.csv). The decision is `falsified_network_propagation` and the permitted language is `correlated_predictive_source_only`.
-- **Text S12: Evaluate-once external confirmation.** The complete 540-unit output is bound to the external once-lock. Compact manuscript summaries are [`../results/revision/external_confirmation_cells.csv`](../results/revision/external_confirmation_cells.csv) and [`../results/revision/external_confirmation_summary.csv`](../results/revision/external_confirmation_summary.csv). The frozen train-only prediction remains [`../results/predictions/chattahoochee_recoverability_prediction_v1.json`](../results/predictions/chattahoochee_recoverability_prediction_v1.json).
-- **Text S12b: Validation-period mask-placement scale.** [`../results/revision/external_validation_uncertainty/external_validation_uncertainty_cells.csv`](../results/revision/external_validation_uncertainty/external_validation_uncertainty_cells.csv) reports 20-seed fixed-model SDs; the paired donor-minus-dam and best-roster envelope summaries are in the same directory. Its manifest proves that inputs end on 31 December 2022, confirmatory outcomes were not read, and the once-lock was neither read nor modified. These SDs are descriptive validation-period noise scales, not confirmatory intervals.
+- **Text S12: Temporally held-out external evaluation.** The complete 540-unit output is bound to the external once-lock. The main sensitivity selects one model per site using only truncated 2021--2022 validation placements and scores it unchanged in 2023--2025. Because the rule was formulated after the once-open envelope, it is post-hoc rather than preregistered. The frozen train-only prediction remains unchanged.
+- **Text S12b: Validation-period mask-placement scale.** Fixed-model SDs use 20 validation placements. The manifest proves that inputs end on 31 December 2022, held-out outcomes were not read, and the once-lock was neither read nor modified. These SDs are descriptive noise scales, not confidence intervals for the held-out points.
 - **Text S13: Data and software rights.** [`../DATA_RIGHTS.md`](../DATA_RIGHTS.md) and [`../metadata/data_rights.csv`](../metadata/data_rights.csv) govern restricted Jinsha and public USGS/NASA materials. Restricted daily values are not SI data.
-- **Text S14: Independently frozen national regulation panel.** [`../results/regulation_panel_v1_legacy_transport/report.json`](../results/regulation_panel_v1_legacy_transport/report.json) contains the primary null discrimination result, adjusted sensitivity, distance profile, source identities, API blocker, transport equivalence audit, and confirmatory-isolation audit. Station metrics, exclusions, predictions, regression coefficients, portable artifact manifest, and clean reproduction instructions are colocated. The panel uses no Chattahoochee data or outcomes.
+- **Text S14: Independently frozen national regulation panel.** [`../results/regulation_panel_v1_legacy_transport/report.json`](../results/regulation_panel_v1_legacy_transport/report.json) contains the primary null discrimination result, adjusted sensitivity, distance profile, source identities, API blocker, transport equivalence audit, and confirmatory-isolation audit. Station metrics, exclusions, predictions, regression coefficients, portable artifact manifest, and clean reproduction instructions are colocated. The panel uses no Chattahoochee data or outcomes. This frozen-panel citation is unchanged.
+- **Text S15: Post-hoc within-fold leave-one-ecoregion-out AUC diagnosis.** After the freeze, AUC was computed inside each held-out ecoregion because pooled out-of-fold AUC under leave-one-group-out can attribute intercept and base-rate mismatch to discrimination. [`../results/revision/loeo_within_fold_auc.csv`](../results/revision/loeo_within_fold_auc.csv) reports fold size, dam rate, median out-of-fold probability, and within-fold AUC. Post-hoc mean within-fold AUC is 0.526 and the median is 0.513 (nine defined folds). The post-hoc correlation between fold base rate and fold out-of-fold probability median is $-0.671$. Alaska is undefined ($n=6$, all unregulated). This diagnosis does not replace or reopen the frozen primary pooled AUC of 0.407.
+
+### Table S8. Post-hoc within-fold leave-one-ecoregion-out AUC
+
+Source: [`../results/revision/loeo_within_fold_auc.csv`](../results/revision/loeo_within_fold_auc.csv). Values are rounded for display; the CSV retains full precision. The frozen primary remains the pooled AUC of 0.407.
+
+| Held-out ecoregion | $n$ | Base rate | Median OOF probability | Within-fold AUC |
+| --- | ---: | ---: | ---: | ---: |
+| NorthEast | 33 | 0.727 | 0.592 | 0.755 |
+| EastHghlnds | 31 | 0.710 | 0.596 | 0.742 |
+| CntlPlains | 22 | 0.591 | 0.609 | 0.667 |
+| MxWdShld | 15 | 0.733 | 0.591 | 0.614 |
+| WestMnts | 123 | 0.602 | 0.708 | 0.513 |
+| WestXeric | 16 | 0.812 | 0.602 | 0.487 |
+| WestPlains | 20 | 0.950 | 0.559 | 0.421 |
+| SECstPlain | 6 | 0.167 | 0.609 | 0.400 |
+| SEPlains | 63 | 0.508 | 0.652 | 0.132 |
+| Alaska | 6 | 0.000 | 0.722 | undefined |
 
 ## Evidence boundaries
 
-Validation-only tables are not WRR result tables. The state-matched and annual-demeaned analyses are post-hoc robustness diagnostics and do not replace the frozen prediction. The Chattahoochee result is one temporal/network confirmation, not five independent basins. No application, ecological, or regulatory safe-fill threshold was declared.
+Validation-only tables are not WRR result tables. The state-matched and annual-demeaned analyses are post-hoc robustness diagnostics and do not replace the frozen prediction. The within-fold leave-one-ecoregion-out AUC table is a post-hoc metric diagnosis and does not replace the frozen pooled AUC. The Chattahoochee result is one temporal/network confirmation, not five independent basins. No application, ecological, or regulatory safe-fill threshold was declared.

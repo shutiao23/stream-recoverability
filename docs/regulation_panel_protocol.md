@@ -85,6 +85,11 @@ but the claim is automatically withheld. An AUC near 0.5, a sign reversal, wide
 intervals, or a flat distance profile is a valid result and does not reopen the
 freeze.
 
+A post-hoc within-fold AUC diagnosis may be reported as a labelled metric check of
+the pooled leave-one-ecoregion-out estimator. It does not reopen the freeze, replace
+the pooled primary, or authorize a new primary estimator after the panel has been
+seen.
+
 ## Reproducibility and cache contract
 
 The default cache is `data/cache/regulation_panel_v1/`, which is independent of every

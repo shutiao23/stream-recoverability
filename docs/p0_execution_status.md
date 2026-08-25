@@ -12,7 +12,7 @@ paper and it does not waive the submission gate.
 | P0-04 | Complete | Selection, roster, formal, confirmatory, registry, aggregation, and analysis derive `published_v2` from v4. Old runs remain historical. |
 | P0-05 | Complete | The finalized roster contains nine stable traditional models. Stage 3 excludes a finalist whose required seed is training- or budget-unstable. |
 | P0-06 | Complete | Formal full, dense, donor-falsification, and resilience roles close 134,359 run units. |
-| P0-07 | Complete after review repair | Dual frontiers share one canonical path; 24 actual climatology tests are finite; best-available node importance, donor-C, events, and sensitivities pass the analysis gate. |
+| P0-07 | Complete after review repair | Dual frontiers share one canonical path; 24 actual climatology tests are finite; cross-fitted node importance, donor-C, events, and sensitivities pass the revision gate. The event-wise oracle table is descriptive only. |
 | P0-08 | Complete | External feasibility passed 60/60 without training, scoring, or a once-lock. |
 | P0-09 | Complete evaluate-once | The once-lock is complete and all 540 model--scenario units passed. Frozen qualitative donor/memory type ordering is confirmed; absolute magnitude is not universal. |
 | P0-10 | Infrastructure only | Makefile, Dockerfile, snapshot, and gate exist. No DOI is invented. |
@@ -26,3 +26,4 @@ paper and it does not waive the submission gate.
 | v6 review | Complete scientifically | P3 regulation transition, stationarity controls, absolute MAE, 8-site fingerprint, frontier/p-value repairs, corrected node importance, and external confirmation are complete. |
 | v6 P0(a--c) | Complete | External validation placement SD uses 20 seeds without confirmation access; confirmatory bundle/lock are tracked; P3 change date is method-sensitive and reported accordingly. |
 | v6 P1 | Complete with primary null | Independently frozen transport-limited national panel N=335. Stand-alone LOEO discrimination fails; adjusted/distance signals are supporting only. |
+| v6 P1 metric diagnosis | Complete as post-hoc; freeze untouched | Within-fold LOEO AUC diagnosis (mean 0.526; SEPlains 0.132). Frozen primary pooled AUC 0.407 unchanged. Submission remains NO-GO on admin blockers. |

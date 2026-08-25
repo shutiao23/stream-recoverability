@@ -83,6 +83,17 @@ def main() -> None:
         .eq("best_available_failed_minus_best_available_full_with_climatology_hard_cap")
         .all()
     )
+    cross_fitted = pd.read_csv(
+        ROOT / "results/revision/node_importance_cross_fitted.csv"
+    )
+    assert len(cross_fitted) == 9
+    assert cross_fitted["eventwise_oracle_selection"].eq(False).all()
+    assert cross_fitted["n_anchor_years"].eq(3).all()
+    s2_to_b1 = cross_fitted.loc[
+        cross_fitted["station_id"].eq("B1") & cross_fitted["failed_station_id"].eq("S2")
+    ].iloc[0]
+    assert 0.10 < s2_to_b1["impact"] < 0.11
+    assert s2_to_b1["impact_ci_lower"] > 0
 
     budget = pd.read_csv(ROOT / "paper/tables/table_03.csv")
     original_p3 = budget.loc[
@@ -162,6 +173,19 @@ def main() -> None:
         dtype={"station_id": str},
     )
     assert external["qualitative_prediction_consistent"].all()
+    assert external["validation_selected_model"].eq("xgboost").all()
+    memory_external = external.loc[
+        external["predicted_type"].eq("memory_dominated")
+    ].iloc[0]
+    donor_external = external.loc[external["predicted_type"].eq("donor_dominated")]
+    assert (
+        memory_external["observed_selected_skill_90d"]
+        < donor_external["observed_selected_skill_90d"].min()
+    )
+    assert (
+        memory_external["observed_selected_skill_180d"]
+        < donor_external["observed_selected_skill_180d"].min()
+    )
 
     placement_root = ROOT / "results/revision/external_validation_uncertainty"
     placement_manifest = json.loads(
@@ -251,14 +275,56 @@ def main() -> None:
     )
     assert panel_report["transport_equivalence_audit"]["pass_fraction"] == 1.0
 
+    diagnosis_path = ROOT / "results/revision/loeo_auc_metric_diagnosis.json"
+    fold_table_path = ROOT / "results/revision/loeo_within_fold_auc.csv"
+    diagnosis = json.loads(diagnosis_path.read_text(encoding="utf-8"))
+    fold_table = pd.read_csv(fold_table_path)
+    post_hoc = diagnosis["post_hoc"]
+    assert diagnosis["does_not_reopen_freeze"] is True
+    assert diagnosis["evidence_role"] == "post_hoc"
+    assert diagnosis["formal_evidence"] is False
+    assert diagnosis["frozen_primary_pooled_auc"] == 0.40749601275917063
+    assert diagnosis["summary"]["pooled_oof_auc"] == 0.40749601275917063
+    assert abs(float(post_hoc["mean_within_fold_auc"]) - 0.5256536889168535) < 1e-9
+    assert abs(float(post_hoc["median_within_fold_auc"]) - 0.5132377275234418) < 1e-9
+    assert (
+        abs(
+            float(post_hoc["base_rate_vs_oof_probability_median_pearson_r"])
+            + 0.6709991179809832
+        )
+        < 1e-9
+    )
+    assert len(fold_table) == 10
+    assert fold_table["n"].sum() == 335
+    seplains = fold_table.loc[fold_table["held_out_ecoregion"].eq("SEPlains")].iloc[0]
+    northeast = fold_table.loc[fold_table["held_out_ecoregion"].eq("NorthEast")].iloc[0]
+    alaska = fold_table.loc[fold_table["held_out_ecoregion"].eq("Alaska")].iloc[0]
+    assert abs(float(northeast["within_fold_auc"]) - 0.7546296296296297) < 1e-9
+    assert abs(float(seplains["within_fold_auc"]) - 0.13205645161290322) < 1e-9
+    assert pd.isna(alaska["within_fold_auc"])
+
     manuscript = (ROOT / "paper/manuscript.md").read_text(encoding="utf-8")
     assert "RESULTS_PENDING" not in manuscript
     assert "changed abruptly at the end of 2014" not in manuscript
+    assert "0.407" in manuscript
+    assert "0.526" in manuscript
+    assert re.search(r"within[- ]fold", manuscript, re.IGNORECASE)
+    assert re.search(r"Southeast Plains|SEPlains", manuscript)
+    assert "0.105" in manuscript
+    ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
+    assert "## BL-011" in ledger
+    assert "implementation defect" in ledger.lower()
+    claims = (ROOT / "paper/claim_matrix.md").read_text(encoding="utf-8")
+    assert re.search(r"Southeast Plains|ecoregion-dependent|region-dependent", claims)
     abstract = re.search(r"## Abstract\n\n(.*?)\n\n##", manuscript, re.DOTALL)
     assert abstract is not None and len(abstract.group(1).split()) <= 250
     for line in (ROOT / "paper/key_points.md").read_text(encoding="utf-8").splitlines():
         if line.startswith("- "):
             assert len(line[2:]) <= 140
+            assert " US " not in f" {line[2:]} "
+    plain = (ROOT / "paper/plain_language_summary.md").read_text(encoding="utf-8")
+    plain = plain.split("\n", 1)[1]
+    assert len(re.findall(r"\b[\w’'-]+\b", plain)) <= 200
 
     cited = set()
     for source in ("paper/manuscript.md", "paper/methods.md"):
@@ -275,10 +341,18 @@ def main() -> None:
     figure_count = _assert_manifest_identities(
         ROOT / "figures/main/figure_manifest.json", "figures"
     )
-    assert figure_count == 6
+    assert figure_count == 7
     table_count = _assert_manifest_identities(
         ROOT / "paper/tables/table_manifest.json", "tables"
     )
+    assert len(pd.read_csv(ROOT / "paper/tables/table_04.csv")) == 9
+    package = json.loads(
+        (ROOT / "paper/submission/submission_package_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert package["status"] == "draft_blocked_external_and_author_inputs"
+    assert package["main_figures"] == 7
     print(
         json.dumps(
             {
@@ -286,6 +360,7 @@ def main() -> None:
                 "matching_frontier_cells": len(comparison),
                 "finite_frontier_tests": 24,
                 "node_importance_rows": len(importance),
+                "cross_fitted_node_importance_rows": len(cross_fitted),
                 "external_run_units": 540,
                 "external_validation_seed_cells": 2700,
                 "p3_change_point_methods": 2,

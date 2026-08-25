@@ -1,5 +1,5 @@
 # Key Points (AGU)
 
-- Reservoir regulation shifts stream-temperature recovery from donor dependence toward persistent local memory.
-- Dam-proximal memory-dominated stations recur in the Jinsha and Chattahoochee networks.
-- Across 335 US sites, the index weakens with distance below major dams but is not a stand-alone national classifier.
+- Dam-proximal stations in two rivers rely more on local thermal memory during temperature-record outages.
+- A fixed validation-selected model preserves the predicted long-gap ordering but not the predicted error magnitude.
+- No national skill (frozen AUC 0.407; post-hoc mean 0.526); direction is region-dependent and reverses in the Southeast Plains.

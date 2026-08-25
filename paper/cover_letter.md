@@ -1,20 +1,24 @@
 # Cover letter (Water Resources Research)
 
-**Manuscript title:** Reservoir Regulation Reshapes Recoverable Information in Daily Stream-Temperature Records: Evidence From the Upper Jinsha and Chattahoochee Rivers
+**Manuscript title:** Reservoir-Associated Thermal Structure Predicts Stream-Temperature Recoverability in the Jinsha and Chattahoochee Rivers
 
 **Dear Editors,**
 
-We submit a substantially restructured manuscript in which controlled missing-data experiments are used to reveal a hydrological mechanism rather than to rank imputation models. The central result is that reservoir regulation reorganizes the information available to reconstruct daily stream temperature: seasonal and donor signals are suppressed near regulated releases, while local thermal memory is extended.
+We submit this Research Article for consideration in *Water Resources Research*. The manuscript connects a familiar hydrological consequence of reservoir releases--altered downstream thermal seasonality and persistence--to a different management question: which information remains available to reconstruct a monitoring outage?
 
-At Panzhihua, 27 km below Guanyinyan Dam, annual endpoints shift in 2015 and 30-day anomaly persistence increases. Formal change dates are method-sensitive: Pettitt estimates 2013, whereas a least-squares sensitivity estimates 18 October 2014 with an interval covering first-unit operation. We therefore claim temporal consistency, not precise localization or causal proof. A covariance budget, without dam metadata, uniquely classifies that station as memory-dominated. It makes the same independent classification for USGS 02334430 immediately below Buford Dam. In a completed evaluate-once 2023--2025 confirmation, that site's best skill falls from 0.536 at 30 days to 0.141 at 180 days, whereas downstream donor-dominated sites retain stronger long-gap recovery.
+The contribution is not a new dam classifier or an imputation-model leaderboard. A train-only covariance heuristic separates synchronous donor information from local boundary memory before recovery models are evaluated. In two detailed river networks, the station immediately below a major dam is uniquely memory-dominated from 14- to 90-day horizons. In a temporally held-out Chattahoochee evaluation, one model selected only from 2021--2022 validation placements is scored unchanged in 2023--2025. At the memory-dominated Buford site its 90- and 180-day skills are -0.380 and -0.300, while four donor-dominated downstream sites retain 180-day skill of 0.555--0.746.
 
-The revision also addresses the statistical boundaries directly. We withdraw the universal information-ceiling claim because all lower-confidence-bound violations occur at nonstationary P3; post-hoc state matching reduces them from nine to one. We repaired the two divergent frontier paths, replaced 27 degenerate $p=1$ values with 24 identifiable tests plus three explicit reference rows, and redefined node importance as loss of best-achievable performance with a climatology cap. The corrected S2-to-B1 sensor cost is 0.132 degrees C rather than 2.42 degrees C.
+The paper also makes its generalization boundary central. In an independently frozen panel of 335 United States stream-temperature stations, the frozen primary pooled leave-one-ecoregion-out AUC for upstream major-dam presence is 0.407 (95% interval 0.222--0.515). A post-hoc within-fold diagnosis still finds no national skill (mean AUC 0.526) and a region-dependent direction. The indicator declines with distance within regulated watersheds. We therefore present the calculation as a state- and geography-dependent screening heuristic, not an information-theoretic ceiling or causal reservoir effect.
 
-We further froze an independent national panel before reading its temperature outcomes. Among 335 eligible USGS/GAGES-II sites, the index alone failed leave-one-ecoregion-out dam classification (AUC 0.407, 95% interval 0.222--0.515). We retain that null as a central generalization boundary. Supporting analyses show a monotone index decline from 0--5 to 50--100 km below major dams and a positive geography/area-adjusted association, but neither is used to overwrite the failed primary test.
+All main performance results include absolute error. Network-failure effects use leave-one-year-out model selection, so no model is chosen on the event it scores. The Jinsha change date is reported as method-sensitive, donor falsification restricts interpretation to shared predictive information, and all post-hoc analyses are labelled explicitly.
 
-Official deep candidates did not pass the frozen stability roster, so their validation rankings and architecture are confined to Supporting Information and no model-class conclusion is made. Every main result reports absolute MAE alongside relative skill. The manuscript also states plainly that the Jinsha hydrological records have no natural missing day and that artificial masks probe information rather than estimate real fault frequency.
+The public code-only release contains no restricted observational bytes. The Jinsha hydrological and meteorological inputs are third-party records for which redistribution permission was not established. They will be uploaded to GEMS as confidential Data Files for Peer Review, with complete provenance and rights documentation. We request the editor's approval of this restricted-data exception; the manuscript will not be submitted until that approval and a real archival software DOI have been obtained. Public USGS, NASA, aggregate tables, figures, and analysis code will be preserved in a DOI-bearing repository.
 
-The internal analysis manifest is complete, both climatology frontier tables agree in all 27 cells, and the external once-lock contains all 540 expected run units. Restricted Jinsha observations will be supplied through AGU GEMS Data Files for Peer Review. We will not submit until the public code-only archive has had restricted bytes removed from its history and a genuine archival DOI has been minted.
+We believe the work fits WRR because it combines observational hydrology, a transparent analytical heuristic, held-out prediction, and monitoring-network implications while directly testing where geographic generalization fails.
 
-Sincerely,  
-Corresponding author (repository identity: shutiao23)
+The authors declare that the manuscript is not under consideration elsewhere. Author, funding, conflict-of-interest, and suggested-reviewer information will be supplied in GEMS and must match the final title page.
+
+Sincerely,
+
+**[Corresponding author name required]**
+**[Affiliation and email required]**
