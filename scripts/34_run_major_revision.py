@@ -4,11 +4,15 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
+import math
 import shutil
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.error import URLError
+from urllib.request import Request, urlopen
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -35,7 +39,10 @@ from stream_recoverability.analysis.regulation import (
     period_thermal_metrics,
     rescore_with_state_climatology,
 )
-from stream_recoverability.analysis.resilience import node_importance
+from stream_recoverability.analysis.resilience import (
+    cross_fitted_node_importance,
+    node_importance,
+)
 
 INTERNAL_WIDE = PROJECT_ROOT / "data_versions/published_v2/daily_wide.parquet"
 EXTERNAL_ROOT = PROJECT_ROOT / "data_versions/external_upper_middle_chattahoochee_v1"
@@ -84,6 +91,39 @@ MODEL_COLORS = {
     "random_forest": "#e45756",
     "xgboost": "#9d755d",
 }
+
+
+def _write_loeo_auc_diagnosis() -> pd.DataFrame:
+    """Recompute the post-hoc LOEO diagnosis without touching the frozen panel."""
+
+    from stream_recoverability.analysis.regulation_panel_auc_diagnosis import (
+        diagnose_loeo_auc,
+        fold_auc_table,
+        json_safe,
+    )
+
+    predictions = pd.read_csv(
+        PROJECT_ROOT
+        / "results/regulation_panel_v1_legacy_transport"
+        / "leave_ecoregion_out_predictions.csv"
+    )
+    folds = fold_auc_table(predictions)
+    diagnosis = diagnose_loeo_auc(predictions, require_frozen_primary=True)
+    folds.to_csv(OUTPUT / "loeo_within_fold_auc.csv", index=False)
+    payload = json_safe(
+        {
+            **diagnosis,
+            "source_predictions": (
+                "results/regulation_panel_v1_legacy_transport/"
+                "leave_ecoregion_out_predictions.csv"
+            ),
+        }
+    )
+    (OUTPUT / "loeo_auc_metric_diagnosis.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    return folds
 
 
 def _file_identity(path: Path) -> dict[str, Any]:
@@ -261,6 +301,62 @@ def _best_envelope(curves: pd.DataFrame) -> pd.DataFrame:
         )
         .first()
         .rename(columns={"model": "best_model"})
+    )
+
+
+def _main_recoverability_table(curves: pd.DataFrame) -> pd.DataFrame:
+    lookup = pd.read_csv(
+        PROJECT_ROOT
+        / "results/validation_funnel/published_v2/best_simple_baseline_lookup.csv"
+    )
+    lookup = lookup.loc[
+        lookup["target"].eq("T") & lookup["mask_geometry"].eq("block"),
+        ["station_id", "best_simple_baseline", "validation_mean_MAE"],
+    ].rename(columns={"best_simple_baseline": "validation_selected_model"})
+    selected = curves.merge(
+        lookup, on="station_id", how="inner", validate="many_to_one"
+    )
+    selected = selected.loc[
+        selected["model"].eq(selected["validation_selected_model"])
+        & selected["gap_length"].isin((30, 90, 180))
+    ].copy()
+    frontiers = pd.read_csv(PROJECT_ROOT / "results/analysis/statistical_frontiers.csv")
+    frontiers = frontiers.loc[
+        frontiers["target"].eq("T"),
+        [
+            "station_id",
+            "model",
+            "statistical_frontier_days",
+            "statistical_frontier_censoring",
+        ],
+    ]
+    selected = selected.merge(
+        frontiers,
+        on=["station_id", "model"],
+        how="left",
+        validate="many_to_one",
+    )
+    columns = [
+        "station_id",
+        "gap_length",
+        "validation_selected_model",
+        "validation_mean_MAE",
+        "mean_skill",
+        "skill_ci_lower",
+        "skill_ci_upper",
+        "mean_MAE_degC",
+        "mean_climatology_MAE_degC",
+        "statistical_frontier_days",
+        "statistical_frontier_censoring",
+        "n_anchors",
+        "n_anchor_year_units",
+    ]
+    if len(selected) != len(INTERNAL_STATIONS) * 3:
+        raise ValueError("main recoverability table is incomplete")
+    return (
+        selected[columns]
+        .sort_values(["station_id", "gap_length"], kind="mergesort")
+        .reset_index(drop=True)
     )
 
 
@@ -455,24 +551,252 @@ def _fingerprint_table(
     return pd.concat([jinsha, chatt], ignore_index=True, sort=False)
 
 
+def _type_horizon_sensitivity(budgets: pd.DataFrame) -> pd.DataFrame:
+    horizons = (14, 30, 60, 90)
+    internal = budgets.loc[
+        budgets["calibration"].eq("frozen_2006_2015")
+        & budgets["gap_length"].isin(horizons),
+        [
+            "station_id",
+            "gap_length",
+            "donor_component",
+            "memory_component",
+        ],
+    ].copy()
+    internal["network"] = "Upper Jinsha"
+    payload = json.loads(
+        (
+            PROJECT_ROOT
+            / "results/predictions/chattahoochee_recoverability_prediction_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    external = pd.DataFrame(payload["predictions"]).rename(
+        columns={"station": "station_id", "gap_length_days": "gap_length"}
+    )
+    external = external.loc[
+        external["gap_length"].isin(horizons),
+        [
+            "station_id",
+            "gap_length",
+            "donor_component",
+            "memory_component",
+        ],
+    ].copy()
+    external["network"] = "Upper--Middle Chattahoochee"
+    result = pd.concat([internal, external], ignore_index=True)
+    result["recoverability_type"] = np.where(
+        result["memory_component"].gt(result["donor_component"]),
+        "memory_dominated",
+        "donor_dominated",
+    )
+    result["classification_rule"] = (
+        "memory_component_gt_donor_component_at_named_gap_horizon"
+    )
+    expected = (len(INTERNAL_STATIONS) + len(EXTERNAL_STATIONS)) * len(horizons)
+    if len(result) != expected:
+        raise ValueError("type-horizon sensitivity inventory is incomplete")
+    return result.sort_values(
+        ["network", "station_id", "gap_length"], kind="mergesort"
+    ).reset_index(drop=True)
+
+
+def _tile_coordinates(
+    longitude: float, latitude: float, zoom: int
+) -> tuple[float, float]:
+    latitude = float(np.clip(latitude, -85.0511, 85.0511))
+    scale = 2**zoom
+    x = (longitude + 180.0) / 360.0 * scale
+    radians = math.radians(latitude)
+    y = (1.0 - math.asinh(math.tan(radians)) / math.pi) / 2.0 * scale
+    return x, y
+
+
+def _tile_bounds(x: int, y: int, zoom: int) -> tuple[float, float, float, float]:
+    scale = 2**zoom
+    left = x / scale * 360.0 - 180.0
+    right = (x + 1) / scale * 360.0 - 180.0
+
+    def latitude(tile_y: int) -> float:
+        value = math.pi * (1.0 - 2.0 * tile_y / scale)
+        return math.degrees(math.atan(math.sinh(value)))
+
+    top = latitude(y)
+    bottom = latitude(y + 1)
+    return left, right, bottom, top
+
+
+def _add_openstreetmap_background(
+    axis: plt.Axes,
+    bounds: tuple[float, float, float, float],
+    *,
+    zoom: int,
+) -> None:
+    """Add a small reproducible map-tile mosaic with an offline fallback."""
+
+    lon_min, lon_max, lat_min, lat_max = bounds
+    x0, y1 = _tile_coordinates(lon_min, lat_min, zoom)
+    x1, y0 = _tile_coordinates(lon_max, lat_max, zoom)
+    try:
+        for tile_x in range(math.floor(x0), math.floor(x1) + 1):
+            for tile_y in range(math.floor(y0), math.floor(y1) + 1):
+                request = Request(
+                    f"https://tile.openstreetmap.org/{zoom}/{tile_x}/{tile_y}.png",
+                    headers={
+                        "User-Agent": "stream-recoverability-paper-map/1.0 "
+                        "(research figure; contact repository maintainer)"
+                    },
+                )
+                with urlopen(request, timeout=20) as response:
+                    image = plt.imread(io.BytesIO(response.read()), format="png")
+                axis.imshow(
+                    image,
+                    extent=_tile_bounds(tile_x, tile_y, zoom),
+                    origin="upper",
+                    interpolation="bilinear",
+                    zorder=0,
+                )
+    except (OSError, TimeoutError, URLError, ValueError):
+        axis.set_facecolor("#eef3f5")
+        axis.text(
+            0.02,
+            0.02,
+            "Basemap unavailable; coordinates remain WGS84",
+            transform=axis.transAxes,
+            fontsize=6,
+            color="#555555",
+        )
+    axis.set_xlim(lon_min, lon_max)
+    axis.set_ylim(lat_min, lat_max)
+    axis.set_aspect("equal", adjustable="box")
+
+
+def _figure_study_networks() -> None:
+    internal = pd.read_csv(PROJECT_ROOT / "metadata/station_metadata.csv")
+    external = pd.read_parquet(EXTERNAL_METADATA)
+    external["station_id"] = external["site_id"].astype(str).str.zfill(8)
+    external = external.set_index("station_id").reindex(EXTERNAL_STATIONS).reset_index()
+    dams = pd.read_csv(PROJECT_ROOT / "metadata/dam_metadata.csv")
+
+    figure, axes = plt.subplots(1, 2, figsize=(11.5, 4.7), constrained_layout=True)
+    panels = (
+        (
+            axes[0],
+            internal,
+            dams.loc[dams["dam_id"].eq("guanyinyan")].iloc[0],
+            (98.5, 102.15, 26.2, 30.2),
+            7,
+            "(a) Jinsha River case-study stations",
+        ),
+        (
+            axes[1],
+            external,
+            dams.loc[dams["dam_id"].eq("buford")].iloc[0],
+            (-84.82, -83.92, 33.52, 34.28),
+            9,
+            "(b) Upper-to-Middle Chattahoochee panel",
+        ),
+    )
+    for axis, stations, dam, bounds, zoom, title in panels:
+        _add_openstreetmap_background(axis, bounds, zoom=zoom)
+        longitude = stations["longitude"].to_numpy(float)
+        latitude = stations["latitude"].to_numpy(float)
+        axis.plot(
+            longitude,
+            latitude,
+            color="#1f77b4",
+            linewidth=1.5,
+            alpha=0.75,
+            zorder=3,
+        )
+        axis.scatter(
+            longitude,
+            latitude,
+            s=52,
+            facecolor="white",
+            edgecolor="#1f4e79",
+            linewidth=1.5,
+            zorder=4,
+            label="Temperature station",
+        )
+        axis.scatter(
+            [dam.longitude],
+            [dam.latitude],
+            marker="D",
+            s=62,
+            color="#b23a48",
+            edgecolor="white",
+            linewidth=0.8,
+            zorder=5,
+            label="Dam",
+        )
+        for row in stations.itertuples(index=False):
+            station_id = row.station_id
+            axis.annotate(
+                str(station_id),
+                (row.longitude, row.latitude),
+                xytext=(4, 5),
+                textcoords="offset points",
+                fontsize=7,
+                fontweight="bold",
+                zorder=6,
+            )
+        axis.annotate(
+            dam.dam_name,
+            (dam.longitude, dam.latitude),
+            xytext=(5, -12),
+            textcoords="offset points",
+            fontsize=7,
+            color="#8c1d2c",
+            fontweight="bold",
+            zorder=6,
+        )
+        axis.set(title=title, xlabel="Longitude", ylabel="Latitude")
+        axis.grid(color="white", linewidth=0.5, alpha=0.65)
+    axes[0].legend(frameon=True, fontsize=7, loc="upper right")
+    axes[1].text(
+        0.99,
+        0.01,
+        "© OpenStreetMap contributors | WGS84 coordinates",
+        transform=axes[1].transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=6,
+        color="#444444",
+    )
+    figure.suptitle(
+        "Study networks, monitoring stations, and regulating dams",
+        fontsize=14,
+    )
+    figure.savefig(FIGURES / "figure_01.png", dpi=300)
+    plt.close(figure)
+
+
 def _figure_01(
     annual: pd.DataFrame,
     fingerprints: pd.DataFrame,
 ) -> None:
     figure, axes = plt.subplots(2, 2, figsize=(11.5, 8.0), constrained_layout=True)
-    for station, color in zip(INTERNAL_STATIONS, ("#4c78a8", "#54a24b", "#e45756")):
+    style = {
+        "B1": ("#4c78a8", "o", "-"),
+        "S2": ("#2a9d8f", "^", "--"),
+        "P3": ("#d1495b", "s", "-."),
+    }
+    for station in INTERNAL_STATIONS:
+        color, marker, linestyle = style[station]
         selected = annual.loc[annual["station_id"].eq(station)]
         axes[0, 0].plot(
             selected["year"],
             selected["annual_minimum_degC"],
-            marker="o",
+            marker=marker,
+            linestyle=linestyle,
             label=station,
             color=color,
         )
         axes[0, 1].plot(
             selected["year"],
             selected["annual_amplitude_degC"],
-            marker="o",
+            marker=marker,
+            linestyle=linestyle,
             label=station,
             color=color,
         )
@@ -548,10 +872,10 @@ def _figure_01(
     handles2, labels2 = memory_axis.get_legend_handles_labels()
     axes[1, 1].legend(handles1 + handles2, labels1 + labels2, frameon=False, fontsize=8)
     figure.suptitle(
-        "Reservoir regulation compresses seasonality and lengthens thermal memory",
+        "Reservoir-associated thermal structure across two river networks",
         fontsize=14,
     )
-    figure.savefig(FIGURES / "figure_01.png", dpi=300)
+    figure.savefig(FIGURES / "figure_02.png", dpi=300)
     plt.close(figure)
 
 
@@ -573,7 +897,7 @@ def _figure_02(cells: pd.DataFrame) -> None:
             original["predicted_skill"],
             color="black",
             linewidth=2,
-            label="Frozen budget",
+            label="Frozen covariance heuristic",
         )
         axis.plot(
             original["gap_length"],
@@ -595,7 +919,7 @@ def _figure_02(cells: pd.DataFrame) -> None:
             controlled["predicted_skill"],
             color="#4c78a8",
             linestyle="--",
-            label="2016--2020 recalibrated budget (post hoc)",
+            label="2016--2020 recalibrated heuristic (post hoc)",
         )
         axis.plot(
             controlled["gap_length"],
@@ -613,9 +937,10 @@ def _figure_02(cells: pd.DataFrame) -> None:
     axes[0].set_ylabel("Climatology-relative skill")
     axes[-1].legend(frameon=False, fontsize=7, loc="best")
     figure.suptitle(
-        "Frozen prediction and post-hoc state-matched sensitivity", fontsize=14
+        "Frozen covariance heuristic and post-hoc state-matched sensitivity",
+        fontsize=14,
     )
-    figure.savefig(FIGURES / "figure_02.png", dpi=300)
+    figure.savefig(FIGURES / "figure_03.png", dpi=300)
     plt.close(figure)
 
 
@@ -681,7 +1006,7 @@ def _figure_03(curves: pd.DataFrame) -> None:
     figure.suptitle(
         "Recoverability frontier in relative and absolute units", fontsize=14
     )
-    figure.savefig(FIGURES / "figure_03.png", dpi=300)
+    figure.savefig(FIGURES / "figure_04.png", dpi=300)
     plt.close(figure)
 
 
@@ -692,23 +1017,29 @@ def _figure_04(importance: pd.DataFrame) -> None:
     )
     for axis, station in zip(axes, INTERNAL_STATIONS, strict=True):
         selected = data.loc[data["station_id"].eq(station)]
-        grouped = (
-            selected.groupby("failed_station_id", as_index=False)["impact"]
-            .mean()
-            .sort_values("impact", ascending=False)
+        grouped = selected.sort_values("impact", ascending=False).reset_index(drop=True)
+        colors = np.where(grouped["impact"].ge(0), "#4c78a8", "#9d755d")
+        lower = grouped["impact"] - grouped["impact_ci_lower"]
+        upper = grouped["impact_ci_upper"] - grouped["impact"]
+        axis.bar(
+            grouped["failed_station_id"],
+            grouped["impact"],
+            color=colors,
+            edgecolor="black",
+            linewidth=0.5,
+            yerr=np.vstack([lower.clip(lower=0), upper.clip(lower=0)]),
+            capsize=3,
         )
-        colors = np.where(grouped["impact"].ge(0), "#e45756", "#54a24b")
-        axis.bar(grouped["failed_station_id"], grouped["impact"], color=colors)
         axis.axhline(0, color="black", linewidth=0.8)
         axis.set_title(f"Target {station}")
         axis.set_xlabel("Failed station")
         axis.grid(axis="y", alpha=0.2)
-    axes[0].set_ylabel("Best-achievable MAE increase (°C)")
+    axes[0].set_ylabel("Cross-fitted MAE difference (°C)")
     figure.suptitle(
-        "Node importance after best-model reselection and climatology capping",
+        "Node importance from leave-one-year-out model selection",
         fontsize=13,
     )
-    figure.savefig(FIGURES / "figure_04.png", dpi=300)
+    figure.savefig(FIGURES / "figure_05.png", dpi=300)
     plt.close(figure)
 
 
@@ -744,6 +1075,7 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
     ].copy()
     if len(eligible) != len(EXTERNAL_STATIONS) * 3 * len(MODEL_ORDER):
         raise ValueError("external full-information block inventory is incomplete")
+    eligible["station_id"] = eligible["station_id"].astype(str).str.zfill(8)
     best = (
         eligible.sort_values(
             ["station_id", "gap_length", "skill", "model"],
@@ -760,6 +1092,73 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
             }
         )
     )
+
+    validation_path = (
+        OUTPUT
+        / "external_validation_uncertainty"
+        / "external_validation_uncertainty_seed_cells.csv"
+    )
+    if not validation_path.is_file():
+        raise FileNotFoundError(
+            "run scripts/36_run_external_validation_uncertainty.py before "
+            "building the fixed-model external sensitivity"
+        )
+    validation = pd.read_csv(validation_path, dtype={"station_id": str})
+    validation["station_id"] = validation["station_id"].str.zfill(8)
+    validation = validation.loc[
+        validation["gap_length"].isin((30, 90, 180))
+        & validation["model"].isin(MODEL_ORDER)
+        & np.isfinite(validation["skill"])
+    ].copy()
+    expected_validation = len(EXTERNAL_STATIONS) * 3 * len(MODEL_ORDER) * 20
+    if len(validation) != expected_validation:
+        raise ValueError("external validation model-selection inventory is incomplete")
+    tie_order = {model: index for index, model in enumerate(MODEL_ORDER)}
+    validation_ranking = (
+        validation.groupby(["station_id", "model"], as_index=False, observed=True)
+        .agg(
+            validation_mean_skill=("skill", "mean"),
+            validation_mean_MAE_degC=("MAE", "mean"),
+            validation_cells=("skill", "size"),
+        )
+        .assign(model_tie_order=lambda frame: frame["model"].map(tie_order))
+        .sort_values(
+            ["station_id", "validation_mean_skill", "model_tie_order", "model"],
+            ascending=[True, False, True, True],
+            kind="mergesort",
+        )
+        .groupby("station_id", as_index=False, observed=True)
+        .first()
+        .rename(columns={"model": "validation_selected_model"})
+    )
+    selected = eligible.merge(
+        validation_ranking,
+        on="station_id",
+        how="inner",
+        validate="many_to_one",
+    )
+    selected = selected.loc[
+        selected["model"].eq(selected["validation_selected_model"])
+    ].rename(columns={"MAE": "selected_MAE_degC", "skill": "selected_skill"})
+    if len(selected) != len(EXTERNAL_STATIONS) * 3:
+        raise ValueError("validation-selected external cells are incomplete")
+    best = best.merge(
+        selected[
+            [
+                "station_id",
+                "gap_length",
+                "validation_selected_model",
+                "validation_mean_skill",
+                "validation_mean_MAE_degC",
+                "validation_cells",
+                "selected_MAE_degC",
+                "selected_skill",
+            ]
+        ],
+        on=["station_id", "gap_length"],
+        how="left",
+        validate="one_to_one",
+    )
     prediction_payload = json.loads(
         (
             PROJECT_ROOT
@@ -775,7 +1174,10 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
         how="left",
         validate="one_to_one",
     )
-    best["prediction_error"] = best["best_skill"] - best["predicted_skill"]
+    best["selected_prediction_error"] = best["selected_skill"] - best["predicted_skill"]
+    best["best_envelope_prediction_error"] = (
+        best["best_skill"] - best["predicted_skill"]
+    )
     types = pd.Series(prediction_payload["station_types"], name="recoverability_type")
     rows = []
     for station, group in best.groupby("station_id", observed=True, sort=True):
@@ -787,6 +1189,14 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
             {
                 "station_id": station,
                 "predicted_type": station_type,
+                "validation_selected_model": str(
+                    curve.loc[30.0, "validation_selected_model"]
+                ),
+                "observed_selected_skill_30d": float(curve.loc[30.0, "selected_skill"]),
+                "observed_selected_skill_90d": float(curve.loc[90.0, "selected_skill"]),
+                "observed_selected_skill_180d": float(
+                    curve.loc[180.0, "selected_skill"]
+                ),
                 "observed_best_skill_30d": float(curve.loc[30.0, "best_skill"]),
                 "observed_best_skill_90d": float(curve.loc[90.0, "best_skill"]),
                 "observed_best_skill_180d": long_skill,
@@ -796,6 +1206,11 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
                 "best_model_180d": str(curve.loc[180.0, "best_model"]),
                 "evaluate_once": True,
                 "model_selection_on_confirmatory": False,
+                "selection_source": (
+                    "post_frozen_2021_2022_validation_placement_diagnostic"
+                ),
+                "primary_external_estimand": "validation_selected_fixed_model",
+                "best_envelope_role": "descriptive_only",
             }
         )
     summary = pd.DataFrame(rows)
@@ -805,14 +1220,23 @@ def _external_confirmation_tables() -> tuple[pd.DataFrame, pd.DataFrame]:
         raise ValueError("external prediction requires one memory and surviving donors")
     memory_decline = float(memory.iloc[0]["observed_30_to_180d_decline"])
     memory_long_skill = float(memory.iloc[0]["observed_best_skill_180d"])
-    summary["qualitative_prediction_consistent"] = np.where(
+    summary["frozen_best_envelope_consistent"] = np.where(
         summary["predicted_type"].eq("memory_dominated"),
         (memory_decline > donors["observed_30_to_180d_decline"].max())
         & (memory_long_skill < donors["observed_best_skill_180d"].min()),
         summary["observed_best_skill_180d"].gt(memory_long_skill),
     )
+    memory_selected_90 = float(memory.iloc[0]["observed_selected_skill_90d"])
+    memory_selected_180 = float(memory.iloc[0]["observed_selected_skill_180d"])
+    summary["qualitative_prediction_consistent"] = np.where(
+        summary["predicted_type"].eq("memory_dominated"),
+        (memory_selected_90 < donors["observed_selected_skill_90d"].min())
+        & (memory_selected_180 < donors["observed_selected_skill_180d"].min()),
+        summary["observed_selected_skill_90d"].gt(memory_selected_90)
+        & summary["observed_selected_skill_180d"].gt(memory_selected_180),
+    )
     summary["consistency_rule"] = (
-        "frozen qualitative type ordering; no post-outcome numeric threshold"
+        "validation-selected fixed model: memory site is weakest at 90 and 180 days"
     )
     return best, summary
 
@@ -835,6 +1259,7 @@ def _figure_05(
         uncertainty = placement.loc[
             placement["station_id"].eq(station)
             & placement["gap_length"].isin(curve["gap_length"])
+            & placement["model"].eq(curve["validation_selected_model"].iloc[0])
         ].sort_values("gap_length")
         if len(uncertainty) != len(curve):
             raise ValueError(f"validation placement SD is incomplete for {station}")
@@ -843,8 +1268,8 @@ def _figure_05(
         alpha = 1.0 if memory else 0.65
         axes[0].errorbar(
             curve["gap_length"],
-            curve["best_skill"],
-            yerr=uncertainty["envelope_skill_sd"],
+            curve["selected_skill"],
+            yerr=uncertainty["skill_sd"],
             color=color,
             alpha=alpha,
             marker="o",
@@ -861,38 +1286,44 @@ def _figure_05(
         )
     axes[0].axhline(0, color="black", linewidth=0.8)
     axes[0].set(
-        title="(a) Evaluate-once best envelope",
+        title="(a) Validation-selected fixed model",
         xlabel="Gap length (days)",
         ylabel="Skill vs external training climatology",
         xticks=[30, 90, 180],
     )
     axes[0].grid(alpha=0.2)
-    axes[0].legend(frameon=False, fontsize=7, ncol=2)
-    axes[0].text(
-        0.98,
-        0.02,
-        "Solid: observed; dashed: prediction; bars: validation placement SD",
-        transform=axes[0].transAxes,
-        ha="right",
+    axes[0].legend(
+        frameon=False,
         fontsize=7,
+        ncol=3,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.18),
     )
 
     chatt = fingerprints.loc[fingerprints["network"].eq("Upper--Middle Chattahoochee")][
         ["station_id", "acf30", "training_observed_range_degC"]
     ]
     plotted = summary.merge(chatt, on="station_id", validate="one_to_one")
+    label_offsets = {
+        "02334430": (5, 4),
+        "02335000": (5, 8),
+        "02335450": (5, -13),
+        "02336000": (5, 10),
+        "02337170": (5, -12),
+    }
     for row in plotted.itertuples(index=False):
         memory = row.predicted_type == "memory_dominated"
         placement_sd = float(
             placement.loc[
                 placement["station_id"].eq(str(row.station_id))
-                & placement["gap_length"].eq(180),
-                "envelope_skill_sd",
+                & placement["gap_length"].eq(180)
+                & placement["model"].eq(row.validation_selected_model),
+                "skill_sd",
             ].iloc[0]
         )
         axes[1].errorbar(
             [row.acf30],
-            [row.observed_best_skill_180d],
+            [row.observed_selected_skill_180d],
             yerr=[placement_sd],
             marker="s" if memory else "o",
             color="#e45756" if memory else "#4c78a8",
@@ -902,22 +1333,22 @@ def _figure_05(
         )
         axes[1].annotate(
             row.station_id,
-            (row.acf30, row.observed_best_skill_180d),
-            xytext=(4, 4),
+            (row.acf30, row.observed_selected_skill_180d),
+            xytext=label_offsets[str(row.station_id)],
             textcoords="offset points",
             fontsize=7,
         )
     axes[1].set(
         title="(b) Thermal memory and long-gap recovery",
         xlabel="Training anomaly acf30",
-        ylabel="Observed best skill at 180 days",
+        ylabel="Fixed-model skill at 180 days",
     )
     axes[1].grid(alpha=0.2)
     figure.suptitle(
-        "External Chattahoochee confirmation: type transfers, magnitude does not",
+        "Held-out Chattahoochee evaluation: long-gap type ordering transfers",
         fontsize=13,
     )
-    figure.savefig(FIGURES / "figure_05.png", dpi=300)
+    figure.savefig(FIGURES / "figure_06.png", dpi=300)
     plt.close(figure)
 
 
@@ -949,6 +1380,7 @@ def main() -> None:
     fingerprints = _fingerprint_table(internal_train, external_train)
     covariates = expanded_covariate_r2(internal_train, INTERNAL_STATIONS)
     budgets = _budget_table(internal)
+    type_sensitivity = _type_horizon_sensitivity(budgets)
 
     dense = _load_dense_predictions()
     original_events = _original_skill_events(dense)
@@ -1028,16 +1460,18 @@ def main() -> None:
     envelopes = _best_envelope(curves)
     budget_cells, budget_summary = _budget_evaluation(budgets, envelopes)
     hypotheses = _corrected_frontier_hypotheses(original_events)
+    main_recoverability = _main_recoverability_table(original_curves)
 
     network_events = pd.read_parquet(EVENTS)
     network_events = network_events.loc[
         network_events["experiment"].astype(str).eq("SCI_NET")
     ].copy()
-    importance = node_importance(network_events, value_col="MAE")
+    oracle_importance = node_importance(network_events, value_col="MAE")
+    importance = cross_fitted_node_importance(network_events, value_col="MAE")
     external_cells, external_summary = _external_confirmation_tables()
     placement_path = (
         OUTPUT
-        / "external_validation_uncertainty/external_validation_uncertainty_envelope.csv"
+        / "external_validation_uncertainty/external_validation_uncertainty_cells.csv"
     )
     if not placement_path.is_file():
         raise FileNotFoundError(
@@ -1049,6 +1483,7 @@ def main() -> None:
         "annual_thermal_metrics.csv": annual,
         "period_thermal_metrics.csv": periods,
         "regulation_fingerprint.csv": fingerprints,
+        "recoverability_type_horizon_sensitivity.csv": type_sensitivity,
         "expanded_covariate_budget.csv": covariates,
         "stationarity_controlled_budgets.csv": budgets,
         "dense_skill_sensitivities.csv": curves,
@@ -1057,9 +1492,11 @@ def main() -> None:
         "budget_evaluation_summary.csv": budget_summary,
         "annual_demeaned_skill_events.csv": demeaned_events,
         "frontier_hypothesis_tests_corrected.csv": hypotheses,
-        "node_importance_best_available.csv": importance,
+        "node_importance_best_available.csv": oracle_importance,
+        "node_importance_cross_fitted.csv": importance,
         "external_confirmation_cells.csv": external_cells,
         "external_confirmation_summary.csv": external_summary,
+        "loeo_within_fold_auc.csv": _write_loeo_auc_diagnosis(),
     }
     for name, frame in outputs.items():
         frame.to_csv(OUTPUT / name, index=False)
@@ -1068,9 +1505,10 @@ def main() -> None:
     fingerprints.to_csv(TABLES / "table_01.csv", index=False)
     annual.to_csv(TABLES / "table_02.csv", index=False)
     budget_summary.to_csv(TABLES / "table_03.csv", index=False)
-    original_curves.to_csv(TABLES / "table_04.csv", index=False)
+    main_recoverability.to_csv(TABLES / "table_04.csv", index=False)
     importance.to_csv(TABLES / "table_05.csv", index=False)
 
+    _figure_study_networks()
     _figure_01(annual, fingerprints)
     _figure_02(budget_cells)
     _figure_03(curves)
@@ -1089,15 +1527,16 @@ def main() -> None:
         raise FileNotFoundError(
             "run scripts/38_run_regulation_panel.py before revision figures"
         )
-    shutil.copyfile(regulation_panel_figure, FIGURES / "figure_06.png")
+    shutil.copyfile(regulation_panel_figure, FIGURES / "figure_07.png")
 
     figure_titles = {
-        1: "Reservoir-regulation fingerprint across two networks",
-        2: "Frozen prediction and post-hoc thermal-state control",
-        3: "Recoverability in relative and absolute units",
-        4: "Best-available node importance",
-        5: "Evaluate-once Chattahoochee confirmation",
-        6: "Nationwide regulation-panel generalization test",
+        1: "Study networks, monitoring stations, and regulating dams",
+        2: "Reservoir-associated thermal structure across two networks",
+        3: "Frozen covariance heuristic and post-hoc thermal-state control",
+        4: "Recoverability in relative and absolute units",
+        5: "Cross-fitted node importance",
+        6: "Held-out Chattahoochee fixed-model evaluation",
+        7: "Nationwide regulation-panel generalization test",
     }
     figure_manifest = {
         "schema_version": "major_revision_figure_manifest_v1",
@@ -1118,9 +1557,9 @@ def main() -> None:
     table_titles = {
         1: "Eight-station regulation fingerprint",
         2: "Annual Upper Jinsha thermal statistics",
-        3: "Frozen and stationarity-controlled budget evaluation",
+        3: "Frozen and stationarity-controlled covariance-heuristic evaluation",
         4: "Dense recoverability in relative and absolute units",
-        5: "Corrected best-available node importance",
+        5: "Leave-one-year-out cross-fitted node importance",
     }
     table_manifest = {
         "schema_version": "major_revision_table_manifest_v1",
@@ -1149,12 +1588,23 @@ def main() -> None:
             name: {"rows": len(frame), "columns": list(frame.columns)}
             for name, frame in outputs.items()
         },
-        "figures": [f"figures/main/figure_{index:02d}.png" for index in range(1, 6)],
+        "figures": [f"figures/main/figure_{index:02d}.png" for index in range(1, 8)],
         "main_tables": [f"paper/tables/table_{index:02d}.csv" for index in range(1, 6)],
         "interpretation_guard": (
             "state-matched and annual-demeaned analyses are reviewer-requested "
             "post-hoc diagnostics, not a replacement for the frozen prediction"
         ),
+        "regulation_panel_auc_diagnosis_note": (
+            "LOEO AUC diagnosis is post-hoc and does not replace the frozen "
+            "panel report"
+        ),
+    }
+    diagnosis_payload = json.loads(
+        (OUTPUT / "loeo_auc_metric_diagnosis.json").read_text(encoding="utf-8")
+    )
+    manifest["artifacts"]["loeo_auc_metric_diagnosis.json"] = {
+        "rows": 1,
+        "columns": list(diagnosis_payload),
     }
     (OUTPUT / "revision_analysis_manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"

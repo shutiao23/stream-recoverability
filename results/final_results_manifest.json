@@ -3,8 +3,8 @@
   "status": "complete",
   "analysis_manifest": {
     "path": "results/revision/revision_analysis_manifest.json",
-    "bytes": 7351,
-    "sha256": "7b070ff8a8b42520c1ff7f24b77d6ebdab854461c9734a114942c39817adc33e"
+    "bytes": 9962,
+    "sha256": "1e4e443568539c05985e47822835eb1baf15a5698dbb653365d7f35e79fbfd05"
   },
   "formal_internal_manifest": {
     "path": "results/analysis/analysis_manifest.json",
@@ -24,7 +24,7 @@
   "p3_change_point_manifest": {
     "path": "results/revision/p3_change_point_manifest.json",
     "bytes": 1853,
-    "sha256": "11f4a8e7cb286e31c3b9cb02931cd4b55e9881d740575d1a9c1d330787459ac9"
+    "sha256": "683103159aec21e2352fedde0b043e8dfb259c1bd6681c32129f5e374cf10fd3"
   },
   "regulation_panel_manifest": {
     "path": "results/regulation_panel_v1_legacy_transport/artifact_manifest.json",
@@ -33,12 +33,12 @@
   },
   "figure_manifest": {
     "path": "figures/main/figure_manifest.json",
-    "bytes": 1539,
-    "sha256": "d830899e8beb140b171fb4e4ab03fe22f7419ee7529c159149b09242a54ffffe"
+    "bytes": 1809,
+    "sha256": "89668e0de52dabb1fb329a7a14dd74964317063e36bee0c7e70cef9ded4e3182"
   },
   "table_manifest": {
     "path": "paper/tables/table_manifest.json",
-    "bytes": 1363,
-    "sha256": "988cab2aade314339639c1edbf7fedea3dd9bf78451bad80f348b95343550038"
+    "bytes": 1379,
+    "sha256": "3b2b5718f3ed6a01a762ed7b61ad73c6d6ff60b4e3d189cba01e438379d2bccc"
   }
 }

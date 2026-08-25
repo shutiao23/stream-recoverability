@@ -63,6 +63,18 @@
         "dam_distance_basis"
       ]
     },
+    "recoverability_type_horizon_sensitivity.csv": {
+      "rows": 32,
+      "columns": [
+        "station_id",
+        "gap_length",
+        "donor_component",
+        "memory_component",
+        "network",
+        "recoverability_type",
+        "classification_rule"
+      ]
+    },
     "expanded_covariate_budget.csv": {
       "rows": 3,
       "columns": [
@@ -237,6 +249,45 @@
         "reason"
       ]
     },
+    "node_importance_cross_fitted.csv": {
+      "rows": 9,
+      "columns": [
+        "experiment",
+        "mask_type",
+        "layout",
+        "outage_mode",
+        "overlap_ratio",
+        "pattern",
+        "window_length",
+        "training_protocol",
+        "fit_split",
+        "tuning_split",
+        "evaluation_split",
+        "validation_scope",
+        "target_station_id",
+        "station_id",
+        "target",
+        "model",
+        "failed_station_id",
+        "full_network_value",
+        "failed_value",
+        "impact",
+        "impact_ci_lower",
+        "impact_ci_upper",
+        "value_metric",
+        "impact_definition",
+        "selection_population",
+        "evidence_role",
+        "formal_evidence",
+        "eventwise_oracle_selection",
+        "full_network_selected_model_counts",
+        "failed_selected_model_counts",
+        "n_gap_lengths",
+        "n_anchor_years",
+        "n_events",
+        "reason"
+      ]
+    },
     "external_confirmation_cells.csv": {
       "rows": 15,
       "columns": [
@@ -249,10 +300,17 @@
         "best_MAE_degC",
         "best_skill",
         "n_evaluated",
+        "validation_selected_model",
+        "validation_mean_skill",
+        "validation_mean_MAE_degC",
+        "validation_cells",
+        "selected_MAE_degC",
+        "selected_skill",
         "predicted_skill",
         "R2_donor",
         "rho",
-        "prediction_error"
+        "selected_prediction_error",
+        "best_envelope_prediction_error"
       ]
     },
     "external_confirmation_summary.csv": {
@@ -260,6 +318,10 @@
       "columns": [
         "station_id",
         "predicted_type",
+        "validation_selected_model",
+        "observed_selected_skill_30d",
+        "observed_selected_skill_90d",
+        "observed_selected_skill_180d",
         "observed_best_skill_30d",
         "observed_best_skill_90d",
         "observed_best_skill_180d",
@@ -269,8 +331,40 @@
         "best_model_180d",
         "evaluate_once",
         "model_selection_on_confirmatory",
+        "selection_source",
+        "primary_external_estimand",
+        "best_envelope_role",
+        "frozen_best_envelope_consistent",
         "qualitative_prediction_consistent",
         "consistency_rule"
+      ]
+    },
+    "loeo_within_fold_auc.csv": {
+      "rows": 10,
+      "columns": [
+        "held_out_ecoregion",
+        "n",
+        "n_regulated",
+        "n_unregulated",
+        "base_rate",
+        "oof_probability_median",
+        "oof_probability_mean",
+        "within_fold_auc"
+      ]
+    },
+    "loeo_auc_metric_diagnosis.json": {
+      "rows": 1,
+      "columns": [
+        "schema_version",
+        "diagnosis",
+        "does_not_reopen_freeze",
+        "evidence_role",
+        "formal_evidence",
+        "frozen_primary_pooled_auc",
+        "mechanism",
+        "summary",
+        "post_hoc",
+        "source_predictions"
       ]
     }
   },
@@ -279,7 +373,9 @@
     "figures/main/figure_02.png",
     "figures/main/figure_03.png",
     "figures/main/figure_04.png",
-    "figures/main/figure_05.png"
+    "figures/main/figure_05.png",
+    "figures/main/figure_06.png",
+    "figures/main/figure_07.png"
   ],
   "main_tables": [
     "paper/tables/table_01.csv",
@@ -288,5 +384,6 @@
     "paper/tables/table_04.csv",
     "paper/tables/table_05.csv"
   ],
-  "interpretation_guard": "state-matched and annual-demeaned analyses are reviewer-requested post-hoc diagnostics, not a replacement for the frozen prediction"
+  "interpretation_guard": "state-matched and annual-demeaned analyses are reviewer-requested post-hoc diagnostics, not a replacement for the frozen prediction",
+  "regulation_panel_auc_diagnosis_note": "LOEO AUC diagnosis is post-hoc and does not replace the frozen panel report"
 }

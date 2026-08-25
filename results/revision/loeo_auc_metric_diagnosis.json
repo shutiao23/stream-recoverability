@@ -1,0 +1,132 @@
+{
+  "schema_version": "regulation_panel_loeo_auc_metric_diagnosis_v1",
+  "diagnosis": "post_hoc_metric_diagnosis",
+  "does_not_reopen_freeze": true,
+  "evidence_role": "post_hoc",
+  "formal_evidence": false,
+  "frozen_primary_pooled_auc": 0.40749601275917063,
+  "mechanism": "pooled LOEO AUC under heterogeneous group base rates mixes calibration drift with discrimination",
+  "summary": {
+    "n": 335,
+    "n_folds": 10,
+    "n_defined_within_fold_auc": 9,
+    "pooled_oof_auc": 0.40749601275917063,
+    "pooled_oof_auc_matches_frozen_primary": true
+  },
+  "post_hoc": {
+    "mean_within_fold_auc": 0.5256536889168535,
+    "median_within_fold_auc": 0.5132377275234418,
+    "min_within_fold_auc": 0.13205645161290322,
+    "max_within_fold_auc": 0.7546296296296297,
+    "min_within_fold_ecoregion": "SEPlains",
+    "max_within_fold_ecoregion": "NorthEast",
+    "base_rate_vs_oof_probability_median_pearson_r": -0.6709991179809832,
+    "highest_oof_probability_median_ecoregion": "Alaska",
+    "highest_oof_probability_median": 0.7224145549518818,
+    "lowest_oof_probability_median_ecoregion": "WestPlains",
+    "lowest_oof_probability_median": 0.5588400369846858,
+    "folds": [
+      {
+        "held_out_ecoregion": "NorthEast",
+        "n": 33,
+        "n_regulated": 24,
+        "n_unregulated": 9,
+        "base_rate": 0.7272727272727273,
+        "oof_probability_median": 0.5922977557331706,
+        "oof_probability_mean": 0.5975020684318997,
+        "within_fold_auc": 0.7546296296296297
+      },
+      {
+        "held_out_ecoregion": "EastHghlnds",
+        "n": 31,
+        "n_regulated": 22,
+        "n_unregulated": 9,
+        "base_rate": 0.7096774193548387,
+        "oof_probability_median": 0.5961946758995172,
+        "oof_probability_mean": 0.6032132136375734,
+        "within_fold_auc": 0.7424242424242424
+      },
+      {
+        "held_out_ecoregion": "CntlPlains",
+        "n": 22,
+        "n_regulated": 13,
+        "n_unregulated": 9,
+        "base_rate": 0.5909090909090909,
+        "oof_probability_median": 0.6092984174316435,
+        "oof_probability_mean": 0.6104667150781607,
+        "within_fold_auc": 0.6666666666666667
+      },
+      {
+        "held_out_ecoregion": "MxWdShld",
+        "n": 15,
+        "n_regulated": 11,
+        "n_unregulated": 4,
+        "base_rate": 0.7333333333333333,
+        "oof_probability_median": 0.5914777594073949,
+        "oof_probability_mean": 0.5959707328175416,
+        "within_fold_auc": 0.6136363636363636
+      },
+      {
+        "held_out_ecoregion": "WestMnts",
+        "n": 123,
+        "n_regulated": 74,
+        "n_unregulated": 49,
+        "base_rate": 0.6016260162601627,
+        "oof_probability_median": 0.7082135129277394,
+        "oof_probability_mean": 0.7101613596311699,
+        "within_fold_auc": 0.5132377275234418
+      },
+      {
+        "held_out_ecoregion": "WestXeric",
+        "n": 16,
+        "n_regulated": 13,
+        "n_unregulated": 3,
+        "base_rate": 0.8125,
+        "oof_probability_median": 0.6016570950272851,
+        "oof_probability_mean": 0.6068088823316402,
+        "within_fold_auc": 0.4871794871794872
+      },
+      {
+        "held_out_ecoregion": "WestPlains",
+        "n": 20,
+        "n_regulated": 19,
+        "n_unregulated": 1,
+        "base_rate": 0.95,
+        "oof_probability_median": 0.5588400369846858,
+        "oof_probability_mean": 0.5659768839988379,
+        "within_fold_auc": 0.42105263157894735
+      },
+      {
+        "held_out_ecoregion": "SECstPlain",
+        "n": 6,
+        "n_regulated": 1,
+        "n_unregulated": 5,
+        "base_rate": 0.16666666666666666,
+        "oof_probability_median": 0.6092815000855296,
+        "oof_probability_mean": 0.6114038084462906,
+        "within_fold_auc": 0.4
+      },
+      {
+        "held_out_ecoregion": "SEPlains",
+        "n": 63,
+        "n_regulated": 32,
+        "n_unregulated": 31,
+        "base_rate": 0.5079365079365079,
+        "oof_probability_median": 0.6520888566721543,
+        "oof_probability_mean": 0.6513686975190703,
+        "within_fold_auc": 0.13205645161290322
+      },
+      {
+        "held_out_ecoregion": "Alaska",
+        "n": 6,
+        "n_regulated": 0,
+        "n_unregulated": 6,
+        "base_rate": 0.0,
+        "oof_probability_median": 0.7224145549518818,
+        "oof_probability_mean": 0.7389247929874628,
+        "within_fold_auc": null
+      }
+    ]
+  },
+  "source_predictions": "results/regulation_panel_v1_legacy_transport/leave_ecoregion_out_predictions.csv"
+}
