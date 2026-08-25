@@ -51,16 +51,21 @@ def _markdown_table(
         frame = frame.loc[:, active]
     numeric = frame.select_dtypes(include="number").columns
     frame.loc[:, numeric] = frame.loc[:, numeric].round(digits)
-    for column in frame.select_dtypes(include="object").columns:
-        frame[column] = (
-            frame[column]
-            .astype(str)
-            .str.replace("\\", "\\\\", regex=False)
-            .str.replace("$", "\\$", regex=False)
-        )
+    rendered = frame.copy()
+    for column in rendered.columns:
+        rendered[column] = [
+            "undefined"
+            if pd.isna(value)
+            else (
+                value
+                if not isinstance(value, str)
+                else value.replace("\\", "\\\\").replace("$", "\\$")
+            )
+            for value in rendered[column]
+        ]
     if rename:
-        frame = frame.rename(columns=rename)
-    return frame.to_markdown(index=False)
+        rendered = rendered.rename(columns=rename)
+    return rendered.to_markdown(index=False)
 
 
 def _figure_captions() -> tuple[dict[int, str], dict[int, str]]:

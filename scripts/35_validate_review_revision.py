@@ -316,6 +316,11 @@ def main() -> None:
     assert "implementation defect" in ledger.lower()
     claims = (ROOT / "paper/claim_matrix.md").read_text(encoding="utf-8")
     assert re.search(r"Southeast Plains|ecoregion-dependent|region-dependent", claims)
+    assert "Post-hoc boundary mechanism" in claims
+    assert "mechanism sketch" in manuscript
+    assert "not a causal attribution" in manuscript
+    key_points = (ROOT / "paper/key_points.md").read_text(encoding="utf-8")
+    assert "post-hoc direction" in key_points
     abstract = re.search(r"## Abstract\n\n(.*?)\n\n##", manuscript, re.DOTALL)
     assert abstract is not None and len(abstract.group(1).split()) <= 250
     for line in (ROOT / "paper/key_points.md").read_text(encoding="utf-8").splitlines():
@@ -353,6 +358,26 @@ def main() -> None:
     )
     assert package["status"] == "draft_blocked_external_and_author_inputs"
     assert package["main_figures"] == 7
+    si_built = (
+        ROOT / "paper/submission/agu_supporting_information.md"
+    ).read_text(encoding="utf-8")
+    table_s8 = si_built.split("Table S8", 1)[1]
+    assert "undefined" in table_s8
+    assert not re.search(r"\bnan\b", table_s8, re.IGNORECASE)
+    final_manifest = json.loads(
+        (ROOT / "results/final_results_manifest.json").read_text(encoding="utf-8")
+    )
+    for key in (
+        "analysis_manifest",
+        "figure_manifest",
+        "table_manifest",
+        "regulation_panel_manifest",
+    ):
+        record = final_manifest[key]
+        artifact = ROOT / record["path"]
+        assert artifact.is_file(), artifact
+        assert artifact.stat().st_size == record["bytes"], artifact
+        assert _sha256(artifact) == record["sha256"], artifact
     print(
         json.dumps(
             {
