@@ -1,0 +1,535 @@
+{
+  "schema_version": "gems_reviewer_bundle_inventory_v1",
+  "status": "local_bundle_only_not_uploaded",
+  "confidential_file_type": "Data File(s) for Peer Review (will not publish)",
+  "not_a_public_archive": true,
+  "gems_upload_complete": false,
+  "bundle_directory": "private/gems_reviewer_bundle/",
+  "bundle_gitignored": true,
+  "time_range": "2006-01-01/2020-12-31",
+  "expected_file_count": 86,
+  "found_expected_count": 86,
+  "missing_expected_files": [],
+  "additional_files_copied": [],
+  "skipped_missing_trees": [],
+  "copied_file_count": 86,
+  "expected_files": [
+    {
+      "path": "README.md",
+      "found": true,
+      "category": "bundle_index",
+      "rights_class": "bundle_index"
+    },
+    {
+      "path": "MANIFEST.json",
+      "found": true,
+      "category": "bundle_index",
+      "rights_class": "bundle_index"
+    },
+    {
+      "path": "DATA_RIGHTS.md",
+      "found": true,
+      "category": "documentation",
+      "rights_class": "public_project_metadata"
+    },
+    {
+      "path": "metadata/data_rights.csv",
+      "found": true,
+      "category": "documentation",
+      "rights_class": "public:MIT"
+    },
+    {
+      "path": "metadata/data_dictionary.csv",
+      "found": true,
+      "category": "documentation",
+      "rights_class": "public:MIT"
+    },
+    {
+      "path": "metadata/station_metadata.csv",
+      "found": true,
+      "category": "documentation",
+      "rights_class": "public:MIT"
+    },
+    {
+      "path": "paper/editor_data_exception_request.md",
+      "found": true,
+      "category": "documentation",
+      "rights_class": "public_project_metadata"
+    },
+    {
+      "path": "data/raw/b1.csv",
+      "found": true,
+      "category": "raw_observations",
+      "rights_class": "restricted:mixed_most_restrictive"
+    },
+    {
+      "path": "data/raw/s2.csv",
+      "found": true,
+      "category": "raw_observations",
+      "rights_class": "restricted:mixed_most_restrictive"
+    },
+    {
+      "path": "data/raw/p3.csv",
+      "found": true,
+      "category": "raw_observations",
+      "rights_class": "restricted:mixed_most_restrictive"
+    },
+    {
+      "path": "data/processed/daily_long.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/daily_wide.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/event_labels.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/scaler.json",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/splits/train.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/splits/validation.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data/processed/splits/test.parquet",
+      "found": true,
+      "category": "processed_tables",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v1/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/published_v2/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v1/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/no_s2_suspect_v2/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v1/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_no_level_v2/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v1/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/version_manifest.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/daily_long.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/daily_wide.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/scaler.json",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/splits/train.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/splits/validation.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "data_versions/b1_shift_sensitivity_v2/splits/test.parquet",
+      "found": true,
+      "category": "data_version_tree",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "masks/test/masks.npz",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_no_hydrology_values"
+    },
+    {
+      "path": "masks/test/manifest.json",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_manifest_hidden_dates"
+    },
+    {
+      "path": "masks/test/manifest.csv",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_manifest_hidden_dates"
+    },
+    {
+      "path": "masks/validation/masks.npz",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_no_hydrology_values"
+    },
+    {
+      "path": "masks/validation/manifest.json",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_manifest_hidden_dates"
+    },
+    {
+      "path": "masks/validation/manifest.csv",
+      "found": true,
+      "category": "jinsha_masks",
+      "rights_class": "restricted:compact_bitmask_manifest_hidden_dates"
+    },
+    {
+      "path": "metadata/validation_anchors.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "metadata/validation_anchors_v2.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:anchor_or_event_catalog"
+    },
+    {
+      "path": "metadata/frontier_anchors.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "metadata/frontier_anchors_v2.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:anchor_or_event_catalog"
+    },
+    {
+      "path": "metadata/event_episode_catalog.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:mixed_inherited"
+    },
+    {
+      "path": "metadata/event_episode_catalog_v2.csv",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:anchor_or_event_catalog"
+    },
+    {
+      "path": "metadata/event_episode_catalog.audit.json",
+      "found": true,
+      "category": "restricted_metadata_anchors",
+      "rights_class": "restricted:mixed_inherited"
+    }
+  ],
+  "note": "Values-free inventory: logical paths and found flags only. Observation values stay in the gitignored private bundle. Do not set metadata/gems_reviewer_data_upload.json uploaded=true until the confidential GEMS upload is done."
+}

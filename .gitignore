@@ -103,3 +103,6 @@ results/test_audit/*stdout.txt
 
 # Re-downloadable nationwide regulation-panel API/source caches.
 data/cache/regulation_panel_v1/
+
+# Confidential GEMS reviewer working tree. Restricted bytes. Never commit.
+private/gems_reviewer_bundle/
