@@ -1,0 +1,45 @@
+{
+  "schema_version": "agu_submission_package_v1",
+  "status": "draft_blocked_external_and_author_inputs",
+  "artifacts": [
+    {
+      "path": "paper/submission/agu_main_manuscript.md",
+      "bytes": 74399,
+      "sha256": "dee7255a2012c6391d8cff0100b7c636dd1a3d2d1f34ea505b6060c9c95581d5"
+    },
+    {
+      "path": "paper/submission/agu_supporting_information.md",
+      "bytes": 76445,
+      "sha256": "6badcc1805598c9e8128c073e59b794b5f5998ab26551a2dc65940aae02ea0bd"
+    },
+    {
+      "path": "paper/submission/latex_header.tex",
+      "bytes": 152,
+      "sha256": "b2165c41981a730b079dcf509d27f2a7f08694f49a9888b4802ecac9b21945e0"
+    },
+    {
+      "path": "paper/submission/agu_main_manuscript.pdf",
+      "bytes": 4859524,
+      "sha256": "003d5eb987910333ad52ec2275bc57d71d8e97090aec03ae43ddf9a5cd356d3d"
+    },
+    {
+      "path": "paper/submission/agu_main_manuscript.docx",
+      "bytes": 5048893,
+      "sha256": "8697698fc9e678bf3ef5d2bdf5d16779cea30c374656487b6db2d416e1491334"
+    },
+    {
+      "path": "paper/submission/agu_supporting_information.pdf",
+      "bytes": 825131,
+      "sha256": "9c9ffa35c8da68565f22bad6421a10e9dab036b1458f51d6bdfe1c1510c781bf"
+    }
+  ],
+  "blockers": [
+    "author names, affiliations, ORCID, funding, contributions, and declarations",
+    "written editor acceptance of the restricted-data exception",
+    "real archival software DOI",
+    "GEMS confidential reviewer-data upload"
+  ],
+  "plain_language_summary_words": 197,
+  "main_figures": 7,
+  "main_tables": 5
+}
