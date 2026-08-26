@@ -182,3 +182,31 @@ Four stations satisfy $R^2_{\mathrm{donor}}\ge 0.5$ and are formula-forced. B1 a
 5. **Which claim changes?** The honest *catalog* count is W1-A HUC8 overlap **166**, labelled catalog-only, not T2. Reviewer 161 is naive `zfill(8)[:8]`, not the official inventory and not a truncated-combo count. The 98/31 figures remain as a contrast audit of the defective grouper. Do not claim extra rivers by loosening. Do not claim T2 inventory is in hand. Attrition 25–40% is preregistered. Network-level CIs still require ≥100 qualified networks after QC; 12-river and 6-river pilots still cannot report them (BL-012 internalized). `never_sealed` unchanged. No title license.
 
 **Update.** Keep 98/31/reviewer-161/W1-A-166 as labelled catalog statistics. Do not sell 166 as recoverability evidence, as a qualified corpus, or as a T2 pass. Do not sell 161 as the exact count. Do not download the wrong candidate set. Do not loosen Spearman 0.60 or the 0.40 CI floor because grouping was repaired.
+
+## BL-018 — FOEN public-daily condition satisfied; Swiss split locked before values
+
+**Observed without temperature values.** On 2026-08-26 the official FOEN data platform exposed an unauthenticated `data_1day_mean` GraphQL table with water-temperature parameter `WT`, dated rows, units, and release states. The W6 probe selected only timestamp/parameter/unit/release metadata for station 2016; it did not select `value`. Seven daily timestamps were returned for 1–7 January 2025, all release state 2. The older repository statement that all historical FOEN daily data require a manual order is obsolete. The manual service still exists for legacy/special products.
+
+**Conditional exclusion, not a relaxed gate.** v9/v9.1 excluded Swiss from T8 and the ten non-North-America sealed seats *until daily values were public and dated*. That source-availability condition is now satisfied. It permits a prospective split before values are opened. It does not make a station or network qualified, does not replace the 300-day/eight-common-year QC rule with metadata, and does not count anything toward T8 today.
+
+**Burn and lock.** Station 2016 was touched by the timestamp probe, so its complete Aare metadata group is permanently `foen_aare_aaregebiet`, role `never_sealed`, `development_burned: true`. The remaining temperature-location metadata yield exactly ten unprobed accent-normalized river×catchment groups: Doubs, Emme, Inn, Linth, Reuss, Rhein, Rhône/Rhone (merged, not double-counted), Simme, Thur, and Ticino. They are prospectively `sealed`. Seed `20260826`; canonical split SHA-256 `4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59`; catalog SHA-256 `2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727`. No temperature value was queried.
+
+**Metadata boundary.** The builder intersects current FOEN station metadata with the pre-existing water-temperature station inventory, keeps river water-body types, and groups accent-normalized `riverName × catchmentName` at a three-station minimum. `coverageFrom/coverageTo` are not requested and cannot be used as qualified years. Coordinates and maximum pairwise distance are diagnostics. Flow connectivity, daily density, common years, and independent-network eligibility remain unknown until the authorized sealed path is opened once.
+
+**Five questions.**
+
+1. **Is it a validity issue?** YES. Treating a public API timestamp as eight qualified years would be invalid. The lock explicitly claims zero qualified Swiss networks.
+2. **Is it a regime boundary?** NO. This is a source-availability/governance transition, not a hydrologic result.
+3. **Is it an implementation defect?** The old “manual order only” assumption became stale when FOEN launched its public platform. Correcting source capability before values are opened is not outcome-driven.
+4. **Does it redesign the historical freeze?** NO. `design_freeze_v4`, the fourteen inherited never-sealed tokens, old once-open results, and all T2/E5 gates remain unchanged. Station 2016 adds a source-local burn; it does not remove or rename an inherited token.
+5. **Which claim changes?** Prospective Swiss sealed seats may now be locked. T8 remains zero for Swiss until post-unseal provider QC proves three stations × eight common qualified years. Failed sealed candidates are not replaced after outcomes are seen.
+
+**Update.** Use `configs/foen_prospective_catalog_v1.yaml` with the corrected
+`configs/foen_prospective_split_v2.yaml`. The v1 value-query pilot produced 208
+identical opaque GraphQL error bodies because `releaseState` is not a valid
+provider filter; those objects remain sealed and are never reused. The v2 query
+changed only that API-schema defect, retained membership/roles, and completed
+2,652/2,652 write-only custody objects with zero failures. Future unsealing and
+QC remain unauthorized until the frozen T2 model is ready. See
+`docs/protocol_condition_foen_public_daily_v9_1.md` and
+`docs/protocol_deviation_foen_failed_pilot_v1_to_v2.md`.
