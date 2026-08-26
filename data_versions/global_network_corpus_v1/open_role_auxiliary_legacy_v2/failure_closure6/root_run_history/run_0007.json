@@ -1,0 +1,43 @@
+{
+  "completed_at_utc": "2026-08-26T23:09:45.729274+00:00",
+  "corpus_plan_sha256": "5b90380294306e0e3be0e863bc7f207c3eb3c7e09f77e8e6e11491d4445b3f61",
+  "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_5",
+  "n_networks_executed_now": 44,
+  "n_networks_resumed": 0,
+  "n_networks_selected": 67,
+  "performance_metrics_computed": false,
+  "previous_root_state": {
+    "bytes": 2536,
+    "path": "root_run_history/run_0006.json",
+    "sha256": "5685ba158cf0039a749d7912acf37212f80a51e5d141f1dc2b90be2270af0037"
+  },
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 254,
+    "n_retry_events": 0,
+    "request_interval_seconds": 3.0
+  },
+  "run_manifest": {
+    "bytes": 8204,
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
+    "sha256": "cc87f05d4132ab90002a8eed8fbbe0f6ee4572ffc2402914a368b6d815c01e07"
+  },
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "b564efaf673b78717c55d237f13f7921794e444d2bef40be4ba953d849b28967",
+  "started_at_utc": "2026-08-26T22:44:09.604331+00:00",
+  "status": "execution_stopped_fail_closed",
+  "stop": {
+    "error": "legacy RDB data table has no requested daily-mean F/L column",
+    "error_type": "ValueError",
+    "network_id": "huc8_15030108",
+    "reason": "network_acquisition_error"
+  },
+  "v1_ogc_root_read_or_mutated": false
+}

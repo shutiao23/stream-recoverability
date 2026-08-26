@@ -1,0 +1,130 @@
+{
+  "acquisition_terminal": true,
+  "artifacts": {
+    "adapter_schema": {
+      "bytes": 1161,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/adapter_schema.json",
+      "sha256": "6fbc984a7ac93b90cfc08b87930d973af83b0c681601d39a4b2d7a247fb3f4dd"
+    },
+    "coverage": {
+      "bytes": 2719,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/coverage.csv",
+      "sha256": "5b00aa75addf8d6b9e5b17ef7185e902fcdc63bbf90de9d522a6a77bf39715dc"
+    },
+    "daily_long_auxiliary": {
+      "bytes": 827552,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/daily_long_auxiliary.parquet",
+      "sha256": "02e62c7e6879487d2a0aec755e0ca3733ab9fe19c1338fc87b51d73407c6ed64"
+    },
+    "power_point_metadata": {
+      "bytes": 2935,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/power_point_metadata.csv",
+      "sha256": "90e6cba3c65dc4a4ea4caef3b8a761b9905753a2dbbe149c152d0830a8e82e5b"
+    },
+    "raw_request_log": {
+      "bytes": 4717,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/raw_request_log.json",
+      "sha256": "55f98f244b147b8dd9351361640580fd435d96a73d7d62e843c57a5baeb48f0d"
+    },
+    "request_plan": {
+      "bytes": 2172,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/request_plan.json",
+      "sha256": "75ec5d2ba27ed298381cbd8633e9abfd9e94c36951c5c05e57ce5ab5388cc4dd"
+    },
+    "source_failures": {
+      "bytes": 630,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/source_failures.json",
+      "sha256": "3fb9813e6d7432b3100ea5dad53a28d30cc0488781186040132aeb167735855a"
+    },
+    "terminal_migration": {
+      "bytes": 1535,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_05020001/terminal_migration.json",
+      "sha256": "7112d3ff024ea9a1e005b9c9b716b5f261b6a4a1cf4f70de89077e6cf1bd1aec"
+    }
+  },
+  "base_v1_roster_network_plan_sha256": "60ac32426d0fcabfb2c2da58848ceb031f4532e18d11f0c5a434c8282d7945c8",
+  "formal_evidence": false,
+  "locked_provider_nonnumeric_codes": [
+    "Ice",
+    "Eqp",
+    "***",
+    "Bkw",
+    "Rat"
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_6",
+  "n_auxiliary_rows": 67788,
+  "n_raw_responses": 4,
+  "n_sites": 3,
+  "n_source_failures_or_unavailable": 3,
+  "network_id": "huc8_05020001",
+  "network_interval_reported": false,
+  "network_plan_sha256": "4e9db1a1832955b2a0a526dee5832099d156c8e5a69f58f7a7fefdc95d830ada",
+  "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "previous_attempt_archive": "attempts/attempt_0004",
+  "provider_free_terminal_migration": {
+    "accepted": true,
+    "archive": "attempts/attempt_0004",
+    "archive_core_bound_to_historical_plan": true,
+    "audit_path": "attempts/terminal_migration_audit/migration_0001.json",
+    "audit_sequence": 1,
+    "completed_at_utc": "2026-08-26T23:34:24.255453+00:00",
+    "eligible_numeric_keys_and_values_exact": true,
+    "hydraulics_reparsed_from_raw": true,
+    "manifest_schema": "t2_v91_open_role_mh_provider_free_terminal_migration_v1",
+    "n_new_eligible_numeric_rows": 67788,
+    "n_new_excluded_nonnumeric_rows": 0,
+    "n_old_eligible_numeric_rows": 67788,
+    "n_verified_request_response_pairs": 4,
+    "network_id": "huc8_05020001",
+    "new_excluded_nonnumeric_code_counts": {},
+    "newly_locked_provider_nonnumeric_codes": [],
+    "power_reparsed_from_raw": true,
+    "previous_audit_path": null,
+    "previous_audit_sha256": null,
+    "provider_calls": 0,
+    "provider_responses_reused_from_archive_only": true,
+    "raw_file_set_exact_and_regular": true,
+    "raw_request_and_response_sha256_verified": true,
+    "role": "development",
+    "source_archive_manifest_sha256": "fe2de47c89dca0cb83932e0683af6414b34dba9983554e34fd4107a58b608508",
+    "source_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_5",
+    "source_network_manifest_sha256": "cf91b068bceefbbed88ed19fc0162f3d01ef24ef8ee8b0fc85ca8eb7310e1faf",
+    "source_request_plan_sha256": "9c6d0699a517d332497859e6856c95f4796f77ce75b4a409e361e55ae225212a",
+    "started_at_utc": "2026-08-26T23:34:16.488127+00:00",
+    "target_parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6"
+  },
+  "provider_qc": {
+    "POWER": "finite and not provider fill_value",
+    "USGS_LEGACY": "RDB qualifier prefix A only; P/other retained as NA"
+  },
+  "provider_request_counts": {
+    "nasa_power_daily_point": 3,
+    "usgs_legacy_nwis_dv_rdb": 1
+  },
+  "purpose": "legacy_transport_auxiliary_materialization_not_performance_evidence",
+  "raw_response_hashes_complete_for_logged_responses": true,
+  "raw_response_sha256": [
+    "2386bdca9abd418a76975113c8e7fb604e5a4a04c83bc3a8dcbbd5e5b55b02c9",
+    "4ed576bd780470d8f4f348bd23dc14f2f8e743c3e1476db8233a951c967e77e2",
+    "233722b54aff27316e334da5d27cc28ca6d99144dc98949eb8c57ebdc8a67229",
+    "09ea01b95b4fd5d3629abcb32c695142746201443e07cb38dd3a63071b09dc70"
+  ],
+  "retry_audit": [],
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "03054500",
+    "03056000",
+    "03057000"
+  ],
+  "source_failure_status_counts": {
+    "source_unavailable_no_rows_in_successful_response": 3
+  },
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "status": "materialized_partial",
+  "temperature_columns_read": [],
+  "v1_ogc_root_read_or_mutated": false
+}

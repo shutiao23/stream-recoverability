@@ -1,0 +1,88 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2026-07-13",
+      "estimated_site_days": 87688,
+      "network_id": "huc8_04070007",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_b5a4d1eaea1402c3bcef",
+      "role": "development",
+      "site_ids": [
+        "04136000",
+        "04136500",
+        "04136900",
+        "04137005",
+        "04137020",
+        "04137025",
+        "04137030",
+        "04137500"
+      ],
+      "start": "1996-07-10",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04136000%2C04136500%2C04136900%2C04137005%2C04137020%2C04137025%2C04137030%2C04137500&startDT=1996-07-10&endDT=2026-07-13&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 9,
+  "network_id": "huc8_04070007",
+  "network_plan_sha256": "4c39c091d4fc4256fe6f3afbe26072f52e9ba34c3b84e285d418e12a84b44640",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2026-05-31",
+      "site_id": "04136000",
+      "start": "1996-07-12",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-84.2925146&latitude=44.6769593&start=19960712&end=20260531&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-01-04",
+      "site_id": "04136500",
+      "start": "1996-07-11",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-84.1311167&latitude=44.66001385&start=19960711&end=20260104&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-04-28",
+      "site_id": "04136900",
+      "start": "1996-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.8376616&latitude=44.61277537&start=19961001&end=20260428&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-05-31",
+      "site_id": "04137005",
+      "start": "1996-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.802764&latitude=44.56084749&start=19961001&end=20260531&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-04-29",
+      "site_id": "04137020",
+      "start": "1996-07-10",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.7213714&latitude=44.46334886&start=19960710&end=20260429&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-07-13",
+      "site_id": "04137025",
+      "start": "1996-07-11",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.6744254&latitude=44.4541823&start=19960711&end=20260713&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-12-14",
+      "site_id": "04137030",
+      "start": "1996-07-10",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.57108839&latitude=44.47279328&start=19960710&end=20251214&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-11-13",
+      "site_id": "04137500",
+      "start": "1996-07-12",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-83.4338609&latitude=44.43640447&start=19960712&end=20251113&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": "attempts/attempt_0004",
+  "request_plan_sha256": "1c04cd1dade2a4077280c7821ed620f40a07994a594e9f7b2fae598a5d443df6",
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

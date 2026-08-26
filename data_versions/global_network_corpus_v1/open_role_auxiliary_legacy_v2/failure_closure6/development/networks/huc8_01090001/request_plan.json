@@ -1,0 +1,95 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2025-11-23",
+      "estimated_site_days": 92538,
+      "network_id": "huc8_01090001",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_7427e531c761abbad580",
+      "role": "development",
+      "site_ids": [
+        "01104370",
+        "01104410",
+        "01104415",
+        "01104420",
+        "01104430",
+        "01104453",
+        "01104455",
+        "01104460",
+        "01104475"
+      ],
+      "start": "1997-09-30",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01104370%2C01104410%2C01104415%2C01104420%2C01104430%2C01104453%2C01104455%2C01104460%2C01104475&startDT=1997-09-30&endDT=2025-11-23&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 10,
+  "network_id": "huc8_01090001",
+  "network_plan_sha256": "f98923def932694d7cb04cbd3dc30d7288ac5bf3783ea099d93c799fba4182c0",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2025-05-20",
+      "site_id": "01104370",
+      "start": "2010-01-09",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2894444&latitude=42.38555556&start=20100109&end=20250520&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2022-12-11",
+      "site_id": "01104410",
+      "start": "1997-11-07",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2642235&latitude=42.43648406&start=19971107&end=20221211&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-11-23",
+      "site_id": "01104415",
+      "start": "1997-10-04",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2600567&latitude=42.43592855&start=19971004&end=20251123&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-06-30",
+      "site_id": "01104420",
+      "start": "2012-03-26",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2575565&latitude=42.4198177&start=20120326&end=20250630&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-05-27",
+      "site_id": "01104430",
+      "start": "1997-09-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2733903&latitude=42.3981512&start=19970930&end=20240527&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-06-30",
+      "site_id": "01104453",
+      "start": "2006-06-02",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.27527778&latitude=42.37138889&start=20060602&end=20250630&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2022-12-07",
+      "site_id": "01104455",
+      "start": "2002-09-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.27033448&latitude=42.37259606&start=20020930&end=20221207&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-11-11",
+      "site_id": "01104460",
+      "start": "1997-10-31",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2706123&latitude=42.368985&start=19971031&end=20241111&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-07-30",
+      "site_id": "01104475",
+      "start": "2003-12-24",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-71.2681121&latitude=42.3545408&start=20031224&end=20240730&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": "attempts/attempt_0008",
+  "request_plan_sha256": "7b426772b28f8cad398f8fa457f04f6946975e126a75a1335ce41adcfad82b1a",
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

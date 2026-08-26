@@ -1,0 +1,34 @@
+[
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_legacy_nwis_dv_rdb",
+    "site_id": "04124000",
+    "status": "source_unavailable_no_rows_in_successful_response",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_legacy_nwis_dv_rdb",
+    "site_id": "04124200",
+    "status": "source_unavailable_no_rows_in_successful_response",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_legacy_nwis_dv_rdb",
+    "site_id": "04125460",
+    "status": "source_unavailable_no_rows_in_successful_response",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_legacy_nwis_dv_rdb",
+    "site_id": "04125550",
+    "status": "source_unavailable_no_rows_in_successful_response",
+    "variable": "L"
+  }
+]

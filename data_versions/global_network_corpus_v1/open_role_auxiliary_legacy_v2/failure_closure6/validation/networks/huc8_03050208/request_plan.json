@@ -1,0 +1,67 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2013-03-14",
+      "estimated_site_days": 26290,
+      "network_id": "huc8_03050208",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_47a577d1a5f08c3a2283",
+      "role": "validation",
+      "site_ids": [
+        "02176585",
+        "02176603",
+        "02176611",
+        "02176635",
+        "02176640"
+      ],
+      "start": "1998-10-22",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02176585%2C02176603%2C02176611%2C02176635%2C02176640&startDT=1998-10-22&endDT=2013-03-14&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 6,
+  "network_id": "huc8_03050208",
+  "network_plan_sha256": "7b04d98eafe25d0e62ff53c852235e7c8248d134ea1a620b77dcff93c9255a01",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2013-03-14",
+      "site_id": "02176585",
+      "start": "1998-11-06",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-80.692606&latitude=32.47407909&start=19981106&end=20130314&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2013-03-14",
+      "site_id": "02176603",
+      "start": "1998-10-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-80.6692526&latitude=32.42739226&start=19981030&end=20130314&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2007-03-20",
+      "site_id": "02176611",
+      "start": "1998-10-22",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-80.6753845&latitude=32.39463887&start=19981022&end=20070320&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2007-04-02",
+      "site_id": "02176635",
+      "start": "1998-10-22",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-80.7145514&latitude=32.3771401&start=19981022&end=20070402&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2013-02-25",
+      "site_id": "02176640",
+      "start": "1998-10-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-80.668996&latitude=32.35019676&start=19981030&end=20130225&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": null,
+  "request_plan_sha256": "6243b7176cafff9bbab9249e4c4afb9eb7bdfc0dacd2f2b3072eccae08294144",
+  "role": "validation",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

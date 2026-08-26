@@ -1,0 +1,44 @@
+{
+  "acquisition_schema": "t2_v91_open_role_mh_network_acquisition_v2_6",
+  "adapter_contract_version": "t2_v91_information_adapter_v1",
+  "legacy_approval_policy": "qualifier prefix A only; all other finite rows retained with value NA",
+  "legacy_nonnumeric_policy": {
+    "locked_codes": [
+      "Ice",
+      "Eqp",
+      "***",
+      "Bkw",
+      "Rat"
+    ],
+    "qc_status": "excluded_non_numeric_provider_code",
+    "raw_text_column": "raw_text",
+    "unknown_nonempty_text": "fail_closed",
+    "value_policy": "value_and_raw_value_NA_quality_not_approved"
+  },
+  "legacy_unit_conversion": {
+    "F": "ft3_per_s * 0.028316846592",
+    "L": "ft * 0.3048"
+  },
+  "missing_source_policy": "record_failure_and_leave_absent_no_fill",
+  "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
+  "provider_free_terminal_migration": true,
+  "providers": {
+    "H": "usgs_legacy_nwis_dv_rdb",
+    "M": "nasa_power_daily_point"
+  },
+  "table": "daily_long_auxiliary.parquet",
+  "v1_ogc_root_read_or_mutated": false,
+  "variables": {
+    "H": [
+      "F",
+      "L"
+    ],
+    "M": [
+      "Ta",
+      "P",
+      "W",
+      "RH",
+      "Rs"
+    ]
+  }
+}

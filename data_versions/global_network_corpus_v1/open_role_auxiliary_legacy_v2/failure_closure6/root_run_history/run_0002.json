@@ -1,0 +1,64 @@
+{
+  "completed_at_utc": "2026-08-26T21:03:03.122763+00:00",
+  "corpus_plan_sha256": "9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783",
+  "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
+  "n_networks_executed_now": 1,
+  "n_networks_resumed": 0,
+  "n_networks_selected": 67,
+  "performance_metrics_computed": false,
+  "previous_root_state": null,
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [
+      {
+        "attempt_number": 1,
+        "cooldown_seconds": 15.0,
+        "event": "transient_provider_failure",
+        "exhausted": false,
+        "jitter_seconds": 0.0,
+        "reason": "HTTP 503 while fetching https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01095220%2C01095375%2C01095434&startDT=1997-04-06&endDT=2026-04-12&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+        "retry_budget": 4,
+        "retry_index": 0,
+        "status": 503,
+        "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01095220%2C01095375%2C01095434&startDT=1997-04-06&endDT=2026-04-12&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+      },
+      {
+        "attempt_number": 2,
+        "cooldown_seconds": 30.0,
+        "event": "transient_provider_failure",
+        "exhausted": false,
+        "jitter_seconds": 0.0,
+        "reason": "HTTP 503 while fetching https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01095220%2C01095375%2C01095434&startDT=1997-04-06&endDT=2026-04-12&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+        "retry_budget": 4,
+        "retry_index": 1,
+        "status": 503,
+        "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01095220%2C01095375%2C01095434&startDT=1997-04-06&endDT=2026-04-12&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+      }
+    ],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 13,
+    "n_retry_events": 2,
+    "request_interval_seconds": 3.0
+  },
+  "run_manifest": {
+    "bytes": 4914,
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
+    "sha256": "a6ca843a431d8d9a4c26554f4af588c3a49f9a2794717b2ae9648567c3184167"
+  },
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "dc35a77874a3b5893431548dd11dd8114326f2c8c519047a214ab9ada5f14182",
+  "started_at_utc": "2026-08-26T21:01:03.318292+00:00",
+  "status": "execution_stopped_fail_closed",
+  "stop": {
+    "error": "[Errno 2] No such file or directory: '/home/lzq/workspace/parttime/stream-recoverability/data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_01090001/raw/nasa_power/01104453/page_0001.response.json'",
+    "error_type": "FileNotFoundError",
+    "network_id": "huc8_01090001",
+    "reason": "network_acquisition_error"
+  },
+  "v1_ogc_root_read_or_mutated": false
+}

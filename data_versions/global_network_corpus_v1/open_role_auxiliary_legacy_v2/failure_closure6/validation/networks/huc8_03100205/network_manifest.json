@@ -1,0 +1,98 @@
+{
+  "acquisition_terminal": true,
+  "artifacts": {
+    "adapter_schema": {
+      "bytes": 1162,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/adapter_schema.json",
+      "sha256": "58b3f40d837993b1a63cde5b7434b7f1b7d853726e767f6a591ebc4ae68c78d2"
+    },
+    "coverage": {
+      "bytes": 4375,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/coverage.csv",
+      "sha256": "9b2a70c5bec0b46906d1c80fb1b35a81b99455e448284590ee61a431c6632fcd"
+    },
+    "daily_long_auxiliary": {
+      "bytes": 1281385,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/daily_long_auxiliary.parquet",
+      "sha256": "d4cef1a3ae95f303737697f17382b3071ec35ac77aac4013e37f67cce0587baa"
+    },
+    "power_point_metadata": {
+      "bytes": 4703,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/power_point_metadata.csv",
+      "sha256": "56b9189ccfb8bf9e839b5f1e7321b48f3d42d7339d8ebc15cfd780e9a0711ca8"
+    },
+    "raw_request_log": {
+      "bytes": 6824,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/raw_request_log.json",
+      "sha256": "0ed320086f660a4ff698e6a055bbe7e7162ebac9964fc54404fe25ebd1dbdb31"
+    },
+    "request_plan": {
+      "bytes": 2888,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/request_plan.json",
+      "sha256": "4844cd1897dca26a35f91d8f563360886eac017c30c325cd75770057ade0c1e1"
+    },
+    "source_failures": {
+      "bytes": 1468,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/validation/networks/huc8_03100205/source_failures.json",
+      "sha256": "c53a22369bf9a4ace0a67b68dc13e2e3366e0241b27fff3272e0773db52c78b3"
+    }
+  },
+  "base_v1_roster_network_plan_sha256": "9e8c894c5b7d4ffe444df836ba3a8765e11d82a6a7ab8b9d385ab62e24e5adee",
+  "formal_evidence": false,
+  "locked_provider_nonnumeric_codes": [
+    "Ice",
+    "Eqp",
+    "***",
+    "Bkw",
+    "Rat"
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_6",
+  "n_auxiliary_rows": 122981,
+  "n_raw_responses": 6,
+  "n_sites": 5,
+  "n_source_failures_or_unavailable": 7,
+  "network_id": "huc8_03100205",
+  "network_interval_reported": false,
+  "network_plan_sha256": "c787deee97e41910ea2f49426b61430ab527c520bda1fcc510a113f7fbdaf357",
+  "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "previous_attempt_archive": null,
+  "provider_free_terminal_migration": null,
+  "provider_qc": {
+    "POWER": "finite and not provider fill_value",
+    "USGS_LEGACY": "RDB qualifier prefix A only; P/other retained as NA"
+  },
+  "provider_request_counts": {
+    "nasa_power_daily_point": 5,
+    "usgs_legacy_nwis_dv_rdb": 1
+  },
+  "purpose": "legacy_transport_auxiliary_materialization_not_performance_evidence",
+  "raw_response_hashes_complete_for_logged_responses": true,
+  "raw_response_sha256": [
+    "7a38c8c17b7ddcbffe46192e539c1e9d33e6ea74a5988160ad641fc6647e9277",
+    "d216d921dd4962c7e5530bcbddf9035f6b6df5e83eb3a4a095eb0423b5f11955",
+    "c764f19c1d27d300e0b1238fe0a714febd151d88010532b0d184fed2c171e05f",
+    "cd51d5460fa7758337f0575c3ce74c02e12c77816bb2286ff2ca803739e9858c",
+    "790053714ef34569987d17c6b3b0fa82085b0b95551d48f4ef666cde8ba37ceb",
+    "978ee41ad6f800092244a70df2516b20d227a8310b4930d1586d9463672df003"
+  ],
+  "retry_audit": [],
+  "role": "validation",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "02304000",
+    "02304510",
+    "02304517",
+    "023060013",
+    "02306028"
+  ],
+  "source_failure_status_counts": {
+    "source_unavailable_no_rows_in_successful_response": 7
+  },
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "status": "materialized_partial",
+  "temperature_columns_read": [],
+  "v1_ogc_root_read_or_mutated": false
+}

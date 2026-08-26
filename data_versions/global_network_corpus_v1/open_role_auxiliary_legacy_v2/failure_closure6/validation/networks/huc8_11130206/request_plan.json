@@ -1,0 +1,60 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2024-11-09",
+      "estimated_site_days": 44040,
+      "network_id": "huc8_11130206",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_b22b5cac4cf356c09753",
+      "role": "validation",
+      "site_ids": [
+        "07311900",
+        "07312100",
+        "07312500",
+        "07312700"
+      ],
+      "start": "1994-09-19",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07311900%2C07312100%2C07312500%2C07312700&startDT=1994-09-19&endDT=2024-11-09&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 5,
+  "network_id": "huc8_11130206",
+  "network_plan_sha256": "d287a2406f1ac51433765098e0de02fb690daf25c849d90f6bc75640372ec84f",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2014-09-29",
+      "site_id": "07311900",
+      "start": "1996-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-99.3886905&latitude=33.70036966&start=19961001&end=20140929&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2011-09-29",
+      "site_id": "07312100",
+      "start": "1994-09-19",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-99.1428495&latitude=33.7600934&start=19940919&end=20110929&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-11-09",
+      "site_id": "07312500",
+      "start": "1998-09-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-98.53367399&latitude=33.90955506&start=19980930&end=20241109&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-09-17",
+      "site_id": "07312700",
+      "start": "1996-09-30",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-98.2967139&latitude=34.0531504&start=19960930&end=20240917&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": null,
+  "request_plan_sha256": "eff784d32e7939300c557fa6a68bf84229db64456808ab000c61f5d3fd85b73b",
+  "role": "validation",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

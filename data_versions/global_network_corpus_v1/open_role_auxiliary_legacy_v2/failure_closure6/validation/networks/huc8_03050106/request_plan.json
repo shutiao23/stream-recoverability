@@ -1,0 +1,53 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2026-07-06",
+      "estimated_site_days": 57816,
+      "network_id": "huc8_03050106",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_4ccd8fb3979affb0b43a",
+      "role": "validation",
+      "site_ids": [
+        "02156500",
+        "02160991",
+        "02162035"
+      ],
+      "start": "1973-10-01",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02156500%2C02160991%2C02162035&startDT=1973-10-01&endDT=2026-07-06&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 4,
+  "network_id": "huc8_03050106",
+  "network_plan_sha256": "1db818493e0ad379f99284b2077cd81b9b021566d1964e0aaffb7b490d409822",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2025-11-17",
+      "site_id": "02156500",
+      "start": "1983-12-08",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-81.4212089&latitude=34.5951393&start=19831208&end=20251117&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-07-06",
+      "site_id": "02160991",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-81.3303747&latitude=34.26070285&start=19810101&end=20260706&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-11-24",
+      "site_id": "02162035",
+      "start": "2011-07-02",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-81.0733333&latitude=34.0483333&start=20110702&end=20251124&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": null,
+  "request_plan_sha256": "33b1da0e39c4263ec0dab1b4f1fd9d074e8ec8065f44bcc5844933db22180655",
+  "role": "validation",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

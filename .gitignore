@@ -8,6 +8,7 @@ build/
 checkpoints/*.pt
 checkpoints/*.pth
 **/.acquisition.lock
+data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/**/attempts/
 
 # Runtime-only validation artifacts.  Keep compact aggregate evidence explicit;
 # never add checkpoints, per-scenario files, logs, masks, or dated predictions.

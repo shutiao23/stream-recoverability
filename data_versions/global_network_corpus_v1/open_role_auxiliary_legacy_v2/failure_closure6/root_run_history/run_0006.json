@@ -1,0 +1,56 @@
+{
+  "completed_at_utc": "2026-08-26T22:36:36.198955+00:00",
+  "corpus_plan_sha256": "c28acc3e2decf7886520d5f6a97fadb0e1dd81844fafe391d8252b1980ffeb2c",
+  "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_4",
+  "n_networks_executed_now": 36,
+  "n_networks_resumed": 0,
+  "n_networks_selected": 67,
+  "performance_metrics_computed": false,
+  "previous_root_state": {
+    "bytes": 2316,
+    "path": "root_run_history/run_0005.json",
+    "sha256": "edbd81fdf307760d264073305096b86143517920aa0d55f505edffc9971232bc"
+  },
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [
+      {
+        "attempt_number": 1,
+        "cooldown_seconds": 15.0,
+        "event": "transient_provider_failure",
+        "exhausted": false,
+        "jitter_seconds": 0.0,
+        "reason": "HTTP 503 while fetching https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03293510%2C03297800%2C03297900%2C03298000%2C03298135%2C03298150%2C03298200%2C03298250%2C03301900%2C03301940%2C03302000%2C03302030%2C03302050&startDT=1988-09-30&endDT=2026-07-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+        "retry_budget": 4,
+        "retry_index": 0,
+        "status": 503,
+        "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03293510%2C03297800%2C03297900%2C03298000%2C03298135%2C03298150%2C03298200%2C03298250%2C03301900%2C03301940%2C03302000%2C03302030%2C03302050&startDT=1988-09-30&endDT=2026-07-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+      }
+    ],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 204,
+    "n_retry_events": 1,
+    "request_interval_seconds": 3.0
+  },
+  "run_manifest": {
+    "bytes": 8203,
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
+    "sha256": "7bf8dfdc81bde0e8bb62171c4e5b728ac1d8adedf0bb6a82fad29a4d6885d5d6"
+  },
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "93c3cf2e8979b79ce35e80bf29aed35947cecdf289b3a561f2f20e044a011f4c",
+  "started_at_utc": "2026-08-26T22:14:31.675287+00:00",
+  "status": "execution_stopped_fail_closed",
+  "stop": {
+    "error": "legacy RDB contained unknown non-numeric provider text 'Rat'",
+    "error_type": "ValueError",
+    "network_id": "huc8_05140102",
+    "reason": "network_acquisition_error"
+  },
+  "v1_ogc_root_read_or_mutated": false
+}

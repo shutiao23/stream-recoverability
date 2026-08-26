@@ -1,0 +1,83 @@
+[
+  {
+    "content_type": "text/plain;charset=UTF-8",
+    "http_status": 200,
+    "network_id": "huc8_07120004",
+    "provider": "usgs_legacy_nwis_dv_rdb",
+    "provider_free_terminal_migration_replayed": true,
+    "request_artifact": "raw/usgs_legacy/legacy_dv_bb2328f6c877907bbe41/request.json",
+    "request_kind": "network_batch_daily_values_rdb",
+    "request_sha256": "2a305a32b7281e79a327f2b2f11bb4f9b6a3892a20a7b191edad1223000022b0",
+    "request_url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05536995%2C05537980%2C05539670&startDT=1973-03-29&endDT=2026-04-20&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+    "response_artifact": "raw/usgs_legacy/legacy_dv_bb2328f6c877907bbe41/response.rdb",
+    "response_sha256": "bf54b958bce23b1334900325d677e18f177d61f0de53a8ab7c16aa95443e6fb9",
+    "response_url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05536995%2C05537980%2C05539670&startDT=1973-03-29&endDT=2026-04-20&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+    "rows_after_station_window_filter": 9191,
+    "site_ids": [
+      "05536995",
+      "05537980",
+      "05539670"
+    ],
+    "variables": [
+      "F",
+      "L"
+    ]
+  },
+  {
+    "api_key_header_used": false,
+    "content_type": "application/json",
+    "etag": null,
+    "http_status": 200,
+    "last_modified": null,
+    "page_number": 1,
+    "provider": "nasa_power",
+    "provider_free_terminal_migration_replayed": true,
+    "request_artifact": "raw/nasa_power/05536995/page_0001.request.json",
+    "request_kind": "daily_point_meteorology",
+    "request_sha256": "3305144a056e42e8fa416a6f30fddf1a45805fa24c84b95b33335b85bead5a77",
+    "request_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.0599722&latitude=41.64&start=20170329&end=20260324&format=JSON&time-standard=UTC",
+    "response_artifact": "raw/nasa_power/05536995/page_0001.response.json",
+    "response_sha256": "44db501aa417d64ac44d1dae461ee9e845851b91a7406f9b9ddef52d3c9b5b78",
+    "response_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.0599722&latitude=41.64&start=20170329&end=20260324&format=JSON&time-standard=UTC",
+    "site_id": "05536995",
+    "variable": null
+  },
+  {
+    "api_key_header_used": false,
+    "content_type": "application/json",
+    "etag": null,
+    "http_status": 200,
+    "last_modified": null,
+    "page_number": 1,
+    "provider": "nasa_power",
+    "provider_free_terminal_migration_replayed": true,
+    "request_artifact": "raw/nasa_power/05537980/page_0001.request.json",
+    "request_kind": "daily_point_meteorology",
+    "request_sha256": "366ad3dd1eb08a935b9c8fa132326309f0ea8f7b0aa71f1ca3d02ac8818577c4",
+    "request_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.0836944&latitude=41.5364722&start=20171117&end=20260106&format=JSON&time-standard=UTC",
+    "response_artifact": "raw/nasa_power/05537980/page_0001.response.json",
+    "response_sha256": "caace8ed67a53afde71f70abbdd1d99a069b0156ec0cb6dd838da52e466a01f3",
+    "response_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.0836944&latitude=41.5364722&start=20171117&end=20260106&format=JSON&time-standard=UTC",
+    "site_id": "05537980",
+    "variable": null
+  },
+  {
+    "api_key_header_used": false,
+    "content_type": "application/json",
+    "etag": null,
+    "http_status": 200,
+    "last_modified": null,
+    "page_number": 1,
+    "provider": "nasa_power",
+    "provider_free_terminal_migration_replayed": true,
+    "request_artifact": "raw/nasa_power/05539670/page_0001.request.json",
+    "request_kind": "daily_point_meteorology",
+    "request_sha256": "36fe2d198f2c6af1be2949a42373e55c369ac261a1b481254c3a2508559299b6",
+    "request_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.2144444&latitude=41.41444444&start=19810101&end=20260420&format=JSON&time-standard=UTC",
+    "response_artifact": "raw/nasa_power/05539670/page_0001.response.json",
+    "response_sha256": "7ea48de71f7fb507474e5679dbb0f7caeb61d6e814532f3ddb2e37c6beca56b6",
+    "response_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-88.2144444&latitude=41.41444444&start=19810101&end=20260420&format=JSON&time-standard=UTC",
+    "site_id": "05539670",
+    "variable": null
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "completed_at_utc": "2026-08-26T22:04:59.600418+00:00",
+  "corpus_plan_sha256": "681f4bb3db4fbdcc78b3129fc028832a7adc4a3b48dfdf5d7fb1790bc0d78edf",
+  "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_3",
+  "n_networks_executed_now": 33,
+  "n_networks_resumed": 0,
+  "n_networks_selected": 67,
+  "performance_metrics_computed": false,
+  "previous_root_state": {
+    "bytes": 1632,
+    "path": "root_run_history/run_0004.json",
+    "sha256": "246af52cad32b8b93a6a72bf88a7a4ae485141a9eab733b645a8bbbb396e1cfc"
+  },
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [
+      {
+        "attempt_number": 1,
+        "cooldown_seconds": 15.0,
+        "event": "transient_provider_failure",
+        "exhausted": false,
+        "jitter_seconds": 0.0,
+        "reason": "HTTP 503 while fetching https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03054500%2C03056000%2C03057000&startDT=2008-09-30&endDT=2020-11-08&parameterCd=00060%2C00065&statCd=00003&siteStatus=all",
+        "retry_budget": 4,
+        "retry_index": 0,
+        "status": 503,
+        "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03054500%2C03056000%2C03057000&startDT=2008-09-30&endDT=2020-11-08&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+      }
+    ],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 185,
+    "n_retry_events": 1,
+    "request_interval_seconds": 3.0
+  },
+  "run_manifest": {
+    "bytes": 7644,
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
+    "sha256": "65612f19153f59a662c9df074c7abcb53fe648b3f5fc20b5de4dbb53fbd9ca0f"
+  },
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "4867f353d16f2c424ff3c3755415391dde457f096b48bb186007e7e229b32721",
+  "started_at_utc": "2026-08-26T21:46:36.339582+00:00",
+  "status": "execution_stopped_fail_closed",
+  "stop": {
+    "error": "legacy RDB contained unknown non-numeric provider text 'Bkw'",
+    "error_type": "ValueError",
+    "network_id": "huc8_05120201",
+    "reason": "network_acquisition_error"
+  },
+  "v1_ogc_root_read_or_mutated": false
+}

@@ -1,0 +1,43 @@
+{
+  "completed_at_utc": "2026-08-26T21:14:17.271566+00:00",
+  "corpus_plan_sha256": "9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783",
+  "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
+  "n_networks_executed_now": 9,
+  "n_networks_resumed": 1,
+  "n_networks_selected": 67,
+  "performance_metrics_computed": false,
+  "previous_root_state": {
+    "bytes": 3052,
+    "path": "root_run_history/run_0002.json",
+    "sha256": "30068b90b1ecf44537c1689f1a3d38c01529b3920e95d6d181afca3c6b095940"
+  },
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 57,
+    "n_retry_events": 0,
+    "request_interval_seconds": 3.0
+  },
+  "run_manifest": {
+    "bytes": 4321,
+    "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/run_manifest.json",
+    "sha256": "3236629eae3cf4464d6903c620f7f631f6ecbb1c64701e64291a5328a56ac1d2"
+  },
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "dc35a77874a3b5893431548dd11dd8114326f2c8c519047a214ab9ada5f14182",
+  "started_at_utc": "2026-08-26T21:07:25.381978+00:00",
+  "status": "execution_stopped_fail_closed",
+  "stop": {
+    "error": "legacy RDB contained unknown non-numeric provider text 'Eqp'",
+    "error_type": "ValueError",
+    "network_id": "huc8_02060003",
+    "reason": "network_acquisition_error"
+  },
+  "v1_ogc_root_read_or_mutated": false
+}

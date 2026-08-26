@@ -1,0 +1,142 @@
+{
+  "acquisition_terminal": true,
+  "artifacts": {
+    "adapter_schema": {
+      "bytes": 1161,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/adapter_schema.json",
+      "sha256": "6fbc984a7ac93b90cfc08b87930d973af83b0c681601d39a4b2d7a247fb3f4dd"
+    },
+    "coverage": {
+      "bytes": 7784,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/coverage.csv",
+      "sha256": "7440344d352dfb291929b17a9cc180ab8729224d0bfc713617bcf4961bbe2ffb"
+    },
+    "daily_long_auxiliary": {
+      "bytes": 3271783,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/daily_long_auxiliary.parquet",
+      "sha256": "23065008861d9480ae414f1e0cdaec060b9e4a7a6e17db8cf8abca19172cff6a"
+    },
+    "power_point_metadata": {
+      "bytes": 8230,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/power_point_metadata.csv",
+      "sha256": "93b119edcdf2555ac2a8fbc325196e75ca36f3312ec21297c8c91dcc8e0d692d"
+    },
+    "raw_request_log": {
+      "bytes": 12033,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/raw_request_log.json",
+      "sha256": "0454f1b1c6588731df8303d470cc154430fcc1cbf756c404ef9c2002c69d7635"
+    },
+    "request_plan": {
+      "bytes": 4386,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/request_plan.json",
+      "sha256": "769f734375d0af67b81d535e4fd0e11168a713a9bd6622c518ef9097fc5dc2cf"
+    },
+    "source_failures": {
+      "bytes": 2100,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/source_failures.json",
+      "sha256": "40b4d27e929ea761b113d0e6185da8a00a61470019376164e21267b44a88a0c3"
+    },
+    "terminal_migration": {
+      "bytes": 1538,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/development/networks/huc8_07120001/terminal_migration.json",
+      "sha256": "789f580653b0e4a5b6d296cd0f5f702bd257448836647079ad1e8af23a4e169c"
+    }
+  },
+  "base_v1_roster_network_plan_sha256": "eb95b899c93661da00bdba21a724b9a4883ee6ca20f1b8b25dd7a61890711fb4",
+  "formal_evidence": false,
+  "locked_provider_nonnumeric_codes": [
+    "Ice",
+    "Eqp",
+    "***",
+    "Bkw",
+    "Rat"
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_6",
+  "n_auxiliary_rows": 313975,
+  "n_raw_responses": 10,
+  "n_sites": 9,
+  "n_source_failures_or_unavailable": 10,
+  "network_id": "huc8_07120001",
+  "network_interval_reported": false,
+  "network_plan_sha256": "02f45148264418b0c3151dfc27bdfb3323e0262680ee56c1915399af736e054c",
+  "parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "previous_attempt_archive": "attempts/attempt_0001",
+  "provider_free_terminal_migration": {
+    "accepted": true,
+    "archive": "attempts/attempt_0001",
+    "archive_core_bound_to_historical_plan": true,
+    "audit_path": "attempts/terminal_migration_audit/migration_0001.json",
+    "audit_sequence": 1,
+    "completed_at_utc": "2026-08-26T23:40:31.398600+00:00",
+    "eligible_numeric_keys_and_values_exact": true,
+    "hydraulics_reparsed_from_raw": true,
+    "manifest_schema": "t2_v91_open_role_mh_provider_free_terminal_migration_v1",
+    "n_new_eligible_numeric_rows": 312737,
+    "n_new_excluded_nonnumeric_rows": 0,
+    "n_old_eligible_numeric_rows": 312737,
+    "n_verified_request_response_pairs": 10,
+    "network_id": "huc8_07120001",
+    "new_excluded_nonnumeric_code_counts": {},
+    "newly_locked_provider_nonnumeric_codes": [],
+    "power_reparsed_from_raw": true,
+    "previous_audit_path": null,
+    "previous_audit_sha256": null,
+    "provider_calls": 0,
+    "provider_responses_reused_from_archive_only": true,
+    "raw_file_set_exact_and_regular": true,
+    "raw_request_and_response_sha256_verified": true,
+    "role": "development",
+    "source_archive_manifest_sha256": "f297ffcd091df9748a71f4aa92a1bc3ca017dcfe1ca989b48f6e0083c022ef19",
+    "source_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_5",
+    "source_network_manifest_sha256": "2ff51ba0564e109e92fd69f75436ecd71b030a772e522c540190f1fcd7b38278",
+    "source_request_plan_sha256": "154a21df876db34e5deaf4c4f9f9e382fa8a4c017199ce709d2cc5f252e7a6e6",
+    "started_at_utc": "2026-08-26T23:39:43.488826+00:00",
+    "target_parser_contract_version": "legacy_nwis_rdb_hydraulics_parser_v2_6"
+  },
+  "provider_qc": {
+    "POWER": "finite and not provider fill_value",
+    "USGS_LEGACY": "RDB qualifier prefix A only; P/other retained as NA"
+  },
+  "provider_request_counts": {
+    "nasa_power_daily_point": 9,
+    "usgs_legacy_nwis_dv_rdb": 1
+  },
+  "purpose": "legacy_transport_auxiliary_materialization_not_performance_evidence",
+  "raw_response_hashes_complete_for_logged_responses": true,
+  "raw_response_sha256": [
+    "81cc3b218effca9353fc02397bd6705ee3d4b612c5075068bcd4a72e503f4dfa",
+    "8750780ef3ad6eef65416c90786310072edfb6f3d406285d02cbec05a81e679a",
+    "1f9c15b207cdefb574daecf02175f1b4a99b1e6d33afb56a02bf5d852a9c44de",
+    "7a1c1a392879f911466791cc3233adcdc386253b812c5eb57cf8c78f2ce55e7d",
+    "3cbc153ce91547d856275a84023feb678dd2c4f7c248f324cceeaa9ef3cb7eb1",
+    "fa4ca24e544e1b6c1becd701a9bfc9b9da1cbc3cf04463fbf525dbb865af2748",
+    "3a0c705de455f3cdfb7de830f72747461ba4ed10193d07439b5e6e0beef2c5a6",
+    "fda3795dc8b247169443136b928e7e206d956df1b92b76321bf278f0b42675ab",
+    "915aa4db557976a2ce4c33fde1a1c57f7b74aa04f6f0a94c3f2b6cca6d9b0765",
+    "cac0f0eb60336d5c63066dd4eae4927994fb4c441c26df3b27efd177e4c2afc9"
+  ],
+  "retry_audit": [],
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "05515500",
+    "05516665",
+    "05517000",
+    "05517010",
+    "05517500",
+    "05518000",
+    "05527000",
+    "05527500",
+    "412320088154101"
+  ],
+  "source_failure_status_counts": {
+    "source_unavailable_no_rows_in_successful_response": 10
+  },
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "status": "materialized_partial",
+  "temperature_columns_read": [],
+  "v1_ogc_root_read_or_mutated": false
+}

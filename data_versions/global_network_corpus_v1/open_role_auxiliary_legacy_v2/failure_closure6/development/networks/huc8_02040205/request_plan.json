@@ -1,0 +1,88 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2026-04-19",
+      "estimated_site_days": 160472,
+      "network_id": "huc8_02040205",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_a03f2b1586b25ac520ee",
+      "role": "development",
+      "site_ids": [
+        "01478137",
+        "01480065",
+        "01480400",
+        "01480500",
+        "01480617",
+        "01480870",
+        "01481000",
+        "01481500"
+      ],
+      "start": "1971-05-20",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01478137%2C01480065%2C01480400%2C01480500%2C01480617%2C01480870%2C01481000%2C01481500&startDT=1971-05-20&endDT=2026-04-19&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 9,
+  "network_id": "huc8_02040205",
+  "network_plan_sha256": "9b4666aa746b842cde4d3972e8700f993801ea3e060172b7ed2d5b785f23c67c",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2026-04-19",
+      "site_id": "01478137",
+      "start": "1997-12-03",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.7791061&latitude=39.8217764&start=19971203&end=20260419&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2024-02-28",
+      "site_id": "01480065",
+      "start": "2006-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.6087222&latitude=39.71063889&start=20061001&end=20240228&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-09-22",
+      "site_id": "01480400",
+      "start": "1996-06-21",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.8449449&latitude=40.0273261&start=19960621&end=20250922&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-06-02",
+      "site_id": "01480500",
+      "start": "1995-01-05",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.8274467&latitude=39.98566144&start=19950105&end=20250602&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-12-17",
+      "site_id": "01480617",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.8013341&latitude=39.9617734&start=19810101&end=20251217&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-08-03",
+      "site_id": "01480870",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.6732715&latitude=39.9687191&start=19810101&end=20250803&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2026-03-01",
+      "site_id": "01481000",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.5932623&latitude=39.8698328&start=19810101&end=20260301&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2025-04-01",
+      "site_id": "01481500",
+      "start": "2006-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.576694&latitude=39.7695&start=20061001&end=20250401&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": "attempts/attempt_0005",
+  "request_plan_sha256": "2a499e3b5c12afec8feacd389023e0571337ad369aa3db19c060df6a657c4528",
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

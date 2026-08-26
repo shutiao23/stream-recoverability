@@ -1,0 +1,53 @@
+{
+  "legacy_requests": [
+    {
+      "end": "2015-09-30",
+      "estimated_site_days": 16251,
+      "network_id": "huc8_05090203",
+      "parameter_codes": [
+        "00060",
+        "00065"
+      ],
+      "request_id": "legacy_dv_9d6d25ccf89e19b532b9",
+      "role": "development",
+      "site_ids": [
+        "03262001",
+        "03277075",
+        "03277130"
+      ],
+      "start": "2000-12-01",
+      "statistic_code": "00003",
+      "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03262001%2C03277075%2C03277130&startDT=2000-12-01&endDT=2015-09-30&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+    }
+  ],
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+  "n_provider_requests": 4,
+  "network_id": "huc8_05090203",
+  "network_plan_sha256": "083b89576ec52013d9ad95efc93e81cdebfd794b9545cbcec2439fb8beb978fd",
+  "performance_metrics_computed": false,
+  "power_requests": [
+    {
+      "end": "2014-09-29",
+      "site_id": "03262001",
+      "start": "2000-12-02",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-84.804167&latitude=39.03&start=20001202&end=20140929&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2015-09-30",
+      "site_id": "03277075",
+      "start": "2000-12-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-84.7161111&latitude=38.99416667&start=20001201&end=20150930&format=JSON&time-standard=UTC"
+    },
+    {
+      "end": "2015-09-29",
+      "site_id": "03277130",
+      "start": "2000-12-02",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-84.7207555&latitude=38.84504677&start=20001202&end=20150929&format=JSON&time-standard=UTC"
+    }
+  ],
+  "previous_attempt_archive": "attempts/attempt_0003",
+  "request_plan_sha256": "03816163ab421c351178566501a37f4bb6c591370f7c295f915524ed8880e333",
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "temperature_columns_read": []
+}

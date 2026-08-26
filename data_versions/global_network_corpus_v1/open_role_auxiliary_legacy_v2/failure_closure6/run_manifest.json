@@ -1,54 +1,54 @@
 {
   "artifacts": {
     "corpus_request_plan": {
-      "bytes": 72599,
+      "bytes": 72771,
       "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/corpus_request_plan.json",
-      "sha256": "6db141d032336f841fcd436a50bd34ded687547b065d6bdc02e0f842328a48d3"
+      "sha256": "8fd806e1696ba6ce1576ccf944dd0778db8c1e0da0330c46c167854102341319"
     },
     "global_attrition": {
-      "bytes": 7910,
+      "bytes": 8503,
       "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition.csv",
-      "sha256": "82a7b55a9b6844cf287548225f7a46132db62470fe6a563b3feb196081ab6734"
+      "sha256": "ac4f905887991b5103f2a62627155fa37a91259d75269b9e6687bb35116365b6"
     },
     "global_attrition_summary": {
-      "bytes": 588,
+      "bytes": 597,
       "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition_summary.json",
-      "sha256": "12ddaf3f06ac450c851c6614e39404857aa33528deab188a41bdeea178bd7848"
+      "sha256": "0694e12709bc0b6e4a114585f179fe93dfe7e005fd32cb03bdf8b1e43e5f49d7"
     },
     "selected_run_plan": {
-      "bytes": 826,
+      "bytes": 2211,
       "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/selected_run_plan.json",
-      "sha256": "855b8e0234b7c1c16219092faf298dd575913cadab1c1281b00e1e4bf1e0486d"
+      "sha256": "d2883ede8b1717f04d8dc0ba248724953d16c15859447fd99c56053d75f88e94"
     }
   },
-  "corpus_plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+  "corpus_plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
   "dry_run": false,
   "execute": true,
   "formal_evidence": false,
   "global_attrition": {
     "manifest_schema": "t2_v91_open_role_mh_global_attrition_v2",
     "materialization_status_counts": {
-      "materialized_partial": 1,
-      "not_materialized": 66
+      "materialized_complete": 3,
+      "materialized_partial": 64
     },
-    "n_attempt_archives": 0,
-    "n_networks_materialized": 1,
+    "n_attempt_archives": 163,
+    "n_networks_materialized": 67,
     "n_networks_planned": 67,
-    "n_networks_remaining": 66,
-    "n_source_failures_or_unavailable": 3,
+    "n_networks_remaining": 0,
+    "n_source_failures_or_unavailable": 327,
     "passed": false,
     "performance_metrics_computed": false,
-    "plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+    "plan_sha256": "cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169",
     "sealed_temperature_records_read": false,
     "temperature_columns_read": [],
     "v1_ogc_root_read_or_mutated": false
   },
-  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v2",
-  "n_networks_executed_now": 1,
-  "n_networks_executed_or_resumed": 1,
+  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v2_6",
+  "n_networks_executed_now": 46,
+  "n_networks_executed_or_resumed": 67,
   "n_networks_in_frozen_roster": 67,
-  "n_networks_resumed": 0,
-  "n_networks_selected": 1,
+  "n_networks_resumed": 21,
+  "n_networks_selected": 67,
   "n_sites_in_frozen_roster": 340,
   "network_interval_reported": false,
   "passed": false,
@@ -62,20 +62,350 @@
     "http_429_cooldown_seconds": 120.0,
     "jitter_policy": "none_deterministic",
     "max_transient_retries": 4,
-    "n_base_calls": 4,
+    "n_base_calls": 158,
     "n_retry_events": 0,
     "request_interval_seconds": 3.0
   },
   "results": [
     {
+      "network_id": "huc8_01070004",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_01090001",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_01090004",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02020006",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
       "network_id": "huc8_02040103",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02040106",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02040203",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02040205",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02050104",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02050305",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02060003",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02070002",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02070008",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02070010",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_02080201",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03070101",
+      "resumed": true,
+      "status": "materialized_complete"
+    },
+    {
+      "network_id": "huc8_04020105",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_04040003",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_04060102",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_04060103",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_04070007",
+      "resumed": true,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_04140101",
       "resumed": false,
       "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05010005",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05010006",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05010007",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05020001",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05020005",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05020006",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05030102",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05040001",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05040005",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05090203",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05110001",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05120201",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05130202",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05140101",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_05140102",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_07040006",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_07070005",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_07120001",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_07120004",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_10230006",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_10300101",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_13060011",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_15030108",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_16020102",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_16050102",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03040206",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03050106",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03050109",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03050208",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03060106",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03070103",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03080103",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03090101",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03090204",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03100101",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03100204",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03100205",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03100207",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03150104",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_03160111",
+      "resumed": false,
+      "status": "materialized_complete"
+    },
+    {
+      "network_id": "huc8_11010014",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_11020002",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_11020003",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_11030012",
+      "resumed": false,
+      "status": "materialized_partial"
+    },
+    {
+      "network_id": "huc8_11130206",
+      "resumed": false,
+      "status": "materialized_complete"
     }
   ],
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
-  "selected_plan_sha256": "123e4f1fe6568b464a016dead397005fe6bed271665391c108c147e91e830785",
+  "selected_plan_sha256": "4732dbd85557dac2c0672bbe62f217af1e1cd6ad999fd1860458460119941803",
   "status": "execution_complete_for_selected_scope",
   "stop": null,
   "temperature_columns_read": [],

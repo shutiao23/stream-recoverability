@@ -23,7 +23,7 @@
   "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
   "n_provider_requests": 4,
   "network_id": "huc8_02040103",
-  "network_plan_sha256": "b4bd4c7323018864341c26717813486c893ee2b668aafa8eedd52ffb35ea4d22",
+  "network_plan_sha256": "8e641615c8f1e8d858cd23a5cc1dffb2b2faa21897261269e9af016bf40bbc42",
   "performance_metrics_computed": false,
   "power_requests": [
     {
@@ -45,8 +45,8 @@
       "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-75.1721186&latitude=41.4762002&start=20070823&end=20251118&format=JSON&time-standard=UTC"
     }
   ],
-  "previous_attempt_archive": null,
-  "request_plan_sha256": "def4e4072b9f70ad3898b8859f98535f4430984cc87955775b90f2629d91879c",
+  "previous_attempt_archive": "attempts/attempt_0006",
+  "request_plan_sha256": "c1a6e5f6fd7c6d5272a4bbf17c219cf410473a1b3415ef0b6f300bd7726210e9",
   "role": "development",
   "sealed_paths_traversed": false,
   "temperature_columns_read": []
