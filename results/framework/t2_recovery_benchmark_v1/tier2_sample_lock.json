@@ -1,0 +1,263 @@
+{
+  "catalog_declared_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "catalog_file_sha256": "f9de99831ed3eb78443fb4f84c593c54b548aa4717b5574db1853aaf231ef529",
+  "catalog_path": "configs/network_catalog_v3_split.yaml",
+  "data_availability_inspected": false,
+  "deep_models_run": false,
+  "design_id": "design_freeze_v9",
+  "gaps_all_required": [
+    30,
+    90,
+    180
+  ],
+  "manifest_schema": "t2_v91_tier2_postdownload_metadata_sample_freeze_v2",
+  "models": [
+    "air2stream",
+    "saits",
+    "csdi",
+    "grin"
+  ],
+  "n_allowed_range": [
+    28,
+    32
+  ],
+  "n_networks": 30,
+  "n_target": 30,
+  "not_t2_primary_y": true,
+  "pgdl_or_graph_wavenet": "remains_on_roster_same_tier_2_budget_not_a_posthoc_drop",
+  "preregistered": false,
+  "protocol_amendment": "v9.1",
+  "purpose": "sensitivity_whether_strong_models_change_recoverability_calibration",
+  "role_counts": {
+    "development": 14,
+    "sealed": 8,
+    "validation": 8
+  },
+  "sample": [
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_01070004",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_02020006",
+      "regulation_stratum": "unregulated",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_02040106",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03040207",
+      "regulation_stratum": "unmatched_gages",
+      "role": "validation",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03050101",
+      "regulation_stratum": "unregulated",
+      "role": "validation",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03050112",
+      "regulation_stratum": "regulated",
+      "role": "validation",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03070101",
+      "regulation_stratum": "unregulated",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03080103",
+      "regulation_stratum": "regulated",
+      "role": "validation",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03090101",
+      "regulation_stratum": "unregulated",
+      "role": "validation",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03090204",
+      "regulation_stratum": "unmatched_gages",
+      "role": "validation",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03100204",
+      "regulation_stratum": "regulated",
+      "role": "validation",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_subtropical",
+      "network_id": "huc8_03150104",
+      "regulation_stratum": "regulated",
+      "role": "validation",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_04090004",
+      "regulation_stratum": "unregulated",
+      "role": "development",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_05010005",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_05020005",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_05040005",
+      "regulation_stratum": "unmatched_gages",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_05060001",
+      "regulation_stratum": "unregulated",
+      "role": "development",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_05130204",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_07100006",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "humid_continental",
+      "network_id": "huc8_07120001",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "subtropical_semiarid",
+      "network_id": "huc8_12040101",
+      "regulation_stratum": "regulated",
+      "role": "sealed",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "cold_arid_highland",
+      "network_id": "huc8_14010003",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T1_small"
+    },
+    {
+      "climate_band": "cold_semiarid",
+      "network_id": "huc8_16050102",
+      "regulation_stratum": "regulated",
+      "role": "development",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17010201",
+      "regulation_stratum": "regulated",
+      "role": "sealed",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17070101",
+      "regulation_stratum": "unmatched_gages",
+      "role": "sealed",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17100301",
+      "regulation_stratum": "regulated",
+      "role": "sealed",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17110004",
+      "regulation_stratum": "unregulated",
+      "role": "sealed",
+      "size_tertile": "T3_large"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17110006",
+      "regulation_stratum": "unregulated",
+      "role": "sealed",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "marine_west_coast",
+      "network_id": "huc8_17110009",
+      "regulation_stratum": "regulated",
+      "role": "sealed",
+      "size_tertile": "T2_mid"
+    },
+    {
+      "climate_band": "mediterranean",
+      "network_id": "huc8_18040001",
+      "regulation_stratum": "regulated",
+      "role": "sealed",
+      "size_tertile": "T2_mid"
+    }
+  ],
+  "sample_frozen_before_tier2_model_execution": true,
+  "sample_locked_before_download": false,
+  "sample_sha256": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6",
+  "sealed_temperature_records_read": false,
+  "selection_fields_only": [
+    "network_id",
+    "role",
+    "climate_band",
+    "regulation_stratum",
+    "size_tertile"
+  ],
+  "selection_rule": "proportional_largest_remainder_by_climate_x_regulation_x_size_then_seeded_sha256",
+  "selection_seed": 20260826,
+  "status": "retrospective_metadata_only_sample_freeze_not_preregistered",
+  "timing_exception_ledger": "tier2_timing_exception_ledger.json"
+}

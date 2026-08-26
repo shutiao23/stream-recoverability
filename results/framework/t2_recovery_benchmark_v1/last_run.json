@@ -1,0 +1,18 @@
+{
+  "active_checkpoint_namespace": "checkpoints_v2",
+  "legacy_payload": {
+    "checkpoint_dir": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/checkpoints",
+    "executed": 2,
+    "formal_evidence": false,
+    "max_items": 2,
+    "resumed": 0,
+    "sealed_temperature_records_read": false,
+    "selected": 2,
+    "start_ordinal": 0,
+    "statuses": {
+      "complete": 2
+    }
+  },
+  "status": "legacy_obsolete_do_not_resume",
+  "superseded_by": "preparation_run.json"
+}

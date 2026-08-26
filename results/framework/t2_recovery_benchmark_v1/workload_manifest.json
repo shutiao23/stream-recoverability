@@ -1,0 +1,440 @@
+{
+  "aggregation_status": "blocked_network_level_achieved_skill_aggregation_not_implemented",
+  "dependency_audit": {
+    "hydraulics_H": false,
+    "meteorology_M": false,
+    "numpy": true,
+    "pandas": true,
+    "scipy_pchip": true,
+    "sklearn_donor": true,
+    "statsmodels_kalman": true,
+    "xgboost": true
+  },
+  "design_id": "design_freeze_v9",
+  "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
+  "formal_evidence": false,
+  "geometry_dependencies": {
+    "adversarial": "blocked_missing_predeclared_stress_catalog_binding",
+    "artificial_stress": "ready",
+    "natural_outage": "blocked_missing_frozen_empirical_outage_catalog_binding"
+  },
+  "go_no_go": "NO_GO_T2_PRIMARY_EVIDENCE",
+  "headline_claim_licensed": false,
+  "input_inventory": {
+    "allowed_input_roots": [
+      "open_role_qc/development",
+      "open_role_qc/validation",
+      "w3_development_pilot"
+    ],
+    "catalog_path": "configs/network_catalog_v3_split.yaml",
+    "catalog_roles_cross_checked": true,
+    "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+    "n_networks_eligible": 59,
+    "rejected": {
+      "duplicate_shadowed_by_preferred_root": 14,
+      "overlap_not_complete_enough": 50
+    },
+    "roles": {
+      "development": 43,
+      "validation": 16
+    },
+    "roots": [
+      {
+        "exists": true,
+        "expected_role": "development",
+        "networks_eligible": 43,
+        "networks_seen": 74,
+        "source_key": "open_role_qc/development"
+      },
+      {
+        "exists": true,
+        "expected_role": "validation",
+        "networks_eligible": 16,
+        "networks_seen": 29,
+        "source_key": "open_role_qc/validation"
+      },
+      {
+        "exists": true,
+        "expected_role": "development",
+        "networks_eligible": 0,
+        "networks_seen": 20,
+        "source_key": "w3_development_pilot"
+      }
+    ],
+    "sealed_input_roots_allowed": []
+  },
+  "manifest_schema": "t2_v91_open_role_workload_v2",
+  "n_networks": 59,
+  "network_ids": [
+    "huc8_01070004",
+    "huc8_01090001",
+    "huc8_01090004",
+    "huc8_02020006",
+    "huc8_02040106",
+    "huc8_02040203",
+    "huc8_02040205",
+    "huc8_02050305",
+    "huc8_02060003",
+    "huc8_02070002",
+    "huc8_02070008",
+    "huc8_02070010",
+    "huc8_02080201",
+    "huc8_03070101",
+    "huc8_04020105",
+    "huc8_04040003",
+    "huc8_04060102",
+    "huc8_04060103",
+    "huc8_04070007",
+    "huc8_04140101",
+    "huc8_05010005",
+    "huc8_05010006",
+    "huc8_05010007",
+    "huc8_05020001",
+    "huc8_05020005",
+    "huc8_05020006",
+    "huc8_05030102",
+    "huc8_05040001",
+    "huc8_05040005",
+    "huc8_05090203",
+    "huc8_05110001",
+    "huc8_05120201",
+    "huc8_05130202",
+    "huc8_05140101",
+    "huc8_05140102",
+    "huc8_07040006",
+    "huc8_07120001",
+    "huc8_07120004",
+    "huc8_10230006",
+    "huc8_10300101",
+    "huc8_15030108",
+    "huc8_16020102",
+    "huc8_16050102",
+    "huc8_03040206",
+    "huc8_03050106",
+    "huc8_03050109",
+    "huc8_03050208",
+    "huc8_03070103",
+    "huc8_03080103",
+    "huc8_03090101",
+    "huc8_03090204",
+    "huc8_03100101",
+    "huc8_03100205",
+    "huc8_03100207",
+    "huc8_03160111",
+    "huc8_11010014",
+    "huc8_11020002",
+    "huc8_11020003",
+    "huc8_11130206"
+  ],
+  "network_inference_status": "withheld_n_lt_100_network_interval",
+  "no_go_reasons": [
+    "n_open_networks_59_lt_100_network_interval_floor",
+    "network_level_achieved_skill_aggregation_not_implemented",
+    "natural_outage_geometry_binding_missing",
+    "adversarial_geometry_binding_missing",
+    "online_causal_runner_not_implemented"
+  ],
+  "primary_evidence_forbids": [
+    "eventwise_best_envelope",
+    "best_epoch_lt_50_posthoc_drop",
+    "unequal_tuning_budgets",
+    "excluding_models_because_best_epoch_lt_50",
+    "selecting_the_better_of_90_and_180_days",
+    "posthoc_roster_shrink_after_download",
+    "csdi_or_grin_single_slot"
+  ],
+  "protocol_amendment": "v9.1",
+  "purpose": "pipeline_preparation_not_evidence",
+  "roles": {
+    "development": 43,
+    "validation": 16
+  },
+  "runner_contract_version": "t2_v91_runner_v2_shared_placements_information_consumption",
+  "sealed_input_roots_allowed": [],
+  "sealed_temperature_records_read": false,
+  "tier_1": {
+    "checkpoint_namespace": "checkpoints_v2",
+    "climatology_computed_inside_each_executable_model_cell": true,
+    "climatology_role": "train_only_skill_denominator_not_an_information_condition_result",
+    "counts_by_role_model_information": {
+      "development|climatology|B": 28560,
+      "development|climatology|B_union_D": 28560,
+      "development|climatology|B_union_D_union_M": 28560,
+      "development|climatology|B_union_D_union_M_union_H": 28560,
+      "development|climatology|D": 28560,
+      "development|donor_regression|B": 28560,
+      "development|donor_regression|B_union_D": 28560,
+      "development|donor_regression|B_union_D_union_M": 28560,
+      "development|donor_regression|B_union_D_union_M_union_H": 28560,
+      "development|donor_regression|D": 28560,
+      "development|kalman|B": 28560,
+      "development|kalman|B_union_D": 28560,
+      "development|kalman|B_union_D_union_M": 28560,
+      "development|kalman|B_union_D_union_M_union_H": 28560,
+      "development|kalman|D": 28560,
+      "development|pchip_or_linear|B": 28560,
+      "development|pchip_or_linear|B_union_D": 28560,
+      "development|pchip_or_linear|B_union_D_union_M": 28560,
+      "development|pchip_or_linear|B_union_D_union_M_union_H": 28560,
+      "development|pchip_or_linear|D": 28560,
+      "development|xgboost|B": 28560,
+      "development|xgboost|B_union_D": 28560,
+      "development|xgboost|B_union_D_union_M": 28560,
+      "development|xgboost|B_union_D_union_M_union_H": 28560,
+      "development|xgboost|D": 28560,
+      "validation|climatology|B": 14420,
+      "validation|climatology|B_union_D": 14420,
+      "validation|climatology|B_union_D_union_M": 14420,
+      "validation|climatology|B_union_D_union_M_union_H": 14420,
+      "validation|climatology|D": 14420,
+      "validation|donor_regression|B": 14420,
+      "validation|donor_regression|B_union_D": 14420,
+      "validation|donor_regression|B_union_D_union_M": 14420,
+      "validation|donor_regression|B_union_D_union_M_union_H": 14420,
+      "validation|donor_regression|D": 14420,
+      "validation|kalman|B": 14420,
+      "validation|kalman|B_union_D": 14420,
+      "validation|kalman|B_union_D_union_M": 14420,
+      "validation|kalman|B_union_D_union_M_union_H": 14420,
+      "validation|kalman|D": 14420,
+      "validation|pchip_or_linear|B": 14420,
+      "validation|pchip_or_linear|B_union_D": 14420,
+      "validation|pchip_or_linear|B_union_D_union_M": 14420,
+      "validation|pchip_or_linear|B_union_D_union_M_union_H": 14420,
+      "validation|pchip_or_linear|D": 14420,
+      "validation|xgboost|B": 14420,
+      "validation|xgboost|B_union_D": 14420,
+      "validation|xgboost|B_union_D_union_M": 14420,
+      "validation|xgboost|B_union_D_union_M_union_H": 14420,
+      "validation|xgboost|D": 14420
+    },
+    "gaps": [
+      7,
+      14,
+      30,
+      60,
+      90,
+      180,
+      365
+    ],
+    "information_conditions": [
+      "B",
+      "D",
+      "B_union_D",
+      "B_union_D_union_M",
+      "B_union_D_union_M_union_H"
+    ],
+    "information_semantics": {
+      "B": "observed_target_boundaries_around_the_planted_gap",
+      "B_union_D": "both_boundary_and_donor_inputs_must_be_consumed",
+      "B_union_D_union_M": "blocked_until_meteorology_M_is_bound",
+      "B_union_D_union_M_union_H": "blocked_until_M_and_hydraulics_H_are_bound",
+      "D": "same_network_donor_station_values_during_the_planted_gap"
+    },
+    "legacy_checkpoint_namespace_ignored": "checkpoints",
+    "model_information_contract": {
+      "climatology|B": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "reference_ignores_available_information_by_design",
+        "workload_category": "reference"
+      },
+      "climatology|B_union_D": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "reference_ignores_available_information_by_design",
+        "workload_category": "reference"
+      },
+      "climatology|B_union_D_union_M": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "reference_ignores_available_information_by_design",
+        "workload_category": "reference"
+      },
+      "climatology|B_union_D_union_M_union_H": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "reference_ignores_available_information_by_design",
+        "workload_category": "reference"
+      },
+      "climatology|D": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "reference_ignores_available_information_by_design",
+        "workload_category": "reference"
+      },
+      "donor_regression|B": {
+        "consumed_information": [
+          "D"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "donor_regression|B_union_D": {
+        "consumed_information": [
+          "B",
+          "D"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      },
+      "donor_regression|B_union_D_union_M": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "donor_regression|B_union_D_union_M_union_H": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "donor_regression|D": {
+        "consumed_information": [
+          "D"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      },
+      "kalman|B": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      },
+      "kalman|B_union_D": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_full_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "kalman|B_union_D_union_M": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "kalman|B_union_D_union_M_union_H": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "kalman|D": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_full_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "pchip_or_linear|B": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      },
+      "pchip_or_linear|B_union_D": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_full_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "pchip_or_linear|B_union_D_union_M": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "pchip_or_linear|B_union_D_union_M_union_H": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "pchip_or_linear|D": {
+        "consumed_information": [
+          "B"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_full_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "xgboost|B": {
+        "consumed_information": [
+          "D"
+        ],
+        "information_condition_result": false,
+        "reason": "model_does_not_implement_information_condition",
+        "workload_category": "structural_not_applicable"
+      },
+      "xgboost|B_union_D": {
+        "consumed_information": [
+          "B",
+          "D"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      },
+      "xgboost|B_union_D_union_M": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "xgboost|B_union_D_union_M_union_H": {
+        "consumed_information": [],
+        "information_condition_result": false,
+        "reason": "structural_unimplemented_no_meteorology_or_hydraulics_adapter",
+        "workload_category": "structural_not_applicable"
+      },
+      "xgboost|D": {
+        "consumed_information": [
+          "D"
+        ],
+        "information_condition_result": true,
+        "reason": "",
+        "workload_category": "executable"
+      }
+    },
+    "models": [
+      "climatology",
+      "pchip_or_linear",
+      "kalman",
+      "donor_regression",
+      "xgboost"
+    ],
+    "n_data_ineligible": 83900,
+    "n_executable": 237744,
+    "n_external_dependency": 0,
+    "n_not_applicable": 554736,
+    "n_reference": 198120,
+    "n_work_items": 1074500,
+    "online_causal_status": "not_implemented_do_not_relabel_offline_as_online",
+    "placement_eligibility": "strict_B_union_D_then_shared_across_all_information_conditions",
+    "placement_roster_scope": "one_common_roster_per_network_target_gap",
+    "placement_shortfall_policy": "same_placement_slots_blocked_for_every_information_condition",
+    "placements_per_cell": 20,
+    "reason_counts": {
+      "data_ineligible|fewer_than_frozen_common_bd_placements_are_data_eligible": 83900,
+      "reference|reference_ignores_available_information_by_design": 198120,
+      "structural_not_applicable|model_does_not_implement_full_information_condition": 158496,
+      "structural_not_applicable|model_does_not_implement_information_condition": 79248,
+      "structural_not_applicable|structural_unimplemented_no_meteorology_or_hydraulics_adapter": 316992
+    },
+    "task_executable_now": "offline_archival"
+  }
+}

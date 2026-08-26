@@ -1,0 +1,20 @@
+{
+  "data_availability_inspected": false,
+  "deep_models_run": false,
+  "design_id": "design_freeze_v9",
+  "deviation": "tier2_sample_artifact_instantiated_after_open_role_downloads_started",
+  "formal_evidence": false,
+  "ledger_id": "T2-TIER2-TIMING-001",
+  "manifest_schema": "t2_v91_tier2_timing_exception_ledger_v1",
+  "protocol_amendment": "v9.1",
+  "required_reporting": "Describe this as a post-download metadata-only fixed sensitivity sample, not as a sample locked before download or a preregistered Tier-2 sample.",
+  "resolution": "retain_fixed_sample_and_disclose_timing_exception_no_reselection",
+  "sample_frozen_before_tier2_model_execution": true,
+  "sample_may_be_called_preregistered": false,
+  "sample_preregistered": false,
+  "sample_sha256": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6",
+  "sealed_entries_are_metadata_only": true,
+  "sealed_temperature_records_read": false,
+  "selection_used_metadata_and_roles_only": true,
+  "status": "acknowledged_protocol_deviation"
+}
