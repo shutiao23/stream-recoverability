@@ -20,6 +20,7 @@ import os
 import re
 import shutil
 import socket
+import stat
 import time
 import urllib.parse
 from collections import Counter
@@ -83,10 +84,45 @@ STALE_LOCKED_PROVIDER_NONNUMERIC_CODES = {
     V2_2_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp"),
     V2_3_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp", "***"),
     V2_4_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp", "***", "Bkw"),
+    V2_5_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp", "***", "Bkw", "Rat"),
 }
 TERMINAL_MIGRATION_SCHEMA_VERSION = (
     "t2_v91_open_role_mh_provider_free_terminal_migration_v1"
 )
+HISTORICAL_PARSER_CONTRACTS: dict[str, str | None] = {
+    LEGACY_NETWORK_SCHEMA_VERSION: None,
+    V2_1_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_1",
+    V2_2_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_2",
+    V2_3_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_3",
+    V2_4_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_4",
+    V2_5_NETWORK_SCHEMA_VERSION: "legacy_nwis_rdb_hydraulics_parser_v2_5",
+}
+ARCHIVE_CONTRACTS = {
+    "v2_1": (
+        "t2_v91_open_role_mh_attempt_archive_v2_1",
+        V2_1_NETWORK_SCHEMA_VERSION,
+    ),
+    "v2_2": (
+        "t2_v91_open_role_mh_attempt_archive_v2_2",
+        V2_2_NETWORK_SCHEMA_VERSION,
+    ),
+    "v2_3": (
+        "t2_v91_open_role_mh_attempt_archive_v2_3",
+        V2_3_NETWORK_SCHEMA_VERSION,
+    ),
+    "v2_4": (
+        "t2_v91_open_role_mh_attempt_archive_v2_4",
+        V2_4_NETWORK_SCHEMA_VERSION,
+    ),
+    "v2_5": (
+        "t2_v91_open_role_mh_attempt_archive_v2_5",
+        V2_5_NETWORK_SCHEMA_VERSION,
+    ),
+    "v2_6": (
+        "t2_v91_open_role_mh_attempt_archive_v2_6",
+        NETWORK_SCHEMA_VERSION,
+    ),
+}
 
 
 class ProviderCircuitOpen(RuntimeError):
@@ -95,6 +131,10 @@ class ProviderCircuitOpen(RuntimeError):
     def __init__(self, message: str, *, audit: Mapping[str, Any]) -> None:
         super().__init__(message)
         self.audit = dict(audit)
+
+
+class TerminalMigrationCompatibilityError(ValueError):
+    """A verified stale terminal cannot be replayed under the current parser."""
 
 
 class RootExecutionLock:
@@ -131,6 +171,11 @@ class RootExecutionLock:
         fcntl.flock(self.handle.fileno(), fcntl.LOCK_UN)
         self.handle.close()
         self.released = True
+
+    def assert_owns(self, output: Path) -> None:
+        expected = output.resolve() / ".acquisition.lock"
+        if self.released or self.handle.closed or self.path.resolve() != expected:
+            raise RuntimeError(f"root execution lock does not own {expected}")
 
     def __enter__(self) -> Self:
         return self
@@ -960,6 +1005,32 @@ def _network_request_plan(
     return plan
 
 
+def _network_plan_sha_for_schema(network: V2NetworkPlan, schema: str) -> str:
+    if schema == NETWORK_SCHEMA_VERSION:
+        parser_contract = PARSER_CONTRACT_VERSION
+        locked_codes = LOCKED_PROVIDER_NONNUMERIC_CODES
+    else:
+        if schema not in HISTORICAL_PARSER_CONTRACTS:
+            raise TerminalMigrationCompatibilityError(
+                f"unknown historical network schema: {schema}"
+            )
+        parser_contract = HISTORICAL_PARSER_CONTRACTS[schema]
+        locked_codes = STALE_LOCKED_PROVIDER_NONNUMERIC_CODES[schema]
+    payload: dict[str, Any] = {
+        "transport_version": "legacy_nwis_dv_rdb_network_batch_v2",
+        "base_network_plan_sha256": network.base.network_plan_sha256,
+        "legacy_requests": [asdict(request) for request in network.legacy_requests],
+        "power_transport": "nasa_power_daily_point_station_specific",
+        "temperature_columns_read": [],
+        "sealed_paths_traversed": False,
+        "performance_metrics_computed": False,
+    }
+    if parser_contract is not None:
+        payload["parser_contract_version"] = parser_contract
+        payload["locked_provider_nonnumeric_codes"] = list(locked_codes)
+    return _sha256_bytes(_canonical_json(payload).encode())
+
+
 def _current_children(output: Path) -> list[Path]:
     return sorted(path for path in output.iterdir() if path.name != "attempts")
 
@@ -1214,6 +1285,8 @@ def _write_network_materialization(
     power_metadata: pd.DataFrame,
     retry_audit: Sequence[Mapping[str, Any]],
     migration_provenance: Mapping[str, Any] | None = None,
+    artifact_output: Path | None = None,
+    validate_terminal: bool = True,
 ) -> dict[str, Any]:
     v1._validate_provider_qc(daily)
     failures = _missing_sources(network, daily)
@@ -1267,9 +1340,12 @@ def _write_network_materialization(
         migration_path = output / "terminal_migration.json"
         _write_json(migration_path, migration_provenance)
         paths["terminal_migration"] = migration_path
-    artifacts = {
-        name: _artifact(path, repository_root) for name, path in paths.items()
-    }
+    artifacts = {}
+    for name, path in paths.items():
+        record = _artifact(path, repository_root)
+        if artifact_output is not None:
+            record["path"] = _relative(artifact_output / path.name, repository_root)
+        artifacts[name] = record
     status = "materialized_complete" if not failures else "materialized_partial"
     manifest = {
         "manifest_schema": NETWORK_SCHEMA_VERSION,
@@ -1319,16 +1395,32 @@ def _write_network_materialization(
         "passed": False,
     }
     _write_json(output / "network_manifest.json", manifest)
-    if _validate_terminal(repository_root, output, network) is None:
+    if validate_terminal and _validate_terminal(repository_root, output, network) is None:
         raise AssertionError("v2 network failed to form a terminal resume boundary")
     return manifest
 
 
-def _validated_archive_inventory(archive: Path) -> dict[str, Any]:
+def _validated_archive_inventory(
+    archive: Path, network: V2NetworkPlan
+) -> dict[str, Any]:
     manifest_path = archive / "attempt_archive_manifest.json"
     if not manifest_path.is_file():
         raise ValueError("terminal migration archive lacks its archive manifest")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    reason = str(manifest.get("archive_reason", ""))
+    match = re.fullmatch(r"terminal_rebuild_parser_contract_(v2_[1-6])", reason)
+    if match is None:
+        raise ValueError("attempt archive is not a known stale terminal rebuild boundary")
+    archive_schema, network_schema = ARCHIVE_CONTRACTS[match.group(1)]
+    if (
+        manifest.get("manifest_schema") != archive_schema
+        or manifest.get("network_id") != network.network_id
+        or manifest.get("role") != network.role
+        or manifest.get("network_plan_sha256")
+        != _network_plan_sha_for_schema(network, network_schema)
+        or manifest.get("v1_ogc_root_read_or_mutated") is not False
+    ):
+        raise ValueError("terminal migration archive core differs from its locked plan")
     expected = manifest.get("inventory")
     if not isinstance(expected, list):
         raise TypeError("terminal migration archive inventory is missing")
@@ -1376,6 +1468,8 @@ def _validate_stale_request_plan(
     archive: Path, network: V2NetworkPlan, old_manifest: Mapping[str, Any]
 ) -> dict[str, Any]:
     plan = json.loads((archive / "request_plan.json").read_text(encoding="utf-8"))
+    old_schema = str(old_manifest.get("manifest_schema"))
+    historical_plan_sha = _network_plan_sha_for_schema(network, old_schema)
     checksum = plan.get("request_plan_sha256")
     unhashed = dict(plan)
     unhashed.pop("request_plan_sha256", None)
@@ -1399,11 +1493,14 @@ def _validate_stale_request_plan(
         for key in structural_keys
     ):
         raise ValueError("stale terminal request plan drifted from the locked provider plan")
-    if plan.get("network_plan_sha256") != old_manifest.get("network_plan_sha256"):
-        raise ValueError("stale request plan and terminal network plan SHA differ")
     if (
-        old_manifest.get("base_v1_roster_network_plan_sha256") is not None
-        and old_manifest.get("base_v1_roster_network_plan_sha256")
+        plan.get("manifest_schema") != "t2_v91_open_role_mh_network_request_plan_v2"
+        or plan.get("network_plan_sha256") != historical_plan_sha
+        or old_manifest.get("network_plan_sha256") != historical_plan_sha
+    ):
+        raise ValueError("stale request plan SHA is not its reproducible historical plan")
+    if (
+        old_manifest.get("base_v1_roster_network_plan_sha256")
         != network.base.network_plan_sha256
     ):
         raise ValueError("stale terminal differs from the locked base roster plan")
@@ -1435,6 +1532,13 @@ def _verified_raw_records(
             *response_rel.parts,
         ):
             raise ValueError("stale terminal raw artifact escaped its network archive")
+        if (
+            not request_rel.parts
+            or not response_rel.parts
+            or request_rel.parts[0] != "raw"
+            or response_rel.parts[0] != "raw"
+        ):
+            raise ValueError("stale terminal raw artifact is outside the raw subtree")
         request_path = archive / request_rel
         response_path = archive / response_rel
         if not request_path.is_file() or _sha256_file(request_path) != record.get(
@@ -1483,6 +1587,26 @@ def _verified_raw_records(
     }
     if set(by_identity) != expected_identities:
         raise ValueError("stale terminal request identities do not cover the locked plan")
+    expected_raw_files = {
+        str(Path(str(record[field])))
+        for record in records
+        for field in ("request_artifact", "response_artifact")
+    }
+    raw_root = archive / "raw"
+    if not raw_root.is_dir() or raw_root.is_symlink():
+        raise ValueError("stale terminal raw root is not a regular directory")
+    actual_raw_files: set[str] = set()
+    for path in raw_root.rglob("*"):
+        if path.is_symlink():
+            raise ValueError(f"stale terminal raw subtree contains a symlink: {path}")
+        mode = path.lstat().st_mode
+        if stat.S_ISDIR(mode):
+            continue
+        if not stat.S_ISREG(mode):
+            raise ValueError(f"stale terminal raw subtree contains a non-file: {path}")
+        actual_raw_files.add(str(path.relative_to(archive)))
+    if actual_raw_files != expected_raw_files:
+        raise ValueError("stale terminal raw file set differs from its request log")
     return records, by_identity
 
 
@@ -1557,16 +1681,99 @@ def _validate_migrated_values(
     }
 
 
-def migrate_archived_terminal_without_provider(
+def _append_terminal_migration_audit(
+    output: Path, value: Mapping[str, Any]
+) -> tuple[dict[str, Any], Path]:
+    audit_root = output / "attempts" / "terminal_migration_audit"
+    audit_root.mkdir(parents=True, exist_ok=True)
+    entries = sorted(audit_root.glob("migration_*.json"))
+    numbers = []
+    for path in entries:
+        match = re.fullmatch(r"migration_(\d{4})\.json", path.name)
+        if match is None:
+            raise RuntimeError(f"unknown terminal migration audit entry: {path}")
+        numbers.append(int(match.group(1)))
+    number = max(numbers, default=0) + 1
+    previous = entries[-1] if entries else None
+    record = dict(value)
+    record.update(
+        {
+            "audit_sequence": number,
+            "previous_audit_path": (
+                str(previous.relative_to(output)) if previous is not None else None
+            ),
+            "previous_audit_sha256": (
+                _sha256_file(previous) if previous is not None else None
+            ),
+        }
+    )
+    destination = audit_root / f"migration_{number:04d}.json"
+    if destination.exists():
+        raise FileExistsError(f"terminal migration audit already exists: {destination}")
+    record["audit_path"] = str(destination.relative_to(output))
+    _write_json_atomic(destination, record)
+    return record, destination
+
+
+def _copy_verified_raw_files(
+    archive: Path, staging: Path, records: Sequence[Mapping[str, Any]]
+) -> None:
+    relative_paths = sorted(
+        {
+            Path(str(record[field]))
+            for record in records
+            for field in ("request_artifact", "response_artifact")
+        },
+        key=str,
+    )
+    for relative in relative_paths:
+        source = archive / relative
+        if source.is_symlink() or not stat.S_ISREG(source.lstat().st_mode):
+            raise RuntimeError(f"verified raw source stopped being regular: {source}")
+        destination = staging / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, destination)
+        if _sha256_file(destination) != _sha256_file(source):
+            raise OSError(f"staged raw copy failed its SHA check: {destination}")
+
+
+def _promote_staged_terminal(staging: Path, output: Path) -> None:
+    children = sorted(
+        staging.iterdir(), key=lambda path: (path.name == "network_manifest.json", path.name)
+    )
+    if not children or children[-1].name != "network_manifest.json":
+        raise RuntimeError("staged terminal lacks its commit manifest")
+    for child in children:
+        destination = output / child.name
+        if destination.exists():
+            raise RuntimeError(f"terminal promotion collided with current output: {destination}")
+        child.replace(destination)
+    staging.rmdir()
+
+
+def _migrate_archived_terminal_without_provider(
     repository_root: str | Path,
+    output_root: str | Path,
     output: Path,
     network: V2NetworkPlan,
     archive: Path,
+    *,
+    root_lock: RootExecutionLock,
 ) -> tuple[dict[str, Any] | None, dict[str, Any]]:
     """Rebuild a stale terminal from byte-custodied raw responses, or reject it."""
 
     root = Path(repository_root).resolve()
-    attempt_path = archive / "terminal_migration_attempt.json"
+    output_root = Path(output_root).resolve()
+    output = output.resolve()
+    archive = archive.resolve()
+    root_lock.assert_owns(output_root)
+    if archive.parent.parent != output or archive.parent.name != "attempts":
+        raise RuntimeError("terminal migration archive is outside its network attempts")
+    existing = _current_children(output)
+    if existing:
+        raise RuntimeError(
+            f"terminal migration requires an empty current output: {existing}"
+        )
     audit: dict[str, Any] = {
         "manifest_schema": TERMINAL_MIGRATION_SCHEMA_VERSION,
         "network_id": network.network_id,
@@ -1579,11 +1786,7 @@ def migrate_archived_terminal_without_provider(
         "accepted": False,
     }
     try:
-        archive_manifest = _validated_archive_inventory(archive)
-        if not str(archive_manifest.get("archive_reason", "")).startswith(
-            "terminal_rebuild_parser_contract_"
-        ):
-            raise ValueError("attempt archive is not a stale terminal rebuild boundary")
+        _validated_archive_inventory(archive, network)
         old_manifest_path = archive / "network_manifest.json"
         if not old_manifest_path.is_file():
             raise ValueError("stale terminal archive lacks network_manifest.json")
@@ -1599,8 +1802,20 @@ def migrate_archived_terminal_without_provider(
         ):
             raise ValueError("archived stale terminal is not safely bound to this network")
         old_codes = STALE_LOCKED_PROVIDER_NONNUMERIC_CODES[str(old_schema)]
+        expected_parser = HISTORICAL_PARSER_CONTRACTS[str(old_schema)]
         declared_codes = old_manifest.get("locked_provider_nonnumeric_codes")
-        if declared_codes is not None and tuple(declared_codes) != old_codes:
+        if old_manifest.get("parser_contract_version") != expected_parser:
+            raise ValueError("stale terminal declared a different parser contract")
+        if (
+            (expected_parser is None and declared_codes is not None)
+            or (
+                expected_parser is not None
+                and (
+                    not isinstance(declared_codes, list)
+                    or tuple(declared_codes) != old_codes
+                )
+            )
+        ):
             raise ValueError("stale terminal declared a different parser code lock")
         _verify_stale_artifacts(archive, old_manifest)
         old_plan = _validate_stale_request_plan(archive, network, old_manifest)
@@ -1649,7 +1864,6 @@ def migrate_archived_terminal_without_provider(
         equality = _validate_migrated_values(
             old_daily, daily, old_codes=old_codes
         )
-
         audit.update(
             {
                 "accepted": True,
@@ -1663,50 +1877,66 @@ def migrate_archived_terminal_without_provider(
                 "raw_request_and_response_sha256_verified": True,
                 "power_reparsed_from_raw": True,
                 "hydraulics_reparsed_from_raw": True,
+                "archive_core_bound_to_historical_plan": True,
+                "raw_file_set_exact_and_regular": True,
                 **equality,
                 "completed_at_utc": datetime.now(timezone.utc).isoformat(),
             }
         )
-        _write_json_atomic(attempt_path, audit)
-        raw_destination = output / "raw"
-        if raw_destination.exists():
-            raise FileExistsError("terminal migration destination already contains raw data")
-        shutil.copytree(archive / "raw", raw_destination)
+    except (ValueError, TypeError, KeyError, UnicodeError) as error:
+        audit.update(
+            {
+                "accepted": False,
+                "rejection_error_type": type(error).__name__,
+                "rejection_reason": str(error),
+                "fallback": "explicit_compatibility_rejection_may_rebuild_from_providers",
+                "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        rejected_audit, _ = _append_terminal_migration_audit(output, audit)
+        return None, rejected_audit
+
+    accepted_audit, accepted_audit_path = _append_terminal_migration_audit(output, audit)
+    staging = output / f".terminal_migration_{archive.name}.in_progress"
+    try:
+        staging.mkdir()
+        _copy_verified_raw_files(archive, staging, records)
         request_plan = _network_request_plan(
             network, previous_attempt_archive=str(archive.relative_to(output))
         )
         power_metadata = pd.concat(power_metadata_frames, ignore_index=True)
         manifest = _write_network_materialization(
             root,
-            output,
+            staging,
             network,
             request_plan=request_plan,
             daily=daily,
             records=records,
             power_metadata=power_metadata,
             retry_audit=[],
-            migration_provenance=audit,
+            migration_provenance=accepted_audit,
+            artifact_output=output,
+            validate_terminal=False,
         )
-        return manifest, audit
-    except Exception as error:  # noqa: BLE001
-        # The archive is the durable rollback boundary.  Remove only artifacts
-        # created in the now-rejected current migration; never touch attempts/.
-        for child in _current_children(output):
-            if child.is_dir():
-                shutil.rmtree(child)
-            else:
-                child.unlink()
-        audit.update(
-            {
-                "accepted": False,
-                "rejection_error_type": type(error).__name__,
-                "rejection_reason": str(error),
-                "fallback": "retain_archive_and_rebuild_from_providers",
-                "completed_at_utc": datetime.now(timezone.utc).isoformat(),
-            }
-        )
-        _write_json_atomic(attempt_path, audit)
-        return None, audit
+        _promote_staged_terminal(staging, output)
+        if _validate_terminal(root, output, network) is None:
+            raise AssertionError("promoted migration did not form a terminal boundary")
+        return manifest, accepted_audit
+    except Exception as error:
+        if staging.exists():
+            shutil.rmtree(staging)
+        failure = {
+            **audit,
+            "accepted": False,
+            "rejection_error_type": type(error).__name__,
+            "rejection_reason": str(error),
+            "fallback": "none_internal_or_io_failure_fail_closed",
+            "prior_accepted_audit_path": str(accepted_audit_path.relative_to(output)),
+            "prior_accepted_audit_sha256": _sha256_file(accepted_audit_path),
+            "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+        }
+        _append_terminal_migration_audit(output, failure)
+        raise
 
 
 def acquire_network(
@@ -1716,9 +1946,22 @@ def acquire_network(
     *,
     fetcher: AuditedRateLimitedFetcher,
     resume: bool = True,
+    root_lock: RootExecutionLock | None = None,
 ) -> tuple[dict[str, Any], bool]:
     root = Path(repository_root).resolve()
-    output = _network_output(Path(output_root).resolve(), network)
+    resolved_output_root = Path(output_root).resolve()
+    if root_lock is None:
+        with RootExecutionLock(resolved_output_root) as owned_lock:
+            return acquire_network(
+                root,
+                resolved_output_root,
+                network,
+                fetcher=fetcher,
+                resume=resume,
+                root_lock=owned_lock,
+            )
+    root_lock.assert_owns(resolved_output_root)
+    output = _network_output(resolved_output_root, network)
     output.mkdir(parents=True, exist_ok=True)
     terminal = _validate_terminal(root, output, network)
     if terminal is not None:
@@ -1734,8 +1977,13 @@ def acquire_network(
         if str(archive_manifest.get("archive_reason", "")).startswith(
             "terminal_rebuild_parser_contract_"
         ):
-            migrated, _ = migrate_archived_terminal_without_provider(
-                root, output, network, archive
+            migrated, _ = _migrate_archived_terminal_without_provider(
+                root,
+                resolved_output_root,
+                output,
+                network,
+                archive,
+                root_lock=root_lock,
             )
             if migrated is not None:
                 return migrated, False
@@ -1997,7 +2245,12 @@ def run_v2_corpus_acquisition(
         for network in selected:
             try:
                 manifest, resumed = acquire_network(
-                    root, output, network, fetcher=limited, resume=resume
+                    root,
+                    output,
+                    network,
+                    fetcher=limited,
+                    resume=resume,
+                    root_lock=root_lock,
                 )
             except ProviderCircuitOpen as error:
                 stop = {
@@ -2204,7 +2457,6 @@ __all__ = [
     "archive_nonterminal_attempt",
     "compare_v2_to_v1_ogc",
     "load_v2_corpus_plan",
-    "migrate_archived_terminal_without_provider",
     "parse_legacy_hydraulics_rdb",
     "parse_legacy_network_response",
     "plan_as_dict",
