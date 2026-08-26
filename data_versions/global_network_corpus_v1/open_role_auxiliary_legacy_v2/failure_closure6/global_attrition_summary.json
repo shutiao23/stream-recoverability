@@ -1,0 +1,18 @@
+{
+  "manifest_schema": "t2_v91_open_role_mh_global_attrition_v2",
+  "materialization_status_counts": {
+    "materialized_partial": 1,
+    "not_materialized": 66
+  },
+  "n_attempt_archives": 0,
+  "n_networks_materialized": 1,
+  "n_networks_planned": 67,
+  "n_networks_remaining": 66,
+  "n_source_failures_or_unavailable": 3,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+  "sealed_temperature_records_read": false,
+  "temperature_columns_read": [],
+  "v1_ogc_root_read_or_mutated": false
+}

@@ -114,7 +114,7 @@ def _provider_eligible(rows: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
     )
     hydro_ok = (
         hydraulics
-        & source.eq("usgs_ogc_daily")
+        & source.isin(("usgs_ogc_daily", "usgs_legacy_nwis_dv_rdb"))
         & approval.eq("Approved")
         & approved
         & qc.isin(("approved", "approved_estimated"))

@@ -1,0 +1,1966 @@
+{
+  "legacy_batching_rule": "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000",
+  "manifest_schema": "t2_v91_open_role_mh_corpus_request_plan_v2",
+  "n_legacy_usgs_requests": 67,
+  "n_networks": 67,
+  "n_power_requests": 340,
+  "n_sites": 340,
+  "networks": [
+    {
+      "base_network_plan_sha256": "0757a8fb58d1c860aedf6df742241a82b5b6117edb35d589e1a0176d15862d94",
+      "legacy_requests": [
+        {
+          "end": "2026-04-12",
+          "estimated_site_days": 31797,
+          "network_id": "huc8_01070004",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_6f0d9564a09be4ac37ef",
+          "role": "development",
+          "site_ids": [
+            "01095220",
+            "01095375",
+            "01095434"
+          ],
+          "start": "1997-04-06",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01095220%2C01095375%2C01095434&startDT=1997-04-06&endDT=2026-04-12&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_01070004",
+      "network_plan_sha256": "dbcc6c7531b2dfa3fb71ee1d500d45670de3f1b89cbe3cca4847d7eeea30124a",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "b849139c6928e57419c22abf34dfab7df835e63451034af645a9e17630d80442",
+      "legacy_requests": [
+        {
+          "end": "2025-11-23",
+          "estimated_site_days": 92538,
+          "network_id": "huc8_01090001",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_7427e531c761abbad580",
+          "role": "development",
+          "site_ids": [
+            "01104370",
+            "01104410",
+            "01104415",
+            "01104420",
+            "01104430",
+            "01104453",
+            "01104455",
+            "01104460",
+            "01104475"
+          ],
+          "start": "1997-09-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01104370%2C01104410%2C01104415%2C01104420%2C01104430%2C01104453%2C01104455%2C01104460%2C01104475&startDT=1997-09-30&endDT=2025-11-23&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_01090001",
+      "network_plan_sha256": "bf0627a9dab3a9eb256dad9c0dbb94ae6540ea3a92e01d8faccf44b86768bfea",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "8646dcab19e8d14cd39b9739e0dc67d2594bd264784aae4922f10cd047dac5f6",
+      "legacy_requests": [
+        {
+          "end": "2025-12-04",
+          "estimated_site_days": 85104,
+          "network_id": "huc8_01090004",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_28a0eaed5bd4ba92bbbb",
+          "role": "development",
+          "site_ids": [
+            "01115098",
+            "01115110",
+            "01115170",
+            "01115183",
+            "01115184",
+            "01115190",
+            "01115265",
+            "01115275",
+            "01115276"
+          ],
+          "start": "2000-01-15",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01115098%2C01115110%2C01115170%2C01115183%2C01115184%2C01115190%2C01115265%2C01115275%2C01115276&startDT=2000-01-15&endDT=2025-12-04&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_01090004",
+      "network_plan_sha256": "5f28d16382d5f3387c39fa36627a3a43dd369235b63d24a9612147f4bc446ae1",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "1e1c81c38a2487ee3727c055c008d42d0a1cb18eb2dd01e7675eeeaf63dbb6b4",
+      "legacy_requests": [
+        {
+          "end": "2026-04-08",
+          "estimated_site_days": 32712,
+          "network_id": "huc8_02020006",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_5cae701c7ac9011441b6",
+          "role": "development",
+          "site_ids": [
+            "01359139",
+            "01362230",
+            "01362500"
+          ],
+          "start": "1996-06-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01359139%2C01362230%2C01362500&startDT=1996-06-01&endDT=2026-04-08&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02020006",
+      "network_plan_sha256": "1041d22fc545cc8ecf60635805c784a68e3d3f256c8c48a17d17013cb514915d",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "50a9d3ab153ee87209736c9108d8991efd66672d9b56dc8e74e43a84fa783689",
+      "legacy_requests": [
+        {
+          "end": "2025-11-18",
+          "estimated_site_days": 41772,
+          "network_id": "huc8_02040103",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_70d6643fff7388a3f83b",
+          "role": "development",
+          "site_ids": [
+            "01428750",
+            "01429000",
+            "01431500"
+          ],
+          "start": "1987-10-06",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01428750%2C01429000%2C01431500&startDT=1987-10-06&endDT=2025-11-18&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02040103",
+      "network_plan_sha256": "b4bd4c7323018864341c26717813486c893ee2b668aafa8eedd52ffb35ea4d22",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "5c721272886068eb59e67e693e1136cec4d35777e269f03d027100b91e3a114c",
+      "legacy_requests": [
+        {
+          "end": "2026-08-03",
+          "estimated_site_days": 105580,
+          "network_id": "huc8_02040106",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_30dbfb4223d5b55fbac0",
+          "role": "development",
+          "site_ids": [
+            "01447500",
+            "01447720",
+            "01447800",
+            "01449360",
+            "01449800"
+          ],
+          "start": "1968-10-11",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01447500%2C01447720%2C01447800%2C01449360%2C01449800&startDT=1968-10-11&endDT=2026-08-03&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02040106",
+      "network_plan_sha256": "31698977e3fc5d3895752d73de204be72fec08507524f994806ca144c3af8b50",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "9c2c49bf4dfbffe5f69a97ad70fd3798c45dfadc99dd634c467b5d94342a15fc",
+      "legacy_requests": [
+        {
+          "end": "2026-06-29",
+          "estimated_site_days": 30297,
+          "network_id": "huc8_02040203",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_3b6b1fd535a814683f05",
+          "role": "development",
+          "site_ids": [
+            "01470779",
+            "01470960",
+            "01472157"
+          ],
+          "start": "1998-11-05",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01470779%2C01470960%2C01472157&startDT=1998-11-05&endDT=2026-06-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02040203",
+      "network_plan_sha256": "c2d114da443a770d6bdb2133e881561a61c027e752d63e319e396f4cefb4dbee",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "24d227ab4dc28e6fc406c0966ebaa3a3788e2832aaadfaacd35533cb6b348fb7",
+      "legacy_requests": [
+        {
+          "end": "2026-04-19",
+          "estimated_site_days": 160472,
+          "network_id": "huc8_02040205",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_a03f2b1586b25ac520ee",
+          "role": "development",
+          "site_ids": [
+            "01478137",
+            "01480065",
+            "01480400",
+            "01480500",
+            "01480617",
+            "01480870",
+            "01481000",
+            "01481500"
+          ],
+          "start": "1971-05-20",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01478137%2C01480065%2C01480400%2C01480500%2C01480617%2C01480870%2C01481000%2C01481500&startDT=1971-05-20&endDT=2026-04-19&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02040205",
+      "network_plan_sha256": "f6822360e14290a1c411715270bd424f3f04d538ca494bba17de119f51237cc6",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "de2a7b60f79790a68c6ca8d7db86e0ce784aaf907b90a45a68f026faf5d1265c",
+      "legacy_requests": [
+        {
+          "end": "2026-04-07",
+          "estimated_site_days": 59049,
+          "network_id": "huc8_02050104",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_94c9f5b490decb0a6921",
+          "role": "development",
+          "site_ids": [
+            "01516350",
+            "01518700",
+            "01520000"
+          ],
+          "start": "1972-05-18",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01516350%2C01518700%2C01520000&startDT=1972-05-18&endDT=2026-04-07&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02050104",
+      "network_plan_sha256": "770d0386e3db1acd46d73024f05aa93e08b4aaab04a8927cf112ac20317324a6",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "b6ab66b8beda3c2ecc0646f3dc6b0468f327136d24f7a0deb4d6e07200629b79",
+      "legacy_requests": [
+        {
+          "end": "2015-03-25",
+          "estimated_site_days": 59756,
+          "network_id": "huc8_02050305",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b98a89d93d502be2ca66",
+          "role": "development",
+          "site_ids": [
+            "01570500",
+            "0157155010",
+            "0157155014",
+            "01571820"
+          ],
+          "start": "1974-05-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01570500%2C0157155010%2C0157155014%2C01571820&startDT=1974-05-01&endDT=2015-03-25&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02050305",
+      "network_plan_sha256": "d34dc3d88d6f3a364379c488a8d294bb728825d07de1819e51ecb74e40c75362",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "590fe55dda00ecd44e1d45a548a893a130d47ae5a402a28800bf53a4c7d4b8e9",
+      "legacy_requests": [
+        {
+          "end": "2026-08-05",
+          "estimated_site_days": 22516,
+          "network_id": "huc8_02060003",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_158eee840efa0490b098",
+          "role": "development",
+          "site_ids": [
+            "01581752",
+            "01581920",
+            "01585075",
+            "01589290"
+          ],
+          "start": "2011-03-09",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01581752%2C01581920%2C01585075%2C01589290&startDT=2011-03-09&endDT=2026-08-05&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02060003",
+      "network_plan_sha256": "8a0fb92a7fb50b8d3e1f343bb1f4db6dbdfbffe1eb64fd4960c8b5a2150b7096",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "4c2e9b7e265c98ae91b1e6b1c44d885afc2e12b102aafd3fcc47efb56ddecdbb",
+      "legacy_requests": [
+        {
+          "end": "2026-07-05",
+          "estimated_site_days": 15078,
+          "network_id": "huc8_02070002",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_6a0045039e33331036e7",
+          "role": "development",
+          "site_ids": [
+            "01595800",
+            "01596500",
+            "01597500"
+          ],
+          "start": "2012-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01595800%2C01596500%2C01597500&startDT=2012-10-01&endDT=2026-07-05&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02070002",
+      "network_plan_sha256": "24323efc21e960c3e3e1cba9c34c29abeff444b1756bf20a034841a2a236d3c0",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "fff29e37d0ee9bf50fdb4497fd101f23fe9426374299f773a80dee52467819b3",
+      "legacy_requests": [
+        {
+          "end": "2025-03-24",
+          "estimated_site_days": 20490,
+          "network_id": "huc8_02070008",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ec0265feb7e31a896696",
+          "role": "development",
+          "site_ids": [
+            "01646000",
+            "01646305",
+            "01646500"
+          ],
+          "start": "2006-07-13",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01646000%2C01646305%2C01646500&startDT=2006-07-13&endDT=2025-03-24&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02070008",
+      "network_plan_sha256": "e3d3b2f043d74ef502fd7bcebcf3f7a51842541aa89ddf8093aaa76ce8deb1ab",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "5987c96a4c4c42b38916d74e48882dea2637cb56aa99dee643393537ca33469b",
+      "legacy_requests": [
+        {
+          "end": "2026-06-03",
+          "estimated_site_days": 32816,
+          "network_id": "huc8_02070010",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_6771799fadf87b87df10",
+          "role": "development",
+          "site_ids": [
+            "01649190",
+            "01649500",
+            "01654500",
+            "01656903"
+          ],
+          "start": "2003-12-18",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=01649190%2C01649500%2C01654500%2C01656903&startDT=2003-12-18&endDT=2026-06-03&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02070010",
+      "network_plan_sha256": "420a3eacc7975d32cfa0bdd68ba7952db7dc56c23559f9445913d9c537b9b1d4",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "981e0d90902649e767f90001d1a77ec3a45101bf80a594e95ddc5ed6367a70a3",
+      "legacy_requests": [
+        {
+          "end": "2022-02-28",
+          "estimated_site_days": 112497,
+          "network_id": "huc8_02080201",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_dd26f44b8100df2de9f6",
+          "role": "development",
+          "site_ids": [
+            "02011400",
+            "02011460",
+            "02011470",
+            "02011490",
+            "02011500",
+            "02011800",
+            "02012800"
+          ],
+          "start": "1978-03-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02011400%2C02011460%2C02011470%2C02011490%2C02011500%2C02011800%2C02012800&startDT=1978-03-01&endDT=2022-02-28&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_02080201",
+      "network_plan_sha256": "e94bd24a12a226c551cd0701786329ba5af9cac406e6952ee5d0027a26dc0f78",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "d7792a6a93b3b4ca84f6baafa2ea98ec4e55ff8ce56f66cee108ea5eb9defe65",
+      "legacy_requests": [
+        {
+          "end": "2026-06-24",
+          "estimated_site_days": 27378,
+          "network_id": "huc8_03070101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ef2e0e23d237fdbc4aa5",
+          "role": "development",
+          "site_ids": [
+            "02217274",
+            "02217643",
+            "02218565"
+          ],
+          "start": "2001-06-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02217274%2C02217643%2C02218565&startDT=2001-06-30&endDT=2026-06-24&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03070101",
+      "network_plan_sha256": "71a998d6d67e06abcd3663fb2e05a34404ef18bc438c78c716f3dbe2913f2b45",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "42211e5b35c3bd5c62e8040f0ae70c01fe18d34603e9c92697ace3f2fede29d0",
+      "legacy_requests": [
+        {
+          "end": "2025-12-09",
+          "estimated_site_days": 23034,
+          "network_id": "huc8_04020105",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ae3ccbfd8bad08e96e63",
+          "role": "development",
+          "site_ids": [
+            "04043097",
+            "04043238",
+            "04043244"
+          ],
+          "start": "2004-12-02",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04043097%2C04043238%2C04043244&startDT=2004-12-02&endDT=2025-12-09&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04020105",
+      "network_plan_sha256": "7eda510b6ec7d4d533780b645717fa8b7312323c6b3cc9210cece046649b955b",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "8aca797a72035daa737be2b9a3868af1497f75ab26f1036e83a6f94f80cadf25",
+      "legacy_requests": [
+        {
+          "end": "2017-11-19",
+          "estimated_site_days": 23034,
+          "network_id": "huc8_04040003",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c482a0dce28416295a35",
+          "role": "development",
+          "site_ids": [
+            "040871473",
+            "040871475",
+            "040871488"
+          ],
+          "start": "1996-11-12",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=040871473%2C040871475%2C040871488&startDT=1996-11-12&endDT=2017-11-19&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04040003",
+      "network_plan_sha256": "261eb452e84bb494f51de2868bb9eb06336b0929836f7ee9d8a902ee80bb03b3",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "b766985394ea8bf7e3775cb1af415c6f1a891bcf87b9a3ad8d906fe78126ca99",
+      "legacy_requests": [
+        {
+          "end": "2026-05-13",
+          "estimated_site_days": 57235,
+          "network_id": "huc8_04060102",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_87b1ec0583f2cb0670ed",
+          "role": "development",
+          "site_ids": [
+            "04121650",
+            "04121660",
+            "04121680",
+            "04121944",
+            "04121970"
+          ],
+          "start": "1995-01-10",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04121650%2C04121660%2C04121680%2C04121944%2C04121970&startDT=1995-01-10&endDT=2026-05-13&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04060102",
+      "network_plan_sha256": "4628cd07140699ae2381d971a4b485dbfe058baea4dbb470ac71dc47f3e0cbfc",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "364252416873cd22cc90c40e25f7023c881df8c96f1ba804e8bd7cdb364784da",
+      "legacy_requests": [
+        {
+          "end": "2025-12-02",
+          "estimated_site_days": 42620,
+          "network_id": "huc8_04060103",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_74caaabfae865db8e216",
+          "role": "development",
+          "site_ids": [
+            "04124000",
+            "04124200",
+            "04125460",
+            "04125550"
+          ],
+          "start": "1996-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04124000%2C04124200%2C04125460%2C04125550&startDT=1996-10-01&endDT=2025-12-02&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04060103",
+      "network_plan_sha256": "6da4031f69555ba0009a6b87b875884012ce451331204fe3eebbf407f40e8a19",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "7885d75d32c76288f37ad71612841f84adb044d93fcff6f29796173cba132a11",
+      "legacy_requests": [
+        {
+          "end": "2026-07-13",
+          "estimated_site_days": 87688,
+          "network_id": "huc8_04070007",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b5a4d1eaea1402c3bcef",
+          "role": "development",
+          "site_ids": [
+            "04136000",
+            "04136500",
+            "04136900",
+            "04137005",
+            "04137020",
+            "04137025",
+            "04137030",
+            "04137500"
+          ],
+          "start": "1996-07-10",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04136000%2C04136500%2C04136900%2C04137005%2C04137020%2C04137025%2C04137030%2C04137500&startDT=1996-07-10&endDT=2026-07-13&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04070007",
+      "network_plan_sha256": "75a58fe00e06e18b6dade61ce2e6d4d52190a94e0c30057c7d75fdfa8aa4c822",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "4e515c06cc2fd071b2b3c19469134e130db03375169f79e583bfc568f263c330",
+      "legacy_requests": [
+        {
+          "end": "2026-05-04",
+          "estimated_site_days": 34497,
+          "network_id": "huc8_04140101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_a8d1c56d8fa590d9d45a",
+          "role": "development",
+          "site_ids": [
+            "04232034",
+            "04232050",
+            "0423205010"
+          ],
+          "start": "1994-11-10",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=04232034%2C04232050%2C0423205010&startDT=1994-11-10&endDT=2026-05-04&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_04140101",
+      "network_plan_sha256": "e90798d62ea2df49390d4a4bd66d5ace1140c14733eac22568442e84d222adf6",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "7e62e30f031f23b47e8e62855b2cc4439803b4a40848566fc9c0cf2afde62aa8",
+      "legacy_requests": [
+        {
+          "end": "2025-11-30",
+          "estimated_site_days": 26544,
+          "network_id": "huc8_05010005",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b9cc9eade4943cf03843",
+          "role": "development",
+          "site_ids": [
+            "03026480",
+            "03027500",
+            "03028000",
+            "03028500"
+          ],
+          "start": "2007-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03026480%2C03027500%2C03028000%2C03028500&startDT=2007-10-01&endDT=2025-11-30&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05010005",
+      "network_plan_sha256": "9ab018e0154ae8de7bfac0fc09ed5020a1a71af6c5600ed11c03871aed52981a",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "51655a76c7f584f726b71d906a30476cfe92df6c0590c8b8bf12db288b401af1",
+      "legacy_requests": [
+        {
+          "end": "2026-07-22",
+          "estimated_site_days": 32520,
+          "network_id": "huc8_05010006",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b44c8f1b74612c6682fb",
+          "role": "development",
+          "site_ids": [
+            "03034000",
+            "03034500",
+            "03036000",
+            "03038000",
+            "03039000"
+          ],
+          "start": "2008-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03034000%2C03034500%2C03036000%2C03038000%2C03039000&startDT=2008-10-01&endDT=2026-07-22&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05010006",
+      "network_plan_sha256": "023ebf64491f7cf7a60b8814c8289db2ec2a2bbb5cb84e929feafc009ee0650c",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "808a37b1d951fef0c7e9127fc041f66b1b7cf9be49719d971a546bb2667b385b",
+      "legacy_requests": [
+        {
+          "end": "2026-06-21",
+          "estimated_site_days": 31736,
+          "network_id": "huc8_05010007",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_623fde0f2e06503270aa",
+          "role": "development",
+          "site_ids": [
+            "03041500",
+            "03042000",
+            "03043810",
+            "03044000"
+          ],
+          "start": "2004-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03041500%2C03042000%2C03043810%2C03044000&startDT=2004-10-01&endDT=2026-06-21&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05010007",
+      "network_plan_sha256": "2ccbaaed6eb0ca6b18ee2d02a1ee5b77ff0980efba754a101514b1ee8c59782c",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "60ac32426d0fcabfb2c2da58848ceb031f4532e18d11f0c5a434c8282d7945c8",
+      "legacy_requests": [
+        {
+          "end": "2020-11-08",
+          "estimated_site_days": 13269,
+          "network_id": "huc8_05020001",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_910fe1bddb6cc579fb9d",
+          "role": "development",
+          "site_ids": [
+            "03054500",
+            "03056000",
+            "03057000"
+          ],
+          "start": "2008-09-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03054500%2C03056000%2C03057000&startDT=2008-09-30&endDT=2020-11-08&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05020001",
+      "network_plan_sha256": "5aaace108ea3f18afc32c2c8f688d9580fb996debc9cad2b5275f7efa73d9416",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "d93f790dbc0282fd9ce6224ec840cdc635eb56a9b4856407b70f8d3aa2bb680a",
+      "legacy_requests": [
+        {
+          "end": "2026-06-24",
+          "estimated_site_days": 25900,
+          "network_id": "huc8_05020005",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_6838ce20b1b5c060f67c",
+          "role": "development",
+          "site_ids": [
+            "03072000",
+            "03072655",
+            "03073000",
+            "03075070"
+          ],
+          "start": "2008-10-02",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03072000%2C03072655%2C03073000%2C03075070&startDT=2008-10-02&endDT=2026-06-24&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05020005",
+      "network_plan_sha256": "a7364f8ceb601eb8ebdb91d1196bb0077696cf01b7f582b6ab79bb0600881606",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "acd788ade1309e8b88e9a3b50a6ad58ef25c5e08a8005ecec6727d868f63cd3e",
+      "legacy_requests": [
+        {
+          "end": "2026-07-23",
+          "estimated_site_days": 39830,
+          "network_id": "huc8_05020006",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_23d36c6ffa9570514158",
+          "role": "development",
+          "site_ids": [
+            "03076500",
+            "03077500",
+            "03079000",
+            "03081000",
+            "03083500"
+          ],
+          "start": "2004-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03076500%2C03077500%2C03079000%2C03081000%2C03083500&startDT=2004-10-01&endDT=2026-07-23&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05020006",
+      "network_plan_sha256": "21093af4d9584dd2fc4ed96e0b4d2f37399e87013ddb5bf2c00858153552f92e",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "6c1840d56d65ecba9f502d5615d57e09551909f5680cf5193b29fbd6ee0c213b",
+      "legacy_requests": [
+        {
+          "end": "2026-03-17",
+          "estimated_site_days": 33720,
+          "network_id": "huc8_05030102",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_47f36ec20a23fe5ce0cb",
+          "role": "development",
+          "site_ids": [
+            "03094704",
+            "03102850",
+            "03102950",
+            "03103500",
+            "03104490"
+          ],
+          "start": "2007-09-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03094704%2C03102850%2C03102950%2C03103500%2C03104490&startDT=2007-09-30&endDT=2026-03-17&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05030102",
+      "network_plan_sha256": "dfd2ee1163ae85c2dc4f3e4548d22d61f74f855f0836b46a6dbe95f4033c97cf",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "82e4abb868766e87fefcac6ea762eb61cf6095418ce606df25cb532f34640505",
+      "legacy_requests": [
+        {
+          "end": "2025-11-19",
+          "estimated_site_days": 41844,
+          "network_id": "huc8_05040001",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_25b62bc464ad6ddbf54b",
+          "role": "development",
+          "site_ids": [
+            "03119341",
+            "03119971",
+            "03119979",
+            "03120820",
+            "03120869",
+            "03120961",
+            "03125338",
+            "03126395",
+            "03127980",
+            "03127986",
+            "03127989"
+          ],
+          "start": "2015-06-22",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03119341%2C03119971%2C03119979%2C03120820%2C03120869%2C03120961%2C03125338%2C03126395%2C03127980%2C03127986%2C03127989&startDT=2015-06-22&endDT=2025-11-19&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05040001",
+      "network_plan_sha256": "5959a0712a014c3f3deac1b142175f153c8d85690558977bff3f4c481f727fa3",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "3e610ec9f26c494d69bdfa38236f9be9630680a7f36f4c23686dc85c3bdd073c",
+      "legacy_requests": [
+        {
+          "end": "2025-11-16",
+          "estimated_site_days": 11397,
+          "network_id": "huc8_05040005",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_e43648f93f0a164a6eeb",
+          "role": "development",
+          "site_ids": [
+            "03140853",
+            "03140900",
+            "03140950"
+          ],
+          "start": "2015-06-24",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03140853%2C03140900%2C03140950&startDT=2015-06-24&endDT=2025-11-16&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05040005",
+      "network_plan_sha256": "4807d98375bf159163ca881eb26e2a27cf6fdd86afce40c7305299f681c29f01",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "a3db6982b7e3d8e71f5483ef33873a97be9bf70330fe13a8fcbeffa188cf15f5",
+      "legacy_requests": [
+        {
+          "end": "2015-09-30",
+          "estimated_site_days": 16251,
+          "network_id": "huc8_05090203",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_9d6d25ccf89e19b532b9",
+          "role": "development",
+          "site_ids": [
+            "03262001",
+            "03277075",
+            "03277130"
+          ],
+          "start": "2000-12-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03262001%2C03277075%2C03277130&startDT=2000-12-01&endDT=2015-09-30&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05090203",
+      "network_plan_sha256": "463bd78def0d1112d5915ba5a6142dfa0562bc97293ca9fe7318ffc50363294a",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "2982bdc6bc5d63a0b9ea1aaa887efe7eb9fef85d0c2f2af887f9c4c0cfa3e106",
+      "legacy_requests": [
+        {
+          "end": "2024-11-04",
+          "estimated_site_days": 39552,
+          "network_id": "huc8_05110001",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_7272d95413d148518a85",
+          "role": "development",
+          "site_ids": [
+            "03306000",
+            "03306500",
+            "03311500"
+          ],
+          "start": "1988-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03306000%2C03306500%2C03311500&startDT=1988-10-01&endDT=2024-11-04&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05110001",
+      "network_plan_sha256": "dc565076ef548035c6505ca19b095648f3aeebc8ae432b1d02254b3ad8fef463",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "cc7838337f535d524836790fa57eeb0e690fc5cad564c9be11dbba61aefe6ff5",
+      "legacy_requests": [
+        {
+          "end": "2026-01-23",
+          "estimated_site_days": 92075,
+          "network_id": "huc8_05120201",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ba1b7b32d91137113cf6",
+          "role": "development",
+          "site_ids": [
+            "03353200",
+            "03353415",
+            "03353420",
+            "03353611",
+            "03354000"
+          ],
+          "start": "1975-08-25",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03353200%2C03353415%2C03353420%2C03353611%2C03354000&startDT=1975-08-25&endDT=2026-01-23&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05120201",
+      "network_plan_sha256": "e2a639ac2c46baa7d9764e9d91fbc29a3f164442d742e8ed698cb9a8b3e03667",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "946314a7de38686ed68f7d1a0586eff229095ab23f0e58b1e282b081dfd9aa73",
+      "legacy_requests": [
+        {
+          "end": "2026-02-23",
+          "estimated_site_days": 32142,
+          "network_id": "huc8_05130202",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c0357da4f1fe2733a0eb",
+          "role": "development",
+          "site_ids": [
+            "03431083",
+            "03431091",
+            "03431514"
+          ],
+          "start": "1996-10-25",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03431083%2C03431091%2C03431514&startDT=1996-10-25&endDT=2026-02-23&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05130202",
+      "network_plan_sha256": "bc16f7b2ccf360afdf5481e2ace8327bee8176218cd00f711ac6bb1a987fab8c",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "63418587f49821923b7ec2a0ba081c804da288790bd9095a404c3019ccd19fca",
+      "legacy_requests": [
+        {
+          "end": "2026-07-15",
+          "estimated_site_days": 111648,
+          "network_id": "huc8_05140101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_e5aaba50dbd7f9f809c3",
+          "role": "development",
+          "site_ids": [
+            "03292470",
+            "03292474",
+            "03292475",
+            "03292480",
+            "03292500",
+            "03293000",
+            "03293500",
+            "03293530"
+          ],
+          "start": "1988-04-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03292470%2C03292474%2C03292475%2C03292480%2C03292500%2C03293000%2C03293500%2C03293530&startDT=1988-04-30&endDT=2026-07-15&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05140101",
+      "network_plan_sha256": "8a7947c35a5a9ba6f736f380487d9605ee71fbb2c3e9b474d2e7a28b453ef3d3",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "890530424a4701cf93325961daefa0cbfccc8ee476aaefbef9ed622324cc23dc",
+      "legacy_requests": [
+        {
+          "end": "2026-07-29",
+          "estimated_site_days": 179621,
+          "network_id": "huc8_05140102",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_82bea895d4148dbc4695",
+          "role": "development",
+          "site_ids": [
+            "03293510",
+            "03297800",
+            "03297900",
+            "03298000",
+            "03298135",
+            "03298150",
+            "03298200",
+            "03298250",
+            "03301900",
+            "03301940",
+            "03302000",
+            "03302030",
+            "03302050"
+          ],
+          "start": "1988-09-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=03293510%2C03297800%2C03297900%2C03298000%2C03298135%2C03298150%2C03298200%2C03298250%2C03301900%2C03301940%2C03302000%2C03302030%2C03302050&startDT=1988-09-30&endDT=2026-07-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_05140102",
+      "network_plan_sha256": "153f2c5a3ca346d0afa0b8ac4d749d6aa2c0332b041fed4f69e9a042224d586e",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "bb1ff3326889c683aed0c48e3e3bbac99cbb8d579ecc393f50ff4c83bb488cd0",
+      "legacy_requests": [
+        {
+          "end": "2024-09-29",
+          "estimated_site_days": 23420,
+          "network_id": "huc8_07040006",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_20f6d21ffaafa210ba26",
+          "role": "development",
+          "site_ids": [
+            "05382255",
+            "05382257",
+            "05382267",
+            "05382284"
+          ],
+          "start": "2008-09-19",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05382255%2C05382257%2C05382267%2C05382284&startDT=2008-09-19&endDT=2024-09-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_07040006",
+      "network_plan_sha256": "c3db6fc8778eaae8d38377400ce10112686af0b39f0f78e0a8ccfb4c25100d7d",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "e35fb871823e2819b8e56a893f9e46c09a0a808f54cc2d7e26dbf6dfcef32782",
+      "legacy_requests": [
+        {
+          "end": "2002-09-29",
+          "estimated_site_days": 19542,
+          "network_id": "huc8_07070005",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_abdb80de30421ae24e85",
+          "role": "development",
+          "site_ids": [
+            "05406460",
+            "05406470",
+            "05406491"
+          ],
+          "start": "1984-11-29",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05406460%2C05406470%2C05406491&startDT=1984-11-29&endDT=2002-09-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_07070005",
+      "network_plan_sha256": "e98ef26138a4e1effdb978866f1c1b815d164c505773ba44234deef46d8fde8d",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "eb95b899c93661da00bdba21a724b9a4883ee6ca20f1b8b25dd7a61890711fb4",
+      "legacy_requests": [
+        {
+          "end": "2026-06-15",
+          "estimated_site_days": 174366,
+          "network_id": "huc8_07120001",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c9d448ed9ff678b2bede",
+          "role": "development",
+          "site_ids": [
+            "05515500",
+            "05516665",
+            "05517000",
+            "05517010",
+            "05517500",
+            "05518000",
+            "05527000",
+            "05527500",
+            "412320088154101"
+          ],
+          "start": "1973-05-31",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05515500%2C05516665%2C05517000%2C05517010%2C05517500%2C05518000%2C05527000%2C05527500%2C412320088154101&startDT=1973-05-31&endDT=2026-06-15&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_07120001",
+      "network_plan_sha256": "a3274cadafa85315796cf4409f0bc7f9e7208bdb325d902800cced4eda774874",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "d8a7425d8de53135733ccb048a148f4b33e6f9660ded986a14818f1b4f9dc5ea",
+      "legacy_requests": [
+        {
+          "end": "2026-04-20",
+          "estimated_site_days": 58143,
+          "network_id": "huc8_07120004",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_bb2328f6c877907bbe41",
+          "role": "development",
+          "site_ids": [
+            "05536995",
+            "05537980",
+            "05539670"
+          ],
+          "start": "1973-03-29",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=05536995%2C05537980%2C05539670&startDT=1973-03-29&endDT=2026-04-20&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_07120004",
+      "network_plan_sha256": "00485f5fb058d1451404e91b541ef8a3b3de90f1651559c62eb8ef69b26b8690",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "7554a8b892018b30e1f0f41402394ac3857caac3f9bab01f92aad0db9d7ff063",
+      "legacy_requests": [
+        {
+          "end": "2022-12-14",
+          "estimated_site_days": 17940,
+          "network_id": "huc8_10230006",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_856df77e8382b1ba20bf",
+          "role": "development",
+          "site_ids": [
+            "06610000",
+            "410333095530101",
+            "412126095565201"
+          ],
+          "start": "2006-08-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=06610000%2C410333095530101%2C412126095565201&startDT=2006-08-01&endDT=2022-12-14&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_10230006",
+      "network_plan_sha256": "ad5a239deb5106864e80171368673360451dc20c025e85d7d560bcc8f88d4ad5",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "1a7bb2e9b372a2d935b82fc4c2b0db588fb20e06a9e6adb3fd83d791e581842e",
+      "legacy_requests": [
+        {
+          "end": "2026-07-20",
+          "estimated_site_days": 38385,
+          "network_id": "huc8_10300101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_58a5296a74aa2779c288",
+          "role": "development",
+          "site_ids": [
+            "06893060",
+            "06893620",
+            "06893820",
+            "06893890",
+            "06894000"
+          ],
+          "start": "2005-07-14",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=06893060%2C06893620%2C06893820%2C06893890%2C06894000&startDT=2005-07-14&endDT=2026-07-20&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_10300101",
+      "network_plan_sha256": "fad667db7c3636ffde6ee006c2dfba137a3c022ca98447219865e09df1c2c357",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "f6b05d3f57e692a907bd0e3e662e16ad85661c2699cfa5cc1cf3172bf4be252d",
+      "legacy_requests": [
+        {
+          "end": "2026-06-10",
+          "estimated_site_days": 24870,
+          "network_id": "huc8_13060011",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c3e6a2bd5b19b80b756b",
+          "role": "development",
+          "site_ids": [
+            "08405200",
+            "08406500",
+            "08407500"
+          ],
+          "start": "2003-09-30",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=08405200%2C08406500%2C08407500&startDT=2003-09-30&endDT=2026-06-10&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_13060011",
+      "network_plan_sha256": "611c7604c94373f43f36d383596e610c8cdb5746f1f95e1feff88e02d08e280d",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "f2d56f94993f5b5218fd7fee440e40fc15ad343346d9eeea1b98c1a14fd94621",
+      "legacy_requests": [
+        {
+          "end": "2026-08-04",
+          "estimated_site_days": 10443,
+          "network_id": "huc8_15030108",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_9b6e7935e31ee9119ee6",
+          "role": "development",
+          "site_ids": [
+            "09522005",
+            "09534000",
+            "09534550"
+          ],
+          "start": "2017-01-23",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=09522005%2C09534000%2C09534550&startDT=2017-01-23&endDT=2026-08-04&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_15030108",
+      "network_plan_sha256": "7bae72d6fcff3de7d879c664dad89c1ed713d4e101c1238ab3fccc3ed91c9b95",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "5c9e6895c8afca155aebd0a147d742b77de8749c2697bebd4fa0e1b2e1c12dbb",
+      "legacy_requests": [
+        {
+          "end": "2026-04-29",
+          "estimated_site_days": 26880,
+          "network_id": "huc8_16020102",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_927d1f96b431d8185631",
+          "role": "development",
+          "site_ids": [
+            "10133650",
+            "10133800",
+            "10133980"
+          ],
+          "start": "2001-10-18",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=10133650%2C10133800%2C10133980&startDT=2001-10-18&endDT=2026-04-29&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_16020102",
+      "network_plan_sha256": "20b87c28afec7fea8c36311fc7d940f82910f7f7941c43a00cbe74b2997d86c1",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "c68b7c150152197d9f1f665444fb8cfc9718ca5793cda5b2853d6f274979084e",
+      "legacy_requests": [
+        {
+          "end": "2026-07-15",
+          "estimated_site_days": 52689,
+          "network_id": "huc8_16050102",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_04bf3297c1d0c7618f1b",
+          "role": "development",
+          "site_ids": [
+            "10348200",
+            "10350500",
+            "10351600"
+          ],
+          "start": "1978-06-15",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=10348200%2C10350500%2C10351600&startDT=1978-06-15&endDT=2026-07-15&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_16050102",
+      "network_plan_sha256": "970afeceb639a718b4397ab99e6778a0f809555b5a27bc73deaa1df769075831",
+      "role": "development"
+    },
+    {
+      "base_network_plan_sha256": "03962f359877cb2c5771129ab0c41498d465d9994fd291ba23eb26e2d9d8f20c",
+      "legacy_requests": [
+        {
+          "end": "2026-04-22",
+          "estimated_site_days": 58660,
+          "network_id": "huc8_03040206",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c642d75acf2e223f99fc",
+          "role": "validation",
+          "site_ids": [
+            "02110725",
+            "02110802",
+            "021108125",
+            "02110815"
+          ],
+          "start": "1986-02-27",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02110725%2C02110802%2C021108125%2C02110815&startDT=1986-02-27&endDT=2026-04-22&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03040206",
+      "network_plan_sha256": "56298b7195618121b50f58ddd01eb55afb02c5b85dc581996fe58ffe108d85a9",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "79315606f2d11c85f3ee0bbe2be2f0676a2b248e9e329fffac1c477def70f804",
+      "legacy_requests": [
+        {
+          "end": "2026-07-06",
+          "estimated_site_days": 57816,
+          "network_id": "huc8_03050106",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_4ccd8fb3979affb0b43a",
+          "role": "validation",
+          "site_ids": [
+            "02156500",
+            "02160991",
+            "02162035"
+          ],
+          "start": "1973-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02156500%2C02160991%2C02162035&startDT=1973-10-01&endDT=2026-07-06&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03050106",
+      "network_plan_sha256": "75eee8db54a5738a3b17adeb66812b94459288563ca67b800b185efa78f152c9",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "f23003326b10e5b7ad8ad2b1b239820183c1b73c4ec79c501c7cf034392397df",
+      "legacy_requests": [
+        {
+          "end": "2026-07-16",
+          "estimated_site_days": 71265,
+          "network_id": "huc8_03050109",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ccdc31920a0b7f863c1b",
+          "role": "validation",
+          "site_ids": [
+            "02163001",
+            "02167600",
+            "02167716",
+            "02168504",
+            "02169000"
+          ],
+          "start": "1987-07-09",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02163001%2C02167600%2C02167716%2C02168504%2C02169000&startDT=1987-07-09&endDT=2026-07-16&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03050109",
+      "network_plan_sha256": "00e0dc6ad614c6d083278ca85520000fd026f8dc9c1a8d4215247a5584d31b99",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "58edff6f39eb9ed9e5ec8aff4044d2b13c6caaa77fdbfa11f03080a4d368d9ae",
+      "legacy_requests": [
+        {
+          "end": "2013-03-14",
+          "estimated_site_days": 26290,
+          "network_id": "huc8_03050208",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_47a577d1a5f08c3a2283",
+          "role": "validation",
+          "site_ids": [
+            "02176585",
+            "02176603",
+            "02176611",
+            "02176635",
+            "02176640"
+          ],
+          "start": "1998-10-22",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02176585%2C02176603%2C02176611%2C02176635%2C02176640&startDT=1998-10-22&endDT=2013-03-14&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03050208",
+      "network_plan_sha256": "b0beb82415c3f57c2b975527429c103f0a150631ae6d8f0438987ffe14591897",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "56bfb8114b8468c1c00052f803068e55de0c8f27d92486fabc2077552ab6d9f4",
+      "legacy_requests": [
+        {
+          "end": "2011-08-09",
+          "estimated_site_days": 55308,
+          "network_id": "huc8_03060106",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_f733328d291e4764ff74",
+          "role": "validation",
+          "site_ids": [
+            "02197000",
+            "02197320",
+            "02197351",
+            "02197380"
+          ],
+          "start": "1973-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02197000%2C02197320%2C02197351%2C02197380&startDT=1973-10-01&endDT=2011-08-09&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03060106",
+      "network_plan_sha256": "53a7915767a0a8d72e1bc94592c6266291dce8c7a126d7c87320e368412f2867",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "faa7527da80495bf49a340bf4bbbfdde7f10df2b50a08463c88846f3519498fa",
+      "legacy_requests": [
+        {
+          "end": "2026-06-28",
+          "estimated_site_days": 178638,
+          "network_id": "huc8_03070103",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_964995bf463e14d95d40",
+          "role": "validation",
+          "site_ids": [
+            "02203603",
+            "02203655",
+            "02203831",
+            "02203863",
+            "02203873",
+            "02203900",
+            "02203950",
+            "02203960",
+            "02204037",
+            "02205865",
+            "02207120",
+            "02207135",
+            "02207160",
+            "02207185",
+            "02207385",
+            "02207400",
+            "02208150",
+            "02208450",
+            "02208493"
+          ],
+          "start": "2000-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02203603%2C02203655%2C02203831%2C02203863%2C02203873%2C02203900%2C02203950%2C02203960%2C02204037%2C02205865%2C02207120%2C02207135%2C02207160%2C02207185%2C02207385%2C02207400%2C02208150%2C02208450%2C02208493&startDT=2000-10-01&endDT=2026-06-28&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03070103",
+      "network_plan_sha256": "31d70e411d66a62278c789bcb6f69d65f62c273c0c371b50b063f7e10a5a456e",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "d65eaf34971f99bf3bfd93e240f4e2477876060a14417c15bc7f2fc5e152f220",
+      "legacy_requests": [
+        {
+          "end": "2026-02-11",
+          "estimated_site_days": 179952,
+          "network_id": "huc8_03080103",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_ac986f27927f7cc86f2f",
+          "role": "validation",
+          "site_ids": [
+            "02244040",
+            "02245340",
+            "022462002",
+            "02246459",
+            "02246500",
+            "02246518",
+            "02246751",
+            "02246804",
+            "300803081354500",
+            "301124081395901",
+            "301204081434900",
+            "301510081383500",
+            "301817081393600",
+            "302309081333001",
+            "302609081453300",
+            "302657081312400"
+          ],
+          "start": "1995-04-29",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02244040%2C02245340%2C022462002%2C02246459%2C02246500%2C02246518%2C02246751%2C02246804%2C300803081354500%2C301124081395901%2C301204081434900%2C301510081383500%2C301817081393600%2C302309081333001%2C302609081453300%2C302657081312400&startDT=1995-04-29&endDT=2026-02-11&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03080103",
+      "network_plan_sha256": "373f295e59b91ea5a8efe390dec2af52c2466d800e872a319be504d8a73a8cbc",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "7726ea9801b34f2fb99af30e2c2deaf1cf356e7aef75a76709ea3b97884717e5",
+      "legacy_requests": [
+        {
+          "end": "2026-01-26",
+          "estimated_site_days": 88755,
+          "network_id": "huc8_03090101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_246af1817356037c8361",
+          "role": "validation",
+          "site_ids": [
+            "02264000",
+            "02264100",
+            "02266200",
+            "02266300",
+            "02266495"
+          ],
+          "start": "1977-06-22",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02264000%2C02264100%2C02266200%2C02266300%2C02266495&startDT=1977-06-22&endDT=2026-01-26&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03090101",
+      "network_plan_sha256": "574d52dd28b33b78c1613ab9e7dfd72abe0ad0ab5dad555c7ce54f1d7e3822a8",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "9f4caeb8e2d35ef5f1f56305d0d771747decf529d9f116922b8794b04154a7db",
+      "legacy_requests": [
+        {
+          "end": "2025-12-15",
+          "estimated_site_days": 62027,
+          "network_id": "huc8_03090204",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_a47591b2c9d55488cab3",
+          "role": "validation",
+          "site_ids": [
+            "02290928",
+            "02290930",
+            "255327081275900",
+            "255432081303900",
+            "255534081324000",
+            "255654081350200",
+            "255726081303700"
+          ],
+          "start": "2001-09-12",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02290928%2C02290930%2C255327081275900%2C255432081303900%2C255534081324000%2C255654081350200%2C255726081303700&startDT=2001-09-12&endDT=2025-12-15&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03090204",
+      "network_plan_sha256": "f6e6779c5c3cb67d094bcd76515cb6c09649affdef686c019888d93761113564",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "c7beb2b9ef4915633706eb61bbba7b82fe7c86c8efd85ded4e722b0d97a5b254",
+      "legacy_requests": [
+        {
+          "end": "2026-01-21",
+          "estimated_site_days": 14320,
+          "network_id": "huc8_03100101",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_34eeacae8fd07ad65e8c",
+          "role": "validation",
+          "site_ids": [
+            "02297345",
+            "02297350",
+            "02297460",
+            "02298202"
+          ],
+          "start": "2016-04-04",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02297345%2C02297350%2C02297460%2C02298202&startDT=2016-04-04&endDT=2026-01-21&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03100101",
+      "network_plan_sha256": "28db25b8eb2ee66fa58b5eb1ce766eebea9cb0781e772ac0afd18bf75f249044",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "2120c9748fe28963889b9e1b3ced4c202752f7a3c424d094adec370f46fb9ad6",
+      "legacy_requests": [
+        {
+          "end": "2025-12-04",
+          "estimated_site_days": 10401,
+          "network_id": "huc8_03100204",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_e7e542d4d30e48eecef1",
+          "role": "validation",
+          "site_ids": [
+            "02301500",
+            "02301718",
+            "02301721"
+          ],
+          "start": "2016-06-08",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02301500%2C02301718%2C02301721&startDT=2016-06-08&endDT=2025-12-04&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03100204",
+      "network_plan_sha256": "6f0e1624a417cdf66eb58b0f5d24165aba4923a86592c90af7b727d8c92f7de8",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "9e8c894c5b7d4ffe444df836ba3a8765e11d82a6a7ab8b9d385ab62e24e5adee",
+      "legacy_requests": [
+        {
+          "end": "2025-12-02",
+          "estimated_site_days": 47800,
+          "network_id": "huc8_03100205",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_59e4935dc1db86e7d225",
+          "role": "validation",
+          "site_ids": [
+            "02304000",
+            "02304510",
+            "02304517",
+            "023060013",
+            "02306028"
+          ],
+          "start": "1999-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02304000%2C02304510%2C02304517%2C023060013%2C02306028&startDT=1999-10-01&endDT=2025-12-02&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03100205",
+      "network_plan_sha256": "edc32aa42878fbc30cc5ad5d424cdcf1c81bcd18220e6d7f5ae942faa5090607",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "897fcde69f613b1251de581f236acfc93f3fc0225fc7998760f61188e48ec998",
+      "legacy_requests": [
+        {
+          "end": "2025-12-02",
+          "estimated_site_days": 41580,
+          "network_id": "huc8_03100207",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b0428bc960c6246a9540",
+          "role": "validation",
+          "site_ids": [
+            "02310308",
+            "02310650",
+            "02310673",
+            "02310674",
+            "02310689",
+            "02310690",
+            "02310700",
+            "02310740",
+            "02310742",
+            "02310752",
+            "02313272",
+            "285531082412600"
+          ],
+          "start": "2016-06-08",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02310308%2C02310650%2C02310673%2C02310674%2C02310689%2C02310690%2C02310700%2C02310740%2C02310742%2C02310752%2C02313272%2C285531082412600&startDT=2016-06-08&endDT=2025-12-02&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03100207",
+      "network_plan_sha256": "3f66cfa837aa384c35b3d14285c7abb3161e9a882789cb8e81d76955861e4576",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "a47b243217c7c07827b2de4cbeb8e3a80b52e33980306f98ac443163174da94a",
+      "legacy_requests": [
+        {
+          "end": "2026-04-15",
+          "estimated_site_days": 38745,
+          "network_id": "huc8_03150104",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_fbc37c939bc9b719ec07",
+          "role": "validation",
+          "site_ids": [
+            "02388975",
+            "02388985",
+            "02389150",
+            "02394000",
+            "02394682"
+          ],
+          "start": "2005-01-27",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02388975%2C02388985%2C02389150%2C02394000%2C02394682&startDT=2005-01-27&endDT=2026-04-15&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03150104",
+      "network_plan_sha256": "dc9db6d645b6f3957b61e8b674b0665baf4a4cbd57e5bc7f711d7d6a464a4daa",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "e01ab72cc65f8d5633b32f7949519d2c9cfc758a4a83c545b13060ab4cd58cdf",
+      "legacy_requests": [
+        {
+          "end": "2026-05-07",
+          "estimated_site_days": 68680,
+          "network_id": "huc8_03160111",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_db513457213bce824206",
+          "role": "validation",
+          "site_ids": [
+            "02455980",
+            "02457595",
+            "02458148",
+            "02458450",
+            "02458502"
+          ],
+          "start": "1988-09-28",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=02455980%2C02457595%2C02458148%2C02458450%2C02458502&startDT=1988-09-28&endDT=2026-05-07&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_03160111",
+      "network_plan_sha256": "3ec6649400be5ba63464588b8d6ffde0525f5eb3190963e9411b14831717c81d",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "9fe06a2125bd65cf27735b7999c2b86484062e0361fcd9c0f87d29a27656220d",
+      "legacy_requests": [
+        {
+          "end": "2026-03-17",
+          "estimated_site_days": 38214,
+          "network_id": "huc8_11010014",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_2f0de0fae568b85acc7f",
+          "role": "validation",
+          "site_ids": [
+            "07075250",
+            "07075270",
+            "07076000"
+          ],
+          "start": "1991-05-03",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07075250%2C07075270%2C07076000&startDT=1991-05-03&endDT=2026-03-17&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_11010014",
+      "network_plan_sha256": "fdd282911021c06fd5a87148ddde8716b65c5b0e4e1528599ee1a2602fc618a9",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "6a14e3beaeb99108b891b2d518cd9e4e88c521a39baea9a842d60939bc3150fd",
+      "legacy_requests": [
+        {
+          "end": "2026-04-27",
+          "estimated_site_days": 64965,
+          "network_id": "huc8_11020002",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_4f15ed161097d6907359",
+          "role": "validation",
+          "site_ids": [
+            "07096000",
+            "07097000",
+            "07099400",
+            "07099969",
+            "07109500"
+          ],
+          "start": "1990-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07096000%2C07097000%2C07099400%2C07099969%2C07109500&startDT=1990-10-01&endDT=2026-04-27&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_11020002",
+      "network_plan_sha256": "d8626723ee6a7af081c9845f0602332e76c662256e14bce8f1c902df4fdab84d",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "c26b9e07283d9aa6a79c6073e95f5f2214786c294ae81bdeef8cbc98198aefa3",
+      "legacy_requests": [
+        {
+          "end": "2026-05-14",
+          "estimated_site_days": 66875,
+          "network_id": "huc8_11020003",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_c088b61a70beaf735fbb",
+          "role": "validation",
+          "site_ids": [
+            "07105530",
+            "07105815",
+            "07105820",
+            "07106000",
+            "07106500"
+          ],
+          "start": "1989-10-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07105530%2C07105815%2C07105820%2C07106000%2C07106500&startDT=1989-10-01&endDT=2026-05-14&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_11020003",
+      "network_plan_sha256": "7008d2cefa775433e07c9e806f79b86b3765b1c0b06d54cf4e41f51a00200b46",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "4dc9da3fa9eaaa3d2e2229670ccc68695a10e4ae26aabdff6bf64ea13dc1e91e",
+      "legacy_requests": [
+        {
+          "end": "2019-07-24",
+          "estimated_site_days": 23265,
+          "network_id": "huc8_11030012",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_f0de9c91adc1d0ef82d8",
+          "role": "validation",
+          "site_ids": [
+            "07143672",
+            "07144100",
+            "375350097262800"
+          ],
+          "start": "1998-05-01",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07143672%2C07144100%2C375350097262800&startDT=1998-05-01&endDT=2019-07-24&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_11030012",
+      "network_plan_sha256": "321d7d8984295098f8faba442152a7b296985b637fca630d89e1636dcf4dd577",
+      "role": "validation"
+    },
+    {
+      "base_network_plan_sha256": "cd326987609c8235cc4db19265416ce075e084aba4749728db7a2372b3e82963",
+      "legacy_requests": [
+        {
+          "end": "2024-11-09",
+          "estimated_site_days": 44040,
+          "network_id": "huc8_11130206",
+          "parameter_codes": [
+            "00060",
+            "00065"
+          ],
+          "request_id": "legacy_dv_b22b5cac4cf356c09753",
+          "role": "validation",
+          "site_ids": [
+            "07311900",
+            "07312100",
+            "07312500",
+            "07312700"
+          ],
+          "start": "1994-09-19",
+          "statistic_code": "00003",
+          "url": "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=07311900%2C07312100%2C07312500%2C07312700&startDT=1994-09-19&endDT=2024-11-09&parameterCd=00060%2C00065&statCd=00003&siteStatus=all"
+        }
+      ],
+      "network_id": "huc8_11130206",
+      "network_plan_sha256": "8660ee8703273a443e9fd04ba8ea33916b9a4cecb49637d0e2304ca5ed6f2990",
+      "role": "validation"
+    }
+  ],
+  "performance_metrics_computed": false,
+  "plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+  "sealed_paths_traversed": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "temperature_columns_read": [],
+  "usgs_transport": "usgs_legacy_nwis_dv_rdb",
+  "v1_ogc_root_read_or_mutated": false,
+  "v1_roster_plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a"
+}

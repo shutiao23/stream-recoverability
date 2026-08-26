@@ -1,0 +1,22 @@
+{
+  "comparison": {
+    "bytes": 2299070,
+    "path": "results/framework/t2_information_adapters_v2/legacy_vs_ogc/huc8_02040103/legacy_vs_ogc_daily_hydraulics.csv",
+    "sha256": "4048cc45fc92ce4901f9c81c619fde8ca85f433c3b06baeb61cdd6dd7f5d8b38"
+  },
+  "manifest_schema": "t2_v91_legacy_vs_ogc_transport_regression_v1",
+  "max_absolute_difference": 0.0,
+  "n_exact_value_matches": 33772,
+  "n_legacy_approved_rows": 33772,
+  "n_legacy_rows_not_in_ogc": 0,
+  "n_ogc_approved_rows": 33772,
+  "n_ogc_rows_missing_from_legacy": 0,
+  "n_overlap_rows": 33772,
+  "network_id": "huc8_02040103",
+  "passed": true,
+  "performance_metrics_computed": false,
+  "sealed_temperature_records_read": false,
+  "temperature_columns_read": [],
+  "v1_mutated": false,
+  "v1_read_for_transport_regression_only": true
+}

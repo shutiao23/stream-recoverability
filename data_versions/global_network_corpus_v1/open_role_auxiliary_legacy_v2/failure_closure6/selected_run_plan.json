@@ -1,0 +1,27 @@
+{
+  "corpus_plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+  "execute": true,
+  "manifest_schema": "t2_v91_open_role_mh_selected_run_plan_v2",
+  "n_networks_selected": 1,
+  "parallel_workers": 1,
+  "retry_policy": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "exhaustion": "global_circuit_break_and_stop_run",
+    "http_429_cooldown_seconds": 120.0,
+    "jitter": "none",
+    "max_transient_retries": 4,
+    "request_interval_seconds": 3.0
+  },
+  "scope_acknowledgement": {
+    "expected": 1,
+    "mode": "bounded",
+    "provided": 1
+  },
+  "selected_network_ids": [
+    "huc8_02040103"
+  ],
+  "selected_plan_sha256": "123e4f1fe6568b464a016dead397005fe6bed271665391c108c147e91e830785",
+  "sequential_execution": true,
+  "v1_ogc_root_read_or_mutated": false
+}

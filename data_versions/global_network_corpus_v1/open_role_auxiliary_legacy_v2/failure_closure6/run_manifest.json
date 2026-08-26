@@ -1,0 +1,83 @@
+{
+  "artifacts": {
+    "corpus_request_plan": {
+      "bytes": 72599,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/corpus_request_plan.json",
+      "sha256": "6db141d032336f841fcd436a50bd34ded687547b065d6bdc02e0f842328a48d3"
+    },
+    "global_attrition": {
+      "bytes": 7910,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition.csv",
+      "sha256": "82a7b55a9b6844cf287548225f7a46132db62470fe6a563b3feb196081ab6734"
+    },
+    "global_attrition_summary": {
+      "bytes": 588,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/global_attrition_summary.json",
+      "sha256": "12ddaf3f06ac450c851c6614e39404857aa33528deab188a41bdeea178bd7848"
+    },
+    "selected_run_plan": {
+      "bytes": 826,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/selected_run_plan.json",
+      "sha256": "855b8e0234b7c1c16219092faf298dd575913cadab1c1281b00e1e4bf1e0486d"
+    }
+  },
+  "corpus_plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+  "dry_run": false,
+  "execute": true,
+  "formal_evidence": false,
+  "global_attrition": {
+    "manifest_schema": "t2_v91_open_role_mh_global_attrition_v2",
+    "materialization_status_counts": {
+      "materialized_partial": 1,
+      "not_materialized": 66
+    },
+    "n_attempt_archives": 0,
+    "n_networks_materialized": 1,
+    "n_networks_planned": 67,
+    "n_networks_remaining": 66,
+    "n_source_failures_or_unavailable": 3,
+    "passed": false,
+    "performance_metrics_computed": false,
+    "plan_sha256": "5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c",
+    "sealed_temperature_records_read": false,
+    "temperature_columns_read": [],
+    "v1_ogc_root_read_or_mutated": false
+  },
+  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v2",
+  "n_networks_executed_now": 1,
+  "n_networks_executed_or_resumed": 1,
+  "n_networks_in_frozen_roster": 67,
+  "n_networks_resumed": 0,
+  "n_networks_selected": 1,
+  "n_sites_in_frozen_roster": 340,
+  "network_interval_reported": false,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "provider_transport_audit": {
+    "backoff_initial_seconds": 15.0,
+    "backoff_max_seconds": 240.0,
+    "circuit": null,
+    "circuit_open": false,
+    "events": [],
+    "http_429_cooldown_seconds": 120.0,
+    "jitter_policy": "none_deterministic",
+    "max_transient_retries": 4,
+    "n_base_calls": 4,
+    "n_retry_events": 0,
+    "request_interval_seconds": 3.0
+  },
+  "results": [
+    {
+      "network_id": "huc8_02040103",
+      "resumed": false,
+      "status": "materialized_partial"
+    }
+  ],
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "selected_plan_sha256": "123e4f1fe6568b464a016dead397005fe6bed271665391c108c147e91e830785",
+  "status": "execution_complete_for_selected_scope",
+  "stop": null,
+  "temperature_columns_read": [],
+  "v1_ogc_root_read_or_mutated": false
+}
