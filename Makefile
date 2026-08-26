@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation hubeau-daily uk-ea-catalog uk-ea-daily matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
 
 test:
 	$(PYTHON) -m pytest
@@ -62,6 +62,9 @@ gap-triage:
 
 v2-operator-ablation:
 	$(PYTHON) scripts/61_v2_public_river_operator_ablation.py
+
+w2-phase4-gap-specific:
+	$(PYTHON) scripts/67_w2_phase4_gap_specific.py
 
 hubeau-daily:
 	$(PYTHON) scripts/62_hubeau_daily_from_chronique.py
