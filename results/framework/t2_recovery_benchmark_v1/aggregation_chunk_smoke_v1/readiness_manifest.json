@@ -1,0 +1,22 @@
+{
+  "blockers": [
+    "online_causal_runner_ready_full_results_missing",
+    "result_workload_incomplete_20_of_1384025",
+    "missing_train_only_operator_and_univariate_predictor_contract"
+  ],
+  "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
+  "expected_result_records": 1384025,
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "inference_tables_written": false,
+  "manifest_schema": "t2_v91_aggregation_readiness_v1",
+  "n_networks": 67,
+  "network_inference_status": "withheld_n_lt_100_network_interval",
+  "network_interval": null,
+  "observed_result_records": 20,
+  "passed": false,
+  "purpose": "pipeline_readiness_not_evidence",
+  "sealed_temperature_records_read": false,
+  "status": "blocked",
+  "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
+}

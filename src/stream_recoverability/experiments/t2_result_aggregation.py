@@ -105,6 +105,14 @@ def _work_item_stream_sha(rows: Sequence[Mapping[str, Any]]) -> str:
     return digest.hexdigest()
 
 
+def _ordinal_item_sha(rows: Sequence[Mapping[str, Any]]) -> str:
+    identities = [
+        {"ordinal": int(row["ordinal"]), "item_id": str(row["item_id"])}
+        for row in rows
+    ]
+    return _canonical_sha(identities)
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -225,6 +233,28 @@ def _load_chunks(
         frame = _read_table(table_path, str(manifest.get("results_format")))
         if len(frame) != int(manifest.get("n_records", -1)):
             raise AggregationContractError("chunk row count mismatch")
+        start = int(manifest.get("start_ordinal", -1))
+        end = int(manifest.get("end_ordinal_exclusive", -1))
+        if start < 0 or end <= start or end - start != len(frame):
+            raise AggregationContractError("chunk has an invalid [start,end) binding")
+        if "ordinal" not in frame or "item_id" not in frame:
+            raise AggregationContractError("chunk table omits ordinal/item_id")
+        numeric_ordinals = pd.to_numeric(frame["ordinal"], errors="coerce")
+        if numeric_ordinals.isna().any() or [
+            int(value) for value in numeric_ordinals
+        ] != list(range(start, end)):
+            raise AggregationContractError("chunk ordinals are not contiguous [start,end)")
+        identities = frame[["ordinal", "item_id"]].to_dict(orient="records")
+        if manifest.get("ordinal_contiguous") is not True:
+            raise AggregationContractError("chunk does not attest ordinal continuity")
+        if manifest.get("ordinal_item_identity_sha256") != _ordinal_item_sha(identities):
+            raise AggregationContractError("chunk ordinal/item identity SHA-256 mismatch")
+        if manifest.get("item_id_stream_sha256") != _work_item_stream_sha(identities):
+            raise AggregationContractError("chunk item-id stream SHA-256 mismatch")
+        if str(frame.iloc[0]["item_id"]) != manifest.get("first_item_id"):
+            raise AggregationContractError("chunk first item_id mismatch")
+        if str(frame.iloc[-1]["item_id"]) != manifest.get("last_item_id"):
+            raise AggregationContractError("chunk last item_id mismatch")
         input_map = {str(k): str(v) for k, v in (manifest.get("input_sha256_by_network") or {}).items()}
         inventory_sha = input_inventory_sha256(input_map)
         if manifest.get("input_inventory_sha256") != inventory_sha:
@@ -239,6 +269,19 @@ def _load_chunks(
 
 
 def _expected_item_id(record: Mapping[str, Any], design_sha: str) -> str:
+    if str(record.get("geometry")) in {"natural_outage", "adversarial_stress"}:
+        identity = {
+            "runner_contract_version": RUNNER_CONTRACT_VERSION,
+            "geometry_catalog_file_sha256": record.get(
+                "geometry_catalog_file_sha256"
+            ),
+            "geometry_id": record.get("geometry_id"),
+            "geometry_row_sha256": record.get("geometry_row_sha256"),
+            "model": record.get("model"),
+            "information_condition": record.get("information_condition"),
+            "input_sha256": record.get("input_sha256"),
+        }
+        return _canonical_sha([identity])[:24]
     identity = {
         "design_sha256": design_sha,
         "input_sha256": record.get("input_sha256"),
@@ -312,8 +355,13 @@ def _validate_records(
         normalized.append(record)
     if len(set(ordinals)) != len(ordinals) or len(set(item_ids)) != len(item_ids):
         raise AggregationContractError("duplicate ordinal or item_id across result sources")
+    if any(ordinal < 0 or ordinal >= expected_n for ordinal in ordinals):
+        raise AggregationContractError("result ordinal lies outside the frozen workload")
     blockers: list[str] = []
-    if len(records) != expected_n or set(ordinals) != set(range(expected_n)):
+    complete_identity_stream = len(records) == expected_n and set(ordinals) == set(
+        range(expected_n)
+    )
+    if not complete_identity_stream:
         blockers.append(f"result_workload_incomplete_{len(records)}_of_{expected_n}")
     ordered_identities = sorted(
         ({"ordinal": ordinal, "item_id": item_id} for ordinal, item_id in zip(ordinals, item_ids)),
@@ -321,7 +369,7 @@ def _validate_records(
     )
     if not expected_identity_sha:
         blockers.append("workload_missing_expected_item_identity_sha256")
-    elif _work_item_stream_sha(ordered_identities) != expected_identity_sha:
+    elif complete_identity_stream and _work_item_stream_sha(ordered_identities) != expected_identity_sha:
         raise AggregationContractError("result rows do not match workload item-identity SHA-256")
     for status in sorted(NON_SUCCESS_STATUSES):
         if status_counts[status]:
