@@ -30,6 +30,9 @@ PREDICTORS = (
 NLDI_RELATIVE = Path("results/framework/public_catalog/nldi_cache")
 NLDI_CACHE = ROOT / NLDI_RELATIVE
 OUTPUT = ROOT / "results/framework/t5_nldi_acquisition_v1"
+UNAVAILABLE_RELATIVE = Path(
+    "results/framework/t5_nldi_acquisition_v1/provider_unavailable_registry"
+)
 
 
 def _arguments() -> argparse.Namespace:
@@ -60,8 +63,22 @@ def main() -> None:
     predictors = pd.read_csv(
         PREDICTORS, dtype={"network_id": str, "station_id": str}
     )
-    plan = build_open_target_plan(predictors, cache_dir=NLDI_RELATIVE)
+    plan = build_open_target_plan(
+        predictors,
+        cache_dir=NLDI_RELATIVE,
+        unavailable_dir=UNAVAILABLE_RELATIVE,
+    )
     before = audit_plan_cache(plan, root=ROOT)
+    invalid_before = before.loc[
+        before["status"].isin(
+            {"invalid_existing_cache", "invalid_existing_unavailable_sidecar"}
+        )
+    ]
+    if not invalid_before.empty:
+        details = invalid_before[
+            ["request_ordinal", "target_station_id", "direction", "status"]
+        ].to_dict(orient="records")
+        raise SystemExit(f"fail-closed invalid NLDI artifacts: {details[:5]}")
     counts_before = before["status"].value_counts().sort_index().astype(int).to_dict()
     missing_before = int(counts_before.get("missing", 0))
     if args.execute:
@@ -98,6 +115,7 @@ def main() -> None:
                 "target_station_id",
                 "direction",
                 "status",
+                "http_status",
                 "response_sha256",
             ]
         )
@@ -120,6 +138,9 @@ def main() -> None:
         )
     after = audit_plan_cache(plan, root=ROOT)
     counts_after = after["status"].value_counts().sort_index().astype(int).to_dict()
+    resolved_after = int(counts_after.get("complete", 0)) + int(
+        counts_after.get("provider_confirmed_unavailable", 0)
+    )
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
     plan_path = OUTPUT / "acquisition_plan.csv"
@@ -152,7 +173,12 @@ def main() -> None:
         "n_requests_remaining_total": int(counts_after.get("missing", 0)),
         "cache_counts_before": counts_before,
         "cache_counts_after": counts_after,
-        "complete": bool(counts_after.get("complete", 0) == len(plan)),
+        "n_resolved_slots": resolved_after,
+        "n_direction_usable_complete": int(counts_after.get("complete", 0)),
+        "n_provider_confirmed_unavailable": int(
+            counts_after.get("provider_confirmed_unavailable", 0)
+        ),
+        "complete": bool(resolved_after == len(plan)),
         "serial_execution": True,
         "request_interval_seconds": float(args.request_interval_seconds),
         "resume_rule": "valid_existing_cache_is_never_requested_again",
@@ -163,7 +189,11 @@ def main() -> None:
             "cumulative_log_is_atomically_rewritten_at_run_finalization_not_per_request"
         ),
         "invalid_existing_cache_rule": "fail_closed_and_do_not_overwrite",
-        "new_invalid_response_rule": "quarantine_bytes_and_leave_request_resumable",
+        "provider_unavailable_rule": (
+            "deterministic_400_404_405_410_422_write_sidecar_and_resolve_slot_"
+            "without_creating_feature_collection_cache"
+        ),
+        "transient_failure_rule": "429_5xx_network_or_invalid_response_halts_run",
         "input_identity": {
             "path": PREDICTORS.relative_to(ROOT).as_posix(),
             "sha256": file_sha256(PREDICTORS),

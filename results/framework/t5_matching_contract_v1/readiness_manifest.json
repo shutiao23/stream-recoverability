@@ -1,9 +1,9 @@
 {
   "artifacts": {
     "nldi_cache_index": {
-      "n_files": 126,
+      "n_files": 132,
       "path": "nldi_cache_index.csv",
-      "sha256": "25eb6cd400363f83f84bebaad079835b6070a9296df0df760b49d9237d742d35"
+      "sha256": "4232bd05ccc1f2fffee53415f2d40192bb60ba686782d8c5aafe9f296a34d45f"
     },
     "pair_attrition": {
       "path": "pair_attrition.csv",
@@ -15,17 +15,17 @@
     },
     "station_attrition": {
       "path": "station_attrition.csv",
-      "sha256": "c208b42a7f6c95450a34a08e8ca5bfae2ae9131f2505f0e4f9c6ec15a6346c0d"
+      "sha256": "272a1c1c0d6358ff52c62b9bcec1f73e6bd82302fb993889c17301cf88211016"
     },
     "station_covariates": {
       "path": "station_covariates.csv",
-      "sha256": "b47f8ddb8ea78b0f5587166fd1f7046aa0c3d806fc11d980522a62aa72bd9289"
+      "sha256": "6a75b8fc3bb1ae3f990523ddea34c043742531b32be45ab77703868bc0250f8c"
     }
   },
   "attrition_reason_counts": {
     "bfi_missing": 149,
-    "direction_cache_missing": 267,
-    "donor_direction_unresolved": 48,
+    "direction_cache_missing": 264,
+    "donor_direction_unresolved": 51,
     "gages_station_missing": 149
   },
   "caliper_note": "The v9.1 freeze names factors but does not lock calipers.",

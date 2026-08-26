@@ -13,6 +13,15 @@ from typing import Any
 USER_AGENT = "stream-recoverability-public-catalog/1.0"
 
 
+class JsonHttpError(RuntimeError):
+    """HTTP failure retaining its status code after the retry policy."""
+
+    def __init__(self, status_code: int, url: str):
+        self.status_code = int(status_code)
+        self.url = str(url)
+        super().__init__(f"HTTP {self.status_code} for {self.url}")
+
+
 def with_usgs_key(url: str) -> str:
     key = os.environ.get("USGS_API_KEY", "").strip()
     if not key or "api_key=" in url:
@@ -39,7 +48,7 @@ def get_json(
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as error:
-            last_error = RuntimeError(f"HTTP {error.code} for {url}")
+            last_error = JsonHttpError(error.code, url)
             if error.code not in {429, 500, 502, 503, 504}:
                 raise last_error from error
             retry_after = error.headers.get("Retry-After") if error.headers else None
@@ -53,4 +62,4 @@ def get_json(
     raise last_error or RuntimeError(f"failed GET {url}")
 
 
-__all__ = ["USER_AGENT", "get_json", "with_usgs_key"]
+__all__ = ["USER_AGENT", "JsonHttpError", "get_json", "with_usgs_key"]
