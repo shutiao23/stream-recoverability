@@ -93,6 +93,32 @@ opening values:
 7. keep Swiss excluded from the present T8 count unless the protocol amendment
    is made before outcomes are opened.
 
-Until that authorization exists, the immediate W6 action is to retain the
-honest zero and return effort to the HUC8 USGS corpus rather than weaken France
-QC or use Swiss to close the quota.
+Until that authorization exists, Swiss values stay closed. Hub'Eau Sandre
+Correcte remains unusable: code 1 is absent on the audited long series, every
+sampled point is code 4 Non qualifié, and bulk Correcte download was correctly
+not started. Code 4 may be used later only as a separately labelled
+unqualified source, never as T8 Correcte.
+
+## UK EA spatial clustering (name clustering was insufficient)
+
+River names are almost entirely blank (16/1964). Name clustering found only
+River Derwent and did not add a T8 network. The next W6 Europe path clusters
+the same catalog on lat/lon (complete-linkage, max pairwise geodesic cap).
+A catalog 3+ cluster is not T8. `dateOpened` is not a daily-year span.
+
+```bash
+PYTHONPATH=src python scripts/89_uk_ea_spatial_daily.py
+```
+
+- 50 km is the declared cap (HUC8 50 km table exists as a diagnostic analog).
+- 100 km is a sensitivity count, not the T8 count.
+- T8 download roster is hydrometric IDs only (38 stations). Event-monitor
+  clouds (1837 `E*` plus other logger codes) are catalog diagnostics, not T8.
+- After daily download, overlap is scored first; groups whose overlap subset
+  exceeds the cap are omitted, not shrunk.
+- Hydrometric 50 km download (6 clusters, 26 stations requested, 13 with daily)
+  still has `n_complete_enough: 0`. Best concurrent overlap is 5.91 years.
+- complete_enough still requires 3 stations, ≥8 overlapping daily years, and
+  ≥5×365 days with min 3 concurrent stations.
+- Script 63 remains the metadata catalog; script 65 remains the Derwent name
+  path. This script does not pad T8 with Derwent-only if spatial clusters fail.

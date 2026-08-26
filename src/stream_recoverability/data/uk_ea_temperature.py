@@ -13,7 +13,7 @@ from typing import Any
 
 import pandas as pd
 
-from stream_recoverability.data.http_json import get_json
+from stream_recoverability.data.http_json import JsonHttpError, get_json
 
 EA_STATION = "https://environment.data.gov.uk/hydrology/id/stations/{station}.json"
 EA_READINGS = "https://environment.data.gov.uk/hydrology/data/readings.json"
@@ -21,7 +21,12 @@ EA_READINGS = "https://environment.data.gov.uk/hydrology/data/readings.json"
 
 def station_temperature_measures(station_id: str) -> list[str]:
     url = EA_STATION.format(station=urllib.parse.quote(str(station_id), safe=""))
-    document = get_json(url, timeout=60, retries=4)
+    try:
+        document = get_json(url, timeout=60, retries=4)
+    except JsonHttpError as error:
+        if error.status_code in {403, 404}:
+            return []
+        raise
     items = document.get("items") or [document]
     measures: list[str] = []
     for item in items:

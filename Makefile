@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
 
 test:
 	$(PYTHON) -m pytest
@@ -74,6 +74,9 @@ uk-ea-catalog:
 
 uk-ea-daily:
 	$(PYTHON) scripts/65_uk_ea_daily_from_readings.py
+
+uk-ea-spatial:
+	$(PYTHON) scripts/89_uk_ea_spatial_daily.py
 
 matched-regulation:
 	$(PYTHON) scripts/64_matched_regulation.py
