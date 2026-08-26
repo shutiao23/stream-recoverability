@@ -1,0 +1,40 @@
+{
+  "blockers": [
+    "missing_formal_v4_workload_manifest",
+    "missing_complete_v4_result_binding"
+  ],
+  "formal_evidence": false,
+  "frozen_inputs": {
+    "natural_geometry": {
+      "n_rows": 2355,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv",
+      "sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432"
+    },
+    "t5_pair_plan": {
+      "n_rows": 3,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv",
+      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
+    }
+  },
+  "manifest_schema": "t4_t5_v91_post_t2_readiness_v1",
+  "network_interval": null,
+  "network_interval_reported": false,
+  "old_t4_scores_read": false,
+  "old_t5_delta_r_read": false,
+  "passed": false,
+  "purpose": "post_t2_analysis_readiness_not_evidence",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "blocked_waiting_for_complete_t2_v4_results",
+  "t4": {
+    "aggregation_unit": "network",
+    "status": "blocked_waiting_for_t2_primary_y",
+    "truth_source_required": "held_out_observed_counterpart"
+  },
+  "t5": {
+    "n_pair_plan_rows": 3,
+    "pair_plan_outcome_blind": true,
+    "status": "blocked_waiting_for_t2_primary_y"
+  },
+  "v4_results_read": false
+}
