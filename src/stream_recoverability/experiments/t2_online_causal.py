@@ -51,7 +51,7 @@ from stream_recoverability.models.baselines import (
 ONLINE_TASK = "online_causal"
 ONLINE_RUNNER_CONTRACT_VERSION = "t2_v91_online_causal_runner_v1"
 ONLINE_CHECKPOINT_NAMESPACE = "online_checkpoints_v1"
-NONNEGATIVE_DONOR_LAGS = tuple(range(0, 31))
+NONNEGATIVE_DONOR_LAGS = tuple(range(31))
 
 
 def _sha256(value: object) -> str:
