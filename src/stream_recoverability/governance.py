@@ -31,6 +31,7 @@ RESTRICTED_PATH_PREFIXES = (
     "data/raw/",
     "data/processed/",
     "data/sealed_public_rivers_v3/",
+    "data/sealed_public_rivers_foen_v1/",
     "data_versions/published_v1/",
     "data_versions/published_v2/",
     "data_versions/no_s2_suspect_",
