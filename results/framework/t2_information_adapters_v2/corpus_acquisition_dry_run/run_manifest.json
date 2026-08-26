@@ -1,27 +1,27 @@
 {
   "artifacts": {
     "corpus_request_plan": {
-      "bytes": 72738,
+      "bytes": 72749,
       "path": "results/framework/t2_information_adapters_v2/corpus_acquisition_dry_run/corpus_request_plan.json",
-      "sha256": "4662a6f4fad787e5fe0cb6af95d5d78029abe8ac94029aeb8d0d9f67ff128a2c"
+      "sha256": "0f8624d718651a6ed52996de1bd2b7310fa523273db4a815d7dcae9bfe55e2f5"
     },
     "global_attrition": {
       "bytes": 7901,
       "path": "results/framework/t2_information_adapters_v2/corpus_acquisition_dry_run/global_attrition.csv",
-      "sha256": "904ed3945e746cbae9109cf6b65ea5a4b30e2fe3ad1ae7a2ebdb639354422820"
+      "sha256": "d030e2c4046d4f0c19b76eb99f30eb025d9061967ca8eed6363f70c74ad8e8fb"
     },
     "global_attrition_summary": {
       "bytes": 557,
       "path": "results/framework/t2_information_adapters_v2/corpus_acquisition_dry_run/global_attrition_summary.json",
-      "sha256": "908582e7bc57f25ab4edbd704777ba06f63dc17bd4714c746662b7fde1dde69d"
+      "sha256": "1a3d22b3939f26c3cf5846e99b5dc144c247664ff6ddbefa915cf99ed2e2d338"
     },
     "selected_run_plan": {
       "bytes": 2223,
       "path": "results/framework/t2_information_adapters_v2/corpus_acquisition_dry_run/selected_run_plan.json",
-      "sha256": "b4b4983d2a93089ff2b401f84590666f5bbc487f2551d436512212fcd06dbd6c"
+      "sha256": "d2bc7ec1611e90023115d4d21631b758f13ff2073abc07fc3b91193b0e115fa6"
     }
   },
-  "corpus_plan_sha256": "1011c400671bd2af7e9f4a8eb54efb9c53874479f3fc7de6610dec1d8c46bae7",
+  "corpus_plan_sha256": "681f4bb3db4fbdcc78b3129fc028832a7adc4a3b48dfdf5d7fb1790bc0d78edf",
   "dry_run": true,
   "execute": false,
   "formal_evidence": false,
@@ -37,12 +37,12 @@
     "n_source_failures_or_unavailable": 0,
     "passed": false,
     "performance_metrics_computed": false,
-    "plan_sha256": "1011c400671bd2af7e9f4a8eb54efb9c53874479f3fc7de6610dec1d8c46bae7",
+    "plan_sha256": "681f4bb3db4fbdcc78b3129fc028832a7adc4a3b48dfdf5d7fb1790bc0d78edf",
     "sealed_temperature_records_read": false,
     "temperature_columns_read": [],
     "v1_ogc_root_read_or_mutated": false
   },
-  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v2_2",
+  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v2_3",
   "n_networks_executed_now": 0,
   "n_networks_executed_or_resumed": 0,
   "n_networks_in_frozen_roster": 67,
@@ -68,7 +68,7 @@
   "results": [],
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
-  "selected_plan_sha256": "92d009378604ad75b73558fbb64eeb0507c9f59b57b05fe99a5ccd2f998e6e91",
+  "selected_plan_sha256": "42cd76ba03b0a0c78aa39018b27d1c9a10b8c8ceadbbbca6af852540cbd3a7f2",
   "status": "dry_run",
   "stop": null,
   "temperature_columns_read": [],

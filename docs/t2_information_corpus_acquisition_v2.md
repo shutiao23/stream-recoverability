@@ -1,6 +1,6 @@
 # T2 M/H acquisition v2: legacy NWIS network batches
 
-Status: **v2.2 provider-code corrections implemented; resume held until tests and
+Status: **v2.3 provider-code corrections implemented; resume held until tests and
 operator handoff**.
 
 ## Why v2 exists
@@ -50,10 +50,10 @@ full plan contains exactly:
 Corpus plan SHA-256:
 
 ```text
-1011c400671bd2af7e9f4a8eb54efb9c53874479f3fc7de6610dec1d8c46bae7
+681f4bb3db4fbdcc78b3129fc028832a7adc4a3b48dfdf5d7fb1790bc0d78edf
 ```
 
-This v2.2 SHA binds the parser contract and locked provider nonnumeric-code
+This v2.3 SHA binds the parser contract and locked provider nonnumeric-code
 roster into every network SHA.
 
 ## Provider QC and retry safety
@@ -63,12 +63,14 @@ roster into every network SHA.
   eligible. `P` and every other non-A finite value remain audited with `value`
   set to NA.
 - Every legacy value also retains exact `raw_text`. The locked provider codes
-  `Ice` and `Eqp` are not treated as numbers: `value` and `raw_value` are NA,
+  `Ice`, `Eqp`, and `***` are not treated as numbers: `value` and `raw_value` are NA,
   `quality_approved` is false, `approval_status` is `Provisional`, and
   `qc_status` is `excluded_non_numeric_provider_code`, regardless of qualifier.
-  USGS RDB comments identify `Eqp` as equipment malfunction. Any other nonempty
-  nonnumeric provider text fails closed. The pre-v2.2 downloaded RDB audit found
-  exactly `Ice=195` and `Eqp=5`, with all `Eqp` rows carrying qualifier `P`.
+  USGS RDB comments identify `Eqp` as equipment malfunction and `***` as value
+  unavailable. Any other nonempty nonnumeric provider text fails closed. The
+  v2.3 preflight scans every current raw `response.rdb` and requires the observed
+  nonnumeric set to equal exactly `{Ice, Eqp, ***}`; the newly identified `***`
+  shape occurs in nine rows and carries qualifier `P`.
 - Approved estimated qualifiers such as `A:e` retain approval but use
   `qc_status=approved_estimated`.
 - F remains converted by `ft3/s * 0.028316846592`; L remains converted by
@@ -99,12 +101,12 @@ roster into every network SHA.
   `attempt_XXXX`. Collisions fail closed while preserving both sides for manual
   recovery.
 
-## Pre-v2.2 terminal migration
+## Pre-v2.3 terminal migration
 
-Older v2/v2.1 terminal networks are not edited in place. V2.2 adds the locked
-`Eqp` contract and therefore changes every network plan SHA. On resume each
+Older v2/v2.1/v2.2 terminal networks are not edited in place. V2.3 adds the
+locked `***` contract and therefore changes every network plan SHA. On resume each
 stale terminal is first moved intact into an audited attempt with reason
-`terminal_rebuild_parser_contract_v2_2`, then rebuilt under the v2.2 contract.
+`terminal_rebuild_parser_contract_v2_3`, then rebuilt under the v2.3 contract.
 Interrupted directories are archived with reason `interrupted_missing_manifest`.
 This is an explicit rebuild, not a silent manifest migration.
 

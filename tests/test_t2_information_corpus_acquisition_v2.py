@@ -24,6 +24,7 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     parse_legacy_hydraulics_rdb,
     plan_as_dict,
     run_v2_corpus_acquisition,
+    scan_legacy_rdb_nonnumeric_codes,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -243,11 +244,11 @@ def _legacy_request() -> LegacyNetworkRequest:
         role="development",
         site_ids=("01095220",),
         start="2020-01-01",
-        end="2020-01-04",
+        end="2020-01-05",
         parameter_codes=("00060", "00065"),
         statistic_code="00003",
         url="https://waterservices.usgs.gov/nwis/dv/?test",
-        estimated_site_days=4,
+        estimated_site_days=5,
     )
 
 
@@ -259,6 +260,7 @@ USGS\t01095220\t2020-01-01\t10\tA:[4]\t5\tA:R
 USGS\t01095220\t2020-01-02\t20\tP\t6\tP
 USGS\t01095220\t2020-01-03\tIce\tA\t7\tA:e
 USGS\t01095220\t2020-01-04\tEqp\tP\t\t
+USGS\t01095220\t2020-01-05\t***\tP\t\t
 """
     frame = parse_legacy_hydraulics_rdb(
         payload,
@@ -266,8 +268,8 @@ USGS\t01095220\t2020-01-04\tEqp\tP\t\t
         response_sha256="a" * 64,
         response_artifact="raw/response.rdb",
     )
-    assert LOCKED_PROVIDER_NONNUMERIC_CODES == ("Ice", "Eqp")
-    assert len(frame) == 7
+    assert LOCKED_PROVIDER_NONNUMERIC_CODES == ("Ice", "Eqp", "***")
+    assert len(frame) == 8
     approved = frame.loc[frame["approval_status"].eq("Approved")]
     provisional = frame.loc[frame["approval_status"].eq("Provisional")]
     assert set(approved["variable"]) == {"F", "L"}
@@ -300,6 +302,20 @@ USGS\t01095220\t2020-01-04\tEqp\tP\t\t
             response_sha256="b" * 64,
             response_artifact="raw/unknown.response.rdb",
         )
+
+
+def test_all_current_raw_rdb_nonnumeric_codes_equal_locked_set() -> None:
+    raw_root = (
+        ROOT
+        / "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2"
+        / "failure_closure6"
+    )
+    paths = sorted(raw_root.rglob("response.rdb"))
+    assert paths
+    counts = scan_legacy_rdb_nonnumeric_codes(paths)
+    assert set(counts) == set(LOCKED_PROVIDER_NONNUMERIC_CODES)
+    assert all(counts[code] > 0 for code in LOCKED_PROVIDER_NONNUMERIC_CODES)
+    assert counts["***"] == 9
 
 
 def test_adapter_accepts_approved_legacy_source_without_calling_it_ogc() -> None:
@@ -363,7 +379,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     (staging / ".archive_intent.json").write_text(
         json.dumps(
             {
-                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_2",
+                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_3",
                 "attempt_number": 1,
                 "network_id": network.network_id,
                 "role": network.role,
@@ -397,7 +413,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     )
     archived = archive_nonterminal_attempt(stale, network)
     audit = json.loads((archived / "attempt_archive_manifest.json").read_text())
-    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_2"
+    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_3"
 
 
 class V2Fetcher:
