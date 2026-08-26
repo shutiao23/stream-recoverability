@@ -1,0 +1,606 @@
+{
+  "adversarial": {
+    "canonical_table_sha256": "4f29e94a1671f784b9821dfeeb0aaa0798054c17b91346924814f05ad88e64df",
+    "file_sha256": "e05503bc9253be8454b8013a40d3fd644dfdb1f7be51aeeece00fc790b434f09",
+    "lengths_days": [
+      30,
+      90,
+      180,
+      365
+    ],
+    "n_rows": 5406,
+    "stress_rules": [
+      {
+        "donor_mask_rule": "preserve_observed_donors",
+        "left_boundary_required": false,
+        "placement_rule": "earliest_fully_observed_target_window",
+        "right_boundary_required": true,
+        "stress_id": "record_left_edge",
+        "target_mask_scope": "target_station_gap"
+      },
+      {
+        "donor_mask_rule": "preserve_observed_donors",
+        "left_boundary_required": true,
+        "placement_rule": "latest_fully_observed_target_window",
+        "right_boundary_required": false,
+        "stress_id": "record_right_edge",
+        "target_mask_scope": "target_station_gap"
+      },
+      {
+        "donor_mask_rule": "preserve_observed_donors",
+        "left_boundary_required": true,
+        "placement_rule": "minimum_mean_donor_availability_then_sha256_tie_break",
+        "right_boundary_required": true,
+        "stress_id": "donor_thin",
+        "target_mask_scope": "target_station_gap"
+      },
+      {
+        "donor_mask_rule": "mask_all_network_stations_during_gap",
+        "left_boundary_required": true,
+        "placement_rule": "sha256_ranked_fully_observed_target_window",
+        "right_boundary_required": true,
+        "stress_id": "synchronous_network_outage",
+        "target_mask_scope": "target_station_gap"
+      }
+    ],
+    "truth_rule": "resolved_start_must_be_fully_observed_before_masking"
+  },
+  "availability_columns_loaded": [
+    "site_id",
+    "date"
+  ],
+  "blocked_cells": [
+    "sealed_role_geometry_not_built_or_read",
+    "natural_rows_without_observed_counterpart_not_benchmarkable",
+    "online_causal_right_boundary_execution_not_implemented",
+    "meteorology_M_information_cells_unbound",
+    "hydraulics_H_information_cells_unbound",
+    "full_model_scoring_not_run",
+    "network_interval_withheld_until_n_ge_100"
+  ],
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "manifest_schema": "t2_v91_frozen_outage_geometry_binding_v1",
+  "n_availability_rows": 2105912,
+  "n_networks": 67,
+  "natural_outage": {
+    "actual_missing_truth_available": false,
+    "canonical_table_sha256": "6a2721c203e7172665270f0f2b60c89cc3521c0d0ee70e2a2a561302da7aea51",
+    "file_sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432",
+    "max_length_days": 180,
+    "min_length_days": 7,
+    "n_benchmark_eligible": 2355,
+    "n_blocked_no_observed_counterpart": 0,
+    "n_geometry_rows": 2355,
+    "truth_rule": "score_only_frozen_held_out_observed_counterpart"
+  },
+  "outcome_columns_loaded": [],
+  "passed": false,
+  "purpose": "geometry_binding_not_model_result",
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "roles": [
+    "development",
+    "validation"
+  ],
+  "runner_interface": {
+    "adversarial": {
+      "apply": [
+        "target_mask_scope",
+        "donor_mask_rule"
+      ],
+      "geometry_fields": [
+        "network_id",
+        "station_id",
+        "start_date",
+        "length_days",
+        "season"
+      ],
+      "truth_source": "held_out_observed_days"
+    },
+    "natural_outage": {
+      "filter": "benchmark_eligible == true",
+      "geometry_fields": [
+        "network_id",
+        "station_id",
+        "start_date",
+        "length_days",
+        "season"
+      ],
+      "plant_at": "benchmark_start_date",
+      "truth_source": "held_out_observed_counterpart"
+    }
+  },
+  "sealed_temperature_records_read": false,
+  "source_audit": {
+    "n_sources": 67,
+    "role_manifests": [
+      {
+        "qc_manifest": "development/qc_manifest.json",
+        "qc_manifest_sha256": "dbaf6d5a390c759a9faab785b45d4dbc6e6f11e42d3e0e94ca490dd06ab9fc94",
+        "role": "development"
+      },
+      {
+        "qc_manifest": "validation/qc_manifest.json",
+        "qc_manifest_sha256": "511254676b0aa117536ef9f31e43dc43c6e03958dd2d114b5948879a2822b50f",
+        "role": "validation"
+      }
+    ],
+    "sources": [
+      {
+        "availability_rows": 25287,
+        "availability_sha256": "a9918a7b8e09acab73e9063d05ac39c5c4aa2c655ae3c3aa49dac5ed86d8e0b0",
+        "network_id": "huc8_01070004",
+        "network_manifest": "development/networks/huc8_01070004/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 59887,
+        "availability_sha256": "ad6237a43b2ffcf99b6bdf68fb736344aa9d79d55e22fc78bc699403b12f436d",
+        "network_id": "huc8_01090001",
+        "network_manifest": "development/networks/huc8_01090001/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 66680,
+        "availability_sha256": "cd9dc7381d92b60256b60e7755804fbc03b5b1d9ec9b26429196c679dd88f614",
+        "network_id": "huc8_01090004",
+        "network_manifest": "development/networks/huc8_01090004/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 28793,
+        "availability_sha256": "88117a7bc2c19ce13ed48b826668f1b97cda6920f406cef23a6d47897c9136e1",
+        "network_id": "huc8_02020006",
+        "network_manifest": "development/networks/huc8_02020006/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 23563,
+        "availability_sha256": "3062bfdca8efe1c8ad8eaf5e6acf69d596718a8483ab0045b922ccbea648022c",
+        "network_id": "huc8_02040103",
+        "network_manifest": "development/networks/huc8_02040103/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 47431,
+        "availability_sha256": "76c125f527942a9eee0f1a21fcbb72424dcc0f8afc1e1d7f927795545a97c5ef",
+        "network_id": "huc8_02040106",
+        "network_manifest": "development/networks/huc8_02040106/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 10267,
+        "availability_sha256": "208b4a9e5ce4579083fd590c24574380327ab44c6b5a4ea4c3577cc208830e62",
+        "network_id": "huc8_02040203",
+        "network_manifest": "development/networks/huc8_02040203/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 82216,
+        "availability_sha256": "31d64081389275dd6dd43b26b64452b12855b18df76d5580e7caec03af5efa29",
+        "network_id": "huc8_02040205",
+        "network_manifest": "development/networks/huc8_02040205/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 16805,
+        "availability_sha256": "cbfa8836882f78bf6c22c3137eb81a3021e847f6928d8b2ceb4d0ea2277762f9",
+        "network_id": "huc8_02050104",
+        "network_manifest": "development/networks/huc8_02050104/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 14869,
+        "availability_sha256": "4e49c35ee4790118f60833f0ea5bcae04213caafe5f4e18a1be90adb0b3d16e6",
+        "network_id": "huc8_02050305",
+        "network_manifest": "development/networks/huc8_02050305/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 17621,
+        "availability_sha256": "f241f969064afd3231b6ccebf343c98e2dc6fec41f25721719dd7a2af57a15c4",
+        "network_id": "huc8_02060003",
+        "network_manifest": "development/networks/huc8_02060003/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 14753,
+        "availability_sha256": "67039db40fb2e923d1eb67d6c33619e578b20d7070ae91e343a401a4397fa9ee",
+        "network_id": "huc8_02070002",
+        "network_manifest": "development/networks/huc8_02070002/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 14588,
+        "availability_sha256": "0bb97fca2c915cbce5d404bc2a8ac3f22619d5ed82c8d4a9834a6ac70a5e4e2e",
+        "network_id": "huc8_02070008",
+        "network_manifest": "development/networks/huc8_02070008/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 24874,
+        "availability_sha256": "bc4330cc6fdbccb81c9e47fbd888cd98680b8bdeb9ec12ce422b942e7a0dbe12",
+        "network_id": "huc8_02070010",
+        "network_manifest": "development/networks/huc8_02070010/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 56616,
+        "availability_sha256": "1404166efe715cbd04aa26ed0d3b1a7db4a9e740a0021de5963e96278b159131",
+        "network_id": "huc8_02080201",
+        "network_manifest": "development/networks/huc8_02080201/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 22674,
+        "availability_sha256": "4c93e27f1533936c8dc10cf75702f61b87741eb23a85101cfa3f685d4c5a0576",
+        "network_id": "huc8_03070101",
+        "network_manifest": "development/networks/huc8_03070101/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 18757,
+        "availability_sha256": "7cf72cce70d136d87682b31adc6fec5dc7995945cca649b7c7914e1bd268d624",
+        "network_id": "huc8_04020105",
+        "network_manifest": "development/networks/huc8_04020105/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 19012,
+        "availability_sha256": "de565eb0ea81f9f6688b1f92bddc47ecee6db8387692a6939f9a67a16a2efd5d",
+        "network_id": "huc8_04040003",
+        "network_manifest": "development/networks/huc8_04040003/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 53865,
+        "availability_sha256": "d642f9be9442494b62878d7000b02bd44248ca8c96d9b0d5ac8f0fc7def0bc10",
+        "network_id": "huc8_04060102",
+        "network_manifest": "development/networks/huc8_04060102/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 41687,
+        "availability_sha256": "7d5c76ef02d6f751f976e681a68469a8ed6bf0dd381dc8c0c43b29712c1c55e4",
+        "network_id": "huc8_04060103",
+        "network_manifest": "development/networks/huc8_04060103/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 85151,
+        "availability_sha256": "3ce0a7541f6b561fe71bc4ce49cca68fb1c355e0ff2ebf0edeb5c6d1234b44a1",
+        "network_id": "huc8_04070007",
+        "network_manifest": "development/networks/huc8_04070007/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 26461,
+        "availability_sha256": "09c410aa1ed1c1316d15e892e108c1a98f59d3217060228004d9c5eb82bba501",
+        "network_id": "huc8_04140101",
+        "network_manifest": "development/networks/huc8_04140101/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 19614,
+        "availability_sha256": "1c5f969fe44540de4da2143562826828dce76070a74666af473374c89d143651",
+        "network_id": "huc8_05010005",
+        "network_manifest": "development/networks/huc8_05010005/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 26912,
+        "availability_sha256": "5763266bf8a099cdfc4a0677ae4e15c71a56a91b8eba0d50dc51eec72f48913c",
+        "network_id": "huc8_05010006",
+        "network_manifest": "development/networks/huc8_05010006/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 20750,
+        "availability_sha256": "2e7038d745420e3f3a424a28fa992dad9bf0a8d847a4ef488992e864408c3a5b",
+        "network_id": "huc8_05010007",
+        "network_manifest": "development/networks/huc8_05010007/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 11023,
+        "availability_sha256": "a98ca38b4b683bcca73b339c114f74de50c6431ebe7430861d6373a0610413ce",
+        "network_id": "huc8_05020001",
+        "network_manifest": "development/networks/huc8_05020001/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 20343,
+        "availability_sha256": "99068261d4c0ca3065c702b53531f2abaa7fd345b6d2c20c518b62c1b049283a",
+        "network_id": "huc8_05020005",
+        "network_manifest": "development/networks/huc8_05020005/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 32273,
+        "availability_sha256": "e784c8f5dd72703d04c494fae93012d1f3507cb318d709c3f14436783223d385",
+        "network_id": "huc8_05020006",
+        "network_manifest": "development/networks/huc8_05020006/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 23730,
+        "availability_sha256": "c9b5adfa33f0bed7c9b432c1071bcec75facabcdb85503bc149cc490b39c4bba",
+        "network_id": "huc8_05030102",
+        "network_manifest": "development/networks/huc8_05030102/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 41102,
+        "availability_sha256": "39949363796d2e678b8298b2102ec901f2ff6473d918b33305d3a40b7f0f2527",
+        "network_id": "huc8_05040001",
+        "network_manifest": "development/networks/huc8_05040001/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 10979,
+        "availability_sha256": "9b8857ab92feb926dcb46e93cce33c5cfe8593ecbe878c860144e427d0389e79",
+        "network_id": "huc8_05040005",
+        "network_manifest": "development/networks/huc8_05040005/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 13647,
+        "availability_sha256": "2ccf5af8c87c5967d935c2fdf53b86d6ffb6e8680315643d4f8e283ca7d75b75",
+        "network_id": "huc8_05090203",
+        "network_manifest": "development/networks/huc8_05090203/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 15707,
+        "availability_sha256": "a0d9e11adeb639802312c9a79f75609add2ab24628f3be1947f63e70a7390a54",
+        "network_id": "huc8_05110001",
+        "network_manifest": "development/networks/huc8_05110001/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 36044,
+        "availability_sha256": "08589f433d85a75c7e1378fe692cf7442bc08a681d8ab16692d3b3f594904fa5",
+        "network_id": "huc8_05120201",
+        "network_manifest": "development/networks/huc8_05120201/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 28727,
+        "availability_sha256": "1043d634e406f3accaab928c65b27ab3b766ff46fb961b1e14abc43c7a6bd877",
+        "network_id": "huc8_05130202",
+        "network_manifest": "development/networks/huc8_05130202/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 40360,
+        "availability_sha256": "52eb797f554a882208c6c7fec8406aec6e915f310477688529caa78cf0857e70",
+        "network_id": "huc8_05140101",
+        "network_manifest": "development/networks/huc8_05140101/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 61883,
+        "availability_sha256": "fddd94ce8b5773d6a094a94eef84afda1472ac122815cdd41276afa9cfdd6060",
+        "network_id": "huc8_05140102",
+        "network_manifest": "development/networks/huc8_05140102/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 21493,
+        "availability_sha256": "82383e30df67ca013d9954d2cf8522dd11cc9de64523d30d023b2fe47a415d23",
+        "network_id": "huc8_07040006",
+        "network_manifest": "development/networks/huc8_07040006/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 11403,
+        "availability_sha256": "a884ccca5c3518130a069ebf1b04c9974637c43c063f8d4cf34993a88cf78eca",
+        "network_id": "huc8_07070005",
+        "network_manifest": "development/networks/huc8_07070005/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 39461,
+        "availability_sha256": "a151ee23cdac3c67b92a67c5199541804dcac0c611c2fcb234ba38226d0da38f",
+        "network_id": "huc8_07120001",
+        "network_manifest": "development/networks/huc8_07120001/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 12151,
+        "availability_sha256": "06dab0b45ea9ab70516b78c0865a9a1447335c83de774eb405a71cf2e7c710a7",
+        "network_id": "huc8_07120004",
+        "network_manifest": "development/networks/huc8_07120004/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 11019,
+        "availability_sha256": "bf7145c5403b15811ec9025f181364ae2164142e4d548e7e24bc747c9467759c",
+        "network_id": "huc8_10230006",
+        "network_manifest": "development/networks/huc8_10230006/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 26867,
+        "availability_sha256": "bf1bd40fcc133076189ab0b67f9ab044bb283a6c2053d9083b662488dc95a655",
+        "network_id": "huc8_10300101",
+        "network_manifest": "development/networks/huc8_10300101/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 11248,
+        "availability_sha256": "a0d168e412a6f0eeb77de7c8505ce2f0df0993df9be697bb43dfb62fbebb3083",
+        "network_id": "huc8_13060011",
+        "network_manifest": "development/networks/huc8_13060011/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 10288,
+        "availability_sha256": "de7a75ccf0a5ea9e09bb6daa69b9850f42a7543087edb592a1d7beb682093c70",
+        "network_id": "huc8_15030108",
+        "network_manifest": "development/networks/huc8_15030108/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 21457,
+        "availability_sha256": "988bffcca4e3e6221b4373c01b85aa80a5ecfc23317847e4f9bc26786acb8553",
+        "network_id": "huc8_16020102",
+        "network_manifest": "development/networks/huc8_16020102/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 37546,
+        "availability_sha256": "496ab15de222edf66e9bc10637754dc61604bc2f529dbde84a2f42ba66ba2eaf",
+        "network_id": "huc8_16050102",
+        "network_manifest": "development/networks/huc8_16050102/network_qc_manifest.json",
+        "role": "development"
+      },
+      {
+        "availability_rows": 35722,
+        "availability_sha256": "75ee001f637cd4e9af4d38e46e0eebc408cfbc60aefc8a4911ffcd407aae2e37",
+        "network_id": "huc8_03040206",
+        "network_manifest": "validation/networks/huc8_03040206/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 38769,
+        "availability_sha256": "476eb667ed044780afaa406c5c0f371fb82ca81dee8bfe91196aa91c7c4d6b32",
+        "network_id": "huc8_03050106",
+        "network_manifest": "validation/networks/huc8_03050106/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 59314,
+        "availability_sha256": "f5735dd75a7b141b93faeaee2598872ce623a8867794f434ef71ae647ae5e044",
+        "network_id": "huc8_03050109",
+        "network_manifest": "validation/networks/huc8_03050109/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 19464,
+        "availability_sha256": "6e35119e34dd3f91c599fd5155356eba7df9fc27bde98841af1f9c196a7988f9",
+        "network_id": "huc8_03050208",
+        "network_manifest": "validation/networks/huc8_03050208/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 15638,
+        "availability_sha256": "df7dea46af0f9c3ffd1a39895c693e7b5bb6aa9c324b42a64e5536fdcc88cf69",
+        "network_id": "huc8_03060106",
+        "network_manifest": "validation/networks/huc8_03060106/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 116640,
+        "availability_sha256": "c27a08825634373eaee60f3d266d43b0a0e740f3dd66995ed371cc587acbaf51",
+        "network_id": "huc8_03070103",
+        "network_manifest": "validation/networks/huc8_03070103/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 67096,
+        "availability_sha256": "c444579efa15409ea1ee7425cabada10f9a8b20f38d42199d3721b6cc17558fc",
+        "network_id": "huc8_03080103",
+        "network_manifest": "validation/networks/huc8_03080103/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 40304,
+        "availability_sha256": "07ceb4cd29ff20df1d9f016031d3f4e3894dd2df9e041186af18a62524bf90d4",
+        "network_id": "huc8_03090101",
+        "network_manifest": "validation/networks/huc8_03090101/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 45203,
+        "availability_sha256": "d1e6898a5d4c659dbf20302c048cee4845aa06127ee42b39e1933cae1e501213",
+        "network_id": "huc8_03090204",
+        "network_manifest": "validation/networks/huc8_03090204/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 13628,
+        "availability_sha256": "db8138f3c6bdee17e58091952c898f9d824dd0e5286b03c3988e05adc2ef9521",
+        "network_id": "huc8_03100101",
+        "network_manifest": "validation/networks/huc8_03100101/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 9706,
+        "availability_sha256": "f7010beaa535fd9748d111f717a7905661d210a724a175a71848feb80d4eb7f6",
+        "network_id": "huc8_03100204",
+        "network_manifest": "validation/networks/huc8_03100204/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 18358,
+        "availability_sha256": "d7f9509a6be9a1059b2d8e8f80e0139d044a292454b8b2a699958b634096cb54",
+        "network_id": "huc8_03100205",
+        "network_manifest": "validation/networks/huc8_03100205/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 39965,
+        "availability_sha256": "08b8eb862dc5e1af37346b71d06bd56217e23409df5a1dc3fb241c6ba4d52030",
+        "network_id": "huc8_03100207",
+        "network_manifest": "validation/networks/huc8_03100207/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 16138,
+        "availability_sha256": "dd8e4d68c4eb56e9af147bd9c91f04b977d3f4dbdbdc6d43c3c218d37ce406a6",
+        "network_id": "huc8_03150104",
+        "network_manifest": "validation/networks/huc8_03150104/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 47722,
+        "availability_sha256": "345c116974c010a6a8c3cbb42edb0f47d35480fb76da345a8355fdae3d2b9085",
+        "network_id": "huc8_03160111",
+        "network_manifest": "validation/networks/huc8_03160111/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 17394,
+        "availability_sha256": "33d5a7abd01f7d60a59308de016898cebb80a2fa076b6c328f987b39aa992deb",
+        "network_id": "huc8_11010014",
+        "network_manifest": "validation/networks/huc8_11010014/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 51633,
+        "availability_sha256": "3ef85713d0905773f9c8bfbc78c768c3691e3907c8cd6401f0b82a15263051d7",
+        "network_id": "huc8_11020002",
+        "network_manifest": "validation/networks/huc8_11020002/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 31855,
+        "availability_sha256": "840a185bc56b62a5e873541e6cf1382dcd4ec9db47e08997eac8eb500c4d73b2",
+        "network_id": "huc8_11020003",
+        "network_manifest": "validation/networks/huc8_11020003/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 17527,
+        "availability_sha256": "38ca8883e1a7e10b3cc7c15aafdf1cfc636f907b9015f84747097e1ef69aad96",
+        "network_id": "huc8_11030012",
+        "network_manifest": "validation/networks/huc8_11030012/network_qc_manifest.json",
+        "role": "validation"
+      },
+      {
+        "availability_rows": 25952,
+        "availability_sha256": "76ac35b18f5607e2f16345afb9b041f695523ba87e997749baf67f8666d3a7d0",
+        "network_id": "huc8_11130206",
+        "network_manifest": "validation/networks/huc8_11130206/network_qc_manifest.json",
+        "role": "validation"
+      }
+    ],
+    "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+  },
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "status": "frozen_open_role_geometry_not_evidence"
+}
