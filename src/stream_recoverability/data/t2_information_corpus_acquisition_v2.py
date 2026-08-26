@@ -36,9 +36,11 @@ from .t2_information_adapters import (
     METEOROLOGY_VARIABLES,
 )
 
-CORPUS_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_acquisition_v2"
-NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2"
-PLAN_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_request_plan_v2"
+CORPUS_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_acquisition_v2_1"
+NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_1"
+LEGACY_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2"
+PLAN_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_request_plan_v2_1"
+PARSER_CONTRACT_VERSION = "legacy_nwis_rdb_hydraulics_parser_v2_1"
 LEGACY_PROVIDER = "usgs_legacy_nwis_dv_rdb"
 LEGACY_DV_ENDPOINT = "https://waterservices.usgs.gov/nwis/dv/"
 LEGACY_PARAMETERS = ("00060", "00065")
@@ -51,6 +53,7 @@ DEFAULT_RETRY_BACKOFF_INITIAL_SECONDS = 15.0
 DEFAULT_RETRY_BACKOFF_MAX_SECONDS = 240.0
 DEFAULT_HTTP_429_COOLDOWN_SECONDS = 120.0
 MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST = 200_000
+LOCKED_PROVIDER_NONNUMERIC_CODES = ("Ice",)
 
 
 class ProviderCircuitOpen(RuntimeError):
@@ -146,6 +149,16 @@ def _write_json(path: Path, value: Any) -> None:
     )
 
 
+def _write_json_atomic(path: Path, value: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.partial")
+    temporary.write_text(
+        json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    temporary.replace(path)
+
+
 def _artifact(path: Path, root: Path) -> dict[str, Any]:
     return {
         "path": _relative(path, root),
@@ -211,6 +224,10 @@ def load_v2_corpus_plan(repository_root: str | Path) -> V2CorpusPlan:
         requests = _legacy_requests(network)
         payload = {
             "transport_version": "legacy_nwis_dv_rdb_network_batch_v2",
+            "parser_contract_version": PARSER_CONTRACT_VERSION,
+            "locked_provider_nonnumeric_codes": list(
+                LOCKED_PROVIDER_NONNUMERIC_CODES
+            ),
             "base_network_plan_sha256": network.network_plan_sha256,
             "legacy_requests": [asdict(request) for request in requests],
             "power_transport": "nasa_power_daily_point_station_specific",
@@ -248,6 +265,8 @@ def load_v2_corpus_plan(repository_root: str | Path) -> V2CorpusPlan:
             for network in networks
         ],
         "usgs_transport": LEGACY_PROVIDER,
+        "parser_contract_version": PARSER_CONTRACT_VERSION,
+        "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
         "legacy_batching_rule": (
             "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000"
         ),
@@ -288,6 +307,8 @@ def plan_as_dict(plan: V2CorpusPlan) -> dict[str, Any]:
             for network in plan.networks
         ],
         "usgs_transport": LEGACY_PROVIDER,
+        "parser_contract_version": PARSER_CONTRACT_VERSION,
+        "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
         "legacy_batching_rule": (
             "one_request_per_network_for_00060_and_00065_when_estimated_site_days_le_200000"
         ),
@@ -571,13 +592,43 @@ def parse_legacy_hydraulics_rdb(
                 text = record.get(value_column, "").strip()
                 if not text:
                     continue
-                raw_value = pd.to_numeric(text, errors="coerce")
-                if not np.isfinite(raw_value):
-                    raise ValueError("legacy RDB contained non-finite non-empty value text")
                 qualifier = record.get(f"{value_column}_cd", "").strip()
-                approved = _qualifier_approved(qualifier)
                 spec = specs[code]
-                converted = float(raw_value) * spec.conversion_factor if approved else np.nan
+                provider_nonnumeric = text in LOCKED_PROVIDER_NONNUMERIC_CODES
+                if provider_nonnumeric:
+                    raw_value = np.nan
+                    approved = False
+                    estimated = False
+                    converted = np.nan
+                    approval_status = "Provisional"
+                    qc_status = "excluded_non_numeric_provider_code"
+                    natural_observed = False
+                else:
+                    raw_value = pd.to_numeric(text, errors="coerce")
+                    if not np.isfinite(raw_value):
+                        raise ValueError(
+                            f"legacy RDB contained unknown non-numeric provider text {text!r}"
+                        )
+                    approved = _qualifier_approved(qualifier)
+                    natural_observed = True
+                    estimated = bool(
+                        re.search(
+                            r"(?:^|:)E(?:$|:)", qualifier, flags=re.IGNORECASE
+                        )
+                    )
+                    converted = (
+                        float(raw_value) * spec.conversion_factor
+                        if approved
+                        else np.nan
+                    )
+                    approval_status = "Approved" if approved else "Provisional"
+                    qc_status = (
+                        "approved_estimated"
+                        if approved and estimated
+                        else "approved"
+                        if approved
+                        else "excluded_provisional"
+                    )
                 rows.append(
                     {
                         "date": date,
@@ -586,21 +637,24 @@ def parse_legacy_hydraulics_rdb(
                         "variable": spec.variable,
                         "raw_name": code,
                         "source": LEGACY_PROVIDER,
-                        "source_value_original": float(raw_value),
-                        "raw_value": float(raw_value),
+                        "raw_text": text,
+                        "source_value_original": (
+                            float(raw_value) if np.isfinite(raw_value) else np.nan
+                        ),
+                        "raw_value": (
+                            float(raw_value) if np.isfinite(raw_value) else np.nan
+                        ),
                         "value": converted,
                         "raw_unit": spec.source_unit,
                         "unit": spec.unit,
                         "conversion_factor": spec.conversion_factor,
                         "unit_conversion": spec.conversion_formula,
-                        "natural_observed": True,
+                        "natural_observed": natural_observed,
                         "quality_approved": approved,
-                        "approval_status": "Approved" if approved else "Provisional",
+                        "approval_status": approval_status,
                         "qualifier_json": _canonical_json([qualifier]),
-                        "estimated_qualifier": bool(
-                            re.search(r"(?:^|:)E(?:$|:)", qualifier, flags=re.IGNORECASE)
-                        ),
-                        "qc_status": "approved" if approved else "excluded_provisional",
+                        "estimated_qualifier": estimated,
+                        "qc_status": qc_status,
                         "time_series_id": value_column.rsplit("_", maxsplit=2)[0],
                         "source_feature_id": None,
                         "source_last_modified": None,
@@ -762,7 +816,7 @@ def _current_children(output: Path) -> list[Path]:
 def _archive_inventory(path: Path) -> list[dict[str, Any]]:
     rows = []
     for file in sorted(value for value in path.rglob("*") if value.is_file()):
-        if file.name == "attempt_archive_manifest.json":
+        if file.name in {"attempt_archive_manifest.json", ".archive_intent.json"}:
             continue
         rows.append(
             {
@@ -774,53 +828,136 @@ def _archive_inventory(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def archive_nonterminal_attempt(output: Path, network: V2NetworkPlan) -> Path | None:
-    """Move every current v2 artifact into a complete audited attempt directory."""
-
-    output.mkdir(parents=True, exist_ok=True)
-    children = _current_children(output)
-    if not children:
-        return None
+def _archive_reason(output: Path) -> str:
     manifest_path = output / "network_manifest.json"
-    if manifest_path.is_file():
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        if manifest.get("status") in TERMINAL_STATUSES:
-            raise ValueError("terminal output must be resumed, never archived")
-        reason = f"nonterminal_manifest_{manifest.get('status', 'unknown')}"
+    if not manifest_path.is_file():
+        return "interrupted_missing_manifest"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("status") in TERMINAL_STATUSES:
+        if manifest.get("manifest_schema") == LEGACY_NETWORK_SCHEMA_VERSION:
+            return "terminal_rebuild_parser_contract_v2_1"
+        raise ValueError("current-contract terminal output must be resumed, never archived")
+    return f"nonterminal_manifest_{manifest.get('status', 'unknown')}"
+
+
+def _complete_attempt_archive(
+    output: Path,
+    network: V2NetworkPlan,
+    staging: Path,
+    final: Path,
+    *,
+    number: int,
+    reason: str,
+    recovering_staging: bool = False,
+) -> Path:
+    intent_path = staging / ".archive_intent.json"
+    if intent_path.is_file():
+        intent = json.loads(intent_path.read_text(encoding="utf-8"))
+        if (
+            intent.get("network_id") != network.network_id
+            or intent.get("role") != network.role
+            or int(intent.get("attempt_number", -1)) != number
+        ):
+            raise ValueError(f"attempt staging intent does not match {network.network_id}")
+        reason = str(intent.get("archive_reason") or reason)
+        started_at = str(intent.get("archive_started_at_utc"))
     else:
-        reason = "interrupted_missing_manifest"
-    attempts = output / "attempts"
-    attempts.mkdir(exist_ok=True)
-    existing = [
-        int(match.group(1))
-        for path in attempts.iterdir()
-        if (match := re.fullmatch(r"attempt_(\d{4})", path.name))
-    ]
-    number = max(existing, default=0) + 1
-    final = attempts / f"attempt_{number:04d}"
-    staging = attempts / f".attempt_{number:04d}.in_progress"
-    if final.exists() or staging.exists():
-        raise FileExistsError(f"attempt archive target already exists: {final}")
-    staging.mkdir()
-    for child in children:
-        child.rename(staging / child.name)
+        started_at = datetime.now(timezone.utc).isoformat()
+        intent = {
+            "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_1",
+            "attempt_number": number,
+            "network_id": network.network_id,
+            "role": network.role,
+            "network_plan_sha256": network.network_plan_sha256,
+            "archive_reason": reason,
+            "archive_started_at_utc": started_at,
+        }
+        _write_json_atomic(intent_path, intent)
+    for child in _current_children(output):
+        destination = staging / child.name
+        if destination.exists():
+            raise ValueError(
+                f"attempt staging collision is retained for manual recovery: {destination}"
+            )
+        child.rename(destination)
     inventory = _archive_inventory(staging)
     archive_manifest = {
-        "manifest_schema": "t2_v91_open_role_mh_attempt_archive_v2",
+        "manifest_schema": "t2_v91_open_role_mh_attempt_archive_v2_1",
         "attempt_number": number,
         "network_id": network.network_id,
         "role": network.role,
         "network_plan_sha256": network.network_plan_sha256,
         "archive_reason": reason,
-        "archived_at_utc": datetime.now(timezone.utc).isoformat(),
+        "archive_started_at_utc": started_at,
+        "archive_completed_at_utc": datetime.now(timezone.utc).isoformat(),
+        "recovered_from_in_progress_staging": recovering_staging,
         "n_files": len(inventory),
         "total_bytes": sum(row["bytes"] for row in inventory),
         "inventory": inventory,
         "v1_ogc_root_read_or_mutated": False,
     }
-    _write_json(staging / "attempt_archive_manifest.json", archive_manifest)
+    _write_json_atomic(staging / "attempt_archive_manifest.json", archive_manifest)
+    if final.exists():
+        raise FileExistsError(f"completed attempt archive already exists: {final}")
     staging.rename(final)
     return final
+
+
+def archive_nonterminal_attempt(output: Path, network: V2NetworkPlan) -> Path | None:
+    """Complete stale staging or atomically archive every current v2 artifact."""
+
+    output.mkdir(parents=True, exist_ok=True)
+    attempts = output / "attempts"
+    attempts.mkdir(exist_ok=True)
+    completed_numbers = [
+        int(match.group(1))
+        for path in attempts.iterdir()
+        if (match := re.fullmatch(r"attempt_(\d{4})", path.name))
+    ]
+    staging_matches = [
+        (path, int(match.group(1)))
+        for path in attempts.iterdir()
+        if (match := re.fullmatch(r"\.attempt_(\d{4})\.in_progress", path.name))
+    ]
+    if len(staging_matches) > 1:
+        raise ValueError("multiple in-progress attempt archives require manual audit")
+    if staging_matches:
+        staging, number = staging_matches[0]
+        final = attempts / f"attempt_{number:04d}"
+        if final.exists():
+            raise ValueError("both staging and completed attempt directories exist")
+        intent_path = staging / ".archive_intent.json"
+        reason = (
+            str(json.loads(intent_path.read_text())["archive_reason"])
+            if intent_path.is_file()
+            else "recovered_incomplete_attempt_archive"
+        )
+        return _complete_attempt_archive(
+            output,
+            network,
+            staging,
+            final,
+            number=number,
+            reason=reason,
+            recovering_staging=True,
+        )
+    if not _current_children(output):
+        return None
+    reason = _archive_reason(output)
+    number = max(completed_numbers, default=0) + 1
+    final = attempts / f"attempt_{number:04d}"
+    staging = attempts / f".attempt_{number:04d}.in_progress"
+    if final.exists() or staging.exists():
+        raise FileExistsError(f"attempt archive target already exists: {final}")
+    staging.mkdir()
+    return _complete_attempt_archive(
+        output,
+        network,
+        staging,
+        final,
+        number=number,
+        reason=reason,
+    )
 
 
 def _validate_terminal(
@@ -831,10 +968,23 @@ def _validate_terminal(
         return None
     manifest = json.loads(path.read_text(encoding="utf-8"))
     if (
+        manifest.get("manifest_schema") == LEGACY_NETWORK_SCHEMA_VERSION
+        and manifest.get("status") in TERMINAL_STATUSES
+    ):
+        if (
+            manifest.get("network_id") != network.network_id
+            or manifest.get("role") != network.role
+            or manifest.get("v1_ogc_root_read_or_mutated") is not False
+            or manifest.get("sealed_temperature_records_read") is not False
+        ):
+            raise ValueError("stale v2 terminal cannot be safely bound to this network")
+        return None
+    if (
         manifest.get("manifest_schema") != NETWORK_SCHEMA_VERSION
         or manifest.get("network_id") != network.network_id
         or manifest.get("role") != network.role
         or manifest.get("network_plan_sha256") != network.network_plan_sha256
+        or manifest.get("parser_contract_version") != PARSER_CONTRACT_VERSION
         or manifest.get("v1_ogc_root_read_or_mutated") is not False
         or manifest.get("sealed_temperature_records_read") is not False
     ):
@@ -847,6 +997,9 @@ def _validate_terminal(
             raise ValueError(f"v2 resume artifact integrity failure: {target}")
     records = json.loads((output / "raw_request_log.json").read_text())
     for record in records:
+        request = output / record["request_artifact"]
+        if not request.is_file() or _sha256_file(request) != record["request_sha256"]:
+            raise ValueError(f"v2 resume raw request integrity failure: {request}")
         target = output / record["response_artifact"]
         if not target.is_file() or _sha256_file(target) != record["response_sha256"]:
             raise ValueError(f"v2 resume raw response integrity failure: {target}")
@@ -952,6 +1105,13 @@ def acquire_network(
     daily = pd.concat(daily_frames, ignore_index=True, sort=False)
     if not daily.empty:
         daily = daily.sort_values(["site_id", "date", "variable"]).reset_index(drop=True)
+        if "raw_text" not in daily.columns:
+            daily["raw_text"] = pd.NA
+        missing_raw_text = daily["raw_text"].isna()
+        daily.loc[missing_raw_text, "raw_text"] = daily.loc[
+            missing_raw_text, "source_value_original"
+        ].map(lambda value: None if pd.isna(value) else format(float(value), ".17g"))
+        daily["raw_text"] = daily["raw_text"].astype("string")
     v1._validate_provider_qc(daily)
     failures = _missing_sources(network, daily)
     coverage = v1._coverage(network.base, daily, failures)
@@ -976,6 +1136,7 @@ def acquire_network(
         {
             "adapter_contract_version": ADAPTER_CONTRACT_VERSION,
             "acquisition_schema": NETWORK_SCHEMA_VERSION,
+            "parser_contract_version": PARSER_CONTRACT_VERSION,
             "table": "daily_long_auxiliary.parquet",
             "variables": {
                 "M": list(METEOROLOGY_VARIABLES),
@@ -983,6 +1144,13 @@ def acquire_network(
             },
             "providers": {"M": "nasa_power_daily_point", "H": LEGACY_PROVIDER},
             "legacy_approval_policy": "qualifier prefix A only; all other finite rows retained with value NA",
+            "legacy_nonnumeric_policy": {
+                "locked_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
+                "raw_text_column": "raw_text",
+                "value_policy": "value_and_raw_value_NA_quality_not_approved",
+                "qc_status": "excluded_non_numeric_provider_code",
+                "unknown_nonempty_text": "fail_closed",
+            },
             "legacy_unit_conversion": {
                 "F": "ft3_per_s * 0.028316846592",
                 "L": "ft * 0.3048",
@@ -1002,6 +1170,8 @@ def acquire_network(
         "split_sha256": network.base.split_sha256,
         "network_plan_sha256": network.network_plan_sha256,
         "base_v1_roster_network_plan_sha256": network.base.network_plan_sha256,
+        "parser_contract_version": PARSER_CONTRACT_VERSION,
+        "locked_provider_nonnumeric_codes": list(LOCKED_PROVIDER_NONNUMERIC_CODES),
         "n_sites": len(network.sites),
         "site_ids": [site.site_id for site in network.sites],
         "n_auxiliary_rows": len(daily),
@@ -1069,7 +1239,18 @@ def _global_attrition(
                 }
             )
         elif output.is_dir() and _current_children(output):
-            row["materialization_status"] = "interrupted_nonterminal"
+            manifest_path = output / "network_manifest.json"
+            existing_manifest = (
+                json.loads(manifest_path.read_text()) if manifest_path.is_file() else {}
+            )
+            if (
+                existing_manifest.get("manifest_schema")
+                == LEGACY_NETWORK_SCHEMA_VERSION
+                and existing_manifest.get("status") in TERMINAL_STATUSES
+            ):
+                row["materialization_status"] = "stale_terminal_rebuild_required"
+            else:
+                row["materialization_status"] = "interrupted_nonterminal"
         rows.append(row)
     frame = pd.DataFrame(rows)
     csv_path = output_root / "global_attrition.csv"
@@ -1097,6 +1278,30 @@ def _global_attrition(
     summary_path = output_root / "global_attrition_summary.json"
     _write_json(summary_path, summary)
     return csv_path, summary_path, summary
+
+
+def _archive_previous_root_state(output: Path) -> dict[str, Any] | None:
+    state_path = output / "root_execution_manifest.json"
+    if not state_path.is_file():
+        return None
+    payload = state_path.read_bytes()
+    history = output / "root_run_history"
+    history.mkdir(exist_ok=True)
+    existing = [
+        int(match.group(1))
+        for path in history.iterdir()
+        if (match := re.fullmatch(r"run_(\d{4})\.json", path.name))
+    ]
+    number = max(existing, default=0) + 1
+    destination = history / f"run_{number:04d}.json"
+    temporary = history / f".run_{number:04d}.json.partial"
+    temporary.write_bytes(payload)
+    temporary.replace(destination)
+    return {
+        "path": str(destination.relative_to(output)),
+        "sha256": _sha256_bytes(payload),
+        "bytes": len(payload),
+    }
 
 
 def run_v2_corpus_acquisition(
@@ -1179,6 +1384,31 @@ def run_v2_corpus_acquisition(
     )
     selected_path = output / "selected_run_plan.json"
     _write_json(selected_path, selected_plan)
+    root_state_path = output / "root_execution_manifest.json"
+    root_started_at: str | None = None
+    previous_root_state: dict[str, Any] | None = None
+    if execute:
+        previous_root_state = _archive_previous_root_state(output)
+        root_started_at = datetime.now(timezone.utc).isoformat()
+        _write_json_atomic(
+            root_state_path,
+            {
+                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
+                "status": "in_progress",
+                "started_at_utc": root_started_at,
+                "corpus_plan_sha256": plan.plan_sha256,
+                "selected_plan_sha256": selected_plan["selected_plan_sha256"],
+                "selected_network_ids": [
+                    network.network_id for network in selected
+                ],
+                "n_networks_selected": len(selected),
+                "previous_root_state": previous_root_state,
+                "provider_calls_started": False,
+                "v1_ogc_root_read_or_mutated": False,
+                "sealed_temperature_records_read": False,
+                "performance_metrics_computed": False,
+            },
+        )
     limited = AuditedRateLimitedFetcher(
         fetcher,
         interval_seconds=request_interval_seconds,
@@ -1263,6 +1493,28 @@ def run_v2_corpus_acquisition(
         "passed": False,
     }
     _write_json(output / "run_manifest.json", manifest)
+    if execute:
+        _write_json_atomic(
+            root_state_path,
+            {
+                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_1",
+                "status": status,
+                "started_at_utc": root_started_at,
+                "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+                "corpus_plan_sha256": plan.plan_sha256,
+                "selected_plan_sha256": selected_plan["selected_plan_sha256"],
+                "n_networks_selected": len(selected),
+                "n_networks_executed_now": manifest["n_networks_executed_now"],
+                "n_networks_resumed": manifest["n_networks_resumed"],
+                "stop": stop,
+                "provider_transport_audit": limited.audit(),
+                "previous_root_state": previous_root_state,
+                "run_manifest": _artifact(output / "run_manifest.json", root),
+                "v1_ogc_root_read_or_mutated": False,
+                "sealed_temperature_records_read": False,
+                "performance_metrics_computed": False,
+            },
+        )
     return manifest
 
 

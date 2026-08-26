@@ -1,7 +1,7 @@
 # T2 M/H acquisition v2: legacy NWIS network batches
 
-Status: **v2 production path implemented; one real network verified; full run
-not started**.
+Status: **v2.1 red-team corrections implemented; resume held until tests and
+operator handoff**.
 
 ## Why v2 exists
 
@@ -50,8 +50,11 @@ full plan contains exactly:
 Corpus plan SHA-256:
 
 ```text
-5dc9a740b851412082a7e5081f0e0471b3e0c87f44bc5e868934f20359330b8c
+9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783
 ```
+
+This v2.1 SHA binds the parser contract and locked provider nonnumeric-code
+roster into every network SHA.
 
 ## Provider QC and retry safety
 
@@ -59,6 +62,13 @@ Corpus plan SHA-256:
   prefix is `A` (`A`, `A:e`, `A:R`, and similar colon-qualified forms) is
   eligible. `P` and every other non-A finite value remain audited with `value`
   set to NA.
+- Every legacy value also retains exact `raw_text`. The locked provider code
+  `Ice` is not treated as a number: `value` and `raw_value` are NA,
+  `quality_approved` is false, `approval_status` is `Provisional`, and
+  `qc_status` is `excluded_non_numeric_provider_code`, regardless of qualifier.
+  Any other nonempty nonnumeric provider text fails closed.
+- Approved estimated qualifiers such as `A:e` retain approval but use
+  `qc_status=approved_estimated`.
 - F remains converted by `ft3/s * 0.028316846592`; L remains converted by
   `ft * 0.3048`. Source is explicitly `usgs_legacy_nwis_dv_rdb`, never
   `usgs_ogc_daily`.
@@ -76,6 +86,28 @@ Corpus plan SHA-256:
   moved into `attempts/attempt_XXXX/`; the archive records every relative path,
   byte count, SHA-256, reason, and total bytes. Nothing is deleted or mixed into
   the new attempt.
+- Resume verifies both sides of every exchange: request artifact/SHA and response
+  artifact/SHA. Before the first provider call, an atomic root execution manifest
+  is written with `status=in_progress`; normal, circuit-break, and conservative
+  failure exits atomically replace it with the terminal state. Previous root
+  states are retained under `root_run_history/`.
+- If a crash leaves `.attempt_XXXX.in_progress`, the next invocation validates
+  its archive intent, moves the remaining current files into that same staging
+  directory, rebuilds the complete inventory, and atomically promotes it to
+  `attempt_XXXX`. Collisions fail closed while preserving both sides for manual
+  recovery.
+
+## v2.0 terminal migration
+
+The first five terminal networks used the pre-red-team parser. Their numeric
+values are not edited in place. Because `A:e` previously carried the generic
+`approved` label and `raw_text`/locked `Ice` handling were absent, v2.1 changes
+the parser contract and therefore every network plan SHA. On resume each old
+terminal is first moved intact into an audited attempt with reason
+`terminal_rebuild_parser_contract_v2_1`, then rebuilt under the v2.1 contract.
+The interrupted `huc8_02040106` directory is similarly archived with reason
+`interrupted_missing_manifest`. This is an explicit rebuild, not a silent
+manifest migration.
 
 ## Real one-network pilot
 
