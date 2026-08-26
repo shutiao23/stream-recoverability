@@ -195,8 +195,21 @@ def test_readiness_never_claims_t5_result(tmp_path: Path) -> None:
         pair_attrition=pair_attrition,
     )
 
-    assert manifest["status"] == "pair_plan_ready_waiting_for_t2_primary_y"
-    assert manifest["pair_plan_ready"] is True
+    assert manifest["status"] == "descriptive_infeasible_confound_control"
+    assert manifest["pair_plan_ready"] is False
+    assert manifest["pair_plan_preserved_for_audit"] is True
+    assert manifest["n_station_pairs"] == 1
+    assert manifest["n_unique_network_pairs"] == 1
+    assert manifest["balance_supports_formal_confound_control"] is False
+    assert manifest["balance_diagnostics"][
+        "max_log_drainage_area_abs_diff"
+    ] > 0
+    assert manifest["balance_diagnostics"][
+        "max_standardized_l1_match_distance"
+    ] > 0
+    assert manifest["causal_interpretation_allowed"] is False
+    assert manifest["t5_pass_claim_allowed"] is False
+    assert "t5_passed" in manifest["forbidden_claims"]
     assert manifest["t2_primary_y_bound"] is False
     assert manifest["formal_run_allowed"] is False
     assert manifest["sealed_outcomes_opened"] is False

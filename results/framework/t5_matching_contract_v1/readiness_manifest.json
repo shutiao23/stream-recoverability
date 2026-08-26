@@ -28,8 +28,22 @@
     "donor_direction_unresolved": 262,
     "gages_station_missing": 149
   },
+  "balance_diagnostics": {
+    "balance_supports_formal_confound_control": false,
+    "caliper_invented_or_applied": false,
+    "max_bfi_abs_diff": 4.200000000000003,
+    "max_drainage_area_ratio": 30.831473214285722,
+    "max_log_drainage_area_abs_diff": 3.4285360258451236,
+    "max_nearest_donor_distance_abs_diff_km": 17.07415713425793,
+    "max_standardized_l1_match_distance": 4.494189110433518,
+    "n_station_pairs": 3,
+    "n_unique_network_pairs": 2
+  },
+  "balance_supports_formal_confound_control": false,
+  "caliper_invented_or_applied": false,
   "caliper_note": "The v9.1 freeze names factors but does not lock calipers.",
   "calipers": null,
+  "causal_interpretation_allowed": false,
   "estimators": {
     "assignment": "maximum_cardinality_linear_sum_assignment_within_exact_role_donor_count_direction_climate_strata",
     "bfi": "gages_ii_BFI_AVE",
@@ -42,6 +56,13 @@
   "exposure": "upstream_major_dam_2009",
   "exposure_derivation": "full_gages_ii_MAJ_NDAMS_2009_ge_1",
   "factor_contract_matches_freeze": true,
+  "forbidden_claims": [
+    "causal_regulation_effect",
+    "formal_confound_control",
+    "three_independent_pairs",
+    "t5_passed",
+    "network_interval"
+  ],
   "formal_evidence": false,
   "formal_run_allowed": false,
   "frozen_matching_factors": [
@@ -53,6 +74,7 @@
     "bfi"
   ],
   "headline_claim_licensed": false,
+  "independent_unit": "regulated_control_network_pair",
   "input_identities": {
     "catalog_v3_split": {
       "path": "results/framework/public_catalog/catalog_v3_split_table.csv",
@@ -79,22 +101,27 @@
   "n_control_complete": 6,
   "n_pair_plan_rows": 3,
   "n_regulated_complete": 25,
+  "n_station_pairs": 3,
   "n_station_rosters": 330,
   "n_stations_complete_six_factors": 31,
+  "n_unique_network_pairs": 2,
   "old_two_pair_result_reused": false,
   "pair_attrition_reason_counts": {
     "no_eligible_opposite_exposure_in_exact_stratum": 25
   },
-  "pair_plan_ready": true,
+  "pair_plan_preserved_for_audit": true,
+  "pair_plan_ready": false,
   "passed": false,
   "purpose": "matching_contract_and_attrition_not_t5_evidence",
+  "rematching_performed": false,
   "roles_allowed": [
     "development",
     "validation"
   ],
   "schema_version": "t5_v9_1_outcome_blind_matching_readiness_v1",
   "sealed_outcomes_opened": false,
-  "status": "pair_plan_ready_waiting_for_t2_primary_y",
+  "status": "descriptive_infeasible_confound_control",
   "t2_outcome_columns_read": false,
-  "t2_primary_y_bound": false
+  "t2_primary_y_bound": false,
+  "t5_pass_claim_allowed": false
 }

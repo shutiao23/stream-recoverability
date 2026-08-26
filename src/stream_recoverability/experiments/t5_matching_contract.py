@@ -525,14 +525,46 @@ def matching_readiness(
         for name, path in sorted((input_paths or {}).items())
         if path.is_file()
     }
-    plan_ready = bool(factor_contract_matches and len(pairs) > 0)
+    network_pair_columns = {"regulated_network_id", "control_network_id"}
+    n_unique_network_pairs = (
+        len(
+            pairs.loc[:, sorted(network_pair_columns)]
+            .astype(str)
+            .drop_duplicates()
+        )
+        if network_pair_columns.issubset(pairs.columns)
+        else 0
+    )
+
+    def maximum(column: str) -> float | None:
+        if column not in pairs:
+            return None
+        values = pd.to_numeric(pairs[column], errors="coerce")
+        return float(values.max()) if np.isfinite(values).any() else None
+
+    max_log_drainage = maximum("log_drainage_area_abs_diff")
+    balance_diagnostics = {
+        "n_station_pairs": len(pairs),
+        "n_unique_network_pairs": n_unique_network_pairs,
+        "max_nearest_donor_distance_abs_diff_km": maximum(
+            "nearest_donor_distance_abs_diff"
+        ),
+        "max_log_drainage_area_abs_diff": max_log_drainage,
+        "max_drainage_area_ratio": (
+            float(np.exp(max_log_drainage))
+            if max_log_drainage is not None
+            else None
+        ),
+        "max_bfi_abs_diff": maximum("bfi_abs_diff"),
+        "max_standardized_l1_match_distance": maximum(
+            "standardized_l1_match_distance"
+        ),
+        "caliper_invented_or_applied": False,
+        "balance_supports_formal_confound_control": False,
+    }
     return {
         "schema_version": "t5_v9_1_outcome_blind_matching_readiness_v1",
-        "status": (
-            "pair_plan_ready_waiting_for_t2_primary_y"
-            if plan_ready
-            else "blocked_no_complete_six_factor_pairs"
-        ),
+        "status": "descriptive_infeasible_confound_control",
         "purpose": "matching_contract_and_attrition_not_t5_evidence",
         "formal_evidence": False,
         "headline_claim_licensed": False,
@@ -566,8 +598,25 @@ def matching_readiness(
         "n_regulated_complete": int(eligible["regulated"].eq(True).sum()),
         "n_control_complete": int(eligible["regulated"].eq(False).sum()),
         "n_pair_plan_rows": len(pairs),
-        "pair_plan_ready": plan_ready,
+        "n_station_pairs": len(pairs),
+        "n_unique_network_pairs": n_unique_network_pairs,
+        "independent_unit": "regulated_control_network_pair",
+        "pair_plan_preserved_for_audit": True,
+        "pair_plan_ready": False,
         "formal_run_allowed": False,
+        "causal_interpretation_allowed": False,
+        "t5_pass_claim_allowed": False,
+        "caliper_invented_or_applied": False,
+        "rematching_performed": False,
+        "balance_supports_formal_confound_control": False,
+        "balance_diagnostics": balance_diagnostics,
+        "forbidden_claims": [
+            "causal_regulation_effect",
+            "formal_confound_control",
+            "three_independent_pairs",
+            "t5_passed",
+            "network_interval",
+        ],
         "attrition_reason_counts": attrition_counts,
         "pair_attrition_reason_counts": pair_attrition_counts,
         "input_identities": identities,

@@ -679,7 +679,7 @@ def _validate_frozen_inputs(
     pair_manifest = _read_json(pair_manifest_path)
     required_pair_manifest = {
         "schema_version": PAIR_MANIFEST_SCHEMA,
-        "status": "pair_plan_ready_waiting_for_t2_primary_y",
+        "status": "descriptive_infeasible_confound_control",
         "purpose": "matching_contract_and_attrition_not_t5_evidence",
         "formal_evidence": False,
         "headline_claim_licensed": False,
@@ -692,10 +692,17 @@ def _validate_frozen_inputs(
         "exposure": "upstream_major_dam_2009",
         "exposure_derivation": "full_gages_ii_MAJ_NDAMS_2009_ge_1",
         "factor_contract_matches_freeze": True,
-        "pair_plan_ready": True,
+        "pair_plan_ready": False,
         "formal_run_allowed": False,
+        "causal_interpretation_allowed": False,
+        "t5_pass_claim_allowed": False,
+        "balance_supports_formal_confound_control": False,
+        "caliper_invented_or_applied": False,
+        "rematching_performed": False,
         "calipers": None,
         "n_pair_plan_rows": 3,
+        "n_station_pairs": 3,
+        "n_unique_network_pairs": 2,
     }
     for key, expected in required_pair_manifest.items():
         if pair_manifest.get(key) != expected:
