@@ -481,13 +481,52 @@ def validate_v4_primary_inputs(
     if primary["item_id"].astype(str).duplicated().any():
         raise PostT2ContractError("primary-y item IDs are not unique")
     complete = items.loc[statuses.eq("complete")].copy()
-    if len(primary) != len(complete) or set(primary["item_id"].astype(str)) != set(
-        complete["item_id"].astype(str)
+    primary_scope = str(binding.get("primary_complete_item_scope", "all_complete_items"))
+    if primary_scope == "frozen_analyzable_lattice":
+        lattice_ids = set(lattice["item_id"].astype(str))
+        scoped_complete = complete.loc[
+            complete["item_id"].astype(str).isin(lattice_ids)
+        ].copy()
+        exclusion_record = binding.get("complete_item_outcome_blind_attrition")
+        if (
+            binding.get("complete_item_outcome_blind_attrition_complete") is not True
+            or not isinstance(exclusion_record, Mapping)
+        ):
+            raise PostT2ContractError(
+                "frozen-lattice binding omits complete-item outcome-blind attrition"
+            )
+        _, exclusions = _validate_artifact(
+            binding_file,
+            exclusion_record,
+            name="complete-item outcome-blind attrition",
+        )
+        exclusion_required = {"item_id", "role", "network_id", "reason"}
+        if not exclusion_required.issubset(exclusions.columns):
+            raise PostT2ContractError(
+                "complete-item outcome-blind attrition omits required columns"
+            )
+        expected_exclusions = set(complete["item_id"].astype(str)).difference(
+            lattice_ids
+        )
+        if (
+            exclusions["item_id"].astype(str).duplicated().any()
+            or set(exclusions["item_id"].astype(str)) != expected_exclusions
+            or exclusions["reason"].fillna("").astype(str).str.strip().eq("").any()
+        ):
+            raise PostT2ContractError(
+                "complete-item outcome-blind attrition is not exhaustive"
+            )
+    elif primary_scope == "all_complete_items":
+        scoped_complete = complete
+    else:
+        raise PostT2ContractError("unknown primary complete-item scope")
+    if len(primary) != len(scoped_complete) or set(primary["item_id"].astype(str)) != set(
+        scoped_complete["item_id"].astype(str)
     ):
         raise PostT2ContractError(
             "primary-y table is not complete for successful items"
         )
-    item_check = complete.rename(
+    item_check = scoped_complete.rename(
         columns={
             "target_station": "station_id",
             "achieved_skill": "item_achieved_skill",

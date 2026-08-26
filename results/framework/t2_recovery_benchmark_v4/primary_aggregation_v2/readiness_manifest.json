@@ -1,0 +1,15 @@
+{
+  "achieved_skill_read": false,
+  "analyzable_lattice_frozen": false,
+  "blockers": [
+    "v4_workload_manifest_absent",
+    "v4_item_index_absent"
+  ],
+  "formal_evidence": false,
+  "manifest_schema": "t2_v91_v4_primary_aggregation_readiness_v2",
+  "passed": false,
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "blocked_waiting_for_frozen_v4_item_index",
+  "v4_results_read": false
+}

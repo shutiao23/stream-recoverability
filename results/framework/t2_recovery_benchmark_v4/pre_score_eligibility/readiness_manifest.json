@@ -1,0 +1,17 @@
+{
+  "achieved_skill_read": false,
+  "blockers": [
+    "formal_v4_workload_absent",
+    "v4_item_index_absent"
+  ],
+  "eligibility_table_written": false,
+  "formal_evidence": false,
+  "gap_truth_values_read": false,
+  "manifest_schema": "t2_v91_v4_pre_score_eligibility_builder_v1",
+  "open_qc_temperature_value_columns_read": [],
+  "passed": false,
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "blocked_waiting_for_formal_v4_item_index",
+  "v4_results_read": false
+}
