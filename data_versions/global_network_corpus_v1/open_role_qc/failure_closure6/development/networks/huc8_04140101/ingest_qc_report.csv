@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+04232034,5405,0,0,0,32,0,13,accepted_with_flags,suspect_constant_run,huc8_04140101,True,
+04232050,10650,0,0,112,0,0,24,accepted,,huc8_04140101,True,
+0423205010,10629,0,0,111,37,0,26,accepted_with_flags,suspect_constant_run,huc8_04140101,True,

@@ -1,0 +1,6 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+03353200,5697,0,0,203,18,0,15,accepted_with_flags,suspect_constant_run,huc8_05120201,True,
+03353415,3042,0,0,186,0,0,8,accepted,,huc8_05120201,True,
+03353420,3964,0,0,584,0,0,9,accepted,,huc8_05120201,True,
+03353611,10825,0,0,513,0,0,26,accepted,,huc8_05120201,True,
+03354000,14647,0,0,645,0,2,35,accepted_with_flags,suspect_jump,huc8_05120201,True,

@@ -1,0 +1,5 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+05406460,2609,0,0,0,0,0,6,accepted,,huc8_07070005,True,
+05406470,5075,0,0,0,401,0,11,accepted_with_flags,estimated_approved;suspect_constant_run,huc8_07070005,True,
+05406491,3719,0,0,0,0,1,8,accepted_with_flags,suspect_jump,huc8_07070005,True,
+05406500,2045,0,0,0,0,0,4,accepted,,huc8_07070005,False,qualified_years_lt_6

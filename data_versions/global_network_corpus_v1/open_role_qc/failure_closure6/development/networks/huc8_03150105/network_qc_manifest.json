@@ -1,0 +1,66 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_03150105",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 17861,
+    "n_parsed_nonempty": 3,
+    "n_qc_eligible_stations": 2,
+    "n_registered_raw_objects": 3,
+    "n_requested_stations": 3,
+    "n_stations": 2,
+    "network_id": "huc8_03150105",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "development"
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "02397000": {
+      "n_rows": 14038,
+      "registry_reused": true,
+      "registry_sha256": "72011872fdb84694d7417a61fb7594ad76da2b2624a0919b113179e737096086",
+      "status": "parsed"
+    },
+    "02397530": {
+      "n_rows": 17013,
+      "registry_reused": true,
+      "registry_sha256": "a793deb08b9650fc73c1ed020567b40687b4cf11f552cbd61e041a16128e68b4",
+      "status": "parsed"
+    },
+    "02400100": {
+      "n_rows": 3179,
+      "registry_reused": true,
+      "registry_sha256": "1562065f51575313bfc7936a89e99b5df6dc46f30d344b8eb6360fab4605e4e1",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

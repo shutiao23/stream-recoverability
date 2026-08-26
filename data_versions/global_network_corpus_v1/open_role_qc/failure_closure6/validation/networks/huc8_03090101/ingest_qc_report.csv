@@ -1,0 +1,6 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+02264000,5039,0,0,404,0,0,9,accepted,,huc8_03090101,True,
+02264100,6146,0,0,261,0,0,13,accepted,,huc8_03090101,True,
+02266200,5306,0,0,345,0,0,12,accepted_with_flags,estimated_approved,huc8_03090101,True,
+02266300,14399,0,0,398,0,0,31,accepted,,huc8_03090101,True,
+02266495,11031,0,0,209,0,0,25,accepted,,huc8_03090101,True,

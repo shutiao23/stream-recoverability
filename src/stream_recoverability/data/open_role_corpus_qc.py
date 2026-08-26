@@ -30,7 +30,11 @@ from stream_recoverability.data.sealed_corpus import (
 )
 
 MIN_STATIONS = 3
-MIN_QUALIFIED_YEARS = 8
+PRIMARY_MODE = "primary8"
+FAILURE_CLOSURE_MODE = "failure_closure6"
+PRIMARY_QUALIFIED_YEARS = 8
+FAILURE_CLOSURE_QUALIFIED_YEARS = 6
+FAILURE_CLOSURE_TRIGGER = "open_survival_projection_lt_100"
 MIN_CONCURRENT_DAYS = 5 * 365
 
 
@@ -123,10 +127,10 @@ def _atomic_json(path: Path, document: dict[str, Any]) -> None:
     os.replace(temporary, path)
 
 
-def _complete_enough(report: dict[str, Any]) -> bool:
+def _complete_enough(report: dict[str, Any], *, qualified_years_min: int) -> bool:
     return bool(
         int(report.get("n_stations") or 0) >= MIN_STATIONS
-        and float(report.get("overlap_years") or 0.0) >= 8.0
+        and float(report.get("overlap_years") or 0.0) >= float(qualified_years_min)
         and int(report.get("days_with_min_stations") or 0) >= MIN_CONCURRENT_DAYS
     )
 
@@ -137,6 +141,7 @@ def _attrition(
     n_registered: int,
     n_nonempty: int,
     report: pd.DataFrame,
+    qualified_years_min: int,
 ) -> pd.DataFrame:
     accepted = (
         int(report["verdict"].astype(str).str.startswith("accepted").sum())
@@ -154,7 +159,11 @@ def _attrition(
             {"level": "station", "stage": "registered_raw_objects", "n": n_registered},
             {"level": "station", "stage": "parsed_nonempty", "n": n_nonempty},
             {"level": "station", "stage": "qc_verdict_accepted", "n": accepted},
-            {"level": "station", "stage": "qualified_years_ge_8", "n": eligible},
+            {
+                "level": "station",
+                "stage": f"qualified_years_ge_{qualified_years_min}",
+                "n": eligible,
+            },
             {
                 "level": "station",
                 "stage": "rejected_sentinel",
@@ -166,6 +175,76 @@ def _attrition(
     )
 
 
+def _load_primary_8yr_counts(
+    primary_root: Path, *, expected_split_sha256: str
+) -> dict[str, Any]:
+    roles: dict[str, dict[str, int]] = {}
+    for role in sorted(QC_ROLES):
+        path = primary_root / role / "qc_manifest.json"
+        if not path.is_file():
+            raise ValueError(f"failure_closure6 requires primary manifest: {path}")
+        try:
+            document = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise ValueError(f"primary manifest is unreadable: {path}: {error}") from error
+        if not isinstance(document, dict) or document.get("role") != role:
+            raise ValueError(f"primary manifest role mismatch: {path}")
+        if document.get("split_sha256") != expected_split_sha256:
+            raise ValueError(f"primary manifest split SHA-256 mismatch: {path}")
+        if document.get("sealed_temperature_records_read") is not False:
+            raise ValueError(f"primary manifest does not affirm sealed unread: {path}")
+        if document.get("relaxation_applied") not in {None, False}:
+            raise ValueError(f"primary manifest cannot itself be relaxed: {path}")
+        if document.get("qualification_mode") not in {None, PRIMARY_MODE}:
+            raise ValueError(f"primary manifest is not primary8: {path}")
+        selected = int(document.get("n_networks_selected") or 0)
+        complete = int(document.get("n_networks_complete_enough") or 0)
+        if selected < 1 or complete < 0 or complete > selected:
+            raise ValueError(f"primary manifest has invalid counts: {path}")
+        roles[role] = {"selected": selected, "complete_enough": complete}
+    selected_total = sum(row["selected"] for row in roles.values())
+    complete_total = sum(row["complete_enough"] for row in roles.values())
+    projection = 166.0 * complete_total / selected_total
+    if projection >= 100.0:
+        raise ValueError(
+            "failure_closure6 is forbidden unless open survival projection is below 100"
+        )
+    return {
+        "by_role": roles,
+        "open_selected_total": selected_total,
+        "open_complete_enough_total": complete_total,
+        "catalog_units_for_projection": 166,
+        "open_survival_projection": projection,
+    }
+
+
+def _qualification_contract(
+    *, mode: str, role: str, destination: Path, expected_split_sha256: str
+) -> tuple[int, bool, str | None, dict[str, Any] | None]:
+    if mode == PRIMARY_MODE:
+        if FAILURE_CLOSURE_MODE in destination.parts:
+            raise ValueError("primary8 output cannot use the failure_closure6 directory")
+        return PRIMARY_QUALIFIED_YEARS, False, None, None
+    if mode != FAILURE_CLOSURE_MODE:
+        raise ValueError(
+            f"qualification_mode must be {PRIMARY_MODE!r} or {FAILURE_CLOSURE_MODE!r}"
+        )
+    if destination.name != role or destination.parent.name != FAILURE_CLOSURE_MODE:
+        raise ValueError(
+            "failure_closure6 must write to <primary_root>/failure_closure6/<role>"
+        )
+    primary_counts = _load_primary_8yr_counts(
+        destination.parent.parent,
+        expected_split_sha256=expected_split_sha256,
+    )
+    return (
+        FAILURE_CLOSURE_QUALIFIED_YEARS,
+        True,
+        FAILURE_CLOSURE_TRIGGER,
+        primary_counts,
+    )
+
+
 def run_open_role_qc(
     *,
     role: str,
@@ -173,6 +252,7 @@ def run_open_role_qc(
     catalog: LockedV3Catalog | None = None,
     gate: HUC8CorpusGate | None = None,
     max_networks: int | None = None,
+    qualification_mode: str = PRIMARY_MODE,
 ) -> dict[str, Any]:
     """QC only registered raw objects for one open split role."""
 
@@ -185,6 +265,17 @@ def run_open_role_qc(
     if gate.catalog is not catalog:
         raise ValueError("runner catalog and custody gate must be the same locked view")
     destination = Path(output_dir)
+    (
+        qualified_years_min,
+        relaxation_applied,
+        relaxation_trigger,
+        primary_8yr_counts,
+    ) = _qualification_contract(
+        mode=qualification_mode,
+        role=role,
+        destination=destination,
+        expected_split_sha256=catalog.split_sha256,
+    )
     destination.mkdir(parents=True, exist_ok=True)
 
     grouped: dict[str, list[StationRequest]] = defaultdict(list)
@@ -245,7 +336,7 @@ def run_open_role_qc(
         report["eligible_for_network"] = (
             report["verdict"].astype(str).str.startswith("accepted")
             & pd.to_numeric(report["qualified_years"], errors="coerce").ge(
-                MIN_QUALIFIED_YEARS
+                qualified_years_min
             )
         )
         report["exclusion_reason"] = ""
@@ -253,7 +344,7 @@ def run_open_role_qc(
         report.loc[rejected, "exclusion_reason"] = report.loc[rejected, "verdict"]
         insufficient = ~rejected & ~report["eligible_for_network"]
         report.loc[insufficient, "exclusion_reason"] = (
-            "qualified_years_lt_8"
+            f"qualified_years_lt_{qualified_years_min}"
         )
 
         network_dir = destination / "networks" / network_id
@@ -262,7 +353,7 @@ def run_open_role_qc(
         clean = clean_long_frame(
             raw_long,
             report=report,
-            min_qualified_years=MIN_QUALIFIED_YEARS,
+            min_qualified_years=qualified_years_min,
         )
         clean.to_csv(network_dir / "daily_long_qc.csv", index=False)
         wide = river_wide_panel(
@@ -270,7 +361,9 @@ def run_open_role_qc(
         )
         wide.to_csv(network_dir / "daily_wide_qc.csv")
         overlap = overlap_report(wide, min_stations=MIN_STATIONS)
-        overlap["complete_enough"] = _complete_enough(overlap)
+        overlap["complete_enough"] = _complete_enough(
+            overlap, qualified_years_min=qualified_years_min
+        )
         overlap.update(
             {
                 "network_id": network_id,
@@ -289,6 +382,7 @@ def run_open_role_qc(
             n_registered=n_registered,
             n_nonempty=len(frames),
             report=report,
+            qualified_years_min=qualified_years_min,
         )
         attrition.insert(0, "network_id", network_id)
         attrition.to_csv(network_dir / "attrition_summary.csv", index=False)
@@ -300,6 +394,11 @@ def run_open_role_qc(
                 "role": role,
                 "split_sha256": catalog.split_sha256,
                 "status": "complete",
+                "qualification_mode": qualification_mode,
+                "qualified_years_min": qualified_years_min,
+                "relaxation_applied": relaxation_applied,
+                "relaxation_trigger": relaxation_trigger,
+                "primary_8yr_counts": primary_8yr_counts,
                 "stations": station_status,
                 "overlap": overlap,
                 "sealed_temperature_records_read": False,
@@ -324,6 +423,11 @@ def run_open_role_qc(
     manifest = {
         "manifest_schema": "huc8_open_role_corpus_qc_v1",
         "role": role,
+        "qualification_mode": qualification_mode,
+        "qualified_years_min": qualified_years_min,
+        "relaxation_applied": relaxation_applied,
+        "relaxation_trigger": relaxation_trigger,
+        "primary_8yr_counts": primary_8yr_counts,
         "split_sha256": catalog.split_sha256,
         "n_networks_selected": len(network_ids),
         "n_networks_with_registered_objects": len(overlap_rows),
@@ -336,9 +440,19 @@ def run_open_role_qc(
         "network_interval_reported": False,
         "formal_evidence": False,
         "purpose": "open_role_ingest_qc_not_evidence",
+        "raw_registry_objects_reparsed": True,
+        "primary_8yr_clean_products_reused": False,
     }
     _atomic_json(destination / "qc_manifest.json", manifest)
     return manifest
 
 
-__all__ = ["parse_nwis_daily_json", "run_open_role_qc"]
+__all__ = [
+    "FAILURE_CLOSURE_MODE",
+    "FAILURE_CLOSURE_QUALIFIED_YEARS",
+    "FAILURE_CLOSURE_TRIGGER",
+    "PRIMARY_MODE",
+    "PRIMARY_QUALIFIED_YEARS",
+    "parse_nwis_daily_json",
+    "run_open_role_qc",
+]

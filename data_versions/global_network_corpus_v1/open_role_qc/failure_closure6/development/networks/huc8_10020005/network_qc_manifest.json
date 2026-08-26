@@ -1,0 +1,72 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_10020005",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 3241,
+    "n_parsed_nonempty": 4,
+    "n_qc_eligible_stations": 1,
+    "n_registered_raw_objects": 4,
+    "n_requested_stations": 4,
+    "n_stations": 1,
+    "network_id": "huc8_10020005",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "development"
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "06026500": {
+      "n_rows": 3109,
+      "registry_reused": true,
+      "registry_sha256": "c75cea601ff8561bc26dc4e625b3ec2ddf112d9449f20ca9744d133db71b8da7",
+      "status": "parsed"
+    },
+    "06027600": {
+      "n_rows": 2102,
+      "registry_reused": true,
+      "registry_sha256": "b7952b87c46460554fffd4b41bed783eddc61008a0588b9d0aa9c97ec0d3d936",
+      "status": "parsed"
+    },
+    "06035000": {
+      "n_rows": 4427,
+      "registry_reused": true,
+      "registry_sha256": "2d3ec44f39742d9dcf75a9bd01b7206d6170b4a59cd7e5bb0d81302718f14525",
+      "status": "parsed"
+    },
+    "06036650": {
+      "n_rows": 3514,
+      "registry_reused": true,
+      "registry_sha256": "6f3be7fcb38099e48d3f6c626a6a5a2c661cb730a0783b080629ad74b6f519bc",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

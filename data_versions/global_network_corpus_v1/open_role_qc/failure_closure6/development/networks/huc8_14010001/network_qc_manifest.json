@@ -1,0 +1,114 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_14010001",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 3830,
+    "n_parsed_nonempty": 11,
+    "n_qc_eligible_stations": 1,
+    "n_registered_raw_objects": 11,
+    "n_requested_stations": 11,
+    "n_stations": 1,
+    "network_id": "huc8_14010001",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "development"
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "09010500": {
+      "n_rows": 1421,
+      "registry_reused": true,
+      "registry_sha256": "af1c744e2817253f6d4112a056fb673ee5881d6e7f68e450b3d49d5c097097eb",
+      "status": "parsed"
+    },
+    "09014050": {
+      "n_rows": 4190,
+      "registry_reused": true,
+      "registry_sha256": "078d1557b91618c7c63bf224812cddcdac636fd7afc180fe97170f6584874e06",
+      "status": "parsed"
+    },
+    "09027100": {
+      "n_rows": 2597,
+      "registry_reused": true,
+      "registry_sha256": "0e838ff9c15276c1e0197daf5131e8f852ccb3587691ce739dcb4edde5363f75",
+      "status": "parsed"
+    },
+    "09032000": {
+      "n_rows": 1851,
+      "registry_reused": true,
+      "registry_sha256": "77b22d906dfd53f047ef6ec86fd33de47ca1a55e25cec2c94090ae5148f76753",
+      "status": "parsed"
+    },
+    "09033100": {
+      "n_rows": 1848,
+      "registry_reused": true,
+      "registry_sha256": "9c8c11d2d478d1f372bd9006b09d279280ddb46f163c1ccf23d0144d4e736d82",
+      "status": "parsed"
+    },
+    "09033300": {
+      "n_rows": 2852,
+      "registry_reused": true,
+      "registry_sha256": "d20828a53a30457a43c90c5aaa1a2f672dbd70a34f0aaf8d72efd9901ce6d057",
+      "status": "parsed"
+    },
+    "09034250": {
+      "n_rows": 1371,
+      "registry_reused": true,
+      "registry_sha256": "a3d22c28e0525ceea3f730984cc61b279cf2c9fb60566d7ce115f40edcdfe77b",
+      "status": "parsed"
+    },
+    "09041090": {
+      "n_rows": 7131,
+      "registry_reused": true,
+      "registry_sha256": "ed0db9bf3509d34ef865c8fb64e4fba8fc523f1d54af3a9158261076784b11de",
+      "status": "parsed"
+    },
+    "09058000": {
+      "n_rows": 3834,
+      "registry_reused": true,
+      "registry_sha256": "a9ae86a084f91f7d14a923f5754c7ed434bdbce44d99a55ee2c0617b9c2c6819",
+      "status": "parsed"
+    },
+    "09060799": {
+      "n_rows": 2402,
+      "registry_reused": true,
+      "registry_sha256": "d64808dc493ef961dc263a4e289d2b73f8a425ee1e4c3fc407697171ceafe58c",
+      "status": "parsed"
+    },
+    "09070500": {
+      "n_rows": 3984,
+      "registry_reused": true,
+      "registry_sha256": "0c3338336216c58ae68bc2865f360826c0b4faa0a44c0cc488409fe3bafefdad",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

@@ -1,0 +1,8 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+02011400,14367,0,0,0,111,0,37,accepted_with_flags,suspect_constant_run,huc8_02080201,True,
+02011460,3969,0,0,0,17,0,10,accepted_with_flags,suspect_constant_run,huc8_02080201,True,
+02011470,3732,0,0,2,0,0,8,accepted,,huc8_02080201,True,
+02011490,3732,0,0,0,0,0,8,accepted,,huc8_02080201,True,
+02011500,13791,0,0,0,24,0,34,accepted_with_flags,suspect_constant_run,huc8_02080201,True,
+02011800,8550,0,0,0,0,0,22,accepted,,huc8_02080201,True,
+02012800,8477,0,0,0,17,2,21,accepted_with_flags,suspect_constant_run;suspect_jump,huc8_02080201,True,

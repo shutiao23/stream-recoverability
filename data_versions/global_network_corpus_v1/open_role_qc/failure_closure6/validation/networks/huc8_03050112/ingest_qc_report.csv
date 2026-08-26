@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+02171500,2128,0,0,387,0,0,3,accepted,,huc8_03050112,False,qualified_years_lt_6
+02171645,7073,0,0,133,0,0,19,accepted,,huc8_03050112,True,
+02171905,4706,0,0,281,0,0,11,accepted,,huc8_03050112,True,

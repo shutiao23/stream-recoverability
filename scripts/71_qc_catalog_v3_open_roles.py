@@ -18,6 +18,8 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from stream_recoverability.data.open_role_corpus_qc import (
+    FAILURE_CLOSURE_MODE,
+    PRIMARY_MODE,
     run_open_role_qc,
 )
 
@@ -27,13 +29,24 @@ DEFAULT_OUTPUT = ROOT / "data_versions/global_network_corpus_v1/open_role_qc"
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--role", choices=["development", "validation"], required=True)
+    parser.add_argument(
+        "--qualification-mode",
+        choices=[PRIMARY_MODE, FAILURE_CLOSURE_MODE],
+        default=PRIMARY_MODE,
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--max-networks", type=int)
     args = parser.parse_args()
+    destination = (
+        args.output_dir / args.role
+        if args.qualification_mode == PRIMARY_MODE
+        else args.output_dir / FAILURE_CLOSURE_MODE / args.role
+    )
     manifest = run_open_role_qc(
         role=args.role,
-        output_dir=args.output_dir / args.role,
+        output_dir=destination,
         max_networks=args.max_networks,
+        qualification_mode=args.qualification_mode,
     )
     print(json.dumps(manifest, indent=2, sort_keys=True))
 

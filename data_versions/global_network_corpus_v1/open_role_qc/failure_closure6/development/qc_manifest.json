@@ -1,0 +1,36 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_corpus_qc_v1",
+  "n_networks_complete_enough": 47,
+  "n_networks_selected": 74,
+  "n_networks_with_registered_objects": 74,
+  "n_objects_not_downloaded": 0,
+  "n_registry_objects_reused": 349,
+  "network_interval_reported": false,
+  "primary_8yr_clean_products_reused": false,
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "purpose": "open_role_ingest_qc_not_evidence",
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "raw_registry_objects_reparsed": true,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+}

@@ -1,0 +1,71 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_11030012",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 2415,
+    "n_days": 7693,
+    "n_parsed_nonempty": 3,
+    "n_qc_eligible_stations": 3,
+    "n_registered_raw_objects": 3,
+    "n_requested_stations": 3,
+    "n_stations": 3,
+    "network_id": "huc8_11030012",
+    "network_interval_reported": false,
+    "overlap_end": "2019-05-15",
+    "overlap_start": "2011-04-05",
+    "overlap_years": 8.109514031485284,
+    "role": "validation",
+    "station_coverage": {
+      "07143672": 0.9476147146756791,
+      "07144100": 0.9801117899389055,
+      "375350097262800": 0.35057844793968546
+    }
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "validation",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "07143672": {
+      "n_rows": 8110,
+      "registry_reused": true,
+      "registry_sha256": "f844cd25c1b39a39ee5535021fb869a4630cb1d05e363d3a4764b97f16655466",
+      "status": "parsed"
+    },
+    "07144100": {
+      "n_rows": 8496,
+      "registry_reused": true,
+      "registry_sha256": "c5092524098d8abae3a978c681c0e70f4fb38f76dfa591c0e8f14b67454baa17",
+      "status": "parsed"
+    },
+    "375350097262800": {
+      "n_rows": 3471,
+      "registry_reused": true,
+      "registry_sha256": "5204d49fc5255d194beaf8819e1edfecd20fae45fdf9f5beb8544fd5bad9b844",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

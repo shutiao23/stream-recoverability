@@ -1,0 +1,71 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_02050104",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 2738,
+    "n_days": 8218,
+    "n_parsed_nonempty": 3,
+    "n_qc_eligible_stations": 3,
+    "n_registered_raw_objects": 3,
+    "n_requested_stations": 3,
+    "n_stations": 3,
+    "network_id": "huc8_02050104",
+    "network_interval_reported": false,
+    "overlap_end": "2025-07-10",
+    "overlap_start": "2017-10-01",
+    "overlap_years": 7.772758384668036,
+    "role": "development",
+    "station_coverage": {
+      "01516350": 0.424434168897542,
+      "01518700": 0.8003163786809443,
+      "01520000": 0.8201508882939889
+    }
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "01516350": {
+      "n_rows": 3888,
+      "registry_reused": true,
+      "registry_sha256": "e95e9594d331a1c5c7db133ea433312eb8fe6499ac0cc6baf9b247dd2444c44a",
+      "status": "parsed"
+    },
+    "01518700": {
+      "n_rows": 6939,
+      "registry_reused": true,
+      "registry_sha256": "5d88f2ad26738863a701bca152f21de981bab7c04fb4f66fa5c7ad8cf428bb73",
+      "status": "parsed"
+    },
+    "01520000": {
+      "n_rows": 6879,
+      "registry_reused": true,
+      "registry_sha256": "08dbb4c4be2ab2d0dfc39cee55b6562a5037b78702e69488adda031f63504d86",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

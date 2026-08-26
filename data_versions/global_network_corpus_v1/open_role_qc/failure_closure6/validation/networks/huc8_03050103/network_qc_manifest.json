@@ -1,0 +1,72 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_03050103",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 0,
+    "n_parsed_nonempty": 4,
+    "n_qc_eligible_stations": 0,
+    "n_registered_raw_objects": 4,
+    "n_requested_stations": 4,
+    "n_stations": 0,
+    "network_id": "huc8_03050103",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "validation"
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "validation",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "02145910": {
+      "n_rows": 2064,
+      "registry_reused": true,
+      "registry_sha256": "4b2db9211ea7e6cb4c88d8c144ee857f4985d9e4e9a7d6e4819b4538a6271062",
+      "status": "parsed"
+    },
+    "02147310": {
+      "n_rows": 2580,
+      "registry_reused": true,
+      "registry_sha256": "98de6fabbad2de932aabab3db06fceccc8410648479441ebba6ad05f39d0f5a4",
+      "status": "parsed"
+    },
+    "021474095": {
+      "n_rows": 2690,
+      "registry_reused": true,
+      "registry_sha256": "e24b77443ce26bde7baaa983125f9d19d3b13296ccf205310260b42aca556092",
+      "status": "parsed"
+    },
+    "02147505": {
+      "n_rows": 2493,
+      "registry_reused": true,
+      "registry_sha256": "b62430b3297d3c657cb3e71605191dd36b750731cb90bb3b7d000ce321c1000c",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

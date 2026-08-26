@@ -1,0 +1,118 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_05140101",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 5260,
+    "n_days": 6984,
+    "n_parsed_nonempty": 10,
+    "n_qc_eligible_stations": 8,
+    "n_registered_raw_objects": 10,
+    "n_requested_stations": 10,
+    "n_stations": 8,
+    "network_id": "huc8_05140101",
+    "network_interval_reported": false,
+    "overlap_end": "2026-07-13",
+    "overlap_start": "2007-09-30",
+    "overlap_years": 18.784394250513348,
+    "role": "development",
+    "station_coverage": {
+      "03292470": 0.6592210767468499,
+      "03292474": 0.6855670103092784,
+      "03292475": 0.6811282932416953,
+      "03292480": 0.6602233676975945,
+      "03292500": 0.8009736540664376,
+      "03293000": 0.9670675830469645,
+      "03293500": 0.6547823596792669,
+      "03293530": 0.6699599083619702
+    }
+  },
+  "primary_8yr_counts": {
+    "by_role": {
+      "development": {
+        "complete_enough": 43,
+        "selected": 74
+      },
+      "validation": {
+        "complete_enough": 16,
+        "selected": 29
+      }
+    },
+    "catalog_units_for_projection": 166,
+    "open_complete_enough_total": 59,
+    "open_selected_total": 103,
+    "open_survival_projection": 95.0873786407767
+  },
+  "qualification_mode": "failure_closure6",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "relaxation_trigger": "open_survival_projection_lt_100",
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03292470": {
+      "n_rows": 4604,
+      "registry_reused": true,
+      "registry_sha256": "0a07ad025001cd8eeb505808a21a9532c750d94c814a85ed9c09336040134da3",
+      "status": "parsed"
+    },
+    "03292474": {
+      "n_rows": 4830,
+      "registry_reused": true,
+      "registry_sha256": "591c56b785fed503c4363eb82f53c144fdc69adaaffbb57560cd42ebe116959d",
+      "status": "parsed"
+    },
+    "03292475": {
+      "n_rows": 4757,
+      "registry_reused": true,
+      "registry_sha256": "38b7dae293d0dec24ea8e46a93d32c79771d1c39429ff7b4e831b1bec386eb5f",
+      "status": "parsed"
+    },
+    "03292480": {
+      "n_rows": 4651,
+      "registry_reused": true,
+      "registry_sha256": "05d445e80868782a2b29e31961be1f42e2b9240799bae8d0b0783941757cff7b",
+      "status": "parsed"
+    },
+    "03292500": {
+      "n_rows": 5643,
+      "registry_reused": true,
+      "registry_sha256": "6951f1b9f900d7b0e2b180217480e3c23e403ffad922a084f5681856715a51f6",
+      "status": "parsed"
+    },
+    "03292550": {
+      "n_rows": 1417,
+      "registry_reused": true,
+      "registry_sha256": "590ec03e7b395600b0ce64ea85fbe058a67045b7b443d90e2b929062af02fa01",
+      "status": "parsed"
+    },
+    "03293000": {
+      "n_rows": 6799,
+      "registry_reused": true,
+      "registry_sha256": "e22609eac8cb2026b2a74ba931c41f85796540c707af39b6bfd9a4c6fd07f566",
+      "status": "parsed"
+    },
+    "03293500": {
+      "n_rows": 4617,
+      "registry_reused": true,
+      "registry_sha256": "377fbef237dd50057dd072f0aba1619899b96775724f9e6fb2e586a7a33db55c",
+      "status": "parsed"
+    },
+    "03293530": {
+      "n_rows": 4720,
+      "registry_reused": true,
+      "registry_sha256": "cc76dbd82fa1c8ac06adc36a38fbb5792b5ef715ec48476557043e7bda6ff739",
+      "status": "parsed"
+    },
+    "03294570": {
+      "n_rows": 3404,
+      "registry_reused": true,
+      "registry_sha256": "da70d4467dc0a9b3641cc9891f4f7373b4092d3db728a2ca7c810118ee75bcb2",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

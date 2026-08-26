@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+09522005,3453,0,0,19,0,0,9,accepted,,huc8_15030108,True,
+09534000,3464,0,0,27,0,0,9,accepted,,huc8_15030108,True,
+09534550,3445,0,0,28,0,0,9,accepted,,huc8_15030108,True,

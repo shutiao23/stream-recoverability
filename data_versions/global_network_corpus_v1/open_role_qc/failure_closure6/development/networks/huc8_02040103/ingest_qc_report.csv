@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+01428750,8557,0,0,340,459,0,18,accepted_with_flags,suspect_constant_run,huc8_02040103,True,
+01429000,8985,0,0,278,38,0,22,accepted_with_flags,suspect_constant_run,huc8_02040103,True,
+01431500,6918,0,0,279,244,0,18,accepted_with_flags,suspect_constant_run,huc8_02040103,True,
