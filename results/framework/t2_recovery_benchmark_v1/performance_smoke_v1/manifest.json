@@ -1,0 +1,166 @@
+{
+  "all_semantically_equivalent": true,
+  "cache_contract_version": "t2_network_panel_climatology_cache_v1",
+  "formal_evidence": false,
+  "full_workload_fit_reuse_analysis": {
+    "analysis_executes_models": false,
+    "chunk_scoped_climatology_duplicate_fits_removed": 496173,
+    "chunk_scoped_climatology_fit_count": 50427,
+    "chunk_scoped_network_cache_custody_reads": 449,
+    "enabled_fit_cache": [
+      "climatology"
+    ],
+    "exact_duplicate_fit_counts": {
+      "climatology": 496310,
+      "donor_regression": 246,
+      "kalman": 123,
+      "xgboost": 246
+    },
+    "exact_unique_fit_signature_counts": {
+      "climatology": 50290,
+      "donor_regression": 97908,
+      "kalman": 50305,
+      "xgboost": 97908
+    },
+    "global_network_cache_custody_read_lower_bound": 67,
+    "item_scoped_fit_policy": [
+      "kalman",
+      "donor_regression",
+      "xgboost"
+    ],
+    "legacy_fit_counts": {
+      "climatology": 546600,
+      "donor_regression": 98154,
+      "kalman": 50428,
+      "xgboost": 98154
+    },
+    "legacy_panel_reads_and_hashes_during_execution": 546600,
+    "n_supported_execution_calls": 546600,
+    "n_work_items_scanned": 1384025,
+    "production_chunk_size": 5000,
+    "sealed_temperature_records_read": false
+  },
+  "headline_claim_licensed": false,
+  "input_inventory_qualification_mode": "failure_closure6",
+  "manifest_schema": "t2_execution_cache_performance_smoke_v1",
+  "n_networks_inventory": 67,
+  "passed": false,
+  "purpose": "pipeline_performance_equivalence_not_evidence",
+  "sealed_temperature_records_read": false,
+  "smokes": [
+    {
+      "legacy_fit_counts": {
+        "climatology": 12,
+        "donor_regression": 0,
+        "kalman": 4,
+        "xgboost": 0
+      },
+      "legacy_panel_reads_and_hashes_during_execution": 12,
+      "legacy_semantic_sha256": "f11debd8635f5cde4f121c6ec19d8ae2e6a30e057ee22aa773f80c52a26b23ce",
+      "legacy_wall_seconds": 10.10644059999322,
+      "n_items": 20,
+      "optimized_cache": {
+        "cache_contract_version": "t2_network_panel_climatology_cache_v1",
+        "climatology_cache_hits": 8,
+        "climatology_cache_misses_fits": 4,
+        "climatology_entries": 4,
+        "panel_cache_hits": 11,
+        "panel_cache_misses_custody_reads": 1,
+        "panels_cached": 1
+      },
+      "optimized_fit_counts": {
+        "climatology": 4,
+        "donor_regression": 0,
+        "kalman": 4,
+        "xgboost": 0
+      },
+      "optimized_semantic_sha256": "f11debd8635f5cde4f121c6ec19d8ae2e6a30e057ee22aa773f80c52a26b23ce",
+      "optimized_wall_seconds": 9.282443035001052,
+      "ordinal_range": [
+        0,
+        20
+      ],
+      "sealed_temperature_records_read": false,
+      "semantic_equivalence_fields": [
+        "ordinal",
+        "item_id",
+        "status",
+        "reason",
+        "implementation",
+        "n_scored",
+        "mae_deg_c",
+        "climatology_mae_deg_c",
+        "achieved_skill",
+        "prediction_sha256",
+        "input_sha256",
+        "runner_contract_version",
+        "sealed_temperature_records_read"
+      ],
+      "semantic_equivalent": true,
+      "semantic_mismatch_ordinals": [],
+      "status_counts": {
+        "complete": 8,
+        "reference_complete": 4,
+        "structural_not_applicable": 8
+      },
+      "wall_speedup": 1.0887694717743104
+    },
+    {
+      "legacy_fit_counts": {
+        "climatology": 60,
+        "donor_regression": 0,
+        "kalman": 20,
+        "xgboost": 0
+      },
+      "legacy_panel_reads_and_hashes_during_execution": 60,
+      "legacy_semantic_sha256": "39c5f7853e22307b0d729c6d5fee819e9ee9973b2afc7f783d3fad4c14ccd51f",
+      "legacy_wall_seconds": 49.82994531199802,
+      "n_items": 100,
+      "optimized_cache": {
+        "cache_contract_version": "t2_network_panel_climatology_cache_v1",
+        "climatology_cache_hits": 40,
+        "climatology_cache_misses_fits": 20,
+        "climatology_entries": 20,
+        "panel_cache_hits": 59,
+        "panel_cache_misses_custody_reads": 1,
+        "panels_cached": 1
+      },
+      "optimized_fit_counts": {
+        "climatology": 20,
+        "donor_regression": 0,
+        "kalman": 20,
+        "xgboost": 0
+      },
+      "optimized_semantic_sha256": "39c5f7853e22307b0d729c6d5fee819e9ee9973b2afc7f783d3fad4c14ccd51f",
+      "optimized_wall_seconds": 43.48587771500752,
+      "ordinal_range": [
+        0,
+        100
+      ],
+      "sealed_temperature_records_read": false,
+      "semantic_equivalence_fields": [
+        "ordinal",
+        "item_id",
+        "status",
+        "reason",
+        "implementation",
+        "n_scored",
+        "mae_deg_c",
+        "climatology_mae_deg_c",
+        "achieved_skill",
+        "prediction_sha256",
+        "input_sha256",
+        "runner_contract_version",
+        "sealed_temperature_records_read"
+      ],
+      "semantic_equivalent": true,
+      "semantic_mismatch_ordinals": [],
+      "status_counts": {
+        "complete": 40,
+        "reference_complete": 20,
+        "structural_not_applicable": 40
+      },
+      "wall_speedup": 1.1458879969853082
+    }
+  ]
+}

@@ -23,6 +23,10 @@ from typing import Any
 
 import pandas as pd
 
+from stream_recoverability.experiments.t2_cached_executor import (
+    CACHE_CONTRACT_VERSION,
+    NetworkExecutionCache,
+)
 from stream_recoverability.experiments.t2_recovery_benchmark import (
     RUNNER_CONTRACT_VERSION,
     OpenNetwork,
@@ -40,6 +44,7 @@ from stream_recoverability.experiments.t2_result_aggregation import (
 WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v3"
 MAX_CHUNK_ITEMS = 5_000
 RESULT_FORMATS = frozenset({"parquet", "csv"})
+EXECUTION_MODES = frozenset({"legacy_item_v1", "network_cache_v1"})
 TERMINAL_STATUSES = frozenset(
     {
         "complete",
@@ -183,19 +188,24 @@ def _chunk_identity(
     start: int,
     end: int,
     results_format: str,
+    execution_mode: str,
 ) -> str:
-    return _canonical_sha(
-        {
-            "workload_manifest_sha256": workload_sha,
-            "design_sha256": design_sha,
-            "input_inventory_sha256": input_inventory_sha,
-            "workload_input_inventory_sha256": workload_input_inventory_sha,
-            "runner_contract_version": RUNNER_CONTRACT_VERSION,
-            "start_ordinal": start,
-            "end_ordinal_exclusive": end,
-            "results_format": results_format,
-        }
-    )
+    identity = {
+        "workload_manifest_sha256": workload_sha,
+        "design_sha256": design_sha,
+        "input_inventory_sha256": input_inventory_sha,
+        "workload_input_inventory_sha256": workload_input_inventory_sha,
+        "runner_contract_version": RUNNER_CONTRACT_VERSION,
+        "start_ordinal": start,
+        "end_ordinal_exclusive": end,
+        "results_format": results_format,
+    }
+    # Preserve the already-published legacy chunk identity exactly. Optimized
+    # chunks are separately bound and cannot collide with legacy results.
+    if execution_mode != "legacy_item_v1":
+        identity["execution_mode"] = execution_mode
+        identity["cache_contract_version"] = CACHE_CONTRACT_VERSION
+    return _canonical_sha(identity)
 
 
 def _read_results(path: Path, results_format: str) -> pd.DataFrame:
@@ -292,6 +302,7 @@ def execute_t2_chunk(
     start_ordinal: int,
     end_ordinal_exclusive: int,
     results_format: str = "parquet",
+    execution_mode: str = "legacy_item_v1",
 ) -> dict[str, Any]:
     """Execute and atomically publish one immutable T2 ordinal chunk.
 
@@ -303,6 +314,10 @@ def execute_t2_chunk(
     start, end = _validate_range(start_ordinal, end_ordinal_exclusive)
     if results_format not in RESULT_FORMATS:
         raise ChunkExecutionError("results_format must be 'parquet' or 'csv'")
+    if execution_mode not in EXECUTION_MODES:
+        raise ChunkExecutionError(
+            "execution_mode must be 'legacy_item_v1' or 'network_cache_v1'"
+        )
     repo = Path(repo_root).resolve()
     workload_path = Path(workload_manifest_path).resolve()
     design = Path(design_path).resolve()
@@ -331,6 +346,7 @@ def execute_t2_chunk(
         start=start,
         end=end,
         results_format=results_format,
+        execution_mode=execution_mode,
     )
     chunk_dir = output / f"chunk_{start:07d}_{end:07d}"
     expected_binding = {
@@ -348,6 +364,9 @@ def execute_t2_chunk(
         "completeness": "complete",
         "sealed_temperature_records_read": False,
     }
+    if execution_mode != "legacy_item_v1":
+        expected_binding["execution_mode"] = execution_mode
+        expected_binding["cache_contract_version"] = CACHE_CONTRACT_VERSION
     if chunk_dir.exists():
         return _resume_existing(
             chunk_dir, expected_binding=expected_binding, start=start, end=end
@@ -363,12 +382,17 @@ def execute_t2_chunk(
         raise ChunkExecutionError("iter_all_work_items emitted duplicate item_id values")
 
     lookup = {network.network_id: network for network in networks}
+    cache = NetworkExecutionCache(repo) if execution_mode == "network_cache_v1" else None
     records: list[dict[str, Any]] = []
     for item in items:
         network = lookup.get(item.network_id)
         if network is None:
             raise ChunkExecutionError(f"work item references an unknown network: {item.network_id}")
-        raw = execute_item(repo, network, item)
+        raw = (
+            execute_item(repo, network, item)
+            if cache is None
+            else cache.execute(network, item)
+        )
         record = json_safe(raw)
         if not isinstance(record, dict):
             raise ChunkExecutionError("runner returned a non-mapping result")
@@ -409,6 +433,8 @@ def execute_t2_chunk(
         "status_counts": dict(sorted(Counter(str(row["status"]) for row in records).items())),
         "sealed_temperature_records_read": False,
     }
+    if cache is not None:
+        manifest["execution_cache"] = dict(cache.stats())
 
     output.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{chunk_dir.name}.", dir=output))
@@ -442,6 +468,7 @@ def execute_t2_chunk(
 
 
 __all__ = [
+    "EXECUTION_MODES",
     "MAX_CHUNK_ITEMS",
     "ChunkExecutionError",
     "execute_t2_chunk",

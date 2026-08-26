@@ -849,8 +849,25 @@ def _combined_model_frame(
     return model_frame, feature_name
 
 
-def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) -> dict[str, Any]:
-    """Execute one small traditional-baseline cell; no deep model is imported."""
+def execute_item(
+    repo_root: str | Path,
+    network: OpenNetwork,
+    item: WorkItem,
+    *,
+    panel: pd.DataFrame | None = None,
+    climatology_cache: dict[
+        tuple[str, str, int, int], tuple[pd.Series, float]
+    ]
+    | None = None,
+) -> dict[str, Any]:
+    """Execute one small traditional-baseline cell; no deep model is imported.
+
+    ``panel`` and ``climatology_cache`` are optional execution accelerators.
+    Callers supplying a panel must first obtain it through :func:`read_panel`,
+    which retains the open-role path allowlist and byte-level custody check.
+    The default path is deliberately unchanged for compatibility and A/B
+    equivalence checks.
+    """
 
     contract = _cell_contract(item)
     base: dict[str, Any] = {
@@ -875,7 +892,8 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
             "status": status,
             "reason": contract["reason"],
         }
-    panel = read_panel(repo_root, network)
+    if panel is None:
+        panel = read_panel(repo_root, network)
     target = item.target_station
     if target not in panel:
         return {**base, "status": "failed", "reason": "target_station_missing"}
@@ -893,11 +911,29 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
     donors = [str(value) for value in panel.columns if str(value) != target]
     began = perf_counter()
     try:
-        climatology = ClimatologyBaseline(target_col=target).fit(
-            panel, dates=panel.index, train_mask=train_mask
+        climate_key = (network.wide_sha256, target, start, stop)
+        cached_climate = (
+            None if climatology_cache is None else climatology_cache.get(climate_key)
         )
-        climate_prediction = climatology.predict(panel, dates=panel.index).iloc[start:stop]
-        climate_mae = float(np.mean(np.abs(climate_prediction.to_numpy(dtype=float) - truth)))
+        if cached_climate is None:
+            climatology = ClimatologyBaseline(target_col=target).fit(
+                panel, dates=panel.index, train_mask=train_mask
+            )
+            climate_prediction = climatology.predict(
+                panel, dates=panel.index
+            ).iloc[start:stop]
+            climate_mae = float(
+                np.mean(
+                    np.abs(climate_prediction.to_numpy(dtype=float) - truth)
+                )
+            )
+            if climatology_cache is not None:
+                climatology_cache[climate_key] = (
+                    climate_prediction.copy(),
+                    climate_mae,
+                )
+        else:
+            climate_prediction, climate_mae = cached_climate
         if item.model == "climatology":
             prediction = climate_prediction
             implementation = "training_doy_climatology"

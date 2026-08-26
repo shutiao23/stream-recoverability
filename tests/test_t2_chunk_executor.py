@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 from dataclasses import asdict
 from pathlib import Path
@@ -268,3 +269,61 @@ def test_runner_cannot_change_global_ordinal_identity(
             start_ordinal=0,
             end_ordinal_exclusive=2,
         )
+
+
+def test_network_cache_mode_is_separately_bound_and_records_stats(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fixture = _fixture(tmp_path, monkeypatch)
+
+    class FakeCache:
+        def __init__(self, _repo: Path) -> None:
+            self.calls: list[int] = []
+
+        def execute(self, network: OpenNetwork, item: WorkItem):
+            self.calls.append(item.ordinal)
+            return chunk_module.execute_item(tmp_path, network, item)
+
+        def stats(self):
+            return {
+                "cache_contract_version": "t2_network_panel_climatology_cache_v1",
+                "panel_cache_misses_custody_reads": 1,
+            }
+
+    monkeypatch.setattr(chunk_module, "NetworkExecutionCache", FakeCache)
+    manifest = execute_t2_chunk(
+        repo_root=tmp_path,
+        workload_manifest_path=fixture["workload"],
+        design_path=fixture["design"],
+        output_dir=tmp_path / "optimized_chunks",
+        start_ordinal=0,
+        end_ordinal_exclusive=2,
+        execution_mode="network_cache_v1",
+    )
+    assert manifest["execution_mode"] == "network_cache_v1"
+    assert (
+        manifest["cache_contract_version"]
+        == "t2_network_panel_climatology_cache_v1"
+    )
+    assert manifest["execution_cache"]["panel_cache_misses_custody_reads"] == 1
+
+    with pytest.raises(ChunkExecutionError, match="execution_mode"):
+        execute_t2_chunk(
+            repo_root=tmp_path,
+            workload_manifest_path=fixture["workload"],
+            design_path=fixture["design"],
+            output_dir=tmp_path / "bad_chunks",
+            start_ordinal=0,
+            end_ordinal_exclusive=2,
+            execution_mode="unknown",
+        )
+
+
+def test_optimized_cli_default_output_is_mode_specific() -> None:
+    script = Path(__file__).resolve().parents[1] / "scripts/79_run_t2_chunk.py"
+    spec = importlib.util.spec_from_file_location("run_t2_chunk_cli", script)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert module._default_output("legacy_item_v1").name == "chunks_v1"
+    assert module._default_output("network_cache_v1").name == "chunks_cache_v1"
