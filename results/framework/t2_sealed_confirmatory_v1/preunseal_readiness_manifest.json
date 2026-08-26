@@ -1,0 +1,175 @@
+{
+  "aggregation_contract": {
+    "expected_result_records": 1384025,
+    "manifest_schema": "t2_v91_aggregation_readiness_v1",
+    "observed_result_records": 0,
+    "path": "results/framework/t2_recovery_benchmark_v1/aggregation/readiness_manifest.json",
+    "sha256": "399b44808ef55a29dd50035dae95191c415ec41b7d604dcac4cabe03cb7702af",
+    "status": "blocked"
+  },
+  "blockers": [
+    "required_path_not_committed:scripts/80_audit_sealed_evaluation_readiness.py",
+    "required_path_not_committed:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
+    "required_path_not_committed:tests/test_sealed_evaluation_readiness.py",
+    "sealed_model_freeze_manifest_missing",
+    "t2_primary_aggregation_not_ready",
+    "t2_result_set_not_complete"
+  ],
+  "evaluate_once": {
+    "claim_acknowledgement": "claim-once-before-any-sealed-read",
+    "lock_absent": true,
+    "lock_must_be_exclusively_created_before_any_sealed_read": true,
+    "lock_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_sealed_confirmatory_v1/evaluate_once_lock.json",
+    "rerun_after_started_or_failed_is_forbidden": true
+  },
+  "formal_evidence": false,
+  "git_commit_before_unseal": {
+    "all_required_paths_committed_unchanged": false,
+    "head_commit": "90df4826cb40c7721a0f9cde82e92f971926eae7",
+    "required_paths": [
+      {
+        "head_blob": "6db564ff538542404d3837745d81c3df873d3bc5",
+        "path": "configs/design_freeze_v9.yaml",
+        "worktree_blob": "6db564ff538542404d3837745d81c3df873d3bc5"
+      },
+      {
+        "head_blob": "290e990817b41c8e05d4116f217a7c9579547de2",
+        "path": "results/framework/t2_recovery_benchmark_v1/aggregation/readiness_manifest.json",
+        "worktree_blob": "290e990817b41c8e05d4116f217a7c9579547de2"
+      }
+    ]
+  },
+  "manifest_schema": "t2_t7_sealed_preunseal_readiness_v1",
+  "model_freeze_contract": {
+    "exists": false,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json"
+  },
+  "ready_for_unseal": false,
+  "registry_metadata_read_only": true,
+  "sealed_objects_opened_or_statted_by_audit": false,
+  "sealed_outcomes_opened": false,
+  "sealed_registry_inventory": {
+    "eligibility_warning": "registry completeness is custody availability, not post-unseal temperature QC eligibility",
+    "foen_non_north_america": {
+      "availability_basis": "strict_registry_metadata_only_vault_not_opened_or_statted",
+      "complete": true,
+      "daily_qc_eligibility": "unknown_until_authorized_once_evaluation",
+      "eligibility_basis": "prospective_station_membership_metadata_only_daily_eligibility_unknown",
+      "n_networks": 10,
+      "n_objects": 2652,
+      "network_ids": [
+        "foen_doubs_rhonegebiet",
+        "foen_emme_aaregebiet",
+        "foen_inn_inngebiet",
+        "foen_linth_limmatgebiet",
+        "foen_reuss_reussgebiet",
+        "foen_rhein_rheingebiet",
+        "foen_rhone_rhonegebiet",
+        "foen_simme_aaregebiet",
+        "foen_thur_rheingebiet",
+        "foen_ticino_tessingebiet"
+      ],
+      "provider": "foen",
+      "registry_records_sha256": "5fe17b75cfdf6fa8a251b6e71745c4a71df1ae6a3b4d20cc81336a99e3e7e181",
+      "registry_root": "results/framework/public_catalog/foen_sealed_byte_registry_v2"
+    },
+    "n_networks_total": 54,
+    "north_america_huc8": {
+      "availability_basis": "strict_registry_metadata_only_vault_not_opened_or_statted",
+      "complete": true,
+      "eligibility_basis": "locked_catalog_v3_huc8_metadata_only",
+      "n_networks": 44,
+      "n_objects": 228,
+      "network_ids": [
+        "huc8_03050201",
+        "huc8_03060109",
+        "huc8_03090202",
+        "huc8_08030207",
+        "huc8_08080101",
+        "huc8_08090301",
+        "huc8_08090302",
+        "huc8_09020203",
+        "huc8_12030105",
+        "huc8_12030203",
+        "huc8_12040101",
+        "huc8_12040102",
+        "huc8_17010104",
+        "huc8_17010201",
+        "huc8_17010204",
+        "huc8_17010302",
+        "huc8_17040103",
+        "huc8_17060208",
+        "huc8_17070101",
+        "huc8_17070105",
+        "huc8_17070301",
+        "huc8_17080001",
+        "huc8_17090005",
+        "huc8_17090006",
+        "huc8_17090009",
+        "huc8_17090010",
+        "huc8_17090011",
+        "huc8_17100301",
+        "huc8_17100307",
+        "huc8_17100309",
+        "huc8_17110004",
+        "huc8_17110005",
+        "huc8_17110006",
+        "huc8_17110009",
+        "huc8_17110010",
+        "huc8_17110012",
+        "huc8_17110014",
+        "huc8_18010110",
+        "huc8_18010204",
+        "huc8_18040001",
+        "huc8_18040010",
+        "huc8_18050004",
+        "huc8_19020301",
+        "huc8_19020302"
+      ],
+      "provider": "usgs_nwis",
+      "registry_records_sha256": "30093323507d182f69448bba0b66a12129b3226ca7a9db145ce0d95c67b3d6b5",
+      "registry_root": "results/framework/public_catalog/sealed_byte_registry_v1/sealed"
+    }
+  },
+  "status": "blocked",
+  "threshold_contract": {
+    "decision_endpoints": {
+      "a_placement": {
+        "climate_or_ecoregion_classes_min": 3,
+        "name": "greedy_logdet_placement",
+        "non_oracle_baselines": [
+          "random",
+          "degree",
+          "distance",
+          "correlation",
+          "oh_bartos_2025_rank_revealing_qr"
+        ],
+        "report_oracle_gap": true,
+        "vs": "strongest_non_oracle_baseline",
+        "worst_case_mae_reduction_min": 0.15
+      },
+      "accept_if": "a_or_b",
+      "b_gap_triage": {
+        "false_release_definition": "fill_error_gt_0.5_degC",
+        "false_release_rate": 0.05,
+        "name": "safe_fill_triage",
+        "preferred_headline": true,
+        "safe_fill_absolute_improvement_min_pp": 15,
+        "safe_fill_relative_improvement_min": 0.3,
+        "vs": "gap_length_only"
+      },
+      "if_t3_fails_but_t1_t2_t4_t5_t7_hold": "downgrade_title_from_decision_to_predictability"
+    },
+    "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
+    "t7": {
+      "evaluate_once": true,
+      "numeric_thresholds_preregistered": true,
+      "reuse": [
+        "once_lock",
+        "governance"
+      ],
+      "sealed_absolute_floor": 40
+    },
+    "threshold_contract_sha256": "03e6b5fbee04740bb88312ad55c980715f1a047f2e5a4ec595bbda9aa4e383f0"
+  }
+}
