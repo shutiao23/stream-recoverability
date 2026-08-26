@@ -1,31 +1,31 @@
 {
   "artifacts": {
     "nldi_cache_index": {
-      "n_files": 132,
+      "n_files": 638,
       "path": "nldi_cache_index.csv",
-      "sha256": "4232bd05ccc1f2fffee53415f2d40192bb60ba686782d8c5aafe9f296a34d45f"
+      "sha256": "4fb8faeb7fc63dba71d29a2b70442a2a23222221f3504ba2fe5ef8c0c8418dc5"
     },
     "pair_attrition": {
       "path": "pair_attrition.csv",
-      "sha256": "2bdfbc7deac7979edab26e642bf8f28c1f3981036c6748918271be06efb541cd"
+      "sha256": "7ddd3c9aa4c879dc67adbd8e1e17358bb3b32591269715daddcf9bba10da5b90"
     },
     "pair_plan": {
       "path": "pair_plan.csv",
-      "sha256": "38e7828b2cebc45d5146122cef9707d374a07fd34c80981a4fd5e22142387844"
+      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
     },
     "station_attrition": {
       "path": "station_attrition.csv",
-      "sha256": "272a1c1c0d6358ff52c62b9bcec1f73e6bd82302fb993889c17301cf88211016"
+      "sha256": "58112f9392bc7b6e9b0e5429eb3ee96ba8713e423208a44ff8d83d3169bea91c"
     },
     "station_covariates": {
       "path": "station_covariates.csv",
-      "sha256": "6a75b8fc3bb1ae3f990523ddea34c043742531b32be45ab77703868bc0250f8c"
+      "sha256": "4d61283828de9bc0a69ad4d058b30fb2dcb94a468c8edbaa2b39f164e10ff828"
     }
   },
   "attrition_reason_counts": {
     "bfi_missing": 149,
-    "direction_cache_missing": 264,
-    "donor_direction_unresolved": 51,
+    "direction_cache_missing": 11,
+    "donor_direction_unresolved": 262,
     "gages_station_missing": 149
   },
   "caliper_note": "The v9.1 freeze names factors but does not lock calipers.",
@@ -76,16 +76,16 @@
     }
   },
   "matching_unit": "target_station",
-  "n_control_complete": 1,
-  "n_pair_plan_rows": 0,
-  "n_regulated_complete": 5,
+  "n_control_complete": 6,
+  "n_pair_plan_rows": 3,
+  "n_regulated_complete": 25,
   "n_station_rosters": 330,
-  "n_stations_complete_six_factors": 6,
+  "n_stations_complete_six_factors": 31,
   "old_two_pair_result_reused": false,
   "pair_attrition_reason_counts": {
-    "no_eligible_opposite_exposure_in_exact_stratum": 6
+    "no_eligible_opposite_exposure_in_exact_stratum": 25
   },
-  "pair_plan_ready": false,
+  "pair_plan_ready": true,
   "passed": false,
   "purpose": "matching_contract_and_attrition_not_t5_evidence",
   "roles_allowed": [
@@ -94,7 +94,7 @@
   ],
   "schema_version": "t5_v9_1_outcome_blind_matching_readiness_v1",
   "sealed_outcomes_opened": false,
-  "status": "blocked_no_complete_six_factor_pairs",
+  "status": "pair_plan_ready_waiting_for_t2_primary_y",
   "t2_outcome_columns_read": false,
   "t2_primary_y_bound": false
 }

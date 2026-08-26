@@ -1,1 +1,4 @@
 regulated_id,control_id,regulated_network_id,control_network_id,role,donor_count,donor_count_abs_diff,donor_direction,donor_direction_match,nearest_donor_distance_abs_diff,log_drainage_area_abs_diff,climate,climate_match,bfi_abs_diff,standardized_l1_match_distance
+05536995,03353200,huc8_07120004,huc8_05120201,development,2,0,U0_D2_B0_X0,True,14.61055386448844,1.9439784874872803,CntlPlains,True,4.200000000000003,3.041184938895371
+10348200,10133650,huc8_16050102,huc8_16020102,development,2,0,U0_D2_B0_X0,True,17.07415713425793,3.4285360258451236,WestMnts,True,1.4000000000000057,4.494189110433518
+10351600,10133980,huc8_16050102,huc8_16020102,development,2,0,U2_D0_B0_X0,True,7.968607704541917,2.6734955368381534,WestMnts,True,2.1000000000000085,3.0917025057917185

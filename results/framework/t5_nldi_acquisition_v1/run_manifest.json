@@ -6,24 +6,23 @@
     },
     "cache_audit": {
       "path": "cache_audit.csv",
-      "sha256": "92b220153d14ceed494d10c79db6bd12d46a88df85b39da38b3c841776683482"
+      "sha256": "99daafb725487c510c99b6fe512a1bbd90881e0a9d20aecbe900c8354abe5e40"
     },
     "request_log": {
       "path": "request_log.csv",
-      "sha256": "a4f825b4950ab9668d1d6f9a3ca3839c3bb52f151650683dbea0d81d17d005e9"
+      "sha256": "9c69cb9e2f22dd19e762351d42c03ada21293d68b3d238bd01d1088b3c91d0b4"
     }
   },
   "cache_counts_after": {
-    "complete": 132,
-    "missing": 527,
-    "provider_confirmed_unavailable": 1
+    "complete": 638,
+    "provider_confirmed_unavailable": 22
   },
   "cache_counts_before": {
     "complete": 132,
     "missing": 527,
     "provider_confirmed_unavailable": 1
   },
-  "complete": false,
+  "complete": true,
   "formal_evidence": false,
   "halt_reason": null,
   "halted_early": false,
@@ -32,15 +31,15 @@
     "sha256": "b99ff64f07ec0bf3be27787f0e8706bbfbfb17e9a2b4f288a59914688d681051"
   },
   "invalid_existing_cache_rule": "fail_closed_and_do_not_overwrite",
-  "mode": "dry_run",
-  "n_direction_usable_complete": 132,
+  "mode": "full_serial_execution",
+  "n_direction_usable_complete": 638,
   "n_planned_requests": 660,
-  "n_provider_confirmed_unavailable": 1,
-  "n_requests_attempted_this_run": 0,
-  "n_requests_logged_total": 11,
-  "n_requests_remaining_total": 527,
-  "n_requests_selected_this_run": 0,
-  "n_resolved_slots": 133,
+  "n_provider_confirmed_unavailable": 22,
+  "n_requests_attempted_this_run": 527,
+  "n_requests_logged_total": 538,
+  "n_requests_remaining_total": 0,
+  "n_requests_selected_this_run": 527,
+  "n_resolved_slots": 660,
   "n_selected_requests_remaining_after_halt": 0,
   "n_targets": 330,
   "passed": false,
