@@ -289,6 +289,23 @@ class HUC8CorpusGate:
             raise PermissionError("QC path is outside its role-scoped readable cache")
         return source.open("rb")
 
+    def open_registered_for_qc(
+        self, network_id: str, site_id: str
+    ) -> tuple[dict[str, Any], BinaryIO] | None:
+        """Resume custody and open one registered open-role object for QC.
+
+        Role authorization happens before registry inspection or path opening,
+        so a sealed network is rejected at the first line of the access path.
+        """
+
+        self.assert_qc_allowed(network_id)
+        record = self.resume_record(network_id, site_id)
+        if record is None:
+            return None
+        request = self.catalog.exact_request(network_id, site_id)
+        object_path, _ = self._locations(request)
+        return record, self.open_for_qc(network_id, object_path)
+
     def _locations(self, request: StationRequest) -> tuple[Path, Path]:
         stem = f"{request.site_id}_{request.start}_{request.end}"
         if request.role == SEALED_ROLE:
