@@ -1,0 +1,100 @@
+{
+  "artifacts": {
+    "nldi_cache_index": {
+      "n_files": 126,
+      "path": "nldi_cache_index.csv",
+      "sha256": "25eb6cd400363f83f84bebaad079835b6070a9296df0df760b49d9237d742d35"
+    },
+    "pair_attrition": {
+      "path": "pair_attrition.csv",
+      "sha256": "2bdfbc7deac7979edab26e642bf8f28c1f3981036c6748918271be06efb541cd"
+    },
+    "pair_plan": {
+      "path": "pair_plan.csv",
+      "sha256": "38e7828b2cebc45d5146122cef9707d374a07fd34c80981a4fd5e22142387844"
+    },
+    "station_attrition": {
+      "path": "station_attrition.csv",
+      "sha256": "c208b42a7f6c95450a34a08e8ca5bfae2ae9131f2505f0e4f9c6ec15a6346c0d"
+    },
+    "station_covariates": {
+      "path": "station_covariates.csv",
+      "sha256": "b47f8ddb8ea78b0f5587166fd1f7046aa0c3d806fc11d980522a62aa72bd9289"
+    }
+  },
+  "attrition_reason_counts": {
+    "bfi_missing": 149,
+    "direction_cache_missing": 267,
+    "donor_direction_unresolved": 48,
+    "gages_station_missing": 149
+  },
+  "caliper_note": "The v9.1 freeze names factors but does not lock calipers.",
+  "calipers": null,
+  "estimators": {
+    "assignment": "maximum_cardinality_linear_sum_assignment_within_exact_role_donor_count_direction_climate_strata",
+    "bfi": "gages_ii_BFI_AVE",
+    "climate": "gages_ii_AGGECOREGION_exact_match",
+    "donor_count": "frozen_train_only_t2_donor_roster_size",
+    "donor_direction": "nldi_UM_DM_200km_membership_signature",
+    "drainage_area": "gages_ii_DRAIN_SQKM",
+    "nearest_donor_distance": "minimum_haversine_km_over_frozen_roster"
+  },
+  "exposure": "upstream_major_dam_2009",
+  "exposure_derivation": "full_gages_ii_MAJ_NDAMS_2009_ge_1",
+  "factor_contract_matches_freeze": true,
+  "formal_evidence": false,
+  "formal_run_allowed": false,
+  "frozen_matching_factors": [
+    "donor_count",
+    "donor_direction",
+    "nearest_donor_distance",
+    "drainage_area",
+    "climate",
+    "bfi"
+  ],
+  "headline_claim_licensed": false,
+  "input_identities": {
+    "catalog_v3_split": {
+      "path": "results/framework/public_catalog/catalog_v3_split_table.csv",
+      "sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    "design_freeze": {
+      "path": "configs/design_freeze_v9.yaml",
+      "sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244"
+    },
+    "gages_ii_archive": {
+      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
+      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e"
+    },
+    "station_catalog": {
+      "path": "results/framework/public_catalog/usgs_daily_temperature_series.csv",
+      "sha256": "2a6bfd91a42d52b5896dc729f5a0991cc0504f28f9097433d09859052fd83b9e"
+    },
+    "train_only_predictors": {
+      "path": "results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.csv",
+      "sha256": "b99ff64f07ec0bf3be27787f0e8706bbfbfb17e9a2b4f288a59914688d681051"
+    }
+  },
+  "matching_unit": "target_station",
+  "n_control_complete": 1,
+  "n_pair_plan_rows": 0,
+  "n_regulated_complete": 5,
+  "n_station_rosters": 330,
+  "n_stations_complete_six_factors": 6,
+  "old_two_pair_result_reused": false,
+  "pair_attrition_reason_counts": {
+    "no_eligible_opposite_exposure_in_exact_stratum": 6
+  },
+  "pair_plan_ready": false,
+  "passed": false,
+  "purpose": "matching_contract_and_attrition_not_t5_evidence",
+  "roles_allowed": [
+    "development",
+    "validation"
+  ],
+  "schema_version": "t5_v9_1_outcome_blind_matching_readiness_v1",
+  "sealed_outcomes_opened": false,
+  "status": "blocked_no_complete_six_factor_pairs",
+  "t2_outcome_columns_read": false,
+  "t2_primary_y_bound": false
+}

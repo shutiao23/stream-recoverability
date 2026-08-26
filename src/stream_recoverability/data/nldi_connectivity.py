@@ -141,7 +141,7 @@ def connectivity_from_neighbor_ids(
     return {
         "origin_site_id": _as_site_id(origin_id),
         "flow_connected": status,
-        "n_connected_stations": int(len({nwis_match_key(item) for item in connected})),
+        "n_connected_stations": len({nwis_match_key(item) for item in connected}),
         "spatially_proximate_not_flow_connected": status in {"false", "partial"},
         "connected_site_ids": ",".join(connected),
     }
@@ -182,7 +182,9 @@ def fetch_nldi_navigation(
     if not isinstance(document, dict):
         time.sleep(max(float(pause_s), 0.0))
         return None
-    path.write_text(json.dumps(document), encoding="utf-8")
+    temporary = path.with_suffix(path.suffix + ".partial")
+    temporary.write_text(json.dumps(document), encoding="utf-8")
+    temporary.replace(path)
     time.sleep(max(float(pause_s), 0.0))
     return document
 
