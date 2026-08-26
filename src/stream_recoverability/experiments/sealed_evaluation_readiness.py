@@ -32,12 +32,37 @@ from stream_recoverability.data.sealed_corpus import LockedV3Catalog
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 READINESS_SCHEMA = "t2_t7_sealed_preunseal_readiness_v1"
 MODEL_FREEZE_SCHEMA = "t2_t7_sealed_model_freeze_v1"
+MODEL_FREEZE_READINESS_SCHEMA = "t2_t7_sealed_model_freeze_readiness_v1"
 ONCE_LOCK_SCHEMA = "t2_t7_sealed_evaluate_once_lock_v1"
 CLAIM_ACKNOWLEDGEMENT = "claim-once-before-any-sealed-read"
 DEFAULT_DESIGN = REPOSITORY_ROOT / "configs/design_freeze_v9.yaml"
 DEFAULT_AGGREGATION = (
     REPOSITORY_ROOT
-    / "results/framework/t2_recovery_benchmark_v1/aggregation/readiness_manifest.json"
+    / "results/framework/t2_recovery_benchmark_v4/aggregation/aggregation_manifest.json"
+)
+DEFAULT_V4_WORKLOAD = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json"
+)
+DEFAULT_PRE_SCORE_FREEZE = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json"
+)
+DEFAULT_POST_T2_INPUT_BINDING = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json"
+)
+DEFAULT_OPERATOR_PREDICTOR = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json"
+)
+DEFAULT_MODEL_ROSTER = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json"
+)
+DEFAULT_ANALYSIS_CODE = (
+    REPOSITORY_ROOT
+    / "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py"
 )
 DEFAULT_MODEL_FREEZE = (
     REPOSITORY_ROOT
@@ -51,9 +76,14 @@ DEFAULT_OUTPUT = (
     REPOSITORY_ROOT
     / "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json"
 )
+DEFAULT_MODEL_FREEZE_READINESS = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_sealed_confirmatory_v1/model_freeze_readiness_manifest.json"
+)
 PROTECTED_IMPLEMENTATION_PATHS = (
     "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
     "scripts/80_audit_sealed_evaluation_readiness.py",
+    "scripts/91_build_sealed_model_freeze.py",
     "tests/test_sealed_evaluation_readiness.py",
 )
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -329,25 +359,82 @@ def _threshold_contract(design_path: Path) -> dict[str, Any]:
 
 
 def _aggregation_contract(path: Path) -> tuple[dict[str, Any], list[str]]:
+    if path.is_symlink() or not path.is_file():
+        return (
+            {"path": _recorded_path(path), "exists": False, "sha256": None},
+            [
+                "open_aggregation_manifest_missing",
+                "t2_primary_aggregation_not_ready",
+                "t2_result_set_not_complete",
+            ],
+        )
     value = _load_json(path)
     blockers: list[str] = []
-    if value.get("manifest_schema") != "t2_v91_aggregation_readiness_v1":
+    if value.get("manifest_schema") != "t2_v91_result_aggregation_v4":
         blockers.append("aggregation_manifest_schema_mismatch")
-    if value.get("status") != "ready":
+    if value.get("status") != "complete":
         blockers.append("t2_primary_aggregation_not_ready")
-    expected = value.get("expected_result_records")
-    observed = value.get("observed_result_records")
+    expected = value.get("expected_item_records")
+    observed = value.get("observed_item_records")
     if not _valid_positive_int(expected) or observed != expected:
         blockers.append("t2_result_set_not_complete")
+    if value.get("completeness") != "complete":
+        blockers.append("t2_result_set_not_complete")
+    if value.get("formal_result_generated") is not True:
+        blockers.append("t2_formal_result_not_generated")
+    if value.get("all_executions_successful") is not True:
+        blockers.append("t2_open_execution_not_successful")
     if value.get("sealed_temperature_records_read") is not False:
         blockers.append("aggregation_does_not_affirm_sealed_unread")
     return {
-        "path": path.resolve().relative_to(REPOSITORY_ROOT).as_posix(),
+        "path": _recorded_path(path),
+        "exists": True,
         "sha256": _sha256(path),
         "manifest_schema": value.get("manifest_schema"),
         "status": value.get("status"),
+        "expected_item_records": expected,
+        "observed_item_records": observed,
         "expected_result_records": expected,
         "observed_result_records": observed,
+    }, blockers
+
+
+def _post_t2_contract(
+    path: Path, *, workload_sha256: str | None, aggregation_sha256: str | None
+) -> tuple[dict[str, Any], list[str]]:
+    if path.is_symlink() or not path.is_file():
+        return (
+            {"path": _recorded_path(path), "exists": False, "sha256": None},
+            ["post_t2_input_binding_missing"],
+        )
+    value = _load_json(path)
+    blockers: list[str] = []
+    required = {
+        "manifest_schema": "t2_v91_v4_post_t2_input_binding_v2",
+        "status": "complete",
+        "completeness": "complete",
+        "formal_result_generated": True,
+        "sealed_paths_traversed": False,
+        "sealed_temperature_records_read": False,
+    }
+    for key, expected in required.items():
+        if value.get(key) != expected:
+            blockers.append(f"post_t2_input_binding_contract_mismatch:{key}")
+    if workload_sha256 is not None and value.get(
+        "workload_manifest_sha256"
+    ) != workload_sha256:
+        blockers.append("post_t2_workload_binding_mismatch")
+    if aggregation_sha256 is not None and value.get(
+        "aggregation_manifest_sha256"
+    ) != aggregation_sha256:
+        blockers.append("post_t2_aggregation_binding_mismatch")
+    return {
+        "path": _recorded_path(path),
+        "exists": True,
+        "sha256": _sha256(path),
+        "manifest_schema": value.get("manifest_schema"),
+        "status": value.get("status"),
+        "observed_item_records": value.get("observed_item_records"),
     }, blockers
 
 
@@ -355,7 +442,9 @@ def _model_contract(
     path: Path,
     *,
     threshold_contract_sha256: str,
-    open_aggregation_manifest_sha256: str,
+    open_aggregation_manifest_sha256: str | None,
+    post_t2_input_binding_sha256: str | None,
+    expected_binding_paths: Mapping[str, Path],
 ) -> tuple[dict[str, Any], list[str], list[Path]]:
     if not path.is_file():
         return (
@@ -376,6 +465,14 @@ def _model_contract(
         blockers.append("sealed_model_selection_not_complete")
     if value.get("postfreeze_retuning_permitted") is not False:
         blockers.append("sealed_model_freeze_does_not_forbid_retuning")
+    if value.get("postfreeze_retuning") is not False:
+        blockers.append("sealed_model_freeze_postfreeze_retuning_mismatch")
+    current_head = _git("rev-parse", "HEAD")
+    if (
+        current_head.returncode != 0
+        or value.get("head_commit") != current_head.stdout.strip()
+    ):
+        blockers.append("sealed_model_freeze_head_mismatch")
     models = value.get("frozen_models")
     if (
         not isinstance(models, list)
@@ -392,8 +489,8 @@ def _model_contract(
         "open_aggregation_manifest",
         "post_t2_input_binding",
         "workload_manifest",
+        "pre_score_freeze_manifest",
         "predictor_manifest",
-        "geometry_manifest",
         "model_roster",
         "analysis_code",
     }
@@ -416,6 +513,10 @@ def _model_contract(
                 blockers.append(f"model_freeze_unsafe_binding_path:{label}")
                 continue
             candidate = REPOSITORY_ROOT / relative
+            expected_path = expected_binding_paths.get(label)
+            if expected_path is None or candidate.resolve() != expected_path.resolve():
+                blockers.append(f"model_freeze_unexpected_binding_path:{label}")
+                continue
             if candidate.is_symlink() or not candidate.is_file():
                 blockers.append(f"model_freeze_binding_missing:{label}")
                 continue
@@ -427,9 +528,17 @@ def _model_contract(
                 continue
             if (
                 label == "open_aggregation_manifest"
+                and open_aggregation_manifest_sha256 is not None
                 and digest != open_aggregation_manifest_sha256
             ):
                 blockers.append("model_freeze_open_aggregation_binding_mismatch")
+                continue
+            if (
+                label == "post_t2_input_binding"
+                and post_t2_input_binding_sha256 is not None
+                and digest != post_t2_input_binding_sha256
+            ):
+                blockers.append("model_freeze_post_t2_binding_mismatch")
                 continue
             bound_paths.append(candidate)
     contract = {
@@ -440,15 +549,394 @@ def _model_contract(
         "status": value.get("status"),
         "frozen_models": models if isinstance(models, list) else None,
         "threshold_contract_sha256": value.get("threshold_contract_sha256"),
+        "head_commit": value.get("head_commit"),
         "input_bindings": bindings if isinstance(bindings, Mapping) else None,
     }
     return contract, blockers, bound_paths
 
 
+def _repo_input_binding(
+    label: str, path: Path
+) -> tuple[dict[str, str] | None, list[str]]:
+    """Bind one regular open-only repository file without reading sealed bytes."""
+
+    try:
+        relative = path.resolve().relative_to(REPOSITORY_ROOT).as_posix()
+    except ValueError:
+        return None, [f"model_freeze_input_outside_repository:{label}"]
+    if any(part.lower() == "sealed" for part in Path(relative).parts):
+        return None, [f"model_freeze_unsafe_input_path:{label}"]
+    if path.is_symlink() or not path.is_file():
+        return None, [f"model_freeze_input_missing:{label}"]
+    return {"path": relative, "sha256": _sha256(path)}, []
+
+
+def _bound_artifact_path(manifest_path: Path, record: object) -> Path | None:
+    if not isinstance(record, Mapping):
+        return None
+    raw = record.get("path")
+    if not isinstance(raw, str) or not raw:
+        return None
+    path = Path(raw)
+    if not path.is_absolute():
+        path = (manifest_path.parent / path).resolve()
+        if not path.exists():
+            candidate = (REPOSITORY_ROOT / raw).resolve()
+            if candidate.exists():
+                path = candidate
+    return path
+
+
+def build_model_freeze_readiness(
+    *,
+    workload_path: str | Path = DEFAULT_V4_WORKLOAD,
+    pre_score_freeze_path: str | Path = DEFAULT_PRE_SCORE_FREEZE,
+    open_aggregation_path: str | Path = DEFAULT_AGGREGATION,
+    post_t2_input_binding_path: str | Path = DEFAULT_POST_T2_INPUT_BINDING,
+    predictor_manifest_path: str | Path = DEFAULT_OPERATOR_PREDICTOR,
+    model_roster_path: str | Path = DEFAULT_MODEL_ROSTER,
+    analysis_code_path: str | Path = DEFAULT_ANALYSIS_CODE,
+    design_path: str | Path = DEFAULT_DESIGN,
+    model_freeze_path: str | Path = DEFAULT_MODEL_FREEZE,
+) -> dict[str, Any]:
+    """Audit every open-only input needed to freeze the sealed model roster.
+
+    Missing formal open results are ordinary blockers.  This function never
+    creates the model freeze and never resolves, stats, or reads a sealed
+    object.  The returned candidate becomes creatable only when every direct
+    and recursively bound input is committed and identical to ``HEAD``.
+    """
+
+    paths = {
+        "workload_manifest": Path(workload_path),
+        "pre_score_freeze_manifest": Path(pre_score_freeze_path),
+        "open_aggregation_manifest": Path(open_aggregation_path),
+        "post_t2_input_binding": Path(post_t2_input_binding_path),
+        "predictor_manifest": Path(predictor_manifest_path),
+        "model_roster": Path(model_roster_path),
+        "analysis_code": Path(analysis_code_path),
+    }
+    blockers: list[str] = []
+    bindings: dict[str, dict[str, str]] = {}
+    documents: dict[str, dict[str, Any]] = {}
+    for label, path in paths.items():
+        binding, path_blockers = _repo_input_binding(label, path)
+        blockers.extend(path_blockers)
+        if binding is None:
+            continue
+        bindings[label] = binding
+        if label != "analysis_code":
+            try:
+                documents[label] = _load_json(path)
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                blockers.append(f"model_freeze_input_invalid_json:{label}")
+
+    threshold: dict[str, Any] | None = None
+    try:
+        threshold = _threshold_contract(Path(design_path))
+    except (OSError, TypeError, ValueError, yaml.YAMLError):
+        blockers.append("threshold_contract_invalid_or_missing")
+
+    workload = documents.get("workload_manifest")
+    pre_score = documents.get("pre_score_freeze_manifest")
+    aggregation = documents.get("open_aggregation_manifest")
+    post_t2 = documents.get("post_t2_input_binding")
+    predictor = documents.get("predictor_manifest")
+    roster = documents.get("model_roster")
+
+    if workload is not None:
+        required = {
+            "manifest_schema": "t2_v91_open_role_workload_v4",
+            "execution_allowed": True,
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        }
+        for key, expected in required.items():
+            if workload.get(key) != expected:
+                blockers.append(f"final_v4_workload_contract_mismatch:{key}")
+    if pre_score is not None:
+        required = {
+            "manifest_schema": "t2_v91_v4_pre_score_freeze_bundle_v1",
+            "status": "complete_outcome_blind_pre_score_freeze",
+            "selection_uses_outcomes": False,
+            "v4_results_read": False,
+            "achieved_skill_read": False,
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        }
+        for key, expected in required.items():
+            if pre_score.get(key) != expected:
+                blockers.append(f"pre_score_freeze_contract_mismatch:{key}")
+    if workload is not None and pre_score is not None:
+        workload_pre_score = workload.get("pre_score_freeze")
+        if not isinstance(workload_pre_score, Mapping) or workload_pre_score.get(
+            "sha256"
+        ) != bindings["pre_score_freeze_manifest"]["sha256"]:
+            blockers.append("final_v4_workload_pre_score_binding_mismatch")
+
+    recursive_paths: list[Path] = []
+    if aggregation is not None:
+        required = {
+            "manifest_schema": "t2_v91_result_aggregation_v4",
+            "status": "complete",
+            "completeness": "complete",
+            "formal_result_generated": True,
+            "all_executions_successful": True,
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        }
+        for key, expected in required.items():
+            if aggregation.get(key) != expected:
+                blockers.append(f"open_aggregation_contract_mismatch:{key}")
+        if workload is not None and aggregation.get(
+            "workload_manifest_sha256"
+        ) != bindings["workload_manifest"]["sha256"]:
+            blockers.append("open_aggregation_workload_binding_mismatch")
+        if pre_score is not None and aggregation.get(
+            "pre_score_freeze_sha256"
+        ) != bindings["pre_score_freeze_manifest"]["sha256"]:
+            blockers.append("open_aggregation_pre_score_binding_mismatch")
+        merged = _bound_artifact_path(
+            paths["open_aggregation_manifest"], aggregation.get("merged_item_results")
+        )
+        merged_record = aggregation.get("merged_item_results")
+        if (
+            merged is None
+            or not isinstance(merged_record, Mapping)
+            or merged.is_symlink()
+            or not merged.is_file()
+            or _sha256(merged) != merged_record.get("sha256")
+        ):
+            blockers.append("open_aggregation_merged_results_binding_invalid")
+        else:
+            recursive_paths.append(merged)
+
+    if post_t2 is not None:
+        required = {
+            "manifest_schema": "t2_v91_v4_post_t2_input_binding_v2",
+            "status": "complete",
+            "completeness": "complete",
+            "formal_result_generated": True,
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        }
+        for key, expected in required.items():
+            if post_t2.get(key) != expected:
+                blockers.append(f"post_t2_input_binding_contract_mismatch:{key}")
+        if workload is not None and post_t2.get(
+            "workload_manifest_sha256"
+        ) != bindings["workload_manifest"]["sha256"]:
+            blockers.append("post_t2_workload_binding_mismatch")
+        if aggregation is not None and post_t2.get(
+            "aggregation_manifest_sha256"
+        ) != bindings["open_aggregation_manifest"]["sha256"]:
+            blockers.append("post_t2_aggregation_binding_mismatch")
+        for record_label in ("primary_y_table", "item_results"):
+            record = post_t2.get(record_label)
+            artifact = _bound_artifact_path(paths["post_t2_input_binding"], record)
+            if (
+                artifact is None
+                or not isinstance(record, Mapping)
+                or artifact.is_symlink()
+                or not artifact.is_file()
+                or _sha256(artifact) != record.get("sha256")
+            ):
+                blockers.append(f"post_t2_bound_artifact_invalid:{record_label}")
+            else:
+                recursive_paths.append(artifact)
+
+    if predictor is not None:
+        required = {
+            "manifest_schema": "t2_v91_v4_train_only_operator_predictions_v1",
+            "outcome_rows_read_during_fit": False,
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        }
+        for key, expected in required.items():
+            if predictor.get(key) != expected:
+                blockers.append(f"operator_predictor_contract_mismatch:{key}")
+        prediction_path = _bound_artifact_path(
+            paths["predictor_manifest"],
+            {
+                "path": predictor.get("predictions_path"),
+                "sha256": predictor.get("predictions_sha256"),
+            },
+        )
+        if (
+            prediction_path is None
+            or prediction_path.is_symlink()
+            or not prediction_path.is_file()
+            or _sha256(prediction_path) != predictor.get("predictions_sha256")
+        ):
+            blockers.append("operator_predictor_table_binding_invalid")
+        else:
+            recursive_paths.append(prediction_path)
+    if pre_score is not None and predictor is not None:
+        predictor_record = pre_score.get("predictor_manifest")
+        if not isinstance(predictor_record, Mapping) or predictor_record.get(
+            "sha256"
+        ) != bindings["predictor_manifest"]["sha256"]:
+            blockers.append("pre_score_operator_predictor_binding_mismatch")
+
+    frozen_models: list[str] = []
+    if roster is not None:
+        selected = roster.get("selected_models")
+        new_roster = (
+            roster.get("manifest_schema") == "t2_v91_v4_open_model_roster_v1"
+            and roster.get("status") == "model_selection_complete"
+            and roster.get("model_selection_complete") is True
+            and roster.get("post_selection_retuning") is False
+            and roster.get("sealed_outcomes_opened") is False
+            and post_t2 is not None
+            and roster.get("post_t2_input_binding_sha256")
+            == bindings["post_t2_input_binding"]["sha256"]
+        )
+        legacy_finalized_roster = (
+            roster.get("schema_version") == "finalized_model_roster_v1"
+            and roster.get("finalized") is True
+        )
+        if (
+            not (new_roster or legacy_finalized_roster)
+            or not isinstance(selected, list)
+            or not selected
+            or any(not isinstance(item, str) or not item for item in selected)
+            or len(set(selected)) != len(selected)
+        ):
+            blockers.append("model_roster_not_finalized_unique_nonempty")
+        else:
+            frozen_models = list(selected)
+
+    git_paths = [Path(design_path), *paths.values(), *recursive_paths]
+    git_binding, git_blockers = _git_binding(git_paths)
+    blockers.extend(git_blockers)
+    head = git_binding.get("head_commit")
+    candidate = None
+    if threshold is not None:
+        candidate = {
+            "manifest_schema": MODEL_FREEZE_SCHEMA,
+            "status": "frozen_before_unseal",
+            "head_commit": head,
+            "model_selection_complete": bool(frozen_models),
+            "postfreeze_retuning": False,
+            "postfreeze_retuning_permitted": False,
+            "sealed_outcomes_opened": False,
+            "sealed_temperature_records_read": False,
+            "open_results_only": True,
+            "frozen_models": frozen_models,
+            "threshold_contract_sha256": threshold["threshold_contract_sha256"],
+            "design_freeze": {
+                "path": _recorded_path(Path(design_path)),
+                "sha256": threshold["design_sha256"],
+            },
+            "input_bindings": bindings,
+        }
+    unique = sorted(set(blockers))
+    if (
+        candidate is None
+        or candidate.get("model_selection_complete") is not True
+    ) and "model_roster_not_finalized_unique_nonempty" not in unique:
+        unique.append("model_selection_incomplete")
+        unique.sort()
+    if set(bindings) != {
+        "workload_manifest",
+        "pre_score_freeze_manifest",
+        "open_aggregation_manifest",
+        "post_t2_input_binding",
+        "predictor_manifest",
+        "model_roster",
+        "analysis_code",
+    }:
+        unique.append("model_freeze_input_binding_inventory_incomplete")
+        unique = sorted(set(unique))
+    ready = not unique
+    return {
+        "manifest_schema": MODEL_FREEZE_READINESS_SCHEMA,
+        "status": "ready_to_create" if ready else "blocked",
+        "ready_to_create_model_freeze": ready,
+        "model_freeze_created": Path(model_freeze_path).is_file(),
+        "model_freeze_path": _recorded_path(Path(model_freeze_path)),
+        "model_selection_complete": bool(frozen_models),
+        "postfreeze_retuning": False,
+        "sealed_outcomes_opened": False,
+        "sealed_paths_traversed": False,
+        "formal_evidence": False,
+        "threshold_contract": threshold,
+        "input_bindings": bindings,
+        "git_commit_before_model_freeze": git_binding,
+        "candidate_model_freeze": candidate,
+        "blockers": unique,
+    }
+
+
+def create_model_freeze_manifest(
+    readiness: Mapping[str, Any], *, output_path: str | Path = DEFAULT_MODEL_FREEZE
+) -> dict[str, Any]:
+    """Exclusively install the already-audited model freeze, or fail closed."""
+
+    if readiness.get("manifest_schema") != MODEL_FREEZE_READINESS_SCHEMA:
+        raise SealedReadinessError("model-freeze readiness schema mismatch")
+    if (
+        readiness.get("ready_to_create_model_freeze") is not True
+        or readiness.get("blockers") != []
+    ):
+        raise SealedReadinessError("model-freeze readiness is blocked")
+    candidate = readiness.get("candidate_model_freeze")
+    git_binding = readiness.get("git_commit_before_model_freeze")
+    if not isinstance(candidate, Mapping) or not isinstance(git_binding, Mapping):
+        raise SealedReadinessError("model-freeze readiness lacks its candidate")
+    current_head = _git("rev-parse", "HEAD")
+    if (
+        current_head.returncode != 0
+        or current_head.stdout.strip() != candidate.get("head_commit")
+        or git_binding.get("all_required_paths_committed_unchanged") is not True
+    ):
+        raise SealedReadinessError("model-freeze HEAD changed after readiness")
+    for binding in git_binding.get("required_paths") or []:
+        if not isinstance(binding, Mapping):
+            raise SealedReadinessError("invalid model-freeze Git binding")
+        relative = binding.get("path")
+        expected = binding.get("head_blob")
+        if not isinstance(relative, str) or not isinstance(expected, str):
+            raise SealedReadinessError("invalid model-freeze Git identity")
+        committed = _git("rev-parse", f"HEAD:{relative}")
+        worktree = _git("hash-object", "--", relative)
+        if (
+            committed.returncode != 0
+            or worktree.returncode != 0
+            or committed.stdout.strip() != expected
+            or worktree.stdout.strip() != expected
+        ):
+            raise SealedReadinessError(
+                f"model-freeze input changed after readiness: {relative}"
+            )
+    payload = (json.dumps(dict(candidate), indent=2, sort_keys=True) + "\n").encode(
+        "utf-8"
+    )
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        descriptor = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
+    except FileExistsError as error:
+        if output.read_bytes() == payload:
+            return dict(candidate)
+        raise SealedReadinessError("model-freeze manifest is create-once") from error
+    with os.fdopen(descriptor, "wb") as handle:
+        handle.write(payload)
+        handle.flush()
+        os.fsync(handle.fileno())
+    return dict(candidate)
+
+
 def build_readiness_manifest(
     *,
     design_path: str | Path = DEFAULT_DESIGN,
+    v4_workload_path: str | Path = DEFAULT_V4_WORKLOAD,
+    pre_score_freeze_path: str | Path = DEFAULT_PRE_SCORE_FREEZE,
     aggregation_path: str | Path = DEFAULT_AGGREGATION,
+    post_t2_input_binding_path: str | Path = DEFAULT_POST_T2_INPUT_BINDING,
+    predictor_manifest_path: str | Path = DEFAULT_OPERATOR_PREDICTOR,
+    model_roster_path: str | Path = DEFAULT_MODEL_ROSTER,
+    analysis_code_path: str | Path = DEFAULT_ANALYSIS_CODE,
     model_freeze_path: str | Path = DEFAULT_MODEL_FREEZE,
     huc8_registry_root: str | Path = DEFAULT_HUC8_REGISTRY / "sealed",
     foen_registry_root: str | Path = DEFAULT_FOEN_REGISTRY,
@@ -457,18 +945,39 @@ def build_readiness_manifest(
     """Audit pre-unseal state without touching any sealed object or value."""
 
     design = Path(design_path)
+    workload = Path(v4_workload_path)
     aggregation = Path(aggregation_path)
+    post_t2 = Path(post_t2_input_binding_path)
     model_freeze = Path(model_freeze_path)
     once_lock = Path(once_lock_path)
     blockers: list[str] = []
     threshold = _threshold_contract(design)
     aggregation_contract, aggregation_blockers = _aggregation_contract(aggregation)
+    workload_sha: str | None = None
+    if workload.is_file():
+        workload_sha = _sha256(workload)
+    post_t2_contract, post_t2_blockers = _post_t2_contract(
+        post_t2,
+        workload_sha256=workload_sha,
+        aggregation_sha256=aggregation_contract.get("sha256"),
+    )
     model_contract, model_blockers, model_bound_paths = _model_contract(
         model_freeze,
         threshold_contract_sha256=threshold["threshold_contract_sha256"],
         open_aggregation_manifest_sha256=aggregation_contract["sha256"],
+        post_t2_input_binding_sha256=post_t2_contract["sha256"],
+        expected_binding_paths={
+            "workload_manifest": workload,
+            "pre_score_freeze_manifest": Path(pre_score_freeze_path),
+            "open_aggregation_manifest": aggregation,
+            "post_t2_input_binding": post_t2,
+            "predictor_manifest": Path(predictor_manifest_path),
+            "model_roster": Path(model_roster_path),
+            "analysis_code": Path(analysis_code_path),
+        },
     )
     blockers.extend(aggregation_blockers)
+    blockers.extend(post_t2_blockers)
     blockers.extend(model_blockers)
     try:
         huc8 = _audit_huc8_registry(Path(huc8_registry_root))
@@ -483,7 +992,13 @@ def build_readiness_manifest(
     if once_lock.exists():
         blockers.append("evaluate_once_lock_already_exists")
 
-    required_paths = [design, aggregation]
+    required_paths = [design]
+    if workload.is_file():
+        required_paths.append(workload)
+    if aggregation.is_file():
+        required_paths.append(aggregation)
+    if post_t2.is_file():
+        required_paths.append(post_t2)
     if model_freeze.is_file():
         required_paths.append(model_freeze)
         required_paths.extend(model_bound_paths)
@@ -500,6 +1015,7 @@ def build_readiness_manifest(
         "registry_metadata_read_only": True,
         "threshold_contract": threshold,
         "aggregation_contract": aggregation_contract,
+        "post_t2_input_binding_contract": post_t2_contract,
         "model_freeze_contract": model_contract,
         "sealed_registry_inventory": {
             "north_america_huc8": huc8,
@@ -641,12 +1157,16 @@ def claim_evaluate_once(
 
 __all__ = [
     "CLAIM_ACKNOWLEDGEMENT",
+    "DEFAULT_MODEL_FREEZE_READINESS",
     "DEFAULT_OUTPUT",
+    "MODEL_FREEZE_READINESS_SCHEMA",
     "MODEL_FREEZE_SCHEMA",
     "ONCE_LOCK_SCHEMA",
     "READINESS_SCHEMA",
     "SealedReadinessError",
+    "build_model_freeze_readiness",
     "build_readiness_manifest",
     "claim_evaluate_once",
+    "create_model_freeze_manifest",
     "write_readiness_manifest",
 ]
