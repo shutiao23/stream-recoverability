@@ -1,0 +1,28 @@
+{
+  "dry_run": true,
+  "execute": false,
+  "formal_evidence": false,
+  "manifest_schema": "t2_v91_open_role_mh_acquisition_pilot_v1",
+  "n_networks": 1,
+  "n_sites": 3,
+  "network_id": "huc8_01070004",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "provider_responses_opened": false,
+  "purpose": "pipeline_verification_not_evidence",
+  "request_plan": {
+    "bytes": 6812,
+    "path": "results/framework/t2_information_adapters_v1/acquisition_pilot_dry_run/request_plan.json",
+    "sha256": "c1fae43b24d82fae770798d470937fcdececab264cee4aea4b514ce707a32a23"
+  },
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "01095220",
+    "01095375",
+    "01095434"
+  ],
+  "status": "dry_run",
+  "temperature_columns_read": []
+}

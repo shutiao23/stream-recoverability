@@ -1,9 +1,10 @@
 # v9.1 T2 M/H adapter feasibility
 
-Status: **blocked for production T2**. The adapter contract and a burned-data
-smoke grid are executable; the HUC8 open-role corpus does not yet contain
-provider-audited daily meteorology or hydraulics. This audit performed no
-download, did not traverse a sealed vault, and computed no performance metric.
+Status: **blocked for corpus-wide production T2**. The adapter contract and a
+burned-data smoke grid are executable. A bounded acquisition pilot now exists
+for one open development network, but the HUC8 corpus is not yet populated
+corpus-wide. The feasibility audit itself performed no download, did not
+traverse a sealed vault, and computed no performance metric.
 
 ## Information identity
 
@@ -71,10 +72,38 @@ calendar lags. This verifies schema, QC, date alignment, train-only scaling,
 and materialization; it is not T2 evidence and cannot enter the HUC8 corpus.
 
 The current open-role HUC8 corpus contains 74 development and 29 validation
-network directories with temperature/QC panels, but no M/H artifacts. Production
-remains blocked until station-specific POWER and USGS 00060/00065 records are
-materialized with raw-response hashes, passed through this QC contract, and
+network directories with temperature/QC panels. Production remains blocked
+until station-specific POWER and USGS 00060/00065 records are materialized
+corpus-wide with raw-response hashes, passed through this QC contract, and
 connected to model consumers before any performance metric is computed.
+
+## Bounded open-role acquisition pilot
+
+`scripts/76_acquire_t2_information_pilot.py` is hard-bounded to the
+deterministic first complete development network, `huc8_01070004`. Its dry run
+plans exactly three stations and does not open provider responses. `--execute`
+requests station-coordinate POWER `Ta/P/W/RH/Rs` and station/date USGS daily
+mean `00060/00065`, stores each raw request/response with SHA-256, applies the
+provider QC above, and writes adapter-long Parquet, coverage, schema, failure,
+request-log, and manifest artifacts. It reads only `site_id/date` from the open
+temperature panel, never a temperature value, and cannot select another
+network or role.
+
+The executed pilot is intentionally `passed: false` and
+`status: materialized_partial`: all three stations have complete POWER M and
+daily discharge F over the provider-returned windows (with 34 provisional F
+days excluded), while USGS reports no daily-mean gage-height L series for any
+of the three stations. Missing L remains absent rather than filled. No
+performance metric or network interval was computed; the artifact purpose is
+`pipeline_verification_not_evidence`.
+
+```bash
+# Provider-response-free plan (written outside the executed pilot directory)
+PYTHONPATH=src python scripts/76_acquire_t2_information_pilot.py
+
+# The only enabled live acquisition scope
+PYTHONPATH=src python scripts/76_acquire_t2_information_pilot.py --execute
+```
 
 Executable audit:
 
