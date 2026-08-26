@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import stream_recoverability.experiments.twin_e as twin_e_module
@@ -92,6 +93,30 @@ def test_inspected_twin_e_rows_cannot_pass_the_formal_gate() -> None:
     assert gate["status"] == "not_tested_holdout_not_prelocked"
     assert gate["forbidden_metric"] == "classification_auc"
     assert set(result["univariates"]["predictor"]) == set(UNIVARIATE_PREDICTORS)
+
+
+def test_formal_gate_labels_an_isolated_calibration_miss() -> None:
+    truth = np.linspace(0.1, 0.9, 24)
+    rng = np.random.default_rng(1701)
+    frame = pd.DataFrame(
+        {
+            "family": [f"f{index:02d}" for index in range(len(truth))],
+            "true_recoverability": truth,
+            "operator_recoverability": truth / 0.75,
+            "gap_length_only": rng.permutation(len(truth)),
+            "acf_only": rng.permutation(len(truth)),
+            "donor_r2_only": rng.permutation(len(truth)),
+            "additive_d4": rng.permutation(len(truth)),
+        }
+    )
+
+    _, gate = twin_e_module._score_correlations(frame, formal_holdout=True)
+
+    assert gate["operator_meets_floor"] is True
+    assert gate["univariate_meets_ceiling"] is True
+    assert gate["operator_calibration_meets_band"] is False
+    assert gate["passed"] is False
+    assert gate["status"] == "twin_e_operator_calibration_miss"
 
 
 def test_holdout_freeze_expands_full_factorial_without_scoring() -> None:

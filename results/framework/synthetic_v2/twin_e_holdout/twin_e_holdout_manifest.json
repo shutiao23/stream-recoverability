@@ -1,0 +1,51 @@
+{
+  "cell": "E",
+  "estimand": "analytic_truth_vs_finite_training_hat_sigma_operator",
+  "experiment": "E5_twin_e_locked_holdout",
+  "formal_evidence": false,
+  "gate": {
+    "best_univariate": "gap_length_only",
+    "best_univariate_absolute_spearman": 0.45901886062936964,
+    "cell": "E",
+    "evaluated_split": "holdout",
+    "forbidden_metric": "classification_auc",
+    "generator_retuned_to_save_gate": false,
+    "holdout_families": [
+      "twin_e_holdout_001",
+      "twin_e_holdout_002",
+      "twin_e_holdout_003",
+      "twin_e_holdout_004",
+      "twin_e_holdout_005",
+      "twin_e_holdout_006",
+      "twin_e_holdout_007",
+      "twin_e_holdout_008",
+      "twin_e_holdout_009"
+    ],
+    "holdout_family_locked_before_scoring": true,
+    "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
+    "n_rows": 54,
+    "numeric_thresholds_met": false,
+    "operator_calibration_intercept": 0.03084014902544273,
+    "operator_calibration_meets_band": false,
+    "operator_calibration_slope": 0.7596002209516727,
+    "operator_calibration_slope_range": [
+      0.9,
+      1.1
+    ],
+    "operator_meets_floor": true,
+    "operator_spearman": 0.9358762986281387,
+    "operator_spearman_min": 0.9,
+    "passed": false,
+    "status": "twin_e_operator_calibration_miss",
+    "univariate_meets_ceiling": true,
+    "univariate_spearman_max": 0.7
+  },
+  "historical_a_to_d_artifacts_overwritten": false,
+  "lock_commit": "d27bb4571ea9dbeffd600350b2d17fed18d633d7",
+  "lock_path": "configs/twin_e_holdout_freeze_v1.yaml",
+  "operator_path": "empirical_hat_sigma_public_conditional_observability_api",
+  "protocol_amendment": "v9.1",
+  "purpose": "synthetic_falsification_holdout",
+  "superseded_auc_gate_used": false,
+  "truth_path": "analytic_locked_state_space_covariance"
+}

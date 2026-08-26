@@ -273,6 +273,18 @@ def _score_correlations(
     )
     numeric_gate_met = bool(operator_ok and univariate_ok and calibration_ok)
     passed = bool(formal_holdout and numeric_gate_met)
+    if passed:
+        status = "twin_e_gate_pass"
+    elif not formal_holdout:
+        status = "not_tested_holdout_not_prelocked"
+    elif not operator_ok:
+        status = "twin_e_operator_spearman_miss"
+    elif not univariate_ok:
+        status = "twin_e_univariate_ceiling_miss"
+    elif not calibration_ok:
+        status = "twin_e_operator_calibration_miss"
+    else:
+        status = "twin_e_numeric_gate_miss"
     gate = {
         "cell": "E",
         "evaluated_split": "holdout" if formal_holdout else "design_debug",
@@ -294,15 +306,7 @@ def _score_correlations(
         "operator_calibration_meets_band": calibration_ok,
         "numeric_thresholds_met": numeric_gate_met,
         "passed": passed,
-        "status": (
-            "twin_e_gate_pass"
-            if passed
-            else (
-                "not_tested_holdout_not_prelocked"
-                if not formal_holdout
-                else "twin_e_operator_no_better_than_univariates"
-            )
-        ),
+        "status": status,
         "forbidden_metric": "classification_auc",
         "generator_retuned_to_save_gate": False,
     }
