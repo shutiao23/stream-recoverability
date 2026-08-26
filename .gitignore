@@ -7,6 +7,7 @@ build/
 *.egg-info/
 checkpoints/*.pt
 checkpoints/*.pth
+**/.acquisition.lock
 
 # Runtime-only validation artifacts.  Keep compact aggregate evidence explicit;
 # never add checkpoints, per-scenario files, logs, masks, or dated predictions.
