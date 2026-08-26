@@ -7,9 +7,6 @@
   "blockers": [
     "open_aggregation_manifest_missing",
     "post_t2_input_binding_missing",
-    "required_path_differs_from_head:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-    "required_path_differs_from_head:tests/test_sealed_evaluation_readiness.py",
-    "required_path_not_committed:scripts/91_build_sealed_model_freeze.py",
     "sealed_model_freeze_manifest_missing",
     "t2_primary_aggregation_not_ready",
     "t2_result_set_not_complete"
@@ -23,11 +20,11 @@
   },
   "formal_evidence": false,
   "git_commit_before_unseal": {
-    "all_required_paths_committed_unchanged": false,
-    "head_commit": "c59029847cff8c1a7b50e29a32557d76448b4be4",
+    "all_required_paths_committed_unchanged": true,
+    "head_commit": "03cd3f6ac4022e80682da9d49a4a510fee7d67cd",
     "required_paths": [
       {
-        "head_blob": "0b8fb0b068f57ea2cbfdc01cc72e6a2daa023558",
+        "head_blob": "b38428c451f59741a3b36123eb4a01a8434ead40",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
         "worktree_blob": "b38428c451f59741a3b36123eb4a01a8434ead40"
       },
@@ -37,7 +34,12 @@
         "worktree_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b"
       },
       {
-        "head_blob": "a42612bf065d8f7c676d0e5890289b752fe453b8",
+        "head_blob": "e04f69789d0c2ddbaff46338ab8698c899df9328",
+        "path": "scripts/91_build_sealed_model_freeze.py",
+        "worktree_blob": "e04f69789d0c2ddbaff46338ab8698c899df9328"
+      },
+      {
+        "head_blob": "520bf1f4d599d201bc0ad04434aa528b474442f4",
         "path": "tests/test_sealed_evaluation_readiness.py",
         "worktree_blob": "520bf1f4d599d201bc0ad04434aa528b474442f4"
       },
