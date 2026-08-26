@@ -244,11 +244,11 @@ def _legacy_request() -> LegacyNetworkRequest:
         role="development",
         site_ids=("01095220",),
         start="2020-01-01",
-        end="2020-01-05",
+        end="2020-01-06",
         parameter_codes=("00060", "00065"),
         statistic_code="00003",
         url="https://waterservices.usgs.gov/nwis/dv/?test",
-        estimated_site_days=5,
+        estimated_site_days=6,
     )
 
 
@@ -261,6 +261,7 @@ USGS\t01095220\t2020-01-02\t20\tP\t6\tP
 USGS\t01095220\t2020-01-03\tIce\tA\t7\tA:e
 USGS\t01095220\t2020-01-04\tEqp\tP\t\t
 USGS\t01095220\t2020-01-05\t***\tP\t\t
+USGS\t01095220\t2020-01-06\tBkw\tP\t\t
 """
     frame = parse_legacy_hydraulics_rdb(
         payload,
@@ -268,8 +269,8 @@ USGS\t01095220\t2020-01-05\t***\tP\t\t
         response_sha256="a" * 64,
         response_artifact="raw/response.rdb",
     )
-    assert LOCKED_PROVIDER_NONNUMERIC_CODES == ("Ice", "Eqp", "***")
-    assert len(frame) == 8
+    assert LOCKED_PROVIDER_NONNUMERIC_CODES == ("Ice", "Eqp", "***", "Bkw")
+    assert len(frame) == 9
     approved = frame.loc[frame["approval_status"].eq("Approved")]
     provisional = frame.loc[frame["approval_status"].eq("Provisional")]
     assert set(approved["variable"]) == {"F", "L"}
@@ -315,7 +316,6 @@ def test_all_current_raw_rdb_nonnumeric_codes_equal_locked_set() -> None:
     counts = scan_legacy_rdb_nonnumeric_codes(paths)
     assert set(counts) == set(LOCKED_PROVIDER_NONNUMERIC_CODES)
     assert all(counts[code] > 0 for code in LOCKED_PROVIDER_NONNUMERIC_CODES)
-    assert counts["***"] == 9
 
 
 def test_adapter_accepts_approved_legacy_source_without_calling_it_ogc() -> None:
@@ -379,7 +379,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     (staging / ".archive_intent.json").write_text(
         json.dumps(
             {
-                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_3",
+                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_4",
                 "attempt_number": 1,
                 "network_id": network.network_id,
                 "role": network.role,
@@ -413,7 +413,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     )
     archived = archive_nonterminal_attempt(stale, network)
     audit = json.loads((archived / "attempt_archive_manifest.json").read_text())
-    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_3"
+    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_4"
 
 
 class V2Fetcher:

@@ -1,6 +1,6 @@
 # T2 M/H acquisition v2: legacy NWIS network batches
 
-Status: **v2.3 provider-code corrections implemented; resume held until tests and
+Status: **v2.4 provider-code corrections implemented; resume held until tests and
 operator handoff**.
 
 ## Why v2 exists
@@ -50,10 +50,10 @@ full plan contains exactly:
 Corpus plan SHA-256:
 
 ```text
-681f4bb3db4fbdcc78b3129fc028832a7adc4a3b48dfdf5d7fb1790bc0d78edf
+c28acc3e2decf7886520d5f6a97fadb0e1dd81844fafe391d8252b1980ffeb2c
 ```
 
-This v2.3 SHA binds the parser contract and locked provider nonnumeric-code
+This v2.4 SHA binds the parser contract and locked provider nonnumeric-code
 roster into every network SHA.
 
 ## Provider QC and retry safety
@@ -63,14 +63,16 @@ roster into every network SHA.
   eligible. `P` and every other non-A finite value remain audited with `value`
   set to NA.
 - Every legacy value also retains exact `raw_text`. The locked provider codes
-  `Ice`, `Eqp`, and `***` are not treated as numbers: `value` and `raw_value` are NA,
+  `Ice`, `Eqp`, `***`, and `Bkw` are not treated as numbers: `value` and
+  `raw_value` are NA,
   `quality_approved` is false, `approval_status` is `Provisional`, and
   `qc_status` is `excluded_non_numeric_provider_code`, regardless of qualifier.
-  USGS RDB comments identify `Eqp` as equipment malfunction and `***` as value
-  unavailable. Any other nonempty nonnumeric provider text fails closed. The
-  v2.3 preflight scans every current raw `response.rdb` and requires the observed
-  nonnumeric set to equal exactly `{Ice, Eqp, ***}`; the newly identified `***`
-  shape occurs in nine rows and carries qualifier `P`.
+  USGS RDB comments identify `Eqp` as equipment malfunction, `***` as value
+  unavailable, and `Bkw` as a value affected by backwater at the measurement
+  site. Any other nonempty nonnumeric provider text fails closed. The v2.4
+  preflight scans every current raw `response.rdb` and requires the observed
+  nonnumeric set to equal exactly `{Ice, Eqp, ***, Bkw}`; observed `Bkw` rows
+  carry qualifier `P` and no numeric value.
 - Approved estimated qualifiers such as `A:e` retain approval but use
   `qc_status=approved_estimated`.
 - F remains converted by `ft3/s * 0.028316846592`; L remains converted by
@@ -101,12 +103,12 @@ roster into every network SHA.
   `attempt_XXXX`. Collisions fail closed while preserving both sides for manual
   recovery.
 
-## Pre-v2.3 terminal migration
+## Pre-v2.4 terminal migration
 
-Older v2/v2.1/v2.2 terminal networks are not edited in place. V2.3 adds the
-locked `***` contract and therefore changes every network plan SHA. On resume each
+Older v2/v2.1/v2.2/v2.3 terminal networks are not edited in place. V2.4 adds
+the locked `Bkw` contract and therefore changes every network plan SHA. On resume each
 stale terminal is first moved intact into an audited attempt with reason
-`terminal_rebuild_parser_contract_v2_3`, then rebuilt under the v2.3 contract.
+`terminal_rebuild_parser_contract_v2_4`, then rebuilt under the v2.4 contract.
 Interrupted directories are archived with reason `interrupted_missing_manifest`.
 This is an explicit rebuild, not a silent manifest migration.
 
