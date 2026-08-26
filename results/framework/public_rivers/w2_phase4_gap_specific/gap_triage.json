@@ -1,0 +1,34 @@
+{
+  "absolute_improvement_pp": 10.9375,
+  "confirmatory_eligible": false,
+  "false_release_definition": "fill_error_gt_0.5_degC",
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "length_only": {
+    "false_release_rate": null,
+    "n": 64.0,
+    "n_declared_safe": 0.0,
+    "safe_fill_fraction": 0.0,
+    "threshold": null
+  },
+  "n_fills": 64,
+  "n_networks": 6,
+  "operator": {
+    "false_release_rate": 0.0,
+    "n": 64.0,
+    "n_declared_safe": 7.0,
+    "safe_fill_fraction": 0.109375,
+    "threshold": 0.0699594456300819
+  },
+  "passed": false,
+  "passed_numeric_floors": false,
+  "reason": "numeric_floors_not_met_or_undefined",
+  "relative_improvement": null,
+  "thresholds": {
+    "false_release_error_c": 0.5,
+    "false_release_rate": 0.05,
+    "safe_fill_absolute_improvement_min_pp": 15.0,
+    "safe_fill_relative_improvement_min": 0.3
+  },
+  "vs": "gap_length_only"
+}
