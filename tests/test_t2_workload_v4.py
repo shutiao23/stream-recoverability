@@ -10,6 +10,9 @@ import pytest
 
 import stream_recoverability.experiments.t2_chunk_executor_v4 as chunk_v4
 import stream_recoverability.experiments.t2_workload_v4 as v4
+from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    NETWORK_SCHEMA_VERSION as V2_NETWORK_SCHEMA_VERSION,
+)
 from stream_recoverability.experiments.t2_batch_orchestrator import (
     load_contract_spec,
 )
@@ -135,6 +138,25 @@ def test_extended_items_expand_all_lags_and_bind_every_identity_component() -> N
     assert extended[0].auxiliary_corpus_plan_sha256 == "7" * 64
 
 
+def test_item_index_rejects_a_truncated_v3_stream(
+    tmp_path: Path, monkeypatch
+) -> None:
+    source = replace(_item("B"), ordinal=0)
+    digest = hashlib.sha256((source.item_id + "\n").encode()).hexdigest()
+    monkeypatch.setattr(v4, "EXPECTED_V3_WORK_ITEMS", 2)
+    monkeypatch.setattr(v4, "EXPECTED_V3_EXTENDED_WORK_ITEMS", 0)
+    monkeypatch.setattr(v4, "EXPECTED_V4_WORK_ITEMS", 2)
+    output = tmp_path / "truncated.parquet"
+    with pytest.raises(v4.V4FreezeBlocked, match="count/identity"):
+        v4._write_v4_item_index(
+            output,
+            [source],
+            _prerequisites(ready=True),
+            expected_v3_identity_sha256=digest,
+        )
+    assert not output.exists()
+
+
 def test_v2_loader_accepts_only_the_legacy_source_and_schema() -> None:
     auxiliary = load_materialized_auxiliary_v2(
         ROOT, _network(), allow_legacy_pipeline_smoke=True
@@ -143,6 +165,7 @@ def test_v2_loader_accepts_only_the_legacy_source_and_schema() -> None:
     assert auxiliary.audit["manifest_schema"] in {
         "t2_v91_open_role_mh_network_acquisition_v2",
         "t2_v91_open_role_mh_network_acquisition_v2_1",
+        V2_NETWORK_SCHEMA_VERSION,
     }
     assert set(auxiliary.daily_long["source"].astype(str)) <= {
         "nasa_power_daily_point",
@@ -152,11 +175,11 @@ def test_v2_loader_accepts_only_the_legacy_source_and_schema() -> None:
 
 
 def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
-    calls: list[str] = []
+    calls: list[tuple[str, str]] = []
 
     def fake_execute(*args, **kwargs):
         item = args[2]
-        calls.append(item.model)
+        calls.append((item.model, item.item_id))
         return {
             **item.__dict__,
             "runner_contract_version": "ignored_candidate_contract",
@@ -193,7 +216,7 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
         ROOT, _network(), donor_item, panel=pd.DataFrame(), auxiliary=auxiliary
     )
     assert donor_result["status"] == "complete"
-    assert calls == ["donor_regression"]
+    assert calls == [("donor_regression", donor_item.source_v3_item.item_id)]
 
     unsupported = next(
         iter(
@@ -204,9 +227,20 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
             )
         )
     )
-    result = v4.execute_v4_item(ROOT, _network(), unsupported)
-    assert result["status"] == "structural_not_applicable"
-    assert calls == ["donor_regression"]
+    class ReferenceCache:
+        def execute(self, network, item):
+            return {
+                **item.__dict__,
+                "status": "reference_complete",
+                "runner_contract_version": "wrapped",
+                "sealed_temperature_records_read": False,
+            }
+
+    result = v4.execute_v4_item(
+        ROOT, _network(), unsupported, base_execution_cache=ReferenceCache()
+    )
+    assert result["status"] == "reference_complete"
+    assert calls == [("donor_regression", donor_item.source_v3_item.item_id)]
 
 
 def test_nonextended_v4_item_uses_chunk_execution_cache() -> None:
@@ -246,7 +280,9 @@ def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
                 "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
                 "sealed_input_roots_allowed": [],
                 "sealed_temperature_records_read": False,
-                "n_work_items": 10,
+                "n_work_items": v4.EXPECTED_V4_WORK_ITEMS,
+                "source_v3_workload_path": str(V3.relative_to(ROOT)),
+                "source_v3_workload_sha256": _sha(V3),
             }
         ),
         encoding="utf-8",
@@ -276,15 +312,27 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
             {
                 "ordinal": 0,
                 "item_id": "item-a",
+                "source_v3_item_id": "source-a",
+                "network_id": "network",
                 "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
                 "status": "complete",
+                "auxiliary_corpus_plan_sha256": "3" * 64,
+                "auxiliary_corpus_plan_file_sha256": "9" * 64,
+                "auxiliary_network_manifest_sha256": "5" * 64,
+                "coverage_semantics_sha256": "a" * 64,
                 "sealed_temperature_records_read": False,
             },
             {
                 "ordinal": 1,
                 "item_id": "item-b",
+                "source_v3_item_id": "source-b",
+                "network_id": "network",
                 "runner_contract_version": v4.V4_RUNNER_CONTRACT_VERSION,
                 "status": "structural_not_applicable",
+                "auxiliary_corpus_plan_sha256": "3" * 64,
+                "auxiliary_corpus_plan_file_sha256": "9" * 64,
+                "auxiliary_network_manifest_sha256": "5" * 64,
+                "coverage_semantics_sha256": "a" * 64,
                 "sealed_temperature_records_read": False,
             },
         ]
@@ -298,8 +346,12 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
         "workload_manifest_sha256": "1" * 64,
         "workload_item_identity_sha256": "2" * 64,
         "auxiliary_corpus_plan_sha256": "3" * 64,
+        "auxiliary_corpus_plan_file_sha256": "9" * 64,
+        "coverage_semantics_sha256": "a" * 64,
         "auxiliary_network_bindings_sha256": "4" * 64,
-        "auxiliary_network_bindings": {"network": {"manifest_sha256": "5" * 64}},
+        "auxiliary_network_bindings": {
+            "network": {"network_manifest_sha256": "5" * 64}
+        },
         "input_sha256_by_network_sha256": "6" * 64,
         "input_sha256_by_network": {"network": "7" * 64},
         "chunk_identity_sha256": "8" * 64,
@@ -361,7 +413,32 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
         n_stations=3,
     )
     v3_path = tmp_path / "workload_v3.json"
-    v3_path.write_text(json.dumps({"input_inventory": {"sealed_input_roots_allowed": []}}))
+    source_items = [
+        replace(_item("B"), ordinal=0),
+        replace(_item("B_union_D_union_M"), ordinal=1),
+    ]
+    source_digest = hashlib.sha256()
+    for item in source_items:
+        source_digest.update(item.item_id.encode())
+        source_digest.update(b"\n")
+    v3_path.write_text(
+        json.dumps(
+            {
+                "input_inventory": {"sealed_input_roots_allowed": []},
+                "tier_1": {
+                    "n_work_items": 2,
+                    "work_item_identity_sha256": source_digest.hexdigest(),
+                    "counts_by_role_model_information": {
+                        "development|donor_regression|B": 1,
+                        "development|donor_regression|B_union_D_union_M": 1,
+                    },
+                },
+            }
+        )
+    )
+    monkeypatch.setattr(v4, "EXPECTED_V3_WORK_ITEMS", 2)
+    monkeypatch.setattr(v4, "EXPECTED_V3_EXTENDED_WORK_ITEMS", 1)
+    monkeypatch.setattr(v4, "EXPECTED_V4_WORK_ITEMS", 4)
     monkeypatch.setattr(v4, "audit_v4_prerequisites", lambda *args: prerequisites)
     monkeypatch.setattr(
         v4,
@@ -375,7 +452,8 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
         tmp_path,
         [network],
         source_v3_workload_path=v3_path,
-        source_items=[_item("B"), _item("B_union_D_union_M")],
+        source_items=source_items,
+        item_index_write_path=tmp_path / "item_index.parquet",
     )
     assert manifest["n_work_items"] == 4
     assert manifest["counts_by_model_information_lag"] == {
@@ -387,10 +465,23 @@ def test_formal_manifest_audits_counts_by_model_information_and_lag(
     assert manifest["auxiliary_network_bindings_sha256"] == chunk_v4._canonical_sha(
         manifest["auxiliary_network_bindings"]
     )
+    indexed = v4.load_v4_index_slice(
+        tmp_path, manifest, prerequisites, start=1, end=4
+    )
+    assert [item.ordinal for item in indexed] == [1, 2, 3]
+    assert [item.meteorology_lag_days for item in indexed] == [-1, 0, 1]
 
 
-def test_v4_batch_contract_is_readiness_only() -> None:
+def test_formal_workload_json_is_create_once(tmp_path: Path) -> None:
+    path = tmp_path / "workload.json"
+    v4._create_once_json(path, {"identity": "a"})
+    v4._create_once_json(path, {"identity": "a"})
+    with pytest.raises(v4.V4FreezeBlocked, match="create-once"):
+        v4._create_once_json(path, {"identity": "b"})
+
+
+def test_v4_batch_contract_has_approved_executor() -> None:
     spec = load_contract_spec(ROOT / "configs/t2_workload_v4_contract.json")
     assert spec.workload_manifest_schema == v4.V4_WORKLOAD_SCHEMA
     assert spec.chunk_manifest_schema == chunk_v4.V4_CHUNK_SCHEMA
-    assert spec.executor_adapter is None
+    assert spec.executor_adapter == "t2_v91_chunk_executor_v4"

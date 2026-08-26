@@ -14,7 +14,7 @@ from stream_recoverability.experiments.t2_recovery_benchmark import (
 )
 from stream_recoverability.experiments.t2_workload_v4 import (
     build_v4_readiness_manifest,
-    build_v4_workload_manifest,
+    freeze_v4_workload,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,13 +48,13 @@ def main() -> None:
     }
     if readiness["status"] == "ready_for_formal_v4_freeze":
         budget = load_v91_budget(ROOT)
-        workload = build_v4_workload_manifest(
+        freeze_v4_workload(
             ROOT,
             networks,
             source_v3_workload_path=args.source_v3,
             source_items=iter_all_work_items(ROOT, networks, budget),
+            output_dir=args.output,
         )
-        _write(args.output / "workload_manifest.json", workload)
         result["formal_workload_written"] = True
         result["workload_manifest"] = str(args.output / "workload_manifest.json")
     print(json.dumps(result, indent=2, sort_keys=True))

@@ -15,9 +15,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, replace
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +32,10 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
 )
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     TERMINAL_STATUSES as V2_TERMINAL_STATUSES,
+)
+from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    load_v2_corpus_plan,
+    plan_as_dict,
 )
 
 from .t2_information_runner_integration import (
@@ -53,8 +60,12 @@ V3_WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v3"
 V4_WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v4"
 V4_RUNNER_CONTRACT_VERSION = "t2_v91_runner_v4_legacy_mh_lag_grid_v1"
 V4_READINESS_SCHEMA = "t2_v91_open_role_workload_v4_readiness_v1"
+V4_ITEM_INDEX_SCHEMA = "t2_v91_open_role_work_item_index_v4"
 EXPECTED_NETWORK_COUNT = 67
-LEGACY_V2_PLAN_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_request_plan_v2"
+EXPECTED_V3_WORK_ITEMS = 1_384_025
+EXPECTED_V3_EXTENDED_WORK_ITEMS = 553_610
+EXPECTED_V4_WORK_ITEMS = 2_491_245
+ITEM_INDEX_ROW_GROUP_SIZE = 20_000
 
 COVERAGE_SEMANTICS: dict[str, Any] = {
     "requested_roster": (
@@ -83,11 +94,28 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+@lru_cache(maxsize=16)
+def _cached_sha256_file(path_text: str, size: int, mtime_ns: int) -> str:
+    del size, mtime_ns
+    return _sha256_file(Path(path_text))
+
+
+def _stable_sha256_file(path: Path) -> str:
+    stat = path.stat()
+    return _cached_sha256_file(str(path), stat.st_size, stat.st_mtime_ns)
+
+
 def _canonical_sha(value: Any) -> str:
     payload = json.dumps(
         value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
     ).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def _canonical_json(value: Any) -> str:
+    return json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+    )
 
 
 COVERAGE_SEMANTICS_SHA256 = _canonical_sha(COVERAGE_SEMANTICS)
@@ -101,6 +129,37 @@ def _read_mapping(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise V4FreezeBlocked(f"v4 prerequisite is not a mapping: {path}")
     return value
+
+
+def _validated_v3_contract(v3: Mapping[str, Any]) -> tuple[int, str, int]:
+    tier = v3.get("tier_1")
+    if not isinstance(tier, Mapping):
+        raise V4FreezeBlocked("source v3 workload lacks tier_1")
+    try:
+        n_items = int(tier.get("n_work_items", -1))
+    except (TypeError, ValueError) as error:
+        raise V4FreezeBlocked("source v3 item count is invalid") from error
+    identity_sha = str(tier.get("work_item_identity_sha256", ""))
+    counts = tier.get("counts_by_role_model_information")
+    if not isinstance(counts, Mapping):
+        raise V4FreezeBlocked("source v3 workload lacks cell counts")
+    normalized_counts = {str(key): int(value) for key, value in counts.items()}
+    count_total = sum(normalized_counts.values())
+    extended = sum(
+        value
+        for key, value in normalized_counts.items()
+        if key.rsplit("|", 1)[-1] in EXTENDED_INFORMATION_CONDITIONS
+    )
+    if (
+        n_items != EXPECTED_V3_WORK_ITEMS
+        or count_total != EXPECTED_V3_WORK_ITEMS
+        or extended != EXPECTED_V3_EXTENDED_WORK_ITEMS
+        or len(identity_sha) != 64
+    ):
+        raise V4FreezeBlocked(
+            "source v3 count/hash contract differs from the frozen 1,384,025-item grid"
+        )
+    return n_items, identity_sha, extended
 
 
 def _safe_artifact(
@@ -187,9 +246,14 @@ def audit_v4_prerequisites(
         raise V4FreezeBlocked("v4 auxiliary root must not be sealed")
     plan_path = auxiliary_root / "corpus_request_plan.json"
     plan = _read_mapping(plan_path)
+    current_plan = plan_as_dict(load_v2_corpus_plan(repo))
+    plan_schema = str(plan.get("manifest_schema", ""))
+    schema_accepted = plan_schema == V2_PLAN_SCHEMA_VERSION or (
+        allow_legacy_pipeline_smoke
+        and plan_schema.startswith("t2_v91_open_role_mh_corpus_request_plan_v2")
+    )
     if (
-        plan.get("manifest_schema")
-        not in {V2_PLAN_SCHEMA_VERSION, LEGACY_V2_PLAN_SCHEMA_VERSION}
+        not schema_accepted
         or int(plan.get("n_networks", -1)) != EXPECTED_NETWORK_COUNT
         or plan.get("sealed_paths_traversed") is not False
         or plan.get("temperature_columns_read") != []
@@ -197,6 +261,19 @@ def audit_v4_prerequisites(
         or plan.get("v1_ogc_root_read_or_mutated") is not False
     ):
         raise V4FreezeBlocked("v2 corpus plan violates the frozen open-only contract")
+    if (
+        not allow_legacy_pipeline_smoke
+        and _canonical_json(plan) != _canonical_json(current_plan)
+    ):
+        raise V4FreezeBlocked(
+            "v2 corpus plan differs from the deterministic current acquisition plan"
+        )
+    if len(str(plan.get("plan_sha256", ""))) != 64:
+        raise V4FreezeBlocked("v2 corpus plan lacks a valid self SHA-256")
+    plan_without_sha = dict(plan)
+    declared_plan_sha = str(plan_without_sha.pop("plan_sha256"))
+    if _canonical_sha(plan_without_sha) != declared_plan_sha:
+        raise V4FreezeBlocked("v2 corpus plan self SHA-256 mismatch")
     expected = [(network.network_id, network.role) for network in networks]
     planned = [
         (str(row.get("network_id")), str(row.get("role")))
@@ -299,29 +376,62 @@ def build_v4_readiness_manifest(
         or v3.get("runner_contract_version") != RUNNER_CONTRACT_VERSION
         or v3.get("sealed_temperature_records_read") is not False
         or v3.get("network_ids") != [network.network_id for network in networks]
+        or (v3.get("input_inventory") or {}).get("sealed_input_roots_allowed") != []
     ):
         raise V4FreezeBlocked("source v3 workload contract mismatch")
-    prerequisites = audit_v4_prerequisites(repo, networks)
-    blockers = []
+    v3_n_items, v3_identity_sha, v3_extended_items = _validated_v3_contract(v3)
+    try:
+        prerequisites = audit_v4_prerequisites(repo, networks)
+    except V4FreezeBlocked as error:
+        auxiliary_root = (repo / V2_AUXILIARY_ROOT).resolve()
+        plan_path = auxiliary_root / "corpus_request_plan.json"
+        plan = _read_mapping(plan_path)
+        prerequisites = V4Prerequisites(
+            ready=False,
+            corpus_plan_path=str(plan_path.relative_to(repo)),
+            corpus_plan_file_sha256=_sha256_file(plan_path),
+            corpus_plan_sha256=str(plan.get("plan_sha256", "")),
+            split_sha256=str(plan.get("split_sha256", "")),
+            n_networks_expected=EXPECTED_NETWORK_COUNT,
+            n_networks_terminal=0,
+            missing_network_ids=tuple(network.network_id for network in networks),
+            invalid_networks={"__corpus_plan__": str(error)},
+            bindings={},
+        )
+    execution_blockers = []
     if not prerequisites.ready:
-        blockers.append(
+        execution_blockers.append(
             f"v2_auxiliary_terminal_{prerequisites.n_networks_terminal}_of_"
             f"{prerequisites.n_networks_expected}"
         )
+    evidence_blockers = [
+        "n_open_networks_67_lt_100_network_interval_floor",
+        "complete_v4_result_set_missing",
+    ]
     return {
         "manifest_schema": V4_READINESS_SCHEMA,
         "status": "ready_for_formal_v4_freeze" if prerequisites.ready else "blocked_fail_closed",
+        "execution_readiness": (
+            "ready_for_formal_v4_freeze"
+            if prerequisites.ready
+            else "blocked_fail_closed"
+        ),
+        "evidence_readiness": "blocked_fail_closed",
+        "network_inference_status": "withheld_n_lt_100_network_interval",
         "passed": False,
         "purpose": "pipeline_readiness_not_evidence",
         "formal_evidence": False,
         "formal_workload_generated": False,
         "formal_result_generated": False,
-        "blockers": blockers,
+        "blockers": execution_blockers,
+        "execution_blockers": execution_blockers,
+        "evidence_blockers": evidence_blockers,
         "source_v3_workload_path": str(v3_path.relative_to(repo)),
         "source_v3_workload_sha256": _sha256_file(v3_path),
-        "source_v3_work_item_identity_sha256": str(
-            (v3.get("tier_1") or {}).get("work_item_identity_sha256")
-        ),
+        "source_v3_n_work_items": v3_n_items,
+        "source_v3_extended_work_items": v3_extended_items,
+        "source_v3_work_item_identity_sha256": v3_identity_sha,
+        "expected_v4_n_work_items": EXPECTED_V4_WORK_ITEMS,
         "source_v3_remains_immutable": True,
         "v4_runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
@@ -342,12 +452,18 @@ def build_v4_readiness_manifest(
         },
         "model_information_contract": {
             "extended_executable_models": list(SUPPORTED_MODELS),
-            "other_extended_models": "structural_not_applicable",
+            "extended_reference_models": ["climatology"],
+            "other_extended_models": ["pchip_or_linear", "kalman"],
+            "other_extended_status": "structural_not_applicable",
         },
         "batch_orchestration": {
             "contract_spec": "configs/t2_workload_v4_contract.json",
-            "executor_adapter": None,
-            "status": "readiness_only_no_execution_adapter",
+            "executor_adapter": "t2_v91_chunk_executor_v4",
+            "status": (
+                "ready_after_formal_freeze"
+                if prerequisites.ready
+                else "blocked_until_formal_freeze"
+            ),
         },
         "temperature_columns_read": [],
         "sealed_paths_traversed": False,
@@ -420,45 +536,251 @@ def iter_v4_work_items(
             ordinal += 1
 
 
+def _index_row(item: V4WorkItem) -> dict[str, Any]:
+    return {
+        "ordinal": int(item.ordinal),
+        "item_id": item.item_id,
+        "source_v3_ordinal": int(item.source_v3_item.ordinal),
+        "source_v3_item_id": item.source_v3_item.item_id,
+        "network_id": item.network_id,
+        "meteorology_lag_days": (
+            "none"
+            if item.meteorology_lag_days is None
+            else str(int(item.meteorology_lag_days))
+        ),
+        "source_item_json": _canonical_json(json_safe(asdict(item.source_v3_item))),
+    }
+
+
+def _write_v4_item_index(
+    path: Path,
+    source_items: Iterable[WorkItem],
+    prerequisites: V4Prerequisites,
+    *,
+    expected_v3_identity_sha256: str,
+) -> dict[str, Any]:
+    """Write the complete random-access v4 index while proving the v3 stream."""
+
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    source_digest = hashlib.sha256()
+    v4_digest = hashlib.sha256()
+    counts = Counter()
+    lag_counts = Counter()
+    source_count = 0
+    source_extended = 0
+    v4_count = 0
+    batch: list[dict[str, Any]] = []
+    writer: pq.ParquetWriter | None = None
+
+    def flush() -> None:
+        nonlocal writer
+        if not batch:
+            return
+        table = pa.Table.from_pylist(batch)
+        if writer is None:
+            writer = pq.ParquetWriter(
+                path,
+                table.schema,
+                compression="zstd",
+                use_dictionary=True,
+            )
+        writer.write_table(table, row_group_size=ITEM_INDEX_ROW_GROUP_SIZE)
+        batch.clear()
+
+    try:
+        for source in source_items:
+            if int(source.ordinal) != source_count:
+                raise V4FreezeBlocked(
+                    "source v3 ordinals are not exactly contiguous from zero"
+                )
+            source_digest.update(source.item_id.encode("utf-8"))
+            source_digest.update(b"\n")
+            source_count += 1
+            if source.information_condition in EXTENDED_INFORMATION_CONDITIONS:
+                source_extended += 1
+            for item in iter_v4_work_items(
+                (source,), prerequisites, require_full_corpus=True
+            ):
+                # A one-source iterator starts at zero; assign the one global
+                # namespace before hashing or serializing it.
+                item = replace(item, ordinal=v4_count)
+                v4_digest.update(item.item_id.encode("utf-8"))
+                v4_digest.update(b"\n")
+                counts[(source.model, source.information_condition)] += 1
+                lag_counts[
+                    (
+                        source.model,
+                        source.information_condition,
+                        (
+                            "none"
+                            if item.meteorology_lag_days is None
+                            else str(item.meteorology_lag_days)
+                        ),
+                    )
+                ] += 1
+                batch.append(_index_row(item))
+                v4_count += 1
+                if len(batch) >= ITEM_INDEX_ROW_GROUP_SIZE:
+                    flush()
+        flush()
+    finally:
+        if writer is not None:
+            writer.close()
+    if (
+        source_count != EXPECTED_V3_WORK_ITEMS
+        or source_extended != EXPECTED_V3_EXTENDED_WORK_ITEMS
+        or source_digest.hexdigest() != expected_v3_identity_sha256
+        or v4_count != EXPECTED_V4_WORK_ITEMS
+    ):
+        if path.exists():
+            path.unlink()
+        raise V4FreezeBlocked("v3-to-v4 item stream count/identity verification failed")
+    return {
+        "manifest_schema": V4_ITEM_INDEX_SCHEMA,
+        "format": "parquet",
+        "file_sha256": _sha256_file(path),
+        "n_rows": v4_count,
+        "source_v3_n_rows": source_count,
+        "source_v3_extended_rows": source_extended,
+        "source_v3_item_identity_sha256": source_digest.hexdigest(),
+        "work_item_identity_sha256": v4_digest.hexdigest(),
+        "row_group_size": ITEM_INDEX_ROW_GROUP_SIZE,
+        "columns": [
+            "ordinal",
+            "item_id",
+            "source_v3_ordinal",
+            "source_v3_item_id",
+            "network_id",
+            "meteorology_lag_days",
+            "source_item_json",
+        ],
+        "counts_by_model_information": {
+            "|".join(key): value for key, value in sorted(counts.items())
+        },
+        "counts_by_model_information_lag": {
+            "|".join(key): value for key, value in sorted(lag_counts.items())
+        },
+    }
+
+
+def load_v4_index_slice(
+    repo_root: str | Path,
+    workload: Mapping[str, Any],
+    prerequisites: V4Prerequisites,
+    *,
+    start: int,
+    end: int,
+) -> list[V4WorkItem]:
+    """Read and revalidate one ordinal range without rebuilding prior items."""
+
+    import pandas as pd
+
+    repo = Path(repo_root).resolve()
+    record = workload.get("item_index")
+    if not isinstance(record, Mapping):
+        raise V4FreezeBlocked("v4 workload lacks its frozen item index")
+    if (
+        record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA
+        or int(record.get("n_rows", -1)) != EXPECTED_V4_WORK_ITEMS
+        or int(record.get("source_v3_n_rows", -1)) != EXPECTED_V3_WORK_ITEMS
+        or int(record.get("source_v3_extended_rows", -1))
+        != EXPECTED_V3_EXTENDED_WORK_ITEMS
+        or record.get("work_item_identity_sha256")
+        != workload.get("work_item_identity_sha256")
+        or record.get("source_v3_item_identity_sha256")
+        != workload.get("source_v3_work_item_identity_sha256")
+    ):
+        raise V4FreezeBlocked("v4 item index metadata differs from workload freeze")
+    path = (repo / str(record.get("path", ""))).resolve()
+    try:
+        path.relative_to(repo)
+    except ValueError as error:
+        raise V4FreezeBlocked("v4 item index escaped the repository") from error
+    if any("sealed" in part.lower() for part in path.parts) or not path.is_file():
+        raise V4FreezeBlocked("v4 item index is absent or unsafe")
+    if _stable_sha256_file(path) != record.get("file_sha256"):
+        raise V4FreezeBlocked("v4 item index SHA-256 mismatch")
+    frame = pd.read_parquet(
+        path,
+        filters=[("ordinal", ">=", int(start)), ("ordinal", "<", int(end))],
+    ).sort_values("ordinal", kind="stable")
+    if len(frame) != end - start or frame["ordinal"].astype(int).tolist() != list(
+        range(start, end)
+    ):
+        raise V4FreezeBlocked("v4 item index range is incomplete")
+    items: list[V4WorkItem] = []
+    for row in frame.to_dict(orient="records"):
+        source_value = json.loads(str(row["source_item_json"]))
+        source = WorkItem(**source_value)
+        if (
+            int(row["source_v3_ordinal"]) != source.ordinal
+            or str(row["source_v3_item_id"]) != source.item_id
+            or str(row["network_id"]) != source.network_id
+        ):
+            raise V4FreezeBlocked("v4 item index source identity mismatch")
+        binding = prerequisites.bindings.get(source.network_id)
+        if binding is None:
+            raise V4FreezeBlocked("v4 indexed item has no current auxiliary binding")
+        lag_label = str(row["meteorology_lag_days"])
+        lag = None if lag_label == "none" else int(lag_label)
+        identity = _v4_identity(
+            source, lag=lag, prerequisites=prerequisites, binding=binding
+        )
+        item_id = _canonical_sha(identity)[:24]
+        if item_id != str(row["item_id"]):
+            raise V4FreezeBlocked("v4 indexed item identity differs from frozen inputs")
+        items.append(
+            V4WorkItem(
+                ordinal=int(row["ordinal"]),
+                item_id=item_id,
+                source_v3_item=source,
+                meteorology_lag_days=lag,
+                auxiliary_corpus_plan_sha256=prerequisites.corpus_plan_sha256,
+                auxiliary_corpus_plan_file_sha256=(
+                    prerequisites.corpus_plan_file_sha256
+                ),
+                auxiliary_binding=binding,
+            )
+        )
+    return items
+
+
 def build_v4_workload_manifest(
     repo_root: str | Path,
     networks: Sequence[OpenNetwork],
     *,
     source_v3_workload_path: str | Path,
     source_items: Iterable[WorkItem],
+    item_index_write_path: str | Path,
+    item_index_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Build the formal v4 freeze, refusing any incomplete v2 corpus."""
 
     repo = Path(repo_root).resolve()
     v3_path = Path(source_v3_workload_path).resolve()
-    readiness = build_v4_readiness_manifest(
+    build_v4_readiness_manifest(
         repo, networks, source_v3_workload_path=v3_path
     )
     prerequisites = audit_v4_prerequisites(repo, networks)
     if not prerequisites.ready:
         raise V4FreezeBlocked("formal v4 workload forbidden before v2 reaches 67/67 terminal")
-    digest = hashlib.sha256()
-    counts = Counter()
-    lag_counts = Counter()
-    n_items = 0
-    for item in iter_v4_work_items(source_items, prerequisites):
-        digest.update(item.item_id.encode("utf-8"))
-        digest.update(b"\n")
-        source = item.source_v3_item
-        counts[(source.model, source.information_condition)] += 1
-        lag_counts[
-            (
-                source.model,
-                source.information_condition,
-                (
-                    "none"
-                    if item.meteorology_lag_days is None
-                    else str(item.meteorology_lag_days)
-                ),
-            )
-        ] += 1
-        n_items += 1
     source_v3 = _read_mapping(v3_path)
+    _, source_identity_sha, _ = _validated_v3_contract(source_v3)
+    index_write_path = Path(item_index_write_path).resolve()
+    index_manifest_path = Path(item_index_manifest_path or index_write_path).resolve()
+    try:
+        index_manifest_path.relative_to(repo)
+    except ValueError as error:
+        raise V4FreezeBlocked("v4 item index must remain inside the repository") from error
+    index = _write_v4_item_index(
+        index_write_path,
+        source_items,
+        prerequisites,
+        expected_v3_identity_sha256=source_identity_sha,
+    )
+    index["path"] = str(index_manifest_path.relative_to(repo))
     input_inventory = source_v3.get("input_inventory")
     if not isinstance(input_inventory, Mapping):
         raise V4FreezeBlocked("source v3 workload lacks its input inventory")
@@ -469,10 +791,8 @@ def build_v4_workload_manifest(
         "manifest_schema": V4_WORKLOAD_SCHEMA,
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "source_v3_workload_path": str(v3_path.relative_to(repo)),
-        "source_v3_workload_sha256": readiness["source_v3_workload_sha256"],
-        "source_v3_work_item_identity_sha256": readiness[
-            "source_v3_work_item_identity_sha256"
-        ],
+        "source_v3_workload_sha256": _sha256_file(v3_path),
+        "source_v3_work_item_identity_sha256": source_identity_sha,
         "source_v3_remains_immutable": True,
         "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
         "auxiliary_source": "legacy_nwis_v2",
@@ -493,18 +813,19 @@ def build_v4_workload_manifest(
         "meteorology_lag_roster": list(METEOROLOGY_LAG_ROSTER),
         "extended_item_lag_multiplier": len(METEOROLOGY_LAG_ROSTER),
         "extended_executable_models": list(SUPPORTED_MODELS),
-        "other_extended_models": "structural_not_applicable",
+        "extended_reference_models": ["climatology"],
+        "other_extended_models": ["pchip_or_linear", "kalman"],
+        "other_extended_status": "structural_not_applicable",
         "batch_orchestration_contract_spec": "configs/t2_workload_v4_contract.json",
         "n_networks": len(networks),
         "network_ids": [network.network_id for network in networks],
-        "n_work_items": n_items,
-        "work_item_identity_sha256": digest.hexdigest(),
-        "counts_by_model_information": {
-            "|".join(key): value for key, value in sorted(counts.items())
-        },
-        "counts_by_model_information_lag": {
-            "|".join(key): value for key, value in sorted(lag_counts.items())
-        },
+        "n_work_items": EXPECTED_V4_WORK_ITEMS,
+        "work_item_identity_sha256": index["work_item_identity_sha256"],
+        "item_index": index,
+        "counts_by_model_information": index["counts_by_model_information"],
+        "counts_by_model_information_lag": index[
+            "counts_by_model_information_lag"
+        ],
         "purpose": "formal_workload_freeze_not_performance_evidence",
         "formal_evidence": False,
         "sealed_input_roots_allowed": [],
@@ -514,6 +835,107 @@ def build_v4_workload_manifest(
         "network_interval_reported": False,
         "passed": False,
     }
+
+
+def _fsync_directory(path: Path) -> None:
+    descriptor = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
+def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
+    payload = (
+        json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n"
+    ).encode("utf-8")
+    try:
+        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
+    except FileExistsError:
+        existing = path.read_bytes()
+        if existing != payload:
+            raise V4FreezeBlocked("formal v4 workload is create-once and already differs")
+        return
+    with os.fdopen(descriptor, "wb") as handle:
+        handle.write(payload)
+        handle.flush()
+        os.fsync(handle.fileno())
+    _fsync_directory(path.parent)
+
+
+def freeze_v4_workload(
+    repo_root: str | Path,
+    networks: Sequence[OpenNetwork],
+    *,
+    source_v3_workload_path: str | Path,
+    source_items: Iterable[WorkItem],
+    output_dir: str | Path,
+) -> dict[str, Any]:
+    """Atomically create the immutable workload/index pair, or validate it."""
+
+    repo = Path(repo_root).resolve()
+    output = Path(output_dir).resolve()
+    workload_path = output / "workload_manifest.json"
+    index_path = output / "item_index.parquet"
+    if any("sealed" in part.lower() for part in output.parts):
+        raise V4FreezeBlocked("formal v4 freeze refuses a sealed path")
+    output.mkdir(parents=True, exist_ok=True)
+    if workload_path.exists():
+        workload = _read_mapping(workload_path)
+        record = workload.get("item_index")
+        prerequisites = audit_v4_prerequisites(repo, networks)
+        bindings = {
+            key: value.identity() for key, value in prerequisites.bindings.items()
+        }
+        if (
+            workload.get("manifest_schema") != V4_WORKLOAD_SCHEMA
+            or int(workload.get("n_work_items", -1)) != EXPECTED_V4_WORK_ITEMS
+            or not isinstance(record, Mapping)
+            or (repo / str(record.get("path", ""))).resolve() != index_path
+            or not index_path.is_file()
+            or _sha256_file(index_path) != record.get("file_sha256")
+            or workload.get("auxiliary_corpus_plan_sha256")
+            != prerequisites.corpus_plan_sha256
+            or workload.get("auxiliary_corpus_plan_file_sha256")
+            != prerequisites.corpus_plan_file_sha256
+            or workload.get("auxiliary_network_bindings") != bindings
+            or _sha256_file(Path(source_v3_workload_path).resolve())
+            != workload.get("source_v3_workload_sha256")
+        ):
+            raise V4FreezeBlocked("existing formal v4 freeze failed custody validation")
+        return workload
+
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=".item_index.", suffix=".parquet.tmp", dir=output
+    )
+    os.close(descriptor)
+    temporary = Path(temporary_name)
+    temporary.unlink()
+    try:
+        workload = build_v4_workload_manifest(
+            repo,
+            networks,
+            source_v3_workload_path=source_v3_workload_path,
+            source_items=source_items,
+            item_index_write_path=temporary,
+            item_index_manifest_path=index_path,
+        )
+        expected_index_sha = str(workload["item_index"]["file_sha256"])
+        if index_path.exists():
+            if _sha256_file(index_path) != expected_index_sha:
+                raise V4FreezeBlocked("orphan v4 item index differs from candidate freeze")
+        else:
+            try:
+                os.link(temporary, index_path)
+            except FileExistsError:
+                if _sha256_file(index_path) != expected_index_sha:
+                    raise V4FreezeBlocked("concurrent v4 item index differs")
+            _fsync_directory(output)
+        _create_once_json(workload_path, workload)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+    return workload
 
 
 def execute_v4_item(
@@ -531,21 +953,34 @@ def execute_v4_item(
     source = item.source_v3_item
     runner_item = item.runner_item()
     extended = source.information_condition in EXTENDED_INFORMATION_CONDITIONS
-    if extended and source.model not in SUPPORTED_MODELS:
+    binding_fields = {
+        "ordinal": item.ordinal,
+        "item_id": item.item_id,
+        "source_v3_item_id": source.item_id,
+        "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
+        "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
+        "meteorology_lag_days": item.meteorology_lag_days,
+        "auxiliary_corpus_plan_sha256": item.auxiliary_corpus_plan_sha256,
+        "auxiliary_corpus_plan_file_sha256": (
+            item.auxiliary_corpus_plan_file_sha256
+        ),
+        "auxiliary_network_manifest_sha256": (
+            item.auxiliary_binding.network_manifest_sha256
+        ),
+        "coverage_semantics_sha256": item.coverage_semantics_sha256,
+        "formal_evidence": False,
+        "sealed_temperature_records_read": False,
+    }
+    if extended and source.model not in {*SUPPORTED_MODELS, "climatology"}:
         return {
             **asdict(runner_item),
-            "source_v3_item_id": source.item_id,
-            "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
-            "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
-            "meteorology_lag_days": item.meteorology_lag_days,
+            **binding_fields,
             "status": "structural_not_applicable",
             "workload_category": "structural_not_applicable",
             "reason": "model_has_no_declared_B_D_M_H_consumer",
             "consumed_information": [],
-            "formal_evidence": False,
-            "sealed_temperature_records_read": False,
         }
-    if extended:
+    if extended and source.model in SUPPORTED_MODELS:
         if item.meteorology_lag_days not in METEOROLOGY_LAG_ROSTER:
             raise V4FreezeBlocked("extended v4 item lacks a frozen meteorology lag")
         if auxiliary is None:
@@ -564,7 +999,7 @@ def execute_v4_item(
         raw = execute_materialized_information_item(
             repo_root,
             network,
-            runner_item,
+            source,
             meteorology_lag_days=int(item.meteorology_lag_days),
             panel=panel,
             auxiliary=auxiliary,
@@ -578,21 +1013,7 @@ def execute_v4_item(
         )
     result = json_safe(dict(raw))
     result.update(
-        {
-            "ordinal": item.ordinal,
-            "item_id": item.item_id,
-            "source_v3_item_id": source.item_id,
-            "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
-            "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
-            "meteorology_lag_days": item.meteorology_lag_days,
-            "auxiliary_corpus_plan_sha256": item.auxiliary_corpus_plan_sha256,
-            "auxiliary_network_manifest_sha256": (
-                item.auxiliary_binding.network_manifest_sha256
-            ),
-            "coverage_semantics_sha256": item.coverage_semantics_sha256,
-            "formal_evidence": False,
-            "sealed_temperature_records_read": False,
-        }
+        binding_fields
     )
     if result.get("status") == "candidate_complete_not_formal":
         result["status"] = "complete"
@@ -616,6 +1037,10 @@ __all__ = [
     "COVERAGE_SEMANTICS",
     "COVERAGE_SEMANTICS_SHA256",
     "EXPECTED_NETWORK_COUNT",
+    "EXPECTED_V3_EXTENDED_WORK_ITEMS",
+    "EXPECTED_V3_WORK_ITEMS",
+    "EXPECTED_V4_WORK_ITEMS",
+    "V4_ITEM_INDEX_SCHEMA",
     "V4_RUNNER_CONTRACT_VERSION",
     "V4_WORKLOAD_SCHEMA",
     "V4FreezeBlocked",
@@ -625,6 +1050,8 @@ __all__ = [
     "build_v4_readiness_manifest",
     "build_v4_workload_manifest",
     "execute_v4_item",
+    "freeze_v4_workload",
     "iter_formal_v4_items",
     "iter_v4_work_items",
+    "load_v4_index_slice",
 ]

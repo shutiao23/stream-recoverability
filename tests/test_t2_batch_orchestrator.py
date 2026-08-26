@@ -246,6 +246,63 @@ def test_future_contract_is_parameterized_but_execute_fails_without_adapter(
         )
 
 
+def test_v4_executor_adapter_uses_the_v4_call_signature(tmp_path: Path) -> None:
+    fixture = _fixture(tmp_path, n_items=4)
+    contract = WorkloadContractSpec(
+        name="v4",
+        workload_manifest_schema="t2_open_role_workload_v4",
+        chunk_manifest_schema="t2_result_chunk_v4",
+        item_count_pointer="/n_work_items",
+        item_identity_sha256_pointer="/work_item_identity_sha256",
+        executor_adapter="t2_v91_chunk_executor_v4",
+    )
+    payload = {
+        "manifest_schema": contract.workload_manifest_schema,
+        "runner_contract_version": "future_runner_v4",
+        "sealed_temperature_records_read": False,
+        "sealed_input_roots_allowed": [],
+        "n_work_items": 4,
+        "work_item_identity_sha256": "c" * 64,
+    }
+    fixture["workload"].write_text(json.dumps(payload), encoding="utf-8")
+    fixture["sha"] = _sha(fixture["workload"])
+
+    def executor(**kwargs: Any) -> dict[str, Any]:
+        assert "design_path" not in kwargs
+        assert "execution_mode" not in kwargs
+        start = int(kwargs["start_ordinal"])
+        end = int(kwargs["end_ordinal_exclusive"])
+        manifest = {
+            "manifest_schema": contract.chunk_manifest_schema,
+            "workload_manifest_sha256": fixture["sha"],
+            "runner_contract_version": "future_runner_v4",
+            "start_ordinal": start,
+            "end_ordinal_exclusive": end,
+            "n_records": end - start,
+            "completeness": "complete",
+            "sealed_temperature_records_read": False,
+            "formal_evidence": False,
+            "passed": False,
+        }
+        directory = Path(kwargs["output_dir"]) / f"chunk_{start:07d}_{end:07d}"
+        directory.mkdir(parents=True)
+        (directory / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+        return manifest
+
+    state = _run(
+        fixture,
+        contract=contract,
+        chunk_size=2,
+        max_workers=1,
+        execute=True,
+        allow_full_workload=True,
+        acknowledge_item_count=4,
+        acknowledge_chunk_count=2,
+        chunk_executor=executor,
+    )
+    assert state["status"] == "complete"
+
+
 def test_wrong_workload_sha_and_sealed_paths_fail_before_state(tmp_path: Path) -> None:
     fixture = _fixture(tmp_path)
     with pytest.raises(BatchOrchestrationError, match="SHA-256 acknowledgement mismatch"):

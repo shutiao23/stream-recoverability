@@ -13,7 +13,6 @@ import os
 import shutil
 import tempfile
 from collections import Counter, defaultdict
-from itertools import islice
 from pathlib import Path
 from typing import Any
 
@@ -25,17 +24,16 @@ from .t2_information_runner_integration import (
 )
 from .t2_recovery_benchmark import (
     discover_failure_closure_networks,
-    iter_all_work_items,
-    load_v91_budget,
     read_panel,
 )
 from .t2_workload_v4 import (
+    EXPECTED_V4_WORK_ITEMS,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
     V4FreezeBlocked,
     audit_v4_prerequisites,
     execute_v4_item,
-    iter_v4_work_items,
+    load_v4_index_slice,
 )
 
 V4_CHUNK_SCHEMA = "t2_v91_result_chunk_v4"
@@ -115,8 +113,14 @@ def _validate_results(
     required = {
         "ordinal",
         "item_id",
+        "source_v3_item_id",
+        "network_id",
         "runner_contract_version",
         "status",
+        "auxiliary_corpus_plan_sha256",
+        "auxiliary_corpus_plan_file_sha256",
+        "auxiliary_network_manifest_sha256",
+        "coverage_semantics_sha256",
         "sealed_temperature_records_read",
     }
     if not required.issubset(frame.columns):
@@ -134,6 +138,27 @@ def _validate_results(
         raise V4FreezeBlocked("v4 chunk result has a nonterminal status")
     if not frame["sealed_temperature_records_read"].eq(False).all():
         raise V4FreezeBlocked("v4 chunk result does not attest sealed outcomes stayed closed")
+    if not frame["auxiliary_corpus_plan_sha256"].eq(
+        manifest.get("auxiliary_corpus_plan_sha256")
+    ).all():
+        raise V4FreezeBlocked("v4 chunk row corpus-plan binding mismatch")
+    if not frame["auxiliary_corpus_plan_file_sha256"].eq(
+        manifest.get("auxiliary_corpus_plan_file_sha256")
+    ).all():
+        raise V4FreezeBlocked("v4 chunk row corpus-plan file binding mismatch")
+    if not frame["coverage_semantics_sha256"].eq(
+        manifest.get("coverage_semantics_sha256")
+    ).all():
+        raise V4FreezeBlocked("v4 chunk row coverage-semantics binding mismatch")
+    expected_bindings = manifest.get("auxiliary_network_bindings") or {}
+    for row in frame[["network_id", "auxiliary_network_manifest_sha256"]].to_dict(
+        orient="records"
+    ):
+        expected = expected_bindings.get(str(row["network_id"])) or {}
+        if row["auxiliary_network_manifest_sha256"] != expected.get(
+            "network_manifest_sha256"
+        ):
+            raise V4FreezeBlocked("v4 chunk row auxiliary binding mismatch")
     identities = [
         {"ordinal": int(row["ordinal"]), "item_id": str(row["item_id"])}
         for row in frame[["ordinal", "item_id"]].to_dict(orient="records")
@@ -202,11 +227,23 @@ def execute_t2_v4_chunk(
         or workload.get("runner_contract_version") != V4_RUNNER_CONTRACT_VERSION
         or workload.get("sealed_input_roots_allowed") != []
         or workload.get("sealed_temperature_records_read") is not False
+        or int(workload.get("n_work_items", 0)) != EXPECTED_V4_WORK_ITEMS
     ):
         raise V4FreezeBlocked("v4 workload contract mismatch")
     expected_n = int(workload.get("n_work_items", 0))
     if expected_n < 1 or end > expected_n:
         raise V4FreezeBlocked("v4 chunk range exceeds the frozen workload")
+    source_v3_path = (repo / str(workload.get("source_v3_workload_path", ""))).resolve()
+    try:
+        source_v3_path.relative_to(repo)
+    except ValueError as error:
+        raise V4FreezeBlocked("v4 source workload escaped the repository") from error
+    if (
+        not source_v3_path.is_file()
+        or _sha256_file(source_v3_path)
+        != workload.get("source_v3_workload_sha256")
+    ):
+        raise V4FreezeBlocked("source v3 workload bytes differ from v4 freeze")
 
     networks, discovered_inventory = discover_failure_closure_networks(repo)
     prerequisites = audit_v4_prerequisites(repo, networks)
@@ -252,7 +289,12 @@ def execute_t2_v4_chunk(
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "workload_manifest_sha256": workload_sha,
         "workload_item_identity_sha256": workload["work_item_identity_sha256"],
+        "item_index_file_sha256": workload["item_index"]["file_sha256"],
+        "coverage_semantics_sha256": workload["coverage_semantics_sha256"],
         "auxiliary_corpus_plan_sha256": prerequisites.corpus_plan_sha256,
+        "auxiliary_corpus_plan_file_sha256": (
+            prerequisites.corpus_plan_file_sha256
+        ),
         "auxiliary_network_bindings_sha256": binding_sha,
         "auxiliary_network_bindings": binding_map,
         "input_sha256_by_network_sha256": input_inventory_sha,
@@ -268,6 +310,24 @@ def execute_t2_v4_chunk(
         "formal_evidence": False,
         "passed": False,
     }
+    items = load_v4_index_slice(
+        repo,
+        workload,
+        prerequisites,
+        start=start,
+        end=end,
+    )
+    identities = [
+        {"ordinal": item.ordinal, "item_id": item.item_id} for item in items
+    ]
+    expected_binding.update(
+        {
+            "ordinal_item_identity_sha256": _canonical_sha(identities),
+            "item_id_stream_sha256": _item_stream_sha(identities),
+            "first_item_id": items[0].item_id,
+            "last_item_id": items[-1].item_id,
+        }
+    )
     chunk_dir = output / f"chunk_{start:07d}_{end:07d}"
     if chunk_dir.exists():
         return _resume_existing(
@@ -277,16 +337,6 @@ def execute_t2_v4_chunk(
             end=end,
         )
 
-    budget = load_v91_budget(repo)
-    items = list(
-        islice(
-            iter_v4_work_items(
-                iter_all_work_items(repo, networks, budget), prerequisites
-            ),
-            start,
-            end,
-        )
-    )
     if len(items) != end - start or [item.ordinal for item in items] != list(
         range(start, end)
     ):
@@ -332,16 +382,9 @@ def execute_t2_v4_chunk(
             raise V4FreezeBlocked("v4 runner returned an invalid or nonterminal row")
         records.append(result)
 
-    identities = [
-        {"ordinal": item.ordinal, "item_id": item.item_id} for item in items
-    ]
     frame = pd.DataFrame(records)
     manifest = {
         **expected_binding,
-        "ordinal_item_identity_sha256": _canonical_sha(identities),
-        "item_id_stream_sha256": _item_stream_sha(identities),
-        "first_item_id": items[0].item_id,
-        "last_item_id": items[-1].item_id,
         "status_counts": dict(
             sorted(Counter(str(row["status"]) for row in records).items())
         ),
@@ -357,6 +400,11 @@ def execute_t2_v4_chunk(
             frame.to_parquet(result_path, index=False)
         else:
             frame.to_csv(result_path, index=False)
+        result_descriptor = os.open(result_path, os.O_RDONLY)
+        try:
+            os.fsync(result_descriptor)
+        finally:
+            os.close(result_descriptor)
         manifest["results_sha256"] = _sha256_file(result_path)
         manifest_path = staging / "manifest.json"
         with manifest_path.open("w", encoding="utf-8") as handle:
@@ -366,6 +414,11 @@ def execute_t2_v4_chunk(
             os.fsync(handle.fileno())
         try:
             os.rename(staging, chunk_dir)
+            output_descriptor = os.open(output, os.O_RDONLY)
+            try:
+                os.fsync(output_descriptor)
+            finally:
+                os.close(output_descriptor)
         except OSError:
             if not chunk_dir.exists():
                 raise

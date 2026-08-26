@@ -1,24 +1,11 @@
 {
   "all_meteorology_lag_cells_required": true,
   "auxiliary": {
-    "corpus_plan_file_sha256": "79542341dbf634dca3d7b60a6c75d07e36eda7bdc4ca720e11a85213a93ba726",
+    "corpus_plan_file_sha256": "4662a6f4fad787e5fe0cb6af95d5d78029abe8ac94029aeb8d0d9f67ff128a2c",
     "corpus_plan_path": "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2/failure_closure6/corpus_request_plan.json",
-    "corpus_plan_sha256": "9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783",
-    "invalid_networks": {
-      "huc8_01090004": "terminal manifest contract mismatch",
-      "huc8_02020006": "terminal manifest contract mismatch",
-      "huc8_02040103": "terminal manifest contract mismatch"
-    },
+    "corpus_plan_sha256": "1011c400671bd2af7e9f4a8eb54efb9c53874479f3fc7de6610dec1d8c46bae7",
+    "invalid_networks": {},
     "missing_network_ids": [
-      "huc8_01090001",
-      "huc8_02040106",
-      "huc8_02040203",
-      "huc8_02040205",
-      "huc8_02050104",
-      "huc8_02050305",
-      "huc8_02060003",
-      "huc8_02070002",
-      "huc8_02070008",
       "huc8_02070010",
       "huc8_02080201",
       "huc8_03070101",
@@ -75,17 +62,17 @@
       "huc8_11130206"
     ],
     "n_networks_expected": 67,
-    "n_networks_terminal": 1,
+    "n_networks_terminal": 13,
     "source": "legacy_nwis_v2",
     "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
   },
   "batch_orchestration": {
     "contract_spec": "configs/t2_workload_v4_contract.json",
-    "executor_adapter": null,
-    "status": "readiness_only_no_execution_adapter"
+    "executor_adapter": "t2_v91_chunk_executor_v4",
+    "status": "blocked_until_formal_freeze"
   },
   "blockers": [
-    "v2_auxiliary_terminal_1_of_67"
+    "v2_auxiliary_terminal_13_of_67"
   ],
   "coverage_semantics": {
     "adapter_standardization": "mean_population_sd_train_days_only",
@@ -101,6 +88,16 @@
     "train_min_days_per_feature": 365
   },
   "coverage_semantics_sha256": "bc67d96a56015d762ae9909540727468e0c0d739a9aec0e4a0ad627bd5ca847c",
+  "evidence_blockers": [
+    "n_open_networks_67_lt_100_network_interval_floor",
+    "complete_v4_result_set_missing"
+  ],
+  "evidence_readiness": "blocked_fail_closed",
+  "execution_blockers": [
+    "v2_auxiliary_terminal_13_of_67"
+  ],
+  "execution_readiness": "blocked_fail_closed",
+  "expected_v4_n_work_items": 2491245,
   "formal_evidence": false,
   "formal_result_generated": false,
   "formal_workload_generated": false,
@@ -116,14 +113,24 @@
       "donor_regression",
       "xgboost"
     ],
-    "other_extended_models": "structural_not_applicable"
+    "extended_reference_models": [
+      "climatology"
+    ],
+    "other_extended_models": [
+      "pchip_or_linear",
+      "kalman"
+    ],
+    "other_extended_status": "structural_not_applicable"
   },
+  "network_inference_status": "withheld_n_lt_100_network_interval",
   "network_interval_reported": false,
   "passed": false,
   "performance_metrics_computed": false,
   "purpose": "pipeline_readiness_not_evidence",
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
+  "source_v3_extended_work_items": 553610,
+  "source_v3_n_work_items": 1384025,
   "source_v3_remains_immutable": true,
   "source_v3_work_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
   "source_v3_workload_path": "results/framework/t2_recovery_benchmark_v1/workload_manifest.json",

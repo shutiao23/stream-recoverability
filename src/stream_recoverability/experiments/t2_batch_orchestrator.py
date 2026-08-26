@@ -274,7 +274,7 @@ def orchestrate_t2_batch(
     resume: bool = False,
     results_format: str = "parquet",
     execution_mode: str = "network_cache_v1",
-    chunk_executor: ChunkExecutor = execute_t2_chunk,
+    chunk_executor: ChunkExecutor | None = None,
 ) -> dict[str, Any]:
     """Plan or execute a SHA-bound batch, persisting progress atomically."""
 
@@ -304,7 +304,10 @@ def orchestrate_t2_batch(
             raise BatchOrchestrationError("exact workload item-count acknowledgement required")
         if acknowledge_chunk_count != len(ranges):
             raise BatchOrchestrationError("exact planned chunk-count acknowledgement required")
-        if contract.executor_adapter != "t2_v91_chunk_executor":
+        if contract.executor_adapter not in {
+            "t2_v91_chunk_executor",
+            "t2_v91_chunk_executor_v4",
+        }:
             raise BatchOrchestrationError(
                 "this contract has no approved chunk executor adapter; dry-run only"
             )
@@ -365,6 +368,16 @@ def orchestrate_t2_batch(
     if not execute:
         return state
 
+    if chunk_executor is None:
+        if contract.executor_adapter == "t2_v91_chunk_executor_v4":
+            from stream_recoverability.experiments.t2_chunk_executor_v4 import (
+                execute_t2_v4_chunk,
+            )
+
+            chunk_executor = execute_t2_v4_chunk
+        else:
+            chunk_executor = execute_t2_chunk
+
     # Stale "running" entries cannot have been atomically published by this
     # process.  On explicit resume they are retried; succeeded entries are
     # independently revalidated below.
@@ -412,16 +425,22 @@ def orchestrate_t2_batch(
     def run_one(chunk: Mapping[str, Any]) -> tuple[dict[str, Any], Path]:
         start = int(chunk["start_ordinal"])
         chunk_end = int(chunk["end_ordinal_exclusive"])
-        manifest = chunk_executor(
-            repo_root=repo,
-            workload_manifest_path=workload_path,
-            design_path=design,
-            output_dir=chunks_output,
-            start_ordinal=start,
-            end_ordinal_exclusive=chunk_end,
-            results_format=results_format,
-            execution_mode=execution_mode,
-        )
+        common = {
+            "repo_root": repo,
+            "workload_manifest_path": workload_path,
+            "output_dir": chunks_output,
+            "start_ordinal": start,
+            "end_ordinal_exclusive": chunk_end,
+            "results_format": results_format,
+        }
+        if contract.executor_adapter == "t2_v91_chunk_executor_v4":
+            manifest = chunk_executor(**common)
+        else:
+            manifest = chunk_executor(
+                **common,
+                design_path=design,
+                execution_mode=execution_mode,
+            )
         _validate_chunk_manifest(
             manifest,
             contract=contract,
