@@ -1,0 +1,37 @@
+{
+  "burned_network_ids": [
+    "foen_aare_aaregebiet"
+  ],
+  "burned_station_ids": [
+    "2016"
+  ],
+  "catalog_sha256": "2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727",
+  "countable_toward_t8_now": false,
+  "coverage_fields_requested": false,
+  "coverage_fields_used_for_eligibility": false,
+  "future_query_template_sha256": "978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d",
+  "lock_ready_for_future_byte_custody": true,
+  "n_candidate_networks": 11,
+  "n_never_sealed_development_burned": 1,
+  "n_prospective_non_na_sealed": 10,
+  "n_temperature_station_metadata_rows": 205,
+  "qualified_8yr_networks": 0,
+  "sealed_network_ids": [
+    "foen_doubs_rhonegebiet",
+    "foen_emme_aaregebiet",
+    "foen_inn_inngebiet",
+    "foen_linth_limmatgebiet",
+    "foen_reuss_reussgebiet",
+    "foen_rhein_rheingebiet",
+    "foen_rhone_rhonegebiet",
+    "foen_simme_aaregebiet",
+    "foen_thur_rheingebiet",
+    "foen_ticino_tessingebiet"
+  ],
+  "sealed_outcomes_opened": false,
+  "split_seed": 20260826,
+  "split_sha256": "4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59",
+  "temperature_values_queried": false,
+  "what_this_is": "Prospective Swiss metadata-only split lock.",
+  "what_this_is_not": "Not a qualified-network count, not T8 evidence, and not a temperature download."
+}

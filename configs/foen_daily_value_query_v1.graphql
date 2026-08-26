@@ -1,0 +1,28 @@
+query DailyWaterTemperature(
+  $station: String!
+  $from: AWSDateTime!
+  $to: AWSDateTime!
+) {
+  water {
+    observations {
+      data_1day_mean(
+        where: {
+          station: { no: { _eq: $station } }
+          parameterName: { _eq: "WT" }
+          releaseState: { _in: ["2", "3"] }
+          timestamp: { _gte: $from, _lt: $to }
+        }
+        limit: 10000
+      ) {
+        timestamp
+        parameterName
+        value
+        unitSymbol
+        releaseState
+        station {
+          no
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,613 @@
+catalog_id: foen_prospective_catalog_v1
+status: metadata_only_locked_before_temperature_value_query
+source: foen_public_graphql_plus_prior_temperature_station_inventory
+station_metadata_endpoint: https://data.bafu.admin.ch/api
+station_query_contains_temperature_value: false
+coverage_fields_requested: false
+coverage_fields_used_for_eligibility: false
+temperature_values_queried: false
+daily_years_claimed: 0
+candidate_rule: FOEN temperature-location inventory intersection; river water-body
+  type; accent-normalized riverName x catchmentName; >=3 distinct station IDs
+network_independence_warning: Same-name/catchment metadata is prospective only; flow
+  connectivity and eight concurrent qualified years remain unverified.
+networks:
+- network_id: foen_aare_aaregebiet
+  river_key: aare
+  catchment_key: aaregebiet
+  river_labels:
+  - Aare
+  catchment_labels:
+  - Aaregebiet
+  n_stations: 10
+  candidate_station_ids:
+  - '2016'
+  - '2019'
+  - '2029'
+  - '2030'
+  - '2063'
+  - '2085'
+  - '2113'
+  - '2135'
+  - '2205'
+  - '2457'
+  max_pair_km: 103.49293870866482
+  never_sealed: true
+  development_burned: true
+  probe_station_ids:
+  - '2016'
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2016'
+    name: Brugg
+    status: Aufgebaut
+    latitude: 47.482477851737606
+    longitude: 8.194335161172075
+  - site_id: '2019'
+    name: Brienzwiler
+    status: Aufgebaut
+    latitude: 46.74568778351095
+    longitude: 8.092187496929057
+  - site_id: '2029'
+    name: Brügg, Aegerten
+    status: Aufgebaut
+    latitude: 47.122043900796236
+    longitude: 7.283365080213258
+  - site_id: '2030'
+    name: Thun
+    status: Aufgebaut
+    latitude: 46.764560998486296
+    longitude: 7.611890487851701
+  - site_id: '2063'
+    name: Murgenthal
+    status: Aufgebaut
+    latitude: 47.26650831716211
+    longitude: 7.8305220055524245
+  - site_id: '2085'
+    name: Hagneck
+    status: Aufgebaut
+    latitude: 47.0555914218374
+    longitude: 7.184279466916117
+  - site_id: '2113'
+    name: Felsenau, K.W. Klingnau (U.W.)
+    status: Aufgebaut
+    latitude: 47.594548847152446
+    longitude: 8.22495557147766
+  - site_id: '2135'
+    name: Bern, Schönau
+    status: Aufgebaut
+    latitude: 46.933056102989326
+    longitude: 7.448153230607084
+  - site_id: '2205'
+    name: Untersiggenthal, Stilli
+    status: Aufgebaut
+    latitude: 47.51593590661833
+    longitude: 8.23474618375009
+  - site_id: '2457'
+    name: Ringgenberg, Goldswil
+    status: Aufgebaut
+    latitude: 46.69393775537055
+    longitude: 7.879621634644
+  role: never_sealed
+  seed: 20260826
+- network_id: foen_doubs_rhonegebiet
+  river_key: doubs
+  catchment_key: rhonegebiet
+  river_labels:
+  - Doubs
+  catchment_labels:
+  - Rhonegebiet
+  n_stations: 4
+  candidate_station_ids:
+  - '2210'
+  - '2247'
+  - '2270'
+  - '2370'
+  max_pair_km: 40.68333751205431
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2210'
+    name: Ocourt
+    status: Aufgebaut
+    latitude: 47.35039802861948
+    longitude: 7.0754014598460335
+  - site_id: '2247'
+    name: Sortie du lac des Brenets
+    status: Aufgebaut
+    latitude: 47.08253782099265
+    longitude: 6.708473281168471
+  - site_id: '2270'
+    name: Combe des Sarrasins
+    status: Aufgehoben
+    latitude: 47.195138892818015
+    longitude: 6.877960198207562
+  - site_id: '2370'
+    name: Le Noirmont, La Goule
+    status: Aufgebaut
+    latitude: 47.22933427038445
+    longitude: 6.9294296862030205
+  role: sealed
+  seed: 20260826
+- network_id: foen_emme_aaregebiet
+  river_key: emme
+  catchment_key: aaregebiet
+  river_labels:
+  - Emme
+  catchment_labels:
+  - Aaregebiet
+  n_stations: 3
+  candidate_station_ids:
+  - '2070'
+  - '2155'
+  - '2409'
+  max_pair_km: 37.581898350004494
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2070'
+    name: Emmenmatt, nur Hauptstation
+    status: Aufgebaut
+    latitude: 46.9544969937421
+    longitude: 7.74887551733762
+  - site_id: '2155'
+    name: Wiler, Limpachmündung, nur Hauptstation
+    status: Aufgebaut
+    latitude: 47.16005797346282
+    longitude: 7.547135094063571
+  - site_id: '2409'
+    name: Eggiwil, Heidbüel
+    status: Aufgebaut
+    latitude: 46.871269804280196
+    longitude: 7.804680706649433
+  role: sealed
+  seed: 20260826
+- network_id: foen_inn_inngebiet
+  river_key: inn
+  catchment_key: inngebiet
+  river_labels:
+  - Inn
+  catchment_labels:
+  - Inngebiet
+  n_stations: 6
+  candidate_station_ids:
+  - '2067'
+  - '2105'
+  - '2265'
+  - '2403'
+  - '2462'
+  - '2639'
+  max_pair_km: 65.56137133171134
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2067'
+    name: Martina
+    status: Aufgebaut
+    latitude: 46.88492530742685
+    longitude: 10.464872897609922
+  - site_id: '2105'
+    name: St. Moritzbad
+    status: Aufgebaut
+    latitude: 46.48455137372621
+    longitude: 9.833937630392086
+  - site_id: '2265'
+    name: Tarasp
+    status: Aufgebaut
+    latitude: 46.78913411103634
+    longitude: 10.27886590306201
+  - site_id: '2403'
+    name: Cinuos-chel, nur Hauptstation
+    status: Aufgebaut
+    latitude: 46.63541102500186
+    longitude: 10.020624146274706
+  - site_id: '2462'
+    name: S-chanf
+    status: Aufgebaut
+    latitude: 46.61570986157519
+    longitude: 9.995074633173827
+  - site_id: '2639'
+    name: Martina, Sclamischot, nur Hauptstation
+    status: Aufgebaut
+    latitude: 46.870375324747904
+    longitude: 10.446215619198743
+  role: sealed
+  seed: 20260826
+- network_id: foen_linth_limmatgebiet
+  river_key: linth
+  catchment_key: limmatgebiet
+  river_labels:
+  - Linth
+  catchment_labels:
+  - Limmatgebiet
+  n_stations: 3
+  candidate_station_ids:
+  - '2104'
+  - '2352'
+  - '2372'
+  max_pair_km: 25.03876901107297
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2104'
+    name: Weesen, Biäsche
+    status: Aufgebaut
+    latitude: 47.13160738584986
+    longitude: 9.088585877805683
+  - site_id: '2352'
+    name: Linthal, Ausgleichsbecken KLL, nur Hauptstation
+    status: Aufgebaut
+    latitude: 46.91636103211974
+    longitude: 8.991562611773334
+  - site_id: '2372'
+    name: Mollis, Linthbrücke
+    status: Aufgebaut
+    latitude: 47.101093238170996
+    longitude: 9.07199304704086
+  role: sealed
+  seed: 20260826
+- network_id: foen_reuss_reussgebiet
+  river_key: reuss
+  catchment_key: reussgebiet
+  river_labels:
+  - Reuss
+  catchment_labels:
+  - Reussgebiet
+  n_stations: 5
+  candidate_station_ids:
+  - '2018'
+  - '2056'
+  - '2087'
+  - '2110'
+  - '2152'
+  max_pair_km: 89.88189634227992
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2018'
+    name: Mellingen
+    status: Aufgebaut
+    latitude: 47.42100265644967
+    longitude: 8.271336579346308
+  - site_id: '2056'
+    name: Seedorf
+    status: Aufgebaut
+    latitude: 46.88411418616537
+    longitude: 8.620545315843982
+  - site_id: '2087'
+    name: Andermatt
+    status: Aufgebaut
+    latitude: 46.64233633300583
+    longitude: 8.58965481671379
+  - site_id: '2110'
+    name: Mühlau, Hünenberg
+    status: Aufgebaut
+    latitude: 47.22327871634745
+    longitude: 8.396124097905668
+  - site_id: '2152'
+    name: Luzern, Geissmattbrücke
+    status: Aufgebaut
+    latitude: 47.053937090254706
+    longitude: 8.298543621770733
+  role: sealed
+  seed: 20260826
+- network_id: foen_rhein_rheingebiet
+  river_key: rhein
+  catchment_key: rheingebiet
+  river_labels:
+  - Rhein
+  catchment_labels:
+  - Rheingebiet
+  n_stations: 10
+  candidate_station_ids:
+  - '2041'
+  - '2091'
+  - '2116'
+  - '2143'
+  - '2288'
+  - '2289'
+  - '2473'
+  - '2602'
+  - '2613'
+  - '2615'
+  max_pair_km: 164.23614645279295
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2041'
+    name: Oberriet, Blatten
+    status: Aufgebaut
+    latitude: 47.307043761036795
+    longitude: 9.57070942536746
+  - site_id: '2091'
+    name: Rheinfelden, Messstation
+    status: Aufgebaut
+    latitude: 47.56075573062126
+    longitude: 7.799883507035898
+  - site_id: '2116'
+    name: Koblenz
+    status: Aufgebaut
+    latitude: 47.60789868676574
+    longitude: 8.233798005972309
+  - site_id: '2143'
+    name: Rekingen
+    status: Aufgebaut
+    latitude: 47.57038032029034
+    longitude: 8.329630134727244
+  - site_id: '2288'
+    name: Neuhausen, Flurlingerbrücke
+    status: Aufgebaut
+    latitude: 47.68244214537731
+    longitude: 8.625791333309401
+  - site_id: '2289'
+    name: Basel, Rheinhalle
+    status: Aufgebaut
+    latitude: 47.559679022773985
+    longitude: 7.616517921080331
+  - site_id: '2473'
+    name: Diepoldsau, Rietbrücke
+    status: Aufgebaut
+    latitude: 47.38316260680637
+    longitude: 9.641240212556541
+  - site_id: '2602'
+    name: Domat/Ems
+    status: Aufgebaut
+    latitude: 46.837705457592826
+    longitude: 9.456114982402736
+  - site_id: '2613'
+    name: Weil, Palmrainbrücke
+    status: Aufgebaut
+    latitude: 47.60142298079882
+    longitude: 7.594623677293755
+  - site_id: '2615'
+    name: Basel, Klingentalfähre
+    status: Aufgebaut
+    latitude: 47.56169046630199
+    longitude: 7.586614953481018
+  role: sealed
+  seed: 20260826
+- network_id: foen_rhone_rhonegebiet
+  river_key: rhone
+  catchment_key: rhonegebiet
+  river_labels:
+  - Rhone
+  - Rhône
+  catchment_labels:
+  - Rhonegebiet
+  n_stations: 10
+  candidate_station_ids:
+  - '2009'
+  - '2011'
+  - '2024'
+  - '2174'
+  - '2217'
+  - '2268'
+  - '2346'
+  - '2419'
+  - '2606'
+  - '2623'
+  max_pair_km: 190.77268075429427
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2009'
+    name: Porte du Scex
+    status: Aufgebaut
+    latitude: 46.349599019367865
+    longitude: 6.888474120957876
+  - site_id: '2011'
+    name: Sion
+    status: Aufgebaut
+    latitude: 46.21909780004372
+    longitude: 7.357545000028038
+  - site_id: '2024'
+    name: Branson
+    status: Aufgebaut
+    latitude: 46.12563800644462
+    longitude: 7.091152059647601
+  - site_id: '2174'
+    name: Chancy, Aux Ripes
+    status: Aufgebaut
+    latitude: 46.15292951323024
+    longitude: 5.9707834631961845
+  - site_id: '2217'
+    name: Chancy, Vers Vaux
+    status: Aufgehoben
+    latitude: 46.13209137792024
+    longitude: 5.956294597867561
+  - site_id: '2268'
+    name: Gletsch
+    status: Aufgebaut
+    latitude: 46.56234217828937
+    longitude: 8.362416685627617
+  - site_id: '2346'
+    name: Brig
+    status: Aufgebaut
+    latitude: 46.31744001270059
+    longitude: 7.975451378865581
+  - site_id: '2419'
+    name: Reckingen
+    status: Aufgebaut
+    latitude: 46.4695425883674
+    longitude: 8.24473506989941
+  - site_id: '2606'
+    name: Genève, Halle de l'Ile
+    status: Aufgebaut
+    latitude: 46.20464146427008
+    longitude: 6.141561365774866
+  - site_id: '2623'
+    name: Oberwald
+    status: Aufgebaut
+    latitude: 46.53434426651046
+    longitude: 8.349242225238381
+  role: sealed
+  seed: 20260826
+- network_id: foen_simme_aaregebiet
+  river_key: simme
+  catchment_key: aaregebiet
+  river_labels:
+  - Simme
+  catchment_labels:
+  - Aaregebiet
+  n_stations: 3
+  candidate_station_ids:
+  - '2151'
+  - '2219'
+  - '2488'
+  max_pair_km: 27.40079118826088
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2151'
+    name: Oberwil
+    status: Aufgebaut
+    latitude: 46.655045319363886
+    longitude: 7.43943453204555
+  - site_id: '2219'
+    name: Oberried / Lenk
+    status: Aufgebaut
+    latitude: 46.425931482197626
+    longitude: 7.474415999759855
+  - site_id: '2488'
+    name: Latterbach, nur Hauptstation
+    status: Aufgebaut
+    latitude: 46.66178855344952
+    longitude: 7.578192505492389
+  role: sealed
+  seed: 20260826
+- network_id: foen_thur_rheingebiet
+  river_key: thur
+  catchment_key: rheingebiet
+  river_labels:
+  - Thur
+  catchment_labels:
+  - Rheingebiet
+  n_stations: 3
+  candidate_station_ids:
+  - '2044'
+  - '2181'
+  - '2303'
+  max_pair_km: 41.012207936739
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2044'
+    name: Andelfingen
+    status: Aufgebaut
+    latitude: 47.596578392770226
+    longitude: 8.681847968534042
+  - site_id: '2181'
+    name: Halden
+    status: Aufgebaut
+    latitude: 47.505838053187446
+    longitude: 9.211525462499583
+  - site_id: '2303'
+    name: Jonschwil, Mühlau
+    status: Aufgebaut
+    latitude: 47.4136872270159
+    longitude: 9.077579410434485
+  role: sealed
+  seed: 20260826
+- network_id: foen_ticino_tessingebiet
+  river_key: ticino
+  catchment_key: tessingebiet
+  river_labels:
+  - Ticino
+  catchment_labels:
+  - Tessingebiet
+  n_stations: 4
+  candidate_station_ids:
+  - '2020'
+  - '2068'
+  - '2364'
+  - '2494'
+  max_pair_km: 44.257780476091654
+  never_sealed: false
+  development_burned: false
+  probe_station_ids: []
+  metadata_only: true
+  temperature_values_queried: false
+  qualified_8yr_status: unknown_until_post_download_qc
+  flow_connectivity_status: unverified_metadata_only
+  coverage_fields_used_for_eligibility: false
+  stations:
+  - site_id: '2020'
+    name: Bellinzona
+    status: Aufgebaut
+    latitude: 46.19425084154378
+    longitude: 9.009495389937543
+  - site_id: '2068'
+    name: Riazzino
+    status: Aufgebaut
+    latitude: 46.16339896628482
+    longitude: 8.90998925870269
+  - site_id: '2364'
+    name: Piotta
+    status: Aufgebaut
+    latitude: 46.5166441176367
+    longitude: 8.671302130552434
+  - site_id: '2494'
+    name: Pollegio, Campagna
+    status: Aufgebaut
+    latitude: 46.35919064408659
+    longitude: 8.948028736754898
+  role: sealed
+  seed: 20260826

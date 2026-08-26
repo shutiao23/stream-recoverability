@@ -1,0 +1,12 @@
+network_id,role,seed,river_key,catchment_key,n_stations,station_ids,never_sealed,development_burned,metadata_only,temperature_values_queried,qualified_8yr_status
+foen_aare_aaregebiet,never_sealed,20260826,aare,aaregebiet,10,"2016,2019,2029,2030,2063,2085,2113,2135,2205,2457",true,true,true,false,unknown_until_post_download_qc
+foen_doubs_rhonegebiet,sealed,20260826,doubs,rhonegebiet,4,"2210,2247,2270,2370",false,false,true,false,unknown_until_post_download_qc
+foen_emme_aaregebiet,sealed,20260826,emme,aaregebiet,3,"2070,2155,2409",false,false,true,false,unknown_until_post_download_qc
+foen_inn_inngebiet,sealed,20260826,inn,inngebiet,6,"2067,2105,2265,2403,2462,2639",false,false,true,false,unknown_until_post_download_qc
+foen_linth_limmatgebiet,sealed,20260826,linth,limmatgebiet,3,"2104,2352,2372",false,false,true,false,unknown_until_post_download_qc
+foen_reuss_reussgebiet,sealed,20260826,reuss,reussgebiet,5,"2018,2056,2087,2110,2152",false,false,true,false,unknown_until_post_download_qc
+foen_rhein_rheingebiet,sealed,20260826,rhein,rheingebiet,10,"2041,2091,2116,2143,2288,2289,2473,2602,2613,2615",false,false,true,false,unknown_until_post_download_qc
+foen_rhone_rhonegebiet,sealed,20260826,rhone,rhonegebiet,10,"2009,2011,2024,2174,2217,2268,2346,2419,2606,2623",false,false,true,false,unknown_until_post_download_qc
+foen_simme_aaregebiet,sealed,20260826,simme,aaregebiet,3,"2151,2219,2488",false,false,true,false,unknown_until_post_download_qc
+foen_thur_rheingebiet,sealed,20260826,thur,rheingebiet,3,"2044,2181,2303",false,false,true,false,unknown_until_post_download_qc
+foen_ticino_tessingebiet,sealed,20260826,ticino,tessingebiet,4,"2020,2068,2364,2494",false,false,true,false,unknown_until_post_download_qc
