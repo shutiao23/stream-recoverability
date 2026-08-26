@@ -1,0 +1,22 @@
+{
+  "byte_count": 57,
+  "catalog_sha256": "2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727",
+  "content_parsed": false,
+  "json_decoded": false,
+  "network_id": "foen_rhone_rhonegebiet",
+  "provider": "foen",
+  "qc_permitted": false,
+  "query_template_sha256": "11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff",
+  "registry_schema": "foen_sealed_byte_registry_v2",
+  "request_end_exclusive": "2008-01-01T00:00:00Z",
+  "request_start": "2007-01-01T00:00:00Z",
+  "request_year": 2007,
+  "response_sha256": "f876f53ab2d114f1a65bc8cc0f83f4909a7c58e5e0ad8ca231850e9ab3b8356e",
+  "reused_registry": false,
+  "role": "sealed",
+  "sealed_outcomes_opened": false,
+  "site_id": "2419",
+  "split_sha256": "4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59",
+  "storage_class": "foen_sealed_write_only_provider_vault",
+  "value_fields_inspected": false
+}
