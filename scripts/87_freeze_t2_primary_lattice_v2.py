@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 from stream_recoverability.experiments.t2_primary_aggregation_v2 import (
+    create_pre_score_freeze_bundle,
     freeze_v4_analyzable_lattice,
 )
 
@@ -19,7 +20,8 @@ def main() -> None:
     parser.add_argument(
         "--workload",
         type=Path,
-        default=ROOT / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json",
+        default=ROOT
+        / "results/framework/t2_recovery_benchmark_v4/index_draft_manifest.json",
     )
     parser.add_argument(
         "--predictor-manifest",
@@ -46,6 +48,15 @@ def main() -> None:
         eligibility_manifest_path=args.eligibility_manifest,
         output_dir=args.output_dir,
     )
+    if manifest.get("manifest_schema") == "t2_v91_v4_analyzable_lattice_freeze_v1":
+        bundle = create_pre_score_freeze_bundle(
+            index_draft_manifest_path=args.workload,
+            eligibility_manifest_path=args.eligibility_manifest,
+            lattice_freeze_manifest_path=args.output_dir
+            / "lattice_freeze_manifest.json",
+            output_path=args.output_dir.parent / "pre_score_freeze_manifest.json",
+        )
+        manifest = {"lattice": manifest, "pre_score_freeze": bundle}
     print(json.dumps(manifest, indent=2, sort_keys=True))
 
 

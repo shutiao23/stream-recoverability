@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import asdict
 from pathlib import Path
 
 import pandas as pd
@@ -13,6 +14,7 @@ from stream_recoverability.experiments.t2_chunk_executor_v4 import (
     _canonical_sha,
     _item_stream_sha,
 )
+from stream_recoverability.experiments.t2_recovery_benchmark import WorkItem
 from stream_recoverability.experiments.t2_workload_v4 import (
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
@@ -30,6 +32,33 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
         digest.update(item_id.encode())
         digest.update(b"\n")
     workload = tmp_path / "workload.json"
+    index_rows = []
+    sources = []
+    for ordinal, item_id in enumerate(ids):
+        source = WorkItem(
+            ordinal=ordinal,
+            item_id=f"source-{ordinal}",
+            network_id="network",
+            role="development",
+            source_key="open",
+            target_station="station",
+            model="donor_regression",
+            gap_length=7,
+            placement=ordinal,
+            start_index=100 + ordinal,
+            information_condition="D",
+        )
+        sources.append(source)
+        index_rows.append(
+            {
+                "ordinal": ordinal,
+                "item_id": item_id,
+                "meteorology_lag_days": "none",
+                "source_item_json": json.dumps(asdict(source), sort_keys=True),
+            }
+        )
+    index_path = tmp_path / "item_index.parquet"
+    pd.DataFrame(index_rows).to_parquet(index_path, index=False)
     workload.write_text(
         json.dumps(
             {
@@ -37,7 +66,11 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
                 "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
                 "n_work_items": 4,
                 "work_item_identity_sha256": digest.hexdigest(),
-                "item_index": {"file_sha256": "a" * 64},
+                "item_index": {
+                    "path": index_path.name,
+                    "file_sha256": _sha(index_path),
+                },
+                "pre_score_freeze": {"sha256": "f" * 64},
                 "sealed_temperature_records_read": False,
             }
         ),
@@ -48,9 +81,12 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
     for start, end in ((0, 2), (2, 4)):
         directory = tmp_path / f"chunk_{start:07d}_{end:07d}"
         directory.mkdir()
-        frame = pd.DataFrame(
-            [
+        frame_rows = []
+        for ordinal in range(start, end):
+            source = sources[ordinal]
+            frame_rows.append(
                 {
+                    **asdict(source),
                     "ordinal": ordinal,
                     "item_id": ids[ordinal],
                     "source_v3_item_id": f"source-{ordinal}",
@@ -61,11 +97,12 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
                     "auxiliary_corpus_plan_file_sha256": "c" * 64,
                     "auxiliary_network_manifest_sha256": "d" * 64,
                     "coverage_semantics_sha256": "e" * 64,
+                    "pre_score_freeze_sha256": "f" * 64,
+                    "meteorology_lag_days": None,
                     "sealed_temperature_records_read": False,
                 }
-                for ordinal in range(start, end)
-            ]
-        )
+            )
+        frame = pd.DataFrame(frame_rows)
         results = directory / "results.csv"
         frame.to_csv(results, index=False)
         identities = frame[["ordinal", "item_id"]].to_dict(orient="records")
@@ -74,10 +111,11 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
             "workload_manifest_sha256": workload_sha,
             "workload_item_identity_sha256": digest.hexdigest(),
             "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
-            "item_index_file_sha256": "a" * 64,
+            "item_index_file_sha256": _sha(index_path),
             "auxiliary_corpus_plan_sha256": "b" * 64,
             "auxiliary_corpus_plan_file_sha256": "c" * 64,
             "coverage_semantics_sha256": "e" * 64,
+            "pre_score_freeze_sha256": "f" * 64,
             "auxiliary_network_bindings": {
                 "network": {"network_manifest_sha256": "d" * 64}
             },
@@ -111,9 +149,10 @@ def test_v4_aggregation_proves_exact_complete_total_stream(
     )
     assert result["status"] == "complete"
     assert result["observed_item_records"] == 4
-    assert result["work_item_identity_sha256"] == result[
-        "frozen_work_item_identity_sha256"
-    ]
+    assert (
+        result["work_item_identity_sha256"]
+        == result["frozen_work_item_identity_sha256"]
+    )
     assert result["network_inference_status"] == "withheld_n_lt_100_network_interval"
 
 

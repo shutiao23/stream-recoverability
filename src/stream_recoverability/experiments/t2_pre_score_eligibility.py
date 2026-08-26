@@ -56,6 +56,7 @@ from .t2_recovery_benchmark import (
     discover_failure_closure_networks,
 )
 from .t2_workload_v4 import (
+    V4_INDEX_DRAFT_SCHEMA,
     V4_ITEM_INDEX_SCHEMA,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
@@ -104,7 +105,9 @@ def _artifact(
     return path, sha
 
 
-def _date_header_only(network: OpenNetwork, repo: Path) -> tuple[pd.DatetimeIndex, tuple[str, ...]]:
+def _date_header_only(
+    network: OpenNetwork, repo: Path
+) -> tuple[pd.DatetimeIndex, tuple[str, ...]]:
     path = (repo / network.wide_path).resolve()
     _assert_open(path)
     if not path.is_file() or _sha256_file(path) != network.wide_sha256:
@@ -142,11 +145,12 @@ def _availability_matrices(
     matrices = {
         lag: np.zeros((len(features), len(dates)), dtype=bool) for lag in (-1, 0, 1)
     }
+    if daily.duplicated(["date", "site_id", "variable"]).any():
+        # Match the formal adapter, which rejects duplicates before QC filtering.
+        raise PrimaryAggregationBlocked("v2.3 auxiliary has duplicate features")
     eligible, _ = _provider_eligible(daily)
     selected = daily.loc[eligible, ["date", "site_id", "variable"]].copy()
     selected["date"] = pd.to_datetime(selected["date"], errors="raise")
-    if selected.duplicated(["date", "site_id", "variable"]).any():
-        raise PrimaryAggregationBlocked("v2.3 auxiliary has duplicate eligible features")
     for row in selected.itertuples(index=False):
         variable = str(row.variable)
         feature_position = feature_index.get((str(row.site_id), variable))
@@ -207,10 +211,16 @@ def _load_network_availability(
     if manifest.get("status") not in TERMINAL_STATUSES:
         raise PrimaryAggregationBlocked("v2.3 auxiliary status is not terminal")
     manifest_sites = tuple(str(value) for value in (manifest.get("site_ids") or ()))
-    if len(manifest_sites) != len(set(manifest_sites)) or set(manifest_sites) != set(sites):
-        raise PrimaryAggregationBlocked("v2.3 auxiliary station roster differs from open QC")
+    if len(manifest_sites) != len(set(manifest_sites)) or set(manifest_sites) != set(
+        sites
+    ):
+        raise PrimaryAggregationBlocked(
+            "v2.3 auxiliary station roster differs from open QC"
+        )
     if _sha256_file(manifest_path) != binding.get("network_manifest_sha256"):
-        raise PrimaryAggregationBlocked("v2.3 manifest differs from v4 workload binding")
+        raise PrimaryAggregationBlocked(
+            "v2.3 manifest differs from v4 workload binding"
+        )
     daily_path, daily_sha = _artifact(repo, directory, manifest, "daily_long_auxiliary")
     coverage_path, coverage_sha = _artifact(repo, directory, manifest, "coverage")
     schema_path, schema_sha = _artifact(repo, directory, manifest, "adapter_schema")
@@ -221,20 +231,26 @@ def _load_network_availability(
     }
     for key, expected in expected_artifacts.items():
         if binding.get(key) != expected:
-            raise PrimaryAggregationBlocked(f"v2.3 workload artifact mismatch for {key}")
+            raise PrimaryAggregationBlocked(
+                f"v2.3 workload artifact mismatch for {key}"
+            )
     schema = _read_json(schema_path)
     if (
         schema.get("acquisition_schema") != NETWORK_SCHEMA_VERSION
         or schema.get("parser_contract_version") != PARSER_CONTRACT_VERSION
         or tuple((schema.get("variables") or {}).get("M") or ())
         != METEOROLOGY_VARIABLES
-        or tuple((schema.get("variables") or {}).get("H") or ())
-        != HYDRAULICS_VARIABLES
+        or tuple((schema.get("variables") or {}).get("H") or ()) != HYDRAULICS_VARIABLES
     ):
         raise PrimaryAggregationBlocked("v2.3 adapter schema mismatch")
     coverage = pd.read_csv(coverage_path, dtype={"site_id": "string"})
     required_coverage = {
-        "network_id", "role", "site_id", "variable", "source_status", "eligible_coverage"
+        "network_id",
+        "role",
+        "site_id",
+        "variable",
+        "source_status",
+        "eligible_coverage",
     }
     if (
         not required_coverage.issubset(coverage.columns)
@@ -244,12 +260,24 @@ def _load_network_availability(
     ):
         raise PrimaryAggregationBlocked("v2.3 coverage catalog mismatch")
     coverage_pairs = coverage[["site_id", "variable"]].astype(str)
-    expected_pairs = {(site, variable) for site in sites for variable in VARIABLE_ROSTER}
-    if coverage_pairs.duplicated().any() or set(map(tuple, coverage_pairs.to_numpy())) != expected_pairs:
+    expected_pairs = {
+        (site, variable) for site in sites for variable in VARIABLE_ROSTER
+    }
+    if (
+        coverage_pairs.duplicated().any()
+        or set(map(tuple, coverage_pairs.to_numpy())) != expected_pairs
+    ):
         raise PrimaryAggregationBlocked("v2.3 coverage catalog is not roster-complete")
     projected_columns = [
-        "date", "site_id", "variable", "value", "source", "natural_observed",
-        "qc_status", "approval_status", "quality_approved",
+        "date",
+        "site_id",
+        "variable",
+        "value",
+        "source",
+        "natural_observed",
+        "qc_status",
+        "approval_status",
+        "quality_approved",
     ]
     daily = pd.read_parquet(daily_path, columns=projected_columns)
     if not set(daily["site_id"].astype(str)).issubset(set(sites)):
@@ -342,7 +370,9 @@ def _existing(
     manifest = _read_json(manifest_path)
     for key, expected in required_binding.items():
         if manifest.get(key) != expected:
-            raise PrimaryAggregationBlocked(f"existing eligibility binding mismatch: {key}")
+            raise PrimaryAggregationBlocked(
+                f"existing eligibility binding mismatch: {key}"
+            )
     record = manifest.get("eligibility_table") or {}
     if _sha256_file(table_path) != record.get("sha256"):
         raise PrimaryAggregationBlocked("existing eligibility table SHA mismatch")
@@ -385,14 +415,20 @@ def build_pre_score_eligibility(
         return _blocked(output, ["formal_v4_workload_absent", "v4_item_index_absent"])
     workload = _read_json(workload_path)
     if (
-        workload.get("manifest_schema") != V4_WORKLOAD_SCHEMA
+        workload.get("manifest_schema")
+        not in {V4_INDEX_DRAFT_SCHEMA, V4_WORKLOAD_SCHEMA}
         or workload.get("runner_contract_version") != V4_RUNNER_CONTRACT_VERSION
         or workload.get("sealed_paths_traversed") is not False
         or workload.get("sealed_temperature_records_read") is not False
     ):
-        raise PrimaryAggregationBlocked("pre-score builder requires the formal open-only v4 workload")
+        raise PrimaryAggregationBlocked(
+            "pre-score builder requires the formal open-only v4 workload"
+        )
     record = workload.get("item_index")
-    if not isinstance(record, Mapping) or record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA:
+    if (
+        not isinstance(record, Mapping)
+        or record.get("manifest_schema") != V4_ITEM_INDEX_SCHEMA
+    ):
         return _blocked(output, ["v4_item_index_metadata_absent_or_invalid"])
     index_path = _artifact_path(workload_path, str(record.get("path", "")))
     if not index_path.is_file():
@@ -401,15 +437,18 @@ def build_pre_score_eligibility(
         raise PrimaryAggregationBlocked("pre-score v4 item index SHA mismatch")
     networks, _ = discover_failure_closure_networks(repo)
     input_map = {network.network_id: network.wide_sha256 for network in networks}
-    if (
-        input_map != workload.get("input_sha256_by_network")
-        or _canonical_sha(input_map) != workload.get("input_sha256_by_network_sha256")
-    ):
-        raise PrimaryAggregationBlocked("open-QC inventory differs from the v4 workload")
+    if input_map != workload.get("input_sha256_by_network") or _canonical_sha(
+        input_map
+    ) != workload.get("input_sha256_by_network_sha256"):
+        raise PrimaryAggregationBlocked(
+            "open-QC inventory differs from the v4 workload"
+        )
     network_lookup = {network.network_id: network for network in networks}
     bindings = workload.get("auxiliary_network_bindings") or {}
     if set(network_lookup) != set(bindings):
-        raise PrimaryAggregationBlocked("v2.3 binding roster differs from open-QC inventory")
+        raise PrimaryAggregationBlocked(
+            "v2.3 binding roster differs from open-QC inventory"
+        )
     coverage_map = {
         network: str((binding or {}).get("coverage_sha256", ""))
         for network, binding in bindings.items()
@@ -432,7 +471,9 @@ def build_pre_score_eligibility(
     if prior is not None:
         return prior
 
-    split_sha = str((workload.get("input_inventory") or {}).get("catalog_split_sha256", ""))
+    split_sha = str(
+        (workload.get("input_inventory") or {}).get("catalog_split_sha256", "")
+    )
     if len(split_sha) != 64:
         raise PrimaryAggregationBlocked("v4 workload lacks its open-QC split binding")
     availability = {
@@ -457,7 +498,11 @@ def build_pre_score_eligibility(
     try:
         parquet = pq.ParquetFile(index_path)
         required_columns = {
-            "ordinal", "item_id", "network_id", "meteorology_lag_days", "source_item_json"
+            "ordinal",
+            "item_id",
+            "network_id",
+            "meteorology_lag_days",
+            "source_item_json",
         }
         if not required_columns.issubset(parquet.schema_arrow.names):
             raise PrimaryAggregationBlocked("v4 index omits pre-score fields")
@@ -469,7 +514,9 @@ def build_pre_score_eligibility(
             for row in frame.itertuples(index=False):
                 ordinal = int(row.ordinal)
                 if ordinal != next_ordinal:
-                    raise PrimaryAggregationBlocked("v4 index ordinals are not contiguous")
+                    raise PrimaryAggregationBlocked(
+                        "v4 index ordinals are not contiguous"
+                    )
                 next_ordinal += 1
                 item_id = str(row.item_id)
                 item_digest.update(item_id.encode())
@@ -503,11 +550,12 @@ def build_pre_score_eligibility(
             writer.close()
             writer = None
         expected_n = int(workload.get("n_work_items", -1))
-        if (
-            next_ordinal != expected_n
-            or item_digest.hexdigest() != workload.get("work_item_identity_sha256")
+        if next_ordinal != expected_n or item_digest.hexdigest() != workload.get(
+            "work_item_identity_sha256"
         ):
-            raise PrimaryAggregationBlocked("eligibility stream differs from frozen v4 identity")
+            raise PrimaryAggregationBlocked(
+                "eligibility stream differs from frozen v4 identity"
+            )
         table_path = output / ELIGIBILITY_TABLE_NAME
         if table_path.exists():
             if _sha256_file(table_path) != _sha256_file(temporary):
@@ -530,7 +578,8 @@ def build_pre_score_eligibility(
                 "n_rows": next_ordinal,
             },
             "network_availability_bindings": {
-                key: dict(value.provenance) for key, value in sorted(availability.items())
+                key: dict(value.provenance)
+                for key, value in sorted(availability.items())
             },
             "coverage_rule": {
                 "structural_applicability": "derived_from_frozen_item_fields_before_scoring",
@@ -544,6 +593,8 @@ def build_pre_score_eligibility(
             "open_qc_station_header_read": True,
             "open_qc_temperature_value_columns_read": [],
             "open_qc_temperature_na_availability_read": False,
+            "open_qc_temperature_csv_bytes_traversed": True,
+            "open_qc_excluded_temperature_fields_decoded": False,
             "gap_truth_values_read": False,
             "auxiliary_provider_qc_values_read_for_declared_information_coverage": True,
             "temperature_date_and_roster_classification": "design_metadata_not_recovery_outcome",

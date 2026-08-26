@@ -20,12 +20,14 @@ def main() -> None:
     parser.add_argument(
         "--workload",
         type=Path,
-        default=ROOT / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json",
+        default=ROOT
+        / "results/framework/t2_recovery_benchmark_v4/index_draft_manifest.json",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=ROOT / "results/framework/t2_recovery_benchmark_v4/pre_score_eligibility",
+        default=ROOT
+        / "results/framework/t2_recovery_benchmark_v4/pre_score_eligibility",
     )
     args = parser.parse_args()
     manifest = build_pre_score_eligibility(

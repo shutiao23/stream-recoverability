@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 from collections import Counter
 from collections.abc import Mapping
 from pathlib import Path
@@ -141,6 +143,39 @@ FORBIDDEN_PAIR_OUTCOME_COLUMNS = frozenset(
 
 class PostT2ContractError(ValueError):
     """Raised when a present artifact claims a contract it does not satisfy."""
+
+
+def _create_once_bytes(path: Path, payload: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o444)
+    except FileExistsError:
+        if path.read_bytes() != payload:
+            raise PostT2ContractError(f"post-T2 create-once artifact differs: {path}")
+        return
+    with os.fdopen(descriptor, "wb") as handle:
+        handle.write(payload)
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
+    _create_once_bytes(
+        path,
+        (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode(),
+    )
+
+
+def _create_once_csv(path: Path, frame: pd.DataFrame) -> None:
+    descriptor, name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    os.close(descriptor)
+    temporary = Path(name)
+    try:
+        frame.to_csv(temporary, index=False)
+        _create_once_bytes(path, temporary.read_bytes())
+    finally:
+        if temporary.exists():
+            temporary.unlink()
 
 
 def _sha256_file(path: Path) -> str:
@@ -399,7 +434,9 @@ def validate_v4_primary_inputs(
         "manifest_schema": OPERATOR_PREDICTOR_SCHEMA,
         "join_keys": list(OPERATOR_JOIN_KEYS),
         "prediction_column": "predicted_recoverability",
-        "fit_role": "development",
+        "fit_scope": "within_each_open_network_first70pct_calendar_years",
+        "fit_role": "within_each_open_network_train_window",
+        "learned_calibration": False,
         "trained_on_open_roles_only": True,
         "outcome_rows_read_during_fit": False,
         "sealed_paths_traversed": False,
@@ -481,17 +518,18 @@ def validate_v4_primary_inputs(
     if primary["item_id"].astype(str).duplicated().any():
         raise PostT2ContractError("primary-y item IDs are not unique")
     complete = items.loc[statuses.eq("complete")].copy()
-    primary_scope = str(binding.get("primary_complete_item_scope", "all_complete_items"))
+    primary_scope = str(
+        binding.get("primary_complete_item_scope", "all_complete_items")
+    )
     if primary_scope == "frozen_analyzable_lattice":
         lattice_ids = set(lattice["item_id"].astype(str))
         scoped_complete = complete.loc[
             complete["item_id"].astype(str).isin(lattice_ids)
         ].copy()
         exclusion_record = binding.get("complete_item_outcome_blind_attrition")
-        if (
-            binding.get("complete_item_outcome_blind_attrition_complete") is not True
-            or not isinstance(exclusion_record, Mapping)
-        ):
+        if binding.get(
+            "complete_item_outcome_blind_attrition_complete"
+        ) is not True or not isinstance(exclusion_record, Mapping):
             raise PostT2ContractError(
                 "frozen-lattice binding omits complete-item outcome-blind attrition"
             )
@@ -520,9 +558,9 @@ def validate_v4_primary_inputs(
         scoped_complete = complete
     else:
         raise PostT2ContractError("unknown primary complete-item scope")
-    if len(primary) != len(scoped_complete) or set(primary["item_id"].astype(str)) != set(
-        scoped_complete["item_id"].astype(str)
-    ):
+    if len(primary) != len(scoped_complete) or set(
+        primary["item_id"].astype(str)
+    ) != set(scoped_complete["item_id"].astype(str)):
         raise PostT2ContractError(
             "primary-y table is not complete for successful items"
         )
@@ -1215,16 +1253,6 @@ def run_post_t2_analysis(
     output.mkdir(parents=True, exist_ok=True)
     readiness_path = output / "readiness_manifest.json"
     if blockers:
-        for name in (
-            "t4_network_comparison.csv",
-            "t4_result_manifest.json",
-            "t5_pair_contrasts.csv",
-            "t5_pair_attrition.csv",
-            "t5_result_manifest.json",
-        ):
-            stale = output / name
-            if stale.is_file():
-                stale.unlink()
         manifest = {
             "manifest_schema": READINESS_SCHEMA,
             "status": "blocked_waiting_for_complete_t2_v4_results",
@@ -1281,12 +1309,13 @@ def run_post_t2_analysis(
                 "formal_confirmation",
             ],
         }
-        readiness_path.write_text(
-            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-        )
+        _create_once_json(readiness_path, manifest)
         return manifest
 
     _, primary, binding = validate_v4_primary_inputs(workload, result_binding)
+    # The blocked readiness ledger is immutable; formal derivation gets a
+    # separate create-once manifest instead of replacing historical bytes.
+    readiness_path = output / "post_t2_derived_manifest.json"
     primary = primary.copy()
     primary["network_id"] = primary["network_id"].astype(str)
     primary["station_id"] = primary["station_id"].astype(str)
@@ -1305,14 +1334,10 @@ def run_post_t2_analysis(
         ("t5_pair_attrition.csv", t5_attrition),
     ):
         path = output / name
-        table.to_csv(path, index=False)
+        _create_once_csv(path, table)
         artifacts[name] = {"sha256": _sha256_file(path), "n_rows": len(table)}
-    (output / "t4_result_manifest.json").write_text(
-        json.dumps(t4_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    (output / "t5_result_manifest.json").write_text(
-        json.dumps(t5_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    _create_once_json(output / "t4_result_manifest.json", t4_manifest)
+    _create_once_json(output / "t5_result_manifest.json", t5_manifest)
     n_t4_networks = int(
         (t4_manifest.get("n_networks_by_geometry") or {}).get("natural_outage", 0)
     )
@@ -1355,9 +1380,7 @@ def run_post_t2_analysis(
         "t4": t4_manifest,
         "t5": t5_manifest,
     }
-    readiness_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    _create_once_json(readiness_path, manifest)
     return manifest
 
 

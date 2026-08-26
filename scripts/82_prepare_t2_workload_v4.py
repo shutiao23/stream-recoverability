@@ -55,8 +55,12 @@ def main() -> None:
             source_items=iter_all_work_items(ROOT, networks, budget),
             output_dir=args.output,
         )
-        result["formal_workload_written"] = True
-        result["workload_manifest"] = str(args.output / "workload_manifest.json")
+        result["index_draft_written"] = True
+        result["formal_workload_written"] = False
+        result["index_draft_manifest"] = str(args.output / "index_draft_manifest.json")
+        result["next_required"] = (
+            "build eligibility and lattice, then finalize workload"
+        )
     print(json.dumps(result, indent=2, sort_keys=True))
 
 

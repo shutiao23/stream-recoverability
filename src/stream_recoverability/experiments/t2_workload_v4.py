@@ -67,6 +67,8 @@ from .t2_recovery_benchmark import (
 
 V3_WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v3"
 V4_WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v4"
+V4_INDEX_DRAFT_SCHEMA = "t2_v91_open_role_workload_v4_index_draft_v1"
+V4_PRE_SCORE_FREEZE_SCHEMA = "t2_v91_v4_pre_score_freeze_bundle_v1"
 V4_RUNNER_CONTRACT_VERSION = "t2_v91_runner_v4_legacy_mh_lag_grid_v1"
 V4_READINESS_SCHEMA = "t2_v91_open_role_workload_v4_readiness_v1"
 V4_ITEM_INDEX_SCHEMA = "t2_v91_open_role_work_item_index_v4"
@@ -122,9 +124,7 @@ def _canonical_sha(value: Any) -> str:
 
 
 def _canonical_json(value: Any) -> str:
-    return json.dumps(
-        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
-    )
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
 
 COVERAGE_SEMANTICS_SHA256 = _canonical_sha(COVERAGE_SEMANTICS)
@@ -184,7 +184,9 @@ def _safe_artifact(
     try:
         path.resolve(strict=True).relative_to(network_dir.resolve(strict=True))
     except (FileNotFoundError, ValueError) as error:
-        raise V4FreezeBlocked(f"v2 artifact is absent or escaped its network: {key}") from error
+        raise V4FreezeBlocked(
+            f"v2 artifact is absent or escaped its network: {key}"
+        ) from error
     sha = str(record.get("sha256", ""))
     if len(sha) != 64 or _sha256_file(path) != sha:
         raise V4FreezeBlocked(f"v2 artifact SHA mismatch: {key}")
@@ -270,9 +272,8 @@ def audit_v4_prerequisites(
         or plan.get("v1_ogc_root_read_or_mutated") is not False
     ):
         raise V4FreezeBlocked("v2 corpus plan violates the frozen open-only contract")
-    if (
-        not allow_legacy_pipeline_smoke
-        and _canonical_json(plan) != _canonical_json(current_plan)
+    if not allow_legacy_pipeline_smoke and _canonical_json(plan) != _canonical_json(
+        current_plan
     ):
         raise V4FreezeBlocked(
             "v2 corpus plan differs from the deterministic current acquisition plan"
@@ -291,9 +292,7 @@ def audit_v4_prerequisites(
     if len(networks) != EXPECTED_NETWORK_COUNT or planned != expected:
         raise V4FreezeBlocked("v2 plan roster differs from the 67-network v3 roster")
 
-    plan_by_id = {
-        str(row["network_id"]): row for row in (plan.get("networks") or [])
-    }
+    plan_by_id = {str(row["network_id"]): row for row in (plan.get("networks") or [])}
     bindings: dict[str, V2NetworkBinding] = {}
     invalid: dict[str, str] = {}
     missing: list[str] = []
@@ -308,10 +307,11 @@ def audit_v4_prerequisites(
             manifest_schema = str(manifest.get("manifest_schema"))
             schema_accepted = manifest_schema == V2_NETWORK_SCHEMA_VERSION or (
                 allow_legacy_pipeline_smoke
-                and manifest_schema
-                == "t2_v91_open_role_mh_network_acquisition_v2"
+                and manifest_schema == "t2_v91_open_role_mh_network_acquisition_v2"
             )
-            planned_network_sha = str(plan_by_id[network.network_id]["network_plan_sha256"])
+            planned_network_sha = str(
+                plan_by_id[network.network_id]["network_plan_sha256"]
+            )
             if (
                 not schema_accepted
                 or manifest.get("status") not in V2_TERMINAL_STATUSES
@@ -330,7 +330,9 @@ def audit_v4_prerequisites(
             artifacts = manifest.get("artifacts")
             if not isinstance(artifacts, Mapping):
                 raise V4FreezeBlocked("network artifacts are not a mapping")
-            _, daily_sha = _safe_artifact(repo, directory, artifacts, "daily_long_auxiliary")
+            _, daily_sha = _safe_artifact(
+                repo, directory, artifacts, "daily_long_auxiliary"
+            )
             _, coverage_sha = _safe_artifact(repo, directory, artifacts, "coverage")
             _, schema_sha = _safe_artifact(repo, directory, artifacts, "adapter_schema")
             bindings[network.network_id] = V2NetworkBinding(
@@ -419,7 +421,9 @@ def build_v4_readiness_manifest(
     ]
     return {
         "manifest_schema": V4_READINESS_SCHEMA,
-        "status": "ready_for_formal_v4_freeze" if prerequisites.ready else "blocked_fail_closed",
+        "status": "ready_for_formal_v4_freeze"
+        if prerequisites.ready
+        else "blocked_fail_closed",
         "execution_readiness": (
             "ready_for_formal_v4_freeze"
             if prerequisites.ready
@@ -765,16 +769,20 @@ def build_v4_workload_manifest(
     item_index_write_path: str | Path,
     item_index_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Build the formal v4 freeze, refusing any incomplete v2 corpus."""
+    """Build the create-once index draft used by the pre-score audit.
+
+    This object is deliberately not executable.  The final workload is made
+    only after an independent pre-score bundle binds the draft and its index.
+    """
 
     repo = Path(repo_root).resolve()
     v3_path = Path(source_v3_workload_path).resolve()
-    build_v4_readiness_manifest(
-        repo, networks, source_v3_workload_path=v3_path
-    )
+    build_v4_readiness_manifest(repo, networks, source_v3_workload_path=v3_path)
     prerequisites = audit_v4_prerequisites(repo, networks)
     if not prerequisites.ready:
-        raise V4FreezeBlocked("formal v4 workload forbidden before v2 reaches 67/67 terminal")
+        raise V4FreezeBlocked(
+            "formal v4 workload forbidden before v2 reaches 67/67 terminal"
+        )
     source_v3 = _read_mapping(v3_path)
     _, source_identity_sha, _ = _validated_v3_contract(source_v3)
     index_write_path = Path(item_index_write_path).resolve()
@@ -782,7 +790,9 @@ def build_v4_workload_manifest(
     try:
         index_manifest_path.relative_to(repo)
     except ValueError as error:
-        raise V4FreezeBlocked("v4 item index must remain inside the repository") from error
+        raise V4FreezeBlocked(
+            "v4 item index must remain inside the repository"
+        ) from error
     index = _write_v4_item_index(
         index_write_path,
         source_items,
@@ -797,7 +807,9 @@ def build_v4_workload_manifest(
         key: value.identity() for key, value in prerequisites.bindings.items()
     }
     return {
-        "manifest_schema": V4_WORKLOAD_SCHEMA,
+        "manifest_schema": V4_INDEX_DRAFT_SCHEMA,
+        "execution_allowed": False,
+        "final_workload_required": True,
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "source_v3_workload_path": str(v3_path.relative_to(repo)),
         "source_v3_workload_sha256": _sha256_file(v3_path),
@@ -832,10 +844,8 @@ def build_v4_workload_manifest(
         "work_item_identity_sha256": index["work_item_identity_sha256"],
         "item_index": index,
         "counts_by_model_information": index["counts_by_model_information"],
-        "counts_by_model_information_lag": index[
-            "counts_by_model_information_lag"
-        ],
-        "purpose": "formal_workload_freeze_not_performance_evidence",
+        "counts_by_model_information_lag": index["counts_by_model_information_lag"],
+        "purpose": "create_once_item_index_draft_for_pre_score_freeze",
         "formal_evidence": False,
         "sealed_input_roots_allowed": [],
         "sealed_paths_traversed": False,
@@ -863,7 +873,9 @@ def _create_once_json(path: Path, value: Mapping[str, Any]) -> None:
     except FileExistsError:
         existing = path.read_bytes()
         if existing != payload:
-            raise V4FreezeBlocked("formal v4 workload is create-once and already differs")
+            raise V4FreezeBlocked(
+                "formal v4 workload is create-once and already differs"
+            )
         return
     with os.fdopen(descriptor, "wb") as handle:
         handle.write(payload)
@@ -880,11 +892,11 @@ def freeze_v4_workload(
     source_items: Iterable[WorkItem],
     output_dir: str | Path,
 ) -> dict[str, Any]:
-    """Atomically create the immutable workload/index pair, or validate it."""
+    """Create the immutable item-index draft; never create an executable workload."""
 
     repo = Path(repo_root).resolve()
     output = Path(output_dir).resolve()
-    workload_path = output / "workload_manifest.json"
+    workload_path = output / "index_draft_manifest.json"
     index_path = output / "item_index.parquet"
     if any("sealed" in part.lower() for part in output.parts):
         raise V4FreezeBlocked("formal v4 freeze refuses a sealed path")
@@ -897,7 +909,7 @@ def freeze_v4_workload(
             key: value.identity() for key, value in prerequisites.bindings.items()
         }
         if (
-            workload.get("manifest_schema") != V4_WORKLOAD_SCHEMA
+            workload.get("manifest_schema") != V4_INDEX_DRAFT_SCHEMA
             or int(workload.get("n_work_items", -1)) != EXPECTED_V4_WORK_ITEMS
             or not isinstance(record, Mapping)
             or (repo / str(record.get("path", ""))).resolve() != index_path
@@ -932,7 +944,9 @@ def freeze_v4_workload(
         expected_index_sha = str(workload["item_index"]["file_sha256"])
         if index_path.exists():
             if _sha256_file(index_path) != expected_index_sha:
-                raise V4FreezeBlocked("orphan v4 item index differs from candidate freeze")
+                raise V4FreezeBlocked(
+                    "orphan v4 item index differs from candidate freeze"
+                )
         else:
             try:
                 os.link(temporary, index_path)
@@ -945,6 +959,121 @@ def freeze_v4_workload(
         if temporary.exists():
             temporary.unlink()
     return workload
+
+
+def _bound_file_record(
+    repo: Path, manifest_path: Path, record: Mapping[str, Any], *, name: str
+) -> dict[str, Any]:
+    """Resolve and verify one repository-local SHA-bound pre-score artifact."""
+
+    raw = Path(str(record.get("path", "")))
+    path = (
+        raw.resolve() if raw.is_absolute() else (manifest_path.parent / raw).resolve()
+    )
+    try:
+        relative = path.relative_to(repo)
+    except ValueError as error:
+        raise V4FreezeBlocked(f"{name} escaped the repository") from error
+    if any("sealed" in part.lower() for part in path.parts) or not path.is_file():
+        raise V4FreezeBlocked(f"{name} is absent or unsafe")
+    sha = _sha256_file(path)
+    if sha != record.get("sha256"):
+        raise V4FreezeBlocked(f"{name} SHA-256 mismatch")
+    return {**dict(record), "path": str(relative), "sha256": sha}
+
+
+def finalize_v4_workload(
+    repo_root: str | Path,
+    *,
+    index_draft_manifest_path: str | Path,
+    pre_score_freeze_manifest_path: str | Path,
+    output_path: str | Path,
+) -> dict[str, Any]:
+    """Bind the draft/index and all pre-score bytes into the executable workload."""
+
+    repo = Path(repo_root).resolve()
+    draft_path = Path(index_draft_manifest_path).resolve()
+    freeze_path = Path(pre_score_freeze_manifest_path).resolve()
+    output = Path(output_path).resolve()
+    for path in (draft_path, freeze_path, output):
+        try:
+            path.relative_to(repo)
+        except ValueError as error:
+            raise V4FreezeBlocked(
+                "v4 final freeze must remain inside the repository"
+            ) from error
+        if any("sealed" in part.lower() for part in path.parts):
+            raise V4FreezeBlocked("v4 final freeze refuses sealed paths")
+    draft = _read_mapping(draft_path)
+    freeze = _read_mapping(freeze_path)
+    if (
+        draft.get("manifest_schema") != V4_INDEX_DRAFT_SCHEMA
+        or draft.get("execution_allowed") is not False
+        or int(draft.get("n_work_items", -1)) != EXPECTED_V4_WORK_ITEMS
+    ):
+        raise V4FreezeBlocked(
+            "final workload requires a valid non-executable index draft"
+        )
+    if (
+        freeze.get("manifest_schema") != V4_PRE_SCORE_FREEZE_SCHEMA
+        or freeze.get("status") != "complete_outcome_blind_pre_score_freeze"
+        or freeze.get("index_draft_manifest_sha256") != _sha256_file(draft_path)
+        or freeze.get("item_index_file_sha256")
+        != (draft.get("item_index") or {}).get("file_sha256")
+        or freeze.get("sealed_paths_traversed") is not False
+        or freeze.get("sealed_temperature_records_read") is not False
+        or freeze.get("v4_results_read") is not False
+        or freeze.get("selection_uses_outcomes") is not False
+        or freeze.get("achieved_skill_read") is not False
+    ):
+        raise V4FreezeBlocked("pre-score freeze bundle does not bind the index draft")
+    required_records = (
+        "eligibility_manifest",
+        "eligibility_table",
+        "feasibility_census",
+        "exhaustive_item_ledger",
+        "base_lattice_manifest",
+        "base_lattice",
+        "predictor_manifest",
+        "predictor_table",
+    )
+    bound: dict[str, Any] = {}
+    for name in required_records:
+        record = freeze.get(name)
+        if not isinstance(record, Mapping):
+            raise V4FreezeBlocked(f"pre-score freeze omits {name}")
+        bound[name] = _bound_file_record(repo, freeze_path, record, name=name)
+    optional = freeze.get("sensitivity_lattices") or {}
+    if not isinstance(optional, Mapping):
+        raise V4FreezeBlocked("pre-score sensitivity lattice records are invalid")
+    sensitivity = {
+        str(key): _bound_file_record(
+            repo, freeze_path, value, name=f"sensitivity_{key}"
+        )
+        for key, value in optional.items()
+        if isinstance(value, Mapping)
+    }
+    final = {
+        **draft,
+        "manifest_schema": V4_WORKLOAD_SCHEMA,
+        "execution_allowed": True,
+        "final_workload_required": False,
+        "index_draft_manifest": {
+            "path": str(draft_path.relative_to(repo)),
+            "sha256": _sha256_file(draft_path),
+        },
+        "pre_score_freeze": {
+            "manifest_schema": V4_PRE_SCORE_FREEZE_SCHEMA,
+            "path": str(freeze_path.relative_to(repo)),
+            "sha256": _sha256_file(freeze_path),
+            "artifacts": bound,
+            "sensitivity_lattices": sensitivity,
+        },
+        "purpose": "formal_workload_bound_to_committed_pre_score_freeze",
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    _create_once_json(output, final)
+    return final
 
 
 def _execute_extended_climatology_reference(
@@ -970,7 +1099,9 @@ def _execute_extended_climatology_reference(
         "sealed_temperature_records_read": False,
     }
     if item.meteorology_lag_days not in METEOROLOGY_LAG_ROSTER:
-        raise V4FreezeBlocked("extended climatology item lacks a frozen meteorology lag")
+        raise V4FreezeBlocked(
+            "extended climatology item lacks a frozen meteorology lag"
+        )
     if source.start_index < 0:
         reason = (
             "fewer_than_frozen_common_bd_placements_are_data_eligible"
@@ -1014,8 +1145,10 @@ def _execute_extended_climatology_reference(
                 panel, dates=panel.index, train_mask=train_mask
             ),
         )
-        predicted = model.predict(panel, dates=panel.index).iloc[start:stop].to_numpy(
-            dtype=float
+        predicted = (
+            model.predict(panel, dates=panel.index)
+            .iloc[start:stop]
+            .to_numpy(dtype=float)
         )
         valid = np.isfinite(truth) & np.isfinite(predicted)
         if not valid.any():
@@ -1034,7 +1167,13 @@ def _execute_extended_climatology_reference(
             "reference_ignores_available_information": True,
             "runtime_seconds": float(perf_counter() - began),
         }
-    except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+    except (
+        ImportError,
+        KeyError,
+        RuntimeError,
+        ValueError,
+        np.linalg.LinAlgError,
+    ) as error:
         return {
             **base,
             "status": "failed",
@@ -1066,9 +1205,7 @@ def execute_v4_item(
         "integration_contract_version": INTEGRATION_CONTRACT_VERSION,
         "meteorology_lag_days": item.meteorology_lag_days,
         "auxiliary_corpus_plan_sha256": item.auxiliary_corpus_plan_sha256,
-        "auxiliary_corpus_plan_file_sha256": (
-            item.auxiliary_corpus_plan_file_sha256
-        ),
+        "auxiliary_corpus_plan_file_sha256": (item.auxiliary_corpus_plan_file_sha256),
         "auxiliary_network_manifest_sha256": (
             item.auxiliary_binding.network_manifest_sha256
         ),
@@ -1108,7 +1245,9 @@ def execute_v4_item(
             or audit.get("coverage_sha256") != expected.coverage_sha256
             or audit.get("adapter_schema_sha256") != expected.adapter_schema_sha256
         ):
-            raise V4FreezeBlocked("loaded v2 auxiliary bytes differ from v4 item identity")
+            raise V4FreezeBlocked(
+                "loaded v2 auxiliary bytes differ from v4 item identity"
+            )
         raw = execute_materialized_information_item(
             repo_root,
             network,
@@ -1134,9 +1273,7 @@ def execute_v4_item(
             )
         )
     result = json_safe(dict(raw))
-    result.update(
-        binding_fields
-    )
+    result.update(binding_fields)
     if result.get("status") == "candidate_complete_not_formal":
         result["status"] = "complete"
     return result
@@ -1162,7 +1299,9 @@ __all__ = [
     "EXPECTED_V3_EXTENDED_WORK_ITEMS",
     "EXPECTED_V3_WORK_ITEMS",
     "EXPECTED_V4_WORK_ITEMS",
+    "V4_INDEX_DRAFT_SCHEMA",
     "V4_ITEM_INDEX_SCHEMA",
+    "V4_PRE_SCORE_FREEZE_SCHEMA",
     "V4_RUNNER_CONTRACT_VERSION",
     "V4_WORKLOAD_SCHEMA",
     "V4FreezeBlocked",
@@ -1172,6 +1311,7 @@ __all__ = [
     "build_v4_readiness_manifest",
     "build_v4_workload_manifest",
     "execute_v4_item",
+    "finalize_v4_workload",
     "freeze_v4_workload",
     "iter_formal_v4_items",
     "iter_v4_work_items",
