@@ -1589,6 +1589,7 @@ def tier2_timing_exception_ledger(sample: Mapping[str, Any]) -> dict[str, Any]:
 
 __all__ = [
     "ALLOWED_INPUTS",
+    "BASE_INFORMATION_CONDITIONS",
     "FAILURE_CLOSURE_INPUTS",
     "TIER1_MODELS",
     "OpenNetwork",

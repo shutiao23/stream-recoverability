@@ -1,0 +1,86 @@
+{
+  "aggregation_complete_workload": false,
+  "all_status_counts": {
+    "complete": 2520,
+    "reference_complete": 2100,
+    "structural_not_applicable": 5880
+  },
+  "cheap_models": [
+    "climatology",
+    "pchip_or_linear",
+    "kalman",
+    "donor_regression",
+    "xgboost"
+  ],
+  "confirmatory_eligible": false,
+  "europe_complete_enough_used": false,
+  "evaluate_success": {
+    "confirmatory_eligible": false,
+    "n_networks_min": 100,
+    "passed": false,
+    "passed_numeric_floors": false,
+    "spearman_inference_status": "withheld_n_lt_100_network_interval",
+    "thresholds_locked": true
+  },
+  "extended_information_conditions_skipped_as_first_layer": [
+    "B_union_D_union_M",
+    "B_union_D_union_M_union_H"
+  ],
+  "extended_information_status_counts": {
+    "reference_complete": 840,
+    "structural_not_applicable": 3360
+  },
+  "first_layer_information_conditions": [
+    "B",
+    "D",
+    "B_union_D"
+  ],
+  "first_layer_status_counts": {
+    "complete": 2520,
+    "reference_complete": 1260,
+    "structural_not_applicable": 2520
+  },
+  "forbidden_network_ids_excluded": [
+    "huc8_03110203",
+    "loire_mainstem",
+    "suwannee_river_huc31",
+    "swiss_aar_rhine"
+  ],
+  "forbidden_network_ids_leaked_into_input": [],
+  "formal_evidence": false,
+  "geometry_reselected": false,
+  "go_no_go": "NO_GO_T2_PRIMARY_EVIDENCE",
+  "headline_claim_licensed": false,
+  "items_executed": 10500,
+  "items_planned": 10500,
+  "later_year_public_rivers_overwritten": false,
+  "manifest_schema": "t2_w7_open_role_bd_slice_v1",
+  "mh_items_complete": 0,
+  "mh_relabeled_as_executable": false,
+  "n_extended_information_items_in_ordinal_range": 4200,
+  "n_first_layer_complete": 2520,
+  "n_first_layer_executable_complete": 2520,
+  "n_first_layer_items": 6300,
+  "n_first_layer_reference_complete": 1260,
+  "n_networks": 1,
+  "network_inference_status": "withheld_n_lt_100_network_interval",
+  "network_interval": null,
+  "new_temperatures_downloaded": false,
+  "operator_incremental_r2_vs_donor_r2_only": 0.03997347826091091,
+  "operator_retuned": false,
+  "passed": false,
+  "purpose": "development_slice_not_evidence",
+  "qualification_mode": "failure_closure6",
+  "scored_network_ids": [
+    "huc8_01070004"
+  ],
+  "sealed_outcomes_opened": false,
+  "slice_is_confirmatory_t2": false,
+  "twin_e_holdout_touched": false,
+  "w8_failure_closure_reason": "operator_incremental_r2_vs_donor_r2_only_lt_0.05",
+  "w8_failure_closure_trigger": true,
+  "w8_incremental_r2_threshold": 0.05,
+  "what_this_is": "W7 first-layer cheap-model B/D/B_union_D development slice on open-role failure_closure6 networks.",
+  "what_this_is_not": "Not confirmatory T2. Not primary evidence. n<100 so cluster-bootstrap CIs stay withheld. M/H cells are not executable. Do not sell this slice as a T2 pass.",
+  "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
+}
