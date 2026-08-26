@@ -15,7 +15,7 @@ if str(SRC) not in sys.path:
 
 from stream_recoverability.experiments.t2_recovery_benchmark import (
     build_workload_manifest,
-    discover_open_networks,
+    discover_failure_closure_networks,
     iter_work_items,
     json_safe,
     load_v91_budget,
@@ -71,7 +71,7 @@ def main() -> None:
         raise SystemExit("--start-ordinal must be non-negative")
     args.output.mkdir(parents=True, exist_ok=True)
     budget = load_v91_budget(ROOT)
-    networks, inventory = discover_open_networks(ROOT)
+    networks, inventory = discover_failure_closure_networks(ROOT)
     if not networks:
         raise SystemExit("no overlap-qualified open-role networks are available")
     manifest = build_workload_manifest(ROOT, networks, inventory, budget)
@@ -83,18 +83,19 @@ def main() -> None:
     legacy_last_run = args.output / "last_run.json"
     if legacy_last_run.is_file():
         existing_last_run = json.loads(legacy_last_run.read_text(encoding="utf-8"))
-        if (
-            existing_last_run.get("status") != "legacy_obsolete_do_not_resume"
-            and existing_last_run.get("runner_contract_version")
-            != manifest["runner_contract_version"]
-        ):
+        if existing_last_run.get("runner_contract_version") != manifest[
+            "runner_contract_version"
+        ]:
+            legacy_payload = existing_last_run.get(
+                "legacy_payload", existing_last_run
+            )
             legacy_last_run.write_text(
                 json.dumps(
                     {
                         "status": "legacy_obsolete_do_not_resume",
-                        "active_checkpoint_namespace": "checkpoints_v2",
+                        "active_checkpoint_namespace": "checkpoints_v3",
                         "superseded_by": "preparation_run.json",
-                        "legacy_payload": existing_last_run,
+                        "legacy_payload": legacy_payload,
                     },
                     indent=2,
                     sort_keys=True,

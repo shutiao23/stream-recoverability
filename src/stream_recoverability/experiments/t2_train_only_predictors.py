@@ -30,7 +30,7 @@ from stream_recoverability.experiments.recoverability_baselines import (
     gap_length_only,
 )
 from stream_recoverability.experiments.t2_recovery_benchmark import (
-    discover_open_networks,
+    discover_failure_closure_networks,
     read_panel,
 )
 from stream_recoverability.experiments.t2_result_aggregation import (
@@ -367,7 +367,10 @@ def build_train_only_predictor_sidecar(
     workload = json.loads(workload_path.read_text(encoding="utf-8"))
     workload_sha = _sha256_file(workload_path)
     design_sha = _sha256_file(design)
-    if workload.get("manifest_schema") != "t2_v91_open_role_workload_v2":
+    if workload.get("manifest_schema") not in {
+        "t2_v91_open_role_workload_v2",
+        "t2_v91_open_role_workload_v3",
+    }:
         raise PredictorContractError("unsupported T2 workload schema")
     if workload.get("design_sha256") != design_sha:
         raise PredictorContractError("workload/design SHA-256 mismatch")
@@ -378,7 +381,7 @@ def build_train_only_predictor_sidecar(
     if tuple(int(value) for value in (workload.get("tier_1") or {}).get("gaps", ())) != FROZEN_GAPS:
         raise PredictorContractError("workload does not bind all seven frozen gaps")
 
-    networks, discovery = discover_open_networks(repo)
+    networks, discovery = discover_failure_closure_networks(repo)
     expected_ids = [str(value) for value in workload.get("network_ids") or []]
     if set(expected_ids) != {item.network_id for item in networks}:
         raise PredictorContractError("discovered network inventory differs from workload")

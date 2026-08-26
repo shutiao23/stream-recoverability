@@ -2,19 +2,19 @@
   "formal_evidence": false,
   "go_no_go": "NO_GO_T2_PRIMARY_EVIDENCE",
   "mode": "dry_run",
-  "n_networks": 59,
-  "n_work_items": 1074500,
+  "n_networks": 67,
+  "n_work_items": 1384025,
   "run": null,
-  "runner_contract_version": "t2_v91_runner_v2_shared_placements_information_consumption",
+  "runner_contract_version": "t2_v91_runner_v3_frozen_geometry_bindings",
   "sealed_temperature_records_read": false,
   "tier2_sample_lock": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/tier2_sample_lock.json",
   "tier2_timing_exception_ledger": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/tier2_timing_exception_ledger.json",
   "workload_categories": {
-    "n_data_ineligible": 83900,
-    "n_executable": 237744,
+    "n_data_ineligible": 123325,
+    "n_executable": 294460,
     "n_external_dependency": 0,
-    "n_not_applicable": 554736,
-    "n_reference": 198120
+    "n_not_applicable": 714100,
+    "n_reference": 252140
   },
   "workload_manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/workload_manifest.json"
 }

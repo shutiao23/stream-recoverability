@@ -273,3 +273,22 @@ def test_aggregation_rejects_sealed_named_path_before_read(tmp_path: Path) -> No
             design_path=paths["design"],
             output_dir=tmp_path / "aggregation",
         )
+
+
+def test_frozen_bound_geometry_status_is_ready_not_a_blocker(tmp_path: Path) -> None:
+    paths = _fixture(tmp_path, expected_n=0)
+    workload = json.loads(Path(paths["workload"]).read_text(encoding="utf-8"))
+    workload["geometry_dependencies"] = {
+        "artificial_stress": "ready",
+        "natural_outage": "ready_frozen_catalog_bound",
+        "adversarial_stress": "ready_frozen_catalog_bound",
+    }
+    Path(paths["workload"]).write_text(json.dumps(workload), encoding="utf-8")
+
+    manifest = aggregate_t2_results(
+        workload_manifest_path=paths["workload"],
+        design_path=paths["design"],
+        output_dir=tmp_path / "aggregation",
+    )
+
+    assert not any(value.startswith("geometry_") for value in manifest["blockers"])

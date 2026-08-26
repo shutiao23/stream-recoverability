@@ -20,6 +20,7 @@ import math
 from collections import Counter, defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass
+from itertools import chain
 from pathlib import Path
 from time import perf_counter
 from typing import Any
@@ -29,6 +30,9 @@ import pandas as pd
 import yaml
 
 from stream_recoverability.analysis.recoverability_spectrum import recoverability
+from stream_recoverability.experiments.frozen_outage_geometry import (
+    load_frozen_geometry_bindings,
+)
 from stream_recoverability.models.baselines import (
     ClimatologyBaseline,
     DonorRegressionBaseline,
@@ -45,6 +49,11 @@ ALLOWED_INPUTS: tuple[tuple[str, str], ...] = (
     ("open_role_qc/validation", "validation"),
     ("w3_development_pilot", "development"),
 )
+FAILURE_CLOSURE_INPUTS: tuple[tuple[str, str], ...] = (
+    ("open_role_qc/failure_closure6/development", "development"),
+    ("open_role_qc/failure_closure6/validation", "validation"),
+)
+GEOMETRY_BINDING_RELATIVE_PATH = Path("results/framework/t2_outage_geometry_v1")
 TIER1_MODELS = (
     "climatology",
     "pchip_or_linear",
@@ -60,7 +69,7 @@ EXTENDED_INFORMATION_CONDITIONS = (
 TIER2_MODELS = ("air2stream", "saits", "csdi", "grin")
 TIER2_GAPS = (30, 90, 180)
 MIN_TRAIN_OBSERVATIONS = 365
-RUNNER_CONTRACT_VERSION = "t2_v91_runner_v2_shared_placements_information_consumption"
+RUNNER_CONTRACT_VERSION = "t2_v91_runner_v3_frozen_geometry_bindings"
 
 
 def _sha256_bytes(payload: bytes) -> str:
@@ -89,6 +98,8 @@ def json_safe(value: Any) -> Any:
         return {str(key): json_safe(item) for key, item in value.items()}
     if isinstance(value, (list, tuple)):
         return [json_safe(item) for item in value]
+    if isinstance(value, (np.bool_,)):
+        return bool(value)
     if isinstance(value, (np.integer,)):
         return int(value)
     if isinstance(value, (np.floating, float)):
@@ -194,7 +205,12 @@ def _locked_catalog_roles(repo: Path) -> tuple[str, dict[str, str]]:
     return split_sha, roles
 
 
-def discover_open_networks(repo_root: str | Path) -> tuple[list[OpenNetwork], dict[str, Any]]:
+def discover_open_networks(
+    repo_root: str | Path,
+    *,
+    input_roots: Sequence[tuple[str, str]] = ALLOWED_INPUTS,
+    require_failure_closure6: bool = False,
+) -> tuple[list[OpenNetwork], dict[str, Any]]:
     """Discover overlap-qualified inputs without traversing any sealed directory."""
 
     repo = Path(repo_root).resolve()
@@ -204,7 +220,7 @@ def discover_open_networks(repo_root: str | Path) -> tuple[list[OpenNetwork], di
     roots: list[dict[str, Any]] = []
     rejected = Counter()
     # Full-QC development wins over its pilot duplicate. Validation is disjoint.
-    for source_key, expected_role in ALLOWED_INPUTS:
+    for source_key, expected_role in input_roots:
         root = corpus / source_key
         root_summary: dict[str, Any] = {
             "source_key": source_key,
@@ -246,6 +262,15 @@ def discover_open_networks(repo_root: str | Path) -> tuple[list[OpenNetwork], di
             if catalog_roles.get(network_id) != role:
                 rejected["catalog_role_mismatch_or_network_absent"] += 1
                 continue
+            if require_failure_closure6 and (
+                manifest.get("qualification_mode") != "failure_closure6"
+                or manifest.get("qualified_years_min") != 6
+                or manifest.get("relaxation_applied") is not True
+                or manifest.get("relaxation_trigger")
+                != "open_survival_projection_lt_100"
+            ):
+                rejected["not_failure_closure6"] += 1
+                continue
             if manifest.get("status") != "complete":
                 rejected["network_incomplete"] += 1
                 continue
@@ -276,11 +301,14 @@ def discover_open_networks(repo_root: str | Path) -> tuple[list[OpenNetwork], di
                 rejected["duplicate_shadowed_by_preferred_root"] += 1
     networks = sorted(selected.values(), key=lambda item: (item.role, item.network_id))
     return networks, {
-        "allowed_input_roots": [value for value, _ in ALLOWED_INPUTS],
+        "allowed_input_roots": [value for value, _ in input_roots],
         "sealed_input_roots_allowed": [],
         "catalog_path": str(CATALOG_RELATIVE_PATH),
         "catalog_split_sha256": catalog_split_sha,
         "catalog_roles_cross_checked": True,
+        "qualification_mode": (
+            "failure_closure6" if require_failure_closure6 else "primary8_or_pilot"
+        ),
         "roots": roots,
         "rejected": dict(sorted(rejected.items())),
         "n_networks_eligible": len(networks),
@@ -288,12 +316,24 @@ def discover_open_networks(repo_root: str | Path) -> tuple[list[OpenNetwork], di
     }
 
 
+def discover_failure_closure_networks(
+    repo_root: str | Path,
+) -> tuple[list[OpenNetwork], dict[str, Any]]:
+    """Discover the frozen six-year open corpus used by all T2 geometries."""
+
+    return discover_open_networks(
+        repo_root,
+        input_roots=FAILURE_CLOSURE_INPUTS,
+        require_failure_closure6=True,
+    )
+
+
 def read_panel(repo_root: str | Path, network: OpenNetwork) -> pd.DataFrame:
     repo = Path(repo_root).resolve()
     path = repo / network.wide_path
     allowed = [
         repo / "data_versions/global_network_corpus_v1" / source
-        for source, _ in ALLOWED_INPUTS
+        for source, _ in (*ALLOWED_INPUTS, *FAILURE_CLOSURE_INPUTS)
     ]
     if not any(root.is_dir() and _inside(path, root) for root in allowed):
         raise ValueError(f"refusing a panel outside the open-role allowlist: {path}")
@@ -368,6 +408,15 @@ class WorkItem:
     information_condition: str
     task: str = "offline_archival"
     geometry: str = "artificial_stress"
+    geometry_id: str = ""
+    geometry_catalog_file_sha256: str = ""
+    geometry_row_sha256: str = ""
+    truth_start_date: str = ""
+    observed_missing_start_date: str = ""
+    donor_mask_rule: str = "preserve_observed_donors"
+    target_mask_scope: str = "target_station_gap"
+    boundary_mode: str = "both"
+    stress_id: str = ""
 
 
 def iter_work_items(
@@ -448,6 +497,169 @@ def iter_work_items(
                             ordinal += 1
 
 
+def _bool_value(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().lower() == "true"
+    return bool(value)
+
+
+def _boundary_mode(left: bool, right: bool) -> str:
+    if left and right:
+        return "both"
+    if left:
+        return "left_only"
+    if right:
+        return "right_only"
+    return "none"
+
+
+def iter_frozen_geometry_work_items(
+    repo_root: str | Path,
+    networks: Sequence[OpenNetwork],
+    budget: Mapping[str, Any],
+    natural: pd.DataFrame,
+    adversarial: pd.DataFrame,
+    geometry_manifest: Mapping[str, Any],
+    *,
+    models: Iterable[str] | None = None,
+    information_conditions: Iterable[str] | None = None,
+) -> Iterable[WorkItem]:
+    """Expand frozen natural/adversarial rows without selecting new geometry."""
+
+    selected_models = tuple(models or budget["tier_1_models"])
+    selected_information = tuple(information_conditions or budget["information_conditions"])
+    if not set(selected_models).issubset(TIER1_MODELS):
+        raise ValueError("model filter contains a non-Tier-1 model")
+    if not set(selected_information).issubset(set(budget["information_conditions"])):
+        raise ValueError("information filter contains a non-frozen condition")
+    lookup = {network.network_id: network for network in networks}
+    panel_cache: dict[str, pd.DataFrame] = {}
+    catalog_file_sha = {
+        "natural_outage": str(geometry_manifest["natural_outage"]["file_sha256"]),
+        "adversarial_stress": str(geometry_manifest["adversarial"]["file_sha256"]),
+    }
+    natural_ready = natural.loc[natural["benchmark_eligible"].map(_bool_value)].copy()
+    geometry_rows = chain(
+        (("natural_outage", row) for _, row in natural_ready.iterrows()),
+        (("adversarial_stress", row) for _, row in adversarial.iterrows()),
+    )
+    ordinal = 0
+    for geometry, row in geometry_rows:
+        record = json_safe(row.to_dict())
+        network_id = str(record["network_id"])
+        station_id = str(record["station_id"])
+        network = lookup.get(network_id)
+        if network is None:
+            raise ValueError(f"frozen geometry network absent from closure6 corpus: {network_id}")
+        if str(record["role"]) != network.role:
+            raise ValueError(f"frozen geometry role mismatch: {network_id}")
+        if network_id not in panel_cache:
+            panel_cache[network_id] = read_panel(repo_root, network)
+        panel = panel_cache[network_id]
+        if station_id not in panel.columns:
+            raise ValueError(f"frozen geometry station absent from panel: {network_id}/{station_id}")
+        if geometry == "natural_outage":
+            if _bool_value(record["actual_missing_truth_available"]):
+                raise ValueError("natural missing days may not be used as truth")
+            truth_start = str(record["benchmark_start_date"])
+            observed_missing_start = str(record["start_date"])
+            donor_mask_rule = "preserve_observed_donors"
+            target_mask_scope = "target_station_gap"
+            boundary_mode = "both"
+            stress_id = ""
+        else:
+            truth_start = str(record["start_date"])
+            observed_missing_start = ""
+            donor_mask_rule = str(record["donor_mask_rule"])
+            target_mask_scope = str(record["target_mask_scope"])
+            boundary_mode = _boundary_mode(
+                _bool_value(record["left_boundary_required"]),
+                _bool_value(record["right_boundary_required"]),
+            )
+            stress_id = str(record["stress_id"])
+        stamp = pd.Timestamp(truth_start)
+        positions = np.flatnonzero(panel.index == stamp)
+        length = int(record["length_days"])
+        start_index = int(positions[0]) if len(positions) == 1 else -1
+        if start_index >= 0:
+            expected_dates = pd.date_range(stamp, periods=length, freq="D")
+            observed_dates = panel.index[start_index : start_index + length]
+            truth = panel[station_id].iloc[start_index : start_index + length]
+            if not observed_dates.equals(expected_dates) or not np.isfinite(
+                truth.to_numpy(dtype=float)
+            ).all():
+                start_index = -1
+        row_sha = _canonical_sha([record])
+        for information in selected_information:
+            for model in selected_models:
+                identity = {
+                    "runner_contract_version": RUNNER_CONTRACT_VERSION,
+                    "geometry_catalog_file_sha256": catalog_file_sha[geometry],
+                    "geometry_id": str(record["geometry_id"]),
+                    "geometry_row_sha256": row_sha,
+                    "model": model,
+                    "information_condition": information,
+                    "input_sha256": network.wide_sha256,
+                }
+                yield WorkItem(
+                    ordinal=ordinal,
+                    item_id=_canonical_sha([identity])[:24],
+                    network_id=network_id,
+                    role=network.role,
+                    source_key=network.source_key,
+                    target_station=station_id,
+                    model=model,
+                    gap_length=length,
+                    placement=0,
+                    start_index=start_index,
+                    information_condition=information,
+                    task="offline_archival",
+                    geometry=geometry,
+                    geometry_id=str(record["geometry_id"]),
+                    geometry_catalog_file_sha256=catalog_file_sha[geometry],
+                    geometry_row_sha256=row_sha,
+                    truth_start_date=truth_start,
+                    observed_missing_start_date=observed_missing_start,
+                    donor_mask_rule=donor_mask_rule,
+                    target_mask_scope=target_mask_scope,
+                    boundary_mode=boundary_mode,
+                    stress_id=stress_id,
+                )
+                ordinal += 1
+
+
+def load_t2_geometry_workload(
+    repo_root: str | Path,
+    networks: Sequence[OpenNetwork],
+    budget: Mapping[str, Any],
+    *,
+    directory: str | Path | None = None,
+    models: Iterable[str] | None = None,
+    information_conditions: Iterable[str] | None = None,
+) -> tuple[Iterable[WorkItem], dict[str, Any]]:
+    """Validate frozen catalog bytes, then return a lazy T2 work-item stream."""
+
+    binding_root = (
+        Path(directory)
+        if directory is not None
+        else Path(repo_root).resolve() / GEOMETRY_BINDING_RELATIVE_PATH
+    )
+    natural, adversarial, manifest = load_frozen_geometry_bindings(binding_root)
+    return (
+        iter_frozen_geometry_work_items(
+            repo_root,
+            networks,
+            budget,
+            natural,
+            adversarial,
+            manifest,
+            models=models,
+            information_conditions=information_conditions,
+        ),
+        manifest,
+    )
+
+
 def _cell_contract(item: WorkItem) -> dict[str, Any]:
     """Declare whether and how a model consumes the advertised information."""
 
@@ -455,7 +667,11 @@ def _cell_contract(item: WorkItem) -> dict[str, Any]:
     if item.start_index < 0:
         return {
             "supported": False,
-            "reason": "fewer_than_frozen_common_bd_placements_are_data_eligible",
+            "reason": (
+                "fewer_than_frozen_common_bd_placements_are_data_eligible"
+                if item.geometry == "artificial_stress"
+                else "frozen_geometry_truth_window_unavailable_without_reselection"
+            ),
             "consumed_information": [],
             "category": "data_ineligible",
         }
@@ -473,8 +689,29 @@ def _cell_contract(item: WorkItem) -> dict[str, Any]:
             "consumed_information": [],
             "category": "structural_not_applicable",
         }
-    if item.model in {"pchip_or_linear", "kalman"}:
+    if item.model == "pchip_or_linear":
         if information == "B":
+            if item.boundary_mode != "both":
+                return {
+                    "supported": False,
+                    "reason": "pchip_or_linear_requires_two_boundaries",
+                    "consumed_information": ["B"],
+                    "category": "structural_not_applicable",
+                }
+            return {
+                "supported": True,
+                "reason": "",
+                "consumed_information": ["B"],
+                "category": "executable",
+            }
+        return {
+            "supported": False,
+            "reason": "model_does_not_implement_full_information_condition",
+            "consumed_information": ["B"],
+            "category": "structural_not_applicable",
+        }
+    if item.model == "kalman":
+        if information == "B" and item.boundary_mode != "none":
             return {
                 "supported": True,
                 "reason": "",
@@ -488,6 +725,15 @@ def _cell_contract(item: WorkItem) -> dict[str, Any]:
             "category": "structural_not_applicable",
         }
     if item.model in {"donor_regression", "xgboost"}:
+        if information in {"D", "B_union_D"} and item.donor_mask_rule == (
+            "mask_all_network_stations_during_gap"
+        ):
+            return {
+                "supported": False,
+                "reason": "donor_information_masked_by_frozen_geometry",
+                "consumed_information": [],
+                "category": "structural_not_applicable",
+            }
         if information == "D":
             return {
                 "supported": True,
@@ -496,6 +742,13 @@ def _cell_contract(item: WorkItem) -> dict[str, Any]:
                 "category": "executable",
             }
         if information == "B_union_D":
+            if item.boundary_mode == "none":
+                return {
+                    "supported": False,
+                    "reason": "boundary_information_absent_in_frozen_geometry",
+                    "consumed_information": ["D"],
+                    "category": "structural_not_applicable",
+                }
             return {
                 "supported": True,
                 "reason": "",
@@ -521,9 +774,18 @@ def _cell_support(item: WorkItem) -> tuple[bool, str]:
     return bool(contract["supported"]), str(contract["reason"])
 
 
-def _boundary_predictions(masked_target: pd.Series) -> pd.Series:
+def _boundary_predictions(
+    masked_target: pd.Series, *, start: int, stop: int, boundary_mode: str
+) -> pd.Series:
     """Two-boundary offline reconstruction, with frozen linear fallback."""
 
+    if boundary_mode in {"left_only", "right_only", "none"}:
+        result = masked_target.copy()
+        if boundary_mode == "left_only" and start > 0:
+            result.iloc[start:stop] = masked_target.iloc[start - 1]
+        elif boundary_mode == "right_only" and stop < len(masked_target):
+            result.iloc[start:stop] = masked_target.iloc[stop]
+        return result
     try:
         return PCHIPInterpolation(target_col=str(masked_target.name)).predict(masked_target)
     except (ValueError, np.linalg.LinAlgError):
@@ -544,6 +806,7 @@ def _combined_model_frame(
     train_mask: pd.Series,
     start: int,
     stop: int,
+    boundary_mode: str,
 ) -> tuple[pd.DataFrame, str]:
     """Build a leakage-safe B feature for donor/XGBoost B-union-D cells.
 
@@ -559,7 +822,12 @@ def _combined_model_frame(
     ) / 2.0
     masked_target = panel[target].copy()
     masked_target.iloc[start:stop] = np.nan
-    gap_boundary = _boundary_predictions(masked_target).iloc[start:stop]
+    gap_boundary = _boundary_predictions(
+        masked_target,
+        start=start,
+        stop=stop,
+        boundary_mode=boundary_mode,
+    ).iloc[start:stop]
     feature = train_boundary.copy()
     feature.iloc[start:stop] = gap_boundary.to_numpy(dtype=float)
     model_frame = panel.copy()
@@ -601,7 +869,11 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
     truth = panel[target].iloc[start:stop].to_numpy(dtype=float)
     masked = panel.copy()
     masked.loc[masked.index[start:stop], target] = np.nan
+    if item.donor_mask_rule == "mask_all_network_stations_during_gap":
+        donor_columns = [column for column in masked.columns if str(column) != target]
+        masked.loc[masked.index[start:stop], donor_columns] = np.nan
     train, _ = _year_split(panel.index)
+    train[start:stop] = False
     train_mask = pd.Series(train, index=panel.index)
     donors = [str(value) for value in panel.columns if str(value) != target]
     began = perf_counter()
@@ -615,7 +887,12 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
             prediction = climate_prediction
             implementation = "training_doy_climatology"
         elif item.model == "pchip_or_linear":
-            prediction = _boundary_predictions(masked[target]).iloc[start:stop]
+            prediction = _boundary_predictions(
+                masked[target],
+                start=start,
+                stop=stop,
+                boundary_mode=item.boundary_mode,
+            ).iloc[start:stop]
             implementation = "pchip_with_linear_fallback_B"
         elif item.model == "kalman":
             model = KalmanSmootherBaseline(target_col=target).fit(
@@ -631,6 +908,7 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
                     train_mask=train_mask,
                     start=start,
                     stop=stop,
+                    boundary_mode=item.boundary_mode,
                 )
                 model = DonorRegressionBaseline(
                     donors,
@@ -660,6 +938,7 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
                     train_mask=train_mask,
                     start=start,
                     stop=stop,
+                    boundary_mode=item.boundary_mode,
                 )
                 model = XGBoostBaseline(
                     [*donors, boundary_feature], target_col=target
@@ -716,7 +995,7 @@ def run_items(
     """Run/checkpoint a bounded slice. Existing valid item files are resumed."""
 
     output = Path(output_dir)
-    checkpoints = output / "checkpoints_v2"
+    checkpoints = output / "checkpoints_v3"
     checkpoints.mkdir(parents=True, exist_ok=True)
     lookup = {network.network_id: network for network in networks}
     selected = 0
@@ -748,7 +1027,7 @@ def run_items(
         statuses[result["status"]] += 1
     summary = {
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
-        "checkpoint_namespace": "checkpoints_v2",
+        "checkpoint_namespace": "checkpoints_v3",
         "selected": selected,
         "executed": executed,
         "resumed": resumed,
@@ -773,16 +1052,79 @@ def build_workload_manifest(
     budget: Mapping[str, Any],
     *,
     count_items: bool = True,
+    include_frozen_geometry: bool = True,
 ) -> dict[str, Any]:
     """Build an auditable dry-run manifest; it never writes outcome metrics."""
 
     counts = Counter()
     category_counts = Counter()
     reason_counts = Counter()
+    geometry_item_counts = Counter()
+    workload_digest = hashlib.sha256()
     n_items = 0
+    geometry_binding: dict[str, Any] | None = None
+    item_stream: Iterable[WorkItem] = iter_work_items(repo_root, networks, budget)
+    if include_frozen_geometry:
+        binding_root = Path(repo_root).resolve() / GEOMETRY_BINDING_RELATIVE_PATH
+        natural, adversarial, frozen_manifest = load_frozen_geometry_bindings(
+            binding_root
+        )
+        if int(frozen_manifest["n_networks"]) != len(networks):
+            raise ValueError("frozen geometry/network corpus count mismatch")
+        if frozen_manifest.get("split_sha256") != inventory.get(
+            "catalog_split_sha256"
+        ):
+            raise ValueError("frozen geometry/catalog split SHA mismatch")
+        geometry_binding = {
+            "directory": str(GEOMETRY_BINDING_RELATIVE_PATH),
+            "manifest_schema": frozen_manifest["manifest_schema"],
+            "qualification_mode": frozen_manifest["qualification_mode"],
+            "n_networks": int(frozen_manifest["n_networks"]),
+            "natural_catalog_file_sha256": frozen_manifest["natural_outage"][
+                "file_sha256"
+            ],
+            "natural_catalog_canonical_sha256": frozen_manifest["natural_outage"][
+                "canonical_table_sha256"
+            ],
+            "natural_geometry_rows": int(
+                frozen_manifest["natural_outage"]["n_benchmark_eligible"]
+            ),
+            "adversarial_catalog_file_sha256": frozen_manifest["adversarial"][
+                "file_sha256"
+            ],
+            "adversarial_catalog_canonical_sha256": frozen_manifest["adversarial"][
+                "canonical_table_sha256"
+            ],
+            "adversarial_geometry_rows": int(frozen_manifest["adversarial"]["n_rows"]),
+            "split_sha256": frozen_manifest["split_sha256"],
+            "geometry_reselected_by_runner": False,
+            "runner_truth_rules": {
+                "natural_outage": (
+                    "plant_at_benchmark_start_date_score_held_out_observed_counterpart_"
+                    "never_score_actual_missing_dates"
+                ),
+                "adversarial_stress": (
+                    "plant_at_start_date_then_apply_target_mask_scope_and_donor_mask_rule"
+                ),
+            },
+        }
+        item_stream = chain(
+            item_stream,
+            iter_frozen_geometry_work_items(
+                repo_root,
+                networks,
+                budget,
+                natural,
+                adversarial,
+                frozen_manifest,
+            ),
+        )
     if count_items:
-        for item in iter_work_items(repo_root, networks, budget):
+        for item in item_stream:
             n_items += 1
+            geometry_item_counts[item.geometry] += 1
+            workload_digest.update(item.item_id.encode())
+            workload_digest.update(b"\n")
             counts[(item.role, item.model, item.information_condition)] += 1
             contract = _cell_contract(item)
             category = str(contract["category"])
@@ -821,7 +1163,7 @@ def build_workload_manifest(
                 "reason": str(contract["reason"]),
             }
     return {
-        "manifest_schema": "t2_v91_open_role_workload_v2",
+        "manifest_schema": "t2_v91_open_role_workload_v3",
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
         "design_id": budget["design_id"],
         "protocol_amendment": budget["protocol_amendment"],
@@ -831,12 +1173,10 @@ def build_workload_manifest(
         "headline_claim_licensed": False,
         "go_no_go": "NO_GO_T2_PRIMARY_EVIDENCE",
         "network_inference_status": "withheld_n_lt_100_network_interval",
-        "aggregation_status": "blocked_network_level_achieved_skill_aggregation_not_implemented",
+        "aggregation_status": "aggregation_contract_ready_no_complete_result_set",
         "no_go_reasons": [
             f"n_open_networks_{len(networks)}_lt_100_network_interval_floor",
-            "network_level_achieved_skill_aggregation_not_implemented",
-            "natural_outage_geometry_binding_missing",
-            "adversarial_geometry_binding_missing",
+            "network_level_achieved_skill_aggregation_blocked_no_complete_results",
             "online_causal_runner_not_implemented",
         ],
         "sealed_temperature_records_read": False,
@@ -845,6 +1185,7 @@ def build_workload_manifest(
         "n_networks": len(networks),
         "network_ids": [item.network_id for item in networks],
         "roles": dict(sorted(Counter(item.role for item in networks).items())),
+        "geometry_binding": geometry_binding,
         "tier_1": {
             "models": list(budget["tier_1_models"]),
             "gaps": list(budget["gaps"]),
@@ -863,11 +1204,18 @@ def build_workload_manifest(
             "model_information_contract": model_information_contract,
             "climatology_role": "train_only_skill_denominator_not_an_information_condition_result",
             "climatology_computed_inside_each_executable_model_cell": True,
-            "checkpoint_namespace": "checkpoints_v2",
-            "legacy_checkpoint_namespace_ignored": "checkpoints",
+            "checkpoint_namespace": "checkpoints_v3",
+            "legacy_checkpoint_namespaces_ignored": ["checkpoints", "checkpoints_v2"],
             "task_executable_now": "offline_archival",
             "online_causal_status": "not_implemented_do_not_relabel_offline_as_online",
             "n_work_items": n_items if count_items else None,
+            "workload_item_identity_sha256": (
+                workload_digest.hexdigest() if count_items else None
+            ),
+            "work_item_identity_sha256": (
+                workload_digest.hexdigest() if count_items else None
+            ),
+            "work_items_by_geometry": dict(sorted(geometry_item_counts.items())),
             "n_executable": category_counts["executable"] if count_items else None,
             "n_reference": category_counts["reference"] if count_items else None,
             "n_not_applicable": (
@@ -888,8 +1236,8 @@ def build_workload_manifest(
         },
         "geometry_dependencies": {
             "artificial_stress": "ready",
-            "natural_outage": "blocked_missing_frozen_empirical_outage_catalog_binding",
-            "adversarial": "blocked_missing_predeclared_stress_catalog_binding",
+            "natural_outage": "ready_frozen_catalog_bound",
+            "adversarial_stress": "ready_frozen_catalog_bound",
         },
         "dependency_audit": {
             "numpy": True,
@@ -1011,15 +1359,19 @@ def tier2_timing_exception_ledger(sample: Mapping[str, Any]) -> dict[str, Any]:
 
 __all__ = [
     "ALLOWED_INPUTS",
+    "FAILURE_CLOSURE_INPUTS",
     "TIER1_MODELS",
     "OpenNetwork",
     "WorkItem",
     "build_workload_manifest",
     "deterministic_placements",
+    "discover_failure_closure_networks",
     "discover_open_networks",
     "execute_item",
+    "iter_frozen_geometry_work_items",
     "iter_work_items",
     "json_safe",
+    "load_t2_geometry_workload",
     "load_v91_budget",
     "lock_tier2_sample",
     "read_panel",

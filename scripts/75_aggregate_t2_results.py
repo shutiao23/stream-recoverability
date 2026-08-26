@@ -32,7 +32,7 @@ def _arguments() -> argparse.Namespace:
         "--design", type=Path, default=ROOT / "configs/design_freeze_v9.yaml"
     )
     parser.add_argument(
-        "--checkpoint-dir", type=Path, default=DEFAULT_RUN / "checkpoints_v2"
+        "--checkpoint-dir", type=Path, default=DEFAULT_RUN / "checkpoints_v3"
     )
     parser.add_argument(
         "--checkpoint-binding",

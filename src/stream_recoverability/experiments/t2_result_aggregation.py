@@ -28,7 +28,9 @@ from stream_recoverability.experiments.t2_recovery_benchmark import (
     RUNNER_CONTRACT_VERSION,
 )
 
-WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v2"
+WORKLOAD_SCHEMAS = frozenset(
+    {"t2_v91_open_role_workload_v2", "t2_v91_open_role_workload_v3"}
+)
 BINDING_SCHEMA = "t2_v91_checkpoint_result_binding_v1"
 CHUNK_SCHEMA = "t2_v91_result_chunk_v1"
 PREDICTOR_SCHEMA = "t2_v91_train_only_predictors_v1"
@@ -128,7 +130,7 @@ def _load_workload(workload_path: Path, design_path: Path) -> tuple[dict[str, An
     _assert_not_sealed_path(workload_path.resolve())
     _assert_not_sealed_path(design_path.resolve())
     workload = _read_json(workload_path)
-    if workload.get("manifest_schema") != WORKLOAD_SCHEMA:
+    if workload.get("manifest_schema") not in WORKLOAD_SCHEMAS:
         raise AggregationContractError("unsupported T2 workload schema")
     if workload.get("runner_contract_version") != RUNNER_CONTRACT_VERSION:
         raise AggregationContractError("runner contract does not match checkpoint_v2")
@@ -149,6 +151,7 @@ def _load_checkpoint_source(
     *,
     workload_sha: str,
     design_sha: str,
+    checkpoint_namespace: str,
 ) -> tuple[list[dict[str, Any]], dict[str, str], str]:
     _assert_not_sealed_path(binding_path.resolve())
     binding = _read_json(binding_path)
@@ -159,7 +162,7 @@ def _load_checkpoint_source(
         "workload_manifest_sha256": workload_sha,
         "design_sha256": design_sha,
         "runner_contract_version": RUNNER_CONTRACT_VERSION,
-        "checkpoint_namespace": "checkpoints_v2",
+        "checkpoint_namespace": checkpoint_namespace,
         "result_set_sha256": result_set_sha,
         "n_records": len(paths),
         "completeness": "complete",
@@ -321,7 +324,7 @@ def _validate_records(
 def _workload_scope_blockers(workload: Mapping[str, Any]) -> list[str]:
     blockers = []
     for geometry, status in (workload.get("geometry_dependencies") or {}).items():
-        if status != "ready":
+        if not str(status).startswith("ready"):
             blockers.append(f"geometry_{geometry}_{status}")
     online = ((workload.get("tier_1") or {}).get("online_causal_status"))
     if online and online != "ready":
@@ -423,8 +426,14 @@ def aggregate_t2_results(
     output = Path(output_dir).resolve()
     workload, workload_sha, design_sha = _load_workload(workload_path, design)
     expected_n = int((workload.get("tier_1") or {}).get("n_work_items") or 0)
+    checkpoint_namespace = str(
+        (workload.get("tier_1") or {}).get("checkpoint_namespace")
+        or "checkpoints_v2"
+    )
     expected_identity_sha = str(
-        (workload.get("tier_1") or {}).get("work_item_identity_sha256") or ""
+        (workload.get("tier_1") or {}).get("work_item_identity_sha256")
+        or (workload.get("tier_1") or {}).get("workload_item_identity_sha256")
+        or ""
     )
     n_networks = int(workload.get("n_networks") or 0)
     blockers = _workload_scope_blockers(workload)
@@ -443,6 +452,7 @@ def aggregate_t2_results(
                 Path(checkpoint_binding_path),
                 workload_sha=workload_sha,
                 design_sha=design_sha,
+                checkpoint_namespace=checkpoint_namespace,
             )
             records.extend(loaded)
     if chunk_manifest_paths:

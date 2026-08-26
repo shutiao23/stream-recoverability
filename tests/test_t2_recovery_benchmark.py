@@ -2,16 +2,23 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+from stream_recoverability.experiments.frozen_outage_geometry import (
+    load_frozen_geometry_bindings,
+)
 from stream_recoverability.experiments.t2_recovery_benchmark import (
     build_workload_manifest,
+    discover_failure_closure_networks,
     discover_open_networks,
     execute_item,
+    iter_frozen_geometry_work_items,
     iter_work_items,
+    load_t2_geometry_workload,
     load_v91_budget,
     lock_tier2_sample,
     run_items,
@@ -139,7 +146,9 @@ def test_full_grid_keeps_all_placement_slots_and_blocks_extended_inputs(
     assert result["status"] == "structural_not_applicable"
     assert result["reason"] == "structural_unimplemented_no_meteorology_or_hydraulics_adapter"
     _, inventory = discover_open_networks(repo)
-    manifest = build_workload_manifest(repo, networks, inventory, budget)
+    manifest = build_workload_manifest(
+        repo, networks, inventory, budget, include_frozen_geometry=False
+    )
     category_total = sum(
         manifest["tier_1"][key]
         for key in (
@@ -313,3 +322,89 @@ def test_tier2_lock_is_metadata_only_and_deterministic() -> None:
     ledger = tier2_timing_exception_ledger(first)
     assert ledger["sample_preregistered"] is False
     assert ledger["sealed_entries_are_metadata_only"] is True
+
+
+def test_frozen_geometry_identity_truth_and_donor_mask_are_shared() -> None:
+    networks, audit = discover_failure_closure_networks(ROOT)
+    assert len(networks) == 67
+    assert audit["qualification_mode"] == "failure_closure6"
+    budget = load_v91_budget(ROOT)
+    binding = ROOT / "results/framework/t2_outage_geometry_v1"
+    natural, adversarial, manifest = load_frozen_geometry_bindings(binding)
+    natural_row = natural.iloc[[0]]
+    synchronous = adversarial.loc[
+        adversarial["stress_id"].eq("synchronous_network_outage")
+    ].iloc[[0]]
+    items = list(
+        iter_frozen_geometry_work_items(
+            ROOT,
+            networks,
+            budget,
+            natural_row,
+            synchronous,
+            manifest,
+            models=["climatology", "pchip_or_linear", "donor_regression"],
+            information_conditions=["B", "D", "B_union_D"],
+        )
+    )
+    by_geometry = {}
+    for item in items:
+        by_geometry.setdefault(item.geometry_id, []).append(item)
+    assert {len(group) for group in by_geometry.values()} == {9}
+    assert all(len({item.geometry_row_sha256 for item in group}) == 1 for group in by_geometry.values())
+
+    natural_items = [item for item in items if item.geometry == "natural_outage"]
+    frozen_natural = natural_row.iloc[0]
+    assert {item.truth_start_date for item in natural_items} == {
+        frozen_natural["benchmark_start_date"]
+    }
+    assert {item.observed_missing_start_date for item in natural_items} == {
+        frozen_natural["start_date"]
+    }
+    assert frozen_natural["actual_missing_truth_available"] in (False, np.bool_(False))
+
+    synchronous_items = [
+        item for item in items if item.geometry == "adversarial_stress"
+    ]
+    assert {item.donor_mask_rule for item in synchronous_items} == {
+        "mask_all_network_stations_during_gap"
+    }
+    donor_d = next(
+        item
+        for item in synchronous_items
+        if item.model == "donor_regression" and item.information_condition == "D"
+    )
+    result = execute_item(
+        ROOT,
+        next(network for network in networks if network.network_id == donor_d.network_id),
+        donor_d,
+    )
+    assert result["status"] == "structural_not_applicable"
+    assert result["reason"] == "donor_information_masked_by_frozen_geometry"
+
+
+def test_t2_geometry_workload_rejects_catalog_byte_drift(tmp_path: Path) -> None:
+    source = ROOT / "results/framework/t2_outage_geometry_v1"
+    for name in (
+        "natural_outage_catalog.csv",
+        "adversarial_stress_catalog.csv",
+        "geometry_binding_manifest.json",
+    ):
+        shutil.copy2(source / name, tmp_path / name)
+    networks, _ = discover_failure_closure_networks(ROOT)
+    budget = load_v91_budget(ROOT)
+    workload, manifest = load_t2_geometry_workload(
+        ROOT, networks, budget, directory=tmp_path
+    )
+    first = next(iter(workload))
+    assert first.geometry_id.startswith("natural_")
+    assert manifest["natural_outage"]["n_benchmark_eligible"] == 2355
+
+    with (tmp_path / "natural_outage_catalog.csv").open("a", encoding="utf-8") as stream:
+        stream.write("\n")
+    try:
+        load_t2_geometry_workload(ROOT, networks, budget, directory=tmp_path)
+    except ValueError as error:
+        assert "byte drift" in str(error)
+    else:
+        raise AssertionError("T2 workload must reject frozen geometry byte drift")

@@ -1,20 +1,17 @@
 {
   "blockers": [
-    "geometry_adversarial_blocked_missing_predeclared_stress_catalog_binding",
-    "geometry_natural_outage_blocked_missing_frozen_empirical_outage_catalog_binding",
     "online_causal_not_implemented_do_not_relabel_offline_as_online",
     "checkpoint_result_set_missing_sha_binding",
     "no_bound_result_records",
-    "result_workload_incomplete_0_of_1074500",
-    "missing_train_only_operator_and_univariate_predictor_contract"
+    "result_workload_incomplete_0_of_1384025"
   ],
   "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
-  "expected_result_records": 1074500,
+  "expected_result_records": 1384025,
   "formal_evidence": false,
   "headline_claim_licensed": false,
   "inference_tables_written": false,
   "manifest_schema": "t2_v91_aggregation_readiness_v1",
-  "n_networks": 59,
+  "n_networks": 67,
   "network_inference_status": "withheld_n_lt_100_network_interval",
   "network_interval": null,
   "observed_result_records": 0,
@@ -22,5 +19,5 @@
   "purpose": "pipeline_readiness_not_evidence",
   "sealed_temperature_records_read": false,
   "status": "blocked",
-  "workload_manifest_sha256": "f3f47f4730df748867d9d9d587b147df8bc2eb2cba6591e2f108d5da3cb78f21"
+  "workload_manifest_sha256": "57d54f7a2f083a44f4e4131b2abbc54ed90fe50a538fd57b69d2860c372ada9e"
 }
