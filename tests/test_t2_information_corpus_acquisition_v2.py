@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import shutil
 import urllib.parse
 from pathlib import Path
 
@@ -21,6 +23,7 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     acquire_network,
     archive_nonterminal_attempt,
     load_v2_corpus_plan,
+    migrate_archived_terminal_without_provider,
     parse_legacy_hydraulics_rdb,
     plan_as_dict,
     run_v2_corpus_acquisition,
@@ -424,8 +427,9 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
 
 
 class V2Fetcher:
-    def __init__(self, network: object) -> None:
+    def __init__(self, network: object, *, nonnumeric_code: str | None = None) -> None:
         self.network = network
+        self.nonnumeric_code = nonnumeric_code
         self.calls: list[str] = []
 
     def __call__(self, url: str, headers: dict[str, str]) -> provider.HTTPResponse:
@@ -445,6 +449,12 @@ class V2Fetcher:
                         f"USGS\t{site.site_id}\t{site.target_start}\t10\tA\t5\tA:R",
                         f"USGS\t{site.site_id}\t{site.target_end}\t20\tP\t6\tP",
                     ]
+                )
+            if self.nonnumeric_code is not None:
+                site = self.network.sites[0]
+                extra_date = (pd.Timestamp(site.target_start) + pd.Timedelta(days=1)).date()
+                lines.append(
+                    f"USGS\t{site.site_id}\t{extra_date}\t{self.nonnumeric_code}\tP\t\t"
                 )
             return provider.HTTPResponse(
                 url=url,
@@ -490,6 +500,28 @@ class V2Fetcher:
         )
 
 
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _downgrade_terminal_to_v2_4(output: Path) -> pd.DataFrame:
+    daily_path = output / "daily_long_auxiliary.parquet"
+    daily = pd.read_parquet(daily_path)
+    old = daily.loc[~daily["raw_text"].eq("Rat").fillna(False)].reset_index(drop=True)
+    old.to_parquet(daily_path, index=False)
+    manifest_path = output / "network_manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["manifest_schema"] = "t2_v91_open_role_mh_network_acquisition_v2_4"
+    manifest["parser_contract_version"] = "legacy_nwis_rdb_hydraulics_parser_v2_4"
+    manifest["locked_provider_nonnumeric_codes"] = ["Ice", "Eqp", "***", "Bkw"]
+    manifest["n_auxiliary_rows"] = len(old)
+    manifest["artifacts"]["daily_long_auxiliary"].update(
+        {"sha256": _sha256(daily_path), "bytes": daily_path.stat().st_size}
+    )
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
+    return old
+
+
 def test_v2_network_materialization_and_resume_are_independent_of_v1(tmp_path: Path) -> None:
     network = load_v2_corpus_plan(ROOT).networks[0]
     raw_fetcher = V2Fetcher(network)
@@ -524,3 +556,157 @@ def test_v2_network_materialization_and_resume_are_independent_of_v1(tmp_path: P
     request_artifact.write_bytes(b"tampered request")
     with pytest.raises(ValueError, match="raw request integrity failure"):
         acquire_network(ROOT, tmp_path, network, fetcher=limited)
+
+
+def test_stale_terminal_migrates_after_full_archive_with_zero_provider_calls(
+    tmp_path: Path,
+) -> None:
+    network = load_v2_corpus_plan(ROOT).networks[0]
+    source = V2Fetcher(network, nonnumeric_code="Rat")
+    initial_fetcher = AuditedRateLimitedFetcher(source, interval_seconds=0)
+    acquire_network(ROOT, tmp_path, network, fetcher=initial_fetcher)
+    output = tmp_path / network.role / "networks" / network.network_id
+    old_daily = _downgrade_terminal_to_v2_4(output)
+    old_eligible = old_daily.loc[
+        old_daily["natural_observed"].astype(bool)
+        & old_daily["quality_approved"].astype(bool)
+        & pd.to_numeric(old_daily["value"], errors="coerce").notna(),
+        ["date", "site_id", "variable", "value"],
+    ].sort_values(["date", "site_id", "variable"])
+
+    def forbidden_fetch(url: str, headers: dict[str, str]) -> provider.HTTPResponse:
+        del url, headers
+        raise AssertionError("provider must not be called during terminal migration")
+
+    no_provider = AuditedRateLimitedFetcher(forbidden_fetch, interval_seconds=0)
+    manifest, resumed = acquire_network(
+        ROOT, tmp_path, network, fetcher=no_provider
+    )
+    assert resumed is False
+    assert no_provider.n_base_calls == 0
+    migration = manifest["provider_free_terminal_migration"]
+    assert migration["accepted"] is True
+    assert migration["provider_calls"] == 0
+    assert migration["raw_request_and_response_sha256_verified"] is True
+    assert migration["eligible_numeric_keys_and_values_exact"] is True
+    assert migration["new_excluded_nonnumeric_code_counts"] == {"Rat": 1}
+
+    archive = output / "attempts/attempt_0001"
+    assert (archive / "network_manifest.json").is_file()
+    assert (archive / "daily_long_auxiliary.parquet").is_file()
+    attempt = json.loads((archive / "terminal_migration_attempt.json").read_text())
+    assert attempt["accepted"] is True
+    assert attempt["n_verified_request_response_pairs"] == 1 + len(network.sites)
+    current = pd.read_parquet(output / "daily_long_auxiliary.parquet")
+    current_eligible = current.loc[
+        current["natural_observed"].astype(bool)
+        & current["quality_approved"].astype(bool)
+        & pd.to_numeric(current["value"], errors="coerce").notna(),
+        ["date", "site_id", "variable", "value"],
+    ].sort_values(["date", "site_id", "variable"])
+    pd.testing.assert_frame_equal(
+        old_eligible.reset_index(drop=True),
+        current_eligible.reset_index(drop=True),
+        check_dtype=False,
+        check_exact=True,
+    )
+    rat = current.loc[current["raw_text"].eq("Rat")]
+    assert len(rat) == 1
+    assert rat["value"].isna().all()
+    assert rat["raw_value"].isna().all()
+    assert rat["qc_status"].eq("excluded_non_numeric_provider_code").all()
+
+
+def test_terminal_migration_rejects_plan_drift_and_preserves_online_fallback(
+    tmp_path: Path,
+) -> None:
+    network = load_v2_corpus_plan(ROOT).networks[0]
+    source = V2Fetcher(network, nonnumeric_code="Rat")
+    acquire_network(
+        ROOT,
+        tmp_path,
+        network,
+        fetcher=AuditedRateLimitedFetcher(source, interval_seconds=0),
+    )
+    output = tmp_path / network.role / "networks" / network.network_id
+    _downgrade_terminal_to_v2_4(output)
+    archive = archive_nonterminal_attempt(output, network)
+    assert archive is not None
+    plan_path = archive / "request_plan.json"
+    plan = json.loads(plan_path.read_text())
+    plan["power_requests"][0]["end"] = "1999-12-31"
+    unhashed = dict(plan)
+    unhashed.pop("request_plan_sha256")
+    plan["request_plan_sha256"] = hashlib.sha256(
+        json.dumps(
+            unhashed, sort_keys=True, separators=(",", ":"), allow_nan=False
+        ).encode()
+    ).hexdigest()
+    plan_path.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n")
+    old_manifest_path = archive / "network_manifest.json"
+    old_manifest = json.loads(old_manifest_path.read_text())
+    old_manifest["artifacts"]["request_plan"].update(
+        {"sha256": _sha256(plan_path), "bytes": plan_path.stat().st_size}
+    )
+    old_manifest_path.write_text(
+        json.dumps(old_manifest, indent=2, sort_keys=True) + "\n"
+    )
+    # Rebuild the archive custody manifest so the rejection is specifically
+    # plan drift, not an incidental SHA mismatch.
+    inventory = []
+    for path in sorted(value for value in archive.rglob("*") if value.is_file()):
+        if path.name in {"attempt_archive_manifest.json", ".archive_intent.json"}:
+            continue
+        inventory.append(
+            {
+                "path": str(path.relative_to(archive)),
+                "bytes": path.stat().st_size,
+                "sha256": _sha256(path),
+            }
+        )
+    archive_manifest_path = archive / "attempt_archive_manifest.json"
+    archive_manifest = json.loads(archive_manifest_path.read_text())
+    archive_manifest["inventory"] = inventory
+    archive_manifest["n_files"] = len(inventory)
+    archive_manifest["total_bytes"] = sum(row["bytes"] for row in inventory)
+    archive_manifest_path.write_text(
+        json.dumps(archive_manifest, indent=2, sort_keys=True) + "\n"
+    )
+
+    migrated, audit = migrate_archived_terminal_without_provider(
+        ROOT, output, network, archive
+    )
+    assert migrated is None
+    assert audit["accepted"] is False
+    assert "request plan drifted" in audit["rejection_reason"]
+    assert audit["provider_calls"] == 0
+    assert audit["fallback"] == "retain_archive_and_rebuild_from_providers"
+    assert not (output / "network_manifest.json").exists()
+    assert (archive / "network_manifest.json").is_file()
+
+
+def test_copied_real_legacy_terminal_migrates_offline_in_tmp(tmp_path: Path) -> None:
+    source_archive = (
+        ROOT
+        / "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2"
+        / "failure_closure6/development/networks/huc8_02040103"
+        / "attempts/attempt_0001"
+    )
+    assert source_archive.is_dir()
+    network = next(
+        value
+        for value in load_v2_corpus_plan(ROOT).networks
+        if value.network_id == "huc8_02040103"
+    )
+    output = tmp_path / network.role / "networks" / network.network_id
+    archive = output / "attempts/attempt_0001"
+    shutil.copytree(source_archive, archive)
+    migrated, audit = migrate_archived_terminal_without_provider(
+        ROOT, output, network, archive
+    )
+    assert migrated is not None, audit
+    assert audit["accepted"] is True
+    assert audit["provider_calls"] == 0
+    assert audit["eligible_numeric_keys_and_values_exact"] is True
+    assert audit["n_verified_request_response_pairs"] == 4
+    assert migrated["provider_free_terminal_migration"]["power_reparsed_from_raw"] is True

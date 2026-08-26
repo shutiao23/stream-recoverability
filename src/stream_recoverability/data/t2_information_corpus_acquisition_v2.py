@@ -18,6 +18,7 @@ import json
 import math
 import os
 import re
+import shutil
 import socket
 import time
 import urllib.parse
@@ -68,6 +69,16 @@ DEFAULT_RETRY_BACKOFF_MAX_SECONDS = 240.0
 DEFAULT_HTTP_429_COOLDOWN_SECONDS = 120.0
 MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST = 200_000
 LOCKED_PROVIDER_NONNUMERIC_CODES = ("Ice", "Eqp", "***", "Bkw", "Rat")
+STALE_LOCKED_PROVIDER_NONNUMERIC_CODES = {
+    LEGACY_NETWORK_SCHEMA_VERSION: (),
+    V2_1_NETWORK_SCHEMA_VERSION: ("Ice",),
+    V2_2_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp"),
+    V2_3_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp", "***"),
+    V2_4_NETWORK_SCHEMA_VERSION: ("Ice", "Eqp", "***", "Bkw"),
+}
+TERMINAL_MIGRATION_SCHEMA_VERSION = (
+    "t2_v91_open_role_mh_provider_free_terminal_migration_v1"
+)
 
 
 class ProviderCircuitOpen(RuntimeError):
@@ -909,6 +920,36 @@ def _network_output(root: Path, network: V2NetworkPlan) -> Path:
     return root / network.role / "networks" / network.network_id
 
 
+def _network_request_plan(
+    network: V2NetworkPlan, *, previous_attempt_archive: str | None
+) -> dict[str, Any]:
+    plan = {
+        "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
+        "network_id": network.network_id,
+        "role": network.role,
+        "network_plan_sha256": network.network_plan_sha256,
+        "legacy_requests": [asdict(request) for request in network.legacy_requests],
+        "power_requests": [
+            {
+                "site_id": site.site_id,
+                "start": site.power_start,
+                "end": site.target_end,
+                "url": provider._nasa_power_url(
+                    site.longitude, site.latitude, _protocol(network, site)
+                ),
+            }
+            for site in network.sites
+        ],
+        "n_provider_requests": len(network.legacy_requests) + len(network.sites),
+        "previous_attempt_archive": previous_attempt_archive,
+        "temperature_columns_read": [],
+        "sealed_paths_traversed": False,
+        "performance_metrics_computed": False,
+    }
+    plan["request_plan_sha256"] = _sha256_bytes(_canonical_json(plan).encode())
+    return plan
+
+
 def _current_children(output: Path) -> list[Path]:
     return sorted(path for path in output.iterdir() if path.name != "attempts")
 
@@ -916,7 +957,11 @@ def _current_children(output: Path) -> list[Path]:
 def _archive_inventory(path: Path) -> list[dict[str, Any]]:
     rows = []
     for file in sorted(value for value in path.rglob("*") if value.is_file()):
-        if file.name in {"attempt_archive_manifest.json", ".archive_intent.json"}:
+        if file.name in {
+            "attempt_archive_manifest.json",
+            ".archive_intent.json",
+            "terminal_migration_attempt.json",
+        }:
             continue
         rows.append(
             {
@@ -1133,90 +1178,38 @@ def _missing_sources(
     return rows
 
 
-def acquire_network(
-    repository_root: str | Path,
-    output_root: str | Path,
+def _normalize_daily(frames: Sequence[pd.DataFrame]) -> pd.DataFrame:
+    daily = pd.concat(frames, ignore_index=True, sort=False)
+    if daily.empty:
+        return daily
+    daily = daily.sort_values(["site_id", "date", "variable"]).reset_index(drop=True)
+    if "raw_text" not in daily.columns:
+        daily["raw_text"] = pd.NA
+    missing_raw_text = daily["raw_text"].isna()
+    daily.loc[missing_raw_text, "raw_text"] = daily.loc[
+        missing_raw_text, "source_value_original"
+    ].map(lambda value: None if pd.isna(value) else format(float(value), ".17g"))
+    daily["raw_text"] = daily["raw_text"].astype("string")
+    return daily
+
+
+def _write_network_materialization(
+    repository_root: Path,
+    output: Path,
     network: V2NetworkPlan,
     *,
-    fetcher: AuditedRateLimitedFetcher,
-    resume: bool = True,
-) -> tuple[dict[str, Any], bool]:
-    root = Path(repository_root).resolve()
-    output = _network_output(Path(output_root).resolve(), network)
-    output.mkdir(parents=True, exist_ok=True)
-    terminal = _validate_terminal(root, output, network)
-    if terminal is not None:
-        if not resume:
-            raise FileExistsError(f"terminal v2 network exists: {output}")
-        return terminal, True
-    archive = archive_nonterminal_attempt(output, network)
-    retry_event_start = len(fetcher.events)
-
-    request_plan = {
-        "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v2",
-        "network_id": network.network_id,
-        "role": network.role,
-        "network_plan_sha256": network.network_plan_sha256,
-        "legacy_requests": [asdict(request) for request in network.legacy_requests],
-        "power_requests": [
-            {
-                "site_id": site.site_id,
-                "start": site.power_start,
-                "end": site.target_end,
-                "url": provider._nasa_power_url(
-                    site.longitude, site.latitude, _protocol(network, site)
-                ),
-            }
-            for site in network.sites
-        ],
-        "n_provider_requests": len(network.legacy_requests) + len(network.sites),
-        "previous_attempt_archive": (
-            str(archive.relative_to(output)) if archive is not None else None
-        ),
-        "temperature_columns_read": [],
-        "sealed_paths_traversed": False,
-        "performance_metrics_computed": False,
-    }
-    request_plan["request_plan_sha256"] = _sha256_bytes(
-        _canonical_json(request_plan).encode()
-    )
-    request_plan_path = output / "request_plan.json"
-    _write_json(request_plan_path, request_plan)
-
-    daily_frames: list[pd.DataFrame] = []
-    records: list[dict[str, Any]] = []
-    power_metadata_frames: list[pd.DataFrame] = []
-    for request in network.legacy_requests:
-        frame, record = _fetch_legacy_request(output, network, request, fetcher)
-        daily_frames.append(frame)
-        records.append(record)
-    for site in network.sites:
-        meteorology, metadata, record = provider._fetch_power_document(
-            site_id=site.site_id,
-            longitude=site.longitude,
-            latitude=site.latitude,
-            protocol=_protocol(network, site),
-            raw_root=output / "raw",
-            fetcher=fetcher,
-        )
-        daily_frames.append(meteorology)
-        power_metadata_frames.append(metadata)
-        records.append(record)
-    daily = pd.concat(daily_frames, ignore_index=True, sort=False)
-    if not daily.empty:
-        daily = daily.sort_values(["site_id", "date", "variable"]).reset_index(drop=True)
-        if "raw_text" not in daily.columns:
-            daily["raw_text"] = pd.NA
-        missing_raw_text = daily["raw_text"].isna()
-        daily.loc[missing_raw_text, "raw_text"] = daily.loc[
-            missing_raw_text, "source_value_original"
-        ].map(lambda value: None if pd.isna(value) else format(float(value), ".17g"))
-        daily["raw_text"] = daily["raw_text"].astype("string")
+    request_plan: Mapping[str, Any],
+    daily: pd.DataFrame,
+    records: Sequence[Mapping[str, Any]],
+    power_metadata: pd.DataFrame,
+    retry_audit: Sequence[Mapping[str, Any]],
+    migration_provenance: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     v1._validate_provider_qc(daily)
     failures = _missing_sources(network, daily)
     coverage = v1._coverage(network.base, daily, failures)
-    power_metadata = pd.concat(power_metadata_frames, ignore_index=True)
-
+    request_plan_path = output / "request_plan.json"
+    _write_json(request_plan_path, request_plan)
     paths = {
         "daily_long_auxiliary": output / "daily_long_auxiliary.parquet",
         "coverage": output / "coverage.csv",
@@ -1229,7 +1222,7 @@ def acquire_network(
     daily.to_parquet(paths["daily_long_auxiliary"], index=False)
     coverage.to_csv(paths["coverage"], index=False)
     power_metadata.to_csv(paths["power_point_metadata"], index=False)
-    _write_json(paths["raw_request_log"], records)
+    _write_json(paths["raw_request_log"], list(records))
     _write_json(paths["source_failures"], failures)
     _write_json(
         paths["adapter_schema"],
@@ -1256,10 +1249,17 @@ def acquire_network(
                 "L": "ft * 0.3048",
             },
             "missing_source_policy": "record_failure_and_leave_absent_no_fill",
+            "provider_free_terminal_migration": migration_provenance is not None,
             "v1_ogc_root_read_or_mutated": False,
         },
     )
-    artifacts = {name: _artifact(path, root) for name, path in paths.items()}
+    if migration_provenance is not None:
+        migration_path = output / "terminal_migration.json"
+        _write_json(migration_path, migration_provenance)
+        paths["terminal_migration"] = migration_path
+    artifacts = {
+        name: _artifact(path, repository_root) for name, path in paths.items()
+    }
     status = "materialized_complete" if not failures else "materialized_partial"
     manifest = {
         "manifest_schema": NETWORK_SCHEMA_VERSION,
@@ -1292,8 +1292,11 @@ def acquire_network(
             "POWER": "finite and not provider fill_value",
             "USGS_LEGACY": "RDB qualifier prefix A only; P/other retained as NA",
         },
-        "retry_audit": fetcher.events[retry_event_start:],
+        "retry_audit": list(retry_audit),
         "previous_attempt_archive": request_plan["previous_attempt_archive"],
+        "provider_free_terminal_migration": (
+            dict(migration_provenance) if migration_provenance is not None else None
+        ),
         "artifacts": artifacts,
         "v1_ogc_root_read_or_mutated": False,
         "temperature_columns_read": [],
@@ -1306,8 +1309,467 @@ def acquire_network(
         "passed": False,
     }
     _write_json(output / "network_manifest.json", manifest)
-    if _validate_terminal(root, output, network) is None:
+    if _validate_terminal(repository_root, output, network) is None:
         raise AssertionError("v2 network failed to form a terminal resume boundary")
+    return manifest
+
+
+def _validated_archive_inventory(archive: Path) -> dict[str, Any]:
+    manifest_path = archive / "attempt_archive_manifest.json"
+    if not manifest_path.is_file():
+        raise ValueError("terminal migration archive lacks its archive manifest")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected = manifest.get("inventory")
+    if not isinstance(expected, list):
+        raise TypeError("terminal migration archive inventory is missing")
+    actual = _archive_inventory(archive)
+    if actual != expected:
+        raise ValueError("terminal migration archive inventory or SHA has drifted")
+    if manifest.get("n_files") != len(actual) or manifest.get("total_bytes") != sum(
+        row["bytes"] for row in actual
+    ):
+        raise ValueError("terminal migration archive inventory totals have drifted")
+    return manifest
+
+
+def _verify_stale_artifacts(
+    archive: Path, old_manifest: Mapping[str, Any]
+) -> None:
+    required = {
+        "daily_long_auxiliary": "daily_long_auxiliary.parquet",
+        "coverage": "coverage.csv",
+        "power_point_metadata": "power_point_metadata.csv",
+        "raw_request_log": "raw_request_log.json",
+        "source_failures": "source_failures.json",
+        "adapter_schema": "adapter_schema.json",
+        "request_plan": "request_plan.json",
+    }
+    artifacts = old_manifest.get("artifacts")
+    if not isinstance(artifacts, Mapping) or not set(required).issubset(artifacts):
+        raise ValueError("stale terminal artifact registry is incomplete")
+    for name, filename in required.items():
+        record = artifacts[name]
+        if not isinstance(record, Mapping):
+            raise TypeError(f"stale terminal artifact record is invalid: {name}")
+        if Path(str(record.get("path", ""))).name != filename:
+            raise ValueError(f"stale terminal artifact path drift: {name}")
+        path = archive / filename
+        if (
+            not path.is_file()
+            or _sha256_file(path) != record.get("sha256")
+            or path.stat().st_size != record.get("bytes")
+        ):
+            raise ValueError(f"stale terminal artifact integrity failure: {name}")
+
+
+def _validate_stale_request_plan(
+    archive: Path, network: V2NetworkPlan, old_manifest: Mapping[str, Any]
+) -> dict[str, Any]:
+    plan = json.loads((archive / "request_plan.json").read_text(encoding="utf-8"))
+    checksum = plan.get("request_plan_sha256")
+    unhashed = dict(plan)
+    unhashed.pop("request_plan_sha256", None)
+    if not isinstance(checksum, str) or _sha256_bytes(
+        _canonical_json(unhashed).encode()
+    ) != checksum:
+        raise ValueError("stale terminal request plan SHA is not reproducible")
+    expected = _network_request_plan(network, previous_attempt_archive=None)
+    structural_keys = (
+        "network_id",
+        "role",
+        "legacy_requests",
+        "power_requests",
+        "n_provider_requests",
+        "temperature_columns_read",
+        "sealed_paths_traversed",
+        "performance_metrics_computed",
+    )
+    if any(
+        _canonical_json(plan.get(key)) != _canonical_json(expected.get(key))
+        for key in structural_keys
+    ):
+        raise ValueError("stale terminal request plan drifted from the locked provider plan")
+    if plan.get("network_plan_sha256") != old_manifest.get("network_plan_sha256"):
+        raise ValueError("stale request plan and terminal network plan SHA differ")
+    if (
+        old_manifest.get("base_v1_roster_network_plan_sha256") is not None
+        and old_manifest.get("base_v1_roster_network_plan_sha256")
+        != network.base.network_plan_sha256
+    ):
+        raise ValueError("stale terminal differs from the locked base roster plan")
+    return plan
+
+
+def _verified_raw_records(
+    archive: Path, network: V2NetworkPlan
+) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
+    records = json.loads((archive / "raw_request_log.json").read_text(encoding="utf-8"))
+    if not isinstance(records, list) or len(records) != 1 + len(network.sites):
+        raise ValueError("stale terminal raw request log has an unexpected request count")
+    by_identity: dict[str, dict[str, Any]] = {}
+    expected_power = {
+        site.site_id: provider._nasa_power_url(
+            site.longitude, site.latitude, _protocol(network, site)
+        )
+        for site in network.sites
+    }
+    expected_legacy = {request.request_id: request for request in network.legacy_requests}
+    for raw_record in records:
+        if not isinstance(raw_record, Mapping):
+            raise TypeError("stale terminal raw request record is not a mapping")
+        record = dict(raw_record)
+        request_rel = Path(str(record.get("request_artifact", "")))
+        response_rel = Path(str(record.get("response_artifact", "")))
+        if request_rel.is_absolute() or response_rel.is_absolute() or ".." in (
+            *request_rel.parts,
+            *response_rel.parts,
+        ):
+            raise ValueError("stale terminal raw artifact escaped its network archive")
+        request_path = archive / request_rel
+        response_path = archive / response_rel
+        if not request_path.is_file() or _sha256_file(request_path) != record.get(
+            "request_sha256"
+        ):
+            raise ValueError(f"stale raw request integrity failure: {request_rel}")
+        if not response_path.is_file() or _sha256_file(response_path) != record.get(
+            "response_sha256"
+        ):
+            raise ValueError(f"stale raw response integrity failure: {response_rel}")
+        provider_name = record.get("provider")
+        if provider_name == LEGACY_PROVIDER:
+            request_id = request_rel.parent.name
+            expected = expected_legacy.get(request_id)
+            if (
+                expected is None
+                or record.get("request_url") != expected.url
+                or record.get("site_ids") != list(expected.site_ids)
+                or record.get("variables") != list(HYDRAULICS_VARIABLES)
+                or request_path.read_bytes()
+                != _request_identity(expected.url, "text/plain")
+            ):
+                raise ValueError("stale legacy raw request differs from the locked plan")
+            identity = f"legacy:{request_id}"
+        elif provider_name == "nasa_power":
+            site_id = str(record.get("site_id", ""))
+            expected_url = expected_power.get(site_id)
+            expected_bytes = provider._canonical_json_bytes(
+                provider._request_identity(str(expected_url), "application/json")
+            )
+            if (
+                expected_url is None
+                or record.get("request_url") != expected_url
+                or request_path.read_bytes() != expected_bytes
+            ):
+                raise ValueError("stale POWER raw request differs from the locked plan")
+            identity = f"power:{site_id}"
+        else:
+            raise ValueError(f"stale terminal contains an unknown provider: {provider_name}")
+        if identity in by_identity:
+            raise ValueError(f"stale terminal contains duplicate request identity: {identity}")
+        by_identity[identity] = record
+    expected_identities = {
+        *(f"legacy:{request.request_id}" for request in network.legacy_requests),
+        *(f"power:{site.site_id}" for site in network.sites),
+    }
+    if set(by_identity) != expected_identities:
+        raise ValueError("stale terminal request identities do not cover the locked plan")
+    return records, by_identity
+
+
+def _eligible_numeric(frame: pd.DataFrame) -> pd.DataFrame:
+    subset = frame.loc[frame["variable"].isin((*METEOROLOGY_VARIABLES, *HYDRAULICS_VARIABLES))].copy()
+    eligible = (
+        subset["natural_observed"].astype(bool)
+        & subset["quality_approved"].astype(bool)
+        & pd.to_numeric(subset["value"], errors="coerce").notna()
+    )
+    subset = subset.loc[eligible, ["date", "site_id", "variable", "value"]]
+    subset["date"] = pd.to_datetime(subset["date"]).dt.normalize()
+    if subset.duplicated(["date", "site_id", "variable"]).any():
+        raise ValueError("terminal migration found duplicate eligible numeric keys")
+    return subset.sort_values(["date", "site_id", "variable"]).reset_index(drop=True)
+
+
+def _validate_migrated_values(
+    old_daily: pd.DataFrame,
+    new_daily: pd.DataFrame,
+    *,
+    old_codes: Sequence[str],
+) -> dict[str, Any]:
+    old_eligible = _eligible_numeric(old_daily)
+    new_eligible = _eligible_numeric(new_daily)
+    try:
+        pd.testing.assert_frame_equal(
+            old_eligible,
+            new_eligible,
+            check_dtype=False,
+            check_exact=True,
+        )
+    except AssertionError as error:
+        raise ValueError(
+            "provider-free migration changed eligible numeric M/H keys or values"
+        ) from error
+
+    keys = ["date", "site_id", "variable"]
+    old_keys = old_daily[keys].copy()
+    new = new_daily.copy()
+    old_keys["date"] = pd.to_datetime(old_keys["date"]).dt.normalize()
+    new["date"] = pd.to_datetime(new["date"]).dt.normalize()
+    old_key_index = pd.MultiIndex.from_frame(old_keys.drop_duplicates())
+    new_key_index = pd.MultiIndex.from_frame(new[keys])
+    added = new.loc[~new_key_index.isin(old_key_index)].copy()
+    newly_locked = set(LOCKED_PROVIDER_NONNUMERIC_CODES).difference(old_codes)
+    if not added.empty:
+        allowed = (
+            added["variable"].isin(HYDRAULICS_VARIABLES)
+            & added["raw_text"].isin(newly_locked)
+            & added["value"].isna()
+            & added["raw_value"].isna()
+            & ~added["natural_observed"].astype(bool)
+            & ~added["quality_approved"].astype(bool)
+            & added["qc_status"].eq("excluded_non_numeric_provider_code")
+        )
+        if not allowed.all():
+            raise ValueError(
+                "provider-free migration added rows other than newly locked excluded codes"
+            )
+    if not old_key_index.isin(pd.MultiIndex.from_frame(new[keys])).all():
+        raise ValueError("provider-free migration removed rows from the stale terminal")
+    return {
+        "n_old_eligible_numeric_rows": len(old_eligible),
+        "n_new_eligible_numeric_rows": len(new_eligible),
+        "eligible_numeric_keys_and_values_exact": True,
+        "newly_locked_provider_nonnumeric_codes": sorted(newly_locked),
+        "n_new_excluded_nonnumeric_rows": len(added),
+        "new_excluded_nonnumeric_code_counts": dict(
+            sorted(added["raw_text"].astype(str).value_counts().astype(int).items())
+        ),
+    }
+
+
+def migrate_archived_terminal_without_provider(
+    repository_root: str | Path,
+    output: Path,
+    network: V2NetworkPlan,
+    archive: Path,
+) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    """Rebuild a stale terminal from byte-custodied raw responses, or reject it."""
+
+    root = Path(repository_root).resolve()
+    attempt_path = archive / "terminal_migration_attempt.json"
+    audit: dict[str, Any] = {
+        "manifest_schema": TERMINAL_MIGRATION_SCHEMA_VERSION,
+        "network_id": network.network_id,
+        "role": network.role,
+        "archive": str(archive.relative_to(output)),
+        "target_parser_contract_version": PARSER_CONTRACT_VERSION,
+        "provider_calls": 0,
+        "provider_responses_reused_from_archive_only": True,
+        "started_at_utc": datetime.now(timezone.utc).isoformat(),
+        "accepted": False,
+    }
+    try:
+        archive_manifest = _validated_archive_inventory(archive)
+        if not str(archive_manifest.get("archive_reason", "")).startswith(
+            "terminal_rebuild_parser_contract_"
+        ):
+            raise ValueError("attempt archive is not a stale terminal rebuild boundary")
+        old_manifest_path = archive / "network_manifest.json"
+        if not old_manifest_path.is_file():
+            raise ValueError("stale terminal archive lacks network_manifest.json")
+        old_manifest = json.loads(old_manifest_path.read_text(encoding="utf-8"))
+        old_schema = old_manifest.get("manifest_schema")
+        if (
+            old_schema not in STALE_NETWORK_SCHEMA_VERSIONS
+            or old_manifest.get("status") not in TERMINAL_STATUSES
+            or old_manifest.get("network_id") != network.network_id
+            or old_manifest.get("role") != network.role
+            or old_manifest.get("v1_ogc_root_read_or_mutated") is not False
+            or old_manifest.get("sealed_temperature_records_read") is not False
+        ):
+            raise ValueError("archived stale terminal is not safely bound to this network")
+        old_codes = STALE_LOCKED_PROVIDER_NONNUMERIC_CODES[str(old_schema)]
+        declared_codes = old_manifest.get("locked_provider_nonnumeric_codes")
+        if declared_codes is not None and tuple(declared_codes) != old_codes:
+            raise ValueError("stale terminal declared a different parser code lock")
+        _verify_stale_artifacts(archive, old_manifest)
+        old_plan = _validate_stale_request_plan(archive, network, old_manifest)
+        records, by_identity = _verified_raw_records(archive, network)
+        if old_manifest.get("raw_response_sha256") != [
+            record["response_sha256"] for record in records
+        ]:
+            raise ValueError("stale terminal manifest and raw response log SHAs differ")
+
+        daily_frames: list[pd.DataFrame] = []
+        for request in network.legacy_requests:
+            record = by_identity[f"legacy:{request.request_id}"]
+            response_path = archive / str(record["response_artifact"])
+            hydraulics = parse_legacy_network_response(
+                response_path.read_bytes(),
+                network,
+                request,
+                response_sha256=str(record["response_sha256"]),
+                response_artifact=str(record["response_artifact"]),
+            )
+            daily_frames.append(hydraulics)
+            record["rows_after_station_window_filter"] = len(hydraulics)
+        power_metadata_frames: list[pd.DataFrame] = []
+        for site in network.sites:
+            record = by_identity[f"power:{site.site_id}"]
+            response_path = archive / str(record["response_artifact"])
+            observations, metadata = provider._parse_power_response(
+                site.site_id,
+                site.longitude,
+                site.latitude,
+                provider.strict_json_loads(response_path.read_bytes()),
+                {
+                    "request_sha256": record["request_sha256"],
+                    "response_sha256": record["response_sha256"],
+                    "response_artifact": record["response_artifact"],
+                    "page_number": 1,
+                },
+                _protocol(network, site),
+            )
+            daily_frames.append(observations)
+            power_metadata_frames.append(metadata)
+        for record in records:
+            record["provider_free_terminal_migration_replayed"] = True
+        daily = _normalize_daily(daily_frames)
+        old_daily = pd.read_parquet(archive / "daily_long_auxiliary.parquet")
+        equality = _validate_migrated_values(
+            old_daily, daily, old_codes=old_codes
+        )
+
+        audit.update(
+            {
+                "accepted": True,
+                "source_manifest_schema": old_schema,
+                "source_network_manifest_sha256": _sha256_file(old_manifest_path),
+                "source_request_plan_sha256": old_plan["request_plan_sha256"],
+                "source_archive_manifest_sha256": _sha256_file(
+                    archive / "attempt_archive_manifest.json"
+                ),
+                "n_verified_request_response_pairs": len(records),
+                "raw_request_and_response_sha256_verified": True,
+                "power_reparsed_from_raw": True,
+                "hydraulics_reparsed_from_raw": True,
+                **equality,
+                "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        _write_json_atomic(attempt_path, audit)
+        raw_destination = output / "raw"
+        if raw_destination.exists():
+            raise FileExistsError("terminal migration destination already contains raw data")
+        shutil.copytree(archive / "raw", raw_destination)
+        request_plan = _network_request_plan(
+            network, previous_attempt_archive=str(archive.relative_to(output))
+        )
+        power_metadata = pd.concat(power_metadata_frames, ignore_index=True)
+        manifest = _write_network_materialization(
+            root,
+            output,
+            network,
+            request_plan=request_plan,
+            daily=daily,
+            records=records,
+            power_metadata=power_metadata,
+            retry_audit=[],
+            migration_provenance=audit,
+        )
+        return manifest, audit
+    except Exception as error:  # noqa: BLE001
+        # The archive is the durable rollback boundary.  Remove only artifacts
+        # created in the now-rejected current migration; never touch attempts/.
+        for child in _current_children(output):
+            if child.is_dir():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+        audit.update(
+            {
+                "accepted": False,
+                "rejection_error_type": type(error).__name__,
+                "rejection_reason": str(error),
+                "fallback": "retain_archive_and_rebuild_from_providers",
+                "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        _write_json_atomic(attempt_path, audit)
+        return None, audit
+
+
+def acquire_network(
+    repository_root: str | Path,
+    output_root: str | Path,
+    network: V2NetworkPlan,
+    *,
+    fetcher: AuditedRateLimitedFetcher,
+    resume: bool = True,
+) -> tuple[dict[str, Any], bool]:
+    root = Path(repository_root).resolve()
+    output = _network_output(Path(output_root).resolve(), network)
+    output.mkdir(parents=True, exist_ok=True)
+    terminal = _validate_terminal(root, output, network)
+    if terminal is not None:
+        if not resume:
+            raise FileExistsError(f"terminal v2 network exists: {output}")
+        return terminal, True
+    archive = archive_nonterminal_attempt(output, network)
+    retry_event_start = len(fetcher.events)
+    if archive is not None:
+        archive_manifest = json.loads(
+            (archive / "attempt_archive_manifest.json").read_text(encoding="utf-8")
+        )
+        if str(archive_manifest.get("archive_reason", "")).startswith(
+            "terminal_rebuild_parser_contract_"
+        ):
+            migrated, _ = migrate_archived_terminal_without_provider(
+                root, output, network, archive
+            )
+            if migrated is not None:
+                return migrated, False
+
+    request_plan = _network_request_plan(
+        network,
+        previous_attempt_archive=(
+            str(archive.relative_to(output)) if archive is not None else None
+        ),
+    )
+    request_plan_path = output / "request_plan.json"
+    _write_json(request_plan_path, request_plan)
+
+    daily_frames: list[pd.DataFrame] = []
+    records: list[dict[str, Any]] = []
+    power_metadata_frames: list[pd.DataFrame] = []
+    for request in network.legacy_requests:
+        frame, record = _fetch_legacy_request(output, network, request, fetcher)
+        daily_frames.append(frame)
+        records.append(record)
+    for site in network.sites:
+        meteorology, metadata, record = provider._fetch_power_document(
+            site_id=site.site_id,
+            longitude=site.longitude,
+            latitude=site.latitude,
+            protocol=_protocol(network, site),
+            raw_root=output / "raw",
+            fetcher=fetcher,
+        )
+        daily_frames.append(meteorology)
+        power_metadata_frames.append(metadata)
+        records.append(record)
+    daily = _normalize_daily(daily_frames)
+    power_metadata = pd.concat(power_metadata_frames, ignore_index=True)
+    manifest = _write_network_materialization(
+        root,
+        output,
+        network,
+        request_plan=request_plan,
+        daily=daily,
+        records=records,
+        power_metadata=power_metadata,
+        retry_audit=fetcher.events[retry_event_start:],
+    )
     return manifest, False
 
 
@@ -1732,6 +2194,7 @@ __all__ = [
     "archive_nonterminal_attempt",
     "compare_v2_to_v1_ogc",
     "load_v2_corpus_plan",
+    "migrate_archived_terminal_without_provider",
     "parse_legacy_hydraulics_rdb",
     "parse_legacy_network_response",
     "plan_as_dict",
