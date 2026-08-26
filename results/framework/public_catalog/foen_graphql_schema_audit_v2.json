@@ -1,0 +1,60 @@
+{
+  "as_of": "2026-08-26",
+  "endpoint": "https://data.bafu.admin.ch/api",
+  "existing_sealed_objects_opened": false,
+  "temperature_values_queried": false,
+  "v1_registry_metadata": {
+    "n_objects": 208,
+    "n_unique_byte_counts": 1,
+    "byte_count_each": 986,
+    "n_unique_response_sha256": 1,
+    "identical_response_sha256": "cfcfc7a891b65acbd324af50aba2f62a3685d5f60f177d4c09b719595283c0c4"
+  },
+  "schema_introspection": {
+    "timestamp_field_scalar": "AWSDateTime",
+    "timestamp_filter_scalar": "AWSDateTime",
+    "station_no_field_scalar": "String",
+    "station_no_filter_scalar": "String",
+    "release_state_field_scalar": "String",
+    "data_1day_mean_filter_fields": [
+      "timestamp",
+      "parameterName",
+      "value",
+      "station",
+      "_and",
+      "_or",
+      "_not"
+    ],
+    "release_state_is_filterable": false
+  },
+  "v1_metadata_only_compile_probe": {
+    "station": "2016",
+    "selected_value_field": false,
+    "passed": false,
+    "n_rows": 0,
+    "error_type": "WrongType",
+    "error": "Water_Observations_Data1DayMean_Filter contains no field releaseState"
+  },
+  "v2_metadata_only_compile_probe": {
+    "station": "2016",
+    "from": "2025-01-01T00:00:00Z",
+    "to": "2025-01-08T00:00:00Z",
+    "selected_fields": [
+      "timestamp",
+      "parameterName",
+      "unitSymbol",
+      "releaseState",
+      "station.no"
+    ],
+    "selected_value_field": false,
+    "passed": true,
+    "n_rows": 7,
+    "errors": null,
+    "value_key_present": false
+  },
+  "diagnosis": "v1_releaseState_where_filter_is_invalid_not_AWSDateTime",
+  "v2_query_template": "configs/foen_daily_value_query_v2.graphql",
+  "v2_query_template_sha256": "11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff",
+  "v2_query_template_executed": false,
+  "formal_evidence": false
+}

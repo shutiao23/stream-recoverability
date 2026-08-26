@@ -80,7 +80,7 @@ def test_loader_fails_closed_on_hashed_file_drift(tmp_path: Path, target: str) -
         "split": ROOT
         / "results/framework/public_catalog/foen_prospective_split_v1.csv",
         "catalog": ROOT / "configs/foen_prospective_catalog_v1.yaml",
-        "template": ROOT / "configs/foen_daily_value_query_v1.graphql",
+        "template": ROOT / "configs/foen_daily_value_query_v2.graphql",
     }
     copies = {}
     for label, source in paths.items():
@@ -99,7 +99,7 @@ def test_loader_fails_closed_on_hashed_file_drift(tmp_path: Path, target: str) -
 
 def test_loader_rejects_request_contract_drift(tmp_path: Path) -> None:
     split = yaml.safe_load(
-        (ROOT / "configs/foen_prospective_split_v1.yaml").read_text()
+        (ROOT / "configs/foen_prospective_split_v2.yaml").read_text()
     )
     split["future_request_contract"]["template_executed"] = True
     path = tmp_path / "split.yaml"
@@ -224,6 +224,20 @@ def test_execute_requires_selection_ack_and_committed_implementation(
         runner.run(**base)
 
 
+def test_v2_execute_rejects_multi_network_pilot(tmp_path: Path) -> None:
+    runner = _load_runner()
+    catalog, gate = _small_gate(tmp_path)
+    with pytest.raises(ValueError, match="exactly --max-networks 1"):
+        runner.run(
+            execute=True,
+            max_networks=2,
+            all_networks=False,
+            output_dir=tmp_path / "run",
+            catalog=catalog,
+            gate=gate,
+        )
+
+
 def test_simulated_execute_and_resume_never_decode_response(tmp_path: Path) -> None:
     runner = _load_runner()
     catalog, gate = _small_gate(tmp_path)
@@ -256,6 +270,12 @@ def test_simulated_execute_and_resume_never_decode_response(tmp_path: Path) -> N
     assert first["n_reused"] == 0
     assert first["n_failures"] == 0
     assert first["json_decoded"] is False
+    assert first["v1_failed_pilot_objects_reused"] is False
+    assert first["opaque_response_diversity"]["n_unique_response_sha256"] == 1
+    assert (
+        first["opaque_response_diversity"]["opaque_response_diversity_gate_pass"]
+        is False
+    )
     assert opened == 6
 
     def no_network(*args: object, **kwargs: object) -> object:
@@ -274,10 +294,91 @@ def test_runner_contains_no_response_json_decoder() -> None:
     assert "response.json" not in source
 
 
+def test_v2_template_removes_invalid_release_state_filter_but_keeps_output() -> None:
+    source = (ROOT / "configs/foen_daily_value_query_v2.graphql").read_text(
+        encoding="utf-8"
+    )
+    assert "releaseState:" not in source
+    assert "releaseState" in source
+    assert "value" in source
+    assert "AWSDateTime!" in source
+
+
+def test_schema_audit_records_metadata_only_compilation_and_v1_failure() -> None:
+    audit = json.loads(
+        (
+            ROOT / "results/framework/public_catalog/foen_graphql_schema_audit_v2.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert audit["existing_sealed_objects_opened"] is False
+    assert audit["temperature_values_queried"] is False
+    assert audit["schema_introspection"]["timestamp_filter_scalar"] == "AWSDateTime"
+    assert audit["schema_introspection"]["release_state_is_filterable"] is False
+    assert audit["v1_metadata_only_compile_probe"]["passed"] is False
+    assert audit["v2_metadata_only_compile_probe"]["passed"] is True
+    assert audit["v2_metadata_only_compile_probe"]["selected_value_field"] is False
+    assert audit["v2_metadata_only_compile_probe"]["value_key_present"] is False
+
+
+def test_full_run_fails_closed_when_complete_v2_pilot_is_byte_identical(
+    tmp_path: Path,
+) -> None:
+    runner = _load_runner()
+    catalog, gate = _small_gate(tmp_path)
+    for request in catalog.requests():
+        gate.cache_stream(
+            request.network_id, request.site_id, request.year, [b"identical"]
+        )
+    with pytest.raises(PermissionError, match="lack byte diversity"):
+        runner.run(
+            execute=True,
+            max_networks=None,
+            all_networks=True,
+            output_dir=tmp_path / "run",
+            acknowledge_sealed=runner.SEALED_ACK,
+            acknowledge_full_corpus=runner.FULL_CORPUS_ACK,
+            implementation_commit="a" * 40,
+            catalog=catalog,
+            gate=gate,
+            opener=lambda *_args, **_kwargs: pytest.fail("provider contacted"),
+            commit_verifier=lambda value: value,
+            pause_s=0,
+        )
+
+
+def test_full_run_accepts_diverse_complete_pilot_without_new_provider_contact(
+    tmp_path: Path,
+) -> None:
+    runner = _load_runner()
+    catalog, gate = _small_gate(tmp_path)
+    for request in catalog.requests():
+        payload = f"opaque-{request.site_id}-{request.year}".encode()
+        gate.cache_stream(request.network_id, request.site_id, request.year, [payload])
+    manifest = runner.run(
+        execute=True,
+        max_networks=None,
+        all_networks=True,
+        output_dir=tmp_path / "run",
+        acknowledge_sealed=runner.SEALED_ACK,
+        acknowledge_full_corpus=runner.FULL_CORPUS_ACK,
+        implementation_commit="a" * 40,
+        catalog=catalog,
+        gate=gate,
+        opener=lambda *_args, **_kwargs: pytest.fail("provider contacted"),
+        commit_verifier=lambda value: value,
+        pause_s=0,
+    )
+    assert (
+        manifest["full_run_pilot_preflight"]["opaque_response_diversity_gate_pass"]
+        is True
+    )
+    assert manifest["n_reused"] == 6
+
+
 def test_foen_provider_vault_is_ignored_and_excluded_from_public_export() -> None:
-    relative = "data/sealed_public_rivers_foen_v1/vault/foen_test/2001_2024.sealed"
+    relative = "data/sealed_public_rivers_foen_v2/vault/foen_test/2001_2024.sealed"
     assert public_export_exclude(relative)
     assert (
-        "data/sealed_public_rivers_foen_v1/"
+        "data/sealed_public_rivers_foen_v2/"
         in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
     )

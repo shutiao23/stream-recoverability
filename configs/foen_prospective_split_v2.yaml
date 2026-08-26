@@ -1,0 +1,108 @@
+split_id: foen_prospective_split_v2
+status: locked_before_temperature_value_retry
+frozen_on: '2026-08-26'
+seed: 20260826
+sha256: 4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59
+catalog_sha256: 2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727
+canonical_split_table: results/framework/public_catalog/foen_prospective_split_v1.csv
+catalog: configs/foen_prospective_catalog_v1.yaml
+membership_changed_from_v1: false
+roles_changed_from_v1: false
+temperature_values_queried_for_v2: false
+sealed_outcomes_opened: false
+coverage_fields_used_for_eligibility: false
+qualified_networks_claimed: 0
+failed_pilot_v1:
+  implementation_commit: 3918d5dcfc758429acf9041bdad177a5f9ae6209
+  query_template: configs/foen_daily_value_query_v1.graphql
+  query_template_sha256: 978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d
+  n_http_200_objects: 208
+  byte_count_each: 986
+  identical_response_sha256: cfcfc7a891b65acbd324af50aba2f62a3685d5f60f177d4c09b719595283c0c4
+  diagnosis: invalid_releaseState_filter_field
+  existing_objects_opened: false
+  existing_objects_disposition: retain_failed_pilot_custody_never_unseal_never_resume
+future_request_contract:
+  status: v2_template_locked_not_executed
+  query_template: configs/foen_daily_value_query_v2.graphql
+  query_template_sha256: 11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff
+  endpoint: https://data.bafu.admin.ch/api
+  aggregation: data_1day_mean
+  parameter: WT
+  provider_filter_fields:
+  - station.no
+  - parameterName
+  - timestamp
+  release_state_handling: retain_in_opaque_response_filter_2_or_3_only_after_authorized_unseal
+  request_start: '1974-01-01T00:00:00Z'
+  request_end_exclusive: '2026-01-01T00:00:00Z'
+  partition: disjoint_calendar_year_windows
+  response_handling_for_sealed: stream_raw_http_response_bytes_without_json_decode
+  metadata_only_compile_probe_station: '2016'
+  metadata_only_compile_probe_rows: 7
+  metadata_only_compile_probe_passed: true
+  template_executed: false
+  provider_value_field_queried: false
+retry_custody:
+  vault: data/sealed_public_rivers_foen_v2/vault
+  registry: results/framework/public_catalog/foen_sealed_byte_registry_v2
+  registry_schema: foen_sealed_byte_registry_v2
+  may_reuse_v1_objects: false
+  opaque_response_diversity_gate_required_before_full: true
+  full_download_forbidden_when_all_pilot_sha_identical: true
+networks:
+- network_id: foen_aare_aaregebiet
+  role: never_sealed
+  station_ids: ['2016', '2019', '2029', '2030', '2063', '2085', '2113', '2135', '2205', '2457']
+  never_sealed: true
+  development_burned: true
+- network_id: foen_doubs_rhonegebiet
+  role: sealed
+  station_ids: ['2210', '2247', '2270', '2370']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_emme_aaregebiet
+  role: sealed
+  station_ids: ['2070', '2155', '2409']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_inn_inngebiet
+  role: sealed
+  station_ids: ['2067', '2105', '2265', '2403', '2462', '2639']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_linth_limmatgebiet
+  role: sealed
+  station_ids: ['2104', '2352', '2372']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_reuss_reussgebiet
+  role: sealed
+  station_ids: ['2018', '2056', '2087', '2110', '2152']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_rhein_rheingebiet
+  role: sealed
+  station_ids: ['2041', '2091', '2116', '2143', '2288', '2289', '2473', '2602', '2613', '2615']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_rhone_rhonegebiet
+  role: sealed
+  station_ids: ['2009', '2011', '2024', '2174', '2217', '2268', '2346', '2419', '2606', '2623']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_simme_aaregebiet
+  role: sealed
+  station_ids: ['2151', '2219', '2488']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_thur_rheingebiet
+  role: sealed
+  station_ids: ['2044', '2181', '2303']
+  never_sealed: false
+  development_burned: false
+- network_id: foen_ticino_tessingebiet
+  role: sealed
+  station_ids: ['2020', '2068', '2364', '2494']
+  never_sealed: false
+  development_burned: false

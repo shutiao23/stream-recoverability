@@ -24,14 +24,14 @@ import yaml
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CATALOG = REPOSITORY_ROOT / "configs/foen_prospective_catalog_v1.yaml"
-DEFAULT_SPLIT = REPOSITORY_ROOT / "configs/foen_prospective_split_v1.yaml"
+DEFAULT_SPLIT = REPOSITORY_ROOT / "configs/foen_prospective_split_v2.yaml"
 DEFAULT_CANONICAL_SPLIT = (
     REPOSITORY_ROOT / "results/framework/public_catalog/foen_prospective_split_v1.csv"
 )
-DEFAULT_QUERY_TEMPLATE = REPOSITORY_ROOT / "configs/foen_daily_value_query_v1.graphql"
-DEFAULT_SEALED_VAULT = REPOSITORY_ROOT / "data/sealed_public_rivers_foen_v1/vault"
+DEFAULT_QUERY_TEMPLATE = REPOSITORY_ROOT / "configs/foen_daily_value_query_v2.graphql"
+DEFAULT_SEALED_VAULT = REPOSITORY_ROOT / "data/sealed_public_rivers_foen_v2/vault"
 DEFAULT_REGISTRY = (
-    REPOSITORY_ROOT / "results/framework/public_catalog/foen_sealed_byte_registry_v1"
+    REPOSITORY_ROOT / "results/framework/public_catalog/foen_sealed_byte_registry_v2"
 )
 
 LOCKED_SPLIT_SHA256 = "4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59"
@@ -39,12 +39,12 @@ LOCKED_CATALOG_SHA256 = (
     "2e348f571a6e19025d8f6d6aca2dfe55997927b94a608a78baedd89819a78727"
 )
 LOCKED_QUERY_TEMPLATE_SHA256 = (
-    "978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d"
+    "11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff"
 )
 FOEN_ENDPOINT = "https://data.bafu.admin.ch/api"
 SEALED_ROLE = "sealed"
 PROVIDER = "foen"
-REGISTRY_SCHEMA = "foen_sealed_byte_registry_v1"
+REGISTRY_SCHEMA = "foen_sealed_byte_registry_v2"
 REQUEST_START = "1974-01-01T00:00:00Z"
 REQUEST_END_EXCLUSIVE = "2026-01-01T00:00:00Z"
 EXPECTED_SEALED_NETWORKS = 10
@@ -182,16 +182,16 @@ class LockedFoenCatalog:
             raise ValueError("FOEN query-template SHA-256 mismatch")
 
         split = _yaml_mapping(split_path)
-        if split.get("split_id") != "foen_prospective_split_v1":
-            raise ValueError("refusing a non-FOEN-v1 split")
-        if split.get("status") != "locked_before_temperature_value_query":
-            raise ValueError("FOEN split is not locked before value query")
+        if split.get("split_id") != "foen_prospective_split_v2":
+            raise ValueError("refusing a non-FOEN-v2 split")
+        if split.get("status") != "locked_before_temperature_value_retry":
+            raise ValueError("FOEN split is not locked before value retry")
         if str(split.get("sha256")) != split_digest:
             raise ValueError("FOEN split YAML differs from canonical split hash")
         if str(split.get("catalog_sha256")) != catalog_digest:
             raise ValueError("FOEN split YAML differs from catalog hash")
-        if split.get("temperature_values_queried") is not False:
-            raise ValueError("FOEN split does not affirm unopened values")
+        if split.get("temperature_values_queried_for_v2") is not False:
+            raise ValueError("FOEN v2 split does not affirm unopened values")
         if split.get("sealed_outcomes_opened") is not False:
             raise ValueError("FOEN split does not affirm unopened sealed outcomes")
         if split.get("coverage_fields_used_for_eligibility") is not False:
@@ -201,17 +201,21 @@ class LockedFoenCatalog:
 
         contract = split.get("future_request_contract") or {}
         expected_contract = {
-            "status": "template_locked_not_executed",
+            "status": "v2_template_locked_not_executed",
             "query_template_sha256": query_digest,
             "endpoint": FOEN_ENDPOINT,
             "aggregation": "data_1day_mean",
             "parameter": "WT",
-            "release_states": ["2", "3"],
+            "provider_filter_fields": ["station.no", "parameterName", "timestamp"],
+            "release_state_handling": (
+                "retain_in_opaque_response_filter_2_or_3_only_after_authorized_unseal"
+            ),
             "request_start": REQUEST_START,
             "request_end_exclusive": REQUEST_END_EXCLUSIVE,
             "partition": "disjoint_calendar_year_windows",
             "response_handling_for_sealed": "stream_raw_http_response_bytes_without_json_decode",
             "template_executed": False,
+            "provider_value_field_queried": False,
         }
         drift = {
             key
@@ -220,6 +224,48 @@ class LockedFoenCatalog:
         }
         if drift:
             raise ValueError(f"FOEN future request contract drift: {sorted(drift)}")
+
+        failed = split.get("failed_pilot_v1") or {}
+        expected_failed = {
+            "implementation_commit": "3918d5dcfc758429acf9041bdad177a5f9ae6209",
+            "query_template_sha256": (
+                "978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d"
+            ),
+            "n_http_200_objects": 208,
+            "byte_count_each": 986,
+            "identical_response_sha256": (
+                "cfcfc7a891b65acbd324af50aba2f62a3685d5f60f177d4c09b719595283c0c4"
+            ),
+            "diagnosis": "invalid_releaseState_filter_field",
+            "existing_objects_opened": False,
+            "existing_objects_disposition": (
+                "retain_failed_pilot_custody_never_unseal_never_resume"
+            ),
+        }
+        failed_drift = {
+            key
+            for key, expected in expected_failed.items()
+            if failed.get(key) != expected
+        }
+        if failed_drift:
+            raise ValueError(f"FOEN failed-pilot record drift: {sorted(failed_drift)}")
+
+        retry = split.get("retry_custody") or {}
+        expected_retry = {
+            "vault": "data/sealed_public_rivers_foen_v2/vault",
+            "registry": "results/framework/public_catalog/foen_sealed_byte_registry_v2",
+            "registry_schema": REGISTRY_SCHEMA,
+            "may_reuse_v1_objects": False,
+            "opaque_response_diversity_gate_required_before_full": True,
+            "full_download_forbidden_when_all_pilot_sha_identical": True,
+        }
+        retry_drift = {
+            key
+            for key, expected in expected_retry.items()
+            if retry.get(key) != expected
+        }
+        if retry_drift:
+            raise ValueError(f"FOEN retry custody drift: {sorted(retry_drift)}")
 
         canonical_rows = list(
             csv.DictReader(
@@ -536,7 +582,7 @@ def registry_manifest(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
         if set(row) != _REGISTRY_FIELDS:
             raise ValueError("FOEN registry row differs from strict custody schema")
     return {
-        "manifest_schema": "foen_sealed_custody_manifest_v1",
+        "manifest_schema": "foen_sealed_custody_manifest_v2",
         "provider": PROVIDER,
         "n_objects": len(rows),
         "n_reused": sum(row.get("reused_registry") is True for row in rows),

@@ -7,7 +7,7 @@
   "execute": false,
   "formal_evidence": false,
   "json_decoded": false,
-  "manifest_schema": "foen_sealed_custody_run_v1",
+  "manifest_schema": "foen_sealed_custody_run_v2",
   "n_calendar_years_per_station": 52,
   "n_networks_planned": 10,
   "n_station_year_requests_planned": 2652,
@@ -16,9 +16,10 @@
   "provider_requests_opened": false,
   "purpose": "sealed_byte_custody_dry_run_not_evidence",
   "query_template_executed": false,
-  "query_template_sha256": "978247efe815a79863e0383a3ae1e8c293642ec245d7205bd13a46b2ec3a446d",
+  "query_template_sha256": "11ace60436fe6edb9836c0d599cd3e5fa722c567270feeb7aa10c9d08de063ff",
   "role": "sealed",
   "sealed_outcomes_opened": false,
   "split_sha256": "4405cf690ccf9d9b62a8dfa76d2d1d74806e662835bff0043ee9fe1e5619ae59",
+  "v1_failed_pilot_objects_reused": false,
   "value_fields_inspected": false
 }

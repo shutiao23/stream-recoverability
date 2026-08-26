@@ -34,18 +34,22 @@ from stream_recoverability.data.foen_sealed_corpus import (
     registry_manifest,
 )
 
-DEFAULT_RUN_DIR = ROOT / "data_versions/global_network_corpus_v1/w6_foen_custody"
+DEFAULT_RUN_DIR = ROOT / "data_versions/global_network_corpus_v1/w6_foen_custody_v2"
 SEALED_ACK = "foen-sealed-opaque-bytes-no-json"
 FULL_CORPUS_ACK = "foen-all-ten-sealed-networks-authorized"
 _COMMIT = re.compile(r"^[0-9a-f]{40}$")
 IMPLEMENTATION_COMMIT_PATHS = (
     ".gitignore",
     "configs/foen_daily_value_query_v1.graphql",
+    "configs/foen_daily_value_query_v2.graphql",
     "configs/foen_prospective_catalog_v1.yaml",
+    "configs/foen_prospective_split_v2.yaml",
     "configs/foen_prospective_split_v1.yaml",
-    "docs/foen_first_download_checklist.md",
+    "docs/foen_v2_retry_checklist.md",
+    "docs/protocol_deviation_foen_failed_pilot_v1_to_v2.md",
     "docs/protocol_condition_foen_public_daily_v9_1.md",
     "results/framework/public_catalog/foen_prospective_split_v1.csv",
+    "results/framework/public_catalog/foen_graphql_schema_audit_v2.json",
     "scripts/73_cache_foen_sealed_corpus.py",
     "src/stream_recoverability/governance.py",
     "src/stream_recoverability/data/foen_sealed_corpus.py",
@@ -125,7 +129,7 @@ def _dry_manifest(
     catalog: LockedFoenCatalog, requests: list[FoenYearRequest]
 ) -> dict[str, Any]:
     return {
-        "manifest_schema": "foen_sealed_custody_run_v1",
+        "manifest_schema": "foen_sealed_custody_run_v2",
         "dry_run": True,
         "execute": False,
         "provider": "foen",
@@ -147,7 +151,39 @@ def _dry_manifest(
         "contains_outcome_values": False,
         "formal_evidence": False,
         "purpose": "sealed_byte_custody_dry_run_not_evidence",
+        "v1_failed_pilot_objects_reused": False,
     }
+
+
+def _opaque_diversity(records: list[dict[str, Any]]) -> dict[str, Any]:
+    shas = [str(row.get("response_sha256") or "") for row in records]
+    unique = len(set(shas))
+    return {
+        "n_response_objects": len(records),
+        "n_unique_response_sha256": unique,
+        "all_response_bodies_byte_identical": bool(len(records) > 1 and unique == 1),
+        "opaque_response_diversity_gate_pass": bool(len(records) > 1 and unique > 1),
+    }
+
+
+def _require_completed_diverse_pilot(
+    catalog: LockedFoenCatalog, gate: FoenSealedCorpusGate
+) -> dict[str, Any]:
+    pilot_requests = _select_networks(catalog.requests(), max_networks=1)
+    records = []
+    for request in pilot_requests:
+        record = gate.resume_record(request.network_id, request.site_id, request.year)
+        if record is None:
+            raise PermissionError(
+                "full FOEN v2 run requires a complete one-network pilot"
+            )
+        records.append(record)
+    summary = _opaque_diversity(records)
+    if not summary["opaque_response_diversity_gate_pass"]:
+        raise PermissionError(
+            "full FOEN v2 run forbidden: pilot response bodies lack byte diversity"
+        )
+    return summary
 
 
 def run(
@@ -186,6 +222,8 @@ def run(
         raise ValueError("execute requires --max-networks or explicit --all-networks")
     if max_networks is not None and max_networks < 1:
         raise ValueError("--max-networks must be positive")
+    if max_networks is not None and max_networks != 1:
+        raise ValueError("FOEN v2 pilot must use exactly --max-networks 1")
     if acknowledge_sealed != SEALED_ACK:
         raise PermissionError(
             f"FOEN sealed execution requires --acknowledge-sealed {SEALED_ACK!r}"
@@ -198,6 +236,9 @@ def run(
     if implementation_commit is None:
         raise PermissionError("FOEN execution requires a committed implementation SHA")
     verified_commit = str(commit_verifier(implementation_commit))
+    pilot_preflight = (
+        _require_completed_diverse_pilot(catalog, gate) if all_networks else None
+    )
 
     records: list[dict[str, Any]] = []
     failures: list[dict[str, Any]] = []
@@ -254,8 +295,9 @@ def run(
             time.sleep(pause_s)
 
     custody = registry_manifest(records)
+    diversity = _opaque_diversity(records)
     manifest = {
-        "manifest_schema": "foen_sealed_custody_run_v1",
+        "manifest_schema": "foen_sealed_custody_run_v2",
         "dry_run": False,
         "execute": True,
         "provider": "foen",
@@ -280,6 +322,9 @@ def run(
         "contains_outcome_values": False,
         "formal_evidence": False,
         "purpose": "sealed_byte_custody_not_evidence",
+        "v1_failed_pilot_objects_reused": False,
+        "opaque_response_diversity": diversity,
+        "full_run_pilot_preflight": pilot_preflight,
         "custody": custody,
         "failures": failures,
     }
