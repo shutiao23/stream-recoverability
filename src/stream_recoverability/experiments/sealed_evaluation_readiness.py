@@ -355,7 +355,7 @@ def _model_contract(
     path: Path,
     *,
     threshold_contract_sha256: str,
-    aggregation_manifest_sha256: str,
+    open_aggregation_manifest_sha256: str,
 ) -> tuple[dict[str, Any], list[str], list[Path]]:
     if not path.is_file():
         return (
@@ -389,7 +389,8 @@ def _model_contract(
 
     bindings = value.get("input_bindings")
     required_bindings = {
-        "aggregation_manifest",
+        "open_aggregation_manifest",
+        "post_t2_input_binding",
         "workload_manifest",
         "predictor_manifest",
         "geometry_manifest",
@@ -425,10 +426,10 @@ def _model_contract(
                 blockers.append(f"model_freeze_binding_sha256_mismatch:{label}")
                 continue
             if (
-                label == "aggregation_manifest"
-                and digest != aggregation_manifest_sha256
+                label == "open_aggregation_manifest"
+                and digest != open_aggregation_manifest_sha256
             ):
-                blockers.append("model_freeze_aggregation_binding_mismatch")
+                blockers.append("model_freeze_open_aggregation_binding_mismatch")
                 continue
             bound_paths.append(candidate)
     contract = {
@@ -465,7 +466,7 @@ def build_readiness_manifest(
     model_contract, model_blockers, model_bound_paths = _model_contract(
         model_freeze,
         threshold_contract_sha256=threshold["threshold_contract_sha256"],
-        aggregation_manifest_sha256=aggregation_contract["sha256"],
+        open_aggregation_manifest_sha256=aggregation_contract["sha256"],
     )
     blockers.extend(aggregation_blockers)
     blockers.extend(model_blockers)

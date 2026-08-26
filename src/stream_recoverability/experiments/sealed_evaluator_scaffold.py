@@ -1,10 +1,9 @@
 """Capability-gated scaffold for the single sealed T2/T7 evaluation.
 
 The default entry point is metadata-only.  It cannot open a vault and it never
-creates the evaluate-once lock.  Byte access exists only behind an injected
-``SealedObjectReader`` capability, after the existing readiness manifest,
-once-lock, model freeze, Git HEAD, and formal T2-v4 input/output identities have
-all been revalidated.
+creates the evaluate-once lock.  This repository version never authorizes
+production object reads.  Its only byte-processing path is an explicitly
+synthetic, in-memory fixture helper with a separate schema and ledger.
 
 This module deliberately does not provide a filesystem vault reader.  Tests use
 ``MemorySealedObjectReader`` with synthetic provider fixtures.  A separately
@@ -23,28 +22,38 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from itertools import combinations
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any
 
 import pandas as pd
 
+from stream_recoverability.data.foen_sealed_corpus import (
+    DEFAULT_REGISTRY as DEFAULT_FOEN_REGISTRY,
+)
+from stream_recoverability.data.foen_sealed_corpus import LockedFoenCatalog
 from stream_recoverability.data.ingest_qc import (
     VERDICT_ACCEPTED,
     VERDICT_ACCEPTED_WITH_FLAGS,
     qc_station_series,
 )
+from stream_recoverability.data.sealed_corpus import (
+    DEFAULT_REGISTRY as DEFAULT_HUC8_REGISTRY,
+)
+from stream_recoverability.data.sealed_corpus import LockedV3Catalog
 
 from .sealed_evaluation_readiness import (
     MODEL_FREEZE_SCHEMA,
     ONCE_LOCK_SCHEMA,
     READINESS_SCHEMA,
+    _audit_foen_registry,
+    _audit_huc8_registry,
 )
 from .t2_primary_aggregation_v2 import INPUT_BINDING_SCHEMA
 from .t2_workload_v4 import V4_RUNNER_CONTRACT_VERSION, V4_WORKLOAD_SCHEMA
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 PREFLIGHT_SCHEMA = "t2_t7_sealed_evaluator_preflight_v1"
-RUN_LEDGER_SCHEMA = "t2_t7_sealed_evaluate_once_run_ledger_v1"
-RESULT_SCHEMA = "t2_t7_sealed_evaluate_once_qc_result_v1"
+FIXTURE_LEDGER_SCHEMA = "t2_t7_synthetic_fixture_ledger_v1"
+FIXTURE_RESULT_SCHEMA = "t2_t7_synthetic_fixture_qc_result_v1"
 DEFAULT_READINESS = (
     REPOSITORY_ROOT
     / "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json"
@@ -92,18 +101,14 @@ class SealedObjectRef:
     request_year: int | None
     expected_sha256: str
     expected_byte_count: int
+    request_start: str | None = None
+    request_end: str | None = None
+    request_end_inclusive: bool = False
 
     @property
     def key(self) -> str:
         year = "all" if self.request_year is None else str(self.request_year)
         return f"{self.provider}/{self.network_id}/{self.site_id}/{year}"
-
-
-class SealedObjectReader(Protocol):
-    """The only byte capability accepted by the evaluator."""
-
-    def read_object(self, reference: SealedObjectRef) -> bytes:
-        """Return exactly one registered object body."""
 
 
 class MemorySealedObjectReader:
@@ -123,6 +128,9 @@ class MemorySealedObjectReader:
             raise SealedEvaluatorError(
                 f"mock object is absent: {reference.key}"
             ) from error
+
+
+_FIXTURE_EXECUTION_TOKEN = object()
 
 
 def _sha256_file(path: Path) -> str:
@@ -314,7 +322,7 @@ def build_evaluator_preflight(
     if (
         model
         and result
-        and not _model_binding(model, "aggregation_manifest", result_file, result_sha)
+        and not _model_binding(model, "post_t2_input_binding", result_file, result_sha)
     ):
         blockers.append("model_freeze_v4_result_binding_mismatch")
 
@@ -368,17 +376,23 @@ def build_evaluator_preflight(
     if ledger_file.exists():
         blockers.append("evaluate_once_run_ledger_already_exists_no_rerun")
 
+    # There is deliberately no production reader or ceremony runner in this
+    # repository version.  Metadata readiness must never be convertible into a
+    # byte-read authorization merely by constructing a matching dictionary.
+    blockers.append("production_reader_not_implemented")
+
     unique = sorted(set(blockers))
     return {
         "manifest_schema": PREFLIGHT_SCHEMA,
-        "status": "authorized" if not unique else "blocked",
-        "authorized_for_object_reads": not unique,
+        "status": "blocked",
+        "authorized_for_object_reads": False,
+        "production_reader_available": False,
         "formal_evidence": False,
         "dry_run_metadata_only": True,
         "evaluate_once_lock_claimed_by_preflight": False,
         "vault_path_resolved_or_statted": False,
         "sealed_objects_read": 0,
-        "failure_or_interrupt_forbids_rerun": True,
+        "production_evaluate_once_semantics_implemented": False,
         "bindings": {
             "readiness": {
                 "path": _relative(readiness_file),
@@ -407,7 +421,7 @@ def build_evaluator_preflight(
             "sealed_qc_attrition_required": True,
             "eligible_network_inventory_required": True,
             "v4_workload_and_result_bindings_required": True,
-            "failed_or_interrupted_once_run_is_nonretryable": True,
+            "production_evaluate_once_runner_required": True,
             "minimum_stations_per_network": 3,
             "minimum_common_qualified_years": 8,
             "minimum_distinct_approved_days_per_station_year": 300,
@@ -430,73 +444,132 @@ def write_preflight(value: Mapping[str, Any], output_path: str | Path) -> Path:
 def registered_object_references(
     readiness: Mapping[str, Any],
 ) -> tuple[SealedObjectRef, ...]:
-    """Recreate opaque object references from registry metadata only.
-
-    The registry roots are taken from the already audited readiness record.
-    This function never constructs, resolves, or stats a vault path.
-    """
+    """Replay both locked catalogs and strict public registries into references."""
 
     inventory = readiness.get("sealed_registry_inventory")
     if not isinstance(inventory, Mapping):
         raise SealedEvaluatorError("readiness lacks sealed registry inventory")
-    specs = (
-        ("north_america_huc8", "usgs_nwis", "sha256", None),
-        ("foen_non_north_america", "foen", "response_sha256", "request_year"),
-    )
+
+    recorded_huc8 = inventory.get("north_america_huc8")
+    recorded_foen = inventory.get("foen_non_north_america")
+    if not isinstance(recorded_huc8, Mapping) or not isinstance(
+        recorded_foen, Mapping
+    ):
+        raise SealedEvaluatorError("readiness lacks both provider inventories")
+    huc8_root = (DEFAULT_HUC8_REGISTRY / "sealed").resolve()
+    foen_root = DEFAULT_FOEN_REGISTRY.resolve()
+    try:
+        observed_huc8 = _audit_huc8_registry(huc8_root)
+        observed_foen = _audit_foen_registry(foen_root)
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
+        raise SealedEvaluatorError(f"strict registry replay failed: {error}") from error
+    if dict(recorded_huc8) != observed_huc8:
+        raise SealedEvaluatorError("HUC8 registry differs from readiness and lock")
+    if dict(recorded_foen) != observed_foen:
+        raise SealedEvaluatorError("FOEN registry differs from readiness and lock")
+    if inventory.get("n_networks_total") != 54:
+        raise SealedEvaluatorError("sealed candidate inventory must contain 54 networks")
+
+    huc8_catalog = LockedV3Catalog.load()
+    huc8_expected = {
+        (request.network_id, request.site_id): request
+        for request in huc8_catalog.requests("sealed")
+    }
+    huc8_rows = [_load_mapping(path) for path in sorted(huc8_root.glob("*/*.json"))]
+    if {
+        (str(row["network_id"]), str(row["site_id"])) for row in huc8_rows
+    } != set(huc8_expected):
+        raise SealedEvaluatorError("HUC8 registry is not the complete locked request set")
+
+    foen_catalog = LockedFoenCatalog.load()
+    foen_expected = {
+        (request.network_id, request.site_id, request.year): request
+        for request in foen_catalog.requests()
+    }
+    foen_rows = [_load_mapping(path) for path in sorted(foen_root.glob("*/*.json"))]
+    if {
+        (str(row["network_id"]), str(row["site_id"]), int(row["request_year"]))
+        for row in foen_rows
+    } != set(foen_expected):
+        raise SealedEvaluatorError("FOEN registry is not the complete locked request set")
+
     references: list[SealedObjectRef] = []
-    for label, provider, sha_field, year_field in specs:
-        provider_inventory = inventory.get(label)
-        if not isinstance(provider_inventory, Mapping):
-            raise SealedEvaluatorError(f"readiness lacks provider inventory: {label}")
-        root_value = provider_inventory.get("registry_root")
-        if not isinstance(root_value, str) or not root_value:
-            raise SealedEvaluatorError(f"provider registry root is invalid: {label}")
-        root = Path(root_value)
-        if not root.is_absolute():
-            root = REPOSITORY_ROOT / root
-        if root.is_symlink() or not root.is_dir():
-            raise SealedEvaluatorError(f"provider registry root is invalid: {label}")
-        paths = sorted(root.glob("*/*.json"))
-        rows = [_load_mapping(path) for path in paths]
-        if _canonical_sha256(rows) != provider_inventory.get("registry_records_sha256"):
-            raise SealedEvaluatorError(
-                f"provider registry changed after readiness: {label}"
+    for row in huc8_rows:
+        request = huc8_expected[(str(row["network_id"]), str(row["site_id"]))]
+        references.append(
+            SealedObjectRef(
+                provider="usgs_nwis",
+                network_id=request.network_id,
+                site_id=request.site_id,
+                request_year=None,
+                expected_sha256=str(row["sha256"]),
+                expected_byte_count=int(row["byte_count"]),
+                request_start=request.start,
+                request_end=request.end,
+                request_end_inclusive=True,
             )
-        if len(rows) != provider_inventory.get("n_objects"):
-            raise SealedEvaluatorError(f"provider object count changed: {label}")
-        for row in rows:
-            digest = row.get(sha_field)
-            byte_count = row.get("byte_count")
-            if (
-                not isinstance(digest, str)
-                or not _SHA256.fullmatch(digest)
-                or isinstance(byte_count, bool)
-                or not isinstance(byte_count, int)
-                or byte_count < 1
-            ):
-                raise SealedEvaluatorError(f"invalid strict registry row: {label}")
-            year = row.get(year_field) if year_field is not None else None
-            if year is not None and (
-                isinstance(year, bool) or not isinstance(year, int)
-            ):
-                raise SealedEvaluatorError("invalid FOEN request year in registry")
-            references.append(
-                SealedObjectRef(
-                    provider=provider,
-                    network_id=str(row.get("network_id")),
-                    site_id=str(row.get("site_id")),
-                    request_year=year,
-                    expected_sha256=digest,
-                    expected_byte_count=byte_count,
-                )
+        )
+    for row in foen_rows:
+        identity = (
+            str(row["network_id"]),
+            str(row["site_id"]),
+            int(row["request_year"]),
+        )
+        request = foen_expected[identity]
+        references.append(
+            SealedObjectRef(
+                provider="foen",
+                network_id=request.network_id,
+                site_id=request.site_id,
+                request_year=request.year,
+                expected_sha256=str(row["response_sha256"]),
+                expected_byte_count=int(row["byte_count"]),
+                request_start=request.start,
+                request_end=request.end_exclusive,
+                request_end_inclusive=False,
             )
+        )
     keys = [reference.key for reference in references]
+    if len(references) != 2880:
+        raise SealedEvaluatorError("sealed registry replay did not yield 2880 objects")
     if len(keys) != len(set(keys)):
         raise SealedEvaluatorError("duplicate sealed object registry identity")
     return tuple(references)
 
 
-def parse_huc8_nwis_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
+def _timestamp_in_request(
+    value: object,
+    *,
+    request_start: str | None,
+    request_end: str | None,
+    request_end_inclusive: bool,
+) -> pd.Timestamp:
+    timestamp = pd.to_datetime(value, utc=True, errors="coerce")
+    if not isinstance(timestamp, pd.Timestamp) or pd.isna(timestamp):
+        raise SealedEvaluatorError("provider row has an invalid timestamp")
+    if request_start is not None:
+        start = pd.to_datetime(request_start, utc=True, errors="coerce")
+        if not isinstance(start, pd.Timestamp) or pd.isna(start) or timestamp < start:
+            raise SealedEvaluatorError("provider timestamp precedes request range")
+    if request_end is not None:
+        end = pd.to_datetime(request_end, utc=True, errors="coerce")
+        if not isinstance(end, pd.Timestamp) or pd.isna(end):
+            raise SealedEvaluatorError("request range has an invalid end")
+        if request_end_inclusive:
+            if timestamp.normalize() > end.normalize():
+                raise SealedEvaluatorError("provider timestamp follows request range")
+        elif timestamp >= end:
+            raise SealedEvaluatorError("provider timestamp follows request range")
+    return timestamp
+
+
+def parse_huc8_nwis_response(
+    payload: bytes,
+    *,
+    site_id: str,
+    request_start: str | None = None,
+    request_end: str | None = None,
+) -> pd.DataFrame:
     """Parse one NWIS JSON response into the provider-neutral QC columns."""
 
     try:
@@ -505,20 +578,46 @@ def parse_huc8_nwis_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
     except (UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError) as error:
         raise SealedEvaluatorError("invalid NWIS JSON response") from error
     rows: list[dict[str, Any]] = []
+    if not isinstance(series, list):
+        raise SealedEvaluatorError("NWIS timeSeries is not a list")
     for item in series:
+        if not isinstance(item, Mapping):
+            raise SealedEvaluatorError("NWIS timeSeries row is not a mapping")
         source = item.get("sourceInfo") or {}
         codes = source.get("siteCode") or []
         observed_site = str((codes[0] if codes else {}).get("value", ""))
-        variable_codes = (item.get("variable") or {}).get("variableCode") or []
+        variable = item.get("variable") or {}
+        variable_codes = variable.get("variableCode") or []
         parameters = {str(code.get("value", "")) for code in variable_codes}
         if observed_site != str(site_id) or "00010" not in parameters:
             raise SealedEvaluatorError("NWIS response identity/parameter mismatch")
+        unit = str((variable.get("unit") or {}).get("unitCode", ""))
+        normalized_unit = unit.strip().lower().replace("°", "").replace("degrees", "deg")
+        if normalized_unit not in {"deg c", "degc", "c", "celsius"}:
+            raise SealedEvaluatorError("NWIS temperature unit is not Celsius")
+        options = (variable.get("options") or {}).get("option") or []
+        statistics = {
+            str(option.get("optionCode", ""))
+            for option in options
+            if isinstance(option, Mapping)
+            and str(option.get("name", "")).strip().lower() == "statistic"
+        }
+        if "00003" not in statistics:
+            raise SealedEvaluatorError("NWIS response is not daily mean statistic 00003")
         for block in item.get("values") or []:
             for point in block.get("value") or []:
+                if not isinstance(point, Mapping):
+                    raise SealedEvaluatorError("NWIS value row is not a mapping")
+                timestamp = _timestamp_in_request(
+                    point.get("dateTime"),
+                    request_start=request_start,
+                    request_end=request_end,
+                    request_end_inclusive=True,
+                )
                 rows.append(
                     {
                         "site_id": str(site_id),
-                        "date": point.get("dateTime"),
+                        "date": timestamp,
                         "temperature_c": point.get("value"),
                         "approval_code": ",".join(
                             str(value) for value in (point.get("qualifiers") or [])
@@ -528,7 +627,14 @@ def parse_huc8_nwis_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
     return _normalize_provider_rows(rows, provider="usgs_nwis")
 
 
-def parse_foen_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
+def parse_foen_response(
+    payload: bytes,
+    *,
+    site_id: str,
+    request_year: int | None = None,
+    request_start: str | None = None,
+    request_end: str | None = None,
+) -> pd.DataFrame:
     """Parse one FOEN daily-mean GraphQL response into neutral QC columns."""
 
     try:
@@ -538,8 +644,15 @@ def parse_foen_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
         rows = document["data"]["water"]["observations"]["data_1day_mean"]
     except (UnicodeDecodeError, json.JSONDecodeError, KeyError, TypeError) as error:
         raise SealedEvaluatorError("invalid FOEN GraphQL response") from error
+    if not isinstance(rows, list):
+        raise SealedEvaluatorError("FOEN daily observations are not a list")
+    if request_year is not None:
+        request_start = request_start or f"{request_year:04d}-01-01T00:00:00Z"
+        request_end = request_end or f"{request_year + 1:04d}-01-01T00:00:00Z"
     normalized: list[dict[str, Any]] = []
     for row in rows:
+        if not isinstance(row, Mapping):
+            raise SealedEvaluatorError("FOEN observation row is not a mapping")
         station = row.get("station") or {}
         if str(station.get("no", "")) != str(site_id):
             raise SealedEvaluatorError("FOEN response station mismatch")
@@ -550,10 +663,18 @@ def parse_foen_response(payload: bytes, *, site_id: str) -> pd.DataFrame:
             raise SealedEvaluatorError("FOEN temperature unit is not Celsius")
         state = row.get("releaseState")
         approval = "A" if state in {2, 3, "2", "3"} else "P"
+        timestamp = _timestamp_in_request(
+            row.get("timestamp"),
+            request_start=request_start,
+            request_end=request_end,
+            request_end_inclusive=False,
+        )
+        if request_year is not None and timestamp.year != request_year:
+            raise SealedEvaluatorError("FOEN timestamp differs from request year")
         normalized.append(
             {
                 "site_id": str(site_id),
-                "date": row.get("timestamp"),
+                "date": timestamp,
                 "temperature_c": row.get("value"),
                 "approval_code": approval,
             }
@@ -571,9 +692,18 @@ def _normalize_provider_rows(
     if frame.empty:
         return frame.assign(provider=pd.Series(dtype=str))
     frame["date"] = pd.to_datetime(frame["date"], utc=True, errors="coerce")
+    if frame["date"].isna().any():
+        raise SealedEvaluatorError("provider response contains an invalid timestamp")
+    frame["date"] = frame["date"].dt.normalize()
     frame["temperature_c"] = pd.to_numeric(frame["temperature_c"], errors="coerce")
     frame["provider"] = provider
-    return frame.dropna(subset=["date"]).reset_index(drop=True)
+    for _, group in frame.groupby(["site_id", "date"], sort=False, dropna=False):
+        if len(group) > 1 and (
+            group["temperature_c"].nunique(dropna=False) != 1
+            or group["approval_code"].astype(str).nunique(dropna=False) != 1
+        ):
+            raise SealedEvaluatorError("conflicting duplicate provider calendar day")
+    return frame.drop_duplicates(["site_id", "date"]).reset_index(drop=True)
 
 
 def _network_qc(
@@ -691,43 +821,59 @@ def _network_qc(
     return station_qc, pd.DataFrame(attrition), pd.DataFrame(eligible)
 
 
-def evaluate_with_injected_reader(
-    preflight: Mapping[str, Any],
+def _collapse_observation_days(panel: pd.DataFrame) -> pd.DataFrame:
+    for _, group in panel.groupby(
+        ["provider", "network_id", "site_id", "date"], sort=False, dropna=False
+    ):
+        if len(group) > 1 and (
+            group["temperature_c"].nunique(dropna=False) != 1
+            or group["approval_code"].astype(str).nunique(dropna=False) != 1
+        ):
+            raise SealedEvaluatorError("conflicting duplicate synthetic calendar day")
+    return panel.drop_duplicates(["provider", "network_id", "site_id", "date"])
+
+
+def evaluate_synthetic_fixture(
     *,
     references: Sequence[SealedObjectRef],
-    reader: SealedObjectReader,
+    reader: MemorySealedObjectReader,
     output_dir: str | Path,
-    fixture_execution: bool = False,
 ) -> dict[str, Any]:
-    """Exercise the once-run QC path after authorization.
+    """Run synthetic parser/QC fixtures without any production authorization."""
 
-    ``fixture_execution`` must remain true in this repository version.  This
-    makes tests meaningful while ensuring no production vault adapter can be
-    slipped into an ordinary CLI invocation.
+    return _evaluate_synthetic_fixture(
+        references=references,
+        reader=reader,
+        output_dir=output_dir,
+        _fixture_token=_FIXTURE_EXECUTION_TOKEN,
+    )
+
+
+def _evaluate_synthetic_fixture(
+    *,
+    references: Sequence[SealedObjectRef],
+    reader: MemorySealedObjectReader,
+    output_dir: str | Path,
+    _fixture_token: object,
+) -> dict[str, Any]:
+    """Private implementation guarded by an internal synthetic-only token.
+
+    This is not an evaluate-once path, does not consume a formal authorization,
+    and deliberately has no generic reader interface.
     """
 
-    if preflight.get("manifest_schema") != PREFLIGHT_SCHEMA:
-        raise SealedEvaluatorError("evaluator preflight schema mismatch")
-    if (
-        preflight.get("authorized_for_object_reads") is not True
-        or preflight.get("blockers") != []
-    ):
-        raise SealedEvaluatorError("object reads forbidden by evaluator preflight")
-    if fixture_execution is not True or not isinstance(
-        reader, MemorySealedObjectReader
-    ):
-        raise SealedEvaluatorError(
-            "production sealed reader is deliberately absent from this scaffold"
-        )
+    if _fixture_token is not _FIXTURE_EXECUTION_TOKEN:
+        raise SealedEvaluatorError("internal synthetic fixture token required")
+    if type(reader) is not MemorySealedObjectReader:
+        raise SealedEvaluatorError("synthetic fixture requires the exact memory reader")
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
-    ledger = output / "run_ledger.json"
+    ledger = output / "synthetic_fixture_ledger.json"
     ledger_payload = {
-        "manifest_schema": RUN_LEDGER_SCHEMA,
-        "status": "started_nonretryable",
-        "rerun_permitted": False,
-        "fixture_execution": True,
-        "preflight_sha256": _canonical_sha256(dict(preflight)),
+        "manifest_schema": FIXTURE_LEDGER_SCHEMA,
+        "status": "synthetic_fixture_started",
+        "formal_evidence": False,
+        "production_authorization_consumed": False,
     }
     try:
         with ledger.open("x", encoding="utf-8") as handle:
@@ -736,9 +882,7 @@ def evaluate_with_injected_reader(
             handle.flush()
             os.fsync(handle.fileno())
     except FileExistsError as error:
-        raise SealedEvaluatorError(
-            "once-run ledger already exists; rerun forbidden"
-        ) from error
+        raise SealedEvaluatorError("synthetic fixture ledger already exists") from error
 
     observations: list[pd.DataFrame] = []
     object_failures: list[dict[str, str]] = []
@@ -749,15 +893,28 @@ def evaluate_with_injected_reader(
                 raise SealedEvaluatorError("duplicate registered object identity")
             seen.add(ref.key)
             body = reader.read_object(ref)
+            if type(body) is not bytes:
+                raise SealedEvaluatorError("synthetic fixture body must be exact bytes")
             if len(body) != ref.expected_byte_count:
-                raise SealedEvaluatorError(f"sealed byte-count mismatch: {ref.key}")
+                raise SealedEvaluatorError(f"synthetic byte-count mismatch: {ref.key}")
             if hashlib.sha256(body).hexdigest() != ref.expected_sha256:
-                raise SealedEvaluatorError(f"sealed SHA-256 mismatch: {ref.key}")
+                raise SealedEvaluatorError(f"synthetic SHA-256 mismatch: {ref.key}")
             try:
                 if ref.provider == "usgs_nwis":
-                    frame = parse_huc8_nwis_response(body, site_id=ref.site_id)
+                    frame = parse_huc8_nwis_response(
+                        body,
+                        site_id=ref.site_id,
+                        request_start=ref.request_start,
+                        request_end=ref.request_end,
+                    )
                 elif ref.provider == "foen":
-                    frame = parse_foen_response(body, site_id=ref.site_id)
+                    frame = parse_foen_response(
+                        body,
+                        site_id=ref.site_id,
+                        request_year=ref.request_year,
+                        request_start=ref.request_start,
+                        request_end=ref.request_end,
+                    )
                 else:
                     raise SealedEvaluatorError(
                         f"unsupported sealed provider: {ref.provider}"
@@ -781,54 +938,46 @@ def evaluate_with_injected_reader(
                 ]
             )
         )
+        panel = _collapse_observation_days(panel)
         station_qc, attrition, eligible = _network_qc(panel, references)
-        station_qc.to_csv(output / "sealed_station_qc.csv", index=False)
-        attrition.to_csv(output / "sealed_network_attrition.csv", index=False)
-        eligible.to_csv(output / "eligible_sealed_networks.csv", index=False)
+        station_qc.to_csv(output / "synthetic_station_qc.csv", index=False)
+        attrition.to_csv(output / "synthetic_network_attrition.csv", index=False)
+        eligible.to_csv(output / "synthetic_eligible_networks.csv", index=False)
         pd.DataFrame(object_failures, columns=["object_key", "reason"]).to_csv(
-            output / "sealed_object_attrition.csv", index=False
+            output / "synthetic_object_attrition.csv", index=False
         )
         provider_counts = Counter(ref.provider for ref in references)
         manifest = {
-            "manifest_schema": RESULT_SCHEMA,
-            "status": "fixture_complete_not_formal_evidence",
+            "manifest_schema": FIXTURE_RESULT_SCHEMA,
+            "status": "synthetic_fixture_complete_not_formal_evidence",
             "formal_evidence": False,
-            "fixture_execution": True,
-            "rerun_permitted": False,
-            "failure_or_interrupt_would_forbid_rerun": True,
-            "n_objects_read_once": len(reader.read_keys),
+            "synthetic_fixture_execution": True,
+            "production_authorization_consumed": False,
+            "production_evaluate_once_semantics": False,
+            "n_synthetic_objects_read": len(reader.read_keys),
             "n_objects_by_provider": dict(sorted(provider_counts.items())),
             "n_object_parse_failures": len(object_failures),
             "n_station_qc_rows": len(station_qc),
             "n_eligible_networks": len(eligible),
             "n_attrited_networks": len(attrition),
-            "v4_bindings": {
-                key: preflight["bindings"][key]
-                for key in (
-                    "v4_workload",
-                    "v4_result_binding",
-                    "model_freeze",
-                    "head_commit",
-                )
-            },
-            "sealed_qc_attrition": {
-                "station_qc": "sealed_station_qc.csv",
-                "object_attrition": "sealed_object_attrition.csv",
-                "network_attrition": "sealed_network_attrition.csv",
-                "eligible_networks": "eligible_sealed_networks.csv",
+            "synthetic_qc_outputs": {
+                "station_qc": "synthetic_station_qc.csv",
+                "object_attrition": "synthetic_object_attrition.csv",
+                "network_attrition": "synthetic_network_attrition.csv",
+                "eligible_networks": "synthetic_eligible_networks.csv",
             },
         }
         (output / "manifest.json").write_text(
             json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
-        ledger_payload["status"] = "fixture_complete_nonretryable"
+        ledger_payload["status"] = "synthetic_fixture_complete"
         ledger.write_text(
             json.dumps(ledger_payload, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
         return manifest
     except BaseException:
-        ledger_payload["status"] = "failed_nonretryable"
+        ledger_payload["status"] = "synthetic_fixture_failed"
         ledger.write_text(
             json.dumps(ledger_payload, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
@@ -838,13 +987,14 @@ def evaluate_with_injected_reader(
 
 __all__ = [
     "DEFAULT_PREFLIGHT_OUTPUT",
+    "FIXTURE_LEDGER_SCHEMA",
+    "FIXTURE_RESULT_SCHEMA",
     "PREFLIGHT_SCHEMA",
     "MemorySealedObjectReader",
     "SealedEvaluatorError",
-    "SealedObjectReader",
     "SealedObjectRef",
     "build_evaluator_preflight",
-    "evaluate_with_injected_reader",
+    "evaluate_synthetic_fixture",
     "parse_foen_response",
     "parse_huc8_nwis_response",
     "registered_object_references",

@@ -1,7 +1,7 @@
 {
   "authorized_for_object_reads": false,
   "bindings": {
-    "head_commit": "b2b32a32001eee77dc3fafd02d8df108cdcda143",
+    "head_commit": "498505bec4b8529b4fc5f6b439facb8a0bea2402",
     "model_freeze": {
       "path": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
       "sha256": null
@@ -26,25 +26,30 @@
   "blockers": [
     "complete_v4_result_binding_missing_or_invalid",
     "evaluate_once_lock_missing_or_invalid",
+    "evaluator_path_not_committed_unchanged:src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
+    "evaluator_path_not_committed_unchanged:tests/test_sealed_evaluator_scaffold.py",
     "formal_v4_workload_missing_or_invalid",
     "head_binding_mismatch",
+    "head_required_path_drift:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
     "model_freeze_missing_or_invalid",
+    "production_reader_not_implemented",
     "readiness_gate_not_unconditionally_ready"
   ],
   "dry_run_metadata_only": true,
   "evaluate_once_lock_claimed_by_preflight": false,
-  "failure_or_interrupt_forbids_rerun": true,
   "formal_evidence": false,
   "future_output_contract": {
     "eligible_network_inventory_required": true,
-    "failed_or_interrupted_once_run_is_nonretryable": true,
     "minimum_common_qualified_years": 8,
     "minimum_distinct_approved_days_per_station_year": 300,
     "minimum_stations_per_network": 3,
+    "production_evaluate_once_runner_required": true,
     "sealed_qc_attrition_required": true,
     "v4_workload_and_result_bindings_required": true
   },
   "manifest_schema": "t2_t7_sealed_evaluator_preflight_v1",
+  "production_evaluate_once_semantics_implemented": false,
+  "production_reader_available": false,
   "run_ledger_path": "results/framework/t2_sealed_confirmatory_v1/evaluate_once_run_ledger.json",
   "sealed_objects_read": 0,
   "status": "blocked",
