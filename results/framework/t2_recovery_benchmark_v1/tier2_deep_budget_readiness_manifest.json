@@ -1,0 +1,676 @@
+{
+  "budget_failure": {
+    "can_claim_compliant_tier2_sensitivity": false,
+    "dropping_failed_rows_is_a_valid_remedy": false,
+    "dropping_unimplemented_model_classes_is_a_valid_remedy": false,
+    "failure_class": "fixed_sample_attrition_below_preregistered_allowed_range",
+    "honest_resolution": "retain_the_unchanged_sample_and_report_budget_failure; do_not replace failed or sealed rows and do not claim the locked Tier-2 sensitivity",
+    "passed": false,
+    "posthoc_reselection_is_a_valid_remedy": false,
+    "selecting_only_one_of_30_90_180_is_a_valid_remedy": false
+  },
+  "constructor_smoke": {
+    "deep_models_run": false,
+    "gaps_all_required": [
+      30,
+      90,
+      180
+    ],
+    "implementation": "official_pypots_1.5",
+    "model_fit_called": false,
+    "model_predict_called": false,
+    "pypots_version": "1.5",
+    "rows": [
+      {
+        "constructor_passed": true,
+        "gap_length_days": 30,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 30,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134264
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 90,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 90,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134444
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 180,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 180,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134714
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 30,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 30,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 90,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 90,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 180,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 180,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      }
+    ],
+    "status": "passed_constructor_only_not_training_or_inference",
+    "torch_version": "2.13.0+cpu"
+  },
+  "deep_model_inference_run": false,
+  "deep_model_training_run": false,
+  "deep_models_run": false,
+  "design_id": "design_freeze_v9",
+  "dry_run": {
+    "cells": [
+      {
+        "end_date": "2018-02-01",
+        "gap_length_days": 30,
+        "input_contract_only": true,
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_frozen_eligible_placements": 20,
+        "network_id": "huc8_01070004",
+        "outcome_metric_computed": false,
+        "placement": 0,
+        "role": "development",
+        "start_date": "2018-01-03",
+        "start_index": 7516,
+        "target_station": "01095220"
+      },
+      {
+        "end_date": "2018-04-02",
+        "gap_length_days": 90,
+        "input_contract_only": true,
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_frozen_eligible_placements": 20,
+        "network_id": "huc8_01070004",
+        "outcome_metric_computed": false,
+        "placement": 0,
+        "role": "development",
+        "start_date": "2018-01-03",
+        "start_index": 7516,
+        "target_station": "01095220"
+      },
+      {
+        "end_date": "2018-07-01",
+        "gap_length_days": 180,
+        "input_contract_only": true,
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_frozen_eligible_placements": 20,
+        "network_id": "huc8_01070004",
+        "outcome_metric_computed": false,
+        "placement": 0,
+        "role": "development",
+        "start_date": "2018-01-03",
+        "start_index": 7516,
+        "target_station": "01095220"
+      }
+    ],
+    "gaps_all_required": [
+      30,
+      90,
+      180
+    ],
+    "network_id": "huc8_01070004",
+    "network_is_in_unchanged_frozen_sample": true,
+    "network_is_open_failure_closure6_qualified": true,
+    "network_manifest_path": "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6/development/networks/huc8_01070004/network_qc_manifest.json",
+    "network_wide_path": "data_versions/global_network_corpus_v1/open_role_qc/failure_closure6/development/networks/huc8_01070004/daily_wide_qc.csv",
+    "network_wide_sha256": "126918bedcf68bc6804e811f2c011463effad62e2513fd7333aa29f45504fa4f",
+    "open_inventory_roots": [
+      "open_role_qc/failure_closure6/development",
+      "open_role_qc/failure_closure6/validation"
+    ],
+    "outcome_values_used_for_model_or_sample_selection": false,
+    "predictions_or_scores_generated": false,
+    "sealed_input_roots_allowed": [],
+    "sealed_temperature_records_read": false,
+    "status": "passed_input_contract_only_not_model_execution",
+    "temperature_values_used_only_to_verify_input_eligibility": true
+  },
+  "formal_evidence": false,
+  "frozen_contract": {
+    "all_model_obligations": [
+      "air2stream",
+      "saits",
+      "csdi",
+      "grin",
+      "pgdl_or_graph_wavenet"
+    ],
+    "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
+    "gaps_all_required": [
+      30,
+      90,
+      180
+    ],
+    "n_allowed_range": [
+      28,
+      32
+    ],
+    "outcome_selected_model_or_horizon": false,
+    "sample_changed": false
+  },
+  "manifest_schema": "t2_v91_tier2_deep_budget_readiness_v1",
+  "model_readiness": {
+    "deep_models_run": false,
+    "models": {
+      "air2stream": {
+        "deep_model_inference_run": false,
+        "deep_model_training_run": false,
+        "dependency_status": "not_declared_or_importable",
+        "importable_module": false,
+        "repository_implementation": "absent_protocol_mentions_only",
+        "required_information_contract": "air_temperature_and_optional_discharge_not_wired",
+        "t2_end_to_end_status": "not_ready_no_implementation_or_adapter",
+        "t2_runner_declares_tier2_metadata_only": true,
+        "t2_runner_trains_deep_models": false,
+        "tier2_training_protocol_wired": false
+      },
+      "csdi": {
+        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
+        "deep_model_inference_run": false,
+        "deep_model_training_run": false,
+        "dependency_status": "available_exact_pin",
+        "pypots_version": "1.5",
+        "repository_implementation": "official_pypots_1.5_adapter_present",
+        "t2_end_to_end_status": "not_ready_no_t2_training_or_scoring_adapter",
+        "t2_runner_declares_tier2_metadata_only": true,
+        "t2_runner_trains_deep_models": false,
+        "tier2_training_protocol_wired": false,
+        "torch_version": "2.13.0+cpu"
+      },
+      "grin": {
+        "deep_model_inference_run": false,
+        "deep_model_training_run": false,
+        "dependency_status": "not_declared_or_importable",
+        "graph_contract": "no_frozen_graph_tensor_or_t2_adapter",
+        "importable_module": false,
+        "repository_implementation": "absent_protocol_mentions_only",
+        "t2_end_to_end_status": "not_ready_no_implementation_or_adapter",
+        "t2_runner_declares_tier2_metadata_only": true,
+        "t2_runner_trains_deep_models": false,
+        "tier2_training_protocol_wired": false,
+        "torch_geometric_importable": false
+      },
+      "pgdl_or_graph_wavenet": {
+        "deep_model_inference_run": false,
+        "deep_model_training_run": false,
+        "dependency_status": "not_declared",
+        "graph_contract": "no_frozen_model_identity_graph_tensor_or_t2_adapter",
+        "repository_implementation": "absent_roster_obligation_has_no_executable_identity",
+        "t2_end_to_end_status": "not_ready_no_implementation_or_adapter",
+        "t2_runner_declares_tier2_metadata_only": true,
+        "t2_runner_trains_deep_models": false,
+        "tier2_training_protocol_wired": false,
+        "torch_geometric_importable": false,
+        "torch_version": "2.13.0+cpu"
+      },
+      "saits": {
+        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
+        "deep_model_inference_run": false,
+        "deep_model_training_run": false,
+        "dependency_status": "available_exact_pin",
+        "pypots_version": "1.5",
+        "repository_implementation": "official_pypots_1.5_adapter_present",
+        "t2_end_to_end_status": "not_ready_no_t2_training_or_scoring_adapter",
+        "t2_runner_declares_tier2_metadata_only": true,
+        "t2_runner_trains_deep_models": false,
+        "tier2_training_protocol_wired": false,
+        "torch_version": "2.13.0+cpu"
+      }
+    },
+    "n_end_to_end_ready": 0,
+    "required_obligations": [
+      "air2stream",
+      "saits",
+      "csdi",
+      "grin",
+      "pgdl_or_graph_wavenet"
+    ],
+    "source_evidence": {
+      "absence_interpretation": "a roster-string mention is not an executable implementation; only SAITS/CSDI resolve to model adapter code",
+      "audit_module_excluded_from_search": "src/stream_recoverability/experiments/t2_tier2_readiness.py",
+      "implementation_search_scope": "src/stream_recoverability/**/*.py",
+      "model_name_mentions": {
+        "air2stream": [
+          {
+            "line_numbers": [
+              69
+            ],
+            "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          }
+        ],
+        "csdi": [
+          {
+            "line_numbers": [
+              54
+            ],
+            "path": "src/stream_recoverability/analysis/formal_registry.py"
+          },
+          {
+            "line_numbers": [
+              3520,
+              4183
+            ],
+            "path": "src/stream_recoverability/analysis/frozen_pipeline.py"
+          },
+          {
+            "line_numbers": [
+              213
+            ],
+            "path": "src/stream_recoverability/experiments/model_registry.py"
+          },
+          {
+            "line_numbers": [
+              104,
+              112,
+              218,
+              1963,
+              2007,
+              2018,
+              2020,
+              2022,
+              2689,
+              2692,
+              2709,
+              2711
+            ],
+            "path": "src/stream_recoverability/experiments/runner.py"
+          },
+          {
+            "line_numbers": [
+              55,
+              61
+            ],
+            "path": "src/stream_recoverability/experiments/selection.py"
+          },
+          {
+            "line_numbers": [
+              69
+            ],
+            "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          },
+          {
+            "line_numbers": [
+              67
+            ],
+            "path": "src/stream_recoverability/experiments/validation.py"
+          },
+          {
+            "line_numbers": [
+              344,
+              2424,
+              2425,
+              2428,
+              2496,
+              2497,
+              2499,
+              2501
+            ],
+            "path": "src/stream_recoverability/experiments/validation_finalization.py"
+          },
+          {
+            "line_numbers": [
+              42,
+              66,
+              88,
+              101,
+              104,
+              115,
+              695,
+              773,
+              852,
+              864,
+              921,
+              1038,
+              1045,
+              1058,
+              1070,
+              1357
+            ],
+            "path": "src/stream_recoverability/models/reference_baselines.py"
+          },
+          {
+            "line_numbers": [
+              46
+            ],
+            "path": "src/stream_recoverability/plotting/publication.py"
+          }
+        ],
+        "grin": [
+          {
+            "line_numbers": [
+              69
+            ],
+            "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          }
+        ],
+        "pgdl_or_graph_wavenet": [
+          {
+            "line_numbers": [
+              1337
+            ],
+            "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          }
+        ],
+        "saits": [
+          {
+            "line_numbers": [
+              53,
+              54,
+              1087,
+              1156
+            ],
+            "path": "src/stream_recoverability/analysis/formal_registry.py"
+          },
+          {
+            "line_numbers": [
+              1206
+            ],
+            "path": "src/stream_recoverability/analysis/frozen_pipeline.py"
+          },
+          {
+            "line_numbers": [
+              213
+            ],
+            "path": "src/stream_recoverability/experiments/model_registry.py"
+          },
+          {
+            "line_numbers": [
+              45,
+              103,
+              104,
+              105,
+              109,
+              111,
+              218,
+              862,
+              1786,
+              1789,
+              1892,
+              1937
+            ],
+            "path": "src/stream_recoverability/experiments/runner.py"
+          },
+          {
+            "line_numbers": [
+              69
+            ],
+            "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          },
+          {
+            "line_numbers": [
+              67
+            ],
+            "path": "src/stream_recoverability/experiments/validation.py"
+          },
+          {
+            "line_numbers": [
+              92,
+              344
+            ],
+            "path": "src/stream_recoverability/experiments/validation_finalization.py"
+          },
+          {
+            "line_numbers": [
+              1,
+              364,
+              367,
+              484
+            ],
+            "path": "src/stream_recoverability/models/deep_baselines.py"
+          },
+          {
+            "line_numbers": [
+              3,
+              42,
+              65,
+              88,
+              100,
+              104,
+              114,
+              760,
+              817,
+              820,
+              852,
+              864,
+              920,
+              998,
+              1284
+            ],
+            "path": "src/stream_recoverability/models/reference_baselines.py"
+          },
+          {
+            "line_numbers": [
+              43,
+              45
+            ],
+            "path": "src/stream_recoverability/plotting/publication.py"
+          }
+        ]
+      },
+      "project_dependency_path": "pyproject.toml",
+      "project_dependency_sha256": "1a214aa78348ca44162434c5ac666413c087b723ffa7f5402fb8004f629cb06b",
+      "reference_adapter_path": "src/stream_recoverability/models/reference_baselines.py",
+      "reference_adapter_sha256": "84418a174e967b4c75dae1c7671b9cdbd0b31d8905c46b1183c397630abaeed6",
+      "t2_runner_path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py",
+      "t2_runner_sha256": "e0b74019577d1e82ea7bab6f034c4cec1466675b1a5ffcc109f64cba764ea6cf"
+    }
+  },
+  "not_t2_primary_y": true,
+  "protocol_amendment": "v9.1",
+  "purpose": "sensitivity_whether_strong_models_change_recoverability_calibration",
+  "sample_eligibility": {
+    "current_frozen_corpus_upper_bound_if_every_unread_sealed_row_qualifies": 22,
+    "failed_sample_rows_may_be_replaced": false,
+    "locked_budget_feasible_on_current_frozen_corpus": false,
+    "locked_minimum_n": 28,
+    "n_sample_open_currently_failed": 8,
+    "n_sample_open_currently_qualified": 14,
+    "n_sample_open_role": 22,
+    "n_sample_sealed_metadata_only": 8,
+    "n_sample_total": 30,
+    "non_sample_qualified_networks_may_substitute": false,
+    "open_currently_failed": [
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 2,
+        "n_requested_stations": 4,
+        "network_id": "huc8_03040207",
+        "overlap_years": 0.0,
+        "role": "validation"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 1,
+        "n_requested_stations": 7,
+        "network_id": "huc8_03050101",
+        "overlap_years": 0.0,
+        "role": "validation"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 2,
+        "n_requested_stations": 3,
+        "network_id": "huc8_03050112",
+        "overlap_years": 0.0,
+        "role": "validation"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 1,
+        "n_requested_stations": 6,
+        "network_id": "huc8_04090004",
+        "overlap_years": 0.0,
+        "role": "development"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 0,
+        "n_requested_stations": 4,
+        "network_id": "huc8_05060001",
+        "overlap_years": 0.0,
+        "role": "development"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 2,
+        "n_requested_stations": 4,
+        "network_id": "huc8_05130204",
+        "overlap_years": 0.0,
+        "role": "development"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 0,
+        "n_requested_stations": 3,
+        "network_id": "huc8_07100006",
+        "overlap_years": 0.0,
+        "role": "development"
+      },
+      {
+        "complete_enough": false,
+        "failure_reason": "fewer_than_3_qc_eligible_stations",
+        "n_qc_eligible_stations": 1,
+        "n_requested_stations": 3,
+        "network_id": "huc8_14010003",
+        "overlap_years": 0.0,
+        "role": "development"
+      }
+    ],
+    "open_currently_qualified_ids": [
+      "huc8_01070004",
+      "huc8_02020006",
+      "huc8_02040106",
+      "huc8_03070101",
+      "huc8_03080103",
+      "huc8_03090101",
+      "huc8_03090204",
+      "huc8_03100204",
+      "huc8_03150104",
+      "huc8_05010005",
+      "huc8_05020005",
+      "huc8_05040005",
+      "huc8_07120001",
+      "huc8_16050102"
+    ],
+    "open_inventory_n_qualified_all_networks": 67,
+    "open_inventory_roles_all_networks": {
+      "development": 47,
+      "validation": 20
+    },
+    "qualification_mode": "failure_closure6",
+    "sealed_input_roots_allowed": [],
+    "sealed_metadata_only_ids": [
+      "huc8_12040101",
+      "huc8_17010201",
+      "huc8_17070101",
+      "huc8_17100301",
+      "huc8_17110004",
+      "huc8_17110006",
+      "huc8_17110009",
+      "huc8_18040001"
+    ],
+    "sealed_results_inferred": false,
+    "sealed_rows_counted_as_qualified": false,
+    "shortfall_below_locked_minimum_even_if_all_unread_sealed_qualify": 6
+  },
+  "sample_lock": {
+    "canonical_sample_sha256_recomputed": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6",
+    "file_sha256": "552febdaed653f2b27bdd1f767babbdac9d3379f4010140ff4bf37fc31e44e2e",
+    "gaps_all_required": [
+      30,
+      90,
+      180
+    ],
+    "models": [
+      "air2stream",
+      "saits",
+      "csdi",
+      "grin"
+    ],
+    "n_networks": 30,
+    "path": "results/framework/t2_recovery_benchmark_v1/tier2_sample_lock.json",
+    "pgdl_or_graph_wavenet": "remains_on_roster_same_tier_2_budget_not_a_posthoc_drop",
+    "role_counts": {
+      "development": 14,
+      "sealed": 8,
+      "validation": 8
+    },
+    "sample_frozen_before_tier2_model_execution": true,
+    "sample_locked_before_download": false,
+    "sample_preregistered": false,
+    "sample_reselection_allowed": false,
+    "sample_reselection_performed": false,
+    "sample_sha256": "b3d92758503ad1a5d4607207abe4ad1600dd13f67702548490572bcfe9f1a7f6"
+  },
+  "sealed_temperature_records_read": false,
+  "status": "budget_failure_fixed_sample_cannot_meet_locked_minimum_on_current_corpus",
+  "timing_exception": {
+    "file_sha256": "0f269f874c9fdafe8f22851be6c87b18fec25820dab7fbb471f99c66b498bcf5",
+    "ledger_id": "T2-TIER2-TIMING-001",
+    "path": "results/framework/t2_recovery_benchmark_v1/tier2_timing_exception_ledger.json",
+    "required_reporting": "Describe this as a post-download metadata-only fixed sensitivity sample, not as a sample locked before download or a preregistered Tier-2 sample.",
+    "resolution": "retain_fixed_sample_and_disclose_timing_exception_no_reselection",
+    "status": "acknowledged_protocol_deviation"
+  }
+}
