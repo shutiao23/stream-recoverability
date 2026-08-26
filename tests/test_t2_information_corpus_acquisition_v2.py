@@ -12,6 +12,7 @@ import pytest
 from stream_recoverability.data import confirmatory as provider
 from stream_recoverability.data.t2_information_adapters import _provider_eligible
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    LEGACY_EMPTY_NO_SITES_RDB,
     LEGACY_NETWORK_SCHEMA_VERSION,
     LEGACY_PROVIDER,
     LOCKED_PROVIDER_NONNUMERIC_CODES,
@@ -315,6 +316,49 @@ USGS\t01095220\t2020-01-07\tRat\tP\t\t
         )
 
 
+def test_only_exact_official_no_sites_rdb_is_accepted_as_empty() -> None:
+    assert len(LEGACY_EMPTY_NO_SITES_RDB) == 81
+    real_root = (
+        ROOT
+        / "data_versions/global_network_corpus_v1/open_role_auxiliary_legacy_v2"
+        / "failure_closure6/development/networks/huc8_15030108"
+    )
+    real_matches = [
+        path
+        for path in real_root.rglob("response.rdb")
+        if path.read_bytes() == LEGACY_EMPTY_NO_SITES_RDB
+    ]
+    assert real_matches
+    parsed = parse_legacy_hydraulics_rdb(
+        LEGACY_EMPTY_NO_SITES_RDB,
+        _legacy_request(),
+        response_sha256="c" * 64,
+        response_artifact="raw/empty.response.rdb",
+    )
+    assert parsed.empty
+
+    near_misses = (
+        LEGACY_EMPTY_NO_SITES_RDB.replace(b"#  No sites", b"# No sites"),
+        LEGACY_EMPTY_NO_SITES_RDB.removesuffix(b"\t\t\n"),
+        LEGACY_EMPTY_NO_SITES_RDB.replace(b"5s\t15s\t20d", b"5s\t15s\t19d"),
+        LEGACY_EMPTY_NO_SITES_RDB + b"# trailing content\n",
+        (
+            b"#  No values found matching all criteria\n"
+            b"agency_cd\tsite_no\tdatetime\n5s\t15s\t20d\n\t\t\n"
+        ),
+    )
+    for payload in near_misses:
+        with pytest.raises(
+            ValueError, match="no requested daily-mean F/L column"
+        ):
+            parse_legacy_hydraulics_rdb(
+                payload,
+                _legacy_request(),
+                response_sha256="d" * 64,
+                response_artifact="raw/rejected-empty.response.rdb",
+            )
+
+
 def test_all_current_raw_rdb_nonnumeric_codes_equal_locked_set() -> None:
     raw_root = (
         ROOT
@@ -389,7 +433,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     (staging / ".archive_intent.json").write_text(
         json.dumps(
             {
-                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_5",
+                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_6",
                 "attempt_number": 1,
                 "network_id": network.network_id,
                 "role": network.role,
@@ -423,13 +467,20 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     )
     archived = archive_nonterminal_attempt(stale, network)
     audit = json.loads((archived / "attempt_archive_manifest.json").read_text())
-    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_5"
+    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_6"
 
 
 class V2Fetcher:
-    def __init__(self, network: object, *, nonnumeric_code: str | None = None) -> None:
+    def __init__(
+        self,
+        network: object,
+        *,
+        nonnumeric_code: str | None = None,
+        empty_legacy: bool = False,
+    ) -> None:
         self.network = network
         self.nonnumeric_code = nonnumeric_code
+        self.empty_legacy = empty_legacy
         self.calls: list[str] = []
 
     def __call__(self, url: str, headers: dict[str, str]) -> provider.HTTPResponse:
@@ -438,6 +489,13 @@ class V2Fetcher:
         parsed = urllib.parse.urlsplit(url)
         query = urllib.parse.parse_qs(parsed.query)
         if parsed.netloc in {"waterservices.usgs.gov", "nwis.waterservices.usgs.gov"}:
+            if self.empty_legacy:
+                return provider.HTTPResponse(
+                    url=url,
+                    status=200,
+                    headers={"Content-Type": "text/plain"},
+                    body=LEGACY_EMPTY_NO_SITES_RDB,
+                )
             lines = [
                 "# mock legacy response",
                 "agency_cd\tsite_no\tdatetime\t11_00060_00003\t11_00060_00003_cd\t12_00065_00003\t12_00065_00003_cd",
@@ -556,6 +614,39 @@ def test_v2_network_materialization_and_resume_are_independent_of_v1(tmp_path: P
     request_artifact.write_bytes(b"tampered request")
     with pytest.raises(ValueError, match="raw request integrity failure"):
         acquire_network(ROOT, tmp_path, network, fetcher=limited)
+
+
+def test_exact_empty_legacy_response_becomes_terminal_H_attrition(tmp_path: Path) -> None:
+    network = next(
+        item
+        for item in load_v2_corpus_plan(ROOT).networks
+        if item.network_id == "huc8_15030108"
+    )
+    raw_fetcher = V2Fetcher(network, empty_legacy=True)
+    limited = AuditedRateLimitedFetcher(
+        raw_fetcher,
+        interval_seconds=0,
+        max_transient_retries=0,
+        backoff_initial_seconds=0,
+        backoff_max_seconds=0,
+        http_429_cooldown_seconds=0,
+    )
+    manifest, resumed = acquire_network(ROOT, tmp_path, network, fetcher=limited)
+    assert resumed is False
+    assert manifest["status"] == "materialized_partial"
+    assert manifest["acquisition_terminal"] is True
+    output = tmp_path / network.role / "networks" / network.network_id
+    failures = json.loads((output / "source_failures.json").read_text())
+    assert len(failures) == 2 * len(network.sites)
+    assert {row["variable"] for row in failures} == {"F", "L"}
+    assert {row["provider"] for row in failures} == {LEGACY_PROVIDER}
+    assert {row["status"] for row in failures} == {
+        "source_unavailable_no_rows_in_successful_response"
+    }
+    coverage = pd.read_csv(output / "coverage.csv")
+    hydraulics = coverage.loc[coverage["information_group"].eq("H")]
+    assert hydraulics["source_status"].eq("failed_or_unavailable").all()
+    assert hydraulics["n_provider_rows"].eq(0).all()
 
 
 def test_stale_terminal_migrates_after_full_archive_with_zero_provider_calls(

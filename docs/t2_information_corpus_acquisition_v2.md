@@ -1,6 +1,6 @@
 # T2 M/H acquisition v2: legacy NWIS network batches
 
-Status: **v2.5 provider-code corrections implemented; resume held until tests and
+Status: **v2.6 empty-response correction implemented; resume held until tests and
 operator handoff**.
 
 ## Why v2 exists
@@ -50,10 +50,10 @@ full plan contains exactly:
 Corpus plan SHA-256:
 
 ```text
-5b90380294306e0e3be0e863bc7f207c3eb3c7e09f77e8e6e11491d4445b3f61
+cd3d96475b9deb06577e3941330ba15291d17f1b877f7953999388e4b9973169
 ```
 
-This v2.5 SHA binds the parser contract and locked provider nonnumeric-code
+This v2.6 SHA binds the parser contract and locked provider nonnumeric-code
 roster into every network SHA.
 
 ## Provider QC and retry safety
@@ -76,6 +76,13 @@ roster into every network SHA.
   rows carry qualifier `P` and no numeric value.
 - Approved estimated qualifiers such as `A:e` retain approval but use
   `qc_status=approved_estimated`.
+- One provider-confirmed empty shape is legal: the exact 81-byte RDB containing
+  `#  No sites found matching all criteria`, the three-column
+  `agency_cd/site_no/datetime` header, its `5s/15s/20d` type row, and one blank
+  tab row. It yields an empty H table; downstream attrition records F and L as
+  unavailable and the network remains terminal `materialized_partial`. Any
+  altered comment, header, type row, missing blank row, appended content, or
+  other response without an F/L value column fails closed.
 - F remains converted by `ft3/s * 0.028316846592`; L remains converted by
   `ft * 0.3048`. Source is explicitly `usgs_legacy_nwis_dv_rdb`, never
   `usgs_ogc_daily`.
@@ -104,14 +111,17 @@ roster into every network SHA.
   `attempt_XXXX`. Collisions fail closed while preserving both sides for manual
   recovery.
 
-## Pre-v2.5 terminal migration
+## Pre-v2.6 terminal migration
 
-Older v2/v2.1/v2.2/v2.3/v2.4 terminal networks are not edited in place. V2.5
-adds the locked `Rat` contract and therefore changes every network plan SHA. On resume each
+Older v2 through v2.5 terminal networks are not edited in place. V2.6 adds the
+exact legal-empty contract and therefore changes every network plan SHA. On resume each
 stale terminal is first moved intact into an audited attempt with reason
-`terminal_rebuild_parser_contract_v2_5`, then rebuilt under the v2.5 contract.
+`terminal_rebuild_parser_contract_v2_6`, then rebuilt under the v2.6 contract.
 Interrupted directories are archived with reason `interrupted_missing_manifest`.
 This is an explicit rebuild, not a silent manifest migration.
+
+Provider-free terminal migration remains a red-team **NO-GO** and must not be
+relied upon or enabled for v2.6 until its separate migration audit passes.
 
 ## Real one-network pilot
 

@@ -40,22 +40,24 @@ from .t2_information_adapters import (
     METEOROLOGY_VARIABLES,
 )
 
-CORPUS_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_acquisition_v2_5"
-NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_5"
+CORPUS_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_acquisition_v2_6"
+NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_6"
 LEGACY_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2"
 V2_1_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_1"
 V2_2_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_2"
 V2_3_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_3"
 V2_4_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_4"
+V2_5_NETWORK_SCHEMA_VERSION = "t2_v91_open_role_mh_network_acquisition_v2_5"
 STALE_NETWORK_SCHEMA_VERSIONS = (
     LEGACY_NETWORK_SCHEMA_VERSION,
     V2_1_NETWORK_SCHEMA_VERSION,
     V2_2_NETWORK_SCHEMA_VERSION,
     V2_3_NETWORK_SCHEMA_VERSION,
     V2_4_NETWORK_SCHEMA_VERSION,
+    V2_5_NETWORK_SCHEMA_VERSION,
 )
-PLAN_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_request_plan_v2_5"
-PARSER_CONTRACT_VERSION = "legacy_nwis_rdb_hydraulics_parser_v2_5"
+PLAN_SCHEMA_VERSION = "t2_v91_open_role_mh_corpus_request_plan_v2_6"
+PARSER_CONTRACT_VERSION = "legacy_nwis_rdb_hydraulics_parser_v2_6"
 LEGACY_PROVIDER = "usgs_legacy_nwis_dv_rdb"
 LEGACY_DV_ENDPOINT = "https://waterservices.usgs.gov/nwis/dv/"
 LEGACY_PARAMETERS = ("00060", "00065")
@@ -69,6 +71,12 @@ DEFAULT_RETRY_BACKOFF_MAX_SECONDS = 240.0
 DEFAULT_HTTP_429_COOLDOWN_SECONDS = 120.0
 MAX_NETWORK_SITE_DAYS_PER_LEGACY_REQUEST = 200_000
 LOCKED_PROVIDER_NONNUMERIC_CODES = ("Ice", "Eqp", "***", "Bkw", "Rat")
+LEGACY_EMPTY_NO_SITES_RDB = (
+    b"#  No sites found matching all criteria\n"
+    b"agency_cd\tsite_no\tdatetime\n"
+    b"5s\t15s\t20d\n"
+    b"\t\t\n"
+)
 STALE_LOCKED_PROVIDER_NONNUMERIC_CODES = {
     LEGACY_NETWORK_SCHEMA_VERSION: (),
     V2_1_NETWORK_SCHEMA_VERSION: ("Ice",),
@@ -658,6 +666,8 @@ def parse_legacy_hydraulics_rdb(
 ) -> pd.DataFrame:
     """Parse network-batched 00060/00065 daily means with strict A-only QC."""
 
+    if payload == LEGACY_EMPTY_NO_SITES_RDB:
+        return pd.DataFrame()
     lines = payload.decode("utf-8", errors="strict").splitlines()
     requested = set(request.site_ids)
     specs = {spec.provider_code: spec for spec in provider.HYDROLOGY_SPECS[1:]}
@@ -980,7 +990,7 @@ def _archive_reason(output: Path) -> str:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("status") in TERMINAL_STATUSES:
         if manifest.get("manifest_schema") in STALE_NETWORK_SCHEMA_VERSIONS:
-            return "terminal_rebuild_parser_contract_v2_5"
+            return "terminal_rebuild_parser_contract_v2_6"
         raise ValueError("current-contract terminal output must be resumed, never archived")
     return f"nonterminal_manifest_{manifest.get('status', 'unknown')}"
 
@@ -1009,7 +1019,7 @@ def _complete_attempt_archive(
     else:
         started_at = datetime.now(timezone.utc).isoformat()
         intent = {
-            "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_5",
+            "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_6",
             "attempt_number": number,
             "network_id": network.network_id,
             "role": network.role,
@@ -1027,7 +1037,7 @@ def _complete_attempt_archive(
         child.rename(destination)
     inventory = _archive_inventory(staging)
     archive_manifest = {
-        "manifest_schema": "t2_v91_open_role_mh_attempt_archive_v2_5",
+        "manifest_schema": "t2_v91_open_role_mh_attempt_archive_v2_6",
         "attempt_number": number,
         "network_id": network.network_id,
         "role": network.role,
@@ -1956,7 +1966,7 @@ def run_v2_corpus_acquisition(
         _write_json_atomic(
             root_state_path,
             {
-                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_5",
+                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_6",
                 "status": "in_progress",
                 "started_at_utc": root_started_at,
                 "corpus_plan_sha256": plan.plan_sha256,
@@ -2059,7 +2069,7 @@ def run_v2_corpus_acquisition(
         _write_json_atomic(
             root_state_path,
             {
-                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_5",
+                "manifest_schema": "t2_v91_open_role_mh_root_execution_state_v2_6",
                 "status": status,
                 "started_at_utc": root_started_at,
                 "completed_at_utc": datetime.now(timezone.utc).isoformat(),
