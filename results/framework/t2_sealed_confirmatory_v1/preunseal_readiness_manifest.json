@@ -22,12 +22,12 @@
   "formal_evidence": false,
   "git_commit_before_unseal": {
     "all_required_paths_committed_unchanged": true,
-    "head_commit": "5fa2af1957da7a6a0be90ad8e701c142a46c68d9",
+    "head_commit": "fa289b4004704f8e502062e7a2ff2fcde43b8e73",
     "required_paths": [
       {
-        "head_blob": "f0a6f12e2f86626b6ac20781fd89196698be7f19",
+        "head_blob": "0b8fb0b068f57ea2cbfdc01cc72e6a2daa023558",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-        "worktree_blob": "f0a6f12e2f86626b6ac20781fd89196698be7f19"
+        "worktree_blob": "0b8fb0b068f57ea2cbfdc01cc72e6a2daa023558"
       },
       {
         "head_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b",
