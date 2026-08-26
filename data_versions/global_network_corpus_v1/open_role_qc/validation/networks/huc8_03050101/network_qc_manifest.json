@@ -1,0 +1,70 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_03050101",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 4740,
+    "n_parsed_nonempty": 7,
+    "n_qc_eligible_stations": 1,
+    "n_registered_raw_objects": 7,
+    "n_requested_stations": 7,
+    "n_stations": 1,
+    "network_id": "huc8_03050101",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "validation"
+  },
+  "role": "validation",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "02137727": {
+      "n_rows": 4865,
+      "registry_reused": true,
+      "registry_sha256": "1ffb26247837605230e94e10cc09ab56e7a91fc8db771df56500c735ee2b4f7c",
+      "status": "parsed"
+    },
+    "02138520": {
+      "n_rows": 2573,
+      "registry_reused": true,
+      "registry_sha256": "4fa5bede0bf5a0f5f49c829da67cfc51fb95e15f955f6c992ede55087e6f7731",
+      "status": "parsed"
+    },
+    "02141500": {
+      "n_rows": 2349,
+      "registry_reused": true,
+      "registry_sha256": "03d160b73993523677dbf566bedc7aed68a587b92adb78f90388e1b51ffadc5e",
+      "status": "parsed"
+    },
+    "0214196125": {
+      "n_rows": 2274,
+      "registry_reused": true,
+      "registry_sha256": "6b53483b0d039a0003b80cff14d7a1f6c5667bca57f961a1e262f862fe6a009c",
+      "status": "parsed"
+    },
+    "0214244102": {
+      "n_rows": 2571,
+      "registry_reused": true,
+      "registry_sha256": "86c371106c760c4ccc6f9c39b1065d96eafba9c945a6957f24a1780c47e1538e",
+      "status": "parsed"
+    },
+    "0214264790": {
+      "n_rows": 2492,
+      "registry_reused": true,
+      "registry_sha256": "5604d424b306cfae385669482560472212796ce5efb2aedbdcb1013539086e24",
+      "status": "parsed"
+    },
+    "0214267602": {
+      "n_rows": 2770,
+      "registry_reused": true,
+      "registry_sha256": "8b0f0b5396d5a85fa4eedac76b60bf7fcc4b4630c41a03c560964bbef4d22c9e",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

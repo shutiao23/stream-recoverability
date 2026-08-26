@@ -1,0 +1,7 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+06024450,7800,47,0,157,0,0,0,rejected_sentinel,,huc8_10020004,False,rejected_sentinel
+06024580,1364,6,0,142,0,0,0,rejected_sentinel,,huc8_10020004,False,rejected_sentinel
+06025250,1407,0,0,68,0,0,0,accepted,,huc8_10020004,False,qualified_years_lt_8
+06025500,8583,8,0,178,948,0,9,rejected_sentinel,suspect_constant_run,huc8_10020004,False,rejected_sentinel
+06026210,1894,190,0,85,68,0,1,rejected_sentinel,suspect_constant_run,huc8_10020004,False,rejected_sentinel
+06026420,3469,159,0,116,0,0,0,rejected_sentinel,,huc8_10020004,False,rejected_sentinel

@@ -1,0 +1,65 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_05120201",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 4895,
+    "n_days": 15487,
+    "n_parsed_nonempty": 5,
+    "n_qc_eligible_stations": 5,
+    "n_registered_raw_objects": 5,
+    "n_requested_stations": 5,
+    "n_stations": 5,
+    "network_id": "huc8_05120201",
+    "network_interval_reported": false,
+    "overlap_end": "2025-03-25",
+    "overlap_start": "2010-09-22",
+    "overlap_years": 14.505133470225873,
+    "role": "development",
+    "station_coverage": {
+      "03353200": 0.354749144443727,
+      "03353415": 0.18441273326015367,
+      "03353420": 0.2182475624717505,
+      "03353611": 0.6658487763931039,
+      "03354000": 0.9041131271388907
+    }
+  },
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03353200": {
+      "n_rows": 5697,
+      "registry_reused": true,
+      "registry_sha256": "5b01bbea33f444c95e5ee6a690c06a2b85dc79e42254f05e12e005eab3891f66",
+      "status": "parsed"
+    },
+    "03353415": {
+      "n_rows": 3042,
+      "registry_reused": true,
+      "registry_sha256": "691c20afde2d6cd4d70f959e2ea65168ed19153b36b3e6f993261e66bdca2350",
+      "status": "parsed"
+    },
+    "03353420": {
+      "n_rows": 3964,
+      "registry_reused": true,
+      "registry_sha256": "306f6608de51001745f508fbf4e898f437b19092cda4b24e2804ead7670ace7c",
+      "status": "parsed"
+    },
+    "03353611": {
+      "n_rows": 10825,
+      "registry_reused": true,
+      "registry_sha256": "c03673314d4c4e66d533891df67e5f85d13579245ff8aa92cac677942e3c4381",
+      "status": "parsed"
+    },
+    "03354000": {
+      "n_rows": 14647,
+      "registry_reused": true,
+      "registry_sha256": "56193034faa0f0268fa2d8e9416778fe3d1975646577f5c4b02a4e8ee46d771a",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

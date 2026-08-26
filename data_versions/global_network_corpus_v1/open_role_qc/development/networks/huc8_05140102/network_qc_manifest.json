@@ -1,0 +1,127 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_05140102",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 5342,
+    "n_days": 7835,
+    "n_parsed_nonempty": 14,
+    "n_qc_eligible_stations": 13,
+    "n_registered_raw_objects": 14,
+    "n_requested_stations": 14,
+    "n_stations": 13,
+    "network_id": "huc8_05140102",
+    "network_interval_reported": false,
+    "overlap_end": "2026-07-27",
+    "overlap_start": "2007-09-30",
+    "overlap_years": 18.822724161533195,
+    "role": "development",
+    "station_coverage": {
+      "03293510": 0.5485641352903637,
+      "03297800": 0.589278876834716,
+      "03297900": 0.5320995532865348,
+      "03298000": 0.6403318442884492,
+      "03298135": 0.5572431397574984,
+      "03298150": 0.6127632418634333,
+      "03298200": 0.580089342693044,
+      "03298250": 0.5799617102744097,
+      "03301900": 0.6528398213146139,
+      "03301940": 0.614932992980217,
+      "03302000": 0.7743458838544991,
+      "03302030": 0.614550095724314,
+      "03302050": 0.6012763241863434
+    }
+  },
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03293510": {
+      "n_rows": 4346,
+      "registry_reused": true,
+      "registry_sha256": "7a9df1e8fb6f3a4eac3cb18ccd8baadf2b21316fc79352186b74a37afbb6503a",
+      "status": "parsed"
+    },
+    "03297800": {
+      "n_rows": 4665,
+      "registry_reused": true,
+      "registry_sha256": "bcde36ac186cbe51a235a0149822bebabbbe0ff645ea15358b0a39431d3267a8",
+      "status": "parsed"
+    },
+    "03297900": {
+      "n_rows": 4209,
+      "registry_reused": true,
+      "registry_sha256": "1bdd0796019d2736d72c18d66e4a8d0fa190ea58b98519858d8170c1bc64c097",
+      "status": "parsed"
+    },
+    "03298000": {
+      "n_rows": 5043,
+      "registry_reused": true,
+      "registry_sha256": "f700c373c68b98b5c379b8f44b216a8e516dbcbd2c1d3895a3d1ef6a348da68e",
+      "status": "parsed"
+    },
+    "03298135": {
+      "n_rows": 4366,
+      "registry_reused": true,
+      "registry_sha256": "83c8301375bb2ec2f1a14b6a1d7ccbfcbea10da280563700e7e74232904b49f9",
+      "status": "parsed"
+    },
+    "03298150": {
+      "n_rows": 4960,
+      "registry_reused": true,
+      "registry_sha256": "71e9abc69fdec493b1787231aa1b75506b0ef0b8d25d644bd5993171de06069b",
+      "status": "parsed"
+    },
+    "03298200": {
+      "n_rows": 4705,
+      "registry_reused": true,
+      "registry_sha256": "e6e734ae4c1f91209264a292361d9acb8cf4606527851ce5379e67a17f88bc6c",
+      "status": "parsed"
+    },
+    "03298250": {
+      "n_rows": 4703,
+      "registry_reused": true,
+      "registry_sha256": "a017f65c74a10386905369e7a5218c3ee29f4ae8203aadf861968de0584c7268",
+      "status": "parsed"
+    },
+    "03298300": {
+      "n_rows": 5157,
+      "registry_reused": true,
+      "registry_sha256": "c11413874e594e70b1f86aadfeda47ae182e31402042b81408977a8480c60eff",
+      "status": "parsed"
+    },
+    "03301900": {
+      "n_rows": 5115,
+      "registry_reused": true,
+      "registry_sha256": "7000464d5321c61fb0ce527d6fbe70a6b5f7667e848432124d64dc4dd900682b",
+      "status": "parsed"
+    },
+    "03301940": {
+      "n_rows": 4979,
+      "registry_reused": true,
+      "registry_sha256": "279c06a680e4fa17189c51ee1bc4484273b8674c61b589a0c5861d41878616ba",
+      "status": "parsed"
+    },
+    "03302000": {
+      "n_rows": 6098,
+      "registry_reused": true,
+      "registry_sha256": "39362cb9ed7fa08a9ee30666f7ba85d4b1eb039ce3a5986e0bfade93b6fe6018",
+      "status": "parsed"
+    },
+    "03302030": {
+      "n_rows": 4843,
+      "registry_reused": true,
+      "registry_sha256": "04f027f6d36e66f98394b704c5e4c4d02c3b1adaa509d083eae97cc9ec0d4bee",
+      "status": "parsed"
+    },
+    "03302050": {
+      "n_rows": 4738,
+      "registry_reused": true,
+      "registry_sha256": "208771602b477eb0054814d315a74ecdf6cfb7b2de74547499c259d148db1f39",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

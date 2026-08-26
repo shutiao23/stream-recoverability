@@ -1,0 +1,65 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_03100205",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 3452,
+    "n_days": 5168,
+    "n_parsed_nonempty": 5,
+    "n_qc_eligible_stations": 5,
+    "n_registered_raw_objects": 5,
+    "n_requested_stations": 5,
+    "n_stations": 5,
+    "network_id": "huc8_03100205",
+    "network_interval_reported": false,
+    "overlap_end": "2025-11-19",
+    "overlap_start": "2016-06-08",
+    "overlap_years": 9.44832306639288,
+    "role": "validation",
+    "station_coverage": {
+      "02304000": 0.6629256965944272,
+      "02304510": 0.6627321981424149,
+      "02304517": 0.5686919504643962,
+      "023060013": 0.9918730650154799,
+      "02306028": 0.6660216718266254
+    }
+  },
+  "role": "validation",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "02304000": {
+      "n_rows": 3701,
+      "registry_reused": true,
+      "registry_sha256": "171ddf7bd45dc5acf5d58c265d8dbf42060c4ebca4df2746a372163f5263b888",
+      "status": "parsed"
+    },
+    "02304510": {
+      "n_rows": 6798,
+      "registry_reused": true,
+      "registry_sha256": "cc6ad8b84ae2de34a3ec5c687e91966e760266f94033bca14ffadd030b620ffd",
+      "status": "parsed"
+    },
+    "02304517": {
+      "n_rows": 6407,
+      "registry_reused": true,
+      "registry_sha256": "5c6b7323be46d3ecf56ff5e8ca971e5ea9cd86a64a39e94b1b0f369e36ef6fdf",
+      "status": "parsed"
+    },
+    "023060013": {
+      "n_rows": 10630,
+      "registry_reused": true,
+      "registry_sha256": "938bc3563b09dbadc34b8560a03d4e3534c9787c215df3de1d51f00838d796a3",
+      "status": "parsed"
+    },
+    "02306028": {
+      "n_rows": 10968,
+      "registry_reused": true,
+      "registry_sha256": "c9ede5d7b4e99d1a486bd509eec273cb9671c120a6c10237a5c9b4822c32bf8e",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

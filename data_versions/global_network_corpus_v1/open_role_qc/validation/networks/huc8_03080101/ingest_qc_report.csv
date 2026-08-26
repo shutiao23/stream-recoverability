@@ -1,0 +1,5 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+02232400,5288,0,0,244,0,0,11,accepted,,huc8_03080101,True,
+02234000,2531,0,0,0,0,0,4,accepted,,huc8_03080101,False,qualified_years_lt_8
+02234500,1832,0,0,0,0,0,2,accepted,,huc8_03080101,False,qualified_years_lt_8
+02236000,4529,0,0,201,0,0,7,accepted,,huc8_03080101,False,qualified_years_lt_8

@@ -1,0 +1,5 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+06610000,3722,0,0,0,0,0,9,accepted,,huc8_10230006,True,
+06610505,4664,2,0,0,15,0,10,rejected_sentinel,suspect_constant_run,huc8_10230006,False,rejected_sentinel
+410333095530101,3460,0,0,0,0,0,9,accepted,,huc8_10230006,True,
+412126095565201,3837,0,0,0,79,0,9,accepted_with_flags,estimated_approved;suspect_constant_run,huc8_10230006,True,

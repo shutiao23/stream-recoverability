@@ -1,0 +1,7 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+07105530,3471,0,0,660,0,0,7,accepted,,huc8_11020003,False,qualified_years_lt_8
+07105800,2172,0,0,275,0,0,5,accepted,,huc8_11020003,False,qualified_years_lt_8
+07105815,3187,0,0,101,0,0,8,accepted,,huc8_11020003,True,
+07105820,3150,0,0,152,0,0,8,accepted,,huc8_11020003,True,
+07106000,10508,0,0,139,0,0,26,accepted,,huc8_11020003,True,
+07106500,12855,0,0,264,0,0,34,accepted,,huc8_11020003,True,

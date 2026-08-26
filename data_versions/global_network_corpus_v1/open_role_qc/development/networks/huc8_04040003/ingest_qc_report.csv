@@ -1,0 +1,9 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+040869416,977,0,0,0,48,0,1,accepted_with_flags,suspect_constant_run,huc8_04040003,False,qualified_years_lt_8
+04087000,2743,0,0,794,101,7,0,accepted_with_flags,suspect_constant_run;suspect_jump,huc8_04040003,False,qualified_years_lt_8
+04087070,485,0,0,0,0,0,0,accepted,,huc8_04040003,False,qualified_years_lt_8
+040871473,6080,0,0,417,580,0,13,accepted_with_flags,suspect_constant_run,huc8_04040003,True,
+040871475,6813,0,0,596,40,0,16,accepted_with_flags,suspect_constant_run,huc8_04040003,True,
+040871476,4547,475,0,0,0,0,9,rejected_sentinel,,huc8_04040003,False,rejected_sentinel
+040871488,7132,0,0,0,185,0,18,accepted_with_flags,suspect_constant_run,huc8_04040003,True,
+04087159,291,0,0,0,0,0,0,accepted,,huc8_04040003,False,qualified_years_lt_8

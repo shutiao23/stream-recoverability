@@ -1,0 +1,71 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_02040106",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 10342,
+    "n_days": 15329,
+    "n_parsed_nonempty": 6,
+    "n_qc_eligible_stations": 5,
+    "n_registered_raw_objects": 6,
+    "n_requested_stations": 6,
+    "n_stations": 5,
+    "network_id": "huc8_02040106",
+    "network_interval_reported": false,
+    "overlap_end": "2026-01-21",
+    "overlap_start": "1980-10-09",
+    "overlap_years": 45.28405201916495,
+    "role": "development",
+    "station_coverage": {
+      "01447500": 0.652293039337204,
+      "01447720": 0.7057211820731946,
+      "01447800": 0.5557440146128254,
+      "01449360": 0.9758627438189054,
+      "01449800": 0.20457955509165635
+    }
+  },
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "01447500": {
+      "n_rows": 10212,
+      "registry_reused": true,
+      "registry_sha256": "b1a9fc9ea8d39a8fa61c183e984610bad644ef31b1969c5f1f90abadc75bfaad",
+      "status": "parsed"
+    },
+    "01447720": {
+      "n_rows": 11327,
+      "registry_reused": true,
+      "registry_sha256": "7c06c5d58d1efab60a8cf868f3561b8164718242f0ad63daf8c56c4472be395b",
+      "status": "parsed"
+    },
+    "01447800": {
+      "n_rows": 9034,
+      "registry_reused": true,
+      "registry_sha256": "815c906b49db9f91382415eb909981339562e83df90887e254812ef181770f3c",
+      "status": "parsed"
+    },
+    "01449360": {
+      "n_rows": 14980,
+      "registry_reused": true,
+      "registry_sha256": "36f014b6d01588218c8abb8ca95369dde13602f7fefd346b8847c2a9c1d88f93",
+      "status": "parsed"
+    },
+    "01449800": {
+      "n_rows": 3232,
+      "registry_reused": true,
+      "registry_sha256": "01556c5fea6a38c2caa16de1563ba9a56514c6a08f40144b8d81bfa5897fbf0c",
+      "status": "parsed"
+    },
+    "01454700": {
+      "n_rows": 3604,
+      "registry_reused": true,
+      "registry_sha256": "657a12bc33b033a93f429871bcc4268bd2693b6945ed8ec9fc2421159e0f80b7",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

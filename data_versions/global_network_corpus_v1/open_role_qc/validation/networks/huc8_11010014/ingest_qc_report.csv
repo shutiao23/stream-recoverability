@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+07075250,3378,0,0,0,291,0,9,accepted_with_flags,suspect_constant_run,huc8_11010014,True,
+07075270,5727,0,0,161,0,0,15,accepted,,huc8_11010014,True,
+07076000,8682,0,0,232,0,0,8,accepted,,huc8_11010014,True,

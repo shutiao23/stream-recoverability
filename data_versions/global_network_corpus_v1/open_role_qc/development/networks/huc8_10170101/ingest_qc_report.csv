@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+06466700,1942,0,0,350,85,0,3,accepted_with_flags,suspect_constant_run,huc8_10170101,False,qualified_years_lt_8
+06467500,2418,0,0,1066,0,0,0,accepted,,huc8_10170101,False,qualified_years_lt_8
+06478522,949,0,0,0,0,0,0,accepted,,huc8_10170101,False,qualified_years_lt_8

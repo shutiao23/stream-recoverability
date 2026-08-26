@@ -1,0 +1,71 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_11020002",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 11389,
+    "n_days": 12944,
+    "n_parsed_nonempty": 6,
+    "n_qc_eligible_stations": 5,
+    "n_registered_raw_objects": 6,
+    "n_requested_stations": 6,
+    "n_stations": 5,
+    "network_id": "huc8_11020002",
+    "network_interval_reported": false,
+    "overlap_end": "2026-03-31",
+    "overlap_start": "1994-10-01",
+    "overlap_years": 31.496235455167692,
+    "role": "validation",
+    "station_coverage": {
+      "07096000": 0.891455500618047,
+      "07097000": 0.8352904820766378,
+      "07099400": 0.48254017305315205,
+      "07099969": 0.8125772558714462,
+      "07109500": 0.9670889987639061
+    }
+  },
+  "role": "validation",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "07096000": {
+      "n_rows": 11658,
+      "registry_reused": true,
+      "registry_sha256": "3edd47fbaa0d14f8dcfd5f6593eeaa9bcc706bb4a711fcf2d491ef4cc15be271",
+      "status": "parsed"
+    },
+    "07097000": {
+      "n_rows": 11272,
+      "registry_reused": true,
+      "registry_sha256": "809ccee01a96a69d4cb0325f3beaf48f0f644ddab90abe7d182636054b242a38",
+      "status": "parsed"
+    },
+    "07099400": {
+      "n_rows": 6420,
+      "registry_reused": true,
+      "registry_sha256": "8d9cb46d95da0b504dd8d6ffb281712978bcdce6fc67142279d473d4c44d5872",
+      "status": "parsed"
+    },
+    "07099969": {
+      "n_rows": 10661,
+      "registry_reused": true,
+      "registry_sha256": "00bcba83828176014f4ac4db6cb55989e6e6520bead8dc270fd493a2ad03e0aa",
+      "status": "parsed"
+    },
+    "07109500": {
+      "n_rows": 12662,
+      "registry_reused": true,
+      "registry_sha256": "5102e98cbb1a00489b6912f36c020a6f3211f55b05b10104629edd568897e372",
+      "status": "parsed"
+    },
+    "381312104321001": {
+      "n_rows": 4430,
+      "registry_reused": true,
+      "registry_sha256": "c6743ca037a154617d2df9c5e1dd5f8bbed3e8376ad314cb480a079e1b08b98d",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

@@ -1,0 +1,71 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_05010006",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 5555,
+    "n_days": 6494,
+    "n_parsed_nonempty": 6,
+    "n_qc_eligible_stations": 5,
+    "n_registered_raw_objects": 6,
+    "n_requested_stations": 6,
+    "n_stations": 5,
+    "network_id": "huc8_05010006",
+    "network_interval_reported": false,
+    "overlap_end": "2026-06-21",
+    "overlap_start": "2010-12-17",
+    "overlap_years": 15.509924709103354,
+    "role": "development",
+    "station_coverage": {
+      "03034000": 0.8444718201416692,
+      "03034500": 0.7018786572220511,
+      "03036000": 0.9487218971358177,
+      "03038000": 0.6877117339082229,
+      "03039000": 0.9613489374807515
+    }
+  },
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03034000": {
+      "n_rows": 5516,
+      "registry_reused": true,
+      "registry_sha256": "3d6ba8abba782afe5d4a6aa568d6951d3316249ba53416df0446e402b55d4b59",
+      "status": "parsed"
+    },
+    "03034500": {
+      "n_rows": 4620,
+      "registry_reused": true,
+      "registry_sha256": "55e6639234053529dff8bbc8fcc78d7a3f4a46784fa6912e8d360aa28cfa12b4",
+      "status": "parsed"
+    },
+    "03036000": {
+      "n_rows": 6309,
+      "registry_reused": true,
+      "registry_sha256": "6617d8094670117a60320892eabfd827dc5ef6d73969c01121b977221afc55e9",
+      "status": "parsed"
+    },
+    "03038000": {
+      "n_rows": 4691,
+      "registry_reused": true,
+      "registry_sha256": "671d58cf16e6da05eae1fa368fb35548634d950d403308aea181c8eb33eb82b4",
+      "status": "parsed"
+    },
+    "03039000": {
+      "n_rows": 6302,
+      "registry_reused": true,
+      "registry_sha256": "ece859e296409a10af5e411c758de904c82c17cf76ee433ffd910391922e1cd8",
+      "status": "parsed"
+    },
+    "03039040": {
+      "n_rows": 1360,
+      "registry_reused": true,
+      "registry_sha256": "1a887862fcbccbc040acec674210f3ed31317cd6150ff3da02490b5523e6018f",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}

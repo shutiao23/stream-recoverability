@@ -1,0 +1,16 @@
+{
+  "byte_count": 333345,
+  "content_parsed": false,
+  "network_id": "huc8_03080101",
+  "qc_permitted": true,
+  "registry_schema": "huc8_corpus_byte_registry_v1",
+  "request_end": "2026-08-24",
+  "request_start": "1985-11-15",
+  "reused_registry": false,
+  "role": "validation",
+  "sealed_outcomes_opened": false,
+  "sha256": "84459bb668cad06f26e3bf3e4c892220658b484682ee48207c1d7f8ebd50b3e9",
+  "site_id": "02236000",
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "storage_class": "role_scoped_qc_readable_cache"
+}

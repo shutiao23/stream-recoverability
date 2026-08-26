@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+02156500,15049,0,0,278,0,2,41,accepted_with_flags,suspect_jump,huc8_03050106,True,
+02160991,18851,0,0,49,0,0,51,accepted,,huc8_03050106,True,
+02162035,5468,0,0,272,0,0,14,accepted,,huc8_03050106,True,

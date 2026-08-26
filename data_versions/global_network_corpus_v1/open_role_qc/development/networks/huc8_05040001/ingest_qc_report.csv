@@ -1,0 +1,12 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+03119341,3941,0,0,167,0,0,10,accepted,,huc8_05040001,True,
+03119971,3972,0,0,280,52,0,9,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03119979,3973,0,0,234,16,0,9,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03120820,4043,0,0,272,0,0,10,accepted,,huc8_05040001,True,
+03120869,4071,0,0,278,0,0,10,accepted,,huc8_05040001,True,
+03120961,3843,0,0,278,0,0,9,accepted,,huc8_05040001,True,
+03125338,4064,0,0,281,31,0,10,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03126395,4007,0,0,279,47,0,9,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03127980,4052,0,0,280,30,0,10,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03127986,3977,0,0,207,16,0,10,accepted_with_flags,suspect_constant_run,huc8_05040001,True,
+03127989,3951,0,0,236,15,0,9,accepted_with_flags,suspect_constant_run,huc8_05040001,True,

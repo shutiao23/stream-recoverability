@@ -1,0 +1,58 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "huc8_open_role_network_qc_v1",
+  "network_id": "huc8_02030103",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 13400,
+    "n_parsed_nonempty": 5,
+    "n_qc_eligible_stations": 2,
+    "n_registered_raw_objects": 5,
+    "n_requested_stations": 5,
+    "n_stations": 2,
+    "network_id": "huc8_02030103",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "development"
+  },
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "01382500": {
+      "n_rows": 1714,
+      "registry_reused": true,
+      "registry_sha256": "9ddd34b661fd33c6d77753efda2137b6dd2e777767ee7d645b2ed3569eded468",
+      "status": "parsed"
+    },
+    "01388000": {
+      "n_rows": 12982,
+      "registry_reused": true,
+      "registry_sha256": "d17a2c585ee7434a3fa1217316c42fdd320898384080870955d4cff33b079bb4",
+      "status": "parsed"
+    },
+    "01389005": {
+      "n_rows": 39142,
+      "registry_reused": true,
+      "registry_sha256": "6df44f6f78d65320c26ad5f84b12e6b58bf288b84f4141b7b119638bc3c73bda",
+      "status": "parsed"
+    },
+    "01391100": {
+      "n_rows": 16,
+      "registry_reused": true,
+      "registry_sha256": "33a9aa5ada845c1f4e5f0388b578e3c7d144c3b760a7cb6582be2c3ff167a1ef",
+      "status": "parsed"
+    },
+    "01391500": {
+      "n_rows": 48,
+      "registry_reused": true,
+      "registry_sha256": "501fce10ae8e74b816c2491a33db3b05dee14be1defb69ba41da805961d4a2e4",
+      "status": "parsed"
+    }
+  },
+  "status": "complete"
+}
