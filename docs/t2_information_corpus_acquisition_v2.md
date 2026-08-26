@@ -1,6 +1,6 @@
 # T2 M/H acquisition v2: legacy NWIS network batches
 
-Status: **v2.1 red-team corrections implemented; resume held until tests and
+Status: **v2.2 provider-code corrections implemented; resume held until tests and
 operator handoff**.
 
 ## Why v2 exists
@@ -50,10 +50,10 @@ full plan contains exactly:
 Corpus plan SHA-256:
 
 ```text
-9056f473525c5e5c8fac895bd77edfd27af6a2446316b80a5272834cd4656783
+1011c400671bd2af7e9f4a8eb54efb9c53874479f3fc7de6610dec1d8c46bae7
 ```
 
-This v2.1 SHA binds the parser contract and locked provider nonnumeric-code
+This v2.2 SHA binds the parser contract and locked provider nonnumeric-code
 roster into every network SHA.
 
 ## Provider QC and retry safety
@@ -62,11 +62,13 @@ roster into every network SHA.
   prefix is `A` (`A`, `A:e`, `A:R`, and similar colon-qualified forms) is
   eligible. `P` and every other non-A finite value remain audited with `value`
   set to NA.
-- Every legacy value also retains exact `raw_text`. The locked provider code
-  `Ice` is not treated as a number: `value` and `raw_value` are NA,
+- Every legacy value also retains exact `raw_text`. The locked provider codes
+  `Ice` and `Eqp` are not treated as numbers: `value` and `raw_value` are NA,
   `quality_approved` is false, `approval_status` is `Provisional`, and
   `qc_status` is `excluded_non_numeric_provider_code`, regardless of qualifier.
-  Any other nonempty nonnumeric provider text fails closed.
+  USGS RDB comments identify `Eqp` as equipment malfunction. Any other nonempty
+  nonnumeric provider text fails closed. The pre-v2.2 downloaded RDB audit found
+  exactly `Ice=195` and `Eqp=5`, with all `Eqp` rows carrying qualifier `P`.
 - Approved estimated qualifiers such as `A:e` retain approval but use
   `qc_status=approved_estimated`.
 - F remains converted by `ft3/s * 0.028316846592`; L remains converted by
@@ -97,17 +99,14 @@ roster into every network SHA.
   `attempt_XXXX`. Collisions fail closed while preserving both sides for manual
   recovery.
 
-## v2.0 terminal migration
+## Pre-v2.2 terminal migration
 
-The first five terminal networks used the pre-red-team parser. Their numeric
-values are not edited in place. Because `A:e` previously carried the generic
-`approved` label and `raw_text`/locked `Ice` handling were absent, v2.1 changes
-the parser contract and therefore every network plan SHA. On resume each old
-terminal is first moved intact into an audited attempt with reason
-`terminal_rebuild_parser_contract_v2_1`, then rebuilt under the v2.1 contract.
-The interrupted `huc8_02040106` directory is similarly archived with reason
-`interrupted_missing_manifest`. This is an explicit rebuild, not a silent
-manifest migration.
+Older v2/v2.1 terminal networks are not edited in place. V2.2 adds the locked
+`Eqp` contract and therefore changes every network plan SHA. On resume each
+stale terminal is first moved intact into an audited attempt with reason
+`terminal_rebuild_parser_contract_v2_2`, then rebuilt under the v2.2 contract.
+Interrupted directories are archived with reason `interrupted_missing_manifest`.
+This is an explicit rebuild, not a silent manifest migration.
 
 ## Real one-network pilot
 

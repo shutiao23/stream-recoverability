@@ -12,6 +12,7 @@ from stream_recoverability.data.t2_information_adapters import _provider_eligibl
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     LEGACY_NETWORK_SCHEMA_VERSION,
     LEGACY_PROVIDER,
+    LOCKED_PROVIDER_NONNUMERIC_CODES,
     NETWORK_SCHEMA_VERSION,
     AuditedRateLimitedFetcher,
     LegacyNetworkRequest,
@@ -164,6 +165,7 @@ def test_corpus_run_stops_at_first_exhausted_request(tmp_path: Path) -> None:
         del headers
         state = json.loads((tmp_path / "root_execution_manifest.json").read_text())
         saw_atomic_in_progress = state["status"] == "in_progress"
+        assert "provider_calls_started" not in state
         calls += 1
         raise RuntimeError(f"HTTP 429 while fetching {url}")
 
@@ -241,11 +243,11 @@ def _legacy_request() -> LegacyNetworkRequest:
         role="development",
         site_ids=("01095220",),
         start="2020-01-01",
-        end="2020-01-03",
+        end="2020-01-04",
         parameter_codes=("00060", "00065"),
         statistic_code="00003",
         url="https://waterservices.usgs.gov/nwis/dv/?test",
-        estimated_site_days=3,
+        estimated_site_days=4,
     )
 
 
@@ -256,6 +258,7 @@ agency_cd\tsite_no\tdatetime\t11_00060_00003\t11_00060_00003_cd\t12_00065_00003\
 USGS\t01095220\t2020-01-01\t10\tA:[4]\t5\tA:R
 USGS\t01095220\t2020-01-02\t20\tP\t6\tP
 USGS\t01095220\t2020-01-03\tIce\tA\t7\tA:e
+USGS\t01095220\t2020-01-04\tEqp\tP\t\t
 """
     frame = parse_legacy_hydraulics_rdb(
         payload,
@@ -263,7 +266,8 @@ USGS\t01095220\t2020-01-03\tIce\tA\t7\tA:e
         response_sha256="a" * 64,
         response_artifact="raw/response.rdb",
     )
-    assert len(frame) == 6
+    assert LOCKED_PROVIDER_NONNUMERIC_CODES == ("Ice", "Eqp")
+    assert len(frame) == 7
     approved = frame.loc[frame["approval_status"].eq("Approved")]
     provisional = frame.loc[frame["approval_status"].eq("Provisional")]
     assert set(approved["variable"]) == {"F", "L"}
@@ -275,12 +279,15 @@ USGS\t01095220\t2020-01-03\tIce\tA\t7\tA:e
     ).loc["L", "value"] == pytest.approx(5 * 0.3048)
     assert provisional["value"].isna().all()
     assert frame["source"].eq(LEGACY_PROVIDER).all()
-    ice = frame.loc[frame["raw_text"].eq("Ice")].iloc[0]
-    assert pd.isna(ice["value"])
-    assert pd.isna(ice["raw_value"])
-    assert ice["quality_approved"] is False or not bool(ice["quality_approved"])
-    assert ice["approval_status"] == "Provisional"
-    assert ice["qc_status"] == "excluded_non_numeric_provider_code"
+    for code in LOCKED_PROVIDER_NONNUMERIC_CODES:
+        excluded = frame.loc[frame["raw_text"].eq(code)].iloc[0]
+        assert pd.isna(excluded["value"])
+        assert pd.isna(excluded["raw_value"])
+        assert excluded["quality_approved"] is False or not bool(
+            excluded["quality_approved"]
+        )
+        assert excluded["approval_status"] == "Provisional"
+        assert excluded["qc_status"] == "excluded_non_numeric_provider_code"
     estimated = frame.loc[frame["raw_text"].eq("7")].iloc[0]
     assert estimated["approval_status"] == "Approved"
     assert bool(estimated["estimated_qualifier"]) is True
@@ -356,7 +363,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     (staging / ".archive_intent.json").write_text(
         json.dumps(
             {
-                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_1",
+                "manifest_schema": "t2_v91_open_role_mh_attempt_archive_intent_v2_2",
                 "attempt_number": 1,
                 "network_id": network.network_id,
                 "role": network.role,
@@ -390,7 +397,7 @@ def test_retry_manifest_and_interrupted_directory_are_fully_archived(tmp_path: P
     )
     archived = archive_nonterminal_attempt(stale, network)
     audit = json.loads((archived / "attempt_archive_manifest.json").read_text())
-    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_1"
+    assert audit["archive_reason"] == "terminal_rebuild_parser_contract_v2_2"
 
 
 class V2Fetcher:
