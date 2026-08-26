@@ -1,0 +1,103 @@
+{
+  "achieved_skill_is_gap_specific": true,
+  "achieved_skill_is_later_year_not_gap_specific": false,
+  "achieved_skill_mode": "gap_specific",
+  "chattahoochee_outcomes_used": false,
+  "clearwater_dropped": false,
+  "confirmatory_eligible": false,
+  "delaware_scored": true,
+  "donor_r2_estimator": "year_block_cv",
+  "donor_r2_estimator_note": "Year-block CV on train years when at least two train years exist; otherwise train in-sample. Labeled per station.",
+  "dropped_insane_mae_networks": [],
+  "evaluate_success": {
+    "confirmatory_eligible": false,
+    "n_networks_min": 100,
+    "passed": false,
+    "passed_numeric_floors": false,
+    "spearman_inference_status": "withheld_n_lt_100_network_interval",
+    "thresholds_locked": true
+  },
+  "formal_evidence": false,
+  "gap_lengths": [
+    30,
+    90
+  ],
+  "headline_claim_licensed": false,
+  "incremental_note": "operator incremental R2 is positive on this pilot; not confirmatory",
+  "insane_donor_mae_threshold_c": 50.0,
+  "jinsha_outcomes_used": false,
+  "max_donor_mae_by_network": {
+    "delaware_river_huc20": 2.2510039221863254,
+    "madison_river_huc10": 1.947476488458439,
+    "mahoning_river_huc50": 0.7106574978863579,
+    "roanoke_river_huc30": 1.6394920481007367,
+    "santa_fe_river_huc31": 1.2636725872556336,
+    "willamette_river_huc17": 0.4064117982038408
+  },
+  "n_networks": 6,
+  "n_networks_attempted": 6,
+  "n_station_gap_rows_pooled": 64,
+  "n_station_rows_primary_gap": 32,
+  "nested_grids": "per-gap diagnostics plus pooled_gaps so gap_length varies on the pipeline table",
+  "nested_predictors": [
+    "gap_length",
+    "acf30",
+    "donor_r2",
+    "heuristic_explained_variance",
+    "recoverability_r"
+  ],
+  "new_temperatures_downloaded": false,
+  "operator_incremental_r2_le_0": false,
+  "operator_incremental_r2_station": 0.0013753799628752894,
+  "passed": false,
+  "pipeline_gap_length_delta_r2": 0.00014466981740002272,
+  "pipeline_gap_length_delta_r2_nonzero": true,
+  "pipeline_gap_rows_differ": true,
+  "primary_gap_length": 30,
+  "primary_networks": [
+    "delaware_river_huc20",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "purpose": "pipeline_verification_not_evidence",
+  "requested_primary_missing": [],
+  "requested_primary_networks": [
+    "delaware_river_huc20",
+    "willamette_river_huc17",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31"
+  ],
+  "scored_networks": [
+    "delaware_river_huc20",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "sealed_outcomes_opened": false,
+  "spearman_by_gap": {
+    "gap_30": {
+      "spearman_donor_r2_vs_achieved_skill": 0.4285714285714286,
+      "spearman_operator_r_vs_achieved_skill": 0.5428571428571429
+    },
+    "gap_90": {
+      "spearman_donor_r2_vs_achieved_skill": 0.48571428571428577,
+      "spearman_operator_r_vs_achieved_skill": 0.8285714285714287
+    },
+    "pooled_gaps": {
+      "spearman_donor_r2_vs_achieved_skill": 0.48571428571428577,
+      "spearman_operator_r_vs_achieved_skill": 0.6571428571428573
+    }
+  },
+  "spearman_donor_r2_vs_achieved_skill": 0.48571428571428577,
+  "spearman_operator_r_vs_achieved_skill": 0.6571428571428573,
+  "thresholds_locked": true,
+  "what_this_is": "W2 Phase-4 pipeline verification on already-downloaded public rivers. Train-only predictors; gap-specific planted-gap donor-fill skill.",
+  "what_this_is_not": "Not confirmatory. Not formal evidence. Not a headline claim. Does not replace leave_one_river_out.csv."
+}

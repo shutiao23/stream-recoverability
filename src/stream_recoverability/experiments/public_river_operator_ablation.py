@@ -1,8 +1,10 @@
 """Stop-loss nested ablation of the Schur operator on downloaded public rivers.
 
-Train-only predictors; later-year achieved donor-regression skill.  This is a
-development stop-loss, not confirmatory evidence.  Clearwater is dropped when
-donor MAE is physically impossible.
+Train-only predictors.  Later-year mode reuses full-window donor-regression
+skill across gap lengths (the Phase-4 audit).  Gap-specific mode plants an
+observed block of length L and scores fill MAE against hidden truth.  Neither
+path is confirmatory evidence.  Clearwater is dropped when donor MAE is
+physically impossible.
 """
 
 from __future__ import annotations
@@ -48,6 +50,20 @@ NESTED_PREDICTORS = (
     "recoverability_r",
 )
 COMPLETE_COLUMNS = ("achieved_skill", *NESTED_PREDICTORS)
+ACHIEVED_SKILL_LATER_YEAR = "later_year"
+ACHIEVED_SKILL_GAP_SPECIFIC = "gap_specific"
+MIN_GAP_DAYS_WITH_DONOR = 5
+MIN_DONOR_TRAIN_OVERLAP_DAYS = 365
+MIN_TRAIN_COMPLETE_FOR_OPERATOR = 200
+W2_PURPOSE = "pipeline_verification_not_evidence"
+W2_PRIMARY_NETWORKS = (
+    "delaware_river_huc20",
+    "willamette_river_huc17",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+)
 
 
 def load_public_river_panels(
@@ -168,28 +184,199 @@ def _train_donor_r2(
     return float(in_sample_r2(target, donors)), "train_in_sample"
 
 
-def station_operator_rows(
+def _gap_donor_mae(
+    target: np.ndarray,
+    donors: np.ndarray,
+    train: np.ndarray,
+    test: np.ndarray,
+    *,
+    min_test: int = MIN_GAP_DAYS_WITH_DONOR,
+) -> float:
+    """Donor-regression MAE on a planted gap. Allows short planted windows."""
+
+    if donors.size == 0 or int(train.sum()) < donors.shape[1] + 2:
+        return float("nan")
+    y_train = target[train]
+    x_train = np.column_stack([np.ones(int(train.sum())), donors[train]])
+    valid = np.isfinite(y_train) & np.isfinite(x_train).all(axis=1)
+    if int(valid.sum()) < x_train.shape[1] + 1:
+        return float("nan")
+    coef = np.linalg.lstsq(x_train[valid], y_train[valid], rcond=None)[0]
+    y_test = target[test]
+    x_test = np.column_stack([np.ones(int(test.sum())), donors[test]])
+    ok = np.isfinite(y_test) & np.isfinite(x_test).all(axis=1)
+    if int(ok.sum()) < int(min_test):
+        return float("nan")
+    pred = x_test[ok] @ coef
+    return float(np.mean(np.abs(pred - y_test[ok])))
+
+
+def _doy_climatology(
+    values: np.ndarray,
+    index: pd.DatetimeIndex,
+    train: np.ndarray,
+) -> np.ndarray:
+    """Train-only calendar-day means, broadcast onto the full index."""
+
+    doy = pd.Index(index).dayofyear.to_numpy()
+    fallback = float(np.nanmean(values[train])) if int(train.sum()) else float("nan")
+    climate = np.full(len(values), fallback, dtype=float)
+    for day in np.unique(doy[train]):
+        on_day = train & (doy == day)
+        if np.isfinite(values[on_day]).any():
+            climate[doy == day] = float(np.nanmean(values[on_day]))
+    return climate
+
+
+def _first_365_train_mask(train: np.ndarray) -> np.ndarray:
+    """Days that belong to the first 365 train observations."""
+
+    forbidden = np.zeros(train.shape[0], dtype=bool)
+    positions = np.flatnonzero(train)
+    stop = min(int(MIN_TRAIN_DAYS), int(positions.size))
+    if stop:
+        forbidden[positions[:stop]] = True
+    return forbidden
+
+
+def first_plant_start(
+    target_ok: np.ndarray,
+    donor_ok: np.ndarray,
+    *,
+    length: int,
+    test: np.ndarray,
+    forbidden: np.ndarray,
+    min_donor_days: int = MIN_GAP_DAYS_WITH_DONOR,
+) -> int | None:
+    """First L-day observed run: test years first, then later non-buffer days."""
+
+    length = int(length)
+    n = int(len(target_ok))
+    if n < length or length < 1:
+        return None
+    run = np.convolve(target_ok.astype(int), np.ones(length, dtype=int), mode="valid")
+    starts = np.flatnonzero(run == int(length))
+
+    def admissible(start: int, require_test: bool) -> bool:
+        stop = int(start) + length
+        if forbidden[int(start) : stop].any():
+            return False
+        if require_test and not bool(np.all(test[int(start) : stop])):
+            return False
+        if int(donor_ok[int(start) : stop].sum()) < int(min_donor_days):
+            return False
+        return True
+
+    for start in starts:
+        if admissible(int(start), True):
+            return int(start)
+    for start in starts:
+        if admissible(int(start), False):
+            return int(start)
+    return None
+
+
+def _usable_donor_indices(
+    values: np.ndarray,
+    target: int,
+    train: np.ndarray,
+    *,
+    min_overlap: int = MIN_DONOR_TRAIN_OVERLAP_DAYS,
+) -> list[int]:
+    keep: list[int] = []
+    y = values[:, int(target)]
+    for donor in range(values.shape[1]):
+        if int(donor) == int(target):
+            continue
+        overlap = int(
+            (np.isfinite(y[train]) & np.isfinite(values[train, donor])).sum()
+        )
+        if overlap >= int(min_overlap):
+            keep.append(int(donor))
+    return keep
+
+
+def _prune_donors_for_complete_cases(
+    values: np.ndarray,
+    mask: np.ndarray,
+    target: int,
+    donors: Sequence[int],
+    *,
+    min_complete: int,
+) -> list[int]:
+    """Drop the sparsest donor until complete-case days meet ``min_complete``."""
+
+    kept = [int(item) for item in donors]
+    floor = int(min_complete)
+    while kept:
+        cols = np.array([int(target), *kept], dtype=int)
+        n_complete = int(np.isfinite(values[mask][:, cols]).all(axis=1).sum())
+        if n_complete >= floor:
+            return kept
+        if len(kept) == 1:
+            return kept if n_complete >= min(floor, MIN_GAP_DAYS_WITH_DONOR) else []
+        sparsest = min(
+            kept, key=lambda donor: int(np.isfinite(values[mask, donor]).sum())
+        )
+        kept.remove(sparsest)
+    return []
+
+
+def _operator_on_subset(
+    values: np.ndarray,
+    train: np.ndarray,
+    target: int,
+    donors: Sequence[int],
+    gap_length: int,
+) -> tuple[float, float, float]:
+    if not donors:
+        return float("nan"), float("nan"), float("nan")
+    columns = [int(target), *[int(item) for item in donors]]
+    series = values[train][:, columns]
+    try:
+        conditionals = empirical_information_set_conditionals(
+            series,
+            target=0,
+            donors=list(range(1, len(columns))),
+            gap_length=int(gap_length),
+        )
+        both = conditionals["B_union_D"]
+        return (
+            float(both.get("recoverability_r", float("nan"))),
+            float(both.get("predicted_skill", float("nan"))),
+            float(both.get("expected_mae_conditional", float("nan"))),
+        )
+    except (np.linalg.LinAlgError, ValueError, KeyError):
+        return float("nan"), float("nan"), float("nan")
+
+
+def _heuristic_explained(
+    donor_r2: float,
+    anomalies_train: np.ndarray,
+    gap_length: int,
+) -> float:
+    rho = _rho_at_distance(anomalies_train, float(gap_length) / 4.0)
+    if np.isfinite(donor_r2) and np.isfinite(rho):
+        return float(
+            np.clip(
+                donor_r2
+                + memory_component(float(np.clip(donor_r2, 0.0, 1.0)), rho),
+                0.0,
+                1.0,
+            )
+        )
+    return float("nan")
+
+
+def _later_year_station_rows(
     name: str,
     wide: pd.DataFrame,
-    *,
-    gap_lengths: Sequence[int] = GAP_LENGTHS,
+    values: np.ndarray,
+    train: np.ndarray,
+    test: np.ndarray,
+    years: np.ndarray,
+    gap_lengths: Sequence[int],
 ) -> list[dict[str, float | str | bool]]:
-    """Train-only predictors and later-year achieved skill for one river."""
-
-    if not isinstance(wide.index, pd.DatetimeIndex):
-        raise TypeError("wide frame must be indexed by date")
-    values = wide.to_numpy(dtype=float)
-    train, test = year_split(wide.index)
-    if int(train.sum()) < MIN_TRAIN_DAYS or int(test.sum()) < MIN_TEST_DAYS:
-        return [
-            {
-                "network_id": name,
-                "reason": "not_enough_years_after_split",
-                "donor_mae": float("nan"),
-                "achieved_skill": float("nan"),
-            }
-        ]
-    years = wide.index.year.to_numpy()
     rows: list[dict[str, float | str | bool]] = []
     for target in range(values.shape[1]):
         donors = [index for index in range(values.shape[1]) if index != target]
@@ -219,13 +406,7 @@ def station_operator_rows(
             years[train],
         )
         for gap_length in gap_lengths:
-            rho = _rho_at_distance(anomalies[train], float(gap_length) / 4.0)
-            if np.isfinite(donor_r2) and np.isfinite(rho):
-                heuristic = float(
-                    np.clip(donor_r2 + memory_component(float(np.clip(donor_r2, 0.0, 1.0)), rho), 0.0, 1.0)
-                )
-            else:
-                heuristic = float("nan")
+            heuristic = _heuristic_explained(donor_r2, anomalies[train], int(gap_length))
             try:
                 conditionals = empirical_information_set_conditionals(
                     values[train],
@@ -255,9 +436,171 @@ def station_operator_rows(
                     "climate_mae": climate_mae,
                     "observed_recovery_loss": float(donor_mae),
                     "achieved_skill": float(achieved),
+                    "achieved_skill_mode": ACHIEVED_SKILL_LATER_YEAR,
                     "reason": "",
                 }
             )
+    return rows
+
+
+def _gap_specific_station_rows(
+    name: str,
+    wide: pd.DataFrame,
+    values: np.ndarray,
+    train: np.ndarray,
+    test: np.ndarray,
+    years: np.ndarray,
+    gap_lengths: Sequence[int],
+) -> list[dict[str, float | str | bool]]:
+    rows: list[dict[str, float | str | bool]] = []
+    forbidden = _first_365_train_mask(train)
+    for target in range(values.shape[1]):
+        target_values = values[:, target]
+        if not np.isfinite(target_values[train]).any():
+            continue
+        usable = _usable_donor_indices(values, target, train)
+        usable = _prune_donors_for_complete_cases(
+            values,
+            train,
+            target,
+            usable,
+            min_complete=MIN_TRAIN_COMPLETE_FOR_OPERATOR,
+        )
+        if not usable:
+            continue
+        target_ok = np.isfinite(target_values)
+        donor_ok = np.isfinite(values[:, usable]).any(axis=1)
+        for gap_length in gap_lengths:
+            start = first_plant_start(
+                target_ok,
+                donor_ok,
+                length=int(gap_length),
+                test=test,
+                forbidden=forbidden,
+            )
+            if start is None:
+                continue
+            stop = int(start) + int(gap_length)
+            in_gap = np.zeros(len(wide), dtype=bool)
+            in_gap[int(start) : stop] = True
+            fill_train = train & ~in_gap
+            if int(fill_train.sum()) < MIN_TRAIN_DAYS:
+                continue
+            fill_donors = [
+                donor
+                for donor in usable
+                if int(np.isfinite(values[in_gap, donor]).sum()) >= 1
+            ]
+            fill_donors = _prune_donors_for_complete_cases(
+                values,
+                in_gap,
+                target,
+                fill_donors,
+                min_complete=MIN_GAP_DAYS_WITH_DONOR,
+            )
+            if not fill_donors:
+                continue
+            fill_mae = _gap_donor_mae(
+                target_values,
+                values[:, fill_donors],
+                fill_train,
+                in_gap,
+            )
+            climate = _doy_climatology(target_values, wide.index, fill_train)
+            climate_mae = float(
+                np.nanmean(np.abs(target_values[in_gap] - climate[in_gap]))
+            )
+            if (
+                not np.isfinite(fill_mae)
+                or not np.isfinite(climate_mae)
+                or climate_mae == 0
+            ):
+                continue
+            achieved = recoverability(fill_mae, climate_mae)
+            anomalies = _doy_anomalies(target_values, wide.index, fill_train)
+            donor_anomalies = [
+                _doy_anomalies(values[:, donor], wide.index, fill_train)
+                for donor in usable
+            ]
+            acf30 = _lag_acf(anomalies[fill_train], 30)
+            donor_r2, donor_r2_estimator = _train_donor_r2(
+                anomalies[fill_train],
+                [item[fill_train] for item in donor_anomalies],
+                years[fill_train],
+            )
+            heuristic = _heuristic_explained(
+                donor_r2, anomalies[fill_train], int(gap_length)
+            )
+            operator_r, predicted_skill, predicted_risk = _operator_on_subset(
+                values, fill_train, target, usable, int(gap_length)
+            )
+            n_gap_with_donor = int((in_gap & donor_ok).sum())
+            rows.append(
+                {
+                    "network_id": name,
+                    "station_id": str(wide.columns[target]),
+                    "gap_length": int(gap_length),
+                    "plant_start": pd.Timestamp(wide.index[int(start)]).date().isoformat(),
+                    "acf30": float(acf30),
+                    "donor_r2": float(donor_r2),
+                    "donor_r2_estimator": donor_r2_estimator,
+                    "heuristic_explained_variance": heuristic,
+                    "recoverability_r": operator_r,
+                    "predicted_skill": predicted_skill,
+                    "predicted_conditional_risk": predicted_risk,
+                    "donor_mae": float(fill_mae),
+                    "fill_mae": float(fill_mae),
+                    "climate_mae": climate_mae,
+                    "observed_recovery_loss": float(fill_mae),
+                    "achieved_skill": float(achieved),
+                    "achieved_skill_mode": ACHIEVED_SKILL_GAP_SPECIFIC,
+                    "n_gap_days_with_donor": n_gap_with_donor,
+                    "n_fill_donors": int(len(fill_donors)),
+                    "reason": "",
+                }
+            )
+    return rows
+
+
+def station_operator_rows(
+    name: str,
+    wide: pd.DataFrame,
+    *,
+    gap_lengths: Sequence[int] = GAP_LENGTHS,
+    achieved_skill_mode: str = ACHIEVED_SKILL_LATER_YEAR,
+) -> list[dict[str, float | str | bool]]:
+    """Train-only predictors and achieved skill for one river.
+
+    ``later_year`` copies full-window donor-regression skill across gap lengths.
+    ``gap_specific`` plants an observed length-L block and scores fill MAE.
+    """
+
+    if not isinstance(wide.index, pd.DatetimeIndex):
+        raise TypeError("wide frame must be indexed by date")
+    mode = str(achieved_skill_mode)
+    if mode not in {ACHIEVED_SKILL_LATER_YEAR, ACHIEVED_SKILL_GAP_SPECIFIC}:
+        raise ValueError(f"unknown achieved_skill_mode: {achieved_skill_mode!r}")
+    values = wide.to_numpy(dtype=float)
+    train, test = year_split(wide.index)
+    need_test = MIN_TEST_DAYS if mode == ACHIEVED_SKILL_LATER_YEAR else 0
+    if int(train.sum()) < MIN_TRAIN_DAYS or int(test.sum()) < need_test:
+        return [
+            {
+                "network_id": name,
+                "reason": "not_enough_years_after_split",
+                "donor_mae": float("nan"),
+                "achieved_skill": float("nan"),
+            }
+        ]
+    years = wide.index.year.to_numpy()
+    if mode == ACHIEVED_SKILL_GAP_SPECIFIC:
+        rows = _gap_specific_station_rows(
+            name, wide, values, train, test, years, gap_lengths
+        )
+    else:
+        rows = _later_year_station_rows(
+            name, wide, values, train, test, years, gap_lengths
+        )
     if not rows:
         return [
             {
@@ -274,10 +617,18 @@ def score_operator_ablation(
     panels: Mapping[str, pd.DataFrame],
     *,
     gap_lengths: Sequence[int] = GAP_LENGTHS,
+    achieved_skill_mode: str = ACHIEVED_SKILL_LATER_YEAR,
 ) -> pd.DataFrame:
     rows: list[dict[str, float | str | bool]] = []
     for name, wide in panels.items():
-        rows.extend(station_operator_rows(name, wide, gap_lengths=gap_lengths))
+        rows.extend(
+            station_operator_rows(
+                name,
+                wide,
+                gap_lengths=gap_lengths,
+                achieved_skill_mode=achieved_skill_mode,
+            )
+        )
     return pd.DataFrame(rows)
 
 
@@ -422,16 +773,124 @@ def _primary_gap(gap_lengths: Sequence[int]) -> int:
     return 30 if 30 in lengths else lengths[0]
 
 
+def _scored_gap_rows_differ(scores: pd.DataFrame) -> bool:
+    """True when achieved skill is not copied across gap lengths."""
+
+    if scores.empty or "gap_length" not in scores.columns:
+        return False
+    usable = scores.loc[
+        np.isfinite(pd.to_numeric(scores["achieved_skill"], errors="coerce"))
+    ].copy()
+    if usable.empty:
+        return False
+    usable["gap_length"] = pd.to_numeric(usable["gap_length"], errors="coerce")
+    lengths = sorted(usable["gap_length"].dropna().unique().tolist())
+    if len(lengths) < 2:
+        return False
+    keys = [name for name in ("network_id", "station_id") if name in usable.columns]
+    if keys:
+        pivot = usable.pivot_table(
+            index=keys,
+            columns="gap_length",
+            values="achieved_skill",
+            aggfunc="first",
+        )
+        if pivot.shape[1] >= 2:
+            left = pd.to_numeric(pivot.iloc[:, 0], errors="coerce")
+            right = pd.to_numeric(pivot.iloc[:, 1], errors="coerce")
+            both = np.isfinite(left.to_numpy()) & np.isfinite(right.to_numpy())
+            if int(both.sum()) and not np.allclose(
+                left.to_numpy()[both], right.to_numpy()[both]
+            ):
+                return True
+    first = []
+    for length in lengths[:2]:
+        block = usable.loc[usable["gap_length"].eq(length)]
+        if block.empty:
+            return False
+        first.append(float(block["achieved_skill"].iloc[0]))
+    return bool(first[0] != first[1])
+
+
+def _later_year_evaluate_success_summary(complete: pd.DataFrame) -> dict[str, Any]:
+    n_complete_networks = (
+        int(complete["network_id"].nunique()) if not complete.empty else 0
+    )
+    if n_complete_networks >= 3:
+        confirmation = evaluate_success(
+            complete,
+            predicted="predicted_conditional_risk",
+            observed="observed_recovery_loss",
+        )
+        return {
+            "passed": bool(confirmation.get("passed", False)),
+            "passed_numeric_floors": bool(confirmation.get("passed_numeric_floors", False)),
+            "confirmatory_eligible": bool(confirmation.get("confirmatory_eligible", False)),
+            "n_networks_min": int(confirmation.get("n_networks_min", 100)),
+            "thresholds_locked": bool(confirmation.get("thresholds_locked", True)),
+        }
+    return {
+        "passed": False,
+        "passed_numeric_floors": False,
+        "confirmatory_eligible": False,
+        "n_networks_min": 100,
+        "thresholds_locked": True,
+    }
+
+
+def _gap_specific_evaluate_success_summary(complete: pd.DataFrame) -> dict[str, Any]:
+    """evaluate_success stays failed; network CIs are withheld, not tested."""
+
+    n_complete_networks = (
+        int(complete["network_id"].nunique()) if not complete.empty else 0
+    )
+    status = "withheld_n_lt_100_network_interval"
+    if n_complete_networks >= 3:
+        confirmation = evaluate_success(
+            complete,
+            predicted="predicted_conditional_risk",
+            observed="observed_recovery_loss",
+        )
+        spearman = confirmation.get("spearman") or {}
+        status = str(
+            spearman.get("inference_status") or "withheld_n_lt_100_network_interval"
+        )
+        floors = bool(confirmation.get("passed_numeric_floors", False))
+        locked = bool(confirmation.get("thresholds_locked", True))
+        n_min = int(confirmation.get("n_networks_min", 100))
+    else:
+        floors = False
+        locked = True
+        n_min = 100
+    if status == "tested":
+        status = "withheld_n_lt_100_network_interval"
+    return {
+        "passed": False,
+        "passed_numeric_floors": floors,
+        "confirmatory_eligible": False,
+        "n_networks_min": n_min,
+        "thresholds_locked": locked,
+        "spearman_inference_status": status,
+    }
+
+
 def run_public_river_operator_ablation(
     panels: Mapping[str, pd.DataFrame],
     *,
     gap_lengths: Sequence[int] = GAP_LENGTHS,
     insane_mae_c: float = INSANE_DONOR_MAE_C,
     primary_networks: Sequence[str] | None = None,
+    achieved_skill_mode: str = ACHIEVED_SKILL_LATER_YEAR,
 ) -> dict[str, Any]:
     """Score downloaded rivers and nest the four baselines plus the operator."""
 
-    scores = score_operator_ablation(panels, gap_lengths=gap_lengths)
+    mode = str(achieved_skill_mode)
+    if mode not in {ACHIEVED_SKILL_LATER_YEAR, ACHIEVED_SKILL_GAP_SPECIFIC}:
+        raise ValueError(f"unknown achieved_skill_mode: {achieved_skill_mode!r}")
+    gap_specific = mode == ACHIEVED_SKILL_GAP_SPECIFIC
+    scores = score_operator_ablation(
+        panels, gap_lengths=gap_lengths, achieved_skill_mode=mode
+    )
     kept, dropped, mae_maxima = drop_insane_mae_networks(
         scores, threshold=insane_mae_c
     )
@@ -439,6 +898,7 @@ def run_public_river_operator_ablation(
         np.isfinite(pd.to_numeric(kept.get("achieved_skill", pd.Series(dtype=float)), errors="coerce"))
     ].copy()
     available = set(scored["network_id"].astype(str)) if not scored.empty else set()
+    requested = [str(item) for item in primary_networks] if primary_networks is not None else []
     if primary_networks is None:
         primary_ids = available
     else:
@@ -461,81 +921,84 @@ def run_public_river_operator_ablation(
                 gap_complete, "donor_r2", "achieved_skill"
             ),
         }
+    if gap_specific:
+        nested_parts.append(
+            nested_ablation_table(primary, level="station", scope="pooled_gaps")
+        )
+        nested_parts.append(
+            nested_ablation_table(primary, level="network", scope="pooled_gaps")
+        )
+        pooled_complete = complete_predictor_rows(primary)
+        spearman_by_gap["pooled_gaps"] = {
+            "spearman_operator_r_vs_achieved_skill": _blocked_spearman(
+                pooled_complete, "recoverability_r", "achieved_skill"
+            ),
+            "spearman_donor_r2_vs_achieved_skill": _blocked_spearman(
+                pooled_complete, "donor_r2", "achieved_skill"
+            ),
+        }
     nested = (
         pd.concat(nested_parts, ignore_index=True)
         if nested_parts
         else pd.DataFrame(columns=["scope", "level", "model", "added", "r2", "delta_r2"])
     )
-    primary_scope = f"gap_{primary_gap}"
-    primary_rows = _rows_for_gap(primary, primary_gap)
-    complete = complete_predictor_rows(primary_rows)
+    pipeline_scope = "pooled_gaps" if gap_specific else f"gap_{primary_gap}"
+    pipeline_rows = primary if gap_specific else _rows_for_gap(primary, primary_gap)
+    complete = complete_predictor_rows(pipeline_rows)
     operator_spearman = float(
-        spearman_by_gap.get(primary_scope, {}).get(
+        spearman_by_gap.get(pipeline_scope, {}).get(
             "spearman_operator_r_vs_achieved_skill", float("nan")
         )
     )
     donor_spearman = float(
-        spearman_by_gap.get(primary_scope, {}).get(
+        spearman_by_gap.get(pipeline_scope, {}).get(
             "spearman_donor_r2_vs_achieved_skill", float("nan")
         )
     )
     comparison = network_comparison_table(
-        primary_rows,
+        pipeline_rows,
         operator_spearman=operator_spearman,
         donor_spearman=donor_spearman,
     )
     station_nested = nested.loc[
-        nested["scope"].eq(primary_scope) & nested["level"].eq("station")
+        nested["scope"].eq(pipeline_scope) & nested["level"].eq("station")
     ]
     operator_delta = _nested_delta(station_nested, "recoverability_r")
+    gap_length_delta = _nested_delta(station_nested, "gap_length")
     if operator_delta <= 0 or not np.isfinite(operator_delta):
         incremental_note = (
             "operator incremental R2 is <= 0 or undefined; written honestly; not tuned"
         )
     else:
         incremental_note = "operator incremental R2 is positive on this pilot; not confirmatory"
-    n_complete_networks = (
-        int(complete["network_id"].nunique()) if not complete.empty else 0
-    )
-    requested = [str(item) for item in primary_networks] if primary_networks is not None else []
-    missing_requested = sorted(set(requested) - set(primary_ids))
-    if n_complete_networks >= 3:
-        confirmation = evaluate_success(
-            complete,
-            predicted="predicted_conditional_risk",
-            observed="observed_recovery_loss",
-        )
+    if gap_specific:
+        confirmation_summary = _gap_specific_evaluate_success_summary(complete)
     else:
-        confirmation = {
-            "passed": False,
-            "passed_numeric_floors": False,
-            "confirmatory_eligible": False,
-            "n_networks_min": 100,
-            "thresholds_locked": True,
-            "reason": (
-                "no_complete_predictor_rows"
-                if complete.empty
-                else "fewer_than_three_networks_for_evaluate_success"
-            ),
-        }
-    confirmation_summary = {
-        "passed": bool(confirmation.get("passed", False)),
-        "passed_numeric_floors": bool(confirmation.get("passed_numeric_floors", False)),
-        "confirmatory_eligible": bool(confirmation.get("confirmatory_eligible", False)),
-        "n_networks_min": int(confirmation.get("n_networks_min", 100)),
-        "thresholds_locked": bool(confirmation.get("thresholds_locked", True)),
-    }
+        confirmation_summary = _later_year_evaluate_success_summary(complete)
     n_networks = int(complete["network_id"].nunique()) if not complete.empty else 0
+    missing_requested = sorted(set(requested) - set(primary_ids))
     estimator = (
         str(complete["donor_r2_estimator"].mode().iloc[0])
         if not complete.empty and "donor_r2_estimator" in complete.columns
         else "year_block_cv"
     )
-    manifest = {
-        "what_this_is": (
+    if gap_specific:
+        what = (
+            "W2 Phase-4 pipeline verification on already-downloaded public rivers. "
+            "Train-only predictors; gap-specific planted-gap donor-fill skill."
+        )
+        nested_grids = (
+            "per-gap diagnostics plus pooled_gaps so gap_length varies "
+            "on the pipeline table"
+        )
+    else:
+        what = (
             "Nested ablation on already-downloaded public rivers. "
             "Train-only predictors; later-year donor-regression skill versus train climatology."
-        ),
+        )
+        nested_grids = "separate per gap so later-year skill is not duplicated"
+    manifest = {
+        "what_this_is": what,
         "what_this_is_not": (
             "Not confirmatory. Not formal evidence. Not a headline claim. "
             "Does not replace leave_one_river_out.csv."
@@ -547,7 +1010,9 @@ def run_public_river_operator_ablation(
         "evaluate_success": confirmation_summary,
         "n_networks": n_networks,
         "n_networks_attempted": int(len(panels)),
-        "n_station_rows_primary_gap": int(len(complete)),
+        "n_station_rows_primary_gap": int(
+            len(complete_predictor_rows(_rows_for_gap(primary, primary_gap)))
+        ),
         "primary_gap_length": int(primary_gap),
         "primary_networks": sorted(primary_ids),
         "requested_primary_networks": requested,
@@ -555,8 +1020,10 @@ def run_public_river_operator_ablation(
         "delaware_scored": "delaware_river_huc20" in available,
         "scored_networks": sorted(available),
         "spearman_by_gap": spearman_by_gap,
-        "achieved_skill_is_later_year_not_gap_specific": True,
-        "nested_grids": "separate per gap so later-year skill is not duplicated",
+        "achieved_skill_mode": mode,
+        "achieved_skill_is_later_year_not_gap_specific": not gap_specific,
+        "achieved_skill_is_gap_specific": gap_specific,
+        "nested_grids": nested_grids,
         "clearwater_dropped": "clearwater_river_huc17" in dropped,
         "dropped_insane_mae_networks": dropped,
         "insane_donor_mae_threshold_c": float(insane_mae_c),
@@ -580,6 +1047,19 @@ def run_public_river_operator_ablation(
         "chattahoochee_outcomes_used": False,
         "new_temperatures_downloaded": False,
     }
+    if gap_specific:
+        manifest.update(
+            {
+                "passed": False,
+                "purpose": W2_PURPOSE,
+                "pipeline_gap_length_delta_r2": gap_length_delta,
+                "pipeline_gap_length_delta_r2_nonzero": bool(
+                    np.isfinite(gap_length_delta) and abs(float(gap_length_delta)) > 0
+                ),
+                "pipeline_gap_rows_differ": bool(_scored_gap_rows_differ(primary)),
+                "n_station_gap_rows_pooled": int(len(complete)),
+            }
+        )
     return {
         "scores": scores,
         "kept": kept,
@@ -596,8 +1076,10 @@ def run_public_river_operator_ablation(
 def write_operator_ablation_artifacts(
     result: Mapping[str, Any],
     output_dir: str | Path,
+    *,
+    include_station_scores: bool = False,
 ) -> dict[str, Path]:
-    """Write only the three new public-river ablation filenames."""
+    """Write the public-river ablation filenames. Never writes leave_one_river_out.csv."""
 
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
@@ -620,20 +1102,34 @@ def write_operator_ablation_artifacts(
         json.dumps(_jsonable(result["manifest"]), indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
-    return {
+    paths = {
         "nested": nested_path,
         "comparison": comparison_path,
         "manifest": manifest_path,
     }
+    if include_station_scores:
+        scores_path = root / "operator_station_scores.csv"
+        scores = result.get("scores")
+        if isinstance(scores, pd.DataFrame) and not scores.empty:
+            scores.to_csv(scores_path, index=False)
+        else:
+            pd.DataFrame().to_csv(scores_path, index=False)
+        paths["scores"] = scores_path
+    return paths
 
 
 __all__ = [
+    "ACHIEVED_SKILL_GAP_SPECIFIC",
+    "ACHIEVED_SKILL_LATER_YEAR",
     "GAP_LENGTHS",
     "INSANE_DONOR_MAE_C",
     "NESTED_PREDICTORS",
+    "W2_PRIMARY_NETWORKS",
+    "W2_PURPOSE",
     "complete_predictor_rows",
     "concurrent_enough_ids",
     "drop_insane_mae_networks",
+    "first_plant_start",
     "load_public_river_panels",
     "nested_ablation_table",
     "run_public_river_operator_ablation",
