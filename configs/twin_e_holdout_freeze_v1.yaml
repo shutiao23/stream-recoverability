@@ -1,0 +1,78 @@
+schema_version: twin_e_holdout_freeze_v1
+protocol_amendment: v9.1
+status: locked_unscored
+formal_scoring_performed: false
+selection_rule: prelock_structural_aliasing_check_then_full_cartesian_no_gate_score_selection
+prelock_design_audit:
+  propagation_lags_considered: [2, 5, 10, 20]
+  propagation_lags_retained: [2, 5, 10]
+  propagation_lags_rejected: [20]
+  rejection_reason: aliasing_not_instantiated_true_recoverability_pair_delta_numerically_zero
+  operator_spearman_seen: false
+  operator_calibration_seen: false
+  univariate_spearman_seen: false
+scoring_requires:
+  lock_file_committed_and_clean: true
+  code_refuses_untracked_or_dirty_lock: true
+  first_score_must_be_after_lock_commit: true
+full_factorial:
+  propagation_lag: [2, 5, 10]
+  seed: [104729, 130363, 155921]
+expected_n_families: 9
+gap_lengths: [30, 90, 180]
+node_relations: [boundary_redundant, boundary_complementary]
+expected_n_node_gap_rows: 54
+locked_generator:
+  type: lagged_linear_gaussian_river_state_space
+  n_nodes: 5
+  n_train: 2920
+  burn_in: 200
+  # Existing A-D constants; none is selected from Twin E scores.
+  phi: 0.52
+  factor_process_noise: 0.75
+  local_process_noise: 0.25
+  advect: 0.22
+  dispersion: 0.18
+  latent_transition: [[0.52]]
+  latent_process_noise: [[0.75]]
+  station_loading_rule: hypot_advect_dispersion
+  donor_r2_matching_rule: >-
+    redundant uses hypot(advect, dispersion); complementary loading is the
+    unique positive bisection solution equating analytic contemporaneous
+    two-donor R2 under the locked covariance kernel
+marginal_match_gate_before_any_operator_score:
+  paired_target_series_exact: true
+  paired_acf30_exact: true
+  population_donor_r2_absolute_tolerance: 1.0e-12
+  finite_sample_donor_r2_absolute_tolerance: 0.02
+  true_recoverability_must_differ_each_gap: true
+graphs:
+  boundary_redundant:
+    nodes: [target, upstream, downstream, up_tail, down_tail]
+    directed_edges: [[3, 1], [1, 0], [0, 2], [2, 4]]
+    donors: [1, 2]
+    factor_time_offsets_in_lag_units: [0, -1, -1, -2, -2]
+  boundary_complementary:
+    nodes: [target, down_1, down_2, down_3, down_4]
+    directed_edges: [[0, 1], [1, 2], [2, 3], [3, 4]]
+    donors: [1, 2]
+    factor_time_offsets_in_lag_units: [0, -1, -2, -3, -4]
+estimand:
+  truth: analytic_bayes_optimal_mae_from_locked_state_space_covariance
+  operator: empirical_hat_sigma_from_finite_training_series_via_public_api
+  metrics: [spearman, calibration_slope]
+four_preregistered_univariates:
+  - gap_length_only
+  - acf_only
+  - donor_r2_only
+  - additive_d4
+gate:
+  operator_spearman_min: 0.90
+  univariate_absolute_spearman_max: 0.70
+  operator_calibration_slope_range: [0.90, 1.10]
+forbidden:
+  - classification_auc
+  - changing_phi_after_lock
+  - changing_noise_after_lock
+  - filtering_factorial_cells_after_score
+  - scoring_before_this_lock_is_committed

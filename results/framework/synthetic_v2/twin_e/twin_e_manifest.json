@@ -1,0 +1,104 @@
+{
+  "cell": "E",
+  "estimand": "true_recoverability_from_known_sigma",
+  "experiment": "E5_twin_e_design_debug",
+  "formal_evidence": false,
+  "four_preregistered_univariates": [
+    "gap_length_only",
+    "acf_only",
+    "donor_r2_only",
+    "additive_d4"
+  ],
+  "gap_lengths": [
+    30,
+    90,
+    180
+  ],
+  "gate": {
+    "best_univariate": "acf_only",
+    "best_univariate_absolute_spearman": 0.4492235543710969,
+    "cell": "E",
+    "evaluated_split": "design_debug",
+    "forbidden_metric": "classification_auc",
+    "generator_retuned_to_save_gate": false,
+    "holdout_families": [],
+    "holdout_family_locked_before_scoring": false,
+    "n_rows": 36,
+    "numeric_thresholds_met": true,
+    "operator_calibration_intercept": -3.700743415417188e-17,
+    "operator_calibration_meets_band": true,
+    "operator_calibration_slope": 1.0,
+    "operator_calibration_slope_range": [
+      0.9,
+      1.1
+    ],
+    "operator_meets_floor": true,
+    "operator_spearman": 1.0,
+    "operator_spearman_min": 0.9,
+    "passed": false,
+    "status": "not_tested_holdout_not_prelocked",
+    "univariate_meets_ceiling": true,
+    "univariate_spearman_max": 0.7
+  },
+  "historical_a_to_d_artifacts_overwritten": false,
+  "holdout_freeze": "configs/twin_e_holdout_freeze_v1.yaml",
+  "holdout_status": "locked_unscored_not_run_by_this_script",
+  "inspected_design_debug_families": [
+    {
+      "boundary_loading": 0.75,
+      "donor_loading": 0.7,
+      "family": "twin_e_f01",
+      "marginal_phi": 0.93,
+      "split": "design_debug"
+    },
+    {
+      "boundary_loading": 0.75,
+      "donor_loading": 1.0,
+      "family": "twin_e_f02",
+      "marginal_phi": 0.52,
+      "split": "design_debug"
+    },
+    {
+      "boundary_loading": 1.0,
+      "donor_loading": 0.7,
+      "family": "twin_e_f03",
+      "marginal_phi": 0.93,
+      "split": "design_debug"
+    },
+    {
+      "boundary_loading": 1.0,
+      "donor_loading": 1.0,
+      "family": "twin_e_f04",
+      "marginal_phi": 0.52,
+      "split": "design_debug"
+    },
+    {
+      "boundary_loading": 1.25,
+      "donor_loading": 0.7,
+      "family": "twin_e_f05",
+      "marginal_phi": 0.93,
+      "split": "design_debug"
+    },
+    {
+      "boundary_loading": 1.25,
+      "donor_loading": 1.0,
+      "family": "twin_e_f06",
+      "marginal_phi": 0.52,
+      "split": "design_debug"
+    }
+  ],
+  "marginal_matching": {
+    "differ_only_in_joint_conditional_information": true,
+    "within_pair_equal_acf30": true,
+    "within_pair_equal_donor_r2": true
+  },
+  "observation_noise_source": "existing TWIN_LOCAL_NOISE plus TWIN_FACTOR_NOISE",
+  "operator_path": "conditional_observability_public_schur_api",
+  "phi_source": "existing Twin A-D TWIN_DAM_MEMORY/TWIN_ORDINARY_MEMORY",
+  "protocol_amendment": "v9.1",
+  "purpose": "exploratory_design_debug_not_gate_evidence",
+  "sealed_outcomes_opened": false,
+  "superseded_auc_gate_used": false,
+  "truth_path": "analytic_generator_posterior_precision",
+  "unit": "node_times_gap_length"
+}

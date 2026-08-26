@@ -1,0 +1,5 @@
+cell,split,predictor,spearman,absolute_spearman,n_rows
+E,design_debug,gap_length_only,-0.15392059216215578,0.15392059216215578,36
+E,design_debug,acf_only,-0.4492235543710969,0.4492235543710969,36
+E,design_debug,donor_r2_only,0.4492235543710969,0.4492235543710969,36
+E,design_debug,additive_d4,0.27556401681659887,0.27556401681659887,36
