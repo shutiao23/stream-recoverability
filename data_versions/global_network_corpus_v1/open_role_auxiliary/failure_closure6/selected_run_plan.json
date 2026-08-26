@@ -1,0 +1,21 @@
+{
+  "corpus_plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
+  "execute": true,
+  "manifest_schema": "t2_v91_open_role_mh_selected_run_plan_v1",
+  "n_networks_selected": 1,
+  "performance_metrics_computed": false,
+  "request_interval_seconds": 1.0,
+  "scope_acknowledgement": {
+    "acknowledged_network_count": 1,
+    "expected_network_count": 1,
+    "mode": "bounded"
+  },
+  "sealed_paths_traversed": false,
+  "selected_network_ids": [
+    "huc8_02040103"
+  ],
+  "selected_plan_sha256": "06ff8a4cf62cf312fabad4715eb9213c03ccdffc41e99c2bcf068f5faa31c642",
+  "selection_mode": "network_ids",
+  "sequential_execution": true,
+  "temperature_columns_read": []
+}

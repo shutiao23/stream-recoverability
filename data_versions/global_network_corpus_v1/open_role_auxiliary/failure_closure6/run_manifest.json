@@ -1,0 +1,88 @@
+{
+  "artifacts": {
+    "corpus_request_plan": {
+      "bytes": 120447,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/corpus_request_plan.json",
+      "sha256": "58c02163cd1c05b2b8dc60dd43d2bf7aacc6dbb01f6361fb14c34755e20fa735"
+    },
+    "global_attrition": {
+      "bytes": 9044,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/global_attrition.csv",
+      "sha256": "dcbc717e1928495580d6373f6dba18768f1c030de61247e3ff76f97fe7028729"
+    },
+    "global_attrition_summary": {
+      "bytes": 833,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/global_attrition_summary.json",
+      "sha256": "6fae3704c5976553ae78830c2b809b5cad1cbaa95df2946d38c5efcc37dedefc"
+    },
+    "selected_run_plan": {
+      "bytes": 692,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/selected_run_plan.json",
+      "sha256": "ae55b61c1f93a290355d7de8f68d89d11dfe171117b8e800537f993e50745377"
+    }
+  },
+  "corpus_plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
+  "dry_run": false,
+  "execute": true,
+  "formal_evidence": false,
+  "global_attrition": {
+    "all_materialized_raw_response_hashes_complete": true,
+    "formal_evidence": false,
+    "manifest_schema": "t2_v91_open_role_mh_global_attrition_v1",
+    "materialization_status_counts": {
+      "materialized_partial": 1,
+      "not_materialized": 66
+    },
+    "n_H_cells_failed_or_unavailable": 3,
+    "n_M_cells_failed_or_unavailable": 0,
+    "n_networks_materialized": 1,
+    "n_networks_planned": 67,
+    "n_networks_remaining": 66,
+    "n_sites_planned": 340,
+    "n_source_failures_or_unavailable": 3,
+    "passed": false,
+    "performance_metrics_computed": false,
+    "plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
+    "sealed_paths_traversed": false,
+    "sealed_temperature_records_read": false,
+    "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+    "temperature_columns_read": []
+  },
+  "manifest_schema": "t2_v91_open_role_mh_corpus_acquisition_v1",
+  "n_networks_executed_now": 0,
+  "n_networks_in_frozen_roster": 67,
+  "n_networks_resumed": 1,
+  "n_networks_selected": 1,
+  "n_sites_in_frozen_roster": 340,
+  "network_interval_reported": false,
+  "parallel_workers": 1,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "provider_responses_opened": false,
+  "purpose": "auxiliary_corpus_materialization_not_performance_evidence",
+  "request_interval_seconds": 1.0,
+  "results": [
+    {
+      "n_source_failures_or_unavailable": 3,
+      "network_id": "huc8_02040103",
+      "resumed": true,
+      "role": "development",
+      "status": "materialized_partial"
+    }
+  ],
+  "scope_acknowledgement": {
+    "acknowledged_network_count": 1,
+    "expected_network_count": 1,
+    "mode": "bounded"
+  },
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "selected_network_ids": [
+    "huc8_02040103"
+  ],
+  "selected_plan_sha256": "06ff8a4cf62cf312fabad4715eb9213c03ccdffc41e99c2bcf068f5faa31c642",
+  "sequential_execution": true,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "status": "execution_complete_for_selected_scope",
+  "temperature_columns_read": []
+}

@@ -1,0 +1,3470 @@
+{
+  "manifest_schema": "t2_v91_open_role_mh_corpus_request_plan_v1",
+  "n_networks": 67,
+  "n_sites": 340,
+  "networks": [
+    {
+      "network_id": "huc8_01070004",
+      "network_plan_sha256": "0757a8fb58d1c860aedf6df742241a82b5b6117edb35d589e1a0176d15862d94",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 42.41080875,
+          "longitude": -71.7911516,
+          "power_start": "1998-04-15",
+          "site_id": "01095220",
+          "target_end": "2026-04-12",
+          "target_start": "1998-04-15"
+        },
+        {
+          "latitude": 42.37286967,
+          "longitude": -71.8281279,
+          "power_start": "1997-04-06",
+          "site_id": "01095375",
+          "target_end": "2026-04-12",
+          "target_start": "1997-04-06"
+        },
+        {
+          "latitude": 42.36453675,
+          "longitude": -71.775349,
+          "power_start": "2012-05-09",
+          "site_id": "01095434",
+          "target_end": "2026-04-12",
+          "target_start": "2012-05-09"
+        }
+      ],
+      "source_date_projection_sha256": "b07ca2b7f3d1a869004fec1c1be75feb4ad3b27737d87e9c50b646d3294838a0",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "8b30b96a51cd0db5d89edc98956d938f7a3e28f91cb1b057c034395f061361aa",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_01090001",
+      "network_plan_sha256": "b849139c6928e57419c22abf34dfab7df835e63451034af645a9e17630d80442",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 42.38555556,
+          "longitude": -71.2894444,
+          "power_start": "2010-01-09",
+          "site_id": "01104370",
+          "target_end": "2025-05-20",
+          "target_start": "2010-01-09"
+        },
+        {
+          "latitude": 42.43648406,
+          "longitude": -71.2642235,
+          "power_start": "1997-11-07",
+          "site_id": "01104410",
+          "target_end": "2022-12-11",
+          "target_start": "1997-11-07"
+        },
+        {
+          "latitude": 42.43592855,
+          "longitude": -71.2600567,
+          "power_start": "1997-10-04",
+          "site_id": "01104415",
+          "target_end": "2025-11-23",
+          "target_start": "1997-10-04"
+        },
+        {
+          "latitude": 42.4198177,
+          "longitude": -71.2575565,
+          "power_start": "2012-03-26",
+          "site_id": "01104420",
+          "target_end": "2025-06-30",
+          "target_start": "2012-03-26"
+        },
+        {
+          "latitude": 42.3981512,
+          "longitude": -71.2733903,
+          "power_start": "1997-09-30",
+          "site_id": "01104430",
+          "target_end": "2024-05-27",
+          "target_start": "1997-09-30"
+        },
+        {
+          "latitude": 42.37138889,
+          "longitude": -71.27527778,
+          "power_start": "2006-06-02",
+          "site_id": "01104453",
+          "target_end": "2025-06-30",
+          "target_start": "2006-06-02"
+        },
+        {
+          "latitude": 42.37259606,
+          "longitude": -71.27033448,
+          "power_start": "2002-09-30",
+          "site_id": "01104455",
+          "target_end": "2022-12-07",
+          "target_start": "2002-09-30"
+        },
+        {
+          "latitude": 42.368985,
+          "longitude": -71.2706123,
+          "power_start": "1997-10-31",
+          "site_id": "01104460",
+          "target_end": "2024-11-11",
+          "target_start": "1997-10-31"
+        },
+        {
+          "latitude": 42.3545408,
+          "longitude": -71.2681121,
+          "power_start": "2003-12-24",
+          "site_id": "01104475",
+          "target_end": "2024-07-30",
+          "target_start": "2003-12-24"
+        }
+      ],
+      "source_date_projection_sha256": "1ca29683ceca35666dc20534102c2b1c7a106027888a8093ac426edc4a7f3a16",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "4dbbc5c60c9e1f4251129dd675c81583871d69ab956f5f033857198cabcd7107",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_01090004",
+      "network_plan_sha256": "8646dcab19e8d14cd39b9739e0dc67d2594bd264784aae4922f10cd047dac5f6",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.8525992,
+          "longitude": -71.6061754,
+          "power_start": "2000-01-29",
+          "site_id": "01115098",
+          "target_end": "2025-12-04",
+          "target_start": "2000-01-29"
+        },
+        {
+          "latitude": 41.8456548,
+          "longitude": -71.6095088,
+          "power_start": "2000-01-29",
+          "site_id": "01115110",
+          "target_end": "2025-12-04",
+          "target_start": "2000-01-29"
+        },
+        {
+          "latitude": 41.84093269,
+          "longitude": -71.584508,
+          "power_start": "2000-03-10",
+          "site_id": "01115170",
+          "target_end": "2025-04-17",
+          "target_start": "2000-03-10"
+        },
+        {
+          "latitude": 41.79759966,
+          "longitude": -71.5847857,
+          "power_start": "2000-01-25",
+          "site_id": "01115183",
+          "target_end": "2025-06-19",
+          "target_start": "2000-01-25"
+        },
+        {
+          "latitude": 41.7887107,
+          "longitude": -71.6200647,
+          "power_start": "2009-05-28",
+          "site_id": "01115184",
+          "target_end": "2023-10-17",
+          "target_start": "2009-05-28"
+        },
+        {
+          "latitude": 41.8223213,
+          "longitude": -71.70034528,
+          "power_start": "2000-02-09",
+          "site_id": "01115190",
+          "target_end": "2025-07-08",
+          "target_start": "2000-02-09"
+        },
+        {
+          "latitude": 41.7906548,
+          "longitude": -71.6986785,
+          "power_start": "2000-02-01",
+          "site_id": "01115265",
+          "target_end": "2025-07-08",
+          "target_start": "2000-02-01"
+        },
+        {
+          "latitude": 41.7824801,
+          "longitude": -71.674764,
+          "power_start": "2000-01-15",
+          "site_id": "01115275",
+          "target_end": "2023-10-17",
+          "target_start": "2000-01-15"
+        },
+        {
+          "latitude": 41.7853772,
+          "longitude": -71.6672885,
+          "power_start": "2009-04-18",
+          "site_id": "01115276",
+          "target_end": "2025-07-08",
+          "target_start": "2009-04-18"
+        }
+      ],
+      "source_date_projection_sha256": "11e9f8147c02b961961569bb6e66fdc251acd1b016c3cfc6a14259367d510135",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "42dd2fe21d2886762835ade7de7a98af459a20e45b59868946e7671ae477c57f",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02020006",
+      "network_plan_sha256": "1e1c81c38a2487ee3727c055c008d42d0a1cb18eb2dd01e7675eeeaf63dbb6b4",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 42.64788889,
+          "longitude": -73.7475,
+          "power_start": "2002-02-27",
+          "site_id": "01359139",
+          "target_end": "2026-04-08",
+          "target_start": "2002-02-27"
+        },
+        {
+          "latitude": 42.11488889,
+          "longitude": -74.36361111,
+          "power_start": "1997-07-09",
+          "site_id": "01362230",
+          "target_end": "2025-12-04",
+          "target_start": "1997-07-09"
+        },
+        {
+          "latitude": 42.0144722,
+          "longitude": -74.2701944,
+          "power_start": "1996-06-01",
+          "site_id": "01362500",
+          "target_end": "2025-11-20",
+          "target_start": "1996-06-01"
+        }
+      ],
+      "source_date_projection_sha256": "f853e1f46dedfd50cf7c8f891713d8f79a8e4c0487efb7b9d8d8e7a0853fd15d",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "1065a571217eeafa9c9a56cd1a50ff0471988698dc555097f7ca61774124f4f2",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02040103",
+      "network_plan_sha256": "50a9d3ab153ee87209736c9108d8991efd66672d9b56dc8e74e43a84fa783689",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.67452998,
+          "longitude": -75.37601299,
+          "power_start": "1988-07-05",
+          "site_id": "01428750",
+          "target_end": "2025-09-16",
+          "target_start": "1988-07-05"
+        },
+        {
+          "latitude": 41.5872185,
+          "longitude": -75.326829,
+          "power_start": "1987-10-06",
+          "site_id": "01429000",
+          "target_end": "2025-11-17",
+          "target_start": "1987-10-06"
+        },
+        {
+          "latitude": 41.4762002,
+          "longitude": -75.1721186,
+          "power_start": "2007-08-23",
+          "site_id": "01431500",
+          "target_end": "2025-11-18",
+          "target_start": "2007-08-23"
+        }
+      ],
+      "source_date_projection_sha256": "5540d4b51b8c07443ce5e3b0fd9bc600b25fae509aa62e9b7bc22cf315b01d5a",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "0dc5360d04c9785bff9892d7b77d49143dd75c19290c9bb00f24546e2b0b5757",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02040106",
+      "network_plan_sha256": "5c721272886068eb59e67e693e1136cec4d35777e269f03d027100b91e3a114c",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.1302794,
+          "longitude": -75.62545259,
+          "power_start": "1981-01-01",
+          "site_id": "01447500",
+          "target_end": "2026-01-21",
+          "target_start": "1980-10-09"
+        },
+        {
+          "latitude": 41.08472426,
+          "longitude": -75.6054522,
+          "power_start": "1981-01-01",
+          "site_id": "01447720",
+          "target_end": "2025-03-31",
+          "target_start": "1980-06-27"
+        },
+        {
+          "latitude": 41.10472447,
+          "longitude": -75.73212288,
+          "power_start": "1987-10-01",
+          "site_id": "01447800",
+          "target_end": "2025-03-25",
+          "target_start": "1987-10-01"
+        },
+        {
+          "latitude": 40.8975919,
+          "longitude": -75.5024077,
+          "power_start": "1981-01-01",
+          "site_id": "01449360",
+          "target_end": "2026-08-03",
+          "target_start": "1968-10-11"
+        },
+        {
+          "latitude": 40.84564756,
+          "longitude": -75.6457437,
+          "power_start": "2017-10-01",
+          "site_id": "01449800",
+          "target_end": "2026-05-18",
+          "target_start": "2017-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "fbdf932a07d55791e9fae5521fe0b055b61849e5e1a20ab6a90c52bf3a1a8663",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "e9de44a54321d3f6a2b35cd675536aa18ea717ea6317b7630a5e0e1e9ea1eed5",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02040203",
+      "network_plan_sha256": "9c2c49bf4dfbffe5f69a97ad70fd3798c45dfadc99dd634c467b5d94342a15fc",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.4133443,
+          "longitude": -76.1715854,
+          "power_start": "2017-10-01",
+          "site_id": "01470779",
+          "target_end": "2026-06-24",
+          "target_start": "2017-10-01"
+        },
+        {
+          "latitude": 40.37056658,
+          "longitude": -76.025192,
+          "power_start": "2017-10-01",
+          "site_id": "01470960",
+          "target_end": "2026-06-29",
+          "target_start": "2017-10-01"
+        },
+        {
+          "latitude": 40.15149064,
+          "longitude": -75.601305,
+          "power_start": "1998-11-05",
+          "site_id": "01472157",
+          "target_end": "2025-12-04",
+          "target_start": "1998-11-05"
+        }
+      ],
+      "source_date_projection_sha256": "cd7b9a23c5cdcd8005315efcc034a18b9eca1cfc6d451dc4aa2382d28217211c",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "b06f638bc8fa10f2cd1c429bf22b4fa174caa3fe098e2c94403435ae16af0055",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02040205",
+      "network_plan_sha256": "24d227ab4dc28e6fc406c0966ebaa3a3788e2832aaadfaacd35533cb6b348fb7",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.8217764,
+          "longitude": -75.7791061,
+          "power_start": "1997-12-03",
+          "site_id": "01478137",
+          "target_end": "2026-04-19",
+          "target_start": "1997-12-03"
+        },
+        {
+          "latitude": 39.71063889,
+          "longitude": -75.6087222,
+          "power_start": "2006-10-01",
+          "site_id": "01480065",
+          "target_end": "2024-02-28",
+          "target_start": "2006-10-01"
+        },
+        {
+          "latitude": 40.0273261,
+          "longitude": -75.8449449,
+          "power_start": "1996-06-21",
+          "site_id": "01480400",
+          "target_end": "2025-09-22",
+          "target_start": "1996-06-21"
+        },
+        {
+          "latitude": 39.98566144,
+          "longitude": -75.8274467,
+          "power_start": "1995-01-05",
+          "site_id": "01480500",
+          "target_end": "2025-06-02",
+          "target_start": "1995-01-05"
+        },
+        {
+          "latitude": 39.9617734,
+          "longitude": -75.8013341,
+          "power_start": "1981-01-01",
+          "site_id": "01480617",
+          "target_end": "2025-12-17",
+          "target_start": "1971-05-20"
+        },
+        {
+          "latitude": 39.9687191,
+          "longitude": -75.6732715,
+          "power_start": "1981-01-01",
+          "site_id": "01480870",
+          "target_end": "2025-08-03",
+          "target_start": "1972-02-01"
+        },
+        {
+          "latitude": 39.8698328,
+          "longitude": -75.5932623,
+          "power_start": "1981-01-01",
+          "site_id": "01481000",
+          "target_end": "2026-03-01",
+          "target_start": "1971-10-06"
+        },
+        {
+          "latitude": 39.7695,
+          "longitude": -75.576694,
+          "power_start": "2006-10-01",
+          "site_id": "01481500",
+          "target_end": "2025-04-01",
+          "target_start": "2006-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "e3eb5f7778634030581a1f1a310abbe6325a2307cb80616edf2f9058af1ef93f",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "8a7ef985efee11fed4de0fc0f91a0db4532c20b976d3fa469987468ad5776726",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02050104",
+      "network_plan_sha256": "de2a7b60f79790a68c6ca8d7db86e0ce784aaf907b90a45a68f026faf5d1265c",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.7970183,
+          "longitude": -77.0802457,
+          "power_start": "2015-10-01",
+          "site_id": "01516350",
+          "target_end": "2025-07-20",
+          "target_start": "2015-10-01"
+        },
+        {
+          "latitude": 41.95257385,
+          "longitude": -77.1152486,
+          "power_start": "1981-01-01",
+          "site_id": "01518700",
+          "target_end": "2025-07-10",
+          "target_start": "1976-09-27"
+        },
+        {
+          "latitude": 41.99674048,
+          "longitude": -77.1399724,
+          "power_start": "1981-01-01",
+          "site_id": "01520000",
+          "target_end": "2026-04-07",
+          "target_start": "1972-05-18"
+        }
+      ],
+      "source_date_projection_sha256": "bb101a4536571a4b48d952a12778ab01427019ee10aefeced5dcd977fe8ac015",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "3f68966695c33e7c26e777b8583e8e097ecc1370636ba58855e716b5165ec2e9",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02050305",
+      "network_plan_sha256": "b6ab66b8beda3c2ecc0646f3dc6b0468f327136d24f7a0deb4d6e07200629b79",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.25473717,
+          "longitude": -76.8860538,
+          "power_start": "1981-01-01",
+          "site_id": "01570500",
+          "target_end": "2015-03-25",
+          "target_start": "1974-05-01"
+        },
+        {
+          "latitude": 40.65953336,
+          "longitude": -76.3468965,
+          "power_start": "1996-10-17",
+          "site_id": "0157155010",
+          "target_end": "2007-07-10",
+          "target_start": "1996-10-17"
+        },
+        {
+          "latitude": 40.65786674,
+          "longitude": -76.344952,
+          "power_start": "1996-07-18",
+          "site_id": "0157155014",
+          "target_end": "2007-07-10",
+          "target_start": "1996-07-18"
+        },
+        {
+          "latitude": 40.58064485,
+          "longitude": -76.4046785,
+          "power_start": "1996-07-13",
+          "site_id": "01571820",
+          "target_end": "2007-07-10",
+          "target_start": "1996-07-13"
+        }
+      ],
+      "source_date_projection_sha256": "a3c60b32d6b8c88069329655d5c9acefbdf695e8629a52241705e03b4ecc5ae6",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "082df765eca1a0655ee607ed57c29b73b2c3134e5b39a0243dbf71feb490ed7a",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02060003",
+      "network_plan_sha256": "590fe55dda00ecd44e1d45a548a893a130d47ae5a402a28800bf53a4c7d4b8e9",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.49627778,
+          "longitude": -76.34744444,
+          "power_start": "2013-08-30",
+          "site_id": "01581752",
+          "target_end": "2026-05-06",
+          "target_start": "2013-08-30"
+        },
+        {
+          "latitude": 39.61905556,
+          "longitude": -76.69036111,
+          "power_start": "2011-03-09",
+          "site_id": "01581920",
+          "target_end": "2026-05-06",
+          "target_start": "2011-03-09"
+        },
+        {
+          "latitude": 39.40852778,
+          "longitude": -76.34263889,
+          "power_start": "2015-09-30",
+          "site_id": "01585075",
+          "target_end": "2026-08-05",
+          "target_start": "2015-09-30"
+        },
+        {
+          "latitude": 39.36158333,
+          "longitude": -76.76175,
+          "power_start": "2016-01-16",
+          "site_id": "01589290",
+          "target_end": "2026-04-27",
+          "target_start": "2016-01-16"
+        }
+      ],
+      "source_date_projection_sha256": "49f1eeb7cf8de52874aff795e7f8d910b8af42c9c5d66efd6763e12ec8e3fc9d",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "f15a7af2e61b2ec90eacce13b82cdf1aec375796ec46bed5f81725b22644cc01",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02070002",
+      "network_plan_sha256": "4c2e9b7e265c98ae91b1e6b1c44d885afc2e12b102aafd3fcc47efb56ddecdbb",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.44511111,
+          "longitude": -79.11080556,
+          "power_start": "2012-10-01",
+          "site_id": "01595800",
+          "target_end": "2026-06-03",
+          "target_start": "2012-10-01"
+        },
+        {
+          "latitude": 39.57005556,
+          "longitude": -79.1019444,
+          "power_start": "2012-10-01",
+          "site_id": "01596500",
+          "target_end": "2026-07-05",
+          "target_start": "2012-10-01"
+        },
+        {
+          "latitude": 39.50275,
+          "longitude": -79.1239722,
+          "power_start": "2012-10-01",
+          "site_id": "01597500",
+          "target_end": "2026-07-05",
+          "target_start": "2012-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "6b147bde7b719c0114efad6dc9963dd0be306f25507125e87ba87113835f720b",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "ec332db3fa32cada108dfe86ad898a2f2b14700e4c93bdd7a7a3e4024b04144a",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02070008",
+      "network_plan_sha256": "fff29e37d0ee9bf50fdb4497fd101f23fe9426374299f773a80dee52467819b3",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 38.97594346,
+          "longitude": -77.24581439,
+          "power_start": "2006-09-22",
+          "site_id": "01646000",
+          "target_end": "2021-03-21",
+          "target_start": "2006-09-22"
+        },
+        {
+          "latitude": 38.95977716,
+          "longitude": -77.1756743,
+          "power_start": "2007-11-30",
+          "site_id": "01646305",
+          "target_end": "2025-03-24",
+          "target_start": "2007-11-30"
+        },
+        {
+          "latitude": 38.94977778,
+          "longitude": -77.12763889,
+          "power_start": "2006-07-13",
+          "site_id": "01646500",
+          "target_end": "2019-09-30",
+          "target_start": "2006-07-13"
+        }
+      ],
+      "source_date_projection_sha256": "200c3440c8d5d964fd20a30bcbb1292777a18213729b45a454de009e7815947e",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "54c19ea974ceb4fc1d1bfffd570fd7ef18ac8e3f3c8f114d6f93eec508e504c3",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02070010",
+      "network_plan_sha256": "5987c96a4c4c42b38916d74e48882dea2637cb56aa99dee643393537ca33469b",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.03336111,
+          "longitude": -76.96402778,
+          "power_start": "2007-10-01",
+          "site_id": "01649190",
+          "target_end": "2026-06-03",
+          "target_start": "2007-10-01"
+        },
+        {
+          "latitude": 38.96025,
+          "longitude": -76.9259722,
+          "power_start": "2003-12-18",
+          "site_id": "01649500",
+          "target_end": "2026-04-08",
+          "target_start": "2003-12-18"
+        },
+        {
+          "latitude": 38.81358508,
+          "longitude": -77.2364549,
+          "power_start": "2013-02-08",
+          "site_id": "01654500",
+          "target_end": "2026-01-06",
+          "target_start": "2013-02-08"
+        },
+        {
+          "latitude": 38.8823899,
+          "longitude": -77.4319047,
+          "power_start": "2007-09-30",
+          "site_id": "01656903",
+          "target_end": "2025-06-03",
+          "target_start": "2007-09-30"
+        }
+      ],
+      "source_date_projection_sha256": "c97503892f2b7443ed9b5b704262103f760155b8bcbcc31f830a764f95594dc1",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "a47aad41e6c4249ab0e13a7328e169765c32939939ac3b37569064a5c5f3b54b",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_02080201",
+      "network_plan_sha256": "981e0d90902649e767f90001d1a77ec3a45101bf80a594e95ddc5ed6367a70a3",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 38.04234707,
+          "longitude": -79.8814439,
+          "power_start": "1981-01-01",
+          "site_id": "02011400",
+          "target_end": "2022-02-28",
+          "target_start": "1978-03-01"
+        },
+        {
+          "latitude": 38.24540129,
+          "longitude": -79.76866328,
+          "power_start": "1984-10-01",
+          "site_id": "02011460",
+          "target_end": "1995-10-02",
+          "target_start": "1984-10-01"
+        },
+        {
+          "latitude": 38.19040156,
+          "longitude": -79.81172,
+          "power_start": "1984-10-01",
+          "site_id": "02011470",
+          "target_end": "1995-10-02",
+          "target_start": "1984-10-01"
+        },
+        {
+          "latitude": 38.21456767,
+          "longitude": -79.8375546,
+          "power_start": "1984-10-01",
+          "site_id": "02011490",
+          "target_end": "1995-10-02",
+          "target_start": "1984-10-01"
+        },
+        {
+          "latitude": 38.0695688,
+          "longitude": -79.8970003,
+          "power_start": "1981-01-01",
+          "site_id": "02011500",
+          "target_end": "2022-02-28",
+          "target_start": "1978-06-22"
+        },
+        {
+          "latitude": 37.94845825,
+          "longitude": -79.94922369,
+          "power_start": "1981-01-01",
+          "site_id": "02011800",
+          "target_end": "2003-09-30",
+          "target_start": "1978-09-20"
+        },
+        {
+          "latitude": 37.8109585,
+          "longitude": -79.9883907,
+          "power_start": "1981-01-01",
+          "site_id": "02012800",
+          "target_end": "2003-09-30",
+          "target_start": "1978-06-23"
+        }
+      ],
+      "source_date_projection_sha256": "a0afd8fe3053508630ad172880b32297f2ad53ce7756bd5598614f96a2a88f39",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "326693cae0e9bdf5dadba7eb9089679a8ad205318386f9c3eaa3a03820e91840",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03070101",
+      "network_plan_sha256": "d7792a6a93b3b4ca84f6baafa2ea98ec4e55ff8ce56f66cee108ea5eb9defe65",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 34.0822222,
+          "longitude": -83.8544444,
+          "power_start": "2001-06-30",
+          "site_id": "02217274",
+          "target_end": "2026-06-24",
+          "target_start": "2001-06-30"
+        },
+        {
+          "latitude": 34.1620583,
+          "longitude": -83.5250944,
+          "power_start": "2012-11-28",
+          "site_id": "02217643",
+          "target_end": "2026-04-14",
+          "target_start": "2012-11-28"
+        },
+        {
+          "latitude": 34.01027778,
+          "longitude": -83.8941667,
+          "power_start": "2001-07-13",
+          "site_id": "02218565",
+          "target_end": "2026-01-27",
+          "target_start": "2001-07-13"
+        }
+      ],
+      "source_date_projection_sha256": "ffdb92eac74b69eaaa5cb0988d76dd526ea841fa7c062cee4590f900a08dd42d",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "b4168318f92db7f2d7f185af3c84b1525049f8ddd87e35b77930a6c181163c79",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04020105",
+      "network_plan_sha256": "42211e5b35c3bd5c62e8040f0ae70c01fe18d34603e9c92697ace3f2fede29d0",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 46.7346552,
+          "longitude": -88.4431868,
+          "power_start": "2014-09-30",
+          "site_id": "04043097",
+          "target_end": "2025-11-17",
+          "target_start": "2014-09-30"
+        },
+        {
+          "latitude": 46.78214818,
+          "longitude": -87.8776299,
+          "power_start": "2004-12-02",
+          "site_id": "04043238",
+          "target_end": "2025-12-09",
+          "target_start": "2004-12-02"
+        },
+        {
+          "latitude": 46.7857589,
+          "longitude": -87.8523522,
+          "power_start": "2005-12-03",
+          "site_id": "04043244",
+          "target_end": "2025-12-09",
+          "target_start": "2005-12-03"
+        }
+      ],
+      "source_date_projection_sha256": "aa4b11c3e8097006298023fa4348adcc5fbb84d5f3f3707ef836cd87e1c5e336",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "fc1a1f8872bfb1ff432e26a2160c20ed74896a67b7c68f1a3209ec1fe7ed65fa",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04040003",
+      "network_plan_sha256": "8aca797a72035daa737be2b9a3868af1497f75ab26f1036e83a6f94f80cadf25",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 42.9457222,
+          "longitude": -87.8862222,
+          "power_start": "1996-11-12",
+          "site_id": "040871473",
+          "target_end": "2017-10-30",
+          "target_start": "1996-11-12"
+        },
+        {
+          "latitude": 42.95702778,
+          "longitude": -87.9073056,
+          "power_start": "1996-11-14",
+          "site_id": "040871475",
+          "target_end": "2014-09-29",
+          "target_start": "1996-11-14"
+        },
+        {
+          "latitude": 42.99025,
+          "longitude": -87.9523333,
+          "power_start": "1996-11-19",
+          "site_id": "040871488",
+          "target_end": "2017-11-19",
+          "target_start": "1996-11-19"
+        }
+      ],
+      "source_date_projection_sha256": "c878e6152e641f77d476d7620dc172b893e9de996ef600826603fd3038980e7e",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "99dd8c3fa78254bcb56f27704a2e79b02272f66aac0fbb37711e8535ee33a6b1",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04060102",
+      "network_plan_sha256": "b766985394ea8bf7e3775cb1af415c6f1a891bcf87b9a3ad8d906fe78126ca99",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 43.693634,
+          "longitude": -85.4675442,
+          "power_start": "1998-10-21",
+          "site_id": "04121650",
+          "target_end": "2026-05-12",
+          "target_start": "1998-10-21"
+        },
+        {
+          "latitude": 43.61308,
+          "longitude": -85.4778209,
+          "power_start": "1995-10-01",
+          "site_id": "04121660",
+          "target_end": "2026-05-12",
+          "target_start": "1995-10-01"
+        },
+        {
+          "latitude": 43.485857,
+          "longitude": -85.63060189,
+          "power_start": "1995-10-01",
+          "site_id": "04121680",
+          "target_end": "2026-05-12",
+          "target_start": "1995-10-01"
+        },
+        {
+          "latitude": 43.43085818,
+          "longitude": -85.5955989,
+          "power_start": "1995-10-14",
+          "site_id": "04121944",
+          "target_end": "2026-05-13",
+          "target_start": "1995-10-14"
+        },
+        {
+          "latitude": 43.43474558,
+          "longitude": -85.6653239,
+          "power_start": "1995-01-10",
+          "site_id": "04121970",
+          "target_end": "2026-05-13",
+          "target_start": "1995-01-10"
+        }
+      ],
+      "source_date_projection_sha256": "13d6ff8b7faffc48a1adee63655eb6dfcd7a7fd63f5ef5061c79c0100fcd5721",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "83d14347dd35c7d16806338a56c6cbd0cc1db47e9c8b1e298b952f44d80a9700",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04060103",
+      "network_plan_sha256": "364252416873cd22cc90c40e25f7023c881df8c96f1ba804e8bd7cdb364784da",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 44.43639239,
+          "longitude": -85.6986792,
+          "power_start": "1996-10-01",
+          "site_id": "04124000",
+          "target_end": "2025-12-02",
+          "target_start": "1996-10-01"
+        },
+        {
+          "latitude": 44.3630596,
+          "longitude": -85.820905,
+          "power_start": "1996-12-01",
+          "site_id": "04124200",
+          "target_end": "2025-12-02",
+          "target_start": "1996-12-01"
+        },
+        {
+          "latitude": 44.19334009,
+          "longitude": -85.7697863,
+          "power_start": "1996-12-01",
+          "site_id": "04125460",
+          "target_end": "2025-12-02",
+          "target_start": "1996-12-01"
+        },
+        {
+          "latitude": 44.25944459,
+          "longitude": -85.9416248,
+          "power_start": "1996-10-01",
+          "site_id": "04125550",
+          "target_end": "2025-12-01",
+          "target_start": "1996-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "064e1769c8ded57d49240fe3c1764a6e041b56ab7aec415d0d73da515d1b58d1",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "559269183e03cc35b4af557f6378a4d23aa8435ca26428fae6dd3aee154f3513",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04070007",
+      "network_plan_sha256": "7885d75d32c76288f37ad71612841f84adb044d93fcff6f29796173cba132a11",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 44.6769593,
+          "longitude": -84.2925146,
+          "power_start": "1996-07-12",
+          "site_id": "04136000",
+          "target_end": "2026-05-31",
+          "target_start": "1996-07-12"
+        },
+        {
+          "latitude": 44.66001385,
+          "longitude": -84.1311167,
+          "power_start": "1996-07-11",
+          "site_id": "04136500",
+          "target_end": "2026-01-04",
+          "target_start": "1996-07-11"
+        },
+        {
+          "latitude": 44.61277537,
+          "longitude": -83.8376616,
+          "power_start": "1996-10-01",
+          "site_id": "04136900",
+          "target_end": "2026-04-28",
+          "target_start": "1996-10-01"
+        },
+        {
+          "latitude": 44.56084749,
+          "longitude": -83.802764,
+          "power_start": "1996-10-01",
+          "site_id": "04137005",
+          "target_end": "2026-05-31",
+          "target_start": "1996-10-01"
+        },
+        {
+          "latitude": 44.46334886,
+          "longitude": -83.7213714,
+          "power_start": "1996-07-10",
+          "site_id": "04137020",
+          "target_end": "2026-04-29",
+          "target_start": "1996-07-10"
+        },
+        {
+          "latitude": 44.4541823,
+          "longitude": -83.6744254,
+          "power_start": "1996-07-11",
+          "site_id": "04137025",
+          "target_end": "2026-07-13",
+          "target_start": "1996-07-11"
+        },
+        {
+          "latitude": 44.47279328,
+          "longitude": -83.57108839,
+          "power_start": "1996-07-10",
+          "site_id": "04137030",
+          "target_end": "2025-12-14",
+          "target_start": "1996-07-10"
+        },
+        {
+          "latitude": 44.43640447,
+          "longitude": -83.4338609,
+          "power_start": "1996-07-12",
+          "site_id": "04137500",
+          "target_end": "2025-11-13",
+          "target_start": "1996-07-12"
+        }
+      ],
+      "source_date_projection_sha256": "f2d69206df0cde63aef0ab52e98164b20df4a6e00973de43a32672f9c646e760",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "52d86ec54fb87ec7c4be30a55307aed15f103d2e326bcd4f25eb68c4896a92e7",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_04140101",
+      "network_plan_sha256": "4e515c06cc2fd071b2b3c19469134e130db03375169f79e583bfc568f263c330",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 43.0278333,
+          "longitude": -77.4787222,
+          "power_start": "1995-09-30",
+          "site_id": "04232034",
+          "target_end": "2010-09-29",
+          "target_start": "1995-09-30"
+        },
+        {
+          "latitude": 43.128028,
+          "longitude": -77.527,
+          "power_start": "1994-11-10",
+          "site_id": "04232050",
+          "target_end": "2026-05-04",
+          "target_start": "1994-11-10"
+        },
+        {
+          "latitude": 43.144833,
+          "longitude": -77.511972,
+          "power_start": "1994-11-10",
+          "site_id": "0423205010",
+          "target_end": "2026-05-03",
+          "target_start": "1994-11-10"
+        }
+      ],
+      "source_date_projection_sha256": "5ee6b60a75381f3956a249951aeb88ebbc3c6a460e9ef062a6e898437f463f42",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "042f86331e0a21247e20941758b8ea6ff00164e69a7f1e7b9b2f0ce76ee24386",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05010005",
+      "network_plan_sha256": "7e62e30f031f23b47e8e62855b2cc4439803b4a40848566fc9c0cf2afde62aa8",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.64405556,
+          "longitude": -78.5314444,
+          "power_start": "2012-09-30",
+          "site_id": "03026480",
+          "target_end": "2024-12-17",
+          "target_start": "2012-09-30"
+        },
+        {
+          "latitude": 41.5531176,
+          "longitude": -78.5961347,
+          "power_start": "2007-10-01",
+          "site_id": "03027500",
+          "target_end": "2024-12-17",
+          "target_start": "2007-10-01"
+        },
+        {
+          "latitude": 41.57533955,
+          "longitude": -78.69224919,
+          "power_start": "2011-09-30",
+          "site_id": "03028000",
+          "target_end": "2025-11-30",
+          "target_start": "2011-09-30"
+        },
+        {
+          "latitude": 41.48617269,
+          "longitude": -78.6783595,
+          "power_start": "2013-10-01",
+          "site_id": "03028500",
+          "target_end": "2024-12-16",
+          "target_start": "2013-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "190dd38e0cc293f1ccbc5a35b98b490b5a575b30478c5e70beab7a0de6b1577c",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "c1755e4c2c495bd82249666c0b859ce580bb58e686ebc8916eed279b049a9f2c",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05010006",
+      "network_plan_sha256": "51655a76c7f584f726b71d906a30476cfe92df6c0590c8b8bf12db288b401af1",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.93923105,
+          "longitude": -79.00836738,
+          "power_start": "2010-12-17",
+          "site_id": "03034000",
+          "target_end": "2026-07-22",
+          "target_start": "2010-12-17"
+        },
+        {
+          "latitude": 40.8361756,
+          "longitude": -79.1100356,
+          "power_start": "2013-04-05",
+          "site_id": "03034500",
+          "target_end": "2026-06-21",
+          "target_start": "2013-04-05"
+        },
+        {
+          "latitude": 40.9275653,
+          "longitude": -79.2911508,
+          "power_start": "2008-10-01",
+          "site_id": "03036000",
+          "target_end": "2026-03-29",
+          "target_start": "2008-10-01"
+        },
+        {
+          "latitude": 40.6547875,
+          "longitude": -79.3486511,
+          "power_start": "2013-09-29",
+          "site_id": "03038000",
+          "target_end": "2026-01-11",
+          "target_start": "2013-09-29"
+        },
+        {
+          "latitude": 40.7203422,
+          "longitude": -79.5114332,
+          "power_start": "2008-12-19",
+          "site_id": "03039000",
+          "target_end": "2026-06-24",
+          "target_start": "2008-12-19"
+        }
+      ],
+      "source_date_projection_sha256": "4393afa0eb885d36429f709bafdd2e4af9194b5b38b399e8ff0da03336899949",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "45183900089624e482e4aa18c443b55afff789ba463b3572ca96b5fcfef02dc8",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05010007",
+      "network_plan_sha256": "808a37b1d951fef0c7e9127fc041f66b1b7cf9be49719d971a546bb2667b385b",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.4192377,
+          "longitude": -79.0261404,
+          "power_start": "2013-09-29",
+          "site_id": "03041500",
+          "target_end": "2025-07-15",
+          "target_start": "2013-09-29"
+        },
+        {
+          "latitude": 40.4770127,
+          "longitude": -79.1867009,
+          "power_start": "2013-09-29",
+          "site_id": "03042000",
+          "target_end": "2024-07-29",
+          "target_start": "2013-09-29"
+        },
+        {
+          "latitude": 40.46756718,
+          "longitude": -79.3672609,
+          "power_start": "2004-10-01",
+          "site_id": "03043810",
+          "target_end": "2026-03-22",
+          "target_start": "2004-10-01"
+        },
+        {
+          "latitude": 40.4545117,
+          "longitude": -79.3908724,
+          "power_start": "2011-12-27",
+          "site_id": "03044000",
+          "target_end": "2026-06-21",
+          "target_start": "2011-12-27"
+        }
+      ],
+      "source_date_projection_sha256": "5da66edf6d2ac0fe92fa1a3197be2ec33b6507c6c56c03c61cd9154fb426da5c",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "253b00c5bebb664d7995caedf6728d91b0eef3c3f488026fd478f7c8df1c32ab",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05020001",
+      "network_plan_sha256": "60ac32426d0fcabfb2c2da58848ceb031f4532e18d11f0c5a434c8282d7945c8",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.15037545,
+          "longitude": -80.038691,
+          "power_start": "2011-10-01",
+          "site_id": "03054500",
+          "target_end": "2020-10-28",
+          "target_start": "2011-10-01"
+        },
+        {
+          "latitude": 39.31981459,
+          "longitude": -80.0250779,
+          "power_start": "2010-09-30",
+          "site_id": "03056000",
+          "target_end": "2020-11-08",
+          "target_start": "2010-09-30"
+        },
+        {
+          "latitude": 39.4350866,
+          "longitude": -80.1325789,
+          "power_start": "2008-09-30",
+          "site_id": "03057000",
+          "target_end": "2020-10-27",
+          "target_start": "2008-09-30"
+        }
+      ],
+      "source_date_projection_sha256": "a4cbda0875daeca0a79f8087b6825634b4e292f240c91f873076be887ccf75d1",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "a771dc1e5126e48f5589e0feab81dff36fe42cd46e31ec035599a49dd4561b6d",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05020005",
+      "network_plan_sha256": "d93f790dbc0282fd9ce6224ec840cdc635eb56a9b4856407b70f8d3aa2bb680a",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.7592449,
+          "longitude": -79.9706152,
+          "power_start": "2013-09-30",
+          "site_id": "03072000",
+          "target_end": "2026-06-22",
+          "target_start": "2013-09-30"
+        },
+        {
+          "latitude": 39.8250275,
+          "longitude": -79.9228206,
+          "power_start": "2013-09-27",
+          "site_id": "03072655",
+          "target_end": "2026-06-24",
+          "target_start": "2013-09-27"
+        },
+        {
+          "latitude": 39.92313056,
+          "longitude": -80.072558,
+          "power_start": "2010-11-05",
+          "site_id": "03073000",
+          "target_end": "2026-06-24",
+          "target_start": "2010-11-05"
+        },
+        {
+          "latitude": 40.26224454,
+          "longitude": -79.9011517,
+          "power_start": "2008-10-02",
+          "site_id": "03075070",
+          "target_end": "2025-03-23",
+          "target_start": "2008-10-02"
+        }
+      ],
+      "source_date_projection_sha256": "c16fd17d007acded146240974d3ac90fcd7a8e903c0df2b695ace54c3ddc037e",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "a17c6725728f0f890aff4c53c931c43a4189e319a2bfc4ea030a2fcbe6782d07",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05020006",
+      "network_plan_sha256": "acd788ade1309e8b88e9a3b50a6ad58ef25c5e08a8005ecec6727d868f63cd3e",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.6536111,
+          "longitude": -79.4083056,
+          "power_start": "2012-10-01",
+          "site_id": "03076500",
+          "target_end": "2026-07-23",
+          "target_start": "2012-10-01"
+        },
+        {
+          "latitude": 39.80535485,
+          "longitude": -79.3642019,
+          "power_start": "2005-08-17",
+          "site_id": "03077500",
+          "target_end": "2026-06-25",
+          "target_start": "2005-08-17"
+        },
+        {
+          "latitude": 39.85991667,
+          "longitude": -79.2288333,
+          "power_start": "2005-06-02",
+          "site_id": "03079000",
+          "target_end": "2026-06-28",
+          "target_start": "2005-06-02"
+        },
+        {
+          "latitude": 39.8275767,
+          "longitude": -79.3725353,
+          "power_start": "2004-10-01",
+          "site_id": "03081000",
+          "target_end": "2026-06-28",
+          "target_start": "2004-10-01"
+        },
+        {
+          "latitude": 40.2402222,
+          "longitude": -79.8066944,
+          "power_start": "2005-06-02",
+          "site_id": "03083500",
+          "target_end": "2026-03-30",
+          "target_start": "2005-06-02"
+        }
+      ],
+      "source_date_projection_sha256": "499f7417b1690a662629b8884b4e2be8b15ae15afe801c0073db0d4db314d0ca",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "303d64f77f4ddb27b0461a5bc5e9a8954d29ef99b2e73bd68e481033e15bf907",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05030102",
+      "network_plan_sha256": "6c1840d56d65ecba9f502d5615d57e09551909f5680cf5193b29fbd6ee0c213b",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.48305556,
+          "longitude": -80.7461111,
+          "power_start": "2013-05-21",
+          "site_id": "03094704",
+          "target_end": "2026-03-17",
+          "target_start": "2013-05-21"
+        },
+        {
+          "latitude": 41.3536663,
+          "longitude": -80.3978453,
+          "power_start": "2013-11-13",
+          "site_id": "03102850",
+          "target_end": "2025-11-17",
+          "target_start": "2013-11-13"
+        },
+        {
+          "latitude": 41.44283235,
+          "longitude": -80.58812999,
+          "power_start": "2010-11-24",
+          "site_id": "03102950",
+          "target_end": "2025-11-18",
+          "target_start": "2010-11-24"
+        },
+        {
+          "latitude": 41.2661241,
+          "longitude": -80.47255589,
+          "power_start": "2007-09-30",
+          "site_id": "03103500",
+          "target_end": "2025-11-18",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 41.01813889,
+          "longitude": -80.3632778,
+          "power_start": "2017-04-27",
+          "site_id": "03104490",
+          "target_end": "2025-11-18",
+          "target_start": "2017-04-27"
+        }
+      ],
+      "source_date_projection_sha256": "8e64447be40468d90a35f24e6aa013e4e2594b5bfafa9493d42a14222c32a47d",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "0f2f29e33cb2ecf858b5f775e3e4328c4f79256e0525acd5323443492d464a4f",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05040001",
+      "network_plan_sha256": "82e4abb868766e87fefcac6ea762eb61cf6095418ce606df25cb532f34640505",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.46166667,
+          "longitude": -81.1255556,
+          "power_start": "2015-06-26",
+          "site_id": "03119341",
+          "target_end": "2025-11-02",
+          "target_start": "2015-06-26"
+        },
+        {
+          "latitude": 40.5133333,
+          "longitude": -81.1127778,
+          "power_start": "2015-06-22",
+          "site_id": "03119971",
+          "target_end": "2025-11-17",
+          "target_start": "2015-06-22"
+        },
+        {
+          "latitude": 40.52888889,
+          "longitude": -81.1369444,
+          "power_start": "2015-06-22",
+          "site_id": "03119979",
+          "target_end": "2025-11-17",
+          "target_start": "2015-06-22"
+        },
+        {
+          "latitude": 40.5536111,
+          "longitude": -81.1847222,
+          "power_start": "2015-06-22",
+          "site_id": "03120820",
+          "target_end": "2025-11-19",
+          "target_start": "2015-06-22"
+        },
+        {
+          "latitude": 40.57805556,
+          "longitude": -81.1927778,
+          "power_start": "2015-07-01",
+          "site_id": "03120869",
+          "target_end": "2025-11-19",
+          "target_start": "2015-07-01"
+        },
+        {
+          "latitude": 40.56805556,
+          "longitude": -81.2572222,
+          "power_start": "2015-06-22",
+          "site_id": "03120961",
+          "target_end": "2025-11-19",
+          "target_start": "2015-06-22"
+        },
+        {
+          "latitude": 40.08416667,
+          "longitude": -81.1272222,
+          "power_start": "2015-06-30",
+          "site_id": "03125338",
+          "target_end": "2025-11-16",
+          "target_start": "2015-06-30"
+        },
+        {
+          "latitude": 40.24777778,
+          "longitude": -81.1483333,
+          "power_start": "2015-06-30",
+          "site_id": "03126395",
+          "target_end": "2025-11-07",
+          "target_start": "2015-06-30"
+        },
+        {
+          "latitude": 40.3386111,
+          "longitude": -81.11388889,
+          "power_start": "2015-06-30",
+          "site_id": "03127980",
+          "target_end": "2025-11-17",
+          "target_start": "2015-06-30"
+        },
+        {
+          "latitude": 40.31166667,
+          "longitude": -81.1152778,
+          "power_start": "2015-06-24",
+          "site_id": "03127986",
+          "target_end": "2025-11-17",
+          "target_start": "2015-06-24"
+        },
+        {
+          "latitude": 40.34694444,
+          "longitude": -81.1266667,
+          "power_start": "2015-06-25",
+          "site_id": "03127989",
+          "target_end": "2025-10-20",
+          "target_start": "2015-06-25"
+        }
+      ],
+      "source_date_projection_sha256": "ec91a992a024c80043da161deb01c69761afc9af191af201bac82af2234ecac5",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "1bef88d87f7ed49392b5ee6375b0bf4d6974127ffbcad56f6f7a83d61ce08722",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05040005",
+      "network_plan_sha256": "3e610ec9f26c494d69bdfa38236f9be9630680a7f36f4c23686dc85c3bdd073c",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.86388889,
+          "longitude": -81.3208333,
+          "power_start": "2015-06-29",
+          "site_id": "03140853",
+          "target_end": "2025-11-16",
+          "target_start": "2015-06-29"
+        },
+        {
+          "latitude": 39.85277778,
+          "longitude": -81.3286111,
+          "power_start": "2015-06-24",
+          "site_id": "03140900",
+          "target_end": "2025-11-16",
+          "target_start": "2015-06-24"
+        },
+        {
+          "latitude": 39.90138889,
+          "longitude": -81.3194444,
+          "power_start": "2015-06-27",
+          "site_id": "03140950",
+          "target_end": "2025-11-16",
+          "target_start": "2015-06-27"
+        }
+      ],
+      "source_date_projection_sha256": "7d1713626c0b8a889c20df8d8f4b5d75e79226b753256b410a5e2320870a6372",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "b40edd8dae43b262f52edd88a515a5990086fa1ad643c458fea16cd5e61874cf",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05090203",
+      "network_plan_sha256": "a3db6982b7e3d8e71f5483ef33873a97be9bf70330fe13a8fcbeffa188cf15f5",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.03,
+          "longitude": -84.804167,
+          "power_start": "2000-12-02",
+          "site_id": "03262001",
+          "target_end": "2014-09-29",
+          "target_start": "2000-12-02"
+        },
+        {
+          "latitude": 38.99416667,
+          "longitude": -84.7161111,
+          "power_start": "2000-12-01",
+          "site_id": "03277075",
+          "target_end": "2015-09-30",
+          "target_start": "2000-12-01"
+        },
+        {
+          "latitude": 38.84504677,
+          "longitude": -84.7207555,
+          "power_start": "2000-12-02",
+          "site_id": "03277130",
+          "target_end": "2015-09-29",
+          "target_start": "2000-12-02"
+        }
+      ],
+      "source_date_projection_sha256": "b1f1e121d42ea97e56fe0e050c9885e6d2ff12378fb8cee2f66a81973b53ca55",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "40b812d07430fd7192e70abf599cdc5ef42808d3dc15d57939243ea301ca2016",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05110001",
+      "network_plan_sha256": "2982bdc6bc5d63a0b9ea1aaa887efe7eb9fef85d0c2f2af887f9c4c0cfa3e106",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 37.2403413,
+          "longitude": -85.3471848,
+          "power_start": "1988-10-01",
+          "site_id": "03306000",
+          "target_end": "2024-11-04",
+          "target_start": "1988-10-01"
+        },
+        {
+          "latitude": 37.2536713,
+          "longitude": -85.5030215,
+          "power_start": "1999-12-22",
+          "site_id": "03306500",
+          "target_end": "2013-09-29",
+          "target_start": "1999-12-22"
+        },
+        {
+          "latitude": 37.20699194,
+          "longitude": -86.2610868,
+          "power_start": "1999-12-15",
+          "site_id": "03311500",
+          "target_end": "2014-11-30",
+          "target_start": "1999-12-15"
+        }
+      ],
+      "source_date_projection_sha256": "0a8837b2a7e184c5b578a5b8e408d619db527f7ac9818c481cca3fa8a7493504",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "8f6e6c28288cdc9b087e1ed19d221687b0b4e49cbcb776dd207d119391e5e5de",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05120201",
+      "network_plan_sha256": "cc7838337f535d524836790fa57eeb0e690fc5cad564c9be11dbba61aefe6ff5",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.94642217,
+          "longitude": -86.260249,
+          "power_start": "2010-09-22",
+          "site_id": "03353200",
+          "target_end": "2026-01-05",
+          "target_start": "2010-09-22"
+        },
+        {
+          "latitude": 39.88577778,
+          "longitude": -86.3554444,
+          "power_start": "2018-02-13",
+          "site_id": "03353415",
+          "target_end": "2026-01-23",
+          "target_start": "2018-02-13"
+        },
+        {
+          "latitude": 39.8725833,
+          "longitude": -86.3615278,
+          "power_start": "2015-06-23",
+          "site_id": "03353420",
+          "target_end": "2024-12-19",
+          "target_start": "2015-06-23"
+        },
+        {
+          "latitude": 39.7144805,
+          "longitude": -86.200525,
+          "power_start": "1992-10-14",
+          "site_id": "03353611",
+          "target_end": "2025-03-25",
+          "target_start": "1992-10-14"
+        },
+        {
+          "latitude": 39.4975388,
+          "longitude": -86.4005316,
+          "power_start": "1981-01-01",
+          "site_id": "03354000",
+          "target_end": "2024-11-05",
+          "target_start": "1975-08-25"
+        }
+      ],
+      "source_date_projection_sha256": "b06837417df9c02e3ad1d4f4be81c320d5d5de0624fad908c86cc8a2c6ac7e74",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "ab59058b7e4b77e71297ad34d8eed5d86a94cc4bf85240a42b763be04838f438",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05130202",
+      "network_plan_sha256": "946314a7de38686ed68f7d1a0586eff229095ab23f0e58b1e282b081dfd9aa73",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 36.16394545,
+          "longitude": -86.699164,
+          "power_start": "2003-09-06",
+          "site_id": "03431083",
+          "target_end": "2026-02-08",
+          "target_start": "2003-09-06"
+        },
+        {
+          "latitude": 36.1653343,
+          "longitude": -86.7213866,
+          "power_start": "1996-10-25",
+          "site_id": "03431091",
+          "target_end": "2026-02-23",
+          "target_start": "1996-10-25"
+        },
+        {
+          "latitude": 36.1889717,
+          "longitude": -86.8283959,
+          "power_start": "1996-11-01",
+          "site_id": "03431514",
+          "target_end": "2026-01-12",
+          "target_start": "1996-11-01"
+        }
+      ],
+      "source_date_projection_sha256": "a659151f89f768e786764fec525fe1bf54201258ae583cee5b115fa7a5225b5d",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "fc29799c3b9b86a7b8eb52d464575280c4ae0bf9f339d186b0b1f07954bc18b8",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05140101",
+      "network_plan_sha256": "63418587f49821923b7ec2a0ba081c804da288790bd9095a404c3019ccd19fca",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 38.36117864,
+          "longitude": -85.57459969,
+          "power_start": "2008-09-30",
+          "site_id": "03292470",
+          "target_end": "2025-11-19",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.2759036,
+          "longitude": -85.606072,
+          "power_start": "2007-10-16",
+          "site_id": "03292474",
+          "target_end": "2026-07-13",
+          "target_start": "2007-10-16"
+        },
+        {
+          "latitude": 38.3034027,
+          "longitude": -85.62801689,
+          "power_start": "2007-09-30",
+          "site_id": "03292475",
+          "target_end": "2025-12-08",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 38.3127635,
+          "longitude": -85.6261558,
+          "power_start": "2007-09-30",
+          "site_id": "03292480",
+          "target_end": "2026-07-15",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 38.2114592,
+          "longitude": -85.7024613,
+          "power_start": "1988-05-07",
+          "site_id": "03292500",
+          "target_end": "2026-07-06",
+          "target_start": "1988-05-07"
+        },
+        {
+          "latitude": 38.237222,
+          "longitude": -85.664722,
+          "power_start": "1988-04-30",
+          "site_id": "03293000",
+          "target_end": "2026-07-08",
+          "target_start": "1988-04-30"
+        },
+        {
+          "latitude": 38.25034895,
+          "longitude": -85.7166287,
+          "power_start": "2007-09-30",
+          "site_id": "03293500",
+          "target_end": "2026-07-08",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 38.27645917,
+          "longitude": -85.693573,
+          "power_start": "2007-10-01",
+          "site_id": "03293530",
+          "target_end": "2026-07-14",
+          "target_start": "2007-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "849da9f178e93bd5213c2782c9e374f45d614d0242d19b5e32505ec19fb294ac",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "c89e9700e13ab7f4ae33ed8177ad74793656ad1894fc838543e8285653d832a7",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_05140102",
+      "network_plan_sha256": "890530424a4701cf93325961daefa0cbfccc8ee476aaefbef9ed622324cc23dc",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 38.26590398,
+          "longitude": -85.7207955,
+          "power_start": "2013-09-30",
+          "site_id": "03293510",
+          "target_end": "2026-07-07",
+          "target_start": "2013-09-30"
+        },
+        {
+          "latitude": 37.9911111,
+          "longitude": -85.6411111,
+          "power_start": "2008-09-30",
+          "site_id": "03297800",
+          "target_end": "2026-07-07",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.28534776,
+          "longitude": -85.4674592,
+          "power_start": "2009-01-10",
+          "site_id": "03297900",
+          "target_end": "2026-07-13",
+          "target_start": "2009-01-10"
+        },
+        {
+          "latitude": 38.18840166,
+          "longitude": -85.460235,
+          "power_start": "2006-09-30",
+          "site_id": "03298000",
+          "target_end": "2026-07-29",
+          "target_start": "2006-09-30"
+        },
+        {
+          "latitude": 38.19479109,
+          "longitude": -85.557181,
+          "power_start": "2008-09-30",
+          "site_id": "03298135",
+          "target_end": "2025-11-13",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.16006729,
+          "longitude": -85.5421797,
+          "power_start": "2007-09-30",
+          "site_id": "03298150",
+          "target_end": "2026-03-18",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 38.08534216,
+          "longitude": -85.5549556,
+          "power_start": "2008-09-30",
+          "site_id": "03298200",
+          "target_end": "2026-03-17",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.0792321,
+          "longitude": -85.6160683,
+          "power_start": "2008-09-30",
+          "site_id": "03298250",
+          "target_end": "2026-03-17",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.1756242,
+          "longitude": -85.615237,
+          "power_start": "2008-09-30",
+          "site_id": "03301900",
+          "target_end": "2025-09-25",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.1492,
+          "longitude": -85.6788,
+          "power_start": "2007-11-17",
+          "site_id": "03301940",
+          "target_end": "2026-03-16",
+          "target_start": "2007-11-17"
+        },
+        {
+          "latitude": 38.1197916,
+          "longitude": -85.7957955,
+          "power_start": "1988-09-30",
+          "site_id": "03302000",
+          "target_end": "2026-07-17",
+          "target_start": "1988-09-30"
+        },
+        {
+          "latitude": 38.05423677,
+          "longitude": -85.8716296,
+          "power_start": "2007-09-30",
+          "site_id": "03302030",
+          "target_end": "2026-07-27",
+          "target_start": "2007-09-30"
+        },
+        {
+          "latitude": 38.04693096,
+          "longitude": -85.8572681,
+          "power_start": "2008-09-30",
+          "site_id": "03302050",
+          "target_end": "2026-07-28",
+          "target_start": "2008-09-30"
+        }
+      ],
+      "source_date_projection_sha256": "f1dd03bc8a9f85ac297673afdb26db6a9afe09196395b6c920439019d734a3c5",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "5b6d34a5aa2cac0c979dc8f3d1ce0cb4e0c7bc619cdaba1a983165f5eff2eda9",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_07040006",
+      "network_plan_sha256": "bb1ff3326889c683aed0c48e3e3bbac99cbb8d579ecc393f50ff4c83bb488cd0",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 43.99388889,
+          "longitude": -90.6572222,
+          "power_start": "2008-09-25",
+          "site_id": "05382255",
+          "target_end": "2024-09-29",
+          "target_start": "2008-09-25"
+        },
+        {
+          "latitude": 44.00055556,
+          "longitude": -90.6811111,
+          "power_start": "2008-09-19",
+          "site_id": "05382257",
+          "target_end": "2024-09-29",
+          "target_start": "2008-09-19"
+        },
+        {
+          "latitude": 44.00027778,
+          "longitude": -90.7244444,
+          "power_start": "2008-09-20",
+          "site_id": "05382267",
+          "target_end": "2024-09-29",
+          "target_start": "2008-09-20"
+        },
+        {
+          "latitude": 43.9672222,
+          "longitude": -90.765,
+          "power_start": "2009-08-04",
+          "site_id": "05382284",
+          "target_end": "2024-09-29",
+          "target_start": "2009-08-04"
+        }
+      ],
+      "source_date_projection_sha256": "eaac025d09c10118bfcde75544fe81ad42621a5e22f421502efd93340aecd8ba",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "75360c3f42cd26c1b36130c61f87632f6a68a8fcf3b24a5f6fd62ea5d795fed9",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_07070005",
+      "network_plan_sha256": "e35fb871823e2819b8e56a893f9e46c09a0a808f54cc2d7e26dbf6dfcef32782",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 43.11054978,
+          "longitude": -89.6456776,
+          "power_start": "1985-01-03",
+          "site_id": "05406460",
+          "target_end": "1995-09-29",
+          "target_start": "1985-01-03"
+        },
+        {
+          "latitude": 43.11916068,
+          "longitude": -89.6403997,
+          "power_start": "1984-11-29",
+          "site_id": "05406470",
+          "target_end": "2002-09-29",
+          "target_start": "1984-11-29"
+        },
+        {
+          "latitude": 43.11027186,
+          "longitude": -89.6795668,
+          "power_start": "1984-11-29",
+          "site_id": "05406491",
+          "target_end": "1998-09-29",
+          "target_start": "1984-11-29"
+        }
+      ],
+      "source_date_projection_sha256": "4121c6f4e9ad3623e115aa779f5d619fc48fef6cc679b447067c540c78b82cf1",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "ed6ab5c34f7d789a42e2edcac3ca51aaa67c31c8b9c36ba1e082dead330f8564",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_07120001",
+      "network_plan_sha256": "eb95b899c93661da00bdba21a724b9a4883ee6ca20f1b8b25dd7a61890711fb4",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.38963889,
+          "longitude": -86.7061667,
+          "power_start": "2013-12-05",
+          "site_id": "05515500",
+          "target_end": "2026-03-10",
+          "target_start": "2013-12-05"
+        },
+        {
+          "latitude": 41.27138889,
+          "longitude": -86.4666667,
+          "power_start": "2012-05-11",
+          "site_id": "05516665",
+          "target_end": "2025-12-09",
+          "target_start": "2012-05-11"
+        },
+        {
+          "latitude": 41.30279685,
+          "longitude": -86.62053829,
+          "power_start": "2012-05-11",
+          "site_id": "05517000",
+          "target_end": "2026-01-07",
+          "target_start": "2012-05-11"
+        },
+        {
+          "latitude": 41.30666667,
+          "longitude": -86.7375,
+          "power_start": "2016-12-01",
+          "site_id": "05517010",
+          "target_end": "2025-06-29",
+          "target_start": "2016-12-01"
+        },
+        {
+          "latitude": 41.22001988,
+          "longitude": -86.96832769,
+          "power_start": "2016-04-09",
+          "site_id": "05517500",
+          "target_end": "2025-12-08",
+          "target_start": "2016-04-09"
+        },
+        {
+          "latitude": 41.1828134,
+          "longitude": -87.3403096,
+          "power_start": "2015-12-05",
+          "site_id": "05518000",
+          "target_end": "2025-12-08",
+          "target_start": "2015-12-05"
+        },
+        {
+          "latitude": 41.2461111,
+          "longitude": -88.1275,
+          "power_start": "2012-09-21",
+          "site_id": "05527000",
+          "target_end": "2026-05-06",
+          "target_start": "2012-09-21"
+        },
+        {
+          "latitude": 41.3463333,
+          "longitude": -88.1867222,
+          "power_start": "1981-01-01",
+          "site_id": "05527500",
+          "target_end": "2026-04-20",
+          "target_start": "1973-05-31"
+        },
+        {
+          "latitude": 41.38877778,
+          "longitude": -88.2615833,
+          "power_start": "2012-09-07",
+          "site_id": "412320088154101",
+          "target_end": "2026-06-15",
+          "target_start": "2012-09-07"
+        }
+      ],
+      "source_date_projection_sha256": "1d104c2e2b1995090bf1e114a7110c6e1537c2fcf6128f79f3faab3c790a00c9",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "9e97fb432b8bac8554cd645dcba1ab7e1a911d4bb26d913e9702e11969cc57cc",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_07120004",
+      "network_plan_sha256": "d8a7425d8de53135733ccb048a148f4b33e6f9660ded986a14818f1b4f9dc5ea",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.64,
+          "longitude": -88.0599722,
+          "power_start": "2017-03-29",
+          "site_id": "05536995",
+          "target_end": "2026-03-24",
+          "target_start": "2017-03-29"
+        },
+        {
+          "latitude": 41.5364722,
+          "longitude": -88.0836944,
+          "power_start": "2017-11-17",
+          "site_id": "05537980",
+          "target_end": "2026-01-06",
+          "target_start": "2017-11-17"
+        },
+        {
+          "latitude": 41.41444444,
+          "longitude": -88.2144444,
+          "power_start": "1981-01-01",
+          "site_id": "05539670",
+          "target_end": "2026-04-20",
+          "target_start": "1973-03-29"
+        }
+      ],
+      "source_date_projection_sha256": "72673e14b03a929c5d750f4c0490d7b09132258d3ed33eba097146d81c6846e9",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "9d5a775ce058d03775176eae142b37141972cb4ed480648b496ece739c0de382",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_10230006",
+      "network_plan_sha256": "7554a8b892018b30e1f0f41402394ac3857caac3f9bab01f92aad0db9d7ff063",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 41.25905556,
+          "longitude": -95.92325,
+          "power_start": "2011-10-01",
+          "site_id": "06610000",
+          "target_end": "2022-06-24",
+          "target_start": "2011-10-01"
+        },
+        {
+          "latitude": 41.059353,
+          "longitude": -95.883669,
+          "power_start": "2013-04-13",
+          "site_id": "410333095530101",
+          "target_end": "2022-12-14",
+          "target_start": "2013-04-13"
+        },
+        {
+          "latitude": 41.3574722,
+          "longitude": -95.9477778,
+          "power_start": "2006-08-01",
+          "site_id": "412126095565201",
+          "target_end": "2022-12-14",
+          "target_start": "2006-08-01"
+        }
+      ],
+      "source_date_projection_sha256": "46ecbabc04162f2ee541d306a7501669dd24d258af28061bfbe94c117d653388",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "aedfe2bf10a6ac004ec38742f6c62a02fd5efcfa6ba7575c9b6582611d231a6b",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_10300101",
+      "network_plan_sha256": "1a7bb2e9b372a2d935b82fc4c2b0db588fb20e06a9e6adb3fd83d791e581842e",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.15169444,
+          "longitude": -94.4940556,
+          "power_start": "2011-09-09",
+          "site_id": "06893060",
+          "target_end": "2026-07-20",
+          "target_start": "2011-09-09"
+        },
+        {
+          "latitude": 39.111944,
+          "longitude": -94.472222,
+          "power_start": "2011-12-20",
+          "site_id": "06893620",
+          "target_end": "2024-02-06",
+          "target_start": "2011-12-20"
+        },
+        {
+          "latitude": 39.0173611,
+          "longitude": -94.3872778,
+          "power_start": "2009-10-08",
+          "site_id": "06893820",
+          "target_end": "2026-06-02",
+          "target_start": "2009-10-08"
+        },
+        {
+          "latitude": 39.02556175,
+          "longitude": -94.3438385,
+          "power_start": "2009-12-01",
+          "site_id": "06893890",
+          "target_end": "2020-06-09",
+          "target_start": "2009-12-01"
+        },
+        {
+          "latitude": 39.1005609,
+          "longitude": -94.3005038,
+          "power_start": "2005-07-14",
+          "site_id": "06894000",
+          "target_end": "2026-06-23",
+          "target_start": "2005-07-14"
+        }
+      ],
+      "source_date_projection_sha256": "88ffea3c8958ffefe4bd40193a2a16b5836a04190eed41672eb46617dd043ad9",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "537f4eb7adbed18256db1984171945fd4baf951d1ebdd1d4c4cd321a2e599f03",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_13060011",
+      "network_plan_sha256": "f6b05d3f57e692a907bd0e3e662e16ad85661c2699cfa5cc1cf3172bf4be252d",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 32.409275,
+          "longitude": -104.2149722,
+          "power_start": "2012-10-01",
+          "site_id": "08405200",
+          "target_end": "2020-08-24",
+          "target_start": "2012-10-01"
+        },
+        {
+          "latitude": 32.20754167,
+          "longitude": -104.023875,
+          "power_start": "2003-09-30",
+          "site_id": "08406500",
+          "target_end": "2020-02-24",
+          "target_start": "2003-09-30"
+        },
+        {
+          "latitude": 32.07519167,
+          "longitude": -104.0394361,
+          "power_start": "2011-06-17",
+          "site_id": "08407500",
+          "target_end": "2026-06-10",
+          "target_start": "2011-06-17"
+        }
+      ],
+      "source_date_projection_sha256": "a559b6c3bc60ff8b6f897337739bbd28586eabbb7298ec724adcc8994d8c9c37",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "3f73774a9c1f71b99b2558931421917464574e6aec98b454bb9850d2433e1d29",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_15030108",
+      "network_plan_sha256": "f2d56f94993f5b5218fd7fee440e40fc15ad343346d9eeea1b98c1a14fd94621",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 32.7122222,
+          "longitude": -114.7222222,
+          "power_start": "2017-01-23",
+          "site_id": "09522005",
+          "target_end": "2026-08-04",
+          "target_start": "2017-01-23"
+        },
+        {
+          "latitude": 32.48758333,
+          "longitude": -114.7896667,
+          "power_start": "2017-01-26",
+          "site_id": "09534000",
+          "target_end": "2026-07-28",
+          "target_start": "2017-01-26"
+        },
+        {
+          "latitude": 32.48694444,
+          "longitude": -114.7872222,
+          "power_start": "2017-01-26",
+          "site_id": "09534550",
+          "target_end": "2026-07-27",
+          "target_start": "2017-01-26"
+        }
+      ],
+      "source_date_projection_sha256": "5af9bb745ec88b05cef80674a19b8870546b4e5943aee05421a79e708f196469",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "c250b7938a4d4a71597757e9d02b8d8d14ebd59864ba5267b49c9517bc2b4cd5",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_16020102",
+      "network_plan_sha256": "5c9e6895c8afca155aebd0a147d742b77de8749c2697bebd4fa0e1b2e1c12dbb",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 40.7238375,
+          "longitude": -111.5196438,
+          "power_start": "2010-05-18",
+          "site_id": "10133650",
+          "target_end": "2026-02-23",
+          "target_start": "2010-05-18"
+        },
+        {
+          "latitude": 40.75966979,
+          "longitude": -111.5640912,
+          "power_start": "2001-10-18",
+          "site_id": "10133800",
+          "target_end": "2026-04-29",
+          "target_start": "2001-10-18"
+        },
+        {
+          "latitude": 40.8695861,
+          "longitude": -111.5866222,
+          "power_start": "2007-07-12",
+          "site_id": "10133980",
+          "target_end": "2026-03-23",
+          "target_start": "2007-07-12"
+        }
+      ],
+      "source_date_projection_sha256": "f3093cf2da6c645d925df3ef2e1ae968985ebaeca56af66aa3a1289f168481ea",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "909ccd4922765443d29769d93d5689f013dffb320eb4d31d65d9b560d5aee347",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_16050102",
+      "network_plan_sha256": "c68b7c150152197d9f1f665444fb8cfc9718ca5793cda5b2853d6f274979084e",
+      "role": "development",
+      "sites": [
+        {
+          "latitude": 39.51761667,
+          "longitude": -119.7416444,
+          "power_start": "1981-01-01",
+          "site_id": "10348200",
+          "target_end": "2026-05-05",
+          "target_start": "1980-02-05"
+        },
+        {
+          "latitude": 39.565453,
+          "longitude": -119.486186,
+          "power_start": "1981-01-01",
+          "site_id": "10350500",
+          "target_end": "2026-07-15",
+          "target_start": "1978-06-15"
+        },
+        {
+          "latitude": 39.58463448,
+          "longitude": -119.4412872,
+          "power_start": "1988-06-17",
+          "site_id": "10351600",
+          "target_end": "2026-04-30",
+          "target_start": "1988-06-17"
+        }
+      ],
+      "source_date_projection_sha256": "708e507f408e50be78d6c0f38477c1fb71bf1c702c7b767ab306be4269b049d2",
+      "source_key": "open_role_qc/failure_closure6/development",
+      "source_network_manifest_sha256": "5fc7328e9bcbeab3d524f244b53132dc5453841a5e2777d7f590321bd4b8fe61",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03040206",
+      "network_plan_sha256": "03962f359877cb2c5771129ab0c41498d465d9994fd291ba23eb26e2d9d8f20c",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 33.68694444,
+          "longitude": -79.005,
+          "power_start": "1986-02-27",
+          "site_id": "02110725",
+          "target_end": "2024-12-03",
+          "target_start": "1986-02-27"
+        },
+        {
+          "latitude": 33.64905837,
+          "longitude": -79.09420639,
+          "power_start": "1994-10-08",
+          "site_id": "02110802",
+          "target_end": "2025-09-02",
+          "target_start": "1994-10-08"
+        },
+        {
+          "latitude": 33.50655724,
+          "longitude": -79.1269867,
+          "power_start": "2005-10-28",
+          "site_id": "021108125",
+          "target_end": "2025-02-24",
+          "target_start": "2005-10-28"
+        },
+        {
+          "latitude": 33.44461245,
+          "longitude": -79.1739341,
+          "power_start": "1986-08-11",
+          "site_id": "02110815",
+          "target_end": "2026-04-22",
+          "target_start": "1986-08-11"
+        }
+      ],
+      "source_date_projection_sha256": "2c003b1ef8ebde93387a283dfcf4fcdd51b251ba2e87030b6efcc9718f9c13ac",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "8779f68daea883c43055f14835ab9a1b5be96e680b4d2652ab506052717e5b8e",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03050106",
+      "network_plan_sha256": "79315606f2d11c85f3ee0bbe2be2f0676a2b248e9e329fffac1c477def70f804",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 34.5951393,
+          "longitude": -81.4212089,
+          "power_start": "1983-12-08",
+          "site_id": "02156500",
+          "target_end": "2025-11-17",
+          "target_start": "1983-12-08"
+        },
+        {
+          "latitude": 34.26070285,
+          "longitude": -81.3303747,
+          "power_start": "1981-01-01",
+          "site_id": "02160991",
+          "target_end": "2026-07-06",
+          "target_start": "1973-10-01"
+        },
+        {
+          "latitude": 34.0483333,
+          "longitude": -81.0733333,
+          "power_start": "2011-07-02",
+          "site_id": "02162035",
+          "target_end": "2025-11-24",
+          "target_start": "2011-07-02"
+        }
+      ],
+      "source_date_projection_sha256": "44f88accaf3562de128f001ad49c0c178a222e69b6d37062226af4de02311026",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "ce0b0e42e8667e3183e1a69956dd96b939e2e47f17570ead454b517bb36e851f",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03050109",
+      "network_plan_sha256": "f23003326b10e5b7ad8ad2b1b239820183c1b73c4ec79c501c7cf034392397df",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 34.614117,
+          "longitude": -82.443672,
+          "power_start": "1996-09-30",
+          "site_id": "02163001",
+          "target_end": "2026-06-23",
+          "target_start": "1996-09-30"
+        },
+        {
+          "latitude": 34.09930647,
+          "longitude": -81.5684382,
+          "power_start": "1996-10-02",
+          "site_id": "02167600",
+          "target_end": "2026-07-14",
+          "target_start": "1996-10-02"
+        },
+        {
+          "latitude": 34.0795843,
+          "longitude": -81.5617714,
+          "power_start": "1993-02-13",
+          "site_id": "02167716",
+          "target_end": "2026-07-14",
+          "target_start": "1993-02-13"
+        },
+        {
+          "latitude": 34.0509822,
+          "longitude": -81.2095418,
+          "power_start": "1988-10-01",
+          "site_id": "02168504",
+          "target_end": "2025-11-19",
+          "target_start": "1988-10-01"
+        },
+        {
+          "latitude": 34.0140416,
+          "longitude": -81.0878717,
+          "power_start": "1987-07-09",
+          "site_id": "02169000",
+          "target_end": "2026-07-16",
+          "target_start": "1987-07-09"
+        }
+      ],
+      "source_date_projection_sha256": "8e7e66f899ebf7a4fed0a9db9dd3384eb21289062292656bfe62b19bff861179",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "332b443ce0dfa4965e18dd49eefed6b2049fe21ca0012fe2ad4fb4d5dfeda094",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03050208",
+      "network_plan_sha256": "58edff6f39eb9ed9e5ec8aff4044d2b13c6caaa77fdbfa11f03080a4d368d9ae",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 32.47407909,
+          "longitude": -80.692606,
+          "power_start": "1998-11-06",
+          "site_id": "02176585",
+          "target_end": "2013-03-14",
+          "target_start": "1998-11-06"
+        },
+        {
+          "latitude": 32.42739226,
+          "longitude": -80.6692526,
+          "power_start": "1998-10-30",
+          "site_id": "02176603",
+          "target_end": "2013-03-14",
+          "target_start": "1998-10-30"
+        },
+        {
+          "latitude": 32.39463887,
+          "longitude": -80.6753845,
+          "power_start": "1998-10-22",
+          "site_id": "02176611",
+          "target_end": "2007-03-20",
+          "target_start": "1998-10-22"
+        },
+        {
+          "latitude": 32.3771401,
+          "longitude": -80.7145514,
+          "power_start": "1998-10-22",
+          "site_id": "02176635",
+          "target_end": "2007-04-02",
+          "target_start": "1998-10-22"
+        },
+        {
+          "latitude": 32.35019676,
+          "longitude": -80.668996,
+          "power_start": "1998-10-30",
+          "site_id": "02176640",
+          "target_end": "2013-02-25",
+          "target_start": "1998-10-30"
+        }
+      ],
+      "source_date_projection_sha256": "042bc372fef0a485b0d6d180ee29bd5130a461957c03ef392cd70459e29a8366",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "89409db24d0aa05765abf05c6177cfd106ef0955d2d49f9ad22b50f454e54033",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03060106",
+      "network_plan_sha256": "56bfb8114b8468c1c00052f803068e55de0c8f27d92486fabc2077552ab6d9f4",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 33.37252778,
+          "longitude": -81.9420833,
+          "power_start": "1981-01-01",
+          "site_id": "02197000",
+          "target_end": "2011-08-09",
+          "target_start": "1973-10-01"
+        },
+        {
+          "latitude": 33.21709215,
+          "longitude": -81.7676135,
+          "power_start": "1984-06-07",
+          "site_id": "02197320",
+          "target_end": "1994-10-04",
+          "target_start": "1984-06-07"
+        },
+        {
+          "latitude": 33.23153644,
+          "longitude": -81.584832,
+          "power_start": "1984-02-16",
+          "site_id": "02197351",
+          "target_end": "1996-09-29",
+          "target_start": "1984-02-16"
+        },
+        {
+          "latitude": 33.2354253,
+          "longitude": -81.5164973,
+          "power_start": "1984-04-13",
+          "site_id": "02197380",
+          "target_end": "1993-09-21",
+          "target_start": "1984-04-13"
+        }
+      ],
+      "source_date_projection_sha256": "cee400b12c58887f7d2c440db9678886ea6e0ab6c75721af6925e3ea778f0bec",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "86c74ac6dfa5fdbd71b1437380e33a026dbf62fcf5f44bc597560a16d0ef7b4e",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03070103",
+      "network_plan_sha256": "faa7527da80495bf49a340bf4bbbfdde7f10df2b50a08463c88846f3519498fa",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 33.68388889,
+          "longitude": -84.4152778,
+          "power_start": "2007-04-19",
+          "site_id": "02203603",
+          "target_end": "2026-06-02",
+          "target_start": "2007-04-19"
+        },
+        {
+          "latitude": 33.67891667,
+          "longitude": -84.35813889,
+          "power_start": "2003-04-07",
+          "site_id": "02203655",
+          "target_end": "2026-04-07",
+          "target_start": "2003-04-07"
+        },
+        {
+          "latitude": 33.70569444,
+          "longitude": -84.2921944,
+          "power_start": "2013-04-10",
+          "site_id": "02203831",
+          "target_end": "2026-04-12",
+          "target_start": "2013-04-10"
+        },
+        {
+          "latitude": 33.69319444,
+          "longitude": -84.25388889,
+          "power_start": "2012-03-17",
+          "site_id": "02203863",
+          "target_end": "2026-04-29",
+          "target_start": "2012-03-17"
+        },
+        {
+          "latitude": 33.70941667,
+          "longitude": -84.2391667,
+          "power_start": "2013-11-15",
+          "site_id": "02203873",
+          "target_end": "2026-02-24",
+          "target_start": "2013-11-15"
+        },
+        {
+          "latitude": 33.66577778,
+          "longitude": -84.224,
+          "power_start": "2012-04-05",
+          "site_id": "02203900",
+          "target_end": "2026-04-09",
+          "target_start": "2012-04-05"
+        },
+        {
+          "latitude": 33.7632222,
+          "longitude": -84.2203611,
+          "power_start": "2012-03-16",
+          "site_id": "02203950",
+          "target_end": "2026-03-02",
+          "target_start": "2012-03-16"
+        },
+        {
+          "latitude": 33.69666667,
+          "longitude": -84.1986111,
+          "power_start": "2012-11-16",
+          "site_id": "02203960",
+          "target_end": "2026-06-02",
+          "target_start": "2012-11-16"
+        },
+        {
+          "latitude": 33.66819444,
+          "longitude": -84.1511667,
+          "power_start": "2012-11-15",
+          "site_id": "02204037",
+          "target_end": "2026-05-13",
+          "target_start": "2012-11-15"
+        },
+        {
+          "latitude": 33.9411111,
+          "longitude": -84.1077778,
+          "power_start": "2010-02-26",
+          "site_id": "02205865",
+          "target_end": "2026-06-01",
+          "target_start": "2010-02-26"
+        },
+        {
+          "latitude": 33.7725,
+          "longitude": -84.0581944,
+          "power_start": "2001-08-16",
+          "site_id": "02207120",
+          "target_end": "2026-06-02",
+          "target_start": "2001-08-16"
+        },
+        {
+          "latitude": 33.83041667,
+          "longitude": -84.1393333,
+          "power_start": "2013-11-08",
+          "site_id": "02207135",
+          "target_end": "2026-06-03",
+          "target_start": "2013-11-08"
+        },
+        {
+          "latitude": 33.77327778,
+          "longitude": -84.0771667,
+          "power_start": "2015-09-30",
+          "site_id": "02207160",
+          "target_end": "2026-02-12",
+          "target_start": "2015-09-30"
+        },
+        {
+          "latitude": 33.7775,
+          "longitude": -84.0377778,
+          "power_start": "2001-03-01",
+          "site_id": "02207185",
+          "target_end": "2026-04-15",
+          "target_start": "2001-03-01"
+        },
+        {
+          "latitude": 33.81527778,
+          "longitude": -83.99013889,
+          "power_start": "2001-03-03",
+          "site_id": "02207385",
+          "target_end": "2026-04-21",
+          "target_start": "2001-03-03"
+        },
+        {
+          "latitude": 33.82138889,
+          "longitude": -83.9425,
+          "power_start": "2001-03-01",
+          "site_id": "02207400",
+          "target_end": "2026-04-22",
+          "target_start": "2001-03-01"
+        },
+        {
+          "latitude": 33.91694444,
+          "longitude": -83.8880556,
+          "power_start": "2000-10-01",
+          "site_id": "02208150",
+          "target_end": "2026-06-28",
+          "target_start": "2000-10-01"
+        },
+        {
+          "latitude": 33.63938889,
+          "longitude": -83.7784167,
+          "power_start": "2014-10-21",
+          "site_id": "02208450",
+          "target_end": "2026-06-09",
+          "target_start": "2014-10-21"
+        },
+        {
+          "latitude": 33.6285,
+          "longitude": -83.7988611,
+          "power_start": "2014-10-17",
+          "site_id": "02208493",
+          "target_end": "2026-06-09",
+          "target_start": "2014-10-17"
+        }
+      ],
+      "source_date_projection_sha256": "ee24a1ad675117436024a4e840a1707d87b3e2b2e4ceabe3f9c4691cf7f3e63d",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "0887ee07228f60c957bd4b1ad2af4d97a11836671f60ff1049859e012db7e887",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03080103",
+      "network_plan_sha256": "d65eaf34971f99bf3bfd93e240f4e2477876060a14417c15bc7f2fc5e152f220",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 29.596362,
+          "longitude": -81.6831761,
+          "power_start": "1995-04-29",
+          "site_id": "02244040",
+          "target_end": "2025-12-08",
+          "target_start": "1995-04-29"
+        },
+        {
+          "latitude": 30.0059222,
+          "longitude": -81.6151361,
+          "power_start": "2017-06-02",
+          "site_id": "02245340",
+          "target_end": "2025-12-02",
+          "target_start": "2017-06-02"
+        },
+        {
+          "latitude": 30.11916667,
+          "longitude": -81.54638889,
+          "power_start": "2015-10-15",
+          "site_id": "022462002",
+          "target_end": "2025-10-17",
+          "target_start": "2015-10-15"
+        },
+        {
+          "latitude": 30.28218375,
+          "longitude": -81.7403761,
+          "power_start": "2015-10-29",
+          "site_id": "02246459",
+          "target_end": "2025-12-07",
+          "target_start": "2015-10-29"
+        },
+        {
+          "latitude": 30.3224616,
+          "longitude": -81.6653735,
+          "power_start": "2015-10-29",
+          "site_id": "02246500",
+          "target_end": "2025-12-09",
+          "target_start": "2015-10-29"
+        },
+        {
+          "latitude": 30.28696944,
+          "longitude": -81.57,
+          "power_start": "2015-10-29",
+          "site_id": "02246518",
+          "target_end": "2025-12-10",
+          "target_start": "2015-10-29"
+        },
+        {
+          "latitude": 30.44333889,
+          "longitude": -81.6682,
+          "power_start": "2015-10-01",
+          "site_id": "02246751",
+          "target_end": "2025-06-03",
+          "target_start": "2015-10-01"
+        },
+        {
+          "latitude": 30.45494167,
+          "longitude": -81.59688889,
+          "power_start": "2016-01-08",
+          "site_id": "02246804",
+          "target_end": "2025-06-03",
+          "target_start": "2016-01-08"
+        },
+        {
+          "latitude": 30.13408889,
+          "longitude": -81.5959,
+          "power_start": "2015-10-01",
+          "site_id": "300803081354500",
+          "target_end": "2025-12-08",
+          "target_start": "2015-10-01"
+        },
+        {
+          "latitude": 30.1902405,
+          "longitude": -81.6662048,
+          "power_start": "1995-06-09",
+          "site_id": "301124081395901",
+          "target_end": "2025-10-22",
+          "target_start": "1995-06-09"
+        },
+        {
+          "latitude": 30.20118056,
+          "longitude": -81.7304,
+          "power_start": "2015-10-29",
+          "site_id": "301204081434900",
+          "target_end": "2026-02-02",
+          "target_start": "2015-10-29"
+        },
+        {
+          "latitude": 30.25288889,
+          "longitude": -81.6431,
+          "power_start": "2016-01-13",
+          "site_id": "301510081383500",
+          "target_end": "2026-02-11",
+          "target_start": "2016-01-13"
+        },
+        {
+          "latitude": 30.30478056,
+          "longitude": -81.6601,
+          "power_start": "2016-01-12",
+          "site_id": "301817081393600",
+          "target_end": "2025-12-08",
+          "target_start": "2016-01-12"
+        },
+        {
+          "latitude": 30.3860727,
+          "longitude": -81.55814749,
+          "power_start": "1996-03-01",
+          "site_id": "302309081333001",
+          "target_end": "2026-02-10",
+          "target_start": "1996-03-01"
+        },
+        {
+          "latitude": 30.43585,
+          "longitude": -81.7592,
+          "power_start": "2016-01-12",
+          "site_id": "302609081453300",
+          "target_end": "2025-11-17",
+          "target_start": "2016-01-12"
+        },
+        {
+          "latitude": 30.44928889,
+          "longitude": -81.5233,
+          "power_start": "2016-01-13",
+          "site_id": "302657081312400",
+          "target_end": "2026-01-04",
+          "target_start": "2016-01-13"
+        }
+      ],
+      "source_date_projection_sha256": "003758554688a548431fc51292bb34e7b1d04a732a7f76938a5310ea787eba70",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "62b77efc0aac165990894f2faf7720dc7437d5408e9e357d89f18ba621786d6e",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03090101",
+      "network_plan_sha256": "7726ea9801b34f2fb99af30e2c2deaf1cf356e7aef75a76709ea3b97884717e5",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 28.390564,
+          "longitude": -81.519517,
+          "power_start": "2001-07-12",
+          "site_id": "02264000",
+          "target_end": "2024-10-20",
+          "target_start": "2001-07-12"
+        },
+        {
+          "latitude": 28.32528785,
+          "longitude": -81.5206284,
+          "power_start": "2001-07-06",
+          "site_id": "02264100",
+          "target_end": "2025-12-02",
+          "target_start": "2001-07-06"
+        },
+        {
+          "latitude": 28.38500749,
+          "longitude": -81.6164632,
+          "power_start": "2001-12-20",
+          "site_id": "02266200",
+          "target_end": "2024-12-02",
+          "target_start": "2001-12-20"
+        },
+        {
+          "latitude": 28.33278738,
+          "longitude": -81.579796,
+          "power_start": "1981-01-01",
+          "site_id": "02266300",
+          "target_end": "2024-10-22",
+          "target_start": "1977-06-22"
+        },
+        {
+          "latitude": 28.27584517,
+          "longitude": -81.5439622,
+          "power_start": "1985-01-24",
+          "site_id": "02266495",
+          "target_end": "2026-01-26",
+          "target_start": "1985-01-24"
+        }
+      ],
+      "source_date_projection_sha256": "238a698b627fcefe1c58c26d205b76e3c84ef9dbe34ef1c5759288a1575bf896",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "a0c237c77839cc59bea5334f566b10aa7ed75be89ac8c86c3941f4d22dd779f4",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03090204",
+      "network_plan_sha256": "9f4caeb8e2d35ef5f1f56305d0d771747decf529d9f116922b8794b04154a7db",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 25.86972222,
+          "longitude": -81.3825,
+          "power_start": "2001-09-12",
+          "site_id": "02290928",
+          "target_end": "2025-02-11",
+          "target_start": "2001-09-12"
+        },
+        {
+          "latitude": 25.8286111,
+          "longitude": -81.3416667,
+          "power_start": "2001-09-20",
+          "site_id": "02290930",
+          "target_end": "2025-12-15",
+          "target_start": "2001-09-20"
+        },
+        {
+          "latitude": 25.89538889,
+          "longitude": -81.4555,
+          "power_start": "2007-04-25",
+          "site_id": "255327081275900",
+          "target_end": "2025-11-17",
+          "target_start": "2007-04-25"
+        },
+        {
+          "latitude": 25.90880556,
+          "longitude": -81.5109167,
+          "power_start": "2006-07-01",
+          "site_id": "255432081303900",
+          "target_end": "2025-11-24",
+          "target_start": "2006-07-01"
+        },
+        {
+          "latitude": 25.926,
+          "longitude": -81.5443056,
+          "power_start": "2007-04-19",
+          "site_id": "255534081324000",
+          "target_end": "2025-11-16",
+          "target_start": "2007-04-19"
+        },
+        {
+          "latitude": 25.9523611,
+          "longitude": -81.5844222,
+          "power_start": "2007-05-17",
+          "site_id": "255654081350200",
+          "target_end": "2025-11-23",
+          "target_start": "2007-05-17"
+        },
+        {
+          "latitude": 25.9569972,
+          "longitude": -81.5109083,
+          "power_start": "2006-12-01",
+          "site_id": "255726081303700",
+          "target_end": "2025-04-01",
+          "target_start": "2006-12-01"
+        }
+      ],
+      "source_date_projection_sha256": "d39b5fd994ad983ab70f7a50027259858458d21e8843be20886051e77cb2ea25",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "360e88fe702bc537aeaf103636caaddb89ce599fe5d8b581166e38fbb9360ca7",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03100101",
+      "network_plan_sha256": "c7beb2b9ef4915633706eb61bbba7b82fe7c86c8efd85ded4e722b0d97a5b254",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 27.08666667,
+          "longitude": -81.9994444,
+          "power_start": "2016-04-04",
+          "site_id": "02297345",
+          "target_end": "2026-01-21",
+          "target_start": "2016-04-04"
+        },
+        {
+          "latitude": 27.07755529,
+          "longitude": -82.00730919,
+          "power_start": "2016-04-04",
+          "site_id": "02297350",
+          "target_end": "2026-01-08",
+          "target_start": "2016-04-04"
+        },
+        {
+          "latitude": 26.98755802,
+          "longitude": -81.99429977,
+          "power_start": "2016-04-05",
+          "site_id": "02297460",
+          "target_end": "2026-01-21",
+          "target_start": "2016-04-05"
+        },
+        {
+          "latitude": 26.98478028,
+          "longitude": -81.93568702,
+          "power_start": "2016-04-07",
+          "site_id": "02298202",
+          "target_end": "2025-11-19",
+          "target_start": "2016-04-07"
+        }
+      ],
+      "source_date_projection_sha256": "f3da7ade0ecbce4d038d7103dcab5b87490c7480f4ae20222e2ef8bfd7ce46e8",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "d0851d43ad16684a93efd6c6edcc29d69d11d8a934855de52870925608a02201",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03100204",
+      "network_plan_sha256": "2120c9748fe28963889b9e1b3ced4c202752f7a3c424d094adec370f46fb9ad6",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 27.872248,
+          "longitude": -82.2112008,
+          "power_start": "2018-01-18",
+          "site_id": "02301500",
+          "target_end": "2025-11-20",
+          "target_start": "2018-01-18"
+        },
+        {
+          "latitude": 27.86934167,
+          "longitude": -82.3264528,
+          "power_start": "2016-06-08",
+          "site_id": "02301718",
+          "target_end": "2025-12-04",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 27.85974739,
+          "longitude": -82.3842598,
+          "power_start": "2016-06-08",
+          "site_id": "02301721",
+          "target_end": "2025-11-24",
+          "target_start": "2016-06-08"
+        }
+      ],
+      "source_date_projection_sha256": "ed683730dddc92320be25340c37bfd0c788f45ff72dcbadb543c50d2b12441ae",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "cb718cfed213cf0834f3e8713ba2c5308d111d623e88af25a9138c3be5d10315",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03100205",
+      "network_plan_sha256": "9e8c894c5b7d4ffe444df836ba3a8765e11d82a6a7ab8b9d385ab62e24e5adee",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 28.05446224,
+          "longitude": -82.3637032,
+          "power_start": "2016-06-08",
+          "site_id": "02304000",
+          "target_end": "2025-11-16",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.02200556,
+          "longitude": -82.43504167,
+          "power_start": "2016-06-08",
+          "site_id": "02304510",
+          "target_end": "2025-11-19",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.0151611,
+          "longitude": -82.4424056,
+          "power_start": "2017-10-26",
+          "site_id": "02304517",
+          "target_end": "2025-11-18",
+          "target_start": "2017-10-26"
+        },
+        {
+          "latitude": 28.0202967,
+          "longitude": -82.4548166,
+          "power_start": "1999-10-01",
+          "site_id": "023060013",
+          "target_end": "2025-11-20",
+          "target_start": "1999-10-01"
+        },
+        {
+          "latitude": 27.94197079,
+          "longitude": -82.45875611,
+          "power_start": "2016-06-08",
+          "site_id": "02306028",
+          "target_end": "2025-12-02",
+          "target_start": "2016-06-08"
+        }
+      ],
+      "source_date_projection_sha256": "bd12d97226a0f0ce41e45b90a9489ba57be38430e2612898fab817b3316b169a",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "fa63c2791bcfa1642be66fa39222f3456d1a189ec9933d4cf87255b8b1bc6b1f",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03100207",
+      "network_plan_sha256": "897fcde69f613b1251de581f236acfc93f3fc0225fc7998760f61188e48ec998",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 28.25029429,
+          "longitude": -82.72265211,
+          "power_start": "2016-06-08",
+          "site_id": "02310308",
+          "target_end": "2025-12-02",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.71527923,
+          "longitude": -82.57681407,
+          "power_start": "2016-06-08",
+          "site_id": "02310650",
+          "target_end": "2025-11-13",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.70263889,
+          "longitude": -82.62472222,
+          "power_start": "2016-06-08",
+          "site_id": "02310673",
+          "target_end": "2025-11-13",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.69472438,
+          "longitude": -82.63903809,
+          "power_start": "2016-06-08",
+          "site_id": "02310674",
+          "target_end": "2025-11-13",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.81311111,
+          "longitude": -82.60563889,
+          "power_start": "2016-06-08",
+          "site_id": "02310689",
+          "target_end": "2025-11-19",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.80137159,
+          "longitude": -82.6026,
+          "power_start": "2016-06-08",
+          "site_id": "02310690",
+          "target_end": "2025-11-19",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.78527705,
+          "longitude": -82.61792627,
+          "power_start": "2016-06-08",
+          "site_id": "02310700",
+          "target_end": "2025-11-19",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.89055148,
+          "longitude": -82.59570328,
+          "power_start": "2016-06-23",
+          "site_id": "02310740",
+          "target_end": "2025-11-18",
+          "target_start": "2016-06-23"
+        },
+        {
+          "latitude": 28.89336111,
+          "longitude": -82.60555556,
+          "power_start": "2017-05-05",
+          "site_id": "02310742",
+          "target_end": "2025-11-17",
+          "target_start": "2017-05-05"
+        },
+        {
+          "latitude": 28.90155556,
+          "longitude": -82.64580556,
+          "power_start": "2016-06-08",
+          "site_id": "02310752",
+          "target_end": "2025-11-17",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 29.00112873,
+          "longitude": -82.76583301,
+          "power_start": "2016-06-08",
+          "site_id": "02313272",
+          "target_end": "2025-11-19",
+          "target_start": "2016-06-08"
+        },
+        {
+          "latitude": 28.92527778,
+          "longitude": -82.69063889,
+          "power_start": "2016-06-08",
+          "site_id": "285531082412600",
+          "target_end": "2025-11-16",
+          "target_start": "2016-06-08"
+        }
+      ],
+      "source_date_projection_sha256": "ca75cfe874dfc5946ab86fa3f42f3c9006f53e74aa6bdab9e9664f88148420c7",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "b10b4a4414f0b0702c4db1e3f1e580d10046d0df7e4e250bd1e4ee490693e090",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03150104",
+      "network_plan_sha256": "a47b243217c7c07827b2de4cbeb8e3a80b52e33980306f98ac443163174da94a",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 34.4090833,
+          "longitude": -84.0198056,
+          "power_start": "2018-07-25",
+          "site_id": "02388975",
+          "target_end": "2025-12-09",
+          "target_start": "2018-07-25"
+        },
+        {
+          "latitude": 34.3986111,
+          "longitude": -84.0566667,
+          "power_start": "2018-07-12",
+          "site_id": "02388985",
+          "target_end": "2025-12-08",
+          "target_start": "2018-07-12"
+        },
+        {
+          "latitude": 34.3575833,
+          "longitude": -84.1135833,
+          "power_start": "2018-06-23",
+          "site_id": "02389150",
+          "target_end": "2025-12-10",
+          "target_start": "2018-06-23"
+        },
+        {
+          "latitude": 34.1629722,
+          "longitude": -84.7410833,
+          "power_start": "2005-01-27",
+          "site_id": "02394000",
+          "target_end": "2025-07-09",
+          "target_start": "2005-01-27"
+        },
+        {
+          "latitude": 34.0789722,
+          "longitude": -84.8544444,
+          "power_start": "2016-01-29",
+          "site_id": "02394682",
+          "target_end": "2026-04-15",
+          "target_start": "2016-01-29"
+        }
+      ],
+      "source_date_projection_sha256": "79bdd31e399906f748fd3b26255f76b55d1239a7fa94139da7a65504d8a61c26",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "ded7db3d38f524583b923adfdafda0d1f5967fdce8d833ba264cf815885a8566",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_03160111",
+      "network_plan_sha256": "e01ab72cc65f8d5633b32f7949519d2c9cfc758a4a83c545b13060ab4cd58cdf",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 33.71121273,
+          "longitude": -86.6961013,
+          "power_start": "1989-01-05",
+          "site_id": "02455980",
+          "target_end": "2026-05-07",
+          "target_start": "1989-01-05"
+        },
+        {
+          "latitude": 33.5970492,
+          "longitude": -86.8680483,
+          "power_start": "1988-09-28",
+          "site_id": "02457595",
+          "target_end": "2026-01-05",
+          "target_start": "1988-09-28"
+        },
+        {
+          "latitude": 33.5770483,
+          "longitude": -86.7188778,
+          "power_start": "2000-04-26",
+          "site_id": "02458148",
+          "target_end": "2026-02-04",
+          "target_start": "2000-04-26"
+        },
+        {
+          "latitude": 33.5176481,
+          "longitude": -86.87915889,
+          "power_start": "1991-05-14",
+          "site_id": "02458450",
+          "target_end": "2026-03-10",
+          "target_start": "1991-05-14"
+        },
+        {
+          "latitude": 33.5239948,
+          "longitude": -86.8911032,
+          "power_start": "2014-07-26",
+          "site_id": "02458502",
+          "target_end": "2026-03-19",
+          "target_start": "2014-07-26"
+        }
+      ],
+      "source_date_projection_sha256": "3881514b6de066b447bfbede56125b417450b67c438dc95a9e4410ab3f16eb59",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "d48e092b569602182bca7ec608c434166486fe1dbedf2fc6c5f0e2f4b4c26552",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_11010014",
+      "network_plan_sha256": "9fe06a2125bd65cf27735b7999c2b86484062e0361fcd9c0f87d29a27656220d",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 35.54705,
+          "longitude": -92.7076667,
+          "power_start": "2009-06-02",
+          "site_id": "07075250",
+          "target_end": "2019-01-28",
+          "target_start": "2009-06-02"
+        },
+        {
+          "latitude": 35.5697222,
+          "longitude": -92.6219444,
+          "power_start": "2010-08-17",
+          "site_id": "07075270",
+          "target_end": "2026-03-17",
+          "target_start": "2010-08-17"
+        },
+        {
+          "latitude": 35.5172222,
+          "longitude": -91.9972222,
+          "power_start": "1991-05-03",
+          "site_id": "07076000",
+          "target_end": "2025-12-16",
+          "target_start": "1991-05-03"
+        }
+      ],
+      "source_date_projection_sha256": "2f39181bd7bf040c28c1dcc8e1f299c32d4517ae2d97090b4dafd0bce31b18f0",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "e782bdb728802c34f994b56c157856d5f021f9c5267a4f3d77eeee9020b39800",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_11020002",
+      "network_plan_sha256": "6a14e3beaeb99108b891b2d518cd9e4e88c521a39baea9a842d60939bc3150fd",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 38.43388674,
+          "longitude": -105.2572128,
+          "power_start": "1993-10-23",
+          "site_id": "07096000",
+          "target_end": "2026-04-27",
+          "target_start": "1993-10-23"
+        },
+        {
+          "latitude": 38.38833418,
+          "longitude": -105.0160961,
+          "power_start": "1994-10-01",
+          "site_id": "07097000",
+          "target_end": "2025-11-13",
+          "target_start": "1994-10-01"
+        },
+        {
+          "latitude": 38.2716694,
+          "longitude": -104.718033,
+          "power_start": "2008-09-30",
+          "site_id": "07099400",
+          "target_end": "2026-02-26",
+          "target_start": "2008-09-30"
+        },
+        {
+          "latitude": 38.25361396,
+          "longitude": -104.6060854,
+          "power_start": "1996-10-01",
+          "site_id": "07099969",
+          "target_end": "2026-04-02",
+          "target_start": "1996-10-01"
+        },
+        {
+          "latitude": 38.248056,
+          "longitude": -104.398611,
+          "power_start": "1990-10-01",
+          "site_id": "07109500",
+          "target_end": "2026-03-31",
+          "target_start": "1990-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "46af45e0c729a89179aa04f642aedb483c6c64a78672d31d163c9099569d4241",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "beae6f8964da48a3cd9a0ca7c7b7bd1ca29590284669d24be6046b545080f873",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_11020003",
+      "network_plan_sha256": "c26b9e07283d9aa6a79c6073e95f5f2214786c294ae81bdeef8cbc98198aefa3",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 38.8030491,
+          "longitude": -104.7958069,
+          "power_start": "1990-09-28",
+          "site_id": "07105530",
+          "target_end": "2024-10-23",
+          "target_start": "1990-09-28"
+        },
+        {
+          "latitude": 38.7297222,
+          "longitude": -104.7676389,
+          "power_start": "2017-09-18",
+          "site_id": "07105815",
+          "target_end": "2026-05-14",
+          "target_start": "2017-09-18"
+        },
+        {
+          "latitude": 38.71860726,
+          "longitude": -104.729139,
+          "power_start": "2017-09-14",
+          "site_id": "07105820",
+          "target_end": "2026-02-25",
+          "target_start": "2017-09-14"
+        },
+        {
+          "latitude": 38.6016647,
+          "longitude": -104.6702503,
+          "power_start": "1994-10-01",
+          "site_id": "07106000",
+          "target_end": "2026-04-02",
+          "target_start": "1994-10-01"
+        },
+        {
+          "latitude": 38.2877801,
+          "longitude": -104.6010849,
+          "power_start": "1989-10-01",
+          "site_id": "07106500",
+          "target_end": "2025-09-20",
+          "target_start": "1989-10-01"
+        }
+      ],
+      "source_date_projection_sha256": "a8d15c2da465297d1daee2d0e2edc484b5c15138d4d7fa06a9ec5a87353df655",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "1ca078392265632494748dfb3cf951545f069dbb542f8ba3022ec78caef7a553",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_11030012",
+      "network_plan_sha256": "4dc9da3fa9eaaa3d2e2229670ccc68695a10e4ae26aabdff6bf64ea13dc1e91e",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 38.02853056,
+          "longitude": -97.5405417,
+          "power_start": "1998-05-13",
+          "site_id": "07143672",
+          "target_end": "2019-05-15",
+          "target_start": "1998-05-13"
+        },
+        {
+          "latitude": 37.88306739,
+          "longitude": -97.4244864,
+          "power_start": "1998-05-01",
+          "site_id": "07144100",
+          "target_end": "2019-07-14",
+          "target_start": "1998-05-01"
+        },
+        {
+          "latitude": 37.89713889,
+          "longitude": -97.4411111,
+          "power_start": "2011-04-05",
+          "site_id": "375350097262800",
+          "target_end": "2019-07-24",
+          "target_start": "2011-04-05"
+        }
+      ],
+      "source_date_projection_sha256": "a987a8caecde6b686c87d308ed20c786ed7fde4f0bb3c31be90c162962f89145",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "dbd60930e487173cb5a8b943dbe2028d2575ac27a185d7bc076a85cccea28caf",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    },
+    {
+      "network_id": "huc8_11130206",
+      "network_plan_sha256": "cd326987609c8235cc4db19265416ce075e084aba4749728db7a2372b3e82963",
+      "role": "validation",
+      "sites": [
+        {
+          "latitude": 33.70036966,
+          "longitude": -99.3886905,
+          "power_start": "1996-10-01",
+          "site_id": "07311900",
+          "target_end": "2014-09-29",
+          "target_start": "1996-10-01"
+        },
+        {
+          "latitude": 33.7600934,
+          "longitude": -99.1428495,
+          "power_start": "1994-09-19",
+          "site_id": "07312100",
+          "target_end": "2011-09-29",
+          "target_start": "1994-09-19"
+        },
+        {
+          "latitude": 33.90955506,
+          "longitude": -98.53367399,
+          "power_start": "1998-09-30",
+          "site_id": "07312500",
+          "target_end": "2024-11-09",
+          "target_start": "1998-09-30"
+        },
+        {
+          "latitude": 34.0531504,
+          "longitude": -98.2967139,
+          "power_start": "1996-09-30",
+          "site_id": "07312700",
+          "target_end": "2024-09-17",
+          "target_start": "1996-09-30"
+        }
+      ],
+      "source_date_projection_sha256": "9642290f42265e0d2adf6ff93b338dde537e19700c63b860236884bc60b81137",
+      "source_key": "open_role_qc/failure_closure6/validation",
+      "source_network_manifest_sha256": "2b2fedf96798f8880a34834e9f31d832d47409fdf26fa32707065f58f7328573",
+      "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1"
+    }
+  ],
+  "performance_metrics_computed": false,
+  "plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
+  "qualification_mode": "failure_closure6",
+  "sealed_paths_traversed": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "temperature_columns_read": []
+}

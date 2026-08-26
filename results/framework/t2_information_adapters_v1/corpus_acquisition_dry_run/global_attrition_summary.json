@@ -1,0 +1,22 @@
+{
+  "all_materialized_raw_response_hashes_complete": false,
+  "formal_evidence": false,
+  "manifest_schema": "t2_v91_open_role_mh_global_attrition_v1",
+  "materialization_status_counts": {
+    "not_materialized": 67
+  },
+  "n_H_cells_failed_or_unavailable": 0,
+  "n_M_cells_failed_or_unavailable": 0,
+  "n_networks_materialized": 0,
+  "n_networks_planned": 67,
+  "n_networks_remaining": 67,
+  "n_sites_planned": 340,
+  "n_source_failures_or_unavailable": 0,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "plan_sha256": "db49ebb9dc00413477ffa00d4b0d25427df3052fc1ea31eebcdc24440bf8280a",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "temperature_columns_read": []
+}

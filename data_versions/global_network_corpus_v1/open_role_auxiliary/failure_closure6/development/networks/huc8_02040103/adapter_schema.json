@@ -1,0 +1,33 @@
+{
+  "adapter_contract_version": "t2_v91_information_adapter_v1",
+  "missing_source_policy": "record_failure_and_leave_absent_no_fill",
+  "power_archive_start": "1981-01-01",
+  "power_fill_policy": "natural_observed_false_value_NA_qc_provider_fill_value",
+  "required_columns": [
+    "date",
+    "site_id",
+    "variable",
+    "value",
+    "source",
+    "natural_observed",
+    "qc_status",
+    "approval_status",
+    "quality_approved"
+  ],
+  "table": "daily_long_auxiliary.parquet",
+  "usgs_provisional_policy": "quality_approved_false_value_NA_qc_excluded_provisional",
+  "value_role": "M_or_H_covariate_only_never_temperature_target",
+  "variables": {
+    "H": [
+      "F",
+      "L"
+    ],
+    "M": [
+      "Ta",
+      "P",
+      "W",
+      "RH",
+      "Rs"
+    ]
+  }
+}
