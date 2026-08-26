@@ -1,0 +1,4 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+08405200,3552,0,0,839,0,0,6,accepted,,huc8_13060011,False,qualified_years_lt_8
+08406500,3823,0,0,455,0,0,8,accepted,,huc8_13060011,True,
+08407500,5215,0,0,48,0,0,13,accepted,,huc8_13060011,True,

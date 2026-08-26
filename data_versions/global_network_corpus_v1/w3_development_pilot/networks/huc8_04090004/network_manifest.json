@@ -1,0 +1,80 @@
+{
+  "network_id": "huc8_04090004",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": false,
+    "days_with_min_stations": 0,
+    "n_days": 7414,
+    "n_downloaded_nonempty": 6,
+    "n_qc_eligible_stations": 1,
+    "n_requested_stations": 6,
+    "n_stations": 1,
+    "network_id": "huc8_04090004",
+    "network_interval_reported": false,
+    "overlap_end": null,
+    "overlap_start": null,
+    "overlap_years": 0.0,
+    "role": "development"
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "04166100": {
+      "cached_before": false,
+      "end": "2026-08-25",
+      "errors": [],
+      "n_rows": 2516,
+      "site_id": "04166100",
+      "start": "1999-04-14",
+      "status": "fetched"
+    },
+    "04166470": {
+      "cached_before": false,
+      "end": "2017-10-31",
+      "errors": [],
+      "n_rows": 2059,
+      "site_id": "04166470",
+      "start": "1999-04-14",
+      "status": "fetched"
+    },
+    "04166500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 7491,
+      "site_id": "04166500",
+      "start": "1999-04-16",
+      "status": "fetched"
+    },
+    "04167150": {
+      "cached_before": false,
+      "end": "2017-10-31",
+      "errors": [],
+      "n_rows": 2623,
+      "site_id": "04167150",
+      "start": "1999-04-15",
+      "status": "fetched"
+    },
+    "04167625": {
+      "cached_before": false,
+      "end": "2026-08-25",
+      "errors": [],
+      "n_rows": 1558,
+      "site_id": "04167625",
+      "start": "2001-10-24",
+      "status": "fetched"
+    },
+    "04168400": {
+      "cached_before": false,
+      "end": "2026-08-25",
+      "errors": [],
+      "n_rows": 4512,
+      "site_id": "04168400",
+      "start": "1999-04-15",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}

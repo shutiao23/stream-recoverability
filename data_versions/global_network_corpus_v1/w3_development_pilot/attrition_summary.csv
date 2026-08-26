@@ -1,0 +1,10 @@
+level,stage,n
+network,pilot_selected,20
+network,download_and_qc_completed,20
+network,complete_enough,14
+station,requested,91
+station,downloaded_nonempty,91
+station,qc_verdict_accepted,88
+station,qualified_years_ge_8,74
+station,rejected_sentinel,3
+station,qualified_years_lt_8,14

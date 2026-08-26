@@ -1,0 +1,87 @@
+{
+  "network_id": "huc8_05020006",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 6623,
+    "n_days": 7945,
+    "n_downloaded_nonempty": 6,
+    "n_qc_eligible_stations": 5,
+    "n_requested_stations": 6,
+    "n_stations": 5,
+    "network_id": "huc8_05020006",
+    "network_interval_reported": false,
+    "overlap_end": "2026-06-28",
+    "overlap_start": "2005-06-02",
+    "overlap_years": 21.07049965776865,
+    "role": "development",
+    "station_coverage": {
+      "03076500": 0.6278162366268093,
+      "03077500": 0.8284455632473253,
+      "03079000": 0.7996224040276904,
+      "03081000": 0.9855254877281309,
+      "03083500": 0.8206419131529263
+    }
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03076500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 5020,
+      "site_id": "03076500",
+      "start": "2012-10-01",
+      "status": "fetched"
+    },
+    "03077100": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 2924,
+      "site_id": "03077100",
+      "start": "2010-06-01",
+      "status": "fetched"
+    },
+    "03077500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 6641,
+      "site_id": "03077500",
+      "start": "2005-08-17",
+      "status": "fetched"
+    },
+    "03079000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 6408,
+      "site_id": "03079000",
+      "start": "2005-06-02",
+      "status": "fetched"
+    },
+    "03081000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 7887,
+      "site_id": "03081000",
+      "start": "2004-10-01",
+      "status": "fetched"
+    },
+    "03083500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 6664,
+      "site_id": "03083500",
+      "start": "2005-06-02",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}

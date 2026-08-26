@@ -1,0 +1,98 @@
+{
+  "network_id": "huc8_02080201",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 8869,
+    "n_days": 14961,
+    "n_downloaded_nonempty": 7,
+    "n_qc_eligible_stations": 7,
+    "n_requested_stations": 7,
+    "n_stations": 7,
+    "network_id": "huc8_02080201",
+    "network_interval_reported": false,
+    "overlap_end": "2003-09-30",
+    "overlap_start": "1978-06-23",
+    "overlap_years": 25.270362765229294,
+    "role": "development",
+    "station_coverage": {
+      "02011400": 0.9602967716061761,
+      "02011460": 0.2652897533587327,
+      "02011470": 0.2493148853686251,
+      "02011490": 0.249448566272308,
+      "02011500": 0.9217966713454983,
+      "02011800": 0.5714858632444355,
+      "02012800": 0.5666065102600094
+    }
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "02011400": {
+      "cached_before": false,
+      "end": "2022-02-28",
+      "errors": [],
+      "n_rows": 14367,
+      "site_id": "02011400",
+      "start": "1978-03-01",
+      "status": "fetched"
+    },
+    "02011460": {
+      "cached_before": false,
+      "end": "1995-10-02",
+      "errors": [],
+      "n_rows": 3969,
+      "site_id": "02011460",
+      "start": "1984-10-01",
+      "status": "fetched"
+    },
+    "02011470": {
+      "cached_before": false,
+      "end": "2022-03-21",
+      "errors": [],
+      "n_rows": 3732,
+      "site_id": "02011470",
+      "start": "1984-10-01",
+      "status": "fetched"
+    },
+    "02011490": {
+      "cached_before": false,
+      "end": "1995-10-02",
+      "errors": [],
+      "n_rows": 3732,
+      "site_id": "02011490",
+      "start": "1984-10-01",
+      "status": "fetched"
+    },
+    "02011500": {
+      "cached_before": false,
+      "end": "2022-02-28",
+      "errors": [],
+      "n_rows": 13791,
+      "site_id": "02011500",
+      "start": "1978-06-22",
+      "status": "fetched"
+    },
+    "02011800": {
+      "cached_before": false,
+      "end": "2003-09-30",
+      "errors": [],
+      "n_rows": 8550,
+      "site_id": "02011800",
+      "start": "1978-09-20",
+      "status": "fetched"
+    },
+    "02012800": {
+      "cached_before": false,
+      "end": "2003-09-30",
+      "errors": [],
+      "n_rows": 8477,
+      "site_id": "02012800",
+      "start": "1978-06-23",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}

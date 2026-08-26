@@ -522,6 +522,78 @@ def qc_long_frame(frame: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=list(REPORT_COLUMNS))
 
 
+def clean_long_frame(
+    frame: pd.DataFrame,
+    *,
+    report: pd.DataFrame | None = None,
+    min_qualified_years: int = 0,
+) -> pd.DataFrame:
+    """Return standardized approved, physically valid rows from accepted stations.
+
+    QC is intentionally evaluated on the long provider table before pivoting.
+    A station rejected for even one sentinel is excluded in full.  For accepted
+    stations, sentinel/out-of-range values and non-approved provider values are
+    absent from the returned table.  ``min_qualified_years`` is a downstream
+    corpus eligibility floor and does not rewrite the station's QC verdict.
+    """
+
+    columns = ["site_id", "date", "temperature_c", "qualifier"]
+    if frame.empty:
+        return pd.DataFrame(columns=columns)
+    date_col = _match_column(frame.columns, DATE_COLUMN_ALIASES)
+    site_col = _match_column(frame.columns, SITE_COLUMN_ALIASES)
+    value_col = _match_column(frame.columns, VALUE_COLUMN_ALIASES)
+    qual_col = _match_column(frame.columns, QUALIFIER_COLUMN_ALIASES)
+    status_col = _match_column(frame.columns, APPROVAL_STATUS_COLUMN_ALIASES)
+    if date_col is None or site_col is None or value_col is None:
+        raise ValueError("long ingest table needs date, site_id, and value columns")
+    qc = qc_long_frame(frame) if report is None else pd.DataFrame(report).copy()
+    accepted = qc.loc[
+        qc["verdict"].astype(str).str.startswith("accepted")
+        & pd.to_numeric(qc["qualified_years"], errors="coerce").ge(
+            int(min_qualified_years)
+        )
+    ]
+    accepted_ids = set(accepted["site_id"].astype(str))
+
+    pieces: list[pd.DataFrame] = []
+    site_keys = frame[site_col].map(str)
+    for site_id, group in frame.groupby(site_keys, sort=False):
+        if str(site_id) not in accepted_ids:
+            continue
+        dates = _as_datetime_index(group[date_col])
+        values = _numeric_values(group[value_col])
+        valid_date = ~dates.isna()
+        dates = dates[valid_date]
+        values = values[valid_date]
+        subset = group.loc[np.asarray(valid_date)]
+        invalid = _sentinel_mask(values) | _out_of_range_mask(values)
+        codes = _combined_approval_codes(subset, qual_col, status_col)
+        qualifier_values: list[str]
+        if codes is None:
+            keep_code = np.ones(len(values), dtype=bool)
+            qualifier_values = [""] * len(values)
+        else:
+            keep_code, _, _ = _classify_codes(codes, len(values))
+            qualifier_values = [str(item) for item in codes.tolist()]
+        keep = np.isfinite(values) & ~invalid & keep_code
+        pieces.append(
+            pd.DataFrame(
+                {
+                    "site_id": str(site_id),
+                    "date": dates[keep],
+                    "temperature_c": values[keep],
+                    "qualifier": np.asarray(qualifier_values, dtype=object)[keep],
+                }
+            )
+        )
+    if not pieces:
+        return pd.DataFrame(columns=columns)
+    return pd.concat(pieces, ignore_index=True).sort_values(
+        ["site_id", "date"], kind="mergesort"
+    )
+
+
 def qc_wide_frame(frame: pd.DataFrame) -> pd.DataFrame:
     """QC a wide daily matrix (date column or index plus one column per site)."""
 
@@ -598,6 +670,7 @@ __all__ = [
     "VERDICT_ACCEPTED_WITH_FLAGS",
     "VERDICT_REJECTED_OUT_OF_RANGE",
     "VERDICT_REJECTED_SENTINEL",
+    "clean_long_frame",
     "ingest_qc_report",
     "is_nwis_sentinel_value",
     "qc_long_frame",

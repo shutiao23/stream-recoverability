@@ -1,0 +1,58 @@
+{
+  "network_id": "huc8_05130202",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 7857,
+    "n_days": 10710,
+    "n_downloaded_nonempty": 3,
+    "n_qc_eligible_stations": 3,
+    "n_requested_stations": 3,
+    "n_stations": 3,
+    "network_id": "huc8_05130202",
+    "network_interval_reported": false,
+    "overlap_end": "2026-01-12",
+    "overlap_start": "2003-09-06",
+    "overlap_years": 22.351813826146476,
+    "role": "development",
+    "station_coverage": {
+      "03431083": 0.7623716153127917,
+      "03431091": 0.9466853408029878,
+      "03431514": 0.973202614379085
+    }
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03431083": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 8354,
+      "site_id": "03431083",
+      "start": "2003-09-06",
+      "status": "fetched"
+    },
+    "03431091": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 10318,
+      "site_id": "03431091",
+      "start": "1996-10-25",
+      "status": "fetched"
+    },
+    "03431514": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 10644,
+      "site_id": "03431514",
+      "start": "1996-11-01",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}

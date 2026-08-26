@@ -1,0 +1,118 @@
+{
+  "network_id": "huc8_07120001",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 4974,
+    "n_days": 6156,
+    "n_downloaded_nonempty": 9,
+    "n_qc_eligible_stations": 9,
+    "n_requested_stations": 9,
+    "n_stations": 9,
+    "network_id": "huc8_07120001",
+    "network_interval_reported": false,
+    "overlap_end": "2026-04-20",
+    "overlap_start": "2012-09-07",
+    "overlap_years": 13.61533196440794,
+    "role": "development",
+    "station_coverage": {
+      "05515500": 0.7121507472384665,
+      "05516665": 0.7870370370370371,
+      "05517000": 0.8010071474983755,
+      "05517010": 0.4788823911630929,
+      "05517500": 0.5657894736842105,
+      "05518000": 0.5755360623781677,
+      "05527000": 0.7883365821962314,
+      "05527500": 0.8901884340480831,
+      "412320088154101": 0.8112410656270306
+    }
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "05515500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4549,
+      "site_id": "05515500",
+      "start": "2013-12-05",
+      "status": "fetched"
+    },
+    "05516665": {
+      "cached_before": false,
+      "end": "2026-08-25",
+      "errors": [],
+      "n_rows": 5074,
+      "site_id": "05516665",
+      "start": "2012-05-11",
+      "status": "fetched"
+    },
+    "05517000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 5158,
+      "site_id": "05517000",
+      "start": "2012-05-11",
+      "status": "fetched"
+    },
+    "05517010": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 3174,
+      "site_id": "05517010",
+      "start": "2016-12-01",
+      "status": "fetched"
+    },
+    "05517500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 3698,
+      "site_id": "05517500",
+      "start": "2016-04-09",
+      "status": "fetched"
+    },
+    "05518000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 3763,
+      "site_id": "05518000",
+      "start": "2015-12-05",
+      "status": "fetched"
+    },
+    "05527000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4963,
+      "site_id": "05527000",
+      "start": "2012-09-21",
+      "status": "fetched"
+    },
+    "05527500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 5604,
+      "site_id": "05527500",
+      "start": "1973-05-31",
+      "status": "fetched"
+    },
+    "412320088154101": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 5062,
+      "site_id": "412320088154101",
+      "start": "2012-09-07",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}

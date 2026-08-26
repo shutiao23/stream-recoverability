@@ -1,0 +1,5 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes,network_id,eligible_for_network,exclusion_reason
+05536995,3344,0,0,153,0,0,8,accepted_with_flags,estimated_approved,huc8_07120004,True,
+05537980,3092,0,0,227,0,0,8,accepted,,huc8_07120004,True,
+05538010,1991,0,0,42,0,0,3,accepted_with_flags,estimated_approved,huc8_07120004,False,qualified_years_lt_8
+05539670,6166,0,0,126,0,0,14,accepted,,huc8_07120004,True,

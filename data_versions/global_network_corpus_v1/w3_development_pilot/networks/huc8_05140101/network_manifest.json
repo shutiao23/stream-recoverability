@@ -1,0 +1,126 @@
+{
+  "network_id": "huc8_05140101",
+  "network_interval_reported": false,
+  "overlap": {
+    "complete_enough": true,
+    "days_with_min_stations": 5260,
+    "n_days": 6984,
+    "n_downloaded_nonempty": 10,
+    "n_qc_eligible_stations": 8,
+    "n_requested_stations": 10,
+    "n_stations": 8,
+    "network_id": "huc8_05140101",
+    "network_interval_reported": false,
+    "overlap_end": "2026-07-13",
+    "overlap_start": "2007-09-30",
+    "overlap_years": 18.784394250513348,
+    "role": "development",
+    "station_coverage": {
+      "03292470": 0.6592210767468499,
+      "03292474": 0.6855670103092784,
+      "03292475": 0.6811282932416953,
+      "03292480": 0.6602233676975945,
+      "03292500": 0.8009736540664376,
+      "03293000": 0.9670675830469645,
+      "03293500": 0.6547823596792669,
+      "03293530": 0.6699599083619702
+    }
+  },
+  "rejected_stations_absent_from_wide": true,
+  "role": "development",
+  "sealed_temperature_records_read": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "stations": {
+    "03292470": {
+      "cached_before": false,
+      "end": "2025-11-19",
+      "errors": [],
+      "n_rows": 4604,
+      "site_id": "03292470",
+      "start": "2008-09-30",
+      "status": "fetched"
+    },
+    "03292474": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4830,
+      "site_id": "03292474",
+      "start": "2007-10-16",
+      "status": "fetched"
+    },
+    "03292475": {
+      "cached_before": false,
+      "end": "2025-12-08",
+      "errors": [],
+      "n_rows": 4757,
+      "site_id": "03292475",
+      "start": "2007-09-30",
+      "status": "fetched"
+    },
+    "03292480": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4651,
+      "site_id": "03292480",
+      "start": "2007-09-30",
+      "status": "fetched"
+    },
+    "03292500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 5643,
+      "site_id": "03292500",
+      "start": "1988-05-07",
+      "status": "fetched"
+    },
+    "03292550": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 1417,
+      "site_id": "03292550",
+      "start": "2007-09-30",
+      "status": "fetched"
+    },
+    "03293000": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 6799,
+      "site_id": "03293000",
+      "start": "1988-04-30",
+      "status": "fetched"
+    },
+    "03293500": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4617,
+      "site_id": "03293500",
+      "start": "2007-09-30",
+      "status": "fetched"
+    },
+    "03293530": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 4720,
+      "site_id": "03293530",
+      "start": "2007-10-01",
+      "status": "fetched"
+    },
+    "03294570": {
+      "cached_before": false,
+      "end": "2026-08-24",
+      "errors": [],
+      "n_rows": 3404,
+      "site_id": "03294570",
+      "start": "2007-09-30",
+      "status": "fetched"
+    }
+  },
+  "status": "complete"
+}
