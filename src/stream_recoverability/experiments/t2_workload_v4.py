@@ -22,7 +22,10 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, replace
 from functools import lru_cache
 from pathlib import Path
+from time import perf_counter
 from typing import Any
+
+import numpy as np
 
 from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     NETWORK_SCHEMA_VERSION as V2_NETWORK_SCHEMA_VERSION,
@@ -37,6 +40,7 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     load_v2_corpus_plan,
     plan_as_dict,
 )
+from stream_recoverability.models.baselines import ClimatologyBaseline
 
 from .t2_information_runner_integration import (
     INTEGRATION_CONTRACT_VERSION,
@@ -51,9 +55,14 @@ from .t2_recovery_benchmark import (
     RUNNER_CONTRACT_VERSION,
     OpenNetwork,
     WorkItem,
+    _fit_cache_key,
+    _prediction_sha256,
+    _resolve_fit,
+    _year_split,
     execute_item,
     iter_all_work_items,
     json_safe,
+    read_panel,
 )
 
 V3_WORKLOAD_SCHEMA = "t2_v91_open_role_workload_v3"
@@ -938,6 +947,102 @@ def freeze_v4_workload(
     return workload
 
 
+def _execute_extended_climatology_reference(
+    repo_root: str | Path,
+    network: OpenNetwork,
+    item: V4WorkItem,
+    *,
+    panel: Any | None,
+    base_execution_cache: Any | None,
+) -> dict[str, Any]:
+    """Execute a v4 extended-condition reference without consulting v3 routing."""
+
+    source = item.source_v3_item
+    runner_item = item.runner_item()
+    base = {
+        **asdict(runner_item),
+        "input_sha256": network.wide_sha256,
+        "available_information_condition": source.information_condition,
+        "consumed_information": [],
+        "information_condition_result": False,
+        "workload_category": "reference",
+        "formal_evidence": False,
+        "sealed_temperature_records_read": False,
+    }
+    if item.meteorology_lag_days not in METEOROLOGY_LAG_ROSTER:
+        raise V4FreezeBlocked("extended climatology item lacks a frozen meteorology lag")
+    if source.start_index < 0:
+        reason = (
+            "fewer_than_frozen_common_bd_placements_are_data_eligible"
+            if source.geometry == "artificial_stress"
+            else "frozen_geometry_truth_window_unavailable_without_reselection"
+        )
+        return {**base, "status": "data_ineligible", "reason": reason}
+    if panel is None:
+        panel_loader = getattr(base_execution_cache, "panel", None)
+        panel = (
+            panel_loader(network)
+            if panel_loader is not None
+            else read_panel(repo_root, network)
+        )
+    target = source.target_station
+    if target not in panel:
+        return {**base, "status": "failed", "reason": "target_station_missing"}
+    start = int(source.start_index)
+    stop = start + int(source.gap_length)
+    truth = panel[target].iloc[start:stop].to_numpy(dtype=float)
+    train, _ = _year_split(panel.index)
+    train[start:stop] = False
+    train_mask = panel[target].notna() & train
+    began = perf_counter()
+    try:
+        fit_key = _fit_cache_key(
+            input_sha256=network.wide_sha256,
+            target_station=target,
+            model="climatology",
+            information_condition=source.information_condition,
+            meteorology_lag_days=int(item.meteorology_lag_days),
+            frame=panel,
+            train_mask=train_mask,
+            feature_columns=[target],
+        )
+        resolver = getattr(base_execution_cache, "resolve_fit", None)
+        model = _resolve_fit(
+            resolver,
+            fit_key,
+            lambda: ClimatologyBaseline(target_col=target).fit(
+                panel, dates=panel.index, train_mask=train_mask
+            ),
+        )
+        predicted = model.predict(panel, dates=panel.index).iloc[start:stop].to_numpy(
+            dtype=float
+        )
+        valid = np.isfinite(truth) & np.isfinite(predicted)
+        if not valid.any():
+            return {**base, "status": "failed", "reason": "no_finite_gap_predictions"}
+        mae = float(np.mean(np.abs(predicted[valid] - truth[valid])))
+        return {
+            **base,
+            "status": "reference_complete",
+            "reason": "reference_ignores_available_information_by_design",
+            "implementation": "training_doy_climatology",
+            "n_scored": int(valid.sum()),
+            "mae_deg_c": mae,
+            "climatology_mae_deg_c": mae,
+            "achieved_skill": 0.0,
+            "prediction_sha256": _prediction_sha256(predicted),
+            "reference_ignores_available_information": True,
+            "runtime_seconds": float(perf_counter() - began),
+        }
+    except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+        return {
+            **base,
+            "status": "failed",
+            "reason": f"{type(error).__name__}: {error}",
+            "runtime_seconds": float(perf_counter() - began),
+        }
+
+
 def execute_v4_item(
     repo_root: str | Path,
     network: OpenNetwork,
@@ -980,7 +1085,15 @@ def execute_v4_item(
             "reason": "model_has_no_declared_B_D_M_H_consumer",
             "consumed_information": [],
         }
-    if extended and source.model in SUPPORTED_MODELS:
+    if extended and source.model == "climatology":
+        raw = _execute_extended_climatology_reference(
+            repo_root,
+            network,
+            item,
+            panel=panel,
+            base_execution_cache=base_execution_cache,
+        )
+    elif extended and source.model in SUPPORTED_MODELS:
         if item.meteorology_lag_days not in METEOROLOGY_LAG_ROSTER:
             raise V4FreezeBlocked("extended v4 item lacks a frozen meteorology lag")
         if auxiliary is None:
@@ -1004,12 +1117,21 @@ def execute_v4_item(
             panel=panel,
             auxiliary=auxiliary,
             adapter_cache=adapter_cache,
+            fit_resolver=(
+                None
+                if base_execution_cache is None
+                else base_execution_cache.resolve_fit
+            ),
         )
     else:
         raw = (
             execute_item(repo_root, network, runner_item)
             if base_execution_cache is None
-            else base_execution_cache.execute(network, runner_item)
+            else base_execution_cache.execute(
+                network,
+                runner_item,
+                meteorology_lag_days=item.meteorology_lag_days,
+            )
         )
     result = json_safe(dict(raw))
     result.update(

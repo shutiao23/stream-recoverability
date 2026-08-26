@@ -18,13 +18,12 @@ from typing import Any
 
 import pandas as pd
 
-from .t2_cached_executor import NetworkExecutionCache
+from .t2_cached_executor import StrictFitExecutionCache
 from .t2_information_runner_integration import (
     load_materialized_auxiliary_v2,
 )
 from .t2_recovery_benchmark import (
     discover_failure_closure_networks,
-    read_panel,
 )
 from .t2_workload_v4 import (
     EXPECTED_V4_WORK_ITEMS,
@@ -343,10 +342,9 @@ def execute_t2_v4_chunk(
         raise V4FreezeBlocked("v4 item stream violated frozen ordinal continuity")
 
     lookup = {network.network_id: network for network in networks}
-    panels: dict[str, pd.DataFrame] = {}
     auxiliary_cache: dict[str, Any] = {}
     adapter_caches: defaultdict[str, dict[str, Any]] = defaultdict(dict)
-    base_cache = NetworkExecutionCache(repo)
+    base_cache = StrictFitExecutionCache(repo)
     records: list[dict[str, Any]] = []
     for item in items:
         network = lookup[item.network_id]
@@ -355,8 +353,7 @@ def execute_t2_v4_chunk(
             and item.source_v3_item.model in {"donor_regression", "xgboost"}
         )
         if extended_supported:
-            if network.network_id not in panels:
-                panels[network.network_id] = read_panel(repo, network)
+            if network.network_id not in auxiliary_cache:
                 auxiliary_cache[network.network_id] = load_materialized_auxiliary_v2(
                     repo, network
                 )
@@ -364,9 +361,10 @@ def execute_t2_v4_chunk(
                 repo,
                 network,
                 item,
-                panel=panels[network.network_id],
+                panel=base_cache.panel(network),
                 auxiliary=auxiliary_cache[network.network_id],
                 adapter_cache=adapter_caches[network.network_id],
+                base_execution_cache=base_cache,
             )
         else:
             result = execute_v4_item(

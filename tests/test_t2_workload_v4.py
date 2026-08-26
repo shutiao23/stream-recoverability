@@ -16,13 +16,19 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
 from stream_recoverability.experiments.t2_batch_orchestrator import (
     load_contract_spec,
 )
+from stream_recoverability.experiments.t2_cached_executor import (
+    StrictFitExecutionCache,
+)
 from stream_recoverability.experiments.t2_information_runner_integration import (
     load_materialized_auxiliary_v2,
 )
 from stream_recoverability.experiments.t2_recovery_benchmark import (
     OpenNetwork,
     WorkItem,
+    deterministic_placements,
     discover_failure_closure_networks,
+    execute_item,
+    read_panel,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -218,26 +224,32 @@ def test_only_declared_models_reach_extended_mh_consumer(monkeypatch) -> None:
     assert donor_result["status"] == "complete"
     assert calls == [("donor_regression", donor_item.source_v3_item.item_id)]
 
+    reference_network = _network()
+    reference_panel = read_panel(ROOT, reference_network)
+    reference_target = str(reference_panel.columns[0])
+    reference_start = deterministic_placements(
+        reference_panel, target=reference_target, gap_length=7, count=1
+    )[0]
+    reference_source = replace(
+        _item("B_union_D_union_M", model="climatology"),
+        target_station=reference_target,
+        start_index=reference_start,
+    )
     unsupported = next(
         iter(
             v4.iter_v4_work_items(
-                [_item("B_union_D_union_M", model="climatology")],
+                [reference_source],
                 prerequisites,
                 require_full_corpus=False,
             )
         )
     )
-    class ReferenceCache:
-        def execute(self, network, item):
-            return {
-                **item.__dict__,
-                "status": "reference_complete",
-                "runner_contract_version": "wrapped",
-                "sealed_temperature_records_read": False,
-            }
-
     result = v4.execute_v4_item(
-        ROOT, _network(), unsupported, base_execution_cache=ReferenceCache()
+        ROOT,
+        reference_network,
+        unsupported,
+        panel=reference_panel,
+        base_execution_cache=StrictFitExecutionCache(ROOT),
     )
     assert result["status"] == "reference_complete"
     assert calls == [("donor_regression", donor_item.source_v3_item.item_id)]
@@ -247,7 +259,7 @@ def test_nonextended_v4_item_uses_chunk_execution_cache() -> None:
     calls: list[str] = []
 
     class Cache:
-        def execute(self, network, item):
+        def execute(self, network, item, *, meteorology_lag_days=None):
             calls.append(item.item_id)
             return {
                 **item.__dict__,
@@ -268,6 +280,76 @@ def test_nonextended_v4_item_uses_chunk_execution_cache() -> None:
     )
     assert calls == [item.item_id]
     assert result["runner_contract_version"] == v4.V4_RUNNER_CONTRACT_VERSION
+
+
+def test_real_open_extended_climatology_is_three_explicit_v4_references(
+    monkeypatch,
+) -> None:
+    network = _network()
+    panel = read_panel(ROOT, network)
+    target = str(panel.columns[0])
+    start = deterministic_placements(panel, target=target, gap_length=7, count=1)[0]
+    source = WorkItem(
+        ordinal=0,
+        item_id="real-open-extended-climatology-source",
+        network_id=network.network_id,
+        role=network.role,
+        source_key=network.source_key,
+        target_station=target,
+        model="climatology",
+        gap_length=7,
+        placement=0,
+        start_index=start,
+        information_condition="B_union_D_union_M",
+    )
+    items = list(
+        v4.iter_v4_work_items(
+            [source], _prerequisites(ready=True), require_full_corpus=False
+        )
+    )
+    assert [item.meteorology_lag_days for item in items] == [-1, 0, 1]
+
+    def auxiliary_must_not_be_read(*args, **kwargs):
+        raise AssertionError("climatology reference must not load M/H outcomes")
+
+    monkeypatch.setattr(v4, "load_materialized_auxiliary_v2", auxiliary_must_not_be_read)
+    cache = StrictFitExecutionCache(ROOT)
+    results = [
+        v4.execute_v4_item(
+            ROOT,
+            network,
+            item,
+            panel=panel,
+            base_execution_cache=cache,
+        )
+        for item in items
+    ]
+    legacy = [
+        execute_item(ROOT, network, item.runner_item(), panel=panel) for item in items
+    ]
+    assert len({row["item_id"] for row in results}) == 3
+    assert [row["meteorology_lag_days"] for row in results] == [-1, 0, 1]
+    assert all(row["status"] == "reference_complete" for row in results)
+    assert all(row["workload_category"] == "reference" for row in results)
+    assert all(row["available_information_condition"] == source.information_condition for row in results)
+    assert all(row["consumed_information"] == [] for row in results)
+    assert all(row["information_condition_result"] is False for row in results)
+    assert all(row["achieved_skill"] == 0.0 for row in results)
+    assert all(row["reference_ignores_available_information"] is True for row in results)
+    assert all(row["sealed_temperature_records_read"] is False for row in results)
+    for result, expected in zip(results, legacy, strict=True):
+        for field in (
+            "status",
+            "implementation",
+            "n_scored",
+            "mae_deg_c",
+            "climatology_mae_deg_c",
+            "achieved_skill",
+            "prediction_sha256",
+        ):
+            assert result[field] == expected[field]
+    assert cache.stats()["fit_cache_misses_by_model"] == {"climatology": 3}
+    assert cache.stats()["fit_cache_hits_by_model"] == {}
 
 def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
     tmp_path: Path, monkeypatch

@@ -18,7 +18,7 @@ import hashlib
 import json
 import math
 from collections import Counter, defaultdict
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, replace
 from itertools import chain
 from pathlib import Path
@@ -72,6 +72,22 @@ MIN_TRAIN_OBSERVATIONS = 365
 RUNNER_CONTRACT_VERSION = "t2_v91_runner_v3_frozen_geometry_bindings"
 
 
+@dataclass(frozen=True)
+class FitCacheKey:
+    """Identity of one fit, excluding held-out truth, predictions, and skill."""
+
+    input_sha256: str
+    target_station: str
+    model: str
+    information_condition: str
+    meteorology_lag_days: int | None
+    training_mask_sha256: str
+    training_features_sha256: str
+
+
+FitResolver = Callable[[FitCacheKey, Callable[[], Any]], Any]
+
+
 def _sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
@@ -82,6 +98,80 @@ def _sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _training_mask_sha256(mask: pd.Series) -> str:
+    """Hash the exact dated boolean mask presented to a model fit."""
+
+    if not isinstance(mask.index, pd.DatetimeIndex):
+        raise TypeError("fit-cache training mask requires a DatetimeIndex")
+    digest = hashlib.sha256()
+    digest.update(np.asarray(mask.index.view("i8"), dtype="<i8").tobytes())
+    digest.update(mask.to_numpy(dtype=np.uint8).tobytes())
+    return digest.hexdigest()
+
+
+def _training_features_sha256(
+    frame: pd.DataFrame,
+    mask: pd.Series,
+    columns: Sequence[str],
+) -> str:
+    """Hash only dated training rows and the named raw fit inputs.
+
+    The target is intentionally included because it is a fit input.  Held-out
+    target values, predictions, MAE, and skill never enter this digest.
+    """
+
+    selected = mask.reindex(frame.index, fill_value=False).to_numpy(dtype=bool)
+    names = [str(value) for value in columns]
+    missing = [name for name in names if name not in frame.columns]
+    if missing:
+        raise KeyError(f"fit-cache feature columns are absent: {missing}")
+    digest = hashlib.sha256()
+    digest.update(
+        json.dumps(names, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+    )
+    index = pd.DatetimeIndex(frame.index)
+    digest.update(np.asarray(index.view("i8")[selected], dtype="<i8").tobytes())
+    values = frame.loc[selected, names].apply(pd.to_numeric, errors="coerce")
+    digest.update(np.asarray(values.to_numpy(dtype=float), dtype="<f8").tobytes())
+    return digest.hexdigest()
+
+
+def _fit_cache_key(
+    *,
+    input_sha256: str,
+    target_station: str,
+    model: str,
+    information_condition: str,
+    meteorology_lag_days: int | None,
+    frame: pd.DataFrame,
+    train_mask: pd.Series,
+    feature_columns: Sequence[str],
+) -> FitCacheKey:
+    """Build the strict fit identity used by all T2 v4 fit caches."""
+
+    return FitCacheKey(
+        input_sha256=str(input_sha256),
+        target_station=str(target_station),
+        model=str(model),
+        information_condition=str(information_condition),
+        meteorology_lag_days=(
+            None if meteorology_lag_days is None else int(meteorology_lag_days)
+        ),
+        training_mask_sha256=_training_mask_sha256(train_mask),
+        training_features_sha256=_training_features_sha256(
+            frame, train_mask, feature_columns
+        ),
+    )
+
+
+def _resolve_fit(
+    resolver: FitResolver | None,
+    key: FitCacheKey,
+    factory: Callable[[], Any],
+) -> Any:
+    return factory() if resolver is None else resolver(key, factory)
 
 
 def _canonical_sha(rows: Sequence[Mapping[str, Any]]) -> str:
@@ -859,10 +949,12 @@ def execute_item(
         tuple[str, str, int, int], tuple[pd.Series, float]
     ]
     | None = None,
+    fit_resolver: FitResolver | None = None,
+    meteorology_lag_days: int | None = None,
 ) -> dict[str, Any]:
     """Execute one small traditional-baseline cell; no deep model is imported.
 
-    ``panel`` and ``climatology_cache`` are optional execution accelerators.
+    ``panel`` and the caches are optional execution accelerators.
     Callers supplying a panel must first obtain it through :func:`read_panel`,
     which retains the open-role path allowlist and byte-level custody check.
     The default path is deliberately unchanged for compatibility and A/B
@@ -911,29 +1003,43 @@ def execute_item(
     donors = [str(value) for value in panel.columns if str(value) != target]
     began = perf_counter()
     try:
-        climate_key = (network.wide_sha256, target, start, stop)
+        legacy_climate_key = (network.wide_sha256, target, start, stop)
         cached_climate = (
-            None if climatology_cache is None else climatology_cache.get(climate_key)
+            None
+            if climatology_cache is None
+            else climatology_cache.get(legacy_climate_key)
         )
-        if cached_climate is None:
-            climatology = ClimatologyBaseline(target_col=target).fit(
-                panel, dates=panel.index, train_mask=train_mask
+        if cached_climate is not None and fit_resolver is None:
+            climate_prediction, climate_mae = cached_climate
+        else:
+            climate_key = _fit_cache_key(
+                input_sha256=network.wide_sha256,
+                target_station=target,
+                model="climatology",
+                information_condition=item.information_condition,
+                meteorology_lag_days=meteorology_lag_days,
+                frame=panel,
+                train_mask=train_mask,
+                feature_columns=[target],
+            )
+            climatology = _resolve_fit(
+                fit_resolver,
+                climate_key,
+                lambda: ClimatologyBaseline(target_col=target).fit(
+                    panel, dates=panel.index, train_mask=train_mask
+                ),
             )
             climate_prediction = climatology.predict(
                 panel, dates=panel.index
             ).iloc[start:stop]
             climate_mae = float(
-                np.mean(
-                    np.abs(climate_prediction.to_numpy(dtype=float) - truth)
-                )
+                np.mean(np.abs(climate_prediction.to_numpy(dtype=float) - truth))
             )
-            if climatology_cache is not None:
-                climatology_cache[climate_key] = (
+            if climatology_cache is not None and fit_resolver is None:
+                climatology_cache[legacy_climate_key] = (
                     climate_prediction.copy(),
                     climate_mae,
                 )
-        else:
-            climate_prediction, climate_mae = cached_climate
         if item.model == "climatology":
             prediction = climate_prediction
             implementation = "training_doy_climatology"
@@ -946,8 +1052,22 @@ def execute_item(
             ).iloc[start:stop]
             implementation = "pchip_with_linear_fallback_B"
         elif item.model == "kalman":
-            model = KalmanSmootherBaseline(target_col=target).fit(
-                panel, train_mask=train_mask
+            key = _fit_cache_key(
+                input_sha256=network.wide_sha256,
+                target_station=target,
+                model=item.model,
+                information_condition=item.information_condition,
+                meteorology_lag_days=meteorology_lag_days,
+                frame=panel,
+                train_mask=train_mask,
+                feature_columns=[target],
+            )
+            model = _resolve_fit(
+                fit_resolver,
+                key,
+                lambda: KalmanSmootherBaseline(target_col=target).fit(
+                    panel, train_mask=train_mask
+                ),
             )
             prediction = model.predict(masked).iloc[start:stop]
             implementation = "local_linear_trend_kalman_smoother"
@@ -961,16 +1081,44 @@ def execute_item(
                     stop=stop,
                     boundary_mode=item.boundary_mode,
                 )
-                model = DonorRegressionBaseline(
-                    donors,
-                    target_col=target,
-                    covariate_cols=[boundary_feature],
-                ).fit(model_frame, dates=panel.index, train_mask=train_mask)
+                key = _fit_cache_key(
+                    input_sha256=network.wide_sha256,
+                    target_station=target,
+                    model=item.model,
+                    information_condition=item.information_condition,
+                    meteorology_lag_days=meteorology_lag_days,
+                    frame=model_frame,
+                    train_mask=train_mask,
+                    feature_columns=[target, *donors, boundary_feature],
+                )
+                model = _resolve_fit(
+                    fit_resolver,
+                    key,
+                    lambda: DonorRegressionBaseline(
+                        donors,
+                        target_col=target,
+                        covariate_cols=[boundary_feature],
+                    ).fit(model_frame, dates=panel.index, train_mask=train_mask),
+                )
                 prediction = model.predict(model_frame, dates=panel.index).iloc[start:stop]
                 implementation = "seasonal_ridge_donor_plus_train_loo_boundary_BD"
             else:
-                model = DonorRegressionBaseline(donors, target_col=target).fit(
-                    masked, dates=panel.index, train_mask=train_mask
+                key = _fit_cache_key(
+                    input_sha256=network.wide_sha256,
+                    target_station=target,
+                    model=item.model,
+                    information_condition=item.information_condition,
+                    meteorology_lag_days=meteorology_lag_days,
+                    frame=masked,
+                    train_mask=train_mask,
+                    feature_columns=[target, *donors],
+                )
+                model = _resolve_fit(
+                    fit_resolver,
+                    key,
+                    lambda: DonorRegressionBaseline(donors, target_col=target).fit(
+                        masked, dates=panel.index, train_mask=train_mask
+                    ),
                 )
                 prediction = model.predict(masked, dates=panel.index).iloc[start:stop]
                 implementation = "seasonal_ridge_donor_regression_D"
@@ -991,14 +1139,42 @@ def execute_item(
                     stop=stop,
                     boundary_mode=item.boundary_mode,
                 )
-                model = XGBoostBaseline(
-                    [*donors, boundary_feature], target_col=target
-                ).fit(model_frame, dates=panel.index, train_mask=train_mask)
+                key = _fit_cache_key(
+                    input_sha256=network.wide_sha256,
+                    target_station=target,
+                    model=item.model,
+                    information_condition=item.information_condition,
+                    meteorology_lag_days=meteorology_lag_days,
+                    frame=model_frame,
+                    train_mask=train_mask,
+                    feature_columns=[target, *donors, boundary_feature],
+                )
+                model = _resolve_fit(
+                    fit_resolver,
+                    key,
+                    lambda: XGBoostBaseline(
+                        [*donors, boundary_feature], target_col=target
+                    ).fit(model_frame, dates=panel.index, train_mask=train_mask),
+                )
                 prediction = model.predict(model_frame, dates=panel.index).iloc[start:stop]
                 implementation = "xgboost_donor_plus_train_loo_boundary_BD"
             else:
-                model = XGBoostBaseline(donors, target_col=target).fit(
-                    masked, dates=panel.index, train_mask=train_mask
+                key = _fit_cache_key(
+                    input_sha256=network.wide_sha256,
+                    target_station=target,
+                    model=item.model,
+                    information_condition=item.information_condition,
+                    meteorology_lag_days=meteorology_lag_days,
+                    frame=masked,
+                    train_mask=train_mask,
+                    feature_columns=[target, *donors],
+                )
+                model = _resolve_fit(
+                    fit_resolver,
+                    key,
+                    lambda: XGBoostBaseline(donors, target_col=target).fit(
+                        masked, dates=panel.index, train_mask=train_mask
+                    ),
                 )
                 prediction = model.predict(masked, dates=panel.index).iloc[start:stop]
                 implementation = "xgboost_donor_D"

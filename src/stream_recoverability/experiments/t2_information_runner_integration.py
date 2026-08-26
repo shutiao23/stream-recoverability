@@ -65,10 +65,13 @@ from .t2_recovery_benchmark import (
     EXTENDED_INFORMATION_CONDITIONS,
     MIN_TRAIN_OBSERVATIONS,
     RUNNER_CONTRACT_VERSION,
+    FitResolver,
     OpenNetwork,
     WorkItem,
     _combined_model_frame,
+    _fit_cache_key,
     _prediction_sha256,
+    _resolve_fit,
     _year_split,
     json_safe,
     read_panel,
@@ -648,6 +651,7 @@ def execute_materialized_information_item(
         str, tuple[FittedT2InformationAdapter, InformationFeatureBundle]
     ]
     | None = None,
+    fit_resolver: FitResolver | None = None,
 ) -> dict[str, Any]:
     """Execute one non-formal candidate cell for synthetic/unit smoke use.
 
@@ -700,8 +704,29 @@ def execute_materialized_information_item(
     start = int(item.start_index)
     stop = start + int(item.gap_length)
     truth = panel[item.target_station].iloc[start:stop].to_numpy(dtype=float)
-    climatology = ClimatologyBaseline(target_col=item.target_station).fit(
-        panel, dates=panel.index, train_mask=preparation.train_mask
+    auxiliary_input_sha256 = hashlib.sha256(
+        (
+            network.wide_sha256
+            + "|"
+            + str(auxiliary.audit["daily_long_sha256"])
+        ).encode("ascii")
+    ).hexdigest()
+    climate_key = _fit_cache_key(
+        input_sha256=auxiliary_input_sha256,
+        target_station=item.target_station,
+        model="climatology",
+        information_condition=item.information_condition,
+        meteorology_lag_days=int(meteorology_lag_days),
+        frame=panel,
+        train_mask=preparation.train_mask,
+        feature_columns=[item.target_station],
+    )
+    climatology = _resolve_fit(
+        fit_resolver,
+        climate_key,
+        lambda: ClimatologyBaseline(target_col=item.target_station).fit(
+            panel, dates=panel.index, train_mask=preparation.train_mask
+        ),
     )
     climate = climatology.predict(panel, dates=panel.index).iloc[start:stop]
     climate_mae = float(np.mean(np.abs(climate.to_numpy(dtype=float) - truth)))
@@ -731,10 +756,24 @@ def execute_materialized_information_item(
             model = XGBoostBaseline(feature_names, target_col=item.target_station)
         else:  # pragma: no cover - guarded by preparation
             raise ValueError(f"unsupported extended-information model: {item.model}")
-        model.fit(
-            preparation.model_frame,
-            dates=panel.index,
+        fit_key = _fit_cache_key(
+            input_sha256=auxiliary_input_sha256,
+            target_station=item.target_station,
+            model=item.model,
+            information_condition=item.information_condition,
+            meteorology_lag_days=int(meteorology_lag_days),
+            frame=preparation.model_frame,
             train_mask=preparation.train_mask,
+            feature_columns=[item.target_station, *feature_names],
+        )
+        model = _resolve_fit(
+            fit_resolver,
+            fit_key,
+            lambda: model.fit(
+                preparation.model_frame,
+                dates=panel.index,
+                train_mask=preparation.train_mask,
+            ),
         )
         predicted = model.predict(
             preparation.model_frame,

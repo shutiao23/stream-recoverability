@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 
 import stream_recoverability.experiments.t2_information_runner_integration as integration
+from stream_recoverability.experiments.t2_cached_executor import (
+    StrictFitExecutionCache,
+)
 from stream_recoverability.experiments.t2_information_runner_integration import (
     METEOROLOGY_LAG_ROSTER,
     MaterializedAuxiliary,
@@ -252,6 +255,90 @@ def test_candidate_executor_passes_all_m_features_to_model(
     assert covariates[0] == "__boundary_B_prediction"
     assert len(covariates) == 16
     assert all("__M__" in name for name in covariates[1:])
+
+
+def test_mh_model_fit_cache_is_semantically_equivalent_across_heldout_gaps() -> None:
+    panel = _panel()
+    daily = _auxiliary(panel.index, include_level=False)
+    network = OpenNetwork(
+        network_id="huc8_01000000",
+        role="development",
+        source_key="open_role_qc/failure_closure6/development",
+        wide_path="unused_with_preloaded_panel.csv",
+        wide_sha256="0" * 64,
+        manifest_path="unused_with_preloaded_panel.json",
+        n_days=len(panel),
+        n_stations=3,
+    )
+    auxiliary = MaterializedAuxiliary(
+        daily_long=daily,
+        coverage=pd.DataFrame(),
+        audit={
+            "daily_long_sha256": "1" * 64,
+            "sealed_temperature_records_read": False,
+        },
+    )
+    items = [
+        _item("B_union_D_union_M"),
+        WorkItem(
+            **{
+                **_item("B_union_D_union_M").__dict__,
+                "ordinal": 1,
+                "item_id": "source-v3-item-second-gap",
+                "placement": 1,
+                "start_index": 820,
+            }
+        ),
+    ]
+    legacy = [
+        execute_materialized_information_item(
+            ".", network, item, panel=panel, auxiliary=auxiliary
+        )
+        for item in items
+    ]
+    cache = StrictFitExecutionCache(".")
+    adapter_cache = {}
+    optimized = [
+        execute_materialized_information_item(
+            ".",
+            network,
+            item,
+            panel=panel,
+            auxiliary=auxiliary,
+            adapter_cache=adapter_cache,
+            fit_resolver=cache.resolve_fit,
+        )
+        for item in items
+    ]
+    fields = (
+        "ordinal",
+        "item_id",
+        "status",
+        "reason",
+        "implementation",
+        "n_scored",
+        "mae_deg_c",
+        "climatology_mae_deg_c",
+        "achieved_skill",
+        "prediction_sha256",
+        "source_v3_runner_contract_version",
+        "formal_evidence",
+        "sealed_temperature_records_read",
+    )
+    assert [
+        {field: row.get(field) for field in fields} for row in optimized
+    ] == [{field: row.get(field) for field in fields} for row in legacy]
+    assert [row["prediction_sha256"] for row in optimized] == [
+        row["prediction_sha256"] for row in legacy
+    ]
+    assert cache.stats()["fit_cache_misses_by_model"] == {
+        "climatology": 1,
+        "donor_regression": 1,
+    }
+    assert cache.stats()["fit_cache_hits_by_model"] == {
+        "climatology": 1,
+        "donor_regression": 1,
+    }
 
 
 def test_extended_consumer_blocks_masked_donors_before_reading_auxiliary() -> None:
