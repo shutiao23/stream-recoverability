@@ -16,6 +16,7 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
     AuditedRateLimitedFetcher,
     LegacyNetworkRequest,
     ProviderCircuitOpen,
+    RootExecutionLock,
     acquire_network,
     archive_nonterminal_attempt,
     load_v2_corpus_plan,
@@ -25,6 +26,15 @@ from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_root_execution_lock_refuses_a_second_writer(tmp_path: Path) -> None:
+    first = RootExecutionLock(tmp_path)
+    with pytest.raises(RuntimeError, match="another v2 acquisition writer"):
+        RootExecutionLock(tmp_path)
+    first.release()
+    second = RootExecutionLock(tmp_path)
+    second.release()
 
 
 class FakeTime:

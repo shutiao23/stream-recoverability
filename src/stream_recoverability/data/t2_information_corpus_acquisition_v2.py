@@ -12,10 +12,13 @@ No v1 response or manifest is overwritten or promoted into v2.
 
 from __future__ import annotations
 
+import fcntl
 import hashlib
 import json
 import math
+import os
 import re
+import socket
 import time
 import urllib.parse
 from collections import Counter
@@ -23,7 +26,7 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Self
 
 import numpy as np
 import pandas as pd
@@ -62,6 +65,52 @@ class ProviderCircuitOpen(RuntimeError):
     def __init__(self, message: str, *, audit: Mapping[str, Any]) -> None:
         super().__init__(message)
         self.audit = dict(audit)
+
+
+class RootExecutionLock:
+    """Process-scoped advisory lock preventing concurrent writers to one v2 root."""
+
+    def __init__(self, output: Path) -> None:
+        self.path = output / ".acquisition.lock"
+        self.handle = self.path.open("a+", encoding="utf-8")
+        try:
+            fcntl.flock(self.handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            self.handle.seek(0)
+            owner = self.handle.read().strip()
+            self.handle.close()
+            raise RuntimeError(
+                f"another v2 acquisition writer holds {self.path}: {owner}"
+            ) from error
+        owner = {
+            "manifest_schema": "t2_v91_open_role_mh_root_writer_lock_v1",
+            "pid": os.getpid(),
+            "hostname": socket.gethostname(),
+            "acquired_at_utc": datetime.now(timezone.utc).isoformat(),
+        }
+        self.handle.seek(0)
+        self.handle.truncate()
+        self.handle.write(json.dumps(owner, sort_keys=True) + "\n")
+        self.handle.flush()
+        os.fsync(self.handle.fileno())
+        self.released = False
+
+    def release(self) -> None:
+        if self.released:
+            return
+        fcntl.flock(self.handle.fileno(), fcntl.LOCK_UN)
+        self.handle.close()
+        self.released = True
+
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.release()
+
+    def __del__(self) -> None:
+        if hasattr(self, "released") and not self.released:
+            self.release()
 
 
 class _RetryableProviderFailure(RuntimeError):
@@ -1347,6 +1396,7 @@ def run_v2_corpus_acquisition(
                 raise ValueError(
                     f"bounded execution requires acknowledgement {len(selected)}"
                 )
+    root_lock = RootExecutionLock(output) if execute else None
     plan_path = output / "corpus_request_plan.json"
     _write_json(plan_path, plan_as_dict(plan))
     selected_plan = {
@@ -1515,6 +1565,8 @@ def run_v2_corpus_acquisition(
                 "performance_metrics_computed": False,
             },
         )
+        assert root_lock is not None
+        root_lock.release()
     return manifest
 
 
@@ -1623,6 +1675,7 @@ __all__ = [
     "NETWORK_SCHEMA_VERSION",
     "AuditedRateLimitedFetcher",
     "ProviderCircuitOpen",
+    "RootExecutionLock",
     "V2CorpusPlan",
     "V2NetworkPlan",
     "acquire_network",
