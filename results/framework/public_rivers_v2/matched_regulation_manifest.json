@@ -1,0 +1,20 @@
+{
+  "bfi_joined": false,
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "last_check_temperatures_opened": false,
+  "matched_contrast": {
+    "mean_delta_r_regulated_minus_unregulated": -0.02819566216920344,
+    "n_matched_pairs": 5,
+    "passed": false
+  },
+  "n_gages_matched_networks": 51,
+  "n_networks": 91,
+  "n_regulated": 46,
+  "n_seplains": 6,
+  "seplains_is_candidate_failure_zone": true,
+  "t5_passed": false,
+  "t6_passed": false,
+  "what_this_is": "GAGES-II 2009 major-dam join onto downloaded public-river station IDs, with a coarse n_sites/climate/drainage match.",
+  "what_this_is_not": "Not T5 passed. Not operations data. Not a causal dam effect. Not BFI until that GAGES-II table is loaded. Not last-check."
+}

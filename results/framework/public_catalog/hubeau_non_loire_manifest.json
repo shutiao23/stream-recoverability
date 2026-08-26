@@ -1,0 +1,16 @@
+{
+  "countable_toward_t8": false,
+  "europe_daily_years_invented": false,
+  "formal_evidence": false,
+  "last_check_temperatures_opened": false,
+  "loire_downloaded": false,
+  "n_hubeau_stations": 871,
+  "n_non_loire_name_clusters_3plus": 40,
+  "n_sites_daily_span_ge_8yr": 0,
+  "n_sites_instantaneous_span_ge_8yr": 5,
+  "n_sites_span_ge_8yr": 5,
+  "n_span_rows": 34,
+  "temporal_resolution": "instantaneous_not_daily",
+  "what_this_is": "Hub'Eau non-Loire name clusters from the public station table, optionally dated by chronique first/last points.",
+  "what_this_is_not": "Not Loire last-check temperatures. Not invented daily years. Name clusters are not eight-year concurrent networks."
+}

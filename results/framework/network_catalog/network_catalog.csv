@@ -1,0 +1,17 @@
+network_id,display_name,split_role,regime,climate_or_ecoregion,n_candidate_stations,candidate_station_ids,historical_seen,temperature_record_unverified,sealed_outcomes_opened,feasibility_status,notes
+jinsha_upper,Upper Jinsha,historical,regulated,subtropical_highland,3,"B1,S2,P3",True,False,False,historical_case_study_seen,Development contextual only. Not reusable as confirmation.
+chattahoochee_upper_middle,Upper-to-Middle Chattahoochee,historical,regulated,humid_subtropical,5,"02334430,02335000,02335450,02336000,02337170",True,False,False,historical_seen_confirmatory_not_reusable,Outcomes already opened under design_freeze_v4.
+delaware_mainstem,Delaware River mainstem,development,large_river,humid_continental,5,"01427510,01434000,01438500,01457500,01463500",False,True,False,metadata_only_not_downloaded,USGS daily temperature feasibility pending.
+sacramento_mainstem,Sacramento River mainstem,development,regulated,mediterranean,5,"11370500,11377100,11389500,11425500,11447650",False,True,False,metadata_only_not_downloaded,Regulated Central Valley candidate.
+willamette_mainstem,Willamette River mainstem,development,atmospheric,marine_west_coast,5,"14152000,14174000,14191000,14197900,14211720",False,True,False,metadata_only_not_downloaded,
+connecticut_mainstem,Connecticut River mainstem,development,large_river,humid_continental,5,"01144500,01172010,01184000,01193050,01196500",False,True,False,metadata_only_not_downloaded,
+suwannee_florida,Suwannee River groundwater-influenced reach,development,groundwater_dominated,humid_subtropical,5,"02315550,02319394,02320500,02323500,02323592",False,True,False,metadata_only_not_downloaded,"Groundwater-memory control, not a dam classifier."
+potomac_mainstem,Potomac River mainstem,validation,atmospheric,humid_subtropical,5,"01613000,01619500,01636500,01638500,01646500",False,True,False,metadata_only_not_downloaded,
+tennessee_mainstem,Tennessee River mainstem,validation,regulated,humid_subtropical,5,"03571850,03582000,03585000,03592000,03609750",False,True,False,metadata_only_not_downloaded,
+colorado_front_range,South Platte / Front Range,validation,groundwater_dominated,cold_semiarid,5,"06711565,06714000,06719505,06720500,06754000",False,True,False,metadata_only_not_downloaded,
+colorado_grand_canyon,Colorado River Lees Ferry to Diamond Creek,sealed,regulated,cold_arid_highland,5,"09379500,09380000,09402500,09404120,09404200",False,True,False,metadata_only_not_downloaded,Sealed. Do not download temperature into the development path.
+columbia_mainstem,Columbia River mainstem,sealed,large_river,marine_west_coast,5,"12399500,12424000,14105700,14127100,14128870",False,True,False,metadata_only_not_downloaded,
+loire_mainstem,Loire thermal network,sealed,atmospheric,oceanic_temperate,5,"FR_LOIRE_NEVERS,FR_LOIRE_ORLEANS,FR_LOIRE_BLOIS,FR_LOIRE_TOURS,FR_LOIRE_NANTES",False,True,False,metadata_only_not_downloaded,Public identifiers are placeholders pending Banque Hydro QA.
+swiss_aar_rhine,Swiss Aare-Rhine FOEN cluster,sealed,atmospheric,alpine,5,"CH_RHINE_BASEL,CH_AARE_BERN,CH_REUSS_LUZERN,CH_LIMMAT_ZURICH,CH_RHONE_PORTE_DU_SCEX",False,True,False,metadata_only_not_downloaded,Public identifiers are placeholders pending FOEN QA.
+ohio_mainstem,Ohio River mainstem,sealed,large_river,humid_continental,5,"03216600,03277200,03294500,03303280,03612500",False,True,False,metadata_only_not_downloaded,
+upper_deschutes,Upper Deschutes groundwater reach,sealed,groundwater_dominated,marine_west_coast,5,"14050000,14064500,14070500,14076500,14092500",False,True,False,metadata_only_not_downloaded,

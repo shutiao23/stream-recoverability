@@ -1,4 +1,4 @@
-# Reservoir Regulation and Stream-Temperature Recoverability
+# A Case-Study Covariance Heuristic for Stream-Temperature Recoverability
 
 A reproducible study of how reservoir regulation reshapes the information
 available to recover daily stream temperature under monitoring outages.
@@ -11,13 +11,14 @@ study. The primary task is offline reconstruction of stream temperature (`T`);
 discharge (`F`) and water level (`L`) are secondary targets and information
 sources. A separate online protocol is strictly causal.
 
-The scientific contribution is a cross-network regulation fingerprint:
-dam-proximal reaches become memory-dominated, whereas less regulated or
-downstream re-equilibrated reaches are donor-dominated. Controlled masks probe
-that information structure; they are not presented as observed fault records.
-An independently frozen 335-site US panel adds a generalization boundary: the
-index weakens with distance below major dams but fails stand-alone
-leave-one-ecoregion-out dam classification.
+The scientific contribution is a reproducible case-study screen, not a
+confirmatory reservoir mechanism. In two documented networks, dam-proximal
+stations are labelled memory-dominated by a train-only covariance heuristic.
+Controlled masks probe that information structure; they are not observed fault
+records. An independently frozen 335-site panel adds a generalization boundary:
+the index weakens with distance below major dams but is not a valid standalone
+dam classifier. The frozen pooled leave-one-ecoregion-out AUC is retained only
+as a defective diagnostic.
 
 ## Evidence status
 
@@ -42,17 +43,22 @@ artifacts.
   "public_history": "code_only_rewrite_complete_zero_restricted_paths",
   "github_release": "v1.0.0",
   "archival_doi": "pending",
-  "current_protocol_result_claims": "internal_complete_external_type_confirmed"
+  "current_protocol_result_claims": "case_study_descriptive_inference_withheld"
 }
 ```
 <!-- evidence-status:end -->
+
+下一篇换问题，计划写在
+[`docs/research_charter_v1.md`](docs/research_charter_v1.md)。
+现在这篇金沙江稿子的结果不重开。假河网检验：`make recoverability-framework`。
+公开目录核验：`python scripts/46_check_public_rivers.py`。
 
 The v5 scope amendment is recorded in
 `docs/protocol_change_v4_to_v5.md`; major-review corrections are recorded in
 `docs/protocol_change_v5_to_v6.md`. CSDI is a reduced probabilistic diagnostic,
 not a formal frontier model. Deep candidates with any required
 `best_epoch < 50` are labelled `training_unstable` and excluded. The primary
-question is whether the frozen covariance budget predicts measured
+question is whether the frozen covariance heuristic predicts measured
 recoverability, not which imputation model wins.
 
 In particular:

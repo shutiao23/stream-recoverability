@@ -1,0 +1,30 @@
+{
+  "confirmatory_eligible": false,
+  "formal_evidence": false,
+  "gap_triage": {
+    "absolute_improvement_pp": 0.0,
+    "headline_claim_licensed": false,
+    "n_fills": 351,
+    "n_networks": 11,
+    "passed": false,
+    "passed_numeric_floors": false,
+    "relative_improvement": NaN
+  },
+  "geometry_source": "real_missing_blocks_length_season",
+  "headline_claim_licensed": false,
+  "last_check_temperatures_used": false,
+  "min_eval_length_days": 7,
+  "n_gaps_scored": 351,
+  "n_gaps_with_operator": 351,
+  "n_networks": 11,
+  "n_networks_min_for_confirmation": 100,
+  "network_spearman_r_vs_achieved_skill": 0.690909090909091,
+  "passed": false,
+  "sealed_outcomes_opened": false,
+  "short_holes_excluded_reason": "1-6 day holes dominate real_missing_blocks but cannot support a stable donor-fill MAE; evaluable geometry starts at 7 days.",
+  "task": "offline_archival",
+  "truth_source": "held_out_observed_days",
+  "unlabeled_missing_days_scored": false,
+  "what_this_is": "Donor fills on held-out observed days whose gap length and season follow real_missing_blocks.csv.",
+  "what_this_is_not": "Not confirmatory. Not scoring unlabeled missing days. Not a last-check opening. Not a T2 result. T4 is not passed."
+}

@@ -1,0 +1,58 @@
+{
+  "baseline_residual_gain": {
+    "r2_simple": 0.9087332903214181,
+    "r2_with_operator": 1.0,
+    "residual_correlation": 0.3021038061305766,
+    "residual_r2": 0.09126670967858186
+  },
+  "catalog_violations": [],
+  "design_id": "recoverability_study_freeze_v1",
+  "e0_pass": {
+    "donor_sign": true,
+    "heuristic_forced_on_mixed": true,
+    "jensen_nonzero": true,
+    "memory_sign": true
+  },
+  "formal_evidence": false,
+  "note": "Synthetic machinery only. No sealed river-network temperature outcomes were opened.",
+  "real_network_outcomes_used": false,
+  "recommended_network_count_for_this_simulation": 20,
+  "sealed_outcomes_opened": false,
+  "sensor_policy_success": [
+    {
+      "best_non_oracle_policy": "random",
+      "best_non_oracle_worst_case_mae": 1.02054705159875,
+      "k": 2,
+      "meets_provisional_15pct": false,
+      "oracle_worst_case_mae": 0.9276887395642187,
+      "proposed_worst_case_mae": 0.930887270876083,
+      "worst_case_reduction": 0.08785462716511638
+    },
+    {
+      "best_non_oracle_policy": "random",
+      "best_non_oracle_worst_case_mae": 0.9638787124365402,
+      "k": 3,
+      "meets_provisional_15pct": false,
+      "oracle_worst_case_mae": 0.9207213401681416,
+      "proposed_worst_case_mae": 0.9233242226357492,
+      "worst_case_reduction": 0.042074266479311895
+    },
+    {
+      "best_non_oracle_policy": "random",
+      "best_non_oracle_worst_case_mae": 0.9498453630172086,
+      "k": 4,
+      "meets_provisional_15pct": false,
+      "oracle_worst_case_mae": 0.9147703659463001,
+      "proposed_worst_case_mae": 0.9174036957336619,
+      "worst_case_reduction": 0.034154683011237585
+    }
+  ],
+  "status": "complete",
+  "synthetic_confirmation_passed": true,
+  "topology_stability": {
+    "n_distinct_signs": 1.0,
+    "n_geometries": 3.0,
+    "n_sign_changes": 0.0,
+    "stable": true
+  }
+}

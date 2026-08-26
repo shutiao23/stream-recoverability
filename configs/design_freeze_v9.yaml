@@ -1,0 +1,442 @@
+design_id: design_freeze_v9
+design_version: design_freeze_v9
+not_an_executable_design: true
+executable: false
+status: charter_frozen_outcomes_unopened
+frozen_on: "2026-08-26"
+supersedes: recoverability_study_freeze_v1
+historical_case_study_freeze: design_freeze_v4
+charter: docs/research_charter_v1.md
+protocol_change: docs/protocol_change_v8_to_v9.md
+formal_evidence: false
+headline_claim_licensed: false
+reservoir_mechanism_in_headline: false
+hard_type_labels_are_primary: false
+eventwise_best_envelope_is_primary: false
+national_dam_auc_is_recoverability_evidence: false
+sealed_outcomes_opened: false
+jinsha_outcomes_reusable_as_confirmation: false
+chattahoochee_outcomes_reusable_as_confirmation: false
+regulation_role: covariate_and_mechanism_not_headline
+note: >
+  Next-paper design freeze. Numeric gates are locked. Sealed temperatures
+  are unopened. The 12-river pilot and synthetic sensor-policy numbers are
+  development context, not confirmatory. Do not write them into the
+  abstract or conclusions as proof.
+
+core_question: >
+  Before any recovery model is fit, can a fitting-period Schur operator
+  predict held-out stream-temperature gap skill on unseen river networks,
+  transfer across continents, and yield a monitoring rule that beats
+  length-only operations? The one-sentence contribution is a target, not
+  a result.
+
+primary_estimand:
+  name: schur_operator_recoverability
+  definition: >
+    Fitting-period Schur complement
+    Sigma_G|O = Sigma_GG - Sigma_GO Sigma_OO^{-1} Sigma_OG.
+    Primary summary is
+    R = 1 - sqrt(mean(diag Sigma_G|O) / mean(diag Sigma_G|clim)).
+    Secondary summaries are the Gaussian MAE ratio predicted_skill
+    and normalized_conditional_variance. Report a continuous spectrum,
+    not hard type labels. Achieved skill on held-out gaps remains
+    1 - E[L(Y_G, f_S)] / E[L(Y_G, f_0)], with f_S fixed on fitting and
+    validation data only.
+  loss: mae_degC
+  baseline_predictor: fitting_period_climatology
+  reporting: continuous_spectrum_not_hard_labels
+  information_sources:
+    B: local_left_and_right_boundaries
+    D: synchronous_donor_temperatures
+    M: meteorology
+    H: hydraulics
+    O: operations_when_available
+  incremental:
+    V_D: R(B_union_D) - R(B)
+    V_B: R(B_union_D) - R(D)
+    tau: log((V_B + epsilon) / (V_D + epsilon))
+    epsilon: 1.0e-6
+    reporting: continuous_spectrum_with_uncertainty
+    optional_label_rule: >
+      Sign of tau is descriptive only. Do not force a hard type when
+      donor R2 >= 0.5.
+
+secondary_estimands:
+  algorithmic_recoverability: frozen_model_realized_skill
+  operational_recoverability: online_or_cost_constrained_skill
+  sensor_policy_utility: held_out_worst_case_mae_reduction
+
+proposed_operator:
+  class: gaussian_conditional_covariance
+  formula: Sigma_G_given_O = Sigma_GG - Sigma_GO Sigma_OO^{-1} Sigma_OG
+  summaries:
+    - expected_gaussian_mae
+    - normalized_conditional_variance
+    - trace_ratio
+    - log_determinant_reduction
+  must_represent:
+    - both_boundaries
+    - donor_correlation
+    - donor_count
+    - river_direction_and_topology
+    - season_or_state
+    - gap_length
+  donor_normalization:
+    - year_block_cross_validated_r2
+    - donor_count_matched_risk_reduction
+  weakest_baseline: additive_d_over_4_heuristic
+  weakest_baseline_rank: 4
+  forbidden_as_primary:
+    - in_sample_donor_r2_without_cv
+    - rho_squared_at_mean_nearest_boundary
+    - 1_minus_sqrt_1_minus_R2_as_a_theorem
+
+legacy_heuristic:
+  status: preregistered_baseline_4
+  formula: R2_avail = R2_donor + (1 - R2_donor) * rho(d/4)^2
+  known_degeneration: donor_r2_ge_0.5
+  known_degeneration_detail: donor_r2_ge_0.5_forces_donor_dominated
+  known_jensen_defect: E[rho^2(L)] != rho^2(E[L])
+  known_scale_defect: in_sample_r2_increases_with_donor_count
+
+baselines:
+  - gap_length_only
+  - acf_only
+  - donor_r2_only
+  - additive_d_over_4_heuristic
+  - nearest_donor_distance_or_correlation
+
+extrapolation_unit: river_network
+independent_units:
+  - network
+  - station_nested_in_network
+  - site_year_nested_in_station
+mask_role: repeated_measurement_not_independent_sample
+minimum_independent_clusters_for_interval: 5
+minimum_independent_networks_for_interval: 100
+interval_rule: >
+  Primary CIs require at least 100 independent river networks.
+  The nested floor of 5 site-year or overlap clusters is only a
+  within-network descriptive rule. Do not report a network-level
+  interval from the 12-river pilot.
+
+split_rule:
+  unit: entire_network
+  development_fraction_target: 0.50
+  validation_fraction_target: 0.20
+  sealed_confirmatory_fraction_target: 0.30
+  sealed_min_networks: 40
+  sealed_min_outside_north_america: 10
+  forbidden:
+    - random_station_split_within_network
+    - using_jinsha_or_chattahoochee_as_sealed_confirmation
+    - reading_sealed_temperature_outcomes_during_development
+    - sealing_already_downloaded_development_or_validation_rivers
+  historical_seen_networks:
+    jinsha_upper: development_contextual_only
+    chattahoochee_upper_middle: historical_seen_not_reusable_for_confirmation
+  never_sealed_networks:
+    - jinsha_upper
+    - chattahoochee_upper_middle
+    - delaware_river_huc20
+    - willamette_river_huc17
+    - suwannee_river_huc31
+    - yellowstone_river_huc10
+    - rio_grande_huc13
+    - madison_river_huc10
+    - cahaba_river_huc31
+    - mckenzie_river_huc17
+    - mahoning_river_huc50
+    - roanoke_river_huc30
+    - santa_fe_river_huc31
+    - clearwater_river_huc17
+  not_countable_as_public_daily_or_non_na_sealed_until_daily_history_is_public:
+    - loire_mainstem
+    - swiss_aar_rhine
+  sealed_absolute_floor: 40
+  sealed_mix_target_fraction: 0.30
+  note: >
+    Absolute sealed floor is 40 networks. 30 percent is the mix target
+    (about 45 at n=150). Do not keep three different floors. Loire and
+    Swiss Aare-Rhine cannot count toward T8 or the 10 non-North-America
+    sealed networks until daily values are public and dated. Fractions
+    and never-sealed ids are the locked rule. Do not remap
+    network_catalog_v1 splits in Phase 0. Catalog expansion is Phase 3.
+
+inventory_targets:
+  independent_networks: [150, 250]
+  stations_per_network_min: 3
+  known_contract_lag: >
+    Catalog validator still requires 4 candidate stations (and 4 climate
+    classes) until Phase 3 updates it. This freeze locks the scientific
+    target at 3 stations / 3 climate zones / 2 continents.
+  traceable_years_per_station_min: 8
+  evaluable_site_years_per_network_min: 5
+  climate_or_ecoregion_classes_min: 3
+  continents_min: 2
+  overlapping_years_min: 8
+  regimes_required:
+    - regulated
+    - groundwater_dominated
+    - atmospheric
+    - large_river
+  note: >
+    These are design targets, not the current inventory. Twelve downloaded
+    rivers are a pilot, not 150 networks.
+
+locked_success_criterion:
+  status: locked
+  source: docs/v9_redesign_master_plan.md
+  model: >
+    observed_recovery_loss ~ beta0 + beta1 * predicted_conditional_risk
+    + u_network + u_station
+  inference:
+    unit: river_network
+    cluster_bootstrap_over: rivers
+    n_networks_min: 100
+    cis_must_be_reportable: true
+  t2_large_sample_primary:
+    out_of_network_spearman_min: 0.60
+    network_bootstrap_lower_bound_min: 0.40
+    ci95_lower_bound_must_exceed: four_preregistered_univariate_baseline_point_estimates
+    sealed_skill_median_absolute_bias_max: 0.10
+    calibration_slope_min: 0.80
+    calibration_slope_max: 1.20
+    gates_are_confirmatory_floors: true
+    development_power_analysis_may_only_raise: true
+    six_river_pilot_is_failed_context_not_evidence: true
+  t3_decision:
+    either: [a_placement, b_gap_triage]
+  incremental_over:
+    - gap_length_only
+    - acf_only
+    - donor_r2_only
+    - additive_d_over_4_heuristic
+  management:
+    worst_case_mae_reduction_vs_best_non_oracle_min: 0.15
+    network_interval_must_exclude_zero: true
+    leave_one_network_out_same_sign_majority: true
+    single_network_may_not_drive: true
+  forbidden_after_seal:
+    - redefining_type
+    - changing_model_rule
+    - selecting_the_better_of_90_and_180_days
+    - promoting_best_envelope_to_primary
+
+provisional_success_criterion:
+  status: locked_by_v9
+  model: >
+    observed_recovery_loss ~ beta0 + beta1 * predicted_conditional_risk
+    + u_network + u_station
+  intended_locks_after_phase_4:
+    network_blocked_spearman_min: 0.60
+    network_bootstrap_lower_bound_min: 0.40
+    ci95_lower_bound_must_exceed: four_preregistered_univariate_baseline_point_estimates
+    sealed_skill_median_absolute_bias_max: 0.10
+    calibration_slope_min: 0.80
+    calibration_slope_max: 1.20
+    leave_one_network_out_same_sign_majority: true
+    single_network_may_not_drive: true
+    incremental_over:
+      - gap_length_only
+      - acf_only
+      - donor_r2_only
+      - additive_d_over_4_heuristic
+  management:
+    worst_case_mae_reduction_vs_best_non_oracle_min: 0.15
+    network_interval_must_exclude_zero: true
+  t3_decision:
+    either: [a_placement, b_gap_triage]
+  forbidden_after_seal:
+    - redefining_type
+    - changing_model_rule
+    - selecting_the_better_of_90_and_180_days
+    - promoting_best_envelope_to_primary
+
+theory_propositions:
+  prop1_monotonicity: O1_subseteq_O2_implies_Sigma_G_O2_preceq_Sigma_G_O1
+  prop2_logdet_submodularity: greedy_one_minus_1_over_e
+  prop3_heuristic_special_case: additive_d_over_4_under_orthogonality_and_exponential_acf
+  prop3_bias_terms: [epsilon_perp, epsilon_d_over_4]
+  prop3_degeneration_region: donor_r2_ge_0.5
+  prop4_estimator_independent_mae_bound: sqrt_2_over_pi_times_mean_conditional_sd
+  gaussian_mae_factor: 0.7978845608028654
+  non_gaussian_fallback: quantile_width_keep_monotonicity_only
+
+t4_real_missing:
+  required: true
+  existing_inputs:
+    - results/framework/public_rivers/real_missing_blocks.csv
+    - results/framework/public_rivers/willamette_mainstem_real_missing_blocks.csv
+
+t5_confound_control:
+  topology_matched_regulation: true
+  matching_factors:
+    - donor_count
+    - donor_direction
+    - nearest_donor_distance
+    - drainage_area
+    - climate
+    - bfi
+  synthetic_twin_design:
+    twin_a: dam_like_node_not_at_endpoint
+    twin_b: endpoint_not_dam_like
+
+t6_honest_boundary:
+  required: true
+  preferred_mechanism: seplains_reversal_times_gages_ii_bfi
+
+t7_sealed_confirmatory:
+  evaluate_once: true
+  numeric_thresholds_preregistered: true
+  sealed_absolute_floor: 40
+  reuse: [once_lock, governance]
+
+decision_endpoints:
+  a_placement:
+    name: greedy_logdet_placement
+    vs: strongest_non_oracle_baseline
+    non_oracle_baselines:
+      - random
+      - degree
+      - distance
+      - correlation
+      - oh_bartos_2025_rank_revealing_qr
+    worst_case_mae_reduction_min: 0.15
+    climate_or_ecoregion_classes_min: 3
+    report_oracle_gap: true
+  b_gap_triage:
+    name: safe_fill_triage
+    preferred_headline: true
+    false_release_rate: 0.05
+    false_release_definition: fill_error_gt_0.5_degC
+    safe_fill_relative_improvement_min: 0.30
+    safe_fill_absolute_improvement_min_pp: 15
+    vs: gap_length_only
+  accept_if: a_or_b
+  if_t3_fails_but_t1_t2_t4_t5_t7_hold: downgrade_title_from_decision_to_predictability
+
+experiments:
+  note: >
+    Twelve-river pilot and synthetic sensor-policy results are development
+    context, not confirmatory. Do not mark E3 opened.
+  E0:
+    name: synthetic_identifiability
+    status: executable
+    required_before_real_data_expansion: true
+    development_context_not_confirmatory: true
+  E1:
+    name: within_network_temporal_validation
+    status: development_executed_not_confirmatory
+  E2:
+    name: leave_one_network_out
+    status: development_failed_not_confirmatory
+    note: first public-river LORO did not pass; not confirmatory
+  E3:
+    name: sealed_multi_network_confirmation
+    status: specified_not_opened
+  E4:
+    name: strong_baseline_and_ablation
+    status: executable_on_synthetic
+    development_context_not_confirmatory: true
+  E5:
+    name: topology_falsification
+    status: executable_on_synthetic
+    development_context_not_confirmatory: true
+  E6:
+    name: state_shift_robustness
+    status: specified
+  E7:
+    name: natural_outage_benchmark
+    status: specified_inputs_exist_not_confirmatory
+  E8:
+    name: scientific_record_preservation
+    status: executable
+  E9:
+    name: sensor_design_decision_test
+    status: development_failed_not_confirmatory
+    note: did not stably beat 15 percent versus non-oracle baselines
+  E10:
+    name: optional_reservoir_mbaci
+    status: companion_only_if_operations_data_exist
+
+recovery_benchmark:
+  status: locked_by_v9
+  placements_per_cell_min: 20
+  information_conditions: [B, D, B_union_D, B_union_D_union_M, B_union_D_union_M_union_H]
+  gap_geometries:
+    artificial_stress: [7, 14, 30, 60, 90, 180, 365]
+    natural_outage: empirically_weighted_from_quality_flags
+    adversarial: predeclared_stress_catalog
+  tasks:
+    offline_archival: both_boundaries_allowed
+    online_causal: future_boundary_forbidden
+  model_budget_rule: shared_tuning_budget_no_posthoc_epoch_exclusion
+  required_predictors:
+    - gap_length_only
+    - acf_only
+    - donor_r2_only
+    - additive_d_over_4_heuristic
+    - nearest_donor_distance_or_correlation
+    - conditional_covariance
+    - conditional_covariance_plus_learned_calibration
+  required_recovery_models:
+    - persistence_or_climatology
+    - kalman
+    - donor_regression
+    - xgboost
+    - air2stream_or_equivalent
+    - pgdl_or_graph_wavenet
+    - saits
+    - csdi
+    - grin
+  primary_evidence_forbids:
+    - eventwise_best_envelope
+    - best_epoch_lt_50_posthoc_drop
+    - unequal_tuning_budgets
+    - excluding_models_because_best_epoch_lt_50
+
+sensor_policy:
+  budgets: [1, 2, 3, 4, 5]
+  strategies:
+    - current_network
+    - random
+    - spatially_even
+    - degree
+    - distance
+    - correlation_redundancy
+    - observability_gramian
+    - oh_bartos_2025_rank_revealing_qr
+    - proposed_recoverability
+    - oracle
+  held_out_metrics:
+    - expected_mae
+    - worst_case_mae
+    - heatwave_preservation
+    - failure_regret
+
+falsifiers:
+  - synthetic_wrong_information_ordering
+  - topology_alias_after_donor_geometry_match
+  - no_incremental_value_over_simple_predictors
+  - operator_no_better_than_donor_r2
+  - sealed_criterion_miss_or_single_network_driver
+  - no_sensor_policy_utility
+  - placement_only_single_digit_percent_vs_random
+  - gaussian_second_order_fails_pit_qq
+  - qualified_networks_below_100
+  - natural_outage_failure
+  - sealed_miss_must_be_written_not_unfrozen
+
+failure_closure: >
+  Accept path is T1-T7. If T3 fails but T1, T2, T4, T5, and T7 hold,
+  downgrade the title from decision to predictability; do not retune to
+  rescue novelty. If the operator is no better than donor R2, retitle to
+  predictability. If placement wins only single-digit percent versus
+  random, headline on triage (b). If the Gaussian second-order model
+  fails PIT/QQ, keep monotonicity and switch to quantile-width. If
+  qualified networks fall below 100, relax to 3 stations / 6 years and
+  report the relaxation. If the sealed primary criterion misses, write
+  the miss in the ledger; do not unfreeze. The historical two-network
+  manuscript remains a descriptive case study.

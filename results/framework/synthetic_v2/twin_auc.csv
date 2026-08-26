@@ -1,0 +1,13 @@
+predictor,auc,n_positive,n_negative,higher_means,gate_role,univariate_exceeds_max,contrast
+operator_risk,1.0,7,73,higher residual risk (1-R) is more dam-like,operator,False,all_nodes_dam_like_vs_not
+donor_r2_risk,1.0,7,73,lower contemporaneous donor R2 looks more memory-like,univariate,True,all_nodes_dam_like_vs_not
+acf30,1.0,7,73,higher lag-30 ACF looks more memory-like,univariate,True,all_nodes_dam_like_vs_not
+memory_component,1.0,7,73,higher legacy (1-D)*rho(d/4)^2 looks more memory-like,univariate,True,all_nodes_dam_like_vs_not
+hard_memory_label,0.5,7,73,legacy hard memory label (memory_component > donor R2),univariate,False,all_nodes_dam_like_vs_not
+mean_donor_hops,0.3356164383561644,7,73,larger mean hop distance is more endpoint-like,univariate,False,all_nodes_dam_like_vs_not
+operator_risk,1.0,5,5,higher residual risk (1-R) is more dam-like,operator,False,interior_dam_vs_ordinary_endpoint
+donor_r2_risk,1.0,5,5,lower contemporaneous donor R2 looks more memory-like,univariate,True,interior_dam_vs_ordinary_endpoint
+acf30,1.0,5,5,higher lag-30 ACF looks more memory-like,univariate,True,interior_dam_vs_ordinary_endpoint
+memory_component,1.0,5,5,higher legacy (1-D)*rho(d/4)^2 looks more memory-like,univariate,True,interior_dam_vs_ordinary_endpoint
+hard_memory_label,0.5,5,5,legacy hard memory label (memory_component > donor R2),univariate,False,interior_dam_vs_ordinary_endpoint
+mean_donor_hops,0.0,5,5,larger mean hop distance is more endpoint-like,univariate,False,interior_dam_vs_ordinary_endpoint

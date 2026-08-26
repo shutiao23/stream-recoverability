@@ -1,0 +1,12 @@
+{
+  "aligned_control_rivers_found": false,
+  "can_write_reservoir_cause": false,
+  "error": "HTTP Error 404: ",
+  "example_storage_sites_found": 0,
+  "nwis_site_service_reachable": false,
+  "outlet_depth_found": false,
+  "reason": "USGS site files can list reservoir storage at some lakes. This check did not find release temperature, outlet depth, and matched control rivers on the same days. Without those, a reservoir before-after study is not licensed.",
+  "release_temperature_found": false,
+  "what_this_is": "A check of whether reservoir operations are publicly downloadable.",
+  "what_this_is_not": "Not a dam-cause result. No before-after table was computed."
+}

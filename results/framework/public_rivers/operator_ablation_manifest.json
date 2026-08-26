@@ -1,0 +1,94 @@
+{
+  "achieved_skill_is_later_year_not_gap_specific": true,
+  "chattahoochee_outcomes_used": false,
+  "clearwater_dropped": true,
+  "confirmatory_eligible": false,
+  "delaware_scored": false,
+  "donor_r2_estimator": "year_block_cv",
+  "donor_r2_estimator_note": "Year-block CV on train years when at least two train years exist; otherwise train in-sample. Labeled per station.",
+  "dropped_insane_mae_networks": [
+    "clearwater_river_huc17"
+  ],
+  "evaluate_success": {
+    "confirmatory_eligible": false,
+    "n_networks_min": 100,
+    "passed": false,
+    "passed_numeric_floors": false,
+    "thresholds_locked": true
+  },
+  "formal_evidence": false,
+  "gap_lengths": [
+    30,
+    90
+  ],
+  "headline_claim_licensed": false,
+  "incremental_note": "operator incremental R2 is positive on this pilot; not confirmatory",
+  "insane_donor_mae_threshold_c": 50.0,
+  "jinsha_outcomes_used": false,
+  "max_donor_mae_by_network": {
+    "clearwater_river_huc17": 66331.68515304664,
+    "madison_river_huc10": 1.3426123922437863,
+    "mahoning_river_huc50": 1.2135493316059527,
+    "roanoke_river_huc30": 1.3882673805303745,
+    "santa_fe_river_huc31": 1.2032781123430745,
+    "suwannee_river_huc31": 0.6975194757008908,
+    "willamette_river_huc17": 0.7339604756920846
+  },
+  "n_networks": 5,
+  "n_networks_attempted": 12,
+  "n_station_rows_primary_gap": 26,
+  "nested_grids": "separate per gap so later-year skill is not duplicated",
+  "nested_predictors": [
+    "gap_length",
+    "acf30",
+    "donor_r2",
+    "heuristic_explained_variance",
+    "recoverability_r"
+  ],
+  "new_temperatures_downloaded": false,
+  "operator_incremental_r2_le_0": false,
+  "operator_incremental_r2_station": 0.16236113383124817,
+  "primary_gap_length": 30,
+  "primary_networks": [
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "requested_primary_missing": [
+    "delaware_river_huc20"
+  ],
+  "requested_primary_networks": [
+    "delaware_river_huc20",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "scored_networks": [
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "suwannee_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "sealed_outcomes_opened": false,
+  "spearman_by_gap": {
+    "gap_30": {
+      "spearman_donor_r2_vs_achieved_skill": 0.6,
+      "spearman_operator_r_vs_achieved_skill": 0.8999999999999998
+    },
+    "gap_90": {
+      "spearman_donor_r2_vs_achieved_skill": 0.6,
+      "spearman_operator_r_vs_achieved_skill": 0.7
+    }
+  },
+  "spearman_donor_r2_vs_achieved_skill": 0.6,
+  "spearman_operator_r_vs_achieved_skill": 0.8999999999999998,
+  "thresholds_locked": true,
+  "what_this_is": "Phase 4 stop-loss nested ablation on already-downloaded public rivers. Train-only predictors; later-year donor-regression skill versus train climatology.",
+  "what_this_is_not": "Not confirmatory. Not formal evidence. Not a headline claim. Does not replace leave_one_river_out.csv."
+}

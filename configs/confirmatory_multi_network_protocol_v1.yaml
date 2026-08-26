@@ -1,0 +1,44 @@
+design_id: confirmatory_multi_network_protocol_v1
+status: sealed_before_outcomes
+formal_evidence: false
+note: >
+  This protocol is sealed so that a future multi-network run can be confirmatory.
+  No outcomes from this protocol exist. Do not write pending results into the
+  abstract, conclusions, or captions.
+
+minimum_networks:
+  regulated: 3
+  topology_matched_controls: 3
+minimum_site_years: 3
+minimum_placements_per_site_gap_year: 20
+independent_unit: site_year_or_overlap_component
+minimum_independent_clusters_for_p_or_ci: 5
+
+frozen_before_outcomes:
+  - site_list
+  - donor_geometry
+  - model_roster
+  - single_model_selection_rule
+  - primary_contrast
+  - success_criterion
+  - mask_catalog
+  - analysis_code_hash
+
+primary_contrast:
+  estimand: memory_site_minus_donor_site_skill_at_90_and_180_days
+  model_rule: one_fixed_model_chosen_only_from_pre_evaluation_validation
+  success_if: >
+    The predeclared memory-type site is worse than every topology-matched
+    donor-type site at both 90 and 180 days under the frozen model rule,
+    after overlap-aware inference.
+
+forbidden:
+  - reading_evaluation_outcomes_before_seal
+  - changing_the_model_rule_after_seeing_the_envelope
+  - treating_pooled_LOEO_AUC_as_a_valid_headline
+  - reservoir_causal_language_without_operation_or_pre_post_data
+
+failure_closure: >
+  If the sealed contrast fails, or if topology-matched controls show the same
+  memory type without a dam, the reservoir-mechanism hypothesis is rejected
+  and the paper remains a case-study heuristic.

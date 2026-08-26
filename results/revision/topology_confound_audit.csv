@@ -1,0 +1,9 @@
+network,station_id,recoverability_type,dam_role,network_endpoint,endpoint_position,donor_count,donor_direction,identifiability_note
+Upper Jinsha,B1,donor_dominated,far_upstream_of_Guanyinyan,False,upstream_interior,2,both_downstream,not dam-proximal; donors include the dam-proximal endpoint
+Upper Jinsha,S2,donor_dominated,mid_network_upstream_of_Guanyinyan,False,middle,2,one_upstream_one_downstream,not dam-proximal; mixed donor direction
+Upper Jinsha,P3,memory_dominated,27_km_downstream_of_Guanyinyan,True,downstream_terminus,2,both_upstream,"dam proximity, downstream endpoint, and lowest donor R2 are completely aliased"
+Upper--Middle Chattahoochee,02334430,memory_dominated,0.366_km_below_Buford,True,upstream_origin,4,all_downstream,dam proximity and upstream network origin are aliased; no upstream donor exists
+Upper--Middle Chattahoochee,02335000,donor_dominated,downstream_of_Buford,False,mainstem_interior,4,mixed_upstream_and_downstream,not the dam-proximal origin
+Upper--Middle Chattahoochee,02335450,donor_dominated,downstream_of_Buford,False,mainstem_interior,4,mixed_upstream_and_downstream,not the dam-proximal origin
+Upper--Middle Chattahoochee,02336000,donor_dominated,downstream_of_Buford,False,mainstem_interior,4,mixed_upstream_and_downstream,not the dam-proximal origin
+Upper--Middle Chattahoochee,02337170,donor_dominated,downstream_of_Buford,True,downstream_terminus,4,all_upstream,downstream endpoint but donor-dominated; endpoint alone does not determine type

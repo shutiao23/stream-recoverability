@@ -1,0 +1,4 @@
+network_id,river,ok,complete_enough,continent,countable_toward_t8,n_days,n_stations,days_with_min_stations,overlap_start,overlap_end,overlap_years,station_coverage,derived_from,loire_downloaded
+hubeau_la_garonne,La Garonne,False,False,europe,False,,,,,,,,,
+hubeau_le_rhone,Le Rhône,False,False,europe,False,641.0,1.0,641.0,2008-10-15,2010-07-17,1.7522245037645447,{'06100900': 1.0},hubeau_instantaneous_chronique_daily_mean,False
+hubeau_la_saone,La Saône,False,False,europe,False,242.0,1.0,242.0,2008-09-19,2009-05-18,0.6598220396988365,{'06059500': 1.0},hubeau_instantaneous_chronique_daily_mean,False

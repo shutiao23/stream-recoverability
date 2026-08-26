@@ -1,0 +1,54 @@
+{
+  "best_honest_definition": "v2 name+official HUC2, at least 3 stream stations, largest subset with at least 8 overlapping catalog years. HUC8-only is exploratory and excluded. 6-year overlap is a documented relaxation, not the honest T2 count.",
+  "best_honest_public_usgs_count": 98,
+  "best_honest_still_below_100": true,
+  "best_honest_still_below_150": true,
+  "counts": {
+    "v1_style_4st_8y": 31,
+    "v2_huc8_only_3st_8y": 166,
+    "v2_name_huc2_3st_6y": 112,
+    "v2_name_huc2_3st_8y": 98,
+    "v2_name_huc4_3st_8y": 99
+  },
+  "design_freeze_v4_touched": false,
+  "europe_daily_years_invented": false,
+  "huc2_rule": "Official USGS HUC2 after restoring a missing leading zero on odd-length codes. Not v1's raw first-two-character prefix.",
+  "loire_counted_toward_t8": false,
+  "n_usgs_daily_series": 3995,
+  "n_usgs_series_span_ge_6yr": 1966,
+  "n_usgs_series_span_ge_8yr": 1648,
+  "network_catalog_v1_rewritten": false,
+  "never_sealed_networks_not_remapped": [
+    "jinsha_upper",
+    "chattahoochee_upper_middle",
+    "delaware_river_huc20",
+    "willamette_river_huc17",
+    "suwannee_river_huc31",
+    "yellowstone_river_huc10",
+    "rio_grande_huc13",
+    "madison_river_huc10",
+    "cahaba_river_huc31",
+    "mckenzie_river_huc17",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "clearwater_river_huc17"
+  ],
+  "not_countable_as_public_daily_or_non_na_sealed": [
+    "loire_mainstem",
+    "swiss_aar_rhine"
+  ],
+  "sealed_outcomes_opened": false,
+  "sensitivity_counts": {
+    "v2_huc8_only_3st_6y": 190,
+    "v2_name_huc2_4st_6y": 56,
+    "v2_name_huc2_4st_8y": 44,
+    "v2_name_huc4_3st_6y": 113,
+    "v2_name_huc8_3st_8y": 83
+  },
+  "swiss_aar_rhine_counted_toward_t8": false,
+  "target_independent_networks": 150,
+  "temperatures_downloaded": false,
+  "what_this_is": "Metadata-only v2 public USGS catalog counts using the largest overlapping station subset.",
+  "what_this_is_not": "Not a recovery score. Daily temperature values were not downloaded. Sealed temperatures were not opened. Loire and Swiss Aare-Rhine are not counted toward T8 or non-NA sealed."
+}

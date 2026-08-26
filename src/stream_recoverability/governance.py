@@ -16,6 +16,11 @@ from typing import Any
 import yaml
 
 from stream_recoverability.data.quality import load_quality_codebook
+from stream_recoverability.analysis.study_freeze import (
+    DEFAULT_STUDY_FREEZE,
+    load_study_freeze,
+    study_is_confirmatory,
+)
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     EXECUTABLE_DESIGN_VERSION,
@@ -273,6 +278,9 @@ def submission_gate(
     once_lock: str | Path | None = None,
     rights_audit: str | Path | None = None,
     reproduction_report: str | Path | None = None,
+    editor_exception_approval: str | Path | None = None,
+    author_metadata: str | Path | None = None,
+    reviewer_data_upload: str | Path | None = None,
 ) -> dict[str, Any]:
     """Validate explicit release evidence; never discover a convenient file by glob."""
 
@@ -292,6 +300,9 @@ def submission_gate(
         "confirmatory once-lock": once_lock,
         "rights audit": rights_audit,
         "reproduction report": reproduction_report,
+        "restricted-data editor approval": editor_exception_approval,
+        "submission author metadata": author_metadata,
+        "GEMS reviewer-data upload": reviewer_data_upload,
     }
     records: dict[str, dict[str, Any]] = {}
     for label, path in supplied.items():
@@ -350,6 +361,25 @@ def submission_gate(
     lock = records.get("confirmatory once-lock")
     if lock is not None and lock.get("status") != "complete":
         blockers.append("confirmatory once-lock is not complete")
+    editor_approval = records.get("restricted-data editor approval")
+    if editor_approval is not None and editor_approval.get("accepted") is not True:
+        blockers.append("restricted-data exception lacks written editor acceptance")
+    author_record = records.get("submission author metadata")
+    if author_record is not None and (
+        author_record.get("approved_by_all_authors") is not True
+        or not author_record.get("corresponding_author_orcid")
+        or not author_record.get("authors")
+        or not author_record.get("affiliations")
+        or not author_record.get("conflict_of_interest_statement")
+    ):
+        blockers.append("submission author metadata is incomplete or unapproved")
+    reviewer_upload = records.get("GEMS reviewer-data upload")
+    if reviewer_upload is not None and (
+        reviewer_upload.get("uploaded") is not True
+        or not reviewer_upload.get("gems_manuscript_id")
+        or not reviewer_upload.get("file_inventory")
+    ):
+        blockers.append("GEMS confidential reviewer-data upload is incomplete")
     if snapshot["manuscript_results_pending_markers"]:
         blockers.append("manuscript still contains RESULTS_PENDING markers")
     if snapshot["hosting"]["public_hosting_defect"]:
@@ -395,11 +425,35 @@ def public_safe_paths(paths: Sequence[str]) -> list[str]:
     return [path for path in paths if not public_export_exclude(path)]
 
 
+def next_study_status(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
+    """Record the next-paper freeze without touching v4 formal evidence."""
+
+    candidate = Path(repository) / "configs/design_freeze_v9.yaml"
+    legacy = Path(repository) / "configs/recoverability_study_freeze_v1.yaml"
+    if Path(repository) == REPOSITORY_ROOT:
+        freeze_path = DEFAULT_STUDY_FREEZE
+    elif candidate.is_file():
+        freeze_path = candidate
+    else:
+        freeze_path = legacy
+    freeze = load_study_freeze(freeze_path)
+    return {
+        "design_id": freeze["design_id"],
+        "status": freeze["status"],
+        "formal_evidence": bool(freeze.get("formal_evidence")),
+        "sealed_outcomes_opened": bool(freeze.get("sealed_outcomes_opened")),
+        "headline_claim_licensed": bool(freeze.get("headline_claim_licensed")),
+        "confirmatory": study_is_confirmatory(freeze),
+        "charter": str(freeze.get("charter")),
+    }
+
+
 __all__ = [
     "RESTRICTED_PATH_GLOBS",
     "RESTRICTED_PATH_PREFIXES",
     "audit_restricted_hosting",
     "evidence_snapshot",
+    "next_study_status",
     "public_safe_paths",
     "submission_gate",
     "write_json",

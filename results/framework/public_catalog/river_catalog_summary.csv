@@ -1,0 +1,17 @@
+network_id,name,use,kind,n_listed,n_found,n_with_daily_temperature,n_with_8yr_daily_temperature,usable_site_ids,catalog_overlap_start,catalog_overlap_end,catalog_overlap_years,enough_stations,enough_overlap_years,note,can_use_to_build_method
+jinsha_upper,Upper Jinsha,historical,regulated,3,3,3,3,"B1,S2,P3",2006-01-01,2020-12-31,15.0,False,True,Already used. Restricted files. Not a new public river.,False
+chattahoochee_upper_middle,Upper-to-Middle Chattahoochee,historical,regulated,5,5,5,5,"02334430,02335000,02335450,02336000,02337170",2004-01-29,2026-08-25,22.570841889117045,True,True,,False
+delaware_mainstem,Delaware River mainstem,development,large_river,5,5,5,3,"01427510,01434000,01463500",1995-09-30,2026-08-24,30.899383983572896,False,True,,False
+sacramento_mainstem,Sacramento River mainstem,development,regulated,5,5,5,2,"11377100,11447650",1972-04-28,1980-06-30,8.172484599589323,False,True,,False
+willamette_mainstem,Willamette River mainstem,development,atmospheric,5,5,5,4,"14152000,14174000,14197900,14211720",2001-11-02,2026-08-24,24.80766598220397,True,True,,True
+connecticut_mainstem,Connecticut River mainstem,development,large_river,5,5,3,2,"01193050,01196500",2013-09-30,2020-09-29,6.997946611909651,False,False,,False
+suwannee_florida,Suwannee River groundwater-influenced reach,development,groundwater_dominated,5,5,4,4,"02315550,02319394,02320500,02323592",2017-04-14,2026-08-23,9.357973990417522,True,True,,True
+potomac_mainstem,Potomac River mainstem,validation,atmospheric,5,5,3,1,01636500,1980-09-11,2020-12-21,40.276522929500345,False,True,,False
+tennessee_mainstem,Tennessee River mainstem,validation,regulated,5,5,2,1,03582000,2012-10-01,2026-08-23,13.891854893908283,False,True,,False
+colorado_front_range,South Platte / Front Range,validation,groundwater_dominated,5,5,2,2,"06711565,06754000",1995-10-01,2004-08-02,8.837782340862423,False,True,,False
+colorado_grand_canyon,Colorado River Lees Ferry to Diamond Creek,sealed,regulated,5,5,4,4,"09379500,09380000,09402500,09404200",1990-08-29,2003-03-30,12.583162217659138,True,True,,False
+columbia_mainstem,Columbia River mainstem,sealed,large_river,5,4,1,1,14105700,1996-06-26,2026-08-24,30.16016427104723,False,True,,False
+loire_mainstem,Loire thermal network,sealed,atmospheric,14,14,14,14,"06182045,06177959,06141520,05172800,05154400,05050800,04154050,04153600,04133200,02047500,02018000,02016050",,,,True,False,,False
+swiss_aar_rhine,Swiss Aare-Rhine FOEN cluster,sealed,atmospheric,5,0,0,0,,,,,False,False,Swiss FOEN has no drop-in public API in this check.,False
+ohio_mainstem,Ohio River mainstem,sealed,large_river,5,5,2,1,03277200,2011-02-09,2026-08-24,15.537303216974674,False,True,,False
+upper_deschutes,Upper Deschutes groundwater reach,sealed,groundwater_dominated,5,5,2,2,"14076500,14092500",2005-11-03,2026-08-24,20.804928131416837,False,True,,False

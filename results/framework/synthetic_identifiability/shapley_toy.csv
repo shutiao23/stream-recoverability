@@ -1,0 +1,13 @@
+river,gap_length,player,shapley,total_gain,value_key,player_order
+memory_dominant,14,B,1.269384252496621,1.2693842524966212,expected_mae_conditional,"B,D,M,H"
+memory_dominant,14,D,2.220446049250313e-16,1.2693842524966212,expected_mae_conditional,"B,D,M,H"
+memory_dominant,30,B,0.8402080428417116,0.8402080428417111,expected_mae_conditional,"B,D,M,H"
+memory_dominant,30,D,-4.440892098500626e-16,0.8402080428417111,expected_mae_conditional,"B,D,M,H"
+memory_dominant,90,B,0.31489121049532875,0.31489121049532853,expected_mae_conditional,"B,D,M,H"
+memory_dominant,90,D,-2.220446049250313e-16,0.31489121049532853,expected_mae_conditional,"B,D,M,H"
+donor_dominant,14,B,0.00043795370968885416,0.5283800597851451,expected_mae_conditional,"B,D,M,H"
+donor_dominant,14,D,0.5279421060754563,0.5283800597851451,expected_mae_conditional,"B,D,M,H"
+donor_dominant,30,B,0.0002043783978547542,0.5283618322033987,expected_mae_conditional,"B,D,M,H"
+donor_dominant,30,D,0.528157453805544,0.5283618322033987,expected_mae_conditional,"B,D,M,H"
+donor_dominant,90,B,6.81261326182514e-05,0.5283511994473793,expected_mae_conditional,"B,D,M,H"
+donor_dominant,90,D,0.528283073314761,0.5283511994473793,expected_mae_conditional,"B,D,M,H"

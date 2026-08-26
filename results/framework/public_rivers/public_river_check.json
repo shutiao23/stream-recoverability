@@ -1,0 +1,28 @@
+{
+  "last_check_temperatures_used_to_score": false,
+  "leave_one_river": {
+    "jackknife": {
+      "full_spearman": 0.8214285714285715,
+      "n_sign_flips": 0.0,
+      "single_network_drives": false,
+      "worst_holdout_network": "madison_river_huc10"
+    },
+    "passed": false,
+    "same_sign_majority": true,
+    "spearman": {
+      "ci_lower": 0.09433962264150945,
+      "ci_upper": 1.0,
+      "inference_status": "tested",
+      "n_networks": 7.0,
+      "reason": "",
+      "spearman": 0.8214285714285715
+    },
+    "thresholds_locked": false
+  },
+  "n_rivers_downloaded": 12,
+  "n_rivers_scored": 10,
+  "n_rivers_sensor_checked": 10,
+  "reservoir_operations_used": false,
+  "what_this_is": "Public daily temperature for rivers used to build the method, plus overlap, real missing blocks, and a first whole-river check.",
+  "what_this_is_not": "Not the last check. Not a reservoir-cause result. Not a paper headline."
+}

@@ -1,0 +1,12 @@
+{
+  "countable_toward_t8": false,
+  "europe_daily_years_invented": false,
+  "formal_evidence": false,
+  "n_name_clusters_3plus": 1,
+  "n_stations": 1964,
+  "n_with_river_name": 16,
+  "ok": true,
+  "temporal_resolution": "sub_daily_api",
+  "what_this_is": "UK EA hydrology stations with observedProperty=temperature (sub-daily API).",
+  "what_this_is_not": "Not dated daily series. Not eight-year overlap. Not T8. dateOpened is not a daily-year span."
+}

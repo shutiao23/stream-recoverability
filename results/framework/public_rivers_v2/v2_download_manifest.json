@@ -1,0 +1,34 @@
+{
+  "best_honest_catalog_count": 98,
+  "complete_enough_climates": [
+    "cold_arid_highland",
+    "cold_semiarid",
+    "humid_continental",
+    "humid_subtropical",
+    "marine_west_coast",
+    "mediterranean",
+    "subtropical_semiarid"
+  ],
+  "confirmatory_eligible": false,
+  "continents": [
+    "north_america"
+  ],
+  "europe_daily_years_invented": false,
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "last_check_temperatures_opened": false,
+  "n_complete_enough": 48,
+  "n_complete_enough_climates": 7,
+  "n_downloadable_planned": 79,
+  "n_independent_complete_enough": 48,
+  "n_independent_downloadable_planned": 79,
+  "n_rivers_attempted": 79,
+  "n_rivers_with_any_daily": 79,
+  "n_v2_candidates": 98,
+  "network_catalog_v1_rewritten": false,
+  "sealed_outcomes_opened": false,
+  "sites_fetched_or_cached": 310,
+  "target_independent_networks": 150,
+  "what_this_is": "Daily USGS temperatures for v2 name+HUC2 candidates that are not last-check, not historical, and not the already-downloaded burned set.",
+  "what_this_is_not": "Not a T2 count. Catalog overlap is not concurrency. Not last-check. Not confirmatory. Honest USGS catalog remains 98. Target remains 150."
+}

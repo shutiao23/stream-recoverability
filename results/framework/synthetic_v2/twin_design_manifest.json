@@ -1,0 +1,43 @@
+{
+  "cells": [
+    "dam_times_endpoint",
+    "dam_times_interior",
+    "ordinary_times_endpoint",
+    "ordinary_times_interior"
+  ],
+  "experiment": "E5_twin_design",
+  "formal_evidence": false,
+  "gap_length": 90,
+  "gate": {
+    "gate_pass": false,
+    "hard_negative_gate_pass": false,
+    "hard_negative_operator_auc": 1.0,
+    "hard_negative_univariate_max_auc": 1.0,
+    "identifiability_status": "operator_separable_univariates_also_separable",
+    "operator_auc": 1.0,
+    "operator_auc_min": 0.85,
+    "operator_meets_floor": true,
+    "univariate_all_at_or_below_max": false,
+    "univariate_auc_max": 0.65,
+    "univariate_max_auc": 1.0
+  },
+  "headline_claim_licensed": false,
+  "identifiability_status": "operator_separable_univariates_also_separable",
+  "n_graphs": 14,
+  "note": "Known-dynamics twin design. Not confirmation. Not formal evidence. If the operator cannot separate dam-like vs not, status is inseparable and the generator is not retuned to save the gate. The 2x2 cells are dam\u00d7interior, ordinary\u00d7endpoint, dam\u00d7endpoint, and ordinary\u00d7interior. Hard-negative AUC uses only interior dams versus ordinary endpoints.",
+  "predictors": {
+    "operator": "recoverability_r / operator_risk=1-R at gap 90 from known Sigma",
+    "univariate": [
+      "contemporaneous donor R2",
+      "lag-30 ACF",
+      "legacy additive d/4 memory component and hard label",
+      "mean hop distance to other stations"
+    ]
+  },
+  "sealed_outcomes_opened": false,
+  "status": "complete",
+  "topologies": [
+    "chain",
+    "confluence"
+  ]
+}

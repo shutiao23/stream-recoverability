@@ -1,0 +1,246 @@
+# SUPERSEDED by configs/design_freeze_v9.yaml as the next-paper default.
+# Kept loadable for historical v8 contracts. Do not delete keys.
+design_id: recoverability_study_freeze_v1
+status: charter_frozen_outcomes_unopened
+frozen_on: "2026-08-25"
+supersedes: confirmatory_multi_network_protocol_v1
+historical_case_study_freeze: design_freeze_v4
+charter: docs/research_charter_v1.md
+protocol_change: docs/protocol_change_v7_to_v8.md
+formal_evidence: false
+note: >
+  下一篇要回答的问题先写在这里。数字门槛还没锁死。
+  留到最后看的河，还没有用它们的水温给方法打分。
+  没有结果就不要写进摘要和结论。
+
+core_question: >
+  拟合模型之前，能不能预估一条没用来改方法的河上，
+  温度缺口补得有多差，并按这个预估把备用站选得更经得住站坏？
+
+headline_claim_licensed: false
+reservoir_mechanism_in_headline: false
+hard_type_labels_are_primary: false
+eventwise_best_envelope_is_primary: false
+national_dam_auc_is_recoverability_evidence: false
+
+primary_estimand:
+  name: structural_recoverability
+  definition: >
+    1 - E[L(Y_G, f_S)] / E[L(Y_G, f_0)], with f_S fixed on fitting and
+    validation data only.
+  loss: mae_degC
+  baseline_predictor: fitting_period_climatology
+  information_sources:
+    B: local_left_and_right_boundaries
+    D: synchronous_donor_temperatures
+    M: meteorology
+    H: hydraulics
+    O: operations_when_available
+  incremental:
+    V_D: R(B_union_D) - R(B)
+    V_B: R(B_union_D) - R(D)
+    tau: log((V_B + epsilon) / (V_D + epsilon))
+    epsilon: 1.0e-6
+    reporting: continuous_spectrum_with_uncertainty
+    optional_label_rule: >
+      Sign of tau is descriptive only. Do not force a hard type when
+      donor R2 >= 0.5.
+
+secondary_estimands:
+  algorithmic_recoverability: frozen_model_realized_skill
+  operational_recoverability: online_or_cost_constrained_skill
+  sensor_policy_utility: held_out_worst_case_mae_reduction
+
+proposed_operator:
+  class: gaussian_conditional_covariance
+  formula: Sigma_G_given_O = Sigma_GG - Sigma_GO Sigma_OO^{-1} Sigma_OG
+  summaries:
+    - expected_gaussian_mae
+    - normalized_conditional_variance
+    - trace_ratio
+    - log_determinant_reduction
+  must_represent:
+    - both_boundaries
+    - donor_correlation
+    - donor_count
+    - river_direction_and_topology
+    - season_or_state
+    - gap_length
+  donor_normalization:
+    - year_block_cross_validated_r2
+    - donor_count_matched_risk_reduction
+  weakest_baseline: additive_d_over_4_heuristic
+  forbidden_as_primary:
+    - in_sample_donor_r2_without_cv
+    - rho_squared_at_mean_nearest_boundary
+    - 1_minus_sqrt_1_minus_R2_as_a_theorem
+
+legacy_heuristic:
+  status: weakest_baseline_and_degeneration_exhibit
+  formula: R2_avail = R2_donor + (1 - R2_donor) * rho(d/4)^2
+  known_degeneration: donor_r2_ge_0.5_forces_donor_dominated
+  known_jensen_defect: E[rho^2(L)] != rho^2(E[L])
+  known_scale_defect: in_sample_r2_increases_with_donor_count
+
+extrapolation_unit: river_network
+independent_units:
+  - network
+  - station_nested_in_network
+  - site_year_nested_in_station
+mask_role: repeated_measurement_not_independent_sample
+minimum_independent_clusters_for_interval: 5
+
+split_rule:
+  unit: entire_network
+  development_fraction_target: 0.40
+  validation_fraction_target: 0.20
+  sealed_confirmatory_fraction_target: 0.40
+  forbidden:
+    - random_station_split_within_network
+    - using_jinsha_or_chattahoochee_as_sealed_confirmation
+    - reading_sealed_temperature_outcomes_during_development
+  historical_seen_networks:
+    jinsha_upper: development_contextual_only
+    chattahoochee_upper_middle: historical_seen_not_reusable_for_confirmation
+
+inventory_targets:
+  independent_networks: [12, 20]
+  stations_per_network_min: 4
+  traceable_years_per_station_min: 8
+  evaluable_site_years_per_network_min: 5
+  climate_or_ecoregion_classes_min: 4
+  regimes_required:
+    - regulated
+    - groundwater_dominated
+    - atmospheric
+    - large_river
+  note: >
+    These are design targets. Final n is locked by the development
+    power analysis, not by a post-hoc count.
+
+provisional_success_criterion:
+  status: provisional_until_development_power_analysis
+  model: >
+    observed_recovery_loss ~ beta0 + beta1 * predicted_conditional_risk
+    + u_network + u_station
+  intended_locks_after_phase_4:
+    network_blocked_spearman_min: 0.60
+    network_bootstrap_lower_bound_min: 0.40
+    calibrated_skill_mae_max: 0.10
+    absolute_mae_prediction_error_max_degC: 0.15
+    leave_one_network_out_same_sign_majority: true
+    single_network_may_not_drive: true
+    incremental_over:
+      - gap_length_only
+      - acf_only
+      - donor_r2_only
+  management:
+    worst_case_mae_reduction_vs_best_non_oracle_min: 0.15
+    network_interval_must_exclude_zero: true
+  forbidden_after_seal:
+    - redefining_type
+    - changing_model_rule
+    - selecting_the_better_of_90_and_180_days
+    - promoting_best_envelope_to_primary
+
+experiments:
+  E0:
+    name: synthetic_identifiability
+    status: executable
+    required_before_real_data_expansion: true
+  E1:
+    name: within_network_temporal_validation
+    status: specified
+  E2:
+    name: leave_one_network_out
+    status: specified
+  E3:
+    name: sealed_multi_network_confirmation
+    status: specified_not_opened
+  E4:
+    name: strong_baseline_and_ablation
+    status: executable_on_synthetic
+  E5:
+    name: topology_falsification
+    status: executable_on_synthetic
+  E6:
+    name: state_shift_robustness
+    status: specified
+  E7:
+    name: natural_outage_benchmark
+    status: specified
+  E8:
+    name: scientific_record_preservation
+    status: executable
+  E9:
+    name: sensor_design_decision_test
+    status: executable_on_synthetic
+  E10:
+    name: optional_reservoir_mbaci
+    status: companion_only_if_operations_data_exist
+
+recovery_benchmark:
+  status: specified_not_locked
+  information_conditions: [B, D, B_union_D, B_union_D_union_M, B_union_D_union_M_union_H]
+  gap_geometries:
+    artificial_stress: [14, 30, 60, 90, 180, 365]
+    natural_outage: empirically_weighted_from_quality_flags
+    adversarial: predeclared_stress_catalog
+  tasks:
+    offline_archival: both_boundaries_allowed
+    online_causal: future_boundary_forbidden
+  model_budget_rule: shared_tuning_budget_no_posthoc_epoch_exclusion
+  required_predictors:
+    - gap_length_only
+    - acf_only
+    - donor_r2_only
+    - memory_range_index
+    - additive_heuristic
+    - conditional_covariance
+    - conditional_covariance_plus_learned_calibration
+  required_recovery_models:
+    - persistence_or_climatology
+    - kalman
+    - donor_regression
+    - xgboost
+    - air2stream_or_equivalent
+    - pgdl_or_graph_wavenet
+    - grin_or_graph_imputer
+  primary_evidence_forbids:
+    - eventwise_best_envelope
+    - best_epoch_lt_50_posthoc_drop
+    - unequal_tuning_budgets
+
+sensor_policy:
+  budgets: [1, 2, 3, 4, 5]
+  strategies:
+    - current_network
+    - random
+    - spatially_even
+    - distance
+    - correlation_redundancy
+    - observability_gramian
+    - proposed_recoverability
+    - oracle
+  held_out_metrics:
+    - expected_mae
+    - worst_case_mae
+    - heatwave_preservation
+    - failure_regret
+
+falsifiers:
+  - synthetic_wrong_information_ordering
+  - topology_alias_after_donor_geometry_match
+  - no_incremental_value_over_simple_predictors
+  - sealed_criterion_miss_or_single_network_driver
+  - no_sensor_policy_utility
+  - natural_outage_failure
+
+failure_closure: >
+  If the sealed primary criterion fails, the paper is a negative
+  benchmark or the strong-accept route stops. The historical
+  two-network manuscript remains a descriptive case study.
+
+sealed_outcomes_opened: false
+jinsha_outcomes_reusable_as_confirmation: false
+chattahoochee_outcomes_reusable_as_confirmation: false

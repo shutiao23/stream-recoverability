@@ -1,0 +1,6 @@
+model,added,r2,delta_r2
+gap_length_only,gap_length_only,0.04952469629664824,0.04952469629664824
+gap_length_only+acf_only,acf_only,0.15317628711174403,0.10365159081509578
+gap_length_only+acf_only+donor_r2_only,donor_r2_only,0.9087332903214181,0.7555570032096741
+gap_length_only+acf_only+donor_r2_only+additive_heuristic,additive_heuristic,0.9643819087599617,0.05564861843854352
+gap_length_only+acf_only+donor_r2_only+additive_heuristic+conditional_covariance,conditional_covariance,1.0,0.03561809124003834

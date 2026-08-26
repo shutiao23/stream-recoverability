@@ -1,0 +1,285 @@
+catalog_id: network_catalog_v1
+status: catalog_checked
+frozen_on: "2026-08-25"
+sealed_outcomes_opened: false
+note: >
+  候选河名单已按 NWIS 日均水温目录的站年和同期更新。
+  金沙江和 Chattahoochee 已经用过，不能再当最后检验。
+  标成 last_check 的河只记目录，不下载水温。
+
+networks:
+  - network_id: jinsha_upper
+    display_name: Upper Jinsha
+    split_role: historical
+    historical_seen: true
+    regime: regulated
+    climate_or_ecoregion: subtropical_highland
+    candidate_station_ids: [B1, S2, P3]
+    temperature_record_unverified: false
+    sealed_outcomes_opened: false
+    feasibility_status: historical_case_study_seen
+    use: already_used
+    notes: 已经用过。不当最后检验。
+
+  - network_id: chattahoochee_upper_middle
+    display_name: Upper-to-Middle Chattahoochee
+    split_role: historical
+    historical_seen: true
+    regime: regulated
+    climate_or_ecoregion: humid_subtropical
+    candidate_station_ids: ["02334430", "02335000", "02335450", "02336000", "02337170"]
+    temperature_record_unverified: false
+    sealed_outcomes_opened: false
+    feasibility_status: historical_seen_confirmatory_not_reusable
+    use: already_used
+    notes: 已经看过水温。不当最后检验。
+
+  - network_id: delaware_river_huc20
+    display_name: Delaware River
+    split_role: development
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: humid_continental
+    candidate_station_ids: ["01427301", "01427207", "01427510", "01432160", "01432805", "01434000", "01477050"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 13.7 年。
+
+  - network_id: willamette_river_huc17
+    display_name: Willamette River
+    split_role: development
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: marine_west_coast
+    candidate_station_ids: ["14158100", "14166000", "14174000", "14192015", "14197900", "14211720"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 11.9 年。
+
+  - network_id: suwannee_river_huc31
+    display_name: Suwannee River
+    split_role: development
+    historical_seen: false
+    regime: groundwater_dominated
+    climate_or_ecoregion: humid_subtropical
+    candidate_station_ids: ["02315550", "02319800", "02320500", "02323592"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 8.6 年。地下水影响，不是有没有坝的分类器。
+
+  - network_id: yellowstone_river_huc10
+    display_name: Yellowstone River
+    split_role: development
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: cold_semiarid
+    candidate_station_ids: ["06191500", "06192500", "06195750", "06195950", "06214500", "06329500"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 19.1 年。
+
+  - network_id: rio_grande_huc13
+    display_name: Rio Grande
+    split_role: development
+    historical_seen: false
+    regime: regulated
+    climate_or_ecoregion: cold_arid_highland
+    candidate_station_ids: ["08313000", "08317400", "08329918", "08363510", "08364000"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 17.5 年。
+
+  - network_id: madison_river_huc10
+    display_name: Madison River
+    split_role: development
+    historical_seen: false
+    regime: regulated
+    climate_or_ecoregion: cold_semiarid
+    candidate_station_ids: ["06037500", "06038500", "06038800", "06040000", "06041000"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 15.4 年。
+
+  - network_id: cahaba_river_huc31
+    display_name: Cahaba River
+    split_role: development
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: humid_subtropical
+    candidate_station_ids: ["02423130", "02423160", "02423380", "02423496"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 14.9 年。
+
+  - network_id: mckenzie_river_huc17
+    display_name: McKenzie River
+    split_role: development
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: marine_west_coast
+    candidate_station_ids: ["14158500", "14158740", "14159110", "14162500", "14163900"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: build
+    notes: 用来定方法。目录同期约 9.1 年。
+
+  - network_id: mahoning_river_huc50
+    display_name: Mahoning River
+    split_role: validation
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: humid_continental
+    candidate_station_ids: ["03086500", "03090500", "03091500", "03094000", "03098600", "03099500"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: lock
+    notes: 用来锁设定。目录同期约 13.5 年。
+
+  - network_id: roanoke_river_huc30
+    display_name: Roanoke River
+    split_role: validation
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: humid_subtropical
+    candidate_station_ids: ["0208062765", "02081022", "02081094", "0208114150", "02079500"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: lock
+    notes: 用来锁设定。目录同期约 17.9 年。
+
+  - network_id: santa_fe_river_huc31
+    display_name: Santa Fe River
+    split_role: validation
+    historical_seen: false
+    regime: groundwater_dominated
+    climate_or_ecoregion: humid_subtropical
+    candidate_station_ids: ["02321500", "02321958", "02322500", "02322800"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: lock
+    notes: 用来锁设定。目录同期约 10.9 年。
+
+  - network_id: clearwater_river_huc17
+    display_name: Clearwater River
+    split_role: validation
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: marine_west_coast
+    candidate_station_ids: ["13340000", "13341050", "13342500", "13343000"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_overlap_checked
+    use: lock
+    notes: 用来锁设定。目录同期约 12.3 年。
+
+  - network_id: colorado_grand_canyon
+    display_name: Colorado River Lees Ferry to Diamond Creek
+    split_role: sealed
+    historical_seen: false
+    regime: regulated
+    climate_or_ecoregion: cold_arid_highland
+    candidate_station_ids: ["09379500", "09380000", "09402500", "09404120", "09404200"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_stations_no_common_overlap
+    use: last_check
+    notes: 留到最后看。目录上有站，但各站起止年对不齐，没有八年共同窗口。不下载水温。
+
+  - network_id: columbia_mainstem
+    display_name: Columbia River mainstem
+    split_role: sealed
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: marine_west_coast
+    candidate_station_ids: ["12399500", "12424000", "14105700", "14127100", "14128870"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_stations_no_common_overlap
+    use: last_check
+    notes: 留到最后看。目录上有站，共同窗口不够。不下载水温。
+
+  - network_id: loire_mainstem
+    display_name: Loire thermal network
+    split_role: sealed
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: oceanic_temperate
+    candidate_station_ids:
+      - "04000100"
+      - "04000600"
+      - "04021000"
+      - "04024000"
+      - "04026000"
+      - "04045900"
+      - "04046800"
+      - "04051850"
+      - "04056000"
+      - "04103200"
+      - "04134700"
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: catalog_names_only_no_date_span
+    use: last_check
+    notes: 留到最后看。Hub'Eau 河名就是卢瓦尔的 11 站；目录没有起止年，不下载水温。
+
+  - network_id: swiss_aar_rhine
+    display_name: Swiss Aare-Rhine FOEN cluster
+    split_role: sealed
+    historical_seen: false
+    regime: atmospheric
+    climate_or_ecoregion: alpine
+    candidate_station_ids:
+      - "2289"
+      - "2135"
+      - "2152"
+      - "2243"
+      - "2009"
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: locations_only_daily_history_not_public
+    use: last_check
+    notes: 留到最后看。公开站名有了（Basel / Bern / Luzern / Limmat / Porte du Scex）。历史日均要向 FOEN 订，不下载水温。
+
+  - network_id: ohio_mainstem
+    display_name: Ohio River mainstem
+    split_role: sealed
+    historical_seen: false
+    regime: large_river
+    climate_or_ecoregion: humid_continental
+    candidate_station_ids: ["03216600", "03277200", "03294500", "03303280", "03612500"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: metadata_only_not_downloaded
+    use: last_check
+    notes: 留到最后看。
+
+  - network_id: upper_deschutes
+    display_name: Upper Deschutes groundwater reach
+    split_role: sealed
+    historical_seen: false
+    regime: groundwater_dominated
+    climate_or_ecoregion: marine_west_coast
+    candidate_station_ids: ["14050000", "14064500", "14070500", "14076500", "14092500"]
+    temperature_record_unverified: true
+    sealed_outcomes_opened: false
+    feasibility_status: metadata_only_not_downloaded
+    use: last_check
+    notes: 留到最后看。

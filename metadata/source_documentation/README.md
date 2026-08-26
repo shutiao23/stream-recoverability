@@ -1,6 +1,6 @@
 # Source and provenance notes
 
-The supplied files contain no embedded station names, source identifiers, units, time-zone metadata, or per-value quality flags. The mappings below are therefore documented from independent reconciliation and literature, rather than silently assumed.
+The supplied files contain no embedded station names, source identifiers, units, time-zone metadata, or per-value quality flags. The mappings below are therefore documented from independent reconciliation and literature, rather than silently assumed. The still-missing instrument, calibration, quality-code, and interpolation pedigree is listed in `source_provenance_v3.md`. Jinsha remains an exploratory context network until that list is closed.
 
 ## Core hydrological stations
 

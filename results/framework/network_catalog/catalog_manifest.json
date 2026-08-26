@@ -1,0 +1,14 @@
+{
+  "catalog_id": "network_catalog_v1",
+  "n_networks": 16,
+  "sealed_outcomes_opened": false,
+  "split_counts": {
+    "development": 5,
+    "historical": 2,
+    "sealed": 6,
+    "validation": 3
+  },
+  "status": "complete",
+  "temperature_outcomes_downloaded": false,
+  "violations": []
+}
