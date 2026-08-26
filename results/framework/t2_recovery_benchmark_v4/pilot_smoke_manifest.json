@@ -1,0 +1,152 @@
+{
+  "all_67_terminal": false,
+  "cells": [
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "executable",
+      "information_condition": "B_union_D_union_M",
+      "item_id": "5ce8c8508f11a6c82067d355",
+      "meteorology_lag_days": -1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "ordinal": 0,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "c470ecd3dd6a078d05ee3a40",
+      "supported": true,
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "executable",
+      "information_condition": "B_union_D_union_M",
+      "item_id": "46a6406adddfca967b4f405d",
+      "meteorology_lag_days": 0,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "ordinal": 1,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "c470ecd3dd6a078d05ee3a40",
+      "supported": true,
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "executable",
+      "information_condition": "B_union_D_union_M",
+      "item_id": "cf5cd6d932f4ca4d84f73bea",
+      "meteorology_lag_days": 1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "ordinal": 2,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "c470ecd3dd6a078d05ee3a40",
+      "supported": true,
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "data_ineligible",
+      "information_condition": "B_union_D_union_M_union_H",
+      "item_id": "d4d0f3d8bd71094cd927e6f0",
+      "meteorology_lag_days": -1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "ordinal": 3,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "43b7d46c9a031793d192dfc9",
+      "supported": false,
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "data_ineligible",
+      "information_condition": "B_union_D_union_M_union_H",
+      "item_id": "a10022c920eb4fffcf000890",
+      "meteorology_lag_days": 0,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "ordinal": 4,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "43b7d46c9a031793d192dfc9",
+      "supported": false,
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "auxiliary_daily_long_sha256": "7fe392bbc61056ea87a1feed6ad130f5a6c820b5046a0cdee50f021b2235e574",
+      "auxiliary_manifest_schema": "t2_v91_open_role_mh_network_acquisition_v2_1",
+      "category": "data_ineligible",
+      "information_condition": "B_union_D_union_M_union_H",
+      "item_id": "518f767d3653e482e1b62a62",
+      "meteorology_lag_days": 1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "ordinal": 5,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "43b7d46c9a031793d192dfc9",
+      "supported": false,
+      "temperature_performance_metric_computed": false
+    }
+  ],
+  "formal_evidence": false,
+  "formal_result_generated": false,
+  "formal_workload_generated": false,
+  "legacy_schema_accepted_for_pipeline_smoke_only": false,
+  "manifest_schema": "t2_v91_open_role_workload_v4_pilot_smoke_v1",
+  "n_cells": 6,
+  "network_id": "huc8_01070004",
+  "network_interval_reported": false,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "purpose": "pipeline_verification_not_evidence",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "bounded_preparation_smoke_complete_not_formal",
+  "temperature_columns_read_for_performance": [],
+  "v2_networks_expected": 67,
+  "v2_networks_terminal_at_smoke": 1,
+  "v4_runner_contract_version": "t2_v91_runner_v4_legacy_mh_lag_grid_v1"
+}

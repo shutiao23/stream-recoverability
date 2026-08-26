@@ -1,0 +1,11 @@
+{
+  "chunk_manifest_schema": "t2_v91_result_chunk_v4",
+  "executor_adapter": null,
+  "item_count_pointer": "/n_work_items",
+  "item_identity_sha256_pointer": "/work_item_identity_sha256",
+  "name": "t2_v4_legacy_mh_readiness_only",
+  "runner_contract_pointer": "/runner_contract_version",
+  "sealed_read_pointer": "/sealed_temperature_records_read",
+  "sealed_roots_pointer": "/sealed_input_roots_allowed",
+  "workload_manifest_schema": "t2_v91_open_role_workload_v4"
+}

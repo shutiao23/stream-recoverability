@@ -45,6 +45,16 @@ from stream_recoverability.data.t2_information_corpus_acquisition import (
     SPLIT_SHA256,
     TERMINAL_STATUSES,
 )
+from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    LEGACY_NETWORK_SCHEMA_VERSION,
+    LEGACY_PROVIDER,
+)
+from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    NETWORK_SCHEMA_VERSION as V2_NETWORK_SCHEMA_VERSION,
+)
+from stream_recoverability.data.t2_information_corpus_acquisition_v2 import (
+    TERMINAL_STATUSES as V2_TERMINAL_STATUSES,
+)
 from stream_recoverability.models.baselines import (
     ClimatologyBaseline,
     DonorRegressionBaseline,
@@ -66,6 +76,10 @@ from .t2_recovery_benchmark import (
 
 AUXILIARY_ROOT = Path(
     "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6"
+)
+V2_AUXILIARY_ROOT = Path(
+    "data_versions/global_network_corpus_v1/"
+    "open_role_auxiliary_legacy_v2/failure_closure6"
 )
 INTEGRATION_CONTRACT_VERSION = "t2_v91_information_runner_candidate_v4_v1"
 SUPPORTED_MODELS = ("donor_regression", "xgboost")
@@ -229,6 +243,141 @@ def load_materialized_auxiliary(
             "n_source_failures_or_unavailable": int(
                 manifest["n_source_failures_or_unavailable"]
             ),
+            "sealed_paths_traversed": False,
+            "sealed_temperature_records_read": False,
+        },
+    )
+
+
+def load_materialized_auxiliary_v2(
+    repo_root: str | Path,
+    network: OpenNetwork,
+    *,
+    allow_legacy_pipeline_smoke: bool = False,
+) -> MaterializedAuxiliary:
+    """Load the SHA-bound legacy-NWIS v2 M/H product for one open network.
+
+    The v2 transport has its own root and schema and is never silently mixed
+    with the immutable v1 OGC acquisition.  The returned audit identifies the
+    corpus source and every artifact needed by a successor workload identity.
+    """
+
+    repo = Path(repo_root).resolve()
+    if network.role not in {"development", "validation"}:
+        raise ValueError("v2 M/H integration accepts open development/validation only")
+    if "sealed" in network.source_key.lower():
+        raise ValueError("v2 M/H integration refuses sealed source keys")
+    root = (repo / V2_AUXILIARY_ROOT).resolve()
+    directory = root / network.role / "networks" / network.network_id
+    if not _inside(directory, root):
+        raise ValueError("v2 auxiliary network directory is missing or unsafe")
+    manifest_path = directory / "network_manifest.json"
+    if not _inside(manifest_path, directory):
+        raise ValueError("v2 auxiliary network manifest is missing or unsafe")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_schema = str(manifest.get("manifest_schema"))
+    schema_accepted = manifest_schema == V2_NETWORK_SCHEMA_VERSION or (
+        allow_legacy_pipeline_smoke
+        and manifest_schema == LEGACY_NETWORK_SCHEMA_VERSION
+    )
+    if (
+        not schema_accepted
+        or manifest.get("status") not in V2_TERMINAL_STATUSES
+        or manifest.get("acquisition_terminal") is not True
+        or manifest.get("network_id") != network.network_id
+        or manifest.get("role") != network.role
+        or manifest.get("split_sha256") != SPLIT_SHA256
+        or manifest.get("temperature_columns_read") != []
+        or manifest.get("sealed_paths_traversed") is not False
+        or manifest.get("sealed_temperature_records_read") is not False
+        or manifest.get("performance_metrics_computed") is not False
+        or manifest.get("v1_ogc_root_read_or_mutated") is not False
+    ):
+        raise ValueError("v2 auxiliary manifest violates the open non-outcome boundary")
+
+    artifacts = manifest.get("artifacts")
+    if not isinstance(artifacts, dict):
+        raise TypeError("v2 auxiliary manifest artifacts must be a mapping")
+    daily_path = _artifact_path(repo, directory, artifacts, "daily_long_auxiliary")
+    coverage_path = _artifact_path(repo, directory, artifacts, "coverage")
+    schema_path = _artifact_path(repo, directory, artifacts, "adapter_schema")
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    if (
+        schema.get("acquisition_schema") != manifest_schema
+        or schema.get("adapter_contract_version") != ADAPTER_CONTRACT_VERSION
+        or schema.get("table") != "daily_long_auxiliary.parquet"
+        or tuple((schema.get("variables") or {}).get("M") or ())
+        != METEOROLOGY_VARIABLES
+        or tuple((schema.get("variables") or {}).get("H") or ())
+        != HYDRAULICS_VARIABLES
+        or (schema.get("providers") or {}).get("M") != "nasa_power_daily_point"
+        or (schema.get("providers") or {}).get("H") != LEGACY_PROVIDER
+        or schema.get("missing_source_policy")
+        != "record_failure_and_leave_absent_no_fill"
+        or schema.get("v1_ogc_root_read_or_mutated") is not False
+    ):
+        raise ValueError("materialized v2 auxiliary adapter schema is incompatible")
+
+    expected_columns = {
+        "date",
+        "site_id",
+        "variable",
+        "value",
+        "source",
+        "natural_observed",
+        "qc_status",
+        "approval_status",
+        "quality_approved",
+    }
+    daily = pd.read_parquet(daily_path)
+    if not expected_columns.issubset(daily.columns):
+        raise ValueError("materialized v2 table lacks required provider-QC fields")
+    variables = set(daily["variable"].astype(str))
+    if not variables.issubset({*METEOROLOGY_VARIABLES, *HYDRAULICS_VARIABLES}):
+        raise ValueError("non-M/H variable reached v2 information integration")
+    sources = set(daily["source"].astype(str))
+    if not sources.issubset({"nasa_power_daily_point", LEGACY_PROVIDER}):
+        raise ValueError("undeclared provider reached v2 information integration")
+    coverage = pd.read_csv(coverage_path, dtype={"site_id": "string"})
+    required_coverage = {
+        "network_id",
+        "role",
+        "site_id",
+        "variable",
+        "information_group",
+        "source_status",
+        "eligible_coverage",
+    }
+    if not required_coverage.issubset(coverage.columns):
+        raise ValueError("v2 auxiliary coverage table lacks required fields")
+    if set(coverage["network_id"].astype(str)) != {network.network_id}:
+        raise ValueError("v2 auxiliary coverage network identity mismatch")
+    if set(coverage["role"].astype(str)) != {network.role}:
+        raise ValueError("v2 auxiliary coverage role mismatch")
+
+    return MaterializedAuxiliary(
+        daily_long=daily,
+        coverage=coverage,
+        audit={
+            "source_contract": (
+                "legacy_nwis_v2"
+                if manifest_schema == V2_NETWORK_SCHEMA_VERSION
+                else "legacy_nwis_v2_legacy_schema_pipeline_smoke"
+            ),
+            "manifest_schema": manifest_schema,
+            "manifest_path": str(manifest_path.relative_to(repo)),
+            "manifest_sha256": _sha256_file(manifest_path),
+            "network_plan_sha256": str(manifest["network_plan_sha256"]),
+            "daily_long_path": str(daily_path.relative_to(repo)),
+            "daily_long_sha256": str(artifacts["daily_long_auxiliary"]["sha256"]),
+            "coverage_path": str(coverage_path.relative_to(repo)),
+            "coverage_sha256": str(artifacts["coverage"]["sha256"]),
+            "adapter_schema_sha256": str(artifacts["adapter_schema"]["sha256"]),
+            "materialization_status": manifest["status"],
+            "n_source_failures_or_unavailable": int(
+                manifest["n_source_failures_or_unavailable"]
+            ),
+            "v1_ogc_root_read_or_mutated": False,
             "sealed_paths_traversed": False,
             "sealed_temperature_records_read": False,
         },
@@ -622,10 +771,12 @@ __all__ = [
     "AUXILIARY_ROOT",
     "INTEGRATION_CONTRACT_VERSION",
     "METEOROLOGY_LAG_ROSTER",
+    "V2_AUXILIARY_ROOT",
     "InformationConsumerPreparation",
     "MaterializedAuxiliary",
     "execute_materialized_information_item",
     "load_materialized_auxiliary",
+    "load_materialized_auxiliary_v2",
     "prepare_information_item",
     "prepare_materialized_information_item",
 ]
