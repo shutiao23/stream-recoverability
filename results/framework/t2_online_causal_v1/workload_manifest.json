@@ -1,0 +1,192 @@
+{
+  "bounded_open_smoke_ready": true,
+  "causal_contract": {
+    "B": "last_observed_target_at_left_boundary_plus_earlier_target_history_only",
+    "D": "same_day_or_past_donor_values_only_nonnegative_selected_lags",
+    "H": "provider_value_available_on_or_before_prediction_day_only_when_bound",
+    "M": "provider_value_available_on_or_before_prediction_day_only_when_bound",
+    "gap_target_truth": "score_only_never_exposed_to_model",
+    "post_gap_target": "forbidden_not_exposed_to_model",
+    "right_boundary": "forbidden_not_exposed_to_model",
+    "training_target": "timestamps_strictly_before_gap_start_only"
+  },
+  "counts": {
+    "by_category_reason": {
+      "data_ineligible|fewer_than_frozen_common_bd_placements_are_data_eligible": 123325,
+      "reference|reference_ignores_available_information_by_design": 252140,
+      "structural_not_applicable|donor_information_masked_by_frozen_geometry": 5404,
+      "structural_not_applicable|left_boundary_absent_in_frozen_geometry": 2704,
+      "structural_not_applicable|model_does_not_implement_information_condition": 100856,
+      "structural_not_applicable|online_timestamp_safe_meteorology_or_hydraulics_not_bound": 403424,
+      "structural_not_applicable|registered_kalman_smoother_identity_uses_future_observations": 151284,
+      "structural_not_applicable|registered_pchip_or_linear_identity_requires_future_boundary": 151284
+    },
+    "by_geometry": {
+      "adversarial_stress": 135150,
+      "artificial_stress": 1190000,
+      "natural_outage": 58875
+    },
+    "by_information_condition": {
+      "B": 276805,
+      "B_union_D": 276805,
+      "B_union_D_union_M": 276805,
+      "B_union_D_union_M_union_H": 276805,
+      "D": 276805
+    },
+    "by_model": {
+      "climatology": 276805,
+      "donor_regression": 276805,
+      "kalman": 276805,
+      "pchip_or_linear": 276805,
+      "xgboost": 276805
+    },
+    "data_ineligible": 123325,
+    "executable": 193604,
+    "external_dependency": 0,
+    "reference": 252140,
+    "structural_not_applicable": 814956
+  },
+  "design_id": "design_freeze_v9",
+  "design_sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244",
+  "formal_evidence": false,
+  "full_execution_authorized": false,
+  "full_execution_started": false,
+  "go_no_go": "NO_GO_T2_PRIMARY_EVIDENCE",
+  "headline_claim_licensed": false,
+  "input_inventory": {
+    "allowed_input_roots": [
+      "open_role_qc/failure_closure6/development",
+      "open_role_qc/failure_closure6/validation"
+    ],
+    "catalog_path": "configs/network_catalog_v3_split.yaml",
+    "catalog_roles_cross_checked": true,
+    "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+    "n_networks_eligible": 67,
+    "qualification_mode": "failure_closure6",
+    "rejected": {
+      "overlap_not_complete_enough": 36
+    },
+    "roles": {
+      "development": 47,
+      "validation": 20
+    },
+    "roots": [
+      {
+        "exists": true,
+        "expected_role": "development",
+        "networks_eligible": 47,
+        "networks_seen": 74,
+        "source_key": "open_role_qc/failure_closure6/development"
+      },
+      {
+        "exists": true,
+        "expected_role": "validation",
+        "networks_eligible": 20,
+        "networks_seen": 29,
+        "source_key": "open_role_qc/failure_closure6/validation"
+      }
+    ],
+    "sealed_input_roots_allowed": []
+  },
+  "manifest_schema": "t2_v91_online_causal_workload_v1",
+  "model_identity_contract": {
+    "climatology": "pre_gap_training_reference",
+    "donor_regression": "causal_nonnegative_donor_lags",
+    "kalman": "structural_not_applicable_registered_identity_is_smoother",
+    "pchip_or_linear": "structural_not_applicable_no_silent_one_sided_substitution",
+    "xgboost": "causal_contemporaneous_donor_features"
+  },
+  "n_networks": 67,
+  "n_unique_frozen_placements": 55361,
+  "n_work_items": 1384025,
+  "network_ids": [
+    "huc8_01070004",
+    "huc8_01090001",
+    "huc8_01090004",
+    "huc8_02020006",
+    "huc8_02040103",
+    "huc8_02040106",
+    "huc8_02040203",
+    "huc8_02040205",
+    "huc8_02050104",
+    "huc8_02050305",
+    "huc8_02060003",
+    "huc8_02070002",
+    "huc8_02070008",
+    "huc8_02070010",
+    "huc8_02080201",
+    "huc8_03070101",
+    "huc8_04020105",
+    "huc8_04040003",
+    "huc8_04060102",
+    "huc8_04060103",
+    "huc8_04070007",
+    "huc8_04140101",
+    "huc8_05010005",
+    "huc8_05010006",
+    "huc8_05010007",
+    "huc8_05020001",
+    "huc8_05020005",
+    "huc8_05020006",
+    "huc8_05030102",
+    "huc8_05040001",
+    "huc8_05040005",
+    "huc8_05090203",
+    "huc8_05110001",
+    "huc8_05120201",
+    "huc8_05130202",
+    "huc8_05140101",
+    "huc8_05140102",
+    "huc8_07040006",
+    "huc8_07070005",
+    "huc8_07120001",
+    "huc8_07120004",
+    "huc8_10230006",
+    "huc8_10300101",
+    "huc8_13060011",
+    "huc8_15030108",
+    "huc8_16020102",
+    "huc8_16050102",
+    "huc8_03040206",
+    "huc8_03050106",
+    "huc8_03050109",
+    "huc8_03050208",
+    "huc8_03060106",
+    "huc8_03070103",
+    "huc8_03080103",
+    "huc8_03090101",
+    "huc8_03090204",
+    "huc8_03100101",
+    "huc8_03100204",
+    "huc8_03100205",
+    "huc8_03100207",
+    "huc8_03150104",
+    "huc8_03160111",
+    "huc8_11010014",
+    "huc8_11020002",
+    "huc8_11020003",
+    "huc8_11030012",
+    "huc8_11130206"
+  ],
+  "no_go_reasons": [
+    "n_open_networks_67_lt_100_network_interval_floor",
+    "online_full_workload_not_executed",
+    "online_timestamp_safe_M_and_H_inputs_not_bound",
+    "network_level_aggregation_blocked_no_complete_result_set"
+  ],
+  "placement_binding": {
+    "reselected_for_online": false,
+    "same_donor_mask_rule": true,
+    "same_gap_start_and_truth_window": true,
+    "source": "existing_offline_WorkItem_and_frozen_geometry"
+  },
+  "placement_roster_identity_sha256": "7493d116fc56c9aa697471ec668e910b7c4c7698b57d3a1e0d59687d1f506b07",
+  "protocol_amendment": "v9.1",
+  "purpose": "pipeline_verification_not_evidence",
+  "runner_contract_version": "t2_v91_online_causal_runner_v1",
+  "runner_implementation_ready": true,
+  "sealed_input_roots_allowed": [],
+  "sealed_temperature_records_read": false,
+  "task": "online_causal",
+  "work_item_identity_sha256": "0e5c66d8de5857d2d2e25d8494b7ea1474d0569169e62ae845160bb0b3dd01a4"
+}

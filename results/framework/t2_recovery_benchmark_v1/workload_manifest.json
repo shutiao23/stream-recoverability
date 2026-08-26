@@ -148,7 +148,7 @@
   "no_go_reasons": [
     "n_open_networks_67_lt_100_network_interval_floor",
     "network_level_achieved_skill_aggregation_blocked_no_complete_results",
-    "online_causal_runner_not_implemented"
+    "online_causal_full_workload_not_executed"
   ],
   "primary_evidence_forbids": [
     "eventwise_best_envelope",
@@ -442,7 +442,9 @@
     "n_not_applicable": 714100,
     "n_reference": 252140,
     "n_work_items": 1384025,
-    "online_causal_status": "not_implemented_do_not_relabel_offline_as_online",
+    "online_causal_manifest": "results/framework/t2_online_causal_v1/workload_manifest.json",
+    "online_causal_runner_contract": "t2_v91_online_causal_runner_v1",
+    "online_causal_status": "runner_ready_full_results_missing",
     "placement_eligibility": "strict_B_union_D_then_shared_across_all_information_conditions",
     "placement_roster_scope": "one_common_roster_per_network_target_gap",
     "placement_shortfall_policy": "same_placement_slots_blocked_for_every_information_condition",
@@ -456,7 +458,7 @@
       "structural_not_applicable|pchip_or_linear_requires_two_boundaries": 2704,
       "structural_not_applicable|structural_unimplemented_no_meteorology_or_hydraulics_adapter": 403424
     },
-    "task_executable_now": "offline_archival",
+    "task_executable_now": "offline_archival_and_bounded_online_causal",
     "work_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
     "work_items_by_geometry": {
       "adversarial_stress": 135150,

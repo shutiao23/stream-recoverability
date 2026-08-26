@@ -1,0 +1,19 @@
+{
+  "checkpoint_namespace": "online_checkpoints_v1",
+  "executed": 10,
+  "formal_evidence": false,
+  "full_workload_started": false,
+  "manifest_schema": "t2_v91_online_causal_bounded_run_v1",
+  "max_items": 10,
+  "resumed": 0,
+  "runner_contract_version": "t2_v91_online_causal_runner_v1",
+  "sealed_temperature_records_read": false,
+  "selected": 10,
+  "start_ordinal": 0,
+  "statuses": {
+    "complete": 4,
+    "reference_complete": 2,
+    "structural_not_applicable": 4
+  },
+  "task": "online_causal"
+}

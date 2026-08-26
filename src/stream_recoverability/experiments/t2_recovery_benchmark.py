@@ -1193,7 +1193,7 @@ def build_workload_manifest(
         "no_go_reasons": [
             f"n_open_networks_{len(networks)}_lt_100_network_interval_floor",
             "network_level_achieved_skill_aggregation_blocked_no_complete_results",
-            "online_causal_runner_not_implemented",
+            "online_causal_full_workload_not_executed",
         ],
         "sealed_temperature_records_read": False,
         "sealed_input_roots_allowed": [],
@@ -1222,8 +1222,10 @@ def build_workload_manifest(
             "climatology_computed_inside_each_executable_model_cell": True,
             "checkpoint_namespace": "checkpoints_v3",
             "legacy_checkpoint_namespaces_ignored": ["checkpoints", "checkpoints_v2"],
-            "task_executable_now": "offline_archival",
-            "online_causal_status": "not_implemented_do_not_relabel_offline_as_online",
+            "task_executable_now": "offline_archival_and_bounded_online_causal",
+            "online_causal_status": "runner_ready_full_results_missing",
+            "online_causal_runner_contract": "t2_v91_online_causal_runner_v1",
+            "online_causal_manifest": "results/framework/t2_online_causal_v1/workload_manifest.json",
             "n_work_items": n_items if count_items else None,
             "workload_item_identity_sha256": (
                 workload_digest.hexdigest() if count_items else None
