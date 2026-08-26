@@ -276,6 +276,38 @@ def load_gages_ii(
     return result, archive
 
 
+def load_gages_ii_bfi(
+    config: Mapping[str, Any], cache_dir: Path, *, offline: bool = False
+) -> pd.DataFrame:
+    """STAID and BFI_AVE from GAGES-II hydro tables. Not a causal groundwater claim."""
+
+    archive = _sciencebase_archive(config, cache_dir, offline=offline)
+    with zipfile.ZipFile(archive) as outer:
+        nested_payload = outer.read("spreadsheets-in-csv-format.zip")
+    with zipfile.ZipFile(io.BytesIO(nested_payload)) as nested:
+        pieces: list[pd.DataFrame] = []
+        for prefix in ("conterm", "AKHIPR"):
+            name = f"{prefix}_hydro.txt"
+            try:
+                handle = nested.open(name)
+            except KeyError:
+                continue
+            table = pd.read_csv(handle, dtype={"STAID": str}, encoding="cp1252")
+            keep = [column for column in ("STAID", "BFI_AVE") if column in table.columns]
+            if "STAID" not in keep:
+                continue
+            piece = table[keep].copy()
+            piece["STAID"] = piece["STAID"].astype(str).str.strip().str.zfill(8)
+            pieces.append(piece)
+    if not pieces:
+        return pd.DataFrame(columns=["STAID", "BFI_AVE"])
+    result = pd.concat(pieces, ignore_index=True, sort=False)
+    result = result.drop_duplicates(subset=["STAID"], keep="first")
+    if "BFI_AVE" in result.columns:
+        result["BFI_AVE"] = pd.to_numeric(result["BFI_AVE"], errors="coerce")
+    return result
+
+
 def fetch_monitoring_locations(
     station_ids: Sequence[str],
     config: Mapping[str, Any],

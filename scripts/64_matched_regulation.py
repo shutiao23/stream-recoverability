@@ -8,6 +8,7 @@ T5 passed. SEPlains is recorded as a T6 candidate slice, not a confirmed zone.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -21,10 +22,16 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 GAGES = ROOT / "results/regulation_panel_v1_legacy_transport/station_metrics.csv"
+# Reuse the immutable GAGES-II archive already downloaded and identity-audited by
+# the frozen regulation-panel run.  Keeping a second cache here made an offline
+# T6 run silently report ``bfi_joined: false`` despite the source being on disk.
+GAGES_CACHE = ROOT / "data/cache/regulation_panel_v1"
+FREEZE = ROOT / "configs/regulation_panel_freeze_v1.yaml"
 V1 = ROOT / "results/framework/public_rivers"
 V2 = ROOT / "results/framework/public_rivers_v2"
 OUTPUT = V2
 COMPARISON = V2 / "operator_vs_univariate_network.csv"
+GAGES_ARCHIVE = GAGES_CACHE / "basinchar_and_report_sept_2011.zip"
 
 
 def _site_ids_from_wide(path: Path) -> list[str]:
@@ -77,6 +84,80 @@ def network_gages_rows() -> pd.DataFrame:
                 }
             )
     return pd.DataFrame(rows)
+
+
+def join_network_bfi(networks: pd.DataFrame) -> tuple[pd.DataFrame, bool]:
+    """Mean GAGES-II BFI_AVE per network. Failure to load is recorded, not invented."""
+
+    from stream_recoverability.analysis.regulation_panel import load_freeze, load_gages_ii_bfi
+
+    try:
+        config = load_freeze(FREEZE)
+        bfi = load_gages_ii_bfi(config, GAGES_CACHE, offline=True)
+    except Exception:
+        networks = networks.copy()
+        networks["mean_bfi"] = float("nan")
+        networks["n_bfi_matched"] = 0
+        return networks, False
+    if bfi.empty or "BFI_AVE" not in bfi.columns:
+        networks = networks.copy()
+        networks["mean_bfi"] = float("nan")
+        return networks, False
+    bfi = bfi.copy()
+    bfi["STAID"] = bfi["STAID"].astype(str).str.strip().str.zfill(8)
+    lookup = bfi.set_index("STAID")["BFI_AVE"]
+    means = []
+    for folder in (V1, V2):
+        for path in sorted(folder.glob("*_daily_wide.csv")):
+            if "willamette_mainstem" in path.name:
+                continue
+            network_id = path.name.replace("_daily_wide.csv", "")
+            values = []
+            for site_id in _site_ids_from_wide(path):
+                key = str(site_id).zfill(8)
+                if key in lookup.index:
+                    value = float(lookup.loc[key])
+                    if np.isfinite(value):
+                        values.append(value)
+            means.append(
+                {
+                    "network_id": network_id,
+                    "mean_bfi": float(np.nanmean(values)) if values else float("nan"),
+                    "n_bfi_matched": int(len(values)),
+                }
+            )
+    if not means:
+        networks = networks.copy()
+        networks["mean_bfi"] = float("nan")
+        return networks, False
+    extra = pd.DataFrame(means)
+    merged = networks.merge(extra, on="network_id", how="left")
+    return merged, bool(merged["n_bfi_matched"].fillna(0).gt(0).any())
+
+
+def seplains_bfi_slice(frame: pd.DataFrame) -> dict[str, object]:
+    """T6 candidate: SEPlains recoverability split by BFI. Not a passed zone."""
+
+    if frame.empty or "seplains" not in frame.columns or "mean_bfi" not in frame.columns:
+        return {"n_seplains_with_bfi": 0, "passed": False}
+    piece = frame.loc[frame["seplains"].fillna(False)].copy()
+    piece = piece.loc[np.isfinite(pd.to_numeric(piece["mean_bfi"], errors="coerce"))]
+    if "recoverability_r" not in piece.columns or len(piece) < 4:
+        return {"n_seplains_with_bfi": int(len(piece)), "passed": False}
+    bfi = pd.to_numeric(piece["mean_bfi"], errors="coerce")
+    high = piece.loc[bfi >= float(bfi.median()), "recoverability_r"]
+    low = piece.loc[bfi < float(bfi.median()), "recoverability_r"]
+    return {
+        "n_seplains_with_bfi": int(len(piece)),
+        "mean_r_high_bfi": float(pd.to_numeric(high, errors="coerce").mean()),
+        "mean_r_low_bfi": float(pd.to_numeric(low, errors="coerce").mean()),
+        "delta_r_high_minus_low_bfi": float(
+            pd.to_numeric(high, errors="coerce").mean()
+            - pd.to_numeric(low, errors="coerce").mean()
+        ),
+        "passed": False,
+        "note": "Candidate T6 slice. Not a confirmed failure zone.",
+    }
 
 
 def matched_contrast(frame: pd.DataFrame) -> dict[str, object]:
@@ -137,6 +218,7 @@ def main() -> None:
         scores = pd.read_csv(COMPARISON)
         if "network_id" in scores.columns:
             networks = networks.merge(scores, on="network_id", how="left")
+    networks, bfi_joined = join_network_bfi(networks)
     networks.to_csv(OUTPUT / "matched_regulation_networks.csv", index=False)
     contrast = matched_contrast(networks)
     seplains = (
@@ -144,14 +226,16 @@ def main() -> None:
         if "seplains" in networks.columns
         else pd.DataFrame()
     )
+    t6 = seplains_bfi_slice(networks)
     manifest = {
         "what_this_is": (
             "GAGES-II 2009 major-dam join onto downloaded public-river station IDs, "
-            "with a coarse n_sites/climate/drainage match."
+            "with a coarse n_sites/climate/drainage match and BFI_AVE when the "
+            "GAGES-II hydro table is available."
         ),
         "what_this_is_not": (
-            "Not T5 passed. Not operations data. Not a causal dam effect. "
-            "Not BFI until that GAGES-II table is loaded. Not last-check."
+            "Not T5 passed. Not operations data. Not a causal dam or BFI effect. "
+            "Not last-check."
         ),
         "formal_evidence": False,
         "headline_claim_licensed": False,
@@ -167,7 +251,23 @@ def main() -> None:
             if key != "pairs"
         },
         "seplains_is_candidate_failure_zone": bool(len(seplains) > 0),
-        "bfi_joined": False,
+        "seplains_bfi": t6,
+        "bfi_joined": bool(bfi_joined),
+        "n_bfi_matched_networks": int(
+            networks.get("n_bfi_matched", pd.Series(dtype=float)).fillna(0).gt(0).sum()
+        ),
+        "n_bfi_station_matches": int(
+            networks.get("n_bfi_matched", pd.Series(dtype=float)).fillna(0).sum()
+        ),
+        "bfi_source": (
+            {
+                "archive": GAGES_ARCHIVE.relative_to(ROOT).as_posix(),
+                "sha256": hashlib.sha256(GAGES_ARCHIVE.read_bytes()).hexdigest(),
+                "offline_reuse": True,
+            }
+            if GAGES_ARCHIVE.is_file()
+            else None
+        ),
         "last_check_temperatures_opened": False,
     }
     if contrast.get("pairs"):

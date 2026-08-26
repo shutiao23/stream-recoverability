@@ -1,5 +1,10 @@
 {
-  "bfi_joined": false,
+  "bfi_joined": true,
+  "bfi_source": {
+    "archive": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
+    "offline_reuse": true,
+    "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e"
+  },
   "formal_evidence": false,
   "headline_claim_licensed": false,
   "last_check_temperatures_opened": false,
@@ -8,13 +13,23 @@
     "n_matched_pairs": 5,
     "passed": false
   },
+  "n_bfi_matched_networks": 80,
+  "n_bfi_station_matches": 205,
   "n_gages_matched_networks": 51,
   "n_networks": 91,
   "n_regulated": 46,
   "n_seplains": 6,
+  "seplains_bfi": {
+    "delta_r_high_minus_low_bfi": -0.08354894071805852,
+    "mean_r_high_bfi": 0.8783533626095481,
+    "mean_r_low_bfi": 0.9619023033276066,
+    "n_seplains_with_bfi": 6,
+    "note": "Candidate T6 slice. Not a confirmed failure zone.",
+    "passed": false
+  },
   "seplains_is_candidate_failure_zone": true,
   "t5_passed": false,
   "t6_passed": false,
-  "what_this_is": "GAGES-II 2009 major-dam join onto downloaded public-river station IDs, with a coarse n_sites/climate/drainage match.",
-  "what_this_is_not": "Not T5 passed. Not operations data. Not a causal dam effect. Not BFI until that GAGES-II table is loaded. Not last-check."
+  "what_this_is": "GAGES-II 2009 major-dam join onto downloaded public-river station IDs, with a coarse n_sites/climate/drainage match and BFI_AVE when the GAGES-II hydro table is available.",
+  "what_this_is_not": "Not T5 passed. Not operations data. Not a causal dam or BFI effect. Not last-check."
 }

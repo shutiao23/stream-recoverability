@@ -1,4 +1,6 @@
+import io
 from pathlib import Path
+import zipfile
 
 import numpy as np
 import pandas as pd
@@ -10,6 +12,7 @@ from stream_recoverability.analysis.regulation_panel import (
     enforce_isolation,
     exact_lag_acf,
     leave_ecoregion_out_predictions,
+    load_gages_ii_bfi,
     load_freeze,
     logistic_models,
     select_station_series,
@@ -17,6 +20,27 @@ from stream_recoverability.analysis.regulation_panel import (
 
 ROOT = Path(__file__).resolve().parents[1]
 FREEZE = ROOT / "configs/regulation_panel_freeze_v1.yaml"
+
+
+def test_load_gages_ii_bfi_reads_hydro_table_and_normalizes_ids(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    nested_bytes = io.BytesIO()
+    with zipfile.ZipFile(nested_bytes, "w") as nested:
+        nested.writestr("conterm_hydro.txt", "STAID,BFI_AVE\n1234567,42.5\n")
+    archive = tmp_path / "gages.zip"
+    with zipfile.ZipFile(archive, "w") as outer:
+        outer.writestr("spreadsheets-in-csv-format.zip", nested_bytes.getvalue())
+    monkeypatch.setattr(
+        "stream_recoverability.analysis.regulation_panel._sciencebase_archive",
+        lambda config, cache_dir, offline=False: archive,
+    )
+
+    result = load_gages_ii_bfi({}, tmp_path, offline=True)
+
+    assert result.to_dict(orient="records") == [
+        {"STAID": "01234567", "BFI_AVE": 42.5}
+    ]
 
 
 def test_freeze_is_sealed_and_rejects_confirmatory_paths() -> None:
