@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import pandas as pd
 
@@ -22,19 +22,31 @@ from stream_recoverability.data.hubeau_temperature import (
     cluster_hubeau_rivers,
     hubeau_chronique_daily,
 )
-from stream_recoverability.data.public_temperature import overlap_report, river_wide_panel
+from stream_recoverability.data.public_temperature import (
+    overlap_report,
+    river_wide_panel,
+)
 from stream_recoverability.data.v2_download_policy import last_check_site_ids
 
 OUTPUT = ROOT / "results/framework/public_rivers_europe"
 CACHE = ROOT / "data/public_rivers"
 STATIONS = ROOT / "results/framework/public_catalog/hubeau_all_stations.csv"
-PREFERRED = ("La Garonne", "Le Rhône", "La Saône", "La Durance", "L'Aude")
+PREFERRED = (
+    "La Seine",
+    "La Garonne",
+    "Le Rhône",
+    "La Marne",
+    "La Saône",
+    "Le Tarn",
+    "La Moselle",
+    "La Meuse",
+)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--max-rivers", type=int, default=3)
-    parser.add_argument("--max-sites-per-river", type=int, default=5)
+    parser.add_argument("--max-rivers", type=int, default=12)
+    parser.add_argument("--max-sites-per-river", type=int, default=6)
     args = parser.parse_args()
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
@@ -46,7 +58,8 @@ def main() -> None:
         hit = clusters.loc[clusters["river"].str.fullmatch(preferred, case=False)]
         if not hit.empty:
             ranked.append(hit.iloc[0])
-    for row in clusters.itertuples(index=False):
+    remaining = clusters.sort_values("n_stations", ascending=False)
+    for row in remaining.itertuples(index=False):
         if all(str(row.river) != str(item.river) for item in ranked):
             ranked.append(row)
     chosen = ranked[: int(args.max_rivers)]
@@ -70,7 +83,8 @@ def main() -> None:
         for site_id in site_ids:
             try:
                 daily = hubeau_chronique_daily(site_id, cache_dir=CACHE)
-            except Exception as error:
+            # Preserve arbitrary provider/transport failures per station.
+            except Exception as error:  # noqa: BLE001
                 print(f"{network_id} {site_id}: {error}", flush=True)
                 continue
             if daily is None or daily.empty:
@@ -91,7 +105,7 @@ def main() -> None:
             )
             continue
         wide.to_csv(OUTPUT / f"{network_id}_daily_wide.csv")
-        report = overlap_report(wide, min_stations=min(3, wide.shape[1]))
+        report = overlap_report(wide, min_stations=3)
         complete = bool(
             int(report.get("n_stations") or 0) >= 3
             and float(report.get("overlap_years") or 0) >= 8.0
@@ -126,7 +140,7 @@ def main() -> None:
         "what_this_is_not": (
             "Not Loire last-check. Not invented years. Not T8 unless complete_enough."
         ),
-        "n_rivers_attempted": int(len(overlap)),
+        "n_rivers_attempted": len(overlap),
         "n_complete_enough": n_complete,
         "countable_toward_t8": bool(n_complete > 0),
         "loire_downloaded": False,

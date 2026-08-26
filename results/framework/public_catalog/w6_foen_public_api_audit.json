@@ -1,0 +1,28 @@
+{
+  "as_of": "2026-08-26",
+  "authentication_required": false,
+  "endpoint": "https://data.bafu.admin.ch/api",
+  "historical_daily_requires_manual_order": false,
+  "manual_order_only_for": "legacy_or_special_products_not_required_by_the_public_GraphQL_daily_path",
+  "manual_order_page_still_available": "https://www.bafu.admin.ch/en/hydrological-data-service-for-watercourses-and-lakes",
+  "metadata_timestamp_probe_release_states": [
+    "2"
+  ],
+  "metadata_timestamp_probe_rows": 7,
+  "metadata_timestamp_probe_station": "2016",
+  "n_named_river_clusters_3plus_metadata_only": 109,
+  "n_station_metadata_rows": 1341,
+  "official_documentation": "https://api.data-platform.cloud.bafu.admin.ch/en/dataproduct-water-observations",
+  "public_daily_mean_water_temperature_table": "data_1day_mean",
+  "public_graphql_reachable": true,
+  "recommended_when_governance_changes": "Query data_1day_mean in disjoint yearly windows; parameterName=WT; retain releaseState 2 or 3; require >=300 distinct days in each of eight common calendar years; never use coverageFrom/coverageTo as eligibility.",
+  "release_states_documented": {
+    "1": "provisional",
+    "2": "validated",
+    "3": "final_or_replaced"
+  },
+  "swiss_countable_toward_t8": false,
+  "swiss_exclusion_reason": "locked_protocol_loire_swiss_still_not_countable_for_t8",
+  "temperature_values_requested": false,
+  "water_temperature_parameter": "WT"
+}

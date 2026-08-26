@@ -1,0 +1,20 @@
+{
+  "countable_toward_t8": false,
+  "foen_historical_daily_requires_manual_order": false,
+  "foen_public_graphql_reachable": true,
+  "foen_temperature_values_requested": false,
+  "formal_evidence": false,
+  "hubeau_bulk_daily_downloads_started": 0,
+  "hubeau_n_non_loire_clusters_attempted": 40,
+  "hubeau_n_non_loire_sites_preflighted": 167,
+  "hubeau_n_preflight_errors": 0,
+  "hubeau_n_sites_with_sandre_correcte_observations": 0,
+  "hubeau_n_strict_8yr_concurrent_complete": 0,
+  "hubeau_unqualified_code_4_accepted": false,
+  "loire_downloaded": false,
+  "n_europe_complete_enough_added": 0,
+  "passed": false,
+  "swiss_countable_toward_t8": false,
+  "what_this_is": "W6 Europe source feasibility and strict-QC preflight.",
+  "what_this_is_not": "Not T8 evidence; not a claim from raw spans; no Loire or Swiss temperature outcomes were opened."
+}
