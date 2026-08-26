@@ -6,10 +6,11 @@ the first and last dates in the catalog. That does not score gap recovery.
 
 from __future__ import annotations
 
+import math
 import re
 import time
 import urllib.parse
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import Any
 
 import pandas as pd
@@ -619,6 +620,17 @@ def official_huc_prefix(value: Any, width: int) -> str:
     return digits[:width]
 
 
+def naive_huc_zfill_prefix(value: Any, width: int = 8) -> str:
+    """Reviewer-style ``str(huc).zfill(width)[:width]``. Wrong on HUC12/floats."""
+
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return ""
+    text = str(value).strip()
+    if text.lower() in {"", "nan", "none", "<na>"}:
+        return ""
+    return text.zfill(int(width))[: int(width)]
+
+
 def largest_overlapping_subset(
     begins: Sequence[Any],
     ends: Sequence[Any],
@@ -922,6 +934,179 @@ def cluster_rivers_from_catalog_v2(
     ).reset_index(drop=True)
 
 
+EARTH_RADIUS_KM = 6371.0
+
+
+def haversine_km(
+    lat1: float,
+    lon1: float,
+    lat2: float,
+    lon2: float,
+    *,
+    radius_km: float = EARTH_RADIUS_KM,
+) -> float:
+    """Great-circle distance in kilometres (Earth radius 6371 km)."""
+
+    phi1 = math.radians(float(lat1))
+    phi2 = math.radians(float(lat2))
+    dphi = math.radians(float(lat2) - float(lat1))
+    dlambda = math.radians(float(lon2) - float(lon1))
+    chord = (
+        math.sin(dphi / 2.0) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2.0) ** 2
+    )
+    return 2.0 * float(radius_km) * math.asin(min(1.0, math.sqrt(chord)))
+
+
+def _max_pairwise_km(
+    latitudes: Sequence[Any],
+    longitudes: Sequence[Any],
+    *,
+    radius_km: float = EARTH_RADIUS_KM,
+) -> tuple[float, int]:
+    coords = [
+        (float(lat), float(lon))
+        for lat, lon in zip(latitudes, longitudes)
+        if pd.notna(lat) and pd.notna(lon)
+    ]
+    n_coords = len(coords)
+    if n_coords < 2:
+        return float("nan"), n_coords
+    farthest = 0.0
+    for i, (lat1, lon1) in enumerate(coords):
+        for lat2, lon2 in coords[i + 1 :]:
+            farthest = max(
+                farthest,
+                haversine_km(lat1, lon1, lat2, lon2, radius_km=radius_km),
+            )
+    return float(farthest), n_coords
+
+
+def cluster_by_huc8(
+    series_df: pd.DataFrame,
+    locations_df: pd.DataFrame | None = None,
+    min_stations: int = 3,
+    min_overlap_years: float = 8,
+    max_pair_km: float | None = None,
+    *,
+    huc_width: int = 8,
+    earth_radius_km: float = EARTH_RADIUS_KM,
+    huc_prefix: Callable[[Any, int], str] = official_huc_prefix,
+) -> pd.DataFrame:
+    """HUC8 subbasin clustering. Replaces name×HUC2 string matching.
+
+    Returns candidate groups with exact max-overlap subset search.
+
+    Grouping uses :func:`official_huc_prefix` at ``huc_width`` (default 8), not
+    ``str(huc).zfill(8)[:8]``. The reviewer's ``zfill(8)[:8]`` is the *intent*
+    for 7-digit codes such as ``3130004``; ``official_huc_prefix`` is the
+    correct implementation because catalog HUCs also include values such as
+    ``190101060106.0`` and ``11000020108``. Naive ``zfill(8)[:8]`` on those
+    longer codes yields the wrong basin. Pass ``huc_prefix=naive_huc_zfill_prefix``
+    only as a diagnostic; it is not the catalog rule.
+
+    Long-station filter is catalog span ≥ ``min_overlap_years`` (8 years at
+    the default). That matches the v2 *builder's* 8-year case, not
+    :func:`cluster_rivers_from_catalog_v2`'s function default of 6 years.
+
+    Within each HUC prefix, :func:`largest_overlapping_subset` keeps the
+    largest set whose interval intersection is ≥ ``min_overlap_years``. The
+    search is not truncated at 12 stations; a 13-station concurrent group
+    keeps 13.
+
+    Spatial-filter policy: when ``max_pair_km`` is set, the overlap subset is
+    computed first, then that subset's maximum pairwise geodesic distance is
+    measured (haversine, Earth radius 6371 km). Groups whose overlap subset
+    exceeds the cap are **omitted**, not silently shrunk. Shrinking after the
+    overlap search would mix a second heuristic into the grouping rule. If
+    fewer than two kept stations have coordinates, the cap cannot be verified
+    and the group is omitted. The returned ``max_pair_km`` is the actual
+    distance of the kept set, not the cap.
+    """
+
+    if series_df is None or series_df.empty:
+        return pd.DataFrame()
+    width = int(huc_width)
+    if width <= 0:
+        raise ValueError(f"huc_width must be positive, got {huc_width!r}")
+    min_stations = int(min_stations)
+    min_overlap = float(min_overlap_years)
+    min_span = float(min_overlap_years)
+    locations = pd.DataFrame() if locations_df is None else locations_df
+    prepared = _prepare_v2_stations(series_df, locations, min_span_years=min_span)
+    if prepared.empty:
+        return pd.DataFrame()
+    huc_source = prepared["huc"] if "huc" in prepared.columns else pd.Series("", index=prepared.index)
+    prepared = prepared.copy()
+    prepared["_huc_key"] = huc_source.map(lambda value: huc_prefix(value, width))
+    prepared = prepared.loc[prepared["_huc_key"].astype(str).str.len().eq(width)].copy()
+    if prepared.empty:
+        return pd.DataFrame()
+    rows: list[dict[str, Any]] = []
+    cap = None if max_pair_km is None or (isinstance(max_pair_km, float) and pd.isna(max_pair_km)) else float(max_pair_km)
+    for huc_key, group in prepared.groupby("_huc_key", sort=False, dropna=False):
+        key = "" if pd.isna(huc_key) else str(huc_key)
+        if len(key) != width:
+            continue
+        chosen, overlap_start, overlap_end, overlap_years = largest_overlapping_subset(
+            group["daily_begin"],
+            group["daily_end"],
+            min_overlap_years=min_overlap,
+        )
+        if len(chosen) < min_stations:
+            continue
+        subset = group.iloc[chosen]
+        lat = pd.to_numeric(subset.get("latitude"), errors="coerce")
+        lon = pd.to_numeric(subset.get("longitude"), errors="coerce")
+        actual_km, n_coords = _max_pairwise_km(lat, lon, radius_km=earth_radius_km)
+        if cap is not None:
+            if n_coords < 2 or pd.isna(actual_km) or float(actual_km) > cap:
+                continue
+        names = sorted(
+            {str(item).strip() for item in subset.get("river_name", pd.Series(dtype=object)).dropna() if str(item).strip()}
+        )
+        site_ids = ",".join(sorted((subset["site_id"].map(_as_site_id)), key=str))
+        digits = official_huc_digits(subset["huc"].iloc[0]) if "huc" in subset.columns else key
+        rows.append(
+            {
+                "network_id": f"huc{width}_{key}",
+                "grouping": f"huc{width}",
+                "huc2": key[:2] if len(key) >= 2 else official_huc_prefix(digits, 2),
+                "huc4": key[:4] if len(key) >= 4 else official_huc_prefix(digits, 4),
+                "huc6": key[:6] if len(key) >= 6 else official_huc_prefix(digits, 6),
+                "huc8": key if width == 8 else official_huc_prefix(digits, 8),
+                "huc_key": key,
+                "n_stations": int(len(subset)),
+                "n_stations_available": int(len(group)),
+                "site_ids": site_ids,
+                "overlap_start": None
+                if pd.isna(overlap_start)
+                else pd.Timestamp(overlap_start).date().isoformat(),
+                "overlap_end": None
+                if pd.isna(overlap_end)
+                else pd.Timestamp(overlap_end).date().isoformat(),
+                "catalog_overlap_years": overlap_years,
+                "enough_overlap_years": bool(
+                    pd.notna(overlap_years) and overlap_years >= min_overlap
+                ),
+                "max_pair_km": actual_km,
+                "n_stations_with_coords": int(n_coords),
+                "river_names": "; ".join(names),
+                "min_stations": min_stations,
+                "min_overlap_years": min_overlap,
+                "min_span_years": min_span,
+                "distance_cap_km": cap if cap is not None else float("nan"),
+            }
+        )
+    frame = pd.DataFrame(rows)
+    if frame.empty:
+        return frame
+    return frame.sort_values(
+        ["n_stations", "catalog_overlap_years", "network_id"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
+
+
 def summarize_river(site_table: pd.DataFrame, *, min_span_years: float = 8.0) -> dict[str, Any]:
     usable = site_table.loc[
         site_table["has_daily_temperature"].fillna(False)
@@ -957,14 +1142,18 @@ def summarize_river(site_table: pd.DataFrame, *, min_span_years: float = 8.0) ->
 
 
 __all__ = [
+    "EARTH_RADIUS_KM",
+    "cluster_by_huc8",
     "cluster_rivers_from_catalog",
     "cluster_rivers_from_catalog_v2",
+    "haversine_km",
     "inventory_foen_temperature_stations",
     "inventory_hubeau_stations",
     "inventory_loire_hubeau",
     "inventory_usgs_name_search",
     "inventory_usgs_sites",
     "largest_overlapping_subset",
+    "naive_huc_zfill_prefix",
     "official_huc_digits",
     "official_huc_prefix",
     "river_name_from_site_name",

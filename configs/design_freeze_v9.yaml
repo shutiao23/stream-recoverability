@@ -8,6 +8,8 @@ supersedes: recoverability_study_freeze_v1
 historical_case_study_freeze: design_freeze_v4
 charter: docs/research_charter_v1.md
 protocol_change: docs/protocol_change_v8_to_v9.md
+protocol_amendment: v9.1
+protocol_change_path: docs/protocol_change_v9_to_v9.1.md
 formal_evidence: false
 headline_claim_licensed: false
 reservoir_mechanism_in_headline: false
@@ -19,10 +21,16 @@ jinsha_outcomes_reusable_as_confirmation: false
 chattahoochee_outcomes_reusable_as_confirmation: false
 regulation_role: covariate_and_mechanism_not_headline
 note: >
-  Next-paper design freeze. Numeric gates are locked. Sealed temperatures
-  are unopened. The 12-river pilot and synthetic sensor-policy numbers are
-  development context, not confirmatory. Do not write them into the
-  abstract or conclusions as proof.
+  Next-paper design freeze, amended v9.1 before any new temperatures.
+  Numeric T2 gates are unchanged floors. Reviewer HUC8 161 equals naive
+  str(huc).zfill(8)[:8] on this catalog, not a truncated-combo lower
+  bound (truncation still yields 166). W1-A exact HUC8 3-station /
+  8-year catalog count is 166; that is still catalog overlap, not T2.
+  Current twin gate_pass false is uninformative, not T5 and not a
+  negative recoverability result. Do not retune the generator.
+  Six-river and twelve-river pilots, and any n<100 development stop-loss,
+  are not network-level inference. Two-tier model budget is locked
+  before download.
 
 core_question: >
   Before any recovery model is fit, can a fitting-period Schur operator
@@ -116,10 +124,15 @@ mask_role: repeated_measurement_not_independent_sample
 minimum_independent_clusters_for_interval: 5
 minimum_independent_networks_for_interval: 100
 interval_rule: >
-  Primary CIs require at least 100 independent river networks.
-  The nested floor of 5 site-year or overlap clusters is only a
-  within-network descriptive rule. Do not report a network-level
-  interval from the 12-river pilot.
+  Primary network-level CIs require at least 100 independent river
+  networks after ingest QC and the qualified-year rule. The nested
+  floor of 5 site-year or overlap clusters is only a within-network
+  descriptive rule (historical BL-012). Do not report a network-level
+  interval from the 12-river pilot, the 6-river W2 pipeline redo, or
+  any n<100 development stop-loss. evaluate_success must not pass T2
+  when the network interval is withheld or n<100. W2 six-river redo
+  manifests must write n_networks: 6, passed: false, and
+  purpose: pipeline_verification_not_evidence.
 
 split_rule:
   unit: entire_network
@@ -156,13 +169,25 @@ split_rule:
     - swiss_aar_rhine
   sealed_absolute_floor: 40
   sealed_mix_target_fraction: 0.30
+  stratification_factors: [climate, regulation, size]
+  lock: seed_plus_sha256_before_download
+  lock_before_download: true
+  split_seed_and_sha256_required: true
+  do_not_rewrite_never_sealed_tokens: true
+  loire_swiss_still_not_countable_for_t8: true
+  do_not_remap_network_catalog_v1: true
+  split_catalog_when_present: configs/network_catalog_v3_split.yaml
   note: >
     Absolute sealed floor is 40 networks. 30 percent is the mix target
     (about 45 at n=150). Do not keep three different floors. Loire and
     Swiss Aare-Rhine cannot count toward T8 or the 10 non-North-America
     sealed networks until daily values are public and dated. Fractions
     and never-sealed ids are the locked rule. Do not remap
-    network_catalog_v1 splits in Phase 0. Catalog expansion is Phase 3.
+    network_catalog_v1 splits as the executable catalog. When present,
+    configs/network_catalog_v3_split.yaml holds the 50/20/30 assignment
+    locked by seed and SHA-256 before download. never_sealed_networks
+    above must not lose any of the 14 required ids. Do not retokenize
+    *_huc20 / *_huc31 / *_huc50.
 
 inventory_targets:
   independent_networks: [150, 250]
@@ -181,9 +206,56 @@ inventory_targets:
     - groundwater_dominated
     - atmospheric
     - large_river
+  grouping: huc8_plus_nldi_covariate
+  catalog_span_does_not_satisfy_qualified_year_rule: true
   note: >
     These are design targets, not the current inventory. Twelve downloaded
-    rivers are a pilot, not 150 networks.
+    rivers are a pilot, not 150 networks. Name-times-HUC2 counts 98 and 31
+    are retired grouping ceilings, not stock. Reviewer 161 equals naive
+    zfill(8)[:8] on this catalog, not a truncated-combo lower bound.
+    W1-A exact HUC8 3-station / 8-year
+    catalog count is 166; catalog overlap is not qualified years and not
+    T2. Three-station floor was already locked in v9; HUC8 is not that
+    relaxation.
+
+clustering_rule:
+  status: locked_by_v9_1
+  superseded_grouping: name_times_huc2_string
+  superseded_false_ceilings: [31, 98]
+  grouping: huc8_plus_nldi_covariate
+  huc_padding: zero_pad_to_8_or_12_before_any_prefix
+  max_overlap_subset: exact_largest_subset_catalog_interval_intersection
+  pairwise_km: optional_diagnostic_not_the_network_definition
+  nldi:
+    navigation: UM_plus_DM
+    role: connectivity_covariate
+    do_not_drop_disconnected: true
+  stricter_than_name_huc2: true
+  splits_pseudo_networks:
+    - missouri_river_huc10
+  catalog_overlap_is_not_qualified_years: true
+  catalog_level_count_is_not_t2: true
+  catalog_level_count: 166
+  catalog_level_count_is_approximate: false
+  catalog_level_count_source: exact_largest_overlapping_subset_on_disk_w1a
+  reviewer_161_used_truncated_search: false
+  reviewer_161_is_truncated_lower_bound: false
+  reviewer_161_equals_naive_zfill: true
+  truncated_combo_network_count_equals_exact_on_this_catalog: true
+  exact_huc8_3st_8y_count: 166
+  v2_huc8_only_166_was_exploratory_until_w1a: true
+  w1a_huc8_166_is_catalog_unit_not_t2: true
+  expected_download_qc_attrition: [0.25, 0.40]
+  catalog_file_when_present: configs/network_catalog_v3_huc8.yaml
+  do_not_download_name_huc2_98_list: true
+  never_sealed_inherited: true
+  forbidden_claims:
+    - extra_rivers_by_loosening
+    - sixty_three_extra_versus_98
+    - huc8_is_relaxation_of_four_station_huc2
+    - 161_meets_t2
+    - 166_meets_t2
+    - catalog_dates_equal_300_approved_days_times_8_years
 
 locked_success_criterion:
   status: locked
@@ -206,6 +278,14 @@ locked_success_criterion:
     gates_are_confirmatory_floors: true
     development_power_analysis_may_only_raise: true
     six_river_pilot_is_failed_context_not_evidence: true
+    withhold_network_ci_if_n_lt_100: true
+    twelve_river_pilot_cannot_report_network_ci: true
+    six_river_w2_pipeline_redo_cannot_report_network_ci: true
+    development_stop_loss_n_lt_100_cannot_report_network_ci: true
+    w2_six_river_pipeline_redo:
+      n_networks: 6
+      passed: false
+      purpose: pipeline_verification_not_evidence
   t3_decision:
     either: [a_placement, b_gap_triage]
   incremental_over:
@@ -226,6 +306,9 @@ locked_success_criterion:
 
 provisional_success_criterion:
   status: locked_by_v9
+  note: >
+    These numbers copy locked_success_criterion. They are not a second
+    calendar to reopen T2 after seeing download attrition.
   model: >
     observed_recovery_loss ~ beta0 + beta1 * predicted_conditional_risk
     + u_network + u_station
@@ -282,6 +365,14 @@ t5_confound_control:
   synthetic_twin_design:
     twin_a: dam_like_node_not_at_endpoint
     twin_b: endpoint_not_dam_like
+    twin_e: equal_acf_equal_donor_r2_differ_only_in_sigma_g_given_o
+    twin_e_equalize: donor_count_and_direction
+    twin_e_lag: travel_time_redundant_vs_complementary_boundary
+    do_not_retune_phi_or_isolation_to_save_gate: true
+    current_gate_pass_false_is_uninformative: true
+    current_gate_is_not_t5_complete: true
+    current_gate_is_not_negative_recoverability: true
+    twin_d_is_not_a_cell_until_decloned: true
 
 t6_honest_boundary:
   required: true
@@ -344,6 +435,48 @@ experiments:
     name: topology_falsification
     status: executable_on_synthetic
     development_context_not_confirmatory: true
+    protocol_amendment: v9.1
+    superseded_gate:
+      estimand: is_dam_like_classification_auc
+      operator_auc_min: 0.85
+      univariate_auc_max: 0.65
+      status: specification_error_not_negative_result
+      recorded_operator_auc: 1.0
+      recorded_univariate_max_auc: 1.0
+      recorded_identifiability_status: operator_separable_univariates_also_separable
+      recorded_gate_pass: false
+      do_not_cite_as_t5_done: true
+      do_not_retune_generator: true
+    estimand:
+      dependent_variable: true_recoverability_from_known_sigma
+      unit: node_times_gap_length
+      true_recoverability: true_conditional_risk_or_true_optimal_mae
+      metrics: [spearman, calibration_slope]
+      forbidden_metric: classification_auc
+    gate:
+      operator_spearman_min: 0.90
+      univariate_spearman_max: 0.70
+      univariate_set: four_preregistered_univariates
+      operator_calibration_slope_min: 0.90
+      operator_calibration_slope_max: 1.10
+      univariates_have_no_calibration_requirement: true
+      stricter_than_superseded_auc_gate: true
+      twin_e_must_pass_as_own_cell: true
+      holdout_family_locked_before_scoring: true
+      do_not_average_twin_e_into_a_to_d: true
+      six_river_pilot_does_not_license_this_change: true
+      do_not_cite_identifiability_status_as_pass: true
+    twin_e:
+      required: true
+      must_pass_as_own_cell: true
+      do_not_average_into_twins_a_to_d: true
+      equal_marginal_acf: true
+      equal_donor_r2: true
+      differ_only_in: Sigma_G_given_O
+      equalize_donor_r2_via: donor_count_and_direction
+      travel_time_lag: one_node_boundary_redundant_other_complementary
+    holdout_family_locked_before_scoring: true
+    if_operator_cannot_beat_univariates_on_twin_e: publishable_negative_do_not_retune_phi_or_noise
   E6:
     name: state_shift_robustness
     status: specified
@@ -363,6 +496,7 @@ experiments:
 
 recovery_benchmark:
   status: locked_by_v9
+  protocol_amendment: v9.1
   placements_per_cell_min: 20
   information_conditions: [B, D, B_union_D, B_union_D_union_M, B_union_D_union_M_union_H]
   gap_geometries:
@@ -372,7 +506,42 @@ recovery_benchmark:
   tasks:
     offline_archival: both_boundaries_allowed
     online_causal: future_boundary_forbidden
-  model_budget_rule: shared_tuning_budget_no_posthoc_epoch_exclusion
+  model_budget_rule: two_tier_preregistered_not_posthoc_shrink
+  model_budget_locked_before_download: true
+  two_tier_compute_budget:
+    locked_before_download: true
+    not_posthoc_shrinkage: true
+    tier_1_full_corpus:
+      produces_t2_primary_y: true
+      models:
+        - climatology
+        - pchip_or_linear
+        - kalman
+        - donor_regression
+        - xgboost
+      grid: full_gap_times_placement_times_information
+      produces: t2_primary_y
+    tier_2_stratified_subsample:
+      n_networks: 30
+      n_target: 30
+      n_allowed_range: [28, 32]
+      sample_locked_before_download: true
+      sampling: stratified_climate_times_regulation_times_network_size
+      strata:
+        - climate_or_ecoregion
+        - regulation_status
+        - network_size
+      models:
+        - air2stream
+        - saits
+        - csdi
+        - grin
+      gaps: [30, 90, 180]
+      gaps_all_required: [30, 90, 180]
+      forbidden: selecting_any_horizon_after_seeing_envelope
+      purpose: sensitivity_whether_strong_models_change_recoverability_calibration
+      not_t2_primary_y: true
+      pgdl_or_graph_wavenet: remains_on_roster_same_tier_2_budget_not_a_posthoc_drop
   required_predictors:
     - gap_length_only
     - acf_only
@@ -396,6 +565,9 @@ recovery_benchmark:
     - best_epoch_lt_50_posthoc_drop
     - unequal_tuning_budgets
     - excluding_models_because_best_epoch_lt_50
+    - selecting_the_better_of_90_and_180_days
+    - posthoc_roster_shrink_after_download
+    - csdi_or_grin_single_slot
 
 sensor_policy:
   budgets: [1, 2, 3, 4, 5]
@@ -416,6 +588,27 @@ sensor_policy:
     - heatwave_preservation
     - failure_regret
 
+ingest_qc:
+  status: preregistered_before_expansion
+  spec: docs/protocol_change_v9_to_v9.1.md
+  station_level_gate:
+    - nwis_sentinels
+    - physical_range
+    - approval_A
+    - constant_runs
+    - jumps
+    - year_min_300_days
+  any_nwis_sentinel_in_values: rejected_sentinel
+  one_percent_only_rule_insufficient: true
+  clearwater_hole_already_seen:
+    sentinels: 2
+    values: 1848
+    approximate_rate: 0.0011
+    implication: one_percent_rule_would_accept
+  outputs:
+    - per_station_verdicts
+    - attrition_table
+
 falsifiers:
   - synthetic_wrong_information_ordering
   - topology_alias_after_donor_geometry_match
@@ -428,6 +621,21 @@ falsifiers:
   - qualified_networks_below_100
   - natural_outage_failure
   - sealed_miss_must_be_written_not_unfrozen
+  - e5_wrong_estimand_reinstated
+  - twin_e_operator_no_better_than_univariates
+  - name_huc2_98_downloaded_as_if_inventory
+  - catalog_count_sold_as_t2
+  - posthoc_model_budget_shrinkage
+  - one_percent_sentinel_rule
+  - e5_wrong_estimand_cited_as_result
+  - generator_retuned_to_save_gate
+  - aliasing_not_instantiated
+  - extra_rivers_by_loosening_claim
+  - network_ci_below_100
+  - horizon_selected_after_envelope
+  - posthoc_model_budget_shrink
+  - sentinel_missed_by_percent_rule
+  - never_sealed_or_t8_breach
 
 failure_closure: >
   Accept path is T1-T7. If T3 fails but T1, T2, T4, T5, and T7 hold,
@@ -439,4 +647,14 @@ failure_closure: >
   qualified networks fall below 100, relax to 3 stations / 6 years and
   report the relaxation. If the sealed primary criterion misses, write
   the miss in the ledger; do not unfreeze. The historical two-network
-  manuscript remains a descriptive case study.
+  manuscript remains a descriptive case study. If E5 Twin E misses,
+  write a negative result; do not retune phi or noise. If grouping
+  fails, stop at catalog level; do not download the name-HUC2 98-list
+  and do not sell reviewer 161 or W1-A catalog 166 as T2 or as extra
+  rivers by loosening. If
+  n<100, withhold network CIs; 12-river and 6-river pilots cannot
+  report them. If qualified networks fall below 100 after QC, use the
+  already-written 3-station/6-year hatch and report it; do not call
+  HUC8 that hatch. If the two-tier budget cannot be run, write a
+  budget miss; do not shrink the roster after download.
+  design_freeze_v4 stays executable.

@@ -47,18 +47,29 @@ def network_bootstrap_spearman(
     network: str = "network_id",
     n_boot: int = 400,
     seed: int = 0,
+    min_networks_for_interval: int = 100,
 ) -> dict[str, float | str]:
+    """Cluster-bootstrap Spearman. Network-level CIs are withheld when n<100."""
     grouped = frame.groupby(network, sort=False)[[predicted, observed]].mean()
     networks = list(grouped.index)
     point = network_blocked_spearman(
         frame, predicted=predicted, observed=observed, network=network
     )
+    n_for_interval = max(int(min_networks_for_interval), 5)
+    withheld = {
+        **point,
+        "ci_lower": float("nan"),
+        "ci_upper": float("nan"),
+    }
     if len(networks) < 5:
         return {
-            **point,
-            "ci_lower": float("nan"),
-            "ci_upper": float("nan"),
+            **withheld,
             "inference_status": "withheld_insufficient_independent_clusters",
+        }
+    if len(networks) < n_for_interval:
+        return {
+            **withheld,
+            "inference_status": "withheld_n_lt_100_network_interval",
         }
     rng = np.random.default_rng(seed)
     draws = []
@@ -169,8 +180,13 @@ def evaluate_success(
     lower_bound_min = locked_lower if lower_bound_min is None else max(float(lower_bound_min), locked_lower)
     thresholds_locked = str(locked.get("status", "")).startswith("locked")
 
+    n_min = int((locked.get("inference") or {}).get("n_networks_min", 100))
     spearman = network_bootstrap_spearman(
-        frame, predicted=predicted, observed=observed, network=network
+        frame,
+        predicted=predicted,
+        observed=observed,
+        network=network,
+        min_networks_for_interval=n_min,
     )
     slopes = leave_one_network_out_slopes(
         frame, predicted=predicted, observed=observed, network=network
@@ -184,23 +200,25 @@ def evaluate_success(
         if not finite_slopes.empty
         else False
     )
+    n_networks = int(spearman.get("n_networks") or 0)
+    interval_tested = (
+        spearman.get("inference_status") == "tested"
+        and np.isfinite(spearman.get("ci_lower", float("nan")))
+    )
+    # Confirmatory T2 cannot pass when the network interval is withheld
+    # or n<100. A non-tested interval must not count as a CI pass.
     numeric_floors_passed = bool(
         np.isfinite(spearman["spearman"])
         and spearman["spearman"] >= spearman_min
-        and (
-            spearman["inference_status"] != "tested"
-            or (
-                np.isfinite(spearman["ci_lower"])
-                and spearman["ci_lower"] > lower_bound_min
-            )
-        )
+        and interval_tested
+        and float(spearman["ci_lower"]) > lower_bound_min
         and (same_sign if same_sign_majority else True)
         and not driver["single_network_drives"]
     )
-    n_networks = int(spearman.get("n_networks") or 0)
-    n_min = int((locked.get("inference") or {}).get("n_networks_min", 100))
     confirmatory_eligible = n_networks >= n_min
-    passed = bool(numeric_floors_passed and confirmatory_eligible)
+    passed = bool(
+        numeric_floors_passed and confirmatory_eligible and interval_tested
+    )
     return {
         "passed": passed,
         "passed_numeric_floors": numeric_floors_passed,

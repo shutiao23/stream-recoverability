@@ -1,0 +1,5 @@
+site_id,n_raw,n_sentinel,n_out_of_range,n_provisional_dropped,n_constant_run_days,n_jump,qualified_years,verdict,notes
+13340000,8552,0,0,0,180,0,23,accepted_with_flags,approval_codes_absent;suspect_constant_run
+13341050,7977,0,0,0,50,0,21,accepted_with_flags,approval_codes_absent;suspect_constant_run
+13342500,9011,0,0,0,0,0,24,accepted,approval_codes_absent
+13343000,1848,2,0,0,0,0,0,rejected_sentinel,approval_codes_absent

@@ -1,0 +1,3837 @@
+catalog_id: network_catalog_v3_huc8
+status: metadata_only_candidates
+frozen_on: '2026-08-26'
+sealed_outcomes_opened: false
+temperature_records_unverified: true
+default_catalog_unchanged: configs/network_catalog_v1.yaml
+design_freeze_v9_edited: false
+note: Metadata-only v3 HUC8 candidates from public USGS catalog dates. Grouping-rule
+  correction, not a relaxation. Not a remapping of network_catalog_v1. Sealed outcomes
+  are unopened. Jinsha, Chattahoochee, and the 12 burned rivers are never sealed.
+  Loire and Swiss Aare-Rhine are omitted and do not count toward T8. Split roles other
+  than historical/catalog_candidate live in network_catalog_v3_split.yaml.
+target_independent_networks: 150
+exact_huc8_3st_8y_count: 166
+networks:
+- network_id: huc8_03130001
+  display_name: BURNT FORK CR; CHATT R; CHATTAHOOCHEE R .18 MI US WILLEO CR; CHATTAHOOCHEE
+    R 0.25 MI US WILLEO CR; CHATTAHOOCHEE R 0.27 MI US WILLEO CR; CHATTAHOOCHEE R
+    0.39 MI DS GA140; CHATTAHOOCHEE R 0.47 MI DS GA140; CHATTAHOOCHEE R 0.5 MI US
+    MCGINNIS FY SUWANEE; CHATTAHOOCHEE R 0.76 MI US MCGINNIS FY SUWANEE GA; CHATTAHOOCHEE
+    R 0.96 MI US MCGINNIS FY SUWANEE GA; CHATTAHOOCHEE RIVER; CROOKED CREEK; LEVEL
+    CREEK; N.F. PEACHTREE CREEK; N.F. PEACHTREE CREEK, BUFORD HWY,; NANCY CREEK; PEACHTREE
+    CREEK; RICHLAND CREEK; S.F. PEACHTREE CREEK JOHNSON RD,; SOUTH FORK PEACHTREE;
+    SUWANEE CREEK; WOODALL CREEK (HUC8 03130001)
+  split_role: historical
+  historical_seen: true
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02330450'
+  - '02334430'
+  - '02334480'
+  - '02334578'
+  - '02334652'
+  - '02334653'
+  - '02334654'
+  - '02334885'
+  - '02335000'
+  - '02335350'
+  - '02335400'
+  - '02335405'
+  - '02335450'
+  - '02335777'
+  - '02335778'
+  - '02335779'
+  - '02335880'
+  - '02336000'
+  - '02336030'
+  - '02336120'
+  - '02336152'
+  - '023362095'
+  - '02336240'
+  - '02336300'
+  - '02336313'
+  - '02336340'
+  - '02336360'
+  - '02336410'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: already_used
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 28 stations, catalog overlap about 8.3 years,
+    max pairwise 117.5 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed. Historical.'
+- network_id: huc8_03070103
+  display_name: ALCOVY RIVER; BIG HAYNES CREEK; BRUSHY FORK CREEK; COBBS CREEK; CORNISH
+    CREEK; DOOLITTLE CREEK; LITTLE STONE MTN CR; NO BUSINESS CREEK; POLE BRIDGE CR;
+    SHOAL CREEK; SNAPFINGER CR; SNAPFINGER CREEK; SOUTH RIVER; STONE MOUNTAIN CREEK;
+    SWEETWATER CREEK; YELLOW RIVER (HUC8 03070103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02203603'
+  - '02203655'
+  - '02203831'
+  - '02203863'
+  - '02203873'
+  - '02203900'
+  - '02203950'
+  - '02203960'
+  - '02204037'
+  - '02205865'
+  - '02207120'
+  - '02207135'
+  - '02207160'
+  - '02207185'
+  - '02207385'
+  - '02207400'
+  - '02208150'
+  - '02208450'
+  - '02208493'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 19 stations, catalog overlap about 10.9
+    years, max pairwise 59.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090004
+  display_name: BLUE RIVER; CAMP CRK; CEDAR CREEK; HORSE CREEK; LOOKOUT CREEK; MCKENZIE
+    R BLW TRAIL BR DAM; MCKENZIE RIVER; MCKENZIE RIVER BLW LEABURG DAM,; McKENZIE
+    RIVER ABV HAYDEN BR,; SMITH RIVER; SMITH RIVER ABV TRAIL BRDG RESV; SO FK MCKENZIE
+    RIVER ABV COUGAR LAKE; SOUTH FORK MCKENZIE RIVER (HUC8 17090004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14158500'
+  - '14158740'
+  - '14158790'
+  - '14158798'
+  - '14158850'
+  - '14159100'
+  - '14159110'
+  - '14159200'
+  - '14159500'
+  - '14161100'
+  - '14161500'
+  - '14162200'
+  - '14162500'
+  - '14163150'
+  - '14163900'
+  - '14164550'
+  - '14164700'
+  - '14164900'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 18 stations, catalog overlap about 8.9 years,
+    max pairwise 83.7 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03080103
+  display_name: BROWARD RIVER; CEDAR RIVER; CLAPBOARD CRK; DUNN CREEK; DURBIN CREEK;
+    JULINGTON CRK; ORTEGA RIVER SALINITY; POTTSBURG CRK; ST JOHNS R BLW SHANDS BRIDGE;
+    ST JOHNS R DAMES POINT BRIDGE; ST JOHNS RIVER; ST JOHNS RVR; ST. JOHNS R; ST.
+    JOHNS RIVER; ST.JOHNS RIVER BUCKMAN BRIDGE; TROUT RIVER (HUC8 03080103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02244040'
+  - '02245340'
+  - '022462002'
+  - '02246459'
+  - '02246500'
+  - '02246518'
+  - '02246751'
+  - '02246804'
+  - '300803081354500'
+  - '301124081395901'
+  - '301204081434900'
+  - '301510081383500'
+  - '301817081393600'
+  - '302309081333001'
+  - '302609081453300'
+  - '302657081312400'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 16 stations, catalog overlap about 8.5 years,
+    max pairwise 96.1 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_01090004
+  display_name: BEAR TREE BROOK; CORK BK; DOLLY COLE BK; HEMLOCK BROOK; HUNTINGHOUSE
+    BK; MOSWANSICUT STREAM; PEEPTOAD BROOK; PONAGANSET RIVER; QUONOPAUG BK; RUSH BROOK;
+    SPRUCE BROOK; UNNAMED TRIB TO SCITUATE RES; WESTCONNAUG STREAM; WILBUR HOLLOW
+    BK (HUC8 01090004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '01115098'
+  - '01115110'
+  - '01115114'
+  - '01115120'
+  - '01115170'
+  - '01115183'
+  - '01115184'
+  - '01115187'
+  - '01115190'
+  - '01115265'
+  - '01115275'
+  - '01115276'
+  - '01115280'
+  - '01115297'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 14 stations, catalog overlap about 14.4
+    years, max pairwise 11.0 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03060109
+  display_name: ABERCORN CREEK; BACK RIVER 0.4 MI DOWNSTREAM US17,; L BACK RIVER;
+    LITTLE BACK RIVER; MIDDLE RIVER; SAVANNAH RIVER; SAVANNAH RIVER I-95 (HUC8 03060109)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02198810'
+  - '02198820'
+  - '02198840'
+  - '02198920'
+  - '02198950'
+  - '02198955'
+  - '021989715'
+  - '021989773'
+  - '021989784'
+  - '021989792'
+  - '021989793'
+  - '0219897945'
+  - '0219897993'
+  - '02198980'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 14 stations, catalog overlap about 12.5
+    years, max pairwise 35.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05140102
+  display_name: BEARGRASS CREEK; BRIER CREEK; CEDAR CREEK; CHENOWETH RUN; FERN CREEK;
+    FLOYDS FORK; NORTHERN DITCH; PENN RUN; POND CREEK (HUC8 05140102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '03293510'
+  - '03297800'
+  - '03297900'
+  - '03298000'
+  - '03298135'
+  - '03298150'
+  - '03298200'
+  - '03298250'
+  - '03298300'
+  - '03301900'
+  - '03301940'
+  - '03302000'
+  - '03302030'
+  - '03302050'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 14 stations, catalog overlap about 12.0
+    years, max pairwise 43.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03100207
+  display_name: CHASSAHOWITZKA R; CHASSAHOWITZKA RIVER; CRYSTAL RIVER; CRYSTAL RV;
+    HALLS RIVER; HOMOSASSA R; PITHLACHASCOTEE R; SALT RIVER; SARAGASSA CANAL; WITHLACOOCHEE
+    R (HUC8 03100207)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02310308'
+  - '02310650'
+  - '02310673'
+  - '02310674'
+  - '02310689'
+  - '02310690'
+  - '02310700'
+  - '02310740'
+  - '02310742'
+  - '02310752'
+  - '02313272'
+  - '285531082412600'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 12 stations, catalog overlap about 8.5 years,
+    max pairwise 83.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17080001
+  display_name: BULL RUN R; BULL RUN RIVER; COLUMBIA RIVER; COLUMBIA RIVER, LEFT BANK,;
+    COLUMBIA RIVER, RIGHT BANK,; FIR CREEK; LITTLE SANDY RIVER; NORTH FORK BULL RUN
+    RIVER; SANDY RIVER BLW BULL RUN RIVER,; SOUTH FORK BULL RUN RIVER (HUC8 17080001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14138720'
+  - '14138850'
+  - '14138870'
+  - '14138900'
+  - '14139800'
+  - '14140020'
+  - '14141500'
+  - '14142500'
+  - '453439122223900'
+  - '453630122021400'
+  - '453845121564001'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 11 stations, catalog overlap about 13.3
+    years, max pairwise 41.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05040001
+  display_name: Bear Hole Run; Beaverdam Run; Brushy Fork; Clear Fork; Indian Fork;
+    McGuire Creek; North Fork McGuire Creek; Standingstone Fork; Stillwater Creek;
+    Unnamed Tributary; Willow Run (HUC8 05040001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '03119341'
+  - '03119971'
+  - '03119979'
+  - '03120820'
+  - '03120869'
+  - '03120961'
+  - '03125338'
+  - '03126395'
+  - '03127980'
+  - '03127986'
+  - '03127989'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 11 stations, catalog overlap about 11.1
+    years, max pairwise 55.2 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14010001
+  display_name: COLORADO RIVER; FRASER RIVER; FRASER RIVER BLW CROOKED CR; GRAND LAKE
+    OUTLET BLW CHIPMUNK LN; MUDDY CREEK; RANCH CREEK; RANCH CREEK BLW MEADOW CR (HUC8
+    14010001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09010500'
+  - '09014050'
+  - '09027100'
+  - '09032000'
+  - '09033100'
+  - '09033300'
+  - '09034250'
+  - '09041090'
+  - '09058000'
+  - '09060799'
+  - '09070500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 11 stations, catalog overlap about 9.8 years,
+    max pairwise 128.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05140101
+  display_name: GOOSE CREEK; HARRODS CREEK; LITTLE GOOSE CREEK; M FK BEARGRASS; M
+    FK BEARGRASS CR; MILL CREEK; MUDDY FK; S FK BEARGRASS CREEK; SOUTH FORK BEARGRASS
+    CREEK (HUC8 05140101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '03292470'
+  - '03292474'
+  - '03292475'
+  - '03292480'
+  - '03292500'
+  - '03292550'
+  - '03293000'
+  - '03293500'
+  - '03293530'
+  - '03294570'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 17.1
+    years, max pairwise 41.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090001
+  display_name: FALL CREEK; FALL CREEK BLW WINBERRY CREEK,; HILLS CR; MF WILLAMETTE
+    RIVER ABV SALT CRK,; MF WILLAMETTE RIVER BLW N FORK,; MIDDLE FORK WILLAMETTE RIVER;
+    N FK OF M FK WILLAMETTE R; WINBERRY CREEK (HUC8 17090001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14144800'
+  - '14144900'
+  - '14145500'
+  - '14147500'
+  - '14148000'
+  - '14150000'
+  - '14150290'
+  - '14150800'
+  - '14151000'
+  - '14152000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 15.3
+    years, max pairwise 56.9 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_01090001
+  display_name: CAMBRIDGE RES., UNNAMED TRIB 1,; CAMBRIDGE RES., UNNAMED TRIB 2,;
+    CAMBRIDGE RES., UNNAMED TRIB 3,; HOBBS BK; HOBBS BROOK; STONY BROOK; STONY BROOK
+    RES., UNNAMED TRIB 1,; STONY BROOK UNNAMED TRIB 2; STONY BROOK, UNNAMED TRIBUTARY
+    1, (HUC8 01090001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01104370'
+  - '01104405'
+  - '01104410'
+  - '01104415'
+  - '01104420'
+  - '01104430'
+  - '01104453'
+  - '01104455'
+  - '01104460'
+  - '01104475'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 14.4
+    years, max pairwise 9.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090010
+  display_name: BEAVERTON CREEK; CHICKEN CREEK; EAST FORK DAIRY CREEK; FANNO CREEK;
+    GALES CREEK; ROCK CREEK; SCOGGINS CK BLW HENRY HAGG LAKE,; SUMMER CREEK; TUALATIN
+    RIVER (HUC8 17090010)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '14202980'
+  - '14205400'
+  - '14206694'
+  - '14206950'
+  - '14207200'
+  - '452230122512201'
+  - '452559122472401'
+  - '453004122510301'
+  - '453030122560101'
+  - '453040123065201'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 13.6
+    years, max pairwise 47.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17100307
+  display_name: BIG BUTTE CREEK; ELK CREEK; ROGUE RIVER; WEST BRANCH ELK CREEK (HUC8
+    17100307)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14330000'
+  - '14335075'
+  - '14337500'
+  - '14337600'
+  - '14337800'
+  - '14337830'
+  - '14337870'
+  - '14338000'
+  - '14338100'
+  - '14339000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 10.5
+    years, max pairwise 35.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050201
+  display_name: BACK RIVER; COOPER R; COOPER RIVER; LAKE MOULTRIE TAILRACE CANAL;
+    W BRANCH COOPER R; WANDO RIVER (HUC8 03050201)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02172002'
+  - '02172020'
+  - '02172040'
+  - '02172050'
+  - '021720508'
+  - '02172053'
+  - '021720677'
+  - '0217206935'
+  - '0217206962'
+  - '021720698'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 10.1
+    years, max pairwise 40.2 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03090202
+  display_name: 10B BLACK CREEK CANAL; BLACK CREEK CANAL WEST OF US1; BOTTLE CREEK;
+    C-8 CANAL; LOX RIVER; LOXAHATCHEE RIVER; MUD CREEK; ST LUCIE RIVER; UPSTREAM TAYLOR
+    RIVER; WETLAND (HUC8 03090202)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02277100'
+  - '02286328'
+  - '022907085'
+  - '02290709'
+  - '022908295'
+  - '251209080350100'
+  - '251241080385300'
+  - '255151080371501'
+  - '265906080093500'
+  - '265929080091800'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 10 stations, catalog overlap about 8.6 years,
+    max pairwise 225.1 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10020007
+  display_name: Firehole River; Gibbon River; Madison River; Tantalus Creek (HUC8
+    10020007)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '06036805'
+  - '06036905'
+  - '06036940'
+  - '06037100'
+  - '06037500'
+  - '06038500'
+  - '06038800'
+  - '06040000'
+  - '06041000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 15.4 years,
+    max pairwise 131.2 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03040206
+  display_name: AIW; BUCK CREEK; CRABTREE SWAMP; WACCAMAW R; WACCAMAW RIVER (HUC8
+    03040206)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02110400'
+  - '02110500'
+  - '02110550'
+  - '02110701'
+  - '02110704'
+  - '02110725'
+  - '02110802'
+  - '021108125'
+  - '02110815'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 13.2 years,
+    max pairwise 70.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05030103
+  display_name: Mahoning River; Mosquito Creek; West Branch Mahoning River (HUC8 05030103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03086500'
+  - '03090500'
+  - '03091500'
+  - '03092090'
+  - '03092460'
+  - '03094000'
+  - '03095500'
+  - '03098600'
+  - '03099500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 12.7 years,
+    max pairwise 57.1 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_07120001
+  display_name: KANKAKEE R; KANKAKEE RIVER; YELLOW RIVER (HUC8 07120001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '05515500'
+  - '05516665'
+  - '05517000'
+  - '05517010'
+  - '05517500'
+  - '05518000'
+  - '05527000'
+  - '05527500'
+  - '412320088154101'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 9.7 years,
+    max pairwise 150.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090005
+  display_name: BLOWOUT CREEK; BREITENBUSH R ABV FRENCH CR; LITTLE NORTH SANTIAM RIVER;
+    NO SANTIAM R BLW BOULDER CRK,; NORTH SANTIAM R; NORTH SANTIAM RIVER; SANTIAM RIVER
+    (HUC8 17090005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14178000'
+  - '14179000'
+  - '14180300'
+  - '14181500'
+  - '14182500'
+  - '14183000'
+  - '14184100'
+  - '14189050'
+  - '444728122450000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 8.6 years,
+    max pairwise 75.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_18010204
+  display_name: KLAMATH RIVER; KLAMATH RIVER ABV KENO DAM,; KLAMATH STRAITS DRAIN;
+    LINK RIVER; LOST RIVER DIVERSION CHANNEL (HUC8 18010204)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: mediterranean
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '11507500'
+  - '11507501'
+  - '11509370'
+  - '420448121503100'
+  - '420451121510000'
+  - '420741121554001'
+  - '420853121505500'
+  - '420853121505501'
+  - '421015121471800'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 9 stations, catalog overlap about 8.3 years,
+    max pairwise 16.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04070007
+  display_name: AU SABLE RIVER (HUC8 04070007)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '04136000'
+  - '04136500'
+  - '04136900'
+  - '04137005'
+  - '04137020'
+  - '04137025'
+  - '04137030'
+  - '04137500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 29.9 years,
+    max pairwise 73.1 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110004
+  display_name: ANDERSON CREEK; FISHTRAP CREEK; NF NOOKSACK RIVER; NOOKSACK RIVER;
+    SF NOOKSACK RIVER; SKOOKUM CREEK; UNNAMED TRIB TO BERTRAND CR (HUC8 17110004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '12205000'
+  - '12209490'
+  - '12210000'
+  - '12210700'
+  - '12210900'
+  - '12212050'
+  - '12212430'
+  - '12213100'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 17.8 years,
+    max pairwise 54.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040205
+  display_name: BRANDYWINE CREEK; Birch Run; Brandywine Creek; CHRISTINA RIVER; East
+    Branch Brandywine Creek; Trout Run; West Branch Brandywine Creek (HUC8 02040205)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01478137'
+  - '01480065'
+  - '01480400'
+  - '01480500'
+  - '01480617'
+  - '01480870'
+  - '01481000'
+  - '01481500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 17.4 years,
+    max pairwise 40.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040104
+  display_name: DELAWARE RIVER; Flat Brook; Lackawaxen River; MONGAUP RIVER; NEVERSINK
+    RIVER (HUC8 02040104)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01432110'
+  - '01432160'
+  - '01432805'
+  - '01433500'
+  - '01434000'
+  - '01435000'
+  - '01436690'
+  - '01440000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 10.9 years,
+    max pairwise 92.2 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03090204
+  display_name: BARRON RIVER; BLACKWATER RIVER; EAST RIVER; FAKA UNION BOUNDARY; FAKA
+    UNION CANAL BOAT BASIN; FAKA-UNION RIVER; PUMPKIN RIVER; TURNER RIVER (HUC8 03090204)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02290928'
+  - '02290930'
+  - '255123081321300'
+  - '255327081275900'
+  - '255432081303900'
+  - '255534081324000'
+  - '255654081350200'
+  - '255726081303700'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 10.2 years,
+    max pairwise 27.9 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04040003
+  display_name: HOLMES AVE CRK TRIB; KINNICKINNIC RIVER; LINCOLN CREEK; LITTLE MENOMONEE
+    RIVER; MILWAUKEE RIVER; WILSON PARK CK; WILSON PARK CREEK (HUC8 04040003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '040869416'
+  - '04087000'
+  - '04087070'
+  - '040871473'
+  - '040871475'
+  - '040871476'
+  - '040871488'
+  - '04087159'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 8 stations, catalog overlap about 9.3 years,
+    max pairwise 23.6 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090012
+  display_name: CRYSTAL SPRINGS CREEK; JOHNSON CREEK; KELLEY CREEK; WILLAMETTE RIVER
+    (HUC8 17090012)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14211400'
+  - '14211499'
+  - '14211500'
+  - '14211542'
+  - '14211546'
+  - '14211550'
+  - '14211720'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 11.1 years,
+    max pairwise 19.6 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_08090302
+  display_name: Bayou Boeuf; Bayou Grand Caillou; Bayou Lafourche; Company Canal;
+    GIWW; Houma Navigation Canal (HUC8 08090302)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: unspecified
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '07381150'
+  - '07381324'
+  - '07381328'
+  - '07381331'
+  - '07381350'
+  - '07381355'
+  - '073814675'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 11.0 years,
+    max pairwise 54.4 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02080201
+  display_name: BACK CREEK; JACKSON RIV; JACKSON RIVER; LITTLE BACK CREEK (HUC8 02080201)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02011400'
+  - '02011460'
+  - '02011470'
+  - '02011490'
+  - '02011500'
+  - '02011800'
+  - '02012800'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 11.0 years,
+    max pairwise 52.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040101
+  display_name: DELAWARE R; DELAWARE RIVER; WEST BRANCH DELAWARE RIVER (HUC8 02040101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01425000'
+  - '01426500'
+  - '01427000'
+  - '01427207'
+  - '01427301'
+  - '01427510'
+  - '01428500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 10.6 years,
+    max pairwise 71.5 km, NLDI true. Metadata only. Temperatures not downloaded. Never
+    sealed.'
+- network_id: huc8_03130002
+  display_name: CHATTAHOOCHEE RIVER; DOG RIVER; HILLABAHATCHEE CREEK; PROCTOR CREEK;
+    SNAKE CRK DS SNAKE CRK RESERVIOR; SWEETWATER CREEK; UTOY CREEK (HUC8 03130002)
+  split_role: historical
+  historical_seen: true
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02336526'
+  - '02336728'
+  - '02337000'
+  - '02337170'
+  - '02337410'
+  - '02337498'
+  - '02338523'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: already_used
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 9.6 years,
+    max pairwise 86.1 km, NLDI false. Metadata only. Temperatures not downloaded.
+    Never sealed. Historical.'
+- network_id: huc8_03050101
+  display_name: CATAWBA R; CATAWBA RIVER; CATAWBA RIVER DNSTRM DECK MTN IS DAM (HUC8
+    03050101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02137727'
+  - '02138520'
+  - '02141500'
+  - '0214196125'
+  - '0214244102'
+  - '0214264790'
+  - '0214267602'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 7 stations, catalog overlap about 9.4 years,
+    max pairwise 104.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17100301
+  display_name: BOULDER CREEK; LITTLE RIVER; N UMPQUA RIVER ABV COPELAND CK; NORTH
+    UMPQUA R; NORTH UMPQUA RIVER (HUC8 17100301)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14316460'
+  - '14316495'
+  - '14316500'
+  - '14317450'
+  - '14318000'
+  - '14319500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 25.3 years,
+    max pairwise 72.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090006
+  display_name: MIDDLE SANTIAM R; MIDDLE SANTIAM R BLW GREEN PETER DAM; QUARTZVILLE
+    CREEK; SOUTH SANTIAM RIVER (HUC8 17090006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14185000'
+  - '14185800'
+  - '14185900'
+  - '14186200'
+  - '14187200'
+  - '14187500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 18.8 years,
+    max pairwise 35.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11020002
+  display_name: ARKANSAS R.; ARKANSAS RIVER; BESSEMER DITCH (HUC8 11020002)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07096000'
+  - '07097000'
+  - '07099400'
+  - '07099969'
+  - '07109500'
+  - '381312104321001'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 17.9 years,
+    max pairwise 77.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04090004
+  display_name: LOWER RIVER ROUGE; MIDDLE RIVER ROUGE; RIVER ROUGE; UPPER RIVER ROUGE
+    (HUC8 04090004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '04166100'
+  - '04166470'
+  - '04166500'
+  - '04167150'
+  - '04167625'
+  - '04168400'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 16.0 years,
+    max pairwise 21.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090003
+  display_name: CALAPOOIA RIVER; LONG TOM RIVER; WILLAMETTE RIVER (HUC8 17090003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14158100'
+  - '14166000'
+  - '14169000'
+  - '14170000'
+  - '14173500'
+  - '14174000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 15.8 years,
+    max pairwise 60.8 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_05020006
+  display_name: Casselman River; YOUGHIOGHENY RIVER; Youghiogheny R; Youghiogheny
+    River (HUC8 05020006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03076500'
+  - '03077100'
+  - '03077500'
+  - '03079000'
+  - '03081000'
+  - '03083500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 13.9 years,
+    max pairwise 73.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10020004
+  display_name: Big Hole R; Big Hole River (HUC8 10020004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '06024450'
+  - '06024580'
+  - '06025250'
+  - '06025500'
+  - '06026210'
+  - '06026420'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 12.1 years,
+    max pairwise 85.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110010
+  display_name: NF TOLT RIVER; NORTH FORK TOLT RIVER; SF TOLT RIVER; SOUTH FORK TOLT
+    RIVER; TOLT RIVER (HUC8 17110010)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '12147470'
+  - '12147500'
+  - '12147600'
+  - '12148000'
+  - '12148300'
+  - '12148500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 9.9 years,
+    max pairwise 16.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_18010110
+  display_name: DRY C BLW LAMBERT BR; RUSSIAN R; RUSSIAN R A DIGGER BEND; RUSSIAN
+    R A HACIENDA BRIDGE; RUSSIAN R A JIMTOWN CA (HUC8 18010110)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: mediterranean
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '11462500'
+  - '11463000'
+  - '11463682'
+  - '11463980'
+  - '11465240'
+  - '11467000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 9.9 years,
+    max pairwise 60.2 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03060106
+  display_name: C-004; LOWER THREE RUNS; P-013; P-19; SAVANNAH R.; SAVANNAH RIVER
+    (HUC8 03060106)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02197000'
+  - '02197320'
+  - '021973426'
+  - '02197351'
+  - '02197362'
+  - '02197380'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 9.3 years,
+    max pairwise 42.4 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11020003
+  display_name: CLOVER DITCH DRAIN; FOUNTAIN CR BLW JANITELL RD BLW COLO. SPRINGS;
+    FOUNTAIN CREEK (HUC8 11020003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07105530'
+  - '07105800'
+  - '07105815'
+  - '07105820'
+  - '07106000'
+  - '07106500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 8.9 years,
+    max pairwise 59.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040106
+  display_name: Lehigh R; Lehigh River; Pohopoco Cr; Pohopoco Creek; Tobyhanna Creek
+    (HUC8 02040106)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01447500'
+  - '01447720'
+  - '01447800'
+  - '01449360'
+  - '01449800'
+  - '01454700'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 8.9 years,
+    max pairwise 63.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17070301
+  display_name: BRIDGE CREEK; DESCHUTES RIVER; DIVERSION CANAL TO BRIDGE CREEK,; M
+    F TUMALO CREEK ABV PROWELL SPRINGS,; M F TUMALO CREEK BLW PROWELL SPRINGS,; METOLIUS
+    RIVER (HUC8 17070301)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14070615'
+  - '14070621'
+  - '14070624'
+  - '14070900'
+  - '14076500'
+  - '14091500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 8.8 years,
+    max pairwise 66.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05010006
+  display_name: Allegheny River; Crooked Creek; Little Mahoning Creek; Mahoning Creek
+    (HUC8 05010006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03034000'
+  - '03034500'
+  - '03036000'
+  - '03038000'
+  - '03039000'
+  - '03039040'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 8.2 years,
+    max pairwise 62.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110005
+  display_name: BACON CREEK; BIG BEAVER CREEK; CASCADE RIVER; RUBY CREEK; SKAGIT RIVER
+    (HUC8 17110005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '12172000'
+  - '12173500'
+  - '12178000'
+  - '12179900'
+  - '12181000'
+  - '12182500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 6 stations, catalog overlap about 8.2 years,
+    max pairwise 38.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050109
+  display_name: LITTLE SALUDA R; SALUDA R; SALUDA RIVER (HUC8 03050109)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02163001'
+  - '02167600'
+  - '02167716'
+  - '02168504'
+  - '02169000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 29.9 years,
+    max pairwise 141.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04060102
+  display_name: LITTLE MUSKEGON RIVER; MUSKEGON RIVER (HUC8 04060102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '04121650'
+  - '04121660'
+  - '04121680'
+  - '04121944'
+  - '04121970'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 27.8 years,
+    max pairwise 32.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040202
+  display_name: Cooper River; DELAWARE RIVER; Delaware River; McDonalds Branch in
+    Byrne State Forest NJ; Raccoon Creek (HUC8 02040202)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '01466500'
+  - '01467150'
+  - '01474703'
+  - '01477050'
+  - '01477120'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 27.8 years,
+    max pairwise 73.7 km, NLDI not_queried. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03090101
+  display_name: BONNET CREEK; CYPRESS CREEK; REEDY CREEK; WHITTENHORSE CREEK (HUC8
+    03090101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02264000'
+  - '02264100'
+  - '02266200'
+  - '02266300'
+  - '02266495'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 23.9 years,
+    max pairwise 14.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090002
+  display_name: COAST FORK; COAST FORK WILLAMETTE; COAST FORK WILLAMETTE RIVER; ROW
+    RIVER (HUC8 17090002)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14152500'
+  - '14153500'
+  - '14154500'
+  - '14155500'
+  - '14157500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 17.0 years,
+    max pairwise 38.9 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03150202
+  display_name: CAHABA RIVER; LITTLE CAHABA RIVER (HUC8 03150202)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02423130'
+  - '02423160'
+  - '02423380'
+  - '02423397'
+  - '02423496'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 14.9 years,
+    max pairwise 34.0 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_17060208
+  display_name: EF OF SF SALMON RIVER; EFSF SALMON R ABV MEADOW CRK; EFSF SALMON R
+    ABV SUGAR CRK; MEADOW CREEK; SUGAR CREEK (HUC8 17060208)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '13310800'
+  - '13310850'
+  - '13311000'
+  - '13311250'
+  - '13311450'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 14.2 years,
+    max pairwise 5.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03160111
+  display_name: FIVEMILE CREEK; TURKEY CREEK; VILLAGE CREEK (HUC8 03160111)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02455980'
+  - '02457595'
+  - '02458148'
+  - '02458450'
+  - '02458502'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 12.1 years,
+    max pairwise 27.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05110001
+  display_name: GREEN RIVER; RUSSELL CREEK (HUC8 05110001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03306000'
+  - '03306500'
+  - '03307000'
+  - '03309000'
+  - '03311500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 11.4 years,
+    max pairwise 81.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05020005
+  display_name: Dunkard Creek; Monongahela River; South Fork Tenmile Creek (HUC8 05020005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03072000'
+  - '03072655'
+  - '03073000'
+  - '03075070'
+  - '03085000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 11.2 years,
+    max pairwise 70.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03110206
+  display_name: ICHETUCKNEE R; SANTA FE RIVER (HUC8 03110206)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02321500'
+  - '02321958'
+  - '02322500'
+  - '02322700'
+  - '02322800'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 9.6 years,
+    max pairwise 41.9 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_17010201
+  display_name: Clark Fork; Little Blackfoot River; Warm Springs Creek (HUC8 17010201)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '12323770'
+  - '12323800'
+  - '12324200'
+  - '12324400'
+  - '12324590'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 9.4 years,
+    max pairwise 37.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05030102
+  display_name: Mosquito Creek; Pymatuning Creek; Shenango River (HUC8 05030102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03094704'
+  - '03102850'
+  - '03102950'
+  - '03103500'
+  - '03104490'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 9.3 years,
+    max pairwise 60.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05120201
+  display_name: EAGLE CREEK; SCHOOL BRANCH; WHITE R.; WHITE RIVER (HUC8 05120201)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03353200'
+  - '03353415'
+  - '03353420'
+  - '03353611'
+  - '03354000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.5 years,
+    max pairwise 51.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10300101
+  display_name: East Fork Little Blue River; Little Blue R.; Little Blue River; Missouri
+    River; Rock Creek (HUC8 10300101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '06893060'
+  - '06893620'
+  - '06893820'
+  - '06893890'
+  - '06894000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.5 years,
+    max pairwise 19.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050208
+  display_name: BATTERY CREEK; BEAUFORT RIVER; BRICKYARD CREEK (HUC8 03050208)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02176585'
+  - '02176603'
+  - '02176611'
+  - '02176635'
+  - '02176640'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.4 years,
+    max pairwise 14.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02030103
+  display_name: Hohokus Brook; Passaic River; Pequannock River; Ramapo River; Saddle
+    River (HUC8 02030103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01382500'
+  - '01388000'
+  - '01389005'
+  - '01391100'
+  - '01391500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.2 years,
+    max pairwise 30.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03150104
+  display_name: ETOWAH RIVER; RICHLAND CREEK; RUSSELL CRK 0.3 MI DS HEAD LAKE (HUC8
+    03150104)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02388975'
+  - '02388985'
+  - '02389150'
+  - '02394000'
+  - '02394682'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.1 years,
+    max pairwise 85.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03100205
+  display_name: HILLSBOROUGH R; HILLSBOROUGH R.; HILLSBOROUGH RIVER (HUC8 03100205)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02304000'
+  - '02304510'
+  - '02304517'
+  - '023060013'
+  - '02306028'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 5 stations, catalog overlap about 8.1 years,
+    max pairwise 15.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17070105
+  display_name: COLUMBIA RIVER; COLUMBIA RIVER, RIGHT BANK, (HUC8 17070105)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '14105700'
+  - '453712121071200'
+  - '453845121562000'
+  - '454249120423500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 30.2 years,
+    max pairwise 95.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04060103
+  display_name: MANISTEE RIVER; PINE RIVER (HUC8 04060103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '04124000'
+  - '04124200'
+  - '04125460'
+  - '04125550'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 29.7 years,
+    max pairwise 27.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110012
+  display_name: CEDAR RIVER (HUC8 17110012)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '12115000'
+  - '12116500'
+  - '12117600'
+  - '12119000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 25.3 years,
+    max pairwise 45.3 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03010107
+  display_name: ROANOKE RIVER (HUC8 03010107)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '0208062765'
+  - '02081022'
+  - '02081094'
+  - '0208114150'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 21.7 years,
+    max pairwise 89.8 km, NLDI true. Metadata only. Temperatures not downloaded. Never
+    sealed.'
+- network_id: huc8_03040207
+  display_name: AIW (HUC8 03040207)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02110755'
+  - '02110760'
+  - '02110770'
+  - '02110777'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 20.8 years,
+    max pairwise 23.1 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10020005
+  display_name: Jefferson River; Willow Creek (HUC8 10020005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '06026500'
+  - '06027600'
+  - '06035000'
+  - '06036650'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 20.1 years,
+    max pairwise 65.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10070002
+  display_name: Yellowstone River (HUC8 10070002)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '06191500'
+  - '06192500'
+  - '06195750'
+  - '06195950'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 19.1 years,
+    max pairwise 105.4 km, NLDI true. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_07040006
+  display_name: LA CROSSE RIVER; SILVER CREEK; STILLWELL CREEK (HUC8 07040006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '05382255'
+  - '05382257'
+  - '05382267'
+  - '05382284'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 17.1 years,
+    max pairwise 9.1 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05060001
+  display_name: Big Walnut Creek; Scioto R.; Scioto River (HUC8 05060001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '03219500'
+  - '03220510'
+  - '03228039'
+  - '03228300'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 15.9 years,
+    max pairwise 66.4 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_08030207
+  display_name: BIG SUNFLOWER RIVER; BOGUE PHALIA (HUC8 08030207)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: unspecified
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07288000'
+  - '07288280'
+  - '07288500'
+  - '07288650'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 14.0 years,
+    max pairwise 92.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05090203
+  display_name: ELIJAHS CREEK; GUNPOWDER CR; MUD LICK CR; WOOLPER CREEK (HUC8 05090203)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '03260100'
+  - '03262001'
+  - '03277075'
+  - '03277130'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 13.6 years,
+    max pairwise 26.3 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11130206
+  display_name: Wichita Rv (HUC8 11130206)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07311900'
+  - '07312100'
+  - '07312500'
+  - '07312700'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 13.0 years,
+    max pairwise 108.2 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05010007
+  display_name: Blacklick Creek; Conemaugh River (HUC8 05010007)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03041500'
+  - '03042000'
+  - '03043810'
+  - '03044000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 12.9 years,
+    max pairwise 31.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05010005
+  display_name: Clarion River; EB Clarion River; East Branch Clarion River; West Branch
+    Clarion River (HUC8 05010005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03026480'
+  - '03027500'
+  - '03028000'
+  - '03028500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 12.6 years,
+    max pairwise 21.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02070010
+  display_name: FLATLICK BRANCH; LONG BRANCH; NORTHEAST BRANCH ANACOSTIA RIVER; PAINT
+    BRANCH (HUC8 02070010)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '01649190'
+  - '01649500'
+  - '01654500'
+  - '01656903'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 12.3 years,
+    max pairwise 44.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17060306
+  display_name: CLEARWATER RIVER (HUC8 17060306)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '13340000'
+  - '13341050'
+  - '13342500'
+  - '13343000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 12.3 years,
+    max pairwise 54.6 km, NLDI true. Metadata only. Temperatures not downloaded. Never
+    sealed.'
+- network_id: huc8_18040001
+  display_name: MUD SLOUGH; SALT SLOUGH A HWY 165; SAN JOAQUIN R; SAN JOAQUIN R A
+    FREMONT FORD BRIDGE CA (HUC8 18040001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: mediterranean
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '11261100'
+  - '11261500'
+  - '11262900'
+  - '11273400'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 12.1 years,
+    max pairwise 15.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_19020302
+  display_name: COOPER C; KENAI R (HUC8 19020302)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subarctic
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '15258000'
+  - '15260001'
+  - '15261000'
+  - '15266300'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 11.1 years,
+    max pairwise 69.6 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_07070005
+  display_name: BLACK EARTH CREEK; BREWERY CREEK; GARFOOT CREEK (HUC8 07070005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '05406460'
+  - '05406470'
+  - '05406491'
+  - '05406500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 10.7 years,
+    max pairwise 7.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02050305
+  display_name: Susquehanna River; Swatara Creek; Swatara Creek, Site C1,; Swatara
+    Creek, Site C3, (HUC8 02050305)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '01570500'
+  - '0157155010'
+  - '0157155014'
+  - '01571820'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 10.7 years,
+    max pairwise 64.1 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14050006
+  display_name: CORRAL GULCH; PICEANCE CREEK; YELLOW CREEK (HUC8 14050006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '09306007'
+  - '09306222'
+  - '09306242'
+  - '09306255'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 10.7 years,
+    max pairwise 42.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02060003
+  display_name: FOSTER BRANCH; GUNPOWDER FALLS; PLUMTREE RUN; SCOTTS LEVEL BRANCH
+    (HUC8 02060003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01581752'
+  - '01581920'
+  - '01585075'
+  - '01589290'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 10.6 years,
+    max pairwise 38.6 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05100205
+  display_name: CANE RUN CREEK; ELKHORN CREEK; KENTUCKY RIVER; SOUTH ELKHORN CREEK
+    (HUC8 05100205)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03287500'
+  - '03288180'
+  - '03289000'
+  - '03289500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 10.0 years,
+    max pairwise 35.2 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05130204
+  display_name: HARPETH RIVER (HUC8 05130204)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03432100'
+  - '0343233905'
+  - '034324146'
+  - '03433500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.8 years,
+    max pairwise 32.2 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03100101
+  display_name: PEACE RIVER; SHELL CREEK (HUC8 03100101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02297345'
+  - '02297350'
+  - '02297460'
+  - '02298202'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.6 years,
+    max pairwise 13.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02030105
+  display_name: Del & Rar Canal; Millstone River; Raritan River; Stony Brook (HUC8
+    02030105)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01400500'
+  - '01401000'
+  - '01402000'
+  - '01460595'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.6 years,
+    max pairwise 26.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10230006
+  display_name: Missouri River (HUC8 10230006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '06610000'
+  - '06610505'
+  - '410333095530101'
+  - '412126095565201'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.2 years,
+    max pairwise 33.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_16050102
+  display_name: TRUCKEE RV; TRUCKEE RV BLW DERBY DAM (HUC8 16050102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '10348000'
+  - '10348200'
+  - '10350500'
+  - '10351600'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.1 years,
+    max pairwise 31.0 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10160003
+  display_name: DAKOTA LAKE; JAMES RIVER (HUC8 10160003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '06470500'
+  - '06470830'
+  - '06470875'
+  - '06471000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 9.0 years,
+    max pairwise 83.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040203
+  display_name: French Creek; Schuylkill River; Tulpehocken Cr; Tulpehocken Creek
+    (HUC8 02040203)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01470779'
+  - '01470960'
+  - '01472157'
+  - '01473500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.9 years,
+    max pairwise 76.7 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03080101
+  display_name: ST. JOHNS RIVER (HUC8 03080101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02232400'
+  - '02234000'
+  - '02234500'
+  - '02236000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.8 years,
+    max pairwise 86.7 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_07120004
+  display_name: CHICAGO SANITARY AND SHIP CANAL; DES PLAINES RIVER (HUC8 07120004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '05536995'
+  - '05537980'
+  - '05538010'
+  - '05539670'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.8 years,
+    max pairwise 28.2 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14080104
+  display_name: ANIMAS RIVER (HUC8 14080104)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09359020'
+  - '09361500'
+  - '09363500'
+  - '09364500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.5 years,
+    max pairwise 127.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050103
+  display_name: CATAWBA RIVER; CEDAR CREEK RES TAILRACE; GREAT FALLS RESERVOIR TAILRACE
+    (HUC8 03050103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '02145910'
+  - '02147310'
+  - '021474095'
+  - '02147505'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.4 years,
+    max pairwise 54.1 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110014
+  display_name: LAKE TAPPS DIVERSION; WHITE RIVER (HUC8 17110014)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '12098700'
+  - '12100490'
+  - '12101100'
+  - '12101102'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 4 stations, catalog overlap about 8.3 years,
+    max pairwise 19.4 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17010204
+  display_name: Clark Fork (HUC8 17010204)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '12340500'
+  - '12353650'
+  - '12354700'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 41.1 years,
+    max pairwise 87.8 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17100309
+  display_name: APPLEGATE RIVER (HUC8 17100309)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14362000'
+  - '14366000'
+  - '14369500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 40.9 years,
+    max pairwise 40.4 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_18040010
+  display_name: STANISLAUS R; STANISLAUS R A RIPON CA (HUC8 18040010)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: mediterranean
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '11299997'
+  - '11302000'
+  - '11303000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 37.8 years,
+    max pairwise 47.3 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040102
+  display_name: BEAVER KILL; EAST BRANCH DELAWARE RIVER (HUC8 02040102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01417500'
+  - '01420500'
+  - '01421000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 37.5 years,
+    max pairwise 16.4 km, NLDI partial. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_16050101
+  display_name: GLENBROOK CK; TROUT CK; UPPER TRUCKEE RV (HUC8 16050101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '10336610'
+  - '10336730'
+  - '10336780'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 28.4 years,
+    max pairwise 18.9 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14040106
+  display_name: GREEN RIVER (HUC8 14040106)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09217000'
+  - '09234500'
+  - '09261000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 27.9 years,
+    max pairwise 124.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11010003
+  display_name: White River (HUC8 11010003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '07053450'
+  - '07054501'
+  - '07054527'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 25.9 years,
+    max pairwise 71.4 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02020006
+  display_name: DIVERSION FROM SCHOHARIE RESERVOIR NY; ESOPUS CREEK; HUDSON RIVER
+    (HUC8 02020006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '01359139'
+  - '01362230'
+  - '01362500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 24.5 years,
+    max pairwise 82.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05130202
+  display_name: CUMBERLAND R; CUMBERLAND RIVER; MILL CREEK (HUC8 05130202)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '03431083'
+  - '03431091'
+  - '03431514'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 23.0 years,
+    max pairwise 11.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090011
+  display_name: CLACKAMAS RIVER (HUC8 17090011)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14209710'
+  - '14210000'
+  - '14211010'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 21.3 years,
+    max pairwise 40.5 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_12030203
+  display_name: Old Rv Cutoff; Trinity Rv (HUC8 12030203)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subtropical_semiarid
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '08067100'
+  - '08067215'
+  - '08067252'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 21.1 years,
+    max pairwise 15.0 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_01080205
+  display_name: CONNECTICUT RIVER; HOCKANUM RIVER; SALMON RIVER (HUC8 01080205)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01192500'
+  - '01193050'
+  - '01193500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 20.5 years,
+    max pairwise 28.1 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14010003
+  display_name: EAGLE RIVER; GORE CREEK (HUC8 14010003)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09064600'
+  - '09066510'
+  - '394220106431500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 20.3 years,
+    max pairwise 32.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02040103
+  display_name: Lackawaxen River; West Branch Lackawaxen River (HUC8 02040103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01428750'
+  - '01429000'
+  - '01431500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 19.0 years,
+    max pairwise 27.8 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14010005
+  display_name: COLORADO R ABV SOUTH CANYON CR; COLORADO RIVER; DRY FORK (HUC8 14010005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09085150'
+  - '09095300'
+  - '09163500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 18.2 years,
+    max pairwise 147.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110009
+  display_name: SOUTH FORK SULTAN RIVER; SULTAN RIVER (HUC8 17110009)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '12137290'
+  - '12137800'
+  - '12138160'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 16.9 years,
+    max pairwise 14.7 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_16020102
+  display_name: E CANYON CR; EAST CANYON CREEK (HUC8 16020102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '10133650'
+  - '10133800'
+  - '10133980'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 16.3 years,
+    max pairwise 17.2 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_12040102
+  display_name: Panther Br; Spring Ck (HUC8 12040102)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subtropical_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '08068275'
+  - '08068400'
+  - '08068500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 15.8 years,
+    max pairwise 20.2 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_18050004
+  display_name: ALAMEDA C; ARROYO DE LA LAGUNA A VERONA CA (HUC8 18050004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: mediterranean
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '11173575'
+  - '11176900'
+  - '11179000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 15.8 years,
+    max pairwise 10.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050106
+  display_name: BROAD RIVER (HUC8 03050106)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02156500'
+  - '02160991'
+  - '02162035'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 15.1 years,
+    max pairwise 68.7 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04140101
+  display_name: ALLEN CREEK; IRONDEQUOIT CR (HUC8 04140101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '04232034'
+  - '04232050'
+  - '0423205010'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 15.0 years,
+    max pairwise 13.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17010104
+  display_name: KOOTENAI RIVER (HUC8 17010104)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '12305000'
+  - '12309500'
+  - '12322000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.9 years,
+    max pairwise 53.9 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05010001
+  display_name: ALLEGHENY RIVER; Allegheny River (HUC8 05010001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03007800'
+  - '03011020'
+  - '03012550'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.9 years,
+    max pairwise 59.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_09020203
+  display_name: BALDHILL CREEK; SHEYENNE RIVER (HUC8 09020203)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: unspecified
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '05056000'
+  - '05057000'
+  - '05057200'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.3 years,
+    max pairwise 78.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17040103
+  display_name: CACHE CREEK; FISH CREEK; FLAT CREEK (HUC8 17040103)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '13016450'
+  - '13018300'
+  - '13018350'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.3 years,
+    max pairwise 14.6 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_01070004
+  display_name: GATES BROOK; QUINAPOXET RIVER; STILLWATER RIVER (HUC8 01070004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01095220'
+  - '01095375'
+  - '01095434'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.3 years,
+    max pairwise 5.3 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_06010106
+  display_name: CATALOOCHEE CREEK; PIGEON R; PIGEON RIVER (HUC8 06010106)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03456991'
+  - '03460000'
+  - '03460795'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 14.1 years,
+    max pairwise 37.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02070002
+  display_name: NORTH BRANCH POTOMAC RIVER; SAVAGE RIV; SAVAGE RIVER (HUC8 02070002)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01595800'
+  - '01596500'
+  - '01597500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 13.9 years,
+    max pairwise 13.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03070101
+  display_name: APALACHEE RIVER; PARKS CREEK; WHEELER CREEK (HUC8 03070101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02217274'
+  - '02217643'
+  - '02218565'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 13.7 years,
+    max pairwise 37.9 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17010302
+  display_name: EF PINE CREEK ABV GILBERT CR; EF PINE CREEK ABV NABOB CR; PINE CREEK
+    (HUC8 17010302)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '12413360'
+  - '12413370'
+  - '12413445'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 13.6 years,
+    max pairwise 9.1 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03050112
+  display_name: REDIV CANAL; SANTEE RIVER; SOUTH SANTEE R (HUC8 03050112)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02171500'
+  - '02171645'
+  - '02171905'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 13.3 years,
+    max pairwise 80.4 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11020001
+  display_name: ARKANSAS RIVER (HUC8 11020001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07086000'
+  - '07091200'
+  - '07094500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 13.0 years,
+    max pairwise 99.0 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17070101
+  display_name: COLUMBIA RIVER (HUC8 17070101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '14019220'
+  - '14019240'
+  - '454314120413701'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 12.9 years,
+    max pairwise 111.3 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05100101
+  display_name: BANKLICK CREEK; CRUISES CREEK; LICKING RIVER (HUC8 05100101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03249500'
+  - '03254480'
+  - '03254550'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 12.8 years,
+    max pairwise 129.6 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_13060011
+  display_name: PECOS RIVER (HUC8 13060011)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '08405200'
+  - '08406500'
+  - '08407500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 12.2 years,
+    max pairwise 40.7 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_04020105
+  display_name: EAST BRANCH SALMON TROUT RIVER; FALLS RIVER; SALMON TROUT RIVER (HUC8
+    04020105)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '04043097'
+  - '04043238'
+  - '04043244'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 11.9 years,
+    max pairwise 45.4 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02070008
+  display_name: DEAD RUN; DIFFICULT RUN; POTOMAC RIVER (HUC8 02070008)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01646000'
+  - '01646305'
+  - '01646500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 11.8 years,
+    max pairwise 10.6 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05040005
+  display_name: Beaver Creek; Seneca Fork; South Fork (HUC8 05040005)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '03140853'
+  - '03140900'
+  - '03140950'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 11.2 years,
+    max pairwise 5.5 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17090009
+  display_name: LITTLE ABIQUA CREEK; PUDDING RIVER; ZOLLNER CREEK (HUC8 17090009)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '14200400'
+  - '14201300'
+  - '14202000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 11.1 years,
+    max pairwise 32.3 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_02050104
+  display_name: Cowanesque River; Tioga River (HUC8 02050104)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '01516350'
+  - '01518700'
+  - '01520000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 10.9 years,
+    max pairwise 22.8 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_12040101
+  display_name: SJRA E Industrial Canal; W Fk San Jacinto Rv (HUC8 12040101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subtropical_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '08068000'
+  - '08069500'
+  - '295524095072701'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 10.8 years,
+    max pairwise 48.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_07050002
+  display_name: ALLEQUASH CREEK; STEVENSON CREEK; TROUT RIVER (HUC8 07050002)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '05357215'
+  - '05357225'
+  - '05357245'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 10.7 years,
+    max pairwise 5.3 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_07100006
+  display_name: North Raccoon River; Raccoon River (HUC8 07100006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '05482300'
+  - '05482500'
+  - '05484500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 10.3 years,
+    max pairwise 125.5 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_12030105
+  display_name: Trinity Rv (HUC8 12030105)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subtropical_semiarid
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '08057000'
+  - '08057410'
+  - '08062500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 10.1 years,
+    max pairwise 51.3 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_17110006
+  display_name: SAUK RIVER (HUC8 17110006)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: marine_west_coast
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '12186000'
+  - '12187500'
+  - '12189500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.9 years,
+    max pairwise 29.4 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_15030108
+  display_name: 242 LATERAL; COLORADO RIVER; YUMA MAIN DRAIN (HUC8 15030108)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: hot_arid
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '09522005'
+  - '09534000'
+  - '09534550'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.6 years,
+    max pairwise 25.8 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14020004
+  display_name: ANTHRACITE CREEK; NORTH FK GUNNISON RIVER; NORTH FORK GUNNISON BLW
+    RAVEN GULCH (HUC8 14020004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '09132095'
+  - '09136100'
+  - '385553107243301'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.5 years,
+    max pairwise 44.5 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03110203
+  display_name: WITHLACOOCHEE RIVER (HUC8 03110203)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: unregulated
+  candidate_station_ids:
+  - '02318500'
+  - '02319000'
+  - '02319394'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.5 years,
+    max pairwise 50.0 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_10170101
+  display_name: Bow Creek; LEWIS AND CLARK LAKE; MISSOURI RIVER (HUC8 10170101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_semiarid
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '06466700'
+  - '06467500'
+  - '06478522'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.4 years,
+    max pairwise 59.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05020004
+  display_name: BLACKWATER R; BLACKWATER RIVER; Stony Fork Tributary (HUC8 05020004)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '03065050'
+  - '03065200'
+  - '03070420'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.3 years,
+    max pairwise 81.4 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11010001
+  display_name: West Fork White River; White River (HUC8 11010001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07048550'
+  - '07048600'
+  - '07049691'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.2 years,
+    max pairwise 46.0 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_05020001
+  display_name: TYGART VALLEY R; TYGART VALLEY RIVER (HUC8 05020001)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_continental
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '03054500'
+  - '03056000'
+  - '03057000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.1 years,
+    max pairwise 32.7 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_08090301
+  display_name: Barataria Pass; Barataria Waterway S of Lafitte; Davis Pond Freshwater
+    Diversion (HUC8 08090301)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: unspecified
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '073802516'
+  - '292859090004000'
+  - '295501090190400'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'false'
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 9.1 years,
+    max pairwise 80.1 km, NLDI false. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03110205
+  display_name: SUWANNEE RIVER (HUC8 03110205)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: true
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02319800'
+  - '02320500'
+  - '02323592'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.8 years,
+    max pairwise 101.9 km, NLDI true. Metadata only. Temperatures not downloaded.
+    Never sealed.'
+- network_id: huc8_03150105
+  display_name: COOSA RIVER; COOSA RIVER MAYOS BAR; TERRAPIN CREEK (HUC8 03150105)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02397000'
+  - '02397530'
+  - '02400100'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.7 years,
+    max pairwise 36.2 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_03100204
+  display_name: ALAFIA RIVER (HUC8 03100204)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '02301500'
+  - '02301718'
+  - '02301721'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.6 years,
+    max pairwise 17.1 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11010014
+  display_name: Little Red River; S Fk Lit Red Riv us of Gulf Mt WMA (HUC8 11010014)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07075250'
+  - '07075270'
+  - '07076000'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.4 years,
+    max pairwise 64.4 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_14050007
+  display_name: WHITE RIVER (HUC8 14050007)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: cold_arid_highland
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '09306395'
+  - '09306500'
+  - '09306900'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.4 years,
+    max pairwise 47.6 km, NLDI true. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_08080101
+  display_name: American Pass; Little Bayou Long North of Duck Lake; Middle Fork Bayou
+    Long (HUC8 08080101)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: unspecified
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '294736091164200'
+  - '295011091184300'
+  - '295447091191500'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: partial
+  spatially_proximate_not_flow_connected: true
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.4 years,
+    max pairwise 13.9 km, NLDI partial. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_19020301
+  display_name: ANCHOR R; BATTLE C 1.0 MI; BRADLEY R (HUC8 19020301)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: subarctic
+  regulation_stratum: unmatched_gages
+  candidate_station_ids:
+  - '15238986'
+  - '15239070'
+  - '15239900'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: not_queried
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.3 years,
+    max pairwise 49.1 km, NLDI not_queried. Metadata only. Temperatures not downloaded.'
+- network_id: huc8_11030012
+  display_name: L ARKANSAS R; L ARKANSAS R UPSTREAM OF ASR FAC (HUC8 11030012)
+  split_role: catalog_candidate
+  historical_seen: false
+  never_sealed: false
+  climate_or_ecoregion: humid_subtropical
+  regulation_stratum: regulated
+  candidate_station_ids:
+  - '07143672'
+  - '07144100'
+  - '375350097262800'
+  temperature_record_unverified: true
+  sealed_outcomes_opened: false
+  feasibility_status: catalog_v3_huc8_subset_overlap_only
+  use: catalog_v3_candidate
+  grouping: huc8
+  flow_connected: 'true'
+  spatially_proximate_not_flow_connected: false
+  notes: 'Largest concurrent HUC8 subset: 3 stations, catalog overlap about 8.1 years,
+    max pairwise 19.1 km, NLDI true. Metadata only. Temperatures not downloaded.'

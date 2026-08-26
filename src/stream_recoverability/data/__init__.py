@@ -1,6 +1,12 @@
 """Data audit and preparation helpers."""
 
 from .audit import audit_raw_data, build_audit_tables
+from .ingest_qc import (
+    qc_long_frame,
+    qc_station_series,
+    qc_wide_frame,
+    write_ingest_qc_report,
+)
 from .loading import load_stations, load_variable_specs, read_station_csv
 from .quality import attach_qc_fields, load_quality_codebook
 from .prepare import (
@@ -45,7 +51,11 @@ __all__ = [
     "load_stations",
     "load_variable_specs",
     "prepare_daily_data",
+    "qc_long_frame",
+    "qc_station_series",
+    "qc_wide_frame",
     "read_station_csv",
     "to_daily_wide",
     "window_counts",
+    "write_ingest_qc_report",
 ]

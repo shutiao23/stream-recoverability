@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 score-natural-outages gap-triage v2-operator-ablation hubeau-daily uk-ea-catalog matched-regulation national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation hubeau-daily uk-ea-catalog uk-ea-daily matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
 
 test:
 	$(PYTHON) -m pytest
@@ -51,6 +51,9 @@ download-build-rivers:
 download-catalog-v2:
 	$(PYTHON) scripts/57_download_catalog_v2_candidates.py
 
+catalog-v3-huc8:
+	$(PYTHON) scripts/56_build_catalog_v3_huc8.py
+
 score-natural-outages:
 	$(PYTHON) scripts/58_score_natural_outages.py
 
@@ -66,8 +69,17 @@ hubeau-daily:
 uk-ea-catalog:
 	$(PYTHON) scripts/63_uk_ea_temperature_catalog.py
 
+uk-ea-daily:
+	$(PYTHON) scripts/65_uk_ea_daily_from_readings.py
+
 matched-regulation:
 	$(PYTHON) scripts/64_matched_regulation.py
+
+public-confirmatory-lock:
+	$(PYTHON) scripts/66_propose_public_confirmatory_lock.py
+
+ingest-qc-clearwater:
+	$(PYTHON) scripts/65_ingest_qc_report.py
 
 national-temperature-catalog:
 	$(PYTHON) scripts/49_national_temperature_catalog.py
