@@ -59,7 +59,7 @@ def schur_complement(
     *,
     ridge: float = DEFAULT_RIDGE,
 ) -> np.ndarray:
-    """Return \(\Sigma_{G\mid O}=\Sigma_{GG}-\Sigma_{GO}\Sigma_{OO}^{-1}\Sigma_{OG}\)."""
+    r"""Return \(\Sigma_{G\mid O}=\Sigma_{GG}-\Sigma_{GO}\Sigma_{OO}^{-1}\Sigma_{OG}\)."""
 
     hidden = _as_square(sigma_gg, name="sigma_gg")
     observed = _as_square(sigma_oo, name="sigma_oo")
@@ -78,7 +78,7 @@ def schur_complement(
 
 
 def expected_gaussian_mae(sigma: np.ndarray) -> float:
-    """Mean \(E[|X_i|]\) for zero-mean Gaussians with covariance ``sigma``."""
+    r"""Mean \(E[|X_i|]\) for zero-mean Gaussians with covariance ``sigma``."""
 
     diagonal = np.clip(np.diag(np.asarray(sigma, dtype=float)), 0.0, None)
     if diagonal.size == 0:
@@ -212,7 +212,7 @@ def stationary_covariance(
     *,
     ridge: float = DEFAULT_RIDGE,
 ) -> np.ndarray:
-    """Solve \(\Sigma=A\Sigma A^T+Q\) for a stable VAR(1)."""
+    r"""Solve \(\Sigma=A\Sigma A^T+Q\) for a stable VAR(1)."""
 
     transition_matrix = np.asarray(transition, dtype=float)
     noise = np.asarray(process_noise, dtype=float)
@@ -236,7 +236,7 @@ def var1_cross_covariance(
     sigma: np.ndarray,
     lag: int,
 ) -> np.ndarray:
-    """Return \(\mathrm{Cov}(x_t,x_{t+\mathrm{lag}})\) for a stationary VAR(1)."""
+    r"""Return \(\mathrm{Cov}(x_t,x_{t+\mathrm{lag}})\) for a stationary VAR(1)."""
 
     matrix = np.asarray(transition, dtype=float)
     contemporaneous = np.asarray(sigma, dtype=float)
@@ -571,6 +571,143 @@ def information_set_conditionals(
     )
 
 
+def var1_gap_conditional_risk(
+    transition: np.ndarray,
+    sigma: np.ndarray,
+    *,
+    target: int,
+    donors: Sequence[int],
+    gap_length: int,
+    include_left_boundary: bool = True,
+    include_right_boundary: bool = True,
+    ridge: float = DEFAULT_RIDGE,
+) -> dict[str, float]:
+    """Scalable B-union-D conditional risk for a fitted Gaussian VAR(1).
+
+    This computes the same marginal conditional variances used by the primary
+    recoverability and Gaussian-MAE summaries, but avoids materializing the
+    dense station-by-gap covariance built by :func:`information_set_conditionals`.
+    Exact (zero-noise) observations are the target boundary value(s) and every
+    donor value inside the gap.  Covariances are propagated with a Kalman
+    filter and Rauch--Tung--Striebel covariance smoother.
+
+    The returned log-determinant fields are intentionally omitted: marginal
+    variances suffice for ``recoverability_r`` and
+    ``predicted_conditional_risk``, whereas reconstructing the full smoothed
+    gap covariance would defeat this routine's bounded-memory contract.
+    """
+
+    matrix = _as_square(np.asarray(transition, dtype=float), name="transition")
+    stationary = _as_square(np.asarray(sigma, dtype=float), name="sigma")
+    if matrix.shape != stationary.shape:
+        raise ValueError("transition and sigma must share shape")
+    if gap_length < 1:
+        raise ValueError("gap_length must be positive")
+    n_stations = int(matrix.shape[0])
+    target = int(target)
+    donor_index = tuple(int(value) for value in donors)
+    if target < 0 or target >= n_stations:
+        raise ValueError("target index is outside the VAR state")
+    if target in donor_index or len(set(donor_index)) != len(donor_index):
+        raise ValueError("donors must be unique and exclude the target")
+    if any(value < 0 or value >= n_stations for value in donor_index):
+        raise ValueError("donor index is outside the VAR state")
+    if spectral_radius(matrix) >= 1.0 - 1e-8:
+        raise ValueError("VAR(1) transition must be strictly stable")
+
+    stationary = ridge_psd(stationary, ridge)
+    process_noise = ridge_psd(
+        stationary - matrix @ stationary @ matrix.T,
+        ridge,
+    )
+
+    def observe(covariance: np.ndarray, observed: Sequence[int]) -> np.ndarray:
+        if not observed:
+            return covariance
+        index = np.asarray(tuple(observed), dtype=int)
+        cross = covariance[:, index]
+        observed_covariance = ridge_psd(covariance[np.ix_(index, index)], ridge)
+        try:
+            solved = np.linalg.solve(observed_covariance, cross.T)
+        except np.linalg.LinAlgError:
+            solved = np.linalg.pinv(observed_covariance) @ cross.T
+        posterior = covariance - cross @ solved
+        # Exact observations have zero posterior variance.  Do not use
+        # ridge_psd here because doing so would add artificial observation
+        # noise at every time step.
+        posterior = 0.5 * (posterior + posterior.T)
+        eigval, eigvec = np.linalg.eigh(posterior)
+        return (eigvec * np.maximum(eigval, 0.0)) @ eigvec.T
+
+    # Time positions are -1, 0, ..., gap_length.  Store each filtered
+    # covariance and the one-step prediction used by the backward smoother.
+    filtered: list[np.ndarray] = []
+    predicted: list[np.ndarray | None] = [None]
+    covariance = stationary.copy()
+    if include_left_boundary:
+        covariance = observe(covariance, (target,))
+    filtered.append(covariance)
+    for time in range(int(gap_length) + 1):
+        prior = ridge_psd(matrix @ covariance @ matrix.T + process_noise, ridge)
+        predicted.append(prior)
+        observed = donor_index if time < int(gap_length) else ()
+        if time == int(gap_length) and include_right_boundary:
+            observed = (target,)
+        covariance = observe(prior, observed)
+        filtered.append(covariance)
+
+    smoothed = filtered[-1]
+    hidden_variances = np.empty(int(gap_length), dtype=float)
+    # filtered index 0 is time -1; hidden times 0..d-1 are indices 1..d.
+    for position in range(int(gap_length), 0, -1):
+        next_prior = predicted[position + 1]
+        assert next_prior is not None
+        try:
+            gain = np.linalg.solve(next_prior, matrix @ filtered[position]).T
+        except np.linalg.LinAlgError:
+            gain = filtered[position] @ matrix.T @ np.linalg.pinv(next_prior)
+        smoothed = filtered[position] + gain @ (
+            smoothed - next_prior
+        ) @ gain.T
+        smoothed = 0.5 * (smoothed + smoothed.T)
+        hidden_variances[position - 1] = max(float(smoothed[target, target]), 0.0)
+
+    unconditional_variance = max(float(stationary[target, target]), 0.0)
+    conditional_variance = float(np.mean(hidden_variances))
+    unconditional_mae = float(np.sqrt(unconditional_variance) * GAUSSIAN_MAE_FACTOR)
+    conditional_mae = float(
+        np.mean(np.sqrt(hidden_variances)) * GAUSSIAN_MAE_FACTOR
+    )
+    return {
+        "information_set": "B_union_D",
+        "n_hidden": float(gap_length),
+        "n_observed": float(
+            len(donor_index) * int(gap_length)
+            + int(include_left_boundary)
+            + int(include_right_boundary)
+        ),
+        "gap_length": float(gap_length),
+        "normalized_conditional_variance": (
+            float("nan")
+            if unconditional_variance <= 0
+            else conditional_variance / unconditional_variance
+        ),
+        "recoverability_r": (
+            float("nan")
+            if unconditional_variance <= 0
+            else 1.0 - np.sqrt(conditional_variance / unconditional_variance)
+        ),
+        "expected_mae_unconditional": unconditional_mae,
+        "expected_mae_conditional": conditional_mae,
+        "predicted_skill": (
+            float("nan")
+            if unconditional_mae <= 0
+            else 1.0 - conditional_mae / unconditional_mae
+        ),
+        "predicted_conditional_risk": conditional_mae,
+    }
+
+
 def empirical_lag_covariances(
     series: np.ndarray,
     max_lag: int,
@@ -689,8 +826,8 @@ __all__ = [
     "INFORMATION_SETS",
     "StationTime",
     "coalition_label",
-    "conditionals_table",
     "conditional_summaries",
+    "conditionals_table",
     "empirical_information_set_conditionals",
     "empirical_lag_covariances",
     "expected_gaussian_mae",
@@ -711,4 +848,5 @@ __all__ = [
     "spectral_radius",
     "stationary_covariance",
     "var1_cross_covariance",
+    "var1_gap_conditional_risk",
 ]
