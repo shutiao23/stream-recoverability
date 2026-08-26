@@ -8,9 +8,6 @@
     "status": "blocked"
   },
   "blockers": [
-    "required_path_not_committed:scripts/80_audit_sealed_evaluation_readiness.py",
-    "required_path_not_committed:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-    "required_path_not_committed:tests/test_sealed_evaluation_readiness.py",
     "sealed_model_freeze_manifest_missing",
     "t2_primary_aggregation_not_ready",
     "t2_result_set_not_complete"
@@ -24,9 +21,24 @@
   },
   "formal_evidence": false,
   "git_commit_before_unseal": {
-    "all_required_paths_committed_unchanged": false,
-    "head_commit": "90df4826cb40c7721a0f9cde82e92f971926eae7",
+    "all_required_paths_committed_unchanged": true,
+    "head_commit": "5fa2af1957da7a6a0be90ad8e701c142a46c68d9",
     "required_paths": [
+      {
+        "head_blob": "f0a6f12e2f86626b6ac20781fd89196698be7f19",
+        "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
+        "worktree_blob": "f0a6f12e2f86626b6ac20781fd89196698be7f19"
+      },
+      {
+        "head_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b",
+        "path": "scripts/80_audit_sealed_evaluation_readiness.py",
+        "worktree_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b"
+      },
+      {
+        "head_blob": "a42612bf065d8f7c676d0e5890289b752fe453b8",
+        "path": "tests/test_sealed_evaluation_readiness.py",
+        "worktree_blob": "a42612bf065d8f7c676d0e5890289b752fe453b8"
+      },
       {
         "head_blob": "6db564ff538542404d3837745d81c3df873d3bc5",
         "path": "configs/design_freeze_v9.yaml",
