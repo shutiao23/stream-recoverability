@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -27,12 +28,15 @@ from .t2_recovery_benchmark import (
     discover_failure_closure_networks,
 )
 from .t2_workload_v4 import (
+    EXECUTION_CODE_INVENTORY_SCHEMA,
+    EXECUTION_CODE_PATHS,
     EXPECTED_V4_WORK_ITEMS,
     V4_PRE_SCORE_FREEZE_SCHEMA,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
     V4FreezeBlocked,
     audit_v4_prerequisites,
+    build_committed_execution_inventory,
     execute_v4_item,
     load_v4_index_slice,
 )
@@ -140,6 +144,14 @@ def _validate_pre_score_freeze(
         or manifest.get("selection_uses_outcomes") is not False
         or manifest.get("achieved_skill_read") is not False
         or manifest.get("sealed_temperature_records_read") is not False
+        or manifest.get("base_lattice_status") != "frozen_before_v4_scoring"
+        or set(manifest.get("sensitivity_lattice_statuses") or {}) != {"M", "M_H"}
+        or any(
+            status not in {"ready", "blocked_insufficient_pre_score_support"}
+            for status in (manifest.get("sensitivity_lattice_statuses") or {}).values()
+        )
+        or set(manifest.get("sensitivity_lattices") or {}) != {"M", "M_H"}
+        or set(record.get("sensitivity_lattices") or {}) != {"M", "M_H"}
     ):
         raise V4FreezeBlocked("pre-score freeze manifest contract mismatch")
     paths = [workload_path, manifest_path]
@@ -171,6 +183,30 @@ def _validate_pre_score_freeze(
     return str(record["sha256"]), paths
 
 
+def _validate_execution_inventory(
+    repo: Path, workload: dict[str, Any]
+) -> tuple[str, str]:
+    """Require the frozen code inventory to equal clean committed HEAD bytes."""
+
+    frozen = workload.get("execution_code_inventory")
+    if (
+        not isinstance(frozen, dict)
+        or frozen.get("manifest_schema") != EXECUTION_CODE_INVENTORY_SCHEMA
+        or frozen.get("path_roster") != list(EXECUTION_CODE_PATHS)
+        or frozen.get("all_paths_committed_unchanged") is not True
+        or frozen.get("inventory_sha256")
+        != _canonical_sha(frozen.get("paths") or [])
+    ):
+        raise V4FreezeBlocked("v4 workload execution-code inventory is invalid")
+    current = build_committed_execution_inventory(repo)
+    if (
+        current.get("paths") != frozen.get("paths")
+        or current.get("inventory_sha256") != frozen.get("inventory_sha256")
+    ):
+        raise V4FreezeBlocked("current committed execution code differs from v4 freeze")
+    return str(current["source_head_commit"]), str(current["inventory_sha256"])
+
+
 def _validate_range(start: int, end: int) -> tuple[int, int]:
     if isinstance(start, bool) or isinstance(end, bool):
         raise V4FreezeBlocked("v4 chunk ordinals must be integers")
@@ -188,6 +224,62 @@ def _read_results(path: Path, results_format: str) -> pd.DataFrame:
     if results_format == "csv":
         return pd.read_csv(path)
     raise V4FreezeBlocked("v4 chunk has an unsupported results format")
+
+
+def _missing_outcome(value: Any) -> bool:
+    if value is None or (isinstance(value, str) and not value.strip()):
+        return True
+    try:
+        return bool(pd.isna(value))
+    except (TypeError, ValueError):
+        return False
+
+
+def _validate_result_outcomes(frame: pd.DataFrame) -> None:
+    """Validate status-specific score semantics before immutable publication."""
+
+    outcome_columns = {
+        "mae_deg_c",
+        "climatology_mae_deg_c",
+        "achieved_skill",
+        "n_scored",
+        "prediction_sha256",
+    }
+    scored = frame["status"].astype(str).isin({"complete", "reference_complete"})
+    if scored.any() and not outcome_columns.issubset(frame.columns):
+        raise V4FreezeBlocked("scored v4 rows lack required outcome fields")
+    for row in frame.to_dict(orient="records"):
+        status = str(row["status"])
+        if status not in {"complete", "reference_complete"}:
+            if any(not _missing_outcome(row.get(column)) for column in outcome_columns):
+                raise V4FreezeBlocked(
+                    "non-scored v4 row carries score fields"
+                )
+            continue
+        try:
+            mae = float(row["mae_deg_c"])
+            climate = float(row["climatology_mae_deg_c"])
+            skill = float(row["achieved_skill"])
+            n_scored = float(row["n_scored"])
+        except (KeyError, TypeError, ValueError) as error:
+            raise V4FreezeBlocked("scored v4 row has invalid outcome values") from error
+        prediction_sha = str(row.get("prediction_sha256", ""))
+        if (
+            not all(math.isfinite(value) for value in (mae, climate, skill, n_scored))
+            or mae < 0.0
+            or climate <= 0.0
+            or n_scored <= 0.0
+            or not n_scored.is_integer()
+            or len(prediction_sha) != 64
+            or any(character not in "0123456789abcdef" for character in prediction_sha)
+        ):
+            raise V4FreezeBlocked("scored v4 row violates outcome schema")
+        if status == "complete":
+            expected = 1.0 - mae / climate
+            if abs(skill - expected) > 1e-12:
+                raise V4FreezeBlocked("v4 achieved_skill differs from frozen arithmetic")
+        elif abs(skill) > 1e-12 or abs(mae - climate) > 1e-12:
+            raise V4FreezeBlocked("v4 reference row violates zero-skill arithmetic")
 
 
 def _validate_results(
@@ -224,6 +316,7 @@ def _validate_results(
         raise V4FreezeBlocked("v4 chunk result runner contract drifted")
     if not frame["status"].astype(str).isin(TERMINAL_STATUSES).all():
         raise V4FreezeBlocked("v4 chunk result has a nonterminal status")
+    _validate_result_outcomes(frame)
     if not frame["sealed_temperature_records_read"].eq(False).all():
         raise V4FreezeBlocked(
             "v4 chunk result does not attest sealed outcomes stayed closed"
@@ -378,6 +471,7 @@ def execute_t2_v4_chunk(
         raise V4FreezeBlocked("current v2 auxiliary identities differ from v4 freeze")
 
     pre_score_freeze_sha, _ = _validate_pre_score_freeze(repo, workload_path, workload)
+    execution_head, code_inventory_sha = _validate_execution_inventory(repo, workload)
 
     workload_sha = _sha256_file(workload_path)
     chunk_identity = _canonical_sha(
@@ -387,6 +481,8 @@ def execute_t2_v4_chunk(
             "input_sha256_by_network_sha256": input_inventory_sha,
             "auxiliary_network_bindings_sha256": binding_sha,
             "pre_score_freeze_sha256": pre_score_freeze_sha,
+            "execution_head_commit": execution_head,
+            "execution_code_inventory_sha256": code_inventory_sha,
             "start_ordinal": start,
             "end_ordinal_exclusive": end,
             "results_format": results_format,
@@ -406,6 +502,8 @@ def execute_t2_v4_chunk(
         "input_sha256_by_network_sha256": input_inventory_sha,
         "input_sha256_by_network": input_map,
         "pre_score_freeze_sha256": pre_score_freeze_sha,
+        "execution_head_commit": execution_head,
+        "execution_code_inventory_sha256": code_inventory_sha,
         "chunk_identity_sha256": chunk_identity,
         "start_ordinal": start,
         "end_ordinal_exclusive": end,

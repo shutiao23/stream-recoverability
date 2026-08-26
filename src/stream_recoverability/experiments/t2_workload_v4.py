@@ -16,6 +16,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
@@ -77,6 +78,25 @@ EXPECTED_V3_WORK_ITEMS = 1_384_025
 EXPECTED_V3_EXTENDED_WORK_ITEMS = 553_610
 EXPECTED_V4_WORK_ITEMS = 2_491_245
 ITEM_INDEX_ROW_GROUP_SIZE = 20_000
+EXECUTION_CODE_INVENTORY_SCHEMA = "t2_v91_v4_execution_code_inventory_v1"
+EXECUTION_CODE_PATHS = (
+    "src/stream_recoverability/experiments/t2_recovery_benchmark.py",
+    "src/stream_recoverability/experiments/t2_workload_v4.py",
+    "src/stream_recoverability/experiments/t2_chunk_executor_v4.py",
+    "src/stream_recoverability/experiments/t2_batch_orchestrator.py",
+    "src/stream_recoverability/experiments/t2_cached_executor.py",
+    "src/stream_recoverability/experiments/t2_information_runner_integration.py",
+    "src/stream_recoverability/data/t2_information_adapters.py",
+    "src/stream_recoverability/data/t2_information_corpus_acquisition.py",
+    "src/stream_recoverability/data/t2_information_corpus_acquisition_v2.py",
+    "src/stream_recoverability/models/baselines.py",
+    "src/stream_recoverability/analysis/recoverability_spectrum.py",
+    "src/stream_recoverability/experiments/t2_result_aggregation_v4.py",
+    "src/stream_recoverability/experiments/t2_primary_aggregation_v2.py",
+    "src/stream_recoverability/experiments/t4_t5_post_t2.py",
+    "pyproject.toml",
+    "environment.yml",
+)
 
 COVERAGE_SEMANTICS: dict[str, Any] = {
     "requested_roster": (
@@ -125,6 +145,64 @@ def _canonical_sha(value: Any) -> str:
 
 def _canonical_json(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def _git(repo: Path, *arguments: str) -> subprocess.CompletedProcess[bytes]:
+    return subprocess.run(
+        ["git", *arguments],
+        cwd=repo,
+        capture_output=True,
+        check=False,
+    )
+
+
+def build_committed_execution_inventory(repo_root: str | Path) -> dict[str, Any]:
+    """Bind every scoring dependency to committed, HEAD-clean repository bytes."""
+
+    repo = Path(repo_root).resolve()
+    head = _git(repo, "rev-parse", "HEAD")
+    if head.returncode != 0:
+        raise V4FreezeBlocked("v4 execution-code freeze requires a Git HEAD")
+    status = _git(repo, "status", "--porcelain", "--", *EXECUTION_CODE_PATHS)
+    if status.returncode != 0 or status.stdout.strip():
+        raise V4FreezeBlocked(
+            "v4 execution-code paths must be committed and HEAD-clean"
+        )
+    records = []
+    for relative in EXECUTION_CODE_PATHS:
+        path = (repo / relative).resolve()
+        try:
+            path.relative_to(repo)
+        except ValueError as error:  # pragma: no cover - constant inventory
+            raise V4FreezeBlocked("v4 execution-code path escaped repository") from error
+        if not path.is_file():
+            raise V4FreezeBlocked(f"v4 execution-code path is absent: {relative}")
+        committed = _git(repo, "rev-parse", f"HEAD:{relative}")
+        worktree = _git(repo, "hash-object", relative)
+        if (
+            committed.returncode != 0
+            or worktree.returncode != 0
+            or committed.stdout.strip() != worktree.stdout.strip()
+        ):
+            raise V4FreezeBlocked(
+                f"v4 execution-code path differs from HEAD: {relative}"
+            )
+        records.append(
+            {
+                "path": relative,
+                "file_sha256": _sha256_file(path),
+                "git_blob": committed.stdout.decode("ascii").strip(),
+            }
+        )
+    inventory_sha = _canonical_sha(records)
+    return {
+        "manifest_schema": EXECUTION_CODE_INVENTORY_SCHEMA,
+        "source_head_commit": head.stdout.decode("ascii").strip(),
+        "paths": records,
+        "path_roster": list(EXECUTION_CODE_PATHS),
+        "inventory_sha256": inventory_sha,
+        "all_paths_committed_unchanged": True,
+    }
 
 
 COVERAGE_SEMANTICS_SHA256 = _canonical_sha(COVERAGE_SEMANTICS)
@@ -1006,6 +1084,7 @@ def finalize_v4_workload(
             raise V4FreezeBlocked("v4 final freeze refuses sealed paths")
     draft = _read_mapping(draft_path)
     freeze = _read_mapping(freeze_path)
+    execution_inventory = build_committed_execution_inventory(repo)
     if (
         draft.get("manifest_schema") != V4_INDEX_DRAFT_SCHEMA
         or draft.get("execution_allowed") is not False
@@ -1025,8 +1104,22 @@ def finalize_v4_workload(
         or freeze.get("v4_results_read") is not False
         or freeze.get("selection_uses_outcomes") is not False
         or freeze.get("achieved_skill_read") is not False
+        or freeze.get("base_lattice_status") != "frozen_before_v4_scoring"
     ):
         raise V4FreezeBlocked("pre-score freeze bundle does not bind the index draft")
+    sensitivity_statuses = freeze.get("sensitivity_lattice_statuses")
+    sensitivity_records = freeze.get("sensitivity_lattices")
+    if (
+        not isinstance(sensitivity_statuses, Mapping)
+        or set(sensitivity_statuses) != {"M", "M_H"}
+        or any(
+            status not in {"ready", "blocked_insufficient_pre_score_support"}
+            for status in sensitivity_statuses.values()
+        )
+        or not isinstance(sensitivity_records, Mapping)
+        or set(sensitivity_records) != {"M", "M_H"}
+    ):
+        raise V4FreezeBlocked("pre-score freeze requires exact M and M_H sensitivities")
     required_records = (
         "eligibility_manifest",
         "eligibility_table",
@@ -1043,16 +1136,15 @@ def finalize_v4_workload(
         if not isinstance(record, Mapping):
             raise V4FreezeBlocked(f"pre-score freeze omits {name}")
         bound[name] = _bound_file_record(repo, freeze_path, record, name=name)
-    optional = freeze.get("sensitivity_lattices") or {}
-    if not isinstance(optional, Mapping):
-        raise V4FreezeBlocked("pre-score sensitivity lattice records are invalid")
     sensitivity = {
         str(key): _bound_file_record(
             repo, freeze_path, value, name=f"sensitivity_{key}"
         )
-        for key, value in optional.items()
+        for key, value in sensitivity_records.items()
         if isinstance(value, Mapping)
     }
+    if set(sensitivity) != {"M", "M_H"}:
+        raise V4FreezeBlocked("pre-score sensitivity lattice records are invalid")
     final = {
         **draft,
         "manifest_schema": V4_WORKLOAD_SCHEMA,
@@ -1069,6 +1161,7 @@ def finalize_v4_workload(
             "artifacts": bound,
             "sensitivity_lattices": sensitivity,
         },
+        "execution_code_inventory": execution_inventory,
         "purpose": "formal_workload_bound_to_committed_pre_score_freeze",
     }
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -1295,6 +1388,8 @@ def iter_formal_v4_items(
 __all__ = [
     "COVERAGE_SEMANTICS",
     "COVERAGE_SEMANTICS_SHA256",
+    "EXECUTION_CODE_INVENTORY_SCHEMA",
+    "EXECUTION_CODE_PATHS",
     "EXPECTED_NETWORK_COUNT",
     "EXPECTED_V3_EXTENDED_WORK_ITEMS",
     "EXPECTED_V3_WORK_ITEMS",
@@ -1308,6 +1403,7 @@ __all__ = [
     "V4Prerequisites",
     "V4WorkItem",
     "audit_v4_prerequisites",
+    "build_committed_execution_inventory",
     "build_v4_readiness_manifest",
     "build_v4_workload_manifest",
     "execute_v4_item",

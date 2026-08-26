@@ -1237,6 +1237,21 @@ def create_pre_score_freeze_bundle(
         raise PrimaryAggregationBlocked(
             "pre-score components do not share one draft identity"
         )
+    if (
+        lattice.get("manifest_schema") != LATTICE_FREEZE_SCHEMA
+        or lattice.get("status") != "frozen_before_v4_scoring"
+    ):
+        raise PrimaryAggregationBlocked(
+            "pre-score bundle requires a ready frozen base lattice"
+        )
+    sensitivity_records = lattice.get("sensitivity_lattices")
+    if not isinstance(sensitivity_records, Mapping) or set(sensitivity_records) != {
+        "M",
+        "M_H",
+    }:
+        raise PrimaryAggregationBlocked(
+            "pre-score bundle requires exact M and M_H sensitivity lattices"
+        )
 
     def bind(owner: Path, record: Mapping[str, Any]) -> dict[str, Any]:
         path = _artifact_path(owner, str(record.get("path", "")))
@@ -1255,8 +1270,25 @@ def create_pre_score_freeze_bundle(
     base_lattice = bind(lattice_path, lattice["analyzable_lattice"])
     sensitivities = {
         key: bind(lattice_path, record)
-        for key, record in (lattice.get("sensitivity_lattices") or {}).items()
+        for key, record in sensitivity_records.items()
     }
+    census_lattices = census_value.get("lattices") or {}
+    if set(census_lattices) != {"base_primary", "sensitivity_M", "sensitivity_M_H"}:
+        raise PrimaryAggregationBlocked("pre-score census lattice roster is incomplete")
+    allowed_sensitivity_statuses = {
+        "ready",
+        "blocked_insufficient_pre_score_support",
+    }
+    if (
+        any(not isinstance(value, Mapping) for value in census_lattices.values())
+        or census_lattices["base_primary"].get("status") != "ready"
+        or any(
+            census_lattices[f"sensitivity_{key}"].get("status")
+            not in allowed_sensitivity_statuses
+            for key in ("M", "M_H")
+        )
+    ):
+        raise PrimaryAggregationBlocked("pre-score census lattice status is invalid")
     bundle = {
         "manifest_schema": V4_PRE_SCORE_FREEZE_SCHEMA,
         "status": "complete_outcome_blind_pre_score_freeze",
@@ -1336,6 +1368,12 @@ def bind_complete_v4_primary_results(
             raise PrimaryAggregationBlocked(
                 "lattice freeze/final workload binding mismatch"
             )
+    code_inventory_sha = str(
+        (workload.get("execution_code_inventory") or {}).get("inventory_sha256", "")
+    )
+    execution_head = str(aggregation.get("execution_head_commit", ""))
+    if len(code_inventory_sha) != 64 or len(execution_head) not in {40, 64}:
+        raise PrimaryAggregationBlocked("complete aggregation lacks code provenance")
     required_aggregation = {
         "manifest_schema": V4_AGGREGATION_SCHEMA,
         "status": "complete",
@@ -1347,6 +1385,7 @@ def bind_complete_v4_primary_results(
         "pre_score_freeze_sha256": (workload.get("pre_score_freeze") or {}).get(
             "sha256"
         ),
+        "execution_code_inventory_sha256": code_inventory_sha,
         "sealed_temperature_records_read": False,
     }
     for key, expected in required_aggregation.items():
@@ -1400,6 +1439,12 @@ def bind_complete_v4_primary_results(
             != _sha256_file(workload_path)
             or chunk_manifest.get("pre_score_freeze_sha256")
             != (workload.get("pre_score_freeze") or {}).get("sha256")
+            or chunk_manifest.get("execution_head_commit")
+            != aggregation.get("execution_head_commit")
+            or chunk_manifest.get("execution_code_inventory_sha256")
+            != (workload.get("execution_code_inventory") or {}).get(
+                "inventory_sha256"
+            )
             or chunk.get("start_ordinal") != start
             or chunk.get("end_ordinal_exclusive") != end
             or chunk.get("results_sha256") != chunk_manifest.get("results_sha256")

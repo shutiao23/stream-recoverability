@@ -285,7 +285,7 @@ def orchestrate_t2_batch(
     chunks_output = Path(chunks_output_dir).resolve()
     for path in (repo, workload_path, design, state_file, chunks_output):
         _assert_open_path(path)
-    _, workload_sha, expected_items, item_identity, runner_contract = _audit_workload(
+    workload, workload_sha, expected_items, item_identity, runner_contract = _audit_workload(
         workload_path, expected_workload_sha256, contract
     )
     end = expected_items if end_ordinal_exclusive is None else end_ordinal_exclusive
@@ -378,6 +378,14 @@ def orchestrate_t2_batch(
         else:
             chunk_executor = execute_t2_chunk
 
+    v4_execution_binding: tuple[str, str] | None = None
+    if contract.executor_adapter == "t2_v91_chunk_executor_v4":
+        from stream_recoverability.experiments.t2_chunk_executor_v4 import (
+            _validate_execution_inventory,
+        )
+
+        v4_execution_binding = _validate_execution_inventory(repo, workload)
+
     # Stale "running" entries cannot have been atomically published by this
     # process.  On explicit resume they are retried; succeeded entries are
     # independently revalidated below.
@@ -396,14 +404,66 @@ def orchestrate_t2_batch(
             "manifest_sha256"
         ):
             raise BatchOrchestrationError("resume found a changed/missing chunk manifest")
+        resumed_manifest = _read_json(manifest_path)
         _validate_chunk_manifest(
-            _read_json(manifest_path),
+            resumed_manifest,
             contract=contract,
             workload_sha=workload_sha,
             runner_contract=runner_contract,
             start=int(chunk["start_ordinal"]),
             end=int(chunk["end_ordinal_exclusive"]),
         )
+        if contract.executor_adapter == "t2_v91_chunk_executor_v4":
+            from stream_recoverability.experiments.t2_chunk_executor_v4 import (
+                _read_results as _read_v4_results,
+            )
+            from stream_recoverability.experiments.t2_chunk_executor_v4 import (
+                _resume_existing as _resume_v4_existing,
+            )
+            from stream_recoverability.experiments.t2_result_aggregation_v4 import (
+                _assert_full_row_identities,
+                _expected_identities,
+            )
+
+            assert v4_execution_binding is not None
+            current_head, code_inventory_sha = v4_execution_binding
+            if (
+                resumed_manifest.get("execution_head_commit") != current_head
+                or resumed_manifest.get("execution_code_inventory_sha256")
+                != code_inventory_sha
+            ):
+                raise BatchOrchestrationError(
+                    "resume found a v4 chunk from different execution code"
+                )
+            start = int(chunk["start_ordinal"])
+            chunk_end = int(chunk["end_ordinal_exclusive"])
+            _resume_v4_existing(
+                manifest_path.parent,
+                expected_binding=dict(resumed_manifest),
+                start=start,
+                end=chunk_end,
+            )
+            result_path = manifest_path.parent / str(
+                resumed_manifest.get("results_path", "")
+            )
+            frame = _read_v4_results(
+                result_path, str(resumed_manifest.get("results_format", ""))
+            )
+            raw_index = Path(str((workload.get("item_index") or {}).get("path", "")))
+            candidates = (
+                [raw_index.resolve()]
+                if raw_index.is_absolute()
+                else [
+                    (workload_path.parent / raw_index).resolve(),
+                    (repo / raw_index).resolve(),
+                ]
+            )
+            index_path = next((path for path in candidates if path.is_file()), None)
+            if index_path is None:
+                raise BatchOrchestrationError("resume cannot locate the frozen v4 index")
+            _assert_full_row_identities(
+                frame, _expected_identities(index_path, start, chunk_end)
+            )
 
     state["status"] = "running"
     state["max_workers"] = max_workers
@@ -449,6 +509,14 @@ def orchestrate_t2_batch(
             start=start,
             end=chunk_end,
         )
+        if v4_execution_binding is not None and (
+            manifest.get("execution_head_commit") != v4_execution_binding[0]
+            or manifest.get("execution_code_inventory_sha256")
+            != v4_execution_binding[1]
+        ):
+            raise BatchOrchestrationError(
+                "v4 chunk execution-code binding differs from the batch"
+            )
         manifest_path = chunks_output / f"chunk_{start:07d}_{chunk_end:07d}/manifest.json"
         if not manifest_path.is_file():
             raise BatchOrchestrationError("chunk executor did not atomically publish manifest")

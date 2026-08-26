@@ -408,6 +408,11 @@ def test_v4_chunk_safe_resume_validates_table_hash_identity_and_bindings(
                 "coverage_semantics_sha256": "a" * 64,
                 "pre_score_freeze_sha256": "f" * 64,
                 "sealed_temperature_records_read": False,
+                "mae_deg_c": 1.0,
+                "climatology_mae_deg_c": 2.0,
+                "achieved_skill": 0.5,
+                "n_scored": 7,
+                "prediction_sha256": "a" * 64,
             },
             {
                 "ordinal": 1,
@@ -590,6 +595,36 @@ def test_pre_score_freeze_must_be_committed_and_head_clean(tmp_path: Path) -> No
         chunk_v4._require_committed_head(tmp_path, [frozen])
 
 
+def test_execution_inventory_binds_committed_code_and_rejects_dirty_bytes(
+    tmp_path: Path, monkeypatch
+) -> None:
+    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    code = tmp_path / "runner.py"
+    code.write_text("frozen = True\n", encoding="utf-8")
+    subprocess.run(["git", "add", "runner.py"], cwd=tmp_path, check=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=test@example.invalid",
+            "commit",
+            "-qm",
+            "freeze runner",
+        ],
+        cwd=tmp_path,
+        check=True,
+    )
+    monkeypatch.setattr(v4, "EXECUTION_CODE_PATHS", ("runner.py",))
+    inventory = v4.build_committed_execution_inventory(tmp_path)
+    assert inventory["path_roster"] == ["runner.py"]
+    assert inventory["all_paths_committed_unchanged"] is True
+    code.write_text("frozen = False\n", encoding="utf-8")
+    with pytest.raises(v4.V4FreezeBlocked, match="HEAD-clean"):
+        v4.build_committed_execution_inventory(tmp_path)
+
+
 def test_final_workload_binds_complete_pre_score_bundle(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -613,6 +648,8 @@ def test_final_workload_binds_complete_pre_score_bundle(
         "base_lattice",
         "predictor_manifest",
         "predictor_table",
+        "sensitivity_M",
+        "sensitivity_M_H",
     ]
     records = {}
     for name in artifact_names:
@@ -629,11 +666,31 @@ def test_final_workload_binds_complete_pre_score_bundle(
         "v4_results_read": False,
         "selection_uses_outcomes": False,
         "achieved_skill_read": False,
-        **records,
-        "sensitivity_lattices": {},
+        **{key: value for key, value in records.items() if not key.startswith("sensitivity_")},
+        "base_lattice_status": "frozen_before_v4_scoring",
+        "sensitivity_lattice_statuses": {
+            "M": "blocked_insufficient_pre_score_support",
+            "M_H": "blocked_insufficient_pre_score_support",
+        },
+        "sensitivity_lattices": {
+            "M": records["sensitivity_M"],
+            "M_H": records["sensitivity_M_H"],
+        },
     }
     freeze_path = tmp_path / "pre_score_freeze_manifest.json"
     freeze_path.write_text(json.dumps(freeze), encoding="utf-8")
+    monkeypatch.setattr(
+        v4,
+        "build_committed_execution_inventory",
+        lambda _: {
+            "manifest_schema": v4.EXECUTION_CODE_INVENTORY_SCHEMA,
+            "source_head_commit": "a" * 40,
+            "paths": [],
+            "path_roster": list(v4.EXECUTION_CODE_PATHS),
+            "inventory_sha256": hashlib.sha256(b"[]").hexdigest(),
+            "all_paths_committed_unchanged": True,
+        },
+    )
     final = v4.finalize_v4_workload(
         tmp_path,
         index_draft_manifest_path=draft_path,
@@ -643,6 +700,7 @@ def test_final_workload_binds_complete_pre_score_bundle(
     assert final["manifest_schema"] == v4.V4_WORKLOAD_SCHEMA
     assert final["execution_allowed"] is True
     assert final["pre_score_freeze"]["sha256"] == _sha(freeze_path)
+    assert final["execution_code_inventory"]["source_head_commit"] == "a" * 40
 
 
 def test_v4_batch_contract_has_approved_executor() -> None:

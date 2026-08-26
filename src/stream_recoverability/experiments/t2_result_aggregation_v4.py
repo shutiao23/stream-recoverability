@@ -17,6 +17,8 @@ import pyarrow.parquet as pq
 
 from .t2_chunk_executor_v4 import V4_CHUNK_SCHEMA, _validate_results
 from .t2_workload_v4 import (
+    EXECUTION_CODE_INVENTORY_SCHEMA,
+    EXECUTION_CODE_PATHS,
     EXPECTED_V4_WORK_ITEMS,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
@@ -47,6 +49,14 @@ def _read_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise V4AggregationBlocked(f"v4 aggregation input is not a mapping: {path}")
     return value
+
+
+def _canonical_sha(value: Any) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+        ).encode("utf-8")
+    ).hexdigest()
 
 
 def _assert_open(path: Path) -> None:
@@ -202,6 +212,17 @@ def aggregate_v4_chunk_manifests(
         or workload.get("sealed_temperature_records_read") is not False
     ):
         raise V4AggregationBlocked("v4 aggregation workload contract mismatch")
+    code_inventory = workload.get("execution_code_inventory")
+    if (
+        not isinstance(code_inventory, Mapping)
+        or code_inventory.get("manifest_schema") != EXECUTION_CODE_INVENTORY_SCHEMA
+        or code_inventory.get("path_roster") != list(EXECUTION_CODE_PATHS)
+        or code_inventory.get("all_paths_committed_unchanged") is not True
+        or code_inventory.get("inventory_sha256")
+        != _canonical_sha(code_inventory.get("paths") or [])
+    ):
+        raise V4AggregationBlocked("v4 aggregation code inventory mismatch")
+    code_inventory_sha = str(code_inventory["inventory_sha256"])
     index_record = workload.get("item_index") or {}
     index_path = Path(str(index_record.get("path", "")))
     if not index_path.is_absolute():
@@ -246,6 +267,7 @@ def aggregate_v4_chunk_manifests(
     manifest_records: list[dict[str, Any]] = []
     validated_results: list[tuple[Path, str]] = []
     result_schemas: list[pa.Schema] = []
+    execution_head: str | None = None
     try:
         for path, manifest in loaded:
             start = int(manifest.get("start_ordinal", -1))
@@ -262,10 +284,20 @@ def aggregate_v4_chunk_manifests(
                 "pre_score_freeze_sha256": (workload.get("pre_score_freeze") or {}).get(
                     "sha256"
                 ),
+                "execution_code_inventory_sha256": code_inventory_sha,
             }
             for key, expected in required.items():
                 if manifest.get(key) != expected:
                     raise V4AggregationBlocked(f"v4 chunk binding mismatch: {key}")
+            chunk_head = str(manifest.get("execution_head_commit", ""))
+            if len(chunk_head) not in {40, 64} or any(
+                character not in "0123456789abcdef" for character in chunk_head
+            ):
+                raise V4AggregationBlocked("v4 chunk lacks a valid execution HEAD")
+            if execution_head is None:
+                execution_head = chunk_head
+            elif chunk_head != execution_head:
+                raise V4AggregationBlocked("v4 chunks used different execution HEADs")
             results_path = path.parent / str(manifest.get("results_path", ""))
             if not results_path.is_file() or _sha256_file(results_path) != manifest.get(
                 "results_sha256"
@@ -331,6 +363,8 @@ def aggregate_v4_chunk_manifests(
         "pre_score_freeze_sha256": (workload.get("pre_score_freeze") or {}).get(
             "sha256"
         ),
+        "execution_head_commit": execution_head,
+        "execution_code_inventory_sha256": code_inventory_sha,
         "expected_item_records": EXPECTED_V4_WORK_ITEMS,
         "observed_item_records": records,
         "work_item_identity_sha256": stream_sha if complete else None,

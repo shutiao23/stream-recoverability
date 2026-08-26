@@ -412,6 +412,52 @@ def test_freeze_rejects_achieved_skill_in_pre_score_audit(tmp_path: Path) -> Non
         )
 
 
+def test_pre_score_bundle_rejects_blocked_base_lattice(tmp_path: Path) -> None:
+    paths = _freeze_fixture(tmp_path)
+    freeze_dir = tmp_path / "freeze"
+    freeze_v4_analyzable_lattice(
+        workload_manifest_path=paths["workload"],
+        predictor_manifest_path=paths["predictor_manifest"],
+        eligibility_manifest_path=paths["eligibility_manifest"],
+        output_dir=freeze_dir,
+    )
+    manifest_path = freeze_dir / "lattice_freeze_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["status"] = "blocked_base_lattice_insufficient_pre_score_support"
+    manifest_path.chmod(0o644)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(PrimaryAggregationBlocked, match="ready frozen base"):
+        create_pre_score_freeze_bundle(
+            index_draft_manifest_path=paths["workload"],
+            eligibility_manifest_path=paths["eligibility_manifest"],
+            lattice_freeze_manifest_path=manifest_path,
+            output_path=tmp_path / "bundle.json",
+        )
+
+
+def test_pre_score_bundle_requires_both_sensitivity_lattices(tmp_path: Path) -> None:
+    paths = _freeze_fixture(tmp_path)
+    freeze_dir = tmp_path / "freeze"
+    freeze_v4_analyzable_lattice(
+        workload_manifest_path=paths["workload"],
+        predictor_manifest_path=paths["predictor_manifest"],
+        eligibility_manifest_path=paths["eligibility_manifest"],
+        output_dir=freeze_dir,
+    )
+    manifest_path = freeze_dir / "lattice_freeze_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["sensitivity_lattices"].pop("M_H")
+    manifest_path.chmod(0o644)
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(PrimaryAggregationBlocked, match="exact M and M_H"):
+        create_pre_score_freeze_bundle(
+            index_draft_manifest_path=paths["workload"],
+            eligibility_manifest_path=paths["eligibility_manifest"],
+            lattice_freeze_manifest_path=manifest_path,
+            output_path=tmp_path / "bundle.json",
+        )
+
+
 def test_complete_results_bind_to_frozen_lattice_and_validate_for_t4_t5(
     tmp_path: Path,
 ) -> None:
@@ -468,6 +514,7 @@ def test_complete_results_bind_to_frozen_lattice_and_validate_for_t4_t5(
             }
         },
     }
+    workload["execution_code_inventory"] = {"inventory_sha256": "c" * 64}
     paths["workload"].write_text(json.dumps(workload), encoding="utf-8")
     chunk_dir = tmp_path / "chunk_0000000_all"
     chunk_dir.mkdir()
@@ -476,6 +523,8 @@ def test_complete_results_bind_to_frozen_lattice_and_validate_for_t4_t5(
     chunk_manifest = {
         "workload_manifest_sha256": _sha(paths["workload"]),
         "pre_score_freeze_sha256": "f" * 64,
+        "execution_head_commit": "d" * 40,
+        "execution_code_inventory_sha256": "c" * 64,
         "start_ordinal": 0,
         "end_ordinal_exclusive": len(pd.read_parquet(paths["results"])),
         "results_path": chunk_results.name,
@@ -493,6 +542,8 @@ def test_complete_results_bind_to_frozen_lattice_and_validate_for_t4_t5(
         "workload_manifest_sha256": _sha(paths["workload"]),
         "work_item_identity_sha256": workload["work_item_identity_sha256"],
         "pre_score_freeze_sha256": "f" * 64,
+        "execution_head_commit": "d" * 40,
+        "execution_code_inventory_sha256": "c" * 64,
         "sealed_temperature_records_read": False,
         "merged_item_results": {
             "path": paths["results"].name,
@@ -507,6 +558,8 @@ def test_complete_results_bind_to_frozen_lattice_and_validate_for_t4_t5(
                 "start_ordinal": 0,
                 "end_ordinal_exclusive": len(pd.read_parquet(paths["results"])),
                 "results_sha256": _sha(chunk_results),
+                "execution_head_commit": "d" * 40,
+                "execution_code_inventory_sha256": "c" * 64,
             }
         ],
     }

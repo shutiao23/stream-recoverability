@@ -13,11 +13,15 @@ from stream_recoverability.experiments.t2_chunk_executor_v4 import (
     V4_CHUNK_SCHEMA,
     _canonical_sha,
     _item_stream_sha,
+    _validate_result_outcomes,
 )
 from stream_recoverability.experiments.t2_recovery_benchmark import WorkItem
 from stream_recoverability.experiments.t2_workload_v4 import (
+    EXECUTION_CODE_INVENTORY_SCHEMA,
+    EXECUTION_CODE_PATHS,
     V4_RUNNER_CONTRACT_VERSION,
     V4_WORKLOAD_SCHEMA,
+    V4FreezeBlocked,
 )
 
 
@@ -59,6 +63,11 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
         )
     index_path = tmp_path / "item_index.parquet"
     pd.DataFrame(index_rows).to_parquet(index_path, index=False)
+    code_records = [
+        {"path": path, "file_sha256": "a" * 64, "git_blob": "b" * 40}
+        for path in EXECUTION_CODE_PATHS
+    ]
+    code_inventory_sha = _canonical_sha(code_records)
     workload.write_text(
         json.dumps(
             {
@@ -71,6 +80,14 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
                     "file_sha256": _sha(index_path),
                 },
                 "pre_score_freeze": {"sha256": "f" * 64},
+                "execution_code_inventory": {
+                    "manifest_schema": EXECUTION_CODE_INVENTORY_SCHEMA,
+                    "source_head_commit": "c" * 40,
+                    "paths": code_records,
+                    "path_roster": list(EXECUTION_CODE_PATHS),
+                    "inventory_sha256": code_inventory_sha,
+                    "all_paths_committed_unchanged": True,
+                },
                 "sealed_temperature_records_read": False,
             }
         ),
@@ -100,6 +117,11 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
                     "pre_score_freeze_sha256": "f" * 64,
                     "meteorology_lag_days": None,
                     "sealed_temperature_records_read": False,
+                    "mae_deg_c": 1.0,
+                    "climatology_mae_deg_c": 2.0,
+                    "achieved_skill": 0.5,
+                    "n_scored": 7,
+                    "prediction_sha256": "a" * 64,
                 }
             )
         frame = pd.DataFrame(frame_rows)
@@ -116,6 +138,8 @@ def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
             "auxiliary_corpus_plan_file_sha256": "c" * 64,
             "coverage_semantics_sha256": "e" * 64,
             "pre_score_freeze_sha256": "f" * 64,
+            "execution_head_commit": "d" * 40,
+            "execution_code_inventory_sha256": code_inventory_sha,
             "auxiliary_network_bindings": {
                 "network": {"network_manifest_sha256": "d" * 64}
             },
@@ -154,6 +178,77 @@ def test_v4_aggregation_proves_exact_complete_total_stream(
         == result["frozen_work_item_identity_sha256"]
     )
     assert result["network_inference_status"] == "withheld_n_lt_100_network_interval"
+    assert result["execution_head_commit"] == "d" * 40
+
+
+def test_v4_aggregation_rejects_counterfeit_skill_arithmetic(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(aggregation, "EXPECTED_V4_WORK_ITEMS", 4)
+    workload, manifests = _fixture(tmp_path)
+    manifest = json.loads(manifests[0].read_text(encoding="utf-8"))
+    result_path = manifests[0].parent / manifest["results_path"]
+    frame = pd.read_csv(result_path)
+    frame.loc[0, "achieved_skill"] = 42.0
+    frame.to_csv(result_path, index=False)
+    manifest["results_sha256"] = _sha(result_path)
+    manifests[0].write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(V4FreezeBlocked, match="frozen arithmetic"):
+        aggregation.aggregate_v4_chunk_manifests(
+            workload_manifest_path=workload,
+            chunk_manifest_paths=manifests,
+        )
+
+
+def test_v4_aggregation_rejects_non_scored_row_with_outcome(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(aggregation, "EXPECTED_V4_WORK_ITEMS", 4)
+    workload, manifests = _fixture(tmp_path)
+    manifest = json.loads(manifests[0].read_text(encoding="utf-8"))
+    result_path = manifests[0].parent / manifest["results_path"]
+    frame = pd.read_csv(result_path)
+    frame.loc[0, "status"] = "structural_not_applicable"
+    frame.to_csv(result_path, index=False)
+    manifest["results_sha256"] = _sha(result_path)
+    manifests[0].write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(V4FreezeBlocked, match="carries score fields"):
+        aggregation.aggregate_v4_chunk_manifests(
+            workload_manifest_path=workload,
+            chunk_manifest_paths=manifests,
+        )
+
+
+def test_v4_aggregation_rejects_chunks_from_different_execution_heads(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(aggregation, "EXPECTED_V4_WORK_ITEMS", 4)
+    workload, manifests = _fixture(tmp_path)
+    second = json.loads(manifests[1].read_text(encoding="utf-8"))
+    second["execution_head_commit"] = "e" * 40
+    manifests[1].write_text(json.dumps(second), encoding="utf-8")
+    with pytest.raises(aggregation.V4AggregationBlocked, match="different execution HEADs"):
+        aggregation.aggregate_v4_chunk_manifests(
+            workload_manifest_path=workload,
+            chunk_manifest_paths=manifests,
+        )
+
+
+def test_reference_result_requires_zero_skill_and_matching_mae() -> None:
+    frame = pd.DataFrame(
+        [
+            {
+                "status": "reference_complete",
+                "mae_deg_c": 1.0,
+                "climatology_mae_deg_c": 1.0,
+                "achieved_skill": 0.1,
+                "n_scored": 7,
+                "prediction_sha256": "a" * 64,
+            }
+        ]
+    )
+    with pytest.raises(V4FreezeBlocked, match="zero-skill arithmetic"):
+        _validate_result_outcomes(frame)
 
 
 def test_v4_aggregation_rejects_overlap_and_reports_contiguous_partial(
