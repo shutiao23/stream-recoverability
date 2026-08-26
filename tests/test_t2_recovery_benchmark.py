@@ -144,6 +144,8 @@ def test_full_grid_keeps_all_placement_slots_and_blocks_extended_inputs(
     )
     result = execute_item(repo, networks[0], extended)
     assert result["status"] == "structural_not_applicable"
+    assert result["sealed_temperature_records_read"] is False
+    assert result["formal_evidence"] is False
     assert result["reason"] == "structural_unimplemented_no_meteorology_or_hydraulics_adapter"
     _, inventory = discover_open_networks(repo)
     manifest = build_workload_manifest(

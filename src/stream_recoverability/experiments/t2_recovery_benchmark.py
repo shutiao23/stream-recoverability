@@ -848,6 +848,8 @@ def execute_item(repo_root: str | Path, network: OpenNetwork, item: WorkItem) ->
         "consumed_information": contract["consumed_information"],
         "information_condition_result": contract["category"] == "executable",
         "workload_category": contract["category"],
+        "formal_evidence": False,
+        "sealed_temperature_records_read": False,
     }
     if not contract["supported"]:
         status = {
