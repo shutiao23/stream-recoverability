@@ -1,7 +1,7 @@
 {
   "authorized_for_object_reads": false,
   "bindings": {
-    "head_commit": "1c6f0c669284a8f88966a3e1c5fadc4b309ad40f",
+    "head_commit": "b2b32a32001eee77dc3fafd02d8df108cdcda143",
     "model_freeze": {
       "path": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
       "sha256": null
@@ -26,9 +26,6 @@
   "blockers": [
     "complete_v4_result_binding_missing_or_invalid",
     "evaluate_once_lock_missing_or_invalid",
-    "evaluator_path_not_committed_unchanged:scripts/90_preflight_sealed_evaluator.py",
-    "evaluator_path_not_committed_unchanged:src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-    "evaluator_path_not_committed_unchanged:tests/test_sealed_evaluator_scaffold.py",
     "formal_v4_workload_missing_or_invalid",
     "head_binding_mismatch",
     "model_freeze_missing_or_invalid",
