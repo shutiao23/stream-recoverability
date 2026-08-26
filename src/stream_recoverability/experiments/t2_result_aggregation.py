@@ -97,6 +97,14 @@ def _canonical_sha(value: Any) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _work_item_stream_sha(rows: Sequence[Mapping[str, Any]]) -> str:
+    digest = hashlib.sha256()
+    for row in sorted(rows, key=lambda value: int(value["ordinal"])):
+        digest.update(str(row["item_id"]).encode("utf-8"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -313,7 +321,7 @@ def _validate_records(
     )
     if not expected_identity_sha:
         blockers.append("workload_missing_expected_item_identity_sha256")
-    elif _canonical_sha(ordered_identities) != expected_identity_sha:
+    elif _work_item_stream_sha(ordered_identities) != expected_identity_sha:
         raise AggregationContractError("result rows do not match workload item-identity SHA-256")
     for status in sorted(NON_SUCCESS_STATUSES):
         if status_counts[status]:

@@ -19,7 +19,7 @@ import json
 import math
 from collections import Counter, defaultdict
 from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from itertools import chain
 from pathlib import Path
 from time import perf_counter
@@ -660,6 +660,19 @@ def load_t2_geometry_workload(
     )
 
 
+def iter_all_work_items(
+    repo_root: str | Path,
+    networks: Sequence[OpenNetwork],
+    budget: Mapping[str, Any],
+) -> Iterable[WorkItem]:
+    """Yield the complete frozen workload with one global ordinal namespace."""
+
+    geometry_items, _ = load_t2_geometry_workload(repo_root, networks, budget)
+    combined = chain(iter_work_items(repo_root, networks, budget), geometry_items)
+    for ordinal, item in enumerate(combined):
+        yield replace(item, ordinal=ordinal)
+
+
 def _cell_contract(item: WorkItem) -> dict[str, Any]:
     """Declare whether and how a model consumes the advertised information."""
 
@@ -1122,7 +1135,8 @@ def build_workload_manifest(
             ),
         )
     if count_items:
-        for item in item_stream:
+        for global_ordinal, raw_item in enumerate(item_stream):
+            item = replace(raw_item, ordinal=global_ordinal)
             n_items += 1
             geometry_item_counts[item.geometry] += 1
             workload_digest.update(item.item_id.encode())
@@ -1370,6 +1384,7 @@ __all__ = [
     "discover_failure_closure_networks",
     "discover_open_networks",
     "execute_item",
+    "iter_all_work_items",
     "iter_frozen_geometry_work_items",
     "iter_work_items",
     "json_safe",

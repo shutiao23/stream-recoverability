@@ -31,6 +31,14 @@ def _canonical_sha(value: object) -> str:
     ).hexdigest()
 
 
+def _work_item_stream_sha(rows: list[dict[str, object]]) -> str:
+    digest = hashlib.sha256()
+    for row in sorted(rows, key=lambda value: int(value["ordinal"])):
+        digest.update(str(row["item_id"]).encode())
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
 def _identity(design_sha: str, input_sha: str) -> dict[str, object]:
     return {
         "design_sha256": design_sha,
@@ -62,7 +70,7 @@ def _fixture(tmp_path: Path, *, expected_n: int = 1) -> dict[str, Path | str]:
         "n_networks": 1,
         "tier_1": {
             "n_work_items": expected_n,
-            "work_item_identity_sha256": _canonical_sha(
+            "work_item_identity_sha256": _work_item_stream_sha(
                 [{"ordinal": 0, "item_id": item_id}]
             ),
             "online_causal_status": "ready",

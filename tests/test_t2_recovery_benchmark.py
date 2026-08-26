@@ -8,14 +8,17 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import stream_recoverability.experiments.t2_recovery_benchmark as t2_module
 from stream_recoverability.experiments.frozen_outage_geometry import (
     load_frozen_geometry_bindings,
 )
 from stream_recoverability.experiments.t2_recovery_benchmark import (
+    WorkItem,
     build_workload_manifest,
     discover_failure_closure_networks,
     discover_open_networks,
     execute_item,
+    iter_all_work_items,
     iter_frozen_geometry_work_items,
     iter_work_items,
     load_t2_geometry_workload,
@@ -26,6 +29,35 @@ from stream_recoverability.experiments.t2_recovery_benchmark import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_complete_workload_uses_one_global_ordinal_namespace(monkeypatch) -> None:
+    def item(item_id: str) -> WorkItem:
+        return WorkItem(
+            ordinal=0,
+            item_id=item_id,
+            network_id="huc8_test",
+            role="development",
+            source_key="fixture",
+            target_station="station",
+            model="climatology",
+            gap_length=7,
+            placement=0,
+            start_index=10,
+            information_condition="B",
+        )
+
+    monkeypatch.setattr(t2_module, "iter_work_items", lambda *_args: iter([item("a")]))
+    monkeypatch.setattr(
+        t2_module,
+        "load_t2_geometry_workload",
+        lambda *_args: (iter([item("b"), item("c")]), {}),
+    )
+
+    rows = list(iter_all_work_items(".", [], {}))
+
+    assert [row.item_id for row in rows] == ["a", "b", "c"]
+    assert [row.ordinal for row in rows] == [0, 1, 2]
 
 
 def _fixture_repo(
