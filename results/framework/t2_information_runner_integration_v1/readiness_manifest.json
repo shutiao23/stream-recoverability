@@ -1,0 +1,237 @@
+{
+  "all_meteorology_lag_sensitivity_cells_required": true,
+  "cache_contract": "load_and_hash_panel_and_auxiliary_once_per_network_and_reuse_adapter_by_train_mask_condition_lag",
+  "candidate_changes_v3_classification": true,
+  "catalog_split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "cells": [
+    {
+      "category": "executable",
+      "gap_length": 7,
+      "incomplete_gap_features": [],
+      "information_condition": "B_union_D_union_M",
+      "insufficient_train_features": [],
+      "meteorology_lag_days": -1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "b3a22ce952c75b40516e158b",
+      "start_index": 9736,
+      "supported": true,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "category": "executable",
+      "gap_length": 7,
+      "incomplete_gap_features": [],
+      "information_condition": "B_union_D_union_M",
+      "insufficient_train_features": [],
+      "meteorology_lag_days": 0,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "b3a22ce952c75b40516e158b",
+      "start_index": 9736,
+      "supported": true,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "category": "executable",
+      "gap_length": 7,
+      "incomplete_gap_features": [],
+      "information_condition": "B_union_D_union_M",
+      "insufficient_train_features": [],
+      "meteorology_lag_days": 1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 15,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "b3a22ce952c75b40516e158b",
+      "start_index": 9736,
+      "supported": true,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "category": "data_ineligible",
+      "gap_length": 7,
+      "incomplete_gap_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "information_condition": "B_union_D_union_M_union_H",
+      "insufficient_train_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "meteorology_lag_days": -1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "19bc80e6e8e94fa4b916dd97",
+      "start_index": 9736,
+      "supported": false,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "category": "data_ineligible",
+      "gap_length": 7,
+      "incomplete_gap_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "information_condition": "B_union_D_union_M_union_H",
+      "insufficient_train_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "meteorology_lag_days": 0,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "19bc80e6e8e94fa4b916dd97",
+      "start_index": 9736,
+      "supported": false,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    },
+    {
+      "category": "data_ineligible",
+      "gap_length": 7,
+      "incomplete_gap_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "information_condition": "B_union_D_union_M_union_H",
+      "insufficient_train_features": [
+        "01428750__H__L",
+        "01429000__H__L",
+        "01431500__H__L"
+      ],
+      "meteorology_lag_days": 1,
+      "model": "donor_regression",
+      "n_requested_auxiliary_features": 21,
+      "network_id": "huc8_02040103",
+      "placement": 0,
+      "reason": "requested_auxiliary_feature_coverage_incomplete_fail_closed",
+      "requested_information_groups": [
+        "B",
+        "D",
+        "M",
+        "H"
+      ],
+      "role": "development",
+      "sealed_temperature_records_read": false,
+      "source_v3_item_id": "19bc80e6e8e94fa4b916dd97",
+      "start_index": 9736,
+      "supported": false,
+      "target_station": "01428750",
+      "temperature_performance_metric_computed": false
+    }
+  ],
+  "coverage_semantics": {
+    "adapter_standardization": "mean_population_sd_train_days_only",
+    "downstream_missing_training_values": "declared_train_only_column_median_in_baseline",
+    "gap": "every_requested_feature_finite_on_every_gap_day",
+    "meteorology_lag_cell_semantics": "all_three_reported_separately_no_heldout_selection",
+    "meteorology_lag_roster": [
+      -1,
+      0,
+      1
+    ],
+    "missing_channel": "cell_data_ineligible_no_fill_no_drop",
+    "requested_roster": "all_station_by_frozen_group_variables_required_no_channel_substitution",
+    "train_min_days_per_feature": 365
+  },
+  "formal_evidence": false,
+  "future_item_identity_must_bind": [
+    "integration_contract_version",
+    "materialized_auxiliary_daily_long_sha256",
+    "meteorology_lag_days",
+    "strict_requested_feature_coverage_semantics"
+  ],
+  "future_v4_extended_item_count_multiplier_per_source_item": 3,
+  "future_v4_extended_item_count_must_expand_lag_dimension": true,
+  "future_v4_meteorology_lag_roster": [
+    -1,
+    0,
+    1
+  ],
+  "future_v4_projected_count_is_not_a_frozen_workload": true,
+  "future_v4_projected_work_item_count_with_lag_dimension": 2491245,
+  "heldout_skill_used_to_select_meteorology_lag": false,
+  "integration_contract_version": "t2_v91_information_runner_candidate_v4_v1",
+  "manifest_schema": "t2_v91_information_runner_readiness_v1",
+  "n_networks_discovered": 67,
+  "network_interval_reported": false,
+  "passed": false,
+  "performance_metrics_computed": false,
+  "purpose": "pipeline_verification_not_evidence",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "smoke_network": "huc8_02040103",
+  "source_v3_extended_cells_remain_frozen_structural_not_applicable": true,
+  "source_v3_extended_work_item_count": 553610,
+  "source_v3_runner_contract_version": "t2_v91_runner_v3_frozen_geometry_bindings",
+  "source_v3_work_item_count": 1384025,
+  "source_v3_workload_bytes_unchanged": true,
+  "source_v3_workload_path": "results/framework/t2_recovery_benchmark_v1/workload_manifest.json",
+  "source_v3_workload_sha256_after": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19",
+  "source_v3_workload_sha256_before": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19",
+  "status": "candidate_consumer_ready_new_workload_freeze_required",
+  "v3_item_ids_reusable_as_formal_candidate_ids": false,
+  "v4_or_later_new_workload_freeze_required": true
+}
