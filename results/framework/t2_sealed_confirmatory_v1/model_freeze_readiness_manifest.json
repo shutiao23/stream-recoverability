@@ -1,11 +1,6 @@
 {
   "blockers": [
-    "required_path_differs_from_head:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-    "required_path_differs_from_head:src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/primary_y.parquet"
+    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet"
   ],
   "candidate_model_freeze": {
     "design_freeze": {
@@ -19,7 +14,7 @@
       "donor_regression",
       "xgboost"
     ],
-    "head_commit": "d41e929e1be1c037f5cb7e780691d40a29edc281",
+    "head_commit": "c52a112920e92fde970905d78201615ff9279b7b",
     "input_bindings": {
       "analysis_code": {
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
@@ -63,10 +58,10 @@
   "formal_evidence": false,
   "git_commit_before_model_freeze": {
     "all_required_paths_committed_unchanged": false,
-    "head_commit": "d41e929e1be1c037f5cb7e780691d40a29edc281",
+    "head_commit": "c52a112920e92fde970905d78201615ff9279b7b",
     "required_paths": [
       {
-        "head_blob": "b38428c451f59741a3b36123eb4a01a8434ead40",
+        "head_blob": "6afb75282ac2279336a221daaaf80ae5d6e7e3d8",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
         "worktree_blob": "6afb75282ac2279336a221daaaf80ae5d6e7e3d8"
       },
@@ -106,14 +101,29 @@
         "worktree_blob": "6a476ae27d4600cbbbaee3f2b0a3f95e7ebc9f27"
       },
       {
+        "head_blob": "affc464c2b5a957a3f47c8f77f3bdd7fd872cc33",
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
+        "worktree_blob": "affc464c2b5a957a3f47c8f77f3bdd7fd872cc33"
+      },
+      {
         "head_blob": "c0b34a3b7ef7802c80cf91cb3e5d5075122e22e9",
         "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
         "worktree_blob": "c0b34a3b7ef7802c80cf91cb3e5d5075122e22e9"
       },
       {
-        "head_blob": "ee5ba16a865a46c3997ca87dc42994498b162275",
+        "head_blob": "c0f6e9e7b1c92f87b9de957169ce0ea8bb585c5c",
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
+        "worktree_blob": "c0f6e9e7b1c92f87b9de957169ce0ea8bb585c5c"
+      },
+      {
+        "head_blob": "dc4e551ecc309e0d0e99c4bfc10145d36225b144",
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
         "worktree_blob": "dc4e551ecc309e0d0e99c4bfc10145d36225b144"
+      },
+      {
+        "head_blob": "e6438bd3498f51fa489128b0b3f0d1d4a036aa32",
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/primary_y.parquet",
+        "worktree_blob": "e6438bd3498f51fa489128b0b3f0d1d4a036aa32"
       },
       {
         "head_blob": "dde5d988cb600f65e1fee3ab959d01eca226456c",
