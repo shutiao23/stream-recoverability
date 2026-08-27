@@ -12,7 +12,7 @@
       "donor_regression",
       "xgboost"
     ],
-    "head_commit": "485649df48049eeaaa84299fcb7ca4c23e0d44d2",
+    "head_commit": "4e6cc46894f234ec0669a017fa8f84e94ba94ea8",
     "input_bindings": {
       "analysis_code": {
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
@@ -56,7 +56,7 @@
   "formal_evidence": false,
   "git_commit_before_model_freeze": {
     "all_required_paths_committed_unchanged": true,
-    "head_commit": "485649df48049eeaaa84299fcb7ca4c23e0d44d2",
+    "head_commit": "4e6cc46894f234ec0669a017fa8f84e94ba94ea8",
     "local_artifact_paths": [
       {
         "binding_mode": "local_sha256_only",
@@ -66,9 +66,9 @@
     ],
     "required_paths": [
       {
-        "head_blob": "5a00c430b9dc42988d707c06da6617b6696b1892",
+        "head_blob": "083577a446371d464b4b4beffe2877183ee8c0a4",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-        "worktree_blob": "5a00c430b9dc42988d707c06da6617b6696b1892"
+        "worktree_blob": "083577a446371d464b4b4beffe2877183ee8c0a4"
       },
       {
         "head_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b",
@@ -81,9 +81,9 @@
         "worktree_blob": "e04f69789d0c2ddbaff46338ab8698c899df9328"
       },
       {
-        "head_blob": "20f84fc3a773d5847054b2004aea5771552c3e5d",
+        "head_blob": "e3487af425eef682c606b67c8e086aae1fa5426b",
         "path": "tests/test_sealed_evaluation_readiness.py",
-        "worktree_blob": "20f84fc3a773d5847054b2004aea5771552c3e5d"
+        "worktree_blob": "e3487af425eef682c606b67c8e086aae1fa5426b"
       },
       {
         "head_blob": "6db564ff538542404d3837745d81c3df873d3bc5",

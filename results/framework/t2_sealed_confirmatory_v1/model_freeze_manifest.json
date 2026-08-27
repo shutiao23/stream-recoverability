@@ -10,7 +10,7 @@
     "donor_regression",
     "xgboost"
   ],
-  "head_commit": "485649df48049eeaaa84299fcb7ca4c23e0d44d2",
+  "head_commit": "4e6cc46894f234ec0669a017fa8f84e94ba94ea8",
   "input_bindings": {
     "analysis_code": {
       "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
