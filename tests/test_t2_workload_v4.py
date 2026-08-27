@@ -388,6 +388,35 @@ def test_zero_climatology_denominator_is_terminal_data_attrition() -> None:
         assert column not in result
 
 
+def test_missing_climatology_training_target_is_terminal_data_attrition() -> None:
+    network = _network("huc8_03050106")
+    item = WorkItem(
+        ordinal=2218185,
+        item_id="missing-climatology-training-target-regression",
+        network_id=network.network_id,
+        role=network.role,
+        source_key=network.source_key,
+        target_station="02162035",
+        model="climatology",
+        gap_length=9,
+        placement=0,
+        start_index=13895,
+        information_condition="B",
+        task="offline_archival",
+        geometry="natural_outage",
+        boundary_mode="both",
+    )
+
+    result = execute_item(ROOT, network, item)
+
+    assert result["status"] == "data_ineligible"
+    assert result["workload_category"] == "data_ineligible"
+    assert result["reason"] == (
+        "undefined_skill_no_finite_climatology_training_targets"
+    )
+    assert "achieved_skill" not in result
+
+
 def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
     tmp_path: Path, monkeypatch
 ) -> None:

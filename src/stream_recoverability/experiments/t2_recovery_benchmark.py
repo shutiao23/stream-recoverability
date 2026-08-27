@@ -1212,6 +1212,19 @@ def execute_item(
             "sealed_temperature_records_read": False,
         }
     except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+        if (
+            isinstance(error, ValueError)
+            and str(error) == "no finite training targets are available"
+        ):
+            return {
+                **base,
+                "status": "data_ineligible",
+                "workload_category": "data_ineligible",
+                "reason": "undefined_skill_no_finite_climatology_training_targets",
+                "runtime_seconds": float(perf_counter() - began),
+                "formal_evidence": False,
+                "sealed_temperature_records_read": False,
+            }
         return {
             **base,
             "status": "failed",

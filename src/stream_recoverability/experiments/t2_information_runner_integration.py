@@ -806,6 +806,17 @@ def execute_materialized_information_item(
             }
         )
     except (ImportError, KeyError, RuntimeError, ValueError, np.linalg.LinAlgError) as error:
+        if (
+            isinstance(error, ValueError)
+            and str(error) == "no finite training targets are available"
+        ):
+            return {
+                **base,
+                "status": "data_ineligible",
+                "workload_category": "data_ineligible",
+                "reason": "undefined_skill_no_finite_climatology_training_targets",
+                "runtime_seconds": float(perf_counter() - began),
+            }
         return {
             **base,
             "status": "failed",
