@@ -48,6 +48,7 @@ from .sealed_evaluation_readiness import (
     READINESS_SCHEMA,
     _audit_foen_registry,
     _audit_huc8_registry,
+    build_readiness_manifest,
 )
 from .t2_primary_aggregation_v2 import INPUT_BINDING_SCHEMA
 from .t2_workload_v4 import V4_RUNNER_CONTRACT_VERSION, V4_WORKLOAD_SCHEMA
@@ -294,18 +295,25 @@ def build_evaluator_preflight(
     except SealedEvaluatorError:
         readiness = {}
         blockers.append("readiness_manifest_missing_or_invalid")
-    if readiness and (
-        readiness.get("manifest_schema") != READINESS_SCHEMA
-        or readiness.get("ready_for_unseal") is not True
-        or readiness.get("blockers") != []
-    ):
-        blockers.append("readiness_gate_not_unconditionally_ready")
-
     try:
         lock = _load_mapping(lock_file)
     except SealedEvaluatorError:
         lock = {}
         blockers.append("evaluate_once_lock_missing_or_invalid")
+    post_claim_readiness: dict[str, Any] | None = None
+    if lock.get("manifest_schema") == ONCE_LOCK_SCHEMA and lock.get(
+        "status"
+    ) == "started_before_any_sealed_read":
+        post_claim_readiness = build_readiness_manifest(
+            once_lock_path=lock_file, for_post_claim_evaluation=True
+        )
+    readiness_for_gate = post_claim_readiness or readiness
+    if readiness_for_gate and (
+        readiness_for_gate.get("manifest_schema") != READINESS_SCHEMA
+        or readiness_for_gate.get("ready_for_unseal") is not True
+        or readiness_for_gate.get("blockers") != []
+    ):
+        blockers.append("readiness_gate_not_unconditionally_ready")
     if lock and (
         lock.get("manifest_schema") != ONCE_LOCK_SCHEMA
         or lock.get("status") != "started_before_any_sealed_read"
@@ -314,9 +322,9 @@ def build_evaluator_preflight(
     ):
         blockers.append("evaluate_once_lock_contract_mismatch")
     if (
-        readiness
+        readiness_for_gate
         and lock
-        and lock.get("readiness_manifest_sha256") != _canonical_sha256(readiness)
+        and lock.get("readiness_manifest_sha256") != _canonical_sha256(readiness_for_gate)
     ):
         blockers.append("evaluate_once_lock_readiness_sha_mismatch")
     readiness_once = readiness.get("evaluate_once")
@@ -398,7 +406,7 @@ def build_evaluator_preflight(
     current_head_result = _git("rev-parse", "HEAD")
     current_head = current_head_result.stdout.strip()
     recorded_head = lock.get("head_commit")
-    git_binding = readiness.get("git_commit_before_unseal")
+    git_binding = (readiness_for_gate or readiness).get("git_commit_before_unseal")
     if (
         current_head_result.returncode != 0
         or not current_head
@@ -1107,14 +1115,17 @@ def evaluate_production_sealed_once(
             "production sealed evaluation blocked: " + ";".join(sorted(set(blockers)))
         )
 
-    references = registered_object_references(readiness)
+    readiness_source = build_readiness_manifest(
+        once_lock_path=lock_file, for_post_claim_evaluation=True
+    )
+    references = registered_object_references(readiness_source)
     output.mkdir(parents=True, exist_ok=True)
     ledger_payload = {
         "manifest_schema": PRODUCTION_LEDGER_SCHEMA,
         "status": "production_evaluate_once_started",
         "formal_evidence": False,
         "production_authorization_consumed": True,
-        "readiness_manifest_sha256": _canonical_sha256(readiness),
+        "readiness_manifest_sha256": _canonical_sha256(readiness_source),
         "evaluate_once_lock_sha256": _canonical_sha256(lock),
         "model_freeze_sha256": _sha256_file(model_file),
         "n_registered_objects": len(references),

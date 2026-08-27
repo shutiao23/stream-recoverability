@@ -16,18 +16,14 @@ if str(SRC) not in sys.path:
 from stream_recoverability.experiments.sealed_evaluation_readiness import (
     CLAIM_ACKNOWLEDGEMENT,
     DEFAULT_ONCE_LOCK,
-    DEFAULT_OUTPUT,
     SealedReadinessError,
     build_readiness_manifest,
     claim_evaluate_once,
 )
 
-DEFAULT_READINESS = DEFAULT_OUTPUT
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--readiness", type=Path, default=DEFAULT_READINESS)
     parser.add_argument("--lock", type=Path, default=DEFAULT_ONCE_LOCK)
     parser.add_argument(
         "--acknowledgement",
@@ -35,7 +31,15 @@ def main() -> None:
         help="Must exactly match the preregistered claim acknowledgement string.",
     )
     args = parser.parse_args()
-    readiness = build_readiness_manifest(readiness_path=args.readiness)
+    readiness = build_readiness_manifest()
+    if readiness.get("ready_for_unseal") is not True:
+        print(
+            json.dumps(
+                {"status": "blocked", "blockers": readiness.get("blockers", [])},
+                sort_keys=True,
+            )
+        )
+        raise SystemExit(2)
     try:
         payload = claim_evaluate_once(
             readiness,

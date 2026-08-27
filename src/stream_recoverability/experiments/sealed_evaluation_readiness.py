@@ -1030,6 +1030,7 @@ def build_readiness_manifest(
     huc8_registry_root: str | Path = DEFAULT_HUC8_REGISTRY / "sealed",
     foen_registry_root: str | Path = DEFAULT_FOEN_REGISTRY,
     once_lock_path: str | Path = DEFAULT_ONCE_LOCK,
+    for_post_claim_evaluation: bool = False,
 ) -> dict[str, Any]:
     """Audit pre-unseal state without touching any sealed object or value."""
 
@@ -1079,7 +1080,20 @@ def build_readiness_manifest(
         foen = {"complete": False, "error": str(error)}
         blockers.append("foen_10_registry_contract_failed")
     if once_lock.exists():
-        blockers.append("evaluate_once_lock_already_exists")
+        if for_post_claim_evaluation:
+            try:
+                lock_value = _load_json(once_lock)
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                blockers.append("evaluate_once_lock_missing_or_invalid")
+            else:
+                if lock_value.get("manifest_schema") != ONCE_LOCK_SCHEMA:
+                    blockers.append("evaluate_once_lock_contract_mismatch")
+                elif lock_value.get("status") != "started_before_any_sealed_read":
+                    blockers.append("evaluate_once_lock_contract_mismatch")
+                elif lock_value.get("rerun_permitted") is not False:
+                    blockers.append("evaluate_once_lock_contract_mismatch")
+        else:
+            blockers.append("evaluate_once_lock_already_exists")
 
     required_paths = [design]
     if workload.is_file():
