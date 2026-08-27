@@ -711,6 +711,17 @@ def execute_materialized_information_item(
             + str(auxiliary.audit["daily_long_sha256"])
         ).encode("ascii")
     ).hexdigest()
+    if not (
+        preparation.train_mask
+        & panel[item.target_station].notna()
+    ).any():
+        return {
+            **base,
+            "status": "data_ineligible",
+            "workload_category": "data_ineligible",
+            "reason": "undefined_skill_no_finite_climatology_training_targets",
+            "runtime_seconds": float(perf_counter() - began),
+        }
     climate_key = _fit_cache_key(
         input_sha256=auxiliary_input_sha256,
         target_station=item.target_station,

@@ -341,6 +341,46 @@ def test_mh_model_fit_cache_is_semantically_equivalent_across_heldout_gaps() -> 
     }
 
 
+def test_extended_consumer_attrits_missing_climatology_training_target() -> None:
+    panel = _panel()
+    target = "01000001"
+    truth = panel[target].iloc[800:807].copy()
+    panel[target] = np.nan
+    panel.loc[panel.index[800:807], target] = truth.to_numpy()
+    network = OpenNetwork(
+        network_id="huc8_01000000",
+        role="development",
+        source_key="open_role_qc/failure_closure6/development",
+        wide_path="unused_with_preloaded_panel.csv",
+        wide_sha256="0" * 64,
+        manifest_path="unused_with_preloaded_panel.json",
+        n_days=len(panel),
+        n_stations=3,
+    )
+    auxiliary = MaterializedAuxiliary(
+        daily_long=_auxiliary(panel.index, include_level=False),
+        coverage=pd.DataFrame(),
+        audit={
+            "daily_long_sha256": "1" * 64,
+            "sealed_temperature_records_read": False,
+        },
+    )
+
+    result = execute_materialized_information_item(
+        ".",
+        network,
+        _item("B_union_D_union_M"),
+        panel=panel,
+        auxiliary=auxiliary,
+    )
+
+    assert result["status"] == "data_ineligible"
+    assert result["reason"] == (
+        "undefined_skill_no_finite_climatology_training_targets"
+    )
+    assert "achieved_skill" not in result
+
+
 def test_extended_consumer_blocks_masked_donors_before_reading_auxiliary() -> None:
     panel = _panel()
     item = WorkItem(
