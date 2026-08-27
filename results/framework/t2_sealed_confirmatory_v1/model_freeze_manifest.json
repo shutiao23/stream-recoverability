@@ -10,11 +10,11 @@
     "donor_regression",
     "xgboost"
   ],
-  "head_commit": "c16734873542f2e382ea8904f7cf4aef0b133436",
+  "head_commit": "d0f67f8ca61457f2fe38594a39707e29e4674039",
   "input_bindings": {
     "analysis_code": {
       "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-      "sha256": "2c5cc191ebe5a6caaaea8b809fc4cce2e3bf2a73aaabf2bfbd6a8ed7ea6c118c"
+      "sha256": "cd8cb76f0feebb90bf61bfc32c98d2149538cc4fc98fa03530a1c91a0277dccc"
     },
     "model_roster": {
       "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
