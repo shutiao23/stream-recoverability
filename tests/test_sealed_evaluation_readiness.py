@@ -75,13 +75,13 @@ def _ready(
     }
 
 
-def test_repository_audit_is_blocked_without_model_freeze() -> None:
+def test_repository_audit_is_blocked_before_evaluate_once_claim() -> None:
     manifest = build_readiness_manifest()
     assert manifest["status"] == "blocked"
     assert manifest["ready_for_unseal"] is False
     assert manifest["sealed_outcomes_opened"] is False
     assert manifest["sealed_objects_opened_or_statted_by_audit"] is False
-    assert "sealed_model_freeze_manifest_missing" in manifest["blockers"]
+    assert manifest["model_freeze_contract"]["exists"] is True
     assert manifest["aggregation_contract"]["status"] == "complete"
     assert manifest["post_t2_input_binding_contract"]["status"] == "complete"
     inventory = manifest["sealed_registry_inventory"]

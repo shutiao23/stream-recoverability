@@ -482,6 +482,29 @@ def _post_t2_contract(
     }, blockers
 
 
+def _model_freeze_head_acceptable(head_commit: str, freeze_path: Path) -> bool:
+    current_head = _git("rev-parse", "HEAD")
+    if current_head.returncode != 0:
+        return False
+    current = current_head.stdout.strip()
+    if head_commit == current:
+        return True
+    try:
+        relative = freeze_path.resolve().relative_to(REPOSITORY_ROOT).as_posix()
+    except ValueError:
+        return False
+    diff = _git("diff", "--name-only", head_commit, current)
+    if diff.returncode != 0:
+        return False
+    changed = [line for line in diff.stdout.splitlines() if line.strip()]
+    allowed = {
+        relative,
+        "results/framework/t2_sealed_confirmatory_v1/model_freeze_readiness_manifest.json",
+        "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json",
+    }
+    return bool(changed) and all(path in allowed for path in changed)
+
+
 def _model_contract(
     path: Path,
     *,
@@ -512,9 +535,8 @@ def _model_contract(
     if value.get("postfreeze_retuning") is not False:
         blockers.append("sealed_model_freeze_postfreeze_retuning_mismatch")
     current_head = _git("rev-parse", "HEAD")
-    if (
-        current_head.returncode != 0
-        or value.get("head_commit") != current_head.stdout.strip()
+    if current_head.returncode != 0 or not _model_freeze_head_acceptable(
+        str(value.get("head_commit") or ""), path
     ):
         blockers.append("sealed_model_freeze_head_mismatch")
     models = value.get("frozen_models")
