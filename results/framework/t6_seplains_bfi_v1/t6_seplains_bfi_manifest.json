@@ -1,0 +1,46 @@
+{
+  "bfi_memory_partial_r_controlling_drainage_and_ecoregion": {
+    "n": 329.0,
+    "p_value": 0.5924092065878593,
+    "partial_r": 0.02962095491697922
+  },
+  "bfi_stratified_memory_direction": {
+    "direction_consistent": true,
+    "n": 329,
+    "strata": [
+      {
+        "bfi_tertile": "low",
+        "direction_above_chance": true,
+        "n": 110,
+        "rank_auc_memory_vs_dam": 0.7347807577692635
+      },
+      {
+        "bfi_tertile": "mid",
+        "direction_above_chance": true,
+        "n": 109,
+        "rank_auc_memory_vs_dam": 0.580677966101695
+      },
+      {
+        "bfi_tertile": "high",
+        "direction_above_chance": true,
+        "n": 110,
+        "rank_auc_memory_vs_dam": 0.5584935897435896
+      }
+    ]
+  },
+  "experiment": "T6_SEPlains_BFI_mechanism",
+  "formal_evidence": false,
+  "frozen_seplains_baseline_auc": 0.13205645161290322,
+  "frozen_seplains_oof_auc_check": 0.13205645161290322,
+  "headline_claim_licensed": false,
+  "n_stations_with_bfi": 329,
+  "post_hoc": true,
+  "preregistered_in": "design_freeze_v9.yaml:t6_honest_boundary",
+  "seplains_auc_delta_with_bfi": 0.43145161290322576,
+  "seplains_recovered_above_0_5_with_bfi": true,
+  "seplains_within_fold_auc_memory_only": 0.13205645161290322,
+  "seplains_within_fold_auc_memory_plus_bfi": 0.563508064516129,
+  "t6_passed": false,
+  "what_this_is": "Post-hoc LOEO re-score asking whether BFI explains the SEPlains memory-range reversal alongside drainage and ecoregion.",
+  "what_this_is_not": "Not T6 passed. Not causal proof. Not a license to reopen the regulation-panel freeze or claim reservoir identification."
+}

@@ -1,0 +1,45 @@
+{
+  "formal_evidence": false,
+  "frozen_roster_may_shrink_after_scoring": false,
+  "gap_lengths": {
+    "14": 24,
+    "30": 12,
+    "7": 30,
+    "8": 6
+  },
+  "geometries": {
+    "artificial_stress": 66,
+    "natural_outage": 6
+  },
+  "headline_claim_licensed": false,
+  "information_conditions": {
+    "B": 24,
+    "B_union_D": 24,
+    "D": 24
+  },
+  "manifest_schema": "t2_v91_v4_bind_blocked_note_v1",
+  "models": {
+    "donor_regression": 24,
+    "kalman": 12,
+    "pchip_or_linear": 12,
+    "xgboost": 24
+  },
+  "n_lattice_items": 269106,
+  "n_lattice_items_complete": 269034,
+  "n_lattice_items_not_complete": 72,
+  "networks": {
+    "huc8_04020105": 42,
+    "huc8_04060102": 18,
+    "huc8_04070007": 6,
+    "huc8_16020102": 6
+  },
+  "not_complete_status_counts": {
+    "data_ineligible": 72
+  },
+  "passed": false,
+  "post_t2_input_binding_written": false,
+  "purpose": "development_bind_block_not_evidence",
+  "status": "blocked_frozen_lattice_item_did_not_complete",
+  "what_this_is": "Binder refused primary-y because 72 outcome-blind frozen lattice items scored data_ineligible. The lattice cannot shrink after scoring.",
+  "what_this_is_not": "Not T2. Not T4/T5. Not a license to drop those 72 items, retune, or rewrite the frozen lattice."
+}

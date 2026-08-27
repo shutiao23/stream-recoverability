@@ -1,0 +1,38 @@
+{
+  "figure": "results/framework/theory_v1/prop3_bias_terms_synthetic.png",
+  "formal_evidence": false,
+  "gap_lengths": [
+    14.0,
+    30.0,
+    90.0,
+    180.0
+  ],
+  "n_rows": 36,
+  "pivot_columns": [
+    "('epsilon_d_over_4', 14.0)",
+    "('epsilon_d_over_4', 30.0)",
+    "('epsilon_d_over_4', 90.0)",
+    "('epsilon_d_over_4', 180.0)",
+    "('epsilon_perp', 14.0)",
+    "('epsilon_perp', 30.0)",
+    "('epsilon_perp', 90.0)",
+    "('epsilon_perp', 180.0)",
+    "('old_minus_new', 14.0)",
+    "('old_minus_new', 30.0)",
+    "('old_minus_new', 90.0)",
+    "('old_minus_new', 180.0)"
+  ],
+  "purpose": "t1_prop3_numerical_support_not_confirmatory",
+  "systems": [
+    "advection_chain",
+    "donor_count_redundant",
+    "donor_dominant",
+    "endpoint_downstream_terminus",
+    "endpoint_upstream_origin",
+    "high_donor_and_high_memory",
+    "memory_dominant",
+    "nonorthogonal_ar1_donor",
+    "orthogonal_ar1_donor"
+  ],
+  "table": "results/framework/theory_v1/prop3_bias_terms_synthetic.csv"
+}

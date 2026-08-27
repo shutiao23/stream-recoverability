@@ -1,0 +1,7 @@
+network_id,role,target_station,gap_length_days,model,placement_start_index,fill_mae_c,model_fit_called,model_predict_called,status
+huc8_01070004,development,01095220,30,saits,7516,,False,False,failed:IndexError
+huc8_01070004,development,01095220,30,csdi,7516,,False,False,failed:TypeError
+huc8_01070004,development,01095220,90,saits,7516,,False,False,failed:IndexError
+huc8_01070004,development,01095220,90,csdi,7516,,False,False,failed:TypeError
+huc8_01070004,development,01095220,180,saits,7516,,False,False,failed:IndexError
+huc8_01070004,development,01095220,180,csdi,7516,,False,False,failed:TypeError

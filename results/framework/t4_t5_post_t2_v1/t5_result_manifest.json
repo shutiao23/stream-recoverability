@@ -1,0 +1,37 @@
+{
+  "balance_diagnostics": {
+    "max_bfi_abs_diff": 4.200000000000003,
+    "max_drainage_area_ratio": 30.831473214285733,
+    "max_log_drainage_area_abs_diff": 3.428536025845124,
+    "max_nearest_donor_distance_abs_diff": 17.07415713425793,
+    "max_standardized_l1_match_distance": 4.494189110433518
+  },
+  "balance_supports_formal_confound_control": false,
+  "caliper_invented_or_applied": false,
+  "forbidden_claims": [
+    "causal_regulation_effect",
+    "formal_confound_control",
+    "three_independent_pairs",
+    "t5_passed",
+    "network_interval"
+  ],
+  "formal_evidence": false,
+  "formal_run_allowed": false,
+  "geometry": "artificial_stress",
+  "headline_claim_licensed": false,
+  "independent_unit": "regulated_control_network_pair",
+  "manifest_schema": "t5_v91_frozen_pair_primary_y_contrast_v1",
+  "n_pairs_attrited": 0,
+  "n_pairs_frozen": 3,
+  "n_pairs_with_primary_y": 3,
+  "n_station_pairs": 3,
+  "n_unique_network_pairs": 2,
+  "network_interval": null,
+  "network_interval_reported": false,
+  "old_delta_r_read_or_reused": false,
+  "outcome_source": "T2_v4_primary_observed_achieved_skill",
+  "pair_delta_mean": 0.08131271640758399,
+  "passed": false,
+  "rematching_performed": false,
+  "status": "descriptive_infeasible_confound_control"
+}

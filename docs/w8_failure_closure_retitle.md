@@ -5,14 +5,15 @@ Status: development stop-loss. Not confirmatory T2. Not a retune license.
 
 ## Decision
 
-The W7 first-layer cheap-model slice on `huc8_01070004` recorded
+The W7 first-layer cheap-model combined slice (n=8 open-role
+failure_closure6 networks; ordinals 0–140000) recorded
 
-`operator_incremental_r2_vs_donor_r2_only = 0.03997 < 0.05`.
+`operator_incremental_r2_vs_donor_r2_only = 6.88e-05 < 0.05`.
 
 The locked action is **retitle to predictability**. Do not retune the Schur
 operator, Twin E, or isolation/φ to manufacture a 0.05 increment.
 
-`n_networks = 1`. Cluster-bootstrap CIs stay `withheld_n_lt_100_network_interval`.
+`n_networks = 8`. Cluster-bootstrap CIs stay `withheld_n_lt_100_network_interval`.
 `go_no_go` remains `NO_GO_T2_PRIMARY_EVIDENCE`. Broader W7 may revise the
 increment; it may not retune.
 

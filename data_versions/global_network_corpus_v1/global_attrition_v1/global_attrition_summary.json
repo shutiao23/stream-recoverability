@@ -1,0 +1,79 @@
+{
+  "catalog_candidates": 166,
+  "corpus_floor_gap": 33,
+  "europe_complete_enough": 0,
+  "europe_supplement_required": true,
+  "formal_evidence": false,
+  "manifest_schema": "catalog_v3_global_attrition_v1",
+  "network_ci_floor_met": false,
+  "open_complete_enough": 67,
+  "open_selected": 103,
+  "purpose": "attrition_accounting_not_confirmatory",
+  "qualified_years_min": 6,
+  "relaxation_applied": true,
+  "rows": [
+    {
+      "n_networks": 166,
+      "note": "station-year inventory; not post-download QC",
+      "stage": "catalog_span_huc8_candidates"
+    },
+    {
+      "n_networks": 147,
+      "note": "locked 50/20/30 before download",
+      "stage": "split_pool_excluding_never_sealed"
+    },
+    {
+      "n_networks": 103,
+      "note": "development + validation custody",
+      "stage": "open_role_downloaded"
+    },
+    {
+      "n_networks": 67,
+      "note": "6-year qualified years after ingest QC",
+      "stage": "open_role_complete_enough_failure_closure6"
+    },
+    {
+      "n_networks": 15,
+      "note": "W6 UK EA spatial clusters; not T8 unless complete_enough",
+      "stage": "europe_uk_ea_spatial_downloaded"
+    },
+    {
+      "n_networks": 0,
+      "note": "6-year overlap QC on Europe supplement",
+      "stage": "europe_uk_ea_complete_enough"
+    },
+    {
+      "n_networks": 44,
+      "note": "write-only vault; qc_permitted=0 until confirmatory opening",
+      "stage": "sealed_custody_networks"
+    },
+    {
+      "n_networks": 0,
+      "note": "temperature bytes not opened for open QC",
+      "stage": "sealed_qc_permitted_objects"
+    },
+    {
+      "n_networks": 14,
+      "note": "20-network development pilot",
+      "stage": "w3_pilot_complete_enough"
+    },
+    {
+      "n_networks": 67,
+      "note": "overlap-qualified for v4 workload manifest",
+      "stage": "t2_workload_eligible_overlap"
+    },
+    {
+      "n_networks": 100,
+      "note": "required for network-level interval; not yet met",
+      "stage": "network_ci_floor"
+    },
+    {
+      "n_networks": 150,
+      "note": "requires Europe and/or further USGS survival",
+      "stage": "target_150"
+    }
+  ],
+  "sealed_custody_networks": 44,
+  "sealed_qc_permitted_objects": 0,
+  "target_150_met": false
+}

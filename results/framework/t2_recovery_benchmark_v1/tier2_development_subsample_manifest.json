@@ -1,0 +1,40 @@
+{
+  "budget_failure": {
+    "can_claim_compliant_tier2_sensitivity": false,
+    "dropping_failed_rows_is_a_valid_remedy": false,
+    "dropping_unimplemented_model_classes_is_a_valid_remedy": false,
+    "failure_class": "fixed_sample_attrition_below_preregistered_allowed_range",
+    "honest_resolution": "retain_the_unchanged_sample_and_report_budget_failure; do_not replace failed or sealed rows and do not claim the locked Tier-2 sensitivity",
+    "passed": false,
+    "posthoc_reselection_is_a_valid_remedy": false,
+    "selecting_only_one_of_30_90_180_is_a_valid_remedy": false
+  },
+  "can_claim_compliant_tier2_sensitivity": false,
+  "confirmatory_eligible": false,
+  "deep_model_inference_run": false,
+  "deep_model_training_run": false,
+  "deep_models_run": false,
+  "formal_evidence": false,
+  "gaps_all_required": [
+    30,
+    90,
+    180
+  ],
+  "headline_claim_licensed": false,
+  "manifest_schema": "t2_v91_tier2_development_subsample_v1",
+  "models_attempted": [
+    "saits",
+    "csdi"
+  ],
+  "n_fit_predict_complete": 0,
+  "n_networks_attempted": 1,
+  "n_rows": 6,
+  "n_sample_open_currently_qualified": 14,
+  "passed": false,
+  "purpose": "tier2_development_subsample_not_confirmatory",
+  "roster_obligations_not_run": [
+    "air2stream",
+    "grin"
+  ],
+  "status": "development_subsample_failed_no_successful_cells"
+}

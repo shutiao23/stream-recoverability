@@ -1,0 +1,31 @@
+{
+  "actual_missing_days_scored": false,
+  "actual_missing_performance_estimand": false,
+  "aggregation_unit": "network",
+  "analysis_name": "natural_geometry_observed_counterpart",
+  "forbidden_claims": [
+    "actual_missing_day_recovery_performance",
+    "natural_and_artificial_effect_equivalence",
+    "t4_passed",
+    "formal_confirmation"
+  ],
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "manifest_schema": "t4_v91_natural_geometry_observed_counterpart_v1",
+  "n_networks_by_geometry": {
+    "artificial_stress": 65,
+    "natural_outage": 67
+  },
+  "natural_and_artificial_directly_comparable": false,
+  "network_interval": null,
+  "network_interval_reported": false,
+  "network_spearman_by_geometry": {
+    "artificial_stress": -0.010795454545454546,
+    "natural_outage": -0.39368664697900874
+  },
+  "passed": false,
+  "same_internal_weighting_for_artificial_and_natural": false,
+  "same_network_outer_unit_for_artificial_and_natural": true,
+  "status": "withheld_n_lt_100_network_interval",
+  "truth_source": "held_out_observed_counterpart"
+}

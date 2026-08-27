@@ -16,91 +16,14 @@
       90,
       180
     ],
-    "implementation": "official_pypots_1.5",
     "model_fit_called": false,
     "model_predict_called": false,
-    "pypots_version": "1.5",
-    "rows": [
-      {
-        "constructor_passed": true,
-        "gap_length_days": 30,
-        "model": "saits",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 30,
-        "official_core_module": "pypots.imputation.saits.core",
-        "official_wrapper_module": "pypots.imputation.saits.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 134264
-      },
-      {
-        "constructor_passed": true,
-        "gap_length_days": 90,
-        "model": "saits",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 90,
-        "official_core_module": "pypots.imputation.saits.core",
-        "official_wrapper_module": "pypots.imputation.saits.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 134444
-      },
-      {
-        "constructor_passed": true,
-        "gap_length_days": 180,
-        "model": "saits",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 180,
-        "official_core_module": "pypots.imputation.saits.core",
-        "official_wrapper_module": "pypots.imputation.saits.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 134714
-      },
-      {
-        "constructor_passed": true,
-        "gap_length_days": 30,
-        "model": "csdi",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 30,
-        "official_core_module": "pypots.imputation.csdi.core",
-        "official_wrapper_module": "pypots.imputation.csdi.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 413553
-      },
-      {
-        "constructor_passed": true,
-        "gap_length_days": 90,
-        "model": "csdi",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 90,
-        "official_core_module": "pypots.imputation.csdi.core",
-        "official_wrapper_module": "pypots.imputation.csdi.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 413553
-      },
-      {
-        "constructor_passed": true,
-        "gap_length_days": 180,
-        "model": "csdi",
-        "model_fit_called": false,
-        "model_predict_called": false,
-        "n_features": 3,
-        "n_steps": 180,
-        "official_core_module": "pypots.imputation.csdi.core",
-        "official_wrapper_module": "pypots.imputation.csdi.model",
-        "outcome_metric_computed": false,
-        "parameter_count": 413553
-      }
+    "models": [
+      "saits",
+      "csdi"
     ],
-    "status": "passed_constructor_only_not_training_or_inference",
+    "pypots_version": "1.5",
+    "status": "not_run",
     "torch_version": "2.13.0+cpu"
   },
   "deep_model_inference_run": false,
@@ -219,7 +142,7 @@
         "tier2_training_protocol_wired": false
       },
       "csdi": {
-        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
+        "constructor_smoke_status": "not_run",
         "deep_model_inference_run": false,
         "deep_model_training_run": false,
         "dependency_status": "available_exact_pin",
@@ -258,7 +181,7 @@
         "torch_version": "2.13.0+cpu"
       },
       "saits": {
-        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
+        "constructor_smoke_status": "not_run",
         "deep_model_inference_run": false,
         "deep_model_training_run": false,
         "dependency_status": "available_exact_pin",
@@ -400,7 +323,7 @@
         "pgdl_or_graph_wavenet": [
           {
             "line_numbers": [
-              1337
+              1574
             ],
             "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
           }
@@ -506,7 +429,7 @@
       "reference_adapter_path": "src/stream_recoverability/models/reference_baselines.py",
       "reference_adapter_sha256": "84418a174e967b4c75dae1c7671b9cdbd0b31d8905c46b1183c397630abaeed6",
       "t2_runner_path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py",
-      "t2_runner_sha256": "e0b74019577d1e82ea7bab6f034c4cec1466675b1a5ffcc109f64cba764ea6cf"
+      "t2_runner_sha256": "e91ce5243b49ac812f760b37b13d17ac601eaedd01fe1c870590731bfba53bc2"
     }
   },
   "not_t2_primary_y": true,

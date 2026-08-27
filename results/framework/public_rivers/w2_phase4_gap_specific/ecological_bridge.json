@@ -1,0 +1,22 @@
+{
+  "confirmatory_eligible": false,
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "n_fills_scored": 64,
+  "n_safe_rows": 5,
+  "policy_summary": {
+    "length_only": {
+      "mean_annual_amplitude_bias_c": null,
+      "mean_annual_max_bias_c": null,
+      "mean_seven_day_adm_bias_c": null,
+      "n_safe_fills": 0
+    },
+    "operator": {
+      "mean_annual_amplitude_bias_c": 0.0007479853546215753,
+      "mean_annual_max_bias_c": 0.0,
+      "mean_seven_day_adm_bias_c": 0.0,
+      "n_safe_fills": 5
+    }
+  },
+  "purpose": "t3b_ecological_bridge_not_confirmatory"
+}

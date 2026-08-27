@@ -1,0 +1,139 @@
+{
+  "artifacts": {
+    "t4_network_comparison.csv": {
+      "n_rows": 132,
+      "sha256": "55fe1abb3279c74c521dde96ff0009cfca9c0523a413cd5b896a055ec1099497"
+    },
+    "t5_pair_attrition.csv": {
+      "n_rows": 0,
+      "sha256": "dcca4a51196802a03664f1e48655f7781e2e446e497598f93a222341f2b0aee9"
+    },
+    "t5_pair_contrasts.csv": {
+      "n_rows": 3,
+      "sha256": "a6206b8f9b427f0bc28d86bb5fdd3bacff4a75ed026f52a6eecfb1e70744ff4d"
+    }
+  },
+  "blockers": [
+    "t4_network_interval_withheld_n_lt_100",
+    "t5_infeasible_confound_control_2_network_pair_units"
+  ],
+  "forbidden_claims": [
+    "actual_missing_day_recovery_performance",
+    "causal_regulation_effect",
+    "three_independent_pairs",
+    "t4_passed",
+    "t5_passed",
+    "formal_confirmation"
+  ],
+  "formal_evidence": false,
+  "frozen_inputs": {
+    "natural_geometry": {
+      "n_rows": 2355,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv",
+      "sha256": "9c8fc9b6d632a2b75aa4041ea10e9161c6812eed9a7bcd65bf62bf9e3fe23432"
+    },
+    "t5_pair_plan": {
+      "balance_diagnostics": {
+        "balance_supports_formal_confound_control": false,
+        "caliper_invented_or_applied": false,
+        "max_bfi_abs_diff": 4.200000000000003,
+        "max_drainage_area_ratio": 30.831473214285733,
+        "max_log_drainage_area_abs_diff": 3.428536025845124,
+        "max_nearest_donor_distance_abs_diff_km": 17.07415713425793,
+        "max_standardized_l1_match_distance": 4.494189110433518,
+        "n_station_pairs": 3,
+        "n_unique_network_pairs": 2
+      },
+      "n_rows": 3,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/pair_plan.csv",
+      "sha256": "ce4081e87adf12b44f517ad2cb831f26600e0078f172ac7592f5125d85181aaa"
+    },
+    "t5_station_covariates": {
+      "n_rows": 330,
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t5_matching_contract_v1/station_covariates.csv",
+      "sha256": "4d61283828de9bc0a69ad4d058b30fb2dcb94a468c8edbaa2b39f164e10ff828"
+    }
+  },
+  "headline_claim_licensed": false,
+  "manifest_schema": "t4_t5_v91_post_t2_readiness_v2",
+  "network_interval": null,
+  "network_interval_reported": false,
+  "old_t4_scores_read": false,
+  "old_t5_delta_r_read": false,
+  "passed": false,
+  "purpose": "post_t2_derived_analysis_not_confirmation",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "derived_outputs_written_inference_withheld",
+  "t4": {
+    "actual_missing_days_scored": false,
+    "actual_missing_performance_estimand": false,
+    "aggregation_unit": "network",
+    "analysis_name": "natural_geometry_observed_counterpart",
+    "forbidden_claims": [
+      "actual_missing_day_recovery_performance",
+      "natural_and_artificial_effect_equivalence",
+      "t4_passed",
+      "formal_confirmation"
+    ],
+    "formal_evidence": false,
+    "headline_claim_licensed": false,
+    "manifest_schema": "t4_v91_natural_geometry_observed_counterpart_v1",
+    "n_networks_by_geometry": {
+      "artificial_stress": 65,
+      "natural_outage": 67
+    },
+    "natural_and_artificial_directly_comparable": false,
+    "network_interval": null,
+    "network_interval_reported": false,
+    "network_spearman_by_geometry": {
+      "artificial_stress": -0.010795454545454546,
+      "natural_outage": -0.39368664697900874
+    },
+    "passed": false,
+    "same_internal_weighting_for_artificial_and_natural": false,
+    "same_network_outer_unit_for_artificial_and_natural": true,
+    "status": "withheld_n_lt_100_network_interval",
+    "truth_source": "held_out_observed_counterpart"
+  },
+  "t5": {
+    "balance_diagnostics": {
+      "max_bfi_abs_diff": 4.200000000000003,
+      "max_drainage_area_ratio": 30.831473214285733,
+      "max_log_drainage_area_abs_diff": 3.428536025845124,
+      "max_nearest_donor_distance_abs_diff": 17.07415713425793,
+      "max_standardized_l1_match_distance": 4.494189110433518
+    },
+    "balance_supports_formal_confound_control": false,
+    "caliper_invented_or_applied": false,
+    "forbidden_claims": [
+      "causal_regulation_effect",
+      "formal_confound_control",
+      "three_independent_pairs",
+      "t5_passed",
+      "network_interval"
+    ],
+    "formal_evidence": false,
+    "formal_run_allowed": false,
+    "geometry": "artificial_stress",
+    "headline_claim_licensed": false,
+    "independent_unit": "regulated_control_network_pair",
+    "manifest_schema": "t5_v91_frozen_pair_primary_y_contrast_v1",
+    "n_pairs_attrited": 0,
+    "n_pairs_frozen": 3,
+    "n_pairs_with_primary_y": 3,
+    "n_station_pairs": 3,
+    "n_unique_network_pairs": 2,
+    "network_interval": null,
+    "network_interval_reported": false,
+    "old_delta_r_read_or_reused": false,
+    "outcome_source": "T2_v4_primary_observed_achieved_skill",
+    "pair_delta_mean": 0.08131271640758399,
+    "passed": false,
+    "rematching_performed": false,
+    "status": "descriptive_infeasible_confound_control"
+  },
+  "v4_result_binding_sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f",
+  "v4_results_read": true,
+  "v4_workload_sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
+}

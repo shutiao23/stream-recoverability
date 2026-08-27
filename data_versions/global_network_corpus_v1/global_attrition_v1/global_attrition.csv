@@ -1,0 +1,13 @@
+stage,n_networks,note
+catalog_span_huc8_candidates,166,station-year inventory; not post-download QC
+split_pool_excluding_never_sealed,147,locked 50/20/30 before download
+open_role_downloaded,103,development + validation custody
+open_role_complete_enough_failure_closure6,67,6-year qualified years after ingest QC
+europe_uk_ea_spatial_downloaded,15,W6 UK EA spatial clusters; not T8 unless complete_enough
+europe_uk_ea_complete_enough,0,6-year overlap QC on Europe supplement
+sealed_custody_networks,44,write-only vault; qc_permitted=0 until confirmatory opening
+sealed_qc_permitted_objects,0,temperature bytes not opened for open QC
+w3_pilot_complete_enough,14,20-network development pilot
+t2_workload_eligible_overlap,67,overlap-qualified for v4 workload manifest
+network_ci_floor,100,required for network-level interval; not yet met
+target_150,150,requires Europe and/or further USGS survival

@@ -1,0 +1,85 @@
+{
+  "achieved_skill_used_for_selection": false,
+  "aggregation_manifest_sha256": "5adf33fefd3927a2c73fdd0fffadb51626a6af306e5abb371ce1a2bd33da8aef",
+  "analysis_weight_column": "analysis_weight",
+  "analyzable_lattice": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/analyzable_lattice.parquet",
+    "sha256": "a86c9345661c69cc0a81abffa747e1f56a873ac18f61c7e9fc1b0a0acee4cca7"
+  },
+  "analyzable_lattice_frozen_before_result_scoring": true,
+  "analyzable_lattice_selection_uses_outcomes": false,
+  "common_grid_complete": true,
+  "complete_item_outcome_blind_attrition": {
+    "format": "parquet",
+    "n_rows": 251928,
+    "path": "complete_item_outcome_blind_attrition.parquet",
+    "sha256": "633514c1feaed4821614821ed839b8c3109fbfb0854dff59ce9d87c51b54883e"
+  },
+  "complete_item_outcome_blind_attrition_complete": true,
+  "completeness": "complete",
+  "data_ineligible_attrition": {
+    "format": "parquet",
+    "n_rows": 583771,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/data_ineligible_attrition.parquet",
+    "sha256": "202d1f086d6c13d8899ea387a42aea57ebd8fa749dbe96b6117359b00d19809f"
+  },
+  "data_ineligible_attrition_complete": true,
+  "development_exclude_data_ineligible": true,
+  "expected_item_records": 2491245,
+  "formal_evidence": false,
+  "formal_result_generated": true,
+  "item_records_validated_against_frozen_v4_stream": true,
+  "item_results": {
+    "format": "parquet",
+    "n_rows": 2491245,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet",
+    "sha256": "a1becc5d246a54e67a1a19edc8460d727ccbe929fee0e8e2bec091d0058ef5e1"
+  },
+  "lattice_data_ineligible_excluded": {
+    "format": "parquet",
+    "n_rows": 72,
+    "path": "lattice_data_ineligible_excluded.parquet",
+    "sha256": "7dc36b17d98f292f1d4b2409cf39ad080f55b829af0e34b343eb3b11e2606642"
+  },
+  "lattice_freeze_manifest_sha256": "d3bc4c081bea1e6780afd0d1940e24be272952e07435d96b888a79f8c08c72f6",
+  "manifest_schema": "t2_v91_v4_post_t2_input_binding_v2",
+  "n_lattice_rows_excluded_data_ineligible": 72,
+  "observed_item_records": 2491245,
+  "operator_column": "predicted_recoverability",
+  "operator_predictions_train_only": true,
+  "operator_predictor_manifest": {
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
+    "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+  },
+  "operator_predictor_table": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_univariate_predictions.parquet",
+    "sha256": "7730eaa3756b77c530043d3b693afec376305851fbb72a501af7795b62f0de1b"
+  },
+  "primary_complete_item_scope": "frozen_analyzable_lattice_minus_data_ineligible",
+  "primary_table_complete_for_all_complete_items": false,
+  "primary_table_derived_without_row_selection": false,
+  "primary_y_column": "observed_achieved_skill",
+  "primary_y_table": {
+    "format": "parquet",
+    "n_rows": 269034,
+    "path": "primary_y.parquet",
+    "sha256": "8d34ffc1f78f6e48a3e8e942af509482861b2918408e06d8a2d0cd9bceacea14"
+  },
+  "purpose": "development_binding_not_confirmatory",
+  "runner_contract_version": "t2_v91_runner_v4_legacy_mh_lag_grid_v1",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "status": "complete",
+  "status_counts": {
+    "complete": 520962,
+    "data_ineligible": 526273,
+    "reference_complete": 452790,
+    "structural_not_applicable": 991220
+  },
+  "work_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
+  "workload_manifest_sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
+}

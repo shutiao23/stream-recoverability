@@ -1,35 +1,57 @@
 {
   "blockers": [
-    "model_freeze_input_binding_inventory_incomplete",
-    "model_freeze_input_missing:model_roster",
-    "model_freeze_input_missing:open_aggregation_manifest",
-    "model_freeze_input_missing:post_t2_input_binding",
-    "model_freeze_input_missing:pre_score_freeze_manifest",
-    "model_freeze_input_missing:predictor_manifest",
-    "model_freeze_input_missing:workload_manifest",
-    "model_selection_incomplete",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/aggregation/aggregation_manifest.json",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json",
+    "required_path_differs_from_head:src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
+    "required_path_differs_from_head:src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
+    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet",
     "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
     "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
-    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/workload_manifest.json"
+    "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/primary_y.parquet"
   ],
   "candidate_model_freeze": {
     "design_freeze": {
       "path": "configs/design_freeze_v9.yaml",
       "sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244"
     },
-    "frozen_models": [],
-    "head_commit": "03cd3f6ac4022e80682da9d49a4a510fee7d67cd",
+    "frozen_models": [
+      "climatology",
+      "pchip_or_linear",
+      "kalman",
+      "donor_regression",
+      "xgboost"
+    ],
+    "head_commit": "d41e929e1be1c037f5cb7e780691d40a29edc281",
     "input_bindings": {
       "analysis_code": {
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-        "sha256": "eeebef183b9f870f3d7b913c2434650e272dbf7086e84230c60733f22df7fb14"
+        "sha256": "87a62aa17c93ecd8611206d620107cf13276acec3509bd8ca725a306178f9675"
+      },
+      "model_roster": {
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
+        "sha256": "fc9ab49aff90c2de2e6c8beabcf8ff3a07ee73c0be6c91538f24c60f00533419"
+      },
+      "open_aggregation_manifest": {
+        "path": "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json",
+        "sha256": "5adf33fefd3927a2c73fdd0fffadb51626a6af306e5abb371ce1a2bd33da8aef"
+      },
+      "post_t2_input_binding": {
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
+        "sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f"
+      },
+      "pre_score_freeze_manifest": {
+        "path": "results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json",
+        "sha256": "f5efd5810dfd94b62b4c3c018d39f92a0162a30c7b9fb4d903a46ad5b13d829d"
+      },
+      "predictor_manifest": {
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
+        "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+      },
+      "workload_manifest": {
+        "path": "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json",
+        "sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
       }
     },
     "manifest_schema": "t2_t7_sealed_model_freeze_v1",
-    "model_selection_complete": false,
+    "model_selection_complete": true,
     "open_results_only": true,
     "postfreeze_retuning": false,
     "postfreeze_retuning_permitted": false,
@@ -41,12 +63,12 @@
   "formal_evidence": false,
   "git_commit_before_model_freeze": {
     "all_required_paths_committed_unchanged": false,
-    "head_commit": "03cd3f6ac4022e80682da9d49a4a510fee7d67cd",
+    "head_commit": "d41e929e1be1c037f5cb7e780691d40a29edc281",
     "required_paths": [
       {
         "head_blob": "b38428c451f59741a3b36123eb4a01a8434ead40",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-        "worktree_blob": "b38428c451f59741a3b36123eb4a01a8434ead40"
+        "worktree_blob": "6afb75282ac2279336a221daaaf80ae5d6e7e3d8"
       },
       {
         "head_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b",
@@ -69,22 +91,71 @@
         "worktree_blob": "6db564ff538542404d3837745d81c3df873d3bc5"
       },
       {
+        "head_blob": "8706592932543bbbffe33bb5cc36fb2f20fcf043",
+        "path": "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json",
+        "worktree_blob": "8706592932543bbbffe33bb5cc36fb2f20fcf043"
+      },
+      {
+        "head_blob": "c4fb0948eb3539521b0de85b5de357fb165d7b64",
+        "path": "results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json",
+        "worktree_blob": "c4fb0948eb3539521b0de85b5de357fb165d7b64"
+      },
+      {
+        "head_blob": "6a476ae27d4600cbbbaee3f2b0a3f95e7ebc9f27",
+        "path": "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json",
+        "worktree_blob": "6a476ae27d4600cbbbaee3f2b0a3f95e7ebc9f27"
+      },
+      {
+        "head_blob": "c0b34a3b7ef7802c80cf91cb3e5d5075122e22e9",
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
+        "worktree_blob": "c0b34a3b7ef7802c80cf91cb3e5d5075122e22e9"
+      },
+      {
         "head_blob": "ee5ba16a865a46c3997ca87dc42994498b162275",
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-        "worktree_blob": "ee5ba16a865a46c3997ca87dc42994498b162275"
+        "worktree_blob": "dc4e551ecc309e0d0e99c4bfc10145d36225b144"
+      },
+      {
+        "head_blob": "dde5d988cb600f65e1fee3ab959d01eca226456c",
+        "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_univariate_predictions.parquet",
+        "worktree_blob": "dde5d988cb600f65e1fee3ab959d01eca226456c"
       }
     ]
   },
   "input_bindings": {
     "analysis_code": {
       "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
-      "sha256": "eeebef183b9f870f3d7b913c2434650e272dbf7086e84230c60733f22df7fb14"
+      "sha256": "87a62aa17c93ecd8611206d620107cf13276acec3509bd8ca725a306178f9675"
+    },
+    "model_roster": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
+      "sha256": "fc9ab49aff90c2de2e6c8beabcf8ff3a07ee73c0be6c91538f24c60f00533419"
+    },
+    "open_aggregation_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json",
+      "sha256": "5adf33fefd3927a2c73fdd0fffadb51626a6af306e5abb371ce1a2bd33da8aef"
+    },
+    "post_t2_input_binding": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
+      "sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f"
+    },
+    "pre_score_freeze_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json",
+      "sha256": "f5efd5810dfd94b62b4c3c018d39f92a0162a30c7b9fb4d903a46ad5b13d829d"
+    },
+    "predictor_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
+      "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+    },
+    "workload_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json",
+      "sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
     }
   },
   "manifest_schema": "t2_t7_sealed_model_freeze_readiness_v1",
   "model_freeze_created": false,
   "model_freeze_path": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
-  "model_selection_complete": false,
+  "model_selection_complete": true,
   "postfreeze_retuning": false,
   "ready_to_create_model_freeze": false,
   "sealed_outcomes_opened": false,
