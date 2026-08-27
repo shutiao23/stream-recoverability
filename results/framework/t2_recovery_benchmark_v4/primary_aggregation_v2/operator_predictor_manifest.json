@@ -1,0 +1,42 @@
+{
+  "additive_baseline_column": "additive_d_over_4_heuristic",
+  "fit_role": "within_each_open_network_train_window",
+  "fit_scope": "within_each_open_network_first70pct_calendar_years",
+  "join_keys": [
+    "item_id",
+    "role",
+    "network_id",
+    "station_id",
+    "geometry",
+    "geometry_id",
+    "truth_start_date",
+    "observed_missing_start_date",
+    "gap_length",
+    "placement",
+    "start_index",
+    "model",
+    "information_condition",
+    "task",
+    "meteorology_lag_days"
+  ],
+  "join_keys_sha256": "4d1e9a5c78be434a2a802211ad3fdd3374fd69c145d011d93d5e7a37a2f4829c",
+  "learned_calibration": false,
+  "manifest_schema": "t2_v91_v4_train_only_operator_predictions_v1",
+  "n_prediction_rows": 269106,
+  "operator_univariate_columns_sha256": "04e85063770c533e2283067d73801385b02be8a016b6b98438e5c49c4b212fbe",
+  "outcome_rows_read_during_fit": false,
+  "prediction_column": "predicted_recoverability",
+  "predictions_path": "operator_univariate_predictions.parquet",
+  "predictions_sha256": "7730eaa3756b77c530043d3b693afec376305851fbb72a501af7795b62f0de1b",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "source_sidecar_fit_role_note": "Reserved aggregation-contract role for learned calibration; raw predictors fit each open network's own first-70%-years window.",
+  "source_sidecar_manifest_sha256": "eb022c3a3d3c5910ba82ece8a1aa82732c435c5c0f671d0d84dde6938c73585c",
+  "source_sidecar_table_sha256": "4d49f981056e2941c0e4e9009d1648f2a13c77cf69ed53f3a98ef445f34da61a",
+  "trained_on_open_roles_only": true,
+  "univariate_columns": [
+    "gap_length_only",
+    "acf_only",
+    "donor_r2_only"
+  ]
+}

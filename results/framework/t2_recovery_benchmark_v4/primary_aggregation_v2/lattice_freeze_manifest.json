@@ -1,0 +1,216 @@
+{
+  "achieved_skill_read": false,
+  "analyzable_lattice": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "analyzable_lattice.parquet",
+    "sha256": "a86c9345661c69cc0a81abffa747e1f56a873ac18f61c7e9fc1b0a0acee4cca7"
+  },
+  "base_primary_grid": [
+    [
+      "pchip_or_linear",
+      "B",
+      "offline_archival",
+      "none"
+    ],
+    [
+      "kalman",
+      "B",
+      "offline_archival",
+      "none"
+    ],
+    [
+      "donor_regression",
+      "D",
+      "offline_archival",
+      "none"
+    ],
+    [
+      "xgboost",
+      "D",
+      "offline_archival",
+      "none"
+    ],
+    [
+      "donor_regression",
+      "B_union_D",
+      "offline_archival",
+      "none"
+    ],
+    [
+      "xgboost",
+      "B_union_D",
+      "offline_archival",
+      "none"
+    ]
+  ],
+  "base_primary_grid_sha256": "58c42fa695dc3bb468581c9ead4908f3128ea900ca56ecfb24db4e45a3facd5b",
+  "data_ineligible_attrition": {
+    "format": "parquet",
+    "n_rows": 583771,
+    "path": "data_ineligible_attrition.parquet",
+    "sha256": "202d1f086d6c13d8899ea387a42aea57ebd8fa749dbe96b6117359b00d19809f"
+  },
+  "evidence_blockers": [
+    "n_analyzable_networks_lt_100"
+  ],
+  "execution_allowed": true,
+  "exhaustive_item_ledger": {
+    "format": "parquet",
+    "n_rows": 2491245,
+    "path": "exhaustive_item_ledger.parquet",
+    "sha256": "b8232a246af47a9134ca6994ea62cdc5c9ad6cd1278f31f14a592cf4122bf31d"
+  },
+  "feasibility_census": {
+    "path": "feasibility_census.json",
+    "sha256": "9ddb290741e38e429099e7a5b990fe8b3fb88ff8fdecac38cb9c4f503d37ee90"
+  },
+  "formal_evidence": false,
+  "frozen_roster_may_shrink_after_scoring": false,
+  "index_draft_manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/index_draft_manifest.json",
+  "index_draft_manifest_sha256": "7fcd0a7ffc17c7cdfa0dd2846217c5ad6be9e4a998d288652aee15879a65f682",
+  "item_index": {
+    "n_rows": 2491245,
+    "path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/item_index.parquet",
+    "sha256": "6913ed0bf6ae19f8d41fa1a6b19dc32d2622e68bcbe7811329502c692d20cb2c"
+  },
+  "manifest_schema": "t2_v91_v4_analyzable_lattice_freeze_v1",
+  "n_analyzable_events": 44851,
+  "n_analyzable_items": 269106,
+  "n_data_ineligible_items": 583771,
+  "n_pre_score_excluded_items": 2222139,
+  "network_inference_status": "withheld_n_lt_100_network_interval",
+  "network_interval_reported": false,
+  "operator_predictor_manifest": {
+    "path": "operator_predictor_manifest.json",
+    "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+  },
+  "operator_predictor_table": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "operator_univariate_predictions.parquet",
+    "sha256": "7730eaa3756b77c530043d3b693afec376305851fbb72a501af7795b62f0de1b"
+  },
+  "passed": false,
+  "pre_score_eligibility_manifest_sha256": "796d06165721a75762e202d8c6d5891bf24743082d99f5b225d2d7a3acf9c2fb",
+  "pre_score_eligibility_table_sha256": "d200041eee4fbd1603f2adfda7b0484d24dfdea8d9cd0ae35ebd4121aafe0b1c",
+  "pre_score_exclusion_attrition": {
+    "format": "parquet",
+    "n_rows": 2222139,
+    "path": "pre_score_exclusion_attrition.parquet",
+    "sha256": "b756e3fc03df43de9ace3f4459b99da1e880cdb866ec3fb76a9c3537d2e2d455"
+  },
+  "runner_contract_version": "t2_v91_runner_v4_legacy_mh_lag_grid_v1",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "selection_uses_outcomes": false,
+  "sensitivity_grids": {
+    "M": [
+      [
+        "donor_regression",
+        "B_union_D_union_M",
+        "offline_archival",
+        "-1"
+      ],
+      [
+        "donor_regression",
+        "B_union_D_union_M",
+        "offline_archival",
+        "0"
+      ],
+      [
+        "donor_regression",
+        "B_union_D_union_M",
+        "offline_archival",
+        "1"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M",
+        "offline_archival",
+        "-1"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M",
+        "offline_archival",
+        "0"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M",
+        "offline_archival",
+        "1"
+      ]
+    ],
+    "M_H": [
+      [
+        "donor_regression",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "-1"
+      ],
+      [
+        "donor_regression",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "0"
+      ],
+      [
+        "donor_regression",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "1"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "-1"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "0"
+      ],
+      [
+        "xgboost",
+        "B_union_D_union_M_union_H",
+        "offline_archival",
+        "1"
+      ]
+    ]
+  },
+  "sensitivity_lattices": {
+    "M": {
+      "format": "parquet",
+      "n_rows": 0,
+      "path": "sensitivity_M_lattice.parquet",
+      "sha256": "f1ab7102386f9026bd09c61ad5f7d687bd90464a633b6ada828d77c3afcacf99"
+    },
+    "M_H": {
+      "format": "parquet",
+      "n_rows": 0,
+      "path": "sensitivity_M_H_lattice.parquet",
+      "sha256": "f1ab7102386f9026bd09c61ad5f7d687bd90464a633b6ada828d77c3afcacf99"
+    }
+  },
+  "status": "frozen_before_v4_scoring",
+  "train_only_sidecar_manifest_sha256": "eb022c3a3d3c5910ba82ece8a1aa82732c435c5c0f671d0d84dde6938c73585c",
+  "train_only_sidecar_table_sha256": "4d49f981056e2941c0e4e9009d1648f2a13c77cf69ed53f3a98ef445f34da61a",
+  "v4_results_read": false,
+  "weight_contract": {
+    "each_parent_mass": "equal",
+    "hierarchy": [
+      "geometry",
+      "network",
+      "gap",
+      "event",
+      "model_information_lag"
+    ],
+    "product_column": "analysis_weight"
+  },
+  "workload_manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/index_draft_manifest.json",
+  "workload_manifest_sha256": "7fcd0a7ffc17c7cdfa0dd2846217c5ad6be9e4a998d288652aee15879a65f682"
+}

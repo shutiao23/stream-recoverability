@@ -1,0 +1,83 @@
+{
+  "achieved_skill_read": false,
+  "base_lattice": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "primary_aggregation_v2/analyzable_lattice.parquet",
+    "sha256": "a86c9345661c69cc0a81abffa747e1f56a873ac18f61c7e9fc1b0a0acee4cca7"
+  },
+  "base_lattice_manifest": {
+    "path": "primary_aggregation_v2/lattice_freeze_manifest.json",
+    "sha256": "d3bc4c081bea1e6780afd0d1940e24be272952e07435d96b888a79f8c08c72f6"
+  },
+  "base_lattice_status": "frozen_before_v4_scoring",
+  "eligibility_manifest": {
+    "path": "pre_score_eligibility/manifest.json",
+    "sha256": "796d06165721a75762e202d8c6d5891bf24743082d99f5b225d2d7a3acf9c2fb"
+  },
+  "eligibility_table": {
+    "format": "parquet",
+    "n_rows": 2491245,
+    "path": "pre_score_eligibility/eligibility.parquet",
+    "sha256": "d200041eee4fbd1603f2adfda7b0484d24dfdea8d9cd0ae35ebd4121aafe0b1c"
+  },
+  "exhaustive_item_ledger": {
+    "format": "parquet",
+    "n_rows": 2491245,
+    "path": "primary_aggregation_v2/exhaustive_item_ledger.parquet",
+    "sha256": "b8232a246af47a9134ca6994ea62cdc5c9ad6cd1278f31f14a592cf4122bf31d"
+  },
+  "feasibility_census": {
+    "path": "primary_aggregation_v2/feasibility_census.json",
+    "sha256": "9ddb290741e38e429099e7a5b990fe8b3fb88ff8fdecac38cb9c4f503d37ee90"
+  },
+  "formal_evidence": false,
+  "frozen_roster_may_shrink_after_scoring": false,
+  "index_draft_manifest": {
+    "path": "index_draft_manifest.json",
+    "sha256": "7fcd0a7ffc17c7cdfa0dd2846217c5ad6be9e4a998d288652aee15879a65f682"
+  },
+  "index_draft_manifest_sha256": "7fcd0a7ffc17c7cdfa0dd2846217c5ad6be9e4a998d288652aee15879a65f682",
+  "item_index_file_sha256": "6913ed0bf6ae19f8d41fa1a6b19dc32d2622e68bcbe7811329502c692d20cb2c",
+  "manifest_schema": "t2_v91_v4_pre_score_freeze_bundle_v1",
+  "passed": false,
+  "pre_score_exclusion_attrition": {
+    "format": "parquet",
+    "n_rows": 2222139,
+    "path": "primary_aggregation_v2/pre_score_exclusion_attrition.parquet",
+    "sha256": "b756e3fc03df43de9ace3f4459b99da1e880cdb866ec3fb76a9c3537d2e2d455"
+  },
+  "predictor_manifest": {
+    "path": "primary_aggregation_v2/operator_predictor_manifest.json",
+    "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+  },
+  "predictor_table": {
+    "format": "parquet",
+    "n_rows": 269106,
+    "path": "primary_aggregation_v2/operator_univariate_predictions.parquet",
+    "sha256": "7730eaa3756b77c530043d3b693afec376305851fbb72a501af7795b62f0de1b"
+  },
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "selection_uses_outcomes": false,
+  "sensitivity_lattice_statuses": {
+    "M": "blocked_insufficient_pre_score_support",
+    "M_H": "blocked_insufficient_pre_score_support"
+  },
+  "sensitivity_lattices": {
+    "M": {
+      "format": "parquet",
+      "n_rows": 0,
+      "path": "primary_aggregation_v2/sensitivity_M_lattice.parquet",
+      "sha256": "f1ab7102386f9026bd09c61ad5f7d687bd90464a633b6ada828d77c3afcacf99"
+    },
+    "M_H": {
+      "format": "parquet",
+      "n_rows": 0,
+      "path": "primary_aggregation_v2/sensitivity_M_H_lattice.parquet",
+      "sha256": "f1ab7102386f9026bd09c61ad5f7d687bd90464a633b6ada828d77c3afcacf99"
+    }
+  },
+  "status": "complete_outcome_blind_pre_score_freeze",
+  "v4_results_read": false
+}

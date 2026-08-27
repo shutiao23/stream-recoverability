@@ -1,15 +1,17 @@
 {
   "achieved_skill_read": false,
-  "analyzable_lattice_frozen": false,
-  "blockers": [
-    "v4_workload_manifest_absent",
-    "v4_item_index_absent"
+  "analyzable_lattice_frozen": true,
+  "blockers": [],
+  "evidence_blockers": [
+    "n_analyzable_networks_lt_100"
   ],
+  "execution_allowed": true,
   "formal_evidence": false,
+  "lattice_freeze_manifest_sha256": "d3bc4c081bea1e6780afd0d1940e24be272952e07435d96b888a79f8c08c72f6",
   "manifest_schema": "t2_v91_v4_primary_aggregation_readiness_v2",
   "passed": false,
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
-  "status": "blocked_waiting_for_frozen_v4_item_index",
+  "status": "frozen_before_v4_scoring",
   "v4_results_read": false
 }
