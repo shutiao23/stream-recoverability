@@ -122,6 +122,8 @@ def _impute_mae(
         imputed_raw["imputation"] if isinstance(imputed_raw, dict) else imputed_raw,
         dtype=float,
     )
+    if imputed.ndim == 4:
+        imputed = imputed[:, 0, :, :]
     truth = X[mask]
     pred = imputed[mask]
     return float(np.nanmean(np.abs(pred - truth)))

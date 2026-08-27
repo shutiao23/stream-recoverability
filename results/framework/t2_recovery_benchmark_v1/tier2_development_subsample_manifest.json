@@ -11,9 +11,9 @@
   },
   "can_claim_compliant_tier2_sensitivity": false,
   "confirmatory_eligible": false,
-  "deep_model_inference_run": false,
-  "deep_model_training_run": false,
-  "deep_models_run": false,
+  "deep_model_inference_run": true,
+  "deep_model_training_run": true,
+  "deep_models_run": true,
   "formal_evidence": false,
   "gaps_all_required": [
     30,
@@ -26,9 +26,9 @@
     "saits",
     "csdi"
   ],
-  "n_fit_predict_complete": 0,
-  "n_networks_attempted": 1,
-  "n_rows": 6,
+  "n_fit_predict_complete": 84,
+  "n_networks_attempted": 14,
+  "n_rows": 84,
   "n_sample_open_currently_qualified": 14,
   "passed": false,
   "purpose": "tier2_development_subsample_not_confirmatory",
@@ -36,5 +36,5 @@
     "air2stream",
     "grin"
   ],
-  "status": "development_subsample_failed_no_successful_cells"
+  "status": "development_subsample_executed_budget_failure_remains"
 }
