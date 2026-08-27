@@ -29,6 +29,27 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def test_merge_normalization_serializes_dynamic_audit_structs_losslessly() -> None:
+    first = pd.DataFrame(
+        {"information_audit": [{"station_a": {"F": 1.0}}, None]}
+    )
+    second = pd.DataFrame(
+        {"information_audit": [{"station_b": {"L": None}}]}
+    )
+
+    left = aggregation._normalize_merge_frame(first)
+    right = aggregation._normalize_merge_frame(second)
+
+    assert left["information_audit"].dtype == object
+    assert json.loads(left.loc[0, "information_audit"]) == {
+        "station_a": {"F": 1.0}
+    }
+    assert pd.isna(left.loc[1, "information_audit"])
+    assert json.loads(right.loc[0, "information_audit"]) == {
+        "station_b": {"L": None}
+    }
+
+
 def _fixture(tmp_path: Path) -> tuple[Path, list[Path]]:
     ids = [f"item-{index}" for index in range(4)]
     digest = hashlib.sha256()

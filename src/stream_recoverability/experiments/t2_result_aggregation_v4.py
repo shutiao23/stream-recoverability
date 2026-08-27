@@ -31,6 +31,31 @@ class V4AggregationBlocked(ValueError):
     """Raised when a claimed complete v4 result set is not identity-complete."""
 
 
+def _normalize_merge_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    """Give dynamic nested audit metadata one stable, lossless Arrow type."""
+
+    if "information_audit" not in frame.columns:
+        return frame
+    normalized = frame.copy()
+
+    def encode(value: Any) -> str | None:
+        if isinstance(value, Mapping):
+            return json.dumps(
+                value,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            )
+        if value is None or (isinstance(value, float) and pd.isna(value)):
+            return None
+        raise V4AggregationBlocked(
+            "information_audit must be a mapping or missing before merge"
+        )
+
+    normalized["information_audit"] = normalized["information_audit"].map(encode)
+    return normalized
+
+
 def _sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -310,7 +335,8 @@ def aggregate_v4_chunk_manifests(
             _assert_full_row_identities(
                 frame, _expected_identities(index_path, start, end)
             )
-            table = pa.Table.from_pandas(frame, preserve_index=False)
+            merge_frame = _normalize_merge_frame(frame)
+            table = pa.Table.from_pandas(merge_frame, preserve_index=False)
             result_schemas.append(table.schema)
             validated_results.append(
                 (results_path, str(manifest.get("results_format")))
@@ -387,7 +413,9 @@ def aggregate_v4_chunk_manifests(
         writer = pq.ParquetWriter(temporary, union_schema, compression="zstd")
         try:
             for result_path, result_format in validated_results:
-                frame = _read_results(result_path, result_format)
+                frame = _normalize_merge_frame(
+                    _read_results(result_path, result_format)
+                )
                 table = pa.Table.from_pandas(frame, preserve_index=False)
                 arrays = []
                 for field in union_schema:
