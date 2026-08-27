@@ -331,22 +331,31 @@ def _update_logical_result_digest(
 ) -> None:
     """Hash ordered logical rows independent of their container bytes."""
 
+    def normalize(value: Any) -> Any:
+        if isinstance(value, np.ndarray):
+            return [normalize(item) for item in value.tolist()]
+        if isinstance(value, np.generic):
+            return normalize(value.item())
+        if isinstance(value, Mapping):
+            return {
+                str(key): normalize(item)
+                for key, item in sorted(value.items(), key=lambda pair: str(pair[0]))
+            }
+        if isinstance(value, (list, tuple)):
+            return [normalize(item) for item in value]
+        missing = pd.isna(value)
+        if isinstance(missing, (bool, np.bool_)) and bool(missing):
+            return None
+        return value
+
     aligned = frame.reindex(columns=columns)
     for values in aligned.itertuples(index=False, name=None):
-        normalized = []
-        for value in values:
-            if pd.isna(value):
-                normalized.append(None)
-            elif isinstance(value, np.generic):
-                normalized.append(value.item())
-            else:
-                normalized.append(value)
+        normalized = [normalize(value) for value in values]
         digest.update(
             json.dumps(
                 normalized,
                 separators=(",", ":"),
                 allow_nan=False,
-                default=str,
             ).encode()
         )
         digest.update(b"\n")
