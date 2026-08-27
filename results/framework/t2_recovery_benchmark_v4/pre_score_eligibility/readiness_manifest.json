@@ -1,10 +1,9 @@
 {
   "achieved_skill_read": false,
-  "blockers": [
-    "formal_v4_workload_absent",
-    "v4_item_index_absent"
-  ],
-  "eligibility_table_written": false,
+  "blockers": [],
+  "eligibility_manifest": "manifest.json",
+  "eligibility_manifest_sha256": "796d06165721a75762e202d8c6d5891bf24743082d99f5b225d2d7a3acf9c2fb",
+  "eligibility_table_written": true,
   "formal_evidence": false,
   "gap_truth_values_read": false,
   "manifest_schema": "t2_v91_v4_pre_score_eligibility_builder_v1",
@@ -12,6 +11,6 @@
   "passed": false,
   "sealed_paths_traversed": false,
   "sealed_temperature_records_read": false,
-  "status": "blocked_waiting_for_formal_v4_item_index",
+  "status": "complete_outcome_blind_pre_score_audit",
   "v4_results_read": false
 }
