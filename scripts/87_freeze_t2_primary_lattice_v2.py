@@ -27,7 +27,7 @@ def main() -> None:
         "--predictor-manifest",
         type=Path,
         default=ROOT
-        / "results/framework/t2_recovery_benchmark_v1/train_only_predictors/predictor_manifest.json",
+        / "results/framework/t2_recovery_benchmark_v4/train_only_predictors_v2/predictor_manifest.json",
     )
     parser.add_argument(
         "--eligibility-manifest",

@@ -36,6 +36,12 @@ from stream_recoverability.experiments.t2_train_only_predictors import (
     PREDICTOR_COLUMNS,
     SIDECAR_SCHEMA,
 )
+from stream_recoverability.experiments.t2_train_only_predictors_v4 import (
+    GAP_ROSTER_SOURCE as V4_GAP_ROSTER_SOURCE,
+)
+from stream_recoverability.experiments.t2_train_only_predictors_v4 import (
+    SIDECAR_SCHEMA as V4_SIDECAR_SCHEMA,
+)
 from stream_recoverability.experiments.t2_workload_v4 import (
     V4_INDEX_DRAFT_SCHEMA,
     V4_ITEM_INDEX_SCHEMA,
@@ -238,6 +244,174 @@ def _freeze_fixture(tmp_path: Path) -> dict[str, Path]:
     }
 
 
+def _append_ineligible_natural_gap(paths: dict[str, Path], gap: int = 8) -> None:
+    """Add one fully audited but pre-score-ineligible natural event stratum."""
+
+    index = pd.read_parquet(paths["workload"].parent / "item_index.parquet")
+    natural = index.iloc[len(PRIMARY_COMMON_GRID) : 2 * len(PRIMARY_COMMON_GRID)]
+    appended_index = []
+    appended_eligibility = []
+    for record in natural.to_dict(orient="records"):
+        source = json.loads(record["source_item_json"])
+        ordinal = len(index) + len(appended_index)
+        item_id = f"item-{ordinal:03d}"
+        source.update(
+            {
+                "ordinal": ordinal,
+                "item_id": f"source-{ordinal:03d}",
+                "gap_length": gap,
+                "placement": 1,
+                "start_index": 200,
+                "geometry_id": "geometry-ineligible",
+                "truth_start_date": "2001-02-01",
+                "observed_missing_start_date": "1999-02-01",
+            }
+        )
+        appended_index.append(
+            {
+                **record,
+                "ordinal": ordinal,
+                "item_id": item_id,
+                "source_v3_ordinal": ordinal,
+                "source_v3_item_id": source["item_id"],
+                "source_item_json": json.dumps(source, sort_keys=True),
+            }
+        )
+        appended_eligibility.append(
+            {
+                "item_id": item_id,
+                "pre_score_status": "data_ineligible",
+                "reason": "open_qc_gap_window_incomplete",
+            }
+        )
+    index = pd.concat([index, pd.DataFrame(appended_index)], ignore_index=True)
+    index_path = paths["workload"].parent / "item_index.parquet"
+    index.to_parquet(index_path, index=False)
+
+    workload = json.loads(paths["workload"].read_text(encoding="utf-8"))
+    workload["n_work_items"] = len(index)
+    workload["work_item_identity_sha256"] = _stream_sha(index["item_id"].tolist())
+    workload["item_index"].update(
+        {"file_sha256": _sha(index_path), "n_rows": len(index)}
+    )
+    paths["workload"].write_text(json.dumps(workload), encoding="utf-8")
+
+    eligibility = pd.read_parquet(paths["eligibility"])
+    eligibility = pd.concat(
+        [eligibility, pd.DataFrame(appended_eligibility)], ignore_index=True
+    )
+    eligibility.to_parquet(paths["eligibility"], index=False)
+    eligibility_manifest = json.loads(
+        paths["eligibility_manifest"].read_text(encoding="utf-8")
+    )
+    eligibility_manifest.update(
+        {
+            "workload_manifest_sha256": _sha(paths["workload"]),
+            "item_index_file_sha256": _sha(index_path),
+            "expected_item_records": len(index),
+            "observed_item_records": len(index),
+            "work_item_identity_sha256": workload["work_item_identity_sha256"],
+        }
+    )
+    eligibility_manifest["eligibility_table"].update(
+        {"sha256": _sha(paths["eligibility"]), "n_rows": len(eligibility)}
+    )
+    paths["eligibility_manifest"].write_text(
+        json.dumps(eligibility_manifest), encoding="utf-8"
+    )
+
+    predictors = pd.read_parquet(paths["predictor_manifest"].parent / "train_only_predictors.parquet")
+    source_predictor = predictors.loc[predictors["network_id"].eq("net-b")].iloc[0].copy()
+    source_predictor["gap_length"] = gap
+    predictors = pd.concat(
+        [predictors, source_predictor.to_frame().T], ignore_index=True
+    )
+    predictor_path = paths["predictor_manifest"].parent / "train_only_predictors.parquet"
+    predictors.to_parquet(predictor_path, index=False)
+    predictor_manifest = json.loads(
+        paths["predictor_manifest"].read_text(encoding="utf-8")
+    )
+    predictor_manifest["gaps"] = sorted({*predictor_manifest["gaps"], gap})
+    predictor_manifest["parquet_sha256"] = _sha(predictor_path)
+    paths["predictor_manifest"].write_text(
+        json.dumps(predictor_manifest), encoding="utf-8"
+    )
+
+
+def _convert_predictor_fixture_to_v2(paths: dict[str, Path]) -> None:
+    root = paths["workload"].parent
+    design = root / "design.json"
+    design.write_text("{}\n", encoding="utf-8")
+    source_v3 = root / "source_v3_workload.json"
+    source_v3.write_text(
+        json.dumps({"design_sha256": _sha(design)}), encoding="utf-8"
+    )
+    workload = json.loads(paths["workload"].read_text(encoding="utf-8"))
+    workload.update(
+        {
+            "source_v3_workload_path": source_v3.name,
+            "source_v3_workload_sha256": _sha(source_v3),
+        }
+    )
+    paths["workload"].write_text(json.dumps(workload), encoding="utf-8")
+    eligibility_manifest = json.loads(
+        paths["eligibility_manifest"].read_text(encoding="utf-8")
+    )
+    eligibility_manifest["workload_manifest_sha256"] = _sha(paths["workload"])
+    paths["eligibility_manifest"].write_text(
+        json.dumps(eligibility_manifest), encoding="utf-8"
+    )
+
+    index_path = root / "item_index.parquet"
+    predictors = pd.read_parquet(root / "train_only_predictors.parquet")
+    manifest = json.loads(paths["predictor_manifest"].read_text(encoding="utf-8"))
+    gaps_by_geometry = {
+        "adversarial_stress": [],
+        "artificial_stress": [7],
+        "natural_outage": [7],
+    }
+    gaps = [7]
+    manifest.update(
+        {
+            "manifest_schema": V4_SIDECAR_SCHEMA,
+            "index_draft_manifest_path": paths["workload"].name,
+            "index_draft_manifest_sha256": _sha(paths["workload"]),
+            "item_index_path": index_path.name,
+            "item_index_sha256": _sha(index_path),
+            "item_index_work_item_identity_sha256": workload[
+                "work_item_identity_sha256"
+            ],
+            "source_v3_workload_path": source_v3.name,
+            "source_v3_workload_sha256": _sha(source_v3),
+            "design_path": design.name,
+            "design_sha256": _sha(design),
+            "input_inventory": workload["input_inventory"],
+            "input_inventory_contract_sha256": _canonical_sha(
+                workload["input_inventory"]
+            ),
+            "input_inventory_sha256": workload[
+                "input_sha256_by_network_sha256"
+            ],
+            "input_sha256_by_network_sha256": workload[
+                "input_sha256_by_network_sha256"
+            ],
+            "gap_roster_source": V4_GAP_ROSTER_SOURCE,
+            "gap_roster_sha256": _canonical_sha(
+                {"gaps": gaps, "gaps_by_geometry": gaps_by_geometry}
+            ),
+            "gaps": gaps,
+            "gaps_by_geometry": gaps_by_geometry,
+            "n_unique_gaps": len(gaps),
+            "n_rows": len(predictors),
+            "predictor_columns": list(PREDICTOR_COLUMNS),
+            "achieved_skill_read": False,
+            "sealed_input_roots_allowed": [],
+        }
+    )
+    manifest.pop("workload_manifest_sha256", None)
+    paths["predictor_manifest"].write_text(json.dumps(manifest), encoding="utf-8")
+
+
 def test_missing_v4_index_writes_blocked_readiness_without_results(
     tmp_path: Path,
 ) -> None:
@@ -409,6 +583,80 @@ def test_freeze_rejects_achieved_skill_in_pre_score_audit(tmp_path: Path) -> Non
             predictor_manifest_path=paths["predictor_manifest"],
             eligibility_manifest_path=paths["eligibility_manifest"],
             output_dir=tmp_path / "freeze",
+        )
+
+
+def test_ineligible_event_stratum_is_exhaustively_excluded_not_a_fixed_roster_blocker(
+    tmp_path: Path,
+) -> None:
+    paths = _freeze_fixture(tmp_path)
+    _append_ineligible_natural_gap(paths)
+    output = tmp_path / "freeze"
+
+    manifest = freeze_v4_analyzable_lattice(
+        workload_manifest_path=paths["workload"],
+        predictor_manifest_path=paths["predictor_manifest"],
+        eligibility_manifest_path=paths["eligibility_manifest"],
+        output_dir=output,
+    )
+
+    assert manifest["status"] == "frozen_before_v4_scoring"
+    assert manifest["execution_allowed"] is True
+    assert manifest["network_inference_status"] == (
+        "withheld_n_lt_100_network_interval"
+    )
+    assert manifest["evidence_blockers"] == ["n_analyzable_networks_lt_100"]
+    census = json.loads((output / "feasibility_census.json").read_text())
+    base = census["lattices"]["base_primary"]
+    assert base["status"] == "ready"
+    assert base["fixed_roster"]["gaps_by_geometry"]["natural_outage"] == [7]
+    assert base["design_candidate_roster"]["gaps_by_geometry"][
+        "natural_outage"
+    ] == [7, 8]
+    assert base["coverage_gate"]["network_geometry_gap_cross_product_required"] is False
+    ledger = pd.read_parquet(output / "exhaustive_item_ledger.parquet")
+    excluded = ledger.loc[ledger["final_reason"].eq("open_qc_gap_window_incomplete")]
+    assert len(excluded) == len(PRIMARY_COMMON_GRID)
+    assert not excluded["included"].any()
+    attrition = pd.read_parquet(output / "pre_score_exclusion_attrition.parquet")
+    assert set(excluded["item_id"]) <= set(attrition["item_id"])
+    assert manifest["frozen_roster_may_shrink_after_scoring"] is False
+
+
+def test_v2_predictor_manifest_is_bound_to_the_exact_draft_and_gap_roster(
+    tmp_path: Path,
+) -> None:
+    paths = _freeze_fixture(tmp_path)
+    _convert_predictor_fixture_to_v2(paths)
+
+    manifest = freeze_v4_analyzable_lattice(
+        workload_manifest_path=paths["workload"],
+        predictor_manifest_path=paths["predictor_manifest"],
+        eligibility_manifest_path=paths["eligibility_manifest"],
+        output_dir=tmp_path / "freeze",
+    )
+
+    assert manifest["status"] == "frozen_before_v4_scoring"
+
+    predictor_manifest = json.loads(
+        paths["predictor_manifest"].read_text(encoding="utf-8")
+    )
+    predictor_manifest["gaps_by_geometry"]["natural_outage"] = []
+    predictor_manifest["gap_roster_sha256"] = _canonical_sha(
+        {
+            "gaps": predictor_manifest["gaps"],
+            "gaps_by_geometry": predictor_manifest["gaps_by_geometry"],
+        }
+    )
+    paths["predictor_manifest"].write_text(
+        json.dumps(predictor_manifest), encoding="utf-8"
+    )
+    with pytest.raises(PrimaryAggregationBlocked, match="geometry gap roster"):
+        freeze_v4_analyzable_lattice(
+            workload_manifest_path=paths["workload"],
+            predictor_manifest_path=paths["predictor_manifest"],
+            eligibility_manifest_path=paths["eligibility_manifest"],
+            output_dir=tmp_path / "tampered",
         )
 
 

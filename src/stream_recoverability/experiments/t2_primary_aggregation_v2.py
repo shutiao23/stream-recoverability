@@ -34,6 +34,10 @@ from .t2_result_aggregation_v4 import (
     _expected_identities,
 )
 from .t2_train_only_predictors import JOIN_KEYS, PREDICTOR_COLUMNS, SIDECAR_SCHEMA
+from .t2_train_only_predictors_v4 import (
+    GAP_ROSTER_SOURCE as V4_GAP_ROSTER_SOURCE,
+)
+from .t2_train_only_predictors_v4 import SIDECAR_SCHEMA as V4_SIDECAR_SCHEMA
 from .t2_workload_v4 import (
     V4_INDEX_DRAFT_SCHEMA,
     V4_ITEM_INDEX_SCHEMA,
@@ -97,6 +101,7 @@ PRIMARY_COMMON_GRID = BASE_PRIMARY_GRID
 FIXED_PRIMARY_GEOMETRIES = ("artificial_stress", "natural_outage")
 LEDGER_SCHEMA = "t2_v91_v4_exhaustive_pre_score_item_ledger_v1"
 FEASIBILITY_SCHEMA = "t2_v91_v4_outcome_blind_feasibility_census_v1"
+NETWORK_INTERVAL_FLOOR = 100
 
 
 class PrimaryAggregationBlocked(ValueError):
@@ -445,28 +450,122 @@ def _load_sidecar(
     manifest_path: Path,
     *,
     workload: Mapping[str, Any],
+    workload_path: Path,
+    index_path: Path,
 ) -> tuple[dict[str, Any], pd.DataFrame, Path]:
     manifest = _read_json(manifest_path)
     required = {
-        "manifest_schema": SIDECAR_SCHEMA,
         "trained_on_open_roles_only": True,
         "outcome_rows_read_during_fit": False,
         "recovery_result_rows_read": False,
         "sealed_temperature_records_read": False,
         "completeness": "complete",
         "join_keys": list(JOIN_KEYS),
-        "workload_manifest_sha256": workload.get("source_v3_workload_sha256"),
         "input_sha256_by_network": workload.get("input_sha256_by_network"),
         "catalog_split_sha256": (workload.get("input_inventory") or {}).get(
             "catalog_split_sha256"
         ),
-        "gaps": [7, 14, 30, 60, 90, 180, 365],
         "network_covariance_fit_scope": "within_network_first_70pct_calendar_years",
         "learned_calibration": False,
     }
     for key, expected in required.items():
         if manifest.get(key) != expected:
             raise PrimaryAggregationBlocked(f"train-only sidecar mismatch for {key}")
+    schema = manifest.get("manifest_schema")
+    if schema == SIDECAR_SCHEMA:
+        if manifest.get("workload_manifest_sha256") != workload.get(
+            "source_v3_workload_sha256"
+        ):
+            raise PrimaryAggregationBlocked(
+                "train-only sidecar mismatch for workload_manifest_sha256"
+            )
+    elif schema == V4_SIDECAR_SCHEMA:
+        v2_required = {
+            "index_draft_manifest_sha256": _sha256_file(workload_path),
+            "item_index_sha256": _sha256_file(index_path),
+            "item_index_work_item_identity_sha256": workload.get(
+                "work_item_identity_sha256"
+            ),
+            "source_v3_workload_sha256": workload.get("source_v3_workload_sha256"),
+            "input_inventory": workload.get("input_inventory"),
+            "input_inventory_contract_sha256": _canonical_sha(
+                workload.get("input_inventory")
+            ),
+            "input_inventory_sha256": workload.get(
+                "input_sha256_by_network_sha256"
+            ),
+            "input_sha256_by_network_sha256": workload.get(
+                "input_sha256_by_network_sha256"
+            ),
+            "gap_roster_source": V4_GAP_ROSTER_SOURCE,
+            "predictor_columns": list(PREDICTOR_COLUMNS),
+            "achieved_skill_read": False,
+            "sealed_input_roots_allowed": [],
+        }
+        for key, expected in v2_required.items():
+            if manifest.get(key) != expected:
+                raise PrimaryAggregationBlocked(
+                    f"v4 train-only sidecar mismatch for {key}"
+                )
+        if (
+            _artifact_path(
+                manifest_path, str(manifest.get("index_draft_manifest_path", ""))
+            )
+            != workload_path
+            or _artifact_path(
+                manifest_path, str(manifest.get("item_index_path", ""))
+            )
+            != index_path
+        ):
+            raise PrimaryAggregationBlocked(
+                "v4 train-only sidecar path bindings differ from the item-index draft"
+            )
+        source_v3_path = _artifact_path(
+            workload_path, str(workload.get("source_v3_workload_path", ""))
+        )
+        manifest_source_v3_path = _artifact_path(
+            manifest_path, str(manifest.get("source_v3_workload_path", ""))
+        )
+        design_path = _artifact_path(
+            manifest_path, str(manifest.get("design_path", ""))
+        )
+        if (
+            manifest_source_v3_path != source_v3_path
+            or not source_v3_path.is_file()
+            or _sha256_file(source_v3_path)
+            != manifest.get("source_v3_workload_sha256")
+            or not design_path.is_file()
+            or _sha256_file(design_path) != manifest.get("design_sha256")
+            or _read_json(source_v3_path).get("design_sha256")
+            != manifest.get("design_sha256")
+        ):
+            raise PrimaryAggregationBlocked(
+                "v4 train-only sidecar source-workload/design binding is invalid"
+            )
+        gaps_by_geometry = manifest.get("gaps_by_geometry")
+        gap_roster = {
+            "gaps": manifest.get("gaps"),
+            "gaps_by_geometry": gaps_by_geometry,
+        }
+        if (
+            not isinstance(gaps_by_geometry, Mapping)
+            or set(gaps_by_geometry)
+            != {"adversarial_stress", *FIXED_PRIMARY_GEOMETRIES}
+            or manifest.get("gap_roster_sha256") != _canonical_sha(gap_roster)
+        ):
+            raise PrimaryAggregationBlocked(
+                "v4 train-only sidecar gap-roster binding is invalid"
+            )
+    else:
+        raise PrimaryAggregationBlocked("unsupported train-only sidecar schema")
+    try:
+        gaps = [int(value) for value in manifest.get("gaps") or []]
+    except (TypeError, ValueError) as error:
+        raise PrimaryAggregationBlocked(
+            "train-only sidecar gap roster is invalid"
+        ) from error
+    if not gaps or gaps != sorted(set(gaps)) or any(value < 1 for value in gaps):
+        raise PrimaryAggregationBlocked("train-only sidecar gap roster is invalid")
     path = _artifact_path(manifest_path, str(manifest.get("parquet_path", "")))
     _assert_open(path)
     if not path.is_file() or _sha256_file(path) != manifest.get("parquet_sha256"):
@@ -482,6 +581,15 @@ def _load_sidecar(
     if not predictors["role"].astype(str).eq(predictors["fit_role"].astype(str)).all():
         raise PrimaryAggregationBlocked(
             "sidecar fit role differs from its network role"
+        )
+    if schema == V4_SIDECAR_SCHEMA and (
+        len(predictors) != int(manifest.get("n_rows", -1))
+        or predictors["gap_length"].astype(int).nunique()
+        != int(manifest.get("n_unique_gaps", -1))
+        or set(predictors["gap_length"].astype(int)) != set(gaps)
+    ):
+        raise PrimaryAggregationBlocked(
+            "v4 train-only predictor table is not roster-complete"
         )
     return manifest, predictors, path
 
@@ -642,7 +750,10 @@ def freeze_v4_analyzable_lattice(
             blockers.append("outcome_blind_pre_score_eligibility_audit_absent")
         return _blocked_readiness(output, blockers)
     sidecar_manifest, sidecar, sidecar_path = _load_sidecar(
-        predictor_manifest_file, workload=workload
+        predictor_manifest_file,
+        workload=workload,
+        workload_path=workload_path,
+        index_path=index_path,
     )
     sidecar["station_id"] = sidecar["station_id"].astype(str)
     sidecar_lookup = {
@@ -704,6 +815,9 @@ def freeze_v4_analyzable_lattice(
             "networks": set(),
             "geometries": set(),
             "gaps": set(),
+            "gaps_by_geometry": {
+                geometry: set() for geometry in FIXED_PRIMARY_GEOMETRIES
+            },
             "network_geometry_gap_strata": set(),
         }
         for name in grids
@@ -711,6 +825,14 @@ def freeze_v4_analyzable_lattice(
     expected_n = int(workload.get("n_work_items", -1))
     item_digest = hashlib.sha256()
     status_counts: Counter[str] = Counter()
+    indexed_gaps_by_geometry: dict[str, set[int]] = {
+        geometry: set()
+        for geometry in (
+            "adversarial_stress",
+            "artificial_stress",
+            "natural_outage",
+        )
+    }
 
     def rows(path: Path, columns: list[str]):
         for batch in pq.ParquetFile(path).iter_batches(
@@ -736,6 +858,12 @@ def freeze_v4_analyzable_lattice(
         item_digest.update(b"\n")
         source = json.loads(str(raw["source_item_json"]))
         lag = str(raw["meteorology_lag_days"])
+        geometry = str(source["geometry"])
+        if geometry not in indexed_gaps_by_geometry:
+            raise PrimaryAggregationBlocked(
+                f"formal item index contains unknown geometry: {geometry}"
+            )
+        indexed_gaps_by_geometry[geometry].add(int(source["gap_length"]))
         structural = _structural_status(source, lag)
         pre_status = str(audit["pre_score_status"])
         if structural != "complete" and structural != pre_status:
@@ -779,6 +907,7 @@ def freeze_v4_analyzable_lattice(
             roster["networks"].add(event[1])
             roster["geometries"].add(event[3])
             roster["gaps"].add(event[7])
+            roster["gaps_by_geometry"][event[3]].add(event[7])
             roster["network_geometry_gap_strata"].add((event[1], event[3], event[7]))
             if pre_status == "complete" and predictor_ok:
                 event_masks[name][event] = event_masks[name].get(event, 0) | bit
@@ -789,6 +918,33 @@ def freeze_v4_analyzable_lattice(
     ):
         raise PrimaryAggregationBlocked("pre-score streams are not identity-complete")
 
+    declared_predictor_gaps = {
+        int(value) for value in sidecar_manifest.get("gaps") or []
+    }
+    indexed_gaps = set().union(*indexed_gaps_by_geometry.values())
+    missing_predictor_gaps = sorted(indexed_gaps - declared_predictor_gaps)
+    if missing_predictor_gaps:
+        raise PrimaryAggregationBlocked(
+            "train-only predictor gap roster is incomplete for the formal item index: "
+            f"{missing_predictor_gaps}"
+        )
+    if sidecar_manifest.get("manifest_schema") == V4_SIDECAR_SCHEMA:
+        declared_by_geometry = {
+            str(geometry): sorted(map(int, gaps))
+            for geometry, gaps in (
+                sidecar_manifest.get("gaps_by_geometry") or {}
+            ).items()
+        }
+        observed_by_geometry = {
+            geometry: sorted(gaps)
+            for geometry, gaps in indexed_gaps_by_geometry.items()
+        }
+        if declared_by_geometry != observed_by_geometry:
+            raise PrimaryAggregationBlocked(
+                "v4 train-only predictor geometry gap roster differs from the formal "
+                "item index"
+            )
+
     eligible_events = {
         name: {event for event, mask in masks.items() if mask == full_masks[name]}
         for name, masks in event_masks.items()
@@ -796,30 +952,79 @@ def freeze_v4_analyzable_lattice(
     census_lattices: dict[str, Any] = {}
     lattice_ready: dict[str, bool] = {}
     for name, events in eligible_events.items():
-        observed = {
+        selected = {
             "networks": {event[1] for event in events},
             "geometries": {event[3] for event in events},
             "gaps": {event[7] for event in events},
+            "gaps_by_geometry": {
+                geometry: {event[7] for event in events if event[3] == geometry}
+                for geometry in FIXED_PRIMARY_GEOMETRIES
+            },
             "network_geometry_gap_strata": {
                 (event[1], event[3], event[7]) for event in events
             },
         }
-        fixed = design_rosters[name]
+        candidates = design_rosters[name]
+        expected_networks = set(
+            map(
+                str,
+                workload.get("network_ids")
+                or (workload.get("input_sha256_by_network") or {}).keys(),
+            )
+        )
+        required_geometries = set(FIXED_PRIMARY_GEOMETRIES)
+        required_artificial_gaps = set(
+            candidates["gaps_by_geometry"]["artificial_stress"]
+        )
         blockers = []
-        for dimension in (
-            "networks",
-            "geometries",
-            "gaps",
-            "network_geometry_gap_strata",
-        ):
-            missing = sorted(fixed[dimension] - observed[dimension])
-            if missing:
-                blockers.append(
-                    f"missing_fixed_{dimension}:{','.join(map(str, missing))}"
-                )
+        missing_networks = sorted(expected_networks - selected["networks"])
+        missing_geometries = sorted(required_geometries - selected["geometries"])
+        missing_artificial_gaps = sorted(
+            required_artificial_gaps
+            - selected["gaps_by_geometry"]["artificial_stress"]
+        )
+        if missing_networks:
+            blockers.append(
+                f"missing_required_networks:{','.join(map(str, missing_networks))}"
+            )
+        if missing_geometries:
+            blockers.append(
+                f"missing_required_geometries:{','.join(missing_geometries)}"
+            )
+        if missing_artificial_gaps:
+            blockers.append(
+                "missing_required_artificial_gaps:"
+                f"{','.join(map(str, missing_artificial_gaps))}"
+            )
+        if not selected["gaps_by_geometry"]["natural_outage"]:
+            blockers.append("no_pre_score_eligible_natural_gap")
         if not events:
             blockers.append("no_complete_events")
         lattice_ready[name] = not blockers
+
+        def sorted_roster(value: Mapping[str, Any]) -> dict[str, Any]:
+            return {
+                "networks": sorted(value["networks"]),
+                "geometries": sorted(value["geometries"]),
+                "gaps": sorted(value["gaps"]),
+                "gaps_by_geometry": {
+                    geometry: sorted(gaps)
+                    for geometry, gaps in value["gaps_by_geometry"].items()
+                },
+                "network_geometry_gap_strata": sorted(
+                    value["network_geometry_gap_strata"]
+                ),
+            }
+
+        selected_network_geometry_pairs = {
+            (event[1], event[3]) for event in events
+        }
+        candidate_network_geometry_pairs = {
+            (network, geometry)
+            for network, geometry, _gap in candidates[
+                "network_geometry_gap_strata"
+            ]
+        }
         census_lattices[name] = {
             "status": "ready"
             if not blockers
@@ -827,12 +1032,63 @@ def freeze_v4_analyzable_lattice(
             "blockers": blockers,
             "grid": [list(cell) for cell in grids[name]],
             "grid_sha256": _canonical_sha(grids[name]),
-            "fixed_roster": {key: sorted(value) for key, value in fixed.items()},
-            "observed_complete_roster": {
-                key: sorted(value) for key, value in observed.items()
+            "pre_score_roster_rule": (
+                "event_is_selected_iff_all_frozen_grid_cells_are_pre_score_complete_"
+                "and_the_train_only_predictor_key_is_present"
+            ),
+            "fixed_roster": sorted_roster(selected),
+            "pre_score_eligible_roster": sorted_roster(selected),
+            "design_candidate_roster": sorted_roster(candidates),
+            "coverage_gate": {
+                "required_networks": sorted(expected_networks),
+                "required_geometries": sorted(required_geometries),
+                "required_artificial_gaps": sorted(required_artificial_gaps),
+                "natural_gap_rule": "at_least_one_eligible_natural_gap_globally",
+                "network_geometry_gap_cross_product_required": False,
+                "network_coverage": {
+                    "required": len(expected_networks),
+                    "selected": len(selected["networks"]),
+                    "fraction": (
+                        len(selected["networks"] & expected_networks)
+                        / len(expected_networks)
+                        if expected_networks
+                        else 0.0
+                    ),
+                },
+                "geometry_coverage": {
+                    "required": len(required_geometries),
+                    "selected": len(selected["geometries"]),
+                    "fraction": (
+                        len(selected["geometries"] & required_geometries)
+                        / len(required_geometries)
+                    ),
+                },
+                "gap_coverage_by_geometry": {
+                    geometry: {
+                        "candidate": len(candidates["gaps_by_geometry"][geometry]),
+                        "selected": len(selected["gaps_by_geometry"][geometry]),
+                        "selected_values": sorted(
+                            selected["gaps_by_geometry"][geometry]
+                        ),
+                    }
+                    for geometry in FIXED_PRIMARY_GEOMETRIES
+                },
+                "network_geometry_pair_coverage": {
+                    "candidate": len(candidate_network_geometry_pairs),
+                    "selected": len(selected_network_geometry_pairs),
+                    "fraction": (
+                        len(selected_network_geometry_pairs)
+                        / len(candidate_network_geometry_pairs)
+                        if candidate_network_geometry_pairs
+                        else 0.0
+                    ),
+                },
             },
             "n_complete_events": len(events),
-            "minimum_rule": "at_least_one_complete_event_for_every_fixed_network_x_geometry_x_gap_stratum",
+            "minimum_rule": (
+                "all_required_networks_and_geometries_plus_all_declared_artificial_"
+                "gaps_and_at_least_one_natural_gap;no_global_natural_gap_cross_product"
+            ),
         }
     census = {
         "manifest_schema": FEASIBILITY_SCHEMA,
@@ -946,6 +1202,21 @@ def freeze_v4_analyzable_lattice(
             ]
         ),
     )
+    exclusion_sink = _ParquetSink(
+        output / "pre_score_exclusion_attrition.parquet",
+        pa.schema(
+            [
+                ("ordinal", pa.int64()),
+                ("item_id", pa.string()),
+                ("role", pa.string()),
+                ("network_id", pa.string()),
+                ("station_id", pa.string()),
+                ("lattice_name", pa.string()),
+                ("pre_score_status", pa.string()),
+                ("reason", pa.string()),
+            ]
+        ),
+    )
     predictor_sink = _ParquetSink(
         output / "operator_univariate_predictions.parquet", predictor_schema
     )
@@ -1028,6 +1299,19 @@ def freeze_v4_analyzable_lattice(
                     "final_reason": final_reason,
                 }
             )
+            if not included:
+                exclusion_sink.append(
+                    {
+                        "ordinal": int(raw["ordinal"]),
+                        "item_id": str(raw["item_id"]),
+                        "role": event[0],
+                        "network_id": event[1],
+                        "station_id": event[2],
+                        "lattice_name": lattice_name,
+                        "pre_score_status": str(audit["pre_score_status"]),
+                        "reason": final_reason,
+                    }
+                )
             if str(audit["pre_score_status"]) == "data_ineligible":
                 attrition_sink.append(
                     {
@@ -1092,9 +1376,16 @@ def freeze_v4_analyzable_lattice(
         lattice_records = {name: sink.close() for name, sink in sinks.items()}
         ledger_record = ledger_sink.close()
         attrition_record = attrition_sink.close()
+        exclusion_record = exclusion_sink.close()
         predictor_record = predictor_sink.close()
     except Exception:
-        for sink in [*sinks.values(), ledger_sink, attrition_sink, predictor_sink]:
+        for sink in [
+            *sinks.values(),
+            ledger_sink,
+            attrition_sink,
+            exclusion_sink,
+            predictor_sink,
+        ]:
             sink.abort()
         raise
 
@@ -1131,6 +1422,9 @@ def freeze_v4_analyzable_lattice(
     predictor_output_manifest = output / "operator_predictor_manifest.json"
     _create_once_json(predictor_output_manifest, predictor_manifest)
     base_record = lattice_records["base_primary"]
+    n_analyzable_networks = len(
+        {event[1] for event in eligible_events["base_primary"]}
+    )
     manifest = {
         "manifest_schema": LATTICE_FREEZE_SCHEMA,
         "status": (
@@ -1183,6 +1477,7 @@ def freeze_v4_analyzable_lattice(
             if key.startswith("sensitivity_")
         },
         "data_ineligible_attrition": attrition_record,
+        "pre_score_exclusion_attrition": exclusion_record,
         "operator_predictor_manifest": {
             "path": predictor_output_manifest.name,
             "sha256": _sha256_file(predictor_output_manifest),
@@ -1193,6 +1488,20 @@ def freeze_v4_analyzable_lattice(
         else 0,
         "n_analyzable_items": base_record["n_rows"],
         "n_data_ineligible_items": attrition_record["n_rows"],
+        "n_pre_score_excluded_items": exclusion_record["n_rows"],
+        "frozen_roster_may_shrink_after_scoring": False,
+        "execution_allowed": lattice_ready["base_primary"],
+        "network_inference_status": (
+            "eligible_for_network_interval_after_scoring"
+            if n_analyzable_networks >= NETWORK_INTERVAL_FLOOR
+            else "withheld_n_lt_100_network_interval"
+        ),
+        "network_interval_reported": False,
+        "evidence_blockers": (
+            []
+            if n_analyzable_networks >= NETWORK_INTERVAL_FLOOR
+            else ["n_analyzable_networks_lt_100"]
+        ),
         "selection_uses_outcomes": False,
         "v4_results_read": False,
         "achieved_skill_read": False,
@@ -1265,6 +1574,9 @@ def create_pre_score_freeze_bundle(
         _artifact_path(lattice_path, lattice["feasibility_census"]["path"])
     )
     ledger = bind(lattice_path, lattice["exhaustive_item_ledger"])
+    exclusion_attrition = bind(
+        lattice_path, lattice["pre_score_exclusion_attrition"]
+    )
     predictor_table = bind(lattice_path, lattice["operator_predictor_table"])
     predictor_manifest = bind(lattice_path, lattice["operator_predictor_manifest"])
     base_lattice = bind(lattice_path, lattice["analyzable_lattice"])
@@ -1305,6 +1617,7 @@ def create_pre_score_freeze_bundle(
         "eligibility_table": eligibility_table,
         "feasibility_census": census,
         "exhaustive_item_ledger": ledger,
+        "pre_score_exclusion_attrition": exclusion_attrition,
         "base_lattice_manifest": {
             "path": str(lattice_path.relative_to(output.parent)),
             "sha256": _sha256_file(lattice_path),
@@ -1321,6 +1634,7 @@ def create_pre_score_freeze_bundle(
             for key in sensitivities
         },
         "selection_uses_outcomes": False,
+        "frozen_roster_may_shrink_after_scoring": False,
         "v4_results_read": False,
         "achieved_skill_read": False,
         "sealed_paths_traversed": False,
