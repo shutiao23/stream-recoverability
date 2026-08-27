@@ -292,11 +292,50 @@ def _git(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
-def _git_binding(paths: Sequence[Path]) -> tuple[dict[str, Any], list[str]]:
+def _is_gitignored(relative: str) -> bool:
+    ignored = _git("check-ignore", "-q", "--", relative)
+    return ignored.returncode == 0
+
+
+def _local_sha256_bindings(
+    bindings: Mapping[str, str],
+) -> tuple[list[dict[str, str]], list[str]]:
+    """Verify oversized or gitignored artifacts by bound SHA-256 only."""
+
+    verified: list[dict[str, str]] = []
+    blockers: list[str] = []
+    for relative, expected in bindings.items():
+        if not isinstance(expected, str) or not _SHA256.match(expected):
+            blockers.append(f"local_artifact_binding_invalid:{relative}")
+            continue
+        artifact = REPOSITORY_ROOT / relative
+        if artifact.is_symlink() or not artifact.is_file():
+            blockers.append(f"local_artifact_missing:{relative}")
+            continue
+        observed = _sha256(artifact)
+        if observed != expected:
+            blockers.append(f"local_artifact_sha256_mismatch:{relative}")
+            continue
+        verified.append(
+            {
+                "path": relative,
+                "sha256": observed,
+                "binding_mode": "local_sha256_only",
+            }
+        )
+    return verified, blockers
+
+
+def _git_binding(
+    paths: Sequence[Path],
+    *,
+    local_sha256_bindings: Mapping[str, str] | None = None,
+) -> tuple[dict[str, Any], list[str]]:
     head_result = _git("rev-parse", "HEAD")
     head = head_result.stdout.strip() if head_result.returncode == 0 else ""
     blockers: list[str] = []
     bindings: list[dict[str, str]] = []
+    local_bindings_input = dict(local_sha256_bindings or {})
     relative_paths = list(PROTECTED_IMPLEMENTATION_PATHS)
     for path in paths:
         try:
@@ -304,6 +343,8 @@ def _git_binding(paths: Sequence[Path]) -> tuple[dict[str, Any], list[str]]:
         except ValueError:
             blockers.append(f"required_input_outside_repository:{path}")
     for relative in dict.fromkeys(relative_paths):
+        if relative in local_bindings_input:
+            continue
         tracked = _git("ls-files", "--error-unmatch", "--", relative)
         if tracked.returncode != 0:
             blockers.append(f"required_path_not_committed:{relative}")
@@ -324,11 +365,14 @@ def _git_binding(paths: Sequence[Path]) -> tuple[dict[str, Any], list[str]]:
                 "worktree_blob": worktree_blob,
             }
         )
+    local_bindings, local_blockers = _local_sha256_bindings(local_bindings_input)
+    blockers.extend(local_blockers)
     if not head:
         blockers.append("git_head_unavailable")
     return {
         "head_commit": head or None,
         "required_paths": bindings,
+        "local_artifact_paths": local_bindings,
         "all_required_paths_committed_unchanged": not blockers,
     }, blockers
 
@@ -674,7 +718,7 @@ def build_model_freeze_readiness(
         ) != bindings["pre_score_freeze_manifest"]["sha256"]:
             blockers.append("final_v4_workload_pre_score_binding_mismatch")
 
-    recursive_paths: list[Path] = []
+    recursive_artifacts: list[tuple[Path, str]] = []
     if aggregation is not None:
         required = {
             "manifest_schema": "t2_v91_result_aggregation_v4",
@@ -709,7 +753,7 @@ def build_model_freeze_readiness(
         ):
             blockers.append("open_aggregation_merged_results_binding_invalid")
         else:
-            recursive_paths.append(merged)
+            recursive_artifacts.append((merged, str(merged_record.get("sha256"))))
 
     if post_t2 is not None:
         required = {
@@ -743,7 +787,7 @@ def build_model_freeze_readiness(
             ):
                 blockers.append(f"post_t2_bound_artifact_invalid:{record_label}")
             else:
-                recursive_paths.append(artifact)
+                recursive_artifacts.append((artifact, str(record.get("sha256"))))
 
     if predictor is not None:
         required = {
@@ -770,7 +814,9 @@ def build_model_freeze_readiness(
         ):
             blockers.append("operator_predictor_table_binding_invalid")
         else:
-            recursive_paths.append(prediction_path)
+            recursive_artifacts.append(
+                (prediction_path, str(predictor.get("predictions_sha256")))
+            )
     if pre_score is not None and predictor is not None:
         predictor_record = pre_score.get("predictor_manifest")
         if not isinstance(predictor_record, Mapping) or predictor_record.get(
@@ -806,8 +852,17 @@ def build_model_freeze_readiness(
         else:
             frozen_models = list(selected)
 
-    git_paths = [Path(design_path), *paths.values(), *recursive_paths]
-    git_binding, git_blockers = _git_binding(git_paths)
+    git_paths = [Path(design_path), *paths.values()]
+    local_sha256_bindings: dict[str, str] = {}
+    for artifact_path, expected_sha in recursive_artifacts:
+        relative = artifact_path.resolve().relative_to(REPOSITORY_ROOT).as_posix()
+        if _is_gitignored(relative):
+            local_sha256_bindings[relative] = expected_sha
+        else:
+            git_paths.append(artifact_path)
+    git_binding, git_blockers = _git_binding(
+        git_paths, local_sha256_bindings=local_sha256_bindings
+    )
     blockers.extend(git_blockers)
     head = git_binding.get("head_commit")
     candidate = None
@@ -908,6 +963,18 @@ def create_model_freeze_manifest(
         ):
             raise SealedReadinessError(
                 f"model-freeze input changed after readiness: {relative}"
+            )
+    for binding in git_binding.get("local_artifact_paths") or []:
+        if not isinstance(binding, Mapping):
+            raise SealedReadinessError("invalid model-freeze local artifact binding")
+        relative = binding.get("path")
+        expected = binding.get("sha256")
+        if not isinstance(relative, str) or not isinstance(expected, str):
+            raise SealedReadinessError("invalid model-freeze local artifact identity")
+        artifact = REPOSITORY_ROOT / relative
+        if artifact.is_symlink() or not artifact.is_file() or _sha256(artifact) != expected:
+            raise SealedReadinessError(
+                f"model-freeze local artifact changed after readiness: {relative}"
             )
     payload = (json.dumps(dict(candidate), indent=2, sort_keys=True) + "\n").encode(
         "utf-8"

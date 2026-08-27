@@ -75,15 +75,15 @@ def _ready(
     }
 
 
-def test_repository_audit_is_blocked_without_model_and_complete_aggregation() -> None:
+def test_repository_audit_is_blocked_without_model_freeze() -> None:
     manifest = build_readiness_manifest()
     assert manifest["status"] == "blocked"
     assert manifest["ready_for_unseal"] is False
     assert manifest["sealed_outcomes_opened"] is False
     assert manifest["sealed_objects_opened_or_statted_by_audit"] is False
     assert "sealed_model_freeze_manifest_missing" in manifest["blockers"]
-    assert "t2_primary_aggregation_not_ready" in manifest["blockers"]
-    assert "post_t2_input_binding_missing" in manifest["blockers"]
+    assert manifest["aggregation_contract"]["status"] == "complete"
+    assert manifest["post_t2_input_binding_contract"]["status"] == "complete"
     inventory = manifest["sealed_registry_inventory"]
     assert inventory["north_america_huc8"]["n_networks"] == 44
     assert inventory["north_america_huc8"]["n_objects"] == 228
@@ -94,24 +94,19 @@ def test_repository_audit_is_blocked_without_model_and_complete_aggregation() ->
     )
 
 
-def test_model_freeze_readiness_blocks_without_formal_v4_results() -> None:
+def test_model_freeze_readiness_binds_gitignored_item_results_by_sha256() -> None:
     manifest = build_model_freeze_readiness()
     assert manifest["manifest_schema"] == MODEL_FREEZE_READINESS_SCHEMA
-    assert manifest["status"] == "blocked"
-    assert manifest["ready_to_create_model_freeze"] is False
-    assert manifest["model_selection_complete"] is False
+    assert manifest["model_selection_complete"] is True
     assert manifest["postfreeze_retuning"] is False
     assert manifest["sealed_outcomes_opened"] is False
-    assert "model_freeze_input_missing:workload_manifest" in manifest["blockers"]
-    assert (
-        "model_freeze_input_missing:open_aggregation_manifest"
-        in manifest["blockers"]
+    local_paths = manifest["git_commit_before_model_freeze"]["local_artifact_paths"]
+    assert any(
+        row["path"].endswith("aggregation_v3/item_results.parquet")
+        and row["binding_mode"] == "local_sha256_only"
+        for row in local_paths
     )
-    assert (
-        "model_freeze_input_missing:post_t2_input_binding"
-        in manifest["blockers"]
-    )
-    assert "model_freeze_input_missing:model_roster" in manifest["blockers"]
+    assert "required_path_not_committed:results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet" not in manifest["blockers"]
 
 
 def test_model_freeze_cannot_be_created_from_blocked_readiness(
