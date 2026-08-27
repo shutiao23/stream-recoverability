@@ -38,11 +38,11 @@ CLAIM_ACKNOWLEDGEMENT = "claim-once-before-any-sealed-read"
 DEFAULT_DESIGN = REPOSITORY_ROOT / "configs/design_freeze_v9.yaml"
 DEFAULT_AGGREGATION = (
     REPOSITORY_ROOT
-    / "results/framework/t2_recovery_benchmark_v4/aggregation/aggregation_manifest.json"
+    / "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json"
 )
 DEFAULT_V4_WORKLOAD = (
     REPOSITORY_ROOT
-    / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json"
+    / "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json"
 )
 DEFAULT_PRE_SCORE_FREEZE = (
     REPOSITORY_ROOT

@@ -95,7 +95,38 @@ def test_inspected_twin_e_rows_cannot_pass_the_formal_gate() -> None:
     assert set(result["univariates"]["predictor"]) == set(UNIVARIATE_PREDICTORS)
 
 
-def test_formal_gate_labels_an_isolated_calibration_miss() -> None:
+def test_twin_e_negative_result_writer_reads_failed_holdout_manifest(tmp_path) -> None:
+    holdout = tmp_path / "twin_e_holdout_manifest.json"
+    holdout.write_text(
+        """
+{
+  "experiment": "E5_twin_e_locked_holdout",
+  "protocol_amendment": "v9.1",
+  "cell": "E",
+  "estimand": "analytic_truth_vs_finite_training_hat_sigma_operator",
+  "lock_path": "configs/twin_e_holdout_freeze_v1.yaml",
+  "lock_commit": "abc123",
+  "gate": {
+    "passed": false,
+    "status": "twin_e_operator_calibration_miss",
+    "generator_retuned_to_save_gate": false,
+    "operator_spearman": 0.936,
+    "operator_calibration_slope": 0.76
+  }
+}
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    record = twin_e_module.write_twin_e_holdout_negative_result(
+        holdout_manifest_path=holdout,
+    )
+    assert record["publishable_negative_result"] is True
+    assert record["passed"] is False
+    assert record["generator_retuning_allowed"] is False
+    assert (tmp_path / "twin_e_holdout_negative_result.json").is_file()
+
+
     truth = np.linspace(0.1, 0.9, 24)
     rng = np.random.default_rng(1701)
     frame = pd.DataFrame(

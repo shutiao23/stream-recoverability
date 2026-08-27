@@ -29,6 +29,7 @@ from stream_recoverability.experiments.public_river_operator_ablation import (
 
 SOURCE = ROOT / "results/framework/public_rivers"
 OUTPUT = SOURCE / "w2_phase4_gap_specific"
+GAP_LENGTHS = (30, 90, 180)
 
 
 def main() -> None:
@@ -48,6 +49,7 @@ def main() -> None:
     result = run_public_river_operator_ablation(
         selected,
         primary_networks=list(W2_PRIMARY_NETWORKS),
+        gap_lengths=GAP_LENGTHS,
         achieved_skill_mode=ACHIEVED_SKILL_GAP_SPECIFIC,
     )
     if missing_files:
@@ -75,7 +77,7 @@ def main() -> None:
     if manifest.get("pipeline_gap_length_delta_r2_nonzero") is not True:
         gate_failures.append("pooled gap_length delta R2 is zero or undefined")
     if manifest.get("pipeline_gap_rows_differ") is not True:
-        gate_failures.append("30-day and 90-day gap outcomes are still identical")
+        gate_failures.append("gap-length outcomes are still identical across lengths")
     if manifest.get("passed") is not False or manifest.get("purpose") != W2_PURPOSE:
         gate_failures.append("manifest evidence status is not the locked W2 status")
     inference = (manifest.get("evaluate_success") or {}).get(

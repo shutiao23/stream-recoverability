@@ -866,6 +866,76 @@ def write_locked_twin_e_holdout_artifacts(
     }
 
 
+NEGATIVE_RESULT_SCHEMA = "twin_e_holdout_negative_result_v1"
+NEGATIVE_RESULT_STATUSES = frozenset(
+    {
+        "twin_e_operator_calibration_miss",
+        "twin_e_operator_spearman_miss",
+        "twin_e_univariate_ceiling_breach",
+    }
+)
+
+
+def write_twin_e_holdout_negative_result(
+    *,
+    holdout_manifest_path: Path,
+    output_path: Path | None = None,
+) -> dict[str, Any]:
+    """Record a publishable negative from a failed, unscored hold-out gate.
+
+    Retuning φ, noise, or the generator is never licensed by this writer.
+    """
+
+    holdout_manifest_path = Path(holdout_manifest_path)
+    payload = json.loads(holdout_manifest_path.read_text(encoding="utf-8"))
+    gate = dict(payload.get("gate", {}))
+    if bool(gate.get("passed")):
+        raise ValueError("negative result writer requires a failed hold-out gate")
+    status = str(gate.get("status", ""))
+    if status not in NEGATIVE_RESULT_STATUSES:
+        raise ValueError(f"unexpected hold-out status for negative result: {status!r}")
+    if bool(gate.get("generator_retuned_to_save_gate")):
+        raise ValueError("generator retuning invalidates a publishable negative result")
+    record = {
+        "manifest_schema": NEGATIVE_RESULT_SCHEMA,
+        "experiment": payload.get("experiment", "E5_twin_e_locked_holdout"),
+        "protocol_amendment": payload.get("protocol_amendment", "v9.1"),
+        "cell": payload.get("cell", "E"),
+        "formal_evidence": False,
+        "headline_claim_licensed": False,
+        "confirmatory_eligible": False,
+        "publishable_negative_result": True,
+        "negative_result_locked": True,
+        "generator_retuning_allowed": False,
+        "phi_or_noise_retuning_allowed": False,
+        "purpose": "synthetic_falsification_negative_result_not_evidence",
+        "estimand": payload.get(
+            "estimand", "analytic_truth_vs_finite_training_hat_sigma_operator"
+        ),
+        "holdout_manifest": str(holdout_manifest_path),
+        "lock_path": payload.get("lock_path"),
+        "lock_commit": payload.get("lock_commit") or gate.get("lock_commit"),
+        "gate_status": status,
+        "gate": gate,
+        "interpretation": (
+            "Locked Twin E hold-out failed without generator retuning. "
+            "This is a design falsification record, not confirmatory T2 or T5."
+        ),
+        "passed": False,
+    }
+    destination = (
+        Path(output_path)
+        if output_path is not None
+        else holdout_manifest_path.with_name("twin_e_holdout_negative_result.json")
+    )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    record["output_path"] = str(destination)
+    return record
+
+
 __all__ = [
     "CALIBRATION_SLOPE_RANGE",
     "GAP_LENGTHS",
@@ -885,4 +955,5 @@ __all__ = [
     "validate_temporal_twin_e_pair",
     "write_locked_twin_e_holdout_artifacts",
     "write_twin_e_artifacts",
+    "write_twin_e_holdout_negative_result",
 ]

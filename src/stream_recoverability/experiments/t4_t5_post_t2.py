@@ -423,6 +423,14 @@ def validate_v4_primary_inputs(
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
     }
+    development_binding = binding.get("purpose") == "development_binding_not_confirmatory"
+    if development_binding:
+        if binding.get("development_exclude_data_ineligible") is not True:
+            raise PostT2ContractError(
+                "development binding must exclude scored data_ineligible lattice rows"
+            )
+        required_binding["primary_table_complete_for_all_complete_items"] = False
+        required_binding["primary_table_derived_without_row_selection"] = False
     for key, expected in required_binding.items():
         if binding.get(key) != expected:
             raise PostT2ContractError(f"post-T2 binding mismatch for {key}")
@@ -595,6 +603,22 @@ def validate_v4_primary_inputs(
             raise PostT2ContractError(
                 "complete-item outcome-blind attrition is not exhaustive"
             )
+    elif primary_scope == "frozen_analyzable_lattice_minus_data_ineligible":
+        lattice_ids = set(lattice["item_id"].astype(str))
+        excluded_record = binding.get("lattice_data_ineligible_excluded")
+        if not isinstance(excluded_record, Mapping):
+            raise PostT2ContractError(
+                "development binding omits lattice data_ineligible exclusions"
+            )
+        _, excluded = _validate_artifact(
+            binding_file,
+            excluded_record,
+            name="lattice data_ineligible exclusions",
+        )
+        lattice_ids -= set(excluded["item_id"].astype(str))
+        scoped_complete = complete.loc[
+            complete["item_id"].astype(str).isin(lattice_ids)
+        ].copy()
     elif primary_scope == "all_complete_items":
         scoped_complete = complete
     else:
@@ -637,6 +661,13 @@ def validate_v4_primary_inputs(
     missing = sorted(lattice_required.difference(lattice.columns))
     if missing:
         raise PostT2ContractError(f"analyzable lattice omits columns: {missing}")
+    if primary_scope in (
+        "frozen_analyzable_lattice",
+        "frozen_analyzable_lattice_minus_data_ineligible",
+    ):
+        lattice = lattice.loc[
+            lattice["item_id"].astype(str).isin(lattice_ids)
+        ].copy()
     if lattice["item_id"].astype(str).duplicated().any():
         raise PostT2ContractError("analyzable lattice item IDs are not unique")
     weight = pd.to_numeric(lattice["analysis_weight"], errors="coerce")
@@ -660,13 +691,14 @@ def validate_v4_primary_inputs(
     if attrition["item_id"].astype(str).duplicated().any():
         raise PostT2ContractError("data-ineligible attrition item IDs are not unique")
     data_ineligible = items.loc[statuses.eq("data_ineligible")]
-    if set(attrition["item_id"].astype(str)) != set(
-        data_ineligible["item_id"].astype(str)
-    ):
-        raise PostT2ContractError("data-ineligible attrition is not complete")
+    if not development_binding:
+        if set(attrition["item_id"].astype(str)) != set(
+            data_ineligible["item_id"].astype(str)
+        ):
+            raise PostT2ContractError("data-ineligible attrition is not complete")
     if attrition["reason"].fillna("").astype(str).str.strip().eq("").any():
         raise PostT2ContractError("data-ineligible attrition contains a blank reason")
-    if not attrition.empty:
+    if not development_binding and not attrition.empty:
         attrition_identity = attrition[["item_id", "role", "network_id"]].copy()
         expected_attrition_identity = data_ineligible[
             ["item_id", "role", "network_id"]
@@ -685,6 +717,13 @@ def validate_v4_primary_inputs(
     normalized_predictor_keys = _normalized_identity(predictors, OPERATOR_JOIN_KEYS)
     if normalized_predictor_keys.duplicated().any():
         raise PostT2ContractError("operator predictor join keys are not unique")
+    if primary_scope in (
+        "frozen_analyzable_lattice",
+        "frozen_analyzable_lattice_minus_data_ineligible",
+    ):
+        predictors = predictors.loc[
+            predictors["item_id"].astype(str).isin(lattice["item_id"].astype(str))
+        ].copy()
     _assert_same_identities(
         lattice,
         predictors,

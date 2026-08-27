@@ -1724,8 +1724,14 @@ def bind_complete_v4_primary_results(
     item_results_path: str | Path | None = None,
     lattice_freeze_manifest_path: str | Path,
     output_dir: str | Path,
+    development_exclude_data_ineligible: bool = False,
 ) -> dict[str, Any]:
-    """Bind complete result bytes to the already-frozen lattice without selection."""
+    """Bind complete result bytes to the already-frozen lattice without selection.
+
+    When ``development_exclude_data_ineligible`` is true, lattice rows whose
+    scored status is ``data_ineligible`` are dropped from the primary-y table.
+    This is for development/T4-T5 plumbing only and is not confirmatory T2.
+    """
 
     workload_path = Path(workload_manifest_path).resolve()
     aggregation_path = Path(aggregation_manifest_path).resolve()
@@ -1873,8 +1879,36 @@ def bind_complete_v4_primary_results(
     lattice = pd.read_parquet(lattice_path)
     lattice_ids = set(lattice["item_id"].astype(str))
     selected = results.loc[results["item_id"].astype(str).isin(lattice_ids)].copy()
-    if len(selected) != len(lattice) or not selected["status"].eq("complete").all():
-        raise PrimaryAggregationBlocked("a frozen analyzable item did not complete")
+    excluded_data_ineligible = pd.DataFrame(
+        columns=["item_id", "role", "network_id", "reason"]
+    )
+    if development_exclude_data_ineligible:
+        ineligible = selected.loc[selected["status"].astype(str).eq("data_ineligible")]
+        if not ineligible.empty:
+            excluded_data_ineligible = ineligible[
+                ["item_id", "role", "network_id"]
+            ].copy()
+            excluded_data_ineligible["reason"] = "data_ineligible_at_scoring"
+            lattice = lattice.loc[
+                ~lattice["item_id"].astype(str).isin(
+                    set(excluded_data_ineligible["item_id"].astype(str))
+                )
+            ].copy()
+            lattice_ids = set(lattice["item_id"].astype(str))
+            selected = results.loc[results["item_id"].astype(str).isin(lattice_ids)].copy()
+    n_missing = len(lattice_ids) - int(selected["item_id"].astype(str).nunique())
+    n_not_complete = int((~selected["status"].astype(str).eq("complete")).sum())
+    if (
+        len(selected) != len(lattice)
+        or n_missing
+        or n_not_complete
+        or not selected["status"].eq("complete").all()
+    ):
+        raise PrimaryAggregationBlocked(
+            "a frozen analyzable item did not complete: "
+            f"lattice_rows={len(lattice)} selected_rows={len(selected)} "
+            f"missing_ids={n_missing} not_complete={n_not_complete}"
+        )
     primary = selected.rename(
         columns={
             "target_station": "station_id",
@@ -1902,11 +1936,26 @@ def bind_complete_v4_primary_results(
     complete_excluded["reason"] = "outside_outcome_blind_frozen_common_lattice"
     excluded_path = output / "complete_item_outcome_blind_attrition.parquet"
     _create_once_table(excluded_path, complete_excluded)
+    lattice_ineligible_excluded_path = (
+        output / "lattice_data_ineligible_excluded.parquet"
+    )
+    if not excluded_data_ineligible.empty:
+        _create_once_table(lattice_ineligible_excluded_path, excluded_data_ineligible)
     binding = {
         "manifest_schema": INPUT_BINDING_SCHEMA,
         "status": "complete",
         "completeness": "complete",
         "formal_result_generated": True,
+        "development_exclude_data_ineligible": bool(
+            development_exclude_data_ineligible
+        ),
+        "purpose": (
+            "development_binding_not_confirmatory"
+            if development_exclude_data_ineligible
+            else "primary_y_binding"
+        ),
+        "formal_evidence": False,
+        "n_lattice_rows_excluded_data_ineligible": int(len(excluded_data_ineligible)),
         "workload_manifest_sha256": _sha256_file(workload_path),
         "runner_contract_version": V4_RUNNER_CONTRACT_VERSION,
         "expected_item_records": n_items,
@@ -1919,7 +1968,9 @@ def bind_complete_v4_primary_results(
         "primary_complete_item_scope": "frozen_analyzable_lattice",
         "complete_item_outcome_blind_attrition_complete": True,
         "item_records_validated_against_frozen_v4_stream": True,
-        "primary_table_derived_without_row_selection": True,
+        "primary_table_derived_without_row_selection": not bool(
+            development_exclude_data_ineligible
+        ),
         "analyzable_lattice_frozen_before_result_scoring": True,
         "analyzable_lattice_selection_uses_outcomes": False,
         "common_grid_complete": True,
@@ -1954,6 +2005,17 @@ def bind_complete_v4_primary_results(
         "sealed_paths_traversed": False,
         "sealed_temperature_records_read": False,
     }
+    if not excluded_data_ineligible.empty:
+        binding["lattice_data_ineligible_excluded"] = {
+            "path": lattice_ineligible_excluded_path.name,
+            "format": "parquet",
+            "sha256": _sha256_file(lattice_ineligible_excluded_path),
+            "n_rows": int(len(excluded_data_ineligible)),
+        }
+        binding["primary_table_complete_for_all_complete_items"] = False
+        binding["primary_complete_item_scope"] = (
+            "frozen_analyzable_lattice_minus_data_ineligible"
+        )
     _create_once_json(output / "post_t2_input_binding.json", binding)
     return binding
 

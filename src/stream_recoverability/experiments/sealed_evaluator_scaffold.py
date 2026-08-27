@@ -68,7 +68,7 @@ DEFAULT_MODEL_FREEZE = (
 )
 DEFAULT_V4_WORKLOAD = (
     REPOSITORY_ROOT
-    / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json"
+    / "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json"
 )
 DEFAULT_V4_RESULT_BINDING = (
     REPOSITORY_ROOT

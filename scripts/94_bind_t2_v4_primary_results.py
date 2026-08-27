@@ -44,6 +44,11 @@ def _arguments() -> argparse.Namespace:
         default=DEFAULT_RUN / "primary_aggregation_v2",
         help="writes post_t2_input_binding.json next to the frozen lattice",
     )
+    parser.add_argument(
+        "--development-exclude-data-ineligible",
+        action="store_true",
+        help="drop lattice rows scored data_ineligible; not confirmatory T2",
+    )
     return parser.parse_args()
 
 
@@ -54,6 +59,9 @@ def main() -> None:
         aggregation_manifest_path=args.aggregation,
         lattice_freeze_manifest_path=args.lattice_freeze,
         output_dir=args.output,
+        development_exclude_data_ineligible=bool(
+            args.development_exclude_data_ineligible
+        ),
     )
     print(json.dumps(binding, indent=2, sort_keys=True))
 
