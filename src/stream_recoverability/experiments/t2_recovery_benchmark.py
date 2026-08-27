@@ -1040,6 +1040,16 @@ def execute_item(
                     climate_prediction.copy(),
                     climate_mae,
                 )
+        if not np.isfinite(climate_mae) or climate_mae <= 0.0:
+            return {
+                **base,
+                "status": "data_ineligible",
+                "workload_category": "data_ineligible",
+                "reason": "undefined_skill_nonpositive_climatology_mae",
+                "runtime_seconds": float(perf_counter() - began),
+                "formal_evidence": False,
+                "sealed_temperature_records_read": False,
+            }
         if item.model == "climatology":
             prediction = climate_prediction
             implementation = "training_doy_climatology"

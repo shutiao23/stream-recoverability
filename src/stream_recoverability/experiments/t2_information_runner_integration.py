@@ -730,6 +730,14 @@ def execute_materialized_information_item(
     )
     climate = climatology.predict(panel, dates=panel.index).iloc[start:stop]
     climate_mae = float(np.mean(np.abs(climate.to_numpy(dtype=float) - truth)))
+    if not np.isfinite(climate_mae) or climate_mae <= 0.0:
+        return {
+            **base,
+            "status": "data_ineligible",
+            "workload_category": "data_ineligible",
+            "reason": "undefined_skill_nonpositive_climatology_mae",
+            "runtime_seconds": float(perf_counter() - began),
+        }
     feature_names = [
         *preparation.donor_columns,
         preparation.boundary_feature,

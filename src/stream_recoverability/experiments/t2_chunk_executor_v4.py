@@ -595,6 +595,7 @@ def execute_t2_v4_chunk(
         "headline_claim_licensed": False,
         "execution_cache": dict(base_cache.stats()),
     }
+    _validate_results(frame, manifest=manifest, start=start, end=end)
     output.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{chunk_dir.name}.", dir=output))
     try:

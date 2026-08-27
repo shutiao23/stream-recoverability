@@ -354,6 +354,40 @@ def test_real_open_extended_climatology_is_three_explicit_v4_references(
     assert cache.stats()["fit_cache_hits_by_model"] == {}
 
 
+def test_zero_climatology_denominator_is_terminal_data_attrition() -> None:
+    network = _network("huc8_04060102")
+    item = WorkItem(
+        ordinal=522921,
+        item_id="zero-climatology-denominator-regression",
+        network_id=network.network_id,
+        role=network.role,
+        source_key=network.source_key,
+        target_station="04121944",
+        model="pchip_or_linear",
+        gap_length=7,
+        placement=4,
+        start_index=8776,
+        information_condition="B",
+        task="offline_archival",
+        geometry="artificial_stress",
+        boundary_mode="both",
+    )
+
+    result = execute_item(ROOT, network, item)
+
+    assert result["status"] == "data_ineligible"
+    assert result["workload_category"] == "data_ineligible"
+    assert result["reason"] == "undefined_skill_nonpositive_climatology_mae"
+    for column in (
+        "mae_deg_c",
+        "climatology_mae_deg_c",
+        "achieved_skill",
+        "n_scored",
+        "prediction_sha256",
+    ):
+        assert column not in result
+
+
 def test_v4_chunk_refuses_incomplete_auxiliary_before_creating_output(
     tmp_path: Path, monkeypatch
 ) -> None:

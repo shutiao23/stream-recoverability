@@ -1247,6 +1247,14 @@ def _execute_extended_climatology_reference(
         if not valid.any():
             return {**base, "status": "failed", "reason": "no_finite_gap_predictions"}
         mae = float(np.mean(np.abs(predicted[valid] - truth[valid])))
+        if not np.isfinite(mae) or mae <= 0.0:
+            return {
+                **base,
+                "status": "data_ineligible",
+                "workload_category": "data_ineligible",
+                "reason": "undefined_skill_nonpositive_climatology_mae",
+                "runtime_seconds": float(perf_counter() - began),
+            }
         return {
             **base,
             "status": "reference_complete",
