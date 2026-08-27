@@ -11,6 +11,7 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -38,6 +39,13 @@ def _normalize_merge_frame(frame: pd.DataFrame) -> pd.DataFrame:
         return frame
     normalized = frame.copy()
 
+    def json_default(value: Any) -> Any:
+        if isinstance(value, np.ndarray):
+            return value.tolist()
+        if isinstance(value, np.generic):
+            return value.item()
+        raise TypeError(f"unsupported nested audit type: {type(value).__name__}")
+
     def encode(value: Any) -> str | None:
         if isinstance(value, Mapping):
             return json.dumps(
@@ -45,6 +53,7 @@ def _normalize_merge_frame(frame: pd.DataFrame) -> pd.DataFrame:
                 sort_keys=True,
                 separators=(",", ":"),
                 allow_nan=False,
+                default=json_default,
             )
         if value is None or (isinstance(value, float) and pd.isna(value)):
             return None

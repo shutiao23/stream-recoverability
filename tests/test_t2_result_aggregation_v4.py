@@ -5,6 +5,7 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -34,7 +35,11 @@ def test_merge_normalization_serializes_dynamic_audit_structs_losslessly() -> No
         {"information_audit": [{"station_a": {"F": 1.0}}, None]}
     )
     second = pd.DataFrame(
-        {"information_audit": [{"station_b": {"L": None}}]}
+        {
+            "information_audit": [
+                {"station_b": {"L": None, "roster": np.array(["F", "L"])}}
+            ]
+        }
     )
 
     left = aggregation._normalize_merge_frame(first)
@@ -46,7 +51,7 @@ def test_merge_normalization_serializes_dynamic_audit_structs_losslessly() -> No
     }
     assert pd.isna(left.loc[1, "information_audit"])
     assert json.loads(right.loc[0, "information_audit"]) == {
-        "station_b": {"L": None}
+        "station_b": {"L": None, "roster": ["F", "L"]}
     }
 
 
