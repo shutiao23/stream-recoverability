@@ -1,0 +1,6 @@
+model,added,r2,delta_r2
+gap_length_only,gap_length_only,0.059997440578023364,0.059997440578023364
+gap_length_only+acf_only,acf_only,0.0624070777631317,0.0024096371851083376
+gap_length_only+acf_only+donor_r2_only,donor_r2_only,0.08637694294348985,0.023969865180358152
+gap_length_only+acf_only+donor_r2_only+additive_d_over_4_heuristic,additive_d_over_4_heuristic,0.08699948860593487,0.0006225456624450176
+gap_length_only+acf_only+donor_r2_only+additive_d_over_4_heuristic+predicted_conditional_risk,predicted_conditional_risk,0.10608378809021679,0.01908429948428192

@@ -33,34 +33,21 @@
     "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0112000_0115500/manifest.json",
     "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0115500_0119000/manifest.json",
     "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0119000_0122500/manifest.json",
-    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0122500_0126000/manifest.json"
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0122500_0126000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0126000_0129500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0129500_0133000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0133000_0136500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0136500_0140000/manifest.json"
   ],
-  "completed_chunk_count": 33,
+  "completed_chunk_count": 37,
   "expected_workload_item_count": 1384025,
   "formal_evidence": false,
   "manifest_schema": "t2_batch_aggregation_manifest_list_v1",
-  "missing_ordinal_ranges": [
-    [
-      126000,
-      129500
-    ],
-    [
-      129500,
-      133000
-    ],
-    [
-      133000,
-      136500
-    ],
-    [
-      136500,
-      140000
-    ]
-  ],
+  "missing_ordinal_ranges": [],
   "passed": false,
   "planned_chunk_count": 37,
   "purpose": "aggregation_input_custody_not_evidence",
-  "ready_for_aggregation": false,
+  "ready_for_aggregation": true,
   "sealed_temperature_records_read": false,
   "workload_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
   "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"

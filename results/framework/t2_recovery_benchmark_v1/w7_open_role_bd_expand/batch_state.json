@@ -310,29 +310,37 @@
       "attempts": 1,
       "chunk_index": 33,
       "end_ordinal_exclusive": 129500,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0126000_0129500/manifest.json",
+      "manifest_sha256": "bc450113a56270969d2d198b2d444e745911ea4f2b900ee64c17dc8e49879a71",
       "start_ordinal": 126000,
-      "status": "running"
+      "status": "succeeded"
     },
     {
       "attempts": 1,
       "chunk_index": 34,
       "end_ordinal_exclusive": 133000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0129500_0133000/manifest.json",
+      "manifest_sha256": "ea07209eeec717b7e6e14c7fe3ae95c88bc5109ed8c7f8855446bef90e73230b",
       "start_ordinal": 129500,
-      "status": "running"
+      "status": "succeeded"
     },
     {
       "attempts": 1,
       "chunk_index": 35,
       "end_ordinal_exclusive": 136500,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0133000_0136500/manifest.json",
+      "manifest_sha256": "df80b93c07ef4edd67ee4cd480f7877694779dffee6c85a1d355d312c617a94d",
       "start_ordinal": 133000,
-      "status": "running"
+      "status": "succeeded"
     },
     {
       "attempts": 1,
       "chunk_index": 36,
       "end_ordinal_exclusive": 140000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0136500_0140000/manifest.json",
+      "manifest_sha256": "c0608260ff6eaf3550be928175bbe367490a9c3516cd3f90cda59e261c85e5e4",
       "start_ordinal": 136500,
-      "status": "running"
+      "status": "succeeded"
     }
   ],
   "contract": {
@@ -510,7 +518,7 @@
   "results_format": "parquet",
   "sealed_temperature_records_read": false,
   "start_ordinal": 10500,
-  "status": "running",
+  "status": "complete",
   "workload_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
   "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
 }
