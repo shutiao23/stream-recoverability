@@ -108,6 +108,45 @@ def _read_table(path: Path, format_name: str) -> pd.DataFrame:
     raise W7SliceContractError(f"unsupported table format: {format_name}")
 
 
+def collect_w7_chunk_manifest_paths(
+    *,
+    chunk_manifest_paths: Sequence[str | Path] = (),
+    aggregation_list_paths: Sequence[str | Path] = (),
+    default_aggregation_list: str | Path | None = None,
+) -> list[Path]:
+    """Union chunk manifests from batch lists. Does not execute work."""
+
+    lists = [Path(path) for path in aggregation_list_paths]
+    chunks = [Path(path) for path in chunk_manifest_paths]
+    if not chunks and not lists:
+        if default_aggregation_list is None:
+            return []
+        lists = [Path(default_aggregation_list)]
+    collected: list[Path] = []
+    seen: set[str] = set()
+
+    def _add(path: Path) -> None:
+        key = str(path)
+        if key in seen:
+            return
+        seen.add(key)
+        collected.append(path)
+
+    for listing_path in lists:
+        if not listing_path.is_file():
+            raise W7SliceContractError(f"aggregation list missing: {listing_path}")
+        listing = json.loads(listing_path.read_text(encoding="utf-8"))
+        if not isinstance(listing, Mapping):
+            raise W7SliceContractError(
+                f"aggregation list is not a mapping: {listing_path}"
+            )
+        for value in listing.get("chunk_manifest_paths") or []:
+            _add(Path(str(value)))
+    for path in chunks:
+        _add(path)
+    return collected
+
+
 def load_w7_chunk_results(
     chunk_manifest_paths: Sequence[str | Path],
     *,
@@ -486,6 +525,7 @@ __all__ = [
     "W7SliceContractError",
     "W8_INCREMENTAL_R2_TRIGGER",
     "aggregate_w7_open_role_bd_slice_from_chunks",
+    "collect_w7_chunk_manifest_paths",
     "development_inference_status",
     "load_w7_chunk_results",
     "write_w7_open_role_bd_slice",

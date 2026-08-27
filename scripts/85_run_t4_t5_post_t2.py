@@ -5,11 +5,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
-from stream_recoverability.experiments.t4_t5_post_t2 import run_post_t2_analysis
-
 ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from stream_recoverability.experiments.t4_t5_post_t2 import run_post_t2_analysis
 
 
 def main() -> None:

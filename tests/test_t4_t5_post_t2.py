@@ -447,6 +447,51 @@ def test_current_repo_writes_blocked_readiness_without_reading_old_results(
     assert not (tmp_path / "output/t5_pair_contrasts.csv").exists()
 
 
+def test_blocked_readiness_stays_frozen_when_workload_appears(
+    tmp_path: Path,
+) -> None:
+    output = tmp_path / "output"
+    geometry_catalog = ROOT / "results/framework/t2_outage_geometry_v1/natural_outage_catalog.csv"
+    geometry_manifest = ROOT / "results/framework/t2_outage_geometry_v1/geometry_binding_manifest.json"
+    pair_plan = ROOT / "results/framework/t5_matching_contract_v1/pair_plan.csv"
+    pair_manifest = ROOT / "results/framework/t5_matching_contract_v1/readiness_manifest.json"
+    first = run_post_t2_analysis(
+        workload_path=tmp_path / "absent_workload.json",
+        result_binding_path=tmp_path / "absent_binding.json",
+        geometry_catalog_path=geometry_catalog,
+        geometry_manifest_path=geometry_manifest,
+        pair_plan_path=pair_plan,
+        pair_manifest_path=pair_manifest,
+        output_dir=output,
+    )
+    readiness = output / "readiness_manifest.json"
+    original = readiness.read_bytes()
+    assert first["blockers"] == [
+        "missing_formal_v4_workload_manifest",
+        "missing_complete_v4_result_binding",
+    ]
+    (tmp_path / "workload.json").write_text("{}", encoding="utf-8")
+    second = run_post_t2_analysis(
+        workload_path=tmp_path / "workload.json",
+        result_binding_path=tmp_path / "absent_binding.json",
+        geometry_catalog_path=geometry_catalog,
+        geometry_manifest_path=geometry_manifest,
+        pair_plan_path=pair_plan,
+        pair_manifest_path=pair_manifest,
+        output_dir=output,
+    )
+    assert readiness.read_bytes() == original
+    assert second["blockers"] == first["blockers"]
+    note = json.loads((output / "v4_input_presence_note.json").read_text(encoding="utf-8"))
+    assert note["passed"] is False
+    assert note["formal_evidence"] is False
+    assert note["frozen_readiness_unchanged"] is True
+    assert note["workload_present"] is True
+    assert note["result_binding_present"] is False
+    assert note["current_blockers"] == ["missing_complete_v4_result_binding"]
+    assert "missing_formal_v4_workload_manifest" in note["frozen_blockers"]
+
+
 def _copied_pair_contract(tmp_path: Path) -> tuple[Path, Path, Path]:
     source = ROOT / "results/framework/t5_matching_contract_v1"
     pair_path = tmp_path / "pair_plan.csv"

@@ -1,0 +1,21 @@
+{
+  "current_blockers": [
+    "missing_complete_v4_result_binding"
+  ],
+  "formal_evidence": false,
+  "frozen_blockers": [
+    "missing_formal_v4_workload_manifest",
+    "missing_complete_v4_result_binding"
+  ],
+  "frozen_readiness_sha256": "4f04171642abeede745263607ae30d292988eb860a80512480b70d94df21bef0",
+  "frozen_readiness_unchanged": true,
+  "headline_claim_licensed": false,
+  "manifest_schema": "t4_t5_v91_v4_input_presence_note_v1",
+  "passed": false,
+  "purpose": "development_presence_note_not_evidence",
+  "result_binding_present": false,
+  "status": "blocked_waiting_for_complete_t2_v4_results",
+  "what_this_is": "Diagnostic snapshot of whether the v4 workload and complete result binding are present. Does not replace readiness_manifest.json.",
+  "what_this_is_not": "Not T4. Not T5. Not confirmatory. Not a rewrite of the frozen blocked readiness ledger.",
+  "workload_present": true
+}

@@ -15,6 +15,7 @@ if str(SRC) not in sys.path:
 
 from stream_recoverability.experiments.t2_w7_open_role_bd_slice import (
     aggregate_w7_open_role_bd_slice_from_chunks,
+    collect_w7_chunk_manifest_paths,
 )
 
 DEFAULT_RUN = ROOT / "results/framework/t2_recovery_benchmark_v1"
@@ -42,15 +43,26 @@ def _arguments() -> argparse.Namespace:
     )
     parser.add_argument(
         "--aggregation-list",
+        action="append",
         type=Path,
-        default=DEFAULT_SLICE / "aggregation_chunk_manifests.json",
+        default=[],
+        help="repeatable batch aggregation list; default: the 1-network slice list",
     )
     parser.add_argument(
         "--predictor-manifest",
         type=Path,
         default=DEFAULT_RUN / "train_only_predictors/predictor_manifest.json",
     )
-    parser.add_argument("--output", type=Path, default=DEFAULT_SLICE)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_SLICE,
+        help=(
+            "slice output directory; default is the committed 1-network slice. "
+            "Merging expand chunks must pass a different --output so that slice "
+            "is not overwritten."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -64,10 +76,11 @@ def main() -> None:
             "workload SHA-256 mismatch: "
             f"got {actual}, expected {args.expect_workload_sha256}"
         )
-    chunk_paths = list(args.chunk_manifest)
-    if not chunk_paths and args.aggregation_list.is_file():
-        listing = json.loads(args.aggregation_list.read_text(encoding="utf-8"))
-        chunk_paths = [Path(value) for value in listing.get("chunk_manifest_paths") or []]
+    chunk_paths = collect_w7_chunk_manifest_paths(
+        chunk_manifest_paths=args.chunk_manifest,
+        aggregation_list_paths=args.aggregation_list,
+        default_aggregation_list=DEFAULT_SLICE / "aggregation_chunk_manifests.json",
+    )
     if not chunk_paths:
         raise SystemExit("no W7 chunk manifests supplied")
     manifest = aggregate_w7_open_role_bd_slice_from_chunks(

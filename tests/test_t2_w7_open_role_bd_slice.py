@@ -7,12 +7,16 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import pytest
+
 from stream_recoverability.experiments.t2_w7_open_role_bd_slice import (
     FORBIDDEN_SCORED_NETWORK_IDS,
     GO_NO_GO,
     N_NETWORKS_MIN,
     PURPOSE,
+    W7SliceContractError,
     W8_INCREMENTAL_R2_TRIGGER,
+    collect_w7_chunk_manifest_paths,
     development_inference_status,
     write_w7_open_role_bd_slice,
 )
@@ -300,3 +304,44 @@ def test_workload_sha_is_recorded_not_rehashed_into_a_pass(tmp_path: Path) -> No
     assert manifest["workload_manifest_sha256"] == sha
     assert manifest["qualification_mode"] == "failure_closure6"
     assert manifest["aggregation_complete_workload"] is False
+
+
+def test_collect_w7_chunk_manifest_paths_unions_lists_and_rejects_missing(
+    tmp_path: Path,
+) -> None:
+    first = tmp_path / "first.json"
+    second = tmp_path / "second.json"
+    first.write_text(
+        json.dumps(
+            {
+                "chunk_manifest_paths": [
+                    str(tmp_path / "a.json"),
+                    str(tmp_path / "b.json"),
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    second.write_text(
+        json.dumps(
+            {
+                "chunk_manifest_paths": [
+                    str(tmp_path / "b.json"),
+                    str(tmp_path / "c.json"),
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    collected = collect_w7_chunk_manifest_paths(
+        aggregation_list_paths=[first, second],
+    )
+    assert collected == [
+        tmp_path / "a.json",
+        tmp_path / "b.json",
+        tmp_path / "c.json",
+    ]
+    with pytest.raises(W7SliceContractError, match="aggregation list missing"):
+        collect_w7_chunk_manifest_paths(
+            aggregation_list_paths=[tmp_path / "missing.json"],
+        )

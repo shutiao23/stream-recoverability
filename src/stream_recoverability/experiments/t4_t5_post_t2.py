@@ -14,7 +14,7 @@ import json
 import os
 import tempfile
 from collections import Counter
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +26,7 @@ from .t2_workload_v4 import V4_RUNNER_CONTRACT_VERSION, V4_WORKLOAD_SCHEMA
 INPUT_BINDING_SCHEMA = "t2_v91_v4_post_t2_input_binding_v2"
 OPERATOR_PREDICTOR_SCHEMA = "t2_v91_v4_train_only_operator_predictions_v1"
 READINESS_SCHEMA = "t4_t5_v91_post_t2_readiness_v2"
+PRESENCE_NOTE_SCHEMA = "t4_t5_v91_v4_input_presence_note_v1"
 T4_SCHEMA = "t4_v91_natural_geometry_observed_counterpart_v1"
 T5_SCHEMA = "t5_v91_frozen_pair_primary_y_contrast_v1"
 PAIR_MANIFEST_SCHEMA = "t5_v9_1_outcome_blind_matching_readiness_v1"
@@ -184,6 +185,46 @@ def _sha256_file(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _write_v4_presence_note(
+    output: Path,
+    *,
+    readiness_path: Path,
+    frozen: Mapping[str, Any],
+    blockers: Sequence[str],
+    workload_present: bool,
+    result_binding_present: bool,
+) -> dict[str, Any]:
+    """Diagnostic snapshot. Never replaces the frozen blocked readiness ledger."""
+
+    note = {
+        "manifest_schema": PRESENCE_NOTE_SCHEMA,
+        "purpose": "development_presence_note_not_evidence",
+        "passed": False,
+        "formal_evidence": False,
+        "headline_claim_licensed": False,
+        "status": "blocked_waiting_for_complete_t2_v4_results",
+        "frozen_readiness_unchanged": True,
+        "frozen_readiness_sha256": _sha256_file(readiness_path),
+        "frozen_blockers": list(frozen.get("blockers") or []),
+        "current_blockers": list(blockers),
+        "workload_present": bool(workload_present),
+        "result_binding_present": bool(result_binding_present),
+        "what_this_is": (
+            "Diagnostic snapshot of whether the v4 workload and complete "
+            "result binding are present. Does not replace readiness_manifest.json."
+        ),
+        "what_this_is_not": (
+            "Not T4. Not T5. Not confirmatory. Not a rewrite of the frozen "
+            "blocked readiness ledger."
+        ),
+    }
+    (output / "v4_input_presence_note.json").write_text(
+        json.dumps(note, indent=2, sort_keys=True, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    return note
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -1309,6 +1350,17 @@ def run_post_t2_analysis(
                 "formal_confirmation",
             ],
         }
+        if readiness_path.is_file():
+            frozen = _read_json(readiness_path)
+            _write_v4_presence_note(
+                output,
+                readiness_path=readiness_path,
+                frozen=frozen,
+                blockers=blockers,
+                workload_present=workload.is_file(),
+                result_binding_present=result_binding.is_file(),
+            )
+            return frozen
         _create_once_json(readiness_path, manifest)
         return manifest
 
