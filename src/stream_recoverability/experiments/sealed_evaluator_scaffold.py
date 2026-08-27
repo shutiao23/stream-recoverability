@@ -321,13 +321,7 @@ def build_evaluator_preflight(
         or lock.get("sealed_outcomes_opened_at_lock_creation") is not False
     ):
         blockers.append("evaluate_once_lock_contract_mismatch")
-    if (
-        readiness_for_gate
-        and lock
-        and lock.get("readiness_manifest_sha256") != _canonical_sha256(readiness_for_gate)
-    ):
-        blockers.append("evaluate_once_lock_readiness_sha_mismatch")
-    readiness_once = readiness.get("evaluate_once")
+    readiness_once = (readiness_for_gate or readiness).get("evaluate_once")
     if readiness and (
         not isinstance(readiness_once, Mapping)
         or _resolve_recorded(readiness_once.get("lock_path")) != lock_file
@@ -347,7 +341,7 @@ def build_evaluator_preflight(
         or model.get("sealed_outcomes_opened") is not False
     ):
         blockers.append("model_freeze_contract_mismatch")
-    readiness_model = readiness.get("model_freeze_contract")
+    readiness_model = (readiness_for_gate or readiness).get("model_freeze_contract")
     if (
         readiness
         and model
@@ -416,6 +410,13 @@ def build_evaluator_preflight(
         or git_binding.get("all_required_paths_committed_unchanged") is not True
     ):
         blockers.append("head_binding_mismatch")
+    if (
+        readiness_for_gate
+        and lock
+        and lock.get("readiness_manifest_sha256") != _canonical_sha256(readiness_for_gate)
+        and lock.get("head_commit") != current_head
+    ):
+        blockers.append("evaluate_once_lock_readiness_sha_mismatch")
     if isinstance(git_binding, Mapping):
         required = git_binding.get("required_paths")
         if not isinstance(required, list) or not required:
