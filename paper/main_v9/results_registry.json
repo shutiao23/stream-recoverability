@@ -1,0 +1,32 @@
+{
+  "manifest_schema": "main_v9_results_registry_v1",
+  "lineage": "main_v9",
+  "design_charter": "configs/design_freeze_v9.yaml",
+  "executable_protocol": "configs/design_freeze_v10_executable.yaml",
+  "formal_evidence": false,
+  "sealed_outcomes_opened": false,
+  "corpus": {
+    "qualified_total": 67,
+    "network_ci_floor": 100,
+    "floor_met": false,
+    "manifest": "data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json"
+  },
+  "development_artifacts": {
+    "w8_failure_closure": "results/framework/w8_failure_closure_v1/w8_failure_closure_manifest.json",
+    "n44_stop_loss": "results/framework/public_rivers/operator_nested_ablation.csv",
+    "tier2_aggregation": "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json",
+    "t4_t5_post_t2": "results/framework/t4_t5_post_t2_v1/t4_result_manifest.json",
+    "twin_e_holdout": "results/framework/synthetic_v2/twin_e_holdout/twin_e_holdout_negative_result.json"
+  },
+  "confirmatory_artifacts": {
+    "preunseal_readiness": "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json",
+    "model_freeze": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
+    "evaluate_once_lock": "results/framework/t2_sealed_confirmatory_v1/evaluate_once_lock.json",
+    "status": "lock_started_before_any_sealed_read; production_reader_not_implemented"
+  },
+  "pending_confirmatory": [
+    "sealed_t7_evaluate_once_on_ge_40_networks",
+    "network_ci_with_n_ge_100",
+    "t3_placement_or_triage_utility"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "evaluate_once_lock_sha256": "872ac9b76f4b0db599e0d4853f4003338ab845e05dd6b152953b074c3cc3e0bd",
+  "formal_evidence": false,
+  "manifest_schema": "t2_t7_sealed_evaluate_once_run_ledger_v1",
+  "model_freeze_sha256": "4a3999e4f1d6eab5148a52d74365a7ab6afa473fa2d8701e9dd48f368dce043f",
+  "n_registered_objects": 2880,
+  "n_sealed_objects_read": 2880,
+  "production_authorization_consumed": true,
+  "readiness_manifest_sha256": "a9e0405209db9d108df92615312c62439906a101b5b4ce5220a1050726f1cfe2",
+  "sealed_qc_manifest_sha256": "a97a76d74240987a25ed97ff00fc3fd0d916ff01e06777bf2b64212867cc94e9",
+  "status": "production_evaluate_once_complete"
+}

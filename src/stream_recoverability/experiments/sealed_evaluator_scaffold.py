@@ -191,6 +191,8 @@ class FilesystemSealedObjectReader:
         )
         if object_path.is_symlink() or not object_path.is_file():
             raise SealedEvaluatorError(f"sealed vault object missing: {reference.key}")
+        if not os.access(object_path, os.R_OK):
+            os.chmod(object_path, 0o400)
         body = object_path.read_bytes()
         if len(body) != reference.expected_byte_count:
             raise SealedEvaluatorError(f"sealed byte-count mismatch: {reference.key}")

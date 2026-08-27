@@ -1,0 +1,8 @@
+{
+  "head_commit": "b264a9f78256e51d4d0db514378df48e8ad5aa1b",
+  "manifest_schema": "t2_t7_sealed_evaluate_once_lock_v1",
+  "readiness_manifest_sha256": "34ad7965c8add765e49f0fdea7fc1b59ffe28ba3e6a7f76bed6abb70a23e090a",
+  "rerun_permitted": false,
+  "sealed_outcomes_opened_at_lock_creation": false,
+  "status": "started_before_any_sealed_read"
+}

@@ -1,0 +1,26 @@
+{
+  "manifest_schema": "case_study_submission_package_v1",
+  "lineage": "case_study_v4",
+  "design_id": "design_freeze_v4",
+  "status": "draft_blocked_fair_and_author_inputs",
+  "title": "A Case-Study Covariance Heuristic for Stream-Temperature Recoverability in Two Regulated River Networks",
+  "artifacts": [
+    {"role": "manuscript", "path": "paper/case_study_v1/manuscript.md"},
+    {"role": "methods", "path": "paper/methods.md"},
+    {"role": "claim_matrix", "path": "paper/case_study_v1/claim_matrix.md"},
+    {"role": "cover_letter", "path": "paper/case_study_v1/cover_letter.md"},
+    {"role": "supporting_information", "path": "paper/case_study_v1/supporting_information.md"},
+    {"role": "figure_captions", "path": "paper/figure_captions.md"},
+    {"role": "references", "path": "paper/references.bib"},
+    {"role": "tables", "path": "paper/tables/table_manifest.json"}
+  ],
+  "main_figures": 7,
+  "main_tables": 5,
+  "blockers": [
+    "author names, affiliations, ORCID, funding, contributions, and declarations",
+    "written editor acceptance of the restricted-data exception",
+    "real archival software DOI",
+    "GEMS confidential reviewer-data upload"
+  ],
+  "verdict": "JoH or JoH Regional case study; not WRR strong-accept confirmatory"
+}

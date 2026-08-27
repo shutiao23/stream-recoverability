@@ -1,0 +1,30 @@
+{
+  "evaluate_once_lock_sha256": "872ac9b76f4b0db599e0d4853f4003338ab845e05dd6b152953b074c3cc3e0bd",
+  "formal_evidence": false,
+  "manifest_schema": "t2_t7_sealed_qc_result_v1",
+  "n_eligible_networks": 32,
+  "n_foen_eligible_networks": 3,
+  "n_huc8_eligible_networks": 29,
+  "n_object_parse_failures": 10,
+  "n_objects_by_provider": {
+    "foen": 2652,
+    "usgs_nwis": 228
+  },
+  "n_sealed_objects_read": 2880,
+  "n_station_qc_rows": 247,
+  "outputs": {
+    "eligible_networks": "eligible_networks.csv",
+    "network_attrition": "network_attrition.csv",
+    "object_attrition": "object_attrition.csv",
+    "station_qc": "station_qc.csv"
+  },
+  "passed": false,
+  "production_authorization_consumed": true,
+  "production_evaluate_once_semantics": true,
+  "purpose": "sealed_qc_not_confirmatory_t2_scoring",
+  "sealed_absolute_floor": 40,
+  "sealed_absolute_floor_met": false,
+  "sealed_outcomes_opened": true,
+  "sealed_temperature_records_read": true,
+  "status": "complete"
+}

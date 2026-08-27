@@ -1,0 +1,12 @@
+{
+  "formal_evidence": false,
+  "manifest_schema": "qualified_network_catalog_v1",
+  "n_europe_complete_enough": 0,
+  "n_open_role_unique": 0,
+  "n_qualified_unique": 32,
+  "n_sealed_eligible": 32,
+  "network_ci_floor": 100,
+  "network_ci_floor_met": false,
+  "parquet_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_qualified.parquet",
+  "purpose": "catalog_export_not_confirmatory"
+}

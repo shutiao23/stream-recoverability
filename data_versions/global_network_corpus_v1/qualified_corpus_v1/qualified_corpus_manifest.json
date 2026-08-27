@@ -2,19 +2,19 @@
   "attrition_source": "data_versions/global_network_corpus_v1/global_attrition_v1/global_attrition_summary.json",
   "blockers_to_floor": [
     "open_role_survival_stalled_at_67_of_103_downloaded",
-    "sealed_temperature_qc_blocked_until_t7_evaluate_once",
-    "europe_uk_ea_zero_complete_enough_after_15_cluster_pass"
+    "europe_uk_ea_zero_complete_enough_after_15_cluster_pass",
+    "corpus_floor_gap_4"
   ],
   "components": {
     "europe_supplement_complete_enough": 0,
     "open_role_complete_enough_failure_closure6": 67,
-    "sealed_qc_complete_enough": 0
+    "sealed_qc_complete_enough": 29
   },
-  "corpus_floor_gap": 33,
+  "corpus_floor_gap": 4,
   "custody_metadata_only": {
-    "sealed_bytes_opened_for_qc": false,
+    "sealed_bytes_opened_for_qc": true,
     "sealed_custody_networks": 44,
-    "sealed_qc_permitted_objects": 0
+    "sealed_qc_permitted_objects": 2880
   },
   "formal_evidence": false,
   "manifest_schema": "qualified_network_corpus_v1",
@@ -22,5 +22,6 @@
   "network_ci_floor_met": false,
   "passed": false,
   "purpose": "corpus_accounting_not_confirmatory",
-  "qualified_total": 67
+  "qualified_total": 96,
+  "sealed_qc_source": "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json"
 }

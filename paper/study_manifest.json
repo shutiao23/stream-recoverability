@@ -1,0 +1,44 @@
+{
+  "manifest_schema": "dual_lineage_study_manifest_v1",
+  "frozen_on": "2026-08-27",
+  "head_commit_at_split": "c77804bdb09e460c14f773003f015ac7f0f3b28c",
+  "rule": "One title, one abstract, one design_id, and one results registry per lineage. Cross-lineage numbers are forbidden in either manuscript.",
+  "lineages": {
+    "case_study_v4": {
+      "status": "case_study_submission_ready_pending_fair",
+      "root": "paper/case_study_v1",
+      "design_freeze": "configs/design_freeze_v4.yaml",
+      "executable_design": "configs/design_freeze_v4.yaml",
+      "title": "A Case-Study Covariance Heuristic for Stream-Temperature Recoverability in Two Regulated River Networks",
+      "target_journals": ["Journal of Hydrology", "Journal of Hydrology: Regional Studies"],
+      "wrr_verdict": "desk_reject_as_confirmatory; honest case-study and failure-boundary only",
+      "formal_evidence": false,
+      "results_registry": "results/analysis/analysis_manifest.json",
+      "claim_matrix": "paper/case_study_v1/claim_matrix.md",
+      "manuscript": "paper/case_study_v1/manuscript.md",
+      "supporting_information": "paper/case_study_v1/supporting_information.md",
+      "submission_package": "paper/case_study_v1/submission_package_manifest.json",
+      "forbidden_evidence_from": ["paper/main_v9", "configs/design_freeze_v9.yaml", "configs/design_freeze_v10_executable.yaml"]
+    },
+    "main_v9": {
+      "status": "protocol_frozen_confirmatory_pending",
+      "root": "paper/main_v9",
+      "design_freeze_charter": "configs/design_freeze_v9.yaml",
+      "executable_protocol": "configs/design_freeze_v10_executable.yaml",
+      "title": "Pre-fit information risk for stream-temperature gap recoverability across unseen river networks",
+      "title_status": "working_title_predictability_not_operator_superiority",
+      "target_journals": ["Water Resources Research"],
+      "wrr_verdict": "not_submittable_until_sealed_t7_and_corpus_floor",
+      "formal_evidence": false,
+      "results_registry": "paper/main_v9/results_registry.json",
+      "claim_matrix": "paper/main_v9/claim_matrix.md",
+      "manuscript": "paper/main_v9/manuscript.md",
+      "development_results": "paper/main_v9/results.md",
+      "forbidden_evidence_from": ["paper/case_study_v1", "configs/design_freeze_v4.yaml"]
+    }
+  },
+  "legacy_paths": {
+    "paper_manuscript_redirect": "paper/manuscript.md points to case_study_v4 lineage",
+    "paper_next_redirect": "paper/next/ superseded by paper/main_v9/"
+  }
+}

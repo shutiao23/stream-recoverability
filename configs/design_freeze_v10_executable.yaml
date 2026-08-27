@@ -1,0 +1,126 @@
+design_id: design_freeze_v10_executable
+design_version: design_freeze_v10_executable
+not_an_executable_design: false
+executable: true
+status: protocol_frozen_pending_corpus_floor_and_t7
+frozen_on: "2026-08-27"
+supersedes: design_freeze_v9
+charter_parent: configs/design_freeze_v9.yaml
+historical_case_study_freeze: design_freeze_v4
+does_not_replace_executable_design_version_v4: true
+note: >
+  Executable confirmatory protocol for the v9 main paper only.
+  DEFAULT_DESIGN_PATH / EXECUTABLE_DESIGN_VERSION remain design_freeze_v4
+  for the historical two-network pipeline. Do not add v10 to
+  SUPPORTED_EXECUTABLE_DESIGN_VERSIONS without a protocol amendment.
+  Sealed temperature outcomes must not be opened until activation_gates
+  pass and evaluate-once lock is claimed.
+
+formal_evidence: false
+headline_claim_licensed: false
+sealed_outcomes_opened: false
+reservoir_mechanism_in_headline: false
+
+activation_gates:
+  corpus_floor:
+    qualified_networks_min: 100
+    manifest: data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json
+    current_qualified: 67
+    passed: false
+  sealed_panel:
+    sealed_networks_min: 40
+    sealed_non_north_america_min: 10
+    split_catalog: configs/network_catalog_v3_split.yaml
+  preunseal_readiness:
+    manifest: results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json
+    ready_for_unseal_required: true
+  evaluate_once:
+    lock_path: results/framework/t2_sealed_confirmatory_v1/evaluate_once_lock.json
+    claim_before_any_sealed_read: true
+  blockers:
+    - corpus_floor_gap_33
+    - production_reader_not_implemented
+    - sealed_temperature_qc_blocked_until_t7_evaluate_once
+
+primary_endpoint_contract:
+  gap_horizon_days: 90
+  loss: mae_degC
+  skill_baseline: fitting_period_climatology
+  recovery_model_rule: frozen_tier1_roster_validation_selection
+  forbidden_post_seal:
+    - selecting_the_better_of_90_and_180_days
+    - promoting_best_envelope_to_primary
+    - changing_model_rule_after_envelope
+  model_roster_tier1:
+    - climatology
+    - pchip_or_linear
+    - kalman
+    - donor_regression
+    - xgboost
+  model_freeze_manifest: results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json
+
+primary_estimand:
+  name: schur_operator_recoverability
+  definition: >
+    Fitting-period Schur complement risk R predicts fixed-model recovery
+    loss on sealed whole-network held-out gaps. Independent unit is
+    river_network; masks are repeated measurements.
+  extrapolation_unit: river_network
+  independent_units: [network, station_nested_in_network, site_year_nested_in_station]
+  mask_role: repeated_measurement_not_independent_sample
+  minimum_independent_networks_for_interval: 100
+
+locked_success_criterion:
+  inherits_from: configs/design_freeze_v9.yaml#locked_success_criterion
+  t2_large_sample_primary:
+    out_of_network_spearman_min: 0.60
+    network_bootstrap_lower_bound_min: 0.40
+    ci95_lower_bound_must_exceed: four_preregistered_univariate_baseline_point_estimates
+    sealed_skill_median_absolute_bias_max: 0.10
+    calibration_slope_min: 0.80
+    calibration_slope_max: 1.20
+  incremental_baselines:
+    - gap_length_only
+    - acf_only
+    - donor_r2_only
+    - additive_d_over_4_heuristic
+    - nearest_donor_distance_or_correlation
+  t3_decision:
+    either: [a_placement, b_gap_triage]
+    a_placement:
+      worst_case_mae_reduction_min: 0.15
+    b_gap_triage:
+      false_release_rate: 0.05
+      false_release_definition: fill_error_gt_0.5_degC
+      safe_fill_relative_improvement_min: 0.30
+      safe_fill_absolute_improvement_min_pp: 15
+  failure_closure:
+    h2_fails: simple_redundancy_sufficiency_paper
+    h3_fails_h2_passes: predictability_only_title
+    h1_fails: cross_network_falsification_static_covariance_insufficient
+
+split_rule:
+  inherits_from: configs/design_freeze_v9.yaml#split_rule
+  unit: entire_network
+  sealed_min_networks: 40
+  forbidden:
+    - random_station_split_within_network
+    - using_jinsha_or_chattahoochee_as_sealed_confirmation
+    - reading_sealed_temperature_outcomes_during_development
+
+t7_sealed_confirmatory:
+  evaluate_once: true
+  once_lock: results/framework/t2_sealed_confirmatory_v1/evaluate_once_lock.json
+  evaluator: src/stream_recoverability/experiments/sealed_evaluator_scaffold.py
+  sealed_absolute_floor: 40
+
+claims:
+  C1_predictability: unseen_network_predicted_risk_vs_fixed_model_loss
+  C2_incremental_value: operator_vs_five_univariate_baselines_sealed
+  C3_decision_utility: placement_or_triage_on_sealed_networks
+  C4_moderation: topology_climate_regulation_as_modifiers_not_causal_headline
+
+paper_lineage:
+  root: paper/main_v9
+  study_manifest: paper/study_manifest.json
+  forbidden_cross_cite: paper/case_study_v1
