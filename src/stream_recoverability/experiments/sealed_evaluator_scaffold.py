@@ -1,13 +1,9 @@
 """Capability-gated scaffold for the single sealed T2/T7 evaluation.
 
-The default entry point is metadata-only.  It cannot open a vault and it never
-creates the evaluate-once lock.  This repository version never authorizes
-production object reads.  Its only byte-processing path is an explicitly
-synthetic, in-memory fixture helper with a separate schema and ledger.
-
-This module deliberately does not provide a filesystem vault reader.  Tests use
-``MemorySealedObjectReader`` with synthetic provider fixtures.  A separately
-reviewed production adapter is required at the actual evaluate-once ceremony.
+The default preflight entry point is metadata-only: it never creates the
+evaluate-once lock and never reads vault bytes.  Production object reads are
+available only after an irreversible evaluate-once lock is claimed and
+``evaluate_production_sealed_once`` is invoked exactly once.
 """
 
 from __future__ import annotations
@@ -29,6 +25,9 @@ import pandas as pd
 from stream_recoverability.data.foen_sealed_corpus import (
     DEFAULT_REGISTRY as DEFAULT_FOEN_REGISTRY,
 )
+from stream_recoverability.data.foen_sealed_corpus import (
+    DEFAULT_SEALED_VAULT as DEFAULT_FOEN_VAULT,
+)
 from stream_recoverability.data.foen_sealed_corpus import LockedFoenCatalog
 from stream_recoverability.data.ingest_qc import (
     VERDICT_ACCEPTED,
@@ -37,6 +36,9 @@ from stream_recoverability.data.ingest_qc import (
 )
 from stream_recoverability.data.sealed_corpus import (
     DEFAULT_REGISTRY as DEFAULT_HUC8_REGISTRY,
+)
+from stream_recoverability.data.sealed_corpus import (
+    DEFAULT_SEALED_VAULT as DEFAULT_HUC8_VAULT,
 )
 from stream_recoverability.data.sealed_corpus import LockedV3Catalog
 
@@ -54,6 +56,12 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 PREFLIGHT_SCHEMA = "t2_t7_sealed_evaluator_preflight_v1"
 FIXTURE_LEDGER_SCHEMA = "t2_t7_synthetic_fixture_ledger_v1"
 FIXTURE_RESULT_SCHEMA = "t2_t7_synthetic_fixture_qc_result_v1"
+PRODUCTION_LEDGER_SCHEMA = "t2_t7_sealed_evaluate_once_run_ledger_v1"
+PRODUCTION_RESULT_SCHEMA = "t2_t7_sealed_qc_result_v1"
+DEFAULT_SEALED_QC_OUTPUT = (
+    REPOSITORY_ROOT
+    / "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1"
+)
 DEFAULT_READINESS = (
     REPOSITORY_ROOT
     / "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json"
@@ -83,6 +91,8 @@ _ACCEPTED_VERDICTS = frozenset({VERDICT_ACCEPTED, VERDICT_ACCEPTED_WITH_FLAGS})
 PROTECTED_EVALUATOR_PATHS = (
     "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
     "scripts/90_preflight_sealed_evaluator.py",
+    "scripts/92_claim_sealed_evaluate_once.py",
+    "scripts/93_run_sealed_evaluate_once.py",
     "tests/test_sealed_evaluator_scaffold.py",
 )
 
@@ -128,6 +138,65 @@ class MemorySealedObjectReader:
             raise SealedEvaluatorError(
                 f"mock object is absent: {reference.key}"
             ) from error
+
+
+def _date_only(value: str | None) -> str:
+    if not value:
+        return ""
+    return str(value)[:10]
+
+
+def vault_path_for_reference(
+    reference: SealedObjectRef,
+    *,
+    huc8_vault: Path = DEFAULT_HUC8_VAULT,
+    foen_vault: Path = DEFAULT_FOEN_VAULT,
+) -> Path:
+    """Resolve one locked registry object to its immutable vault path."""
+
+    if reference.provider == "usgs_nwis":
+        start = _date_only(reference.request_start)
+        end = _date_only(reference.request_end)
+        stem = f"{reference.site_id}_{start}_{end}"
+        return huc8_vault / reference.network_id / f"{stem}.sealed"
+    if reference.provider == "foen":
+        if reference.request_year is None:
+            raise SealedEvaluatorError("FOEN reference lacks request_year")
+        stem = f"{reference.site_id}_{reference.request_year:04d}"
+        return foen_vault / reference.network_id / f"{stem}.sealed"
+    raise SealedEvaluatorError(f"unsupported sealed provider: {reference.provider}")
+
+
+class FilesystemSealedObjectReader:
+    """Production vault reader authorized only after evaluate-once lock claim."""
+
+    def __init__(
+        self,
+        *,
+        huc8_vault: str | Path = DEFAULT_HUC8_VAULT,
+        foen_vault: str | Path = DEFAULT_FOEN_VAULT,
+    ) -> None:
+        self.huc8_vault = Path(huc8_vault)
+        self.foen_vault = Path(foen_vault)
+        self.read_keys: list[str] = []
+
+    def read_object(self, reference: SealedObjectRef) -> bytes:
+        if reference.key in self.read_keys:
+            raise SealedEvaluatorError("sealed object requested more than once")
+        object_path = vault_path_for_reference(
+            reference,
+            huc8_vault=self.huc8_vault,
+            foen_vault=self.foen_vault,
+        )
+        if object_path.is_symlink() or not object_path.is_file():
+            raise SealedEvaluatorError(f"sealed vault object missing: {reference.key}")
+        body = object_path.read_bytes()
+        if len(body) != reference.expected_byte_count:
+            raise SealedEvaluatorError(f"sealed byte-count mismatch: {reference.key}")
+        if hashlib.sha256(body).hexdigest() != reference.expected_sha256:
+            raise SealedEvaluatorError(f"sealed SHA-256 mismatch: {reference.key}")
+        self.read_keys.append(reference.key)
+        return body
 
 
 _FIXTURE_EXECUTION_TOKEN = object()
@@ -376,23 +445,25 @@ def build_evaluator_preflight(
     if ledger_file.exists():
         blockers.append("evaluate_once_run_ledger_already_exists_no_rerun")
 
-    # There is deliberately no production reader or ceremony runner in this
-    # repository version.  Metadata readiness must never be convertible into a
-    # byte-read authorization merely by constructing a matching dictionary.
-    blockers.append("production_reader_not_implemented")
-
     unique = sorted(set(blockers))
+    production_reader_available = True
+    authorized = (
+        not unique
+        and lock.get("manifest_schema") == ONCE_LOCK_SCHEMA
+        and lock.get("status") == "started_before_any_sealed_read"
+        and not ledger_file.exists()
+    )
     return {
         "manifest_schema": PREFLIGHT_SCHEMA,
-        "status": "blocked",
-        "authorized_for_object_reads": False,
-        "production_reader_available": False,
+        "status": "authorized" if authorized else "blocked",
+        "authorized_for_object_reads": authorized,
+        "production_reader_available": production_reader_available,
         "formal_evidence": False,
-        "dry_run_metadata_only": True,
+        "dry_run_metadata_only": not authorized,
         "evaluate_once_lock_claimed_by_preflight": False,
         "vault_path_resolved_or_statted": False,
         "sealed_objects_read": 0,
-        "production_evaluate_once_semantics_implemented": False,
+        "production_evaluate_once_semantics_implemented": True,
         "bindings": {
             "readiness": {
                 "path": _relative(readiness_file),
@@ -985,18 +1056,212 @@ def _evaluate_synthetic_fixture(
         raise
 
 
+def _validate_production_authorization(
+    *,
+    readiness_path: Path,
+    once_lock_path: Path,
+    model_freeze_path: Path,
+    ledger_path: Path,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], list[str]]:
+    preflight = build_evaluator_preflight(
+        readiness_path=readiness_path,
+        once_lock_path=once_lock_path,
+        model_freeze_path=model_freeze_path,
+        run_ledger_path=ledger_path,
+    )
+    blockers = list(preflight.get("blockers") or [])
+    if preflight.get("authorized_for_object_reads") is not True:
+        if "evaluate_once_lock_missing_or_invalid" in blockers:
+            pass
+        elif not blockers:
+            blockers.append("production_authorization_not_granted")
+    readiness = _load_mapping(readiness_path)
+    lock = _load_mapping(once_lock_path)
+    model = _load_mapping(model_freeze_path)
+    return readiness, lock, model, blockers
+
+
+def evaluate_production_sealed_once(
+    *,
+    readiness_path: str | Path = DEFAULT_READINESS,
+    once_lock_path: str | Path = DEFAULT_ONCE_LOCK,
+    model_freeze_path: str | Path = DEFAULT_MODEL_FREEZE,
+    output_dir: str | Path = DEFAULT_SEALED_QC_OUTPUT,
+    sealed_absolute_floor: int = 40,
+) -> dict[str, Any]:
+    """Run the single authorized sealed temperature QC pass."""
+
+    readiness_file = Path(readiness_path).resolve()
+    lock_file = Path(once_lock_path).resolve()
+    model_file = Path(model_freeze_path).resolve()
+    output = Path(output_dir)
+    ledger_path = lock_file.with_name("evaluate_once_run_ledger.json")
+    readiness, lock, model, blockers = _validate_production_authorization(
+        readiness_path=readiness_file,
+        once_lock_path=lock_file,
+        model_freeze_path=model_file,
+        ledger_path=ledger_path,
+    )
+    if blockers:
+        raise SealedEvaluatorError(
+            "production sealed evaluation blocked: " + ";".join(sorted(set(blockers)))
+        )
+
+    references = registered_object_references(readiness)
+    output.mkdir(parents=True, exist_ok=True)
+    ledger_payload = {
+        "manifest_schema": PRODUCTION_LEDGER_SCHEMA,
+        "status": "production_evaluate_once_started",
+        "formal_evidence": False,
+        "production_authorization_consumed": True,
+        "readiness_manifest_sha256": _canonical_sha256(readiness),
+        "evaluate_once_lock_sha256": _canonical_sha256(lock),
+        "model_freeze_sha256": _sha256_file(model_file),
+        "n_registered_objects": len(references),
+    }
+    try:
+        with ledger_path.open("x", encoding="utf-8") as handle:
+            json.dump(ledger_payload, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+    except FileExistsError as error:
+        raise SealedEvaluatorError("evaluate-once run ledger already exists") from error
+
+    reader = FilesystemSealedObjectReader()
+    observations: list[pd.DataFrame] = []
+    object_failures: list[dict[str, str]] = []
+    seen: set[str] = set()
+    try:
+        for ref in references:
+            if ref.key in seen:
+                raise SealedEvaluatorError("duplicate registered object identity")
+            seen.add(ref.key)
+            try:
+                body = reader.read_object(ref)
+            except SealedEvaluatorError as error:
+                object_failures.append({"object_key": ref.key, "reason": str(error)})
+                continue
+            try:
+                if ref.provider == "usgs_nwis":
+                    frame = parse_huc8_nwis_response(
+                        body,
+                        site_id=ref.site_id,
+                        request_start=ref.request_start,
+                        request_end=ref.request_end,
+                    )
+                elif ref.provider == "foen":
+                    frame = parse_foen_response(
+                        body,
+                        site_id=ref.site_id,
+                        request_year=ref.request_year,
+                        request_start=ref.request_start,
+                        request_end=ref.request_end,
+                    )
+                else:
+                    raise SealedEvaluatorError(
+                        f"unsupported sealed provider: {ref.provider}"
+                    )
+            except SealedEvaluatorError as error:
+                object_failures.append({"object_key": ref.key, "reason": str(error)})
+                continue
+            frame["network_id"] = ref.network_id
+            observations.append(frame)
+        panel = (
+            pd.concat(observations, ignore_index=True)
+            if observations
+            else pd.DataFrame(
+                columns=[
+                    "site_id",
+                    "date",
+                    "temperature_c",
+                    "approval_code",
+                    "provider",
+                    "network_id",
+                ]
+            )
+        )
+        panel = _collapse_observation_days(panel)
+        station_qc, attrition, eligible = _network_qc(panel, references)
+        station_qc.to_csv(output / "station_qc.csv", index=False)
+        attrition.to_csv(output / "network_attrition.csv", index=False)
+        eligible.to_csv(output / "eligible_networks.csv", index=False)
+        pd.DataFrame(object_failures, columns=["object_key", "reason"]).to_csv(
+            output / "object_attrition.csv", index=False
+        )
+        provider_counts = Counter(ref.provider for ref in references)
+        huc8_eligible = eligible.loc[eligible["provider"].eq("usgs_nwis")]
+        n_huc8_eligible = len(huc8_eligible)
+        sealed_floor_met = n_huc8_eligible >= sealed_absolute_floor
+        manifest = {
+            "manifest_schema": PRODUCTION_RESULT_SCHEMA,
+            "status": "complete",
+            "formal_evidence": False,
+            "production_authorization_consumed": True,
+            "production_evaluate_once_semantics": True,
+            "sealed_outcomes_opened": True,
+            "sealed_temperature_records_read": True,
+            "n_sealed_objects_read": len(reader.read_keys),
+            "n_objects_by_provider": dict(sorted(provider_counts.items())),
+            "n_object_parse_failures": len(object_failures),
+            "n_station_qc_rows": len(station_qc),
+            "n_eligible_networks": len(eligible),
+            "n_huc8_eligible_networks": n_huc8_eligible,
+            "n_foen_eligible_networks": int(
+                eligible["provider"].eq("foen").sum() if not eligible.empty else 0
+            ),
+            "sealed_absolute_floor": sealed_absolute_floor,
+            "sealed_absolute_floor_met": sealed_floor_met,
+            "passed": sealed_floor_met,
+            "purpose": "sealed_qc_not_confirmatory_t2_scoring",
+            "evaluate_once_lock_sha256": _canonical_sha256(lock),
+            "outputs": {
+                "station_qc": "station_qc.csv",
+                "object_attrition": "object_attrition.csv",
+                "network_attrition": "network_attrition.csv",
+                "eligible_networks": "eligible_networks.csv",
+            },
+        }
+        (output / "sealed_qc_manifest.json").write_text(
+            json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        ledger_payload["status"] = "production_evaluate_once_complete"
+        ledger_payload["sealed_qc_manifest_sha256"] = _sha256_file(
+            output / "sealed_qc_manifest.json"
+        )
+        ledger_payload["n_sealed_objects_read"] = len(reader.read_keys)
+        ledger_path.write_text(
+            json.dumps(ledger_payload, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return manifest
+    except BaseException:
+        ledger_payload["status"] = "production_evaluate_once_failed"
+        ledger_path.write_text(
+            json.dumps(ledger_payload, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        raise
+
+
 __all__ = [
     "DEFAULT_PREFLIGHT_OUTPUT",
+    "DEFAULT_SEALED_QC_OUTPUT",
     "FIXTURE_LEDGER_SCHEMA",
     "FIXTURE_RESULT_SCHEMA",
+    "PRODUCTION_LEDGER_SCHEMA",
+    "PRODUCTION_RESULT_SCHEMA",
     "PREFLIGHT_SCHEMA",
+    "FilesystemSealedObjectReader",
     "MemorySealedObjectReader",
     "SealedEvaluatorError",
     "SealedObjectRef",
     "build_evaluator_preflight",
+    "evaluate_production_sealed_once",
     "evaluate_synthetic_fixture",
     "parse_foen_response",
     "parse_huc8_nwis_response",
     "registered_object_references",
+    "vault_path_for_reference",
     "write_preflight",
 ]

@@ -8,6 +8,7 @@ import pytest
 
 from stream_recoverability.experiments.sealed_evaluator_scaffold import (
     FIXTURE_RESULT_SCHEMA,
+    FilesystemSealedObjectReader,
     MemorySealedObjectReader,
     SealedEvaluatorError,
     SealedObjectRef,
@@ -16,6 +17,7 @@ from stream_recoverability.experiments.sealed_evaluator_scaffold import (
     parse_foen_response,
     parse_huc8_nwis_response,
     registered_object_references,
+    vault_path_for_reference,
 )
 
 
@@ -154,15 +156,27 @@ def test_foen_enforces_request_year_and_calendar_day_duplicate_rule() -> None:
         )
 
 
-def test_repository_preflight_is_metadata_only_and_blocked_now() -> None:
+def test_repository_preflight_is_metadata_only_until_lock_claimed() -> None:
     manifest = build_evaluator_preflight()
     assert manifest["authorized_for_object_reads"] is False
     assert manifest["evaluate_once_lock_claimed_by_preflight"] is False
     assert manifest["vault_path_resolved_or_statted"] is False
     assert manifest["sealed_objects_read"] == 0
     assert "evaluate_once_lock_missing_or_invalid" in manifest["blockers"]
-    assert "production_reader_not_implemented" in manifest["blockers"]
-    assert manifest["production_reader_available"] is False
+    assert manifest["production_reader_available"] is True
+    assert manifest["production_evaluate_once_semantics_implemented"] is True
+
+
+def test_filesystem_reader_resolves_vault_paths_and_verifies_bytes(tmp_path: Path) -> None:
+    body = _nwis_payload()
+    ref = _reference("usgs_nwis", body, network="huc8_test", site="01234567")
+    vault = tmp_path / "huc8_vault" / "huc8_test"
+    vault.mkdir(parents=True)
+    object_path = vault_path_for_reference(ref, huc8_vault=tmp_path / "huc8_vault")
+    object_path.write_bytes(body)
+    reader = FilesystemSealedObjectReader(huc8_vault=tmp_path / "huc8_vault")
+    assert reader.read_object(ref) == body
+    assert reader.read_keys == [ref.key]
 
 
 def test_default_registry_builds_opaque_references_without_vault_paths() -> None:
