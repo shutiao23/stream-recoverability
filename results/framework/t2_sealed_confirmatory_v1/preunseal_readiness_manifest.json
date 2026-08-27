@@ -10,9 +10,7 @@
     "sha256": "5adf33fefd3927a2c73fdd0fffadb51626a6af306e5abb371ce1a2bd33da8aef",
     "status": "complete"
   },
-  "blockers": [
-    "sealed_model_freeze_head_mismatch"
-  ],
+  "blockers": [],
   "evaluate_once": {
     "claim_acknowledgement": "claim-once-before-any-sealed-read",
     "lock_absent": true,
@@ -23,13 +21,13 @@
   "formal_evidence": false,
   "git_commit_before_unseal": {
     "all_required_paths_committed_unchanged": true,
-    "head_commit": "631bdc1080b241762edff5a577d6d1dc9cafffcb",
+    "head_commit": "59b124f98e4d2934ebcc760e71ae486b65c30ee6",
     "local_artifact_paths": [],
     "required_paths": [
       {
-        "head_blob": "5a00c430b9dc42988d707c06da6617b6696b1892",
+        "head_blob": "083577a446371d464b4b4beffe2877183ee8c0a4",
         "path": "src/stream_recoverability/experiments/sealed_evaluation_readiness.py",
-        "worktree_blob": "5a00c430b9dc42988d707c06da6617b6696b1892"
+        "worktree_blob": "083577a446371d464b4b4beffe2877183ee8c0a4"
       },
       {
         "head_blob": "300015ec387ee822c61f7eb124477a4f8f34b78b",
@@ -42,9 +40,9 @@
         "worktree_blob": "e04f69789d0c2ddbaff46338ab8698c899df9328"
       },
       {
-        "head_blob": "20f84fc3a773d5847054b2004aea5771552c3e5d",
+        "head_blob": "e3487af425eef682c606b67c8e086aae1fa5426b",
         "path": "tests/test_sealed_evaluation_readiness.py",
-        "worktree_blob": "20f84fc3a773d5847054b2004aea5771552c3e5d"
+        "worktree_blob": "e3487af425eef682c606b67c8e086aae1fa5426b"
       },
       {
         "head_blob": "6db564ff538542404d3837745d81c3df873d3bc5",
@@ -67,9 +65,9 @@
         "worktree_blob": "affc464c2b5a957a3f47c8f77f3bdd7fd872cc33"
       },
       {
-        "head_blob": "23ce8fc6e41947203409e6084f4a7977c8911ccc",
+        "head_blob": "6f33a3cc70d126e2daa5cf4f515ac1156ab9df3c",
         "path": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
-        "worktree_blob": "23ce8fc6e41947203409e6084f4a7977c8911ccc"
+        "worktree_blob": "6f33a3cc70d126e2daa5cf4f515ac1156ab9df3c"
       },
       {
         "head_blob": "dc4e551ecc309e0d0e99c4bfc10145d36225b144",
@@ -103,7 +101,7 @@
       "donor_regression",
       "xgboost"
     ],
-    "head_commit": "485649df48049eeaaa84299fcb7ca4c23e0d44d2",
+    "head_commit": "4e6cc46894f234ec0669a017fa8f84e94ba94ea8",
     "input_bindings": {
       "analysis_code": {
         "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
@@ -136,7 +134,7 @@
     },
     "manifest_schema": "t2_t7_sealed_model_freeze_v1",
     "path": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
-    "sha256": "c8e6904574e83dbd5bd8d1cd853a6d3a734a02a9c3e349314da7a5aff5f91437",
+    "sha256": "e21cf3bb79de21e44f302122e58ab753e128dab8fa4c46d3f5d3c8e5c0896eec",
     "status": "frozen_before_unseal",
     "threshold_contract_sha256": "03e6b5fbee04740bb88312ad55c980715f1a047f2e5a4ec595bbda9aa4e383f0"
   },
@@ -148,7 +146,7 @@
     "sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f",
     "status": "complete"
   },
-  "ready_for_unseal": false,
+  "ready_for_unseal": true,
   "registry_metadata_read_only": true,
   "sealed_objects_opened_or_statted_by_audit": false,
   "sealed_outcomes_opened": false,
@@ -235,7 +233,7 @@
       "registry_root": "results/framework/public_catalog/sealed_byte_registry_v1/sealed"
     }
   },
-  "status": "blocked",
+  "status": "ready",
   "threshold_contract": {
     "decision_endpoints": {
       "a_placement": {

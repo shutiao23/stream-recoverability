@@ -23,6 +23,16 @@ Status: honest accounting. Network CI floor not met.
 
 44 sealed HUC8 networks have write-only vault bytes. Development QC is blocked by `HUC8CorpusGate` (`SealedOutcomeAccessError`). T7 evaluate-once is required before temperature bytes can be QC'd and counted.
 
+**Preunseal gate (2026-08-27):** `ready_for_unseal: true` — model freeze installed at `results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json`. Oversized `item_results.parquet` is bound by SHA-256 only (gitignored per repo policy).
+
+**Remaining blockers before sealed object reads:**
+
+| Blocker | Status |
+|---------|--------|
+| `evaluate_once_lock` not claimed | Ceremony not run (`claim_evaluate_once`) |
+| `production_reader_not_implemented` | Scaffold is metadata-only; no filesystem vault adapter in repo |
+| Corpus floor | 67 qualified until sealed QC runs |
+
 Preflight: `scripts/90_preflight_sealed_evaluator.py`  
 Readiness audit: `scripts/80_audit_sealed_evaluation_readiness.py`
 
