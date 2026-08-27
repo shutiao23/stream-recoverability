@@ -601,6 +601,11 @@ def test_ineligible_event_stratum_is_exhaustively_excluded_not_a_fixed_roster_bl
     )
 
     assert manifest["status"] == "frozen_before_v4_scoring"
+    readiness = json.loads((output / "readiness_manifest.json").read_text())
+    assert readiness["status"] == "frozen_before_v4_scoring"
+    assert readiness["execution_allowed"] is True
+    assert readiness["analyzable_lattice_frozen"] is True
+    assert readiness["v4_results_read"] is False
     assert manifest["execution_allowed"] is True
     assert manifest["network_inference_status"] == (
         "withheld_n_lt_100_network_interval"

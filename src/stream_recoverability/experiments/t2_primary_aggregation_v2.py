@@ -1511,6 +1511,28 @@ def freeze_v4_analyzable_lattice(
         "passed": False,
     }
     _create_once_json(output / "lattice_freeze_manifest.json", manifest)
+    readiness = {
+        "manifest_schema": READINESS_SCHEMA,
+        "status": manifest["status"],
+        "blockers": (
+            []
+            if manifest["execution_allowed"]
+            else ["base_lattice_insufficient_pre_score_support"]
+        ),
+        "analyzable_lattice_frozen": manifest["execution_allowed"],
+        "lattice_freeze_manifest_sha256": _sha256_file(
+            output / "lattice_freeze_manifest.json"
+        ),
+        "execution_allowed": manifest["execution_allowed"],
+        "evidence_blockers": manifest["evidence_blockers"],
+        "v4_results_read": False,
+        "achieved_skill_read": False,
+        "sealed_paths_traversed": False,
+        "sealed_temperature_records_read": False,
+        "formal_evidence": False,
+        "passed": False,
+    }
+    _atomic_json(output / "readiness_manifest.json", readiness)
     return manifest
 
 

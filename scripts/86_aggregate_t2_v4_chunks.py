@@ -28,7 +28,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=DEFAULT_RUN / "aggregation/readiness_manifest.json",
+        default=DEFAULT_RUN / "aggregation/aggregation_manifest.json",
     )
     args = parser.parse_args()
     value = json.loads(args.aggregation_list.read_text(encoding="utf-8"))
