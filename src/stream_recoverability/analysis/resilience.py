@@ -11,6 +11,12 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from stream_recoverability.analysis.evidence_boundaries import (
+    MIN_INDEPENDENT_CLUSTERS,
+    WITHHELD_STATUS,
+    year_block_mean_interval,
+)
+
 _trapezoid = getattr(np, "trapezoid", None) or np.trapz
 RESILIENCE_EXPERIMENT = "SCI_NET"
 
@@ -595,6 +601,284 @@ def node_importance(
     return pd.DataFrame(rows)
 
 
+def _stratified_mean_interval(
+    frame: pd.DataFrame,
+    value_col: str,
+    *,
+    strata_col: str,
+    n_boot: int,
+    seed: int,
+) -> tuple[float, float]:
+    """Bootstrap a mean while retaining the declared temporal strata."""
+
+    strata = [
+        group[value_col].to_numpy(dtype=float)
+        for _, group in frame.groupby(
+            strata_col, dropna=False, observed=True, sort=True
+        )
+    ]
+    if not strata or any(len(values) == 0 for values in strata):
+        return np.nan, np.nan
+    rng = np.random.default_rng(seed)
+    draws = np.empty(n_boot, dtype=float)
+    for index in range(n_boot):
+        sampled = [
+            values[rng.integers(0, len(values), size=len(values))] for values in strata
+        ]
+        draws[index] = float(np.mean(np.concatenate(sampled)))
+    return float(np.quantile(draws, 0.025)), float(np.quantile(draws, 0.975))
+
+
+def cross_fitted_node_importance(
+    events: pd.DataFrame,
+    *,
+    value_col: str = "MAE",
+    failed_sites_col: str = "failed_stations",
+    group_cols: Sequence[str] = RESILIENCE_GROUP_COLUMNS,
+    baseline_model: str = "climatology",
+    n_boot: int = 2000,
+    seed: int = 20260825,
+) -> pd.DataFrame:
+    """Estimate node importance without choosing a model on its scored event.
+
+    For every target, gap length, and failure set, the policy selects the model
+    with the lowest mean error in all *other* evaluation years.  That model is
+    then scored on the held-out year's matched events.  Full- and failed-network
+    policies are paired on the same target-gap unit before aggregation.  The
+    climatology is an ordinary candidate in the cross-fit rather than an
+    event-wise oracle cap.
+
+    This is a post-hoc non-oracle sensitivity because model selection still
+    uses folds of the development-evaluation population.  It is not an unseen
+    confirmatory estimate, but unlike :func:`node_importance` it never chooses
+    the minimum error on the event being scored.
+    """
+
+    required = {
+        value_col,
+        failed_sites_col,
+        "model",
+        "gap_length",
+        "target_gap_id",
+        "mask_seed",
+        "anchor_year",
+    }
+    missing = sorted(required.difference(events.columns))
+    if missing:
+        raise ValueError(
+            "cross-fitted node importance requires columns: " + ", ".join(missing)
+        )
+    complete, exclusions = complete_resilience_units(
+        events,
+        failed_sites_col=failed_sites_col,
+        value_cols=(value_col,),
+    )
+    if complete.empty:
+        reason = (
+            exclusions["reason"].iloc[0]
+            if not exclusions.empty
+            else "no complete SCI_NET resilience units"
+        )
+        raise ValueError(f"no complete SCI_NET resilience units: {reason}")
+    data, _, _ = _with_failures(complete, failed_sites_col, total_sites=None)
+    data[value_col] = pd.to_numeric(data[value_col], errors="coerce")
+    data["anchor_year"] = pd.to_numeric(data["anchor_year"], errors="coerce")
+    if data[[value_col, "anchor_year"]].isna().any().any():
+        raise ValueError(
+            "cross-fitted node importance requires finite values and years"
+        )
+    if baseline_model not in set(data["model"].dropna().astype(str)):
+        raise ValueError(
+            f"cross-fitted node importance requires candidate {baseline_model!r}"
+        )
+
+    output_groups = [
+        column
+        for column in group_cols
+        if column in data and column not in {"model", "gap_length"}
+    ]
+    selection_groups = [*output_groups, "gap_length", "failed_sites"]
+    unit_groups = [
+        *selection_groups,
+        "target_gap_id",
+        "mask_seed",
+        "anchor_year",
+        "model",
+    ]
+    collapsed = (
+        data.groupby(unit_groups, dropna=False, observed=True, as_index=False)[
+            value_col
+        ]
+        .mean()
+        .copy()
+    )
+    collapsed["_baseline_tie_order"] = (
+        ~collapsed["model"].astype(str).eq(baseline_model)
+    ).astype(int)
+
+    scored_rows: list[dict[str, Any]] = []
+    for selection_key, condition in collapsed.groupby(
+        selection_groups, dropna=False, observed=True, sort=True
+    ):
+        if not isinstance(selection_key, tuple):
+            selection_key = (selection_key,)
+        selection_metadata = dict(zip(selection_groups, selection_key, strict=True))
+        years = sorted(condition["anchor_year"].unique())
+        if len(years) < 2:
+            raise ValueError(
+                "cross-fitted node importance needs at least two anchor years"
+            )
+        for held_out_year in years:
+            training = condition.loc[condition["anchor_year"].ne(held_out_year)]
+            ranking = (
+                training.groupby(
+                    ["model", "_baseline_tie_order"],
+                    as_index=False,
+                    observed=True,
+                )[value_col]
+                .mean()
+                .sort_values(
+                    [value_col, "_baseline_tie_order", "model"],
+                    kind="mergesort",
+                )
+            )
+            if ranking.empty:
+                raise ValueError("cross-fit training fold contains no candidate model")
+            selected_model = str(ranking.iloc[0]["model"])
+            held_out = condition.loc[
+                condition["anchor_year"].eq(held_out_year)
+                & condition["model"].astype(str).eq(selected_model)
+            ]
+            if held_out.empty:
+                raise ValueError("selected model is absent from a held-out fold")
+            for row in held_out.itertuples(index=False):
+                scored_rows.append(
+                    {
+                        **selection_metadata,
+                        "target_gap_id": row.target_gap_id,
+                        "mask_seed": row.mask_seed,
+                        "anchor_year": held_out_year,
+                        "selected_model": selected_model,
+                        "selected_value": float(getattr(row, value_col)),
+                    }
+                )
+    scored = pd.DataFrame(scored_rows)
+
+    result_rows: list[dict[str, Any]] = []
+    grouped = (
+        scored.groupby(output_groups, dropna=False, observed=True, sort=True)
+        if output_groups
+        else [((), scored)]
+    )
+    for group_offset, (output_key, group) in enumerate(grouped):
+        if output_groups and not isinstance(output_key, tuple):
+            output_key = (output_key,)
+        metadata = dict(
+            zip(output_groups, output_key if output_groups else (), strict=True)
+        )
+        pair_keys = [
+            "gap_length",
+            "target_gap_id",
+            "mask_seed",
+            "anchor_year",
+        ]
+        full = group.loc[group["failed_sites"].map(len).eq(0)].rename(
+            columns={
+                "selected_model": "full_network_selected_model",
+                "selected_value": "full_network_value",
+            }
+        )
+        full = full[
+            [
+                *pair_keys,
+                "full_network_selected_model",
+                "full_network_value",
+            ]
+        ]
+        if full.empty or full.duplicated(pair_keys).any():
+            raise ValueError("cross-fit lacks a unique full-network scored policy")
+        singleton = group.loc[group["failed_sites"].map(len).eq(1)].copy()
+        for site_offset, (sites, failed) in enumerate(
+            singleton.groupby("failed_sites", observed=True, sort=True)
+        ):
+            paired = failed.merge(
+                full,
+                on=pair_keys,
+                how="inner",
+                validate="one_to_one",
+            )
+            if len(paired) != len(full):
+                raise ValueError("cross-fit full/failed policy units are incomplete")
+            paired["unit_impact"] = (
+                paired["selected_value"] - paired["full_network_value"]
+            )
+            n_years = int(paired["anchor_year"].nunique())
+            lower, upper = year_block_mean_interval(
+                paired,
+                "unit_impact",
+                year_col="anchor_year",
+                n_boot=n_boot,
+                seed=seed + group_offset * 101 + site_offset,
+            )
+            full_counts = (
+                paired["full_network_selected_model"].astype(str).value_counts()
+            )
+            failed_counts = paired["selected_model"].astype(str).value_counts()
+            result_rows.append(
+                {
+                    **metadata,
+                    "model": "cross_fitted_policy",
+                    "target_station_id": metadata.get(
+                        "target_station_id", metadata.get("station_id")
+                    ),
+                    "failed_station_id": sites[0],
+                    "full_network_value": float(paired["full_network_value"].mean()),
+                    "failed_value": float(paired["selected_value"].mean()),
+                    "impact": float(paired["unit_impact"].mean()),
+                    "impact_ci_lower": lower,
+                    "impact_ci_upper": upper,
+                    "value_metric": value_col,
+                    "impact_definition": (
+                        "leave_one_anchor_year_out_cross_fitted_failed_minus_full"
+                    ),
+                    "selection_population": "development_evaluation_cross_fit",
+                    "evidence_role": "post_hoc_non_oracle_sensitivity",
+                    "formal_evidence": False,
+                    "eventwise_oracle_selection": False,
+                    "full_network_selected_model_counts": json.dumps(
+                        full_counts.sort_index().to_dict(),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "failed_selected_model_counts": json.dumps(
+                        failed_counts.sort_index().to_dict(),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                    "n_gap_lengths": int(paired["gap_length"].nunique()),
+                    "n_anchor_years": n_years,
+                    "n_independent_clusters": n_years,
+                    "minimum_independent_clusters": MIN_INDEPENDENT_CLUSTERS,
+                    "inference_status": (
+                        "tested"
+                        if n_years >= MIN_INDEPENDENT_CLUSTERS
+                        else WITHHELD_STATUS
+                    ),
+                    "inference_claim_allowed": n_years >= MIN_INDEPENDENT_CLUSTERS,
+                    "n_events": len(paired),
+                    "reason": (
+                        None
+                        if n_years >= MIN_INDEPENDENT_CLUSTERS
+                        else (
+                            "year/overlap clusters below the predeclared floor; "
+                            "CIs withheld"
+                        )
+                    ),
+                }
+            )
+    return pd.DataFrame(result_rows)
+
+
 def analyze_resilience(
     events: pd.DataFrame,
     **kwargs: Any,
@@ -616,6 +900,7 @@ __all__ = [
     "RESILIENCE_UNIT_COLUMNS",
     "analyze_resilience",
     "complete_resilience_units",
+    "cross_fitted_node_importance",
     "node_importance",
     "parse_failed_sites",
     "resilience_auc",

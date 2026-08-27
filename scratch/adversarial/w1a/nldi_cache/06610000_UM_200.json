@@ -1,0 +1,389 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -96.241688,
+          42.0072101
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06601200",
+      "properties": {
+        "comid": 17244488,
+        "identifier": "USGS-06601200",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 53.6951,
+        "name": "Missouri River at Decatur, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06601200/navigation",
+        "reachcode": "10230001000217",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06601200"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.3393889,
+          42.26552778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-421556096202201",
+      "properties": {
+        "comid": 17244432,
+        "identifier": "USGS-421556096202201",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 18.6323,
+        "name": "Glover s Chute, NE   Inlet",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-421556096202201/navigation",
+        "reachcode": "10230001000225",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-421556096202201"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.3408889,
+          42.26838889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-421606096202701",
+      "properties": {
+        "comid": 17244432,
+        "identifier": "USGS-421606096202701",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 29.939,
+        "name": "Missouri R at Glovers Chute, NE   Upstream",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-421606096202701/navigation",
+        "reachcode": "10230001000225",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-421606096202701"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.1447222,
+          41.93932778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-415622096084101",
+      "properties": {
+        "comid": 17246380,
+        "identifier": "USGS-415622096084101",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 54.1124,
+        "name": "NER9-0914",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-415622096084101/navigation",
+        "reachcode": "10230001000213",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-415622096084101"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.5236429,
+          42.50805068
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-423029096312400",
+      "properties": {
+        "comid": 11762304,
+        "identifier": "USGS-423029096312400",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 22.3342,
+        "name": "89N48W21CB",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-423029096312400/navigation",
+        "reachcode": "10170101000003",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-423029096312400"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.4130833,
+          42.48619444
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06486000",
+      "properties": {
+        "comid": 17244390,
+        "identifier": "USGS-06486000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 11.972,
+        "name": "Missouri River at Sioux City, IA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06486000/navigation",
+        "reachcode": "10230001000238",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06486000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.3283056,
+          42.24869444
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-421455096194201",
+      "properties": {
+        "comid": 17244434,
+        "identifier": "USGS-421455096194201",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 61.7735,
+        "name": "Missouri R at Glovers Chute, NE   Midpoint",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-421455096194201/navigation",
+        "reachcode": "10230001000224",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-421455096194201"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.8827903,
+          41.27944235
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-411646095525701",
+      "properties": {
+        "comid": 17219468,
+        "identifier": "USGS-411646095525701",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 81.2328,
+        "name": "075N44W22DAC            Missouri River at C Bluffs",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-411646095525701/navigation",
+        "reachcode": "10230006000081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-411646095525701"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.9225138,
+          41.25888735
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06610000",
+      "properties": {
+        "comid": 17219468,
+        "identifier": "USGS-06610000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 62.0545,
+        "name": "Missouri River at Omaha, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06610000/navigation",
+        "reachcode": "10230006000081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06610000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.9255556,
+          41.265
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-411554095553202",
+      "properties": {
+        "comid": 17219468,
+        "identifier": "USGS-411554095553202",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 65.5595,
+        "name": "CSO 120, Burt Izard Complex, Omaha, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-411554095553202/navigation",
+        "reachcode": "10230006000081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-411554095553202"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.8985833,
+          41.27677778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-411636095535401",
+      "properties": {
+        "comid": 17219468,
+        "identifier": "USGS-411636095535401",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 74.7456,
+        "name": "MISSOURI R AT FREEDOM PARK OMAHA, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-411636095535401/navigation",
+        "reachcode": "10230006000081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-411636095535401"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.0963889,
+          41.55055556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06609100",
+      "properties": {
+        "comid": 17246492,
+        "identifier": "USGS-06609100",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 22.1714,
+        "name": "Missouri River at Blair, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06609100/navigation",
+        "reachcode": "10230001000002",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06609100"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.3830847,
+          42.434716
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06600530",
+      "properties": {
+        "comid": 17244400,
+        "identifier": "USGS-06600530",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 61.9265,
+        "name": "Missouri River below Sioux City, IA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06600530/navigation",
+        "reachcode": "10230001000229",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06600530"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.1043611,
+          41.5917222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-413530096061601",
+      "properties": {
+        "comid": 17246478,
+        "identifier": "USGS-413530096061601",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 44.9263,
+        "name": "Missouri R at Cottonwood Cove Marina nr Blair, NE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-413530096061601/navigation",
+        "reachcode": "10230001000012",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-413530096061601"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -96.4808644,
+          42.48332808
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-422900096285000",
+      "properties": {
+        "comid": 11764388,
+        "identifier": "USGS-422900096285000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 58.4828,
+        "name": "MISSOURI RIVER AT DAKOTA DUNES",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-422900096285000/navigation",
+        "reachcode": "10170101002233",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-422900096285000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -95.9477778,
+          41.3574722
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-412126095565201",
+      "properties": {
+        "comid": 17219436,
+        "identifier": "USGS-412126095565201",
+        "mainstem": "https://geoconnex.us/ref/mainstems/312532",
+        "measure": 83.4929,
+        "name": "Missouri River at NP Dodge Park at Omaha, Nebr.",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-412126095565201/navigation",
+        "reachcode": "10230006000148",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-412126095565201"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

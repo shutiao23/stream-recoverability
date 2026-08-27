@@ -1,0 +1,5 @@
+station_id,layout,approval_source,n_numeric,n_sentinel,sentinel_proportion,n_range_na,range_na_proportion,naive_one_percent_verdict,n_non_approved_na,n_estimated_kept,n_ice_flagged,max_constant_run_days,n_jump_days,n_years_observed,n_evaluable_years,n_years_not_evaluable,unit_handling,flags,verdict
+13340000,wide,absent,8552,0,0.0,0,0.0,accepted,0,0,0,41,0,25,23,2,assumed_celsius,suspect_constant_run,accepted_with_flags
+13341050,wide,absent,7977,0,0.0,0,0.0,accepted,0,0,0,19,0,23,21,2,assumed_celsius,suspect_constant_run,accepted_with_flags
+13342500,wide,absent,9011,0,0.0,0,0.0,accepted,0,0,0,14,0,25,24,1,assumed_celsius,,accepted
+13343000,wide,absent,1848,2,0.0010822510822510823,0,0.0,accepted,0,0,0,6,0,11,0,11,assumed_celsius,,rejected_sentinel

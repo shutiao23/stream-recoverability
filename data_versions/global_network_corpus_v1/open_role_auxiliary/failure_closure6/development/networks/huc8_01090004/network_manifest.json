@@ -1,0 +1,196 @@
+{
+  "acquisition_terminal": true,
+  "artifacts": {
+    "adapter_schema": {
+      "bytes": 774,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/adapter_schema.json",
+      "sha256": "e716726048a09620aa184a17c33c16ff2c1a8ade15ada20719efda557c1d7834"
+    },
+    "coverage": {
+      "bytes": 7763,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/coverage.csv",
+      "sha256": "8da87c4402e54c6c2780ecd03693f2c1b805fd2f48db37aec856213cadfd643c"
+    },
+    "daily_long_auxiliary": {
+      "bytes": 5010779,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/daily_long_auxiliary.parquet",
+      "sha256": "509acba37ac77f210d385849fc76bb9abc8587aea71ea7fb63eb41fe0b0bd66e"
+    },
+    "power_point_metadata": {
+      "bytes": 8263,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/power_point_metadata.csv",
+      "sha256": "6fb03b2f83df02de6952889d6f5f5695682d27a26e64881ca63031eec2a65e6a"
+    },
+    "raw_request_log": {
+      "bytes": 38786,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/raw_request_log.json",
+      "sha256": "be2bfea96bf16b48275811cc1f354b895ff92f8b16f0e9e1f891645cf28b25f6"
+    },
+    "request_plan": {
+      "bytes": 19522,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/request_plan.json",
+      "sha256": "f0d7e8686c385afb598caf8c73ef3f61994104dfc8e00d6fa9ecacc273755b75"
+    },
+    "source_failures": {
+      "bytes": 1713,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/source_failures.json",
+      "sha256": "f2a4097d514be10e545290fc3b851cb80db971adcf76a24baaa6112e91c09225"
+    },
+    "usgs_time_series_metadata": {
+      "bytes": 14139,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01090004/usgs_time_series_metadata.csv",
+      "sha256": "49c6045fe67c182d42050517bd087f4394161bd0ecadeda91080ef5af1da2338"
+    }
+  },
+  "formal_evidence": false,
+  "manifest_schema": "t2_v91_open_role_mh_network_acquisition_v1",
+  "n_auxiliary_rows": 429765,
+  "n_raw_responses": 36,
+  "n_sites": 9,
+  "n_source_failures_or_unavailable": 9,
+  "network_id": "huc8_01090004",
+  "network_interval_reported": false,
+  "network_plan_sha256": "8646dcab19e8d14cd39b9739e0dc67d2594bd264784aae4922f10cd047dac5f6",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "provider_qc": {
+    "POWER": "finite and not provider fill_value; fill retained as rejected row",
+    "USGS": "Approved only; Provisional retained as rejected row with NA value"
+  },
+  "purpose": "auxiliary_corpus_materialization_not_performance_evidence",
+  "raw_response_hashes_complete_for_logged_responses": true,
+  "raw_response_sha256": [
+    "62a9df8cd104dfe3b96b7f570b62ae4044b5e4b1bc80238de7f00eb2e1ad4628",
+    "a8aace90026f7f3082bd7803802b1e179b4f48545771e0a90a63a589cfc4b3f7",
+    "1feda0a6165e8acd37270ccfde13ce8410b08fdc678d56e116a6f2514273cee0",
+    "9718619b6bbc3b5997ec2a2e9c58e907bcf6deede40707f8b8901ef34e3b31f3",
+    "d052b35ab02fd954ca4b85adf250385f5096f5800a3e8acd0458f62bbbb9bfa7",
+    "039da79168b951db0b0fcd004f04fbf99b9d900c5523798184ffd66962822440",
+    "ef310a071afca0695abd0a51254b0db093d12c777becfc98811418ad7a23264a",
+    "be82dbb5a8cd6aa6034b613dcc50e16bd7911c5d90c85d3833dde57dfc830d41",
+    "0d20936dd807d1f6682dcd9909234f30e78383ab5ee91d7bd05ddd8d8c4546ae",
+    "4272a2c7b00aef3bbf3cf4d57fd7062bdf4950386bc88dae7a9363acdaa8979f",
+    "38abe0ce84433d29d77a0c2512157c8c248f070c678725960e5db776d7966761",
+    "95b38c41d33f9a3877b890dfd9ae8d108f899780eb78c75e10a0138760059d17",
+    "83937989efbdb5a280ed5a75fc4b3e1635b25d39f4488fae8eebb4761f8079a0",
+    "5113196a5f981b384915cf43f4ea8424b755ee36df59f8a79b17ce3f755c8da1",
+    "16f79203d6b052ee51497ed5a60cb8de7cb8633a99991460217f2e9a41719159",
+    "4a64be4fda1e8381ad4801e76fac8eba906bfe2541b5e291997449f6dd596b6a",
+    "8ade380056673c2e2c8a2fbdb69157db5e2798114e8eafd80f3909695ade26e5",
+    "176214481a9a58e19528d1361c157eb828e1f8eaf15c03693d4cae2ee6a4036c",
+    "4b06462c39d6d6479ada1540cc1184aabd1d2647766bbde7bea115c4a0e8d335",
+    "32bd6ded68c3d4fe68ae1dd94f5dd418b471cae686be3e147cb6caa5c3463019",
+    "e44f2d4bf148d36a9a9e992f4032ba579c193c6bea0976d72acd5bd0b53ba529",
+    "dc5355446b60474673b852bae7427a0e7b34be5d25d568f1d940bfaf2de3f93a",
+    "31b7234e527cc7f9fbd854f9317105b00caa43033b2e6710731ac7f4471bb881",
+    "19fa2e631e89cdab306c43bf7a171de04b971c0ed6e6f13216ee0acc3ccda938",
+    "b707691c3a1423b81d005f8869af302c6ba9bc32f3d2b3a2a604954f921977e3",
+    "cdda4f32e4f7f22487b061bf792737af7b11b362f9c97ea823f92fd9c9abf039",
+    "0fea1c3f02b3dffd0b82754f5e12e55daf533b4f103d5cb607ab2e4d9b498020",
+    "67971a36b2f4bd916cb280e8444ac78f6da4ff83fc8fd599c27130dd9a3ca2bb",
+    "c0f2aa35364f4a739b567e44b65d615ef52142b582ea1d1ddfe3700da11eef6c",
+    "c8090d7d460f5ec9ef88cff7650763999d88d08d71fdfd12f8e2e91cee7a632a",
+    "c8554220c7ad453a98edb46e5f218a7f44dfd379a20457750fa3f0be30795427",
+    "3771ad9a11f5af4a99ca6ea4cce3c483575a8282a6cb5b571dde6cada30d5719",
+    "5a03ed1beabae2ce4eb8557266a27468df14a99a635c383db1543983fc98875a",
+    "7eca9e1ff8e19546dc6c906b9c97e28bf2302afb41d2cb919c30e186a7c04528",
+    "f15b4a6d4c8292cf44a900c963577f022bd8937c3d6a3095e919a9619e80c6e2",
+    "9ee6e9e0f6b0c185481ec165a731260342403e5c387f392254446d6dadced31b"
+  ],
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "01115098",
+    "01115110",
+    "01115170",
+    "01115183",
+    "01115184",
+    "01115190",
+    "01115265",
+    "01115275",
+    "01115276"
+  ],
+  "source_failure_status_counts": {
+    "source_unavailable_no_daily_mean_series": 9
+  },
+  "source_key": "open_role_qc/failure_closure6/development",
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "station_request_windows": [
+    {
+      "latitude": 41.8525992,
+      "longitude": -71.6061754,
+      "power_start": "2000-01-29",
+      "site_id": "01115098",
+      "target_end": "2025-12-04",
+      "target_start": "2000-01-29"
+    },
+    {
+      "latitude": 41.8456548,
+      "longitude": -71.6095088,
+      "power_start": "2000-01-29",
+      "site_id": "01115110",
+      "target_end": "2025-12-04",
+      "target_start": "2000-01-29"
+    },
+    {
+      "latitude": 41.84093269,
+      "longitude": -71.584508,
+      "power_start": "2000-03-10",
+      "site_id": "01115170",
+      "target_end": "2025-04-17",
+      "target_start": "2000-03-10"
+    },
+    {
+      "latitude": 41.79759966,
+      "longitude": -71.5847857,
+      "power_start": "2000-01-25",
+      "site_id": "01115183",
+      "target_end": "2025-06-19",
+      "target_start": "2000-01-25"
+    },
+    {
+      "latitude": 41.7887107,
+      "longitude": -71.6200647,
+      "power_start": "2009-05-28",
+      "site_id": "01115184",
+      "target_end": "2023-10-17",
+      "target_start": "2009-05-28"
+    },
+    {
+      "latitude": 41.8223213,
+      "longitude": -71.70034528,
+      "power_start": "2000-02-09",
+      "site_id": "01115190",
+      "target_end": "2025-07-08",
+      "target_start": "2000-02-09"
+    },
+    {
+      "latitude": 41.7906548,
+      "longitude": -71.6986785,
+      "power_start": "2000-02-01",
+      "site_id": "01115265",
+      "target_end": "2025-07-08",
+      "target_start": "2000-02-01"
+    },
+    {
+      "latitude": 41.7824801,
+      "longitude": -71.674764,
+      "power_start": "2000-01-15",
+      "site_id": "01115275",
+      "target_end": "2023-10-17",
+      "target_start": "2000-01-15"
+    },
+    {
+      "latitude": 41.7853772,
+      "longitude": -71.6672885,
+      "power_start": "2009-04-18",
+      "site_id": "01115276",
+      "target_end": "2025-07-08",
+      "target_start": "2009-04-18"
+    }
+  ],
+  "status": "materialized_partial",
+  "temperature_columns_read": [],
+  "value_role": "M_and_H_covariates_only_not_target"
+}

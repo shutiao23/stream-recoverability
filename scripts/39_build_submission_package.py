@@ -171,6 +171,10 @@ keywords:
 """
 
 
+def _si_text(name: str) -> str:
+    return (PAPER / "si_texts" / name).read_text(encoding="utf-8").strip()
+
+
 def _si_source() -> str:
     overview = (PAPER / "si.md").read_text(encoding="utf-8")
     overview = overview.split("## Contents", 1)[0].strip()
@@ -178,6 +182,29 @@ def _si_source() -> str:
     methods = methods.split("\n", 1)[1].lstrip()
     audits = (PAPER / "si_independence_audits.md").read_text(encoding="utf-8")
     audits = audits.split("\n", 1)[1].lstrip()
+    numbered = "\n\n".join(
+        [
+            f"# Text S{index}. {title}\n\n{_si_text(filename)}"
+            for index, (title, filename) in enumerate(
+                (
+                    ("Validation-only model funnel", "s03.md"),
+                    ("Proposed-model information groups", "s04.md"),
+                    ("Hydrothermal state and P3 change-date sensitivity", "s05.md"),
+                    ("Stationarity and low-frequency controls", "s06.md"),
+                    ("Omitted-covariate budget", "s07.md"),
+                    ("Frontier-path repair and withheld inference", "s08.md"),
+                    ("Corrected hypothesis family", "s09.md"),
+                    ("Cross-fitted node importance", "s10.md"),
+                    ("Donor falsification", "s11.md"),
+                    ("Temporally held-out external evaluation", "s12.md"),
+                    ("Data and software rights", "s13.md"),
+                    ("Independently frozen national regulation panel", "s14.md"),
+                    ("Post-hoc within-fold leave-one-ecoregion-out AUC", "s15.md"),
+                ),
+                start=3,
+            )
+        ]
+    )
     table_specs = [
         (
             "Table S1. Recoverability-type sensitivity across classification horizons",
@@ -234,9 +261,8 @@ def _si_source() -> str:
             None,
         ),
         (
-            "Table S7. National-panel regression estimates",
-            ROOT
-            / "results/regulation_panel_v1_legacy_transport/logistic_regression.csv",
+            "Table S7. National-panel regression estimates with separated terms suppressed",
+            ROOT / "results/revision/national_logistic_suppressed.csv",
             None,
         ),
         (
@@ -274,6 +300,8 @@ date: "Draft built from repository evidence"
 
 {audits}
 
+{numbered}
+
 # Figure S1. P3 Change-Date Sensitivity
 
 ![P3 change-date sensitivity]({figure_s1.as_posix()}){{ width=95% }}
@@ -284,7 +312,7 @@ date: "Draft built from repository evidence"
 
 # Evidence Boundaries
 
-Validation-only model rankings are not manuscript performance evidence. State-matched, annual-demeaned, cross-fitted node-importance, external fixed-model, and within-fold leave-one-ecoregion-out AUC analyses are post-hoc sensitivities. The frozen primary national metric remains the pooled leave-one-ecoregion-out AUC. The Chattahoochee panel is one temporal/network evaluation, not five independent basins. No ecological, application, or regulatory safe-fill threshold was declared. Data and software are archived separately and are not Supporting Information.
+Validation-only model rankings are not manuscript performance evidence. State-matched, annual-demeaned, cross-fitted node-importance, external fixed-model, and within-fold leave-one-ecoregion-out AUC analyses are post-hoc sensitivities. The frozen primary national metric remains the pooled leave-one-ecoregion-out AUC, now labelled a preregistered defective diagnostic. The valid post-hoc level is the macro within-fold AUC. The Chattahoochee panel is one temporal/network evaluation, not five independent basins. No ecological, application, or regulatory safe-fill threshold was declared. Data and software are archived separately and are not Supporting Information.
 """
 
 
@@ -352,7 +380,7 @@ def _enable_docx_line_numbers(path: Path) -> None:
     temporary.replace(path)
 
 
-def main() -> None:
+def main(markdown_only: bool = False) -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     header = OUTPUT / "latex_header.tex"
     header.write_text(
@@ -370,22 +398,23 @@ def main() -> None:
     main_source.write_text(_main_source(), encoding="utf-8")
     si_source.write_text(_si_source(), encoding="utf-8")
 
-    outputs = [
-        main_source,
-        si_source,
-        header,
-        OUTPUT / "agu_main_manuscript.pdf",
-        OUTPUT / "agu_main_manuscript.docx",
-        OUTPUT / "agu_supporting_information.pdf",
-    ]
-    _run_pandoc(main_source, outputs[3], pdf=True)
-    _run_pandoc(main_source, outputs[4], pdf=False)
-    _enable_docx_line_numbers(outputs[4])
-    _run_pandoc(si_source, outputs[5], pdf=True)
+    outputs = [main_source, si_source, header]
+    if not markdown_only:
+        try:
+            pdf_main = OUTPUT / "agu_main_manuscript.pdf"
+            docx_main = OUTPUT / "agu_main_manuscript.docx"
+            pdf_si = OUTPUT / "agu_supporting_information.pdf"
+            _run_pandoc(main_source, pdf_main, pdf=True)
+            _run_pandoc(main_source, docx_main, pdf=False)
+            _enable_docx_line_numbers(docx_main)
+            _run_pandoc(si_source, pdf_si, pdf=True)
+            outputs.extend([pdf_main, docx_main, pdf_si])
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            markdown_only = True
     manifest = {
         "schema_version": "agu_submission_package_v1",
         "status": "draft_blocked_external_and_author_inputs",
-        "artifacts": [_identity(path) for path in outputs],
+        "artifacts": [_identity(path) for path in outputs if path.is_file()],
         "blockers": [
             "author names, affiliations, ORCID, funding, contributions, and declarations",
             "written editor acceptance of the restricted-data exception",
@@ -407,4 +436,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--markdown-only",
+        action="store_true",
+        help="Write markdown drafts without requiring pandoc or LaTeX.",
+    )
+    args = parser.parse_args()
+    main(markdown_only=args.markdown_only)

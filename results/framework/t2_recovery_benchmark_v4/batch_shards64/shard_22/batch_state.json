@@ -1,0 +1,147 @@
+{
+  "acknowledgements": {
+    "full_workload_execution_allowed": false,
+    "planned_chunk_count": 8,
+    "workload_item_count": 2491245,
+    "workload_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+  },
+  "aggregation_manifest_list_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/batch_shards64/shard_22/aggregation_chunk_manifests.json",
+  "batch_plan_sha256": "5fcd90f167f3135961b26db785805f41b1b062d89228e76945ef84ba3f12ac3d",
+  "chunk_size": 5000,
+  "chunks": [
+    {
+      "attempts": 1,
+      "chunk_index": 0,
+      "end_ordinal_exclusive": 885000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0880000_0885000/manifest.json",
+      "manifest_sha256": "479c8a0714cb6ed3d8e065abfc810a430647151cc745d42b35f00cf4b98bf6fb",
+      "start_ordinal": 880000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 1,
+      "end_ordinal_exclusive": 890000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0885000_0890000/manifest.json",
+      "manifest_sha256": "490b944a33728638e0782a523113d389b2b5f89ed7da7bb42f748896334ca249",
+      "start_ordinal": 885000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 2,
+      "end_ordinal_exclusive": 895000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0890000_0895000/manifest.json",
+      "manifest_sha256": "e0b1a7783ac10b9670880fb353560ed2eedefdbb6ce7da1aff0737373e2acf7d",
+      "start_ordinal": 890000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 3,
+      "end_ordinal_exclusive": 900000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0895000_0900000/manifest.json",
+      "manifest_sha256": "22ad64b14c06f2604ea58293e995bd101dfe351741c4c6e866bd776d4f3d30a3",
+      "start_ordinal": 895000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 4,
+      "end_ordinal_exclusive": 905000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0900000_0905000/manifest.json",
+      "manifest_sha256": "9568a18a4808a7661067826b2540f0c8f7df8c3dd335a32eecdc2702ebbad6a2",
+      "start_ordinal": 900000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 5,
+      "end_ordinal_exclusive": 910000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0905000_0910000/manifest.json",
+      "manifest_sha256": "3dffa57054bee804649dc1ab0b921c11d3d8e4a3b95ff952765adc1946b68e19",
+      "start_ordinal": 905000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 6,
+      "end_ordinal_exclusive": 915000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0910000_0915000/manifest.json",
+      "manifest_sha256": "1c97a20dfb8f7f5f9c565003098c2ae4563cd80a695745dacfc2b53154ae95bb",
+      "start_ordinal": 910000,
+      "status": "succeeded"
+    },
+    {
+      "attempts": 1,
+      "chunk_index": 7,
+      "end_ordinal_exclusive": 920000,
+      "manifest_path": "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v1/chunk_0915000_0920000/manifest.json",
+      "manifest_sha256": "24e325fede6656e023e5420465a400ecc32331c29da65908ac44437f05604209",
+      "start_ordinal": 915000,
+      "status": "succeeded"
+    }
+  ],
+  "contract": {
+    "chunk_manifest_schema": "t2_v91_result_chunk_v4",
+    "executor_adapter": "t2_v91_chunk_executor_v4",
+    "item_count_pointer": "/n_work_items",
+    "item_identity_sha256_pointer": "/work_item_identity_sha256",
+    "name": "t2_v4_legacy_mh_frozen_index",
+    "runner_contract_pointer": "/runner_contract_version",
+    "sealed_read_pointer": "/sealed_temperature_records_read",
+    "sealed_roots_pointer": "/sealed_input_roots_allowed",
+    "workload_manifest_schema": "t2_v91_open_role_workload_v4"
+  },
+  "end_ordinal_exclusive": 920000,
+  "execution_mode": "network_cache_v1",
+  "expected_workload_item_count": 2491245,
+  "fail_fast": true,
+  "formal_evidence": false,
+  "full_workload": false,
+  "manifest_schema": "t2_batch_orchestration_v1",
+  "max_workers": 1,
+  "passed": false,
+  "planned_chunk_count": 8,
+  "purpose": "bounded_pipeline_orchestration_not_evidence",
+  "ranges": [
+    [
+      880000,
+      885000
+    ],
+    [
+      885000,
+      890000
+    ],
+    [
+      890000,
+      895000
+    ],
+    [
+      895000,
+      900000
+    ],
+    [
+      900000,
+      905000
+    ],
+    [
+      905000,
+      910000
+    ],
+    [
+      910000,
+      915000
+    ],
+    [
+      915000,
+      920000
+    ]
+  ],
+  "results_format": "parquet",
+  "sealed_temperature_records_read": false,
+  "start_ordinal": 880000,
+  "status": "complete",
+  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
+  "workload_manifest_sha256": "9c5769f6818b456b9e5ded8aaf7cf250bf7befb74f8a3b9a4a338d60395b7f89"
+}

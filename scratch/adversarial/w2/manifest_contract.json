@@ -1,0 +1,49 @@
+{
+  "what_this_is": "W2 six-river pipeline verification contract. Planted 30/90 gap skill, pooled nested table, predeclared complete_enough roster.",
+  "what_this_is_not": "Not T2. Not formal evidence. Not a headline. Not a replacement for results/framework/public_rivers/operator_ablation_manifest.json.",
+  "n_networks": 6,
+  "passed": false,
+  "purpose": "pipeline_verification_not_evidence",
+  "achieved_skill_is_later_year_not_gap_specific": false,
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "confirmatory_eligible": false,
+  "thresholds_locked": true,
+  "primary_networks": [
+    "delaware_river_huc20",
+    "willamette_river_huc17",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31"
+  ],
+  "forbidden_delaware_replacement": "suwannee_river_huc31",
+  "y_kind": "planted_gap",
+  "gap_lengths": [30, 90],
+  "nested_grids": "pooled across gap lengths; per-gap tables are not the pipeline check",
+  "gap_length_delta_r2_is_pipeline_check": true,
+  "pipeline_pass_criterion": "gap_length delta_r2 nonzero on the pooled 30/90 table and first L=30 vs L=90 rows differ; operator win/loss is not the criterion",
+  "network_interval": {
+    "inference_status": "withheld_n_lt_100_network_interval",
+    "ci_lower": null,
+    "ci_upper": null,
+    "n_networks": 6,
+    "note": "W2 n=6 cannot report a cluster-bootstrap network CI. Do not write inference_status tested."
+  },
+  "evaluate_success": {
+    "passed": false,
+    "passed_numeric_floors": false,
+    "confirmatory_eligible": false,
+    "n_networks_min": 100,
+    "thresholds_locked": true,
+    "inference_status": "withheld_n_lt_100_network_interval"
+  },
+  "operator_incremental_r2_le_0_does_not_license_retuning": true,
+  "overwrites_later_year_audit_manifest": false,
+  "sealed_outcomes_opened": false,
+  "jinsha_outcomes_used": false,
+  "chattahoochee_outcomes_used": false,
+  "new_temperatures_downloaded": false,
+  "natural_outage_fill_mae_used_as_phase4_y": false,
+  "catalog_98_name_huc2_downloaded": false
+}

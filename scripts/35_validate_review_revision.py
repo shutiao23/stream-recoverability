@@ -69,11 +69,18 @@ def main() -> None:
         hypotheses["hypothesis_family"].eq("frontier_model_vs_climatology")
     ]
     assert len(frontier_tests) == 27
-    assert frontier_tests["p_value"].notna().sum() == 24
-    assert frontier_tests["bh_reject"].sum() == 14
     references = frontier_tests.loc[frontier_tests["model"].eq("climatology")]
     assert len(references) == 3
     assert references["hypothesis_status"].eq("reference_not_tested").all()
+    tested_or_withheld = frontier_tests.loc[
+        ~frontier_tests["model"].eq("climatology")
+    ]
+    assert tested_or_withheld["hypothesis_status"].eq(
+        "withheld_insufficient_independent_clusters"
+    ).all()
+    assert tested_or_withheld["p_value"].isna().all()
+    assert tested_or_withheld["n_independent_clusters"].lt(5).all()
+    assert frontier_tests["bh_reject"].sum() == 0
 
     importance = pd.read_csv(ROOT / "results/analysis/node_importance.csv")
     assert len(importance) == 36
@@ -93,7 +100,10 @@ def main() -> None:
         cross_fitted["station_id"].eq("B1") & cross_fitted["failed_station_id"].eq("S2")
     ].iloc[0]
     assert 0.10 < s2_to_b1["impact"] < 0.11
-    assert s2_to_b1["impact_ci_lower"] > 0
+    assert pd.isna(s2_to_b1["impact_ci_lower"])
+    assert s2_to_b1["inference_status"] == (
+        "withheld_insufficient_independent_clusters"
+    )
 
     budget = pd.read_csv(ROOT / "paper/tables/table_03.csv")
     original_p3 = budget.loc[
@@ -308,19 +318,22 @@ def main() -> None:
     assert "changed abruptly at the end of 2014" not in manuscript
     assert "0.407" in manuscript
     assert "0.526" in manuscript
+    assert "defective" in manuscript.lower()
+    assert "case-study" in manuscript.lower() or "case study" in manuscript.lower()
     assert re.search(r"within[- ]fold", manuscript, re.IGNORECASE)
     assert re.search(r"Southeast Plains|SEPlains", manuscript)
     assert "0.105" in manuscript
+    assert "14 passed BH" not in manuscript
     ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
     assert "## BL-011" in ledger
+    assert "## BL-012" in ledger
     assert "implementation defect" in ledger.lower()
     claims = (ROOT / "paper/claim_matrix.md").read_text(encoding="utf-8")
     assert re.search(r"Southeast Plains|ecoregion-dependent|region-dependent", claims)
-    assert "Post-hoc boundary mechanism" in claims
     assert "mechanism sketch" in manuscript
     assert "not a causal attribution" in manuscript
     key_points = (ROOT / "paper/key_points.md").read_text(encoding="utf-8")
-    assert "post-hoc direction" in key_points
+    assert "post-hoc" in key_points.lower()
     abstract = re.search(r"## Abstract\n\n(.*?)\n\n##", manuscript, re.DOTALL)
     assert abstract is not None and len(abstract.group(1).split()) <= 250
     for line in (ROOT / "paper/key_points.md").read_text(encoding="utf-8").splitlines():
@@ -361,9 +374,32 @@ def main() -> None:
     si_built = (
         ROOT / "paper/submission/agu_supporting_information.md"
     ).read_text(encoding="utf-8")
+    for heading in (
+        "# Text S3.",
+        "# Text S4.",
+        "# Text S5.",
+        "# Text S6.",
+        "# Text S7.",
+        "# Text S8.",
+        "# Text S9.",
+        "# Text S10.",
+        "# Text S11.",
+        "# Text S12.",
+        "# Text S13.",
+        "# Text S14.",
+        "# Text S15.",
+    ):
+        assert heading in si_built, heading
     table_s8 = si_built.split("Table S8", 1)[1]
-    assert "undefined" in table_s8
+    assert "undefined" in table_s8 or "not defined" in table_s8
     assert not re.search(r"\bnan\b", table_s8, re.IGNORECASE)
+    revision_manifest = json.loads(
+        (ROOT / "results/revision/wrr_evidence_revision_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert revision_manifest["status"] == "complete"
+    assert revision_manifest["frontier_finite_p_values"] == 0
     final_manifest = json.loads(
         (ROOT / "results/final_results_manifest.json").read_text(encoding="utf-8")
     )
@@ -383,7 +419,7 @@ def main() -> None:
             {
                 "status": "complete",
                 "matching_frontier_cells": len(comparison),
-                "finite_frontier_tests": 24,
+                "finite_frontier_tests": 0,
                 "node_importance_rows": len(importance),
                 "cross_fitted_node_importance_rows": len(cross_fitted),
                 "external_run_units": 540,

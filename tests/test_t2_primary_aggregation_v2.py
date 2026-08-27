@@ -65,6 +65,40 @@ def _stream_sha(ids: list[str]) -> str:
     return digest.hexdigest()
 
 
+def test_logical_result_digest_normalizes_information_audit_storage() -> None:
+    left = hashlib.sha256()
+    right = hashlib.sha256()
+    columns = ["item_id", "information_audit"]
+    module = __import__(
+        "stream_recoverability.experiments.t2_primary_aggregation_v2",
+        fromlist=["_update_logical_result_digest"],
+    )
+    module._update_logical_result_digest(
+        left,
+        pd.DataFrame(
+            [{"item_id": "x", "information_audit": {"lag": np.int64(-1), "ok": True}}]
+        ),
+        columns,
+    )
+    module._update_logical_result_digest(
+        right,
+        pd.DataFrame(
+            [
+                {
+                    "item_id": "x",
+                    "information_audit": json.dumps(
+                        {"lag": -1, "ok": True},
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
+                }
+            ]
+        ),
+        columns,
+    )
+    assert left.hexdigest() == right.hexdigest()
+
+
 def test_logical_result_digest_normalizes_nested_numpy_containers() -> None:
     left = hashlib.sha256()
     right = hashlib.sha256()

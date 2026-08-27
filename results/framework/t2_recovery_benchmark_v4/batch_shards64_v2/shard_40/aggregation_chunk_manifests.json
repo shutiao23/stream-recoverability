@@ -1,0 +1,49 @@
+{
+  "batch_plan_sha256": "2e8d465bb55322728a0a4b0b3aa89d7faf6b2377ffdb70e3735be79a0fee3042",
+  "chunk_manifest_paths": [],
+  "completed_chunk_count": 0,
+  "expected_workload_item_count": 2491245,
+  "formal_evidence": false,
+  "manifest_schema": "t2_batch_aggregation_manifest_list_v1",
+  "missing_ordinal_ranges": [
+    [
+      1600000,
+      1605000
+    ],
+    [
+      1605000,
+      1610000
+    ],
+    [
+      1610000,
+      1615000
+    ],
+    [
+      1615000,
+      1620000
+    ],
+    [
+      1620000,
+      1625000
+    ],
+    [
+      1625000,
+      1630000
+    ],
+    [
+      1630000,
+      1635000
+    ],
+    [
+      1635000,
+      1640000
+    ]
+  ],
+  "passed": false,
+  "planned_chunk_count": 8,
+  "purpose": "aggregation_input_custody_not_evidence",
+  "ready_for_aggregation": false,
+  "sealed_temperature_records_read": false,
+  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
+  "workload_manifest_sha256": "6abed0f6cd7360e237384b282546c0395e690d481d256c90fc6ae495c32c52b2"
+}

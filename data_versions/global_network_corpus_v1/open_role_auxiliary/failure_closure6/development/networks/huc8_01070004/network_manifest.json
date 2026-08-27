@@ -1,0 +1,120 @@
+{
+  "acquisition_terminal": true,
+  "artifacts": {
+    "adapter_schema": {
+      "bytes": 774,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/adapter_schema.json",
+      "sha256": "e716726048a09620aa184a17c33c16ff2c1a8ade15ada20719efda557c1d7834"
+    },
+    "coverage": {
+      "bytes": 2771,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/coverage.csv",
+      "sha256": "8d52b4134a34f02be2d1a3d76db3a247b203919d1f578e89bfa1660509cf4e08"
+    },
+    "daily_long_auxiliary": {
+      "bytes": 2273373,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/daily_long_auxiliary.parquet",
+      "sha256": "499906e3d7cc2f2b3b270e78ef3782b223fe32e2cfe22a57715d20d5c5730996"
+    },
+    "power_point_metadata": {
+      "bytes": 2954,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/power_point_metadata.csv",
+      "sha256": "566efafb1c841a76c93c812acbf135409be3a68823c72fee3eb968686e34d835"
+    },
+    "raw_request_log": {
+      "bytes": 15286,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/raw_request_log.json",
+      "sha256": "6b739ecb082f9e33393c04179add4223608a5c02af6fc6d2cd19cb30612d5fbf"
+    },
+    "request_plan": {
+      "bytes": 6894,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/request_plan.json",
+      "sha256": "774f481e71df5ea311af65e869f8d96faa2bbfe0556209ef564dbffd93fa4bde"
+    },
+    "source_failures": {
+      "bytes": 573,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/source_failures.json",
+      "sha256": "359335eef4217d65731cb845e9f64893a6ca36723db1b7c4141ca48904dae3de"
+    },
+    "usgs_time_series_metadata": {
+      "bytes": 5040,
+      "path": "data_versions/global_network_corpus_v1/open_role_auxiliary/failure_closure6/development/networks/huc8_01070004/usgs_time_series_metadata.csv",
+      "sha256": "848fdd412792a7bf9737a1219ae7591b5f12470fe35a93a0a3aa8252b1f37b86"
+    }
+  },
+  "formal_evidence": false,
+  "manifest_schema": "t2_v91_open_role_mh_network_acquisition_v1",
+  "n_auxiliary_rows": 155465,
+  "n_raw_responses": 14,
+  "n_sites": 3,
+  "n_source_failures_or_unavailable": 3,
+  "network_id": "huc8_01070004",
+  "network_interval_reported": false,
+  "network_plan_sha256": "0757a8fb58d1c860aedf6df742241a82b5b6117edb35d589e1a0176d15862d94",
+  "passed": false,
+  "performance_metrics_computed": false,
+  "provider_qc": {
+    "POWER": "finite and not provider fill_value; fill retained as rejected row",
+    "USGS": "Approved only; Provisional retained as rejected row with NA value"
+  },
+  "purpose": "auxiliary_corpus_materialization_not_performance_evidence",
+  "raw_response_hashes_complete_for_logged_responses": true,
+  "raw_response_sha256": [
+    "413481deea39a8b50e789a0a156abed9d6ce2f707dbd13021d3c2b3ff9dc71fc",
+    "0372c7243b4849f1aaf7d12b8e82f75e48bfe22f9f0304b687e8b423a5439c50",
+    "82f2e0e6333053ded1ed7363cec93e990b115aadc695717fc9358187ed190147",
+    "9c112c138ab7b5436eb93dbea8bae814131091864b8f1dbab78ceedc1db25142",
+    "0912fe663c444bcd091a44b755d61bbb8eb6c1772f57b70fd01753961ca3f997",
+    "c7033d62d56f5504e1eb3f3afc757e1831fc10c26f68bec9c74711577ff47036",
+    "0152397e1aa51b2b51048ac243a563f963fd86aa0aeeb85d6f6430c2867c8437",
+    "791dd999911b1d2e1827eff1c66243175dcd5aa8bbf1329e35b64c12cbc7a34c",
+    "8d394aceab4442c78ca7b61e0f3f370e51a796988f48275c3454717cd417adeb",
+    "95ec9ba2dd5f425f177ff194cb08806b2b6bb732bd37c0fe66d3a0761c950bae",
+    "f8dd8b9299449b47d161c8bee2aa660743d2bfebbff25cd1ad44231cdec539a9",
+    "9e533b86f609d9974aa1f52eef89e19cc165ac3aa6a898fe06d174e033106f7b",
+    "1a2eada59362b0c5ac14d2e1afaef724b4aded5f5f4e3b99c7b405dad4ba1ba9",
+    "b8c0bd5dda5827649064f668fda565c21d82848c55411ebb85d58fdf07ef15e8"
+  ],
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "sealed_temperature_records_read": false,
+  "site_ids": [
+    "01095220",
+    "01095375",
+    "01095434"
+  ],
+  "source_failure_status_counts": {
+    "source_unavailable_no_daily_mean_series": 3
+  },
+  "source_key": "open_role_qc/failure_closure6/development",
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "station_request_windows": [
+    {
+      "latitude": 42.41080875,
+      "longitude": -71.7911516,
+      "power_start": "1998-04-15",
+      "site_id": "01095220",
+      "target_end": "2026-04-12",
+      "target_start": "1998-04-15"
+    },
+    {
+      "latitude": 42.37286967,
+      "longitude": -71.8281279,
+      "power_start": "1997-04-06",
+      "site_id": "01095375",
+      "target_end": "2026-04-12",
+      "target_start": "1997-04-06"
+    },
+    {
+      "latitude": 42.36453675,
+      "longitude": -71.775349,
+      "power_start": "2012-05-09",
+      "site_id": "01095434",
+      "target_end": "2026-04-12",
+      "target_start": "2012-05-09"
+    }
+  ],
+  "status": "materialized_partial",
+  "temperature_columns_read": [],
+  "value_role": "M_and_H_covariates_only_not_target"
+}

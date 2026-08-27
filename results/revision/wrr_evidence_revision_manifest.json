@@ -1,0 +1,41 @@
+{
+  "schema_version": "wrr_evidence_revision_v1",
+  "status": "complete",
+  "does_not_reopen_freeze": true,
+  "headline_claims_downgraded": true,
+  "independent_cluster_floor": 5,
+  "frontier_finite_p_values": 0,
+  "national_headline_estimand": "macro_within_fold_auc_plus_unadjusted_null",
+  "artifacts": {
+    "statistical_frontiers": {
+      "path": "results/analysis/statistical_frontiers.csv",
+      "bytes": 16446,
+      "sha256": "9b6bd02cdb94b35f45d5adb750ba2aa09e858ca642e67473b7dab94deb7ee6b3"
+    },
+    "hypothesis_tests": {
+      "path": "results/analysis/hypothesis_tests.csv",
+      "bytes": 1722758,
+      "sha256": "4a9cd9939b3795b9c25afc56d2638ae745f4862edf7617a5a5809e9e4a009c69"
+    },
+    "type_uncertainty": {
+      "path": "results/revision/recoverability_type_classification_uncertainty.csv",
+      "bytes": 8004,
+      "sha256": "9211e967d27e303aa54516634538591017560c111c5f23c12db31569f9a78584"
+    },
+    "topology_confound": {
+      "path": "results/revision/topology_confound_audit.csv",
+      "bytes": 1490,
+      "sha256": "c0dadef07ba0c36f3e043c57f281decc16bd442f9d1c6056e4cdc82155f97f02"
+    },
+    "national_valid_metrics": {
+      "path": "results/revision/national_valid_metrics.json",
+      "bytes": 1059,
+      "sha256": "9f98fab277614a83bd3226aed88a51b0b530b1fcecfa28cfdb32812459859d81"
+    },
+    "national_logistic_suppressed": {
+      "path": "results/revision/national_logistic_suppressed.csv",
+      "bytes": 1966,
+      "sha256": "5d4b2b5ce88f858e29ccf00929add2ff5c4d9588e8a890b8c139096443e0163a"
+    }
+  }
+}

@@ -1019,17 +1019,21 @@ def _figure_04(importance: pd.DataFrame) -> None:
         selected = data.loc[data["station_id"].eq(station)]
         grouped = selected.sort_values("impact", ascending=False).reset_index(drop=True)
         colors = np.where(grouped["impact"].ge(0), "#4c78a8", "#9d755d")
-        lower = grouped["impact"] - grouped["impact_ci_lower"]
-        upper = grouped["impact_ci_upper"] - grouped["impact"]
-        axis.bar(
-            grouped["failed_station_id"],
-            grouped["impact"],
-            color=colors,
-            edgecolor="black",
-            linewidth=0.5,
-            yerr=np.vstack([lower.clip(lower=0), upper.clip(lower=0)]),
-            capsize=3,
-        )
+        bar_kwargs = {
+            "color": colors,
+            "edgecolor": "black",
+            "linewidth": 0.5,
+        }
+        if (
+            "impact_ci_lower" in grouped
+            and grouped["impact_ci_lower"].notna().all()
+            and grouped["impact_ci_upper"].notna().all()
+        ):
+            lower = grouped["impact"] - grouped["impact_ci_lower"]
+            upper = grouped["impact_ci_upper"] - grouped["impact"]
+            bar_kwargs["yerr"] = np.vstack([lower.clip(lower=0), upper.clip(lower=0)])
+            bar_kwargs["capsize"] = 3
+        axis.bar(grouped["failed_station_id"], grouped["impact"], **bar_kwargs)
         axis.axhline(0, color="black", linewidth=0.8)
         axis.set_title(f"Target {station}")
         axis.set_xlabel("Failed station")
@@ -1345,7 +1349,7 @@ def _figure_05(
     )
     axes[1].grid(alpha=0.2)
     figure.suptitle(
-        "Held-out Chattahoochee evaluation: long-gap type ordering transfers",
+        "Held-out Chattahoochee post-hoc fixed-model sensitivity",
         fontsize=13,
     )
     figure.savefig(FIGURES / "figure_06.png", dpi=300)

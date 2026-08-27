@@ -4,39 +4,45 @@
   "figures": {
     "figure_01": {
       "path": "figures/main/figure_01.png",
-      "bytes": 594847,
-      "sha256": "4cc29c00ca14c9499e788d03533152e4c6be31d4b9a6ba1bbb61635048713621",
-      "title": "Reservoir-regulation fingerprint across two networks"
+      "bytes": 3082615,
+      "sha256": "d3ef713105fed2cf1bc25842f617a3bd435a5da3ace8e16626aa02f2416dcc3c",
+      "title": "Study networks, monitoring stations, and regulating dams"
     },
     "figure_02": {
       "path": "figures/main/figure_02.png",
-      "bytes": 382806,
-      "sha256": "26c75cb77002d59247bd3d22c50568e350bd399450d5ad849ac997fb947c0e7c",
-      "title": "Frozen prediction and post-hoc thermal-state control"
+      "bytes": 570046,
+      "sha256": "d5fbc020d9a2baad712c3d342728a053e7f8c5681165d77729441d77ffe09c4b",
+      "title": "Reservoir-associated thermal structure across two networks"
     },
     "figure_03": {
       "path": "figures/main/figure_03.png",
+      "bytes": 388020,
+      "sha256": "5421ef072e81e1a9876bcc2a5613aab4a95c993b3cfd3fbe5ccff5b2a7387162",
+      "title": "Frozen covariance heuristic and post-hoc thermal-state control"
+    },
+    "figure_04": {
+      "path": "figures/main/figure_04.png",
       "bytes": 484846,
       "sha256": "e3c79e804fdfabf1049fb31183ae73126357bd03902118d91d56e0a1765b5f2d",
       "title": "Recoverability in relative and absolute units"
     },
-    "figure_04": {
-      "path": "figures/main/figure_04.png",
-      "bytes": 115808,
-      "sha256": "56b5c80041d0b35218c23cf40ccc849c432bf2f26c1a9d7efe009a34aa5f8c40",
-      "title": "Best-available node importance"
-    },
     "figure_05": {
       "path": "figures/main/figure_05.png",
-      "bytes": 321549,
-      "sha256": "cb2e9af587fd1f70f0b35bfcd77a8cd64a54b9cb1c85afcd6b429b5821472209",
-      "title": "Evaluate-once Chattahoochee confirmation"
+      "bytes": 105665,
+      "sha256": "f8fdd0f7ed7bee36e76fb3c5710a36e89385b222c6ba8105c539ababb0b604ea",
+      "title": "Cross-fitted node importance"
     },
     "figure_06": {
       "path": "figures/main/figure_06.png",
-      "bytes": 365478,
-      "sha256": "2c3525bf9352f7e89354d2ef7dc5c9e44d0488360ce6d0dc34a42f72c1b1e489",
-      "title": "Nationwide regulation-panel generalization test"
+      "bytes": 278378,
+      "sha256": "a34583f694c58e1edd3c6188da5aefb90ab37f08cefa4f904df824e83537b127",
+      "title": "Held-out Chattahoochee post-hoc fixed-model sensitivity"
+    },
+    "figure_07": {
+      "path": "figures/main/figure_07.png",
+      "bytes": 380788,
+      "sha256": "f2d5dd69349b956b373447014128797058bbb980721292dfa0d872087999c4bb",
+      "title": "National regulation-panel boundary, not a valid classifier"
     }
   }
 }

@@ -1,0 +1,47 @@
+{
+  "batch_plan_sha256": "8d72cc1f240a4f9f8f2ce5badfc43fae32be93e71c9452a4faf0f7973ed12d41",
+  "chunk_manifest_paths": [
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v4/chunks_batch_v2/chunk_1240000_1245000/manifest.json"
+  ],
+  "completed_chunk_count": 1,
+  "expected_workload_item_count": 2491245,
+  "formal_evidence": false,
+  "manifest_schema": "t2_batch_aggregation_manifest_list_v1",
+  "missing_ordinal_ranges": [
+    [
+      1245000,
+      1250000
+    ],
+    [
+      1250000,
+      1255000
+    ],
+    [
+      1255000,
+      1260000
+    ],
+    [
+      1260000,
+      1265000
+    ],
+    [
+      1265000,
+      1270000
+    ],
+    [
+      1270000,
+      1275000
+    ],
+    [
+      1275000,
+      1280000
+    ]
+  ],
+  "passed": false,
+  "planned_chunk_count": 8,
+  "purpose": "aggregation_input_custody_not_evidence",
+  "ready_for_aggregation": false,
+  "sealed_temperature_records_read": false,
+  "workload_item_identity_sha256": "5095a81f3ebfd69d690ee4f5f3a3f44f9162898c94ea08fef928261079f834b5",
+  "workload_manifest_sha256": "6abed0f6cd7360e237384b282546c0395e690d481d256c90fc6ae495c32c52b2"
+}

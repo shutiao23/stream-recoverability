@@ -1,0 +1,15 @@
+model,term,coefficient_log_odds,robust_se,wald_p_value,coefficient_ci_low,coefficient_ci_high,odds_ratio,odds_ratio_ci_low,odds_ratio_ci_high,complete_separation_flag,reporting_status
+primary_unadjusted,const,0.5126757671483062,0.1135095019557756,6.284371305887661e-06,0.2902012314119072,0.7351503028847053,1.6697530932559794,1.3366964462763158,2.0857954700222,False,reported
+primary_unadjusted,z_memory_range_index,0.2044372181489474,0.1397899439970379,0.1436151652884461,-0.069546037486118,0.4784204737840128,1.2268344304914058,0.9328171878376752,1.613523785221126,False,reported
+adjusted_ecoregion_and_drainage,const,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,z_memory_range_index,0.923095608843388,0.3856260386247807,0.0166767250842991,0.1672824616379659,1.67890875604881,2.517070206880381,1.182088112701135,5.359704034149842,False,reported
+adjusted_ecoregion_and_drainage,z_log1p_drainage_area,2.3611242318676218,0.2545989591883596,1.794681634014123e-20,1.8621194413570537,2.8601290223781897,10.602864833011315,6.437365942822196,17.46378000965747,False,reported
+adjusted_ecoregion_and_drainage,ecoregion_CntlPlains,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_EastHghlnds,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_MxWdShld,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_NorthEast,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_SECstPlain,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_SEPlains,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_WestMnts,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_WestPlains,,,,,,,,,True,suppressed_complete_separation
+adjusted_ecoregion_and_drainage,ecoregion_WestXeric,,,,,,,,,True,suppressed_complete_separation

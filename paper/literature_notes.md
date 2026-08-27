@@ -1,6 +1,19 @@
 # Literature notes
 
-核验日期：2026-08-15。`references.bib` 共收录 24 条，仅保留与当前研究问题、方法或数据来源直接相关且能核对作者、题名、年份及 DOI/URL 的记录。以下是写作与实验设计备忘，不是本项目结果陈述。
+核验日期：2026-08-25。`references.bib` 现收录近期 WRR 受控河、金沙江梯级原型与 Air2stream 基线条目，供主文界定新意与不足。以下是写作与实验设计备忘，不是本项目结果陈述。
+
+## 水库调控与河流水温结构
+
+| BibTeX key | 本研究中的用途 | 使用边界 |
+|---|---|---|
+| `seyedhashemi2021thermalsignatures` | 直接建立区域尺度、无先验 dam map 的 stream-air thermal signature 先例，用于界定本研究的新意是 recoverability 而不是 dam detection。 | Loire 盆地指标、基础设施类型和本研究 memory--range heuristic 不同，不能移用阈值。 |
+| `zhao2020danjiangkou` | 支持水坝热影响沿下游衰减及空间恢复的观测背景。 | Landsat 温度与单个汉江工程不能证明 Chattahoochee 或金沙江的具体机制。 |
+| `michie2020releases` | 支持 release depth、storage volume 与下游季节幅度变化的物理背景。 | 澳大利亚单坝工程研究；不能据此对 P3 作因果归因。 |
+| `dorthe2025regulated` | 近期 WRR 受控河热过程研究：7 年量级、10 min 观测、报告 logger 与热通量项，用于说明本研究不是同等强度的机理试验。 | 瑞士 peri-Alpine 河段与水电日内波动；不能移用其校准或 MAE。 |
+| `michel2023discharge` | 支持下泄流量、季节和距离共同控制坝下水温，并给出可操作的温度管理阈值。 | Sacramento 濒危鱼类管理问题；不是监测缺口恢复。 |
+| `liu2025wudongde` | 金沙江下游梯级的分层与下泄时滞，用于把 P3 观测放进中国原型文献。 | 乌东德三维模拟与监测，不是三站日尺度 recoverability。 |
+| `yang2025xiluodu` | 溪洛渡分层取水与下泄水温，说明金沙江梯级已有更强的库区热结构工作。 | 不能把叠梁门效果外推为本项目 donor/memory 标签。 |
+| `toffolon2015air2stream` | 锁定未来公平基线中的 air/discharge 混合水温模型。 | 尚未在本修订中训练；不得写成已比较的 SOTA。 |
 
 ## 河流水温缺失与气温/流量重建
 
@@ -76,4 +89,4 @@
 - 原始统计与信息方法：[Princeton/De Gruyter Shapley chapter](https://doi.org/10.1515/9781400881970-018)、[Wiley Shannon](https://doi.org/10.1002/j.1538-7305.1948.tb01338.x)、[APS mutual information estimator](https://doi.org/10.1103/PhysRevE.69.066138)、[APS transfer entropy](https://doi.org/10.1103/PhysRevLett.85.461)、[JSTOR regression quantiles](https://doi.org/10.2307/1913643)、[Taylor & Francis scoring rules](https://doi.org/10.1198/016214506000001437)、[JSTOR Mann trend test](https://doi.org/10.2307/1907187)、[Taylor & Francis Sen slope](https://doi.org/10.1080/01621459.1968.10480934)。
 - 金沙江/长江与数据产品：[Communications Earth & Environment 2026](https://doi.org/10.1038/s43247-026-03340-2)、[Water 2024](https://doi.org/10.3390/w16121669)、[Figshare v4](https://doi.org/10.6084/m9.figshare.29002466.v4)、[NOAA/NCEI GSOD catalog](https://catalog.data.gov/dataset/global-surface-summary-of-the-day-gsod)、[CMA 中国气象数据网](http://data.cma.cn/)。
 
-条目总数：**24**。
+条目总数：**40**。

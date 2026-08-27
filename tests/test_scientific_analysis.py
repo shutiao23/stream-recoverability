@@ -32,6 +32,7 @@ from stream_recoverability.analysis.frontiers import (
 )
 from stream_recoverability.analysis.resilience import (
     complete_resilience_units,
+    cross_fitted_node_importance,
     node_importance,
     resilience_auc,
     resilience_curve,
@@ -605,6 +606,55 @@ def test_mann_kendall_sen_and_trend_preservation():
     assert sen["method"] == "exact_all_pairs"
     assert preserved["trend_direction_match"]
     assert preserved["sen_slope_error"] == pytest.approx(0.0)
+
+
+def test_cross_fitted_node_importance_never_selects_on_held_out_event():
+    rows = []
+    failures = [
+        [],
+        ["S1"],
+        ["S2"],
+        ["S3"],
+        ["S1", "S2"],
+        ["S1", "S3"],
+        ["S2", "S3"],
+        ["S1", "S2", "S3"],
+    ]
+    for year in (2018, 2019, 2020):
+        for mask_seed in (101, 102):
+            for failed in failures:
+                for model in ("A", "B", "climatology"):
+                    if model == "climatology":
+                        mae = 2.0
+                    elif failed == ["S2"]:
+                        mae = 2.0 if model == "A" else 1.2
+                    else:
+                        mae = 1.0 if model == "A" else 1.4
+                    rows.append(
+                        {
+                            "experiment": "SCI_NET",
+                            "station_id": "S1",
+                            "target_station_id": "S1",
+                            "target": "T",
+                            "model": model,
+                            "gap_length": 30,
+                            "target_gap_id": f"S1-T-30-{year}-{mask_seed}",
+                            "mask_seed": mask_seed,
+                            "training_seed": 11,
+                            "anchor_year": year,
+                            "network_size": 3,
+                            "failed_stations": failed,
+                            "MAE": mae,
+                        }
+                    )
+    importance = cross_fitted_node_importance(pd.DataFrame(rows), n_boot=200, seed=17)
+    assert len(importance) == 3
+    assert importance["eventwise_oracle_selection"].eq(False).all()
+    assert importance["n_anchor_years"].eq(3).all()
+    s2 = importance.loc[importance["failed_station_id"].eq("S2")].iloc[0]
+    assert s2["impact"] == pytest.approx(0.2)
+    assert json.loads(s2["full_network_selected_model_counts"]) == {"A": 6}
+    assert json.loads(s2["failed_selected_model_counts"]) == {"B": 6}
 
 
 def test_scientific_trends_are_seed_specific_and_require_complete_reconstruction():

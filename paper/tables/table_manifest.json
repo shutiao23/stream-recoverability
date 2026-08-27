@@ -4,8 +4,8 @@
   "tables": {
     "table_01": {
       "path": "paper/tables/table_01.csv",
-      "bytes": 3808,
-      "sha256": "b97d2c47b39565d477143e84a00758f264c1bdb4f4150ea6d7cfdf659f4a4c89",
+      "bytes": 1990,
+      "sha256": "6654de20bd38df5017ab9c08e05913725bd9746cf862f8a1f08a1ef88d8ec255",
       "title": "Eight-station regulation fingerprint",
       "rows": 8
     },
@@ -20,22 +20,22 @@
       "path": "paper/tables/table_03.csv",
       "bytes": 860,
       "sha256": "aab85befd1d07f1bd2f22194fed86195d25849520b037beadc9916c7eeefa5f2",
-      "title": "Frozen and stationarity-controlled budget evaluation",
+      "title": "Frozen and stationarity-controlled covariance-heuristic evaluation",
       "rows": 9
     },
     "table_04": {
       "path": "paper/tables/table_04.csv",
-      "bytes": 58596,
-      "sha256": "3c28b7ecbe9b988d7ce90cfd72adfc1791cc4971ab06fc7c0d2e268084957771",
-      "title": "Dense recoverability in relative and absolute units",
-      "rows": 405
+      "bytes": 1456,
+      "sha256": "965268501888cb8040c9d78473ad85157bc1248557f8219d3906d8431b088497",
+      "title": "Descriptive recoverability in relative and absolute units",
+      "rows": 9
     },
     "table_05": {
       "path": "paper/tables/table_05.csv",
-      "bytes": 20642,
-      "sha256": "2e71e9b0f677495ddeb45296aae6dc260a6445eef124eb9a837fc9d9c192a210",
-      "title": "Corrected best-available node importance",
-      "rows": 36
+      "bytes": 6305,
+      "sha256": "b887354e3fb7d512e00b6bed933eae670a4f028ff98e5bf4cba4138f30eab80a",
+      "title": "Leave-one-year-out cross-fitted node importance",
+      "rows": 9
     }
   }
 }

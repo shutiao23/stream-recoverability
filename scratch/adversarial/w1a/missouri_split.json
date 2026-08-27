@@ -1,0 +1,55 @@
+{
+  "found_name_huc2": true,
+  "name_huc2_n_stations": 18,
+  "name_huc2_site_ids": [
+    "06610505",
+    "06818000",
+    "06893060",
+    "06906500",
+    "06910450",
+    "06934500",
+    "06935550",
+    "06935965",
+    "06054500",
+    "06066500",
+    "06115200",
+    "06177000",
+    "06486000",
+    "06610000",
+    "06807000",
+    "06813500",
+    "410333095530101",
+    "412126095565201"
+  ],
+  "huc8_ids": [
+    "10030101",
+    "10030102",
+    "10040104",
+    "10060001",
+    "10230001",
+    "10230006",
+    "10240001",
+    "10240005",
+    "10240011",
+    "10300101",
+    "10300102",
+    "10300200"
+  ],
+  "n_huc8": 12,
+  "survives_as_one_huc8": false,
+  "huc8_clusters_sharing_those_sites": [
+    {
+      "network_id": "huc8_10300101",
+      "huc8": "10300101",
+      "n_stations": 5,
+      "river_names": "East Fork Little Blue River|Little Blue R.|Little Blue River|Missouri River|Rock Creek"
+    },
+    {
+      "network_id": "huc8_10230006",
+      "huc8": "10230006",
+      "n_stations": 4,
+      "river_names": "Missouri River"
+    }
+  ],
+  "proof": "missouri_river_huc10 lists 18 stations under HUC2 10; official HUC8 splits them into 12 subbasins: 10030101, 10030102, 10040104, 10060001, 10230001, 10230006, 10240001, 10240005, 10240011, 10300101, 10300102, 10300200."
+}

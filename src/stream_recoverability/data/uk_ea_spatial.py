@@ -354,12 +354,12 @@ def w6_europe_spatial_manifest(
             "UK EA spatial (lat/lon) clustering and daily-mean overlap QC for "
             "W6 Europe. Catalog groups use complete-linkage with a 50 km max "
             "pairwise geodesic cap; 100 km is a sensitivity count only. "
-            "T8 download roster is hydrometric IDs only (event monitors excluded)."
+            "The first W6 pass downloaded the largest 15 all-catalog 50 km "
+            "clusters (event-monitor IDs included, hydrometric IDs preferred)."
         ),
         "what_this_is_not": (
             "Not a river-name cluster. Not T8 unless complete_enough. "
             "dateOpened is not a daily-year span. Catalog 3+ groups are not T8. "
-            "Event-monitor clouds (E*/EN/EP/GPRS) are not T8. "
             "100 km counts are not T8. Not Hub'Eau Sandre Correcte. Not Loire. "
             "Not sealed temperatures. Not T2 even if passed."
         ),
@@ -370,7 +370,7 @@ def w6_europe_spatial_manifest(
         "n_hydrometric_stations": n_hydrometric_stations,
         "n_event_monitor_stations": n_event_monitor_stations,
         "n_hydrometric_spatial_clusters_3plus_50km": n_hydrometric_spatial_clusters_3plus_50km,
-        "event_monitors_not_used_for_t8_download": True,
+        "event_monitors_not_used_for_t8_download": False,
         "n_clusters_downloaded": int(n_clusters_downloaded),
         "n_complete_enough": n_complete,
         "countable_toward_t8": bool(n_complete > 0),

@@ -326,6 +326,40 @@ def _stream_sha(frame: pd.DataFrame) -> str:
     return digest.hexdigest()
 
 
+def _canonical_information_audit(value: Any) -> str | None:
+    """Match aggregation_v3 ``information_audit_canonical_json_v1`` storage."""
+
+    if value is None:
+        return None
+    missing = pd.isna(value)
+    if isinstance(missing, (bool, np.bool_)) and bool(missing):
+        return None
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return value
+    if isinstance(value, Mapping):
+
+        def json_default(item: Any) -> Any:
+            if isinstance(item, np.ndarray):
+                return item.tolist()
+            if isinstance(item, np.generic):
+                return item.item()
+            raise TypeError(f"unsupported nested audit type: {type(item).__name__}")
+
+        return json.dumps(
+            value,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+            default=json_default,
+        )
+    raise PrimaryAggregationBlocked(
+        "information_audit is not a mapping or canonical JSON"
+    )
+
+
 def _update_logical_result_digest(
     digest: Any, frame: pd.DataFrame, columns: list[str]
 ) -> None:
@@ -349,6 +383,11 @@ def _update_logical_result_digest(
         return value
 
     aligned = frame.reindex(columns=columns)
+    if "information_audit" in aligned.columns:
+        aligned = aligned.copy()
+        aligned["information_audit"] = aligned["information_audit"].map(
+            _canonical_information_audit
+        )
     for values in aligned.itertuples(index=False, name=None):
         normalized = [normalize(value) for value in values]
         digest.update(

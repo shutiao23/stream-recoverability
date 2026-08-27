@@ -7,7 +7,7 @@ date: "Draft built from repository evidence"
 
 # Supporting Information
 
-This Supporting Information accompanies “Reservoir-Associated Thermal Structure Predicts Stream-Temperature Recoverability in the Jinsha and Chattahoochee Rivers.” The submission build expands the referenced source sections and embeds all supplementary figures and compact tables into one self-contained PDF.
+This Supporting Information accompanies “A Case-Study Covariance Heuristic for Stream-Temperature Recoverability in Two Regulated River Networks.” The submission build expands Texts S1--S15 and embeds supplementary figures and compact tables into one self-contained package.
 
 # Text S1. Extended Methods
 
@@ -212,7 +212,7 @@ Temperature diagnostics include high-temperature MAE and bias, peak magnitude er
 
 For probabilistic $T$, we report pinball loss at each of the five quantiles, empirical coverage and mean width of the $q_{0.05}$--$q_{0.95}$ interval, quantile-crossing rate, and approximate CRPS obtained by trapezoidal integration of pinball loss over the five levels [@gneiting2007scoringrules]. Deterministic models carry only their median prediction and are excluded from interval calibration when lower and upper quantiles are absent. Calibration is first computed within each scenario, mask seed, and training seed without pooling distinct experiment, failure, window, protocol, or information-combination regimes. Uncertainty growth is then assessed across at least three distinct gap lengths within one such regime.
 
-Statistical comparisons use a fixed mask anchor, event episode, or matched persistent anchor--year unit, never an individual day within a gap. Replicate training seeds are first averaged within the same model--scenario unit before models or information conditions are paired. Both frontier denominators now use the same joint cross-gap anchor/year bootstrap and censoring implementation; the climatology portion of `dual_frontier_comparison.csv` is asserted identical to `statistical_frontiers.csv`. Two-sided Wilcoxon signed-rank tests use one cross-gap mean per anchor/year. Climatology self-comparisons are explicit `reference_not_tested` rows, leaving 24 finite model-versus-climatology hypotheses. Multiplicity is controlled by Benjamini--Hochberg adjustment separately within the nine declared families: frontier model versus climatology, frontier model versus best simple baseline, operational information dropout, retrained information upper bound, network failure set, event versus matched control, data-version sensitivity, meteorology-alignment sensitivity, and donor-C falsification. An unidentifiable or incomplete family is emitted with an explicit unavailable reason rather than filled with a degenerate $p$ value.
+Statistical comparisons use a site-year or connected overlap component, never an individual day and never an overlapping anchor inside one component. Replicate training seeds are first averaged within the same model--scenario unit before models or information conditions are paired. Both frontier denominators now use the same joint cross-gap overlap-aware implementation; the climatology portion of `dual_frontier_comparison.csv` is asserted identical to `statistical_frontiers.csv`. Two-sided Wilcoxon signed-rank tests are computed only when at least five independent clusters are available. Each Jinsha station has one overlap component and three evaluation years, so the 24 model-versus-climatology contrasts are emitted as `withheld_insufficient_independent_clusters`. Climatology self-comparisons remain `reference_not_tested`. Multiplicity control is still defined for the nine named families, but Benjamini--Hochberg is applied only to finite, claim-allowed p-values. An unidentifiable or incomplete family is emitted with an explicit unavailable reason rather than filled with a degenerate $p$ value. Cross-fitted node-importance confidence intervals are withheld under the same five-cluster floor.
 
 Scientific-preservation diagnostics reuse the variable-specific extreme, timing, threshold, and water-balance metrics. Mann--Kendall trend direction and significance and Sen slope are compared between truth and reconstruction [@mann1945trend; @sen1968slope]. Exact all-pair Sen slopes are used up to two million pairs; larger inputs use a declared deterministic sampled-pair estimate. Long-term trend fields are populated only for a complete development-period reconstruction and are accompanied by `long_term_trend_available`, `trend_scope`, and `trend_reason`. Ordinary daily prediction tables contain only artificial cells, so they are labelled `masked_period_local_shape_only`: only explicitly named local slopes are reported, while long-term trend and sequence-dependent metrics remain unavailable. These local summaries are not interpreted as evidence that a recovered full record preserves a long-term trend.
 
@@ -288,6 +288,58 @@ M7a aggregate stress is excluded from this table.
 Cluster bootstrap and overlap-aware effective *n* are required. Daily cells are not independent replicates. These audits do not authorise a model roster.
 
 
+# Text S3. Validation-only model funnel
+
+Official BRITS, SAITS, CSDI, and the proposed multisource quantile model were evaluated with train-only scaling and the frozen 400-epoch budget. Required seeds with `best_epoch < 50` or an epoch-cap hit were labelled `training_unstable` or `budget_unstable` and excluded from the formal roster. The early-epoch rule is a v5 validity amendment, not independent evidence that early convergence is scientifically invalid. Rankings, checkpoint histories, and stability diagnoses are `model_selection_only`, `formal_evidence=false`, and do not support a “deep learning is ineffective” claim. Persistence and climatology remain the only simple baselines that share the same information budget as the formal roster; Air2stream, process-guided deep learning, and graph imputers are declared in the locked comparison protocol and were not run for this revision.
+
+# Text S4. Proposed-model information groups
+
+S0 is permanent calendar climatology. Group A is target history and boundary distance, B is same-site hydraulics, C is other-site hydrology and temperature, and D is same-site meteorology. These are predictive information contracts, not a heat-balance decomposition. Validation branch-removal deltas are retained only as mechanism diagnostics. The architecture uses masked attention over the two other Jinsha stations and must not be described as a graph neural network.
+
+# Text S5. Hydrothermal state and P3 change-date sensitivity
+
+The files `results/revision/annual_thermal_metrics.csv` and `results/revision/period_thermal_metrics.csv` contain every annual P3 minimum and amplitude and the pre/post anomaly SD, acf30, acf90, skewness, and excess kurtosis used in the manuscript. `results/revision/p3_change_point_summary.csv` reports Pettitt and least-squares single-break dates, iid reference p values, dependence-aware calendar-year permutation p values, and 365-day residual-block bootstrap intervals. The primary Pettitt interval does not cover commissioning; the least-squares sensitivity interval does. Neither date identifies a causal reservoir effect.
+
+# Text S6. Stationarity and low-frequency controls
+
+`stationarity_controlled_budgets.csv`, `budget_evaluation_summary.csv`, and `dense_skill_sensitivities.csv` distinguish the frozen 2006--2015 prediction from post-hoc 2016--2017, 2016--2020, and annual-demeaned diagnostics. The 2016--2020 climatology overlaps evaluation years and is a denominator diagnosis, not a new test.
+
+# Text S7. Omitted-covariate budget
+
+`expanded_covariate_budget.csv` adds same-site air temperature, discharge, and level and donor-site air temperature and discharge to the anomaly regression. The P3 long-gap skill approximation rose only from 0.055 to 0.077, so omission of measured air temperature and hydraulics is not a sufficient explanation of the memory-dominated label.
+
+# Text S8. Frontier-path repair and withheld inference
+
+Both frontier denominators now use the canonical overlap-aware implementation. After this revision, p-values and confidence intervals are withheld wherever the independent site-year or overlap-cluster count is below five. The climatology rows of `dual_frontier_comparison.csv` still match `statistical_frontiers.csv` cell for cell, including the withheld fields. Descriptive skill and MAE curves remain. The former 10^{-6} Wilcoxon p-values are not scientific results.
+
+# Text S9. Corrected hypothesis family
+
+The model-versus-climatology family still contains 24 candidate contrasts and three `reference_not_tested` climatology rows. Because each station has one overlap component and three evaluation years, every finite test is now `withheld_insufficient_independent_clusters`. Benjamini--Hochberg adjustment is therefore applied to an empty finite family. No main-text significance claim uses these rows.
+
+# Text S10. Cross-fitted node importance
+
+`node_importance_cross_fitted.csv` selects models on other evaluation years and scores the held-out year. The former event-wise best-available table is a descriptive oracle sensitivity only. The 80 nested gap/anchor events are not independent. With only three evaluation years, bootstrap confidence intervals are withheld. Point estimates, including the 0.105 °C S2-to-B1 mean, remain descriptive post-hoc sensitivities and are not a station-protection ranking.
+
+# Text S11. Donor falsification
+
+Same-day, lag, lead, identity-permutation, and seasonal-residual contrasts are in `donor_c_falsification_effects.csv`. The decision remains `falsified_network_propagation` and the permitted language is `correlated_predictive_source_only`. The previously reported Wilcoxon p value on 60 paired units is not treated as independent-sample confirmation.
+
+# Text S12. Temporally held-out external evaluation
+
+The complete 540-unit output is bound to the external once-lock. Train-only type labels and predicted curves were frozen before 2023--2025 outcomes. The main-text fixed XGBoost scores use a model-selection rule formulated after the confirmatory envelope had been observed. They are a labelled post-hoc sensitivity, not preregistered confirmation. Fixed-model SDs use 20 validation placements and are descriptive noise scales, not confidence intervals for the single held-out placement. A sealed multi-network protocol for a future confirmatory experiment is in `configs/confirmatory_multi_network_protocol_v1.yaml`.
+
+# Text S13. Data and software rights
+
+`DATA_RIGHTS.md` and `metadata/data_rights.csv` govern restricted Jinsha and public USGS/NASA materials. Restricted daily values are not SI data. Jinsha source quality remains incomplete: per-value quality codes, instrument/calibration records, time zone, hydrological-day cut-off, and a statement that published daily temperatures were never interpolated are all unavailable. Dates that cannot be shown to be uninterpolated must not be treated as fully traceable artificial-mask truth. The submission gate remains `NO-GO` until editor approval, GEMS upload, author metadata, and a software DOI exist.
+
+# Text S14. Independently frozen national regulation panel
+
+The independently frozen national panel remains `regulation_panel_v1_legacy_transport`. The frozen primary pooled leave-one-ecoregion-out AUC of 0.407 is retained as a preregistered defective diagnostic: it mixes fold intercept and base-rate mismatch with discrimination. It is not a valid standalone generalization metric and is not the paper headline. Adjusted ecoregion coefficients that explode under complete separation are suppressed. A Firth unadjusted odds ratio and a 62-station common-period coverage sensitivity are reported in `results/revision/national_valid_metrics.json`. No independent national holdout was opened.
+
+# Text S15. Post-hoc within-fold leave-one-ecoregion-out AUC
+
+After the freeze, AUC was computed inside each held-out ecoregion. The post-hoc mean within-fold AUC is 0.526 and the median is 0.513 (nine defined folds). This macro-AUC is the valid fold-comparable level. It still finds no national skill. The post-hoc correlation between fold base rate and fold out-of-fold probability median is $-0.671$. Alaska is not defined ($n=6$, all unregulated). Northeast 0.755 and Southeast Plains 0.132 are labelled post-hoc and have no independent verification. This diagnosis does not replace or reopen the freeze.
+
 # Figure S1. P3 Change-Date Sensitivity
 
 ![P3 change-date sensitivity](/home/lzq/workspace/parttime/stream-recoverability/results/revision/p3_change_point_diagnostic.png){ width=95% }
@@ -348,17 +400,17 @@ Cluster bootstrap and overlap-aware effective *n* are required. Daily cells are 
 | state_matched_2016_2020_climatology | P3           |         0.979 |                       0.236 |                           4 |                                    1 |                 15 |
 | state_matched_2016_2020_climatology | S2           |         0.93  |                       0.177 |                           0 |                                    0 |                 15 |
 ## Table S4. Cross-fitted singleton-failure effects
-| station_id   | failed_station_id   |   full_network_value |   failed_value |   impact |   impact_ci_lower |   impact_ci_upper |   n_events |
-|:-------------|:--------------------|---------------------:|---------------:|---------:|------------------:|------------------:|-----------:|
-| B1           | B1                  |                0.52  |          0.497 |   -0.023 |            -0.061 |             0.016 |         80 |
-| B1           | P3                  |                0.52  |          0.507 |   -0.013 |            -0.04  |             0.016 |         80 |
-| B1           | S2                  |                0.52  |          0.625 |    0.105 |             0.044 |             0.169 |         80 |
-| P3           | B1                  |                0.489 |          0.547 |    0.058 |             0.01  |             0.119 |         80 |
-| P3           | P3                  |                0.489 |          0.5   |    0.011 |             0.005 |             0.018 |         80 |
-| P3           | S2                  |                0.489 |          0.543 |    0.054 |             0.012 |             0.113 |         80 |
-| S2           | B1                  |                0.487 |          0.51  |    0.023 |            -0.017 |             0.06  |         80 |
-| S2           | P3                  |                0.487 |          0.482 |   -0.005 |            -0.039 |             0.025 |         80 |
-| S2           | S2                  |                0.487 |          0.494 |    0.007 |            -0.01  |             0.023 |         80 |
+| station_id   | failed_station_id   |   full_network_value |   failed_value |   impact | impact_ci_lower   | impact_ci_upper   |   n_events |
+|:-------------|:--------------------|---------------------:|---------------:|---------:|:------------------|:------------------|-----------:|
+| B1           | B1                  |                0.52  |          0.497 |   -0.023 | undefined         | undefined         |         80 |
+| B1           | P3                  |                0.52  |          0.507 |   -0.013 | undefined         | undefined         |         80 |
+| B1           | S2                  |                0.52  |          0.625 |    0.105 | undefined         | undefined         |         80 |
+| P3           | B1                  |                0.489 |          0.547 |    0.058 | undefined         | undefined         |         80 |
+| P3           | P3                  |                0.489 |          0.5   |    0.011 | undefined         | undefined         |         80 |
+| P3           | S2                  |                0.489 |          0.543 |    0.054 | undefined         | undefined         |         80 |
+| S2           | B1                  |                0.487 |          0.51  |    0.023 | undefined         | undefined         |         80 |
+| S2           | P3                  |                0.487 |          0.482 |   -0.005 | undefined         | undefined         |         80 |
+| S2           | S2                  |                0.487 |          0.494 |    0.007 | undefined         | undefined         |         80 |
 ## Table S5. Held-out Chattahoochee fixed-model evaluation
 |   station_id | predicted_type   | validation_selected_model   |   observed_selected_skill_30d |   observed_selected_skill_90d |   observed_selected_skill_180d | qualitative_prediction_consistent   |
 |-------------:|:-----------------|:----------------------------|------------------------------:|------------------------------:|-------------------------------:|:------------------------------------|
@@ -375,23 +427,23 @@ Cluster bootstrap and overlap-aware effective *n* are required. Daily cells are 
 | [20,50)           |                  20 |                  50 |              50 |                                0.006 |                                       0.004 |                                        0.009 |          0.157 |                 0.106 |                  0.174 |                         23.375 |                                  19.2 |                                  26.3  |
 | [50,100)          |                  50 |                 100 |              14 |                                0.005 |                                       0.003 |                                        0.008 |          0.135 |                 0.082 |                  0.163 |                         25.375 |                                  19.3 |                                  27.65 |
 | [100,inf)         |                 100 |                 inf |               1 |                                0.002 |                                       0.002 |                                        0.002 |          0.07  |                 0.07  |                  0.07  |                         27.2   |                                  27.2 |                                  27.2  |
-## Table S7. National-panel regression estimates
-| model                           | term                  |   coefficient_log_odds |   robust_se |   wald_p_value |   coefficient_ci_low |   coefficient_ci_high |   odds_ratio |   odds_ratio_ci_low |   odds_ratio_ci_high |
-|:--------------------------------|:----------------------|-----------------------:|------------:|---------------:|---------------------:|----------------------:|-------------:|--------------------:|---------------------:|
-| primary_unadjusted              | const                 |                  0.513 |       0.114 |          0     |                0.29  |                 0.735 |  1.67        |               1.337 |         2.086        |
-| primary_unadjusted              | z_memory_range_index  |                  0.204 |       0.14  |          0.144 |               -0.07  |                 0.478 |  1.227       |               0.933 |         1.614        |
-| adjusted_ecoregion_and_drainage | const                 |                -22.921 |     117.463 |          0.845 |             -253.144 |               207.302 |  0           |               0     |         1.07178e+90  |
-| adjusted_ecoregion_and_drainage | z_memory_range_index  |                  0.923 |       0.386 |          0.017 |                0.167 |                 1.679 |  2.517       |               1.182 |         5.36         |
-| adjusted_ecoregion_and_drainage | z_log1p_drainage_area |                  2.361 |       0.255 |          0     |                1.862 |                 2.86  | 10.603       |               6.437 |        17.464        |
-| adjusted_ecoregion_and_drainage | ecoregion_CntlPlains  |                 23.922 |     120.711 |          0.843 |             -212.667 |               260.511 |  2.45002e+10 |               0     |         1.3753e+113  |
-| adjusted_ecoregion_and_drainage | ecoregion_EastHghlnds |                 24.738 |     123.097 |          0.841 |             -216.527 |               266.002 |  5.53836e+10 |               0     |         3.33683e+115 |
-| adjusted_ecoregion_and_drainage | ecoregion_MxWdShld    |                 24.192 |     123.432 |          0.845 |             -217.73  |               266.114 |  3.20979e+10 |               0     |         3.73188e+115 |
-| adjusted_ecoregion_and_drainage | ecoregion_NorthEast   |                 25.384 |     127.183 |          0.842 |             -223.89  |               274.658 |  1.05669e+11 |               0     |         1.91552e+119 |
-| adjusted_ecoregion_and_drainage | ecoregion_SECstPlain  |                 21.409 |     108.357 |          0.843 |             -190.968 |               233.786 |  1.98495e+09 |               0     |         3.40261e+101 |
-| adjusted_ecoregion_and_drainage | ecoregion_SEPlains    |                 24.721 |     116.227 |          0.832 |             -203.08  |               252.521 |  5.44583e+10 |               0     |         4.66142e+109 |
-| adjusted_ecoregion_and_drainage | ecoregion_WestMnts    |                 23.048 |     116.498 |          0.843 |             -205.283 |               251.38  |  1.02262e+10 |               0     |         1.48904e+109 |
-| adjusted_ecoregion_and_drainage | ecoregion_WestPlains  |                 24.639 |     112.044 |          0.826 |             -194.963 |               244.242 |  5.01966e+10 |               0     |         1.18268e+106 |
-| adjusted_ecoregion_and_drainage | ecoregion_WestXeric   |                 23.595 |      93.045 |          0.8   |             -158.77  |               205.96  |  1.76683e+10 |               0     |         2.80194e+89  |
+## Table S7. National-panel regression estimates with separated terms suppressed
+| model                           | term                  | coefficient_log_odds   | robust_se   | wald_p_value   | coefficient_ci_low   | coefficient_ci_high   | odds_ratio   | odds_ratio_ci_low   | odds_ratio_ci_high   | complete_separation_flag   | reporting_status               |
+|:--------------------------------|:----------------------|:-----------------------|:------------|:---------------|:---------------------|:----------------------|:-------------|:--------------------|:---------------------|:---------------------------|:-------------------------------|
+| primary_unadjusted              | const                 | 0.513                  | 0.114       | 0.0            | 0.29                 | 0.735                 | 1.67         | 1.337               | 2.086                | False                      | reported                       |
+| primary_unadjusted              | z_memory_range_index  | 0.204                  | 0.14        | 0.144          | -0.07                | 0.478                 | 1.227        | 0.933               | 1.614                | False                      | reported                       |
+| adjusted_ecoregion_and_drainage | const                 | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | z_memory_range_index  | 0.923                  | 0.386       | 0.017          | 0.167                | 1.679                 | 2.517        | 1.182               | 5.36                 | False                      | reported                       |
+| adjusted_ecoregion_and_drainage | z_log1p_drainage_area | 2.361                  | 0.255       | 0.0            | 1.862                | 2.86                  | 10.603       | 6.437               | 17.464               | False                      | reported                       |
+| adjusted_ecoregion_and_drainage | ecoregion_CntlPlains  | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_EastHghlnds | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_MxWdShld    | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_NorthEast   | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_SECstPlain  | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_SEPlains    | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_WestMnts    | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_WestPlains  | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
+| adjusted_ecoregion_and_drainage | ecoregion_WestXeric   | undefined              | undefined   | undefined      | undefined            | undefined             | undefined    | undefined           | undefined            | True                       | suppressed_complete_separation |
 ## Table S8. Post-hoc within-fold leave-one-ecoregion-out AUC
 | held_out_ecoregion   |   n |   n_regulated |   n_unregulated |   base_rate |   oof_probability_median | within_fold_auc   |
 |:---------------------|----:|--------------:|----------------:|------------:|-------------------------:|:------------------|
@@ -408,4 +460,4 @@ Cluster bootstrap and overlap-aware effective *n* are required. Daily cells are 
 
 # Evidence Boundaries
 
-Validation-only model rankings are not manuscript performance evidence. State-matched, annual-demeaned, cross-fitted node-importance, external fixed-model, and within-fold leave-one-ecoregion-out AUC analyses are post-hoc sensitivities. The frozen primary national metric remains the pooled leave-one-ecoregion-out AUC. The Chattahoochee panel is one temporal/network evaluation, not five independent basins. No ecological, application, or regulatory safe-fill threshold was declared. Data and software are archived separately and are not Supporting Information.
+Validation-only model rankings are not manuscript performance evidence. State-matched, annual-demeaned, cross-fitted node-importance, external fixed-model, and within-fold leave-one-ecoregion-out AUC analyses are post-hoc sensitivities. The frozen primary national metric remains the pooled leave-one-ecoregion-out AUC, now labelled a preregistered defective diagnostic. The valid post-hoc level is the macro within-fold AUC. The Chattahoochee panel is one temporal/network evaluation, not five independent basins. No ecological, application, or regulatory safe-fill threshold was declared. Data and software are archived separately and are not Supporting Information.

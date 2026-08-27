@@ -1,0 +1,156 @@
+{
+  "manifest_schema": "t2_v91_open_role_mh_network_request_plan_v1",
+  "n_initial_requests": 15,
+  "n_sites": 3,
+  "network_id": "huc8_02050104",
+  "network_plan_sha256": "de2a7b60f79790a68c6ca8d7db86e0ce784aaf907b90a45a68f026faf5d1265c",
+  "performance_metrics_computed": false,
+  "request_plan_sha256": "171566d7f495a971d45990040019add3d48a99f9a3e084f7f741026a88cbb18d",
+  "requests": [
+    {
+      "end": "2025-07-20",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01516350",
+      "start": "2015-10-01",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01516350&parameter_code=00060&statistic_id=00003",
+      "variable": "F"
+    },
+    {
+      "end": "2025-07-20",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01516350",
+      "start": "2015-10-01",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01516350&parameter_code=00060&statistic_id=00003&datetime=2015-10-01/2025-07-20",
+      "variable": "F"
+    },
+    {
+      "end": "2025-07-20",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01516350",
+      "start": "2015-10-01",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01516350&parameter_code=00065&statistic_id=00003",
+      "variable": "L"
+    },
+    {
+      "end": "2025-07-20",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01516350",
+      "start": "2015-10-01",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01516350&parameter_code=00065&statistic_id=00003&datetime=2015-10-01/2025-07-20",
+      "variable": "L"
+    },
+    {
+      "end": "2025-07-20",
+      "latitude": 41.7970183,
+      "longitude": -77.0802457,
+      "provider": "nasa_power_daily_point",
+      "request_kind": "daily_point_meteorology",
+      "site_id": "01516350",
+      "start": "2015-10-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-77.0802457&latitude=41.7970183&start=20151001&end=20250720&format=JSON&time-standard=UTC",
+      "variable": null
+    },
+    {
+      "end": "2025-07-10",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01518700",
+      "start": "1976-09-27",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01518700&parameter_code=00060&statistic_id=00003",
+      "variable": "F"
+    },
+    {
+      "end": "2025-07-10",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01518700",
+      "start": "1976-09-27",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01518700&parameter_code=00060&statistic_id=00003&datetime=1976-09-27/2025-07-10",
+      "variable": "F"
+    },
+    {
+      "end": "2025-07-10",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01518700",
+      "start": "1976-09-27",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01518700&parameter_code=00065&statistic_id=00003",
+      "variable": "L"
+    },
+    {
+      "end": "2025-07-10",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01518700",
+      "start": "1976-09-27",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01518700&parameter_code=00065&statistic_id=00003&datetime=1976-09-27/2025-07-10",
+      "variable": "L"
+    },
+    {
+      "end": "2025-07-10",
+      "latitude": 41.95257385,
+      "longitude": -77.1152486,
+      "provider": "nasa_power_daily_point",
+      "request_kind": "daily_point_meteorology",
+      "site_id": "01518700",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-77.1152486&latitude=41.95257385&start=19810101&end=20250710&format=JSON&time-standard=UTC",
+      "variable": null
+    },
+    {
+      "end": "2026-04-07",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01520000",
+      "start": "1972-05-18",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01520000&parameter_code=00060&statistic_id=00003",
+      "variable": "F"
+    },
+    {
+      "end": "2026-04-07",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01520000",
+      "start": "1972-05-18",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01520000&parameter_code=00060&statistic_id=00003&datetime=1972-05-18/2026-04-07",
+      "variable": "F"
+    },
+    {
+      "end": "2026-04-07",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "time_series_metadata",
+      "site_id": "01520000",
+      "start": "1972-05-18",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01520000&parameter_code=00065&statistic_id=00003",
+      "variable": "L"
+    },
+    {
+      "end": "2026-04-07",
+      "provider": "usgs_ogc_daily",
+      "request_kind": "daily_values",
+      "site_id": "01520000",
+      "start": "1972-05-18",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items?f=json&limit=10000&monitoring_location_id=USGS-01520000&parameter_code=00065&statistic_id=00003&datetime=1972-05-18/2026-04-07",
+      "variable": "L"
+    },
+    {
+      "end": "2026-04-07",
+      "latitude": 41.99674048,
+      "longitude": -77.1399724,
+      "provider": "nasa_power_daily_point",
+      "request_kind": "daily_point_meteorology",
+      "site_id": "01520000",
+      "start": "1981-01-01",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR,WS2M,RH2M,ALLSKY_SFC_SW_DWN&community=AG&longitude=-77.1399724&latitude=41.99674048&start=19810101&end=20260407&format=JSON&time-standard=UTC",
+      "variable": null
+    }
+  ],
+  "role": "development",
+  "sealed_paths_traversed": false,
+  "split_sha256": "2405169325fecaeb24bea9a5c9fc5ea66e303c14e41def1e3d32f6853679c1f1",
+  "temperature_columns_read": []
+}

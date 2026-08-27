@@ -542,12 +542,20 @@ def run_external_validation_uncertainty(
     runner_factory: type[ExternalValidationUncertaintyRunner] = (
         ExternalValidationUncertaintyRunner
     ),
+    skip_existing: bool = False,
 ) -> dict[str, Any]:
     """Run and atomically publish the validation-only placement diagnostic."""
 
     root = Path(data_root).resolve()
     output = Path(output_dir).resolve()
     if output.exists():
+        if skip_existing:
+            manifest_path = output / "external_validation_uncertainty_manifest.json"
+            if not manifest_path.is_file():
+                raise FileExistsError(
+                    f"existing uncertainty output lacks a manifest: {output}"
+                )
+            return json.loads(manifest_path.read_text(encoding="utf-8"))
         raise FileExistsError(f"refusing existing uncertainty output: {output}")
     protocol = load_confirmatory_protocol(design_path)
     roster = load_finalized_model_roster(

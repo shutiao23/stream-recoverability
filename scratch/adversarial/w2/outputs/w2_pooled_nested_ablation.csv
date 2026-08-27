@@ -1,0 +1,6 @@
+scope,level,model,added,r2,delta_r2
+pooled,station,gap_length,gap_length,7.911237477276067e-05,7.911237477276067e-05
+pooled,station,gap_length+acf30,acf30,0.04425515900232457,0.04417604662755181
+pooled,station,gap_length+acf30+donor_r2,donor_r2,0.400986402157693,0.3567312431553684
+pooled,station,gap_length+acf30+donor_r2+heuristic_explained_variance,heuristic_explained_variance,0.4012593436053442,0.0002729414476512204
+pooled,station,gap_length+acf30+donor_r2+heuristic_explained_variance+recoverability_r,recoverability_r,0.45302055634579563,0.05176121274045142

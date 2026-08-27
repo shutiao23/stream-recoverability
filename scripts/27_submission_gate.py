@@ -33,6 +33,9 @@ def main() -> None:
         "once-lock",
         "rights-audit",
         "reproduction-report",
+        "editor-exception-approval",
+        "author-metadata",
+        "reviewer-data-upload",
     ):
         parser.add_argument(f"--{option}", type=Path)
     args = parser.parse_args()
@@ -47,6 +50,9 @@ def main() -> None:
         once_lock=args.once_lock,
         rights_audit=args.rights_audit,
         reproduction_report=args.reproduction_report,
+        editor_exception_approval=args.editor_exception_approval,
+        author_metadata=args.author_metadata,
+        reviewer_data_upload=args.reviewer_data_upload,
     )
     write_json(args.output, report)
     print(args.output)

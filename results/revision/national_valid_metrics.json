@@ -1,0 +1,21 @@
+{
+  "schema_version": "national_valid_metrics_v1",
+  "does_not_reopen_freeze": true,
+  "frozen_primary_pooled_auc": 0.40749601275917063,
+  "frozen_primary_status": "preregistered_defective_diagnostic",
+  "pooled_oof_auc": 0.40749601275917063,
+  "macro_within_fold_auc": 0.5256536889168535,
+  "median_within_fold_auc": 0.5132377275234418,
+  "n_defined_folds": 9,
+  "firth_unadjusted_odds_ratio_per_index_sd": 1.1861718474002962,
+  "firth_unadjusted_odds_ratio_ci_low": 0.8909649123164146,
+  "firth_unadjusted_odds_ratio_ci_high": 1.579190866121732,
+  "firth_unadjusted_p_value": 0.24228110479554643,
+  "firth_converged": true,
+  "common_period_n": 62,
+  "common_period_regulated_n": 42,
+  "common_period_firth_odds_ratio": 1.0360135618211226,
+  "common_period_pooled_oof_auc": 0.4738095238095238,
+  "headline_estimand": "macro_within_fold_auc_plus_unadjusted_null",
+  "note": "Pooled LOEO AUC remains the frozen primary number but is not a valid standalone discrimination metric. Macro-AUC is the post-hoc valid level. No independent holdout was evaluated."
+}

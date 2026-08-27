@@ -1,0 +1,1085 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0976902,
+          34.05065614
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334655",
+      "properties": {
+        "comid": 2045253,
+        "identifier": "USGS-02334655",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 88.7216,
+        "name": "CHATTAHOOCHEE R AT MCGINNIS FY RD, AT SUWANEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334655/navigation",
+        "reachcode": "03130001000017",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334655"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0784167,
+          34.15666667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334430",
+      "properties": {
+        "comid": 2045337,
+        "identifier": "USGS-02334430",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 19.59,
+        "name": "CHATTAHOOCHEE RIVER AT BUFORD DAM, NEAR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334430/navigation",
+        "reachcode": "03130001000025",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334430"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0761111,
+          34.1615833
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334401",
+      "properties": {
+        "comid": 2045337,
+        "identifier": "USGS-02334401",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 83.6637,
+        "name": "CHATTAHOOCHEE RIVER BUFORD DAM NR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334401/navigation",
+        "reachcode": "03130001000025",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334401"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.7482346,
+          34.7206503
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330440",
+      "properties": {
+        "comid": 2040669,
+        "identifier": "USGS-02330440",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 52.6676,
+        "name": "CHATTAHOOCHEE RIVER ABOVE ROBERTSTOWN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330440/navigation",
+        "reachcode": "03130001000139",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330440"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.6782323,
+          34.6756509
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330475",
+      "properties": {
+        "comid": 2040919,
+        "identifier": "USGS-02330475",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 27.2727,
+        "name": "CHATTAHOOCHEE RIVER AT SAUTEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330475/navigation",
+        "reachcode": "03130001000132",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330475"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.1083333,
+          34.0567222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334653",
+      "properties": {
+        "comid": 2045427,
+        "identifier": "USGS-02334653",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 42.4779,
+        "name": "CHATTAHOOCHEE R 0.76 MI US MCGINNIS FY SUWANEE GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334653/navigation",
+        "reachcode": "03130001001544",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334653"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.1106944,
+          34.0588333
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334652",
+      "properties": {
+        "comid": 2045427,
+        "identifier": "USGS-02334652",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 42.4779,
+        "name": "CHATTAHOOCHEE R 0.96 MI US MCGINNIS FY SUWANEE GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334652/navigation",
+        "reachcode": "03130001001544",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334652"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.1052778,
+          34.05388889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334654",
+      "properties": {
+        "comid": 2045427,
+        "identifier": "USGS-02334654",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 17.0471,
+        "name": "CHATTAHOOCHEE R 0.5 MI US MCGINNIS FY SUWANEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334654/navigation",
+        "reachcode": "03130001001544",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334654"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.26888889,
+          33.97305556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335400",
+      "properties": {
+        "comid": 2048141,
+        "identifier": "USGS-02335400",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 97.6072,
+        "name": "CHATTAHOOCHEE R 0.39 MI DS GA140, ALPHARETTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335400/navigation",
+        "reachcode": "03130001000014",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335400"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.27,
+          33.9733333
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335405",
+      "properties": {
+        "comid": 2048141,
+        "identifier": "USGS-02335405",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 97.6072,
+        "name": "CHATTAHOOCHEE R 0.47 MI DS GA140, ALPHARETTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335405/navigation",
+        "reachcode": "03130001000014",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335405"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.1099131,
+          34.098433
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334550",
+      "properties": {
+        "comid": 2045241,
+        "identifier": "USGS-02334550",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 64.418,
+        "name": "CHATT R AT SETTLES BR RD, NEAR SUWANEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334550/navigation",
+        "reachcode": "03130001000021",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334550"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.622775,
+          34.5407222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02331600",
+      "properties": {
+        "comid": 2042071,
+        "identifier": "USGS-02331600",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 72.398,
+        "name": "CHATTAHOOCHEE RIVER NEAR CORNELIA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02331600/navigation",
+        "reachcode": "03130001000032",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02331600"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.06356389,
+          34.16752778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-341003084034801",
+      "properties": {
+        "comid": 2045379,
+        "identifier": "USGS-341003084034801",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 68.0089,
+        "name": "CHATTAHOOCHEE CHANNEL, LAKE LANIER NR BUFORD DAM",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-341003084034801/navigation",
+        "reachcode": "03130001007291",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-341003084034801"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.2063222,
+          34.00371944
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-340039084127601",
+      "properties": {
+        "comid": 2045295,
+        "identifier": "USGS-340039084127601",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 11.0487,
+        "name": "WaterSmart Septic 115",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-340039084127601/navigation",
+        "reachcode": "03130001001541",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-340039084127601"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.708788,
+          34.41343338
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02332080",
+      "properties": {
+        "comid": 2043529,
+        "identifier": "USGS-02332080",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 19.6056,
+        "name": "CHATTAHOOCHEE RIVER AT GA 52, NEAR LULA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02332080/navigation",
+        "reachcode": "03130001007149",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02332080"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.7060101,
+          34.4153778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-342817083365501",
+      "properties": {
+        "comid": 2043529,
+        "identifier": "USGS-342817083365501",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 43.4813,
+        "name": "LL.BK.2 -- LULA PARK NR LULA BRIDGE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-342817083365501/navigation",
+        "reachcode": "03130001007149",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-342817083365501"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0890785,
+          34.1381549
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334446",
+      "properties": {
+        "comid": 2045343,
+        "identifier": "USGS-02334446",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 16.1836,
+        "name": "CHATT R ABOVE FISH HATCHERY NR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334446/navigation",
+        "reachcode": "03130001000024",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334446"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0901897,
+          34.13732156
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334447",
+      "properties": {
+        "comid": 2045343,
+        "identifier": "USGS-02334447",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 16.1836,
+        "name": "CHATT R AT FISH HATCHERY INTAKE NR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334447/navigation",
+        "reachcode": "03130001000024",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334447"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.7010109,
+          34.67870639
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330455",
+      "properties": {
+        "comid": 2040903,
+        "identifier": "USGS-02330455",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 34.3552,
+        "name": "CHATTAHOOCHEE RIVER NEAR NACOOCHEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330455/navigation",
+        "reachcode": "03130001000133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330455"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.6360278,
+          34.5770833
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02331000",
+      "properties": {
+        "comid": 2041543,
+        "identifier": "USGS-02331000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATTAHOOCHEE RIVER NEAR LEAF, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02331000/navigation",
+        "reachcode": "03130001000107",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02331000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.6421202,
+          34.6275962
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330500",
+      "properties": {
+        "comid": 2041241,
+        "identifier": "USGS-02330500",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 71.9703,
+        "name": "CHATTAHOOCHEE RIVER NEAR AERIAL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330500/navigation",
+        "reachcode": "03130001000115",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330500"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0755278,
+          34.1627222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334400",
+      "properties": {
+        "comid": 2045413,
+        "identifier": "USGS-02334400",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "LAKE SIDNEY LANIER NEAR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334400/navigation",
+        "reachcode": "03130001000025",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334400"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0754666,
+          34.16259917
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-340945084043245",
+      "properties": {
+        "comid": 2045413,
+        "identifier": "USGS-340945084043245",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "LAKE SIDNEY LANIER RAIN GAGE TEST SITE",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-340945084043245/navigation",
+        "reachcode": "03130001000025",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-340945084043245"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.8146232,
+          34.35315586
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02332510",
+      "properties": {
+        "comid": 2043709,
+        "identifier": "USGS-02332510",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 12.5245,
+        "name": "CHATTAHOOCHEE RIVER AT GA 129, AB GAINESVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02332510/navigation",
+        "reachcode": "03130001007196",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02332510"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0287973,
+          34.20315489
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334345",
+      "properties": {
+        "comid": 2045367,
+        "identifier": "USGS-02334345",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 93.5936,
+        "name": "SIXMILE CREEK AT LAKE SIDNEY LANIER, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334345/navigation",
+        "reachcode": "03130001007218",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334345"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.9704609,
+          34.2342667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334227",
+      "properties": {
+        "comid": 2043849,
+        "identifier": "USGS-02334227",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 15.1949,
+        "name": "LAKE SIDNEY LANIER NEAR OSCARVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334227/navigation",
+        "reachcode": "03130001007251",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334227"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.94962679,
+          34.26121114
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334080",
+      "properties": {
+        "comid": 2043849,
+        "identifier": "USGS-02334080",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 63.2484,
+        "name": "CHATTAHOOCHEE R AT GA 369, NR FLOWERY BRANCH, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334080/navigation",
+        "reachcode": "03130001007251",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334080"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0935233,
+          34.12621057
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334500",
+      "properties": {
+        "comid": 2045419,
+        "identifier": "USGS-02334500",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 27.136,
+        "name": "CHATTAHOOCHEE RIVER NEAR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334500/navigation",
+        "reachcode": "03130001001545",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334500"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.0935233,
+          34.12621057
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-88130004",
+      "properties": {
+        "comid": 2045419,
+        "identifier": "USGS-88130004",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 27.136,
+        "name": "BUFORD COMBINED RECORDS",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-88130004/navigation",
+        "reachcode": "03130001001545",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-88130004"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.7101779,
+          34.6870396
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330453",
+      "properties": {
+        "comid": 2040893,
+        "identifier": "USGS-02330453",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 47.9919,
+        "name": "CHATTAHOOCHEE R AT GA 17 AND 75, AT NACOOCHEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330453/navigation",
+        "reachcode": "03130001000134",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330453"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.7118447,
+          34.68287299
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330454",
+      "properties": {
+        "comid": 2040893,
+        "identifier": "USGS-02330454",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 29.6569,
+        "name": "CHATTAHOOCHEE RIVER AT GA 75, AT NACOOCHEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330454/navigation",
+        "reachcode": "03130001000134",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330454"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.07296649,
+          34.16315476
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334399",
+      "properties": {
+        "comid": 2051313,
+        "identifier": "USGS-02334399",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "CHATT R ABOVE BUFORD DAM NR BUFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334399/navigation",
+        "reachcode": "03130001007288",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334399"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.1679723,
+          34.02898904
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334950",
+      "properties": {
+        "comid": 2051309,
+        "identifier": "USGS-02334950",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 67.5923,
+        "name": "CHATTAHOOCHEE RIVER AT GA 120, AT DULUTH, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334950/navigation",
+        "reachcode": "03130001001541",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334950"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.685177,
+          34.44537715
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02332017",
+      "properties": {
+        "comid": 2043147,
+        "identifier": "USGS-02332017",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATTAHOOCHEE RIVER BELTON BRIDGE ROAD NR LULA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02332017/navigation",
+        "reachcode": "03130001000027",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02332017"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.9140702,
+          34.2948222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-341741083545101",
+      "properties": {
+        "comid": 2043825,
+        "identifier": "USGS-341741083545101",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 77.7636,
+        "name": "CHATTAHOOCHEE R NR GAINESVILLE, GA LL.CHT.35",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-341741083545101/navigation",
+        "reachcode": "03130001007263",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-341741083545101"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.26425,
+          33.9732222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335353",
+      "properties": {
+        "comid": 2048139,
+        "identifier": "USGS-02335353",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 5.8361,
+        "name": "CHATTAHOOCHEE R 0.09 MI DS GA140, ALPHARETTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335353/navigation",
+        "reachcode": "03130001001543",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335353"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.2627002,
+          33.9734338
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335340",
+      "properties": {
+        "comid": 2048139,
+        "identifier": "USGS-02335340",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 9.281,
+        "name": "CHATTAHOOCHEE R AT HOLCOMB BR RD, NR NORCROSS, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335340/navigation",
+        "reachcode": "03130001001543",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335340"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.736012,
+          34.7017616
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330448",
+      "properties": {
+        "comid": 2040783,
+        "identifier": "USGS-02330448",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 82.2163,
+        "name": "CHATTAHOOCHEE RIVER COUNTY RD AT HELEN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330448/navigation",
+        "reachcode": "03130001000135",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330448"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.72925,
+          34.7009722
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02330450",
+      "properties": {
+        "comid": 2040783,
+        "identifier": "USGS-02330450",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 57.1019,
+        "name": "CHATTAHOOCHEE RIVER AT HELEN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02330450/navigation",
+        "reachcode": "03130001000135",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02330450"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.8793471,
+          34.32148888
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02333000",
+      "properties": {
+        "comid": 2043801,
+        "identifier": "USGS-02333000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 98.852,
+        "name": "CHATTAHOOCHEE RIVER NEAR GAINESVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02333000/navigation",
+        "reachcode": "03130001007275",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02333000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.8832361,
+          34.3195444
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02333010",
+      "properties": {
+        "comid": 2043801,
+        "identifier": "USGS-02333010",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 80.9873,
+        "name": "CHATT. R GA 53 TRANSECT RT NR CHICOPEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02333010/navigation",
+        "reachcode": "03130001007275",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02333010"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.8815694,
+          34.31926667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02333011",
+      "properties": {
+        "comid": 2043801,
+        "identifier": "USGS-02333011",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 80.9873,
+        "name": "CHATT. R GA 53 TRANSECT CTR NR CHICOPEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02333011/navigation",
+        "reachcode": "03130001007275",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02333011"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -83.880736,
+          34.3189889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02333012",
+      "properties": {
+        "comid": 2043801,
+        "identifier": "USGS-02333012",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 80.9873,
+        "name": "CHATT. R GA 53 TRANSECT LT NR CHICOPEE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02333012/navigation",
+        "reachcode": "03130001007275",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02333012"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.186918,
+          33.98871185
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02334995",
+      "properties": {
+        "comid": 2048087,
+        "identifier": "USGS-02334995",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 33.8973,
+        "name": "BERKELEY LAKE NEAR BERKELEY LAKE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02334995/navigation",
+        "reachcode": "03130001001541",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02334995"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.2019444,
+          33.9972222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335000",
+      "properties": {
+        "comid": 2048087,
+        "identifier": "USGS-02335000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 16.826,
+        "name": "CHATTAHOOCHEE RIVER NEAR NORCROSS, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335000/navigation",
+        "reachcode": "03130001001541",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335000"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,67 @@
+{
+  "batch_plan_sha256": "86731139875c30177af0b18b881909a3d8e5b3138c28e8742931068fff2e2dda",
+  "chunk_manifest_paths": [
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0010500_0014000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0014000_0017500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0017500_0021000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0021000_0024500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0024500_0028000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0028000_0031500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0031500_0035000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0035000_0038500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0038500_0042000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0042000_0045500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0045500_0049000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0049000_0052500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0052500_0056000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0056000_0059500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0059500_0063000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0063000_0066500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0066500_0070000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0070000_0073500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0073500_0077000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0077000_0080500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0080500_0084000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0084000_0087500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0087500_0091000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0091000_0094500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0094500_0098000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0098000_0101500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0101500_0105000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0105000_0108500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0108500_0112000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0112000_0115500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0115500_0119000/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0119000_0122500/manifest.json",
+    "/home/lzq/workspace/parttime/stream-recoverability/results/framework/t2_recovery_benchmark_v1/w7_open_role_bd_expand/chunks/chunk_0122500_0126000/manifest.json"
+  ],
+  "completed_chunk_count": 33,
+  "expected_workload_item_count": 1384025,
+  "formal_evidence": false,
+  "manifest_schema": "t2_batch_aggregation_manifest_list_v1",
+  "missing_ordinal_ranges": [
+    [
+      126000,
+      129500
+    ],
+    [
+      129500,
+      133000
+    ],
+    [
+      133000,
+      136500
+    ],
+    [
+      136500,
+      140000
+    ]
+  ],
+  "passed": false,
+  "planned_chunk_count": 37,
+  "purpose": "aggregation_input_custody_not_evidence",
+  "ready_for_aggregation": false,
+  "sealed_temperature_records_read": false,
+  "workload_item_identity_sha256": "a76a85d36f74655a4ed64684c21c98b4fb7f541fffee2bca07414747add9f370",
+  "workload_manifest_sha256": "c08129ad71a96a56a1610a1eacbbb93be9dd5ccd646b21e9ba7dc431f412fa19"
+}

@@ -4,33 +4,18 @@
   "artifacts": [
     {
       "path": "paper/submission/agu_main_manuscript.md",
-      "bytes": 74721,
-      "sha256": "1e8597c0af775d378b838240e2886c96892f919e6dda5c4459f15f96aa5af031"
+      "bytes": 75278,
+      "sha256": "9f40a3e34ecd6b6736abd1951186d86a71be8106bb8dee3668d405a411410097"
     },
     {
       "path": "paper/submission/agu_supporting_information.md",
-      "bytes": 76445,
-      "sha256": "ffcfe6ef36edcb14b130cc710008793c2b320e9f4777a18e1ab22b648a03cf36"
+      "bytes": 84857,
+      "sha256": "9d89fbe7e68cfd219808e359a9d0e4c2e84ac0b24f7b0ce54101144c3046e784"
     },
     {
       "path": "paper/submission/latex_header.tex",
       "bytes": 152,
       "sha256": "b2165c41981a730b079dcf509d27f2a7f08694f49a9888b4802ecac9b21945e0"
-    },
-    {
-      "path": "paper/submission/agu_main_manuscript.pdf",
-      "bytes": 4859817,
-      "sha256": "0dae50c16321ad64d60e52fba2558078fda8caa131aabfa3931287724c39389f"
-    },
-    {
-      "path": "paper/submission/agu_main_manuscript.docx",
-      "bytes": 5048995,
-      "sha256": "9766d2fc4aeb1d40fda26f0d5e75a7c76c7b6bbf0c9547b7544983e7ee8732db"
-    },
-    {
-      "path": "paper/submission/agu_supporting_information.pdf",
-      "bytes": 825119,
-      "sha256": "56648a9f622606005f6047b53969598f6946c06cbb352d87a80ba02889d881b9"
     }
   ],
   "blockers": [
@@ -39,7 +24,7 @@
     "real archival software DOI",
     "GEMS confidential reviewer-data upload"
   ],
-  "plain_language_summary_words": 197,
+  "plain_language_summary_words": 190,
   "main_figures": 7,
   "main_tables": 5
 }

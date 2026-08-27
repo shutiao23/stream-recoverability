@@ -148,6 +148,14 @@ Phase 0 is closed only after a second Red pass on the *merged* files.
 
 ## Still open (do not mark the goal complete)
 
-## Still open (do not mark the goal complete)
+Phase 3 Europe daily: Hub'Eau year-chunk is implemented; complete_enough Europe networks are still 0 until the re-download finishes. UK EA Derwent is a 3-station name cluster, not T8 until concurrent daily overlap is measured. Honest USGS catalog remains 98 < 100 ≪ 150.
 
-Phase 3 downloads (in progress: USGS v2 79 rivers / 310 sites; Hub'Eau instantaneous spans ≠ daily T8); full Phase 4 grid with 20 placements; T3 decision; T4 real missing scoring (geometry wired, first run 0 gaps, re-run with 7-day floor); T5 matched regulation; T6 BFI/SEPlains; T7 sealed once-open; Phase 8 writing.
+Phase 4: n=44 scored, operator Spearman 0.67 vs donor R² 0.80, confirmatory ineligible. Do not retune.
+
+Phase 5: T3b 0 safe fills at 5% FPR; T4 planted-geometry Spearman 0.69 on 11 rivers, not confirmatory.
+
+Phase 6: 5 matched pairs, ΔR ≈ −0.03, T5/T6 false. BFI join added; not a passed mechanism.
+
+Phase 7: once-lock infrastructure refuses until 40 eligible including 10 non-NA. Do not lock early.
+
+Phase 8: skeleton exists; results page is stop-loss, not a paper.

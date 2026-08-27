@@ -1,0 +1,1 @@
+{"headers":{"Accept":"application/geo+json","User-Agent":"stream-recoverability-confirmatory-builder/1.0"},"method":"GET","secret_fields_excluded":["X-Api-Key"],"url":"https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-02012800&parameter_code=00065&statistic_id=00003"}

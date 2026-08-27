@@ -1,0 +1,115 @@
+{
+  "achieved_skill_is_later_year_not_gap_specific": false,
+  "chattahoochee_outcomes_used": false,
+  "confirmatory_eligible": false,
+  "delaware_required": true,
+  "delaware_scored": true,
+  "evaluate_success": {
+    "confirmatory_eligible": false,
+    "inference_status": "withheld_n_lt_100_network_interval",
+    "n_networks_min": 100,
+    "passed": false,
+    "passed_numeric_floors": false,
+    "thresholds_locked": true
+  },
+  "formal_evidence": false,
+  "gap_length_delta_r2_is_pipeline_check": true,
+  "gap_length_delta_r2_pooled": 7.911237477276067e-05,
+  "gap_lengths": [
+    30,
+    90
+  ],
+  "headline_claim_licensed": false,
+  "jinsha_outcomes_used": false,
+  "later_year_skill_copied_across_L": false,
+  "n_networks": 6,
+  "n_station_gap_rows": 62,
+  "natural_outage_fill_mae_used_as_phase4_y": false,
+  "nested_grids": "pooled across gap lengths; per-gap tables are not the pipeline check",
+  "nested_predictors": [
+    "gap_length",
+    "acf30",
+    "donor_r2",
+    "heuristic_explained_variance",
+    "recoverability_r"
+  ],
+  "network_interval": {
+    "ci_lower": null,
+    "ci_upper": null,
+    "inference_status": "withheld_n_lt_100_network_interval",
+    "n_networks": 6,
+    "note": "W2 n=6 cannot report a cluster-bootstrap network CI."
+  },
+  "new_temperatures_downloaded": false,
+  "operator_incremental_r2_le_0_does_not_license_retuning": true,
+  "overwrites_later_year_audit_manifest": false,
+  "passed": false,
+  "pooled_nested": [
+    {
+      "added": "gap_length",
+      "delta_r2": 7.911237477276067e-05,
+      "level": "station",
+      "model": "gap_length",
+      "r2": 7.911237477276067e-05,
+      "scope": "pooled"
+    },
+    {
+      "added": "acf30",
+      "delta_r2": 0.04417604662755181,
+      "level": "station",
+      "model": "gap_length+acf30",
+      "r2": 0.04425515900232457,
+      "scope": "pooled"
+    },
+    {
+      "added": "donor_r2",
+      "delta_r2": 0.3567312431553684,
+      "level": "station",
+      "model": "gap_length+acf30+donor_r2",
+      "r2": 0.400986402157693,
+      "scope": "pooled"
+    },
+    {
+      "added": "heuristic_explained_variance",
+      "delta_r2": 0.0002729414476512204,
+      "level": "station",
+      "model": "gap_length+acf30+donor_r2+heuristic_explained_variance",
+      "r2": 0.4012593436053442,
+      "scope": "pooled"
+    },
+    {
+      "added": "recoverability_r",
+      "delta_r2": 0.05176121274045142,
+      "level": "station",
+      "model": "gap_length+acf30+donor_r2+heuristic_explained_variance+recoverability_r",
+      "r2": 0.45302055634579563,
+      "scope": "pooled"
+    }
+  ],
+  "primary_networks": [
+    "delaware_river_huc20",
+    "willamette_river_huc17",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31"
+  ],
+  "purpose": "pipeline_verification_not_evidence",
+  "requested_primary_missing": [],
+  "scored_networks": [
+    "delaware_river_huc20",
+    "madison_river_huc10",
+    "mahoning_river_huc50",
+    "roanoke_river_huc30",
+    "santa_fe_river_huc31",
+    "willamette_river_huc17"
+  ],
+  "sealed_outcomes_opened": false,
+  "suwannee_leaked_into_scored": [],
+  "suwannee_must_not_replace_delaware": true,
+  "thresholds_locked": true,
+  "what_this_is": "W2 six-river pipeline verification: planted 30/90 gap skill versus train-only predictors.",
+  "what_this_is_not": "Not T2. Not formal evidence. Not a headline. Not the later-year audit in results/framework/public_rivers/operator_ablation_manifest.json.",
+  "wide_csvs_missing": [],
+  "y_kind": "planted_gap"
+}

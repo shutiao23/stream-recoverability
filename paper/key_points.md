@@ -1,5 +1,5 @@
 # Key Points (AGU)
 
-- Dam-proximal stations in two rivers rely more on local thermal memory during temperature-record outages.
-- A fixed validation-selected model preserves the predicted long-gap ordering but not the predicted error magnitude.
-- No national skill (frozen AUC 0.407; post-hoc mean 0.526); post-hoc direction is region-dependent and reverses in the Southeast Plains.
+- A train-only covariance heuristic labels dam-proximal stations as memory-dominated in two case-study networks.
+- Held-out Chattahoochee type labels were frozen; fixed-model long-gap scores are a labelled post-hoc sensitivity.
+- The national index is not a standalone dam classifier; the frozen pooled AUC is a defective diagnostic.

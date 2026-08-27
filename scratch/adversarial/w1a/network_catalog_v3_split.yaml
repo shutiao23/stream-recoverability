@@ -1,0 +1,16 @@
+catalog_id: network_catalog_v3_huc8_split_adversarial
+seed: 20260826
+fractions:
+  development: 0.5
+  validation: 0.2
+  sealed: 0.3
+split_table_sha256: b11cd3f25605d629709661633191781fcde306677ed9fbf2590845d4b60211a3
+regulation_stratum: unknown_until_gages
+temperatures_downloaded: false
+sealed_outcomes_opened: false
+network_catalog_v1_remapped: false
+loire_swiss_used_as_non_na_sealed: false
+n_sealed: 56
+n_non_na_sealed: 0
+note: USGS-only HUC8 split locked before download. never_sealed held out. Loire/Swiss
+  not used. GAGES not invented from names.

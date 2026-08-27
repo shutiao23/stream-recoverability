@@ -57,6 +57,11 @@ def build_parser() -> argparse.ArgumentParser:
         type=Path,
         default=PROJECT_ROOT / "results/revision/external_validation_uncertainty",
     )
+    parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="Reuse a complete existing uncertainty directory instead of failing.",
+    )
     return parser
 
 
@@ -71,6 +76,7 @@ def main() -> None:
         experiment_config_path=args.experiment_config,
         selection_data_version_manifest_path=args.selection_data_version_manifest,
         mask_seeds=EXTERNAL_VALIDATION_MASK_SEEDS,
+        skip_existing=args.skip_existing,
     )
     print(
         json.dumps(

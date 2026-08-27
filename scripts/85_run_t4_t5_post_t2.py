@@ -21,13 +21,15 @@ def main() -> None:
     parser.add_argument(
         "--workload",
         type=Path,
-        default=ROOT / "results/framework/t2_recovery_benchmark_v4/workload_manifest.json",
+        default=ROOT
+        / "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json",
     )
     parser.add_argument(
         "--result-binding",
         type=Path,
         default=ROOT
-        / "results/framework/t2_recovery_benchmark_v4/aggregation/post_t2_input_binding.json",
+        / "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2"
+        / "post_t2_input_binding.json",
     )
     parser.add_argument(
         "--geometry-catalog",

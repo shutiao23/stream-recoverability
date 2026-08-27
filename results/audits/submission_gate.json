@@ -2,12 +2,15 @@
   "passed": false,
   "decision": "no_go",
   "blockers": [
+    "restricted-data exception lacks written editor acceptance",
+    "submission author metadata is incomplete or unapproved",
+    "GEMS confidential reviewer-data upload is incomplete",
     "archival software DOI has not been minted"
   ],
   "snapshot": {
     "snapshot_schema_version": "evidence_snapshot_v3",
-    "git_commit": "9b7fa14037f7bd2c1b367ca760c092a7b9beac78",
-    "worktree_clean": true,
+    "git_commit": "22eb1a1cd7533ae5db5ff6fe44ff62ce3aebee53",
+    "worktree_clean": false,
     "executable_design": "design_freeze_v4",
     "design_path": "configs/design_freeze_v4.yaml",
     "design_version": "design_freeze_v4",
@@ -46,7 +49,10 @@
     "confirmatory run manifest": "results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/completion_manifest.json",
     "confirmatory once-lock": "data_versions/.external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json",
     "rights audit": "results/audits/restricted_hosting_audit.json",
-    "reproduction report": "results/audits/reproduction_report_review_revision.json"
+    "reproduction report": "results/audits/reproduction_report_acceptance_revision.json",
+    "restricted-data editor approval": "metadata/editor_data_exception_approval.json",
+    "submission author metadata": "metadata/submission_author_metadata.json",
+    "GEMS reviewer-data upload": "metadata/gems_reviewer_data_upload.json"
   },
   "note": "A failing gate is the correct state until formal evidence exists."
 }

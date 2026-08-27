@@ -1,0 +1,234 @@
+# Overlay only. Merge into configs/design_freeze_v9.yaml.
+# design_id stays design_freeze_v9. This is protocol_amendment v9.1.
+#
+# DO NOT CHANGE (omit from merge as edits):
+#   design_id, design_version, not_an_executable_design, executable
+#   formal_evidence, headline_claim_licensed, reservoir_mechanism_in_headline
+#   sealed_outcomes_opened, jinsha_outcomes_reusable_as_confirmation
+#   chattahoochee_outcomes_reusable_as_confirmation
+#   hard_type_labels_are_primary, eventwise_best_envelope_is_primary
+#   national_dam_auc_is_recoverability_evidence
+#   historical_case_study_freeze: design_freeze_v4
+#   split_rule.never_sealed_networks          # 14 tokens, exact
+#   split_rule.not_countable_as_public_daily_or_non_na_sealed_until_daily_history_is_public
+#   locked_success_criterion.t2_large_sample_primary.out_of_network_spearman_min  # >= 0.60
+#   locked_success_criterion.t2_large_sample_primary.network_bootstrap_lower_bound_min  # >= 0.40
+#   locked_success_criterion.t2_large_sample_primary.ci95_lower_bound_must_exceed
+#   locked_success_criterion.t2_large_sample_primary.six_river_pilot_is_failed_context_not_evidence
+#   forbidden_after_seal (keep selecting_the_better_of_90_and_180_days; may append)
+#   DEFAULT_DESIGN_PATH / EXECUTABLE_DESIGN_VERSION (not in this file; must stay v4)
+#
+# DO NOT CREATE configs/design_freeze_v9.1.yaml.
+
+protocol_amendment: v9.1
+protocol_change_v9_1: docs/protocol_change_v9_to_v9.1.md
+# Keep existing key protocol_change: docs/protocol_change_v8_to_v9.md
+
+note: >
+  Next-paper design freeze, amended v9.1 before any new temperatures.
+  Numeric T2 gates are unchanged floors. Catalog HUC8 count is not T2.
+  Current twin gate_pass false is uninformative, not T5 and not a
+  negative recoverability result. Do not retune the generator.
+  Six-river and twelve-river pilots are not network-level inference.
+  Two-tier model budget is locked before download.
+
+clustering_rule:
+  scientific_unit: huc8_subbasin
+  contrast_unit: name_times_huc2_string
+  contrast_must_remain_on_disk: true
+  nldi_um_dm: covariate_do_not_drop_disconnected
+  disconnected_flag: spatially_proximate_not_flow_connected
+  overlap_search: exact_max_overlap_subset_no_truncate_at_12
+  pairwise_distance: geodesic_km
+  missing_latlon: explicit_policy_not_silent_zero_or_inf
+  catalog_overlap_is_not_qualified_years: true
+  catalog_count_is_not_t2: true
+  catalog_huc8_3st_8y_span_is_approximately: 161
+  reviewer_161_used_truncated_search: true
+  expected_download_qc_attrition: [0.25, 0.40]
+  do_not_download_name_huc2_98_list: true
+  v2_huc8_only_166_is_exploratory_not_inventory: true
+  forbidden_claims:
+    - extra_rivers_by_loosening
+    - sixty_three_extra_versus_98
+    - huc8_is_relaxation_of_four_station_huc2
+    - 161_meets_t2
+    - catalog_dates_equal_300_approved_days_times_8_years
+  missouri_style_huc2_pseudo_network_is_not_one_unit: true
+
+inventory_targets:
+  grouping: huc8_plus_nldi_covariate
+  independent_networks: [150, 250]
+  stations_per_network_min: 3
+  traceable_years_per_station_min: 8
+  overlapping_years_min: 8
+  qualified_year_rule: at_least_300_approved_days
+  catalog_span_does_not_satisfy_qualified_year_rule: true
+  note: >
+    150 remains a design target. ~161 is catalog-span HUC8 groups, not
+    qualified networks. Do not report 161 as T2. Three-station floor was
+    already locked in v9; HUC8 is not that relaxation.
+
+split_rule:
+  split_lock_file: configs/network_catalog_v3_split.yaml
+  catalog_file: configs/network_catalog_v3_huc8.yaml
+  lock_before_download: true
+  stratification:
+    - climate_or_ecoregion
+    - regulation_status
+    - network_size
+  split_seed_and_sha256_required: true
+  development_fraction_target: 0.50
+  validation_fraction_target: 0.20
+  sealed_confirmatory_fraction_target: 0.30
+  sealed_min_networks: 40
+  sealed_min_outside_north_america: 10
+  do_not_remap_network_catalog_v1: true
+  do_not_rewrite_never_sealed_tokens: true
+  loire_swiss_still_not_countable_for_t8: true
+  note: >
+    Fractions unchanged. never_sealed list is omitted here because it
+    must not change. Pointers are new. Do not seal burned IDs. Do not
+    fill the 10 non-NA seats with Loire/Swiss.
+
+interval_rule: >
+  Primary network-level CIs require at least 100 independent river
+  networks after ingest QC and the qualified-year rule. The nested
+  floor of 5 site-year or overlap clusters is only a within-network
+  descriptive rule (historical BL-012). Do not report a network-level
+  interval from the 12-river pilot, the 6-river pipeline redo, or any
+  n<100 development stop-loss. evaluate_success must not pass T2 when
+  the network interval is withheld.
+
+t5_confound_control:
+  topology_matched_regulation: true
+  matching_factors:
+    - donor_count
+    - donor_direction
+    - nearest_donor_distance
+    - drainage_area
+    - climate
+    - bfi
+  synthetic_twin_design:
+    twin_a: dam_like_node_not_at_endpoint
+    twin_b: endpoint_not_dam_like
+    twin_e: matched_marginal_acf_and_donor_r2_differ_only_in_conditional_structure
+    twin_e_equalize: donor_count_and_direction
+    twin_e_lag: travel_time_redundant_vs_complementary_boundary
+    do_not_retune_phi_or_isolation_to_save_gate: true
+    current_gate_pass_false_is_uninformative: true
+    current_gate_is_not_t5_complete: true
+    current_gate_is_not_negative_recoverability: true
+
+experiments:
+  E5:
+    name: topology_falsification
+    status: spec_corrected_not_confirmatory
+    development_context_not_confirmatory: true
+    superseded_gate:
+      estimand: is_dam_like_classification_auc
+      operator_auc_min: 0.85
+      univariate_auc_max: 0.65
+      observed_operator_auc: 1.0
+      observed_univariate_max_auc: 1.0
+      observed_gate_pass: false
+      legal_status: uninformative_wrong_estimand
+      do_not_cite_identifiability_status_as_pass: true
+    estimand: true_conditional_risk_or_true_optimal_mae_from_known_sigma
+    unit: node_times_gap_length
+    metrics: [spearman, calibration_slope]
+    forbidden_metric_for_pass: classification_auc
+    operator_spearman_min: 0.90
+    univariate_spearman_max: 0.70
+    operator_calibration_slope_min: 0.90
+    operator_calibration_slope_max: 1.10
+    univariates_have_no_calibration_requirement: true
+    twin_e_must_pass_as_own_cell: true
+    holdout_family_locked_before_scoring: true
+    do_not_retune_generator: true
+    gate_is_strictly_harder_than_superseded_auc_gate: true
+    six_river_pilot_does_not_license_this_change: true
+
+recovery_benchmark:
+  model_budget_locked_before_download: true
+  model_budget_rule: two_tier_preregistered_not_posthoc_shrink
+  placements_per_cell_min: 20
+  primary_evidence_forbids:
+    - eventwise_best_envelope
+    - best_epoch_lt_50_posthoc_drop
+    - unequal_tuning_budgets
+    - excluding_models_because_best_epoch_lt_50
+    - selecting_the_better_of_90_and_180_days
+    - posthoc_roster_shrink_after_download
+    - csdi_or_grin_single_slot
+  tier_1_full_corpus:
+    produces_t2_primary_y: true
+    models:
+      - persistence_or_climatology
+      - pchip_or_linear
+      - kalman
+      - donor_regression
+      - xgboost
+    gap_geometries: [7, 14, 30, 60, 90, 180, 365]
+    information_conditions: [B, D, B_union_D, B_union_D_union_M, B_union_D_union_M_union_H]
+  tier_2_stratified_sample:
+    n_target: 30
+    n_allowed_range: [28, 32]
+    strata:
+      - climate_or_ecoregion
+      - regulation_status
+      - network_size
+    additional_models:
+      - air2stream_or_equivalent
+      - saits
+      - csdi
+      - grin
+    gaps_all_required: [30, 90, 180]
+    forbidden: selecting_any_horizon_after_seeing_envelope
+    purpose: sensitivity_whether_strong_models_change_recoverability_calibration
+    not_t2_primary_y: true
+    sample_locked_before_download: true
+
+ingest_qc:
+  locked_before_expansion: true
+  station_level_only: true
+  nwis_sentinel_in_values: rejected_sentinel
+  percent_na_rule_is_not_sufficient_for_sentinels: true
+  clearwater_13343000_counterexample:
+    n_sentinel: 2
+    n_nonnull: 1848
+    fraction: 0.00108
+    one_percent_rule_verdict_if_literal: accepted
+    required_verdict: rejected_sentinel
+  range_c: [-5.0, 45.0]
+  range_na_fraction_reject: 0.01
+  range_reject_reason: rejected_range
+  non_approved: na_not_in_primary
+  zero_c_is_not_sentinel: true
+  constant_run_days_flag: 14
+  jump_degC_flag: 10
+  qualified_year_min_approved_days: 300
+  verdicts: [accepted, accepted_with_flags, rejected_<reason>]
+  attrition_table_required: true
+
+falsifiers_append:
+  - e5_wrong_estimand_cited_as_result
+  - generator_retuned_to_save_gate
+  - aliasing_not_instantiated
+  - catalog_count_sold_as_t2
+  - extra_rivers_by_loosening_claim
+  - network_ci_below_100
+  - horizon_selected_after_envelope
+  - posthoc_model_budget_shrink
+  - sentinel_missed_by_percent_rule
+  - never_sealed_or_t8_breach
+
+failure_closure_append: >
+  If Twin E loses to univariates, publish the negative; do not retune
+  phi. If catalog 161 is quoted as T2 or as 63 extra by loosening,
+  that sentence is a claim violation. If n<100, withhold network CIs.
+  If qualified networks fall below 100 after QC, use the already-written
+  3-station/6-year hatch and report it; do not call HUC8 that hatch.
+  If the two-tier budget cannot be run, write a budget miss; do not
+  shrink the roster after download. Historical two-network manuscript
+  remains a descriptive case study. design_freeze_v4 stays executable.

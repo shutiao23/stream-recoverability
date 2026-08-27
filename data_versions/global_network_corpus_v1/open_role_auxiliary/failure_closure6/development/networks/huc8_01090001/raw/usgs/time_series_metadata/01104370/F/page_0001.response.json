@@ -1,0 +1,74 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "1cb7b02630e9419bb6c1679a0f0e40e4",
+        "unit_of_measure": "ft^3/s",
+        "parameter_name": "Discharge",
+        "parameter_code": "00060",
+        "statistic_id": "00003",
+        "hydrologic_unit_code": "010900010702",
+        "state_name": "Massachusetts",
+        "last_modified": "2026-08-26T05:45:30.076574",
+        "begin": "2010-01-08T00:00:00.000001",
+        "end": "2026-08-24T00:00:00.000001",
+        "begin_utc": "2010-01-08T05:00:00+00:00",
+        "end_utc": "2026-08-24T04:00:00+00:00",
+        "computation_period_identifier": "Daily",
+        "computation_identifier": "Mean",
+        "thresholds": [],
+        "sublocation_identifier": null,
+        "primary": "Primary",
+        "monitoring_location_id": "USGS-01104370",
+        "web_description": null,
+        "parameter_description": "Discharge, cubic feet per second",
+        "parent_time_series_id": "7654a7926e7742a98c65babe8104cae3",
+        "data_gap_interval": null
+      },
+      "id": "1cb7b02630e9419bb6c1679a0f0e40e4",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.2894444444444,
+          42.3855555555556
+        ]
+      }
+    }
+  ],
+  "numberReturned": 1,
+  "links": [
+    {
+      "type": "application/geo+json",
+      "rel": "self",
+      "title": "This document as GeoJSON",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&limit=10000&monitoring_location_id=USGS-01104370&parameter_code=00060&statistic_id=00003"
+    },
+    {
+      "rel": "alternate",
+      "type": "application/ld+json",
+      "title": "This document as RDF (JSON-LD)",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=jsonld&limit=10000&monitoring_location_id=USGS-01104370&parameter_code=00060&statistic_id=00003"
+    },
+    {
+      "type": "text/html",
+      "rel": "alternate",
+      "title": "This document as HTML",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=html&limit=10000&monitoring_location_id=USGS-01104370&parameter_code=00060&statistic_id=00003"
+    },
+    {
+      "type": "text/csv; charset=utf-8",
+      "rel": "alternate",
+      "title": "This document as CSV",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=csv&limit=10000&monitoring_location_id=USGS-01104370&parameter_code=00060&statistic_id=00003"
+    },
+    {
+      "type": "application/json",
+      "title": "Time series metadata",
+      "rel": "collection",
+      "href": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata"
+    }
+  ],
+  "timeStamp": "2026-08-26T20:08:06.419693Z"
+}

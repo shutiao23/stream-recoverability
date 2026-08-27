@@ -1,0 +1,42 @@
+[
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01447500",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01447720",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01447800",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01449360",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01449800",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  }
+]

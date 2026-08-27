@@ -763,7 +763,8 @@
       "status": "ok",
       "reason": null,
       "rows": 54,
-      "sha256": "28ac69869a6dc1b4111cdaedd1dad39ea51b485c3e591f348e52a8e331878db9"
+      "sha256": "b38b67279fd1028eb5907e4a6311cb28349cffe9aa877521110109c854d73c41",
+      "bytes": 33244
     },
     "frontier_raw_curves.csv": {
       "status": "ok",
@@ -781,7 +782,8 @@
       "status": "ok",
       "reason": null,
       "rows": 27,
-      "sha256": "588fdcaa159d7ad3618c411137a3a6bf8a055f98dfb0f73ad778b40d61c07adf"
+      "sha256": "9b6bd02cdb94b35f45d5adb750ba2aa09e858ca642e67473b7dab94deb7ee6b3",
+      "bytes": 16446
     },
     "application_frontiers.csv": {
       "status": "not_applicable",
@@ -925,7 +927,8 @@
       "status": "ok",
       "reason": null,
       "rows": 4514,
-      "sha256": "9bc1f814da53bcd45485b00f9b43dcabf803146b4b8c064c737a5441cc1d9211"
+      "sha256": "4a9cd9939b3795b9c25afc56d2638ae745f4862edf7617a5a5809e9e4a009c69",
+      "bytes": 1722758
     },
     "donor_c_falsification_effects.csv": {
       "status": "ok",

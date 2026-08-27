@@ -33,6 +33,11 @@ from stream_recoverability.analysis.compensation import (
     normalize_combination,
     shapley_table,
 )
+from stream_recoverability.analysis.evidence_boundaries import (
+    MIN_INDEPENDENT_CLUSTERS,
+    decide_inference_status,
+    independent_cluster_count,
+)
 from stream_recoverability.analysis.falsification import interpret_falsification
 from stream_recoverability.analysis.frontiers import add_relative_skills
 from stream_recoverability.analysis.inference_safeguards import (
@@ -1806,56 +1811,82 @@ def analyze_frontiers(
         complete_skill = collapsed_match.loc[
             collapsed_match["frontier_complete_curve"].fillna(False)
         ]
-        # The former implementation reduced every station to its single
-        # connected overlap component, so every Wilcoxon test had n=1 and
-        # returned exactly p=1.  The frozen inferential unit is an anchor/event,
-        # with training seeds collapsed first.  Retain one cross-gap mean per
-        # anchor-year here and leave dependence control to the declared joint
-        # anchor/year bootstrap used for the confidence curve.
-        anchor_skill = complete_skill.groupby(
-            ["anchor_id", "year"], dropna=False, observed=True
+        # Overlapping anchors are not independent.  The only admissible
+        # hypothesis unit is an overlap component or site-year cluster.
+        # When that count is below five, p-values and CIs are withheld.
+        if "overlap_cluster_id" in complete_skill:
+            cluster_key = "overlap_cluster_id"
+        else:
+            cluster_key = "year"
+        n_hypothesis_clusters = int(
+            complete_skill[cluster_key].nunique(dropna=False)
+        ) if not complete_skill.empty else 0
+        n_years = int(collapsed_match["year"].nunique())
+        n_bootstrap_clusters = int(summary.get("n_bootstrap_clusters", n_years) or 0)
+        n_independent = independent_cluster_count(
+            n_hypothesis_clusters, n_years, n_bootstrap_clusters
+        )
+        cluster_skill = complete_skill.groupby(
+            [cluster_key, "year"], dropna=False, observed=True
         )["skill"].mean()
         is_self_reference = bool(
             hypothesis_family == "frontier_model_vs_climatology"
             and str(metadata.get("model")) == "climatology"
         )
-        p_value = np.nan if is_self_reference else _wilcoxon_p(anchor_skill)
+        hypothesis_status = decide_inference_status(
+            n_independent_clusters=n_independent,
+            is_reference=is_self_reference,
+        )
+        p_value = (
+            np.nan
+            if hypothesis_status != "tested"
+            else _wilcoxon_p(cluster_skill)
+        )
         breakpoint = next(
             row
             for row in breakpoint_rows
             if row["curve_type"] == "weighted_pava_nonincreasing"
             and all(row[column] == value for column, value in metadata.items())
         )
+        withheld = hypothesis_status != "tested" and not is_self_reference
+        if withheld:
+            raw_ci = {key: np.nan for key in raw_ci}
+            monotone_ci = {key: np.nan for key in monotone_ci}
         statistical_rows.append(
             {
                 **summary,
-                "statistical_frontier_days": confidence_frontier.get(
-                    "monotone_frontier_days"
+                "statistical_frontier_days": (
+                    np.nan
+                    if withheld
+                    else confidence_frontier.get("monotone_frontier_days")
                 ),
-                "statistical_frontier_censoring": confidence_frontier.get(
-                    "monotone_frontier_censoring"
+                "statistical_frontier_censoring": (
+                    None
+                    if withheld
+                    else confidence_frontier.get("monotone_frontier_censoring")
                 ),
-                "statistical_frontier_status": confidence_frontier.get(
-                    "monotone_frontier_status"
+                "statistical_frontier_status": (
+                    hypothesis_status
+                    if withheld
+                    else confidence_frontier.get("monotone_frontier_status")
                 ),
                 **raw_ci,
                 **monotone_ci,
                 "breakpoint_days": breakpoint["breakpoint_days"],
                 "breakpoint_reason": breakpoint["reason"],
                 "n_anchors": int(collapsed_match["anchor_id"].nunique()),
-                "n_years": int(collapsed_match["year"].nunique()),
+                "n_years": n_years,
                 "p_value": p_value,
-                "n_hypothesis_units": len(anchor_skill),
-                "n_hypothesis_clusters": int(
-                    complete_skill["overlap_cluster_id"].nunique(dropna=False)
-                ),
+                "n_hypothesis_units": len(cluster_skill),
+                "n_hypothesis_clusters": n_hypothesis_clusters,
+                "n_independent_clusters": n_independent,
+                "minimum_independent_clusters": MIN_INDEPENDENT_CLUSTERS,
                 "hypothesis_estimand": (
-                    "mean_skill_across_predeclared_gaps_per_anchor_year"
+                    "mean_skill_across_predeclared_gaps_per_overlap_cluster_year"
                 ),
                 "hypothesis_family": hypothesis_family,
-                "hypothesis_status": (
-                    "reference_not_tested" if is_self_reference else "tested"
-                ),
+                "hypothesis_status": hypothesis_status,
+                "inference_claim_allowed": hypothesis_status == "tested",
                 "training_seeds_collapsed_first": True,
             }
         )

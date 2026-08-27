@@ -1,0 +1,437 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3130556,
+          39.08638889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390511094184701",
+      "properties": {
+        "comid": 4390617,
+        "identifier": "USGS-390511094184701",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 19.8956,
+        "name": "Little Blue River at Little Blue Pkwy in Independe",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390511094184701/navigation",
+        "reachcode": "10300101000360",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390511094184701"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3488889,
+          39.04305556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390235094205601",
+      "properties": {
+        "comid": 4390795,
+        "identifier": "USGS-390235094205601",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 68.7259,
+        "name": "Little Blue River at Jackson Dive in Independence,",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390235094205601/navigation",
+        "reachcode": "10300101000364",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390235094205601"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3088889,
+          39.0922222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390532094183201",
+      "properties": {
+        "comid": 4391187,
+        "identifier": "USGS-390532094183201",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 84.7561,
+        "name": "Little Blue River at Truman Rd in Independence",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390532094183201/navigation",
+        "reachcode": "10300101000359",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390532094183201"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3005038,
+          39.1005609
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06894000",
+      "properties": {
+        "comid": 4391187,
+        "identifier": "USGS-06894000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 37.497,
+        "name": "Little Blue River near Lake City, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06894000/navigation",
+        "reachcode": "10300101000359",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06894000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.4066667,
+          38.99027778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-385925094242401",
+      "properties": {
+        "comid": 4392561,
+        "identifier": "USGS-385925094242401",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 70.6639,
+        "name": "Little Blue River at Ess Rd in KC, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-385925094242401/navigation",
+        "reachcode": "10300101000370",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-385925094242401"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.4685833,
+          38.92591667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893793",
+      "properties": {
+        "comid": 4392899,
+        "identifier": "USGS-06893793",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 13.069,
+        "name": "Little Blue River below Longview Dam at KC, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893793/navigation",
+        "reachcode": "10300101000383",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893793"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.4599523,
+          38.92472927
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893791",
+      "properties": {
+        "comid": 4392899,
+        "identifier": "USGS-06893791",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 69.4581,
+        "name": "Longview Reservoir at Kansas City, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893791/navigation",
+        "reachcode": "10300101000383",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893791"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.4660635,
+          38.91361828
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893790",
+      "properties": {
+        "comid": 4392961,
+        "identifier": "USGS-06893790",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 61.5334,
+        "name": "LITTLE BLUE R. AT LONGVIEW ROAD IN KANS. CITY, M",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893790/navigation",
+        "reachcode": "10300101000384",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893790"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3361111,
+          39.0622222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390344094201001",
+      "properties": {
+        "comid": 4390687,
+        "identifier": "USGS-390344094201001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 91.777,
+        "name": "Little Blue River at R.D. Mize Rd in Indpendence",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390344094201001/navigation",
+        "reachcode": "10300101000362",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390344094201001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3367361,
+          39.049775
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390259094201201",
+      "properties": {
+        "comid": 4390753,
+        "identifier": "USGS-390259094201201",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 87.2016,
+        "name": "Cut-off meander of Little Blue River nr Lake City",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390259094201201/navigation",
+        "reachcode": "10300101000363",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390259094201201"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3377272,
+          39.04722814
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893910",
+      "properties": {
+        "comid": 4390753,
+        "identifier": "USGS-06893910",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 97.1256,
+        "name": "Little Blue River at 39th St. in Independence, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893910/navigation",
+        "reachcode": "10300101000363",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893910"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3602778,
+          39.02777778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390140094213701",
+      "properties": {
+        "comid": 4390899,
+        "identifier": "USGS-390140094213701",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 51.13,
+        "name": "Little Blue River at Hwy 291 in Independence, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390140094213701/navigation",
+        "reachcode": "10300101000365",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390140094213701"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3738889,
+          39.02055556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390114094222601",
+      "properties": {
+        "comid": 4390899,
+        "identifier": "USGS-390114094222601",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 97.5567,
+        "name": "Little Blue River oxbow abv I-470 in Independence",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390114094222601/navigation",
+        "reachcode": "10300101000365",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390114094222601"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3722222,
+          39.0222222
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390120094222001",
+      "properties": {
+        "comid": 4390899,
+        "identifier": "USGS-390120094222001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 86.2903,
+        "name": "Little Blue River wier above I-470 in Independence",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390120094222001/navigation",
+        "reachcode": "10300101000365",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390120094222001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3490333,
+          39.03828889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-390217094205601",
+      "properties": {
+        "comid": 4390899,
+        "identifier": "USGS-390217094205601",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 1.0094,
+        "name": "L. Blue River at Valley View Pkwy in Indep., MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-390217094205601/navigation",
+        "reachcode": "10300101000365",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-390217094205601"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.3872778,
+          39.0173611
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893820",
+      "properties": {
+        "comid": 4390909,
+        "identifier": "USGS-06893820",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 87.5902,
+        "name": "Little Blue R. at Lees Summit Rd in Independence",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893820/navigation",
+        "reachcode": "10300101000366",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893820"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.4263889,
+          38.96416667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-385751094253501",
+      "properties": {
+        "comid": 4392699,
+        "identifier": "USGS-385751094253501",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 27.0153,
+        "name": "Little Blue River at Hwy 350 in KC, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-385751094253501/navigation",
+        "reachcode": "10300101000374",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-385751094253501"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -94.5208333,
+          38.8683333
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-06893750",
+      "properties": {
+        "comid": 4393209,
+        "identifier": "USGS-06893750",
+        "mainstem": "https://geoconnex.us/ref/mainstems/390668",
+        "measure": 100.0,
+        "name": "Little Blue River at Grandview, MO",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-06893750/navigation",
+        "reachcode": "10300101000390",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-06893750"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

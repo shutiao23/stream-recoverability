@@ -1,0 +1,1805 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4574296,
+          33.82788269
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336021",
+      "properties": {
+        "comid": 3286332,
+        "identifier": "USGS-02336021",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "CHATTAHOOCHEE R TRB COBB CO WPC ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336021/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336021"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3156944,
+          33.98580556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335450",
+      "properties": {
+        "comid": 2048135,
+        "identifier": "USGS-02335450",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 31.032,
+        "name": "CHATTAHOOCHEE RIVER ABOVE ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335450/navigation",
+        "reachcode": "03130001000013",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335450"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3844444,
+          33.99638889
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335778",
+      "properties": {
+        "comid": 2048105,
+        "identifier": "USGS-02335778",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 4.6087,
+        "name": "CHATTAHOOCHEE R 0.25 MI US WILLEO CR, ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335778/navigation",
+        "reachcode": "03130001001536",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335778"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3844444,
+          33.99527778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335779",
+      "properties": {
+        "comid": 2048105,
+        "identifier": "USGS-02335779",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 4.6087,
+        "name": "CHATTAHOOCHEE R .18 MI US WILLEO CR, ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335779/navigation",
+        "reachcode": "03130001001536",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335779"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3844444,
+          33.99666667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335777",
+      "properties": {
+        "comid": 2048105,
+        "identifier": "USGS-02335777",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 4.6087,
+        "name": "CHATTAHOOCHEE R 0.27 MI US WILLEO CR, ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335777/navigation",
+        "reachcode": "03130001001536",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335777"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0760527,
+          33.3203949
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338335",
+      "properties": {
+        "comid": 3291964,
+        "identifier": "USGS-02338335",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 77.7903,
+        "name": "CHATT R AT BUSH HEAD SHOALS NR FRANKLIN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338335/navigation",
+        "reachcode": "03130002000196",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338335"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.26888889,
+          33.97305556
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335400",
+      "properties": {
+        "comid": 2048141,
+        "identifier": "USGS-02335400",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 97.6072,
+        "name": "CHATTAHOOCHEE R 0.39 MI DS GA140, ALPHARETTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335400/navigation",
+        "reachcode": "03130001000014",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335400"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.27,
+          33.9733333
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335405",
+      "properties": {
+        "comid": 2048141,
+        "identifier": "USGS-02335405",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 97.6072,
+        "name": "CHATTAHOOCHEE R 0.47 MI DS GA140, ALPHARETTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335405/navigation",
+        "reachcode": "03130001000014",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335405"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4579852,
+          33.82454944
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336449",
+      "properties": {
+        "comid": 3286334,
+        "identifier": "USGS-02336449",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 92.7776,
+        "name": "CHATTAHOOCHEE RIVER AT GA 3, AT BOLTON, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336449/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336449"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4593742,
+          33.82427168
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336450",
+      "properties": {
+        "comid": 3286334,
+        "identifier": "USGS-02336450",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 90.4713,
+        "name": "CHATTAHOOCHEE R TRB NO.3 CLTN WPC ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336450/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336450"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0874408,
+          33.2153976
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338550",
+      "properties": {
+        "comid": 3292036,
+        "identifier": "USGS-02338550",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 74.6632,
+        "name": "CHATT R TRANSECT CTR NR WARESVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338550/navigation",
+        "reachcode": "03130002005021",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338550"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0877186,
+          33.21484209
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338549",
+      "properties": {
+        "comid": 3292036,
+        "identifier": "USGS-02338549",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 74.6632,
+        "name": "CHATT R TRANSECT RT NR WARESVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338549/navigation",
+        "reachcode": "03130002005021",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338549"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.087163,
+          33.2156754
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338551",
+      "properties": {
+        "comid": 3292036,
+        "identifier": "USGS-02338551",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 74.6632,
+        "name": "CHATT R TRANSECT LT NR WARESVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338551/navigation",
+        "reachcode": "03130002005021",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338551"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1288298,
+          33.0595677
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339060",
+      "properties": {
+        "comid": 3292394,
+        "identifier": "USGS-02339060",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 83.1326,
+        "name": "CHATTAHOOCHEE R AT BIRDSONG BR RD, NR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339060/navigation",
+        "reachcode": "03130002005140",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339060"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0921626,
+          33.13178846
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338712",
+      "properties": {
+        "comid": 3292188,
+        "identifier": "USGS-02338712",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATT R GA 219 TRANSECT CTR NR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338712/navigation",
+        "reachcode": "03130002005081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338712"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.09244039,
+          33.1312329
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338713",
+      "properties": {
+        "comid": 3292188,
+        "identifier": "USGS-02338713",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATT R GA 219 TRANSECT LT NR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338713/navigation",
+        "reachcode": "03130002005081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338713"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0899403,
+          33.13178847
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338710",
+      "properties": {
+        "comid": 3292188,
+        "identifier": "USGS-02338710",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 36.8041,
+        "name": "CHATTAHOOCHEE RIVER AT GA 219, NEAR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338710/navigation",
+        "reachcode": "03130002005081",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338710"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4885419,
+          33.81288326
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336500",
+      "properties": {
+        "comid": 3286344,
+        "identifier": "USGS-02336500",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 25.7,
+        "name": "CHATTAHOOCHEE RIVER AT OAKDALE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336500/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336500"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4803333,
+          33.81741667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336490",
+      "properties": {
+        "comid": 3286344,
+        "identifier": "USGS-02336490",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 41.2324,
+        "name": "CHATTAHOOCHEE RIVER AT GA 280, NEAR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336490/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336490"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4952088,
+          33.8089945
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336502",
+      "properties": {
+        "comid": 3286344,
+        "identifier": "USGS-02336502",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 16.7331,
+        "name": "CHATTAHOOCHEE RIVER AT I-285, NEAR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336502/navigation",
+        "reachcode": "03130002000267",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336502"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0160525,
+          33.4259477
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338305",
+      "properties": {
+        "comid": 3306308,
+        "identifier": "USGS-02338305",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 43.7282,
+        "name": "CHATTAHOOCHEE RIV PLANT WANSLEY NR ROOPVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338305/navigation",
+        "reachcode": "03130002003161",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338305"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0554954,
+          33.1945649
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338570",
+      "properties": {
+        "comid": 3292082,
+        "identifier": "USGS-02338570",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATTAHOOCHEE RIVER AB NEW RIVER, NR CORINTH, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338570/navigation",
+        "reachcode": "03130002005037",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338570"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3827778,
+          33.9683333
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335810",
+      "properties": {
+        "comid": 2051301,
+        "identifier": "USGS-02335810",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 1.3952,
+        "name": "CHATTAHOOCHEE RIVER AT MORGAN FALLS DAM, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335810/navigation",
+        "reachcode": "03130001007376",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335810"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3836667,
+          33.96775
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335815",
+      "properties": {
+        "comid": 2048157,
+        "identifier": "USGS-02335815",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 97.4547,
+        "name": "CHATTAHOOCHEE RIVER BELOW MORGAN FALLS DAM, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335815/navigation",
+        "reachcode": "03130001001540",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335815"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.5390986,
+          33.769829
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336652",
+      "properties": {
+        "comid": 3286372,
+        "identifier": "USGS-02336652",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 61.2037,
+        "name": "CHATTAHOOCHEE RIVER AT I-20, NEAR MABLETON, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336652/navigation",
+        "reachcode": "03130002000264",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336652"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.5335429,
+          33.77927319
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336650",
+      "properties": {
+        "comid": 3286372,
+        "identifier": "USGS-02336650",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 76.1599,
+        "name": "CHATTAHOOCHEE RIVER AT GA 139, NEAR MABLETON, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336650/navigation",
+        "reachcode": "03130002000264",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336650"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.5382652,
+          33.7742733
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336651",
+      "properties": {
+        "comid": 3286372,
+        "identifier": "USGS-02336651",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 64.6058,
+        "name": "CHATTAHOOCHEE R TRB NO.4 S COBB WPC ATL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336651/navigation",
+        "reachcode": "03130002000264",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336651"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1652196,
+          33.02845709
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339192",
+      "properties": {
+        "comid": 3292426,
+        "identifier": "USGS-02339192",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "CHATT R GA701 TRANSECT CTR NR ABBOTTSFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339192/navigation",
+        "reachcode": "03130002005153",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339192"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1638307,
+          33.0281793
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339193",
+      "properties": {
+        "comid": 3292426,
+        "identifier": "USGS-02339193",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "CHATT R GA 701 TRANSECT LT NR ABBOTTSFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339193/navigation",
+        "reachcode": "03130002005153",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339193"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.40465,
+          33.94343504
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335830",
+      "properties": {
+        "comid": 2048177,
+        "identifier": "USGS-02335830",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 47.6001,
+        "name": "CHATTAHOOCHEE R AT JOHNSON FY RD, NR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335830/navigation",
+        "reachcode": "03130001002066",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335830"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4474294,
+          33.87454809
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335950",
+      "properties": {
+        "comid": 2048227,
+        "identifier": "USGS-02335950",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 100.0,
+        "name": "CHATTAHOOCHEE RIVER AT I-75, NEAR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335950/navigation",
+        "reachcode": "03130001000004",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335950"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4541111,
+          33.86766667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335990",
+      "properties": {
+        "comid": 2048227,
+        "identifier": "USGS-02335990",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 14.8172,
+        "name": "CHATTAHOOCHEE RIVER AT US 41, AT ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335990/navigation",
+        "reachcode": "03130001000004",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335990"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.19522,
+          32.95456995
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339378",
+      "properties": {
+        "comid": 3298546,
+        "identifier": "USGS-02339378",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 25.0763,
+        "name": "CHATT R TRANSECT RT NR GABBETTVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339378/navigation",
+        "reachcode": "03130002005201",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339378"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1921644,
+          32.9551255
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339379",
+      "properties": {
+        "comid": 3298546,
+        "identifier": "USGS-02339379",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 25.0763,
+        "name": "CHATT R TRANSECT CTR NR GABBETTVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339379/navigation",
+        "reachcode": "03130002005201",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339379"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.8085479,
+          33.57788907
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337445",
+      "properties": {
+        "comid": 3286566,
+        "identifier": "USGS-02337445",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 50.7211,
+        "name": "CHATTAHOOCHEE RIVER AT CAPPS FERRY RD, NR RICO, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337445/navigation",
+        "reachcode": "03130002003192",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337445"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1107739,
+          33.07845628
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338720",
+      "properties": {
+        "comid": 3292316,
+        "identifier": "USGS-02338720",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 33.1654,
+        "name": "CHATTAHOOCHEE RIVER NEAR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338720/navigation",
+        "reachcode": "03130002005121",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338720"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1641085,
+          33.02956818
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339190",
+      "properties": {
+        "comid": 3292424,
+        "identifier": "USGS-02339190",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 62.5515,
+        "name": "CHATTAHOOCHEE R AT GA 701, NR ABBOTTSFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339190/navigation",
+        "reachcode": "03130002005152",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339190"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1663307,
+          33.0290126
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339191",
+      "properties": {
+        "comid": 3292424,
+        "identifier": "USGS-02339191",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATT R GA 701 TRANSECT RT NR ABBOTTSFORD, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339191/navigation",
+        "reachcode": "03130002005152",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339191"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1129961,
+          33.07178975
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338730",
+      "properties": {
+        "comid": 3292322,
+        "identifier": "USGS-02338730",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 66.6242,
+        "name": "CHATTAHOOCHEE RIV AB YELLOWJACKET CR LAGRANGE,GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338730/navigation",
+        "reachcode": "03130002005123",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338730"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4544444,
+          33.85916667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336000",
+      "properties": {
+        "comid": 2048241,
+        "identifier": "USGS-02336000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 81.389,
+        "name": "CHATTAHOOCHEE RIVER AT ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336000/navigation",
+        "reachcode": "03130001000003",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0921626,
+          33.13262178
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338711",
+      "properties": {
+        "comid": 3292190,
+        "identifier": "USGS-02338711",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 90.3627,
+        "name": "CHATT R GA 219 TRANSECT RT NR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338711/navigation",
+        "reachcode": "03130002005082",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338711"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3619444,
+          34.0021111
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335772",
+      "properties": {
+        "comid": 2045313,
+        "identifier": "USGS-02335772",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 70.0505,
+        "name": "CHATTAHOOCHEE RIVER AT AZALEA DRIVE AT ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335772/navigation",
+        "reachcode": "03130001001536",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335772"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.3313139,
+          34.0056555
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335500",
+      "properties": {
+        "comid": 2045305,
+        "identifier": "USGS-02335500",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 78.657,
+        "name": "CHATTAHOOCHEE RIVER NEAR ROSWELL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335500/navigation",
+        "reachcode": "03130001000012",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335500"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4430278,
+          33.9019722
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02335880",
+      "properties": {
+        "comid": 2048193,
+        "identifier": "USGS-02335880",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 22.4046,
+        "name": "CHATT R AT POWERS FY AND I-285 NR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02335880/navigation",
+        "reachcode": "03130001007377",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02335880"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.8704937,
+          33.4920574
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337460",
+      "properties": {
+        "comid": 3290234,
+        "identifier": "USGS-02337460",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 5.6869,
+        "name": "CHATTAHOOCHEE RIV AB SNAKE CR NR WHITESBURG, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337460/navigation",
+        "reachcode": "03130002003191",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337460"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.930217,
+          33.44316967
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338080",
+      "properties": {
+        "comid": 3290282,
+        "identifier": "USGS-02338080",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 95.1823,
+        "name": "CHATTAHOOCHEE RIV ABV WAHOO CR NR WHITESBURG, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338080/navigation",
+        "reachcode": "03130002000207",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338080"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.5079869,
+          33.79566158
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336540",
+      "properties": {
+        "comid": 3286354,
+        "identifier": "USGS-02336540",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 44.9514,
+        "name": "CHATTAHOOCHEE RIV AT US 78 AND 278, NR ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336540/navigation",
+        "reachcode": "03130002000266",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336540"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.7605,
+          33.61716667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337260",
+      "properties": {
+        "comid": 3286522,
+        "identifier": "USGS-02337260",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 15.3549,
+        "name": "CHATTAHOOCHEE RIVER ABOVE BEAR CR, NEAR RICO, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337260/navigation",
+        "reachcode": "03130002000239",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337260"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.4552778,
+          33.82694444
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336028",
+      "properties": {
+        "comid": 2048245,
+        "identifier": "USGS-02336028",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATTAHOOCHEE R JUST AB PEACHTREE CR, ATLANTA, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336028/navigation",
+        "reachcode": "03130001000003",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336028"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.6304886,
+          33.6928866
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337070",
+      "properties": {
+        "comid": 3286482,
+        "identifier": "USGS-02337070",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 49.7155,
+        "name": "CHATTAHOOCHEE RIVER AT GA 166, NEAR BEN HILL, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337070/navigation",
+        "reachcode": "03130002000252",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337070"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1229964,
+          33.06067884
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339058",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-02339058",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 22.8667,
+        "name": "CHATT R OLD GA 109 TRANSECT CTR NR PYNE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339058/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339058"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1227186,
+          33.05928998
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339059",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-02339059",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 22.8667,
+        "name": "CHATT R OLD GA 109 TRANSECT LT NR PYNE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339059/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339059"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1199407,
+          33.0581789
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-331500085060001",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-331500085060001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 22.8667,
+        "name": "WP.BK.3 -- MCGEE BRIDGE PARK BOAT ACCESS",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-331500085060001/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-331500085060001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1179962,
+          33.06067887
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339050",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-02339050",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 59.8028,
+        "name": "CHATTAHOOCHEE RIVER NEAR PYNE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339050/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339050"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1232741,
+          33.06151215
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339057",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-02339057",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATT R OLD GA 109 TRANSECT RT NR PYNE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339057/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339057"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.122163,
+          33.06234547
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-330344085072001",
+      "properties": {
+        "comid": 3292372,
+        "identifier": "USGS-330344085072001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 59.8028,
+        "name": "CHATTAHOOCHEE R NR LAGRANGE, GA WP.55",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-330344085072001/navigation",
+        "reachcode": "03130002005133",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-330344085072001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1009167,
+          33.2779722
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338500",
+      "properties": {
+        "comid": 3291986,
+        "identifier": "USGS-02338500",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 60.9833,
+        "name": "CHATTAHOOCHEE RIVER AT GA 100, AT FRANKLIN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338500/navigation",
+        "reachcode": "03130002000195",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338500"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1010528,
+          33.27734047
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338501",
+      "properties": {
+        "comid": 3291986,
+        "identifier": "USGS-02338501",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 58.0445,
+        "name": "CHATT R US 27 TRANSECT RT AT FRANKLIN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338501/navigation",
+        "reachcode": "03130002000195",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338501"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.100775,
+          33.27734047
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338502",
+      "properties": {
+        "comid": 3291986,
+        "identifier": "USGS-02338502",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 58.0445,
+        "name": "CHATT R US 27 TRANSECT CTR AT FRANKLIN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338502/navigation",
+        "reachcode": "03130002000195",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338502"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.1004973,
+          33.27734047
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338503",
+      "properties": {
+        "comid": 3291986,
+        "identifier": "USGS-02338503",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 58.0445,
+        "name": "CHATT R US 27 TRANSECT LT AT FRANKLIN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338503/navigation",
+        "reachcode": "03130002000195",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338503"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.9011944,
+          33.47652778
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338000",
+      "properties": {
+        "comid": 3290264,
+        "identifier": "USGS-02338000",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 68.8182,
+        "name": "CHATTAHOOCHEE RIVER NEAR WHITESBURG, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338000/navigation",
+        "reachcode": "03130002000485",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338000"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.9007722,
+          33.47677996
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338001",
+      "properties": {
+        "comid": 3290264,
+        "identifier": "USGS-02338001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 68.8182,
+        "name": "SYN FLOW CHATT R AT WHITESBURG, GEORGIA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338001/navigation",
+        "reachcode": "03130002000485",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.90105,
+          33.4770577
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338004",
+      "properties": {
+        "comid": 3290264,
+        "identifier": "USGS-02338004",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 68.8182,
+        "name": "Teflon churn test dataset",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338004/navigation",
+        "reachcode": "03130002000485",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338004"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0641066,
+          33.17706529
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338691",
+      "properties": {
+        "comid": 3292126,
+        "identifier": "USGS-02338691",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 72.4795,
+        "name": "CHATT R TRANSECT CTR NR HARRISONVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338691/navigation",
+        "reachcode": "03130002005057",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338691"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.063551,
+          33.17734306
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338692",
+      "properties": {
+        "comid": 3292126,
+        "identifier": "USGS-02338692",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 72.4795,
+        "name": "CHATT R TRANSECT LT NR HARRISONVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338692/navigation",
+        "reachcode": "03130002005057",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338692"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0646622,
+          33.17706528
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338690",
+      "properties": {
+        "comid": 3292126,
+        "identifier": "USGS-02338690",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 72.4795,
+        "name": "CHATT R TRANSECT RT NR HARRISONVILLE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338690/navigation",
+        "reachcode": "03130002005057",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338690"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.57465469,
+          33.74482974
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02336730",
+      "properties": {
+        "comid": 3286424,
+        "identifier": "USGS-02336730",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 94.2833,
+        "name": "CHATT. R. BUZZARD ROOST IS. NR MABLETON, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02336730/navigation",
+        "reachcode": "03130002000253",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02336730"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.8257703,
+          33.5128904
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337457",
+      "properties": {
+        "comid": 3286598,
+        "identifier": "USGS-02337457",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 78.7894,
+        "name": "CHATTAHOOCHEE RIVER HUTCHESON FERRY RD, NR RICO,GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337457/navigation",
+        "reachcode": "03130002003191",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337457"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0324414,
+          33.3945596
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338315",
+      "properties": {
+        "comid": 3291908,
+        "identifier": "USGS-02338315",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 49.9867,
+        "name": "CHATTAHOOCHEE RIVER NEAR GLENLOCH, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338315/navigation",
+        "reachcode": "03130002000201",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338315"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0327193,
+          33.40567044
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338314",
+      "properties": {
+        "comid": 3291908,
+        "identifier": "USGS-02338314",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 69.9211,
+        "name": "PLANT WANSLEY OUTFALL NEAR GLENLOCH, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338314/navigation",
+        "reachcode": "03130002000201",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338314"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.055495,
+          33.14789935
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-330852085032001",
+      "properties": {
+        "comid": 3292144,
+        "identifier": "USGS-330852085032001",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 25.2606,
+        "name": "CHATTAHOOCHEE R NR HILLCREST, GA WP.99-100",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-330852085032001/navigation",
+        "reachcode": "03130002005065",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-330852085032001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.18522,
+          33.00401306
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02339200",
+      "properties": {
+        "comid": 3292444,
+        "identifier": "USGS-02339200",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 27.7874,
+        "name": "CHATTAHOOCHEE R AT GLASS BR RD, NEAR LAGRANGE, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02339200/navigation",
+        "reachcode": "03130002005159",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02339200"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.6736111,
+          33.65666667
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337170",
+      "properties": {
+        "comid": 3286494,
+        "identifier": "USGS-02337170",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 17.369,
+        "name": "CHATTAHOOCHEE RIVER NEAR FAIRBURN, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337170/navigation",
+        "reachcode": "03130002003143",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337170"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -84.7832695,
+          33.6039997
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02337335",
+      "properties": {
+        "comid": 3286540,
+        "identifier": "USGS-02337335",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 0.0,
+        "name": "CHATTAHOOCHEE RIVER ABV DOG RIV NEAR RICO, GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02337335/navigation",
+        "reachcode": "03130002000230",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02337335"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          -85.0885527,
+          33.28956239
+        ],
+        "type": "Point"
+      },
+      "id": "USGS-02338340",
+      "properties": {
+        "comid": 3291974,
+        "identifier": "USGS-02338340",
+        "mainstem": "https://geoconnex.us/ref/mainstems/1673188",
+        "measure": 11.7327,
+        "name": "CHATTAHOOCHEE R ABV CENTRALHATCHEE, NR FRANKLIN,GA",
+        "navigation": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-02338340/navigation",
+        "reachcode": "03130002000196",
+        "source": "nwissite",
+        "sourceName": "NWIS Surface Water Sites",
+        "type": "hydrolocation",
+        "uri": "https://waterdata.usgs.gov/monitoring-location/USGS-02338340"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

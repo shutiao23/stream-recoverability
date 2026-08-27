@@ -1,0 +1,26 @@
+[
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01470779",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01470960",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  },
+  {
+    "error": null,
+    "error_type": null,
+    "provider": "usgs_ogc_daily",
+    "site_id": "01472157",
+    "status": "source_unavailable_no_daily_mean_series",
+    "variable": "L"
+  }
+]

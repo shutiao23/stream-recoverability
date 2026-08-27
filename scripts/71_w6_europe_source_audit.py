@@ -34,6 +34,7 @@ from stream_recoverability.data.http_json import USER_AGENT, get_json
 from stream_recoverability.data.hubeau_temperature import (
     HUBEAU_CHRONIQUE,
     HUBEAU_CORRECT_QUALIFICATION,
+    HUBEAU_SANDRE_CORRECTE_NOTE,
 )
 
 CATALOG = ROOT / "results/framework/public_catalog"
@@ -303,6 +304,9 @@ def main() -> None:
             sites["daily_download_started"].fillna(False).sum()
         ),
         "hubeau_unqualified_code_4_accepted": False,
+        "hubeau_correcte_t8_usable": False,
+        "hubeau_code4_not_relabeled_as_correcte": True,
+        "hubeau_sandre_correcte_note": HUBEAU_SANDRE_CORRECTE_NOTE,
         "foen_public_graphql_reachable": bool(foen["public_graphql_reachable"]),
         "foen_historical_daily_requires_manual_order": bool(
             foen["historical_daily_requires_manual_order"]

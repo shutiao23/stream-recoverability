@@ -25,6 +25,17 @@ HUBEAU_MAX_WINDOW_RECORDS = 20000
 HUBEAU_PAGE_SIZE = 20000
 HUBEAU_CORRECT_QUALIFICATION = "1"
 DAILY_CACHE_SUFFIX = "_daily_yearchunk_qc1.csv"
+HUBEAU_SANDRE_CORRECTE_NOTE = (
+    "Sandre Correcte (code 1) temperature chronique is absent on audited "
+    "long series; sampled Hub'Eau stations (06213500, 06175400, 06151000, "
+    "05223000) are entirely qualification code 4 Non qualifié. The "
+    "code_qualification=1 API filter correctly returns count 0. Bulk Correcte "
+    "download was correctly not started "
+    "(hubeau_n_sites_with_sandre_correcte_observations=0, "
+    "hubeau_bulk_daily_downloads_started=0). Code 4 may be used later only as "
+    "a separately labelled unqualified source, never as T8 Correcte, and is "
+    "not counted toward T8."
+)
 
 
 def _refuse_last_check_site(site_id: str) -> None:
@@ -293,6 +304,7 @@ def hubeau_chronique_daily(
 __all__ = [
     "HUBEAU_CHRONIQUE",
     "HUBEAU_CORRECT_QUALIFICATION",
+    "HUBEAU_SANDRE_CORRECTE_NOTE",
     "HUBEAU_MAX_WINDOW_RECORDS",
     "cluster_hubeau_rivers",
     "hubeau_chronicle_span",

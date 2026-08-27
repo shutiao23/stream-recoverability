@@ -1,0 +1,231 @@
+{
+  "note": "First L=30 vs L=90 rows match under later-year y and differ under planted gap-specific y.",
+  "later_year_first_rows_match": true,
+  "planted_first_rows_differ": true,
+  "later_year_first_rows": [
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 30,
+      "achieved_skill": 0.7437360756194074,
+      "fill_or_donor_mae": 1.7074286607156255,
+      "climate_mae": 6.662774188144497,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 90,
+      "achieved_skill": 0.7437360756194074,
+      "fill_or_donor_mae": 1.7074286607156255,
+      "climate_mae": 6.662774188144497,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    }
+  ],
+  "planted_gap_first_rows": [
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 30,
+      "achieved_skill": 0.7529847296401305,
+      "fill_or_donor_mae": 0.22356116542879353,
+      "climate_mae": 0.905049979716208,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 90,
+      "achieved_skill": 0.022480188496151077,
+      "fill_or_donor_mae": 12.12457826711549,
+      "climate_mae": 12.403409244936567,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    }
+  ],
+  "rows": [
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 30,
+      "achieved_skill": 0.7437360756194074,
+      "fill_or_donor_mae": 1.7074286607156255,
+      "climate_mae": 6.662774188144497,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 90,
+      "achieved_skill": 0.7437360756194074,
+      "fill_or_donor_mae": 1.7074286607156255,
+      "climate_mae": 6.662774188144497,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s1",
+      "gap_length": 30,
+      "achieved_skill": 0.8630053658208792,
+      "fill_or_donor_mae": 0.7067133146083625,
+      "climate_mae": 5.15869339586201,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s1",
+      "gap_length": 90,
+      "achieved_skill": 0.8630053658208792,
+      "fill_or_donor_mae": 0.7067133146083625,
+      "climate_mae": 5.15869339586201,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s2",
+      "gap_length": 30,
+      "achieved_skill": 0.8607989194402201,
+      "fill_or_donor_mae": 0.7183516492407691,
+      "climate_mae": 5.160532133457637,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s2",
+      "gap_length": 90,
+      "achieved_skill": 0.8607989194402201,
+      "fill_or_donor_mae": 0.7183516492407691,
+      "climate_mae": 5.160532133457637,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s3",
+      "gap_length": 30,
+      "achieved_skill": 0.8594108928866392,
+      "fill_or_donor_mae": 0.726485616926547,
+      "climate_mae": 5.167438870927332,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "later_year",
+      "network_id": "toy",
+      "station_id": "s3",
+      "gap_length": 90,
+      "achieved_skill": 0.8594108928866392,
+      "fill_or_donor_mae": 0.726485616926547,
+      "climate_mae": 5.167438870927332,
+      "start_date": "",
+      "y_kind": "later_year_copied"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 30,
+      "achieved_skill": 0.7529847296401305,
+      "fill_or_donor_mae": 0.22356116542879353,
+      "climate_mae": 0.905049979716208,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s0",
+      "gap_length": 90,
+      "achieved_skill": 0.022480188496151077,
+      "fill_or_donor_mae": 12.12457826711549,
+      "climate_mae": 12.403409244936567,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s1",
+      "gap_length": 30,
+      "achieved_skill": 0.7269868469837539,
+      "fill_or_donor_mae": 0.24018828774427423,
+      "climate_mae": 0.8797681909852212,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s1",
+      "gap_length": 90,
+      "achieved_skill": -3.285684351210201,
+      "fill_or_donor_mae": 4.0741898948443085,
+      "climate_mae": 0.9506509488254378,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s2",
+      "gap_length": 30,
+      "achieved_skill": 0.7094316027805601,
+      "fill_or_donor_mae": 0.26070743575074656,
+      "climate_mae": 0.8972325904866311,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s2",
+      "gap_length": 90,
+      "achieved_skill": -3.3190107175342263,
+      "fill_or_donor_mae": 4.198039872488618,
+      "climate_mae": 0.9719910755130813,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s3",
+      "gap_length": 30,
+      "achieved_skill": 0.7629825485493391,
+      "fill_or_donor_mae": 0.21701506289893782,
+      "climate_mae": 0.915607950261473,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    },
+    {
+      "method": "planted_gap",
+      "network_id": "toy",
+      "station_id": "s3",
+      "gap_length": 90,
+      "achieved_skill": -3.3339560207918417,
+      "fill_or_donor_mae": 4.211844603617883,
+      "climate_mae": 0.971824490929733,
+      "start_date": "2006-01-01",
+      "y_kind": "planted_gap"
+    }
+  ]
+}

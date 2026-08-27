@@ -8,6 +8,8 @@ from stream_recoverability.data.hubeau_temperature import (
     cluster_hubeau_rivers,
     hubeau_chronicle_span,
     hubeau_chronique_daily,
+    HUBEAU_CORRECT_QUALIFICATION,
+    HUBEAU_SANDRE_CORRECTE_NOTE,
 )
 
 
@@ -187,3 +189,10 @@ def test_daily_resample_drops_non_correct_hubeau_rows(tmp_path, monkeypatch) -> 
     monkeypatch.setattr(module, "_refuse_last_check_site", lambda _site: None)
     daily = module.hubeau_chronique_daily("06121500", cache_dir=tmp_path)
     assert daily.empty
+
+
+def test_hubeau_correcte_note_does_not_relabel_code4() -> None:
+    assert HUBEAU_CORRECT_QUALIFICATION == "1"
+    assert "never as T8 Correcte" in HUBEAU_SANDRE_CORRECTE_NOTE
+    assert "code 4" in HUBEAU_SANDRE_CORRECTE_NOTE.lower()
+    assert "correcte download was correctly not started" in HUBEAU_SANDRE_CORRECTE_NOTE.lower()

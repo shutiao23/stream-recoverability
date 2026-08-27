@@ -1,0 +1,20 @@
+{
+  "comment": "Flag-only 'W6 done' PR. Tests must reject this. Production audits still show Correcte=0 and UK EA n_complete_enough=0.",
+  "countable_toward_t8": true,
+  "hubeau_correcte_t8_usable": true,
+  "hubeau_unqualified_code_4_accepted": false,
+  "hubeau_n_sites_with_sandre_correcte_observations": 0,
+  "europe_daily_years_invented": false,
+  "loire_downloaded": false,
+  "swiss_countable_toward_t8": false,
+  "foen_public_graphql_reachable": true,
+  "foen_temperature_values_requested": false,
+  "catalog_98_name_huc2_downloaded": false,
+  "n_complete_enough": 1,
+  "n_europe_complete_enough_added": 1,
+  "passed": true,
+  "inference_status": "tested",
+  "n_networks": 60,
+  "uk_ea_n_rivers_attempted": 1,
+  "uk_ea_spatial_50km_attempted": false
+}

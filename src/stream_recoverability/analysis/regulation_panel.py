@@ -1194,6 +1194,131 @@ def make_regulation_panel_figure(
     plt.close(figure)
 
 
+def make_valid_regulation_panel_figure(
+    metrics: pd.DataFrame,
+    predictions: pd.DataFrame,
+    profile: pd.DataFrame,
+    folds: pd.DataFrame,
+    *,
+    macro_auc: float,
+    output_path: Path,
+) -> None:
+    """Write Figure 7 with a fold-comparable panel instead of the defective ROC."""
+
+    from stream_recoverability.analysis.regulation_panel_auc_diagnosis import (
+        FROZEN_PRIMARY_POOLED_AUC,
+    )
+
+    colors = {0: "#4C78A8", 1: "#E45756"}
+    labels = {0: "No upstream major dam", 1: "Upstream major dam"}
+    figure, axes = plt.subplots(1, 3, figsize=(12.2, 4.15), constrained_layout=True)
+
+    rng = np.random.default_rng(20260824)
+    values = [
+        metrics.loc[
+            metrics["upstream_major_dam_2009"].eq(label),
+            "memory_range_index_per_degC",
+        ].to_numpy(float)
+        for label in (0, 1)
+    ]
+    box = axes[0].boxplot(
+        values,
+        positions=[0, 1],
+        widths=0.55,
+        patch_artist=True,
+        showfliers=False,
+        medianprops={"color": "black", "linewidth": 1.4},
+    )
+    for label, patch in zip((0, 1), box["boxes"], strict=True):
+        patch.set_facecolor(colors[label])
+        patch.set_alpha(0.45)
+    for label, station_values in zip((0, 1), values, strict=True):
+        axes[0].scatter(
+            label + rng.uniform(-0.18, 0.18, size=len(station_values)),
+            station_values,
+            s=9,
+            alpha=0.42,
+            color=colors[label],
+            linewidths=0,
+            rasterized=True,
+        )
+    axes[0].set_xticks(
+        [0, 1],
+        [f"{labels[0]}\n(n={len(values[0])})", f"{labels[1]}\n(n={len(values[1])})"],
+    )
+    axes[0].set_ylabel(r"Memory–range index ($^°$C$^{-1}$)")
+    axes[0].set_title("Station-level contrast")
+
+    defined = folds.loc[folds["within_fold_auc"].notna()].copy()
+    defined = defined.sort_values("within_fold_auc", kind="mergesort")
+    axes[1].axvline(0.5, color="#777777", linestyle="--", linewidth=1.0)
+    axes[1].barh(
+        np.arange(len(defined)),
+        defined["within_fold_auc"].to_numpy(float),
+        color="#7A5195",
+        alpha=0.85,
+    )
+    axes[1].set_yticks(np.arange(len(defined)), defined["held_out_ecoregion"])
+    axes[1].set_xlabel("Within-fold AUC")
+    axes[1].set_xlim(0, 1)
+    axes[1].set_title("Fold-comparable discrimination")
+    axes[1].text(
+        0.04,
+        0.04,
+        (
+            f"macro-AUC = {macro_auc:.3f}\n"
+            f"frozen pooled AUC {FROZEN_PRIMARY_POOLED_AUC:.3f} is defective"
+        ),
+        transform=axes[1].transAxes,
+        va="bottom",
+        fontsize=8,
+    )
+
+    x = np.arange(len(profile))
+    y = profile["median_memory_range_index_per_degC"].to_numpy(float)
+    lower = profile["median_memory_range_index_per_degC_ci_low"].to_numpy(float)
+    upper = profile["median_memory_range_index_per_degC_ci_high"].to_numpy(float)
+    axes[2].errorbar(
+        x,
+        y,
+        yerr=np.vstack([y - lower, upper - y]),
+        marker="o",
+        markersize=5,
+        linewidth=1.7,
+        capsize=3,
+        color="#2A9D8F",
+    )
+    axes[2].set_xticks(x, profile["distance_bin_km"], rotation=35, ha="right")
+    axes[2].set_xlabel("Distance to nearest upstream major dam (km)")
+    axes[2].set_ylabel(r"Median memory–range index ($^°$C$^{-1}$)")
+    axes[2].set_title("Within-regulated distance profile")
+    for index, row in profile.iterrows():
+        axes[2].annotate(
+            f"n={int(row['station_count'])}",
+            (index, row["median_memory_range_index_per_degC_ci_high"]),
+            xytext=(0, 5),
+            textcoords="offset points",
+            ha="center",
+            fontsize=8,
+        )
+
+    for letter, axis in zip("ABC", axes, strict=True):
+        axis.text(
+            -0.14,
+            1.06,
+            letter,
+            transform=axis.transAxes,
+            fontsize=12,
+            fontweight="bold",
+            va="top",
+        )
+        axis.spines[["top", "right"]].set_visible(False)
+        axis.grid(axis="y", color="#DDDDDD", linewidth=0.6, alpha=0.7)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")
+    plt.close(figure)
+
+
 def _write_result_summary(report: Mapping[str, Any], output_path: Path) -> None:
     """Write outcome-calibrated manuscript-ready wording without changing claims."""
 
@@ -1632,7 +1757,10 @@ __all__ = [
     "leave_ecoregion_out_predictions",
     "load_freeze",
     "load_gages_ii",
+    "load_gages_ii_bfi",
     "logistic_models",
+    "make_regulation_panel_figure",
+    "make_valid_regulation_panel_figure",
     "run_regulation_panel",
     "select_station_series",
 ]
