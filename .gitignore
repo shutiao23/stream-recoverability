@@ -102,6 +102,10 @@ results/confirmatory/*
 results/frozen/**/*.parquet
 results/analysis/relative_skill_events.parquet
 results/analysis/frontier_bootstrap_samples.parquet
+
+# GitHub rejects blobs over 100MB. Keep these T2 tables locally.
+results/framework/t2_recovery_benchmark_v4/item_index.parquet
+results/framework/t2_recovery_benchmark_v4/aggregation_v3/item_results.parquet
 data_versions/external_upper_middle_chattahoochee_v1/
 data_versions/external_upper_middle_chattahoochee_v1_pre_protocol_normalization/
 data_versions_pre_rs/
