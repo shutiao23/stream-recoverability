@@ -391,6 +391,10 @@ def aggregate_v4_chunk_manifests(
         ),
         "execution_head_commit": execution_head,
         "execution_code_inventory_sha256": code_inventory_sha,
+        "aggregation_implementation_sha256": _sha256_file(Path(__file__)),
+        "aggregation_storage_normalization": (
+            "information_audit_canonical_json_v1"
+        ),
         "expected_item_records": EXPECTED_V4_WORK_ITEMS,
         "observed_item_records": records,
         "work_item_identity_sha256": stream_sha if complete else None,
