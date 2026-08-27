@@ -1,0 +1,53 @@
+{
+  "design_freeze": {
+    "path": "configs/design_freeze_v9.yaml",
+    "sha256": "fb757c4c7d33a6c42047fbdf82c345cc28d69171bf1aee5bf2c9172229512244"
+  },
+  "frozen_models": [
+    "climatology",
+    "pchip_or_linear",
+    "kalman",
+    "donor_regression",
+    "xgboost"
+  ],
+  "head_commit": "485649df48049eeaaa84299fcb7ca4c23e0d44d2",
+  "input_bindings": {
+    "analysis_code": {
+      "path": "src/stream_recoverability/experiments/sealed_evaluator_scaffold.py",
+      "sha256": "87a62aa17c93ecd8611206d620107cf13276acec3509bd8ca725a306178f9675"
+    },
+    "model_roster": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/model_roster.json",
+      "sha256": "fc9ab49aff90c2de2e6c8beabcf8ff3a07ee73c0be6c91538f24c60f00533419"
+    },
+    "open_aggregation_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/aggregation_v3/aggregation_manifest.json",
+      "sha256": "5adf33fefd3927a2c73fdd0fffadb51626a6af306e5abb371ce1a2bd33da8aef"
+    },
+    "post_t2_input_binding": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/post_t2_input_binding.json",
+      "sha256": "105cae2ed062617d5d0308094540e55393db991911269ccdc44a498b3e48d84f"
+    },
+    "pre_score_freeze_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/pre_score_freeze_manifest.json",
+      "sha256": "f5efd5810dfd94b62b4c3c018d39f92a0162a30c7b9fb4d903a46ad5b13d829d"
+    },
+    "predictor_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/primary_aggregation_v2/operator_predictor_manifest.json",
+      "sha256": "54008515eab2b8c36c34a8f6d7afe1ae7c32a0e60907c418831a9a0a0c991a8a"
+    },
+    "workload_manifest": {
+      "path": "results/framework/t2_recovery_benchmark_v4/workload_manifest_v3.json",
+      "sha256": "22b9dbfc3cab8b4a312e66b380db93202d625858f0807582501f4045e632ec94"
+    }
+  },
+  "manifest_schema": "t2_t7_sealed_model_freeze_v1",
+  "model_selection_complete": true,
+  "open_results_only": true,
+  "postfreeze_retuning": false,
+  "postfreeze_retuning_permitted": false,
+  "sealed_outcomes_opened": false,
+  "sealed_temperature_records_read": false,
+  "status": "frozen_before_unseal",
+  "threshold_contract_sha256": "03e6b5fbee04740bb88312ad55c980715f1a047f2e5a4ec595bbda9aa4e383f0"
+}
