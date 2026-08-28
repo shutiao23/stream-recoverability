@@ -1,0 +1,212 @@
+network_id,provider,domain,river_group,n_catalog_stations,n_requested_stations,n_stations_with_values,n_eligible_stations,n_daily_rows,n_concurrent_days,overlap_start,overlap_end,overlap_years,complete_enough,qc_status
+ehyd_ager,ehyd,austria,Ager,4,,,,,,,,,,not_selected_this_run
+ehyd_alm,ehyd,austria,Alm,3,,,,,,,,,,not_selected_this_run
+ehyd_bregenzerach,ehyd,austria,Bregenzerach,4,,,,,,,,,,not_selected_this_run
+ehyd_donau,ehyd,austria,Donau,13,,,,,,,,,,not_selected_this_run
+ehyd_drau,ehyd,austria,Drau,6,,,,,,,,,,not_selected_this_run
+ehyd_enns,ehyd,austria,Enns,8,,,,,,,,,,not_selected_this_run
+ehyd_gail,ehyd,austria,Gail,3,,,,,,,,,,not_selected_this_run
+ehyd_gurk,ehyd,austria,Gurk,3,,,,,,,,,,not_selected_this_run
+ehyd_inn,ehyd,austria,Inn,7,,,,,,,,,,not_selected_this_run
+ehyd_isel,ehyd,austria,Isel,3,,,,,,,,,,not_selected_this_run
+ehyd_krems,ehyd,austria,Krems,3,,,,,,,,,,not_selected_this_run
+ehyd_lieser,ehyd,austria,Lieser,3,,,,,,,,,,not_selected_this_run
+ehyd_march,ehyd,austria,March,3,,,,,,,,,,not_selected_this_run
+ehyd_moll,ehyd,austria,Möll,3,,,,,,,,,,not_selected_this_run
+ehyd_neusiedler_see,ehyd,austria,Neusiedler See,7,,,,,,,,,,not_selected_this_run
+ehyd_pram,ehyd,austria,Pram,3,,,,,,,,,,not_selected_this_run
+ehyd_saalach,ehyd,austria,Saalach,3,,,,,,,,,,not_selected_this_run
+ehyd_salzach,ehyd,austria,Salzach,7,,,,,,,,,,not_selected_this_run
+ehyd_sill,ehyd,austria,Sill,3,,,,,,,,,,not_selected_this_run
+ehyd_steyr,ehyd,austria,Steyr,3,,,,,,,,,,not_selected_this_run
+ehyd_trattnach,ehyd,austria,Trattnach,3,,,,,,,,,,not_selected_this_run
+ehyd_traun,ehyd,austria,Traun,6,,,,,,,,,,not_selected_this_run
+ehyd_ziller,ehyd,austria,Ziller,3,,,,,,,,,,not_selected_this_run
+eccc_automated_great_lakes,eccc_automated,canada,GREAT LAKES,5,,,,,,,,,,not_selected_this_run
+eccc_automated_maritime_coastal,eccc_automated,canada,MARITIME COASTAL,3,,,,,,,,,,not_selected_this_run
+eccc_automated_saint_john_st_croix,eccc_automated,canada,SAINT JOHN–ST. CROIX,5,,,,,,,,,,not_selected_this_run
+chmi_bela,chmi,czechia,Bělá,3,,,,,,,,,,not_selected_this_run
+chmi_berounka,chmi,czechia,Berounka,5,,,,,,,,,,not_selected_this_run
+chmi_blanice,chmi,czechia,Blanice,4,,,,,,,,,,not_selected_this_run
+chmi_botic,chmi,czechia,Botič,5,,,,,,,,,,not_selected_this_run
+chmi_dyje,chmi,czechia,Dyje,4,,,,,,,,,,not_selected_this_run
+chmi_jizera,chmi,czechia,Jizera,5,,,,,,,,,,not_selected_this_run
+chmi_kamenice,chmi,czechia,Kamenice,3,,,,,,,,,,not_selected_this_run
+chmi_labe,chmi,czechia,Labe,6,,,,,,,,,,not_selected_this_run
+chmi_luznice,chmi,czechia,Lužnice,3,,,,,,,,,,not_selected_this_run
+chmi_morava,chmi,czechia,Morava,6,,,,,,,,,,not_selected_this_run
+chmi_odra,chmi,czechia,Odra,3,,,,,,,,,,not_selected_this_run
+chmi_ohre,chmi,czechia,Ohře,4,,,,,,,,,,not_selected_this_run
+chmi_olse,chmi,czechia,Olše,3,,,,,,,,,,not_selected_this_run
+chmi_ostravice,chmi,czechia,Ostravice,4,,,,,,,,,,not_selected_this_run
+chmi_otava,chmi,czechia,Otava,3,,,,,,,,,,not_selected_this_run
+chmi_sazava,chmi,czechia,Sázava,8,,,,,,,,,,not_selected_this_run
+chmi_smeda,chmi,czechia,Smědá,3,,,,,,,,,,not_selected_this_run
+chmi_vltava,chmi,czechia,Vltava,6,,,,,,,,,,not_selected_this_run
+chmi_zelivka,chmi,czechia,Želivka,5,,,,,,,,,,not_selected_this_run
+syke_basin_kokemaeenjoki,syke,finland,Kokemäenjoki,3,,,,,,,,,,not_selected_this_run
+syke_basin_kymijoki,syke,finland,Kymijoki,3,,,,,,,,,,not_selected_this_run
+hubeau_l_adour,hubeau,france,L'Adour,4,,,,,,,,,,not_selected_this_run
+hubeau_l_aire,hubeau,france,L'Aire,3,,,,,,,,,,not_selected_this_run
+hubeau_l_aisne,hubeau,france,L'Aisne,6,,,,,,,,,,not_selected_this_run
+hubeau_l_allier,hubeau,france,l'Allier,4,,,,,,,,,,not_selected_this_run
+hubeau_l_ance,hubeau,france,l'Ance,3,,,,,,,,,,not_selected_this_run
+hubeau_l_ard_che,hubeau,france,L'Ardèche,3,,,,,,,,,,not_selected_this_run
+hubeau_l_ari_ge,hubeau,france,L'Ariège,4,,,,,,,,,,not_selected_this_run
+hubeau_l_arroux,hubeau,france,l'Arroux,3,,,,,,,,,,not_selected_this_run
+hubeau_l_aube,hubeau,france,L'Aube,3,,,,,,,,,,not_selected_this_run
+hubeau_l_aude,hubeau,france,L'Aude,3,,,,,,,,,,not_selected_this_run
+hubeau_l_aveyron,hubeau,france,L'Aveyron,5,,,,,,,,,,not_selected_this_run
+hubeau_l_huisne,hubeau,france,l'Huisne,3,,,,,,,,,,not_selected_this_run
+hubeau_l_ill,hubeau,france,L'Ill,3,,,,,,,,,,not_selected_this_run
+hubeau_l_oise,hubeau,france,L'Oise,3,,,,,,,,,,not_selected_this_run
+hubeau_l_orne,hubeau,france,L'Orne,4,,,,,,,,,,not_selected_this_run
+hubeau_la_besbre,hubeau,france,la Besbre,3,,,,,,,,,,not_selected_this_run
+hubeau_la_creuse,hubeau,france,la Creuse,3,,,,,,,,,,not_selected_this_run
+hubeau_la_cure,hubeau,france,La Cure,3,,,,,,,,,,not_selected_this_run
+hubeau_la_dordogne,hubeau,france,La Dordogne,3,,,,,,,,,,not_selected_this_run
+hubeau_la_dore,hubeau,france,la Dore,3,,,,,,,,,,not_selected_this_run
+hubeau_la_durance,hubeau,france,La Durance,5,,,,,,,,,,not_selected_this_run
+hubeau_la_garonne,hubeau,france,La Garonne,10,,,,,,,,,,not_selected_this_run
+hubeau_la_marne,hubeau,france,La Marne,6,,,,,,,,,,not_selected_this_run
+hubeau_la_meuse,hubeau,france,La Meuse,5,,,,,,,,,,not_selected_this_run
+hubeau_la_moselle,hubeau,france,La Moselle,3,,,,,,,,,,not_selected_this_run
+hubeau_la_sa_ne,hubeau,france,La Saône,6,,,,,,,,,,not_selected_this_run
+hubeau_la_sarthe,hubeau,france,la Sarthe,4,,,,,,,,,,not_selected_this_run
+hubeau_la_seille,hubeau,france,La Seille,3,,,,,,,,,,not_selected_this_run
+hubeau_la_seine,hubeau,france,La Seine,9,,,,,,,,,,not_selected_this_run
+hubeau_la_sioule,hubeau,france,la Sioule,5,,,,,,,,,,not_selected_this_run
+hubeau_la_vienne,hubeau,france,la Vienne,3,,,,,,,,,,not_selected_this_run
+hubeau_la_vilaine,hubeau,france,la Vilaine,3,,,,,,,,,,not_selected_this_run
+hubeau_le_cher,hubeau,france,le Cher,6,,,,,,,,,,not_selected_this_run
+hubeau_le_doubs,hubeau,france,Le Doubs,3,,,,,,,,,,not_selected_this_run
+hubeau_le_drac,hubeau,france,Le Drac,3,,,,,,,,,,not_selected_this_run
+hubeau_le_golo,hubeau,france,Le Golo,3,,,,,,,,,,not_selected_this_run
+hubeau_le_lot,hubeau,france,Le Lot,4,,,,,,,,,,not_selected_this_run
+hubeau_le_rh_ne,hubeau,france,Le Rhône,7,,,,,,,,,,not_selected_this_run
+hubeau_le_taravo,hubeau,france,Le Taravo,4,,,,,,,,,,not_selected_this_run
+hubeau_le_tarn,hubeau,france,Le Tarn,6,,,,,,,,,,not_selected_this_run
+lubw_donau,lubw,germany,Donau,5,,,,,,,,,,not_selected_this_run
+lubw_enz,lubw,germany,Enz,3,,,,,,,,,,not_selected_this_run
+lubw_fils,lubw,germany,Fils,3,,,,,,,,,,not_selected_this_run
+lubw_jagst,lubw,germany,Jagst,4,,,,,,,,,,not_selected_this_run
+lubw_kocher,lubw,germany,Kocher,5,,,,,,,,,,not_selected_this_run
+lubw_lauter,lubw,germany,Lauter,3,,,,,,,,,,not_selected_this_run
+lubw_murg,lubw,germany,Murg,3,,,,,,,,,,not_selected_this_run
+rws_amsterdam_rijnkanaal,rws_waterwebservices,netherlands,Amsterdam-Rijnkanaal,3,,,,,,,,,,not_selected_this_run
+rws_grevelingen,rws_waterwebservices,netherlands,Grevelingen,3,,,,,,,,,,not_selected_this_run
+rws_haringvliet,rws_waterwebservices,netherlands,Haringvliet,3,,,,,,,,,,not_selected_this_run
+rws_ijsselmeer_markermeer,rws_waterwebservices,netherlands,IJsselmeer–Markermeer,3,,,,,,,,,,not_selected_this_run
+rws_maas,rws_waterwebservices,netherlands,Maas,3,,,,,,,,,,not_selected_this_run
+rws_noordzee,rws_waterwebservices,netherlands,Noordzee,3,,,,,,,,,,not_selected_this_run
+rws_oosterschelde,rws_waterwebservices,netherlands,Oosterschelde,3,,,,,,,,,,not_selected_this_run
+rws_rijn_maas_delta,rws_waterwebservices,netherlands,Rijn–Maasdelta,3,,,,,,,,,,not_selected_this_run
+rws_twentekanalen,rws_waterwebservices,netherlands,Twentekanalen,3,,,,,,,,,,not_selected_this_run
+rws_volkerak_krammer,rws_waterwebservices,netherlands,Volkerak–Krammer,3,,,,,,,,,,not_selected_this_run
+rws_waddenzee,rws_waterwebservices,netherlands,Waddenzee,3,,,,,,,,,,not_selected_this_run
+rws_westerschelde,rws_waterwebservices,netherlands,Westerschelde,3,,,,,,,,,,not_selected_this_run
+foen_murg_multi,foen,switzerland,Murg,3,,,,,,,,,,not_downloaded_old_foen_values_out_of_scope
+huc8_02040202,usgs,united_states,huc8_02040202,5,,,,,,,,,,not_selected_this_run
+huc8_03110205,usgs,united_states,huc8_03110205,3,,,,,,,,,,not_selected_this_run
+huc8_10070002,usgs,united_states,huc8_10070002,4,,,,,,,,,,not_selected_this_run
+huc8_17090012,usgs,united_states,huc8_17090012,7,,,,,,,,,,not_selected_this_run
+usgs_flathead_river_huc4_1701,usgs,united_states,Flathead River (HUC4 1701),3,,,,,,,,,,not_selected_this_run
+usgs_fox_river_huc4_0403,usgs,united_states,FOX RIVER (HUC4 0403),3,,,,,,,,,,not_selected_this_run
+usgs_missouri_river_huc4_1024,usgs,united_states,Missouri River (HUC4 1024),3,,,,,,,,,,not_selected_this_run
+usgs_niobrara_river_huc4_1015,usgs,united_states,Niobrara River (HUC4 1015),3,,,,,,,,,,not_selected_this_run
+usgs_platte_river_huc4_1020,usgs,united_states,Platte River (HUC4 1020),3,,,,,,,,,,not_selected_this_run
+usgs_red_river_of_the_north_huc4_0902,usgs,united_states,RED RIVER OF THE NORTH (HUC4 0902),4,,,,,,,,,,not_selected_this_run
+usgs_rio_grande_huc13,usgs,united_states,RIO GRANDE (HUC2 13),3,,,,,,,,,,not_selected_this_run
+usgs_rio_grande_huc4_1302,usgs,united_states,RIO GRANDE (HUC4 1302),3,,,,,,,,,,not_selected_this_run
+usgs_san_juan_river_huc4_1408,usgs,united_states,SAN JUAN RIVER (HUC4 1408),5,,,,,,,,,,not_selected_this_run
+usgs_sheyenne_r_huc4_0902,usgs,united_states,SHEYENNE R (HUC4 0902),3,,,,,,,,,,not_selected_this_run
+usgs_snake_river_huc4_1705,usgs,united_states,SNAKE RIVER (HUC4 1705),4,,,,,,,,,,not_selected_this_run
+usgs_walker_rv_huc4_1605,usgs,united_states,WALKER RV (HUC4 1605),3,,,,,,,,,,not_selected_this_run
+usgs2_huc2_08,usgs,united_states,untouched HUC2 basin 08,5,5.0,5.0,4.0,5594.0,5334.0,2005-02-19,2020-06-18,15.326488706365502,True,qualified
+usgs2_huc2_12,usgs,united_states,untouched HUC2 basin 12,8,8.0,7.0,5.0,3694.0,3694.0,2008-11-05,2018-12-16,10.11088295687885,True,qualified
+usgs2_huc2_14,usgs,united_states,untouched HUC2 basin 14,5,5.0,5.0,2.0,5123.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc2_15,usgs,united_states,untouched HUC2 basin 15,5,5.0,5.0,4.0,3723.0,3556.0,2016-04-27,2026-02-03,9.77138945927447,True,qualified
+usgs2_huc2_18,usgs,united_states,untouched HUC2 basin 18,8,8.0,8.0,3.0,3034.0,2906.0,2018-01-09,2026-03-11,8.167008898015059,True,qualified
+usgs2_huc2_19,usgs,united_states,untouched HUC2 basin 19,3,3.0,2.0,1.0,3281.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc2_20,usgs,united_states,untouched HUC2 basin 20,4,4.0,3.0,1.0,5126.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc2_41,usgs,united_states,untouched HUC2 basin 41,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc2_90,usgs,united_states,untouched HUC2 basin 90,5,5.0,5.0,1.0,4074.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_0306,usgs,united_states,untouched HUC4 basin 0306,3,3.0,3.0,3.0,4267.0,3424.0,2015-03-06,2026-03-30,11.066392881587952,True,qualified
+usgs2_huc4_0313,usgs,united_states,untouched HUC4 basin 0313,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_0401,usgs,united_states,untouched HUC4 basin 0401,3,3.0,3.0,3.0,4438.0,3680.0,2013-09-30,2024-10-01,11.003422313483917,True,qualified
+usgs2_huc4_0410,usgs,united_states,untouched HUC4 basin 0410,3,3.0,3.0,2.0,3862.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_0601,usgs,united_states,untouched HUC4 basin 0601,3,3.0,3.0,3.0,4220.0,4072.0,2014-10-03,2026-03-31,11.490759753593428,True,qualified
+usgs2_huc4_1111,usgs,united_states,untouched HUC4 basin 1111,4,4.0,4.0,4.0,3910.0,3860.0,2011-10-08,2022-06-21,10.702258726899384,True,qualified
+usgs2_huc4_1704,usgs,united_states,untouched HUC4 basin 1704,5,5.0,5.0,2.0,4345.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1705,usgs,united_states,untouched HUC4 basin 1705,3,3.0,3.0,3.0,3893.0,3614.0,2015-11-17,2026-06-28,10.611909650924025,True,qualified
+usgs2_huc4_1707,usgs,united_states,untouched HUC4 basin 1707,4,4.0,4.0,4.0,4760.0,4703.0,2009-06-17,2022-06-28,13.02943189596167,True,qualified
+usgs2_huc4_1802,usgs,united_states,untouched HUC4 basin 1802,3,3.0,3.0,1.0,4496.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1804,usgs,united_states,untouched HUC4 basin 1804,3,3.0,3.0,2.0,6759.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1809,usgs,united_states,untouched HUC4 basin 1809,4,4.0,4.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1901,usgs,united_states,untouched HUC4 basin 1901,4,4.0,4.0,2.0,4108.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1902,usgs,united_states,untouched HUC4 basin 1902,5,5.0,5.0,2.0,3106.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1903,usgs,united_states,untouched HUC4 basin 1903,3,3.0,3.0,3.0,3784.0,3701.0,2006-06-02,2016-10-10,10.35728952772074,True,qualified
+usgs2_huc4_1905,usgs,united_states,untouched HUC4 basin 1905,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1906,usgs,united_states,untouched HUC4 basin 1906,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_1909,usgs,united_states,untouched HUC4 basin 1909,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc4_2040,usgs,united_states,untouched HUC4 basin 2040,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_010100,usgs,united_states,untouched HUC6 basin 010100,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_010500,usgs,united_states,untouched HUC6 basin 010500,3,3.0,3.0,1.0,7677.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_010802,usgs,united_states,untouched HUC6 basin 010802,3,3.0,3.0,3.0,3486.0,2687.0,2015-10-01,2025-04-16,9.541409993155373,True,qualified
+usgs2_huc6_020502,usgs,united_states,untouched HUC6 basin 020502,4,4.0,4.0,3.0,4878.0,4380.0,2012-02-16,2024-09-03,12.54757015742642,True,qualified
+usgs2_huc6_030502,usgs,united_states,untouched HUC6 basin 030502,3,3.0,3.0,3.0,3410.0,3036.0,2017-01-26,2025-10-12,8.709103353867214,True,qualified
+usgs2_huc6_031300,usgs,united_states,untouched HUC6 basin 031300,8,8.0,8.0,6.0,3362.0,3306.0,2017-05-16,2026-06-03,9.048596851471595,True,qualified
+usgs2_huc6_031700,usgs,united_states,untouched HUC6 basin 031700,4,4.0,4.0,4.0,4485.0,4441.0,2011-03-30,2023-07-10,12.279260780287474,True,qualified
+usgs2_huc6_040301,usgs,united_states,untouched HUC6 basin 040301,7,7.0,7.0,3.0,3911.0,3247.0,2012-02-23,2021-07-18,9.399041752224504,True,qualified
+usgs2_huc6_040500,usgs,united_states,untouched HUC6 basin 040500,3,3.0,3.0,3.0,4773.0,4504.0,2011-04-09,2024-09-30,13.478439425051334,True,qualified
+usgs2_huc6_041000,usgs,united_states,untouched HUC6 basin 041000,4,4.0,4.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_041100,usgs,united_states,untouched HUC6 basin 041100,3,3.0,3.0,2.0,4449.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_050500,usgs,united_states,untouched HUC6 basin 050500,4,4.0,4.0,2.0,4887.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_051201,usgs,united_states,untouched HUC6 basin 051201,4,4.0,4.0,1.0,3367.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_060102,usgs,united_states,untouched HUC6 basin 060102,4,4.0,4.0,4.0,3031.0,3031.0,2012-08-28,2020-12-14,8.295687885010267,True,qualified
+usgs2_huc6_060400,usgs,united_states,untouched HUC6 basin 060400,3,3.0,2.0,1.0,6449.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_070102,usgs,united_states,untouched HUC6 basin 070102,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_070300,usgs,united_states,untouched HUC6 basin 070300,3,3.0,3.0,3.0,6289.0,3372.0,2000-01-21,2017-04-09,17.215605749486652,True,qualified
+usgs2_huc6_070700,usgs,united_states,untouched HUC6 basin 070700,4,4.0,4.0,2.0,4712.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_070900,usgs,united_states,untouched HUC6 basin 070900,3,3.0,3.0,3.0,4936.0,4513.0,2012-07-04,2025-12-01,13.409993155373032,True,qualified
+usgs2_huc6_071000,usgs,united_states,untouched HUC6 basin 071000,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_071200,usgs,united_states,untouched HUC6 basin 071200,6,6.0,6.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_071300,usgs,united_states,untouched HUC6 basin 071300,5,5.0,5.0,3.0,3875.0,3453.0,2015-10-24,2026-05-20,10.570841889117045,True,qualified
+usgs2_huc6_071401,usgs,united_states,untouched HUC6 basin 071401,4,4.0,4.0,3.0,3846.0,2776.0,2015-10-24,2026-02-09,10.297056810403832,True,qualified
+usgs2_huc6_080302,usgs,united_states,untouched HUC6 basin 080302,3,3.0,3.0,1.0,3017.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_100301,usgs,united_states,untouched HUC6 basin 100301,5,5.0,5.0,1.0,3364.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_100700,usgs,united_states,untouched HUC6 basin 100700,5,5.0,5.0,2.0,4419.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_100902,usgs,united_states,untouched HUC6 basin 100902,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_110702,usgs,united_states,untouched HUC6 basin 110702,4,4.0,4.0,2.0,3177.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_111302,usgs,united_states,untouched HUC6 basin 111302,4,4.0,4.0,2.0,4009.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_111401,usgs,united_states,untouched HUC6 basin 111401,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_120301,usgs,united_states,untouched HUC6 basin 120301,4,4.0,4.0,4.0,5286.0,5023.0,2010-09-21,2025-03-11,14.469541409993155,True,qualified
+usgs2_huc6_120800,usgs,united_states,untouched HUC6 basin 120800,3,3.0,3.0,3.0,6886.0,3516.0,1983-04-27,2002-07-15,19.21697467488022,True,qualified
+usgs2_huc6_120901,usgs,united_states,untouched HUC6 basin 120901,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_121003,usgs,united_states,untouched HUC6 basin 121003,3,3.0,3.0,3.0,4739.0,4347.0,2011-07-27,2024-07-16,12.971937029431896,True,qualified
+usgs2_huc6_140200,usgs,united_states,untouched HUC6 basin 140200,6,6.0,6.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_140300,usgs,united_states,untouched HUC6 basin 140300,4,4.0,4.0,4.0,4409.0,4252.0,2014-06-20,2026-02-09,11.641341546885696,True,qualified
+usgs2_huc6_140500,usgs,united_states,untouched HUC6 basin 140500,5,5.0,4.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_140600,usgs,united_states,untouched HUC6 basin 140600,3,3.0,3.0,1.0,3797.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_150100,usgs,united_states,untouched HUC6 basin 150100,4,4.0,4.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_160502,usgs,united_states,untouched HUC6 basin 160502,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170102,usgs,united_states,untouched HUC6 basin 170102,9,9.0,9.0,3.0,8269.0,6753.0,2001-04-28,2023-12-30,22.67214236824093,True,qualified
+usgs2_huc6_170200,usgs,united_states,untouched HUC6 basin 170200,8,8.0,8.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170300,usgs,united_states,untouched HUC6 basin 170300,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170402,usgs,united_states,untouched HUC6 basin 170402,6,6.0,6.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170501,usgs,united_states,untouched HUC6 basin 170501,4,4.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170602,usgs,united_states,untouched HUC6 basin 170602,3,3.0,3.0,2.0,3691.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_170703,usgs,united_states,untouched HUC6 basin 170703,3,3.0,3.0,3.0,5228.0,4810.0,2011-07-29,2024-12-17,13.388090349075975,True,qualified
+usgs2_huc6_171002,usgs,united_states,untouched HUC6 basin 171002,4,4.0,4.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_171003,usgs,united_states,untouched HUC6 basin 171003,6,6.0,6.0,5.0,5038.0,4914.0,2012-08-15,2026-01-29,13.456536618754278,True,qualified
+usgs2_huc6_171100,usgs,united_states,untouched HUC6 basin 171100,4,4.0,3.0,1.0,3737.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_180102,usgs,united_states,untouched HUC6 basin 180102,8,8.0,8.0,6.0,3434.0,3365.0,2016-10-01,2025-12-17,9.210130047912388,True,qualified
+usgs2_huc6_180201,usgs,united_states,untouched HUC6 basin 180201,4,4.0,4.0,3.0,3350.0,3315.0,2016-10-01,2025-12-01,9.166324435318275,True,qualified
+usgs2_huc6_180300,usgs,united_states,untouched HUC6 basin 180300,3,3.0,3.0,2.0,3354.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_180400,usgs,united_states,untouched HUC6 basin 180400,3,3.0,3.0,2.0,3511.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_190101,usgs,united_states,untouched HUC6 basin 190101,4,4.0,4.0,1.0,3163.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_190204,usgs,united_states,untouched HUC6 basin 190204,3,3.0,3.0,2.0,3942.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_190205,usgs,united_states,untouched HUC6 basin 190205,4,4.0,4.0,2.0,4289.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_190303,usgs,united_states,untouched HUC6 basin 190303,3,3.0,3.0,0.0,0.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_190803,usgs,united_states,untouched HUC6 basin 190803,4,4.0,4.0,2.0,3876.0,0.0,,,0.0,False,daily_qc_not_qualified
+usgs2_huc6_204030,usgs,united_states,untouched HUC6 basin 204030,3,3.0,3.0,2.0,5286.0,0.0,,,0.0,False,daily_qc_not_qualified

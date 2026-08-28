@@ -1,0 +1,14 @@
+{
+  "status": "withheld_by_readiness_gate",
+  "readiness": "/home/lzq/workspace/parttime/stream-recoverability/results/development_v11/second_confirmation/readiness.json",
+  "blocking_domain_checks": {
+    "canada": {
+      "required": 1,
+      "arrived": 0,
+      "passed": false
+    }
+  },
+  "temperature_panels_read": 0,
+  "recovery_models_fit": 0,
+  "outcomes_scored": 0
+}

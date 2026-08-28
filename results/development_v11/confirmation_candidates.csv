@@ -1,0 +1,166 @@
+network_id,provider,domain,river_group,n_catalog_stations,site_ids,latitude,longitude,prior_temperature_values_seen,candidate_status
+ehyd_ager,ehyd,austria,Ager,4,205369|205427|205450|206276,,,False,source_qc_failed_monthly_only
+ehyd_alm,ehyd,austria,Alm,3,205500|205518|206508,,,False,source_qc_failed_monthly_only
+ehyd_bregenzerach,ehyd,austria,Bregenzerach,4,200261|200329|200550|200568,,,False,source_qc_failed_monthly_only
+ehyd_donau,ehyd,austria,Donau,13,207027|207043|207068|207084|207126|207142|207175|207274|207357|207365|207407|207423|207431,,,False,source_qc_failed_monthly_only
+ehyd_drau,ehyd,austria,Drau,6,202523|212357|213173|213215|213660|231092,,,False,source_qc_failed_monthly_only
+ehyd_enns,ehyd,austria,Enns,8,203703|203711|205757|205922|210641|210740|210799|210823,,,False,source_qc_failed_monthly_only
+ehyd_gail,ehyd,austria,Gail,3,212647|212753|212787,,,False,source_qc_failed_monthly_only
+ehyd_gurk,ehyd,austria,Gurk,3,212860|213041|213157,,,False,source_qc_failed_monthly_only
+ehyd_inn,ehyd,austria,Inn,7,201178|201459|201525|201681|201814|201905|206201,,,False,source_qc_failed_monthly_only
+ehyd_isel,ehyd,austria,Isel,3,212043|212092|212167,,,False,source_qc_failed_monthly_only
+ehyd_krems,ehyd,austria,Krems,3,205641|205658|207878,,,False,source_qc_failed_monthly_only
+ehyd_lieser,ehyd,austria,Lieser,3,212431|212530|213207,,,False,source_qc_failed_monthly_only
+ehyd_march,ehyd,austria,March,3,207308|207316|207324,,,False,source_qc_failed_monthly_only
+ehyd_moll,ehyd,austria,Möll,3,212373|212407|213124,,,False,source_qc_failed_monthly_only
+ehyd_neusiedler_see,ehyd,austria,Neusiedler See,7,210112|210120|210138|210146|210153|210179|210187,,,False,source_qc_failed_monthly_only
+ehyd_pram,ehyd,austria,Pram,3,204867|206102|206326,,,False,source_qc_failed_monthly_only
+ehyd_saalach,ehyd,austria,Saalach,3,203463|203497|203570,,,False,source_qc_failed_monthly_only
+ehyd_salzach,ehyd,austria,Salzach,7,203026|203075|203323|203380|203539|204560|206847,,,False,source_qc_failed_monthly_only
+ehyd_sill,ehyd,austria,Sill,3,201574|201624|202275,,,False,source_qc_failed_monthly_only
+ehyd_steyr,ehyd,austria,Steyr,3,205765|205864|205914,,,False,source_qc_failed_monthly_only
+ehyd_trattnach,ehyd,austria,Trattnach,3,204974|205013|206565,,,False,source_qc_failed_monthly_only
+ehyd_traun,ehyd,austria,Traun,6,205104|205146|205153|205203|205682|206391,,,False,source_qc_failed_monthly_only
+ehyd_ziller,ehyd,austria,Ziller,3,201749|201756|201780,,,False,source_qc_failed_monthly_only
+eccc_automated_great_lakes,eccc_automated,canada,GREAT LAKES,5,ON02GG0004|ON02GG0005|ON02HA0019|ON02HA0045|ON02MA0030,43.210576,-79.82668,False,metadata_candidate_daily_qc_completed
+eccc_automated_maritime_coastal,eccc_automated,canada,MARITIME COASTAL,3,NS01DC0001|NS01EJ0157|PE01CB0143,45.368880333333344,-64.12502,False,metadata_candidate_daily_qc_completed
+eccc_automated_saint_john_st_croix,eccc_automated,canada,SAINT JOHN–ST. CROIX,5,NB01AJ0008|NB01AJ0126|NB01AJ0127|NB01AR0021|NB01AR0151,45.9387344,-67.63859119999998,False,metadata_candidate_daily_qc_completed
+chmi_bela,chmi,czechia,Bělá,3,0-203-1-097000|0-203-1-161600|0-203-1-313000,50.08086076666666,15.808023833333332,False,metadata_candidate_daily_qc_completed
+chmi_berounka,chmi,czechia,Berounka,5,0-203-1-186000|0-203-1-187200|0-203-1-194500|0-203-1-198000|0-203-1-198600,49.8934927,13.79220312,False,metadata_candidate_daily_qc_completed
+chmi_blanice,chmi,czechia,Blanice,4,0-203-1-147000|0-203-1-148000|0-203-1-165600|0-203-1-166200,49.3714474,14.4298575,False,metadata_candidate_daily_qc_completed
+chmi_botic,chmi,czechia,Botič,5,0-203-1-200480|0-203-1-200550|0-203-1-200580|0-203-1-200590|0-203-1-200600,50.02247478,14.52250776,False,metadata_candidate_daily_qc_completed
+chmi_dyje,chmi,czechia,Dyje,4,0-203-1-430000|0-203-1-434000|0-203-1-437000|0-203-1-480500,48.84822655000001,16.20058855,False,metadata_candidate_daily_qc_completed
+chmi_jizera,chmi,czechia,Jizera,5,0-203-1-084500|0-203-1-091000|0-203-1-098000|0-203-1-099900|0-203-1-101800,50.49831136,15.06296138,False,metadata_candidate_daily_qc_completed
+chmi_kamenice,chmi,czechia,Kamenice,3,0-203-1-087930|0-203-1-088000|0-203-1-090000,50.7517556,15.240056033333332,False,metadata_candidate_daily_qc_completed
+chmi_labe,chmi,czechia,Labe,6,0-203-1-004200|0-203-1-042000|0-203-1-104400|0-203-1-204000|0-203-1-240000|0-203-1-245000,50.4769568,14.842928366666664,False,metadata_candidate_daily_qc_completed
+chmi_luznice,chmi,czechia,Lužnice,3,0-203-1-119000|0-203-1-131000|0-203-1-133000,49.1729975,14.684052,False,metadata_candidate_daily_qc_completed
+chmi_morava,chmi,czechia,Morava,6,0-203-1-345000|0-203-1-355000|0-203-1-367000|0-203-1-403000|0-203-1-413000|0-203-1-421500,49.457084900000005,17.224165566666667,False,metadata_candidate_daily_qc_completed
+chmi_odra,chmi,czechia,Odra,3,0-203-1-247800|0-203-1-257000|0-203-1-294000,49.80181253333333,18.12584263333333,False,metadata_candidate_daily_qc_completed
+chmi_ohre,chmi,czechia,Ohře,4,0-203-1-214000|0-203-1-215100|0-203-1-219000|0-203-1-219500,50.368373000000005,13.53050545,False,metadata_candidate_daily_qc_completed
+chmi_olse,chmi,czechia,Olše,3,0-203-1-296000|0-203-1-299000|0-203-1-303000,49.7419097,18.605293766666662,False,metadata_candidate_daily_qc_completed
+chmi_ostravice,chmi,czechia,Ostravice,4,0-203-1-275300|0-203-1-277000|0-203-1-286600|0-203-1-293000,49.626467175,18.375585825,False,metadata_candidate_daily_qc_completed
+chmi_otava,chmi,czechia,Otava,3,0-203-1-137000|0-203-1-138000|0-203-1-141000,49.21549566666667,13.6211821,False,metadata_candidate_daily_qc_completed
+chmi_sazava,chmi,czechia,Sázava,8,0-203-1-154900|0-203-1-155000|0-203-1-155800|0-203-1-158000|0-203-1-159000|0-203-1-161000|0-203-1-165000|0-203-1-167200,49.6743417125,15.387646625,False,metadata_candidate_daily_qc_completed
+chmi_smeda,chmi,czechia,Smědá,3,0-203-1-321610|0-203-1-322000|0-203-1-324000,50.8903846,15.171568933333331,False,metadata_candidate_daily_qc_completed
+chmi_vltava,chmi,czechia,Vltava,6,0-203-1-108100|0-203-1-109000|0-203-1-111000|0-203-1-115100|0-203-1-200100|0-203-1-203000,49.24974128333333,14.36600535,False,metadata_candidate_daily_qc_completed
+chmi_zelivka,chmi,czechia,Želivka,5,0-203-1-161400|0-203-1-161700|0-203-1-162000|0-203-1-162520|0-203-1-163300,49.54956518,15.1933544,False,metadata_candidate_daily_qc_completed
+syke_basin_kokemaeenjoki,syke,finland,Kokemäenjoki,3,1690|1692|3485,61.40138888888888,23.611203703703705,False,metadata_candidate_daily_qc_completed
+syke_basin_kymijoki,syke,finland,Kymijoki,3,1670|1676|3094,61.6575,25.99351851851852,False,metadata_candidate_daily_qc_completed
+hubeau_l_adour,hubeau,france,L'Adour,4,05223000|05229200|05233000|05236100,43.557742979000004,-0.45760974200000004,False,metadata_candidate_pending_daily_qc
+hubeau_l_aire,hubeau,france,L'Aire,3,03156350|03156580|03156995,49.214250547666666,5.009116139333334,False,metadata_candidate_pending_daily_qc
+hubeau_l_aisne,hubeau,france,L'Aisne,6,03145290|03145985|03149081|03149630|03152000|03156000,49.30390149366667,4.170439541333334,False,metadata_candidate_pending_daily_qc
+hubeau_l_allier,hubeau,france,l'Allier,4,04026500|04027740|04043200|04044700,45.7371094915,3.40647065475,False,metadata_candidate_pending_daily_qc
+hubeau_l_ance,hubeau,france,l'Ance,3,04003645|04003900|04027350,45.18798936633333,3.8790300380000002,False,metadata_candidate_pending_daily_qc
+hubeau_l_ard_che,hubeau,france,L'Ardèche,3,06114450|06115090|06115700,44.40708529933334,4.471864828666667,False,metadata_candidate_pending_daily_qc
+hubeau_l_ari_ge,hubeau,france,L'Ariège,4,05165850|05165900|05170900|05173400,43.17324211175,1.58653764275,False,metadata_candidate_pending_daily_qc
+hubeau_l_arroux,hubeau,france,l'Arroux,3,04016840|04017000|04020010,46.80218342700001,4.175529902333333,False,metadata_candidate_pending_daily_qc
+hubeau_l_aube,hubeau,france,L'Aube,3,03014130|03015000|03021000,48.164971444,4.5511205813333335,False,metadata_candidate_pending_daily_qc
+hubeau_l_aude,hubeau,france,L'Aude,3,06175400|06178000|06180900,43.00423644233333,2.5335899016666668,False,metadata_candidate_pending_daily_qc
+hubeau_l_aveyron,hubeau,france,L'Aveyron,5,05120000|05121000|05126000|05127000|05128000,44.240485960200004,2.1100869504,False,metadata_candidate_pending_daily_qc
+hubeau_l_huisne,hubeau,france,l'Huisne,3,04115580|04116800|04118000,48.203465994,0.5823107763333334,False,metadata_candidate_pending_daily_qc
+hubeau_l_ill,hubeau,france,L'Ill,3,02002000|02025500|02038000,48.20846993233334,7.5430860546666665,False,metadata_candidate_pending_daily_qc
+hubeau_l_oise,hubeau,france,L'Oise,3,03129020|03136000|03138000,49.452854063,2.9058334846666667,False,metadata_candidate_pending_daily_qc
+hubeau_l_orne,hubeau,france,L'Orne,4,02085325|02089000|03234650|03237617,49.0662972195,2.79217724175,False,metadata_candidate_pending_daily_qc
+hubeau_la_besbre,hubeau,france,la Besbre,3,04022150|04022210|04023000,46.24266358100001,3.6898030669999997,False,metadata_candidate_pending_daily_qc
+hubeau_la_creuse,hubeau,france,la Creuse,3,04088000|04089000|04091400,46.41295321933334,1.6616214136666667,False,metadata_candidate_pending_daily_qc
+hubeau_la_cure,hubeau,france,La Cure,3,03033200|03033660|03034000,47.499238876,3.8100290969999997,False,metadata_candidate_pending_daily_qc
+hubeau_la_dordogne,hubeau,france,La Dordogne,3,05047000|05059000|05061500,44.853746644333334,1.0932610593333334,False,metadata_candidate_pending_daily_qc
+hubeau_la_dore,hubeau,france,la Dore,3,04036300|04037900|04039000,45.645308152000005,3.6193003496666667,False,metadata_candidate_pending_daily_qc
+hubeau_la_durance,hubeau,france,La Durance,5,06150500|06151000|06152700|06159000|06166000,44.3603630252,6.0351882006,False,metadata_candidate_pending_daily_qc
+hubeau_la_garonne,hubeau,france,La Garonne,10,05081000|05104000|05117000|05152000|05154250|05154500|05174000|05181000|05181800|05184000,43.7304742573,0.8385894262000001,False,metadata_candidate_pending_daily_qc
+hubeau_la_marne,hubeau,france,La Marne,6,03086100|03088800|03091000|03104000|03109000|03112480,48.697631987499996,4.099633982166666,False,metadata_candidate_pending_daily_qc
+hubeau_la_meuse,hubeau,france,La Meuse,5,02106500|02109000|02113000|02115000|02124000,49.2347243978,5.220424159,False,metadata_candidate_pending_daily_qc
+hubeau_la_moselle,hubeau,france,La Moselle,3,02056200|02076800|02094900,48.98477983766667,6.2145492430000004,False,metadata_candidate_pending_daily_qc
+hubeau_la_sa_ne,hubeau,france,La Saône,6,06000990|06001000|06011000|06017050|06053800|06059500,46.989900750833336,5.354728902166666,False,metadata_candidate_pending_daily_qc
+hubeau_la_sarthe,hubeau,france,la Sarthe,4,04110700|04111000|04113250|04119170,48.284037565000006,0.13468184575,False,metadata_candidate_pending_daily_qc
+hubeau_la_seille,hubeau,france,La Seille,3,02081000|02082350|06041800,48.137163366,6.017501245000001,False,metadata_candidate_pending_daily_qc
+hubeau_la_seine,hubeau,france,La Seine,9,03001000|03002100|03012100|03048000|03063000|03082000|03125000|03127370|03174000,48.618524591888885,2.7304925523333328,False,metadata_candidate_pending_daily_qc
+hubeau_la_sioule,hubeau,france,la Sioule,5,04041675|04041700|04041780|04043100|04433002,46.030272764799996,2.9769920402,False,metadata_candidate_pending_daily_qc
+hubeau_la_vienne,hubeau,france,la Vienne,3,04075700|04082500|04097600,46.441120098999995,1.0447621983333333,False,metadata_candidate_pending_daily_qc
+hubeau_la_vilaine,hubeau,france,la Vilaine,3,04204300|04209990|04216000,47.90198244866667,-1.8208862006666668,False,metadata_candidate_pending_daily_qc
+hubeau_le_cher,hubeau,france,le Cher,6,04057000|04060500|04064000|04065000|04070300|04072000,46.87237705233334,1.9467535336666668,False,metadata_candidate_pending_daily_qc
+hubeau_le_doubs,hubeau,france,Le Doubs,3,06017200|06021000|06031200,47.08667255766667,6.174996097,False,metadata_candidate_pending_daily_qc
+hubeau_le_drac,hubeau,france,Le Drac,3,06142500|06146500|06820118,44.981720614333334,5.799267498666667,False,metadata_candidate_pending_daily_qc
+hubeau_le_golo,hubeau,france,Le Golo,3,06150185|06213500|06213800,42.44454242533333,9.22397556,False,metadata_candidate_pending_daily_qc
+hubeau_le_lot,hubeau,france,Le Lot,4,05084000|05092200|05094810|05099000,44.52611957525,1.78479372125,False,metadata_candidate_pending_daily_qc
+hubeau_le_rh_ne,hubeau,france,Le Rhône,7,06065700|06080000|06100900|06104000|06113500|06121500|06131550,44.94983383385714,4.990186917571428,False,metadata_candidate_pending_daily_qc
+hubeau_le_taravo,hubeau,france,Le Taravo,4,06217445|06217470|06217490|06217500,41.8333426755,9.00166553775,False,metadata_candidate_pending_daily_qc
+hubeau_le_tarn,hubeau,france,Le Tarn,6,05119000|05141000|05144000|05145600|05147000|05150900,44.07209207783333,2.5376099885,False,metadata_candidate_pending_daily_qc
+gkd_bayern_alz,gkd_bayern,germany,Alz,3,18403002|18405008|18408200,48.03666666666667,12.581266666666666,False,metadata_candidate_daily_qc_completed
+gkd_bayern_donau,gkd_bayern,germany,Donau,15,10026293|10039802|10046105|10051105|10053009|10056302|10060455|10062000|10074009|10077900|10081004|10089006|10091008|10097809|10098007,48.76184666666666,12.29402,False,metadata_candidate_daily_qc_completed
+gkd_bayern_fraenkische_saale,gkd_bayern,germany,Fränkische Saale,3,24403007|24405002|24409003,50.19846666666666,10.001033333333332,False,metadata_candidate_daily_qc_completed
+gkd_bayern_iller,gkd_bayern,germany,Iller,3,11401009|11402001|11405000,47.87513333333334,10.1882,False,metadata_candidate_daily_qc_completed
+gkd_bayern_inn,gkd_bayern,germany,Inn,5,18000403|18001508|18003004|18008008|18009000,48.13852000000001,12.69666,False,metadata_candidate_daily_qc_completed
+gkd_bayern_isar,gkd_bayern,germany,Isar,7,16000708|16003003|16003207|16004403|16005701|16007004|16008007,48.02084285714285,11.752557142857142,False,metadata_candidate_daily_qc_completed
+gkd_bayern_main,gkd_bayern,germany,Main,16,24003009|24006007|24010004|24012203|24022003|24028000|24042000|24043800|24050009|24056005|24060002|24064003|24070006|24075000|24078008|24080000,49.9406625,9.8914,False,metadata_candidate_daily_qc_completed
+gkd_bayern_mangfall,gkd_bayern,germany,Mangfall,3,18204006|18205985|18209000,47.865100000000005,11.9907,False,metadata_candidate_daily_qc_completed
+gkd_bayern_vils,gkd_bayern,germany,Vils,4,14604002|14606008|17204204|17207508,48.982625,12.405,False,metadata_candidate_daily_qc_completed
+lubw_donau,lubw,germany,Donau,5,CQQ105|CQQ803|Pegel_00120|Pegel_00125|Pegel_00168,48.14073720497369,9.362360989090035,False,metadata_candidate_daily_qc_completed
+lubw_enz,lubw,germany,Enz,3,CEN901|Pegel_00465|Pegel_45224,48.90866647662574,8.825391370621185,False,metadata_candidate_daily_qc_completed
+lubw_fils,lubw,germany,Fils,3,CFI129|Pegel_01438|Pegel_01439,48.63244971563568,9.63216012627439,False,metadata_candidate_daily_qc_completed
+lubw_jagst,lubw,germany,Jagst,4,CJA901|Pegel_00477|Pegel_01411|Pegel_01412,49.19765370015761,9.743013710501463,False,metadata_candidate_daily_qc_completed
+lubw_kocher,lubw,germany,Kocher,5,CKO907|Pegel_03498|Pegel_46349|Pegel_46358|Pegel_47540,49.02144522013138,9.846307109585604,False,metadata_candidate_daily_qc_completed
+lubw_lauter,lubw,germany,Lauter,3,Pegel_01500|Pegel_02431|Pegel_66436,48.74434308984163,9.447530439246904,False,metadata_candidate_daily_qc_completed
+lubw_murg,lubw,germany,Murg,3,Pegel_01301|Pegel_03302|Pegel_03311,48.644652108249055,8.338626894953618,False,metadata_candidate_daily_qc_completed
+lubw_neckar,lubw,germany,Neckar,15,CYY003|CYY031|CYY061|CYY072|CYY088|CYY094|CYY125|CYY137|CYY165|CYY172|CYY176|CYY208|Pegel_00409|Pegel_00411|Pegel_00420,48.99639467056449,9.03061389979844,False,metadata_candidate_daily_qc_completed
+lubw_rhein,lubw,germany,Rhein,4,CXX147|CXX334|CXX340|CXX359,48.57664365730966,8.089404965873161,False,metadata_candidate_daily_qc_completed
+rws_amsterdam_rijnkanaal,rws_waterwebservices,netherlands,Amsterdam-Rijnkanaal,3,amsterdam.schellingwouderbrug|maarssen.kanaal|nieuwegein.lekkanaal,52.178403,5.039901,False,source_audit_non_river_domain
+rws_grevelingen,rws_waterwebservices,netherlands,Grevelingen,3,bommenede|brouwersdam.brouwershavensegat.2|brouwersdam.brouwershavensegat.8,51.75055866666667,3.803588333333333,False,source_audit_non_river_domain
+rws_haringvliet,rws_waterwebservices,netherlands,Haringvliet,3,haringvliet.10|haringvliet.2|middelharnis.meetboei,51.81972033333333,4.042249,False,source_audit_non_river_domain
+rws_ijsselmeer_markermeer,rws_waterwebservices,netherlands,IJsselmeer–Markermeer,3,markermeer.midden|markermeer.trintelzand|andijk,52.63537333333334,5.289753,False,source_audit_non_river_domain
+rws_maas,rws_waterwebservices,netherlands,Maas,3,eijsden|belfeld.boven|hank.bergschemaas,51.2725,5.5683333333333325,False,metadata_candidate_pending_daily_qc
+rws_noordzee,rws_waterwebservices,netherlands,Noordzee,3,europlatform|goeree.lichteiland|hoekvanholland,51.966581,3.6877713333333335,False,source_audit_non_river_domain
+rws_oosterschelde,rws_waterwebservices,netherlands,Oosterschelde,3,oosterschelde.4|kamperland.schotsman.ruiterplaat|arnemuiden.oranjeplaat,51.58443933333333,3.678940666666667,False,source_audit_non_river_domain
+rws_rijn_lek_nederrijn,rws_waterwebservices,netherlands,Rijn–Lek–Nederrijn,3,amerongen.boven|driel.boven|hagestein.boven,51.97688,5.452778333333334,False,metadata_candidate_pending_daily_qc
+rws_rijn_maas_delta,rws_waterwebservices,netherlands,Rijn–Maasdelta,3,rotterdam.lekhaven|rotterdam.brienenoordbrug|kinderdijk.linkeroever.km988.8,51.89921621333334,4.532684848333333,False,source_audit_non_river_domain
+rws_twentekanalen,rws_waterwebservices,netherlands,Twentekanalen,3,delden.sluis.beneden|eefde.sluis.beneden|hengelo.oelerbrug,52.218377,6.557033333333333,False,source_audit_non_river_domain
+rws_volkerak_krammer,rws_waterwebservices,netherlands,Volkerak–Krammer,3,bruinisse.krammersluis.laagbekken|dinteloord.volkerak.voorheenboeinv3|krammerput,51.659728666666666,4.219914,False,source_audit_non_river_domain
+rws_waddenzee,rws_waterwebservices,netherlands,Waddenzee,3,denhelder.veersteiger|eierlandsegat|kornwerderzand.waddenzee.buitenhaven,53.104688,4.9243836666666665,False,source_audit_non_river_domain
+rws_westerschelde,rws_waterwebservices,netherlands,Westerschelde,3,ossenisse|kloosterzande.baalhoek|terneuzen.sluiskilbrug,51.35599,3.9682496666666665,False,source_audit_non_river_domain
+arso_bistrica,arso,slovenia,Bistrica,4,2432|3320|4791|7440,,,False,metadata_candidate_pending_daily_qc
+arso_drava,arso,slovenia,Drava,3,2005|2150|2160,,,False,metadata_candidate_pending_daily_qc
+arso_dravinja,arso,slovenia,Dravinja,4,2600|2620|2640|2652,,,False,metadata_candidate_pending_daily_qc
+arso_kamniska_bistrica,arso,slovenia,Kamniška Bistrica,3,4400|4430|4445,,,False,metadata_candidate_pending_daily_qc
+arso_kolpa,arso,slovenia,Kolpa,3,4820|4828|4860,,,False,metadata_candidate_pending_daily_qc
+arso_krka,arso,slovenia,Krka,4,7029|7060|7110|7160,,,False,metadata_candidate_pending_daily_qc
+arso_ljubljanica,arso,slovenia,Ljubljanica,3,5030|5040|5078,,,False,metadata_candidate_pending_daily_qc
+arso_paka,arso,slovenia,Paka,3,6280|6300|6340,,,False,metadata_candidate_pending_daily_qc
+arso_sava,arso,slovenia,Sava,8,3420|3465|3530|3570|3660|3725|3850|3900,,,False,metadata_candidate_pending_daily_qc
+arso_savinja,arso,slovenia,Savinja,5,6020|6060|6120|6140|6200,,,False,metadata_candidate_pending_daily_qc
+arso_soca,arso,slovenia,Soča,3,8031|8060|8080,,,False,metadata_candidate_pending_daily_qc
+arso_vipava,arso,slovenia,Vipava,4,8561|8565|8591|8601,,,False,metadata_candidate_pending_daily_qc
+foen_aare_aaregebiet,foen,switzerland,Aare,10,2016|2019|2029|2030|2063|2085|2113|2135|2205|2457,47.11743488856612,7.798405631911346,False,metadata_candidate_pending_daily_qc
+foen_murg_multi,foen,switzerland,Murg,3,2126|2386|2471,47.43916611251507,8.557860375597704,False,metadata_candidate_pending_daily_qc
+huc8_02040101,usgs,united_states,huc8_02040101,7,01425000|01426500|01427000|01427207|01427301|01427510|01428500,41.85522686857143,-75.20577810714285,False,metadata_candidate_pending_daily_qc
+huc8_02040102,usgs,united_states,huc8_02040102,3,01417500|01420500|01421000,41.98142599,-75.09122216,False,metadata_candidate_pending_daily_qc
+huc8_02040104,usgs,united_states,huc8_02040104,8,01432110|01432160|01432805|01433500|01434000|01435000|01436690|01440000,41.4818965925,-74.79803513125,False,metadata_candidate_pending_daily_qc
+huc8_02040202,usgs,united_states,huc8_02040202,5,01466500|01467150|01474703|01477050|01477120,39.848934052,-75.070963124,False,metadata_candidate_pending_daily_qc
+huc8_03010107,usgs,united_states,huc8_03010107,4,0208062765|02081022|02081094|0208114150,36.01819444,-77.10277778,False,metadata_candidate_pending_daily_qc
+huc8_03110205,usgs,united_states,huc8_03110205,3,02319800|02320500|02323592,29.846637513333334,-83.08795493333334,False,metadata_candidate_pending_daily_qc
+huc8_03110206,usgs,united_states,huc8_03110206,5,02321500|02321958|02322500|02322700|02322800,29.901736186,-82.675786818,False,metadata_candidate_pending_daily_qc
+huc8_03150202,usgs,united_states,huc8_03150202,5,02423130|02423160|02423380|02423397|02423496,33.522327432,-86.64159756000001,False,metadata_candidate_pending_daily_qc
+huc8_05030103,usgs,united_states,huc8_05030103,9,03086500|03090500|03091500|03092090|03092460|03094000|03095500|03098600|03099500,41.12356958888889,-80.90850521111112,False,metadata_candidate_pending_daily_qc
+huc8_10020007,usgs,united_states,huc8_10020007,9,06036805|06036905|06036940|06037100|06037500|06038500|06038800|06040000|06041000,44.84316944777778,-111.18154013333333,False,metadata_candidate_pending_daily_qc
+huc8_10070002,usgs,united_states,huc8_10070002,4,06191500|06192500|06195750|06195950,45.57570404,-110.38333075,False,metadata_candidate_pending_daily_qc
+huc8_17060306,usgs,united_states,huc8_17060306,4,13340000|13341050|13342500|13343000,46.4652777625,-116.61131945,False,metadata_candidate_pending_daily_qc
+huc8_17090001,usgs,united_states,huc8_17090001,10,14144800|14144900|14145500|14147500|14148000|14150000|14150290|14150800|14151000|14152000,43.833084194,-122.61685917,False,metadata_candidate_pending_daily_qc
+huc8_17090002,usgs,united_states,huc8_17090002,5,14152500|14153500|14154500|14155500|14157500,43.774154044,-122.99361764,False,metadata_candidate_pending_daily_qc
+huc8_17090003,usgs,united_states,huc8_17090003,6,14158100|14166000|14169000|14170000|14173500|14174000,44.34271215166667,-123.1869525,False,metadata_candidate_pending_daily_qc
+huc8_17090004,usgs,united_states,huc8_17090004,18,14158500|14158740|14158790|14158798|14158850|14159100|14159110|14159200|14159500|14161100|14161500|14162200|14162500|14163150|14163900|14164550|14164700|14164900,44.17562571166666,-122.36375974444445,False,metadata_candidate_pending_daily_qc
+huc8_17090012,usgs,united_states,huc8_17090012,7,14211400|14211499|14211500|14211542|14211546|14211550|14211720,45.47795360571428,-122.57502672857143,False,metadata_candidate_pending_daily_qc
+usgs_arkansas_river_huc11,usgs,united_states,ARKANSAS RIVER (HUC2 11),3,07119700|07120500|07164500,37.443924333333335,-101.20144883333332,False,metadata_candidate_pending_daily_qc
+usgs_flathead_river_huc4_1701,usgs,united_states,Flathead River (HUC4 1701),3,12363000|12372000|12388700,47.80296295666667,-114.3388926,False,metadata_candidate_pending_daily_qc
+usgs_fox_river_huc4_0403,usgs,united_states,FOX RIVER (HUC4 0403),3,04082400|04084445|040851385,44.26342625,-88.32464596666667,False,metadata_candidate_pending_daily_qc
+usgs_missouri_river_huc10,usgs,united_states,Missouri River (HUC2 10),9,06054500|06066500|06115200|06177000|06330000|06342500|06486000|06906500|06934500,44.908949032222225,-102.54308033333334,False,metadata_candidate_pending_daily_qc
+usgs_missouri_river_huc4_1024,usgs,united_states,Missouri River (HUC4 1024),3,06807000|06813500|06818000,40.16237037333333,-95.37522220000001,False,metadata_candidate_pending_daily_qc
+usgs_niobrara_river_huc4_1015,usgs,united_states,Niobrara River (HUC4 1015),3,06454100|06461500|06465500,42.68849444,-100.79253702999999,False,metadata_candidate_pending_daily_qc
+usgs_platte_river_huc4_1020,usgs,united_states,Platte River (HUC4 1020),3,06768000|06796500|06796550,41.066850073333335,-97.42787037000001,False,metadata_candidate_pending_daily_qc
+usgs_red_river_of_the_north_huc4_0902,usgs,united_states,RED RIVER OF THE NORTH (HUC4 0902),4,05054000|05054200|05064500|05082500,47.27922715,-96.869117225,False,metadata_candidate_pending_daily_qc
+usgs_rio_grande_huc13,usgs,united_states,RIO GRANDE (HUC2 13),3,08363510|08364000|08375300,31.15534268,-105.47879593333334,False,metadata_candidate_pending_daily_qc
+usgs_rio_grande_huc4_1302,usgs,united_states,RIO GRANDE (HUC4 1302),3,08313000|08317400|08329918,35.5634074,-106.3697222,False,metadata_candidate_pending_daily_qc
+usgs_san_juan_river_huc4_1408,usgs,united_states,SAN JUAN RIVER (HUC4 1408),5,09355500|09365000|09368000|09371010|09379500,36.89067778,-108.70071112000001,False,metadata_candidate_pending_daily_qc
+usgs_sheyenne_r_huc4_0902,usgs,united_states,SHEYENNE R (HUC4 0902),3,05055300|05055400|05059300,47.491852,-98.539537,False,metadata_candidate_pending_daily_qc
+usgs_snake_river_huc4_1704,usgs,united_states,SNAKE RIVER (HUC4 1704),6,13013650|13032500|13038500|13057000|13069500|13094000,43.38067591666667,-112.17044907666667,False,metadata_candidate_pending_daily_qc
+usgs_snake_river_huc4_1705,usgs,united_states,SNAKE RIVER (HUC4 1705),4,13154500|13172500|13213100|13269000,43.5946756875,-116.38911805000001,False,metadata_candidate_pending_daily_qc
+usgs_snake_river_huc4_1706,usgs,united_states,SNAKE RIVER (HUC4 1706),5,13317660|13334300|13343860|13352600|13353010,46.295818422,-117.8853288,False,metadata_candidate_pending_daily_qc
+usgs_walker_rv_huc4_1605,usgs,united_states,WALKER RV (HUC4 1605),3,10301500|10302002|10302025,38.96122977666666,-118.87657653333333,False,metadata_candidate_pending_daily_qc

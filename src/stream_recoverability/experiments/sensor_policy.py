@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 
 from stream_recoverability.analysis.conditional_observability import (
-    information_set_conditionals,
     ridge_psd,
+    var1_gap_conditional_risk,
 )
 from stream_recoverability.experiments.synthetic_river import (
     SyntheticRiver,
@@ -27,16 +27,19 @@ def _risk_for_target(
     gap_length: int,
 ) -> float:
     if not donors:
-        hidden = float(np.sqrt(max(river.sigma[target, target], 0.0)))
+        hidden = float(
+            np.sqrt(max(river.sigma[target, target], 0.0))
+            * np.sqrt(2.0 / np.pi)
+        )
         return hidden
-    summary = information_set_conditionals(
+    summary = var1_gap_conditional_risk(
         river.transition,
         river.sigma,
         target=target,
         donors=donors,
         gap_length=gap_length,
     )
-    return float(summary["B_union_D"]["expected_mae_conditional"])
+    return float(summary["expected_mae_conditional"])
 
 
 def evaluate_placement(
@@ -45,23 +48,26 @@ def evaluate_placement(
     *,
     gap_length: int = 30,
 ) -> dict[str, float | str]:
-    """Score a placed set by reconstructing each selected station from the rest."""
+    """Score retained donor stations on every unretained target station."""
 
     chosen = tuple(int(item) for item in selected)
     if len(set(chosen)) != len(chosen):
         raise ValueError("selected stations must be unique")
+    targets = tuple(
+        station for station in range(river.n_stations) if station not in chosen
+    )
     risks = []
-    for target in chosen:
-        donors = [station for station in chosen if station != target]
+    for target in targets:
         risks.append(
-            _risk_for_target(river, target, donors, gap_length=gap_length)
+            _risk_for_target(river, target, chosen, gap_length=gap_length)
         )
     risks_array = np.asarray(risks, dtype=float)
     return {
         "selected": ",".join(str(item) for item in chosen),
+        "evaluated_targets": ",".join(str(item) for item in targets),
         "k": float(len(chosen)),
-        "mean_mae": float(np.mean(risks_array)),
-        "worst_case_mae": float(np.max(risks_array)),
+        "mean_mae": float(np.mean(risks_array)) if targets else 0.0,
+        "worst_case_mae": float(np.max(risks_array)) if targets else 0.0,
         "n_evaluated": float(len(risks_array)),
     }
 
@@ -83,7 +89,7 @@ def policy_spatially_even(river: SyntheticRiver, k: int, rng: np.random.Generato
     grid = np.linspace(0, river.n_stations - 1, k)
     selected: list[int] = []
     for value in grid:
-        candidate = int(round(value))
+        candidate = round(value)
         if candidate not in selected:
             selected.append(candidate)
     remaining = [index for index in range(river.n_stations) if index not in selected]
@@ -321,7 +327,14 @@ def budget_curve(
                     "selected": "random_ensemble",
                 }
             else:
-                selected = policy(graph, k, rng)
+                if name == "proposed_recoverability":
+                    selected = policy_proposed(
+                        graph, k, rng, gap_length=gap_length
+                    )
+                elif name == "oracle":
+                    selected = policy_oracle(graph, k, rng, gap_length=gap_length)
+                else:
+                    selected = policy(graph, k, rng)
                 row = evaluate_placement(graph, selected, gap_length=gap_length)
                 row["policy"] = name
                 row["k"] = k

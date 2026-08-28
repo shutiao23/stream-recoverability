@@ -15,6 +15,14 @@ def test_more_sensors_do_not_worsen_oracle_risk() -> None:
     assert four["worst_case_mae"] <= two["worst_case_mae"] + 1e-8
 
 
+def test_placement_scores_unretained_targets_from_retained_donors() -> None:
+    river = advection_chain(n_stations=5)
+    scored = evaluate_placement(river, (0, 4), gap_length=14)
+    assert scored["selected"] == "0,4"
+    assert scored["evaluated_targets"] == "1,2,3"
+    assert scored["n_evaluated"] == 3
+
+
 def test_budget_curve_contains_required_policies() -> None:
     curve = budget_curve(advection_chain(n_stations=5), budgets=(2, 3), random_repeats=2)
     required = {

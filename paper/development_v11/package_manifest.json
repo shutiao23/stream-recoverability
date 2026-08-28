@@ -1,0 +1,17 @@
+{
+  "package": "development_v11_empirical_transfer",
+  "target_journal": "Water Resources Research",
+  "manuscript": "paper/development_v11/manuscript.md",
+  "supporting_information": "paper/development_v11/supporting_information.md",
+  "cover_letter": "paper/development_v11/cover_letter.md",
+  "claim_matrix": "paper/development_v11/claim_matrix.md",
+  "references": "paper/references.bib",
+  "result_summary": "results/development_v11/reviewer_completion/summary.json",
+  "figure_directory": "results/development_v11/reviewer_completion",
+  "reproduction_target": "development-v11-reviewer-completion",
+  "validation_target": "validate-development-v11-reviewer-completion",
+  "evidence_status": "post_first_confirmation_method_development_complete",
+  "second_confirmation_status": "requires_new_independent_networks",
+  "software_doi": "pending",
+  "author_metadata_status": "requires_author_confirmation"
+}

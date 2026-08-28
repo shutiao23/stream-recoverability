@@ -1,0 +1,3 @@
+thermal_state_shift,station_gap_spearman,network_spearman,calibration_intercept,calibration_slope,interval_coverage,network_simultaneous_interval_coverage,mean_interval_width,n_networks,n_station_gaps
+False,0.8082083927696307,0.5569240742241309,0.01442136841351382,0.8112023882510867,0.9922644163150492,0.8571428571428571,6.494429329747064,42.0,1422.0
+True,0.479876160990712,0.5,0.3664338066629083,0.26970265995489145,1.0,1.0,6.494429329747064,3.0,18.0

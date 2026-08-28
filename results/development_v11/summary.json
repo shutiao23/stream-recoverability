@@ -1,0 +1,74 @@
+{
+  "advancement_gate": {
+    "comparison": "operator_rank_minus_donor_r2_and_increment_after_simple",
+    "delta_r2": 0.01709610728,
+    "delta_spearman": 0.127460446455,
+    "passed": false,
+    "r2_comparison": "simple_plus_operator_minus_simple",
+    "r2_gain_min": 0.05,
+    "spearman_gain_min": 0.1,
+    "unit": "station_gap"
+  },
+  "analysis_id": "development_v11",
+  "calibration": {
+    "calibration_intercept": 0.21969804476667484,
+    "calibration_slope": 0.828632915284042,
+    "interval_coverage": 0.996031746031746,
+    "mean_interval_width": 11.515701656379301,
+    "n_networks": 55.0,
+    "n_rows": 1260.0,
+    "network_equal_interval_coverage": 0.9937085137085138,
+    "network_rank_spearman": 0.2908369408369409,
+    "network_simultaneous_interval_coverage": 0.9090909090909091,
+    "nominal_coverage": 0.9,
+    "rank_spearman": 0.4381864210102952,
+    "row_weighted_calibration_intercept": -0.039022950056816066,
+    "row_weighted_calibration_slope": 0.9473454913024122
+  },
+  "complete_bdmh_operator_evaluated": true,
+  "complete_bdmh_operator_predictor_computed": true,
+  "evidence_role": "open_development_pilot",
+  "matched_bdmh_recovery_outcome_evaluated": true,
+  "n_networks": 55,
+  "n_station_gaps": 1260,
+  "n_stations": 217,
+  "nested_lono": {
+    "operator_incremental_r2": 0.01709610727964672,
+    "simple_plus_operator_r2": 0.6970225900197018,
+    "simple_plus_operator_rmse": 0.6375679281681507,
+    "simple_plus_operator_spearman": 0.7651008910460446,
+    "simple_r2": 0.6799264827400551,
+    "simple_rmse": 0.6553091156909937,
+    "simple_spearman": 0.7018653654864687
+  },
+  "operator_information": [
+    "boundary_memory",
+    "donor",
+    "meteorology",
+    "hydraulics"
+  ],
+  "operator_recovery_roster_audit": {
+    "all_match": true,
+    "n_exact_matches": 217,
+    "n_stations": 217
+  },
+  "placement_regret_role": "synthetic_implementation_benchmark",
+  "primary_operator_risk": "complete_operator_risk",
+  "recovery_information_condition": "B_union_D_union_M_union_H",
+  "regime_weighted_risk_role": "diagnostic_only",
+  "route_a_simple_calibration": {
+    "calibration_intercept": 0.03369491248473281,
+    "calibration_slope": 0.9755726520518155,
+    "interval_coverage": 0.9936507936507937,
+    "mean_interval_width": 6.480056619803395,
+    "n_networks": 55.0,
+    "n_rows": 1260.0,
+    "network_equal_interval_coverage": 0.9904572036150985,
+    "network_rank_spearman": 0.7888888888888891,
+    "network_simultaneous_interval_coverage": 0.8909090909090909,
+    "rank_spearman": 0.7018653654864687,
+    "row_weighted_calibration_intercept": 0.05025107120187586,
+    "row_weighted_calibration_slope": 0.9294828357539814
+  },
+  "route_decision": "route_a_simple_outage_geometry_and_redundancy"
+}

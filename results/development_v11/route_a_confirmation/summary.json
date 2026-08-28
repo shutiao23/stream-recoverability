@@ -1,0 +1,82 @@
+{
+  "route": "route_a_simple_outage_geometry_and_redundancy",
+  "model_intercept": 2.4651799998425483,
+  "model_columns": [
+    "gap_length",
+    "acf_only",
+    "donor_r2_only",
+    "additive_d_over_4_heuristic",
+    "nearest_donor_correlation"
+  ],
+  "model_coefficients": [
+    0.014061149481358432,
+    -2.0816354013431675,
+    2.5179857955938645,
+    -3.070673096486098,
+    -0.7942071723610211
+  ],
+  "interval_radius": 3.247214664873532,
+  "n_qc_networks": 45,
+  "n_scoring_attrition_networks": 3,
+  "station_gap_spearman": 0.8026646545450687,
+  "network_spearman": 0.5625962239688842,
+  "calibration_intercept": 0.018441624580678162,
+  "calibration_slope": 0.8062816531246824,
+  "interval_coverage": 0.9923611111111111,
+  "network_simultaneous_interval_coverage": 0.8571428571428571,
+  "mean_interval_width": 6.4944293297470645,
+  "n_networks": 42.0,
+  "n_station_gaps": 1440.0,
+  "domain_metrics": [
+    {
+      "domain_group": "cross_domain",
+      "station_gap_spearman": 0.8377565792368571,
+      "network_spearman": 0.6038461538461538,
+      "calibration_intercept": 0.01136064295302478,
+      "calibration_slope": 0.7525779097123407,
+      "interval_coverage": 0.9871645274212368,
+      "network_simultaneous_interval_coverage": 0.76,
+      "mean_interval_width": 6.494429329747064,
+      "n_networks": 25.0,
+      "n_station_gaps": 857.0
+    },
+    {
+      "domain_group": "united_states",
+      "station_gap_spearman": 0.7572204796107186,
+      "network_spearman": 0.6764705882352942,
+      "calibration_intercept": -0.04562291344572212,
+      "calibration_slope": 0.9540051169157371,
+      "interval_coverage": 1.0,
+      "network_simultaneous_interval_coverage": 1.0,
+      "mean_interval_width": 6.494429329747064,
+      "n_networks": 17.0,
+      "n_station_gaps": 583.0
+    }
+  ],
+  "thermal_state_metrics": [
+    {
+      "thermal_state_shift": false,
+      "station_gap_spearman": 0.8082083927696307,
+      "network_spearman": 0.5569240742241309,
+      "calibration_intercept": 0.01442136841351382,
+      "calibration_slope": 0.8112023882510867,
+      "interval_coverage": 0.9922644163150492,
+      "network_simultaneous_interval_coverage": 0.8571428571428571,
+      "mean_interval_width": 6.494429329747064,
+      "n_networks": 42.0,
+      "n_station_gaps": 1422.0
+    },
+    {
+      "thermal_state_shift": true,
+      "station_gap_spearman": 0.479876160990712,
+      "network_spearman": 0.5,
+      "calibration_intercept": 0.3664338066629083,
+      "calibration_slope": 0.26970265995489145,
+      "interval_coverage": 1.0,
+      "network_simultaneous_interval_coverage": 1.0,
+      "mean_interval_width": 6.494429329747064,
+      "n_networks": 3.0,
+      "n_station_gaps": 18.0
+    }
+  ]
+}

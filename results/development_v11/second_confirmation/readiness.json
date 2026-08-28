@@ -1,0 +1,38 @@
+{
+  "protocol_id": "route_a_second_confirmation_v1",
+  "candidate_networks": 242,
+  "candidate_floor_passed": true,
+  "qualified_networks_before_scoring": 60,
+  "minimum_arrival_floor_passed": true,
+  "target_60_networks_arrived": true,
+  "qualified_by_domain": {
+    "czechia": 15,
+    "norway": 10,
+    "united_states": 35
+  },
+  "domain_checks": {
+    "united_states": {
+      "required": 10,
+      "arrived": 35,
+      "passed": true
+    },
+    "canada": {
+      "required": 1,
+      "arrived": 0,
+      "passed": false
+    },
+    "czechia": {
+      "required": 10,
+      "arrived": 15,
+      "passed": true
+    },
+    "norway": {
+      "required": 10,
+      "arrived": 10,
+      "passed": true
+    }
+  },
+  "domain_composition_passed": false,
+  "scoring_authorized": false,
+  "scoring_status": "withheld_until_all_arrival_floors_pass"
+}

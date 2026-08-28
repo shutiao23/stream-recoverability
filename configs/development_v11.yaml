@@ -1,0 +1,46 @@
+analysis_id: development_v11
+input_results: results/development_v11/recovery_scoring/station_gap_summary.csv
+input_placements: results/development_v11/recovery_scoring/placement_losses.csv
+predictor_sidecar: results/framework/t2_recovery_benchmark_v1/train_only_predictors/train_only_predictors.parquet
+auxiliary_root: data_versions/global_network_corpus_v1/development_auxiliary/failure_closure6
+temperature_root: data_versions/global_network_corpus_v1/open_role_qc/failure_closure6
+output_dir: results/development_v11
+
+outcome:
+  model: xgboost
+  information_condition: B_union_D_union_M_union_H
+  unit: station_gap
+  repeated_measurement: placement
+  column: realized_loss
+
+operator:
+  information_groups: [boundary_memory, donor, meteorology, hydraulics]
+  primary_risk_column: complete_operator_risk
+  primary_risk: complete_operator_risk
+  calibration: linear
+  validation: leave_one_network_out
+  prediction_interval: 0.90
+  regime_weighted_memory: diagnostic_only
+
+baselines:
+  - donor_r2_only
+  - gap_length_only
+  - acf_only
+  - additive_d_over_4_heuristic
+  - greedy_mutual_information
+
+advancement_gate:
+  incremental_spearman_min: 0.10
+  station_gap_incremental_r2_min: 0.05
+  calibration_slope_min: 0.90
+  calibration_slope_max: 1.10
+
+stress_tests:
+  regime_shift: true
+  cross_domain: true
+
+confirmation_design:
+  target_qualified_networks: 40
+  candidate_networks_min: 55
+  primary_evidence: [rank, calibration, coverage]
+  decision_output: regret_curve

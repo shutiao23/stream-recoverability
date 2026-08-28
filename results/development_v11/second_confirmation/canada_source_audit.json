@@ -1,0 +1,12 @@
+{
+  "provider": "Canadian Coast Guard",
+  "official_source": "https://navigation-electronique.canada.ca/topics/water-levels/central/temperatures-en",
+  "n_stations": 4,
+  "n_observed_daily_values": 16244,
+  "first_observation": "2005-05-01",
+  "last_observation": "2025-11-30",
+  "provider_quality_statement": "not validated or checked",
+  "strict_confirmation_status": "daily_qc_not_qualified",
+  "eligible_stations": 0,
+  "reason": "provider does not publish validated/checked observations"
+}

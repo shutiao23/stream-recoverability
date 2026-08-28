@@ -5,13 +5,13 @@ message: >-
   Cite this software using the metadata below. This file cites the
   software only. It does not license or open the observational data.
 title: >-
-  Reservoir-Associated Thermal Structure Predicts Stream-Temperature
-  Recoverability in the Jinsha and Chattahoochee Rivers
+  Stream-Temperature Gap Recoverability and Monitoring-Network Evaluation
 abstract: >-
-  Software for detecting regulation-linked donor and memory structure with
-  controlled stream-temperature outages. The study uses three Upper Jinsha
-  stations and an evaluate-once five-site Chattahoochee confirmation. This
-  citation is for software only; Jinsha observations remain restricted.
+  Software for fitting-period artificial-gap stress tests, cross-network loss
+  calibration, conditional-covariance lower bounds, recovery-model
+  sensitivity, conformal diagnostics, and monitoring-placement replay. It
+  does not establish reservoir causation or a transferable safe-fill rule.
+  This citation is for software only; restricted observations remain excluded.
 type: software
 authors:
   - family-names: shutiao23
@@ -21,13 +21,13 @@ authors:
 repository-code: "https://github.com/shutiao23/stream-recoverability"
 url: "https://github.com/shutiao23/stream-recoverability"
 license: MIT
-version: "1.0.0"
-date-released: "2026-08-24"
+version: "1.1.0"
+date-released: "2026-08-28"
 keywords:
   - stream temperature
   - recoverability
   - missing data
-  - Upper Jinsha River
+  - monitoring networks
 identifiers:
   - type: url
     value: "https://github.com/shutiao23/stream-recoverability"
@@ -35,18 +35,17 @@ identifiers:
       Public code-only repository after restricted-history remediation; GitHub
       itself is not the archival DOI record.
   - type: url
-    value: "https://github.com/shutiao23/stream-recoverability/releases/tag/v1.0.0"
+    value: "https://github.com/shutiao23/stream-recoverability/releases/tag/v1.1.0"
     description: Code-only release awaiting Zenodo DOI registration.
 preferred-citation:
   type: software
   title: >-
-    Reservoir-Associated Thermal Structure Predicts Stream-Temperature
-    Recoverability in the Jinsha and Chattahoochee Rivers
+    Stream-Temperature Gap Recoverability and Monitoring-Network Evaluation
   authors:
     - family-names: shutiao23
       alias: shutiao23
       email: chestnutlee23@163.com
-  version: "1.0.0"
+  version: "1.1.0"
   url: "https://github.com/shutiao23/stream-recoverability"
   notes: >-
     Software citation only. No archival DOI has been minted (doi

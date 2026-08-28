@@ -1,0 +1,66 @@
+protocol_id: route_a_second_confirmation_v1
+status: planned_requires_new_independent_data
+target_journal: Water Resources Research
+
+claim_chain:
+  C1: network_level_rank_and_domain_adapted_calibration
+  C2: simple_descriptors_vs_fitting_period_empirical_transfer
+  C3: conformal_risk_control_and_real_data_placement_replay
+  C4: domain_and_thermal_state_calibration_failure
+
+independent_unit: river_network
+candidate_floor: 150
+expected_retention_fraction: 0.50
+target_scored_networks: [60, 80]
+minimum_valid_scored_networks: 40
+attrition_tolerant_primary_analysis: actual_arrivals_when_at_least_40
+providers:
+  required_domain_groups:
+    - united_states
+    - canada
+    - europe_domain_1
+    - europe_domain_2
+  minimum_networks_by_domain:
+    united_states: 10
+    canada: 1
+    czechia: 10
+    norway: 10
+
+quality_control:
+  metadata_pilot_required: true
+  daily_concurrency_checked_before_outcome_scoring: true
+  minimum_stations_per_network: 3
+  minimum_common_years: 8
+  no_evaluate_once_self_destruct: true
+  exclusions_reported_with_flow_table: true
+
+primary_endpoints:
+  rank:
+    unit: network
+    statistic: spearman
+    planning_anchor: 0.60
+    lower_95_anchor: 0.40
+  calibration:
+    slope_band: [0.90, 1.10]
+  interval:
+    nominal_coverage: 0.90
+    network_simultaneous_band: [0.85, 0.95]
+    median_width_over_median_loss_max: 2.0
+  triage:
+    unsafe_loss_c: 0.50
+    false_release_cap: 0.05
+    method: network_grouped_learn_then_test
+  placement:
+    primary_outcome: worst_target_mae_regret
+    policies:
+      - simple_risk_minimax
+      - greedy_mutual_information
+      - qr_pivot
+      - distance_even
+      - random
+      - outcome_oracle_for_regret_only
+
+evidence_separation:
+  first_confirmation_networks_reusable: false
+  post_confirmation_adaptation_is_confirmation: false
+  open_development_replay_is_confirmation: false

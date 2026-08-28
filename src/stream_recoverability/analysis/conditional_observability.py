@@ -17,7 +17,25 @@ import pandas as pd
 
 GAUSSIAN_MAE_FACTOR = float(np.sqrt(2.0 / np.pi))
 DEFAULT_RIDGE = 1e-8
-INFORMATION_SETS = ("none", "B", "D", "B_union_D")
+BASE_INFORMATION_SETS = ("none", "B", "D", "B_union_D")
+INFORMATION_SETS = (
+    "none",
+    "B",
+    "D",
+    "B_union_D",
+    "M",
+    "H",
+    "B_union_M",
+    "B_union_H",
+    "D_union_M",
+    "D_union_H",
+    "M_union_H",
+    "B_union_D_union_M",
+    "B_union_D_union_H",
+    "B_union_M_union_H",
+    "D_union_M_union_H",
+    "B_union_D_union_M_union_H",
+)
 INFORMATION_PLAYER_ORDER = ("B", "D", "M", "H")
 DEFAULT_LOEWNER_ATOL = 1e-7
 
@@ -777,6 +795,8 @@ def empirical_information_set_conditionals(
         hydraulics=hydraulics,
     )
     universe = _unique_universe(parts)
+    include_extended = bool(meteorology) or bool(hydraulics)
+    coalitions = _information_coalitions(parts, include_extended=include_extended)
     joint = np.empty((len(universe), len(universe)), dtype=float)
     for i, left in enumerate(universe):
         for j, right in enumerate(universe):
@@ -796,9 +816,9 @@ def empirical_information_set_conditionals(
             "withheld_reason": "empirical_lag_covariance_incomplete",
             "missing_covariance_fraction": missing,
         }
-        return {name: dict(empty, information_set=name) for name in INFORMATION_SETS}
-    include_extended = bool(meteorology) or bool(hydraulics)
-    coalitions = _information_coalitions(parts, include_extended=include_extended)
+        return {
+            name: dict(empty, information_set=name) for name, _ in coalitions
+        }
     matrices = _conditionals_from_joint(
         joint,
         universe,
@@ -819,6 +839,7 @@ def conditionals_table(results: Mapping[str, Mapping[str, Any]]) -> pd.DataFrame
 
 
 __all__ = [
+    "BASE_INFORMATION_SETS",
     "DEFAULT_LOEWNER_ATOL",
     "DEFAULT_RIDGE",
     "GAUSSIAN_MAE_FACTOR",

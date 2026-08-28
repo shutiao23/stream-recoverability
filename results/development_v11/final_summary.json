@@ -1,0 +1,581 @@
+{
+  "confirmation": {
+    "calibration_intercept": 0.018441624580678162,
+    "calibration_slope": 0.8062816531246824,
+    "domain_metrics": [
+      {
+        "calibration_intercept": 0.01136064295302478,
+        "calibration_slope": 0.7525779097123407,
+        "domain_group": "cross_domain",
+        "interval_coverage": 0.9871645274212368,
+        "mean_interval_width": 6.494429329747064,
+        "n_networks": 25.0,
+        "n_station_gaps": 857.0,
+        "network_simultaneous_interval_coverage": 0.76,
+        "network_spearman": 0.6038461538461538,
+        "station_gap_spearman": 0.8377565792368571
+      },
+      {
+        "calibration_intercept": -0.04562291344572212,
+        "calibration_slope": 0.9540051169157371,
+        "domain_group": "united_states",
+        "interval_coverage": 1.0,
+        "mean_interval_width": 6.494429329747064,
+        "n_networks": 17.0,
+        "n_station_gaps": 583.0,
+        "network_simultaneous_interval_coverage": 1.0,
+        "network_spearman": 0.6764705882352942,
+        "station_gap_spearman": 0.7572204796107186
+      }
+    ],
+    "interval_coverage": 0.9923611111111111,
+    "interval_radius": 3.247214664873532,
+    "mean_interval_width": 6.4944293297470645,
+    "model_coefficients": [
+      0.014061149481358432,
+      -2.0816354013431675,
+      2.5179857955938645,
+      -3.070673096486098,
+      -0.7942071723610211
+    ],
+    "model_columns": [
+      "gap_length",
+      "acf_only",
+      "donor_r2_only",
+      "additive_d_over_4_heuristic",
+      "nearest_donor_correlation"
+    ],
+    "model_intercept": 2.4651799998425483,
+    "n_networks": 42.0,
+    "n_qc_networks": 45,
+    "n_scoring_attrition_networks": 3,
+    "n_station_gaps": 1440.0,
+    "network_simultaneous_interval_coverage": 0.8571428571428571,
+    "network_spearman": 0.5625962239688842,
+    "route": "route_a_simple_outage_geometry_and_redundancy",
+    "station_gap_spearman": 0.8026646545450687,
+    "thermal_state_metrics": [
+      {
+        "calibration_intercept": 0.01442136841351382,
+        "calibration_slope": 0.8112023882510867,
+        "interval_coverage": 0.9922644163150492,
+        "mean_interval_width": 6.494429329747064,
+        "n_networks": 42.0,
+        "n_station_gaps": 1422.0,
+        "network_simultaneous_interval_coverage": 0.8571428571428571,
+        "network_spearman": 0.5569240742241309,
+        "station_gap_spearman": 0.8082083927696307,
+        "thermal_state_shift": false
+      },
+      {
+        "calibration_intercept": 0.3664338066629083,
+        "calibration_slope": 0.26970265995489145,
+        "interval_coverage": 1.0,
+        "mean_interval_width": 6.494429329747064,
+        "n_networks": 3.0,
+        "n_station_gaps": 18.0,
+        "network_simultaneous_interval_coverage": 1.0,
+        "network_spearman": 0.5,
+        "station_gap_spearman": 0.479876160990712,
+        "thermal_state_shift": true
+      }
+    ]
+  },
+  "confirmation_network_bootstrap": [
+    {
+      "estimate": 0.8026646545450687,
+      "lower_95": 0.7471411792394166,
+      "metric": "station_gap_spearman",
+      "upper_95": 0.854748090689814
+    },
+    {
+      "estimate": 0.5625962239688842,
+      "lower_95": 0.2930529829268277,
+      "metric": "network_spearman",
+      "upper_95": 0.7518760659465604
+    },
+    {
+      "estimate": 0.0184416245806779,
+      "lower_95": -0.0603870596050838,
+      "metric": "calibration_intercept",
+      "upper_95": 0.0980552741988877
+    },
+    {
+      "estimate": 0.8062816531246824,
+      "lower_95": 0.727933583660676,
+      "metric": "calibration_slope",
+      "upper_95": 0.87643173880505
+    },
+    {
+      "estimate": 0.9923611111111112,
+      "lower_95": 0.9849205659515904,
+      "metric": "interval_coverage",
+      "upper_95": 0.9976413770209198
+    },
+    {
+      "estimate": 0.8571428571428571,
+      "lower_95": 0.7619047619047619,
+      "metric": "network_simultaneous_interval_coverage",
+      "upper_95": 0.9523809523809524
+    }
+  ],
+  "development": {
+    "advancement_gate": {
+      "comparison": "operator_rank_minus_donor_r2_and_increment_after_simple",
+      "delta_r2": 0.01709610728,
+      "delta_spearman": 0.127460446455,
+      "passed": false,
+      "r2_comparison": "simple_plus_operator_minus_simple",
+      "r2_gain_min": 0.05,
+      "spearman_gain_min": 0.1,
+      "unit": "station_gap"
+    },
+    "analysis_id": "development_v11",
+    "calibration": {
+      "calibration_intercept": 0.21969804476667484,
+      "calibration_slope": 0.828632915284042,
+      "interval_coverage": 0.996031746031746,
+      "mean_interval_width": 11.515701656379301,
+      "n_networks": 55.0,
+      "n_rows": 1260.0,
+      "network_equal_interval_coverage": 0.9937085137085138,
+      "network_rank_spearman": 0.2908369408369409,
+      "network_simultaneous_interval_coverage": 0.9090909090909091,
+      "nominal_coverage": 0.9,
+      "rank_spearman": 0.4381864210102952,
+      "row_weighted_calibration_intercept": -0.039022950056816066,
+      "row_weighted_calibration_slope": 0.9473454913024122
+    },
+    "complete_bdmh_operator_evaluated": true,
+    "complete_bdmh_operator_predictor_computed": true,
+    "evidence_role": "open_development_pilot",
+    "matched_bdmh_recovery_outcome_evaluated": true,
+    "n_networks": 55,
+    "n_station_gaps": 1260,
+    "n_stations": 217,
+    "nested_lono": {
+      "operator_incremental_r2": 0.01709610727964672,
+      "simple_plus_operator_r2": 0.6970225900197018,
+      "simple_plus_operator_rmse": 0.6375679281681507,
+      "simple_plus_operator_spearman": 0.7651008910460446,
+      "simple_r2": 0.6799264827400551,
+      "simple_rmse": 0.6553091156909937,
+      "simple_spearman": 0.7018653654864687
+    },
+    "operator_information": [
+      "boundary_memory",
+      "donor",
+      "meteorology",
+      "hydraulics"
+    ],
+    "operator_recovery_roster_audit": {
+      "all_match": true,
+      "n_exact_matches": 217,
+      "n_stations": 217
+    },
+    "placement_regret_role": "synthetic_implementation_benchmark",
+    "primary_operator_risk": "complete_operator_risk",
+    "recovery_information_condition": "B_union_D_union_M_union_H",
+    "regime_weighted_risk_role": "diagnostic_only",
+    "route_a_simple_calibration": {
+      "calibration_intercept": 0.03369491248473281,
+      "calibration_slope": 0.9755726520518155,
+      "interval_coverage": 0.9936507936507937,
+      "mean_interval_width": 6.480056619803395,
+      "n_networks": 55.0,
+      "n_rows": 1260.0,
+      "network_equal_interval_coverage": 0.9904572036150985,
+      "network_rank_spearman": 0.7888888888888891,
+      "network_simultaneous_interval_coverage": 0.8909090909090909,
+      "rank_spearman": 0.7018653654864687,
+      "row_weighted_calibration_intercept": 0.05025107120187586,
+      "row_weighted_calibration_slope": 0.9294828357539814
+    },
+    "route_decision": "route_a_simple_outage_geometry_and_redundancy"
+  },
+  "hypothesis_results": {
+    "route_a_calibration_and_coverage": false,
+    "route_a_decision_utility": false,
+    "route_a_rank_transport": true,
+    "route_b_operator_advancement": false
+  },
+  "mixed_model_increment": {
+    "conditional_r2_increment": 0.0012386834850899309,
+    "likelihood_ratio": 19.985863409889134,
+    "likelihood_ratio_df": 1.0,
+    "likelihood_ratio_p": 7.801681976519499e-06,
+    "marginal_r2_increment": 0.009025432333879979
+  },
+  "qualified_by_provider": {
+    "arso": 12,
+    "chmi": 15,
+    "foen": 1,
+    "gkd_bayern": 9,
+    "lubw": 2,
+    "rws_waterwebservices": 1,
+    "usgs": 20
+  },
+  "qualified_stream_candidates": 60,
+  "recruited_candidates": 165,
+  "reviewer_completion": {
+    "empirical_network_block_interval": {
+      "mean_prediction": 1.0719912878511753,
+      "mean_width": 1.9451254293278406,
+      "median_loss": 0.756795928299427,
+      "median_width": 1.6780102859637414,
+      "median_width_over_median_loss": 2.217255964542974,
+      "n_networks": 42.0,
+      "n_station_gaps": 780.0,
+      "network_simultaneous_coverage": 0.9285714285714286,
+      "row_coverage": 0.9961538461538462
+    },
+    "empirical_transfer": [
+      {
+        "calibration_intercept": 0.10101630573101655,
+        "calibration_slope": 0.8562426732323521,
+        "n": 823,
+        "n_networks": 51,
+        "network_spearman": 0.7870588235294117,
+        "phase": "development",
+        "r2": 0.7078195507136903,
+        "rmse": 0.470329044772292,
+        "spearman": 0.8179313166354549
+      },
+      {
+        "calibration_intercept": 0.1065654421544471,
+        "calibration_slope": 0.8635904833613768,
+        "n": 780,
+        "n_networks": 42,
+        "network_spearman": 0.9218863949436837,
+        "phase": "confirmation",
+        "r2": 0.8119853832008911,
+        "rmse": 0.36217894334323014,
+        "spearman": 0.9341048983106937
+      }
+    ],
+    "evidence_roles": {
+      "domain_recalibration": "post_confirmation_label_budget_analysis",
+      "empirical_transfer": "fitting_period_only_then_outer_evaluation",
+      "model_roster": "development_selected_then_first_confirmation_sensitivity",
+      "mondrian_interval": "development_only_calibration_on_first_confirmation",
+      "placement_replay": "open_development_realized_outcomes",
+      "risk_control": "post_confirmation_label_budget_analysis"
+    },
+    "learned_error_models": [
+      {
+        "calibration_intercept": 0.06670938913052024,
+        "calibration_slope": 0.9622773018886901,
+        "model": "learned_error_with_operator",
+        "n": 672,
+        "n_networks": 51,
+        "network_spearman": 0.7879638009049774,
+        "r2": 0.704174320358745,
+        "rmse": 0.43614617858690585,
+        "spearman": 0.8266958629147894
+      },
+      {
+        "calibration_intercept": 0.06036706769990816,
+        "calibration_slope": 0.9652653610141511,
+        "model": "learned_error_without_operator",
+        "n": 672,
+        "n_networks": 51,
+        "network_spearman": 0.7952941176470587,
+        "r2": 0.7008759617795413,
+        "rmse": 0.43857088155097745,
+        "spearman": 0.826913089725162
+      }
+    ],
+    "model_roster": [
+      {
+        "confirmation_calibration_intercept": -0.08262261077679289,
+        "confirmation_calibration_slope": 0.8302439564691888,
+        "confirmation_network_spearman": 0.3870837047240904,
+        "confirmation_networks": 42,
+        "confirmation_station_gap_spearman": 0.7326311202567773,
+        "development_networks": 55,
+        "model_family": "donor_blup_ridge"
+      },
+      {
+        "confirmation_calibration_intercept": -0.10916917940486244,
+        "confirmation_calibration_slope": 0.8617688587321305,
+        "confirmation_network_spearman": 0.43035410420549386,
+        "confirmation_networks": 42,
+        "confirmation_station_gap_spearman": 0.8414551704548469,
+        "development_networks": 55,
+        "model_family": "seasonal_boundary_ridge"
+      },
+      {
+        "confirmation_calibration_intercept": 0.025604708763776945,
+        "confirmation_calibration_slope": 0.7600741963610446,
+        "confirmation_network_spearman": 0.5647030224455069,
+        "confirmation_networks": 42,
+        "confirmation_station_gap_spearman": 0.8084372026606879,
+        "development_networks": 55,
+        "model_family": "xgboost_b_d"
+      }
+    ],
+    "mondrian_interval": {
+      "mean_prediction": 1.6103171733541242,
+      "mean_width": 1.9926022032560768,
+      "median_loss": 0.8308920077624775,
+      "median_width": 1.1547478651530483,
+      "median_width_over_median_loss": 1.3897688921845421,
+      "n_networks": 42.0,
+      "n_station_gaps": 1440.0,
+      "network_simultaneous_coverage": 0.40476190476190477,
+      "row_coverage": 0.8618055555555556
+    },
+    "placement_mean_regret": {
+      "distance_even": 0.6814722841042468,
+      "greedy_mutual_information": 0.6068824562638081,
+      "oracle": 0.0,
+      "qr_pivot": 0.568982879992466,
+      "random": 0.6581648343837622,
+      "simple_risk_minimax": 0.5526800805010103
+    },
+    "placement_replay_networks": 14,
+    "rank_decomposition": {
+      "between_network_spearman": 0.5625962239688842,
+      "n_networks": 42.0,
+      "n_station_gaps": 1440.0,
+      "pooled_spearman": 0.8026646545450687,
+      "within_network_spearman": 0.8623124778063003
+    },
+    "recalibration_budget": [
+      {
+        "domain_group": "cross_domain",
+        "requested_budget": 0,
+        "success_fraction": 0.0
+      },
+      {
+        "domain_group": "cross_domain",
+        "requested_budget": 25,
+        "success_fraction": 0.35
+      },
+      {
+        "domain_group": "cross_domain",
+        "requested_budget": 50,
+        "success_fraction": 0.38
+      },
+      {
+        "domain_group": "cross_domain",
+        "requested_budget": 100,
+        "success_fraction": 0.5
+      },
+      {
+        "domain_group": "united_states",
+        "requested_budget": 0,
+        "success_fraction": 1.0
+      },
+      {
+        "domain_group": "united_states",
+        "requested_budget": 25,
+        "success_fraction": 0.24
+      },
+      {
+        "domain_group": "united_states",
+        "requested_budget": 50,
+        "success_fraction": 0.22
+      },
+      {
+        "domain_group": "united_states",
+        "requested_budget": 100,
+        "success_fraction": 0.32
+      }
+    ],
+    "risk_control_budget": [
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 25,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 50,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 100,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 200,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 25,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 50,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 100,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 200,
+        "risk_model": "fitting_period_empirical"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 25,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 50,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 100,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "cross_domain",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 200,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 25,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 50,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 100,
+        "risk_model": "simple_descriptors"
+      },
+      {
+        "certified_fraction": 0.0,
+        "domain_group": "united_states",
+        "median_false_release_rate": null,
+        "median_safe_fill_fraction": 0.0,
+        "requested_budget": 200,
+        "risk_model": "simple_descriptors"
+      }
+    ],
+    "second_confirmation": {
+      "candidate_floor_passed": true,
+      "candidate_networks": 242,
+      "domain_checks": {
+        "canada": {
+          "arrived": 0,
+          "passed": false,
+          "required": 1
+        },
+        "czechia": {
+          "arrived": 15,
+          "passed": true,
+          "required": 10
+        },
+        "norway": {
+          "arrived": 10,
+          "passed": true,
+          "required": 10
+        },
+        "united_states": {
+          "arrived": 35,
+          "passed": true,
+          "required": 10
+        }
+      },
+      "domain_composition_passed": false,
+      "minimum_arrival_floor_passed": true,
+      "protocol_id": "route_a_second_confirmation_v1",
+      "qualified_by_domain": {
+        "czechia": 15,
+        "norway": 10,
+        "united_states": 35
+      },
+      "qualified_networks_before_scoring": 60,
+      "scoring_authorized": false,
+      "scoring_status": "withheld_until_all_arrival_floors_pass",
+      "target_60_networks_arrived": true
+    }
+  },
+  "study": "development_v11_route_a",
+  "supported_claim": "Fitting-period empirical error curves are the strongest tested predictor of later recovery loss. Simple structural descriptors provide coarse within-network ordering, while analytic covariance adds little and operational calibration remains domain dependent.",
+  "triage": {
+    "absolute_improvement_pp": -13.819444444444443,
+    "decision_endpoint": "gap_triage",
+    "false_release_cap": 0.05,
+    "gap_length": {
+      "false_release_rate": 0.3013698630136986,
+      "n": 1440.0,
+      "n_released": 219.0,
+      "safe_fill_fraction": 0.15208333333333332,
+      "threshold": 7.0
+    },
+    "passes_decision_floor": false,
+    "relative_improvement": -0.908675799086758,
+    "relative_improvement_unbounded": false,
+    "simple_model": {
+      "false_release_rate": 0.1,
+      "n": 1440.0,
+      "n_released": 20.0,
+      "safe_fill_fraction": 0.013888888888888888,
+      "threshold": 0.201291892037931
+    },
+    "threshold_source": "open_development_lono_only",
+    "unsafe_loss_c": 0.5
+  }
+}

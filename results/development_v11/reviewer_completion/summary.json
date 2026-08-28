@@ -1,0 +1,335 @@
+{
+  "evidence_roles": {
+    "empirical_transfer": "fitting_period_only_then_outer_evaluation",
+    "model_roster": "development_selected_then_first_confirmation_sensitivity",
+    "mondrian_interval": "development_only_calibration_on_first_confirmation",
+    "domain_recalibration": "post_confirmation_label_budget_analysis",
+    "risk_control": "post_confirmation_label_budget_analysis",
+    "placement_replay": "open_development_realized_outcomes"
+  },
+  "empirical_transfer": [
+    {
+      "phase": "development",
+      "n": 823,
+      "n_networks": 51,
+      "spearman": 0.8179313166354549,
+      "network_spearman": 0.7870588235294117,
+      "calibration_intercept": 0.10101630573101655,
+      "calibration_slope": 0.8562426732323521,
+      "r2": 0.7078195507136903,
+      "rmse": 0.470329044772292
+    },
+    {
+      "phase": "confirmation",
+      "n": 780,
+      "n_networks": 42,
+      "spearman": 0.9341048983106937,
+      "network_spearman": 0.9218863949436837,
+      "calibration_intercept": 0.1065654421544471,
+      "calibration_slope": 0.8635904833613768,
+      "r2": 0.8119853832008911,
+      "rmse": 0.36217894334323014
+    }
+  ],
+  "model_roster": [
+    {
+      "model_family": "donor_blup_ridge",
+      "development_networks": 55,
+      "confirmation_networks": 42,
+      "confirmation_station_gap_spearman": 0.7326311202567773,
+      "confirmation_network_spearman": 0.3870837047240904,
+      "confirmation_calibration_intercept": -0.08262261077679289,
+      "confirmation_calibration_slope": 0.8302439564691888
+    },
+    {
+      "model_family": "seasonal_boundary_ridge",
+      "development_networks": 55,
+      "confirmation_networks": 42,
+      "confirmation_station_gap_spearman": 0.8414551704548469,
+      "confirmation_network_spearman": 0.43035410420549386,
+      "confirmation_calibration_intercept": -0.10916917940486244,
+      "confirmation_calibration_slope": 0.8617688587321305
+    },
+    {
+      "model_family": "xgboost_b_d",
+      "development_networks": 55,
+      "confirmation_networks": 42,
+      "confirmation_station_gap_spearman": 0.8084372026606879,
+      "confirmation_network_spearman": 0.5647030224455069,
+      "confirmation_calibration_intercept": 0.025604708763776945,
+      "confirmation_calibration_slope": 0.7600741963610446
+    }
+  ],
+  "learned_error_models": [
+    {
+      "model": "learned_error_with_operator",
+      "n": 672,
+      "n_networks": 51,
+      "spearman": 0.8266958629147894,
+      "network_spearman": 0.7879638009049774,
+      "calibration_intercept": 0.06670938913052024,
+      "calibration_slope": 0.9622773018886901,
+      "r2": 0.704174320358745,
+      "rmse": 0.43614617858690585
+    },
+    {
+      "model": "learned_error_without_operator",
+      "n": 672,
+      "n_networks": 51,
+      "spearman": 0.826913089725162,
+      "network_spearman": 0.7952941176470587,
+      "calibration_intercept": 0.06036706769990816,
+      "calibration_slope": 0.9652653610141511,
+      "r2": 0.7008759617795413,
+      "rmse": 0.43857088155097745
+    }
+  ],
+  "mondrian_interval": {
+    "n_networks": 42.0,
+    "n_station_gaps": 1440.0,
+    "row_coverage": 0.8618055555555556,
+    "network_simultaneous_coverage": 0.40476190476190477,
+    "mean_width": 1.9926022032560768,
+    "median_width": 1.1547478651530483,
+    "median_loss": 0.8308920077624775,
+    "median_width_over_median_loss": 1.3897688921845421,
+    "mean_prediction": 1.6103171733541242
+  },
+  "empirical_network_block_interval": {
+    "n_networks": 42.0,
+    "n_station_gaps": 780.0,
+    "row_coverage": 0.9961538461538462,
+    "network_simultaneous_coverage": 0.9285714285714286,
+    "mean_width": 1.9451254293278406,
+    "median_width": 1.6780102859637414,
+    "median_loss": 0.756795928299427,
+    "median_width_over_median_loss": 2.217255964542974,
+    "mean_prediction": 1.0719912878511753
+  },
+  "rank_decomposition": {
+    "pooled_spearman": 0.8026646545450687,
+    "within_network_spearman": 0.8623124778063003,
+    "between_network_spearman": 0.5625962239688842,
+    "n_networks": 42.0,
+    "n_station_gaps": 1440.0
+  },
+  "placement_mean_regret": {
+    "distance_even": 0.6814722841042468,
+    "greedy_mutual_information": 0.6068824562638081,
+    "oracle": 0.0,
+    "qr_pivot": 0.568982879992466,
+    "random": 0.6581648343837622,
+    "simple_risk_minimax": 0.5526800805010103
+  },
+  "placement_replay_networks": 14,
+  "recalibration_budget": [
+    {
+      "domain_group": "cross_domain",
+      "requested_budget": 0,
+      "success_fraction": 0.0
+    },
+    {
+      "domain_group": "cross_domain",
+      "requested_budget": 25,
+      "success_fraction": 0.35
+    },
+    {
+      "domain_group": "cross_domain",
+      "requested_budget": 50,
+      "success_fraction": 0.38
+    },
+    {
+      "domain_group": "cross_domain",
+      "requested_budget": 100,
+      "success_fraction": 0.5
+    },
+    {
+      "domain_group": "united_states",
+      "requested_budget": 0,
+      "success_fraction": 1.0
+    },
+    {
+      "domain_group": "united_states",
+      "requested_budget": 25,
+      "success_fraction": 0.24
+    },
+    {
+      "domain_group": "united_states",
+      "requested_budget": 50,
+      "success_fraction": 0.22
+    },
+    {
+      "domain_group": "united_states",
+      "requested_budget": 100,
+      "success_fraction": 0.32
+    }
+  ],
+  "risk_control_budget": [
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "cross_domain",
+      "requested_budget": 25,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "cross_domain",
+      "requested_budget": 50,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "cross_domain",
+      "requested_budget": 100,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "cross_domain",
+      "requested_budget": 200,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "united_states",
+      "requested_budget": 25,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "united_states",
+      "requested_budget": 50,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "united_states",
+      "requested_budget": 100,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "domain_group": "united_states",
+      "requested_budget": 200,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "cross_domain",
+      "requested_budget": 25,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "cross_domain",
+      "requested_budget": 50,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "cross_domain",
+      "requested_budget": 100,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "cross_domain",
+      "requested_budget": 200,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "united_states",
+      "requested_budget": 25,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "united_states",
+      "requested_budget": 50,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "united_states",
+      "requested_budget": 100,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "domain_group": "united_states",
+      "requested_budget": 200,
+      "certified_fraction": 0.0,
+      "median_safe_fill_fraction": 0.0,
+      "median_false_release_rate": null
+    }
+  ],
+  "second_confirmation": {
+    "protocol_id": "route_a_second_confirmation_v1",
+    "candidate_networks": 242,
+    "candidate_floor_passed": true,
+    "qualified_networks_before_scoring": 60,
+    "minimum_arrival_floor_passed": true,
+    "target_60_networks_arrived": true,
+    "qualified_by_domain": {
+      "czechia": 15,
+      "norway": 10,
+      "united_states": 35
+    },
+    "domain_checks": {
+      "united_states": {
+        "required": 10,
+        "arrived": 35,
+        "passed": true
+      },
+      "canada": {
+        "required": 1,
+        "arrived": 0,
+        "passed": false
+      },
+      "czechia": {
+        "required": 10,
+        "arrived": 15,
+        "passed": true
+      },
+      "norway": {
+        "required": 10,
+        "arrived": 10,
+        "passed": true
+      }
+    },
+    "domain_composition_passed": false,
+    "scoring_authorized": false,
+    "scoring_status": "withheld_until_all_arrival_floors_pass"
+  }
+}

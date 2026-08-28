@@ -1,9 +1,73 @@
 PYTHON ?= python
+export PYTHONPATH := $(CURDIR)/src$(if $(PYTHONPATH),:$(PYTHONPATH))
 
-.PHONY: test evidence-snapshot hosting-audit submission-gate p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: test development-v11 development-v11-inventory development-v11-candidates development-v11-score development-v11-mixed development-v11-confirm development-v11-stratify development-v11-triage development-v11-plots development-v11-reviewer-completion validate-development-v11-reviewer-completion goal-completion-audit second-confirmation-candidates second-confirmation-nve second-confirmation-canada-audit second-confirmation-readiness second-confirmation-score confirmation-daily-qc ehyd-source-audit rws-daily-qc arso-daily-qc evidence-snapshot hosting-audit submission-gate blueprint-audit p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
 
 test:
 	$(PYTHON) -m pytest
+
+development-v11:
+	$(PYTHON) scripts/106_run_development_v11.py
+
+development-v11-inventory:
+	$(PYTHON) scripts/109_build_development_inventory.py
+
+development-v11-candidates:
+	$(PYTHON) scripts/110_build_confirmation_candidates.py
+
+development-v11-score:
+	$(PYTHON) scripts/108_score_development_recovery.py
+
+development-v11-mixed:
+	$(PYTHON) scripts/121_run_development_mixed_model.py
+
+development-v11-confirm:
+	$(PYTHON) scripts/115_run_route_a_confirmation.py
+
+development-v11-stratify:
+	$(PYTHON) scripts/118_stratify_route_a_confirmation.py
+
+development-v11-triage:
+	$(PYTHON) scripts/119_run_route_a_triage.py
+
+development-v11-plots:
+	$(PYTHON) scripts/120_plot_route_a_confirmation.py
+
+development-v11-reviewer-completion:
+	$(PYTHON) scripts/124_run_reviewer_completion.py
+
+validate-development-v11-reviewer-completion:
+	$(PYTHON) scripts/125_validate_reviewer_completion.py
+
+second-confirmation-candidates:
+	$(PYTHON) scripts/126_build_second_confirmation_candidates.py
+
+second-confirmation-nve:
+	$(PYTHON) scripts/127_qc_nve_second_confirmation.py
+
+second-confirmation-readiness:
+	$(PYTHON) scripts/128_build_second_confirmation_readiness.py
+
+second-confirmation-canada-audit:
+	$(PYTHON) scripts/129_audit_canada_second_confirmation.py
+
+goal-completion-audit:
+	$(PYTHON) scripts/130_build_goal_completion_audit.py
+
+second-confirmation-score:
+	$(PYTHON) scripts/131_run_second_confirmation.py
+
+confirmation-daily-qc:
+	$(PYTHON) scripts/111_qc_confirmation_candidates.py
+
+ehyd-source-audit:
+	$(PYTHON) scripts/113_audit_ehyd_temperature.py
+
+rws-daily-qc:
+	$(PYTHON) scripts/114_qc_rws_temperature.py
+
+arso-daily-qc:
+	$(PYTHON) scripts/116_qc_arso_temperature.py
 
 evidence-snapshot:
 	$(PYTHON) scripts/25_build_evidence_snapshot.py
@@ -13,6 +77,11 @@ hosting-audit:
 
 submission-gate:
 	$(PYTHON) scripts/27_submission_gate.py --allow-no-go
+
+blueprint-audit:
+	$(PYTHON) scripts/100_build_qualified_corpus_manifest.py
+	$(PYTHON) scripts/104_build_qualified_network_catalog.py
+	$(PYTHON) scripts/105_build_blueprint_completion_audit.py
 
 p0-protocol: evidence-snapshot hosting-audit submission-gate
 	$(PYTHON) scripts/28_run_p0_pipeline.py

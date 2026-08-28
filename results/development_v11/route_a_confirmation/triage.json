@@ -1,0 +1,24 @@
+{
+  "decision_endpoint": "gap_triage",
+  "false_release_cap": 0.05,
+  "unsafe_loss_c": 0.5,
+  "threshold_source": "open_development_lono_only",
+  "simple_model": {
+    "threshold": 0.201291892037931,
+    "n": 1440.0,
+    "n_released": 20.0,
+    "safe_fill_fraction": 0.013888888888888888,
+    "false_release_rate": 0.1
+  },
+  "gap_length": {
+    "threshold": 7.0,
+    "n": 1440.0,
+    "n_released": 219.0,
+    "safe_fill_fraction": 0.15208333333333332,
+    "false_release_rate": 0.3013698630136986
+  },
+  "absolute_improvement_pp": -13.819444444444443,
+  "relative_improvement": -0.908675799086758,
+  "relative_improvement_unbounded": false,
+  "passes_decision_floor": false
+}

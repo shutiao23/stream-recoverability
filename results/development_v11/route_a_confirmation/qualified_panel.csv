@@ -1,0 +1,46 @@
+network_id,provider,domain,river_group,n_catalog_stations,n_requested_stations,n_stations_with_values,n_eligible_stations,n_daily_rows,n_concurrent_days,overlap_start,overlap_end,overlap_years,complete_enough,qc_status
+gkd_bayern_alz,gkd_bayern,germany,Alz,3,3,3,3,16458,4549,2010-10-14,2025-05-31,14.628336755646815,True,qualified
+gkd_bayern_donau,gkd_bayern,germany,Donau,15,15,15,15,16721,16709,1980-11-01,2026-07-31,45.74401095140315,True,qualified
+gkd_bayern_fraenkische_saale,gkd_bayern,germany,Fränkische Saale,3,3,3,3,16703,4398,2012-03-07,2026-06-24,14.297056810403832,True,qualified
+gkd_bayern_iller,gkd_bayern,germany,Iller,3,3,3,3,16710,9545,2000-01-11,2026-07-01,26.469541409993155,True,qualified
+gkd_bayern_inn,gkd_bayern,germany,Inn,5,5,5,4,16672,4868,2012-04-05,2026-01-01,13.741273100616016,True,qualified
+gkd_bayern_isar,gkd_bayern,germany,Isar,7,7,7,6,16678,16656,1980-11-01,2026-06-22,45.637234770705,True,qualified
+gkd_bayern_main,gkd_bayern,germany,Main,16,16,15,15,16729,16497,1980-11-01,2025-12-31,45.163586584531146,True,qualified
+gkd_bayern_mangfall,gkd_bayern,germany,Mangfall,3,3,3,3,5449,4608,2013-03-06,2026-01-01,12.824093086926762,True,qualified
+gkd_bayern_vils,gkd_bayern,germany,Vils,4,4,4,4,16574,6052,2009-11-15,2026-06-30,16.621492128678987,True,qualified
+lubw_neckar,lubw,germany,Neckar,15,15,15,12,18727,17498,1977-01-01,2026-08-26,49.64818617385352,True,qualified
+lubw_rhein,lubw,germany,Rhein,4,4,4,4,13961,11370,1993-07-01,2026-08-26,33.152635181382614,True,qualified
+rws_rijn_lek_nederrijn,rws_waterwebservices,netherlands,Rijn–Lek–Nederrijn,3,3,3,3,2923,2858,2017-01-01,2025-01-01,8.0,True,qualified
+arso_bistrica,arso,slovenia,Bistrica,4,4,4,4,3653,3653,2015-01-01,2024-12-31,9.998631074606434,True,qualified
+arso_drava,arso,slovenia,Drava,3,3,3,3,3653,3158,2016-02-16,2024-12-31,8.873374401095141,True,qualified
+arso_dravinja,arso,slovenia,Dravinja,4,4,4,4,3653,3288,2016-01-01,2024-12-31,8.999315537303216,True,qualified
+arso_kamniska_bistrica,arso,slovenia,Kamniška Bistrica,3,3,3,3,3653,3288,2016-01-01,2024-12-31,8.999315537303216,True,qualified
+arso_kolpa,arso,slovenia,Kolpa,3,3,3,3,3653,3017,2016-08-03,2024-12-31,8.410677618069816,True,qualified
+arso_krka,arso,slovenia,Krka,4,4,4,4,3653,3288,2016-01-01,2024-12-31,8.999315537303216,True,qualified
+arso_ljubljanica,arso,slovenia,Ljubljanica,3,3,3,3,3653,3530,2015-01-01,2024-12-31,9.998631074606434,True,qualified
+arso_paka,arso,slovenia,Paka,3,3,3,3,3653,3476,2015-05-01,2024-12-31,9.67008898015058,True,qualified
+arso_sava,arso,slovenia,Sava,8,8,8,8,3653,3653,2015-01-01,2024-12-31,9.998631074606434,True,qualified
+arso_savinja,arso,slovenia,Savinja,5,5,5,5,3653,3653,2015-01-01,2024-12-31,9.998631074606434,True,qualified
+arso_soca,arso,slovenia,Soča,3,3,3,3,3653,3227,2016-01-01,2024-10-31,8.83230663928816,True,qualified
+arso_vipava,arso,slovenia,Vipava,4,4,4,4,3653,3278,2016-01-11,2024-12-31,8.971937029431896,True,qualified
+foen_aare_aaregebiet,foen,switzerland,Aare,10,10,9,9,9642,9555,2000-01-01,2026-06-01,26.41478439425052,True,qualified
+huc8_02040101,usgs,united_states,huc8_02040101,7,7,7,6,9670,9655,2000-01-01,2026-06-09,26.43668720054757,True,qualified
+huc8_02040102,usgs,united_states,huc8_02040102,3,3,3,3,9580,6366,2000-01-01,2025-04-17,25.29226557152635,True,qualified
+huc8_02040104,usgs,united_states,huc8_02040104,8,8,8,6,9692,9220,2000-01-01,2026-06-23,26.47501711156742,True,qualified
+huc8_03010107,usgs,united_states,huc8_03010107,4,4,4,3,9678,9295,2000-01-01,2026-06-10,26.439425051334705,True,qualified
+huc8_03110206,usgs,united_states,huc8_03110206,5,5,5,5,3939,3719,2015-10-02,2025-12-07,10.182067077344286,True,qualified
+huc8_03150202,usgs,united_states,huc8_03150202,5,5,5,4,9562,8282,2000-01-01,2025-10-23,25.80971937029432,True,qualified
+huc8_05030103,usgs,united_states,huc8_05030103,9,9,9,9,7614,6014,2009-09-30,2026-03-18,16.462696783025326,True,qualified
+huc8_10020007,usgs,united_states,huc8_10020007,9,9,9,8,9658,8624,2002-10-01,2026-05-11,23.60848733744011,True,qualified
+huc8_17060306,usgs,united_states,huc8_17060306,4,4,4,3,9692,7711,2003-10-01,2025-12-15,22.20670773442848,True,qualified
+huc8_17090001,usgs,united_states,huc8_17090001,10,10,10,10,9353,8580,2001-08-02,2026-01-20,24.468172484599588,True,qualified
+huc8_17090002,usgs,united_states,huc8_17090002,5,5,5,3,9029,5765,2009-08-07,2026-01-21,16.45722108145106,True,qualified
+huc8_17090003,usgs,united_states,huc8_17090003,6,6,6,4,9352,8365,2001-08-11,2025-12-15,24.34496919917865,True,qualified
+huc8_17090004,usgs,united_states,huc8_17090004,18,18,18,16,9411,9204,2000-12-20,2026-03-08,25.21286789869952,True,qualified
+huc8_17090012,usgs,united_states,huc8_17090012,7,7,7,7,9630,9461,2000-01-01,2025-11-25,25.90006844626968,True,qualified
+usgs_arkansas_river_huc11,usgs,united_states,ARKANSAS RIVER (HUC2 11),3,3,3,3,9393,3850,2012-03-13,2023-09-30,11.548254620123204,True,qualified
+usgs_missouri_river_huc10,usgs,united_states,Missouri River (HUC2 10),9,9,9,5,9671,6812,2006-02-24,2026-03-02,20.0164271047228,True,qualified
+usgs_red_river_of_the_north_huc4_0902,usgs,united_states,RED RIVER OF THE NORTH (HUC4 0902),4,4,4,3,9313,3103,2007-03-31,2017-09-30,10.50239561943874,True,qualified
+usgs_snake_river_huc4_1704,usgs,united_states,SNAKE RIVER (HUC4 1704),6,6,6,3,4503,3520,2005-11-02,2015-09-30,9.908281998631075,True,qualified
+usgs_snake_river_huc4_1705,usgs,united_states,SNAKE RIVER (HUC4 1705),4,4,4,3,8624,3461,2005-01-11,2015-10-18,10.765229295003422,True,qualified
+usgs_snake_river_huc4_1706,usgs,united_states,SNAKE RIVER (HUC4 1706),5,5,5,4,9686,4751,2009-09-30,2022-10-02,13.00479123887748,True,qualified

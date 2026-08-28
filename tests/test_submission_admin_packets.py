@@ -13,9 +13,9 @@ def test_zenodo_json_matches_title_and_has_no_doi() -> None:
     assert "doi" not in payload
     assert payload["upload_type"] == "software"
     assert payload["title"] == (
-        "Reservoir-Associated Thermal Structure Predicts "
-        "Stream-Temperature Recoverability in the Jinsha and Chattahoochee Rivers"
+        "Stream-Temperature Gap Recoverability and Monitoring-Network Evaluation"
     )
+    assert payload["version"] == "1.1.0"
 
 
 def test_citation_cff_doi_remains_unset() -> None:

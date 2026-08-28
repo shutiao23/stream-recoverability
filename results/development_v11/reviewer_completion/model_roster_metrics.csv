@@ -1,0 +1,4 @@
+model_family,development_networks,confirmation_networks,confirmation_station_gap_spearman,confirmation_network_spearman,confirmation_calibration_intercept,confirmation_calibration_slope
+donor_blup_ridge,55,42,0.7326311202567773,0.3870837047240904,-0.08262261077679289,0.8302439564691888
+seasonal_boundary_ridge,55,42,0.8414551704548469,0.43035410420549386,-0.10916917940486244,0.8617688587321305
+xgboost_b_d,55,42,0.8084372026606879,0.5647030224455069,0.025604708763776945,0.7600741963610446

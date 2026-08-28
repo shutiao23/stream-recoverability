@@ -1,0 +1,26 @@
+{
+  "model": "xgboost",
+  "information_conditions": [
+    "B_union_D",
+    "B_union_D_union_M_union_H"
+  ],
+  "training_year_fraction": 0.7,
+  "evaluation_year_fraction": 0.3,
+  "gap_lengths": [
+    7,
+    14,
+    30,
+    60,
+    90,
+    180,
+    365
+  ],
+  "placements_requested_per_station_gap": 20,
+  "n_temperature_networks": 67,
+  "n_networks_scored": 56,
+  "n_stations_scored": 267,
+  "n_placement_losses": 55521,
+  "n_station_gaps": 2808,
+  "n_full_information_networks": 55,
+  "output_dir": "/home/lzq/workspace/parttime/stream-recoverability/results/development_v11/recovery_scoring"
+}

@@ -1,0 +1,132 @@
+{
+  "audit": "goal_completion_audit_v1",
+  "overall_status": "incomplete",
+  "requirements": [
+    {
+      "id": "P0",
+      "requirement": "Retitle around evidence actually supported by data",
+      "status": "achieved",
+      "evidence": "# Fitting-period error curves outperform structural risk estimates for stream-temperature gaps",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P1a",
+      "requirement": "Fitting-period empirical-transfer baseline",
+      "status": "achieved",
+      "evidence": "confirmation n=780; network Spearman=0.922; R2=0.812",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P1b",
+      "requirement": "Learned error model with analytic-risk increment",
+      "status": "achieved_negative_increment",
+      "evidence": "LONO R2 0.7009 without operator and 0.7042 with operator",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P1c",
+      "requirement": "Network-grouped conditional conformal intervals",
+      "status": "experiment_complete_gate_failed",
+      "evidence": "simultaneous coverage=0.929; median-width/loss=2.217",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P1d",
+      "requirement": "At least three recovery-model families",
+      "status": "achieved",
+      "evidence": "donor_blup_ridge|seasonal_boundary_ridge|xgboost_b_d",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P1e",
+      "requirement": "Conditional-variance saturation mechanism on fixed roster",
+      "status": "achieved",
+      "evidence": "7 horizons; n=61 fixed stations",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P2a",
+      "requirement": "Real-data leave-k-station-out replay with MI and QR baselines",
+      "status": "achieved_open_development",
+      "evidence": "14 networks; policies=distance_even,greedy_mutual_information,oracle,qr_pivot,random,simple_risk_minimax",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P2b",
+      "requirement": "Finite-sample 5% false-release risk control",
+      "status": "experiment_complete_no_nonempty_certified_release",
+      "evidence": "1600 budget-domain-model evaluations; certified fraction max=0.000",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P3_candidates",
+      "requirement": "Second-confirmation candidate floor and 60-network target",
+      "status": "achieved",
+      "evidence": "candidates=242; strict-QC arrivals=60",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P3_domains",
+      "requirement": "US, Canada, and at least two European domains",
+      "status": "incomplete_external_canada_quality",
+      "evidence": "{\"canada\": {\"arrived\": 0, \"passed\": false, \"required\": 1}, \"czechia\": {\"arrived\": 15, \"passed\": true, \"required\": 10}, \"norway\": {\"arrived\": 10, \"passed\": true, \"required\": 10}, \"united_states\": {\"arrived\": 35, \"passed\": true, \"required\": 10}}",
+      "completion_satisfied": false,
+      "gate_passed": false
+    },
+    {
+      "id": "P3_scoring",
+      "requirement": "Run independent second confirmation only after all arrival floors",
+      "status": "withheld_by_protocol",
+      "evidence": "withheld_until_all_arrival_floors_pass",
+      "completion_satisfied": false,
+      "gate_passed": false
+    },
+    {
+      "id": "P4_literature",
+      "requirement": "Monitoring design, empirical gaps, kriging, and conformal literature",
+      "status": "achieved",
+      "evidence": "10 required reference families present",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P4_package",
+      "requirement": "Complete manuscript, SI, five figures, cover letter, and checklist",
+      "status": "achieved_pending_external_declarations",
+      "evidence": "package files=7; figures=5",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "ADMIN_authors",
+      "requirement": "Author identities and legal declarations",
+      "status": "incomplete_requires_authors",
+      "evidence": "metadata complete=False; approved=False",
+      "completion_satisfied": false,
+      "gate_passed": false
+    },
+    {
+      "id": "ADMIN_doi",
+      "requirement": "Mint archival software DOI",
+      "status": "incomplete_requires_repository_service",
+      "evidence": "CITATION.cff intentionally has no DOI",
+      "completion_satisfied": false,
+      "gate_passed": false
+    }
+  ],
+  "remaining_blocking_conditions": [
+    "P3_domains",
+    "P3_scoring",
+    "ADMIN_authors",
+    "ADMIN_doi"
+  ]
+}
