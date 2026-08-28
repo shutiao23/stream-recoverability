@@ -4,34 +4,52 @@
 
 - [x] Network-level inference is primary; pooled and within-network results are diagnostic.
 - [x] Fitting-period empirical-transfer baseline is implemented and reported.
+- [x] All 1,440 cells have a prediction-source audit; 660 network-mean fallbacks are reported separately from 780 directly supported units.
+- [x] Supported-only and complete-panel empirical metrics are both reported against the simple model.
 - [x] Learned error model tests analytic-risk increment.
 - [x] Three recovery-model families use identical outer gaps.
+- [x] The bounded six-network GRU-style sensitivity is reported as exploratory and not as an LSTM/full-roster confirmation.
+- [x] The development air-temperature--flow proxy is reported as a negative sensitivity, not as published air2stream or confirmation.
+- [x] The 67-network observed-geometry stress test is reported with its negative ranks, withheld interval, different-model boundary, and lack of actual missing-day truth.
+- [ ] The v11 empirical predictor is evaluated in a matched main experiment that addresses non-random field-outage timing or cause.
+- [ ] Published air2stream or an equivalent process model is evaluated on a panel with timestamp-aligned air temperature and approved flow.
 - [x] Conditional-variance saturation mechanism uses a fixed 61-station roster.
 - [x] Original and horizon-Mondrian interval coverage/width are reported.
 - [x] Real-data placement replay includes MI, QR, distance, random, and oracle comparators.
 - [x] Exact learn-then-test triage reports empty certified sets.
 - [x] Domain recalibration is labelled post-confirmation development.
-- [x] Second-confirmation protocol excludes the first 42 networks.
+- [x] Second-confirmation scoring excludes all 42 first-panel scored networks; three source/QC-only networks are disclosed separately.
+- [x] Second confirmation reports 60 attempted, three attrited, and 57 scored networks.
+- [x] Second confirmation reports 874 direct-horizon and 572 network-mean-fallback units separately.
+- [x] Second-confirmation rank and calibration results are reported with failed interval-efficiency and empty-triage endpoints.
+- [x] Second-panel placement reports all 13 complete matrices, zero attrition, and the small directional regret difference without a confirmatory utility claim.
 
 ## Manuscript package
 
 - [x] Key Points and Plain Language Summary match the empirical-transfer claim.
 - [x] Methods are self-contained; YAML is a reproducibility contract, not a substitute.
-- [x] Five generated main figures exist and use domain-level legends.
+- [x] Four main figures and one development-only supporting figure are identified.
 - [x] Monitoring-design, empirical-gap, kriging-variance, and conformal references are included.
 - [x] Internal workflow codes and audit language are absent from the main manuscript.
 - [x] Provider access and redistribution treatment are listed in SI.
 - [x] Cover letter targets *Water Resources Research*.
+- [x] Abstract reports the network-level headline and omits secondary number density.
+- [x] Trial-gap novelty is positioned as cross-network transfer, not invention.
+- [x] Placement replay is confined to Supporting Information and marked exploratory.
+- [x] Open Research text distinguishes releasable artifacts from restricted provider values.
+- [x] Package manifest lists manuscript, SI, captions, figures, result tables, and external dependencies.
+- [x] Compact metrics and audits are primary artifacts; large placement-level empirical predictions are marked regenerable rather than required for a fresh clone.
+- [x] The second-confirmation amendment is described as internally hash-bound, same-commit evidence rather than externally preregistered.
 
 ## External items that cannot be fabricated in-repository
 
-- [ ] Authors confirm names, affiliations, ORCIDs, contributions, conflicts, and corresponding author.
-- [ ] Zenodo release is deposited and its minted DOI replaces `pending` in `.zenodo.json` and `CITATION.cff`.
-- [x] A second independent panel reached 60 strict-QC networks across US, Czech, and Norwegian domains.
-- [ ] A validated Canadian network arrives and authorizes second-confirmation scoring under the registered protocol.
+- [ ] Authors confirm names, affiliations, ORCIDs, CRediT contributions, corresponding author, and email.
+- [ ] Authors confirm conflicts, funding, acknowledgments, author approval, and related-manuscript status.
+- [ ] The permitted archival package is deposited and its minted DOI replaces `pending` in `.zenodo.json`, `CITATION.cff`, the manuscript, and submission metadata.
 - [ ] Provider-specific redistribution permissions are attached where raw daily values will be archived; otherwise those values remain omitted.
 - [ ] Final journal word count, figure format, and author declarations are checked in the submission portal.
+- [ ] Every repository URL, DOI, reference key, figure callout, and SI callout is resolved in the rendered submission files.
 
-The unchecked items require author identity, a third-party archive action, new
-independent observations, or provider permission. They are not silently marked
-complete by code generation.
+The unchecked external items require author identity, a third-party archive
+action, provider permission, or submission-portal review. They are not silently
+marked complete by code generation.

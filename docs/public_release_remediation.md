@@ -45,7 +45,7 @@ fresh clones. Deleting files only from the current tip is insufficient.
 
 - The public audit must report `public_hosting_defect=false`.
 - The archive DOI must resolve; placeholders are forbidden.
-- Restricted reviewer files remain in AGU GEMS confidential review storage and
-  are never copied into the public archive.
+- Restricted reviewer files remain in the journal-approved confidential review
+  storage and are never copied into the public archive.
 - Public USGS/NASA external inputs and aggregates retain request/provenance and
   provider citations.

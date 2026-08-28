@@ -23,7 +23,7 @@ Enabling the GitHub–Zenodo integration does not mint a DOI by itself. Creating
 or publishing a GitHub release after the integration is enabled **does** mint.
 Do not publish a release until the science freeze.
 
-There may already be a development tag `v1.0.0`. Do not turn that current tag
+There may already be a development tag `v1.0.0`. Do not turn that earlier tag
 into a Zenodo-enabled GitHub release.
 
 ## Tag to use after the science freeze
@@ -32,7 +32,7 @@ After BL-011 and the manuscript text are committed, and the public tree is
 still code-only:
 
 ```text
-v1.0.0-wrr-submission
+v1.1.0-wrr-submission
 ```
 
 Create that annotated tag on the frozen commit only.
@@ -53,7 +53,7 @@ Official integration pages:
 3. Open https://zenodo.org/account/settings/github/ and enable
    `shutiao23/stream-recoverability`.
 4. From that frozen commit, create a **code-only** GitHub release tagged
-   `v1.0.0-wrr-submission`. The release archive must be the public repository
+   `v1.1.0-wrr-submission`. The release archive must be the public repository
    (MIT code, public metadata, permitted aggregates). It must not include
    `data/raw/`, `data/processed/`, restricted `data_versions/`, Jinsha masks,
    or `private/gems_reviewer_bundle/`.
@@ -66,8 +66,8 @@ Official integration pages:
    availability sentence. Do not edit those manuscript files until the DOI
    is real.
 9. Confirm `.zenodo.json` `title` still matches the paper title:
-   “Reservoir-Associated Thermal Structure Predicts Stream-Temperature
-   Recoverability in the Jinsha and Chattahoochee Rivers”.
+   “A Case-Study Covariance Heuristic for Stream-Temperature Recoverability
+   in Two Regulated River Networks”.
 10. Re-run the submission gate. The archival-DOI blocker should clear only
     after `CITATION.cff` contains the minted `doi`.
 

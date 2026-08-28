@@ -1,0 +1,13 @@
+{
+  "record_type": "internal_checkpoint_registration_record",
+  "amendment_id": "route_a_second_confirmation_v2_canada_quality_substitution",
+  "amendment_sha256_used_to_authorize_scoring": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035",
+  "canonical_readiness_frozen_at_utc": "2026-08-28T17:40:04Z",
+  "registration_record_created_at_utc": "2026-08-28T17:46:58Z",
+  "parent_git_commit": "72f002551abfd6681f047698db6aa8c75815d757",
+  "registration_scope": "internally_hash_bound_pre_scoring_checkpoint",
+  "externally_verifiable_preregistration": false,
+  "separate_pre_outcome_git_commit": false,
+  "auditability_boundary": "The amendment, exact roster, and canonical readiness were hash-bound before the scoring command opened recovery outcomes, but were not committed separately or externally timestamped. This is an internal pre-scoring checkpoint, not externally verifiable preregistration.",
+  "authorization_effect": "none; this record documents the authorization artifacts and is not itself read by the scoring gate"
+}

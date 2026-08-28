@@ -14,8 +14,8 @@ from collections.abc import Mapping, Sequence
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import Ridge
 from sklearn.impute import SimpleImputer
+from sklearn.linear_model import Ridge
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBRegressor
@@ -28,7 +28,6 @@ from stream_recoverability.experiments.development_recovery import (
     select_placements,
     year_split,
 )
-
 
 MODEL_FAMILIES = (
     "xgboost_b_d",
@@ -117,8 +116,14 @@ def score_model_roster_on_placements(
             train_mask=train_mask,
         )
         models = {
-            "seasonal_boundary_ridge": (_ridge_model(seasonal, daily[station], train_mask), seasonal),
-            "donor_blup_ridge": (_ridge_model(donor_frame, daily[station], train_mask), donor_frame),
+            "seasonal_boundary_ridge": (
+                _ridge_model(seasonal, daily[station], train_mask),
+                seasonal,
+            ),
+            "donor_blup_ridge": (
+                _ridge_model(donor_frame, daily[station], train_mask),
+                donor_frame,
+            ),
         }
         for placement in station_rows.itertuples(index=False):
             start = daily.index.get_indexer([pd.Timestamp(placement.gap_start)])[0]
@@ -146,7 +151,9 @@ def score_model_roster_on_placements(
                         "season": season_label([placement.gap_start])[0],
                         "model_family": family,
                         "mae_deg_c": float(np.mean(np.abs(predicted - truth))),
-                        "rmse_deg_c": float(np.sqrt(np.mean(np.square(predicted - truth)))),
+                        "rmse_deg_c": float(
+                            np.sqrt(np.mean(np.square(predicted - truth)))
+                        ),
                         "training_years": "|".join(map(str, training_years)),
                         "evaluation_years": "|".join(map(str, evaluation_years)),
                     }
@@ -193,7 +200,10 @@ def fitting_period_empirical_losses(
             for value in donor_text.split("|")
             if value and value != "nan"
         )
-        if not donors or int((inner_fit & daily[station].notna()).sum()) < min_train_days:
+        if (
+            not donors
+            or int((inner_fit & daily[station].notna()).sum()) < min_train_days
+        ):
             continue
         empty_aux = pd.DataFrame(index=daily.index)
         frame = _model_frame(
@@ -240,7 +250,9 @@ def fitting_period_empirical_losses(
                     )
                     if prediction_frame.isna().any(axis=None):
                         continue
-                    truth = daily[station].iloc[start : start + gap].to_numpy(dtype=float)
+                    truth = (
+                        daily[station].iloc[start : start + gap].to_numpy(dtype=float)
+                    )
                     predicted = model.predict(prediction_frame)
                     rows.append(
                         {
@@ -256,9 +268,7 @@ def fitting_period_empirical_losses(
                                 map(str, outer_training_years)
                             ),
                             "inner_fit_years": "|".join(map(str, inner_fit_years)),
-                            "inner_score_years": "|".join(
-                                map(str, inner_score_years)
-                            ),
+                            "inner_score_years": "|".join(map(str, inner_score_years)),
                         }
                     )
     return pd.DataFrame(rows)
@@ -270,6 +280,9 @@ def empirical_transfer_predictions(
 ) -> pd.DataFrame:
     """Map fitting-period gap-by-season curves to outer evaluation placements."""
 
+    empirical_losses = empirical_losses.copy()
+    empirical_losses["network_id"] = empirical_losses["network_id"].astype(str)
+    empirical_losses["station_id"] = empirical_losses["station_id"].astype(str)
     curve = (
         empirical_losses.groupby(
             ["network_id", "station_id", "gap_length", "season"], as_index=False
@@ -291,38 +304,70 @@ def empirical_transfer_predictions(
         .mean()
         .rename(columns={"mae_deg_c": "_network_gap_fallback"})
     )
+    fallback_network_mean = (
+        empirical_losses.groupby("network_id", as_index=False)["mae_deg_c"]
+        .mean()
+        .rename(columns={"mae_deg_c": "_network_mean_fallback"})
+    )
     evaluation = evaluation_placements.loc[
         evaluation_placements["information_condition"].eq("B_union_D")
     ].copy()
+    evaluation["network_id"] = evaluation["network_id"].astype(str)
     evaluation["station_id"] = evaluation["station_id"].astype(str)
     evaluation["season"] = season_label(evaluation["gap_start"])
-    result = evaluation.merge(
-        curve,
-        on=["network_id", "station_id", "gap_length", "season"],
-        how="left",
-    ).merge(
-        fallback_station,
-        on=["network_id", "station_id", "gap_length"],
-        how="left",
-    ).merge(
-        fallback_network,
-        on=["network_id", "gap_length"],
-        how="left",
+    result = (
+        evaluation.merge(
+            curve,
+            on=["network_id", "station_id", "gap_length", "season"],
+            how="left",
+        )
+        .merge(
+            fallback_station,
+            on=["network_id", "station_id", "gap_length"],
+            how="left",
+        )
+        .merge(
+            fallback_network,
+            on=["network_id", "gap_length"],
+            how="left",
+        )
+        .merge(
+            fallback_network_mean,
+            on="network_id",
+            how="left",
+        )
     )
     result["empirical_transfer_source"] = np.select(
         [
             result["empirical_transfer_prediction"].notna(),
             result["_station_gap_fallback"].notna(),
+            result["_network_gap_fallback"].notna(),
+            result["_network_mean_fallback"].notna(),
         ],
-        ["station_gap_season", "station_gap"],
-        default="network_gap",
+        [
+            "station_gap_season",
+            "station_gap",
+            "network_gap",
+            "network_mean_fallback",
+        ],
+        default="unavailable",
     )
     result["empirical_transfer_prediction"] = (
         result["empirical_transfer_prediction"]
         .fillna(result["_station_gap_fallback"])
         .fillna(result["_network_gap_fallback"])
+        .fillna(result["_network_mean_fallback"])
     )
-    return result.drop(columns=["_station_gap_fallback", "_network_gap_fallback"])
+    result["empirical_transfer_supported"] = ~result["empirical_transfer_source"].isin(
+        ["network_mean_fallback", "unavailable"]
+    )
+    return result.drop(
+        columns=[
+            "_station_gap_fallback",
+            "_network_gap_fallback",
+            "_network_mean_fallback",
+        ]
+    )
 
 
 __all__ = [

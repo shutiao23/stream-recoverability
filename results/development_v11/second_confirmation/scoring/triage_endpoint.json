@@ -1,0 +1,36 @@
+{
+  "endpoint": {
+    "unsafe_loss_c": 0.5,
+    "false_release_cap": 0.05,
+    "confidence": 0.95,
+    "calibration": "development networks only",
+    "evaluation": "57 second-confirmation networks"
+  },
+  "simple_descriptors": {
+    "status": "no_certified_release",
+    "threshold": null,
+    "n_calibration": 1260,
+    "n_certified": 0,
+    "calibration_errors": 0,
+    "error_upper_bound": 1.0,
+    "n_evaluation": 1446,
+    "n_released": 0,
+    "safe_fill_fraction": 0.0,
+    "false_release_rate": null,
+    "endpoint_passed": false
+  },
+  "fitting_period_empirical_all_cells": {
+    "status": "no_certified_release",
+    "threshold": null,
+    "n_calibration": 1460,
+    "n_certified": 0,
+    "calibration_errors": 0,
+    "error_upper_bound": 1.0,
+    "n_evaluation": 1446,
+    "n_released": 0,
+    "safe_fill_fraction": 0.0,
+    "false_release_rate": null,
+    "endpoint_passed": false
+  },
+  "endpoint_passed": false
+}

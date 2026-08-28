@@ -40,12 +40,47 @@ def main() -> None:
     summary = json.loads((REVIEW / "summary.json").read_text(encoding="utf-8"))
     readiness = json.loads((SECOND / "readiness.json").read_text(encoding="utf-8"))
     empirical = {
-        row["phase"]: row for row in summary["empirical_transfer"]
+        (row["phase"], row.get("scope", "supported_only")): row
+        for row in summary["empirical_transfer"]
     }
+    empirical_supported = empirical[("confirmation", "supported_only")]
+    empirical_all = empirical[
+        ("confirmation", "all_cells_with_network_mean_fallback")
+    ]
     roster = pd.read_csv(REVIEW / "model_roster_metrics.csv")
     mechanism = pd.read_csv(REVIEW / "mechanism_decomposition.csv")
     replay = pd.read_csv(REVIEW / "placement_replay_curve.csv")
     risk = pd.read_csv(REVIEW / "risk_control_budget_curve.csv")
+    coverage = pd.read_csv(REVIEW / "empirical_transfer_coverage_audit.csv")
+    heterogeneity = pd.read_csv(REVIEW / "heterogeneity_metrics.csv")
+    recurrent = json.loads(
+        (REVIEW / "recurrent_sensitivity_manifest.json").read_text(encoding="utf-8")
+    )
+    process_hybrid = json.loads(
+        (REVIEW / "process_hybrid_manifest.json").read_text(encoding="utf-8")
+    )
+    second_result_path = SECOND / "scoring/summary.json"
+    second_result = (
+        json.loads(second_result_path.read_text(encoding="utf-8"))
+        if second_result_path.is_file()
+        else None
+    )
+    if second_result is None:
+        second_evidence = readiness["scoring_status"]
+    else:
+        simple_second = second_result.get("simple_metrics", {})
+        empirical_second = second_result.get(
+            "empirical_point_metrics", second_result.get("empirical_metrics", {})
+        )
+        second_evidence = (
+            f"attempted={second_result.get('attempted_networks')}; "
+            f"scored={second_result.get('scored_networks')}; "
+            f"attrited={second_result.get('attrited_networks')}; "
+            f"simple network Spearman={simple_second.get('network_spearman')}; "
+            f"simple slope={simple_second.get('calibration_slope')}; "
+            f"empirical network Spearman={empirical_second.get('network_spearman')}; "
+            f"empirical slope={empirical_second.get('calibration_slope')}"
+        )
     references = (ROOT / "paper/references.bib").read_text(encoding="utf-8")
     manuscript = (ROOT / "paper/development_v11/manuscript.md").read_text(
         encoding="utf-8"
@@ -98,8 +133,15 @@ def main() -> None:
             "P1a",
             "Fitting-period empirical-transfer baseline",
             "achieved",
-            f"confirmation n={empirical['confirmation']['n']}; network Spearman={empirical['confirmation']['network_spearman']:.3f}; R2={empirical['confirmation']['r2']:.3f}",
+            f"supported confirmation n={empirical_supported['n']}; network Spearman={empirical_supported['network_spearman']:.3f}; R2={empirical_supported['r2']:.3f}",
             gate=True,
+        ),
+        item(
+            "P1a_all",
+            "Report empirical-transfer performance on all 1,440 cells with fallback",
+            "achieved_weaker_complete_panel_result",
+            f"n={empirical_all['n']}; network Spearman={empirical_all['network_spearman']:.3f}; pooled Spearman={empirical_all['spearman']:.3f}; R2={empirical_all['r2']:.3f}; sources={dict(zip(coverage['empirical_transfer_source'], coverage['n_station_gaps']))}",
+            gate=bool(empirical_all["n"] == 1440),
         ),
         item(
             "P1b",
@@ -130,6 +172,36 @@ def main() -> None:
             gate=len(mechanism) == 7 and mechanism["n_stations"].nunique() == 1,
         ),
         item(
+            "P1f",
+            "Bounded recurrent recovery sensitivity",
+            "complete_exploratory_negative",
+            f"{recurrent['n_selected_networks']} networks; empirical-vs-BRITS station-gap Spearman={recurrent['results']['empirical_vs_brits_station_gap_spearman']:.3f}; explicitly not full roster or SOTA LSTM",
+            gate=False,
+        ),
+        item(
+            "P1g",
+            "Air-temperature/flow process sensitivity",
+            "complete_development_proxy_negative_confirmation_unavailable",
+            f"{process_hybrid['results']['n_development_networks_scored']} development networks; XGBoost-vs-proxy network Spearman={process_hybrid['results']['xgboost_vs_process_hybrid_network_spearman']:.3f}; published air2stream={process_hybrid['published_air2stream_implementation']}",
+            gate=False,
+        ),
+        item(
+            "P1h",
+            "Published air2stream or equivalent process model on independent networks",
+            "not_completed_missing_confirmation_ta_f",
+            "; ".join(process_hybrid["reasons_requirement_not_satisfied"]),
+            gate=False,
+            completion=False,
+        ),
+        item(
+            "P1i",
+            "Real-outage geometry or T4-style planted-geometry experiment",
+            "partial_related_geometry_negative_gate_failed",
+            "T4 froze 2,355 observed-counterpart natural geometries across 67 networks; natural network Spearman=-0.394 versus artificial=-0.011 and the interval was withheld below 100 networks. It did not score actual missing days and is not the v11 empirical predictor/model.",
+            gate=False,
+            completion=False,
+        ),
+        item(
             "P2a",
             "Real-data leave-k-station-out replay with MI and QR baselines",
             "achieved_open_development",
@@ -152,18 +224,88 @@ def main() -> None:
         ),
         item(
             "P3_domains",
-            "US, Canada, and at least two European domains",
-            "incomplete_external_canada_quality",
-            json.dumps(readiness["domain_checks"], sort_keys=True),
+            "Amended second-confirmation domain composition",
+            "achieved_internal_amendment_not_external_preregistration",
+            f"{readiness['amendment_id']}; {json.dumps(readiness['domain_checks'], sort_keys=True)}",
             gate=bool(readiness["domain_composition_passed"]),
-            completion=False,
+        ),
+        item(
+            "P3_canada",
+            "Original validated Canadian source stratum",
+            "complete_negative_external_quality_condition",
+            "Official four-station source was assessed but states observations are not validated or checked; zero qualified Canadian networks.",
+            gate=False,
         ),
         item(
             "P3_scoring",
-            "Run independent second confirmation only after all arrival floors",
-            "withheld_by_protocol",
-            readiness["scoring_status"],
-            gate=bool(readiness["scoring_authorized"]),
+            "Run independent second confirmation under the canonical hash-bound gate",
+            (
+                str(second_result.get("status", "scoring_summary_present"))
+                if second_result is not None
+                else "authorized_not_run"
+            ),
+            (
+                second_evidence
+            ),
+            gate=bool(
+                second_result is not None
+                and second_result.get("performance_reporting_authorized", False)
+            ),
+            completion=bool(
+                second_result is not None
+                and second_result.get("performance_reporting_authorized", False)
+            ),
+        ),
+        item(
+            "P3_intervals",
+            "Independent second-confirmation interval endpoint",
+            "complete_negative_width_gate_failed",
+            (
+                f"simultaneous coverage={second_result['empirical_interval_metrics']['network_simultaneous_coverage']:.3f}; "
+                f"median width/loss={second_result['empirical_interval_metrics']['median_width_over_median_loss']:.3f}"
+                if second_result is not None
+                else "second-confirmation interval result absent"
+            ),
+            gate=False,
+            completion=second_result is not None,
+        ),
+        item(
+            "P3_triage",
+            "Independent 5% false-release triage endpoint",
+            "complete_negative_no_certified_release",
+            (
+                f"57-network evaluation; endpoint passed={second_result['triage']['endpoint_passed']}; simple released={second_result['triage']['simple_descriptors']['n_released']}; empirical released={second_result['triage']['fitting_period_empirical_all_cells']['n_released']}"
+                if second_result is not None and "triage" in second_result
+                else "second-confirmation triage result absent"
+            ),
+            gate=False,
+            completion=bool(second_result is not None and "triage" in second_result),
+        ),
+        item(
+            "P3_placement",
+            "Independent placement confirmation",
+            "complete_directional_no_preregistered_utility_gate",
+            (
+                f"13/13 complete replay matrices; simple minimax mean regret={second_result['placement']['simple_minimax_mean_regret']:.6f} versus random={second_result['placement']['random_mean_regret']:.6f}; relative reduction={second_result['placement']['simple_minimax_relative_regret_reduction_vs_random']:.3%}; utility claim licensed={second_result['placement']['confirmatory_utility_claim_licensed']}"
+                if second_result is not None and "placement" in second_result
+                else "second-confirmation placement result absent"
+            ),
+            gate=False,
+            completion=bool(second_result is not None and "placement" in second_result),
+        ),
+        item(
+            "P3_heterogeneity",
+            "Provider, domain, thermal-state, and network-size heterogeneity",
+            "complete_descriptive_first_panel",
+            f"moderators={','.join(sorted(heterogeneity['moderator'].unique()))}; all rows descriptive_only={bool(heterogeneity['descriptive_only'].all())}",
+            gate=bool(heterogeneity["descriptive_only"].all()),
+        ),
+        item(
+            "P3_climate_regulation",
+            "Climate-zone and regulation-state heterogeneity on 100+ scored networks",
+            "not_completed_requires_larger_scored_panel_and_metadata",
+            "The first and second panels provide 42 + 57 = 99 scored networks, below the requested 100+ analysis floor, and lack complete harmonized climate/regulation modifiers.",
+            gate=False,
             completion=False,
         ),
         item(
@@ -227,9 +369,12 @@ def main() -> None:
     lines.extend(
         [
             "",
-            "The audit distinguishes a completed experiment with a negative gate "
-            "from a missing experiment. Second-confirmation scoring is missing by "
-            "design because the Canadian arrival floor has not passed.",
+            (
+                "The audit distinguishes completed experiments with negative gates, "
+                "protocol-protected pending work, missing experiments, and external "
+                "administrative blockers. A scientific gate failure is not relabelled "
+                "as unfinished work or success."
+            ),
         ]
     )
     OUTPUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -1,7 +1,7 @@
-# Route A development result
+# Simple-descriptor development result
 
-The complete open-development run selects Route A. This is a development
-decision, not a confirmation result.
+The complete development run selects the simple-descriptor model. This is a
+development decision, not a confirmation result.
 
 The matched B+D+M+H analysis contains 55 independent river networks, 217
 stations, and 1,260 station-by-gap units. Every realized loss comes from the
@@ -21,7 +21,7 @@ A network-random-intercept mixed model reached marginal \(R^2=0.688\) and
 conditional \(R^2=0.758\) with the simple predictors. Adding the operator
 raised these by only 0.0090 and 0.0012, respectively. The likelihood-ratio test
 was precise because of the repeated station-gap rows, but the effect remained
-far below the advancement magnitude.
+far below the prespecified selection magnitude.
 
 The simple model calibrated substantially better than the operator.
 Equal-network simple-model slope was 0.976 and network-level Spearman was
@@ -35,10 +35,10 @@ model contest. Forty-seven outer folds selected the original four variables
 plus nearest-donor correlation, seven selected the original four, and one
 selected the original four plus the two seasonal coordinates.
 
-The paper route is therefore:
+The selected development model is therefore:
 
 > Simple outage geometry, target memory, and donor redundancy predict much of
-> the recoverable-loss variation across open stream-temperature networks; the
+> the recoverable-loss variation across development stream-temperature networks; the
 > completed covariance operator adds too little incremental information to
 > justify its complexity.
 
@@ -50,8 +50,15 @@ The subsequently required fitting-period empirical-transfer baseline changed
 the positive claim again. On 780 supported confirmation units at 7, 30, 90,
 and 180 days, its station-gap Spearman was 0.934, network Spearman was 0.922,
 and \(R^2\) was 0.812. The same-unit simple model reached 0.785, 0.687, and
-0.563, respectively. Route A therefore remains an important diagnosis, but
+0.563, respectively. The simple model therefore remains an important diagnosis, but
 simple-descriptor sufficiency is no longer the manuscript claim.
+
+Across all 1,440 confirmation units, 660 unsupported-horizon cells use the
+fitting-period network mean and none remain missing. The empirical predictor
+retains higher network-level Spearman than the simple model (0.767 versus
+0.563), but has lower pooled Spearman (0.633 versus 0.803) and lower \(R^2\)
+(0.145 versus 0.603). This fallback cost prevents an unqualified claim that the
+empirical predictor wins at every scale.
 
 ## Confirmation result
 
@@ -66,7 +73,7 @@ simple model transported rank (station-gap Spearman 0.803; network Spearman
 The US subset had slope 0.954 and simultaneous coverage 1.00; 25 cross-domain
 networks had slope 0.753 and simultaneous coverage 0.76. Thermal-state-shift
 cells had slope 0.270. The fixed gap-triage threshold also failed: it released
-1.39% of cells with a 10% false-release rate, above the 5% cap. Route A is
+1.39% of cells with a 10% false-release rate, above the 5% cap. The simple model is
 therefore supported as a descriptive risk ranking, not as calibrated
 operational guidance.
 
@@ -76,3 +83,19 @@ simultaneous whole-network coverage to 0.405. An exact learn-then-test rule
 certified no nonempty 5% false-release set through 200 requested labelled rows.
 Real-data placement replay favored simple-risk minimax over MI and QR pivoting
 across 14 networks with complete five-or-more-station replay matrices.
+
+## Second-confirmation result
+
+The internally hash-bound v2 roster attempted 60 networks and scored 57 after
+three networks had no eligible evaluation gap. At directly supported horizons,
+the empirical predictor covered 874 units and reached station-gap Spearman
+0.945, network-level Spearman 0.805, and calibration slope 0.938. Across all
+1,446 units, 572 network-mean fallbacks reduced these to 0.740, 0.715, and
+0.950. The simple model reached 0.819, 0.614, and 1.017, respectively.
+
+Ranking and calibration therefore reproduced at the network level, but the
+decision endpoints did not. The empirical network-block interval covered every
+network while its median width was 8.40 times median loss. Exact 5% triage
+certified and released zero units for both predictors. The v2 amendment and
+outcomes share a commit, so this result is not represented as externally
+verifiable preregistration.

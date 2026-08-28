@@ -1,5 +1,29 @@
 {
+  "readiness_schema_version": 2,
   "protocol_id": "route_a_second_confirmation_v1",
+  "amendment_id": "route_a_second_confirmation_v2_canada_quality_substitution",
+  "gate_mode": "amendment_v2_hash_bound_exact_roster",
+  "protocol_path": "configs/route_a_second_confirmation_protocol.yaml",
+  "protocol_sha256": "93d32d396bbafe6813d3f889c6108ffad372dfd204dedc2b6ee565ce3e90cb5f",
+  "amendment_path": "configs/route_a_second_confirmation_amendment_v2.yaml",
+  "amendment_sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035",
+  "readiness_roster_path": "results/development_v11/second_confirmation/readiness_roster.csv",
+  "readiness_roster_sha256": "0d151f28b2527618b658d05f55e44f6b0371a1b885b71772f7c97a5e2b842d13",
+  "frozen_scoring_roster_path": "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv",
+  "frozen_scoring_roster_sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
+  "independence_audit": {
+    "development_outcome_overlap_count": 0,
+    "development_outcome_overlap_networks": [],
+    "first_confirmation_outcome_overlap_count": 0,
+    "first_confirmation_outcome_overlap_networks": [],
+    "first_confirmation_qc_only_reuse_count": 3,
+    "first_confirmation_qc_only_reuse_networks": [
+      "huc8_17090012",
+      "usgs_red_river_of_the_north_huc4_0902",
+      "usgs_snake_river_huc4_1705"
+    ],
+    "outcome_scored_network_disjoint": true
+  },
   "candidate_networks": 242,
   "candidate_floor_passed": true,
   "qualified_networks_before_scoring": 60,
@@ -12,17 +36,12 @@
   },
   "domain_checks": {
     "united_states": {
-      "required": 10,
+      "required": 35,
       "arrived": 35,
       "passed": true
     },
-    "canada": {
-      "required": 1,
-      "arrived": 0,
-      "passed": false
-    },
     "czechia": {
-      "required": 10,
+      "required": 15,
       "arrived": 15,
       "passed": true
     },
@@ -32,7 +51,14 @@
       "passed": true
     }
   },
-  "domain_composition_passed": false,
-  "scoring_authorized": false,
-  "scoring_status": "withheld_until_all_arrival_floors_pass"
+  "domain_composition_passed": true,
+  "outcomes_scored_before_amendment": false,
+  "scoring_authorized": true,
+  "scoring_status": "authorized_not_run",
+  "development_outcomes_path": "results/development_v11/station_gap_outcomes.csv",
+  "development_outcomes_sha256": "cb58b8e7c90adfa1507574af9ed46b0d673b228788362c65e93b73732bf2d6a8",
+  "first_confirmation_outcomes_path": "results/development_v11/route_a_confirmation/predictions.csv",
+  "first_confirmation_outcomes_sha256": "f3e1aac229ca1468fc122be54d16650dafa066b4ed9f02a109d16beed0f029c2",
+  "first_confirmation_qc_panel_path": "results/development_v11/route_a_confirmation/qualified_panel.csv",
+  "first_confirmation_qc_panel_sha256": "8fab98a0cd0ff0c496425317e61fa18cf6a9af638334191f0a5481fb87763544"
 }

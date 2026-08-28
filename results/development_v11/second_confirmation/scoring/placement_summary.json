@@ -1,0 +1,29 @@
+{
+  "evidence_role": "independent_second_confirmation_placement_replay",
+  "selection": "all_scored_networks_with_at_least_five_target_stations",
+  "gap_length": 90,
+  "attempted_networks": 13,
+  "scored_complete_matrix_networks": 13,
+  "attrited_networks": 0,
+  "policies_frozen_before_outcomes": [
+    "simple_risk_minimax",
+    "greedy_mutual_information",
+    "qr_pivot",
+    "distance_even",
+    "random",
+    "oracle_for_regret_only"
+  ],
+  "simple_minimax_mean_regret": 0.24082499531267318,
+  "random_mean_regret": 0.2562125454181433,
+  "simple_minimax_improvement_over_random": 0.015387550105470132,
+  "input_bindings": {
+    "placement_losses_sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
+    "frozen_roster_sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
+    "authorization_amendment_sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
+  },
+  "simple_minimax_relative_regret_reduction_vs_random": 0.060057754316274345,
+  "directional_improvement_observed": true,
+  "preregistered_margin_or_significance_threshold": false,
+  "confirmatory_utility_claim_licensed": false,
+  "endpoint_status": "directionally_lower_regret_no_preregistered_margin"
+}

@@ -1,12 +1,17 @@
 {
   "aligned_control_rivers_found": false,
   "can_write_reservoir_cause": false,
-  "error": "HTTP Error 404: ",
-  "example_storage_sites_found": 0,
-  "nwis_site_service_reachable": false,
+  "error": null,
+  "example_storage_sites_found": 45,
+  "nwis_site_service_reachable": true,
+  "official_api": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items",
+  "official_documentation": "https://api.waterdata.usgs.gov/docs/ogcapi/migration/",
   "outlet_depth_found": false,
-  "reason": "USGS site files can list reservoir storage at some lakes. This check did not find release temperature, outlet depth, and matched control rivers on the same days. Without those, a reservoir before-after study is not licensed.",
+  "parameter_code": "00054",
+  "parameter_interpretation": "reservoir_storage_not_release_temperature",
+  "reason": "The modern USGS time-series metadata API lists reservoir storage. This check did not find release temperature, outlet depth, and matched control rivers on the same days. Without those, a reservoir before-after study is not licensed.",
   "release_temperature_found": false,
+  "request_url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items?f=json&parameter_code=00054&limit=50",
   "what_this_is": "A check of whether reservoir operations are publicly downloadable.",
   "what_this_is_not": "Not a dam-cause result. No before-after table was computed."
 }

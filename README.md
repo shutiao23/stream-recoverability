@@ -3,6 +3,37 @@
 A reproducible study of how reservoir regulation reshapes the information
 available to recover daily stream temperature under monitoring outages.
 
+The completed v11 reviewer-response study is implemented under
+[`paper/development_v11/`](paper/development_v11/README.md). Run
+`make development-v11` to reproduce its 55-network LONO calibration and nested
+simple-baseline comparison. Run `make development-v11-score` to fit the open-development
+XGBoost recovery models once on the first 70% of years and score B+D versus
+B+D+M+H on 7/14/30/60/90/180/365-day gaps in the remaining years. The latter
+writes replaceable placement-loss, station-by-gap, and eligibility tables.
+The source-QC inventory contains 165 candidates and 60 qualifying stream
+networks. The fixed confirmation panel retained 45 networks and scored 42.
+`make development-v11-confirm`, `make development-v11-stratify`, and
+`make development-v11-triage` reproduce rank, calibration, coverage,
+cross-domain/state-change diagnostics, and decision utility. The consolidated
+result is [`final_summary.json`](results/development_v11/final_summary.json).
+Run `make development-v11-reviewer-completion` for the fitting-period
+empirical-transfer baseline, three recovery-model families, conditional
+conformal diagnostics, domain-adaptation budgets, and real-data station-
+retention replay. Its strict-JSON result is
+[`summary.json`](results/development_v11/reviewer_completion/summary.json).
+Analyses that use first-confirmation labels are marked as method development,
+not relabelled as a second confirmation.
+
+Second-confirmation recruitment is now executable with
+`make second-confirmation-candidates`, `make second-confirmation-nve`,
+`make second-confirmation-canada-audit`, and
+`make second-confirmation-readiness`. The current readiness artifact contains
+242 candidates and 60 strict-QC arrivals (35 US, 15 Czech, 10 Norwegian).
+Scoring is withheld because the predeclared Canadian stratum has no validated
+arrival; the audited four-station Coast Guard source explicitly labels its
+16,244 observations as not validated or checked. Run
+`make goal-completion-audit` for the requirement-by-requirement status.
+
 ![Upper Jinsha River study area and monitoring stations](figures/study_area.png)
 
 This repository implements the data, masking, model-selection, experiment,
@@ -48,10 +79,13 @@ artifacts.
 ```
 <!-- evidence-status:end -->
 
-下一篇换问题，计划写在
-[`docs/research_charter_v1.md`](docs/research_charter_v1.md)。
-现在这篇金沙江稿子的结果不重开。假河网检验：`make recoverability-framework`。
-公开目录核验：`python scripts/46_check_public_rivers.py`。
+跨河网 v9 研究已经执行到一次性 sealed QC：2,880 个对象读取后只有
+32/40 条河网合格，总库存为 99/100，因此正式 recovery scoring 没有
+运行，once authorization 已消耗。v9 不是当前可投稿论文，也不能通过
+降门槛、换河或重跑修复。逐项状态见
+[`docs/blueprint_completion_audit.md`](docs/blueprint_completion_audit.md)。
+v4 与 v9 的唯一谱系规则见
+[`paper/study_manifest.json`](paper/study_manifest.json)。
 
 The v5 scope amendment is recorded in
 `docs/protocol_change_v4_to_v5.md`; major-review corrections are recorded in
@@ -527,6 +561,10 @@ figures/                    study-area, diagnostic, and publication figures
 
 ## Documentation
 
+- [Dual-lineage study manifest](paper/study_manifest.json)
+- [P0--P2 completion audit](docs/blueprint_completion_audit.md)
+- [v9 sealed-QC failure closure](docs/sealed_t7_qc_failure_closure.md)
+- [v9 failure-closure package](paper/main_v9/package_manifest.json)
 - [Manuscript source](paper/manuscript.md)
 - [AGU Key Points](paper/key_points.md)
 - [Plain-language summary](paper/plain_language_summary.md)

@@ -3,14 +3,16 @@
   "blockers_to_floor": [
     "open_role_survival_stalled_at_67_of_103_downloaded",
     "europe_uk_ea_zero_complete_enough_after_15_cluster_pass",
-    "corpus_floor_gap_4"
+    "corpus_floor_gap_1"
   ],
   "components": {
     "europe_supplement_complete_enough": 0,
     "open_role_complete_enough_failure_closure6": 67,
-    "sealed_qc_complete_enough": 29
+    "sealed_qc_complete_enough": 32,
+    "sealed_qc_foen_complete_enough": 3,
+    "sealed_qc_huc8_complete_enough": 29
   },
-  "corpus_floor_gap": 4,
+  "corpus_floor_gap": 1,
   "custody_metadata_only": {
     "sealed_bytes_opened_for_qc": true,
     "sealed_custody_networks": 44,
@@ -22,6 +24,6 @@
   "network_ci_floor_met": false,
   "passed": false,
   "purpose": "corpus_accounting_not_confirmatory",
-  "qualified_total": 96,
+  "qualified_total": 99,
   "sealed_qc_source": "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json"
 }

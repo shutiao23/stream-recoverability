@@ -1,11 +1,16 @@
 # Pre-submission request: restricted-data plan
 
+> Historical AGU/WRR inquiry template. The canonical v4 case study currently
+> targets *Journal of Hydrology*, and v9 is not submittable. Do not send this
+> packet without first confirming the target journal and replacing the route
+> with that journal's official confidential-review mechanism.
+
 **To:** Water Resources Research editorial office / AGU DataHelp
 **Subject:** Pre-submission confirmation of restricted third-party data plan
 
 Dear Editors,
 
-We are preparing the manuscript “Reservoir-Associated Thermal Structure Predicts Stream-Temperature Recoverability in the Jinsha and Chattahoochee Rivers.” Before submission, we request confirmation that the following restricted-data plan is acceptable under AGU's Data and Software Policy.
+We are preparing the manuscript “A Case-Study Covariance Heuristic for Stream-Temperature Recoverability in Two Regulated River Networks.” Before submission, we request confirmation that the following restricted-data plan is acceptable under AGU's Data and Software Policy.
 
 The study uses daily Jinsha River temperature, discharge, and water-level records attributed to the *Annual Hydrological Report of the People's Republic of China, Volume VI*, together with WMO/CMA meteorological fields. The files were supplied to the project, but permission to redistribute their daily values publicly was not established. We therefore cannot lawfully place those exact records in a public repository or state that they are “available upon request.”
 

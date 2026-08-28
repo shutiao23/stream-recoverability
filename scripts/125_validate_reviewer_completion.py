@@ -25,10 +25,16 @@ def main() -> None:
         )
     )
 
-    empirical = {item["phase"]: item for item in summary["empirical_transfer"]}
-    assert empirical["confirmation"]["n"] == 780
-    assert round(empirical["confirmation"]["spearman"], 3) == 0.934
-    assert round(empirical["confirmation"]["r2"], 3) == 0.812
+    empirical = {
+        (item["phase"], item["scope"]): item for item in summary["empirical_transfer"]
+    }
+    supported = empirical[("confirmation", "supported_only")]
+    all_cells = empirical[("confirmation", "all_cells_with_network_mean_fallback")]
+    assert supported["n"] == 780
+    assert round(supported["spearman"], 3) == 0.934
+    assert round(supported["r2"], 3) == 0.812
+    assert all_cells["n"] == 1440
+    assert round(all_cells["spearman"], 3) == 0.633
     assert "0.934" in manuscript and "0.812" in manuscript
     assert "0.0171" in manuscript
     assert "3.247" in manuscript
@@ -69,10 +75,10 @@ def main() -> None:
 
     assert protocol["minimum_valid_scored_networks"] == 40
     assert protocol["target_scored_networks"] == [60, 80]
-    assert protocol["evidence_separation"]["first_confirmation_networks_reusable"] is False
-    assert summary["second_confirmation"]["scoring_status"] == (
-        "withheld_until_all_arrival_floors_pass"
+    assert (
+        protocol["evidence_separation"]["first_confirmation_networks_reusable"] is False
     )
+    assert summary["second_confirmation"]["scoring_status"] == "authorized_not_run"
     print("reviewer completion validation passed")
 
 

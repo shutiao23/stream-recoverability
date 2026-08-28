@@ -1,15 +1,27 @@
 {
-  "manifest_schema": "main_v9_results_registry_v1",
+  "manifest_schema": "main_v9_results_registry_v2",
   "lineage": "main_v9",
   "design_charter": "configs/design_freeze_v9.yaml",
   "executable_protocol": "configs/design_freeze_v10_executable.yaml",
   "formal_evidence": false,
-  "sealed_outcomes_opened": false,
+  "sealed_outcomes_opened": true,
+  "confirmatory_scoring_performed": false,
   "corpus": {
-    "qualified_total": 67,
+    "qualified_total": 99,
     "network_ci_floor": 100,
     "floor_met": false,
     "manifest": "data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json"
+  },
+  "sealed_qc": {
+    "status": "complete_floor_failed",
+    "objects_read_once": 2880,
+    "eligible_total": 32,
+    "eligible_huc8": 29,
+    "eligible_foen": 3,
+    "sealed_floor": 40,
+    "sealed_floor_met": false,
+    "production_authorization_consumed": true,
+    "manifest": "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json"
   },
   "development_artifacts": {
     "w8_failure_closure": "results/framework/w8_failure_closure_v1/w8_failure_closure_manifest.json",
@@ -22,11 +34,14 @@
     "preunseal_readiness": "results/framework/t2_sealed_confirmatory_v1/preunseal_readiness_manifest.json",
     "model_freeze": "results/framework/t2_sealed_confirmatory_v1/model_freeze_manifest.json",
     "evaluate_once_lock": "results/framework/t2_sealed_confirmatory_v1/evaluate_once_lock.json",
-    "status": "lock_started_before_any_sealed_read; production_reader_not_implemented"
+    "sealed_qc": "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json",
+    "run_ledger": "results/framework/t2_sealed_confirmatory_v1/evaluate_once_run_ledger.json",
+    "status": "evaluate_once_qc_complete; sealed_floor_failed; confirmatory_scoring_withheld"
   },
-  "pending_confirmatory": [
-    "sealed_t7_evaluate_once_on_ge_40_networks",
+  "unmet_confirmatory_gates": [
+    "sealed_panel_32_lt_40",
     "network_ci_with_n_ge_100",
     "t3_placement_or_triage_utility"
-  ]
+  ],
+  "failure_closure": "This locked evaluate-once lineage cannot license C1-C3. Do not rerun, replace attrited networks, lower floors, or score the 32 eligible networks as confirmatory evidence."
 }

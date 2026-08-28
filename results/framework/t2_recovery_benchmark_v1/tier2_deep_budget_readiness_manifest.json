@@ -16,14 +16,91 @@
       90,
       180
     ],
+    "implementation": "official_pypots_1.5",
     "model_fit_called": false,
     "model_predict_called": false,
-    "models": [
-      "saits",
-      "csdi"
-    ],
     "pypots_version": "1.5",
-    "status": "not_run",
+    "rows": [
+      {
+        "constructor_passed": true,
+        "gap_length_days": 30,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 30,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134264
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 90,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 90,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134444
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 180,
+        "model": "saits",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 180,
+        "official_core_module": "pypots.imputation.saits.core",
+        "official_wrapper_module": "pypots.imputation.saits.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 134714
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 30,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 30,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 90,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 90,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      },
+      {
+        "constructor_passed": true,
+        "gap_length_days": 180,
+        "model": "csdi",
+        "model_fit_called": false,
+        "model_predict_called": false,
+        "n_features": 3,
+        "n_steps": 180,
+        "official_core_module": "pypots.imputation.csdi.core",
+        "official_wrapper_module": "pypots.imputation.csdi.model",
+        "outcome_metric_computed": false,
+        "parameter_count": 413553
+      }
+    ],
+    "status": "passed_constructor_only_not_training_or_inference",
     "torch_version": "2.13.0+cpu"
   },
   "deep_model_inference_run": false,
@@ -142,7 +219,7 @@
         "tier2_training_protocol_wired": false
       },
       "csdi": {
-        "constructor_smoke_status": "not_run",
+        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
         "deep_model_inference_run": false,
         "deep_model_training_run": false,
         "dependency_status": "available_exact_pin",
@@ -181,7 +258,7 @@
         "torch_version": "2.13.0+cpu"
       },
       "saits": {
-        "constructor_smoke_status": "not_run",
+        "constructor_smoke_status": "passed_constructor_only_not_training_or_inference",
         "deep_model_inference_run": false,
         "deep_model_training_run": false,
         "dependency_status": "available_exact_pin",
@@ -264,6 +341,15 @@
               69
             ],
             "path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+          },
+          {
+            "line_numbers": [
+              6,
+              34,
+              99,
+              100
+            ],
+            "path": "src/stream_recoverability/experiments/t2_tier2_development_subsample.py"
           },
           {
             "line_numbers": [
@@ -375,6 +461,15 @@
           },
           {
             "line_numbers": [
+              6,
+              34,
+              97,
+              98
+            ],
+            "path": "src/stream_recoverability/experiments/t2_tier2_development_subsample.py"
+          },
+          {
+            "line_numbers": [
               67
             ],
             "path": "src/stream_recoverability/experiments/validation.py"
@@ -425,7 +520,7 @@
         ]
       },
       "project_dependency_path": "pyproject.toml",
-      "project_dependency_sha256": "1a214aa78348ca44162434c5ac666413c087b723ffa7f5402fb8004f629cb06b",
+      "project_dependency_sha256": "7a8f9ca43b2c485260f8a0508177fe354d47596047361f2ff0e3b22376b372df",
       "reference_adapter_path": "src/stream_recoverability/models/reference_baselines.py",
       "reference_adapter_sha256": "84418a174e967b4c75dae1c7671b9cdbd0b31d8905c46b1183c397630abaeed6",
       "t2_runner_path": "src/stream_recoverability/experiments/t2_recovery_benchmark.py",

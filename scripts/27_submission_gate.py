@@ -10,6 +10,21 @@ from stream_recoverability.governance import submission_gate, write_json
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
+CANONICAL_INPUTS = {
+    "roster": "results/validation_funnel/published_v2/finalized_model_roster.json",
+    "primary-registry": "results/frozen/published_v2/suite_registry.json",
+    "primary-aggregate-manifest": "results/frozen/published_v2/top_manifest.json",
+    "analysis-manifest": "results/analysis/analysis_manifest.json",
+    "confirmatory-data-manifest": "data_versions/external_upper_middle_chattahoochee_v1/provenance_manifest.json",
+    "confirmatory-run-manifest": "results/confirmatory/external_upper_middle_chattahoochee_v1/external_confirmation/completion_manifest.json",
+    "once-lock": "data_versions/.external_upper_middle_chattahoochee_v1.confirmatory-evaluation-once.lock.json",
+    "rights-audit": "results/audits/restricted_hosting_audit.json",
+    "reproduction-report": "results/audits/reproduction_report_acceptance_revision.json",
+    "editor-exception-approval": "metadata/editor_data_exception_approval.json",
+    "author-metadata": "metadata/submission_author_metadata.json",
+    "reviewer-data-upload": "metadata/gems_reviewer_data_upload.json",
+}
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -23,21 +38,10 @@ def main() -> None:
         action="store_true",
         help="Write the report and exit 0 even when the gate is no-go.",
     )
-    for option in (
-        "roster",
-        "primary-registry",
-        "primary-aggregate-manifest",
-        "analysis-manifest",
-        "confirmatory-data-manifest",
-        "confirmatory-run-manifest",
-        "once-lock",
-        "rights-audit",
-        "reproduction-report",
-        "editor-exception-approval",
-        "author-metadata",
-        "reviewer-data-upload",
-    ):
-        parser.add_argument(f"--{option}", type=Path)
+    for option, relative in CANONICAL_INPUTS.items():
+        parser.add_argument(
+            f"--{option}", type=Path, default=PROJECT_ROOT / relative
+        )
     args = parser.parse_args()
     report = submission_gate(
         PROJECT_ROOT,

@@ -4,14 +4,15 @@ import pandas as pd
 from stream_recoverability.experiments.route_a_confirmation import (
     SIMPLE_COLUMNS,
     apply_route_a_model,
+    apply_safe_release_threshold,
     confirmation_metrics,
     fit_route_a_model,
     fit_safe_release_threshold,
     grouped_confirmation_metrics,
     network_bootstrap_intervals,
+    point_prediction_metrics,
     simple_predictors,
     thermal_state_changes,
-    apply_safe_release_threshold,
 )
 
 
@@ -68,6 +69,20 @@ def test_fixed_simple_model_and_confirmation_metrics() -> None:
     assert abs(metrics["calibration_slope"] - 1.0) < 1e-8
     assert metrics["interval_coverage"] == 1.0
     assert model.interval_radius >= 0.1
+
+
+def test_point_metrics_do_not_require_or_report_synthetic_intervals() -> None:
+    frame = pd.DataFrame(
+        {
+            "network_id": ["a", "a", "b", "b"],
+            "predicted_loss": [0.5, 1.0, 1.5, 2.0],
+            "observed_recovery_loss": [0.6, 0.9, 1.4, 2.1],
+        }
+    )
+    metrics = point_prediction_metrics(frame)
+    assert metrics["station_gap_spearman"] > 0.9
+    assert "interval_coverage" not in metrics
+    assert "mean_interval_width" not in metrics
 
 
 def test_real_state_change_and_grouped_metrics() -> None:
@@ -130,8 +145,6 @@ def test_network_bootstrap_reports_cluster_intervals() -> None:
                     "prediction_upper": prediction + 1.0,
                 }
             )
-    intervals = network_bootstrap_intervals(
-        pd.DataFrame(rows), repeats=40, seed=2
-    )
+    intervals = network_bootstrap_intervals(pd.DataFrame(rows), repeats=40, seed=2)
     assert set(intervals.columns) == {"metric", "estimate", "lower_95", "upper_95"}
     assert intervals["lower_95"].le(intervals["upper_95"]).all()

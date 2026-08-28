@@ -1,5 +1,10 @@
 # WRR editor inquiry — send checklist
 
+> Historical route only. The active case-study target is *Journal of
+> Hydrology*, while v9 is closed before confirmatory scoring. Do not send this
+> WRR packet unless the journal decision is explicitly changed back and the
+> manuscript package is retargeted consistently.
+
 This is the only **externally delayed** submission blocker. A human must send
 the packet. Do not submit the manuscript before written editor or AGU DataHelp
 acceptance. Building a local GEMS bundle or a public archive candidate does

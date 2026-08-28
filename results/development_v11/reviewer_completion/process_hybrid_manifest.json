@@ -1,0 +1,30 @@
+{
+  "analysis_id": "v11_air2stream_inspired_development_proxy_v1",
+  "status": "development_sensitivity_complete_confirmation_fail_closed",
+  "evidence_role": "open_development_only_not_confirmatory",
+  "model_identity": "ridge_Ta_logF_season_blended_with_two_sided_boundary",
+  "published_air2stream_implementation": false,
+  "reviewer3_air2stream_requirement_satisfied": false,
+  "reasons_requirement_not_satisfied": [
+    "proxy_is_not_the_published_air2stream_differential_equation_model",
+    "first_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F",
+    "second_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F"
+  ],
+  "results": {
+    "n_development_networks_scored": 50,
+    "n_development_station_gaps": 1076,
+    "xgboost_vs_process_hybrid_station_gap_spearman": 0.3726370355778722,
+    "xgboost_vs_process_hybrid_network_spearman": 0.3430012004801921
+  },
+  "input_sha256": {
+    "results/development_v11/network_inventory.csv": "28d3ea632c1159571c8ae1d8159e91b40e03fed8f8a692584bf15e89201b044a",
+    "results/development_v11/recovery_scoring/placement_losses.csv": "3ca333a1b0b437e542c4f69d63a06bf2938b78c9c8763a2871e54c544e1b77f3",
+    "results/development_v11/route_a_confirmation/placement_losses.csv": "f1487a6b7591aa3899d7f4dd703d15a6941ee2f277dcbe17e5e31994a03b17ac",
+    "results/development_v11/second_confirmation/readiness_roster.csv": "0d151f28b2527618b658d05f55e44f6b0371a1b885b71772f7c97a5e2b842d13"
+  },
+  "output_sha256": {
+    "process_hybrid_station_gaps.csv": "f46894eaa4a33f957f61c609b7074bd760d073adce0ca62f7556d1d4a18f6fcf",
+    "process_hybrid_failures.csv": "a8635037e77b4db415a394a9fd2915203a902054010d466289196d1d04de911a",
+    "process_hybrid_readiness.csv": "dc5683644c2d9d101202cd4fa04b5bc2f3f33e45892aa3c446f5d5ad051a92b6"
+  }
+}

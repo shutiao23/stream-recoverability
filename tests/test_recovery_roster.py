@@ -24,7 +24,9 @@ def _panel() -> pd.DataFrame:
 
 
 def test_season_labels_are_stable() -> None:
-    assert season_label(pd.to_datetime(["2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01"])).tolist() == [
+    assert season_label(
+        pd.to_datetime(["2020-01-01", "2020-04-01", "2020-07-01", "2020-10-01"])
+    ).tolist() == [
         "DJF",
         "MAM",
         "JJA",
@@ -90,3 +92,54 @@ def test_empirical_curve_is_scored_before_outer_evaluation() -> None:
     assert empirical["inner_score_years"].str.contains("2017").any()
     predicted = empirical_transfer_predictions(empirical, base)
     assert predicted["empirical_transfer_prediction"].notna().all()
+
+
+def test_empirical_curve_uses_explicit_training_only_network_mean_for_unseen_horizon() -> (
+    None
+):
+    empirical = pd.DataFrame(
+        {
+            "network_id": ["n1", "n1"],
+            "station_id": ["001", "002"],
+            "gap_length": [7, 7],
+            "season": ["JJA", "JJA"],
+            "mae_deg_c": [1.0, 3.0],
+        }
+    )
+    placements = pd.DataFrame(
+        {
+            "network_id": ["n1"],
+            "station_id": ["001"],
+            "gap_length": [365],
+            "gap_start": ["2020-07-01"],
+            "information_condition": ["B_union_D"],
+        }
+    )
+    predicted = empirical_transfer_predictions(empirical, placements)
+    assert predicted.loc[0, "empirical_transfer_prediction"] == 2.0
+    assert predicted.loc[0, "empirical_transfer_source"] == "network_mean_fallback"
+    assert not bool(predicted.loc[0, "empirical_transfer_supported"])
+
+
+def test_empirical_curve_normalizes_mixed_station_identifier_dtypes() -> None:
+    empirical = pd.DataFrame(
+        {
+            "network_id": [1],
+            "station_id": [123],
+            "gap_length": [7],
+            "season": ["JJA"],
+            "mae_deg_c": [0.75],
+        }
+    )
+    placements = pd.DataFrame(
+        {
+            "network_id": ["1"],
+            "station_id": ["123"],
+            "gap_length": [7],
+            "gap_start": ["2020-07-01"],
+            "information_condition": ["B_union_D"],
+        }
+    )
+    predicted = empirical_transfer_predictions(empirical, placements)
+    assert predicted.loc[0, "empirical_transfer_prediction"] == 0.75
+    assert predicted.loc[0, "empirical_transfer_source"] == "station_gap_season"

@@ -1,0 +1,63 @@
+amendment_id: route_a_second_confirmation_v2_canada_quality_substitution
+parent_protocol_id: route_a_second_confirmation_v1
+status: frozen_pre_outcome_scoring
+effective_stage: after_source_qc_before_any_recovery_outcome_scoring
+
+rationale:
+  external_condition: >-
+    The only identified official multi-station Canadian daily source states
+    that its observations are not validated or checked, so it cannot satisfy
+    the already-frozen strict daily-QC eligibility rule.
+  evidence: results/development_v11/second_confirmation/canada_source_audit.json
+  change: >-
+    Replace the unavailable Canada stratum with a second non-US temperate
+    domain. Czechia and Norway are the two frozen European temperate domains;
+    neither recovery outcomes nor fitting-period empirical losses have been
+    scored on these networks when this amendment takes effect.
+
+frozen_scoring_roster:
+  path: results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv
+  selection: all_strict_qc_qualified_arrivals_sorted_by_network_id
+  exact_networks: 60
+  exact_networks_by_domain:
+    united_states: 35
+    czechia: 15
+    norway: 10
+  roster_freeze_note: >-
+    These exact counts freeze the complete strict-QC arrival roster; they are
+    not post-hoc increases to the original scientific minimum floor.
+  outcome_scored_network_disjoint_from_development_and_first_confirmation: true
+  independence_references:
+    development_outcomes: results/development_v11/station_gap_outcomes.csv
+    first_confirmation_outcomes: results/development_v11/route_a_confirmation/predictions.csv
+    first_confirmation_qc_panel: results/development_v11/route_a_confirmation/qualified_panel.csv
+  first_confirmation_qc_only_reused:
+    - huc8_17090012
+    - usgs_red_river_of_the_north_huc4_0902
+    - usgs_snake_river_huc4_1705
+  independence_boundary: >-
+    Three networks passed first-confirmation QC but suffered scoring attrition
+    and produced no first-confirmation recovery outcome. They are reused here
+    and are not described as untouched metadata/QC candidates. The frozen v2
+    roster is disjoint from every development or first-confirmation network
+    for which a recovery outcome was scored.
+
+effective_domain_requirements:
+  required_domain_groups:
+    - united_states
+    - europe_domain_1_czechia
+    - europe_domain_2_norway
+  minimum_networks_by_domain:
+    united_states: 35
+    czechia: 15
+    norway: 10
+
+invariants:
+  original_candidate_floor_150_unchanged: true
+  original_minimum_valid_scored_networks_40_unchanged: true
+  original_target_60_to_80_unchanged: true
+  model_and_endpoint_definitions_unchanged: true
+  temperature_values_may_not_select_networks: true
+  recovery_outcomes_seen_before_amendment: false
+  prior_guard_result: results/development_v11/second_confirmation/scoring/withheld.json
+  evaluate_once_self_destruct_added: false

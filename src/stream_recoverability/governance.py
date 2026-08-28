@@ -15,12 +15,12 @@ from typing import Any
 
 import yaml
 
-from stream_recoverability.data.quality import load_quality_codebook
 from stream_recoverability.analysis.study_freeze import (
     DEFAULT_STUDY_FREEZE,
     load_study_freeze,
     study_is_confirmatory,
 )
+from stream_recoverability.data.quality import load_quality_codebook
 from stream_recoverability.experiments.contracts import (
     DEFAULT_DESIGN_PATH,
     EXECUTABLE_DESIGN_VERSION,
@@ -392,13 +392,23 @@ def submission_gate(
     if not snapshot["dual_frontier_required"]:
         blockers.append("best-simple frontier is not required")
     passed = not blockers
+
+    def display_path(path: str | Path | None) -> str | None:
+        if path is None:
+            return None
+        candidate = Path(path)
+        try:
+            return candidate.resolve().relative_to(Path(repository).resolve()).as_posix()
+        except ValueError:
+            return str(candidate)
+
     return {
         "passed": passed,
         "decision": "go" if passed else "no_go",
         "blockers": blockers,
         "snapshot": snapshot,
         "explicit_inputs": {
-            label: str(path) if path is not None else None
+            label: display_path(path)
             for label, path in supplied.items()
         },
         "note": "A failing gate is the correct state until formal evidence exists.",

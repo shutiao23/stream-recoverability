@@ -6,7 +6,7 @@
       "id": "P0",
       "requirement": "Retitle around evidence actually supported by data",
       "status": "achieved",
-      "evidence": "# Fitting-period error curves outperform structural risk estimates for stream-temperature gaps",
+      "evidence": "# Fitting-period error curves improve network-level risk ranking for stream-temperature gaps",
       "completion_satisfied": true,
       "gate_passed": true
     },
@@ -14,7 +14,15 @@
       "id": "P1a",
       "requirement": "Fitting-period empirical-transfer baseline",
       "status": "achieved",
-      "evidence": "confirmation n=780; network Spearman=0.922; R2=0.812",
+      "evidence": "supported confirmation n=780; network Spearman=0.922; R2=0.812",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P1a_all",
+      "requirement": "Report empirical-transfer performance on all 1,440 cells with fallback",
+      "status": "achieved_weaker_complete_panel_result",
+      "evidence": "n=1440; network Spearman=0.767; pooled Spearman=0.633; R2=0.145; sources={'network_mean_fallback': 660, 'within_horizon_training_curve': 780}",
       "completion_satisfied": true,
       "gate_passed": true
     },
@@ -51,6 +59,38 @@
       "gate_passed": true
     },
     {
+      "id": "P1f",
+      "requirement": "Bounded recurrent recovery sensitivity",
+      "status": "complete_exploratory_negative",
+      "evidence": "6 networks; empirical-vs-BRITS station-gap Spearman=0.384; explicitly not full roster or SOTA LSTM",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P1g",
+      "requirement": "Air-temperature/flow process sensitivity",
+      "status": "complete_development_proxy_negative_confirmation_unavailable",
+      "evidence": "50 development networks; XGBoost-vs-proxy network Spearman=0.343; published air2stream=False",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P1h",
+      "requirement": "Published air2stream or equivalent process model on independent networks",
+      "status": "not_completed_missing_confirmation_ta_f",
+      "evidence": "proxy_is_not_the_published_air2stream_differential_equation_model; first_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F; second_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F",
+      "completion_satisfied": false,
+      "gate_passed": false
+    },
+    {
+      "id": "P1i",
+      "requirement": "Real-outage geometry or T4-style planted-geometry experiment",
+      "status": "partial_related_geometry_negative_gate_failed",
+      "evidence": "T4 froze 2,355 observed-counterpart natural geometries across 67 networks; natural network Spearman=-0.394 versus artificial=-0.011 and the interval was withheld below 100 networks. It did not score actual missing days and is not the v11 empirical predictor/model.",
+      "completion_satisfied": false,
+      "gate_passed": false
+    },
+    {
       "id": "P2a",
       "requirement": "Real-data leave-k-station-out replay with MI and QR baselines",
       "status": "achieved_open_development",
@@ -76,17 +116,65 @@
     },
     {
       "id": "P3_domains",
-      "requirement": "US, Canada, and at least two European domains",
-      "status": "incomplete_external_canada_quality",
-      "evidence": "{\"canada\": {\"arrived\": 0, \"passed\": false, \"required\": 1}, \"czechia\": {\"arrived\": 15, \"passed\": true, \"required\": 10}, \"norway\": {\"arrived\": 10, \"passed\": true, \"required\": 10}, \"united_states\": {\"arrived\": 35, \"passed\": true, \"required\": 10}}",
-      "completion_satisfied": false,
+      "requirement": "Amended second-confirmation domain composition",
+      "status": "achieved_internal_amendment_not_external_preregistration",
+      "evidence": "route_a_second_confirmation_v2_canada_quality_substitution; {\"czechia\": {\"arrived\": 15, \"passed\": true, \"required\": 15}, \"norway\": {\"arrived\": 10, \"passed\": true, \"required\": 10}, \"united_states\": {\"arrived\": 35, \"passed\": true, \"required\": 35}}",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P3_canada",
+      "requirement": "Original validated Canadian source stratum",
+      "status": "complete_negative_external_quality_condition",
+      "evidence": "Official four-station source was assessed but states observations are not validated or checked; zero qualified Canadian networks.",
+      "completion_satisfied": true,
       "gate_passed": false
     },
     {
       "id": "P3_scoring",
-      "requirement": "Run independent second confirmation only after all arrival floors",
-      "status": "withheld_by_protocol",
-      "evidence": "withheld_until_all_arrival_floors_pass",
+      "requirement": "Run independent second confirmation under the canonical hash-bound gate",
+      "status": "scored_after_readiness_authorization",
+      "evidence": "attempted=60; scored=57; attrited=3; simple network Spearman=0.6140782991962667; simple slope=1.0174320563432953; empirical network Spearman=0.715452424163858; empirical slope=0.9502513594290952",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P3_intervals",
+      "requirement": "Independent second-confirmation interval endpoint",
+      "status": "complete_negative_width_gate_failed",
+      "evidence": "simultaneous coverage=1.000; median width/loss=8.398",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P3_triage",
+      "requirement": "Independent 5% false-release triage endpoint",
+      "status": "complete_negative_no_certified_release",
+      "evidence": "57-network evaluation; endpoint passed=False; simple released=0; empirical released=0",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P3_placement",
+      "requirement": "Independent placement confirmation",
+      "status": "complete_directional_no_preregistered_utility_gate",
+      "evidence": "13/13 complete replay matrices; simple minimax mean regret=0.240825 versus random=0.256213; relative reduction=6.006%; utility claim licensed=False",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
+      "id": "P3_heterogeneity",
+      "requirement": "Provider, domain, thermal-state, and network-size heterogeneity",
+      "status": "complete_descriptive_first_panel",
+      "evidence": "moderators=domain_group,network_size_group,provider,thermal_state_shift; all rows descriptive_only=True",
+      "completion_satisfied": true,
+      "gate_passed": true
+    },
+    {
+      "id": "P3_climate_regulation",
+      "requirement": "Climate-zone and regulation-state heterogeneity on 100+ scored networks",
+      "status": "not_completed_requires_larger_scored_panel_and_metadata",
+      "evidence": "The first and second panels provide 42 + 57 = 99 scored networks, below the requested 100+ analysis floor, and lack complete harmonized climate/regulation modifiers.",
       "completion_satisfied": false,
       "gate_passed": false
     },
@@ -124,8 +212,9 @@
     }
   ],
   "remaining_blocking_conditions": [
-    "P3_domains",
-    "P3_scoring",
+    "P1h",
+    "P1i",
+    "P3_climate_regulation",
     "ADMIN_authors",
     "ADMIN_doi"
   ]

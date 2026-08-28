@@ -113,9 +113,12 @@ def test_model_freeze_cannot_be_created_from_blocked_readiness(
     tmp_path: Path,
 ) -> None:
     output = tmp_path / "model_freeze.json"
+    readiness = build_model_freeze_readiness()
+    readiness["ready_to_create_model_freeze"] = False
+    readiness["blockers"] = ["synthetic_test_blocker"]
     with pytest.raises(SealedReadinessError, match="readiness is blocked"):
         create_model_freeze_manifest(
-            build_model_freeze_readiness(), output_path=output
+            readiness, output_path=output
         )
     assert not output.exists()
 

@@ -16,7 +16,6 @@ from stream_recoverability.experiments.recoverability_baselines import (
     donor_r2_only,
 )
 
-
 SIMPLE_COLUMNS = (
     "gap_length",
     "acf_only",
@@ -34,7 +33,9 @@ def _lag_correlation(values: np.ndarray, lag: float) -> float:
 
     def correlation(distance: int) -> float:
         valid = np.isfinite(values[:-distance]) & np.isfinite(values[distance:])
-        return float(np.corrcoef(values[:-distance][valid], values[distance:][valid])[0, 1])
+        return float(
+            np.corrcoef(values[:-distance][valid], values[distance:][valid])[0, 1]
+        )
 
     low = correlation(lower)
     if lower == upper:
@@ -86,9 +87,7 @@ def _year_block_donor_r2(
         total += fold_total
         folds += 1
     return (
-        float("nan")
-        if folds == 0
-        else float(np.clip(1.0 - residual / total, 0.0, 1.0))
+        float("nan") if folds == 0 else float(np.clip(1.0 - residual / total, 0.0, 1.0))
     )
 
 
@@ -146,9 +145,9 @@ class RouteAModel:
     interval_radius: float
 
     def predict(self, frame: pd.DataFrame) -> np.ndarray:
-        return self.intercept + frame[list(self.columns)].to_numpy(dtype=float) @ np.asarray(
-            self.coefficients
-        )
+        return self.intercept + frame[list(self.columns)].to_numpy(
+            dtype=float
+        ) @ np.asarray(self.coefficients)
 
 
 def fit_route_a_model(
@@ -179,9 +178,9 @@ def fit_route_a_model(
         lono_predictions["observed_recovery_loss"].to_numpy(dtype=float)
         - lono_predictions["simple_prediction"].to_numpy(dtype=float)
     )
-    network_scores = pd.Series(absolute).groupby(
-        lono_predictions["network_id"].to_numpy()
-    ).max()
+    network_scores = (
+        pd.Series(absolute).groupby(lono_predictions["network_id"].to_numpy()).max()
+    )
     radius = float(np.quantile(network_scores, coverage, method="higher"))
     return RouteAModel(
         intercept=float(coefficients[0]),
@@ -210,20 +209,54 @@ def confirmation_metrics(frame: pd.DataFrame) -> dict[str, float]:
     intercept, slope = np.linalg.lstsq(
         design * root_weight[:, None], observed * root_weight, rcond=None
     )[0]
-    network = frame.groupby("network_id")[["predicted_loss", "observed_recovery_loss"]].mean()
+    network = frame.groupby("network_id")[
+        ["predicted_loss", "observed_recovery_loss"]
+    ].mean()
     covered = observed >= frame["prediction_lower"].to_numpy(dtype=float)
     covered &= observed <= frame["prediction_upper"].to_numpy(dtype=float)
     simultaneous = pd.Series(covered).groupby(frame["network_id"].to_numpy()).all()
     return {
         "station_gap_spearman": float(spearmanr(predicted, observed).statistic),
         "network_spearman": float(
-            spearmanr(network["predicted_loss"], network["observed_recovery_loss"]).statistic
+            spearmanr(
+                network["predicted_loss"], network["observed_recovery_loss"]
+            ).statistic
         ),
         "calibration_intercept": float(intercept),
         "calibration_slope": float(slope),
         "interval_coverage": float(np.mean(covered)),
         "network_simultaneous_interval_coverage": float(simultaneous.mean()),
-        "mean_interval_width": float(2.0 * (frame["prediction_upper"] - frame["predicted_loss"]).mean()),
+        "mean_interval_width": float(
+            2.0 * (frame["prediction_upper"] - frame["predicted_loss"]).mean()
+        ),
+        "n_networks": float(frame["network_id"].nunique()),
+        "n_station_gaps": float(len(frame)),
+    }
+
+
+def point_prediction_metrics(frame: pd.DataFrame) -> dict[str, float]:
+    """Rank and calibration metrics without manufacturing interval columns."""
+
+    observed = frame["observed_recovery_loss"].to_numpy(dtype=float)
+    predicted = frame["predicted_loss"].to_numpy(dtype=float)
+    design = np.column_stack([np.ones(len(frame)), predicted])
+    counts = frame.groupby("network_id")["network_id"].transform("size")
+    root_weight = np.sqrt(1.0 / counts.to_numpy(dtype=float))
+    intercept, slope = np.linalg.lstsq(
+        design * root_weight[:, None], observed * root_weight, rcond=None
+    )[0]
+    network = frame.groupby("network_id")[
+        ["predicted_loss", "observed_recovery_loss"]
+    ].mean()
+    return {
+        "station_gap_spearman": float(spearmanr(predicted, observed).statistic),
+        "network_spearman": float(
+            spearmanr(
+                network["predicted_loss"], network["observed_recovery_loss"]
+            ).statistic
+        ),
+        "calibration_intercept": float(intercept),
+        "calibration_slope": float(slope),
         "n_networks": float(frame["network_id"].nunique()),
         "n_station_gaps": float(len(frame)),
     }
@@ -244,7 +277,9 @@ def thermal_state_changes(
     for station in targets:
         training = daily.loc[train_mask, station].dropna().to_numpy(dtype=float)
         evaluation = daily.loc[~train_mask, station].dropna().to_numpy(dtype=float)
-        training_range = float(np.quantile(training, 0.95) - np.quantile(training, 0.05))
+        training_range = float(
+            np.quantile(training, 0.95) - np.quantile(training, 0.05)
+        )
         evaluation_range = float(
             np.quantile(evaluation, 0.95) - np.quantile(evaluation, 0.05)
         )
@@ -365,15 +400,16 @@ def network_bootstrap_intervals(
 
 
 __all__ = [
-    "RouteAModel",
     "SIMPLE_COLUMNS",
+    "RouteAModel",
     "apply_route_a_model",
+    "apply_safe_release_threshold",
     "confirmation_metrics",
     "fit_route_a_model",
     "fit_safe_release_threshold",
     "grouped_confirmation_metrics",
     "network_bootstrap_intervals",
+    "point_prediction_metrics",
     "simple_predictors",
-    "apply_safe_release_threshold",
     "thermal_state_changes",
 ]

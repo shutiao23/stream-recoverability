@@ -156,13 +156,13 @@ def test_foen_enforces_request_year_and_calendar_day_duplicate_rule() -> None:
         )
 
 
-def test_repository_preflight_is_metadata_only_until_lock_claimed() -> None:
+def test_repository_preflight_refuses_rerun_after_once_ledger_exists() -> None:
     manifest = build_evaluator_preflight()
     assert manifest["authorized_for_object_reads"] is False
     assert manifest["evaluate_once_lock_claimed_by_preflight"] is False
     assert manifest["vault_path_resolved_or_statted"] is False
     assert manifest["sealed_objects_read"] == 0
-    assert "evaluate_once_lock_missing_or_invalid" in manifest["blockers"]
+    assert "evaluate_once_run_ledger_already_exists_no_rerun" in manifest["blockers"]
     assert manifest["production_reader_available"] is True
     assert manifest["production_evaluate_once_semantics_implemented"] is True
 

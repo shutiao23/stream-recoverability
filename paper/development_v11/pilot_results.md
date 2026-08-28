@@ -1,4 +1,4 @@
-# Open-development result and route decision
+# Development result and model-selection decision
 
 The completed open run contains 55 river networks, 217 stations, and 1,260
 station-by-gap units with matched B+D+M+H XGBoost outcomes. The development
@@ -14,10 +14,10 @@ network-block interval covers 0.909 of whole networks simultaneously, but its
 mean width is 11.52 degrees C, so coverage is not operationally sharp.
 
 The literal operator improves LONO Spearman over donor R2 by 0.127, passing the
-+0.10 rank component of the advancement gate. It adds only +0.01710 R2 after
-the strongest available simple model, missing the +0.05 nested component. Both
-components were required, so Route B fails and the recorded decision is Route
-A: simple outage geometry and redundancy.
++0.10 rank criterion. It adds only +0.01710 R2 after the strongest available
+simple model, missing the +0.05 nested criterion. Both criteria were required,
+so the conditional-covariance model was rejected and the simple-descriptor
+model was retained.
 
 The inner contest also includes nearest-donor correlation and placement
 season. Forty-seven folds add nearest correlation to the original four
@@ -38,8 +38,8 @@ high-memory regime that motivated the weighting rule.
 
 The placement regret curve remains a synthetic implementation benchmark:
 selection and evaluation share the same known covariance. It is not empirical
-H3 evidence. Machine-readable tables, figures, Route A intervals, and the
-217-row exact-roster audit are under `results/development_v11/` and regenerate
+decision-level evidence. Machine-readable tables, figures, simple-model
+intervals, and the 217-row exact-roster check are under `results/development_v11/` and regenerate
 with:
 
 ```bash

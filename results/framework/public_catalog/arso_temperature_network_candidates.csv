@@ -1,0 +1,13 @@
+network_id,provider,domain,river_group,n_catalog_stations,site_ids,latitude,longitude,prior_temperature_values_seen,candidate_status
+arso_bistrica,arso,slovenia,Bistrica,4,2432|3320|4791|7440,,,False,metadata_candidate_pending_daily_qc
+arso_drava,arso,slovenia,Drava,3,2005|2150|2160,,,False,metadata_candidate_pending_daily_qc
+arso_dravinja,arso,slovenia,Dravinja,4,2600|2620|2640|2652,,,False,metadata_candidate_pending_daily_qc
+arso_kamniska_bistrica,arso,slovenia,Kamniška Bistrica,3,4400|4430|4445,,,False,metadata_candidate_pending_daily_qc
+arso_kolpa,arso,slovenia,Kolpa,3,4820|4828|4860,,,False,metadata_candidate_pending_daily_qc
+arso_krka,arso,slovenia,Krka,4,7029|7060|7110|7160,,,False,metadata_candidate_pending_daily_qc
+arso_ljubljanica,arso,slovenia,Ljubljanica,3,5030|5040|5078,,,False,metadata_candidate_pending_daily_qc
+arso_paka,arso,slovenia,Paka,3,6280|6300|6340,,,False,metadata_candidate_pending_daily_qc
+arso_sava,arso,slovenia,Sava,8,3420|3465|3530|3570|3660|3725|3850|3900,,,False,metadata_candidate_pending_daily_qc
+arso_savinja,arso,slovenia,Savinja,5,6020|6060|6120|6140|6200,,,False,metadata_candidate_pending_daily_qc
+arso_soca,arso,slovenia,Soča,3,8031|8060|8080,,,False,metadata_candidate_pending_daily_qc
+arso_vipava,arso,slovenia,Vipava,4,8561|8565|8591|8601,,,False,metadata_candidate_pending_daily_qc

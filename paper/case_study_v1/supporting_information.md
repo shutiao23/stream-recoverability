@@ -41,4 +41,4 @@ Source: [`../results/revision/loeo_within_fold_auc.csv`](../results/revision/loe
 
 ## Evidence boundaries
 
-Validation-only tables are not WRR result tables. The state-matched and annual-demeaned analyses are post-hoc robustness diagnostics and do not replace the frozen prediction. The within-fold leave-one-ecoregion-out AUC table is a post-hoc metric diagnosis and does not replace the frozen pooled AUC. The Chattahoochee result is one temporal/network confirmation, not five independent basins. No application, ecological, or regulatory safe-fill threshold was declared.
+Validation-only tables are not main-text result tables. The state-matched and annual-demeaned analyses are post-hoc robustness diagnostics and do not replace the frozen prediction. The within-fold leave-one-ecoregion-out AUC table is a post-hoc metric diagnosis and does not replace the frozen pooled AUC. The Chattahoochee result is one temporal/network confirmation, not five independent basins. No application, ecological, or regulatory safe-fill threshold was declared.

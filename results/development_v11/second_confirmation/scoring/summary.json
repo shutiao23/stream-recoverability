@@ -1,0 +1,450 @@
+{
+  "attempted_networks": 60,
+  "attrited_networks": 3,
+  "scored_networks": 57,
+  "minimum_scored_network_floor": 40,
+  "attrition_floor_passed": true,
+  "performance_reporting_authorized": true,
+  "status": "scored_after_readiness_authorization",
+  "n_qc_networks": 60,
+  "n_scored_networks": 57,
+  "n_scoring_attrition_networks": 3,
+  "simple_metrics": {
+    "station_gap_spearman": 0.8190947335163268,
+    "network_spearman": 0.6140782991962667,
+    "calibration_intercept": -0.011524218052111467,
+    "calibration_slope": 1.0174320563432953,
+    "interval_coverage": 0.995850622406639,
+    "network_simultaneous_interval_coverage": 0.9122807017543859,
+    "mean_interval_width": 6.4944293297470645,
+    "n_networks": 57.0,
+    "n_station_gaps": 1446.0
+  },
+  "empirical_interval_metrics": {
+    "n_networks": 57.0,
+    "n_station_gaps": 1446.0,
+    "row_coverage": 1.0,
+    "network_simultaneous_coverage": 1.0,
+    "mean_width": 8.776833993811742,
+    "median_width": 8.474310314333215,
+    "median_loss": 1.009140944261104,
+    "median_width_over_median_loss": 8.397548788923762,
+    "mean_prediction": 1.297709774005916
+  },
+  "empirical_point_metrics": {
+    "station_gap_spearman": 0.7399228649476387,
+    "network_spearman": 0.715452424163858,
+    "calibration_intercept": 0.2862046930270103,
+    "calibration_slope": 0.9502513594290952,
+    "n_networks": 57.0,
+    "n_station_gaps": 1446.0
+  },
+  "empirical_supported_horizon_metrics": {
+    "station_gap_spearman": 0.9453454523265827,
+    "network_spearman": 0.8049001814882034,
+    "calibration_intercept": 0.13832261354048767,
+    "calibration_slope": 0.9383308686836279,
+    "n_networks": 57.0,
+    "n_station_gaps": 874.0
+  },
+  "empirical_prediction_source_audit": {
+    "definition": "The frozen fitting-period curve directly targets horizons 7/30/90/180 days. Other horizons use the training-period network mean.",
+    "supported_horizons": [
+      7,
+      30,
+      90,
+      180
+    ],
+    "supported_station_gaps": 874,
+    "network_mean_fallback_station_gaps": 572,
+    "all_station_gaps": 1446,
+    "all_predictions_finite": true
+  },
+  "triage": {
+    "endpoint": {
+      "unsafe_loss_c": 0.5,
+      "false_release_cap": 0.05,
+      "confidence": 0.95,
+      "calibration": "development networks only",
+      "evaluation": "57 second-confirmation networks"
+    },
+    "simple_descriptors": {
+      "status": "no_certified_release",
+      "threshold": null,
+      "n_calibration": 1260,
+      "n_certified": 0,
+      "calibration_errors": 0,
+      "error_upper_bound": 1.0,
+      "n_evaluation": 1446,
+      "n_released": 0,
+      "safe_fill_fraction": 0.0,
+      "false_release_rate": null,
+      "endpoint_passed": false
+    },
+    "fitting_period_empirical_all_cells": {
+      "status": "no_certified_release",
+      "threshold": null,
+      "n_calibration": 1460,
+      "n_certified": 0,
+      "calibration_errors": 0,
+      "error_upper_bound": 1.0,
+      "n_evaluation": 1446,
+      "n_released": 0,
+      "safe_fill_fraction": 0.0,
+      "false_release_rate": null,
+      "endpoint_passed": false
+    },
+    "endpoint_passed": false
+  },
+  "artifact_bindings": {
+    "canonical_readiness": {
+      "path": "results/development_v11/second_confirmation/readiness.json",
+      "sha256": "41f20961349d732fb22a010a30cadc57a44c09872e0d3801356ef2bf7a5832d4"
+    },
+    "authorization_amendment": {
+      "path": "configs/route_a_second_confirmation_amendment_v2.yaml",
+      "sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
+    },
+    "frozen_scoring_roster": {
+      "path": "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv",
+      "sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea"
+    },
+    "readiness_roster": {
+      "path": "results/development_v11/second_confirmation/readiness_roster.csv",
+      "sha256": "0d151f28b2527618b658d05f55e44f6b0371a1b885b71772f7c97a5e2b842d13"
+    },
+    "development_outcomes": {
+      "path": "results/development_v11/station_gap_outcomes.csv",
+      "sha256": "cb58b8e7c90adfa1507574af9ed46b0d673b228788362c65e93b73732bf2d6a8"
+    },
+    "development_empirical_predictions": {
+      "path": "results/development_v11/reviewer_completion/development_empirical_predictions.csv",
+      "sha256": "fda090dbf9b46a9a81e5e56f8543a91e021a7bc31027577b262013cc355e54e1"
+    },
+    "registration_record_non_authorizing": {
+      "path": "results/development_v11/second_confirmation/amendment_registration_record.json",
+      "sha256": "236fb010cfe0d65612eb7c73ee6b9875d08fac1a92078d15e9d5fee7d1ae8872"
+    },
+    "simple_predictions": {
+      "path": "results/development_v11/second_confirmation/scoring/simple_predictions.csv",
+      "sha256": "121e341204cd6b5bbcb99e19a9fe53ebbaf1420cd63de6bdfe28d7ac4bd9897f"
+    },
+    "empirical_predictions": {
+      "path": "results/development_v11/second_confirmation/scoring/empirical_predictions.csv",
+      "sha256": "1a896614526da5b955f15dbf24bd6961c56e1da6c1d7cb84e17c0db0d32710ba"
+    },
+    "empirical_intervals": {
+      "path": "results/development_v11/second_confirmation/scoring/empirical_intervals.csv",
+      "sha256": "06325b20e503321f49da1a8ebf19f1294fe6e238c4fd7d42c3d37744af3f3f80"
+    },
+    "scoring_attrition": {
+      "path": "results/development_v11/second_confirmation/scoring/scoring_attrition.csv",
+      "sha256": "b028ffe940ed3d8ae7c94258ca236ff316d09a66371c585ec640cee5b122063c"
+    },
+    "triage_endpoint": {
+      "path": "results/development_v11/second_confirmation/scoring/triage_endpoint.json",
+      "sha256": "19e4dd42cf3195c196395a0985d344a36c07aaf08fae58b0e4d59412125d8eb9"
+    },
+    "placement_summary": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_summary.json",
+      "sha256": "eb938fffe203711bd627c9d031ce9874cb27b82cb3fc9030f7fedea5b29acdab"
+    },
+    "placement_attrition": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_attrition.csv",
+      "sha256": "e838d0562dfab7f4dca75d57ec91dd2e993f1d3689bbb78f81010e433db0c1ed"
+    },
+    "placement_pairwise_losses": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_pairwise_losses.csv",
+      "sha256": "21f504c7d7893086e2252ed4da958e9ce07cdc813d1f168c4642a8a0fef4045c"
+    },
+    "placement_policy_summary": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_policy_summary.csv",
+      "sha256": "2ef3995c875c17ecc37d8c821aa91a8ee9c08b8b2a1c05789fb75b163038b9e3"
+    },
+    "placement_replay_curve": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_replay_curve.csv",
+      "sha256": "e3b57a8b0a9763115ea09567fa65f6b570be4e096b163fb63d19d9ec1a5edcff"
+    },
+    "heterogeneity_metrics": {
+      "path": "results/development_v11/second_confirmation/scoring/heterogeneity_metrics.csv",
+      "sha256": "254c2805199a60382e91e9477f1b19b2166ff30cf2515ae3dbb5335f050e73c0"
+    }
+  },
+  "registration_boundary": {
+    "record_type": "internal_checkpoint_registration_record",
+    "amendment_id": "route_a_second_confirmation_v2_canada_quality_substitution",
+    "amendment_sha256_used_to_authorize_scoring": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035",
+    "canonical_readiness_frozen_at_utc": "2026-08-28T17:40:04Z",
+    "registration_record_created_at_utc": "2026-08-28T17:46:58Z",
+    "parent_git_commit": "72f002551abfd6681f047698db6aa8c75815d757",
+    "registration_scope": "internally_hash_bound_pre_scoring_checkpoint",
+    "externally_verifiable_preregistration": false,
+    "separate_pre_outcome_git_commit": false,
+    "auditability_boundary": "The amendment, exact roster, and canonical readiness were hash-bound before the scoring command opened recovery outcomes, but were not committed separately or externally timestamped. This is an internal pre-scoring checkpoint, not externally verifiable preregistration.",
+    "authorization_effect": "none; this record documents the authorization artifacts and is not itself read by the scoring gate"
+  },
+  "heterogeneity": {
+    "moderators": [
+      "provider",
+      "domain",
+      "network_size_group"
+    ],
+    "descriptive_only": true,
+    "climate_and_regulation_status": "not_available_in_frozen_second_roster",
+    "rows": [
+      {
+        "model": "simple_descriptors",
+        "moderator": "provider",
+        "level": "chmi",
+        "station_gap_spearman": 0.9214202636904565,
+        "network_spearman": 0.7499999999999999,
+        "calibration_intercept": -0.23240271804521032,
+        "calibration_slope": 1.1640941830482792,
+        "n_networks": 15.0,
+        "n_station_gaps": 478.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "provider",
+        "level": "nve_hydapi",
+        "station_gap_spearman": 0.8665149150749945,
+        "network_spearman": 0.8181818181818182,
+        "calibration_intercept": -0.2672982546587747,
+        "calibration_slope": 0.9820558275069928,
+        "n_networks": 10.0,
+        "n_station_gaps": 265.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "provider",
+        "level": "usgs",
+        "station_gap_spearman": 0.7546837990916937,
+        "network_spearman": 0.4670087976539589,
+        "calibration_intercept": 0.22887548802493327,
+        "calibration_slope": 0.8996271994973589,
+        "n_networks": 32.0,
+        "n_station_gaps": 703.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "domain",
+        "level": "czechia",
+        "station_gap_spearman": 0.9214202636904565,
+        "network_spearman": 0.7499999999999999,
+        "calibration_intercept": -0.23240271804521032,
+        "calibration_slope": 1.1640941830482792,
+        "n_networks": 15.0,
+        "n_station_gaps": 478.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "domain",
+        "level": "norway",
+        "station_gap_spearman": 0.8665149150749945,
+        "network_spearman": 0.8181818181818182,
+        "calibration_intercept": -0.2672982546587747,
+        "calibration_slope": 0.9820558275069928,
+        "n_networks": 10.0,
+        "n_station_gaps": 265.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "domain",
+        "level": "united_states",
+        "station_gap_spearman": 0.7546837990916937,
+        "network_spearman": 0.4670087976539589,
+        "calibration_intercept": 0.22887548802493327,
+        "calibration_slope": 0.8996271994973589,
+        "n_networks": 32.0,
+        "n_station_gaps": 703.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "network_size_group",
+        "level": "3_to_4",
+        "station_gap_spearman": 0.78004746059625,
+        "network_spearman": 0.53446088794926,
+        "calibration_intercept": 0.07146706525489198,
+        "calibration_slope": 0.9673912111344932,
+        "n_networks": 44.0,
+        "n_station_gaps": 942.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "network_size_group",
+        "level": "5_to_7",
+        "station_gap_spearman": 0.9013353100948311,
+        "network_spearman": 0.7818181818181819,
+        "calibration_intercept": -0.30186506771620436,
+        "calibration_slope": 1.1986470989149856,
+        "n_networks": 11.0,
+        "n_station_gaps": 392.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "simple_descriptors",
+        "moderator": "network_size_group",
+        "level": "8_plus",
+        "station_gap_spearman": 0.9433662486759833,
+        "network_spearman": 0.9999999999999999,
+        "calibration_intercept": -0.2717126600257672,
+        "calibration_slope": 1.0688134460018524,
+        "n_networks": 2.0,
+        "n_station_gaps": 112.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "provider",
+        "level": "chmi",
+        "station_gap_spearman": 0.6935783481127858,
+        "network_spearman": 0.9428571428571427,
+        "calibration_intercept": 0.33227580939899215,
+        "calibration_slope": 1.0985346542145222,
+        "n_networks": 15.0,
+        "n_station_gaps": 478.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "provider",
+        "level": "nve_hydapi",
+        "station_gap_spearman": 0.7721683536534151,
+        "network_spearman": 0.7212121212121211,
+        "calibration_intercept": 0.05931414836085024,
+        "calibration_slope": 1.1037783421879026,
+        "n_networks": 10.0,
+        "n_station_gaps": 265.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "provider",
+        "level": "usgs",
+        "station_gap_spearman": 0.7212916353948375,
+        "network_spearman": 0.6359970674486803,
+        "calibration_intercept": 0.36103641325171026,
+        "calibration_slope": 0.8266177437228313,
+        "n_networks": 32.0,
+        "n_station_gaps": 703.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "domain",
+        "level": "czechia",
+        "station_gap_spearman": 0.6935783481127858,
+        "network_spearman": 0.9428571428571427,
+        "calibration_intercept": 0.33227580939899215,
+        "calibration_slope": 1.0985346542145222,
+        "n_networks": 15.0,
+        "n_station_gaps": 478.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "domain",
+        "level": "norway",
+        "station_gap_spearman": 0.7721683536534151,
+        "network_spearman": 0.7212121212121211,
+        "calibration_intercept": 0.05931414836085024,
+        "calibration_slope": 1.1037783421879026,
+        "n_networks": 10.0,
+        "n_station_gaps": 265.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "domain",
+        "level": "united_states",
+        "station_gap_spearman": 0.7212916353948375,
+        "network_spearman": 0.6359970674486803,
+        "calibration_intercept": 0.36103641325171026,
+        "calibration_slope": 0.8266177437228313,
+        "n_networks": 32.0,
+        "n_station_gaps": 703.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "network_size_group",
+        "level": "3_to_4",
+        "station_gap_spearman": 0.739746449441215,
+        "network_spearman": 0.731782945736434,
+        "calibration_intercept": 0.2656472982698277,
+        "calibration_slope": 0.9520742541973913,
+        "n_networks": 44.0,
+        "n_station_gaps": 942.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "network_size_group",
+        "level": "5_to_7",
+        "station_gap_spearman": 0.7612236795999389,
+        "network_spearman": 0.7363636363636363,
+        "calibration_intercept": 0.29940185824934684,
+        "calibration_slope": 0.9614958401047649,
+        "n_networks": 11.0,
+        "n_station_gaps": 392.0,
+        "descriptive_only": true
+      },
+      {
+        "model": "fitting_period_empirical_all_cells",
+        "moderator": "network_size_group",
+        "level": "8_plus",
+        "station_gap_spearman": 0.6488612769073873,
+        "network_spearman": 0.9999999999999999,
+        "calibration_intercept": 0.6162125908847156,
+        "calibration_slope": 0.8778589385005693,
+        "n_networks": 2.0,
+        "n_station_gaps": 112.0,
+        "descriptive_only": true
+      }
+    ]
+  },
+  "placement": {
+    "evidence_role": "independent_second_confirmation_placement_replay",
+    "selection": "all_scored_networks_with_at_least_five_target_stations",
+    "gap_length": 90,
+    "attempted_networks": 13,
+    "scored_complete_matrix_networks": 13,
+    "attrited_networks": 0,
+    "policies_frozen_before_outcomes": [
+      "simple_risk_minimax",
+      "greedy_mutual_information",
+      "qr_pivot",
+      "distance_even",
+      "random",
+      "oracle_for_regret_only"
+    ],
+    "simple_minimax_mean_regret": 0.24082499531267318,
+    "random_mean_regret": 0.2562125454181433,
+    "simple_minimax_improvement_over_random": 0.015387550105470132,
+    "input_bindings": {
+      "placement_losses_sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
+      "frozen_roster_sha256": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
+      "authorization_amendment_sha256": "a99fe5249abc829bee52d416115d67a8f5d6a4745d5115441a56e2bc5abc2035"
+    },
+    "simple_minimax_relative_regret_reduction_vs_random": 0.060057754316274345,
+    "directional_improvement_observed": true,
+    "preregistered_margin_or_significance_threshold": false,
+    "confirmatory_utility_claim_licensed": false,
+    "endpoint_status": "directionally_lower_regret_no_preregistered_margin"
+  },
+  "large_regenerable_artifacts": {
+    "placement_losses": {
+      "path": "results/development_v11/second_confirmation/scoring/placement_losses.csv",
+      "sha256": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
+      "packaged": false,
+      "regenerable": true
+    }
+  }
+}

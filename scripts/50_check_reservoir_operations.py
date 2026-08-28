@@ -8,29 +8,45 @@ before-after result if those series are missing.
 from __future__ import annotations
 
 import json
-from pathlib import Path
-import sys
+import urllib.error
 import urllib.parse
 import urllib.request
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
-if str(SRC) not in sys.path:
-    sys.path.insert(0, str(SRC))
-
-from stream_recoverability.data.nwis_temperature import read_rdb
-
 OUTPUT = ROOT / "results/framework/public_catalog"
-# Storage (00054) at a few well-known reservoirs. This is not release temperature.
-SAMPLE = "https://waterservices.usgs.gov/nwis/site/?" + urllib.parse.urlencode(
+# Storage (00054) metadata demonstrates that reservoir storage series are
+# discoverable. It is not release temperature, outlet depth, or operations.
+API = "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+OFFICIAL_DOCUMENTATION = "https://api.waterdata.usgs.gov/docs/ogcapi/migration/"
+SAMPLE = API + "?" + urllib.parse.urlencode(
     {
-        "format": "rdb",
-        "sites": "07337000,11456000,14158790",
-        "parameterCd": "00054",
-        "outputDataTypeCd": "dv",
-        "siteStatus": "all",
+        "f": "json",
+        "parameter_code": "00054",
+        "limit": "50",
     }
 )
+
+
+def _storage_sites(document: object) -> set[str]:
+    if not isinstance(document, dict):
+        raise TypeError("USGS response is not a JSON object")
+    features = document.get("features")
+    if not isinstance(features, list):
+        raise TypeError("USGS response lacks a feature list")
+    sites = set()
+    for feature in features:
+        if not isinstance(feature, dict):
+            continue
+        properties = feature.get("properties")
+        if not isinstance(properties, dict):
+            continue
+        if str(properties.get("parameter_code")) != "00054":
+            continue
+        location = properties.get("monitoring_location_id")
+        if location:
+            sites.add(str(location))
+    return sites
 
 
 def main() -> None:
@@ -44,15 +60,27 @@ def main() -> None:
             headers={"User-Agent": "stream-recoverability-public-catalog/1.0"},
         )
         with urllib.request.urlopen(request, timeout=40) as response:
-            text = response.read().decode("utf-8", errors="replace")
-        table = read_rdb(text)
+            document = json.load(response)
+        sites = _storage_sites(document)
         reachable = True
-        storage_sites = int(table["site_no"].nunique()) if not table.empty and "site_no" in table else 0
-    except Exception as exc:
+        storage_sites = len(sites)
+    except (
+        OSError,
+        TimeoutError,
+        TypeError,
+        ValueError,
+        json.JSONDecodeError,
+        urllib.error.URLError,
+    ) as exc:
         error = str(exc)
     manifest = {
         "what_this_is": "A check of whether reservoir operations are publicly downloadable.",
         "what_this_is_not": "Not a dam-cause result. No before-after table was computed.",
+        "official_api": API,
+        "official_documentation": OFFICIAL_DOCUMENTATION,
+        "request_url": SAMPLE,
+        "parameter_code": "00054",
+        "parameter_interpretation": "reservoir_storage_not_release_temperature",
         "nwis_site_service_reachable": reachable,
         "example_storage_sites_found": storage_sites,
         "release_temperature_found": False,
@@ -61,7 +89,7 @@ def main() -> None:
         "can_write_reservoir_cause": False,
         "error": error,
         "reason": (
-            "USGS site files can list reservoir storage at some lakes. "
+            "The modern USGS time-series metadata API lists reservoir storage. "
             "This check did not find release temperature, outlet depth, and matched "
             "control rivers on the same days. Without those, a reservoir before-after "
             "study is not licensed."

@@ -5,17 +5,22 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 import tarfile
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
 from stream_recoverability.governance import public_export_exclude
 
-ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-ARCHIVE = DIST / "stream-recoverability-v1.0.0-archive-candidate.tar.gz"
-MANIFEST = DIST / "stream-recoverability-v1.0.0-archive-candidate.manifest.json"
+RELEASE_VERSION = "1.1.0"
+ARCHIVE = DIST / f"stream-recoverability-v{RELEASE_VERSION}-archive-candidate.tar.gz"
+MANIFEST = DIST / f"stream-recoverability-v{RELEASE_VERSION}-archive-candidate.manifest.json"
 
 TOP_LEVEL = {
+    ".zenodo.json",
     "CITATION.cff",
     "DATA_RIGHTS.md",
     "Dockerfile",
@@ -56,9 +61,69 @@ SAFE_METADATA_FILES = {
 }
 SAFE_RESULT_FILES = {
     "results/final_results_manifest.json",
+    "results/audits/blueprint_completion_audit.json",
     "results/audits/reproduction_report_acceptance_revision.json",
     "results/audits/restricted_hosting_audit.json",
     "results/audits/submission_gate.json",
+    "results/audits/goal_completion_audit.json",
+    "results/development_v11/final_summary.json",
+    "results/development_v11/reviewer_completion/summary.json",
+    "results/development_v11/reviewer_completion/empirical_transfer_metrics.csv",
+    "results/development_v11/reviewer_completion/empirical_transfer_coverage_audit.csv",
+    "results/development_v11/reviewer_completion/heterogeneity_metrics.csv",
+    "results/development_v11/reviewer_completion/model_roster_metrics.csv",
+    "results/development_v11/reviewer_completion/learned_error_model_metrics.csv",
+    "results/development_v11/reviewer_completion/mechanism_decomposition.csv",
+    "results/development_v11/reviewer_completion/rank_decomposition.csv",
+    "results/development_v11/reviewer_completion/interval_metrics_by_horizon_season_domain.csv",
+    "results/development_v11/reviewer_completion/recalibration_budget_curve.csv",
+    "results/development_v11/reviewer_completion/risk_control_budget_curve.csv",
+    "results/development_v11/reviewer_completion/placement_replay_curve.csv",
+    "results/development_v11/reviewer_completion/placement_pairwise_losses.csv",
+    "results/development_v11/reviewer_completion/recurrent_sensitivity_manifest.json",
+    "results/development_v11/reviewer_completion/recurrent_sensitivity_predictions.csv",
+    "results/development_v11/reviewer_completion/recurrent_sensitivity_provider_metrics.csv",
+    "results/development_v11/reviewer_completion/recurrent_sensitivity_training.csv",
+    "results/development_v11/reviewer_completion/process_hybrid_manifest.json",
+    "results/development_v11/reviewer_completion/process_hybrid_readiness.csv",
+    "results/development_v11/reviewer_completion/process_hybrid_station_gaps.csv",
+    "results/development_v11/reviewer_completion/process_hybrid_failures.csv",
+    "results/development_v11/reviewer_completion/figure_01_workflow.png",
+    "results/development_v11/reviewer_completion/figure_02_confirmation_calibration.png",
+    "results/development_v11/reviewer_completion/figure_03_mechanism.png",
+    "results/development_v11/reviewer_completion/figure_04_placement_replay.png",
+    "results/development_v11/reviewer_completion/figure_05_domain_adaptation.png",
+    "results/development_v11/second_confirmation/candidate_summary.json",
+    "results/development_v11/second_confirmation/candidates.csv",
+    "results/development_v11/second_confirmation/readiness.json",
+    "results/development_v11/second_confirmation/readiness_roster.csv",
+    "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv",
+    "results/development_v11/second_confirmation/amendment_registration_record.json",
+    "results/development_v11/second_confirmation/canada_source_audit.json",
+    "results/development_v11/second_confirmation/canada_candidate.csv",
+    "results/development_v11/second_confirmation/nve/candidates.csv",
+    "results/development_v11/second_confirmation/nve/network_qc_summary.csv",
+    "results/development_v11/second_confirmation/nve/source_audit.md",
+    "results/development_v11/second_confirmation/scoring/withheld.json",
+    "results/development_v11/second_confirmation/scoring/summary.json",
+    "results/development_v11/second_confirmation/scoring/simple_predictions.csv",
+    "results/development_v11/second_confirmation/scoring/empirical_predictions.csv",
+    "results/development_v11/second_confirmation/scoring/empirical_intervals.csv",
+    "results/development_v11/second_confirmation/scoring/scoring_attrition.csv",
+    "results/development_v11/second_confirmation/scoring/triage_endpoint.json",
+    "results/development_v11/second_confirmation/scoring/placement_summary.json",
+    "results/development_v11/second_confirmation/scoring/placement_attrition.csv",
+    "results/development_v11/second_confirmation/scoring/placement_policy_summary.csv",
+    "results/development_v11/second_confirmation/scoring/placement_pairwise_losses.csv",
+    "results/development_v11/second_confirmation/scoring/placement_replay_curve.csv",
+    "results/development_v11/second_confirmation/scoring/heterogeneity_metrics.csv",
+}
+SAFE_CORPUS_FILES = {
+    "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_qualified.parquet",
+    "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_qualified_manifest.json",
+    "data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json",
+    "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_exclusions.csv",
+    "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_balance.csv",
 }
 IGNORED_SUFFIXES = {".pyc", ".pt", ".npz"}
 IGNORED_NAMES = {"__pycache__", ".DS_Store"}
@@ -76,6 +141,7 @@ def _selected(relative: str) -> bool:
     if (
         relative in TOP_LEVEL
         or relative in SAFE_RESULT_FILES
+        or relative in SAFE_CORPUS_FILES
         or relative in SAFE_METADATA_FILES
     ):
         return True
@@ -85,7 +151,10 @@ def _selected(relative: str) -> bool:
 def _candidate_files() -> list[Path]:
     candidates = {
         ROOT / relative
-        for relative in TOP_LEVEL | SAFE_RESULT_FILES | SAFE_METADATA_FILES
+        for relative in TOP_LEVEL
+        | SAFE_RESULT_FILES
+        | SAFE_CORPUS_FILES
+        | SAFE_METADATA_FILES
     }
     for prefix in SAFE_PREFIXES:
         source = ROOT / prefix.rstrip("/")
@@ -117,7 +186,10 @@ def main() -> None:
     with tarfile.open(ARCHIVE, "w:gz", compresslevel=9) as archive:
         for path in files:
             relative = path.relative_to(ROOT)
-            archive.add(path, arcname=Path("stream-recoverability-v1.0.0") / relative)
+            archive.add(
+                path,
+                arcname=Path(f"stream-recoverability-v{RELEASE_VERSION}") / relative,
+            )
             records.append(
                 {
                     "path": relative.as_posix(),
@@ -137,6 +209,7 @@ def main() -> None:
         "blockers": [
             "candidate is built from an uncommitted worktree",
             "author metadata and editor data exception remain open",
+            "confidential reviewer-data upload is incomplete",
             "a repository service must mint the real DOI",
         ],
     }

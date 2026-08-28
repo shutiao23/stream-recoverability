@@ -1,0 +1,16 @@
+{
+  "provider": "Austria eHYD",
+  "official_general_document": "https://ehyd.gv.at/assets/eHYD/pdf/eHYD_Allgemein.pdf",
+  "official_station_data_document": "https://ehyd.gv.at/assets/eHYD/pdf/Messstellen_und_Daten.pdf",
+  "station_endpoint": "https://ehyd.gv.at/services/Messstellen/json?filter=alle",
+  "official_surface_water_package": "https://gis.lfrz.gv.at/api/ehyd/messstellen/paket/ehyd_messstellen_all_owf.zip",
+  "n_surface_water_temperature_stations": 324,
+  "n_exact_river_metadata_candidates": 23,
+  "n_monthly_files_read": 104,
+  "water_temperature_file_kind": "WT-Monatsmittel",
+  "daily_water_temperature_file_offered": false,
+  "daily_confirmation_networks_added": 0,
+  "reason": "official derived surface-water temperature is monthly, not daily",
+  "pegelonline_used": false,
+  "pegelonline_reason": "31-day records cannot meet the eight-year criterion"
+}

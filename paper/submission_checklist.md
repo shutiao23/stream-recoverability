@@ -1,4 +1,9 @@
-# WRR / AGU GEMS submission checklist
+# Historical WRR / AGU GEMS submission checklist
+
+> This is the legacy v4 packaging audit, not the active journal decision. The
+> canonical case-study lineage targets *Journal of Hydrology* (or a comparable
+> case-study venue), and the v9 lineage is not submittable after its sealed QC
+> floor failed. See `paper/study_manifest.json`.
 
 ## Scientific revision
 

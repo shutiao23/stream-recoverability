@@ -117,3 +117,42 @@ data/cache/regulation_panel_v1/
 
 # Confidential GEMS reviewer working tree. Restricted bytes. Never commit.
 private/gems_reviewer_bundle/
+
+# Re-downloadable/recomputable v11 working data. Compact aggregate evidence is
+# tracked explicitly; raw provider series, per-placement losses, and auxiliary
+# station-day tables stay local.
+data_versions/global_network_corpus_v1/development_auxiliary/
+results/development_v11/*_temperature/
+results/development_v11/confirmation_daily_qc/
+results/development_v11/second_confirmation/daily_qc/
+results/development_v11/second_confirmation/nve/series_catalog.csv
+results/development_v11/second_confirmation/scoring/*.csv
+!results/development_v11/second_confirmation/scoring/simple_predictions.csv
+!results/development_v11/second_confirmation/scoring/empirical_predictions.csv
+!results/development_v11/second_confirmation/scoring/empirical_intervals.csv
+!results/development_v11/second_confirmation/scoring/scoring_attrition.csv
+!results/development_v11/second_confirmation/scoring/placement_attrition.csv
+!results/development_v11/second_confirmation/scoring/placement_policy_summary.csv
+!results/development_v11/second_confirmation/scoring/placement_pairwise_losses.csv
+!results/development_v11/second_confirmation/scoring/placement_replay_curve.csv
+!results/development_v11/second_confirmation/scoring/heterogeneity_metrics.csv
+results/development_v11/recovery_scoring/placement_losses.csv
+results/development_v11/recovery_scoring/placement_losses.parquet
+results/development_v11/route_a_confirmation/placement_losses.csv
+results/development_v11/route_a_confirmation/station_gap_outcomes.csv
+results/development_v11/route_a_confirmation/calibration.png
+results/development_v11/route_a_confirmation/domain_calibration.png
+results/development_v11/route_a_confirmation/triage.png
+results/development_v11/reviewer_completion/*_fit_losses.csv
+results/development_v11/reviewer_completion/*_model_roster_losses.csv
+results/development_v11/reviewer_completion/*_predictions.csv
+!results/development_v11/reviewer_completion/recurrent_sensitivity_predictions.csv
+results/development_v11/calibration.png
+results/development_v11/calibration_folds.csv
+results/development_v11/calibration_predictions.csv
+results/development_v11/calibration_residuals.csv
+results/development_v11/complete_operator_predictions.csv
+results/development_v11/lono_predictions.csv
+results/development_v11/placement_regret.png
+results/development_v11/placement_regret_curve.csv
+results/development_v11/placement_scatter.png

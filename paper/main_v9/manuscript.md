@@ -1,6 +1,7 @@
 # Pre-fit information risk for stream-temperature gap recoverability across unseen river networks
 
-**Status:** draft skeleton — confirmatory sentences marked `[pending]`.
+**Status:** non-submittable draft skeleton — the evaluate-once QC gate failed
+before confirmatory scoring.
 
 **Lineage:** `paper/main_v9/` · `configs/design_freeze_v10_executable.yaml` · not the v4 case study.
 
@@ -8,9 +9,9 @@
 
 1. Monitoring outages remove weeks to months of stream-temperature records; recoverability depends on which temporal and network information remains, not on which imputer wins a leaderboard.
 2. We propose a fitting-period Schur conditional-covariance operator that summarizes boundary memory, synchronous donor redundancy, and (when available) meteorological and hydraulic forcing before any recovery model is fit.
-3. `[pending — 探索期数据，不可写入结论]` Whole-network splits across independent river networks; sealed confirmatory panel size and split hash.
-4. `[pending]` Primary calibration of predicted risk against fixed-model recovery loss; incremental value versus gap length, ACF, donor R², and legacy heuristics.
-5. `[pending]` Placement or triage utility at frozen management thresholds; failure boundaries if simple proxies suffice.
+3. Evaluate-once QC retained 32 sealed networks (29 HUC8 and 3 FOEN), below the preregistered floor of 40; confirmatory recovery scoring was not performed.
+4. Consequently, primary calibration, incremental value, and decision utility remain untested in this lineage.
+5. Development results favor donor R² over the full operator and do not license a transferable or operational claim.
 
 ## 1. Introduction
 
@@ -46,22 +47,30 @@ Development context (not confirmatory): `paper/main_v9/results.md`.
 
 ## 3. Results
 
-`[pending — sealed T7 not opened]`
+The evaluate-once ceremony read all 2,880 registered sealed objects for the
+predeclared QC step. Thirty-two networks passed QC (29 HUC8 and 3 FOEN), fewer
+than the sealed absolute floor of 40. The production authorization is consumed;
+the fixed-model confirmatory scorer was not run and no confirmatory recovery
+loss, calibration, rank correlation, or decision-utility result exists.
 
 Development stop-loss (n=44 public networks): network-level Spearman operator 0.67 vs donor R² 0.80. W8 incremental ΔR² vs donor R² only: \(6.88\times10^{-5}\). Placement: 2/10 rivers pass 15% worst-MAE gate. Triage at 5% false release: 0 safe fills for both operator and length-only rules.
 
 ## 4. Discussion
 
-If sealed T7 confirms H1 but not H2–H3, the paper closes as **simple-proxy sufficiency**: synchronous network redundancy captures most predictable recoverability variation; the conditional-covariance operator adds little sealed-network value.
+The locked study did not reach the sample-size gate required to test H1–H3.
+Development evidence is compatible with **simple-proxy sufficiency**, but this
+interpretation is not a sealed-network conclusion.
 
 ## 5. Conclusions
 
-`[pending — 探索期数据，不可写入结论]`
-
-If H2 fails on sealed data:
-
-> A simple measure of synchronous network redundancy captured most of the predictable variation in stream-temperature recoverability; the more elaborate conditional-covariance operator added little sealed-network value.
+The current lineage supports no confirmatory conclusion: sealed QC attrition
+left too few networks to run the preregistered test. Development analyses show
+that donor R² can outperform the more elaborate operator, motivating a future,
+newly frozen test of simple redundancy sufficiency rather than an operator-
+superiority claim.
 
 ## Data and code availability
 
-Public USGS and catalog metadata in-repo. Sealed temperature bytes remain unopened until T7 evaluate-once. Software archival DOI: `[pending]`.
+Public USGS and catalog metadata are in-repo. Sealed temperature bytes were
+opened once under the T7 QC authorization; they were not confirmatorily scored.
+Software archival DOI: `[pending]`.

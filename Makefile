@@ -1,7 +1,8 @@
 PYTHON ?= python
 export PYTHONPATH := $(CURDIR)/src$(if $(PYTHONPATH),:$(PYTHONPATH))
 
-.PHONY: test development-v11 development-v11-inventory development-v11-candidates development-v11-score development-v11-mixed development-v11-confirm development-v11-stratify development-v11-triage development-v11-plots development-v11-reviewer-completion validate-development-v11-reviewer-completion goal-completion-audit second-confirmation-candidates second-confirmation-nve second-confirmation-canada-audit second-confirmation-readiness second-confirmation-score confirmation-daily-qc ehyd-source-audit rws-daily-qc arso-daily-qc evidence-snapshot hosting-audit submission-gate blueprint-audit p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: test development-v11 development-v11-inventory development-v11-candidates development-v11-score development-v11-mixed development-v11-confirm development-v11-stratify development-v11-triage development-v11-plots development-v11-reviewer-completion development-v11-recurrent-sensitivity development-v11-process-sensitivity validate-development-v11-reviewer-completion goal-completion-audit second-confirmation-candidates second-confirmation-nve second-confirmation-canada-audit second-confirmation-readiness second-confirmation-score confirmation-daily-qc ehyd-source-audit rws-daily-qc arso-daily-qc evidence-snapshot hosting-audit submission-gate blueprint-audit p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: second-confirmation-placement second-confirmation-finalize
 
 test:
 	$(PYTHON) -m pytest
@@ -35,6 +36,14 @@ development-v11-plots:
 
 development-v11-reviewer-completion:
 	$(PYTHON) scripts/124_run_reviewer_completion.py
+	$(PYTHON) scripts/132_run_recurrent_sensitivity.py
+	$(PYTHON) scripts/133_run_process_hybrid_sensitivity.py
+
+development-v11-recurrent-sensitivity:
+	$(PYTHON) scripts/132_run_recurrent_sensitivity.py
+
+development-v11-process-sensitivity:
+	$(PYTHON) scripts/133_run_process_hybrid_sensitivity.py
 
 validate-development-v11-reviewer-completion:
 	$(PYTHON) scripts/125_validate_reviewer_completion.py
@@ -56,6 +65,14 @@ goal-completion-audit:
 
 second-confirmation-score:
 	$(PYTHON) scripts/131_run_second_confirmation.py
+	$(PYTHON) scripts/135_run_second_confirmation_placement.py
+	$(PYTHON) scripts/134_finalize_second_confirmation.py
+
+second-confirmation-placement:
+	$(PYTHON) scripts/135_run_second_confirmation_placement.py
+
+second-confirmation-finalize:
+	$(PYTHON) scripts/134_finalize_second_confirmation.py
 
 confirmation-daily-qc:
 	$(PYTHON) scripts/111_qc_confirmation_candidates.py

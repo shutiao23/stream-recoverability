@@ -1,6 +1,8 @@
 # 下一篇目前有的结果
 
-还没有最后一次检验，所以这不是可以投稿的结果段。下面只写已经算出来的数字。v9 锁了 confirmatory 地板；这里的 6 河 Spearman 和选站数字是没过关的试点，不是已经证明。
+一次性 sealed QC 已执行，但只保留 32/40 条河，因此正式 recovery
+scoring 没有运行。这不是可以投稿的确认性结果段。下面按时间保留已经
+算出的 development 数字；旧目录/试点计数不覆盖文末的 v10 最终状态。
 
 W8：开放网 W7 第一层合并切片（n=8）算子相对 `donor_r2_only` 的增量 R² 为 \(6.88\times10^{-5}\)。失败分支已触发：改标题为可预测性，不重调。这仍不是 T2。
 
@@ -12,7 +14,8 @@ W8：开放网 W7 第一层合并切片（n=8）算子相对 `donor_r2_only` 的
 - 原先猜的 Sacramento、Connecticut、Potomac、Tennessee、South Platte 同期不够，已从定方法名单里拿掉。
 - 金沙江、Chattahoochee 已经用过。Chattahoochee 目录上有 8 站，共同窗口大约 5 年。
 - 法国 Hub'Eau：连续水温站 871 个；河名就是卢瓦尔的 11 个。目录没有起止年。
-- 瑞士：公开站名 246 个。历史日均要向 FOEN 订，没有下载。
+- 瑞士（当时状态）：公开站名 246 个；后续确认 FOEN 提供公开日均 API，
+  并在 outcome 查询前锁定十条 prospective sealed 河网。
 - 科罗拉多、Columbia 目录上有站，但对齐后没有八年共同窗口。留到最后看，没有下载水温。
 
 ## 已经下载的 12 条河
@@ -80,6 +83,29 @@ Delaware、Yellowstone、Rio Grande、Cahaba、McKenzie 没有进入这次留出
 
 catalog v2 已下载 79 条候选，下载后 8 年同期够用约 48 条，加上已烧过的公开河，主分析打分 n=44。河层 Spearman：算子 0.67，邻站 \(R^2\) 0.80。这是失败分支「算子不比邻站 R² 更好」的定方法记录，不重调。`evaluate_success` 仍 `passed=false`（n<100）。
 
-T4 在已有真实缺口几何上种到后期有观测的日子：351 段、11 条河，Spearman 0.69，仍不是确认。T3b 在 5% 误放行下两边都声明 0 个可安全补。T5 匹配到 5 对，ΔR≈−0.03，未过关。Hub'Eau 日均仍要按日期窗口重拉；分页 20k 上限让上一轮欧洲日值是截断，不当 T8。
+T4 在旧公开河试点的真实缺口几何上种到后期有观测的日子：351 段、
+11 条河，Spearman 0.69，仍不是确认。T3b 在 5% 误放行下两边都声明
+0 个可安全补。旧 T5 试点匹配到 5 对、ΔR≈−0.03；后续冻结的 HUC8
+contract 只剩 2 个独立 network-pair，仍不支持混杂控制。Hub'Eau 日均
+分页 20k 的旧下载是截断结果，不当 T8。
 
-现在能诚实说的是：公开目录里 v2 子集规则能数到 98 条目录同期河，仍不到 100，更不到 150；下载以后同期立刻变瘦；第一次整条河留出没有过关；选站也没有稳定赢过现成办法；孪生联合门槛没过；n=44 止损里邻站 R² 仍强于算子；欧洲日值并发河网仍是 0。
+在该公开河网止损阶段能诚实说的是：v2 子集规则只数到 98 条目录同期
+河；下载以后同期立刻变瘦；第一次整条河留出没有过关；选站没有稳定
+赢过现成办法；孪生联合门槛没过；n=44 止损里邻站 R² 仍强于算子；
+当时欧洲日值并发河网为 0。后续 FOEN sealed QC 的 3 条合格河网只计入
+文末 v10 库存，不回写成这次 development stop-loss 的证据。
+
+## v10 最终执行状态（覆盖旧库存叙述，不覆盖旧 development 数字）
+
+- 合格库存：99/100 条唯一河网（47 development、20 validation、
+  29 USGS sealed、3 FOEN sealed）。
+- 排除清单：78 条；balance report 覆盖 provider、role、climate、size、
+  regulation 五个维度。
+- 冻结缺口：2,355 个真实几何 counterpart、5,406 个 adversarial cells。
+- Twin E holdout：operator Spearman 0.936，但 calibration slope 0.760，
+  未过 0.9–1.1 门；不重调。
+- 一次性 sealed QC：读取 2,880 个对象，32/40 条河网合格；授权已消耗。
+- confirmatory recovery scoring、calibration、placement 和 triage 均未运行。
+
+因此 C1–C3 在本 lineage 中是“未检验”，不是“负向确认”。完整逐项状态
+见 `results/audits/blueprint_completion_audit.json`。

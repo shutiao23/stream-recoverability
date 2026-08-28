@@ -1,0 +1,60 @@
+{
+  "analysis_id": "v11_first_confirmation_brits_exploratory_v1",
+  "status": "completed_exploratory_sensitivity",
+  "evidence_role": "post_confirmation_exploratory_not_confirmatory",
+  "model": "repository_local_BRITSImputer_GRU_style",
+  "not_a_claim_of": [
+    "full_recurrent_roster_coverage",
+    "state_of_the_art_LSTM_benchmark",
+    "second_confirmation",
+    "provider_specific_effects"
+  ],
+  "selection_rule": "within each first-confirmation provider, choose the scored qualified network with fewest eligible stations then lexical network_id",
+  "n_selected_networks": 6,
+  "n_available_first_confirmation_networks": 42,
+  "n_providers": 6,
+  "providers": [
+    "arso",
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "rws_waterwebservices",
+    "usgs"
+  ],
+  "gap_lengths": [
+    7,
+    30,
+    90
+  ],
+  "max_placements_per_station_gap": 3,
+  "training": {
+    "outer_evaluation_labels_used_for_fit_or_validation": false,
+    "artificial_blocks_only": true,
+    "hidden_size": 16,
+    "epochs": 4,
+    "max_training_windows_per_network": 48,
+    "seed": 20260828
+  },
+  "results": {
+    "n_scored_placements": 225,
+    "n_station_gaps": 75,
+    "xgboost_vs_brits_station_gap_spearman": 0.31681365576102416,
+    "empirical_vs_brits_station_gap_spearman": 0.3842471746360047,
+    "empirical_vs_brits_network_spearman": 0.6
+  },
+  "input_sha256": {
+    "results/development_v11/route_a_confirmation/qualified_panel.csv": "8fab98a0cd0ff0c496425317e61fa18cf6a9af638334191f0a5481fb87763544",
+    "results/development_v11/route_a_confirmation/placement_losses.csv": "f1487a6b7591aa3899d7f4dd703d15a6941ee2f277dcbe17e5e31994a03b17ac",
+    "results/development_v11/confirmation_daily_qc/networks/arso_drava/daily_wide_temperature.csv": "ee60b9d56a38069e33dc201bf777e69ea72c8c66c06f83d25aa0d370353018d2",
+    "results/development_v11/confirmation_daily_qc/networks/foen_aare_aaregebiet/daily_wide_temperature.csv": "58f81761ea2a50d78a27faff5d289bd3b8ae15f8b1ca66a84743993eb6aef52b",
+    "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_alz/daily_wide_temperature.csv": "116c12c25c84fcc7908dab902d5d8663b63586bab83884d339db2608ed154a83",
+    "results/development_v11/confirmation_daily_qc/networks/lubw_rhein/daily_wide_temperature.csv": "e337a17723533f32aed3523f01e98806880506c9f220c6a6f257f54c8547ba9f",
+    "results/development_v11/confirmation_daily_qc/networks/rws_rijn_lek_nederrijn/daily_wide_temperature.csv": "d86e9050ee088d2c81c7f5b502886b5206d5a63113904e68d4921f6163955d35",
+    "results/development_v11/confirmation_daily_qc/networks/huc8_02040102/daily_wide_temperature.csv": "d870794fd200039cb35c5ff7e040800dc23c48afa74a9092547313adc7c93b6d"
+  },
+  "output_sha256": {
+    "recurrent_sensitivity_predictions.csv": "5cf88cade3460de5ed0a6da7c252dc3e4f869f4282a451abbde5097d92116d46",
+    "recurrent_sensitivity_training.csv": "31ccc194d61d171b35dfbacb37a0ddc3deda573082f1e5d519418dac406546a8",
+    "recurrent_sensitivity_provider_metrics.csv": "4dbe93b6dc768e453a19b81ef66ed5c75704177ea9dfe4c18cd559475ed602df"
+  }
+}

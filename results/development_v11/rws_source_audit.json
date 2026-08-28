@@ -1,0 +1,23 @@
+{
+  "provider": "Rijkswaterstaat WaterWebservices",
+  "official_documentation": "https://rijkswaterstaatdata.nl/projecten/waterwebservices-overschakeling/",
+  "catalog_operation": "POST OphalenCatalogus",
+  "observations_operation": "POST OphalenWaarnemingen",
+  "temperature_domain": "T in OW",
+  "source_resolution": "raw measurement NVT",
+  "derived_resolution": "daily mean",
+  "years_requested": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "n_candidate_networks": 13,
+  "n_river_candidate_networks": 2,
+  "n_qualified_networks": 1,
+  "request_token_persisted": false
+}

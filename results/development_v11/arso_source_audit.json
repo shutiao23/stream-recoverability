@@ -1,0 +1,21 @@
+{
+  "provider": "Slovenia ARSO",
+  "official_archive": "https://vode.arso.gov.si/hidarhiv/",
+  "source_resolution": "reviewed daily river archive",
+  "years_requested": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "n_exact_river_networks": 12,
+  "n_stations": 47,
+  "n_qualified_networks": 12,
+  "lake_or_coast_networks_included": 0
+}

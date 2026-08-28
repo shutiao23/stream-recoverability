@@ -1,0 +1,27 @@
+{
+  "manifest_schema": "main_v9_failure_closure_package_v1",
+  "lineage": "main_v9",
+  "design_charter": "configs/design_freeze_v9.yaml",
+  "executable_protocol": "configs/design_freeze_v10_executable.yaml",
+  "status": "closed_before_confirmatory_scoring_not_submittable",
+  "formal_evidence": false,
+  "headline_claim_licensed": false,
+  "artifacts": [
+    {"role": "manuscript", "path": "paper/main_v9/manuscript.md"},
+    {"role": "supporting_information", "path": "paper/main_v9/supporting_information.md"},
+    {"role": "claim_matrix", "path": "paper/main_v9/claim_matrix.md"},
+    {"role": "boundary_ledger", "path": "paper/main_v9/boundary_ledger.md"},
+    {"role": "results_registry", "path": "paper/main_v9/results_registry.json"},
+    {"role": "completion_audit", "path": "docs/blueprint_completion_audit.md"},
+    {"role": "sealed_qc", "path": "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json"}
+  ],
+  "main_figures": 0,
+  "main_tables": 0,
+  "figure_policy": "No v4 figures and no invented calibration or utility figures; confirmatory scoring did not occur.",
+  "submission_blockers": [
+    "sealed panel retained 32 networks below the frozen floor of 40",
+    "qualified corpus retained 99 networks below the interval floor of 100",
+    "confirmatory scoring not performed",
+    "external FAIR and author inputs incomplete"
+  ]
+}

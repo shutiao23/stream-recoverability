@@ -1,0 +1,24 @@
+network_id,provider,domain,river_group,n_catalog_stations,site_ids,latitude,longitude,prior_temperature_values_seen,candidate_status,metadata_common_start_year,metadata_common_end_year,temporal_resolution
+ehyd_donau,ehyd,austria,Donau,13,207027|207043|207068|207084|207126|207142|207175|207274|207357|207365|207407|207423|207431,,,False,source_qc_failed_monthly_only,2005,2023,monthly_mean
+ehyd_enns,ehyd,austria,Enns,8,203703|203711|205757|205922|210641|210740|210799|210823,,,False,source_qc_failed_monthly_only,2011,2023,monthly_mean
+ehyd_inn,ehyd,austria,Inn,7,201178|201459|201525|201681|201814|201905|206201,,,False,source_qc_failed_monthly_only,1997,2023,monthly_mean
+ehyd_neusiedler_see,ehyd,austria,Neusiedler See,7,210112|210120|210138|210146|210153|210179|210187,,,False,source_qc_failed_monthly_only,1998,2023,monthly_mean
+ehyd_salzach,ehyd,austria,Salzach,7,203026|203075|203323|203380|203539|204560|206847,,,False,source_qc_failed_monthly_only,2009,2023,monthly_mean
+ehyd_drau,ehyd,austria,Drau,6,202523|212357|213173|213215|213660|231092,,,False,source_qc_failed_monthly_only,2013,2023,monthly_mean
+ehyd_traun,ehyd,austria,Traun,6,205104|205146|205153|205203|205682|206391,,,False,source_qc_failed_monthly_only,1992,2023,monthly_mean
+ehyd_ager,ehyd,austria,Ager,4,205369|205427|205450|206276,,,False,source_qc_failed_monthly_only,1993,2023,monthly_mean
+ehyd_bregenzerach,ehyd,austria,Bregenzerach,4,200261|200329|200550|200568,,,False,source_qc_failed_monthly_only,1994,2023,monthly_mean
+ehyd_alm,ehyd,austria,Alm,3,205500|205518|206508,,,False,source_qc_failed_monthly_only,1989,2023,monthly_mean
+ehyd_gail,ehyd,austria,Gail,3,212647|212753|212787,,,False,source_qc_failed_monthly_only,2005,2023,monthly_mean
+ehyd_gurk,ehyd,austria,Gurk,3,212860|213041|213157,,,False,source_qc_failed_monthly_only,2013,2023,monthly_mean
+ehyd_isel,ehyd,austria,Isel,3,212043|212092|212167,,,False,source_qc_failed_monthly_only,2012,2023,monthly_mean
+ehyd_krems,ehyd,austria,Krems,3,205641|205658|207878,,,False,source_qc_failed_monthly_only,2002,2023,monthly_mean
+ehyd_lieser,ehyd,austria,Lieser,3,212431|212530|213207,,,False,source_qc_failed_monthly_only,2008,2023,monthly_mean
+ehyd_march,ehyd,austria,March,3,207308|207316|207324,,,False,source_qc_failed_monthly_only,2000,2023,monthly_mean
+ehyd_moll,ehyd,austria,Möll,3,212373|212407|213124,,,False,source_qc_failed_monthly_only,2013,2023,monthly_mean
+ehyd_pram,ehyd,austria,Pram,3,204867|206102|206326,,,False,source_qc_failed_monthly_only,1981,2023,monthly_mean
+ehyd_saalach,ehyd,austria,Saalach,3,203463|203497|203570,,,False,source_qc_failed_monthly_only,2000,2023,monthly_mean
+ehyd_sill,ehyd,austria,Sill,3,201574|201624|202275,,,False,source_qc_failed_monthly_only,2008,2023,monthly_mean
+ehyd_steyr,ehyd,austria,Steyr,3,205765|205864|205914,,,False,source_qc_failed_monthly_only,1983,2023,monthly_mean
+ehyd_trattnach,ehyd,austria,Trattnach,3,204974|205013|206565,,,False,source_qc_failed_monthly_only,1993,2023,monthly_mean
+ehyd_ziller,ehyd,austria,Ziller,3,201749|201756|201780,,,False,source_qc_failed_monthly_only,1998,2023,monthly_mean

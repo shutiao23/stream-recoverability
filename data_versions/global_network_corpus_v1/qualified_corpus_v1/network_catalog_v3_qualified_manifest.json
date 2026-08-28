@@ -1,12 +1,40 @@
 {
+  "audit_outputs": {
+    "balance_dimensions": [
+      "climate_band",
+      "locked_role",
+      "provider",
+      "regulation_stratum",
+      "size_tertile"
+    ],
+    "balance_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_balance.csv",
+    "balance_sha256": "c9b727190b130d77940a4c4f9c442e3283a617c277130cb2b212f25ac7711650",
+    "candidate_inventory_count": 177,
+    "candidate_qualified_count": 99,
+    "excluded_count": 78,
+    "exclusions_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_exclusions.csv",
+    "exclusions_sha256": "89563acbf26dc8433ef5859330f755af0a047729dc0819681d89e11cfc441d0e",
+    "qualified_outside_huc8_candidates": 0
+  },
+  "corpus_component_counts": {
+    "open_role_development": 47,
+    "open_role_validation": 20,
+    "sealed_t7_qc": 32
+  },
+  "corpus_manifest_qualified_total": 99,
+  "count_matches_corpus_manifest": true,
   "formal_evidence": false,
   "manifest_schema": "qualified_network_catalog_v1",
   "n_europe_complete_enough": 0,
-  "n_open_role_unique": 0,
-  "n_qualified_unique": 32,
+  "n_open_role_unique": 67,
+  "n_qualified_unique": 99,
   "n_sealed_eligible": 32,
   "network_ci_floor": 100,
   "network_ci_floor_met": false,
   "parquet_path": "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_qualified.parquet",
+  "provider_counts": {
+    "foen": 3,
+    "usgs_nwis": 96
+  },
   "purpose": "catalog_export_not_confirmatory"
 }

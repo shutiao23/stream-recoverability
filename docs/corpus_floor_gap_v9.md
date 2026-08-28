@@ -1,4 +1,9 @@
-# Corpus floor gap (v9.1)
+# Corpus floor gap (v9.1 pre-unseal snapshot)
+
+> Historical note: this file records the state before the evaluate-once QC
+> ceremony. Current accounting is 99/100 (67 open + 32 sealed), and sealed QC
+> retained 32/40 networks. See `docs/sealed_t7_qc_failure_closure.md` and do not
+> use the 67-only or “bytes not opened” statements below as current status.
 
 Date: 2026-08-27  
 Status: honest accounting. Network CI floor not met.

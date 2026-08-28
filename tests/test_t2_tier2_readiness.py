@@ -115,7 +115,17 @@ def test_model_audit_preserves_every_obligation_and_honest_run_state() -> None:
     roster_only_path = {
         "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
     }
-    assert {row["path"] for row in mentions["air2stream"]} == roster_only_path
+    assert {row["path"] for row in mentions["air2stream"]} == roster_only_path | {
+        "src/stream_recoverability/experiments/process_hybrid_sensitivity.py"
+    }
+    process_manifest = json.loads(
+        (
+            ROOT
+            / "results/development_v11/reviewer_completion/process_hybrid_manifest.json"
+        ).read_text()
+    )
+    assert process_manifest["published_air2stream_implementation"] is False
+    assert process_manifest["reviewer3_air2stream_requirement_satisfied"] is False
     assert {row["path"] for row in mentions["grin"]} == roster_only_path
     assert {
         row["path"] for row in mentions["pgdl_or_graph_wavenet"]

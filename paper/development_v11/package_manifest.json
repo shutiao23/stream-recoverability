@@ -1,17 +1,81 @@
 {
   "package": "development_v11_empirical_transfer",
   "target_journal": "Water Resources Research",
-  "manuscript": "paper/development_v11/manuscript.md",
-  "supporting_information": "paper/development_v11/supporting_information.md",
-  "cover_letter": "paper/development_v11/cover_letter.md",
-  "claim_matrix": "paper/development_v11/claim_matrix.md",
-  "references": "paper/references.bib",
-  "result_summary": "results/development_v11/reviewer_completion/summary.json",
-  "figure_directory": "results/development_v11/reviewer_completion",
-  "reproduction_target": "development-v11-reviewer-completion",
-  "validation_target": "validate-development-v11-reviewer-completion",
-  "evidence_status": "post_first_confirmation_method_development_complete",
-  "second_confirmation_status": "requires_new_independent_networks",
-  "software_doi": "pending",
-  "author_metadata_status": "requires_author_confirmation"
+  "evidence_status": "second_outcome_panel_complete_rank_and_calibration_reproduced_decision_endpoints_failed",
+  "submission_status": "not_ready_external_items_and_unmet_model_geometry_baselines",
+  "manuscript_files": {
+    "main": "paper/development_v11/manuscript.md",
+    "supporting_information": "paper/development_v11/supporting_information.md",
+    "figure_captions": "paper/development_v11/figure_captions.md",
+    "cover_letter": "paper/development_v11/cover_letter.md",
+    "claim_matrix": "paper/development_v11/claim_matrix.md",
+    "submission_checklist": "paper/development_v11/submission_checklist.md",
+    "references": "paper/references.bib"
+  },
+  "figures": {
+    "figure_1": "results/development_v11/reviewer_completion/figure_01_workflow.png",
+    "figure_2": "results/development_v11/reviewer_completion/figure_02_confirmation_calibration.png",
+    "figure_3": "results/development_v11/reviewer_completion/figure_03_mechanism.png",
+    "figure_4": "results/development_v11/reviewer_completion/figure_05_domain_adaptation.png",
+    "figure_s1_development_only": "results/development_v11/reviewer_completion/figure_04_placement_replay.png"
+  },
+  "primary_result_artifacts": {
+    "summary": "results/development_v11/reviewer_completion/summary.json",
+    "empirical_transfer_metrics": "results/development_v11/reviewer_completion/empirical_transfer_metrics.csv",
+    "empirical_coverage_audit": "results/development_v11/reviewer_completion/empirical_transfer_coverage_audit.csv",
+    "heterogeneity_metrics": "results/development_v11/reviewer_completion/heterogeneity_metrics.csv",
+    "mechanism_decomposition": "results/development_v11/reviewer_completion/mechanism_decomposition.csv",
+    "model_roster_metrics": "results/development_v11/reviewer_completion/model_roster_metrics.csv",
+    "rank_decomposition": "results/development_v11/reviewer_completion/rank_decomposition.csv",
+    "interval_metrics": "results/development_v11/reviewer_completion/interval_metrics_by_horizon_season_domain.csv",
+    "recalibration_budget": "results/development_v11/reviewer_completion/recalibration_budget_curve.csv",
+    "risk_control_budget": "results/development_v11/reviewer_completion/risk_control_budget_curve.csv",
+    "placement_replay_supporting_only": "results/development_v11/reviewer_completion/placement_replay_curve.csv",
+    "recurrent_sensitivity_manifest_exploratory": "results/development_v11/reviewer_completion/recurrent_sensitivity_manifest.json",
+    "recurrent_sensitivity_predictions_exploratory": "results/development_v11/reviewer_completion/recurrent_sensitivity_predictions.csv",
+    "process_hybrid_manifest_development_only": "results/development_v11/reviewer_completion/process_hybrid_manifest.json",
+    "process_hybrid_readiness_development_only": "results/development_v11/reviewer_completion/process_hybrid_readiness.csv",
+    "process_hybrid_station_gaps_development_only": "results/development_v11/reviewer_completion/process_hybrid_station_gaps.csv",
+    "natural_geometry_stress_manifest_development_only": "results/framework/t4_t5_post_t2_v1/t4_result_manifest.json",
+    "natural_geometry_network_comparison_development_only": "results/framework/t4_t5_post_t2_v1/t4_network_comparison.csv"
+  },
+  "regenerable_local_outputs": {
+    "confirmation_empirical_placement_predictions": "results/development_v11/reviewer_completion/confirmation_empirical_predictions.csv",
+    "development_empirical_placement_predictions": "results/development_v11/reviewer_completion/development_empirical_predictions.csv",
+    "generation_target": "make development-v11-reviewer-completion",
+    "package_role": "not_required_in_archival_primary_artifacts"
+  },
+  "second_confirmation": {
+    "original_protocol": "configs/route_a_second_confirmation_protocol.yaml",
+    "v2_amendment": "configs/route_a_second_confirmation_amendment_v2.yaml",
+    "amendment_record": "results/development_v11/second_confirmation/amendment_registration_record.json",
+    "hash_bound_roster": "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv",
+    "readiness": "results/development_v11/second_confirmation/readiness.json",
+    "result_summary": "results/development_v11/second_confirmation/scoring/summary.json",
+    "scoring_attrition": "results/development_v11/second_confirmation/scoring/scoring_attrition.csv",
+    "placement_summary": "results/development_v11/second_confirmation/scoring/placement_summary.json",
+    "amendment_status": "internally_frozen_and_hash_bound_before_scoring_same_commit_as_outcomes_not_external_preregistration",
+    "result_status": "complete_57_scored_of_60_rank_and_calibration_reproduced_interval_and_triage_failed",
+    "first_panel_scored_networks_reusable": false,
+    "first_panel_qc_only_networks_reused": 3
+  },
+  "reproduction": {
+    "target": "development-v11-reviewer-completion",
+    "validation_target": "validate-development-v11-reviewer-completion",
+    "second_confirmation_readiness_target": "second-confirmation-readiness",
+    "second_confirmation_scoring_target": "second-confirmation-score"
+  },
+  "open_research": {
+    "software_license": "MIT",
+    "provider_daily_values": "omit_unless_redistribution_terms_explicitly_allow",
+    "archive_status": "pending_deposit",
+    "software_doi": null
+  },
+  "external_todos": [
+    "Confirm all author names, affiliations, ORCIDs, CRediT roles, corresponding author, and email.",
+    "Confirm conflicts, funding, acknowledgments, author approval, and related-manuscript status.",
+    "Deposit the permitted release, mint a DOI, and insert it in repository and submission metadata.",
+    "Attach provider permissions for any raw daily observations or omit those observations.",
+    "Verify journal word count, file formats, references, and all figure and SI callouts in the rendered package."
+  ]
 }

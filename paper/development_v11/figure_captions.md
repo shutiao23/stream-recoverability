@@ -6,25 +6,27 @@ years, mapped to loss across development networks, evaluated on new networks,
 and only then considered for placement or triage. Conditional covariance is a
 Gaussian lower bound within this chain.
 
-**Figure 2. Loss ordering transfers, while magnitude calibration changes by
-domain.** Small points are 1,440 first-confirmation station-gap units colored
-by US versus cross-domain source; outlined symbols are network medians. Both
-axes are logarithmic. The lower panel shows realized minus predicted MAE.
+**Figure 2. Simple-descriptor ordering transfers, while magnitude calibration
+changes by domain.** Small points are all 1,440 first-panel station-gap units
+colored by US versus cross-domain source; outlined symbols are network medians.
+Both axes are logarithmic, and the diagonal is the 1:1 line. The lower panel
+shows realized minus predicted MAE.
 
 **Figure 3. Conditional risk saturates while realized long-gap loss grows.**
 Means use the same 61 stations that support every horizon from 7 to 365 days.
 The conditional-variance lower bound rises little, whereas the simple model
 tracks the growing realized loss.
 
-**Figure 4. Gap-specific minimax placement has the lowest mean non-oracle
-regret in the available real-data replay.** Curves show worst-target 90-day MAE
-above the realized-outcome oracle across retained fractions. Fourteen open
-networks retained a complete directed replay matrix with at least five
-stations, so the comparison remains developmental.
-
-**Figure 5. Cross-domain calibration often requires labelled adaptation and
+**Figure 4. Cross-domain calibration often requires labelled adaptation and
 remains unreliable at tested budgets.** The left panel shows reliability by
 domain on common axes. The right panel shows the fraction of network-grouped
-post-confirmation resamples with evaluation slope in [0.9, 1.1] versus the
-requested labelled station-gap budget. This is an adaptation-cost analysis,
-not independent confirmation.
+method-development resamples with evaluation slope in [0.9, 1.1] versus the
+requested labelled station-gap budget.
+
+**Figure S1. Gap-specific minimax placement has the lowest mean non-oracle
+regret in the available development replay.** Curves show worst-target 90-day
+MAE above the realized-outcome oracle across retained fractions. Fourteen
+development networks retained a complete directed replay matrix with at least
+five stations. This figure remains development-only; the 13-network second
+replay is reported separately and showed a small directional reduction without
+a prespecified utility margin.

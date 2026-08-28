@@ -43,3 +43,16 @@
 ## 11. FOEN 公开日值条件已满足，但还不是 T8（BL-018）
 
 FOEN 现有公开、免认证、带日期与 release state 的 `data_1day_mean` / `WT` 接口；旧的「历史日均只能人工订购」已经过时。只看过 station 2016 的七个时间戳，没有查询温度值，因此把整个 Aare 元数据组永久烧成 `never_sealed`。其余十个全新 river×catchment 候选已在值查询前按 seed + SHA 锁成 prospective sealed。`coverageFrom/To` 没有参与。现在仍是 0 条 Swiss 合格网络；只有一次授权 unseal 后通过 300 天 × 8 个共同年 QC 才能计入 T8。
+
+## 12. T7 一次性 QC 未达到密封地板（BL-019）
+
+一次性授权已经执行：2,880 个登记对象全部读取，32 条河网通过冻结
+QC，其中 HUC8 29 条、FOEN 3 条。三条 FOEN 河网满足预先锁定的公开
+日值条件，因此计入总体合格库存；但密封合计仍低于 40，总体库存也仅
+99/100。正式 fixed-model recovery scoring 没有运行，`formal_evidence`
+保持 false。
+
+失败收口是不可逆的：不重跑同一 once-lock，不在看过 QC 后替换河网，
+不把 32 条降格当确认集，不把 40 或 100 的地板调低。v10 冻结文件保留
+pre-unseal 字段作为历史协议；当前状态只由 results registry、QC manifest
+和 run ledger 报告。

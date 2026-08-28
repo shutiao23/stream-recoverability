@@ -6,6 +6,7 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pandas as pd
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,11 +39,67 @@ def test_design_freeze_v10_is_executable_charter_not_v4_replacement() -> None:
     assert v10["activation_gates"]["corpus_floor"]["passed"] is False
 
 
-def test_main_v9_results_registry_pending() -> None:
+def test_main_v9_results_registry_records_failed_sealed_qc_gate() -> None:
     reg = json.loads((ROOT / "paper/main_v9/results_registry.json").read_text(encoding="utf-8"))
     assert reg["formal_evidence"] is False
-    assert reg["sealed_outcomes_opened"] is False
+    assert reg["sealed_outcomes_opened"] is True
+    assert reg["confirmatory_scoring_performed"] is False
     assert reg["corpus"]["floor_met"] is False
+    assert reg["sealed_qc"]["eligible_total"] == 32
+    assert reg["sealed_qc"]["sealed_floor_met"] is False
+
+
+def test_qualified_catalog_includes_open_and_sealed_networks() -> None:
+    corpus = json.loads(
+        (
+            ROOT
+            / "data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    catalog = json.loads(
+        (
+            ROOT
+            / "data_versions/global_network_corpus_v1/qualified_corpus_v1/network_catalog_v3_qualified_manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    assert corpus["qualified_total"] == 99
+    assert corpus["components"]["open_role_complete_enough_failure_closure6"] == 67
+    assert corpus["components"]["sealed_qc_complete_enough"] == 32
+    assert catalog["n_open_role_unique"] == 67
+    assert catalog["n_sealed_eligible"] == 32
+    assert catalog["n_qualified_unique"] == corpus["qualified_total"]
+    assert catalog["count_matches_corpus_manifest"] is True
+
+
+def test_qualified_catalog_has_exclusion_and_balance_audits() -> None:
+    root = ROOT / "data_versions/global_network_corpus_v1/qualified_corpus_v1"
+    manifest = json.loads(
+        (root / "network_catalog_v3_qualified_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    audit = manifest["audit_outputs"]
+    exclusions = pd.read_csv(ROOT / audit["exclusions_path"])
+    balance = pd.read_csv(ROOT / audit["balance_path"])
+    assert audit["candidate_inventory_count"] == 177
+    assert audit["candidate_qualified_count"] == 99
+    assert audit["excluded_count"] == 78
+    assert len(exclusions) == 78
+    assert exclusions["network_id"].is_unique
+    assert not set(exclusions["network_id"]) & set(
+        pd.read_parquet(root / "network_catalog_v3_qualified.parquet")["network_id"]
+    )
+    assert set(balance["dimension"]) == {
+        "provider",
+        "locked_role",
+        "climate_band",
+        "size_tertile",
+        "regulation_stratum",
+    }
+    for _, group in balance.groupby("dimension"):
+        assert int(group["candidate_count"].sum()) == 177
+        assert int(group["qualified_count"].sum()) == 99
+        assert int(group["excluded_count"].sum()) == 78
 
 
 def test_case_study_v1_package_manifest() -> None:
