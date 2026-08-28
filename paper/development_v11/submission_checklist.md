@@ -8,11 +8,12 @@
 - [x] Supported-only and complete-panel empirical metrics are both reported against the simple model.
 - [x] Learned error model tests analytic-risk increment.
 - [x] Three recovery-model families use identical outer gaps.
-- [x] The bounded six-network GRU-style sensitivity is reported as exploratory and not as an LSTM/full-roster confirmation.
-- [x] The development air-temperature--flow proxy is reported as a negative sensitivity, not as published air2stream or confirmation.
-- [x] The 67-network observed-geometry stress test is reported with its negative ranks, withheld interval, different-model boundary, and lack of actual missing-day truth.
-- [ ] The v11 empirical predictor is evaluated in a matched main experiment that addresses non-random field-outage timing or cause.
-- [ ] Published air2stream or an equivalent process model is evaluated on a panel with timestamp-aligned air temperature and approved flow.
+- [x] The actual BiLSTM sensitivity covers 14 networks, eight providers, and seven countries and is bounded as non-SOTA, nonconverged, and not a full roster.
+- [x] The published air2stream-8 equation is evaluated on a fixed independent US subset with exact input-QC, optimizer, scope, and day-boundary caveats.
+- [ ] The air2stream-equivalent baseline is extended beyond the eight-network US subset with harmonized daily boundaries.
+- [x] The v11 empirical predictor is evaluated on 1,327 matched planted field-outage geometries with paired network inference and fallback audit.
+- [ ] Actual missing-day performance or field-failure selection bias is estimable from truth-bearing data.
+- [x] US mixed heterogeneity reports random intercepts/slopes, phase interactions, broad HUC2/GAGES-II strata, and noncausal boundaries.
 - [x] Conditional-variance saturation mechanism uses a fixed 61-station roster.
 - [x] Original and horizon-Mondrian interval coverage/width are reported.
 - [x] Real-data placement replay includes MI, QR, distance, random, and oracle comparators.
@@ -28,14 +29,14 @@
 
 - [x] Key Points and Plain Language Summary match the empirical-transfer claim.
 - [x] Methods are self-contained; YAML is a reproducibility contract, not a substitute.
-- [x] Four main figures and one development-only supporting figure are identified.
+- [x] Five main figures and one development-only supporting figure are identified, including Figure 5 heterogeneity.
 - [x] Monitoring-design, empirical-gap, kriging-variance, and conformal references are included.
 - [x] Internal workflow codes and audit language are absent from the main manuscript.
 - [x] Provider access and redistribution treatment are listed in SI.
 - [x] Cover letter targets *Water Resources Research*.
 - [x] Abstract reports the network-level headline and omits secondary number density.
 - [x] Trial-gap novelty is positioned as cross-network transfer, not invention.
-- [x] Placement replay is confined to Supporting Information and marked exploratory.
+- [x] The development placement figure is confined to Supporting Information; second-panel directional results remain nonconfirmatory.
 - [x] Open Research text distinguishes releasable artifacts from restricted provider values.
 - [x] Package manifest lists manuscript, SI, captions, figures, result tables, and external dependencies.
 - [x] Compact metrics and audits are primary artifacts; large placement-level empirical predictions are marked regenerable rather than required for a fresh clone.

@@ -56,8 +56,24 @@ def main() -> None:
     recurrent = json.loads(
         (REVIEW / "recurrent_sensitivity_manifest.json").read_text(encoding="utf-8")
     )
+    lstm = json.loads(
+        (REVIEW / "lstm_sensitivity_manifest.json").read_text(encoding="utf-8")
+    )
     process_hybrid = json.loads(
         (REVIEW / "process_hybrid_manifest.json").read_text(encoding="utf-8")
+    )
+    matched_outage = json.loads(
+        (
+            ROOT / "results/development_v11/matched_outage_geometry/summary.json"
+        ).read_text(encoding="utf-8")
+    )
+    independent_air2stream = json.loads(
+        (
+            ROOT / "results/development_v11/independent_air2stream_equivalent/manifest.json"
+        ).read_text(encoding="utf-8")
+    )
+    us_heterogeneity = json.loads(
+        (REVIEW / "us_heterogeneity_manifest.json").read_text(encoding="utf-8")
     )
     second_result_path = SECOND / "scoring/summary.json"
     second_result = (
@@ -119,7 +135,7 @@ def main() -> None:
     package_present = all(
         (ROOT / "paper/development_v11" / name).is_file()
         for name in manuscript_files
-    ) and len(list(REVIEW.glob("figure_*.png"))) == 5
+    ) and len(list(REVIEW.glob("figure_*.png"))) == 6
 
     requirements = [
         item(
@@ -179,6 +195,13 @@ def main() -> None:
             gate=False,
         ),
         item(
+            "P1f2",
+            "Bounded true bidirectional LSTM sensitivity",
+            "complete_exploratory_negative",
+            f"{lstm['completed_networks']} networks across {lstm['n_completed_providers']} providers; torch.nn.LSTM bidirectional={lstm['architecture_assertion']['bidirectional']}; empirical-vs-LSTM station-gap Spearman={lstm['results']['empirical_vs_lstm_station_gap_spearman']:.3f}; network Spearman={lstm['results']['empirical_vs_lstm_network_spearman']:.3f}; explicitly not SOTA/full-roster confirmation",
+            gate=False,
+        ),
+        item(
             "P1g",
             "Air-temperature/flow process sensitivity",
             "complete_development_proxy_negative_confirmation_unavailable",
@@ -188,18 +211,16 @@ def main() -> None:
         item(
             "P1h",
             "Published air2stream or equivalent process model on independent networks",
-            "not_completed_missing_confirmation_ta_f",
-            "; ".join(process_hybrid["reasons_requirement_not_satisfied"]),
+            "completed_equivalent_independent_subset_negative",
+            f"Published 8-equation Crank-Nicolson equivalent on {independent_air2stream['results']['n_networks']} US second-confirmation networks/{independent_air2stream['results']['n_stations']} stations; empirical-vs-air2stream network Spearman={independent_air2stream['results']['empirical_risk_vs_air2stream_network_spearman']:.3f}; original executable used={independent_air2stream['model']['original_executable_used']}; deterministic least-squares replaces PSO; US-only input-availability subset",
             gate=False,
-            completion=False,
         ),
         item(
             "P1i",
             "Real-outage geometry or T4-style planted-geometry experiment",
-            "partial_related_geometry_negative_gate_failed",
-            "T4 froze 2,355 observed-counterpart natural geometries across 67 networks; natural network Spearman=-0.394 versus artificial=-0.011 and the interval was withheld below 100 networks. It did not score actual missing days and is not the v11 empirical predictor/model.",
+            "complete_matched_planted_geometry_negative_transfer",
+            f"{matched_outage['v11_empirical_curve_matched_rows']} XGBoost B+D counterparts across {matched_outage['n_networks']} networks; empirical natural network Spearman={matched_outage['metrics']['natural_empirical']['network_spearman']:.3f} versus matched artificial={matched_outage['metrics']['artificial_empirical']['network_spearman']:.3f}; natural-minus-artificial delta={matched_outage['consistency']['empirical_rank_delta']['natural_minus_artificial_estimate']:.3f} (95% bootstrap {matched_outage['consistency']['empirical_rank_delta']['ci95_lower']:.3f}, {matched_outage['consistency']['empirical_rank_delta']['ci95_upper']:.3f}); actual missing days scored={matched_outage['actual_missing_days_scored']}",
             gate=False,
-            completion=False,
         ),
         item(
             "P2a",
@@ -303,10 +324,9 @@ def main() -> None:
         item(
             "P3_climate_regulation",
             "Climate-zone and regulation-state heterogeneity on 100+ scored networks",
-            "not_completed_requires_larger_scored_panel_and_metadata",
-            "The first and second panels provide 42 + 57 = 99 scored networks, below the requested 100+ analysis floor, and lack complete harmonized climate/regulation modifiers.",
-            gate=False,
-            completion=False,
+            "complete_descriptive_mixed_model",
+            f"random-intercept/random-prediction-slope models: simple={us_heterogeneity['risk_models']['simple_descriptors']} networks, empirical={us_heterogeneity['risk_models']['fitting_period_empirical']} networks; known regulation simple={us_heterogeneity['known_regulation_networks']['simple_descriptors']}, empirical={us_heterogeneity['known_regulation_networks']['fitting_period_empirical']}; HUC2 climate and GAGES-II dam strata are descriptive/noncausal",
+            gate=True,
         ),
         item(
             "P4_literature",
@@ -317,7 +337,7 @@ def main() -> None:
         ),
         item(
             "P4_package",
-            "Complete manuscript, SI, five figures, cover letter, and checklist",
+            "Complete manuscript, SI, six figures, cover letter, and checklist",
             "achieved_pending_external_declarations",
             f"package files={len(manuscript_files)}; figures={len(list(REVIEW.glob('figure_*.png')))}",
             gate=package_present,

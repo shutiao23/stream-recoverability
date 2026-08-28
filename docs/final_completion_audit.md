@@ -1,16 +1,18 @@
 # Final completion audit
 
 Audit date: 2026-08-28 UTC
-Base commit inspected: `72f002551abfd6681f047698db6aa8c75815d757` plus the current shared worktree.
+Base commit inspected: `58630d3c5722beaea0715eacd9a42732bd041870` plus the current shared worktree.
 
 ## Verdict
 
-The repository work is **not honestly 100% complete**. The first-panel v11
-paper, its main negative/positive analyses, and a 57-network independent
-second outcome evaluation are complete. The code now reports the complete
-1,440-cell first-panel fallback result instead of only the favorable supported
-subset. Several requested experiments remain partial or development-only, and
-author/DOI actions require people or external services.
+The repository's requested in-scope analyses are complete, including the
+first-panel v11 study, a 57-network independent second outcome evaluation, a
+true BiLSTM sensitivity, an independent air2stream-equivalent subset, matched
+planted field-outage geometry, and 100-network mixed heterogeneity models. The
+goal is **not honestly 100% complete** only because author/legal declarations
+and archival DOI minting require people or external services. Negative gates
+and bounded sensitivities remain negative or bounded; completion does not turn
+them into positive evidence.
 
 Scientific gate failures are counted as completed negative experiments. They
 are not counted as missing work, and they are not relabelled as successes.
@@ -25,23 +27,24 @@ are not counted as missing work, and they are not relabelled as successes.
 | Analytic increment | Complete negative | The analytic-risk increment remains below the frozen useful-increment threshold. |
 | Intervals | Complete negative | Network-simultaneous coverage is 0.929, but median width/loss is 2.217 and fails the width gate. |
 | Statistical model roster | Complete within stated scope | Seasonal-boundary ridge, donor BLUP ridge, and XGBoost were evaluated; this does not establish recurrent/process-model robustness. |
-| Recurrent sensitivity | Complete exploratory negative | Six providers, six networks, 225 existing placements, and 75 station-gaps. Empirical-vs-local-BRITS station-gap Spearman is 0.384. The implementation is GRU-style, not a SOTA LSTM or a full roster. |
-| Process sensitivity | Complete development-only negative | The Ta + approved-flow + season/boundary ridge proxy scored 50 networks and 1,076 station-gaps; XGBoost-vs-proxy network Spearman is 0.343. It is not published air2stream. First and second confirmation lack materialized aligned Ta/F, so cross-network process confirmation is fail-closed. |
-| Real outage experiment | Partial related negative | T4 froze 2,355 observed-counterpart natural geometries across 67 networks. Natural-geometry network Spearman was -0.394 versus -0.011 for artificial stress, and the interval was withheld below 100 networks. This partially satisfies the allowed planted-geometry route, but it did not score actual missing days and does not evaluate the v11 empirical predictor/model. |
+| Recurrent sensitivity | Complete bounded negative | The six-network BRITS/GRU-style screen gave empirical-vs-model station-gap Spearman 0.384. A separate true bidirectional `torch.nn.LSTM` sensitivity completed 14 networks across eight providers: empirical-vs-LSTM station-gap Spearman was 0.338 and network Spearman 0.631. It remains bounded, post-confirmation, and not a SOTA/full-roster comparison. |
+| Process sensitivity | Complete equivalent independent-subset negative | The development Ta + approved-flow ridge proxy was weak. A published air2stream 8-equation Crank-Nicolson Python equivalent then scored 8 US second-confirmation networks/14 stations selected only by input availability. Empirical-risk versus air2stream-loss network Spearman was 0.238. The original executable was not used, deterministic multistart least squares replaced PSO, and the result is US-only. |
+| Real outage experiment | Complete matched planted-geometry negative transfer | The v11 empirical and nested-simple predictors were applied to 1,327 truth-bearing XGBoost B+D observed counterparts across 49 networks and paired to the same station's nearest artificial-grid horizon. Empirical network Spearman was 0.566 on natural geometry versus 0.734 on matched artificial geometry; the paired delta was -0.168 (95% network-bootstrap interval -0.328 to -0.012). Simple rank changed by -0.054 (interval -0.234 to 0.128). Actual missing days still have no truth; the result tests planted geometry, not the failure-selection process. |
 | Placement | Complete independent directional result; utility claim unlicensed | Thirteen of thirteen eligible second-confirmation networks had complete replay matrices. Simple minimax mean regret was 0.240825 versus 0.256213 for random, a 6.01% directional reduction. There was no preregistered margin or significance threshold, QR had lower mean regret than minimax, and the artifact explicitly sets `confirmatory_utility_claim_licensed=false`. |
 | Triage | Complete independent negative | Development-only calibration certified no nonempty simple or empirical release; evaluation on all 1,446 second-confirmation cells therefore released zero rows. The 5% endpoint failed without fabricating a safe set. |
-| Heterogeneity | Partial | Provider, US/cross-domain, thermal-state, and network-size summaries exist and are marked descriptive. Climate-zone and regulation-state analysis on 100+ scored networks is absent. |
+| Heterogeneity | Complete descriptive mixed model | Cross-phase US mixed models use network random intercepts and prediction slopes. The simple panel has 104 networks and the empirical panel 100; regulation is known for 92 and 89, respectively. HUC2 climate groups, GAGES-II 2009 major-dam strata, phase/QC regime, and network size are descriptive boundaries, not site-scale climate attribution or causal regulation effects. |
 | Second-confirmation gate | Internally complete, not externally preregistered | Canada failed an external provider-quality condition. A v2 amendment substitutes the exact Czech/Norwegian/US roster, binds canonical inputs by SHA-256, rejects forged readiness files, and is disclosed as same-commit/internal rather than externally timestamped preregistration. |
 | Second-confirmation scoring | Complete positive ranking/calibration; interval-width negative | The canonical gate attempted 60 networks, recorded 3 prespecified attritions, and scored 57 above the floor of 40. Simple-model network Spearman was 0.614 with slope 1.017; empirical network Spearman was 0.715 with slope 0.950. Empirical simultaneous coverage was 1.0 but median interval width/loss was 8.398, so the width gate failed. |
 | Author and DOI actions | External blockers | Author identities/declarations are intentionally blank and no archival DOI has been minted. These cannot be invented in-repository. |
 
 ## Independent validation
 
-- Final clean full suite: **1,008 passed**, 2,074 warnings, 544.36 seconds.
+- Final post-extension full suite: **1,026 passed**, 2,074 warnings, 553.98 seconds.
   Warnings were existing pandas/scikit-learn deprecations and two PyPOTS user
   warnings; there were no failures.
-- New recurrent tests (4), process-hybrid tests (2), goal-audit/second-gate
-  tests, and Tier-2 readiness boundary tests also passed in focused reruns.
+- New recurrent, BiLSTM, process-hybrid, air2stream-equivalent,
+  matched-geometry, US heterogeneity, goal-audit/second-gate, and Tier-2
+  readiness boundary tests also passed in focused reruns.
 - Changed-Python Ruff audit: **passed** after limiting the check to changed/new
   Python files. Whole-repository Ruff is not a clean baseline (652 legacy
   findings, primarily under `scratch/` and old tests).
@@ -83,6 +86,7 @@ Before calling the user goal complete, the final committer must:
    JSON parsing, `git diff --check`, and package-path consistency check;
 4. stage only intended compact/public artifacts, inspect the staged diff, and
    commit it;
-5. report the remaining real-outage, published-air2stream, operational
-   decision-utility, climate/regulation, author, DOI, and provider-permission
-   gaps rather than claiming they were completed.
+5. report the remaining operational decision-utility, author, DOI, and
+   provider-permission gaps rather than claiming they were completed; preserve
+   the bounded LSTM, air2stream-equivalent/US-only, descriptive heterogeneity,
+   and planted-counterpart boundaries.

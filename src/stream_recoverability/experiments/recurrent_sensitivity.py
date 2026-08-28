@@ -37,9 +37,7 @@ def provider_stratified_subset(
     candidates = candidates.sort_values(
         ["provider", "n_eligible_stations", "network_id"], kind="mergesort"
     )
-    return candidates.groupby("provider", sort=True, as_index=False).head(
-        per_provider
-    )
+    return candidates.groupby("provider", sort=True, as_index=False).head(per_provider)
 
 
 def nested_training_years(
@@ -145,11 +143,14 @@ def score_existing_placements(
     gap_lengths: Sequence[int] = (7, 30, 90),
     window_length: int = 128,
     max_placements_per_cell: int = 3,
+    model_label: str = "brits",
 ) -> pd.DataFrame:
     """Score selected existing placements without exposing their target truth."""
 
     if max_placements_per_cell <= 0:
         raise ValueError("max_placements_per_cell must be positive")
+    if not model_label.isidentifier():
+        raise ValueError("model_label must be a valid identifier")
     gaps = {int(value) for value in gap_lengths}
     selected = placements.loc[
         placements["information_condition"].eq("B_union_D")
@@ -200,7 +201,7 @@ def score_existing_placements(
                 "gap_length": gap,
                 "placement": int(item.placement),
                 "gap_start": pd.Timestamp(item.gap_start),
-                "brits_mae_deg_c": float(np.mean(np.abs(predicted - truth))),
+                f"{model_label}_mae_deg_c": float(np.mean(np.abs(predicted - truth))),
                 "xgboost_mae_deg_c": float(item.mae_deg_c),
             }
         )

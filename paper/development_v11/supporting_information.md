@@ -144,15 +144,18 @@ station grouping, and common-period completeness. Apply the selected US
 development mapping unchanged in the primary cross-domain test. Report each
 domain separately even if the pooled result is favorable.
 
-Post-confirmation heterogeneity summaries are descriptive. For the simple
-model, multi-network provider slopes were 0.648 for ARSO (12 networks), 0.826
-for GKD Bayern (nine), and 0.954 for USGS (17). Slopes across network-size
-groups were 0.809 for 3--4 stations, 0.772 for 5--7, and 0.800 for 8 or more;
-network-level Spearman was 0.402, 0.714, and 0.817, respectively. For the
-complete-panel empirical predictor, corresponding network-level Spearman was
-0.803, 0.829, and 0.100. The sparse provider cells and non-random network sizes
-preclude causal attribution. Complete rows, including thermal-state strata,
-are in `heterogeneity_metrics.csv`.
+Post-confirmation US mixed models pool development and both outcome panels to
+reach 104 networks for simple descriptors and 100 for empirical transfer. Each
+model has a network random intercept and prediction slope, plus fixed
+prediction-by-phase and prediction-by-modifier interactions. For simple risk,
+adjusted slopes were 1.160 in the arid/semiarid reference group and 0.649 in
+the maritime group; their interaction had \(p = 0.0024\). Empirical climate
+interactions were not significant. GAGES-II regulation status was known for 89
+empirical networks: adjusted slopes were 0.887 for regulated and 0.741 for
+unregulated networks, but the interaction had \(p = 0.119\). HUC2 climate groups
+are broad catalog strata, major-dam presence is not a causal treatment, phase
+QC differs, and empirical model diagnostics included boundary and Hessian
+warnings. Complete coefficients and adjusted slopes accompany Figure 5.
 
 ## Text S11. Confirmation conduct
 
@@ -218,10 +221,9 @@ Three model families are scored on identical outer gaps:
 The full-roster sensitivity does not claim that these three families span all
 modern water-temperature reconstruction methods. It tests whether the
 simple-descriptor ordering is unique to the original gradient-boosting loss
-surface. No full-roster recurrent model or air-temperature--discharge hybrid
-such as air2stream was run [@toffolon2015air2stream].
+surface. No full-roster recurrent or process model was run.
 
-A subsequent bounded recurrent sensitivity selected one scored network from
+A first bounded recurrent sensitivity selected one scored network from
 each of six first-panel providers, using the fewest-eligible-stations rule and
 then lexical network ID. The repository-local BRITS imputer uses GRU-style
 recurrence with hidden size 16, four epochs, at most 48 fitting windows per
@@ -239,10 +241,33 @@ seasonal and local gap-boundary terms in a ridge model. Fifty networks and
 1,076 station-gap units had complete aligned inputs. XGBoost loss versus proxy
 loss had station-gap Spearman 0.373 and network-level Spearman 0.343. The proxy
 is not the published air2stream differential-equation model
-[@toffolon2015air2stream]. Timestamp-aligned air temperature and approved flow
-are unavailable on the first and second confirmation rosters, so this analysis
-does not satisfy the requested air2stream benchmark or supply cross-network
-confirmation for a process model.
+[@toffolon2015air2stream]. This early proxy did not satisfy the requested
+air2stream benchmark.
+
+The later bidirectional LSTM sensitivity used an actual mask-aware
+`torch.nn.LSTM` on 14 networks selected without recovery-loss information from
+eight providers and seven countries. Fitting and validation used artificial
+blocks only within fitting years. The analysis scored 495 placements and 165
+station-gap units. Empirical risk versus LSTM loss had station-gap Spearman
+0.338 and network-level Spearman 0.631; XGBoost loss versus LSTM loss had 0.314
+and 0.411. All training histories were finite, but 92.9% reached the five-epoch
+cap. This is not a Rahmani-style reimplementation, a state-of-the-art or fully
+converged LSTM, a full roster, or a confirmatory model comparison.
+
+The independent process sensitivity implements the published air2stream-8
+equation and Crank--Nicolson update [@toffolon2015air2stream]. It replaces the
+original particle swarm optimizer with bounded deterministic multistart least
+squares. The fixed input-availability rule began with the lexically first 12
+non-attrited US second-panel networks, then required complete, positive,
+same-site approved USGS daily discharge and complete NASA POWER air
+temperature; no loss entered selection. Fourteen stations in eight networks
+supported 1,750 placements and 89 station-gap units. Empirical risk versus
+air2stream loss had station-gap/network Spearman 0.173/0.238, or 0.072/0.310 on
+55 direct-horizon units. XGBoost loss versus air2stream loss was 0.039/0.286.
+This closes the published-equation baseline on an independent US subset, not a
+full cross-domain roster. It is not the original executable or optimizer, and
+NASA POWER local-solar and USGS local-civil day windows are date-aligned but
+not identical.
 
 ## Text S15. Interval and risk-control details
 
@@ -286,7 +311,9 @@ provider's terms explicitly permit redistribution.
 
 | Provider | Official access used | Resolution/QC role | Redistribution treatment |
 | --- | --- | --- | --- |
-| USGS | Water Data daily-values API | approved daily mean | US Government data; request metadata and derived aggregates releasable |
+| USGS | Water Data and legacy NWIS daily-values services | approved daily temperature; same-site 00060/00003 discharge with qualifier prefix `A` for process sensitivity | US Government data; request metadata and derived aggregates releasable |
+| NASA POWER | daily point API, `T2M`, local solar time | finite non-fill daily air temperature for the air2stream-equivalent subset | request metadata and derived forcing retained; local-solar versus station-civil day boundary disclosed |
+| GAGES-II | 2009 basin-characteristics archive | major-dam presence used only as a descriptive US regulation stratum | source archive hash recorded; archive not redistributed in the manuscript package |
 | ARSO | `vode.arso.gov.si/hidarhiv/` | reviewed daily river archive | raw values omitted pending an explicit redistribution statement |
 | CHMI | official hydrological yearbook/download tables | provider daily values | raw values omitted pending an explicit redistribution statement |
 | GKD Bayern | official Gewässerkundlicher Dienst downloads | provider daily values | raw values omitted pending an explicit redistribution statement |
@@ -345,3 +372,27 @@ first-panel networks. Three roster members had appeared in first-panel
 source/QC processing but had no recovery outcomes scored there. The outcomes
 are therefore independent, while the source-QC history is not wholly new. The
 v2 amendment and results share one commit, as disclosed in Text S17.
+
+## Text S19. Matched planted field-outage geometry
+
+The matched analysis begins with 2,355 catalogued natural-outage geometries and
+retains 1,327 truth-bearing planted items from 167 stations in 49 development
+networks after empirical-curve and simple-predictor matching. Each item is
+paired to the same network and station at the nearest artificial-grid horizon
+on log gap length, with shorter-horizon tie breaking. The recovery model,
+outer 70/30 year split, and fitting-period empirical curve remain those of v11.
+
+Under planted natural geometry, empirical station-gap/network Spearman was
+0.330/0.566 and calibration slope was 0.401. The network-bootstrap interval for
+rank was 0.338--0.732. Under the matched artificial geometry, empirical rank
+was 0.676/0.734 with network interval 0.535--0.868. The paired network-rank
+difference, natural minus artificial, was -0.168 with interval -0.328 to
+-0.012. The source audit shows that 85.8% of natural-geometry items used the
+network-mean fallback, 13.1% a station-horizon-season curve, and the remainder
+a station- or network-horizon curve.
+
+These are observed-counterpart plantings, not actual missing-day outcomes.
+Actual missing values have no truth, and the analysis does not estimate the
+selection mechanism that caused field outages. The high fallback fraction also
+means the result diagnoses insufficient horizon coverage as well as geometry
+shift.

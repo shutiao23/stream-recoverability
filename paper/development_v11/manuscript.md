@@ -7,9 +7,9 @@
   descriptors or conditional covariance at the network level.
 - Conditional-covariance risk saturated with gap length while realized loss
   continued to grow, explaining why the analytic operator added little.
-- Loss ordering persisted across three statistical recovery models but was weak
-  in bounded recurrent and process-inspired sensitivities; calibration and
-  decisions remained domain dependent.
+- Loss ordering persisted across three statistical recovery models but weakened
+  for a bounded BiLSTM, an air2stream-equivalent process model, and planted
+  field-outage geometries.
 
 ## Plain Language Summary
 
@@ -21,12 +21,14 @@ each record. The trial-gap error curve was the clearest guide to later error.
 The covariance formula reached a ceiling for long gaps and therefore missed
 the growing effects of seasonal change and model error. Simple descriptors
 still sorted easier from harder gaps across countries and three statistical
-recovery models, but a small recurrent-model sensitivity was weak and the
-numerical error scale changed by data domain. When no same-duration trial curve
-was available, a network average preserved some network ordering but poorly
-predicted individual gaps. These results support fitting-period stress tests as
-a screening tool. They do not support
-automatic filling or removal of monitoring stations without local calibration.
+recovery models, but transfer was weaker for a bounded BiLSTM and a process
+model driven by air temperature and flow. Trial-gap ranking also degraded when
+we planted the timing and duration of observed field outages into periods with
+known truth. When no same-duration trial curve was available, a network average
+preserved some network ordering but poorly predicted individual gaps. These
+results support fitting-period stress tests as a screening tool. They do not
+support automatic filling or removal of monitoring stations without local
+calibration.
 
 ## Abstract
 
@@ -41,15 +43,15 @@ used for post-confirmation method development. A second outcome panel scored 57
 networks from North America and Europe. On 874 units at the four directly
 supported horizons, fitting-period transfer reached network-level Spearman
 0.805. Extending the predictor across all horizons with a network-mean fallback
-reduced network-level Spearman to 0.715 and substantially weakened pooled
-ranking and magnitude accuracy.
+substantially weakened pooled ranking and magnitude accuracy.
 Conditional-covariance risk saturated with gap length while realized loss
-continued to increase, explaining why the
-analytic lower bound contributed little beyond empirical and simple
+continued to increase, explaining why the analytic lower bound contributed
+little beyond empirical and simple
 predictors. The direction of loss ordering persisted across three statistical
-recovery families but weakened in bounded GRU-style and process-inspired
-sensitivities; absolute calibration, simultaneous interval coverage,
-safe-fill control, and station-placement benefit did not transfer as
+recovery families but weakened for a bounded BiLSTM, an air2stream-equivalent
+process model, and planted field-outage geometries; absolute calibration,
+simultaneous interval coverage, safe-fill control, and station-placement
+benefit did not transfer as
 operational guarantees. Fitting-period error curves are therefore the
 strongest tested pre-evaluation screen, but their use for absolute error or
 management thresholds requires local labels. An internally hash-bound second
@@ -102,8 +104,9 @@ We ask four questions. First, do fitting-period empirical error curves or
 simple descriptors rank later recovery loss on unseen networks? Second, does a
 four-coalition conditional-covariance operator add useful information, and how
 does its horizon response differ from realized loss? Third, does loss ordering
-persist across recovery-model families and provider domains? Fourth, can the
-result support uncertainty intervals, safe-fill triage, or station placement?
+persist across recovery-model families, provider domains, and planted field-
+outage geometries? Fourth, can the result support uncertainty intervals,
+safe-fill triage, or station placement?
 The river network is the primary extrapolation unit throughout (Figure 1).
 
 ## 2. Methods
@@ -139,22 +142,26 @@ temperatures with ridge stabilization. Median feature imputation, scaling, and
 all coefficients were fit using fitting years only. The third family was the
 prespecified gradient-boosting model (300 trees, depth 4, learning rate 0.05).
 
-After the first-panel analysis, we added a bounded recurrent sensitivity on one
-selected network from each of six providers. A repository-local BRITS imputer
-with GRU-style recurrence was trained on artificial blocks in outer fitting
-years and scored on 7-, 30-, and 90-day outer gaps, capped at three placements
-per station-gap. The exercise used six networks, 75 station-gap units, and 225
-placements. It is exploratory: the model is neither a state-of-the-art LSTM nor
-a complete recurrent roster, and the selected first-panel networks do not form
-an independent confirmation.
+After the first-panel analysis, we added a bounded bidirectional LSTM
+sensitivity. A mask-aware `torch.nn.LSTM` used artificial blocks only from
+fitting years, up to five epochs, and at most three placements per station-gap.
+The deterministic, outcome-blind subset contained 14 networks from eight
+providers and seven countries, 165 station-gap units, and 495 placements. This
+is not a reimplementation of a published stream-temperature LSTM, a
+state-of-the-art training budget, or a complete roster evaluation.
 
-A development-only process proxy used air temperature, approved flow,
-seasonal and boundary terms, and ridge regression on 50 networks with complete
-fitting-period inputs. Its 1,076 station-gap units test whether loss ordering
-extends to a low-parameter air-temperature--flow hybrid. This is not the
-published air2stream differential-equation model, and neither the first nor
-second confirmation has timestamp-aligned air temperature and flow for the
-same evaluation.
+We also implemented the published eight-parameter air2stream state equation
+and Crank--Nicolson update [@toffolon2015air2stream] in Python. Calibration used
+train-only bounded multistart least squares rather than the original particle
+swarm optimizer. The outcome-blind subset was the lexically first 12
+non-attrited US second-panel networks, followed by strict input QC: same-site
+approved USGS daily discharge had to be positive and complete, and NASA POWER
+daily air temperature at the exact station coordinates had to be finite.
+Fourteen stations in eight networks
+supported 89 station-gap units and 1,750 placements. This is a
+published-equation equivalent, not the original executable; it is US-only, and
+POWER local-solar versus USGS local-civil daily windows share date labels but
+not identical 24-hour boundaries.
 
 ### 2.3 Fitting-period empirical transfer
 
@@ -171,7 +178,18 @@ all fitting-period empirical losses in that network. We classify the first
 three sources as direct within-horizon support and the last as a network-mean
 fallback. No outer evaluation loss entered any source.
 
-### 2.4 Simple descriptors and analytic lower bound
+### 2.4 Matched planted outage geometry
+
+To test geometry rather than actual missing values, we planted catalogued
+field-outage timing and duration into later observed periods. Each natural-
+geometry item was paired with an artificial-grid item from the same network and
+station at the nearest log-gap horizon, with ties assigned to the shorter
+horizon. The matched roster contained 1,327 truth-bearing items from 167
+stations in 49 development networks. Actual missing days have no truth and were
+never scored. Network bootstrap intervals and paired rank differences used
+2,000 network resamples.
+
+### 2.5 Simple descriptors and analytic lower bound
 
 Simple fitting-period descriptors comprised gap length, target autocorrelation,
 year-block donor \(R^2\), the earlier additive \(d/4\) heuristic, nearest-donor
@@ -190,13 +208,21 @@ over the gap was treated as a Gaussian optimal-prediction lower bound, not as
 recovery MAE. We tested its incremental value after the strongest simple model
 and after a learned nonlinear error model.
 
-### 2.5 Inference, calibration, and intervals
+### 2.6 Inference, calibration, and intervals
 
 All development predictions left out complete networks. Results report
 network-level Spearman first, followed by pooled and within-network rank as
 diagnostics. Calibration intercept and slope used weights inversely
 proportional to the number of station-gap rows in each network. Network
 bootstrap intervals resampled rivers.
+
+Post-confirmation US heterogeneity models combined development and both outcome
+panels. They included 104 networks for simple descriptors and 100 for empirical
+transfer, with a network random intercept and random prediction slope. Fixed
+effects interacted predicted loss with broad HUC2 climate group or the 2009
+GAGES-II major-dam stratum and retained analysis-phase interactions. GAGES-II
+status was known for 89 empirical networks. These are descriptive effect-
+modification models, not causal estimates of climate or regulation.
 
 The preregistered 90% interval used the 90th percentile of each development
 network's largest absolute leave-one-network-out residual, giving a constant
@@ -206,7 +232,7 @@ conformal absolute-residual intervals within fixed horizon bins (7--14,
 Coverage is reported both by row and as the fraction of networks for which
 every station-gap row was covered.
 
-### 2.6 Decision analyses
+### 2.7 Decision analyses
 
 Safe-fill triage defined loss above 0.5 °C as unsafe and allowed at most 5%
 false releases. The preregistered threshold was evaluated unchanged. A
@@ -223,7 +249,7 @@ target over observed 90-day evaluation gaps. We compared simple-risk minimax,
 greedy mutual information, QR pivoting, even spacing, and random placement.
 An outcome oracle defined regret as excess worst-target MAE.
 
-### 2.7 Evidence roles and second-confirmation rule
+### 2.8 Evidence roles and second-confirmation rule
 
 The analysis plan and thresholds for the simple-descriptor model were
 preregistered before outcomes in the 42-network panel were evaluated. The
@@ -279,7 +305,7 @@ remainder between the lower bound and realized loss grew from 0.165 to 4.268
 °C, consistent with accumulating model error and nonstationary seasonal drift
 (Figure 3).
 
-### 3.3 Rank direction weakened in recurrent and process-inspired sensitivities
+### 3.3 Rank direction weakened for BiLSTM and air2stream-equivalent losses
 
 Simple descriptors ranked loss in all three confirmation recovery families.
 Pooled Spearman was 0.733 for donor covariance regression, 0.841 for
@@ -289,30 +315,45 @@ transport: slopes were 0.830, 0.862, and 0.760. Thus the qualitative rank
 finding was not unique to XGBoost, but neither magnitude nor network-level
 strength was roster invariant.
 
-The exploratory recurrent sensitivity was materially weaker. Across its 75
-station-gap units, XGBoost loss versus BRITS loss had Spearman 0.317 and the
-empirical-transfer predictor versus BRITS loss had Spearman 0.384. The latter
-network-summary Spearman was 0.600 across only six networks. These values do
-not establish transfer to recurrent reconstruction; they identify full-roster
-LSTM evaluation as an unresolved model-class boundary.
+The bounded BiLSTM sensitivity was materially weaker. Across 165 station-gap
+units in 14 networks, empirical risk versus BiLSTM loss had station-gap
+Spearman 0.338 and network-level Spearman 0.631; XGBoost loss versus BiLSTM
+loss reached 0.314 and 0.411, respectively. All training histories were finite,
+but 92.9% reached the five-epoch cap. These values do not establish optimizer
+convergence, state-of-the-art LSTM performance, or full-roster transfer.
 
-The development-only process proxy gave similarly weak cross-model ordering:
-XGBoost loss versus hybrid-proxy loss had station-gap Spearman 0.373 and
-network-level Spearman 0.343 across 50 networks and 1,076 station-gap units.
-Because this ridge proxy is not the published air2stream model and no
-confirmation panel has matched air-temperature and approved-flow inputs, the
-process-baseline requirement remains unmet.
+The independent air2stream-equivalent sensitivity was weaker still. Across 89
+station-gap units in eight second-panel US networks, empirical risk versus
+air2stream loss had station-gap Spearman 0.173 and network-level Spearman
+0.238. At the four directly supported horizons, the corresponding values were
+0.072 and 0.310. XGBoost loss versus air2stream loss reached 0.039 and 0.286.
+The published-equation process baseline therefore closes the earlier
+implementation gap on a fixed independent subset, but the weak ranks, US-only
+coverage, alternate optimizer, and day-boundary mismatch preclude a broad
+model-family transfer claim.
 
-### 3.4 Pooled rank was not a between-network artifact
+### 3.4 Planted field-outage geometry weakened empirical transfer
+
+On 1,327 matched items from 49 networks, empirical network-level Spearman was
+0.566 (95% network-bootstrap interval 0.338--0.732) under planted field-outage
+geometry, compared with 0.734 (0.535--0.868) on matched artificial-grid gaps.
+The paired difference was -0.168 (-0.328 to -0.012). Natural-geometry
+calibration slope was only 0.401. Moreover, 85.8% of natural-geometry items
+used the network-mean fallback rather than a same-horizon empirical curve.
+Observed geometry therefore retained moderate network ordering but materially
+reduced rank and magnitude transfer. This experiment does not score actual
+missing days or identify the selection process that caused them.
+
+### 3.5 Pooled rank was not a between-network artifact
 
 For the original simple model, pooled confirmation Spearman was 0.803. After
 removing each network's predicted and observed means, within-network Spearman
 was 0.862; between-network Spearman was 0.563 (95% network-bootstrap interval
 0.293--0.752). The strong pooled ordering was therefore not produced solely by
 differences among network means. The network-level primary planning criterion
-was nevertheless not met.
+was nevertheless not met (Figure 2).
 
-### 3.5 Absolute calibration and decision guarantees did not transfer
+### 3.6 Absolute calibration and decision guarantees did not transfer
 
 The original constant-width interval covered 99.2% of rows and all rows in
 85.7% of networks, but its mean width was 6.49 °C. Horizon-Mondrian conformal
@@ -334,23 +375,24 @@ slope to 0.9--1.1 in 50% of cross-domain resamples. No tested budget up to 200
 rows certified a nonempty 5% false-release set with the exact risk-control
 rule. Operational triage therefore remained unsupported (Figure 4).
 
-Descriptive heterogeneity did not reduce to provider alone. Among providers
-with several networks, simple-model calibration slopes ranged from 0.648 for
-ARSO (12 networks) to 0.954 for USGS (17 networks), with 0.826 for GKD Bayern
-(nine networks). Across 3--4, 5--7, and 8-or-more-station networks, slopes were
-similar (0.772--0.809), while network-level Spearman rose from 0.402 to 0.817.
-For the complete-panel empirical predictor, however, network-level Spearman in
-the 8-or-more-station group was only 0.100, compared with 0.803 and 0.829 in
-the two smaller groups. These post-confirmation subgroup summaries are
-descriptive and do not identify provider, climate, regulation, or network size
-as causal moderators.
+The cross-phase US mixed models identified heterogeneity for simple descriptors
+but not a stable empirical modifier (Figure 5). For the simple predictor, the
+adjusted maritime slope was 0.649 versus 1.160 in the arid/semiarid reference
+group; the prediction-by-maritime interaction had \(p = 0.0024\). Empirical
+prediction interactions with broad climate groups were not significant. Among
+the 89 empirical networks with known GAGES-II status, adjusted slopes were
+0.887 for regulated and 0.741 for unregulated networks, but their interaction
+was not significant (\(p = 0.119\)). HUC2 climate bands are broad, major-dam
+presence is not a causal treatment, QC regimes differ by phase, and empirical
+mixed-model diagnostics included boundary warnings. These results are
+descriptive effect modification, not attribution to climate or regulation.
 
 The station-placement replay was also post-confirmation method development.
 Only 14 development networks had complete directed loss matrices and at least
 five stations. We therefore report its policy comparison in Supporting
 Information rather than treating it as main-text evidence for station removal.
 
-### 3.6 Second independent confirmation reproduced network rank but not decision efficiency
+### 3.7 Second independent confirmation reproduced network rank but not decision efficiency
 
 The internally frozen v2 roster attempted 60 networks. Three had no scoreable
 evaluation gap, leaving 57 networks and 1,446 station-gap units, above the
@@ -406,6 +448,13 @@ presented as calibrated error or as a universal substitute for empirical
 testing. The cross-domain slope difference and the failure of finite-sample
 risk control show that an operational threshold needs local labels.
 
+The matched geometry analysis adds a distinct warning. Empirical ranking did
+not disappear when observed outage shapes were planted into truth-bearing
+periods, but both rank and calibration degraded relative to matched artificial
+gaps. Most items lacked a same-horizon curve and used a network mean. Managers
+should therefore match trial-gap duration and season to their observed outage
+portfolio rather than treating a generic stress curve as field-gap evidence.
+
 The placement analysis evaluates policies on observed leave-station-out
 outcomes and includes mutual-information and QR-pivot comparators
 [@krause2008sensor; @oh2025sensors]. The 14-network development replay favored
@@ -417,22 +466,16 @@ placement benefit or support sensor removal.
 Several limitations remain. The empirical curve was directly supported only at
 four horizons; using a network-wide mean elsewhere preserved between-network
 ordering but sharply reduced pooled rank and magnitude accuracy. The recovery
-roster spans three statistical families. A six-network GRU-style BRITS
-sensitivity was weak, was specified after the first-panel analysis, and was not
-a state-of-the-art LSTM benchmark. A development air-temperature--flow ridge
-proxy was also weak but is not published air2stream
-[@toffolon2015air2stream]. The roster sensitivity therefore establishes
-transfer only across the three full statistical families, not current
-process-guided or recurrent alternatives. All primary losses use truth-bearing
-artificial gaps. A separate 67-network development stress test planted
-observed-outage geometries into truth-bearing periods and produced negative
-network-level rank, but it used a different model and weighting, omitted actual
-missing-day truth, and was too small for its planned interval (Supporting
-Information Text S1). It therefore does not establish transfer under the
-non-random timing or causes of field outages. Provider-specific QC and day
-definitions may contribute
-to domain shifts.
-Thermal-state-change evidence remains sparse. The second evaluation tested the
+roster spans three statistical families. The 14-network BiLSTM sensitivity hit
+its epoch cap in 92.9% of networks and is neither a converged state-of-the-art
+benchmark nor a full roster. The air2stream sensitivity implements the
+published equation, but replaces the original optimizer, covers only eight US
+networks, and joins differing daily time conventions. The matched planted-
+geometry experiment still does not observe truth on actual missing days or
+identify failure-process selection. HUC2 and GAGES-II heterogeneity strata are
+broad and descriptive, while provider-specific QC and day definitions may
+contribute to domain shifts. Thermal-state-change evidence remains sparse. The
+second evaluation tested the
 redesigned interval and triage procedures: the interval was inefficient and
 exact triage released nothing. Placement was directionally favorable but had
 no prespecified utility criterion. Independent evaluation therefore closed the
@@ -445,7 +488,7 @@ and 10 Norwegian). The original Canadian requirement could not be met because
 the only identified multi-station daily source labels its 16,244 observations
 from four St. Lawrence locations as not validated or checked. The pre-scoring
 amendment therefore substituted the two available non-US validation domains,
-Czechia and Norway. Section 3.6 reports the outcome and its provenance limits.
+Czechia and Norway. Section 3.7 reports the outcome and its provenance limits.
 
 The earlier Chattahoochee case study provides a concrete example of the same
 boundary: the station below Buford Dam had predicted skill 0.414 but observed
@@ -459,9 +502,12 @@ through a changed thermal regime.
 Fitting-period empirical error curves were the strongest tested predictor of
 later stream-temperature recovery loss. Direct-horizon network-level Spearman
 was 0.805 across 57 networks in the second evaluation, after reaching 0.922 in
-the first-panel method-development analysis. Conditional variance saturated while
-long-gap loss continued to grow, so an analytic information bound should not
+the first-panel method-development analysis. Conditional variance saturated
+while long-gap loss continued to grow, so an analytic information bound should not
 be treated as a substitute for stress-testing the intended recovery pipeline.
+Weak transfer to bounded BiLSTM and air2stream-equivalent losses, together with
+the decline under planted field-outage geometry, shows that the screen must be
+matched to the recovery family and outage portfolio.
 For monitoring managers, the supported action is to use fitting-period trial
 gaps to rank which outages warrant attention, while retaining simple
 descriptors when records are too short for stratified trials. Absolute error

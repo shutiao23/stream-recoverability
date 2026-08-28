@@ -1,0 +1,112 @@
+{
+  "analysis_id": "v11_cross_provider_bidirectional_lstm_sensitivity_v1",
+  "status": "completed_bounded_sensitivity",
+  "evidence_role": "post_confirmation_sensitivity_not_frozen_model_roster",
+  "model": "repository_local_mask_aware_bidirectional_torch_nn_LSTM",
+  "architecture_assertion": {
+    "recurrent_module": "torch.nn.LSTM",
+    "bidirectional": true,
+    "is_gru": false
+  },
+  "not_a_claim_of": [
+    "Rahmani_et_al_model_reimplementation",
+    "state_of_the_art_stream_temperature_LSTM",
+    "full_confirmation_roster_coverage",
+    "confirmatory_model_comparison"
+  ],
+  "selection_rule": "within each provider choose up to N networks by source-panel priority, eligible-station count, domain, and lexical network ID; no recovery loss or LSTM outcome enters selection",
+  "selection_boundary": "second-panel candidates are restricted to deterministic post-QC scoreable arrivals; no recovery-loss magnitude is used",
+  "candidate_construction_reads_outcome_values": false,
+  "candidate_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "usgs"
+  ],
+  "selected_networks": 14,
+  "available_candidate_networks": 99,
+  "full_roster_coverage": false,
+  "completed_networks": 14,
+  "failed_networks": 0,
+  "completed_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "usgs"
+  ],
+  "n_completed_providers": 8,
+  "completed_domains": [
+    "czechia",
+    "germany",
+    "netherlands",
+    "norway",
+    "slovenia",
+    "switzerland",
+    "united_states"
+  ],
+  "gap_lengths": [
+    7,
+    30,
+    90
+  ],
+  "training": {
+    "outer_evaluation_labels_used_for_fit_or_validation": false,
+    "artificial_blocks_in_fitting_years_only": true,
+    "hidden_size": 16,
+    "epochs": 5,
+    "max_training_windows_per_network": 64,
+    "max_placements_per_station_gap": 3,
+    "seed": 20260828,
+    "all_histories_finite": true,
+    "median_best_validation_loss": 0.6921754628419876,
+    "min_best_validation_loss": 0.48617395758628845,
+    "max_best_validation_loss": 1.7113541960716248,
+    "fraction_hit_epoch_limit": 0.9285714285714286,
+    "stability_interpretation": "all histories are finite, but frequent epoch-limit hits mean this bounded run does not establish optimizer convergence"
+  },
+  "results": {
+    "n_scored_placements": 495,
+    "n_station_gaps": 165,
+    "xgboost_vs_lstm_station_gap_spearman": 0.31392087195789814,
+    "empirical_vs_lstm_station_gap_spearman": 0.3382450075708862,
+    "empirical_vs_lstm_network_spearman": 0.6307692307692307,
+    "xgboost_vs_lstm_network_spearman": 0.410989010989011
+  },
+  "input_sha256": {
+    "results/development_v11/route_a_confirmation/qualified_panel.csv": "8fab98a0cd0ff0c496425317e61fa18cf6a9af638334191f0a5481fb87763544",
+    "results/development_v11/route_a_confirmation/placement_losses.csv": "f1487a6b7591aa3899d7f4dd703d15a6941ee2f277dcbe17e5e31994a03b17ac",
+    "results/development_v11/reviewer_completion/confirmation_empirical_predictions.csv": "02dfd651d54bd6be46b5e12877ab72fd31ab8a25c1217b071a1191181f374e8d",
+    "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
+    "results/development_v11/second_confirmation/scoring/placement_losses.csv": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
+    "results/development_v11/second_confirmation/scoring/simple_predictions.csv": "121e341204cd6b5bbcb99e19a9fe53ebbaf1420cd63de6bdfe28d7ac4bd9897f",
+    "results/development_v11/second_confirmation/scoring/empirical_predictions.csv": "1a896614526da5b955f15dbf24bd6961c56e1da6c1d7cb84e17c0db0d32710ba",
+    "results/development_v11/confirmation_daily_qc/networks/arso_drava/daily_wide_temperature.csv": "ee60b9d56a38069e33dc201bf777e69ea72c8c66c06f83d25aa0d370353018d2",
+    "results/development_v11/confirmation_daily_qc/networks/arso_kamniska_bistrica/daily_wide_temperature.csv": "e8c2a1a40bfabea930ea466554a67ad850fb44e555dca3bb9b5cf5d0f0707bc9",
+    "results/development_v11/confirmation_daily_qc/networks/chmi_kamenice/daily_wide_temperature.csv": "a4bf6556c2d80773356f15769d8a5fe62aaa0941232671248f2bca9f910de83d",
+    "results/development_v11/confirmation_daily_qc/networks/chmi_luznice/daily_wide_temperature.csv": "24f3957e258157d9827cb1cc7f9bb18cac3adead89935bd48f0ab696f59fa3a4",
+    "results/development_v11/confirmation_daily_qc/networks/foen_aare_aaregebiet/daily_wide_temperature.csv": "58f81761ea2a50d78a27faff5d289bd3b8ae15f8b1ca66a84743993eb6aef52b",
+    "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_alz/daily_wide_temperature.csv": "116c12c25c84fcc7908dab902d5d8663b63586bab83884d339db2608ed154a83",
+    "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_fraenkische_saale/daily_wide_temperature.csv": "6c626774bfdaa9691e63b6f24330f5d80e5c6b4218c628b9d260632fb5e11fd2",
+    "results/development_v11/confirmation_daily_qc/networks/lubw_rhein/daily_wide_temperature.csv": "e337a17723533f32aed3523f01e98806880506c9f220c6a6f257f54c8547ba9f",
+    "results/development_v11/confirmation_daily_qc/networks/lubw_neckar/daily_wide_temperature.csv": "0f60852cdb9b5371b84cf013b9b6ca5da73b0a3306dec3f3dd81f195cbb423cc",
+    "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_212/daily_wide_temperature.csv": "1c07943f3af6952963f0b8e2dae6edab52e4f4e72e5491086d212c165baf3873",
+    "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_311/daily_wide_temperature.csv": "3d6311f4d4045d387cc1e8f0fdc0440a04fe19edc6d1a095bc14327e2979b073",
+    "results/development_v11/confirmation_daily_qc/networks/rws_rijn_lek_nederrijn/daily_wide_temperature.csv": "d86e9050ee088d2c81c7f5b502886b5206d5a63113904e68d4921f6163955d35",
+    "results/development_v11/confirmation_daily_qc/networks/huc8_02040102/daily_wide_temperature.csv": "d870794fd200039cb35c5ff7e040800dc23c48afa74a9092547313adc7c93b6d",
+    "results/development_v11/confirmation_daily_qc/networks/huc8_03010107/daily_wide_temperature.csv": "f5a7ca93804b87ea6dd6a4b1b54f8a3ea1309e265c00a005d3feb287f5087c2b"
+  },
+  "output_sha256": {
+    "lstm_sensitivity_predictions.csv": "251cb51b0af5363b62d6bf3061629ad9fd8d48d1a0eeed3d452f12dbd5dfd42b",
+    "lstm_sensitivity_training.csv": "2183ab76d7efc69ca0d6f41424ce8115ac53c5fc50ba6620a8a7d4973c484528",
+    "lstm_sensitivity_provider_metrics.csv": "cc32ab81c8b1521d61d4b60bc07d494b1165e5cb4c786d46fa2155480537cf63",
+    "lstm_sensitivity_failures.csv": "b4723d204d88c49ae83c68385404870f4654e7e6e2f26225ee129bd0a9eeb81c"
+  }
+}

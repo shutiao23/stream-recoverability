@@ -27,9 +27,13 @@ def test_goal_audit_proves_completed_work_and_keeps_real_blockers_open() -> None
     assert by_id["P1c"]["completion_satisfied"] is True
     assert by_id["P1f"]["completion_satisfied"] is True
     assert by_id["P1f"]["gate_passed"] is False
+    assert by_id["P1f2"]["completion_satisfied"] is True
+    assert by_id["P1f2"]["gate_passed"] is False
     assert by_id["P1g"]["completion_satisfied"] is True
-    assert by_id["P1h"]["completion_satisfied"] is False
-    assert by_id["P1i"]["completion_satisfied"] is False
+    assert by_id["P1h"]["completion_satisfied"] is True
+    assert by_id["P1h"]["gate_passed"] is False
+    assert by_id["P1i"]["completion_satisfied"] is True
+    assert by_id["P1i"]["gate_passed"] is False
     assert by_id["P2b"]["completion_satisfied"] is True
     assert by_id["P3_domains"]["completion_satisfied"] is True
     assert by_id["P3_canada"]["completion_satisfied"] is True
@@ -50,4 +54,7 @@ def test_goal_audit_proves_completed_work_and_keeps_real_blockers_open() -> None
             "placement" in second_result
         )
     assert by_id["P3_placement"]["gate_passed"] is False
+    assert by_id["P3_climate_regulation"]["completion_satisfied"] is True
+    assert by_id["P3_climate_regulation"]["gate_passed"] is True
+    assert by_id["P4_package"]["gate_passed"] is True
     assert payload["overall_status"] == "incomplete"

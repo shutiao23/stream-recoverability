@@ -147,6 +147,10 @@ results/development_v11/reviewer_completion/*_fit_losses.csv
 results/development_v11/reviewer_completion/*_model_roster_losses.csv
 results/development_v11/reviewer_completion/*_predictions.csv
 !results/development_v11/reviewer_completion/recurrent_sensitivity_predictions.csv
+!results/development_v11/reviewer_completion/lstm_sensitivity_predictions.csv
+!results/development_v11/reviewer_completion/lstm_sensitivity_training.csv
+!results/development_v11/reviewer_completion/lstm_sensitivity_provider_metrics.csv
+!results/development_v11/reviewer_completion/lstm_sensitivity_failures.csv
 results/development_v11/calibration.png
 results/development_v11/calibration_folds.csv
 results/development_v11/calibration_predictions.csv
@@ -156,3 +160,8 @@ results/development_v11/lono_predictions.csv
 results/development_v11/placement_regret.png
 results/development_v11/placement_regret_curve.csv
 results/development_v11/placement_scatter.png
+
+# Public-provider daily forcing used by the independent air2stream-equivalent
+# sensitivity is reproducible from its request ledger but is not redistributed
+# in the code/software commit.
+results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet

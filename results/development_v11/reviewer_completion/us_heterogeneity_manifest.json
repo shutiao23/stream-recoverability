@@ -1,0 +1,140 @@
+{
+  "analysis_id": "v11_us_100_network_mixed_heterogeneity_v1",
+  "status": "complete_descriptive_mixed_model",
+  "evidence_role": "cross_phase_descriptive_not_causal",
+  "independent_unit": "river_network",
+  "models": "random_intercept_and_random_prediction_slope_by_network",
+  "modifiers": [
+    "frozen_huc2_climate_group",
+    "gages_ii_2009_major_dam_regulation_stratum",
+    "phase_qc_regime",
+    "network_size"
+  ],
+  "risk_models": {
+    "fitting_period_empirical": 100,
+    "simple_descriptors": 104
+  },
+  "phase_counts": [
+    {
+      "risk_model": "fitting_period_empirical",
+      "phase": "development",
+      "n_networks": 51
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "phase": "first",
+      "n_networks": 17
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "phase": "second",
+      "n_networks": 32
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "phase": "development",
+      "n_networks": 55
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "phase": "first",
+      "n_networks": 17
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "phase": "second",
+      "n_networks": 32
+    }
+  ],
+  "known_regulation_networks": {
+    "fitting_period_empirical": 89,
+    "simple_descriptors": 92
+  },
+  "diagnostics": [
+    {
+      "risk_model": "simple_descriptors",
+      "moderator": "climate_group",
+      "formula": "observed_recovery_loss ~ predicted_loss * C(climate_group) + predicted_loss * C(phase)",
+      "converged": true,
+      "warnings": [],
+      "log_likelihood": -1836.9355175914225,
+      "residual_variance": 0.21043245518020776,
+      "random_intercept_variance": 0.10113624410470057,
+      "random_slope_variance": 0.15195268450580474,
+      "random_intercept_slope_covariance": -0.103337424147259,
+      "n_networks": 104,
+      "n_station_gaps": 2546,
+      "reference_level": "arid_semiarid"
+    },
+    {
+      "risk_model": "simple_descriptors",
+      "moderator": "regulation_stratum",
+      "formula": "observed_recovery_loss ~ predicted_loss * C(regulation_stratum) + predicted_loss * C(phase)",
+      "converged": true,
+      "warnings": [],
+      "log_likelihood": -1845.7396396489767,
+      "residual_variance": 0.21032743569981258,
+      "random_intercept_variance": 0.09857719613280613,
+      "random_slope_variance": 0.16106780380832755,
+      "random_intercept_slope_covariance": -0.10012496639564912,
+      "n_networks": 104,
+      "n_station_gaps": 2546,
+      "reference_level": "regulated"
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "moderator": "climate_group",
+      "formula": "observed_recovery_loss ~ predicted_loss * C(climate_group) + predicted_loss * C(phase)",
+      "converged": true,
+      "warnings": [
+        "The MLE may be on the boundary of the parameter space.",
+        "The Hessian matrix at the estimated parameter values is not positive definite."
+      ],
+      "log_likelihood": -4063.372667910522,
+      "residual_variance": 1.064027170231639,
+      "random_intercept_variance": 0.0014930124028352044,
+      "random_slope_variance": 0.08363833681460707,
+      "random_intercept_slope_covariance": 0.009374883603299116,
+      "n_networks": 100,
+      "n_station_gaps": 2746,
+      "reference_level": "arid_semiarid"
+    },
+    {
+      "risk_model": "fitting_period_empirical",
+      "moderator": "regulation_stratum",
+      "formula": "observed_recovery_loss ~ predicted_loss * C(regulation_stratum) + predicted_loss * C(phase)",
+      "converged": true,
+      "warnings": [
+        "The MLE may be on the boundary of the parameter space."
+      ],
+      "log_likelihood": -4043.300243289428,
+      "residual_variance": 1.0789669301736342,
+      "random_intercept_variance": 0.03210473577563793,
+      "random_slope_variance": 0.006921846656723265,
+      "random_intercept_slope_covariance": 0.003208910535838431,
+      "n_networks": 100,
+      "n_station_gaps": 2746,
+      "reference_level": "regulated"
+    }
+  ],
+  "boundaries": [
+    "HUC2 climate bands are broad catalog strata, not site-scale climate attribution.",
+    "GAGES-II major-dam presence is a descriptive regulation stratum, not a causal treatment.",
+    "Development and two outcome panels have different QC regimes; phase interactions are retained.",
+    "The analysis combines roles to reach 100 networks and is not a new independent confirmation."
+  ],
+  "inputs": {
+    "gages_archive": {
+      "path": "data/cache/regulation_panel_v1/basinchar_and_report_sept_2011.zip",
+      "sha256": "1d1b292932784bd94cc3e1a078437cd8b1fe9224f322f573209f942508fc942e",
+      "redistributed": false
+    }
+  },
+  "outputs": {
+    "us_heterogeneity_panel.csv": "b6b6a64aab91a5c0a845b792c1d9dec7d67bdec0ca0265df5b32bc90a3bf6c6d",
+    "us_heterogeneity_networks.csv": "9f347aa41192fa0ad3184161e3d20f807eaa337d4e4b7e5ceb0d8a62b308b2c9",
+    "us_heterogeneity_coefficients.csv": "4e828cc2388546c08d5031bb5cbe855581dec09bbc6b7159181cb5c33ae2e2c4",
+    "us_heterogeneity_level_slopes.csv": "90db3ec045fe8c43755cab73f835940edcbc8c052f871ccfe7d752544c5688a9",
+    "figure_06_us_heterogeneity.png": "0320bae1f9a147e5e477682b8f5f9698889b4cd11778bf4d4d2186362fa91f50"
+  }
+}

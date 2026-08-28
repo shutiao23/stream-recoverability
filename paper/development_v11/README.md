@@ -8,8 +8,8 @@ The completed reviewer-response evidence selects this claim:
 
 > Recovery errors measured with artificial gaps wholly inside fitting years
 > improve network-level ranking at directly supported horizons, while
-> network-mean fallback, operational calibration, and decision control remain
-> important boundaries.
+> network-mean fallback, recovery-model class, field-outage geometry,
+> operational calibration, and decision control remain important boundaries.
 
 The complete operator failed its preregistered incremental-R2 criterion. Simple
 descriptors ranked the first-panel outcomes, but the newly
@@ -35,6 +35,10 @@ simple sufficiency as the positive claim.
 - `../../results/development_v11/second_confirmation/scoring/summary.json`:
   completed 57-network second-confirmation metrics and failed decision
   endpoints.
+- `../../results/development_v11/independent_air2stream_equivalent/`: published-
+  equation process baseline on a fixed independent US subset.
+- `../../results/development_v11/matched_outage_geometry/`: matched planted
+  field-outage geometry predictions, source audit, and paired inference.
 
 ## Prior evidence
 
@@ -69,12 +73,19 @@ Those facts motivate v11; they are not evidence for the target claim.
   pooled Spearman 0.633, and \(R^2=0.145\).
 - Learned error model: adding analytic risk after empirical and simple inputs
   changed development LONO \(R^2\) from 0.701 to 0.704.
-- Bounded recurrent sensitivity: empirical-transfer versus local GRU-style
-  BRITS loss has station-gap Spearman 0.384 on 75 units and network Spearman
-  0.600 on six networks; this is exploratory, not an LSTM/full-roster result.
-- Development process proxy: XGBoost versus air-temperature--flow ridge loss
-  has station-gap Spearman 0.373 and network Spearman 0.343 on 50 networks;
-  this is not published air2stream and lacks confirmation inputs.
+- Bounded BiLSTM sensitivity: empirical-transfer versus BiLSTM loss has
+  station-gap/network Spearman 0.338/0.631 on 165 units in 14 networks; 92.9%
+  reached the five-epoch cap, so this is not converged SOTA or a full roster.
+- Independent air2stream-8-equivalent sensitivity: empirical risk versus
+  process loss has station-gap/network Spearman 0.173/0.238 on 89 units in
+  eight US networks; the alternate optimizer, US-only scope, and daily-boundary
+  mismatch remain explicit.
+- Matched planted field-outage geometry: empirical network Spearman fell from
+  0.734 on matched artificial gaps to 0.566 on natural geometry; paired delta
+  -0.168 (95% interval -0.328 to -0.012), with 85.8% network-mean fallback.
+- US mixed heterogeneity: simple calibration differed between maritime and
+  arid/semiarid groups (interaction \(p = 0.0024\)); empirical climate and
+  regulation interactions were not significant and remain descriptive.
 - Horizon-Mondrian intervals narrowed median width to 1.15 degrees C but
   covered every row in only 40.5% of confirmation networks.
 - Exact 5% risk control certified no nonempty release through a requested 200
@@ -111,6 +122,8 @@ ordinary replaceable tables and figures under `results/development_v11/`.
 The second outcome panel is rebuilt with `make second-confirmation-readiness`
 and `make second-confirmation-score`; the latter rechecks the hash-bound roster
 before scoring.
+The independent process baseline is rebuilt with
+`make independent-air2stream-equivalent`.
 
 `make development-v11-candidates` rebuilds the core candidate sources. Provider
 acquisition scripts append their own ordinary source-QC rows. The exact scored

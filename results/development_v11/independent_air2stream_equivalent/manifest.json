@@ -1,0 +1,108 @@
+{
+  "analysis_id": "second_confirmation_air2stream8_equivalent_v1",
+  "evidence_role": "independent_input_availability_subset_no_outcome_selection",
+  "selection_rule": "lexical_first_12_nonattrited_frozen_US_networks_then_strict_complete_positive_same_site_approved_flow_and_complete_POWER_T2M",
+  "selected_networks_before_input_qc": [
+    "usgs2_huc2_08",
+    "usgs2_huc2_12",
+    "usgs2_huc2_15",
+    "usgs2_huc2_18",
+    "usgs2_huc4_0306",
+    "usgs2_huc4_0401",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1111",
+    "usgs2_huc4_1705",
+    "usgs2_huc4_1707",
+    "usgs2_huc4_1903",
+    "usgs2_huc6_010802"
+  ],
+  "model": {
+    "identity": "air2stream_8_equation_crank_nicolson_python_equivalent",
+    "published_equation": true,
+    "original_executable_used": false,
+    "published_doi": "10.1088/1748-9326/10/11/114011",
+    "upstream_repository": "https://github.com/spiccolroaz/air2stream",
+    "upstream_commit_reviewed": "d4834bccf01657c03ab60efb4c18f8a256132c53",
+    "upstream_license": "CC-BY-SA-3.0",
+    "parameter_bounds": {
+      "lower": [
+        -5.0,
+        -5.0,
+        -5.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "upper": [
+        15.0,
+        1.5,
+        5.0,
+        1.0,
+        20.0,
+        10.0,
+        1.0,
+        5.0
+      ],
+      "source": "upstream Switzerland/parameters.txt"
+    },
+    "differences": [
+      "bounded_deterministic_multistart_least_squares_replaces_particle_swarm_optimization",
+      "Python_translation_of_the_published_8_parameter_equation_and_Crank_Nicolson_update",
+      "NASA_POWER_local_solar_daily_T2M_date_labels_are_joined_to_USGS_station_local_civil_daily_discharge"
+    ]
+  },
+  "input_rules": {
+    "air_temperature": "NASA POWER T2M daily LST; finite non-fill values only",
+    "discharge": "USGS daily mean 00060 stat 00003; qualifier prefix A only; converted ft3/s to m3/s",
+    "flow_completeness": "every panel date finite and strictly positive; no interpolation",
+    "calibration": "outer fitting years only; first 365 days warm-up",
+    "evaluation": "second-confirmation artificial gaps; no loss used for subset selection"
+  },
+  "coverage": {
+    "candidate_networks": 12,
+    "candidate_stations": 42,
+    "input_eligible_networks": 8,
+    "input_eligible_stations": 14,
+    "fitted_stations": 14,
+    "fit_failures": 0,
+    "input_excluded_stations": 28,
+    "parameter_bound_hit_stations": 3,
+    "parameter_bound_hits": 4
+  },
+  "results": {
+    "n_networks": 8,
+    "n_stations": 14,
+    "n_station_gaps": 89,
+    "n_placements": 1750,
+    "mean_air2stream_mae_deg_c": 0.884841334688623,
+    "xgboost_vs_air2stream_station_gap_spearman": 0.039036431733060956,
+    "xgboost_vs_air2stream_network_spearman": 0.28571428571428575,
+    "simple_risk_vs_air2stream_station_gap_spearman": 0.15519237316990128,
+    "simple_risk_vs_air2stream_network_spearman": 0.4047619047619048,
+    "empirical_risk_vs_air2stream_station_gap_spearman": 0.17261563230947377,
+    "empirical_risk_vs_air2stream_network_spearman": 0.2380952380952381,
+    "supported_horizon_station_gaps": 55,
+    "supported_empirical_vs_air2stream_station_gap_spearman": 0.0718744373955172,
+    "supported_empirical_vs_air2stream_network_spearman": 0.30952380952380953
+  },
+  "input_sha256": {
+    "results/development_v11/second_confirmation/frozen_scoring_roster_v2.csv": "987e202cd99da48465d804b35e6b975d0062ad86fc5390dbfc6fdf273f090eea",
+    "results/development_v11/second_confirmation/candidates.csv": "bb238a3d04753ff9f154d076b9a6a20dd86b9d99199d04d39ca746bff6c520d5",
+    "results/development_v11/second_confirmation/scoring/scoring_attrition.csv": "b028ffe940ed3d8ae7c94258ca236ff316d09a66371c585ec640cee5b122063c",
+    "results/development_v11/second_confirmation/scoring/placement_losses.csv": "d056bf555ffc2e45677edc840d2c57bc02f68e3e5b2a07b2d490cf1e9419baf2",
+    "results/development_v11/second_confirmation/scoring/simple_predictions.csv": "121e341204cd6b5bbcb99e19a9fe53ebbaf1420cd63de6bdfe28d7ac4bd9897f",
+    "results/development_v11/second_confirmation/scoring/empirical_predictions.csv": "1a896614526da5b955f15dbf24bd6961c56e1da6c1d7cb84e17c0db0d32710ba",
+    "results/framework/public_catalog/usgs_long_temperature_locations.csv": "d7479385b4b7e0386c4bfa553da10126128c87d929647e4593f77c83eaea1a61"
+  },
+  "output_sha256": {
+    "daily_forcing.parquet": "d109dfe2a4ba04e2ed07f1a20337b70cbdab8c9b017c896e40e226eacc0a2519",
+    "failures.csv": "c984a0e362e176591d656641fbec00b4b911d89c3c14ea0fbf3451f0d22f1865",
+    "input_coverage.csv": "b3dcb9d1a299bf899a3baec5253709d0ecbb01f36573379d72a01cc3864f4fbb",
+    "input_requests.csv": "5a082e83a7ab0eec0038fcf0a38f571c6ecdc4bcdebca94baa9bd6d7096bb1fe",
+    "model_parameters.csv": "e43bffc6ac20bf5e6b0793fe593239ee68ebb3bb474a4dd642d6197842965455",
+    "placement_losses.csv": "d0ed78834326ce360865eece9d839aa1dacf1badd82e778b90f617f1ee44d7d2",
+    "station_gap_losses.csv": "504cd1b775385ad201ac1ac142faeee516d562b0c8f51df3457e0d4d633f3a25"
+  }
+}

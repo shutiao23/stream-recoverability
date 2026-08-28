@@ -116,6 +116,7 @@ def test_model_audit_preserves_every_obligation_and_honest_run_state() -> None:
         "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
     }
     assert {row["path"] for row in mentions["air2stream"]} == roster_only_path | {
+        "src/stream_recoverability/experiments/air2stream_equivalent.py",
         "src/stream_recoverability/experiments/process_hybrid_sensitivity.py"
     }
     process_manifest = json.loads(
@@ -126,6 +127,16 @@ def test_model_audit_preserves_every_obligation_and_honest_run_state() -> None:
     )
     assert process_manifest["published_air2stream_implementation"] is False
     assert process_manifest["reviewer3_air2stream_requirement_satisfied"] is False
+    equivalent_manifest = json.loads(
+        (
+            ROOT
+            / "results/development_v11/independent_air2stream_equivalent/manifest.json"
+        ).read_text()
+    )
+    assert equivalent_manifest["model"]["published_equation"] is True
+    assert equivalent_manifest["model"]["original_executable_used"] is False
+    assert equivalent_manifest["coverage"]["input_eligible_networks"] == 8
+    assert readiness["n_end_to_end_ready"] == 0
     assert {row["path"] for row in mentions["grin"]} == roster_only_path
     assert {
         row["path"] for row in mentions["pgdl_or_graph_wavenet"]

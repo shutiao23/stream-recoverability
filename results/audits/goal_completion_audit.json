@@ -67,6 +67,14 @@
       "gate_passed": false
     },
     {
+      "id": "P1f2",
+      "requirement": "Bounded true bidirectional LSTM sensitivity",
+      "status": "complete_exploratory_negative",
+      "evidence": "14 networks across 8 providers; torch.nn.LSTM bidirectional=True; empirical-vs-LSTM station-gap Spearman=0.338; network Spearman=0.631; explicitly not SOTA/full-roster confirmation",
+      "completion_satisfied": true,
+      "gate_passed": false
+    },
+    {
       "id": "P1g",
       "requirement": "Air-temperature/flow process sensitivity",
       "status": "complete_development_proxy_negative_confirmation_unavailable",
@@ -77,17 +85,17 @@
     {
       "id": "P1h",
       "requirement": "Published air2stream or equivalent process model on independent networks",
-      "status": "not_completed_missing_confirmation_ta_f",
-      "evidence": "proxy_is_not_the_published_air2stream_differential_equation_model; first_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F; second_confirmation_has_no_materialized_timestamp_aligned_Ta_and_F",
-      "completion_satisfied": false,
+      "status": "completed_equivalent_independent_subset_negative",
+      "evidence": "Published 8-equation Crank-Nicolson equivalent on 8 US second-confirmation networks/14 stations; empirical-vs-air2stream network Spearman=0.238; original executable used=False; deterministic least-squares replaces PSO; US-only input-availability subset",
+      "completion_satisfied": true,
       "gate_passed": false
     },
     {
       "id": "P1i",
       "requirement": "Real-outage geometry or T4-style planted-geometry experiment",
-      "status": "partial_related_geometry_negative_gate_failed",
-      "evidence": "T4 froze 2,355 observed-counterpart natural geometries across 67 networks; natural network Spearman=-0.394 versus artificial=-0.011 and the interval was withheld below 100 networks. It did not score actual missing days and is not the v11 empirical predictor/model.",
-      "completion_satisfied": false,
+      "status": "complete_matched_planted_geometry_negative_transfer",
+      "evidence": "1327 XGBoost B+D counterparts across 49 networks; empirical natural network Spearman=0.566 versus matched artificial=0.734; natural-minus-artificial delta=-0.168 (95% bootstrap -0.328, -0.012); actual missing days scored=False",
+      "completion_satisfied": true,
       "gate_passed": false
     },
     {
@@ -173,10 +181,10 @@
     {
       "id": "P3_climate_regulation",
       "requirement": "Climate-zone and regulation-state heterogeneity on 100+ scored networks",
-      "status": "not_completed_requires_larger_scored_panel_and_metadata",
-      "evidence": "The first and second panels provide 42 + 57 = 99 scored networks, below the requested 100+ analysis floor, and lack complete harmonized climate/regulation modifiers.",
-      "completion_satisfied": false,
-      "gate_passed": false
+      "status": "complete_descriptive_mixed_model",
+      "evidence": "random-intercept/random-prediction-slope models: simple=104 networks, empirical=100 networks; known regulation simple=92, empirical=89; HUC2 climate and GAGES-II dam strata are descriptive/noncausal",
+      "completion_satisfied": true,
+      "gate_passed": true
     },
     {
       "id": "P4_literature",
@@ -188,9 +196,9 @@
     },
     {
       "id": "P4_package",
-      "requirement": "Complete manuscript, SI, five figures, cover letter, and checklist",
+      "requirement": "Complete manuscript, SI, six figures, cover letter, and checklist",
       "status": "achieved_pending_external_declarations",
-      "evidence": "package files=7; figures=5",
+      "evidence": "package files=7; figures=6",
       "completion_satisfied": true,
       "gate_passed": true
     },
@@ -212,9 +220,6 @@
     }
   ],
   "remaining_blocking_conditions": [
-    "P1h",
-    "P1i",
-    "P3_climate_regulation",
     "ADMIN_authors",
     "ADMIN_doi"
   ]

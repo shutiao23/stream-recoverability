@@ -99,3 +99,31 @@ network while its median width was 8.40 times median loss. Exact 5% triage
 certified and released zero units for both predictors. The v2 amendment and
 outcomes share a commit, so this result is not represented as externally
 verifiable preregistration.
+
+## Post-confirmation boundary analyses
+
+An actual bidirectional LSTM sensitivity covered 14 networks, eight providers,
+seven countries, and 165 station-gap units. Empirical risk versus LSTM loss had
+station-gap/network Spearman 0.338/0.631, while XGBoost loss versus LSTM loss
+had 0.314/0.411. Because 92.9% of runs reached the five-epoch cap, this does not
+establish convergence, SOTA performance, or full-roster transfer.
+
+The published air2stream-8 equation was implemented with its Crank--Nicolson
+update and train-only bounded multistart calibration. On a fixed independent
+US subset of eight networks, 14 stations, and 89 cells, empirical risk versus
+process loss had station-gap/network Spearman 0.173/0.238. The alternate
+optimizer, US-only inputs, and POWER-versus-USGS daily boundary mismatch remain
+limitations.
+
+On 1,327 matched planted outage geometries from 49 development networks,
+empirical network Spearman was 0.566 versus 0.734 for matched artificial gaps.
+The paired difference was -0.168 (95% interval -0.328 to -0.012), calibration
+slope was 0.401, and 85.8% of natural-geometry items used a network-mean
+fallback. Actual missing days still have no truth.
+
+US random-intercept-and-slope models found a simple-model maritime slope of
+0.649 versus 1.160 for arid/semiarid networks (interaction \(p = 0.0024\)).
+Empirical climate and regulation interactions were not significant; regulated
+and unregulated empirical slopes were 0.887 and 0.741 (interaction
+\(p = 0.119\)). These are descriptive HUC2 and GAGES-II strata, not causal
+effects.

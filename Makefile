@@ -1,8 +1,8 @@
 PYTHON ?= python
 export PYTHONPATH := $(CURDIR)/src$(if $(PYTHONPATH),:$(PYTHONPATH))
 
-.PHONY: test development-v11 development-v11-inventory development-v11-candidates development-v11-score development-v11-mixed development-v11-confirm development-v11-stratify development-v11-triage development-v11-plots development-v11-reviewer-completion development-v11-recurrent-sensitivity development-v11-process-sensitivity validate-development-v11-reviewer-completion goal-completion-audit second-confirmation-candidates second-confirmation-nve second-confirmation-canada-audit second-confirmation-readiness second-confirmation-score confirmation-daily-qc ehyd-source-audit rws-daily-qc arso-daily-qc evidence-snapshot hosting-audit submission-gate blueprint-audit p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
-.PHONY: second-confirmation-placement second-confirmation-finalize
+.PHONY: test development-v11 development-v11-inventory development-v11-candidates development-v11-score development-v11-mixed development-v11-confirm development-v11-stratify development-v11-triage development-v11-plots development-v11-reviewer-completion development-v11-recurrent-sensitivity development-v11-process-sensitivity development-v11-matched-outage validate-development-v11-reviewer-completion goal-completion-audit second-confirmation-candidates second-confirmation-nve second-confirmation-canada-audit second-confirmation-readiness second-confirmation-score confirmation-daily-qc ehyd-source-audit rws-daily-qc arso-daily-qc evidence-snapshot hosting-audit submission-gate blueprint-audit p0-protocol reproduce-paper reproduce-paper-full validate-review-revision research-charter recoverability-framework check-public-rivers download-build-rivers download-catalog-v2 catalog-v3-huc8 score-natural-outages gap-triage v2-operator-ablation w2-phase4-gap-specific hubeau-daily uk-ea-catalog uk-ea-daily uk-ea-spatial matched-regulation public-confirmatory-lock ingest-qc-clearwater national-temperature-catalog reservoir-operations-check apply-catalog-clusters
+.PHONY: second-confirmation-placement second-confirmation-finalize development-v11-lstm-sensitivity development-v11-us-heterogeneity independent-air2stream-equivalent
 
 test:
 	$(PYTHON) -m pytest
@@ -38,12 +38,27 @@ development-v11-reviewer-completion:
 	$(PYTHON) scripts/124_run_reviewer_completion.py
 	$(PYTHON) scripts/132_run_recurrent_sensitivity.py
 	$(PYTHON) scripts/133_run_process_hybrid_sensitivity.py
+	OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 $(PYTHON) scripts/138_run_matched_outage_geometry.py
+	$(PYTHON) scripts/136_run_lstm_sensitivity.py
+	$(PYTHON) scripts/139_run_us_heterogeneity.py
 
 development-v11-recurrent-sensitivity:
 	$(PYTHON) scripts/132_run_recurrent_sensitivity.py
 
 development-v11-process-sensitivity:
 	$(PYTHON) scripts/133_run_process_hybrid_sensitivity.py
+
+development-v11-matched-outage:
+	OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 $(PYTHON) scripts/138_run_matched_outage_geometry.py
+
+development-v11-lstm-sensitivity:
+	$(PYTHON) scripts/136_run_lstm_sensitivity.py
+
+development-v11-us-heterogeneity:
+	$(PYTHON) scripts/139_run_us_heterogeneity.py
+
+independent-air2stream-equivalent:
+	$(PYTHON) scripts/137_run_independent_air2stream_equivalent.py
 
 validate-development-v11-reviewer-completion:
 	$(PYTHON) scripts/125_validate_reviewer_completion.py

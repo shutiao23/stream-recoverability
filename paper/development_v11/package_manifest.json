@@ -1,8 +1,8 @@
 {
   "package": "development_v11_empirical_transfer",
   "target_journal": "Water Resources Research",
-  "evidence_status": "second_outcome_panel_complete_rank_and_calibration_reproduced_decision_endpoints_failed",
-  "submission_status": "not_ready_external_items_and_unmet_model_geometry_baselines",
+  "evidence_status": "second_panel_rank_reproduced_decisions_failed_model_and_geometry_transfer_degraded_heterogeneity_descriptive",
+  "submission_status": "not_ready_external_items_and_remaining_crossdomain_process_actual_missing_truth_limits",
   "manuscript_files": {
     "main": "paper/development_v11/manuscript.md",
     "supporting_information": "paper/development_v11/supporting_information.md",
@@ -17,6 +17,7 @@
     "figure_2": "results/development_v11/reviewer_completion/figure_02_confirmation_calibration.png",
     "figure_3": "results/development_v11/reviewer_completion/figure_03_mechanism.png",
     "figure_4": "results/development_v11/reviewer_completion/figure_05_domain_adaptation.png",
+    "figure_5": "results/development_v11/reviewer_completion/figure_06_us_heterogeneity.png",
     "figure_s1_development_only": "results/development_v11/reviewer_completion/figure_04_placement_replay.png"
   },
   "primary_result_artifacts": {
@@ -37,11 +38,25 @@
     "process_hybrid_readiness_development_only": "results/development_v11/reviewer_completion/process_hybrid_readiness.csv",
     "process_hybrid_station_gaps_development_only": "results/development_v11/reviewer_completion/process_hybrid_station_gaps.csv",
     "natural_geometry_stress_manifest_development_only": "results/framework/t4_t5_post_t2_v1/t4_result_manifest.json",
-    "natural_geometry_network_comparison_development_only": "results/framework/t4_t5_post_t2_v1/t4_network_comparison.csv"
+    "natural_geometry_network_comparison_development_only": "results/framework/t4_t5_post_t2_v1/t4_network_comparison.csv",
+    "bilstm_manifest_exploratory": "results/development_v11/reviewer_completion/lstm_sensitivity_manifest.json",
+    "bilstm_predictions_exploratory": "results/development_v11/reviewer_completion/lstm_sensitivity_predictions.csv",
+    "air2stream_equivalent_manifest_independent_subset": "results/development_v11/independent_air2stream_equivalent/manifest.json",
+    "air2stream_equivalent_input_coverage": "results/development_v11/independent_air2stream_equivalent/input_coverage.csv",
+    "air2stream_equivalent_parameters": "results/development_v11/independent_air2stream_equivalent/model_parameters.csv",
+    "air2stream_equivalent_station_gaps": "results/development_v11/independent_air2stream_equivalent/station_gap_losses.csv",
+    "matched_geometry_summary": "results/development_v11/matched_outage_geometry/summary.json",
+    "matched_geometry_network_comparison": "results/development_v11/matched_outage_geometry/matched_network_comparison.csv",
+    "matched_geometry_source_audit": "results/development_v11/matched_outage_geometry/empirical_source_audit.csv",
+    "us_mixed_heterogeneity_manifest": "results/development_v11/reviewer_completion/us_heterogeneity_manifest.json",
+    "us_mixed_heterogeneity_coefficients": "results/development_v11/reviewer_completion/us_heterogeneity_coefficients.csv",
+    "us_mixed_heterogeneity_level_slopes": "results/development_v11/reviewer_completion/us_heterogeneity_level_slopes.csv"
   },
   "regenerable_local_outputs": {
     "confirmation_empirical_placement_predictions": "results/development_v11/reviewer_completion/confirmation_empirical_predictions.csv",
     "development_empirical_placement_predictions": "results/development_v11/reviewer_completion/development_empirical_predictions.csv",
+    "matched_geometry_item_predictions": "results/development_v11/matched_outage_geometry/matched_item_predictions.csv",
+    "us_heterogeneity_row_panel": "results/development_v11/reviewer_completion/us_heterogeneity_panel.csv",
     "generation_target": "make development-v11-reviewer-completion",
     "package_role": "not_required_in_archival_primary_artifacts"
   },
@@ -62,6 +77,10 @@
   "reproduction": {
     "target": "development-v11-reviewer-completion",
     "validation_target": "validate-development-v11-reviewer-completion",
+    "matched_geometry_target": "development-v11-matched-outage",
+    "lstm_target": "development-v11-lstm-sensitivity",
+    "us_heterogeneity_target": "development-v11-us-heterogeneity",
+    "air2stream_equivalent_target": "independent-air2stream-equivalent",
     "second_confirmation_readiness_target": "second-confirmation-readiness",
     "second_confirmation_scoring_target": "second-confirmation-score"
   },

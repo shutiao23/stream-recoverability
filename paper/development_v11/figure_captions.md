@@ -23,6 +23,14 @@ domain on common axes. The right panel shows the fraction of network-grouped
 method-development resamples with evaluation slope in [0.9, 1.1] versus the
 requested labelled station-gap budget.
 
+**Figure 5. US calibration heterogeneity is detectable for simple descriptors
+but not stable for empirical transfer.** Points and intervals are adjusted
+prediction slopes from network-random-intercept-and-slope models spanning
+development and both outcome panels. Simple-model maritime calibration is
+shallower than the arid/semiarid reference, whereas empirical climate and
+regulation interactions are not significant. HUC2 climate and GAGES-II
+major-dam strata are descriptive, not causal.
+
 **Figure S1. Gap-specific minimax placement has the lowest mean non-oracle
 regret in the available development replay.** Curves show worst-target 90-day
 MAE above the realized-outcome oracle across retained fractions. Fourteen

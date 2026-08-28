@@ -26,12 +26,16 @@ support. A four-coalition conditional-covariance operator added little beyond
 simpler predictors because its risk saturated as gaps lengthened.
 This empirical alternative and the negative analytic
 result are reported together. We also show the decision boundary: ordering
-persists across three statistical recovery families but is weak in a bounded
-six-network GRU-style sensitivity and a development-only
-air-temperature--flow proxy. The latter is not published air2stream and lacks
-confirmation inputs. Magnitude calibration, whole-network coverage,
-finite-sample safe-fill control, and station-placement benefit also do not
-transfer as operational guarantees.
+persists across three statistical recovery families but is weak for a bounded
+14-network BiLSTM and a published-equation air2stream-8 equivalent on an
+independent eight-network US subset. On matched planted field-outage geometry,
+empirical rank and calibration degrade relative to artificial gaps, with most
+items requiring network-mean fallback. US mixed models identify simple-model
+climate heterogeneity but no significant empirical climate or regulation
+interaction. These sensitivities are explicitly bounded and descriptive.
+Magnitude calibration, whole-network coverage, finite-sample safe-fill
+control, and station-placement benefit also do not transfer as operational
+guarantees.
 
 Artificial-gap stress testing is established; our contribution is its
 whole-network transfer test, the observed saturation mechanism, and the
