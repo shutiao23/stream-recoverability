@@ -1,0 +1,19 @@
+{
+  "log": [
+    "fit placements: confirmation=52989, development=47408, networks=93, stations=376",
+    "MixedLM fit 4.9s (total so far 0.1 min)",
+    "unconstrained spline monotone on 7..365: True (rise 1.182)",
+    "constrained (hinge slopes >=0) fit: success=True, monotone=True (rise 1.184)",
+    "seasonal amplitude (log1p): 1st harmonic 0.0642, 2nd 0.0619",
+    "second panel (n=1446): risk_surface pooled_spearman=0.883 network_spearman(mean)=0.908 cal_slope=1.401 r2=0.715 rmse=0.808 | empirical pooled=0.740 net=0.695 | fallback pooled=nan net=nan",
+    "interpolation_14_60 (n=448): surface pooled_spearman=0.727 rmse=0.305 cal_slope=0.911",
+    "extrapolation_365 (n=124): surface pooled_spearman=0.349 rmse=2.173 cal_slope=0.683",
+    "abstention: 8% abstained -> threshold 1.082, released n=1332, network_spearman=0.919, cal_slope=1.471",
+    "first-panel refit 2.7s",
+    "first panel (n=1440): surface pooled=0.857 net=0.894 | empirical pooled=0.633 net=0.617 | fallback pooled=0.290 net=nan"
+  ],
+  "sanity": {
+    "n_units_second": 1446,
+    "n_units_first": 1440
+  }
+}

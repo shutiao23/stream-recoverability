@@ -1,0 +1,9 @@
+check,level,value,n_units,reference
+empirical_vs_xgboost_second_panel_supported_horizons,station_gap,0.9453454523265827,874,0.945
+xgboost_source_vs_bilstm_loss,station_gap,0.3382450075708862,165,0.338
+xgboost_source_vs_bilstm_loss,network,0.6307692307692307,14,0.631
+xgboost_source_vs_air2stream_loss,station_gap,0.17261563230947377,89,0.173
+xgboost_source_vs_air2stream_loss,network,0.2380952380952381,8,0.238
+descriptor_predictor_vs_donor_blup_ridge_loss,network,0.3870837047240904,42,0.387
+descriptor_predictor_vs_seasonal_boundary_ridge_loss,network,0.43035410420549386,42,0.43
+descriptor_predictor_vs_xgboost_b_d_loss,network,0.5647030224455069,42,0.565

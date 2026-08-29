@@ -1,0 +1,231 @@
+{
+  "attrition": [],
+  "budget_random20": {
+    "amplitude": [
+      0.11928400228605666,
+      0.031528975922906044
+    ],
+    "annual_mean": [
+      0.1734169124150394,
+      0.022447056821956253
+    ],
+    "cdd10": [
+      0.17053156521133248,
+      0.023086617916993627
+    ],
+    "exceed_days_20": [
+      0.12440833627693404,
+      0.03378446018812695
+    ],
+    "exceed_days_25": [
+      0.035591603053435276,
+      0.024115183737807844
+    ],
+    "p90": [
+      0.1329327635341242,
+      0.021942366534379754
+    ],
+    "phase_doy": [
+      0.05305393663724436,
+      0.022766492578706662
+    ],
+    "summer_max": [
+      0.03290785474695833,
+      0.026801375366302727
+    ],
+    "summer_mean": [
+      0.08398025012127541,
+      0.024135245862817144
+    ],
+    "trend_slope": [
+      0.17263937686855294,
+      0.045449094840898485
+    ]
+  },
+  "budget_top20_length": {
+    "amplitude": 0.15895695823105438,
+    "annual_mean": 0.3861168617887395,
+    "cdd10": 0.34411637960822383,
+    "exceed_days_20": 0.23996232191216305,
+    "exceed_days_25": 0.020992366412213914,
+    "p90": 0.28998835014057656,
+    "phase_doy": 0.10906573459214364,
+    "summer_max": 0.11908155393181397,
+    "summer_mean": 0.18226335446065234,
+    "trend_slope": 0.5216863152868075
+  },
+  "budget_top20_risk": {
+    "amplitude": 0.09533275532141117,
+    "annual_mean": 0.37746698112666177,
+    "cdd10": 0.39457089000674306,
+    "exceed_days_20": 0.30790062404332996,
+    "exceed_days_25": 0.10877862595419852,
+    "p90": 0.30676997973768527,
+    "phase_doy": 0.11653858145802609,
+    "summer_max": 0.13253367081096623,
+    "summer_mean": 0.18832253313717817,
+    "trend_slope": 0.3482309714539742
+  },
+  "metric_error_summary": [
+    {
+      "mean_err_missing": 0.7534617635101003,
+      "mean_err_recon": 0.09327719354911465,
+      "mean_recon_over_missing": 0.12379817804498881,
+      "metric": "annual_mean",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.16461054231561617,
+      "mean_err_recon": 0.09805228502615157,
+      "mean_recon_over_missing": 0.595662244026576,
+      "metric": "summer_mean",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.10300594517792365,
+      "mean_err_recon": 0.038626113306922186,
+      "mean_recon_over_missing": 0.3749891643652485,
+      "metric": "amplitude",
+      "n_units": 342
+    },
+    {
+      "mean_err_missing": 3.4198842189443504,
+      "mean_err_recon": 2.361423036371448,
+      "mean_recon_over_missing": 0.6904979482318182,
+      "metric": "phase_doy",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.46883688663167183,
+      "mean_err_recon": 0.1410520415390319,
+      "mean_recon_over_missing": 0.30085525597700113,
+      "metric": "p90",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.14807735474402142,
+      "mean_err_recon": 0.12434036032087105,
+      "mean_recon_over_missing": 0.8396986867831069,
+      "metric": "summer_max",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 6.54928774928775,
+      "mean_err_recon": 2.2273504273504274,
+      "mean_recon_over_missing": 0.34009048199060377,
+      "metric": "exceed_days_20",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.6307692307692307,
+      "mean_err_recon": 0.5156695156695157,
+      "mean_recon_over_missing": 0.8175248419150859,
+      "metric": "exceed_days_25",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 157.72647631068273,
+      "mean_err_recon": 21.7210177173222,
+      "mean_recon_over_missing": 0.13771319961866826,
+      "metric": "cdd10",
+      "n_units": 351
+    },
+    {
+      "mean_err_missing": 0.6598619588889492,
+      "mean_err_recon": 0.0830636680290942,
+      "mean_recon_over_missing": 0.12588037075050318,
+      "metric": "trend_slope",
+      "n_units": 351
+    }
+  ],
+  "n_networks_requested": 15,
+  "n_networks_scored": 15,
+  "n_placements": 1755,
+  "n_station_gaps": 351,
+  "n_stations_scored": 117,
+  "network_spearman_fitloss": {
+    "amplitude": {
+      "p": 0.7807545523090466,
+      "rho": 0.07857142857142857
+    },
+    "annual_mean": {
+      "p": 0.0010811081941858346,
+      "rho": 0.7571428571428571
+    },
+    "cdd10": {
+      "p": 0.001177583023488826,
+      "rho": 0.7535714285714286
+    },
+    "exceed_days_20": {
+      "p": 0.04621923447857302,
+      "rho": 0.5214285714285714
+    },
+    "exceed_days_25": {
+      "p": 0.037759880962898,
+      "rho": 0.5399013858970048
+    },
+    "p90": {
+      "p": 0.0044737344509062,
+      "rho": 0.6892857142857142
+    },
+    "phase_doy": {
+      "p": 0.0031954812582450634,
+      "rho": 0.7071428571428571
+    },
+    "summer_max": {
+      "p": 0.43539267351553756,
+      "rho": 0.2178571428571428
+    },
+    "summer_mean": {
+      "p": 0.14746665531132622,
+      "rho": 0.3928571428571428
+    },
+    "trend_slope": {
+      "p": 0.34797945986279355,
+      "rho": 0.2607142857142857
+    }
+  },
+  "network_spearman_risk": {
+    "amplitude": {
+      "p": 0.751672517350277,
+      "rho": 0.08928571428571427
+    },
+    "annual_mean": {
+      "p": 0.0009073101116849778,
+      "rho": 0.7642857142857141
+    },
+    "cdd10": {
+      "p": 0.00150948887823503,
+      "rho": 0.7428571428571428
+    },
+    "exceed_days_20": {
+      "p": 0.07607042915033121,
+      "rho": 0.47142857142857136
+    },
+    "exceed_days_25": {
+      "p": 0.06030342280794801,
+      "rho": 0.4955811228756088
+    },
+    "p90": {
+      "p": 0.006509956694715437,
+      "rho": 0.6678571428571428
+    },
+    "phase_doy": {
+      "p": 0.002065209744690791,
+      "rho": 0.7285714285714285
+    },
+    "summer_max": {
+      "p": 0.36884629178393047,
+      "rho": 0.25
+    },
+    "summer_mean": {
+      "p": 0.22121153763932594,
+      "rho": 0.33571428571428563
+    },
+    "trend_slope": {
+      "p": 0.23180969720615968,
+      "rho": 0.3285714285714285
+    }
+  },
+  "output_dir": "/home/lzq/workspace/parttime/stream-recoverability/results/revision_v12/t08_downstream_metrics/agent_b"
+}

@@ -1,0 +1,57 @@
+{
+  "d_rho_sup": {
+    "scale_0.5": 100,
+    "scale_1.0": 120,
+    "scale_1.5": 120
+  },
+  "d_cap_rand_b05": {
+    "scale_0.5": 40,
+    "scale_1.0": 40,
+    "scale_1.5": 40
+  },
+  "d_cap_rand_b10": {
+    "scale_0.5": 40,
+    "scale_1.0": 40,
+    "scale_1.5": 40
+  },
+  "d_cap_rand_b20": {
+    "scale_0.5": 40,
+    "scale_1.0": 40,
+    "scale_1.5": 40
+  },
+  "d_cap_rand_b30": {
+    "scale_0.5": 40,
+    "scale_1.0": 40,
+    "scale_1.5": 40
+  },
+  "d_ndcg_rand_b05": {
+    "scale_0.5": 40,
+    "scale_1.0": 40,
+    "scale_1.5": 40
+  },
+  "d_ndcg_rand_b10": {
+    "scale_0.5": null,
+    "scale_1.0": null,
+    "scale_1.5": null
+  },
+  "d_ndcg_rand_b20": {
+    "scale_0.5": null,
+    "scale_1.0": null,
+    "scale_1.5": null
+  },
+  "d_ndcg_rand_b30": {
+    "scale_0.5": null,
+    "scale_1.0": null,
+    "scale_1.5": null
+  },
+  "d_rho_therm": {
+    "scale_0.5": null,
+    "scale_1.0": null,
+    "scale_1.5": null
+  },
+  "d_rho_net": {
+    "scale_0.5": 160,
+    "scale_1.0": null,
+    "scale_1.5": null
+  }
+}

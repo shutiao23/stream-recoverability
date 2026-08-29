@@ -1,0 +1,11 @@
+policy_a,policy_b,jaccard
+gap_length,simple,0.7901234567901234
+gap_length,surface,0.7522658610271903
+durseason,gap_length,0.864951768488746
+durseason,simple,0.8125
+durseason,empirical,0.3302752293577982
+durseason,surface,0.7682926829268293
+simple,surface,0.7417417417417418
+empirical,gap_length,0.31221719457013575
+empirical,simple,0.3425925925925926
+empirical,surface,0.37115839243498816

@@ -1,0 +1,43 @@
+{
+  "script": "rev_v12_t05_model_matrix_b.py",
+  "networks": [
+    "arso_drava",
+    "arso_kamniska_bistrica",
+    "foen_aare_aaregebiet",
+    "gkd_bayern_alz",
+    "gkd_bayern_fraenkische_saale",
+    "huc8_02040102",
+    "huc8_03010107",
+    "lubw_neckar",
+    "lubw_rhein",
+    "rws_rijn_lek_nederrijn"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "fit_gaps": [
+    7,
+    30,
+    90,
+    180
+  ],
+  "neural_gaps": [
+    7,
+    30,
+    90
+  ],
+  "placements_per_unit": 5,
+  "neural_config": {
+    "hidden_size": 16,
+    "n_layers": 1,
+    "epochs": 40,
+    "patience": 6,
+    "batch_size": 8,
+    "max_windows": 24,
+    "validation_windows": 8,
+    "window_length": 128
+  },
+  "elapsed_seconds": 6.8
+}

@@ -1,0 +1,6 @@
+feature,n_rows,n_finite_both,max_abs_diff,pearson,exact_match_rows
+acf_only,1446,1446,9.71445146547012e-17,1.0,1
+donor_r2_only,1446,1446,8.673617379884035e-17,1.0,1
+additive_d_over_4_heuristic,1446,1446,1.1102230246251565e-16,1.0,1
+nearest_donor_correlation,1446,1446,1.1102230246251565e-16,1.0,1
+donor_station_ids,1446,1446,,,1446

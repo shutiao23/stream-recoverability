@@ -1,0 +1,183 @@
+{
+  "rolling_origin": {
+    "design": "outer chronological cutoff of panel years; stress curve built inside the training block (inner 70/30) and transferred to placements in the later years; canonical 70% row reproduces the frozen reviewer-completion evaluation",
+    "first_panel_networks": 20,
+    "cutoffs": [
+      0.6,
+      0.7,
+      0.8
+    ],
+    "rank_stability": {
+      "n_networks": 14,
+      "n_networks_attrited": 6,
+      "attrited_network_ids": [
+        "gkd_bayern_alz",
+        "gkd_bayern_donau",
+        "gkd_bayern_main",
+        "gkd_bayern_vils",
+        "huc8_17090004",
+        "lubw_neckar"
+      ],
+      "kendall_w": 0.9169719169719169,
+      "mean_pairwise_spearman": 0.8754578754578753,
+      "min_pairwise_spearman": 0.8241758241758241,
+      "mean_pairwise_kendall_tau": 0.7509157509157509,
+      "cutoff_60_vs_cutoff_70": 0.9736263736263736,
+      "cutoff_60_vs_cutoff_80": 0.8241758241758241,
+      "cutoff_70_vs_cutoff_80": 0.8285714285714285,
+      "cutoff_60_vs_cutoff_70_kendall_tau": 0.8901098901098902,
+      "cutoff_60_vs_cutoff_80_kendall_tau": 0.6923076923076924,
+      "cutoff_70_vs_cutoff_80_kendall_tau": 0.6703296703296704
+    }
+  },
+  "comparability": {
+    "design": "unmatched: stress model trained on inner 70% of the training block (~49% of record), curve scored in the inner 30%; matched: stress model trained on the full 70% training block, curve scored on artificial gaps in the outer evaluation window on starts disjoint from the actual placements",
+    "summary": {
+      "comparison": "matched_vs_unmatched",
+      "unmatched_n": 502,
+      "unmatched_n_networks": 20,
+      "unmatched_spearman": 0.9084251673934307,
+      "unmatched_network_spearman": 0.9218045112781955,
+      "unmatched_calibration_intercept": 0.1770307516933252,
+      "unmatched_calibration_slope": 0.7344425878159478,
+      "unmatched_r2": 0.7431885778712322,
+      "unmatched_rmse": 0.39050861851085705,
+      "matched_n": 502,
+      "matched_n_networks": 20,
+      "matched_spearman": 0.9853690795086816,
+      "matched_network_spearman": 0.9819548872180449,
+      "matched_calibration_intercept": -0.005821432563477498,
+      "matched_calibration_slope": 1.0083129430259437,
+      "matched_r2": 0.983143348299097,
+      "matched_rmse": 0.10004816139759908,
+      "network_spearman": 0.9398496240601503,
+      "network_pearson": 0.8754493769205941,
+      "pooled_spearman": 0.9080749480806402,
+      "n_networks": 20,
+      "network_rank_spearman": 0.9398496240601503,
+      "fraction_rank_change_gt_3": 0.1,
+      "max_rank_change": 6.0,
+      "mean_abs_network_prediction_diff": 0.13517805856221843,
+      "max_abs_network_prediction_diff": 0.8872403865669676
+    }
+  },
+  "learning_curve": {
+    "design": "stress curves fit on the first 2/4/6/8 years of each panel record, artificial gaps scored in the canonical inner score years, transferred to the canonical outer placements; 'full' is the frozen canonical fit-losses table (inner 70% of the training block).  New builds score 10 placements per season-gap cell (frozen tables: 20); the agreement of the two conventions is quantified in the comparability stage.",
+    "headline": {
+      "development": {
+        "min_history_network_spearman_ge_07": null,
+        "network_spearman_8y": 0.6083916083916086,
+        "n_networks_by_history": {
+          "2": 10,
+          "4": 12,
+          "6": 12,
+          "8": 12
+        },
+        "full_network_spearman": 0.5804195804195805
+      },
+      "first_panel": {
+        "min_history_network_spearman_ge_07": 4.0,
+        "network_spearman_8y": 0.9510489510489512,
+        "n_networks_by_history": {
+          "2": 12,
+          "4": 12,
+          "6": 12,
+          "8": 12
+        },
+        "full_network_spearman": 0.965034965034965
+      }
+    }
+  },
+  "subsets": {
+    "first_panel_20": [
+      "gkd_bayern_main",
+      "huc8_17090004",
+      "gkd_bayern_donau",
+      "lubw_neckar",
+      "huc8_10020007",
+      "arso_sava",
+      "huc8_05030103",
+      "foen_aare_aaregebiet",
+      "huc8_17090001",
+      "arso_savinja",
+      "huc8_02040101",
+      "lubw_rhein",
+      "gkd_bayern_vils",
+      "arso_vipava",
+      "arso_bistrica",
+      "arso_krka",
+      "arso_dravinja",
+      "huc8_02040104",
+      "gkd_bayern_alz",
+      "huc8_17060306"
+    ],
+    "development_20": [
+      "huc8_01090001",
+      "huc8_01090004",
+      "huc8_02040106",
+      "huc8_02040205",
+      "huc8_02060003",
+      "huc8_02070010",
+      "huc8_04060102",
+      "huc8_04060103",
+      "huc8_04070007",
+      "huc8_05010005",
+      "huc8_05010006",
+      "huc8_05010007",
+      "huc8_05020005",
+      "huc8_05020006",
+      "huc8_05030102",
+      "huc8_05040001",
+      "huc8_05120201",
+      "huc8_05140101",
+      "huc8_05140102",
+      "huc8_07040006"
+    ],
+    "learning_first_panel_12": [
+      "gkd_bayern_main",
+      "gkd_bayern_donau",
+      "lubw_neckar",
+      "gkd_bayern_vils",
+      "gkd_bayern_alz",
+      "huc8_17090004",
+      "lubw_rhein",
+      "huc8_10020007",
+      "huc8_05030103",
+      "foen_aare_aaregebiet",
+      "huc8_17090001",
+      "huc8_02040101"
+    ],
+    "learning_development_12": [
+      "huc8_02040106",
+      "huc8_02040205",
+      "huc8_05120201",
+      "huc8_05140102",
+      "huc8_05140101",
+      "huc8_04060102",
+      "huc8_04060103",
+      "huc8_04070007",
+      "huc8_02070010",
+      "huc8_05010007",
+      "huc8_05020006",
+      "huc8_05030102"
+    ]
+  },
+  "cross_checks": {
+    "canonical_70_supported_only": {
+      "expected_n_units": 780,
+      "n_units": 780,
+      "expected_pooled_spearman": 0.9341048983106937,
+      "pooled_spearman": 0.9341048983106937,
+      "expected_network_spearman": 0.9218863949436837,
+      "network_spearman": 0.9218863949436837,
+      "expected_calibration_slope": 0.8635904833613768,
+      "calibration_slope": 0.8635904833613768,
+      "match": true
+    },
+    "canonical_70_all_cells_network_spearman": {
+      "expected": 0.766631553358723,
+      "value": 0.766631553358723,
+      "match": true
+    }
+  }
+}

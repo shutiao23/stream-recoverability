@@ -1,0 +1,51 @@
+{
+  "seed": 20260829,
+  "n_boot": 2000,
+  "strongest_nonproposed_baseline": {
+    "second_874_direct": "r5_network_x_horizon",
+    "second_1446_full": "r4_network_mean",
+    "first_858_direct": "r5_network_x_horizon",
+    "first_780_supported": "r5_network_x_horizon",
+    "first_1440_full": "r5_network_x_horizon"
+  },
+  "rung4_vs_frozen_fallback_max_abs_diff": 2.220446049250313e-16,
+  "surface_reconstruction_max_mu_diff": 6.661338147750939e-16,
+  "meta2_coefficients": [
+    -0.3001299524905884,
+    0.6877182175269637,
+    0.6428277972612402
+  ],
+  "meta1_coefficients": [
+    -0.21071837951511826,
+    0.9482593917619839,
+    0.3333171688866772
+  ],
+  "meta2_lono_coefficients": [
+    -0.29356110595137613,
+    0.6365595215971689,
+    0.6628849418181578
+  ],
+  "dev_only_coefficients": [
+    2.4651799998425483,
+    0.014061149481358432,
+    -2.0816354013431675,
+    2.5179857955938645,
+    -3.070673096486098,
+    -0.7942071723610211
+  ],
+  "fit_period_coefficients": [
+    2.1468255148910687,
+    0.01194280766337842,
+    -1.5060633058229704,
+    2.047831352498998,
+    -2.6295724135453233,
+    -0.716971565855201
+  ],
+  "operator_dev_sanity": {
+    "pooled_spearman": 0.45817242023362076,
+    "network_spearman": 0.3349927849927851,
+    "r2": -0.3683455109803935,
+    "rmse": 1.3549373792091999
+  },
+  "runtime_seconds": 279.83986020088196
+}

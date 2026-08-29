@@ -1,0 +1,11 @@
+level,value,cell
+station_gap,0.916580485242457,1_linear_pchip_boundary|1_linear_pchip_boundary
+network,0.9515151515151514,1_linear_pchip_boundary|1_linear_pchip_boundary
+station_gap,0.9033491053126397,2_seasonal_boundary_ridge|2_seasonal_boundary_ridge
+network,0.8303030303030302,2_seasonal_boundary_ridge|2_seasonal_boundary_ridge
+station_gap,0.9002358090717137,3_donor_covariance_ridge|3_donor_covariance_ridge
+network,0.9636363636363635,3_donor_covariance_ridge|3_donor_covariance_ridge
+station_gap,0.9395539906103285,4_xgboost|4_xgboost
+network,0.9515151515151514,4_xgboost|4_xgboost
+station_gap,0.31689007021254295,5_bilstm|5_bilstm
+network,0.6848484848484848,5_bilstm|5_bilstm

@@ -1,0 +1,15 @@
+source_family,target_family,metric,value
+4_xgboost,6_air2stream,station_gap_spearman,0.17261563230947377
+4_xgboost,6_air2stream,network_spearman,0.2380952380952381
+4_xgboost,6_air2stream,station_gap_slope,0.022943815055108348
+4_xgboost,6_air2stream,network_slope,0.054904998251517144
+4_xgboost,6_air2stream,n_units,89.0
+4_xgboost,6_air2stream,n_networks,8.0
+4_xgboost,6_air2stream,n_placements,89.0
+xgboost_source,4_xgboost,station_gap_spearman,0.7169309412616522
+xgboost_source,4_xgboost,network_spearman,0.8571428571428572
+xgboost_source,4_xgboost,station_gap_slope,0.7779961600245333
+xgboost_source,4_xgboost,network_slope,0.8748670036898653
+xgboost_source,4_xgboost,n_units,89.0
+xgboost_source,4_xgboost,n_networks,8.0
+xgboost_source,4_xgboost,n_placements,89.0

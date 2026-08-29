@@ -1,0 +1,212 @@
+{
+  "task": "t03_baseline_ladder",
+  "agent": "a",
+  "runtime_seconds": 1044.5,
+  "bootstrap_repeats": 2000,
+  "strongest_non_proposed_second_all_1446": "r4_network",
+  "strongest_non_proposed_first_all_1440": "r5_network_gap",
+  "second_ranking_by_network_rho_all_1446": [
+    "r4_network",
+    "r12_stack",
+    "r5_network_gap",
+    "r6_station_gap",
+    "empirical",
+    "r11_surface",
+    "r8_simple",
+    "r3_gap_season",
+    "r7_prev_period",
+    "r2_gap",
+    "r10_blocked_cv",
+    "r1_global"
+  ],
+  "first_ranking_by_network_rho_all_1440": [
+    "r11_surface",
+    "r5_network_gap",
+    "r6_station_gap",
+    "empirical",
+    "r4_network",
+    "r8_simple",
+    "r2_gap",
+    "r7_prev_period",
+    "r3_gap_season",
+    "r10_blocked_cv",
+    "r1_global"
+  ],
+  "verification": [
+    {
+      "check": "second_empirical_direct_874",
+      "n": 874,
+      "n_networks": 57,
+      "pooled_spearman": 0.9453454523265827,
+      "network_spearman": 0.8049001814882034,
+      "calibration_intercept": 0.13832261354048767,
+      "calibration_slope": 0.9383308686836279,
+      "r2": 0.8132326629922993,
+      "rmse": 0.4553482313539534
+    },
+    {
+      "check": "second_empirical_all_1446",
+      "n": 1446,
+      "n_networks": 57,
+      "pooled_spearman": 0.7399228649476387,
+      "network_spearman": 0.715452424163858,
+      "calibration_intercept": 0.2862046930270103,
+      "calibration_slope": 0.9502513594290952,
+      "r2": 0.23847087348229312,
+      "rmse": 1.3201109690332493
+    },
+    {
+      "check": "second_simple_devonly_all_1446",
+      "n": 1446,
+      "n_networks": 57,
+      "pooled_spearman": 0.8190947335163268,
+      "network_spearman": 0.6140782991962667,
+      "calibration_intercept": -0.011524218052111857,
+      "calibration_slope": 1.0174320563432957,
+      "r2": 0.7835905403834017,
+      "rmse": 0.7037287608619468
+    },
+    {
+      "check": "second_simple_fitperiod_all_1446",
+      "n": 1446,
+      "n_networks": 57,
+      "pooled_spearman": 0.8346255703753276,
+      "network_spearman": 0.6046149857402127,
+      "calibration_intercept": -0.054772613286336765,
+      "calibration_slope": 1.1503174400140002,
+      "r2": 0.7564136389267573,
+      "rmse": 0.7466097621559827
+    },
+    {
+      "check": "second_surface_all_1446",
+      "n": 1446,
+      "n_networks": 57,
+      "pooled_spearman": 0.8927996015324269,
+      "network_spearman": 0.674358309567021,
+      "calibration_intercept": -0.5085233694256392,
+      "calibration_slope": 1.729725315404635,
+      "r2": 0.47526242056121437,
+      "rmse": 1.095817581837708
+    },
+    {
+      "check": "first_empirical_direct_858",
+      "n": 858,
+      "n_networks": 42,
+      "pooled_spearman": 0.8254221357603908,
+      "network_spearman": 0.8005023904059639,
+      "calibration_intercept": 0.19951817398041205,
+      "calibration_slope": 0.8313246554502989,
+      "r2": 0.5591495592085053,
+      "rmse": 0.5890446372763253
+    },
+    {
+      "check": "first_empirical_all_1440",
+      "n": 1440,
+      "n_networks": 42,
+      "pooled_spearman": 0.6333593455063955,
+      "network_spearman": 0.766631553358723,
+      "calibration_intercept": 0.3937119898702933,
+      "calibration_slope": 0.8291303560017649,
+      "r2": 0.14463461952342094,
+      "rmse": 1.1564160625447537
+    },
+    {
+      "check": "first_simple_all_1440",
+      "n": 1440,
+      "n_networks": 42,
+      "pooled_spearman": 0.8026646545450687,
+      "network_spearman": 0.5625962239688842,
+      "calibration_intercept": 0.01844162458067791,
+      "calibration_slope": 0.8062816531246824,
+      "r2": 0.6027006871557901,
+      "rmse": 0.7881287817985497
+    },
+    {
+      "check": "first_surface_refit_all_1440",
+      "n": 1440,
+      "n_networks": 42,
+      "pooled_spearman": 0.9079523896169549,
+      "network_spearman": 0.8983874888582773,
+      "calibration_intercept": -0.450585766481736,
+      "calibration_slope": 1.5584428910084507,
+      "r2": 0.6794271580191722,
+      "rmse": 0.7079484652574358
+    },
+    {
+      "check": "t01a_vs_t01b_simple_fitperiod_max_abs_diff",
+      "value": 8.881784197001252e-16
+    },
+    {
+      "check": "second_observed_scoring_vs_t01_max_abs_diff",
+      "value": 4.440892098500626e-16
+    },
+    {
+      "check": "second_networks_with_multiple_empirical_values_on_fallback_rows",
+      "value": 0
+    },
+    {
+      "check": "second_network_mean_fallback_vs_fit_losses_max_abs_diff",
+      "value": 6.661338147750939e-16,
+      "n_networks": 57
+    },
+    {
+      "check": "r12_stack_fit_first_panel",
+      "n_units": 1440,
+      "n_networks": 42,
+      "intercept": -0.42930671734887865,
+      "coef_simple": 0.2914624701041246,
+      "coef_surface": 1.1248432126055008
+    },
+    {
+      "check": "dev_supplemental_conditional_covariance_1260",
+      "source": "station_gap_outcomes.csv (development panel; the only panel with conditional-covariance predictions)",
+      "n": 1260,
+      "n_networks": 55,
+      "pooled_spearman": 0.45817242023362076,
+      "network_spearman": 0.3349927849927851,
+      "calibration_intercept": 0.6804926881253891,
+      "calibration_slope": 1.4408566624346797,
+      "r2": -0.3683455109803935,
+      "rmse": 1.3549373792091999
+    },
+    {
+      "check": "empirical_network_composition_full_panel",
+      "network_rho_empirical_full_panel": 0.715452424163858,
+      "network_rho_r4_full_panel": 0.7719730360383719,
+      "network_rho_curve_only_netmeans_vs_full_observed": 0.6912107855846513,
+      "network_rho_empirical_netmeans_vs_direct_observed": 0.8049001814882034,
+      "n_fallback_units": 572
+    },
+    {
+      "check": "thermal_amplitude_verification_subset",
+      "n_networks": 10,
+      "corr_sd_full_record_vs_training_years": 0.7119202847691761
+    }
+  ],
+  "rung_specs": {
+    "r1_global": "global mean (pooled fitting MAE)",
+    "r2_gap": "gap-length mean",
+    "r3_gap_season": "gap x season mean",
+    "r4_network": "network historical mean (fitting-period)",
+    "r5_network_gap": "network x horizon mean",
+    "r6_station_gap": "station x horizon mean",
+    "r7_prev_period": "previous-period LOO gap x season",
+    "r8_simple": "simple structural descriptors (route-A, fit-period)",
+    "r9_condcov": "conditional covariance -> MAE (NA)",
+    "r10_blocked_cv": "generic blocked-CV mean (LOO network)",
+    "r11_surface": "hierarchical risk surface (t04 frozen)",
+    "r12_stack": "meta-model (simple + surface stack)",
+    "empirical": "empirical transfer curve (proposed reference)"
+  },
+  "artifacts": [
+    "master_ladder_table.csv",
+    "unit_predictions_second.csv",
+    "unit_predictions_first.csv",
+    "dev_supplemental_conditional_covariance.csv",
+    "paired_bootstrap.csv",
+    "per_horizon_network_spearman.csv",
+    "residualized_spearman.csv",
+    "normalized_mae.csv",
+    "thermal_amplitude_verification.csv"
+  ]
+}

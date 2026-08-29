@@ -1,0 +1,7 @@
+source_family,pchip_or_linear,seasonal_boundary_ridge,donor_blup_ridge,xgboost_b_d,bilstm,air2stream
+pchip_or_linear,8,8,8,8,8,4
+seasonal_boundary_ridge,8,8,8,8,8,4
+donor_blup_ridge,8,8,8,8,8,4
+xgboost_b_d,57,51,51,51,10,8
+bilstm,10,10,10,10,10,0
+air2stream,8,0,0,8,0,8

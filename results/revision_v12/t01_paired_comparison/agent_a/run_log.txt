@@ -1,0 +1,495 @@
+features 1/57: chmi_berounka (cached)
+features 2/57: chmi_blanice (cached)
+features 3/57: chmi_botic (5 stations, 0.1s)
+features 4/57: chmi_dyje (4 stations, 0.2s)
+features 5/57: chmi_jizera (5 stations, 0.2s)
+features 6/57: chmi_kamenice (3 stations, 0.1s)
+features 7/57: chmi_labe (6 stations, 0.2s)
+features 8/57: chmi_luznice (3 stations, 0.1s)
+features 9/57: chmi_morava (6 stations, 0.2s)
+features 10/57: chmi_odra (3 stations, 0.1s)
+features 11/57: chmi_otava (3 stations, 0.1s)
+features 12/57: chmi_sazava (8 stations, 0.3s)
+features 13/57: chmi_smeda (3 stations, 0.1s)
+features 14/57: chmi_vltava (6 stations, 0.2s)
+features 15/57: chmi_zelivka (5 stations, 0.1s)
+features 16/57: nve_basin_103 (4 stations, 0.1s)
+features 17/57: nve_basin_124 (4 stations, 0.1s)
+features 18/57: nve_basin_16 (8 stations, 0.2s)
+features 19/57: nve_basin_2 (4 stations, 0.1s)
+features 20/57: nve_basin_212 (3 stations, 0.1s)
+features 21/57: nve_basin_26 (4 stations, 0.1s)
+features 22/57: nve_basin_311 (3 stations, 0.1s)
+features 23/57: nve_basin_76 (3 stations, 0.1s)
+features 24/57: nve_basin_78 (4 stations, 0.1s)
+features 25/57: nve_basin_88 (4 stations, 0.1s)
+features 26/57: usgs2_huc2_08 (4 stations, 0.1s)
+features 27/57: usgs2_huc2_12 (5 stations, 0.1s)
+features 28/57: usgs2_huc2_15 (4 stations, 0.1s)
+features 29/57: usgs2_huc2_18 (3 stations, 0.1s)
+features 30/57: usgs2_huc4_0306 (3 stations, 0.1s)
+features 31/57: usgs2_huc4_0401 (3 stations, 0.1s)
+features 32/57: usgs2_huc4_0601 (3 stations, 0.1s)
+features 33/57: usgs2_huc4_1111 (4 stations, 0.1s)
+features 34/57: usgs2_huc4_1705 (3 stations, 0.1s)
+features 35/57: usgs2_huc4_1707 (4 stations, 0.1s)
+features 36/57: usgs2_huc4_1903 (3 stations, 0.1s)
+features 37/57: usgs2_huc6_010802 (3 stations, 0.1s)
+features 38/57: usgs2_huc6_020502 (3 stations, 0.1s)
+features 39/57: usgs2_huc6_030502 (3 stations, 0.1s)
+features 40/57: usgs2_huc6_031300 (6 stations, 0.2s)
+features 41/57: usgs2_huc6_031700 (4 stations, 0.1s)
+features 42/57: usgs2_huc6_040301 (3 stations, 0.1s)
+features 43/57: usgs2_huc6_040500 (3 stations, 0.1s)
+features 44/57: usgs2_huc6_060102 (4 stations, 0.1s)
+features 45/57: usgs2_huc6_070300 (3 stations, 0.1s)
+features 46/57: usgs2_huc6_070900 (3 stations, 0.1s)
+features 47/57: usgs2_huc6_071300 (3 stations, 0.1s)
+features 48/57: usgs2_huc6_071401 (3 stations, 0.1s)
+features 49/57: usgs2_huc6_120301 (4 stations, 0.2s)
+features 50/57: usgs2_huc6_120800 (3 stations, 0.1s)
+features 51/57: usgs2_huc6_121003 (3 stations, 0.1s)
+features 52/57: usgs2_huc6_140300 (4 stations, 0.1s)
+features 53/57: usgs2_huc6_170102 (3 stations, 0.2s)
+features 54/57: usgs2_huc6_170703 (3 stations, 0.1s)
+features 55/57: usgs2_huc6_171003 (5 stations, 0.2s)
+features 56/57: usgs2_huc6_180102 (6 stations, 0.2s)
+features 57/57: usgs2_huc6_180201 (3 stations, 0.1s)
+{
+  "task": "t01_paired_comparison",
+  "agent": "a",
+  "subsets": {
+    "direct_874": {
+      "n_units": 874,
+      "n_networks": 57
+    },
+    "all_1446": {
+      "n_units": 1446,
+      "n_networks": 57
+    }
+  },
+  "fit_scopes": {
+    "fitting_period_only": "development (55 networks) + first panel (42 networks)",
+    "development_only": "development (55 networks), reproduces archived route A model"
+  },
+  "archive_check_simple_fitperiod": {
+    "n": 1446,
+    "n_networks": 57,
+    "station_gap_spearman": 0.8190947335163268,
+    "network_spearman": 0.6140782991962667,
+    "calibration_intercept": -0.011524218052110529,
+    "calibration_slope": 1.0174320563432946,
+    "r2": 0.7835905403834017,
+    "rmse": 0.7037287608619468
+  },
+  "verification": [
+    {
+      "check": "second_panel_empirical_direct_874",
+      "source": "archived scoring/empirical_predictions.csv",
+      "n": 874,
+      "n_networks": 57,
+      "station_gap_spearman": 0.9453454523265827,
+      "network_spearman": 0.8049001814882034,
+      "calibration_intercept": 0.13832261354048767,
+      "calibration_slope": 0.9383308686836279,
+      "r2": 0.8132326629922993,
+      "rmse": 0.4553482313539534
+    },
+    {
+      "check": "second_panel_empirical_all_1446",
+      "source": "archived scoring/empirical_predictions.csv",
+      "n": 1446,
+      "n_networks": 57,
+      "station_gap_spearman": 0.7399228649476387,
+      "network_spearman": 0.715452424163858,
+      "calibration_intercept": 0.2862046930270103,
+      "calibration_slope": 0.9502513594290952,
+      "r2": 0.23847087348229312,
+      "rmse": 1.3201109690332493
+    },
+    {
+      "check": "second_panel_simple_archived_all_1446",
+      "source": "archived scoring/simple_predictions.csv (dev-only fit)",
+      "n": 1446,
+      "n_networks": 57,
+      "station_gap_spearman": 0.8190947335163268,
+      "network_spearman": 0.6140782991962667,
+      "calibration_intercept": -0.011524218052111857,
+      "calibration_slope": 1.0174320563432957,
+      "r2": 0.7835905403834017,
+      "rmse": 0.7037287608619468
+    },
+    {
+      "check": "first_panel_empirical_direct_780_supported",
+      "source": "reviewer_completion/confirmation_empirical_predictions.csv",
+      "n": 780,
+      "n_networks": 42,
+      "station_gap_spearman": 0.9341038429886329,
+      "network_spearman": 0.9218863949436837,
+      "calibration_intercept": 0.10656544215444656,
+      "calibration_slope": 0.8635904833613771,
+      "r2": 0.8119853832008912,
+      "rmse": 0.36217894334323014
+    },
+    {
+      "check": "first_panel_simple_direct_780",
+      "source": "route_a_confirmation/predictions.csv",
+      "n": 858,
+      "n_networks": 42,
+      "station_gap_spearman": 0.791569096951193,
+      "network_spearman": 0.4846446803338465,
+      "calibration_intercept": -0.07659359536937245,
+      "calibration_slope": 0.9041230928713916,
+      "r2": 0.519928307242866,
+      "rmse": 0.6146892473598832
+    },
+    {
+      "check": "first_panel_simple_all_1440",
+      "source": "route_a_confirmation/predictions.csv",
+      "n": 1440,
+      "n_networks": 42,
+      "station_gap_spearman": 0.8026646545450687,
+      "network_spearman": 0.5625962239688842,
+      "calibration_intercept": 0.01844162458067791,
+      "calibration_slope": 0.8062816531246824,
+      "r2": 0.6027006871557901,
+      "rmse": 0.7881287817985497
+    },
+    {
+      "check": "second_panel_fallback_units",
+      "expected_572": 572,
+      "observed": 572
+    },
+    {
+      "check": "second_panel_direct_units",
+      "expected_874": 874,
+      "observed": 874
+    }
+  ],
+  "metrics": [
+    {
+      "subset": "direct_874",
+      "method": "empirical",
+      "n": 874,
+      "n_networks": 57,
+      "station_gap_spearman": 0.9453454523265827,
+      "network_spearman": 0.8049001814882034,
+      "calibration_intercept": 0.13832261354048767,
+      "calibration_slope": 0.9383308686836279,
+      "r2": 0.8132326629922993,
+      "rmse": 0.4553482313539534
+    },
+    {
+      "subset": "direct_874",
+      "method": "simple_fitperiod",
+      "n": 874,
+      "n_networks": 57,
+      "station_gap_spearman": 0.8458749473414598,
+      "network_spearman": 0.2475369458128079,
+      "calibration_intercept": -0.04650246120150959,
+      "calibration_slope": 1.1570660942067004,
+      "r2": 0.6477252800223126,
+      "rmse": 0.625365516479053
+    },
+    {
+      "subset": "direct_874",
+      "method": "simple_devonly",
+      "n": 874,
+      "n_networks": 57,
+      "station_gap_spearman": 0.8323438358334205,
+      "network_spearman": 0.27689914441275604,
+      "calibration_intercept": -0.037770554609884356,
+      "calibration_slope": 1.0527555530388324,
+      "r2": 0.6768906798592527,
+      "rmse": 0.5989187831463935
+    },
+    {
+      "subset": "all_1446",
+      "method": "empirical",
+      "n": 1446,
+      "n_networks": 57,
+      "station_gap_spearman": 0.7399228649476387,
+      "network_spearman": 0.715452424163858,
+      "calibration_intercept": 0.2862046930270103,
+      "calibration_slope": 0.9502513594290952,
+      "r2": 0.23847087348229312,
+      "rmse": 1.3201109690332493
+    },
+    {
+      "subset": "all_1446",
+      "method": "simple_fitperiod",
+      "n": 1446,
+      "n_networks": 57,
+      "station_gap_spearman": 0.8346255703753276,
+      "network_spearman": 0.6046149857402127,
+      "calibration_intercept": -0.054772613286336765,
+      "calibration_slope": 1.1503174400140002,
+      "r2": 0.7564136389267573,
+      "rmse": 0.7466097621559827
+    },
+    {
+      "subset": "all_1446",
+      "method": "simple_devonly",
+      "n": 1446,
+      "n_networks": 57,
+      "station_gap_spearman": 0.8190947335163268,
+      "network_spearman": 0.6140782991962667,
+      "calibration_intercept": -0.011524218052110529,
+      "calibration_slope": 1.0174320563432946,
+      "r2": 0.7835905403834017,
+      "rmse": 0.7037287608619468
+    }
+  ],
+  "paired_bootstrap": [
+    {
+      "subset": "direct_874",
+      "repeats": 2000,
+      "skipped_degenerate_draws": 0,
+      "delta_station_gap_spearman_mean": 0.09819238674967201,
+      "delta_station_gap_spearman_ci95": [
+        0.058882207111151504,
+        0.1420103351944342
+      ],
+      "delta_network_spearman_mean": 0.5522011451193392,
+      "delta_network_spearman_ci95": [
+        0.3088055620553791,
+        0.813540610431201
+      ],
+      "delta_calibration_slope_mean": -0.22098589334388533,
+      "delta_calibration_slope_ci95": [
+        -0.3436220175818807,
+        -0.09992323376646567
+      ],
+      "empirical_station_gap_spearman_boot_mean": 0.9448693418922935,
+      "empirical_station_gap_spearman_ci95": [
+        0.920141000537102,
+        0.9648239262734652
+      ],
+      "simple_station_gap_spearman_boot_mean": 0.8466769551426215,
+      "simple_station_gap_spearman_ci95": [
+        0.8049721284703304,
+        0.8843699593967378
+      ],
+      "empirical_network_spearman_boot_mean": 0.7975409695700123,
+      "empirical_network_spearman_ci95": [
+        0.6647793126560102,
+        0.8966819779248744
+      ],
+      "simple_network_spearman_boot_mean": 0.24533982445067307,
+      "simple_network_spearman_ci95": [
+        -0.03666913769541184,
+        0.4963692527518291
+      ],
+      "fraction_delta_station_positive": 1.0,
+      "fraction_delta_network_positive": 1.0
+    },
+    {
+      "subset": "all_1446",
+      "repeats": 2000,
+      "skipped_degenerate_draws": 0,
+      "delta_station_gap_spearman_mean": -0.09654786780835231,
+      "delta_station_gap_spearman_ci95": [
+        -0.15797059825312876,
+        -0.027504316553495587
+      ],
+      "delta_network_spearman_mean": 0.10884271127177732,
+      "delta_network_spearman_ci95": [
+        -0.1262204994699799,
+        0.3560479194246544
+      ],
+      "delta_calibration_slope_mean": -0.20099443803510778,
+      "delta_calibration_slope_ci95": [
+        -0.3194795958059418,
+        -0.08416370333278922
+      ],
+      "empirical_station_gap_spearman_boot_mean": 0.738777871016154,
+      "empirical_station_gap_spearman_ci95": [
+        0.6994279249981452,
+        0.7793671500559884
+      ],
+      "simple_station_gap_spearman_boot_mean": 0.8353257388245063,
+      "simple_station_gap_spearman_ci95": [
+        0.7929621196317902,
+        0.8744964846059062
+      ],
+      "empirical_network_spearman_boot_mean": 0.7066061902984914,
+      "empirical_network_spearman_ci95": [
+        0.5206006426730666,
+        0.8415957765802872
+      ],
+      "simple_network_spearman_boot_mean": 0.5977634790267141,
+      "simple_network_spearman_ci95": [
+        0.35896866025758906,
+        0.7780915953383338
+      ],
+      "fraction_delta_station_positive": 0.002,
+      "fraction_delta_network_positive": 0.81
+    }
+  ],
+  "beat_fraction": [
+    {
+      "subset": "direct_874",
+      "n_networks_with_both_defined": 57,
+      "n_networks_total": 57,
+      "fraction_empirical_beats_simple": 0.7192982456140351,
+      "median_within_network_spearman_empirical": 0.965034965034965,
+      "median_within_network_spearman_simple": 0.9370629370629372
+    },
+    {
+      "subset": "all_1446",
+      "n_networks_with_both_defined": 57,
+      "n_networks_total": 57,
+      "fraction_empirical_beats_simple": 0.017543859649122806,
+      "median_within_network_spearman_empirical": 0.682456407050482,
+      "median_within_network_spearman_simple": 0.9381499726327313
+    }
+  ],
+  "per_horizon": [
+    {
+      "horizon": 7,
+      "n_units": 224,
+      "n_networks": 57,
+      "empirical_network_spearman": 0.9320715582058596,
+      "simple_fitperiod_network_spearman": 0.3744490536686544,
+      "simple_devonly_network_spearman": 0.2770935960591133
+    },
+    {
+      "horizon": 30,
+      "n_units": 224,
+      "n_networks": 57,
+      "empirical_network_spearman": 0.9156728026963963,
+      "simple_fitperiod_network_spearman": 0.15296862846772102,
+      "simple_devonly_network_spearman": 0.10526315789473686
+    },
+    {
+      "horizon": 90,
+      "n_units": 220,
+      "n_networks": 56,
+      "empirical_network_spearman": 0.8647983595352017,
+      "simple_fitperiod_network_spearman": 0.042925495557074506,
+      "simple_devonly_network_spearman": 0.07812713602187286
+    },
+    {
+      "horizon": 180,
+      "n_units": 206,
+      "n_networks": 53,
+      "empirical_network_spearman": 0.6594097726173197,
+      "simple_fitperiod_network_spearman": 0.16400580551523947,
+      "simple_devonly_network_spearman": 0.20246734397677793
+    }
+  ],
+  "within_network_decomposition": [
+    {
+      "subset": "direct_874",
+      "empirical_n_networks_defined": 57,
+      "empirical_within_median": 0.965034965034965,
+      "empirical_within_q1": 0.9440559440559443,
+      "empirical_within_q3": 0.9823529411764707,
+      "empirical_within_iqr": 0.038296997120526366,
+      "empirical_residualized_spearman": 0.9358954218739222,
+      "empirical_pooled_spearman": 0.9453454523265827,
+      "empirical_network_spearman": 0.8049001814882034,
+      "simple_fitperiod_n_networks_defined": 57,
+      "simple_fitperiod_within_median": 0.9370629370629372,
+      "simple_fitperiod_within_q1": 0.9090909090909091,
+      "simple_fitperiod_within_q3": 0.9624060150375938,
+      "simple_fitperiod_within_iqr": 0.05331510594668476,
+      "simple_fitperiod_residualized_spearman": 0.8957689876866078,
+      "simple_fitperiod_pooled_spearman": 0.8458749473414598,
+      "simple_fitperiod_network_spearman": 0.2475369458128079,
+      "simple_devonly_n_networks_defined": 57,
+      "simple_devonly_within_median": 0.9300699300699302,
+      "simple_devonly_within_q1": 0.8741258741258742,
+      "simple_devonly_within_q3": 0.9558823529411766,
+      "simple_devonly_within_iqr": 0.08175647881530246,
+      "simple_devonly_residualized_spearman": 0.8885959497578548,
+      "simple_devonly_pooled_spearman": 0.8323438358334205,
+      "simple_devonly_network_spearman": 0.27689914441275604,
+      "network_mean_only_pooled_spearman": 0.3257033427953977
+    },
+    {
+      "subset": "all_1446",
+      "empirical_n_networks_defined": 57,
+      "empirical_within_median": 0.682456407050482,
+      "empirical_within_q1": 0.6596831339934767,
+      "empirical_within_q3": 0.7204600829986338,
+      "empirical_within_iqr": 0.06077694900515718,
+      "empirical_residualized_spearman": 0.6072931774184497,
+      "empirical_pooled_spearman": 0.7399228649476387,
+      "empirical_network_spearman": 0.715452424163858,
+      "simple_fitperiod_n_networks_defined": 57,
+      "simple_fitperiod_within_median": 0.9381499726327313,
+      "simple_fitperiod_within_q1": 0.894736842105263,
+      "simple_fitperiod_within_q3": 0.961624649859944,
+      "simple_fitperiod_within_iqr": 0.06688780775468095,
+      "simple_fitperiod_residualized_spearman": 0.90755287970127,
+      "simple_fitperiod_pooled_spearman": 0.8346255703753276,
+      "simple_fitperiod_network_spearman": 0.6046149857402127,
+      "simple_devonly_n_networks_defined": 57,
+      "simple_devonly_within_median": 0.9311688311688312,
+      "simple_devonly_within_q1": 0.8679050567595459,
+      "simple_devonly_within_q3": 0.9554621848739496,
+      "simple_devonly_within_iqr": 0.08755712811440375,
+      "simple_devonly_residualized_spearman": 0.9028799071597068,
+      "simple_devonly_pooled_spearman": 0.8190947335163268,
+      "simple_devonly_network_spearman": 0.6140782991962667,
+      "network_mean_only_pooled_spearman": 0.3091096074309754
+    }
+  ],
+  "feature_recomputation": [
+    {
+      "feature": "acf_only",
+      "n_rows": 1446,
+      "n_finite_both": 1446,
+      "max_abs_diff": 9.71445146547012e-17,
+      "pearson": 1.0,
+      "exact_match_rows": 1
+    },
+    {
+      "feature": "donor_r2_only",
+      "n_rows": 1446,
+      "n_finite_both": 1446,
+      "max_abs_diff": 8.673617379884035e-17,
+      "pearson": 1.0,
+      "exact_match_rows": 1
+    },
+    {
+      "feature": "additive_d_over_4_heuristic",
+      "n_rows": 1446,
+      "n_finite_both": 1446,
+      "max_abs_diff": 1.1102230246251565e-16,
+      "pearson": 1.0,
+      "exact_match_rows": 1
+    },
+    {
+      "feature": "nearest_donor_correlation",
+      "n_rows": 1446,
+      "n_finite_both": 1446,
+      "max_abs_diff": 1.1102230246251565e-16,
+      "pearson": 1.0,
+      "exact_match_rows": 1
+    },
+    {
+      "feature": "donor_station_ids",
+      "n_rows": 1446,
+      "n_finite_both": 1446,
+      "max_abs_diff": null,
+      "pearson": null,
+      "exact_match_rows": 1446
+    }
+  ],
+  "artifacts": [
+    "same_subset_metrics.csv",
+    "paired_bootstrap.csv",
+    "beat_fraction.csv",
+    "provider_sensitivity.csv",
+    "per_horizon_network_spearman.csv",
+    "within_network_decomposition.csv",
+    "model_coefficients.csv",
+    "predictions.csv",
+    "feature_recomputation_check.csv",
+    "feature_recompute_timing.csv"
+  ]
+}
+
+Wrote artifacts to /home/lzq/workspace/parttime/stream-recoverability/results/revision_v12/t01_paired_comparison/agent_a

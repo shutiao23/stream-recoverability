@@ -1,0 +1,14 @@
+tier,gap_length,n_units,panel
+network_gap,7,35,first
+network_gap,30,35,first
+network_gap,90,26,first
+network_gap,180,11,first
+network_mean_fallback,14,219,first
+network_mean_fallback,60,219,first
+network_mean_fallback,90,15,first
+network_mean_fallback,180,63,first
+network_mean_fallback,365,144,first
+station_gap_season,7,184,first
+station_gap_season,30,184,first
+station_gap_season,90,178,first
+station_gap_season,180,127,first

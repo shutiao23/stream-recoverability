@@ -1,0 +1,106 @@
+{
+  "n_fit_rows": {
+    "development": 47408,
+    "confirmation": 52989,
+    "pooled": 100397
+  },
+  "variance_components_pooled": {
+    "sigma2_e": 0.05366026044808849,
+    "sigma2_net": 0.011823924971820674,
+    "sigma2_sta": 0.011926231197567416,
+    "sigma_e": 0.23164684424375068,
+    "sigma_net": 0.1087378727574743,
+    "sigma_sta": 0.1092072854601167,
+    "share_net": 0.15274333207956464,
+    "share_sta": 0.15406494007777874,
+    "share_resid": 0.6931917278426567,
+    "reml_success": true,
+    "reml_nit": 10,
+    "reml_message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH"
+  },
+  "variance_components_confirmation_only": {
+    "sigma2_e": 0.053132567746402425,
+    "sigma2_net": 0.008448589621284622,
+    "sigma2_sta": 0.009777369443354252
+  },
+  "variance_components_development_only": {
+    "sigma2_e": 0.05380999422085482,
+    "sigma2_net": 0.01605790483379132,
+    "sigma2_sta": 0.012987177546187756
+  },
+  "lambda": {
+    "lam_s": 0.1,
+    "lam_mon": 0.0
+  },
+  "tuning_best": {
+    "lam_s": 0.1,
+    "rmse_conf_log1p": 0.2753616756406409
+  },
+  "monotone_curve": {
+    "max_neg_diff_grid": 7.69448736948064e-08,
+    "effect_mae_at_7": 0.6328376373999867,
+    "effect_mae_at_180": 1.5948954307691965,
+    "effect_mae_at_365": 2.5629282614213045
+  },
+  "spline_coefficients": {
+    "bs_0": 0.49271267180704137,
+    "bs_1": 0.615787741245354,
+    "bs_2": 0.6157877412452517,
+    "bs_3": 0.951877022399753
+  },
+  "fixed_effects": {
+    "bs_0": 0.49271267180704137,
+    "bs_1": 0.615787741245354,
+    "bs_2": 0.6157877412452517,
+    "bs_3": 0.951877022399753,
+    "sin1": 0.0060132669081827675,
+    "cos1": -0.06333431445931068,
+    "sin2": -0.05813710261200528,
+    "cos2": -0.022952597504203205,
+    "temp_sd": 0.026442080060279222,
+    "temp_iqr": 0.03218363456257468,
+    "climatology_mae": 0.09639261342448692,
+    "acf_lag1": 0.005324709448251284,
+    "acf_gap": -0.09446546421342494,
+    "daily_gradient": -0.013733665709423052,
+    "donor_r2": -0.024583685972479435
+  },
+  "covariate_scaling_pooled": {
+    "temp_sd": {
+      "mean": 6.0630376195115385,
+      "sd": 1.8770806276966914
+    },
+    "temp_iqr": {
+      "mean": 11.119108270540666,
+      "sd": 4.054553453312017
+    },
+    "climatology_mae": {
+      "mean": 1.305012312735337,
+      "sd": 0.3374513037201443
+    },
+    "acf_lag1": {
+      "mean": 0.9900460272924904,
+      "sd": 0.008428680794818368
+    },
+    "acf_gap": {
+      "mean": 0.3562893648236739,
+      "sd": 0.656726863732852
+    },
+    "daily_gradient": {
+      "mean": 0.5382086798698051,
+      "sd": 0.23700556505367454
+    },
+    "donor_r2": {
+      "mean": 0.9583840569025512,
+      "sd": 0.09366977602672479
+    }
+  },
+  "season_amplitude_log1p": 0.0636191383699897,
+  "season_harmonic2_amplitude_log1p": 0.062503955333313,
+  "extrapolation": {
+    "max_supported_gap": 180,
+    "extrapolation_factor_365": 0.21771799656986485,
+    "widening_multiplier_365": 1.4354359931397296
+  },
+  "runtime_seconds": 61.64464807510376
+}

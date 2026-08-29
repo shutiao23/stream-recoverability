@@ -1,0 +1,52 @@
+{
+  "n_networks": 15,
+  "networks": [
+    "huc8_17090004",
+    "gkd_bayern_main",
+    "gkd_bayern_donau",
+    "lubw_neckar",
+    "huc8_17090001",
+    "huc8_05030103",
+    "foen_aare_aaregebiet",
+    "huc8_10020007",
+    "arso_sava",
+    "huc8_02040104",
+    "huc8_02040101",
+    "arso_savinja",
+    "usgs_missouri_river_huc10",
+    "huc8_03110206",
+    "gkd_bayern_isar"
+  ],
+  "n_placements": 1965,
+  "n_stations": 131,
+  "gap_lengths": [
+    7,
+    30,
+    90
+  ],
+  "placements_per_gap": 5,
+  "budget_fraction": 0.2,
+  "budget_size": 393,
+  "random_repeats": 200,
+  "baseline_distortion": {
+    "annual_mean": 10.545066151015071,
+    "summer_mean": 21.462603769137107,
+    "amplitude": 29.501283832181294,
+    "phase_doy": 92.25576564519636,
+    "p90": 21.715166666666708,
+    "summer_max": 18.000000000000007,
+    "exceed_20_days": 2477.0,
+    "exceed_25_days": 536.0,
+    "degree_days_10": 23856.73833333333,
+    "trend_slope": 4.253413046061458
+  },
+  "mae_parity": {
+    "n_exact_start_matches": 808,
+    "mean_abs_mae_diff_deg_c": 2.6362214803860413e-17
+  },
+  "risk_source_counts": {
+    "station_gap_season": 1157,
+    "exact_start": 808
+  },
+  "risk_supported_fraction": 0.9618320610687023
+}

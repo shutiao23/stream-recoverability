@@ -1,0 +1,15 @@
+tier,gap_length,n_units,panel
+network_gap,7.0,62,development
+network_gap,30.0,62,development
+network_gap,90.0,38,development
+network_gap,180.0,21,development
+network_mean_fallback,14.0,254,development
+network_mean_fallback,60.0,246,development
+network_mean_fallback,90.0,31,development
+network_mean_fallback,180.0,36,development
+network_mean_fallback,365.0,70,development
+station_gap,90.0,5,development
+station_gap_season,7.0,192,development
+station_gap_season,30.0,192,development
+station_gap_season,90.0,152,development
+station_gap_season,180.0,99,development

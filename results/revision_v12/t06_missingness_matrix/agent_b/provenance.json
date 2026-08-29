@@ -1,0 +1,65 @@
+{
+  "agent": "b",
+  "horizons": [
+    7,
+    30,
+    90,
+    180
+  ],
+  "inner_fraction": 0.7,
+  "mechanism_e_skipped": "discharge data not available in data/processed for the confirmation panel",
+  "mechanisms": [
+    "uniform_block",
+    "multi_block",
+    "summer_biased",
+    "high_temp_biased",
+    "donor_sync",
+    "forcing_outage",
+    "online"
+  ],
+  "min_train_days": 365,
+  "n_networks": 12,
+  "networks": [
+    "chmi_labe",
+    "chmi_morava",
+    "foen_aare_aaregebiet",
+    "gkd_bayern_donau",
+    "gkd_bayern_isar",
+    "lubw_neckar",
+    "rws_rijn_lek_nederrijn",
+    "huc8_17090004",
+    "huc8_10020007",
+    "huc8_03150202",
+    "huc8_17090012",
+    "usgs_missouri_river_huc10"
+  ],
+  "outer_fraction": 0.7,
+  "placements_per_cell": 20,
+  "power_status": {
+    "chmi_labe": "ok_5115",
+    "chmi_morava": "ok_5115",
+    "foen_aare_aaregebiet": "ok_9694",
+    "gkd_bayern_donau": "ok_16729",
+    "gkd_bayern_isar": "ok_16678",
+    "huc8_03150202": "ok_9574",
+    "huc8_10020007": "ok_9658",
+    "huc8_17090004": "ok_9411",
+    "huc8_17090012": "ok_9630",
+    "lubw_neckar": "ok_18858",
+    "rws_rijn_lek_nederrijn": "ok_2923",
+    "usgs_missouri_river_huc10": "ok_9671"
+  },
+  "runtime_seconds": 94.0,
+  "seasons": [
+    "DJF",
+    "MAM",
+    "JJA",
+    "SON"
+  ],
+  "task": "t06_missingness_matrix",
+  "xgboost": {
+    "learning_rate": 0.05,
+    "max_depth": 4,
+    "n_estimators": 300
+  }
+}

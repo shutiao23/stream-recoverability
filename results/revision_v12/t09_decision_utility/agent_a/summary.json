@@ -1,0 +1,20 @@
+{
+  "part1_budgets": [
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "part1_n_boot": 2000,
+  "part2_n_boot": 2000,
+  "part2_families": [
+    "seasonal_boundary_ridge",
+    "donor_blup_ridge",
+    "xgboost_b_d"
+  ],
+  "part2_family_short": {
+    "seasonal_boundary_ridge": "seasonal_ridge",
+    "donor_blup_ridge": "donor_ridge",
+    "xgboost_b_d": "xgboost"
+  }
+}

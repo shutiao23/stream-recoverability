@@ -1,0 +1,6 @@
+{
+  "best_fixed_family_dev": "xgboost",
+  "n_boot": 2000,
+  "n_random": 20,
+  "abstention_ambiguity_threshold": 0.1
+}

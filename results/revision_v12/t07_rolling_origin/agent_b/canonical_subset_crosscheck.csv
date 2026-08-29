@@ -1,0 +1,5 @@
+scope,source,n,n_networks,spearman,network_spearman,calibration_slope,r2
+first_panel_42_networks_canonical_existing,existing empirical_transfer_metrics.csv,780,42,0.9341048983106937,0.9218863949436836,0.8635904833613768,0.8119853832008911
+first_panel_42_networks_canonical_all_cells_with_fallback,existing empirical_transfer_metrics.csv,1440,42,0.6333596656792232,0.766631553358723,0.8291303560017649,0.1446346195234209
+subset_20_canonical_from_existing_predictions,existing confirmation_empirical_predictions.csv filtered,8440,20,0.7612406750804213,0.9443609022556391,0.723810075593753,0.4993031227808524
+subset_20_canonical_rerun,"this script, rolling cutoff 0.70, pooled",8440,20,0.7612406750804213,0.9443609022556391,0.723810075593753,0.4993031227808524

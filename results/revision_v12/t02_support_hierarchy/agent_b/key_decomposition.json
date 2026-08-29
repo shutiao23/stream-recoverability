@@ -1,0 +1,18 @@
+{
+  "n_direct_horizon_units": 874,
+  "n_direct_horizon_networks": 57,
+  "direct_network_spearman": 0.8049001814882034,
+  "direct_pooled_spearman": 0.9453454523265827,
+  "exact_tier_units": 841,
+  "exact_tier_networks": 57,
+  "exact_tier_network_spearman": 0.887218045112782,
+  "exact_tier_pooled_spearman": 0.9680692431126677,
+  "station_gap_fallback_tier_units": 9,
+  "station_gap_fallback_tier_network_spearman": -0.9999999999999999,
+  "network_mean_fallback_direct_units": 24,
+  "network_mean_fallback_direct_network_spearman": 0.8857142857142858,
+  "all_fallback_tier_units": 33,
+  "all_fallback_tier_network_spearman": 0.7857142857142858,
+  "all_fallback_tier_pooled_spearman": 0.6205360606208689,
+  "exact_tier_share_of_direct_units": 0.9622425629290617
+}

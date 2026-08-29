@@ -1,0 +1,8 @@
+mechanism,structure,seasonal_bias,boundary_support,donor_support,matched_network_spearman,matched_calibration_slope,matched_n_units,matched_fallback_fraction,uniform_curve_network_spearman,uniform_curve_calibration_slope,supported_by_matched_fitting_curve
+a_uniform_block,single contiguous block,none,left+right,all donors,0.5314685314685316,0.9200454617524911,573,0.10296684118673648,,,not_supported
+b_multi_block,repeated short blocks (3-day observed runs),none,left+right per block,all donors,0.9440559440559443,0.901809536740132,573,0.10296684118673648,0.6433566433566434,0.14216696622450986,supported
+c_summer_biased,"single block, start in Jun-Sep",summer start,left+right,all donors,0.5944055944055945,0.9376716490425677,557,0.09515260323159784,0.6713286713286714,0.8322069842127018,not_supported
+d_high_temperature_biased,single block on high-climatology windows,high-temperature windows,left+right,all donors,0.5804195804195805,1.0105203234434554,573,0.10296684118673648,0.5804195804195805,1.103913242165519,not_supported
+f_donor_synchronous,"single block, target + all donors masked",none,left+right,none (all masked),0.9790209790209792,0.9496429916411671,609,0.006568144499178982,0.2937062937062937,0.6505778682960117,supported
+g_target_plus_primary_covariate,"single block, target + strongest donor masked",none,left+right,weaker donors only,0.8811188811188813,0.8920100422561705,575,0.08869565217391304,0.1958041958041958,0.7263868130567267,supported
+h_online_left_boundary,"single block, right boundary hidden (online)",none,left only,all donors,0.9300699300699302,0.9061364465335917,573,0.10296684118673648,0.39860139860139865,0.8734788082550288,supported

@@ -1,0 +1,9 @@
+metric,value,n,n_networks
+pooled_spearman_mae49_vs_mae70,0.988706896430518,635,20
+network_spearman_mae49_vs_mae70,0.9804511278195487,635,20
+calibration_slope_mae70_on_mae49,0.9505778817261991,635,20
+calibration_intercept_mae70_on_mae49,0.03199807409360491,635,20
+mean_paired_difference_mae49_minus_mae70,0.012919720490612355,635,20
+median_paired_difference_mae49_minus_mae70,0.007665381474154409,635,20
+mean_mae_49pct_model,1.4093291577346487,635,20
+mean_mae_70pct_model,1.3964094372440365,635,20

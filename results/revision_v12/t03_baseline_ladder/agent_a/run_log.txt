@@ -1,0 +1,47 @@
+verify second_empirical_direct_874: 0.8049 / 0.9453 / 0.9383 / 0.8132 / 0.4553 (n=874)
+verify second_empirical_all_1446: 0.7155 / 0.7399 / 0.9503 / 0.2385 / 1.3201 (n=1446)
+verify second_simple_devonly_all_1446: 0.6141 / 0.8191 / 1.0174 / 0.7836 / 0.7037 (n=1446)
+verify second_simple_fitperiod_all_1446: 0.6046 / 0.8346 / 1.1503 / 0.7564 / 0.7466 (n=1446)
+verify second_surface_all_1446: 0.6744 / 0.8928 / 1.7297 / 0.4753 / 1.0958 (n=1446)
+verify first_empirical_direct_858: 0.8005 / 0.8254 / 0.8313 / 0.5591 / 0.5890 (n=858)
+verify first_empirical_all_1440: 0.7666 / 0.6334 / 0.8291 / 0.1446 / 1.1564 (n=1440)
+verify first_simple_all_1440: 0.5626 / 0.8027 / 0.8063 / 0.6027 / 0.7881 (n=1440)
+verify first_surface_refit_all_1440: 0.8984 / 0.9080 / 1.5584 / 0.6794 / 0.7079 (n=1440)
+building rung estimates
+running paired bootstrap
+strongest non-proposed rung (second, network rho): r4_network
+strongest non-proposed rung (first, network rho): r5_network_gap
+bootstrap empirical vs r4_network [second/direct_874]: DeltaRho_network +0.0770 -0.0015..+0.1774
+bootstrap empirical vs r8_simple [second/direct_874]: DeltaRho_network +0.5522 +0.3088..+0.8135
+bootstrap empirical vs r6_station_gap [second/direct_874]: DeltaRho_network +0.0417 -0.0006..+0.1154
+bootstrap empirical vs r5_network_gap [second/direct_874]: DeltaRho_network +0.0417 -0.0006..+0.1154
+bootstrap empirical vs r4_network [second/direct_874]: DeltaRho_network +0.0770 -0.0015..+0.1774
+bootstrap empirical vs r12_stack [second/direct_874]: DeltaRho_network +0.0879 -0.1061..+0.3198
+bootstrap r11_surface vs empirical [second/direct_874]: DeltaRho_network -0.1150 -0.3440..+0.0811
+bootstrap r11_surface vs r4_network [second/direct_874]: DeltaRho_network -0.0380 -0.2488..+0.1617
+bootstrap r11_surface vs r6_station_gap [second/direct_874]: DeltaRho_network -0.0733 -0.2824..+0.1098
+bootstrap r11_surface vs r8_simple [second/direct_874]: DeltaRho_network +0.4372 +0.1544..+0.7241
+bootstrap r11_surface vs r12_stack [second/direct_874]: DeltaRho_network -0.0271 -0.0721..+0.0142
+bootstrap r12_stack vs r4_network [second/direct_874]: DeltaRho_network -0.0109 -0.2257..+0.1840
+bootstrap empirical vs r4_network [second/all_1446]: DeltaRho_network -0.0570 -0.1440..+0.0069
+bootstrap empirical vs r8_simple [second/all_1446]: DeltaRho_network +0.1088 -0.1262..+0.3560
+bootstrap empirical vs r6_station_gap [second/all_1446]: DeltaRho_network -0.0107 -0.0349..+0.0076
+bootstrap empirical vs r5_network_gap [second/all_1446]: DeltaRho_network -0.0107 -0.0349..+0.0076
+bootstrap empirical vs r4_network [second/all_1446]: DeltaRho_network -0.0570 -0.1440..+0.0069
+bootstrap empirical vs r12_stack [second/all_1446]: DeltaRho_network -0.0464 -0.2537..+0.1775
+bootstrap r11_surface vs empirical [second/all_1446]: DeltaRho_network -0.0391 -0.2425..+0.1446
+bootstrap r11_surface vs r4_network [second/all_1446]: DeltaRho_network -0.0961 -0.2940..+0.0667
+bootstrap r11_surface vs r6_station_gap [second/all_1446]: DeltaRho_network -0.0498 -0.2529..+0.1329
+bootstrap r11_surface vs r8_simple [second/all_1446]: DeltaRho_network +0.0698 -0.0929..+0.2535
+bootstrap r11_surface vs r12_stack [second/all_1446]: DeltaRho_network -0.0855 -0.1673..-0.0106
+bootstrap r12_stack vs r4_network [second/all_1446]: DeltaRho_network -0.0106 -0.2237..+0.1700
+bootstrap empirical vs r5_network_gap [first/direct_858]: DeltaRho_network +0.0024 -0.0239..+0.0262
+bootstrap empirical vs r6_station_gap [first/direct_858]: DeltaRho_network +0.0024 -0.0239..+0.0262
+bootstrap empirical vs r8_simple [first/direct_858]: DeltaRho_network +0.3121 +0.0431..+0.5927
+bootstrap r11_surface vs empirical [first/direct_858]: DeltaRho_network +0.0693 -0.0042..+0.1839
+bootstrap r11_surface vs r5_network_gap [first/direct_858]: DeltaRho_network +0.0718 -0.0055..+0.1837
+bootstrap empirical vs r5_network_gap [first/all_1440]: DeltaRho_network -0.0117 -0.0444..+0.0086
+bootstrap empirical vs r6_station_gap [first/all_1440]: DeltaRho_network -0.0117 -0.0444..+0.0086
+bootstrap empirical vs r8_simple [first/all_1440]: DeltaRho_network +0.2035 -0.0631..+0.4916
+bootstrap r11_surface vs empirical [first/all_1440]: DeltaRho_network +0.1318 +0.0262..+0.2666
+bootstrap r11_surface vs r5_network_gap [first/all_1440]: DeltaRho_network +0.1201 +0.0161..+0.2527

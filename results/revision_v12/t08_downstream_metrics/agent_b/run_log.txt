@@ -1,0 +1,72 @@
+scored arso_bistrica: 60 placements
+scored arso_sava: 120 placements
+scored arso_savinja: 75 placements
+scored foen_aare_aaregebiet: 135 placements
+scored gkd_bayern_donau: 195 placements
+scored gkd_bayern_isar: 75 placements
+scored gkd_bayern_main: 225 placements
+scored huc8_02040101: 90 placements
+scored huc8_05030103: 135 placements
+scored huc8_17090004: 240 placements
+scored lubw_neckar: 165 placements
+scored lubw_rhein: 60 placements
+scored rws_rijn_lek_nederrijn: 45 placements
+scored usgs_missouri_river_huc10: 75 placements
+scored usgs_snake_river_huc4_1706: 60 placements
+total placements: 1755
+--- metric error summary ---
+        metric                    label     units  n_units  n_networks  mean_err_recon  median_err_recon  mean_err_missing  median_err_missing  mean_err_clim  median_err_clim  mean_recon_over_missing
+   annual_mean       annual mean (degC)      degC      351          15        0.093277          0.036111          0.753462            0.544110       0.104931         0.073635                 0.123798
+   summer_mean   summer JJA mean (degC)      degC      351          15        0.098052          0.026958          0.164611            0.075084       0.116642         0.046957                 0.595662
+     amplitude amplitude Jul-Jan (degC)      degC      342          15        0.038626          0.009190          0.103006            0.056747       0.078406         0.041935                 0.374989
+     phase_doy      phase (day of peak)      days      351          15        2.361423          0.000000          3.419884            0.199995       2.774563         0.199995                 0.690498
+           p90   90th percentile (degC)      degC      351          15        0.141052          0.024872          0.468837            0.170000       0.142958         0.060000                 0.300855
+    summer_max    summer maximum (degC)      degC      351          15        0.124340          0.000000          0.148077            0.000000       0.095568         0.000000                 0.839699
+exceed_days_20           days > 20 degC     count      351          15        2.227350          0.000000          6.549288            1.400000       2.238746         0.200000                 0.340090
+exceed_days_25           days > 25 degC     count      351          15        0.515670          0.000000          0.630769            0.000000       0.410826         0.000000                 0.817525
+         cdd10    degree days > 10 degC degC-days      351          15       21.721018          6.121162        157.726476           69.300000      23.494822        13.560000                 0.137713
+   trend_slope    trend slope (degC/yr)   degC/yr      351          15        0.083064          0.032286          0.659862            0.270331       0.123552         0.093416                 0.125880
+--- network spearman (risk transfer) ---
+        metric  network_spearman_risk  network_spearman_risk_p  pooled_spearman_risk  pooled_spearman_risk_p
+   annual_mean               0.764286                 0.000907              0.819581            8.934035e-67
+   summer_mean               0.335714                 0.221212              0.690245            1.543079e-39
+     amplitude               0.089286                 0.751673             -0.138369            2.538769e-02
+     phase_doy               0.728571                 0.002065              0.647187            1.944523e-33
+           p90               0.667857                 0.006510              0.782196            5.271912e-57
+    summer_max               0.250000                 0.368846              0.433854            8.081859e-14
+exceed_days_20               0.471429                 0.076070              0.593185            4.723272e-27
+exceed_days_25               0.495581                 0.060303              0.383513            6.860518e-11
+         cdd10               0.742857                 0.001509              0.791790            2.555945e-59
+   trend_slope               0.328571                 0.231810              0.587543            1.876860e-26
+--- budget reductions ---
+      policy         metric  n_units  n_treated  reduction  reduction_sd
+  top20_risk    annual_mean      270         54   0.377467           NaN
+top20_length    annual_mean      270         54   0.386117           NaN
+    random20    annual_mean      270         54   0.173417      0.022447
+  top20_risk    summer_mean      270         54   0.188323           NaN
+top20_length    summer_mean      270         54   0.182263           NaN
+    random20    summer_mean      270         54   0.083980      0.024135
+  top20_risk      amplitude      261         53   0.095333           NaN
+top20_length      amplitude      261         53   0.158957           NaN
+    random20      amplitude      261         53   0.119284      0.031529
+  top20_risk      phase_doy      270         54   0.116539           NaN
+top20_length      phase_doy      270         54   0.109066           NaN
+    random20      phase_doy      270         54   0.053054      0.022766
+  top20_risk            p90      270         54   0.306770           NaN
+top20_length            p90      270         54   0.289988           NaN
+    random20            p90      270         54   0.132933      0.021942
+  top20_risk     summer_max      270         54   0.132534           NaN
+top20_length     summer_max      270         54   0.119082           NaN
+    random20     summer_max      270         54   0.032908      0.026801
+  top20_risk exceed_days_20      270         54   0.307901           NaN
+top20_length exceed_days_20      270         54   0.239962           NaN
+    random20 exceed_days_20      270         54   0.124408      0.033784
+  top20_risk exceed_days_25      270         54   0.108779           NaN
+top20_length exceed_days_25      270         54   0.020992           NaN
+    random20 exceed_days_25      270         54   0.035592      0.024115
+  top20_risk          cdd10      270         54   0.394571           NaN
+top20_length          cdd10      270         54   0.344116           NaN
+    random20          cdd10      270         54   0.170532      0.023087
+  top20_risk    trend_slope      270         54   0.348231           NaN
+top20_length    trend_slope      270         54   0.521686           NaN
+    random20    trend_slope      270         54   0.172639      0.045449

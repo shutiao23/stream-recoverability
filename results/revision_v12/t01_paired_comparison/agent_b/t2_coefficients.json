@@ -1,0 +1,59 @@
+{
+  "columns": [
+    "gap_length",
+    "acf_only",
+    "donor_r2_only",
+    "additive_d_over_4_heuristic",
+    "nearest_donor_correlation"
+  ],
+  "dev_only": {
+    "intercept": 2.4651799998425483,
+    "coefficients": [
+      0.014061149481358432,
+      -2.0816354013431675,
+      2.5179857955938645,
+      -3.070673096486098,
+      -0.7942071723610211
+    ],
+    "columns": [
+      "gap_length",
+      "acf_only",
+      "donor_r2_only",
+      "additive_d_over_4_heuristic",
+      "nearest_donor_correlation"
+    ],
+    "n": 1260,
+    "n_networks": 55
+  },
+  "fitting_period_dev_plus_first": {
+    "intercept": 2.1468255148910687,
+    "coefficients": [
+      0.01194280766337842,
+      -1.5060633058229704,
+      2.047831352498998,
+      -2.6295724135453233,
+      -0.716971565855201
+    ],
+    "columns": [
+      "gap_length",
+      "acf_only",
+      "donor_r2_only",
+      "additive_d_over_4_heuristic",
+      "nearest_donor_correlation"
+    ],
+    "n": 2700,
+    "n_networks": 97
+  },
+  "fitting_sources": {
+    "development": {
+      "n": 1260,
+      "n_networks": 55,
+      "path": "results/development_v11/station_gap_outcomes.csv"
+    },
+    "first_confirmation": {
+      "n": 1440,
+      "n_networks": 42,
+      "path": "results/development_v11/route_a_confirmation/predictions.csv"
+    }
+  }
+}

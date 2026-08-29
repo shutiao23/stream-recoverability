@@ -1,0 +1,109 @@
+{
+  "seed": 11,
+  "alpha": 0.05,
+  "power_target": 0.8,
+  "n_reps_main_grid": 600,
+  "n_reps_scan": 400,
+  "data_source": {
+    "predictions": "/home/lzq/workspace/parttime/stream-recoverability/results/development_v11/second_confirmation/scoring/empirical_predictions.csv",
+    "baseline": "/home/lzq/workspace/parttime/stream-recoverability/results/development_v11/second_confirmation/scoring/simple_predictions.csv",
+    "networks": 57,
+    "direct_support_units": 874,
+    "supported_horizons": [
+      7,
+      30,
+      90,
+      180
+    ],
+    "test": "one-sided paired Wilcoxon across networks, alpha=0.05",
+    "bootstrap": "networks resampled with replacement; units block-bootstrapped within networks"
+  },
+  "observed_effect": {
+    "d_rho": 0.03621392792631052,
+    "dcap_0.05": 0.01207110584278852,
+    "dcap_0.10": 0.013306041368894975,
+    "dcap_0.20": -0.012273982619298497,
+    "dcap_0.30": -0.013933093975416469,
+    "d_ndcg": 0.0094773153481234
+  },
+  "observed_median_effect": {
+    "d_rho": 0.021052631578947323,
+    "dcap_0.05": 0.0,
+    "dcap_0.10": 0.008573965872248901,
+    "dcap_0.20": 0.0,
+    "dcap_0.30": 0.0,
+    "d_ndcg": 0.006881200128385448
+  },
+  "observed_fraction_positive": {
+    "d_rho": 0.7192982456140351,
+    "dcap_0.05": 0.43859649122807015,
+    "dcap_0.10": 0.543859649122807,
+    "dcap_0.20": 0.24561403508771928,
+    "dcap_0.30": 0.42105263157894735,
+    "d_ndcg": 0.7368421052631579
+  },
+  "size_at_null_margin_160": {
+    "d_rho": 0.0417,
+    "dcap_0.05": 0.045,
+    "dcap_0.10": 0.0433,
+    "dcap_0.20": 0.0433,
+    "dcap_0.30": 0.0483,
+    "d_ndcg": 0.0367
+  },
+  "endpoint_summary": {
+    "d_rho": {
+      "endpoint": "d_rho",
+      "n_for_80pct_at_1x": 40,
+      "required_margin_multiplier_at_160": 1.0,
+      "required_mean_effect_at_160": 0.036214,
+      "observed_mean_effect": 0.036214,
+      "observed_median_effect": 0.021053,
+      "fraction_positive_networks": 0.7193
+    },
+    "dcap_0.05": {
+      "endpoint": "dcap_0.05",
+      "n_for_80pct_at_1x": 134.2,
+      "required_margin_multiplier_at_160": 1.0,
+      "required_mean_effect_at_160": 0.012071,
+      "observed_mean_effect": 0.012071,
+      "observed_median_effect": 0.0,
+      "fraction_positive_networks": 0.4386
+    },
+    "dcap_0.10": {
+      "endpoint": "dcap_0.10",
+      "n_for_80pct_at_1x": null,
+      "required_margin_multiplier_at_160": null,
+      "required_mean_effect_at_160": null,
+      "observed_mean_effect": 0.013306,
+      "observed_median_effect": 0.008574,
+      "fraction_positive_networks": 0.5439
+    },
+    "dcap_0.20": {
+      "endpoint": "dcap_0.20",
+      "n_for_80pct_at_1x": null,
+      "required_margin_multiplier_at_160": null,
+      "required_mean_effect_at_160": null,
+      "observed_mean_effect": -0.012274,
+      "observed_median_effect": 0.0,
+      "fraction_positive_networks": 0.2456
+    },
+    "dcap_0.30": {
+      "endpoint": "dcap_0.30",
+      "n_for_80pct_at_1x": null,
+      "required_margin_multiplier_at_160": null,
+      "required_mean_effect_at_160": null,
+      "observed_mean_effect": -0.013933,
+      "observed_median_effect": 0.0,
+      "fraction_positive_networks": 0.4211
+    },
+    "d_ndcg": {
+      "endpoint": "d_ndcg",
+      "n_for_80pct_at_1x": 50.6,
+      "required_margin_multiplier_at_160": 1.0,
+      "required_mean_effect_at_160": 0.009477,
+      "observed_mean_effect": 0.009477,
+      "observed_median_effect": 0.006881,
+      "fraction_positive_networks": 0.7368
+    }
+  }
+}

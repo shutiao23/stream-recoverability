@@ -1,0 +1,7 @@
+pair,n_networks,pairwise_spearman,statistic,value,note
+0.60_vs_0.70,13,0.8021978021978022,,,
+0.70_vs_0.80,13,0.8076923076923077,,,
+0.60_vs_0.80,13,0.5384615384615384,,,
+,13,,kendall_w_predicted_ranks,0.8107448107448108,tie-adjusted Kendall W across 60/70/80% cutoffs
+,13,,mean_pairwise_spearman_predicted_ranks,0.7161172161172161,"mean over 60-70, 70-80, 60-80"
+,13,,kendall_w_observed_ranks,0.8290598290598291,reference: stability of observed outer losses
