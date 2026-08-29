@@ -1,0 +1,17 @@
+panel,subset,method,pooled_match,network_match,slope_match,intercept_match,r2_match,rmse_match
+second,direct_874,empirical,True,True,True,True,True,True
+second,direct_874,r6,True,True,True,True,True,True
+second,direct_874,simple,True,True,True,True,True,True
+second,direct_874,surface,True,True,True,True,True,True
+second,all_1446,empirical,True,True,True,True,True,True
+second,all_1446,r6,True,True,True,True,True,True
+second,all_1446,simple,True,True,True,True,True,True
+second,all_1446,surface,True,True,True,True,True,True
+first,direct_858,empirical,True,True,True,True,True,True
+first,direct_858,r6,True,True,True,True,True,True
+first,direct_858,simple,True,True,True,True,True,True
+first,direct_858,surface,True,True,True,True,True,True
+first,all_1440,empirical,True,True,True,True,True,True
+first,all_1440,r6,True,True,True,True,True,True
+first,all_1440,simple,True,True,True,True,True,True
+first,all_1440,surface,True,True,True,True,True,True

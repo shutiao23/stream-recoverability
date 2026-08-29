@@ -1,0 +1,17 @@
+panel,subset,method,pooled_spearman_match,network_spearman_match,calib_slope_match,calib_intercept_match,r2_match,rmse_match,pooled_ref,network_ref
+first,all_1440,empirical,True,True,True,True,True,True,0.6333593455063955,0.766631553358723
+first,all_1440,r6,True,True,True,True,True,True,0.6329509153090218,0.7792723442184588
+first,all_1440,simple,True,True,True,True,True,True,0.8026646545450687,0.5625962239688842
+first,all_1440,surface,True,True,True,True,True,True,0.9079523896169548,0.8983874888582773
+first,direct_858,empirical,True,True,True,True,True,True,0.8254221357603908,0.8005023904059639
+first,direct_858,r6,True,True,True,True,True,True,0.8249657489084111,0.7983955919293412
+first,direct_858,simple,True,True,True,True,True,True,0.791569096951193,0.4846446803338465
+first,direct_858,surface,True,True,True,True,True,True,0.9103195732024556,0.8703508629770683
+second,all_1446,empirical,True,True,True,True,True,True,0.7399228649476387,0.715452424163858
+second,all_1446,r6,True,True,True,True,True,True,0.735287931908787,0.7255639097744361
+second,all_1446,simple,True,True,True,True,True,True,0.8346255703753276,0.6046149857402127
+second,all_1446,surface,True,True,True,True,True,True,0.8927996015324269,0.674358309567021
+second,direct_874,empirical,True,True,True,True,True,True,0.9453454523265828,0.8049001814882034
+second,direct_874,r6,True,True,True,True,True,True,0.9423871811425272,0.7632227119522946
+second,direct_874,simple,True,True,True,True,True,True,0.8458749473414598,0.2475369458128079
+second,direct_874,surface,True,True,True,True,True,True,0.8979489243053846,0.6887477313974593
