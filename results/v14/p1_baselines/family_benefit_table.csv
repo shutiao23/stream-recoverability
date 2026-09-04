@@ -1,0 +1,22 @@
+model_family,gap_length_days,n_placements,n_networks,mean_benefit_deg_c,ci_low,ci_high,harmful_share_pct,definition
+donor_blup_ridge,7,4380,42,0.9538814947630089,0.8442284944050835,1.0646510295130673,8.744292237442924,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,14,4380,42,0.8332956753680362,0.7335737073465235,0.930039814420198,8.972602739726028,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,30,4380,42,0.6787880311785086,0.5882953293877621,0.7682654167034575,11.598173515981735,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,60,4380,42,0.4940054973213992,0.3986438258430789,0.5840052883200014,18.63013698630137,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,90,4380,42,0.3009234665888828,0.17935209052334466,0.40677368983132367,28.56164383561644,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,180,3948,39,-0.8590310745642992,-1.09396230855825,-0.6559659994598281,70.26342451874366,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+donor_blup_ridge,365,2880,32,-2.5266252156249505,-2.9164528888003427,-2.1529215017661825,91.875,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,7,4380,42,0.8135665485288317,0.7042775746315265,0.925144344981984,14.406392694063927,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,14,4380,42,0.6272015456440057,0.5430027180178687,0.7137754004340918,18.538812785388128,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,30,4380,42,0.40131584868459635,0.3481547749763035,0.4577119839856474,25.753424657534246,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,60,4380,42,0.12909401468194515,0.07832378072579613,0.1775743856812564,39.406392694063925,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,90,4380,42,-0.14314707692743772,-0.2173992830453118,-0.07820915973261902,53.05936073059361,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,180,3948,39,-1.8519863417897946,-2.1007014123000327,-1.6229248325736745,91.48936170212765,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+seasonal_boundary_ridge,365,2880,32,-4.307355175788778,-4.661571010117745,-3.9073250450060075,99.93055555555556,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,7,4380,42,0.9792442836374978,0.8738364343637622,1.0852355901271191,7.9908675799086755,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,14,4380,42,0.8479313866876101,0.7644530745998369,0.9332913302930398,8.538812785388128,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,30,4380,42,0.6844588502352064,0.618704451911981,0.7522181933861004,10.753424657534246,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,60,4380,42,0.4789223369780413,0.40193873292799154,0.5455328816883189,19.246575342465754,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,90,4380,42,0.2600576241404911,0.15631112203066994,0.3541737693388802,30.02283105022831,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,180,3948,39,-0.8970267587845732,-1.1660468794055874,-0.6683958521999206,72.16312056737588,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry
+xgboost_b_d,365,2880,32,-2.5017773969826447,-2.819504955857929,-2.105482473979787,93.64583333333333,placement-level mean of climatology MAE - model MAE on the archived first-panel geometry

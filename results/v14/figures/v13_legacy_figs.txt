@@ -1,0 +1,48 @@
+v13 legacy figures (paper/development_v13/figure_plan_v13.md) - supersession note
+=====================================================================================
+
+The five v13 figure spec sources all live in figure_plan_v13.md
+(paper/development_v13/), with supporting artifacts under
+results/revision_v12/* and results/revision_v13/*:
+
+  1. Fig 1 - nested temporal design, support tiers, interpolation/extrapolation
+     regions (design schematic, no statistical estimation).
+  2. Fig 2 - strongest-baseline external comparison (second panel, direct units):
+     empirical vs station x horizon mean (r6) vs simple descriptors; paired
+     network-bootstrap drho; within-network effects.
+  3. Fig 3 - duration response across supported/interpolated/extrapolated
+     regions (predicted vs observed loss vs duration; 90% interval coverage by
+     support tier; support-based abstention rule).
+  4. Fig 4 - model-selection coverage-regret frontier (unit and network
+     coverage; harmonization floors).
+  5. Fig 5 - downstream incremental benefit of reconstruction vs three
+     untreated baselines (no-fill, climatology, linear interpolation) across
+     ten thermal metrics.
+
+Art produced here:
+  - fig_v13_legacy_workflow.png : v13 Fig 1 redrawn as a design schematic
+    directly from the figure_plan_v13.md spec (schematic only; counts as
+    tabulated in that section). Cheap to produce - no estimation involved.
+
+Why each remaining figure is superseded (one line each; see
+paper/v14_plan/negative_result_note.md "Relationship to v14"):
+
+  - v13 Fig 2 (loss-ranking near-tie, empirical vs r6): superseded by
+    note_fig_01.png + the negative-result note; loss ranking is now cited as
+    the "prior work we no longer claim" (pooled 0.945 vs 0.942, paired drho CI
+    straddling zero).
+  - v13 Fig 3 (duration response + extrapolation failure): superseded by the
+    per-duration-only panels of fig_01/fig_02/fig_03 (no-pooling rule; the
+    365-d extrapolation boundary is quoted as context in the note, not
+    re-plotted).
+  - v13 Fig 4 (model-selection coverage-regret): superseded by fig_04.png
+    (decision layer on the benefit estimand: EC(xi)/delta, selective
+    risk/coverage, E-AURC) - model-family selection is out of the v14 scope.
+  - v13 Fig 5 (downstream thermal-metric benefit vs three baselines):
+    superseded by fig_05.png (eta response-effectiveness envelope + REV
+    fixed-threshold value loss on the benefit estimand); the v13 F1 diagnosis
+    (risk ranks model MAE, not benefit) is reproduced in
+    note_fig_02/note_fig_03.png.
+
+All five v13 content areas are therefore covered by the v14 figure set plus
+the three negative-result note figures listed in the task deliverable.

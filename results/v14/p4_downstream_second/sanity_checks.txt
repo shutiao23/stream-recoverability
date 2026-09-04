@@ -1,0 +1,22 @@
+P4 sanity checks
+================
+scoring wall time: 19.0s; total wall: 22.7s
+placements scored (P0-joined): 4948
+placements unmatched by P0 keys: 0
+placements whose season label differs from P0: 0
+recon MAE vs archived placement_losses (n=4948): max |diff| = 1.776e-15, median = 0.000e+00
+recomputed donor roster equals the archived roster on 100.00% of placements
+violations skipped: none
+horizon 7: n placements = 1120, n stations = 224, n networks = 57, n station-gap units = 224, placements with clipped (<365 d) metric window = 199
+horizon 30: n placements = 1120, n stations = 224, n networks = 57, n station-gap units = 224, placements with clipped (<365 d) metric window = 189
+horizon 90: n placements = 1100, n stations = 220, n networks = 56, n station-gap units = 220, placements with clipped (<365 d) metric window = 175
+horizon 180: n placements = 1008, n stations = 206, n networks = 53, n station-gap units = 206, placements with clipped (<365 d) metric window = 121
+horizon 365: n placements = 600, n stations = 124, n networks = 30, n station-gap units = 124, placements with clipped (<365 d) metric window = 0
+units with metric computable under recon but not under no-fill (no-fill uncomputability, per horizon x metric):
+  7 d: summer_mean:4; amplitude:5; summer_max:4
+  30 d: summer_mean:12; amplitude:280; summer_max:12
+  90 d: summer_mean:102; amplitude:487; summer_max:102
+  180 d: summer_mean:422; amplitude:884; phase_doy:1; summer_max:422; trend_slope:1
+  365 d: annual_mean:600; summer_mean:600; amplitude:600; phase_doy:600; p90:600; summer_max:600; exceed_days_20:600; exceed_days_25:600; cdd10:600; trend_slope:600
+metric_error_summary rows with n_units = 0:
+  none

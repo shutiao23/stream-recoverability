@@ -1,0 +1,389 @@
+{
+  "g1": {
+    "definition": "unchanged: network-level Spearman >= 0.35 with paired-bootstrap CI lower > 0 per duration (PLAN 3.4)",
+    "network_level_pass": true,
+    "network_pass_count": 6,
+    "per_duration": {
+      "7": {
+        "network_rho": 0.7177858439201453,
+        "ci_lower": 0.5495285489508227,
+        "ci_upper": 0.8240007571642552,
+        "placement_rho": 0.2970838810306505,
+        "network_pass": true
+      },
+      "14": {
+        "network_rho": 0.6175136116152451,
+        "ci_lower": 0.4136390124501545,
+        "ci_upper": 0.7651260296942523,
+        "placement_rho": 0.3186101546372895,
+        "network_pass": true
+      },
+      "30": {
+        "network_rho": 0.5505574280528909,
+        "ci_lower": 0.2801579268006344,
+        "ci_upper": 0.7528701216826583,
+        "placement_rho": 0.3033753987673467,
+        "network_pass": true
+      },
+      "60": {
+        "network_rho": 0.5823178636245787,
+        "ci_lower": 0.3578908666192058,
+        "ci_upper": 0.7589048985929846,
+        "placement_rho": 0.3272466899472972,
+        "network_pass": true
+      },
+      "90": {
+        "network_rho": 0.6617908407382093,
+        "ci_lower": 0.4433535982536749,
+        "ci_upper": 0.8144687868954824,
+        "placement_rho": 0.3709843085658589,
+        "network_pass": true
+      },
+      "180": {
+        "network_rho": 0.6495726495726496,
+        "ci_lower": 0.4432394219777845,
+        "ci_upper": 0.7896472414707525,
+        "placement_rho": 0.5559222978929325,
+        "network_pass": true
+      }
+    },
+    "placement_level_status": {
+      "7": "partial (0.25-0.35 band)",
+      "14": "partial (0.25-0.35 band)",
+      "30": "partial (0.25-0.35 band)",
+      "60": "partial (0.25-0.35 band)",
+      "90": "pass",
+      "180": "pass"
+    },
+    "note": "network level 6/6 (second panel); placement-level status per duration per the plan's 0.25-0.35 partial-GO band (derived_network_level.csv / metrics_by_horizon.csv / gates.json); round-2 revision adds the 14/60-d cells (W2-A)"
+  },
+  "g2_v2": {
+    "definition": "REDEFINED: paired network-cluster bootstrap delta of diff over r6_diff at placement level within each duration; PASS if CI lower > 0 (old G2 vs the risk curve demoted to a diagnostic); round-2 revision: 14/60-d cells added; overall pass keeps the original tolerance (6-of-8 => at most two failing cells), with every failing cell reported honestly",
+    "pass": true,
+    "cells_pass": 10,
+    "cells_total": 12,
+    "first_90d_ci_crosses_zero": true,
+    "per_cell": {
+      "first_7d": {
+        "rho_diff": 0.26471644118685794,
+        "rho_r6": 0.2317998598082714,
+        "delta_rho": 0.03291658137858655,
+        "ci_lower": 0.003206268775953702,
+        "ci_upper": 0.06468590249444067,
+        "p_gt0": 0.9875,
+        "pass": true
+      },
+      "first_14d": {
+        "rho_diff": 0.2553581221555778,
+        "rho_r6": 0.21744649203286845,
+        "delta_rho": 0.037911630122709344,
+        "ci_lower": 0.0032576871646004123,
+        "ci_upper": 0.07426692007714682,
+        "p_gt0": 0.9835,
+        "pass": true
+      },
+      "first_30d": {
+        "rho_diff": 0.30152811506907107,
+        "rho_r6": 0.2556329378792963,
+        "delta_rho": 0.04589517718977476,
+        "ci_lower": 0.014309956241588831,
+        "ci_upper": 0.0757419600289281,
+        "p_gt0": 0.999,
+        "pass": true
+      },
+      "first_60d": {
+        "rho_diff": 0.31081252441303453,
+        "rho_r6": 0.28325329035293667,
+        "delta_rho": 0.02755923406009786,
+        "ci_lower": -0.00987457762776363,
+        "ci_upper": 0.0683400391899307,
+        "p_gt0": 0.9245,
+        "pass": false
+      },
+      "first_90d": {
+        "rho_diff": 0.36976766031815184,
+        "rho_r6": 0.35287996370983593,
+        "delta_rho": 0.016887696608315905,
+        "ci_lower": -0.022346487116833676,
+        "ci_upper": 0.05644186972676402,
+        "p_gt0": 0.813,
+        "pass": false
+      },
+      "first_180d": {
+        "rho_diff": 0.3078457966374326,
+        "rho_r6": 0.2521459502733221,
+        "delta_rho": 0.05569984636411052,
+        "ci_lower": 0.030596536470778153,
+        "ci_upper": 0.0915615705215961,
+        "p_gt0": 1.0,
+        "pass": true
+      },
+      "second_7d": {
+        "rho_diff": 0.29708388103065053,
+        "rho_r6": 0.22628716717589598,
+        "delta_rho": 0.07079671385475456,
+        "ci_lower": 0.0349336150057385,
+        "ci_upper": 0.11275072665235143,
+        "p_gt0": 1.0,
+        "pass": true
+      },
+      "second_14d": {
+        "rho_diff": 0.31861015463728953,
+        "rho_r6": 0.2562300763504647,
+        "delta_rho": 0.06238007828682485,
+        "ci_lower": 0.0220219010153134,
+        "ci_upper": 0.11101195022099121,
+        "p_gt0": 0.999,
+        "pass": true
+      },
+      "second_30d": {
+        "rho_diff": 0.30337539876734676,
+        "rho_r6": 0.23716370864493527,
+        "delta_rho": 0.06621169012241149,
+        "ci_lower": 0.027380869994971312,
+        "ci_upper": 0.11321531865428254,
+        "p_gt0": 1.0,
+        "pass": true
+      },
+      "second_60d": {
+        "rho_diff": 0.3272466899472972,
+        "rho_r6": 0.28458161494590306,
+        "delta_rho": 0.04266507500139416,
+        "ci_lower": 0.013690483579999113,
+        "ci_upper": 0.07669089371604715,
+        "p_gt0": 0.9975,
+        "pass": true
+      },
+      "second_90d": {
+        "rho_diff": 0.37098430856585896,
+        "rho_r6": 0.33074509208968883,
+        "delta_rho": 0.040239216476170125,
+        "ci_lower": 0.011148182463976699,
+        "ci_upper": 0.07277914712566712,
+        "p_gt0": 0.9975,
+        "pass": true
+      },
+      "second_180d": {
+        "rho_diff": 0.5559222978929325,
+        "rho_r6": 0.3533894928485666,
+        "delta_rho": 0.20253280504436588,
+        "ci_lower": 0.14901758271005838,
+        "ci_upper": 0.26536833527624143,
+        "p_gt0": 1.0,
+        "pass": true
+      }
+    },
+    "note": "10/12 cells pass; the crossing cells are reported honestly (original grid: first-panel 90 d; round-2 grid adds first-panel 60 d)"
+  },
+  "g3_v2": {
+    "definition": "REDEFINED: within each duration stratum, the top-20% budget by diff_prediction must beat the duration-only policy (which is flat inside a duration, so equivalent to a uniform random 20% of the stratum) and the r6_diff ranking; round-2 revision adds the 14/60-d strata",
+    "pass": true,
+    "per_duration": {
+      "7": {
+        "diff_mean_realized": 1.2185051207499804,
+        "duration_only_mean_realized": 0.9999272283580746,
+        "r6_diff_mean_realized": 1.1530975001287245,
+        "risk_mean_realized": 1.0261867715595112,
+        "margin_diff_minus_duration_only": 0.21857789239190584,
+        "margin_diff_minus_r6_diff": 0.06540762062125594,
+        "bootstrap_margin_mean_vs_random20": 0.3172174525062036,
+        "bootstrap_ci_lower": 0.21368003395893975,
+        "bootstrap_ci_upper": 0.4265354876089996,
+        "bootstrap_p_gt0": 1.0
+      },
+      "14": {
+        "diff_mean_realized": 1.086030191592678,
+        "duration_only_mean_realized": 0.8088668539125027,
+        "r6_diff_mean_realized": 1.016529483643554,
+        "risk_mean_realized": 0.8754697708567952,
+        "margin_diff_minus_duration_only": 0.2771633376801753,
+        "margin_diff_minus_r6_diff": 0.06950070794912389,
+        "bootstrap_margin_mean_vs_random20": 0.3303087211613358,
+        "bootstrap_ci_lower": 0.22940689462243294,
+        "bootstrap_ci_upper": 0.4365892737684468,
+        "bootstrap_p_gt0": 1.0
+      },
+      "30": {
+        "diff_mean_realized": 0.8401097843831192,
+        "duration_only_mean_realized": 0.6053811233282358,
+        "r6_diff_mean_realized": 0.772603958321229,
+        "risk_mean_realized": 0.6157541885044665,
+        "margin_diff_minus_duration_only": 0.23472866105488344,
+        "margin_diff_minus_r6_diff": 0.06750582606189026,
+        "bootstrap_margin_mean_vs_random20": 0.286107379491239,
+        "bootstrap_ci_lower": 0.19663944813166004,
+        "bootstrap_ci_upper": 0.37860392008897936,
+        "bootstrap_p_gt0": 1.0
+      },
+      "60": {
+        "diff_mean_realized": 0.6287001289696745,
+        "duration_only_mean_realized": 0.3119501350915289,
+        "r6_diff_mean_realized": 0.6032775829712279,
+        "risk_mean_realized": 0.2343378522906904,
+        "margin_diff_minus_duration_only": 0.3167499938781456,
+        "margin_diff_minus_r6_diff": 0.025422545998446622,
+        "bootstrap_margin_mean_vs_random20": 0.304323433188257,
+        "bootstrap_ci_lower": 0.22012588435531857,
+        "bootstrap_ci_upper": 0.4001740824991948,
+        "bootstrap_p_gt0": 1.0
+      },
+      "90": {
+        "diff_mean_realized": 0.3799714771832259,
+        "duration_only_mean_realized": 0.0561519692217658,
+        "r6_diff_mean_realized": 0.3671145073750678,
+        "risk_mean_realized": -0.2564430048720033,
+        "margin_diff_minus_duration_only": 0.3238195079614601,
+        "margin_diff_minus_r6_diff": 0.012856969808158092,
+        "bootstrap_margin_mean_vs_random20": 0.34324033718494323,
+        "bootstrap_ci_lower": 0.23851274151664634,
+        "bootstrap_ci_upper": 0.44938555056058055,
+        "bootstrap_p_gt0": 1.0
+      },
+      "180": {
+        "diff_mean_realized": -0.6363284419999768,
+        "duration_only_mean_realized": -1.6471101105711003,
+        "r6_diff_mean_realized": -0.8617889333666979,
+        "risk_mean_realized": -2.880971245832422,
+        "margin_diff_minus_duration_only": 1.0107816685711235,
+        "margin_diff_minus_r6_diff": 0.22546049136672108,
+        "bootstrap_margin_mean_vs_random20": 0.8194284487859463,
+        "bootstrap_ci_lower": 0.48557388651245065,
+        "bootstrap_ci_upper": 1.1557530315943718,
+        "bootstrap_p_gt0": 1.0
+      }
+    },
+    "margins_diff_minus_duration_only_C": {
+      "7": 0.219,
+      "14": 0.277,
+      "30": 0.235,
+      "60": 0.317,
+      "90": 0.324,
+      "180": 1.011
+    },
+    "note": "point margins (budget_within_duration.csv rows, second panel) per duration vs duration-only and vs r6_diff; the network-cluster bootstrap compares the diff top-20% against an expected uniform random 20% per draw (fresh seeded sample per draw); bootstrap CIs lie above zero in 6/6 strata"
+  },
+  "g4": {
+    "definition": "unchanged: G1 holds on >= 2 durations",
+    "pass": true,
+    "pass_count": 6
+  },
+  "diagnostics": {
+    "old_g2": {
+      "delta_mean": 0.908231705109752,
+      "ci": [
+        0.8453804016775827,
+        0.9704045257421596
+      ],
+      "risk_rho_placement_direct_second": -0.3614603887457868,
+      "note": "demoted from gate to diagnostic: the old risk curve is negatively correlated with realized benefit at placement level (rho -0.481, second pooled direct), so delta +1.087 [1.019, 1.156] was an artefact of beating a baseline worse than random"
+    },
+    "old_g3_cross_duration": {
+      "definition": "voided (was: cross-duration top-20% mean realized benefit >= 1.3 x panel mean and harmful rate < 15%)",
+      "voided": true,
+      "archived_placement_level": {
+        "diff_mean_realized": 0.9224500266326316,
+        "duration_only_mean_realized": 0.8907667673539686,
+        "r6_diff_mean_realized": 0.9017373708655932,
+        "panel_mean": 0.21713197230844022,
+        "ratio_vs_panel_17_6x": 4.248338081331813,
+        "composition_recompute": {
+          "diff": {
+            "mean_realized": 0.9224500266326314,
+            "n": 5252,
+            "composition_7_30_90_180": [
+              0.3842345773038842,
+              0.26256664127951257,
+              0.15384615384615385,
+              0.09786747905559787,
+              0.06587966488956588,
+              0.03560548362528561
+            ]
+          },
+          "duration_only": {
+            "mean_realized": 0.8907667673539686,
+            "n": 5252,
+            "composition_7_30_90_180": [
+              0.853008377760853,
+              0.146991622239147,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "r6_diff": {
+            "mean_realized": 0.9017373708655931,
+            "n": 5252,
+            "composition_7_30_90_180": [
+              0.44173648134044174,
+              0.25514089870525514,
+              0.1370906321401371,
+              0.08377760853008377,
+              0.055597867479055596,
+              0.026656511805026657
+            ]
+          }
+        }
+      },
+      "reviewer_unit_level_recompute": {
+        "note": "reviewer-style recomputation: top-20% of the 874 direct units, placements pooled afterwards; reproduces REVIEW_v14.md Major 1 (diff +0.878, composition 66/19/10/4); duration-only +0.897 here (their draws +0.896..+0.906, tie-break noise on the flat within-duration predictor)",
+        "selection": {
+          "diff": {
+            "mean_realized": 0.8898598294951564,
+            "n_units": 264,
+            "n_placements": 5280,
+            "composition_7_30_90_180": [
+              0.4393939393939394,
+              0.26136363636363635,
+              0.12878787878787878,
+              0.07954545454545454,
+              0.06439393939393939,
+              0.026515151515151516
+            ]
+          },
+          "duration_only": {
+            "mean_realized": 0.89013565147154,
+            "n_units": 264,
+            "n_placements": 5280,
+            "composition_7_30_90_180": [
+              0.8484848484848485,
+              0.15151515151515152,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "reviewer_quoted": {
+        "diff_mean_realized": 0.899,
+        "duration_only_mean_realized": 0.896,
+        "composition_diff_7_30_90_180": [
+          0.66,
+          0.19,
+          0.1,
+          0.04
+        ],
+        "composition_duration_only_7_30_90_180": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_difference_C": 0.003,
+        "source": "WORKPLAN_v14.md section 1.1 / REVIEW_v14.md Major 1"
+      },
+      "reason": "cross-duration budget is duration-confounded: the one-line rule 'select only the shortest gaps' (duration-only) selects 100% 7-day placements and matches or beats the method at cross-duration top-20% under every recomputation flavor (archived placement-level: diff 0.8987 vs duration-only 0.8914, +0.007 C; reviewer unit-level: 0.878 vs 0.896..0.906, their mean difference +0.003 C).  The reported 17.6x ratio divides by a near-zero denominator (0.051 C panel mean); ratios against near-zero denominators must not be reported as effect sizes - differences and absolute values only (WORKPLAN_v14.md 1.4)"
+    },
+    "top20_harmful_rates_within_duration_diff": {
+      "7": "9.4%",
+      "14": "8.4%",
+      "30": "10.9%",
+      "60": "14.7%",
+      "90": "25.1%",
+      "180": "62.7%"
+    }
+  },
+  "verdict": "GO under redefined gates; 10/12 G2 cells pass and 6/6 G3 margins pass (round-2 grid 7/14/30/60/90/180 d)"
+}

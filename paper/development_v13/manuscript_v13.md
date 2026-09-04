@@ -327,15 +327,19 @@ level) but differs in the BiLSTM row, whose "self-transfer" values of
 0.29-0.69 combine two different instances of the BiLSTM family (source =
 the newly trained mask-aware BiLSTM; target = the older frozen bounded-run
 predictions). We therefore relabel any BiLSTM-family cell as cross-instance
-transfer and report both conventions. The missingness matrix is not
-harmonized: the two implementations used different 12-network panels (only
-5 of 12 networks shared) and different forcing definitions (target plus
-strongest donor masked with weaker donors remaining, versus target plus
-air-temperature forcing), and their matched donor-synchronous transfer
-differs materially (0.979 versus 0.490 at the network level). Until the
-panels and forcing definitions are unified, the missingness matrix is
-supporting information, not a main claim; no single matched-transfer value
-is asserted in this manuscript. The analytic conditional-covariance
+transfer and report both conventions. The missingness-mechanism matrix
+was re-run on a single canonical implementation (12 networks,
+supported-unit scoring, NASA POWER air-temperature forcing for the forcing
+mechanism; outputs under `results/v14/t06_harmonized/`), which resolves
+the earlier divergence between the independent v12 implementations
+(different 12-network panels sharing only 5 networks, unit scopes,
+horizons, and forcing definitions). Matched transfer values are
+supporting information and are reported only in the Supporting
+Information, with 2000-draw network-cluster bootstrap intervals. Two
+qualitative findings were invariant across the independent implementations
+and remain in the main text: mechanism mismatch harms transfer in at least
+one direction, and seasonal placement bias is the mildest mismatch. The
+analytic conditional-covariance
 operator is also demoted to supporting information (Section 3.7).
 
 ### 2.10 Evidence roles and protocol v4
@@ -469,12 +473,17 @@ of only 0.326 in-sample, while the empirical predictor's network-demeaned
 pooled Spearman is 0.936 on the direct subset and its median within-network
 Spearman is 0.965. The ranking lives inside stations and horizons, not
 between networks, and it is stable in time. Moving the outer cutoff from 60
-to 70 to 80% of each record reproduced supported-only network Spearman of
-0.947, 0.922, and 0.949 (the 60% leg attrites to 14 networks because early
-years lack complete donor rosters; 70% and 80% legs use 20 networks), and
-the predicted network ranks agreed across cutoffs with Kendall's W of
-0.81-0.92 across implementations (0.811, tie-adjusted, 13 networks, in the
-canonical implementation; 0.917 in the agent_a re-run). History length
+to 70 to 80% of each record (canonical subset-20 design) reproduces network
+Spearman of 0.984, 0.944, and 0.911 at the 60/70/80% cutoffs (13/20/20
+networks; 5,240/8,440/5,550 cells; the 60% cutoff retains 13 of the 20
+long-record networks because early years lack complete donor rosters), and
+the predicted network ranks agree across cutoffs with Kendall's W of 0.811
+(tie-adjusted, 13 networks present at all cutoffs). The agent_b artifacts
+(`results/revision_v12/t07_rolling_origin/agent_b/`) reproduce these
+values exactly; the divergence from the agent_a independent run is a
+pooling-scope difference, not a reproduction failure, and the agent_a
+independent-run values are reported only in the Supporting Information.
+History length
 matters: network Spearman rose from 0.608 with 2 years of fitting history
 to 0.872 at 4 years, 0.916 at 6, 0.938 at 8, and 0.944 with the full
 record, implying a minimum usable fitting history of roughly 4 years. The
@@ -567,12 +576,16 @@ difficulty is shared within the engineered-feature block (linear/PCHIP
 boundary, seasonal-boundary ridge, donor ridge, XGBoost): self-transfer
 network Spearman was 0.91-0.98 and cross-transfer within the block
 0.72-0.98, with the XGBoost stress curve predicting the outer losses of the
-boundary and ridge families almost as well as its own. The bidirectional
-LSTM row is different: its self-transfer values of 0.29-0.69 are
-cross-instance transfer, because the source is a newly trained mask-aware
-BiLSTM (12 networks, three seeds, median best epoch 68, 28% reaching the
-epoch cap) and the target is the older frozen bounded-run predictions
-(agent_a convention 0.28; agent_b convention 0.68 at the network level). Its
+boundary and ridge families almost as well as its own. The bidirectional-
+LSTM row is reported as **cross-instance BiLSTM-family transfer** and is
+illustrative only: its apparent self cell (0.28 at the network level under
+agent_a's convention; 0.68 under agent_b's) compares a newly trained
+mask-aware BiLSTM source (12 networks, three seeds, early stopping; median
+best epoch 68, 28% reaching the epoch cap) with a different training
+instance as target (the older frozen single-seed bounded-run predictions,
+which hit its epoch limit in 93% of networks), so no cell is a
+same-instance self-transfer for the neural family, and no within-family
+claim is made from this row. Its
 cross-transfer to the engineered block was -0.24 to +0.28 across the two
 implementations' conventions, and its fitting-period stress correlated only
 0.067 with the XGBoost stress on the same networks--the two families
@@ -584,36 +597,38 @@ Mann-Whitney p = 0.033), but that gap is driven entirely by the neural and
 process rows: inside the engineered block the off-diagonal cells are nearly
 saturated.
 
-### 3.7 Missingness mechanisms: demoted to supporting information
+### 3.7 Missingness mechanisms: canonical harmonized matrix (supporting information)
 
-[Post-hoc v13 development; not harmonized between implementations.] Two
-independent implementations of the missingness-mechanism matrix disagree,
-so the matrix is supporting information rather than a main claim. The
-agent_a implementation (12 networks: Slovenian, German, Swiss, and US
-networks) found strong mechanism-matched transfer--donor-synchronous 0.979,
-multi-block 0.944, online left-boundary 0.930, target-plus-primary-
-covariate 0.881, uniform 0.531, summer-biased 0.594, high-temperature-
-biased 0.580 at the network level--with matched calibration slopes
-0.89-1.01, and found that applying the uniform-block curve to
-support-destroying mechanisms collapses rank (donor-synchronous 0.979 to
-0.294, target-plus-primary-covariate 0.881 to 0.196, online 0.930 to 0.399)
-and under-predicts loss by 1.1-2.3 C. The agent_b implementation (12
-different networks, only 5 shared with implementation A, including Czech,
-Dutch, and US networks; different forcing definitions) found matched
-donor-synchronous transfer of only 0.490, with uniform-block matched
-transfer 0.944 (versus 0.531 in implementation A--a second large
-conflict) and a much milder uniform-on-donor-synchronous mismatch (0.524).
-The two implementations
-differ in their 12-network panels (verified: 5 networks in common) and in
-the forcing definition (target
-plus strongest donor masked with weaker donors remaining, versus target
-plus air-temperature forcing). Until the panels, mechanisms, and forcing
-are unified, no mechanism-matched transfer value--including
-implementation A's donor-synchronous 0.979--is asserted as evidence
-anywhere in this manuscript; the
-mechanism-dependence direction--matched curves beat mismatched curves, and
-mismatch is asymmetric--is consistent across implementations and is
-reported with the full divergence documented in Supporting Information.
+[Post-hoc v13 development; harmonized.] The missingness-mechanism matrix
+was re-run on a single canonical implementation--the parameterized
+recovery-roster pipeline with agent_b's conventions (12 networks,
+supported within-horizon station-gap units, NASA POWER air-temperature
+forcing; outputs under `results/v14/t06_harmonized/`, bit-identical to the
+archived agent_b tables)--resolving the earlier divergence between the
+independent v12 implementations, which differed in panels (5 of 12
+networks shared), unit scope, horizons, mechanism microstructure, and
+forcing definitions rather than in any substantive contradiction. The
+matrix is supporting information, not a main claim; matched transfer
+values are reported only with 2000-draw network-cluster bootstrap
+intervals (Table 3; supported network Spearman, n units
+306/306/292/304/306/306/306):
+
+| mechanism | supported network Spearman | 95% CI | n units |
+|---|---|---|---|
+| uniform_block | 0.944 | [0.688, 1.000] | 306 |
+| multi_block | 0.888 | [0.533, 1.000] | 306 |
+| summer_biased | 0.909 | [0.651, 1.000] | 292 |
+| high_temp_biased | 0.958 | [0.779, 1.000] | 304 |
+| donor_sync | 0.490 | [-0.236, 0.925] | 306 |
+| forcing_outage | 0.937 | [0.697, 1.000] | 306 |
+| online | 0.965 | [0.806, 1.000] | 306 |
+
+agent_a's archived values are an independent implementation and are never
+presented beside the canonical set as unresolved. Two qualitative findings
+were invariant across both implementations and carry the main-text claim:
+mechanism mismatch harms transfer in at least one direction (matched
+curves beat mismatched curves; mismatch is asymmetric), and seasonal
+placement bias is the mildest mismatch.
 The analytic conditional-covariance operator is likewise demoted to
 Supporting Information: the quantity previously reported as a
 "conditional-variance lower bound" is code-defined as the expected Gaussian
@@ -893,34 +908,64 @@ adopted the agent_a CI. Adopted: mean +0.042, CI [-0.0006, +0.1154]
 paired difference -0.174 [-0.198, -0.140] verified exactly.
 
 5. Rolling-origin network Spearman. The v12 manuscript reported 0.984,
-0.944, 0.911 at 60/70/80% cutoffs; those values could not be reproduced
-from the artifacts. The agent_a artifact `t07_rolling_origin/agent_a/
-rolling_origin_metrics.csv` (supported-only) gives 0.947 (14 networks),
-0.922 (20), 0.949 (20); Kendall's W is 0.811 (agent_b,
-`rolling_origin_rank_stability.csv`, tie-adjusted, 13 networks) to 0.917
-(agent_a). Adopted: 0.947/0.922/0.949 with the 60% attrition and the W
-range 0.81-0.92 reported.
+0.944, 0.911 at 60/70/80% cutoffs; the v13 text's rationale for replacing
+them (that they were irreproducible from the artifacts) was false as
+stated. The agent_b artifacts (`t07_rolling_origin/agent_b/
+rolling_origin_metrics.csv` and `rolling_origin_rank_stability.csv`)
+reproduce those values exactly: network Spearman 0.984 (60% cutoff, 13
+networks, 5,240 cells), 0.944 (70%, 20 networks, 8,440 cells), and 0.911
+(80%, 20 networks, 5,550 cells), with Kendall's W 0.811 (tie-adjusted
+predicted ranks, 13 networks present at all cutoffs). The agent_a artifact
+(`t07_rolling_origin/agent_a/rolling_origin_metrics.csv`, supported-only,
+with rebuilt stress curves at 10 placements per season) differs only by
+pooling scope--supported station-gap cells rebuilt at 10 placements per
+season versus placement-level pooling over all directly supported cells
+from the canonical frozen tables--not by any reproduction failure, and
+both agents bit-reproduce the canonical 42-network 70% headline. Adopted:
+the canonical agent_b set (0.984/0.944/0.911) with the 60% attrition, W
+0.811, and the agent_a independent-run values reported only in Supporting
+Information.
 
 6. Missingness donor-synchronous transfer. The v12 manuscript asserted
-0.979 without qualification. The two implementations disagree:
-`t06_missingness_matrix/agent_a/mechanism_metrics.csv` gives 0.979
-(network-level, 12 networks) while `t06_missingness_matrix/agent_b/
-mechanism_metrics.csv` gives 0.490 (supported network-level, 12 networks).
-The panels share only 5 of 12 networks (verified against
-`network_panel.csv` and `provenance.json`), and the forcing definitions
-differ (agent_a: target + strongest donor masked, weaker donors remain;
-agent_b: target + air-temperature forcing). Adopted: no single value
-asserted; the matrix is demoted to Supporting Information with both
-implementations documented.
+0.979 without qualification; the two v12 implementations disagreed (0.979
+versus 0.490 at the network level) over panels sharing only 5 of 12
+networks (verified against `network_panel.csv` and `provenance.json`) and
+over unit scope, horizons, mechanism microstructure, and forcing
+definitions (agent_a: target plus strongest donor masked, weaker donors
+remain; agent_b: target plus NASA POWER air-temperature forcing). Resolved
+by a single canonical rerun on agent_b's validated machinery and
+conventions (12 networks, supported within-horizon station-gap units, NASA
+POWER forcing), with harmonized outputs under `results/v14/t06_harmonized/`
+(acceptance gate met: uniform-block network Spearman 0.944, the frozen
+uniform-grid regime ~0.92-0.94). Adopted: canonical supported network
+Spearman values with 2000-draw network-cluster bootstrap intervals
+(uniform_block 0.944 [0.688, 1.000]; multi_block 0.888 [0.533, 1.000];
+summer_biased 0.909 [0.651, 1.000]; high_temp_biased 0.958 [0.779, 1.000];
+donor_sync 0.490 [-0.236, 0.925]; forcing_outage 0.937 [0.697, 1.000];
+online 0.965 [0.806, 1.000]; n units 306/306/292/304/306/306/306),
+reported only in Supporting Information; agent_a's archived values are an
+independent implementation, never presented beside the canonical set as
+unresolved; the two implementation-invariant qualitative findings
+(mechanism mismatch harms transfer in at least one direction; seasonal
+placement bias is the mildest mismatch) remain in the main text.
 
-7. BiLSTM "self-transfer" relabeling (review item 6). The 0.29-0.69 range
-combines two instances of the BiLSTM family: agent_a convention 0.2848
-(`matrix_network_spearman.csv`, target = newly trained mask-aware BiLSTM)
-and agent_b convention 0.6848 (`agent_b/matrix_network_spearman.csv`,
-target = older frozen bounded-run predictions). Adopted: relabeled
-"cross-instance BiLSTM-family transfer" with both conventions reported;
-median best epoch 68 (68.5 over 36 runs) and 27.8% epoch-cap rate verified
-from `neural_source_stress.csv`.
+7. BiLSTM "self-transfer" relabeling (review item 6). The bidirectional-
+LSTM row is reported as **cross-instance BiLSTM-family transfer** and is
+illustrative only: its apparent self cell (0.28 at the network level under
+agent_a's convention; 0.68 under agent_b's) compares a newly trained
+mask-aware BiLSTM source (12 networks, three seeds, early stopping; median
+best epoch 68, 28% reaching the epoch cap) with a different training
+instance as target (the older frozen single-seed bounded-run predictions,
+which hit its epoch limit in 93% of networks), so no cell is a
+same-instance self-transfer for the neural family, and no within-family
+claim is made from this row. Both conventions share that cross-instance
+estimand: agent_a 0.2848 (`matrix_network_spearman.csv`) and agent_b
+0.6848 (`agent_b/matrix_network_spearman.csv`), both at the network level,
+and in both conventions the target is the older frozen bounded-run
+predictions (the source is the newly trained mask-aware BiLSTM). Adopted:
+relabeled "cross-instance BiLSTM-family transfer" with both conventions
+reported as an illustrative range; median best epoch 68 (68.5 over 36
+runs) and 27.8% epoch-cap rate verified from `neural_source_stress.csv`.
 
 8. 365-day extrapolation rank. Review text: rank 0.270, 90% coverage
 46.8%. Verified: `t04_risk_surface/agent_a/evaluation_second_panel.csv`

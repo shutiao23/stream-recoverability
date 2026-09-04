@@ -1,0 +1,54 @@
+P4 sanity checks
+================
+scoring wall time: 24.5s; total wall: 28.6s
+placements scored (P0-joined): 4998
+placements unmatched by P0 keys: 0
+placements whose season label differs from P0: 0
+recon MAE vs archived placement_losses (n=4998): max |diff| = 1.776e-15, median = 0.000e+00
+recomputed donor roster equals the archived roster on 100.00% of placements
+violations skipped: none
+horizon 7: n placements = 1095, n stations = 219, n networks = 42, n station-gap units = 219, placements with clipped (<365 d) metric window = 115
+horizon 30: n placements = 1095, n stations = 219, n networks = 42, n station-gap units = 219, placements with clipped (<365 d) metric window = 101
+horizon 90: n placements = 1095, n stations = 219, n networks = 42, n station-gap units = 219, placements with clipped (<365 d) metric window = 71
+horizon 180: n placements = 993, n stations = 201, n networks = 39, n station-gap units = 201, placements with clipped (<365 d) metric window = 64
+horizon 365: n placements = 720, n stations = 144, n networks = 32, n station-gap units = 144, placements with clipped (<365 d) metric window = 0
+units with metric computable under recon but not under no-fill (no-fill uncomputability, per horizon x metric):
+  7 d: summer_mean:1; amplitude:3; summer_max:1
+  30 d: summer_mean:5; amplitude:221; summer_max:5
+  90 d: summer_mean:64; amplitude:499; summer_max:64
+  180 d: summer_mean:306; amplitude:904; summer_max:306
+  365 d: annual_mean:720; summer_mean:720; amplitude:720; phase_doy:720; p90:720; summer_max:720; exceed_days_20:720; exceed_days_25:720; cdd10:720; trend_slope:720
+metric_error_summary rows with n_units = 0:
+  none
+agent_b overlap (shared 15-network cells, horizons 7/30/90):
+ horizon         metric  n_shared_units  mean_err_recon_agentb  mean_err_recon_p4_support_a  ratio_a_over_agentb  unit_spearman_a  mean_err_recon_p4_support_b  ratio_b_over_agentb  unit_spearman_b
+       7    annual_mean             117               0.006953                     0.006864             0.987255         0.674295                     0.006864             0.987255         0.674295
+       7    summer_mean             117               0.005448                     0.005121             0.939854         0.152437                     0.005121             0.939854         0.152437
+       7      amplitude             117               0.021502                     0.023840             1.108701         0.738105                     0.023777             1.105776         0.738367
+       7      phase_doy             117               0.044217                     0.025635             0.579759         0.388971                     0.025635             0.579759         0.388971
+       7            p90             117               0.004318                     0.007853             1.818715         0.006793                     0.007853             1.818715         0.006793
+       7     summer_max             117               0.003419                     0.008625             2.522809        -0.050920                     0.008625             2.522809        -0.050920
+       7 exceed_days_20             117               0.073504                     0.073504             1.000000         0.238616                     0.073504             1.000000         0.238616
+       7 exceed_days_25             117               0.030769                     0.015385             0.500000         0.516855                     0.015385             0.500000         0.516855
+       7          cdd10             117               1.186845                     0.909523             0.766337         0.342213                     0.909523             0.766337         0.342213
+       7    trend_slope             117               0.015855                     0.015815             0.997477         0.997939                     0.015815             0.997477         0.997939
+      30    annual_mean             117               0.050303                     0.042278             0.840463         0.804598                     0.042278             0.840463         0.804598
+      30    summer_mean             117               0.076399                     0.038928             0.509540         0.663659                     0.038928             0.509540         0.663659
+      30      amplitude             117               0.020539                     0.095351             4.642505         0.503202                     0.018839             0.917228         0.002056
+      30      phase_doy             117               1.275014                     0.444936             0.348965         0.134360                     0.444936             0.348965         0.134360
+      30            p90             117               0.064475                     0.049494             0.767651         0.441486                     0.049494             0.767651         0.441486
+      30     summer_max             117               0.089255                     0.020480             0.229459        -0.103598                     0.020480             0.229459        -0.103598
+      30 exceed_days_20             117               1.099145                     0.557265             0.506998         0.450883                     0.557265             0.506998         0.450883
+      30 exceed_days_25             117               0.288889                     0.241026             0.834320         0.824800                     0.241026             0.834320         0.824800
+      30          cdd10             117              11.048326                     7.258863             0.657010         0.575628                     7.258863             0.657010         0.575628
+      30    trend_slope             117               0.079020                     0.079976             1.012105         0.982968                     0.079976             1.012105         0.982968
+      90    annual_mean             117               0.222576                     0.214757             0.964872         0.809963                     0.214757             0.964872         0.809963
+      90    summer_mean             117               0.212310                     0.236016             1.111660         0.500189                     0.192521             0.906792         0.450061
+      90      amplitude             108               0.076771                     0.432771             5.637137        -0.022329                     0.051567             0.671701         0.110060
+      90      phase_doy             117               5.765038                     4.300321             0.745931         0.398551                     4.300321             0.745931         0.398551
+      90            p90             117               0.354363                     0.298039             0.841056         0.603929                     0.298039             0.841056         0.603929
+      90     summer_max             117               0.280347                     0.382098             1.362945         0.353335                     0.299819             1.069456         0.182870
+      90 exceed_days_20             117               5.509402                     3.350427             0.608129         0.813452                     3.350427             0.608129         0.813452
+      90 exceed_days_25             117               1.227350                     0.750427             0.611421         0.678648                     0.750427             0.611421         0.678648
+      90          cdd10             117              52.927882                    43.499188             0.821858         0.828478                    43.499188             0.821858         0.828478
+      90    trend_slope             117               0.154316                     0.152940             0.991079         0.866617                     0.152940             0.991079         0.866617

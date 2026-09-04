@@ -1,0 +1,34 @@
+level,duration_or_pooled,predictor,rho,n,note
+between_network,pooled_direct,diff,0.6147264713507908,57,reviewer target ~0.657
+between_network,pooled_direct,duration_only,0.3996760175113056,57,computed
+between_network,pooled_direct,r6_diff,0.6138838475499093,57,computed
+within_network_across_durations,pooled_direct,diff,0.8696118878477204,1322,reviewer target ~0.897; unit rows demeaned by their network mean over direct units
+within_network_across_durations,pooled_direct,duration_only,0.8683552765730469,1322,reviewer target ~0.899; unit rows demeaned by their network mean over direct units
+within_network_across_durations,pooled_direct,r6_diff,0.863429931921062,1322,computed; unit rows demeaned by their network mean over direct units
+per_network_mean,pooled_direct,diff,0.8429936306484743,57,reviewer target ~0.861; mean of unit-level Spearman inside each network
+per_network_mean,pooled_direct,duration_only,0.8858557179587353,57,reviewer target ~0.907; mean of unit-level Spearman inside each network
+per_network_mean,pooled_direct,r6_diff,0.8480958513969172,57,computed; mean of unit-level Spearman inside each network
+within_network_x_duration_cell_mean,7d,diff,0.217958585116428,57,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,7d,diff,0.2066795913123695,57,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,7d,diff,0.8947368421052632,57,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,7d,diff,0.39704433497536945,29,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 29 for this duration)"
+within_network_x_duration_cell_mean,14d,diff,0.22665743387314663,57,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,14d,diff,0.22190818305341176,57,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,14d,diff,0.9473684210526315,57,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,14d,diff,0.45878489326765187,29,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 29 for this duration)"
+within_network_x_duration_cell_mean,30d,diff,0.23590582019800943,57,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,30d,diff,0.2108507485043624,57,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,30d,diff,0.9122807017543859,57,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,30d,diff,0.32364532019704434,29,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 29 for this duration)"
+within_network_x_duration_cell_mean,60d,diff,0.24059956413916145,57,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,60d,diff,0.2412231318702893,57,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,60d,diff,0.8771929824561403,57,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,60d,diff,0.4980295566502464,29,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 29 for this duration)"
+within_network_x_duration_cell_mean,90d,diff,0.2739231050789838,55,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,90d,diff,0.25549402385664755,55,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,90d,diff,0.8909090909090909,55,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,90d,diff,0.6375661375661376,27,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 27 for this duration)"
+within_network_x_duration_cell_mean,180d,diff,0.5137699233834354,45,"placement-level Spearman inside each (network, duration) cell with >= 30 placements; mean over cells"
+within_network_x_duration_cell_median,180d,diff,0.6104319820247923,45,median over the same >= 30-placement cells
+within_network_x_duration_cell_frac_gt0,180d,diff,0.9111111111111111,45,fraction of cells with positive placement-level Spearman
+within_network_x_duration_unit_cell_mean,180d,diff,0.6059523809523809,24,"unit-level Spearman inside each (network, duration) cell with >= 4 units; reproduces the reviewer rhos 0.397/0.324/0.638/0.606 (reviewer counts 112 cells total; recomputed 24 for this duration)"

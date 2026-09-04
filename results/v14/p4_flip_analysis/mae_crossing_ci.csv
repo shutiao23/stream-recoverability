@@ -1,0 +1,3 @@
+panel,grid_days,point_crossing_day,ci_low,ci_high,n_draws,seed,n_unit_rows,n_networks,definition
+first,"7,14,30,60,90,180,365",105.33736887325352,97.64870325454652,114.25983603111685,2000,20260903,1440,42,"first positive-to-negative crossing of unit-mean realized benefit over climatology default, log10-interpolated"
+second,"7,14,30,60,90,180,365",91.4893062238265,85.26976565602114,94.76914574935134,2000,20260903,1446,57,"first positive-to-negative crossing of unit-mean realized benefit over climatology default, log10-interpolated"

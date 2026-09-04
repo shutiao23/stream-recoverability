@@ -80,3 +80,15 @@ Official integration pages:
   diagnosis
 - Do not upload restricted Jinsha files to Zenodo
 - Do not treat the local `dist/` archive candidate as a DOI record
+
+
+## Round-3 update (2026-09-04)
+
+Deposit candidate for the paper's artifact record: assemble the rights-filtered
+tree per `paper/v14_plan/osf_registration_package.md` §8 (round-3 outputs incl.
+`results/v14/figures_v3/` and scripts 140–153; provider daily observations
+excluded per DATA_RIGHTS). Paper-level DOI (not just software): mint for the
+v14 manuscript artifact set with `CITATION.cff`/`.zenodo.json` left DOI-free
+until minting; then backfill `doi` and the Open Research section placeholders.
+Human-only steps (account + token) remain the standing gate; this runbook's
+honest-status rules still apply.
