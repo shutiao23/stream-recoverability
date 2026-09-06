@@ -2,9 +2,11 @@
 
 Status: companion submission for the v14 program (PLAN §8.5). Target: HESS Technical Note or
 *Environmental Modelling & Software*. Length: ~4,000–5,000 words + 3 figures + 2 tables.
-This note is also the "prior work we no longer claim" citation of the v14 manuscript and of
-protocol v5 (`protocol_v5.md` §1.2): v14 predicts *benefit over the default handling*; this
-note closes the *loss-ranking* question.
+Submission-ready except the figures (3 planned) and the archival DOI (author deposit step,
+see `paper/v14_plan/EXECUTION_STATUS.md` W4 remaining items). This note is also the
+"prior work we no longer claim" citation of the v14 manuscript and of protocol v5
+(`protocol_v5.md` §1.2): v14 predicts *benefit over the default handling*; this note
+closes the *loss-ranking* question.
 
 ---
 
@@ -101,7 +103,12 @@ same-horizon support.
 - Recommendation (one paragraph): future work should predict **benefit over the default
   handling** (B = MAE_default − MAE_model), where the signal lives in the default's
   difficulty rather than in model difficulty — pursued in the companion paper/protocol
-  (v14 differential stress test; `paper/v14_plan/protocol_v5.md`).
+  (v14 differential stress test; `paper/v14_plan/protocol_v5.md`). The companion paper now
+  supplies the mechanism this note only gestured at: the default's error is nearly flat in
+  gap length while the model's error grows ~10×, so benefit crosses zero where the model's
+  expected error meets the station's own climatological error (v14 §3.1, Table 2a; claim
+  row C-M1) — which is exactly why a loss predictor can never rank benefit, and why the
+  estimand change was necessary rather than optional.
 - Evidence footnote for that claim: on the same development corpus, ranking model MAE
   correlated negatively with realized benefit (ρ = −0.230) while ranking default difficulty
   correlated positively (+0.659) — flagged as descriptive context, not as a result of this

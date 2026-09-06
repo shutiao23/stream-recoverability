@@ -1,45 +1,30 @@
 # v14 auxiliary text (Key Points, plain-language summary, abstract)
 
-Round-2 revision (2026-09-04, REVIEW_v14_round2.md). Every benefit figure below
-is over the calendar-day climatology default and names it (reporting norm (v),
-manuscript §2.7). Threshold statements follow
+Round-2 revision (2026-09-04, REVIEW_v14_round2.md); v15/W3 rewrite (2026-09-05,
+WORKPLAN_v15.md Step 3.3): the title names the default as "relative to
+climatology fill", the four Key Points each fit the 140-character WRR limit,
+and the abstract is 249 words with the mechanism in its first paragraph.
+Every benefit figure below is over the calendar-day climatology default and
+names it (reporting norm (v), manuscript §2.7). Threshold statements follow
 `results/v14/p4_flip_analysis/mae_crossing_ci.csv`; the withdrawn ~60-d figure
 carries no claim status.
 
 ## Proposed title
 
 When is reconstructing a missing stream-temperature record worth it? Incremental
-benefit over calendar-day climatology fill, its duration structure, and
-differential stress testing
+benefit relative to climatology fill, its duration structure, and differential
+stress testing
 
-## Key Points (four bullets)
+## Key Points (four bullets, each ≤ 140 characters)
 
-1. Scoring a recovery model against the default handling on identical artificial
-   gaps shows that reconstruction over calendar-day climatology fill is
-   net-beneficial only for short gaps: realized benefit declines monotonically
-   with gap duration, and the share of units made worse by reconstruction jumps
-   from 0.0–0.4% at ≤ 30 d to 27.4% / 46.8% at 90 d and 83.6% / 95.6% at 180 d.
-   The unit-mean benefit crosses zero at 105 d on the first panel (95% CI
-   98–114) and 91 d on the second (95% CI 85–95); downstream thermal-regime
-   metrics flip earlier (family medians 39–60 d).
-2. These intervals bracket the independent m_max = 49-day threshold of Johnson
-   et al. (2021) — different stations, methods, and target metrics — which
-   falls inside our downstream 39–60-day window and at roughly half the MAE-scale
-   crossing.
-3. Ranking gaps by model error is the wrong instrument for benefit: the legacy
-   loss-based risk curve correlates negatively with realized benefit at 90/180 d
-   (−0.19/−0.54), and simply negating it matches the differential curve at
-   180 d (0.54 vs 0.56, second panel) but ranks realized benefit with the wrong
-   sign at 7–30 d (−0.18/−0.13) and leaves it unranked at 60 d (−0.02). The
-   differential benefit curve is the only tested estimator that ranks benefit
-   within short-gap strata (placement-level ρ 0.297 / 0.303 / 0.327 at 7/30/60 d,
-   second panel) and it beats the strongest station-history baseline in 10 of 12
-   paired cells, including all six second-panel cells.
-4. Within-duration fixed budgets over the climatology default, benefit ranking
-   beats gap-length and risk rankings at every duration — including harm
-   avoidance at 180 d, where it selects a least-harmful fifth (−0.64 °C, 63%
-   harmful) instead of treating by duration (−1.65 °C, 86%) or by the old risk
-   curve (−2.88 °C, 98%).
+1. Climatology-fill error is nearly flat in gap length while model error grows
+   ~10×; reconstruction stops paying where the two curves cross.
+2. That crossing is set by each station's own climatological error and is
+   pre-computable (398 stations; ρ = +0.41/+0.24).
+3. Ranking by model error anti-correlates with benefit at long gaps; ranking by
+   benefit works within every duration stratum.
+4. At a within-stratum 20% budget, benefit ranking realizes +1.22/+0.84/+0.38 °C
+   at 7/30/90 d and turns harm-minimizing at 180 d.
 
 ## Plain-language summary
 
@@ -62,12 +47,34 @@ stream-temperature records, not of one model. Within a gap length, deciding
 which gaps are worth treating still needs a ranking tool: ranking gaps by how
 hard they are for the model is the wrong instrument, but ranking them by the
 model's *benefit over the default* works — most at short gaps, where the simple
-rankings fail. Long gaps should not be reconstructed automatically at all, and
-when a decision is forced there, the benefit score at least selects the least
-harmful gaps.
+rankings fail. Long gaps should not be reconstructed indiscriminately: even
+there a small subset of gaps is still worth treating, and the benefit score
+selects the least harmful ones.
 
-## Abstract (final ~240 words, two paragraphs)
+## Abstract (249 words ≤ WRR 250, two paragraphs; paragraph 1 states the mechanism)
 
-*Paragraph 1 and paragraph 2 mirror manuscript §Abstract exactly (kept in sync
-with `manuscript_v14_skeleton.md`); final trim at submission per WRR length
-rules. Text lives in the skeleton — do not edit here without mirroring.*
+A missing stream-temperature record poses a practical question: not which model
+is most accurate, but whether reconstruction beats the default handling the
+user would otherwise apply. Realized benefit is the difference of two error
+curves with different geometries: the climatology default's error is nearly
+flat in gap length — a day-of-year predictor carries no boundary information —
+while the model's error grows tenfold from 7 to 365 d. Reconstruction stops
+paying where the model's expected error meets the station's own climatological
+error: a closed-form crossing, pre-computable from the fitting record and
+verified at station level (stations with harder climatological defaults
+tolerate longer gaps; Spearman +0.41, 210 stations, p = 6e−10, prospective
+panel).
+
+On two outcome-disjoint multi-provider panels, unit-mean benefit over
+climatology fill crosses zero at 91 d (95% CI 85–95) and 105 d (98–114);
+downstream thermal-regime metrics flip earlier (medians 39–60 d, bracketing
+Johnson et al.'s independent 49-d threshold); three structurally different
+model families cross the same threshold line. Within a duration, ranking by
+model error is the wrong instrument (ρ −0.19/−0.54 at 90/180 d); a
+differential stress curve — fitting-period benefit scored by the model it
+ranks — ranks benefit positively in every stratum (ρ 0.297–0.556) and is
+irreplaceable only in the transition zone, as predicted. At fixed
+within-stratum budgets it realizes +1.22/+0.84/+0.38/−0.64 °C at 7/30/90/180
+d, selects a least-harmful fifth at 180 d, and captures 20–48% of a perfect
+selector's value — still positive at 180 d (+0.38 °C): "do not reconstruct
+indiscriminately", not "do not reconstruct".

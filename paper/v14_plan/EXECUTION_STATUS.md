@@ -59,20 +59,85 @@ here.
 
 ## Remaining human-execution items (no compute needed)
 
-1. Zenodo deposit + DOI minting (WRR hard gate; assemble per
-   osf_registration_package.md file tree; DATA_RIGHTS scheme from v13).
-2. OSF registration execution (protocol v5; must precede any v5 panel
-   scoring; AGU/NO Registered Report wording rules in the package).
-3. Visual QC of the regenerated figure set (round-3; figures are re-rendered
-   from the six-duration CSVs under scripts/148; programmatic audits +
-   annotation assertions pass in-script).
-4. W2-C: Table 1 comparator cells (Husic/El Ouahabi/Auer columns, 15 cells)
-   filled from the source PDFs (open-access HESS/EGU full texts; the
-   Pechlivanidis column is filled); unresolved cells stay "?" with the paper
-   cited in the table note.
-5. aux_text_v14.md final abstract trim; length check (WRR limits).
-6. References re-generation; confirm johnson2021datagap cited (yes, §3.1/§4.1)
-   and richardson2007longgaps positioned as prior art + comparator.
+Closed by Round 5: Table 1 comparator cells (0 "?" cells remain — the
+round-2 fill stands), the abstract trim (249 words) and Key Points
+(≤ 140 chars each), and the reference check (all 26 cited keys resolve in
+`paper/references.bib`; johnson2021datagap and richardson2007longgaps
+positioned as intended). The standing human items are the five W4 steps at
+the end of the Round 5 record below (Zenodo DOI, OSF registration, visual
+figure QC, HESS Technical Note submission, round-3 response letter).
+
+## Round 4 (2026-09-05, WORKPLAN_v15.md W1: the mechanism rewrite — no new compute)
+
+| item | outcome |
+|---|---|
+| scripts/152 mechanism/oracle package | `results/v14/p5_mechanism/`: benefit_decomposition.csv (clim MAE flat, −4% / −0.4% over 7→365 d; model MAE ×9.8/×9.0), station_crossings(_summary).csv (ρ = +0.411 second / +0.243 first; quartile medians 75→82→96→98 d / 92→98→101→108 d), regime_structure.csv (inverted U, peak 90 d: +0.179/+0.143), budget_brackets.csv (B ∈ {5,10,20,30,50}% with oracle/random brackets; capture 20–48%; oracle top-20% at 180 d +0.707/+0.382 °C) |
+| §3.1 rewritten | Now "The structure of benefit": decomposition law (Table 2a) → station-level prediction → duration structure (Table 2) → two scale-specific thresholds → cross-family "same threshold line, different model curves" (Table 7) → downstream corroboration → Johnson interval bracketing → oracle reconciliation ("do not reconstruct indiscriminately, not do not reconstruct") |
+| §3.3 design principle | Opening paragraph + Table 3a (inverted-U prediction, confirmed in both panels); the three boundary conditions reported proactively as the mechanism's confirmations (default-difficulty decision parity at 7 d 0.231 vs 0.221; −risk tie at 180 d 0.541 vs 0.556 / 0.373 vs 0.308; 20–48% capture ceiling) |
+| §4.7 apology removed | Partial band re-read as the mechanism's prediction (clim term carries the short-gap information; any reasonable predictor approaches the same ceiling); benchmark-bracket reframing kept with the oracle–random span quantified |
+| §4.1 Johnson interval-to-interval | Three scales stated (downstream 39–60 d; MAE 91–105 d; mechanism ≈91 d second); m_max = 49 d inside the downstream window; no single-number coincidence claimed |
+| Conclusions item (1) | Mechanism statement with numbers in brackets; rule phrased "do not reconstruct indiscriminately beyond the crossing — select within it" |
+| claims_v14.md | Rows C-M1 (law), C-M2 (station prediction), C-M3 (regime structure + boundary conditions) added 2026-09-05 |
+| New Fig 1 | `scripts/154_run_v15_fig1_mechanism.py` → `results/v14/p5_mechanism/fig01_mechanism.png` (2×2: law with crossing + shading; three families on one threshold line; station scatters ρ = +0.41/+0.24); final six-figure set assembled in Round 5 (`results/v15/figures/`) |
+
+## Round 5 (2026-09-05, WORKPLAN_v15.md W2+W3+W4 — the two re-runs, figures/format, and the submission package)
+
+**W2.1 — decision endpoint completed (scripts/155, `results/v15/budget_full/`).**
+Full Tier-0 suite (diff, risk, neg_risk, duration, r6_diff, default_difficulty,
+rh_error, rh_benefit, amplitude, sd, global) at B ∈ {5, 10, 20, 30, 50}% ×
+{7, 14, 30, 60, 90, 180} d × both panels, with oracle/random brackets and
+capture rates; 95% network-cluster bootstrap CIs (2,000 draws, seed 20260903,
+provider-stratified on the second panel) for the oracle and the six main
+predictors at every cell. B = 0.20 reproduces the P1 table exactly
+(120/120 rows, max |Δ| < 1e−9). Table 4 now carries default_difficulty
+(+1.233/+1.074/+0.795/+0.518/+0.237/−1.399 °C, exceeding diff at 7 d — the
+mechanism's predicted short-end parity), neg_risk, oracle and random rows;
+§3.4 states the sweep, the brackets, and the 20–48% capture ceiling.
+
+**W2.2 — station-level robustness (scripts/156, `results/v15/station_robustness/`).**
+Exclusions are exclusively the never-crosses-by-365-d class (31 first / 14
+second; no starts-negative, no re-crossings — the 152 filter is exact);
+second-panel provider stratification is positive in all three providers
+(0.342/0.430/0.365, p ≤ 0.007) — not a single-provider artifact (first panel
+mixed, reported honestly); rank-based partial ρ controlling amplitude + sd is
++0.365/+0.563, at or above the zero-order estimate on the same subsets — not
+confounded. §3.1 station paragraph and claim row C-M2 updated.
+
+**W3 — figures and format.** Figure set assembled in `results/v15/figures/`
+(scripts/157; Fig 1 mechanism from scripts/154): Fig 2 duration structure +
+families, Fig 3 regime structure (inverted U + signal migration), Fig 4 main
+ranking, Fig 5 decision layer (Table 4 rows + budget sweeps with cluster CIs
+at 90/180 d + EC(ξ)/δ), Fig 6 boundaries (decomposition + drift null +
+support tiers); round-3 estimator-contrast and downstream-flip figures move
+to SI. Abstract rewritten to 249 words (≤ 250) with the mechanism in the
+first paragraph; the four Key Points rewritten to ≤ 140 characters each
+(137/118/121/126); title now ends "Incremental benefit relative to
+climatology fill"; Table 1 verified fully filled (0 "?" cells — the
+round-2 fill stands); all 26 citation keys resolve in references.bib
+(johnson2021datagap and richardson2007longgaps positioned as intended).
+
+**W4 — submission package.** Software Zenodo record exists (.zenodo.json,
+version 1.1.0); the paper-artifact Zenodo deposit + DOI minting and the OSF
+registration of protocol v5 are author-credential steps with exact
+instructions in osf_registration_package.md (blocking: DOI). Negative-result
+note marked submission-ready pending its 3 figures + DOI, with the v15
+mechanism anchor sentence added to its implication section. Length checks
+pass: abstract 249 w, Key Points ≤ 140 chars each.
+
+### W4 remaining human steps (only these block submission)
+
+1. Zenodo: create the paper-artifact deposit (results/v15 + v14 tables +
+   scripts 140–157 + protocol v5) and insert the minted DOI into the
+   manuscript, CITATION.cff, and .zenodo.json.
+2. OSF: register protocol v5 pre-outcome and record the registration DOI
+   (protocol_v5.md §6 wording is frozen; do not edit).
+3. Human visual QC of `results/v15/figures/` (all programmatic audits and
+   annotation asserts pass).
+4. Submit the negative-result note to HESS Technical Note after figures +
+   DOI; cite it in the v14 reference list once accepted.
+5. Compose the response letter to REVIEW_v14_round3.md (mechanism rewrite,
+   three adverse evidence now confirmations, capture ceiling reported, oracle
+   reconciled, Johnson interval-to-interval, ~60 d withdrawn).
 
 ## Script index (rounds 1–3)
 
@@ -86,4 +151,11 @@ paired freeze + gates), 145_run_p4_downstream.py (first panel),
 (round-2 figure set), 149_run_v14_r2_mae_crossing_ci.py (round-2 threshold
 CIs), 150_run_v14_r2_negated_risk.py (round-2 −risk comparator),
 151_run_v14_r2_family_table.py (round-2 three-family table),
-152_run_v14_r2_fitting_cuts_14_60.py (round-2 14/60-d fitting cuts).
+152_run_v14_r2_fitting_cuts_14_60.py (round-2 14/60-d fitting cuts),
+152_run_mechanism_and_oracle.py (v15/W1 benefit law, station crossings, regime
+structure, budget brackets with oracle/random),
+153_run_v14_figures_r3.py (round-3 figure set),
+154_run_v15_fig1_mechanism.py (v15/W1 mechanism Fig 1),
+155_run_v15_budget_full.py (v15/W2.1 full budget sweep + cluster CIs),
+156_run_v15_station_robustness.py (v15/W2.2 station robustness),
+157_run_v15_figures_w3.py (v15/W3 assembled figure set Fig 2–6).
