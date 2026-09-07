@@ -1,0 +1,13 @@
+scenario,recoverer,crossed,min_benefit,expected_cross,matches_predeclaration
+air_driven,neighbor_ridge,True,-0.19872276448745987,1.0,True
+air_driven,longblock_ridge,False,0.053444467586215266,,
+air_driven,structurally_correct,False,0.3305964740705455,0.0,True
+high_memory_weak_donor,neighbor_ridge,True,-4.236766214526774,1.0,True
+high_memory_weak_donor,longblock_ridge,False,0.0719689021656913,,
+high_memory_weak_donor,structurally_correct,False,0.2905266530534553,0.0,True
+low_memory_strong_donor,neighbor_ridge,False,0.40694735431407153,0.0,True
+low_memory_strong_donor,longblock_ridge,False,0.40765599576933115,,
+low_memory_strong_donor,structurally_correct,False,0.4061390964438887,0.0,True
+no_information_loss,neighbor_ridge,True,-0.01601182800459823,0.0,False
+no_information_loss,longblock_ridge,False,0.04698357082493686,,
+no_information_loss,structurally_correct,False,0.04564161164728036,0.0,True

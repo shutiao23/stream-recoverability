@@ -1,0 +1,18 @@
+{
+  "panel": "first",
+  "n_cases": 11066,
+  "n_networks": 42,
+  "n_stations": 222,
+  "mean_frozen_rule_hottest_30": 0.1237327714385256,
+  "mean_always_switch_gated_hottest_30": 0.28016447244382947,
+  "mean_always_donor_gated_hottest_30": 0.2784036662986709,
+  "mean_seasonal_le30_hottest_30": 0.03253613787579678,
+  "mean_all_default_hottest_30": 0.0,
+  "mean_frozen_rule_adopt_rate": 0.4475268518757584,
+  "mean_always_switch_gated_adopt_rate": 0.9710825953370685,
+  "mean_always_donor_gated_adopt_rate": 0.967739020422917,
+  "beats_all_default": true,
+  "beats_seasonal": true,
+  "beats_always_donor": false,
+  "beats_always_switch": false
+}

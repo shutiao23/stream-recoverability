@@ -1,0 +1,18 @@
+{
+  "panel": "confirmation",
+  "n_cases": 2512,
+  "n_networks": 36,
+  "n_stations": 70,
+  "mean_frozen_rule_hottest_30": 0.13080794623916583,
+  "mean_always_switch_gated_hottest_30": 0.13548329107522192,
+  "mean_always_donor_gated_hottest_30": 0.13331620922865325,
+  "mean_seasonal_le30_hottest_30": 0.020240682001512956,
+  "mean_all_default_hottest_30": 0.0,
+  "mean_frozen_rule_adopt_rate": 0.5887738853503185,
+  "mean_always_switch_gated_adopt_rate": 0.708864118895966,
+  "mean_always_donor_gated_adopt_rate": 0.6711783439490446,
+  "beats_all_default": true,
+  "beats_seasonal": true,
+  "beats_always_donor": false,
+  "beats_always_switch": false
+}

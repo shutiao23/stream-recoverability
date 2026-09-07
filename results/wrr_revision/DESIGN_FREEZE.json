@@ -1,0 +1,33 @@
+{
+  "frozen": true,
+  "development_panel": "first_42",
+  "confirmation_panel": "held_out_qc_not_in_first_or_second",
+  "default": "doy_climatology",
+  "recoverer": "duration_switch",
+  "recoverer_by_duration": {
+    "7": "ridge_neighbor_boundary",
+    "14": "donor_only_ridge",
+    "30": "donor_only_ridge",
+    "60": "donor_only_ridge",
+    "90": "donor_only_ridge",
+    "120": "donor_only_ridge",
+    "150": "donor_only_ridge",
+    "180": "donor_only_ridge",
+    "365": "donor_only_ridge"
+  },
+  "simple_alternative": "donor_only_ridge",
+  "withdrawn_recoverer": "xgb_neighbor_boundary",
+  "primary_endpoint": "hottest_30_benefit_on_station_year",
+  "secondary_endpoint": "exceed_days_20_benefit",
+  "mae_is_diagnostic": true,
+  "action_rule": "adopt if predicted_benefit > tau and donors_observed and supported else default",
+  "tau_selection": "max net benefit on historical validation vs all-default",
+  "unsupported": "reject_to_default",
+  "donor_co_missing": "reject_to_default",
+  "missing_right_boundary": "reject_to_default",
+  "budget": "optional_cap_not_required_to_fill",
+  "withdraw_universal_law": true,
+  "n_development_networks": 42,
+  "n_development_stations": 219,
+  "evidence": "results/wrr_revision/step2_fair_recovery/duration_summary.csv"
+}

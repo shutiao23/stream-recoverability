@@ -165,3 +165,9 @@ results/development_v11/placement_scatter.png
 # sensitivity is reproducible from its request ledger but is not redistributed
 # in the code/software commit.
 results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet
+
+# WRR revision: keep compact aggregate evidence; per-placement dumps exceed
+# GitHub's 100MB blob limit or are re-downloadable NASA POWER series.
+results/wrr_revision/**/placement_scores.csv
+results/wrr_revision/**/placement_predictions_*.csv
+results/wrr_revision/forcing/nasa_power_t2m.parquet

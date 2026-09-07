@@ -1,0 +1,14 @@
+{
+  "n_cases": 10709,
+  "n_networks": 42,
+  "mean_rule_hottest_30": 0.14405499701505844,
+  "mean_seasonal_hottest_30": 0.02983479487453078,
+  "mean_all_reconstruct_hottest_30": 0.25470209494942647,
+  "mean_all_default_hottest_30": 0.0,
+  "mean_adopt_rate": 0.7893437429131706,
+  "beats_all_default": true,
+  "beats_seasonal": true,
+  "n_mixed_cases": 1616,
+  "recoverer": "xgb_longblock_boundary",
+  "n_failures": 0
+}

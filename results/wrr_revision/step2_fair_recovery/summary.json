@@ -1,0 +1,17 @@
+{
+  "n_networks": 42,
+  "n_stations": 219,
+  "n_rows": 303426,
+  "recoverers": [
+    "donor_only_ridge",
+    "doy_climatology",
+    "linear_interp",
+    "ridge_neighbor_boundary",
+    "smooth_climatology",
+    "xgb_longblock_boundary",
+    "xgb_longblock_noboundary",
+    "xgb_neighbor_boundary",
+    "xgb_neighbor_noboundary"
+  ],
+  "n_failures": 0
+}
