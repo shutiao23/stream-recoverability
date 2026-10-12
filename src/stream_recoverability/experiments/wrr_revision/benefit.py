@@ -122,7 +122,6 @@ def history_switch_rule(
     for gap, group in hist.groupby("gap_length"):
         # leave-one-network-out would be heavier; here we use cell means vs realized.
         difficulty = group[climatology_mae_col].mean()
-        neg_risk = -group[model_mae_col].mean()
         # Per-row predictors are the station-season means excluding the row's exact match
         # is overkill; compare which constant-per-gap term has lower MAE on history.
         mae_diff = float(np.mean(np.abs(group["realized_benefit"] - difficulty)))

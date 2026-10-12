@@ -34,7 +34,7 @@ from stream_recoverability.experiments.v17_fitness.outages import (
 )
 from stream_recoverability.experiments.v17_fitness.panel import air_series_for, load_network_panel
 from stream_recoverability.experiments.v17_fitness.cases import station_geometry_pool
-from stream_recoverability.experiments.v17_fitness.paths import PRIMARY_TOLERANCE_C
+from stream_recoverability.experiments.v17_fitness.paths import PRIMARY_TOLERANCE_C, stable_seed
 
 MECHANISM_FEATURES = (
     "longest_run",

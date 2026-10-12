@@ -33,7 +33,6 @@ from stream_recoverability.experiments.wrr_revision.recoverers import (
 from stream_recoverability.experiments.wrr_revision.thermal import (
     daily_mae,
     series_losses,
-    thermal_metrics,
 )
 
 MIN_TRAIN_DAYS = 365

@@ -117,7 +117,6 @@ def replay_case(
     year_mask = pd.Series(True, index=index)
     if "year" in gaps.columns:
         year_mask = index.year == int(gaps["year"].iloc[0])
-    truth_year = truth.loc[year_mask]
     default_series = truth.copy()
     all_recon = truth.copy()
     chosen = truth.copy()

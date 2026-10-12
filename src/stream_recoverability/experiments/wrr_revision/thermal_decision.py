@@ -17,7 +17,6 @@ from stream_recoverability.experiments.recovery_roster import season_label
 from stream_recoverability.experiments.wrr_revision.benefit import hierarchical_mean
 from stream_recoverability.experiments.wrr_revision.decision import (
     choose_tau,
-    policy_metrics,
     same_adoption_rate_random,
     simple_length_season_adopt,
 )
