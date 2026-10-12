@@ -1,6 +1,6 @@
 # WRR figure and PDF quality assurance
 
-Generated 2026-10-12T13:43:26Z by `python3 scripts/266_wrr_figure_qa.py`.
+Generated 2026-10-12T14:20:57Z by `python3 scripts/266_wrr_figure_qa.py`.
 
 * JSON: `results/wrr_submission_ready/figure_qa.json`
 * Markdown: `results/wrr_submission_ready/figure_qa_report.md`
@@ -75,7 +75,7 @@ No warning-level finding is classified as a real defect.
 
 | document | pages | page size (pt) | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | same baseline | min raster ppi |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `paper/wrr/wrr_manuscript.pdf` | 53 | 612.00 x 792.00 | 8.50 x 11.00 | 40 | 0 | 0 | 3.98 | 67 | 0 | 324 |
+| `paper/wrr/wrr_manuscript.pdf` | 54 | 612.00 x 792.00 | 8.50 x 11.00 | 41 | 0 | 0 | 3.98 | 67 | 0 | 324 |
 | `paper/wrr/wrr_supporting_information.pdf` | 15 | 612.00 x 792.00 | 8.50 x 11.00 | 34 | 0 | 0 | 4.70 | 14 | 0 | - |
 
 ## 1. Fonts (check a)
@@ -100,7 +100,7 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
-| `paper/wrr/wrr_manuscript.pdf` | 40 | CID TrueType x3, CID Type 0C x1, Type 1 x26, Type 1C x2, Type 3 x8 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `EVICAO+DejaVuSans-Bold`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
+| `paper/wrr/wrr_manuscript.pdf` | 41 | CID TrueType x3, CID Type 0C x1, Type 1 x27, Type 1C x2, Type 3 x8 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `EVICAO+DejaVuSans-Bold`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/wrr_supporting_information.pdf` | 34 | CID TrueType x1, CID Type 0C x5, Type 1 x17, Type 1C x8, Type 3 x3 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
 
 `[none]` is the name Poppler reports for a producer-embedded Type 3 subset with no BaseFont entry (matplotlib's default pdf.fonttype=3); the font is embedded even though it is unnamed.
@@ -127,7 +127,7 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 1 | 444.75 x 359.79 | 6.18 x 5.00 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 395.58 x 360.14 | 5.49 x 5.00 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | 394.78 x 351.30 | 5.48 x 4.88 | 1 | yes | 0 | 0.00 |
-| `paper/wrr/wrr_manuscript.pdf` | 53 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
+| `paper/wrr/wrr_manuscript.pdf` | 54 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
 | `paper/wrr/wrr_supporting_information.pdf` | 15 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
 
 ## 3. Text outside the page box (check c)
@@ -156,7 +156,7 @@ No word box extends more than 1.0 pt outside its page in any target PDF.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 130 | 10.97 | 10.97 | 12.10 | 0 | 0 | 57 | 0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 4.29 | 10.59 | 12.10 | 1 | 0 | 74 | 0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 12.10 | 12.10 | 14.18 | 0 | 0 | 42 | 0 |
-| `paper/wrr/wrr_manuscript.pdf` | 17512 | 3.98 | 7.08 | 8.85 | 3 | 0 | 298 | 0 |
+| `paper/wrr/wrr_manuscript.pdf` | 18411 | 3.98 | 7.08 | 8.85 | 3 | 0 | 298 | 0 |
 | `paper/wrr/wrr_supporting_information.pdf` | 4258 | 4.70 | 5.61 | 8.85 | 0 | 0 | 69 | 0 |
 
 No word box is below 4.5 pt in any target PDF.
@@ -185,7 +185,7 @@ Rule: pairs of word boxes whose intersection area exceeds 25% of the smaller box
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 130 | 12 | 0 | 12 | 0 | 0/0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 2 | 0 | 2 | 0 | 0/0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 5 | 0 | 5 | 0 | 0/0 |
-| `paper/wrr/wrr_manuscript.pdf` | 17512 | 67 | 0 | 63 | 4 | 0/0 |
+| `paper/wrr/wrr_manuscript.pdf` | 18411 | 67 | 0 | 2 | 65 | 0/0 |
 | `paper/wrr/wrr_supporting_information.pdf` | 4258 | 14 | 0 | 14 | 0 | 0/0 |
 
 ### Flagged pairs
@@ -315,34 +315,34 @@ Pair classification: `adjacent_line_padding` x5.
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 49 | atypical_box_geometry | 80.4 | `amplit` | (393.23, 460.68, 407.18, 478.13) | `0` | (394.14, 458.76, 396.94, 468.57) | 1.92 | 11.22 |
-| 49 | atypical_box_geometry | 53.7 | `amplit` | (393.23, 460.68, 407.18, 478.13) | `d` | (398.34, 456.13, 401.13, 465.95) | 4.54 | 11.22 |
-| 49 | atypical_box_geometry | 51.4 | `amplit` | (393.23, 460.68, 407.18, 478.13) | `ann` | (400.98, 469.04, 409.26, 482.28) | 8.36 | 11.22 |
-| 51 | adjacent_line_padding | 50.7 | `certificate` | (218.3, 499.4, 257.77, 514.19) | `oracle` | (232.1, 506.7, 256.18, 521.49) | 7.30 | 12.14 |
-| 49 | adjacent_line_padding | 48.7 | `seasonal` | (117.67, 413.07, 146.27, 425.34) | `donor` | (127.04, 406.77, 145.89, 419.04) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `observed` | (124.11, 368.99, 154.18, 381.26) | `donor` | (131.32, 375.29, 150.16, 387.56) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `donor` | (127.04, 406.77, 145.89, 419.04) | `n` | (129.96, 400.47, 134.07, 412.74) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `missing` | (129.23, 425.66, 154.15, 437.93) | `total` | (139.31, 431.96, 154.15, 444.23) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `coverage` | (130.57, 394.18, 160.69, 406.45) | `train` | (133.52, 387.88, 148.62, 400.15) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `coverage` | (130.57, 394.18, 160.69, 406.45) | `visible` | (136.13, 400.47, 156.87, 412.74) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `amplitude` | (148.33, 413.07, 181.12, 425.34) | `n` | (160.7, 419.36, 164.81, 431.63) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `metric` | (150.69, 387.88, 171.58, 400.15) | `resid` | (155.74, 381.58, 171.57, 393.85) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `fraction` | (156.22, 425.66, 181.14, 437.93) | `n` | (160.7, 419.36, 164.81, 431.63) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `fraction` | (156.25, 368.99, 181.17, 381.26) | `overlap` | (156.75, 362.69, 181.12, 374.96) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `donors` | (158.94, 400.47, 181.16, 412.74) | `mean` | (162.76, 394.18, 181.16, 406.45) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `mean` | (162.76, 394.18, 181.16, 406.45) | `sd` | (173.64, 387.88, 181.14, 400.15) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `max` | (167.06, 375.29, 181.19, 387.56) | `sd` | (173.63, 381.58, 181.13, 393.85) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.7 | `missing` | (156.21, 431.96, 181.13, 444.23) | `fraction` | (156.22, 425.66, 181.14, 437.93) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `fraction` | (156.22, 425.66, 181.14, 437.93) | `runs` | (166.88, 419.36, 181.15, 431.63) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `missing` | (156.21, 431.96, 181.13, 444.23) | `run` | (170.25, 438.26, 181.14, 450.53) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `sd` | (173.63, 381.58, 181.13, 393.85) | `sd` | (173.64, 387.88, 181.14, 400.15) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `donors` | (158.94, 400.47, 181.16, 412.74) | `mean` | (162.78, 406.77, 181.18, 419.04) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `fraction` | (156.25, 368.99, 181.17, 381.26) | `max` | (167.06, 375.29, 181.19, 387.56) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `overlap` | (156.75, 362.69, 181.12, 374.96) | `margin` | (158.27, 356.39, 181.17, 368.66) | 6.30 | 11.22 |
-| 49 | adjacent_line_padding | 48.6 | `amplitude` | (148.33, 413.07, 181.12, 425.34) | `runs` | (166.88, 419.36, 181.15, 431.63) | 6.30 | 11.22 |
+| 50 | atypical_box_geometry | 80.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `0` | (394.14, 389.14, 396.94, 398.96) | 1.92 | 9.46 |
+| 50 | atypical_box_geometry | 53.7 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `d` | (398.34, 386.52, 401.13, 396.33) | 4.54 | 9.46 |
+| 50 | atypical_box_geometry | 51.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `ann` | (400.98, 399.43, 409.26, 412.67) | 8.36 | 9.46 |
+| 52 | atypical_box_geometry | 50.7 | `certificate` | (218.3, 419.82, 257.77, 434.62) | `oracle` | (232.1, 427.12, 256.18, 441.91) | 7.30 | 7.96 |
+| 50 | atypical_box_geometry | 48.7 | `seasonal` | (117.67, 343.45, 146.27, 355.72) | `donor` | (127.04, 337.16, 145.89, 349.43) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `observed` | (124.11, 299.37, 154.18, 311.64) | `donor` | (131.32, 305.67, 150.16, 317.94) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `donor` | (127.04, 337.16, 145.89, 349.43) | `n` | (129.96, 330.86, 134.07, 343.13) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `missing` | (129.23, 356.05, 154.15, 368.32) | `total` | (139.31, 362.34, 154.15, 374.61) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `train` | (133.52, 318.27, 148.62, 330.54) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `visible` | (136.13, 330.86, 156.87, 343.13) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `amplitude` | (148.33, 343.45, 181.12, 355.72) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `metric` | (150.69, 318.27, 171.58, 330.54) | `resid` | (155.74, 311.97, 171.57, 324.24) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `fraction` | (156.25, 299.37, 181.17, 311.64) | `overlap` | (156.75, 293.08, 181.12, 305.35) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.76, 324.56, 181.16, 336.83) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `mean` | (162.76, 324.56, 181.16, 336.83) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `max` | (167.06, 305.67, 181.19, 317.94) | `sd` | (173.63, 311.97, 181.13, 324.24) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.7 | `missing` | (156.21, 362.34, 181.13, 374.61) | `fraction` | (156.22, 356.05, 181.14, 368.32) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `runs` | (166.88, 349.75, 181.15, 362.02) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `missing` | (156.21, 362.34, 181.13, 374.61) | `run` | (170.25, 368.64, 181.14, 380.91) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `sd` | (173.63, 311.97, 181.13, 324.24) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.78, 337.16, 181.18, 349.43) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `fraction` | (156.25, 299.37, 181.17, 311.64) | `max` | (167.06, 305.67, 181.19, 317.94) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `overlap` | (156.75, 293.08, 181.12, 305.35) | `margin` | (158.27, 286.78, 181.17, 299.05) | 6.30 | 9.46 |
+| 50 | atypical_box_geometry | 48.6 | `amplitude` | (148.33, 343.45, 181.12, 355.72) | `runs` | (166.88, 349.75, 181.15, 362.02) | 6.30 | 9.46 |
 | ... | | | 42 more pairs in the JSON | | | | | |
 
-Pair classification: `adjacent_line_padding` x63; `atypical_box_geometry` x4.
+Pair classification: `adjacent_line_padding` x2; `atypical_box_geometry` x65.
 
 #### `paper/wrr/wrr_supporting_information.pdf` — 14 pair(s)
 
@@ -427,10 +427,10 @@ The schematic list is explicit (see `SCHEMATIC_FIGURES` in the script, taken fro
 | `paper/wrr/figures/fig1_mechanism.pdf` | 1 | 1 | 16x308 | index | 300, 300 | ok |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 0 | 650x673 | index | 400, 400 | ok |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 1 | 31x625 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 47 | 0 | 650x673 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 47 | 1 | 31x625 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 49 | 2 | 317x427 | index | 324, 324 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 49 | 3 | 16x308 | index | 324, 324 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 48 | 0 | 650x673 | index | 400, 400 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 48 | 1 | 31x625 | index | 400, 400 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 50 | 2 | 317x427 | index | 324, 324 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 50 | 3 | 16x308 | index | 324, 324 | ok |
 
 ## 8. Printed size and effective text size (derived)
 

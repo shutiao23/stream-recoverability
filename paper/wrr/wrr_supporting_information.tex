@@ -6,9 +6,13 @@
 
 \usepackage{booktabs}
 \usepackage{microtype}
-\usepackage{seqsplit}
-\let\wrrtexttt\texttt
-\renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
+%% seqsplit breaks an unbreakable \texttt path under pdfLaTeX; its scanner fails
+%% under XeLaTeX, so the guard keeps any XeLaTeX rendering errors-free.
+\ifdefined\XeTeXversion\else
+  \usepackage{seqsplit}
+  \let\wrrtexttt\texttt
+  \renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
+\fi
 \setlength{\emergencystretch}{1.5em}
 \usepackage{amsmath}
 

@@ -18,9 +18,14 @@
 %% Long evidence paths must not run past the margin: microtype improves
 %% justification and seqsplit lets an unbreakable \texttt path break.
 \usepackage{microtype}
-\usepackage{seqsplit}
-\let\wrrtexttt\texttt
-\renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
+%% seqsplit lets an unbreakable \texttt path break, but its scanner fails under
+%% XeLaTeX, which the published layout uses; that layout is a rendering, so it
+%% keeps plain \texttt and the submission copy (pdfLaTeX) keeps the breaks.
+\ifdefined\XeTeXversion\else
+  \usepackage{seqsplit}
+  \let\wrrtexttt\texttt
+  \renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
+\fi
 \setlength{\emergencystretch}{3em}
 %% One line shorter than the class default: the last body line was landing in
 %% the footer band on two pages, overprinting the page number.
@@ -288,7 +293,7 @@ Daily water-temperature series were assembled from nine national providers: ARSO
 NVE (Norway), Rijkswaterstaat (Netherlands), SYKE (Finland) and the USGS (United
 States). Acquisition contracts differ, and we audited each one against the
 provider's own documentation
-(\texttt{results/wrr\_submission\_ready/measurement\_provenance\_dictionary.csv}).
+(\texttt{measurement\_provenance\_dictionary.csv}).
 Five providers document a daily mean and the parser reads it: USGS
 (\texttt{parameterCd=00010}, \texttt{statCd=00003}), FOEN
 (\texttt{data\_1day\_mean}), GKD Bayern (\texttt{Tageswerte}, column
@@ -356,7 +361,7 @@ A sealed confirmation was therefore recruited externally: 39 USGS
 HUC4 networks (91 stations; 18 HUC2 contexts; 8973 designed outage cases) that
 lie outside the v17/v18 development panel were ingested, hashed, and scored once
 with the frozen certificate
-(\texttt{results/wrr\_submission\_ready/p0\_07\_sealed\_confirmation/verdict.json}).
+(\texttt{p0\_07\_sealed\_confirmation/verdict.json}).
 At 70\% retention and $0.5\,^{\circ}$C the pooled contrast is about $-7.9$
 percentage points (clustered interval about $[-10.2,-5.8]$); the empirical arm
 is smaller but excludes zero (about $-1.7$ points, $[-3.0,-0.7]$). The panel is
@@ -387,7 +392,7 @@ pristine first confirmation. Section~\ref{sec:records} reports what it found.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f2_experiment_design.pdf}
-\caption{Study design and data flow from nine providers through quality control, the network stratified split, and the freeze. The v17 reserved panel is a retrospective holdout with mixed prior access; the sealed confirmation uses a separate USGS ingest outside the development panel, with a documented partial prior-use audit and a clean-subset diagnostic, plus a multi-agency transport panel with a labelled secondary NVE stratum.}
+\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access; the sealed USGS confirmation (39 networks, 8973 cases, with a repository-wide prior-access audit) and the pre-registered multi-agency transport panel (32 primary networks across three contexts, plus a 21-network secondary stratum) were recruited afterwards and scored once each. The same frozen configuration is then applied, without any truth, to the 2422 real incomplete station-years. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
 \label{fig:design}
 \end{figure}
 
@@ -564,7 +569,7 @@ trusted.
 
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{figures/f1_example.pdf}
-\caption{Two statistics, one record, two equal-length gaps. (a) A complete annual water-temperature record (CHMI Berounka, station 0-203-1-198600, 2013; n = 365 days, no missing day) with two designed 30-day gaps: gap A over the window that achieves the complete-record hottest 30-day mean (15 July to 13 August) and gap B in late autumn (1 to 30 November). The curve is dark where the gap leaves it observed and faint where the analyst would not see it. (b) Each gap's effect on each statistic, in $^{\circ}$C: dots are estimates from the days the gap leaves, open dots and dotted lines the complete-record truth (annual mean 10.05\,$^{\circ}$C, hottest 30-day mean 21.58\,$^{\circ}$C). The panels use different vertical scales and neither starts at zero, so the printed values carry the comparison: gap A moves the hottest 30-day mean by $-3.99\,^{\circ}$C while the same length in late autumn leaves it exact, whereas the annual mean moves by $-1.03$ and $+0.24\,^{\circ}$C. (c) All 336 possible 30-day gap starts of the same year, showing the error each position induces in the hottest 30-day mean (orange) and the annual mean (blue); the shaded band holds starts whose window reaches the peak window. An illustration on one real record, not a result: no model, no population estimate, no test.}
+\caption{Two statistics, one record, two equal-length gaps. (a) A complete annual water-temperature record (CHMI Berounka, station 0-203-1-198600, 2013; n = 365 days, no missing day) with two designed 30-day gaps: gap A over the window that achieves the complete-record hottest 30-day mean (15 July to 13 August) and gap B in late autumn (1 to 30 November). The curve is dark where the gap leaves it observed and faint where the analyst would not see it. (b) Each gap's effect on each statistic, in $^{\circ}$C: dots are estimates from the days the gap leaves, open dots and dotted lines the complete-record truth (annual mean 10.05\,$^{\circ}$C, hottest 30-day mean 21.58\,$^{\circ}$C). The panels use different vertical scales and neither starts at zero, so the printed values carry the comparison: gap A moves the hottest 30-day mean by $-3.99\,^{\circ}$C while the same length in late autumn leaves it exact, whereas the annual mean moves by $-1.03$ and $+0.24\,^{\circ}$C. (c) All 336 possible 30-day gap starts of the same year, showing the error each position induces in the hottest 30-day mean (orange) and the annual mean (blue); the shaded band holds starts whose window reaches the peak window. An illustration on one real record, not a result: no model, no population estimate, no test. Source data: \texttt{figures/wrr/f1\_example\_data.json} and \texttt{f1\_example\_sweep.csv}.}
 \label{fig:frame}
 \end{figure}
 
@@ -614,7 +619,7 @@ coldest 30-day mean & 0.447 & 0.619 & 0.803 & $-0.184$ ($-0.228$, $-0.156$) \\
 \centering
 \includegraphics[width=0.95\textwidth]{figures/f2a_endpoint_ordering.pdf}
 \includegraphics[width=0.95\textwidth]{figures/f2b_panel_heterogeneity.pdf}
-\caption{The same screening gain, ordered two ways. (a) Discrimination of a consequential error by endpoint, as the AUC difference between the best timing axis and the outage-length rule, with network-clustered 95\% intervals; positive means the timing axis wins. The five endpoints reverse: the two extremes sit on the positive side, the annual mean and cold extreme on the negative side, with the amplitude between them. (b) The pooled contrast (certificate rate minus length-rule rate, percentage points; negative favours the screen) for every evidence panel in this study: retrospective development and reserved panels (grey), the sealed USGS confirmation with its arm and clean-subset variants (blue), and the pre-registered multi-agency transport panel with its providers and the NVE secondary stratum (orange). The dashed line is the pre-declared $\Delta=-1.0$ point threshold; intervals are network-clustered 95\%.}
+\caption{The same screening gain, ordered two ways. (a) Discrimination of a consequential error by endpoint, as the AUC difference between the best timing axis and the outage-length rule, with network-clustered 95\% intervals; positive means the timing axis wins. The five endpoints reverse: the two extremes sit on the positive side, the annual mean and cold extreme on the negative side, with the amplitude between them. (b) The pooled contrast (certificate rate minus length-rule rate, percentage points; negative favours the screen) for every evidence panel in this study: retrospective development and reserved panels (grey), the sealed USGS confirmation with its arm and clean-subset variants (blue), and the pre-registered multi-agency transport panel with its providers and the NVE secondary stratum (orange). The dashed line is the pre-declared $\Delta=-1.0$ point threshold; intervals are network-clustered 95\%. Source data: \texttt{figures/wrr/f2\_heterogeneity\_data.json}.}
 \label{fig:hetero}
 \end{figure}
 
@@ -658,7 +663,7 @@ exploratory scale, not a proven universal dichotomy.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv3_support_law.pdf}
-\caption{Exploratory continuum on the opened panel (not the sealed USGS confirmation). (a) Advantage of a fixed 30-day peak window over whole-year completeness versus support width, with network-clustered intervals; the crossing is located between 60 and 182 days (bootstrap 95\% interval $[77,107]$ days) and the 90-day grid point is indistinguishable from zero. (b) AUC for every estimand against every conditioning window. (c) Sine-fit parameters of Johnson et al. (2021), by axis.}
+\caption{The transition is continuous, and it is the estimand's support that decides. Exploratory results from the opened panel, not the sealed USGS confirmation. (a) Advantage in AUC of a fixed 30-day peak window over whole-year completeness, against the support width $k$ of the estimand (1 to 365 days), development cases; the crossing is an interval, 77 to 107 days, and the sign is reversed for $k=182$ and $k=365$ days. (b) AUC of each conditioning axis for each estimand, so that the reversal can be read column by column; intervals are network-clustered 95\%. (c) The same axes for the three sine-fit parameters of the standing guidance, each evaluated at 0.47 of its own interannual standard deviation. Because the support of a year must be located before it can be conditioned on, the useful conditioning window is wider than the statistic itself, which is why a fixed narrow window turns over. Source data: \texttt{results/v18\_closure/e6\_support\_width/} and \texttt{e3\_sine\_endpoints/}.}
 \label{fig:law}
 \end{figure}
 
@@ -796,7 +801,7 @@ agency recommendations.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv1_outage_seasonality.pdf}
-\caption{(a) Start month of 6472 real interior gaps by length class; long outages begin in autumn and winter (descriptive). (b) Exploratory maintenance-calendar counterfactual after multi-year placement correction; not a verified operational benefit.}
+\caption{The gap calendar these networks actually keep. (a) Start month of the 6472 real interior gaps found in complete years, split by length class: 5246 gaps of 1--7 days, 760 of 8--29 days, 282 of 30--89 days and 184 of 90 days or longer (median gap 2 days, 95th percentile 43 days). Long outages begin in autumn and winter, which is where the peak window is not; 55.8\% of them ($[50.9,60.9]$\%, 99 network clusters) hide less than half of the climatological peak window. (b) Exploratory maintenance-calendar counterfactual: consequential-error rate for 32\,240 outage placements drawn from the observed calendar, the maintenance calendar, and a uniform calendar after the multi-year placement correction of the amendment; differences are within the interval, so no maintenance benefit is claimed. Descriptive and exploratory, not a sealed result. Source data: \texttt{results/v18\_closure/e1\_outage\_seasonality/}.}
 \label{fig:season}
 \end{figure}
 
@@ -823,7 +828,7 @@ single number.
 
 \subsection{The mechanism: hidden support and donor information control the error}
 
-Two measurable quantities explain the pattern: the share of the estimand's own
+Two measurable quantities organise the pattern: the share of the estimand's own
 support that a gap hides, which enters the error through the influence function
 of the statistic, and the synchronous anomaly information the surrounding
 stations carry. Both are visible at decision time, and neither is a restatement
@@ -916,7 +921,7 @@ so donors supply synchronous anomaly information and not merely a seasonal shape
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/fig1_mechanism.pdf}
-\caption{Mechanism on development cases (n = 40 704 cases, 110 networks; error bars are network-clustered 95\% intervals unless a panel says otherwise): the length-by-overlap reversal (a), nested feature sets with out-of-fold AUC (b), permutation importance of the decision-time features (c), and the endpoint dependence of the winning axis (d).}
+\caption{Why position dominates: hidden support, not outage length, carries the error. Development cases (n = 40\,704 cases, 110 networks); error bars are network-clustered 95\% intervals unless a panel says otherwise. (a) Growth of consequential error along each axis with the other averaged out, computed in bins of both properties: the hottest 30-day mean grows $9.6\times$ along peak-window overlap and $3.5\times$ along missing days, while the annual mean reverses the two ($1.5\times$ and $10.2\times$). (b) Out-of-fold AUC of nested feature sets grouped by network, from outage length alone (0.742) through support (0.845) and observed-peak margin (0.858) to donor quality (0.884). (c) Permutation importance of the decision-time features; once the support is in the model, outage length adds nothing measurable ($-0.004$ against 0.194 for peak-window overlap). (d) The winning axis by endpoint, the reversal of the main figure computed on the same cases. Source data: \texttt{results/v17\_fitness/step5\_mechanism/} and \texttt{step22\_robustness/}.}
 \label{fig:mech}
 \end{figure}
 
@@ -943,7 +948,7 @@ distrust the frontier.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/fig3_calibration.pdf}
-\caption{Calibration diagnostics on held-out cases: coverage by donor-regime stratum at the nominal 0.90 level, with the 0.90 line (a); interval width ($^{\circ}$C) against the share of the peak window the gap hides, with network-clustered bands (b); and the width price of a site-level rather than pooled guarantee (c). Development cases unless a panel is labelled otherwise; the site-level comparison is exploratory because its level was chosen on the opened reserved panel.}
+\caption{Is the predicted error bound honest enough to rank station-years? (a) Coverage of the nominal 90\% interval by donor-regime stratum on the reserved panel: 90.9\% marginally, inside the pre-declared 0.87--0.93 band, and 86.3--94.9\% within every pre-declared stratum; the dashed line is the nominal level. (b) Interval width in $^{\circ}$C against the share of the peak window the gap hides, from 0.06\,$^{\circ}$C when the window is untouched to 1.87\,$^{\circ}$C when most of it is hidden, with network-clustered bands, so the bound tracks the quantity it is meant to bound. (c) Width price of a site-level rather than pooled guarantee: the site-level quantiles reach no network below 0.85 at a 1.5-fold widening, but that level was chosen on the opened reserved panel and stays exploratory. Development cases unless a panel says otherwise. Source data: \texttt{results/v17\_fitness/step8\_conformal/} and \texttt{amendments/e6\_support\_width\_uncertainty/}.}
 \label{fig:calib}
 \end{figure}
 
@@ -1000,7 +1005,7 @@ earlier version of this analysis assumed --- it admits 85\% of cases rather than
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/fig2_frontier.pdf}
-\caption{Retention-error frontier on development cases (a) and on the reserved panel (b).}
+\caption{What equal retention costs under each admission rule. (a) Development cases (n = 40\,704 cases, 110 networks): the share of retained station-years whose hottest 30-day mean is wrong by more than 0.5\,$^{\circ}$C, against the share of station-years retained, for random retention (grey), the gap-length rule (orange), peak-window overlap alone (blue) and the calibrated screen (black). (b) The same curves on the 36-network reserved panel (10\,820 cases), which was opened once after the configuration was frozen. Curves are network-clustered means with 95\% bands; the square marks the operating point quoted in the text, 70\% retention, where the screen leaves 2.5\% against 9.7\% for the length rule, a contrast of $-7.13$ points ($[-8.97,-5.36]$). Source data: \texttt{results/v17\_fitness/step4\_ceiling/} and \texttt{step10\_confirmation/}.}
 \label{fig:frontier}
 \end{figure}
 
@@ -1172,7 +1177,7 @@ it into the judgement an agency actually makes.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv2_archive_deployment.pdf}
-\caption{The rules on 2422 real incomplete station-years. (a) Agreement and disagreement at each published limit. (b) Transported risk of each admitted set. (c) Station-years admitted with the peak window more than half, or wholly, unobserved.}
+\caption{What the two admission rules do to records that really have gaps. (a) The length rule and the support screen applied to the 2422 incomplete station-years of this archive that have never been decided (of 7536 station-years in total, 5114 of them complete): they disagree on 15.1\% of admissions ($[13.4,16.8]$\%, 136 network clusters), and on 8.5\% the length rule admits a year whose climatological peak window is more than half hidden. (b) Predicted, not observed, consequential error for each admitted set (there is no truth in these years); the screen's admitted set is the more conservative one, and the prediction is miscalibrated by at most 6.2 points in its worst decile. (c) Station-years the length rule admits with more than half of the peak window hidden (n = 261); 28.7\% of the 2422 years hide at least one day of the climatological peak window (median 9 missing days, 90th percentile 128). ``Peak window'' here is the climatological window from the station's earlier years, a proxy: the positive predictive value of that proxy for a wholly unobserved realised peak is 0.74 on designed cases. Source data: \texttt{results/v18\_closure/e2\_archive\_deployment/}.}
 \label{fig:deploy}
 \end{figure}
 
@@ -1204,7 +1209,7 @@ an agency that cares about both must declare both.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv4_representativeness.pdf}
-\caption{(a) Consequential-error rate against the correlation between station retention and site elevation, reserved panel. (b) Retention by elevation tertile under three rules.}
+\caption{Which station-years the screen costs, and what balancing them would cost. (a) Across the development networks, the higher the correlation between a station's retention and its site elevation, the larger the consequential-error rate under the calibrated screen ($\rho=-0.259$, $p=0.011$, 43 stations with GAGES-II attributes); the screen appears to select on difficulty, which tracks catchment type. (b) On the reserved panel, retention by elevation tertile under the length rule, the calibrated screen and the screen with thresholds fitted within strata: the screen retains 10.8 points fewer high-elevation station-years than low-elevation ones ($[-15.4,-0.3]$, 36 network clusters), and balancing on elevation recovers that at a cost of 0.31 points of consequential error. Bars are network-clustered 95\% intervals. Source data: \texttt{results/v18\_closure/e4\_representativeness/} and \texttt{amendments/faithful\_baseline/}.}
 \label{fig:repr}
 \end{figure}
 
@@ -1612,7 +1617,7 @@ retrieval date). One, LUBW, reserves copyright: its raw values are therefore
 available only through LUBW's own service; the analysis reads them locally and
 reports derived statistics. Licences, acquisition routes and verbatim evidence
 are in \texttt{metadata/data\_rights.csv},
-\texttt{results/wrr\_submission\_ready/measurement\_provenance\_dictionary.csv}
+\texttt{measurement\_provenance\_dictionary.csv}
 and \texttt{current\_data\_acquisition.csv}. Station coordinates are from those
 providers' own catalogues, the USGS NWIS site service, and ARSO's public station
 feed. Daily 2\,m air temperature is NASA POWER (MERRA-2)
@@ -1621,19 +1626,23 @@ feed. Daily 2\,m air temperature is NASA POWER (MERRA-2)
 All analysis code, derived artifacts, figures, the editable draw.io sources of
 the schematic figures and the frozen pre-registration are in the accompanying
 repository. A claim registry
-(\texttt{results/wrr\_submission\_ready/claim\_registry.csv}) records each
+(\texttt{claim\_registry.csv}) records each
 headline claim's artifact, endpoint, unit, denominator, evidence type and
 whether it may enter the abstract or conclusions. An automated audit checks a
 declared set of archived manuscript numbers against artifacts; it is not yet a
 full semantic binding of every live \TeX\ numeral. Input-file hashes for the
 146 study networks are in
-\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}. A permanent
-archive of the repository and a DOI will be deposited on acceptance.
+\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}. Source data
+for the figures are deposited with the analysis: the schematic figures are
+draw.io files (\texttt{figures/v17/drawio/}), and every data figure names its
+source artifact in its caption, with the plotted values and their input hashes
+also written to \texttt{figures/wrr/}. A permanent archive of the repository
+and a DOI will be deposited on acceptance.
 
 \section*{Acknowledgments}
 
 Acknowledgments and funding statements pending author confirmation; see
-\texttt{paper\_archived/author\_information\_required.md} in the repository. The
+\texttt{author\_information\_required.md} in the repository. The
 authors declare no competing interests.
 
 \bibliography{references}
