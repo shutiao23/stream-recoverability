@@ -17,7 +17,7 @@ Archived inputs (no model refits are needed):
 
 The default handlers (climatology, linear interpolation) are scored by
 replaying the archived inner-fit geometry, so model and default sides are
-paired by construction.  G1-G4 verdicts follow paper/v14_plan/PLAN.md §3.4
+paired by construction.  G1-G4 verdicts follow paper_archived/v14_plan/PLAN.md §3.4
 and are frozen here; no thresholds are relaxed after the fact.
 
 Outputs (results/v14/p0_differential/):
@@ -691,7 +691,7 @@ def main() -> None:
         "fallback) and applied forward to the outer evaluation placements.",
         "Realized benefit on evaluation placements uses the climatology",
         "default estimated on the outer training years (archived placement",
-        "tables).  Gates follow paper/v14_plan/PLAN.md section 3.4; all",
+        "tables).  Gates follow paper_archived/v14_plan/PLAN.md section 3.4; all",
         "thresholds were frozen before this run.",
         "",
     ]

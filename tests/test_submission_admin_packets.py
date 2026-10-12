@@ -37,7 +37,7 @@ def test_four_administrative_blockers_remain_open() -> None:
         (ROOT / "metadata/gems_reviewer_data_upload.json").read_text(encoding="utf-8")
     )
     citation = yaml.safe_load((ROOT / "CITATION.cff").read_text(encoding="utf-8"))
-    request = (ROOT / "paper/editor_data_exception_request.md").read_text(
+    request = (ROOT / "paper_archived/editor_data_exception_request.md").read_text(
         encoding="utf-8"
     )
     assert approval.get("accepted") is not True

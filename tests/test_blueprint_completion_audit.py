@@ -40,8 +40,8 @@ def test_blueprint_audit_covers_every_declared_requirement() -> None:
 def test_blueprint_audit_evidence_paths_exist_when_file_backed() -> None:
     audit = _load_module().build_audit()
     directory_evidence = {
-        "paper/case_study_v1/",
-        "paper/main_v9/",
+        "paper_archived/case_study_v1/",
+        "paper_archived/main_v9/",
         "results/framework/t2_outage_geometry_v1/",
         "data_versions/global_network_corpus_v1/qualified_corpus_v1/",
     }

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "paper/study_manifest.json"
+MANIFEST = ROOT / "paper_archived/study_manifest.json"
 
 
 def validate_study_manifest(repo_root: Path = ROOT) -> dict:
@@ -44,10 +44,10 @@ def validate_study_manifest(repo_root: Path = ROOT) -> dict:
         errors.append(f"v10 executable protocol missing: {v10}")
     forbidden_v4 = v4.get("forbidden_evidence_from", [])
     forbidden_v9 = v9.get("forbidden_evidence_from", [])
-    if "paper/main_v9" not in forbidden_v4:
-        errors.append("v4 must forbid evidence from paper/main_v9")
-    if "paper/case_study_v1" not in forbidden_v9:
-        errors.append("v9 must forbid evidence from paper/case_study_v1")
+    if "paper_archived/main_v9" not in forbidden_v4:
+        errors.append("v4 must forbid evidence from paper_archived/main_v9")
+    if "paper_archived/case_study_v1" not in forbidden_v9:
+        errors.append("v9 must forbid evidence from paper_archived/case_study_v1")
 
     # Current-state artifacts must agree even though the frozen v10 YAML keeps
     # its pre-unseal state as an immutable protocol record.

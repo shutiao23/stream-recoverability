@@ -15,10 +15,10 @@ OUTPUT = ROOT / "results/development_v11/reviewer_completion"
 
 def main() -> None:
     summary = json.loads((OUTPUT / "summary.json").read_text(encoding="utf-8"))
-    manuscript = (ROOT / "paper/development_v11/manuscript.md").read_text(
+    manuscript = (ROOT / "paper_archived/development_v11/manuscript.md").read_text(
         encoding="utf-8"
     )
-    references = (ROOT / "paper/references.bib").read_text(encoding="utf-8")
+    references = (ROOT / "paper_archived/references.bib").read_text(encoding="utf-8")
     protocol = yaml.safe_load(
         (ROOT / "configs/route_a_second_confirmation_protocol.yaml").read_text(
             encoding="utf-8"

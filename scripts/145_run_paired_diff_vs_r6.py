@@ -6,7 +6,7 @@ placement-level, duration-stratified paired comparison of the differential
 benefit curve (diff_prediction) against the r6-diff station-history
 baseline (r6_diff_prediction), with a network-cluster bootstrap.  The
 numbers were independently produced by the adversarial reviewer
-(paper/v14_plan/REVIEW_v14.md section 1.1) and are here fixed as a
+(paper_archived/v14_plan/REVIEW_v14.md section 1.1) and are here fixed as a
 reproducible script + CSV + tests.
 
 Outputs (results/v14/p0_differential/):
@@ -933,11 +933,11 @@ def write_revision_log(gates_v2: dict[str, object]) -> None:
         "# Gate revision log v2 (2026-09-03)",
         "",
         "Status: revision of the v14 GO gates G2/G3 after the adversarial "
-        "review (paper/v14_plan/REVIEW_v14.md, Major 1).  The original "
+        "review (paper_archived/v14_plan/REVIEW_v14.md, Major 1).  The original "
         "`gates.json` and `REPORT.md` were left untouched as the historical "
         "record; this file and `gates_v2.json` are the revision trail.",
         "",
-        "## 1. Original definitions (paper/v14_plan/PLAN.md, section 3.4, "
+        "## 1. Original definitions (paper_archived/v14_plan/PLAN.md, section 3.4, "
         "frozen before P0)",
         "",
         "> - **G1** 收益排序的网络级 Spearman ≥ 0.35,且配对 bootstrap 95% "
@@ -1053,7 +1053,7 @@ def write_revision_log(gates_v2: dict[str, object]) -> None:
         "revision.  This is the honest-labeling practice of Pfister & "
         "Kirchner (2017, WRR 53(3), 'Debates - Hypothesis testing in "
         "hydrology: theory and practice', key pfister2017debates in "
-        "paper/references.bib): the revision is disclosed, dated, and "
+        "paper_archived/references.bib): the revision is disclosed, dated, and "
         "ordered relative to the evidence it reinterprets.",
         "",
         "## 4a. Round-2 extension (2026-09-04): 14/60-d fitted durations",

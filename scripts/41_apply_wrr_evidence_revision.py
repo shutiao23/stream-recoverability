@@ -46,7 +46,7 @@ ROOT = PROJECT_ROOT
 REVISION = ROOT / "results/revision"
 ANALYSIS = ROOT / "results/analysis"
 PANEL = ROOT / "results/regulation_panel_v1_legacy_transport"
-TABLES = ROOT / "paper/tables"
+TABLES = ROOT / "paper_archived/tables"
 FIGURES = ROOT / "figures/main"
 
 
@@ -173,7 +173,7 @@ def _refresh_publication_manifests() -> None:
     for key, relative in (
         ("analysis_manifest", "results/revision/revision_analysis_manifest.json"),
         ("figure_manifest", "figures/main/figure_manifest.json"),
-        ("table_manifest", "paper/tables/table_manifest.json"),
+        ("table_manifest", "paper_archived/tables/table_manifest.json"),
         (
             "regulation_panel_manifest",
             "results/regulation_panel_v1_legacy_transport/artifact_manifest.json",

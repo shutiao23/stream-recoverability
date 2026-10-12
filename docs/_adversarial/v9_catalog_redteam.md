@@ -2,13 +2,13 @@
 
 Date: 2026-08-26
 Role: attack completeness, overclaim, and hidden shrinkage. Not a patch.
-Target: `src/stream_recoverability/data/public_river_inventory.py` `cluster_rivers_from_catalog`, `results/framework/public_catalog/usgs_river_clusters.csv`, `results/framework/public_catalog/feasibility_decision.md`, `configs/design_freeze_v9.yaml` `inventory_targets` / `never_sealed_networks`, `paper/next/results.md` (31 USGS / 6 concurrent).
+Target: `src/stream_recoverability/data/public_river_inventory.py` `cluster_rivers_from_catalog`, `results/framework/public_catalog/usgs_river_clusters.csv`, `results/framework/public_catalog/feasibility_decision.md`, `configs/design_freeze_v9.yaml` `inventory_targets` / `never_sealed_networks`, `paper_archived/next/results.md` (31 USGS / 6 concurrent).
 v2 cluster files: **do not exist**. No `usgs_river_clusters_v2.csv`, no second clustering function, no HUC8 expander, no quality-flag table. This pass attacks the algorithm that would be reused, plus the required algorithm Phase 3 still owes.
 Sealed last-check temperatures were not opened for this review.
 
 ## Verdict
 
-Phase 3 did not ship a catalog expansion. It left a name-plus-broken-prefix grouper that scores **catalog date-span intersection**, then wrote **31** as the method-eligible USGS ceiling. `paper/next/results.md` is honest about the 12→6 collapse after download. `feasibility_decision.md` and `national_catalog.json` are not: they still treat those 31 span-overlap groups as rivers you can use to fit or lock. Six of the 31 were already downloaded and failed same-day four-station overlap. Several of the remaining 25 are not the same river, not four stations, or not alive in 2000–2024.
+Phase 3 did not ship a catalog expansion. It left a name-plus-broken-prefix grouper that scores **catalog date-span intersection**, then wrote **31** as the method-eligible USGS ceiling. `paper_archived/next/results.md` is honest about the 12→6 collapse after download. `feasibility_decision.md` and `national_catalog.json` are not: they still treat those 31 span-overlap groups as rivers you can use to fit or lock. Six of the 31 were already downloaded and failed same-day four-station overlap. Several of the remaining 25 are not the same river, not four stations, or not alive in 2000–2024.
 
 HUC8-only grouping was **not** implemented. The live rule is `river_name` + first two characters of an **unpadded** HUC string. That is neither HUC2 nor HUC8. Switching to HUC8-only, as a v2 might, would split real mainstems and glue tributaries. Do not “fix” 31 by cutting HUC8s.
 
@@ -23,7 +23,7 @@ Present:
 - `cluster_rivers_from_catalog` (`public_river_inventory.py:517-580`): groupby `(river_name, huc.str[:2])`; `enough_overlap_years` = `(min end − max begin) ≥ 8`.
 - `results/framework/public_catalog/usgs_river_clusters.csv`: 49 rows with ≥4 long series; 31 with `enough_overlap_years=True`.
 - `feasibility_decision.md`: headline 31; table **30** rows (`scripts/49_national_temperature_catalog.py:87` slices `build[:30]`; Animas 8.51 yr is dropped).
-- `paper/next/results.md:7-21`: 3995 series / 1648 with ≥8 yr span / 31 span groups / 12 downloaded / 6 concurrent-enough.
+- `paper_archived/next/results.md:7-21`: 3995 series / 1648 with ≥8 yr span / 31 span groups / 12 downloaded / 6 concurrent-enough.
 - Freeze `never_sealed_networks` (`design_freeze_v9.yaml:139-153`): Jinsha, Chattahoochee, and the 12 downloaded IDs. Loire / Swiss on `not_countable_as_public_daily_or_non_na_sealed_until_daily_history_is_public`.
 - `inventory_targets.independent_networks: [150, 250]` (`yaml:168-186`) still labeled as design targets, not current stock.
 
@@ -60,7 +60,7 @@ complete_enough = (years >= 8) and (good.sum() >= 5 * 365)
 
 `results/framework/public_rivers/overlap.csv` already applied that rule to the 12. Only Delaware, Willamette, Madison, Mahoning, Roanoke, Santa Fe pass. Suwannee, Yellowstone, Rio Grande, Cahaba, McKenzie, Clearwater fail. Clearwater fails by **one day** (1824 vs 1825). Yellowstone has catalog span 19.1 yr and 1350 concurrent-four-station days.
 
-`paper/next/results.md:17-21` writes this collapse in plain language. The catalog artifacts do not:
+`paper_archived/next/results.md:17-21` writes this collapse in plain language. The catalog artifacts do not:
 
 | Artifact | What it still says |
 | --- | --- |
@@ -130,7 +130,7 @@ Name + real HUC2 is not enough either. It correctly splits White River AR (`huc1
 Honest in this pass:
 
 - `feasibility_decision.md:9-10,53-67`: Hub'Eau 871 / Loire-exact 11 with `None–None` dates; FOEN 246 names; “这次没有日均水温.”
-- `paper/next/results.md:11-12`: no date spans; Swiss daily must be ordered; not downloaded.
+- `paper_archived/next/results.md:11-12`: no date spans; Swiss daily must be ordered; not downloaded.
 - `loire_hubeau_stations.csv`: 11 rows, empty `begin`/`end`.
 - Freeze `not_countable_as_public_daily_or_non_na_sealed_until_daily_history_is_public`.
 - `network_catalog_v1.yaml` Loire / Swiss: `catalog_names_only_no_date_span` / `locations_only_daily_history_not_public`, `use: last_check`.
@@ -180,7 +180,7 @@ Residual: `09379500` (San Juan near Bluff) is a **sealed Colorado** candidate (`
 
 ## 6. 150 is not written as if it exists. It is still written as if Phase 3 will produce it.
 
-`paper/next/results.md`, `paper/next/claim_matrix.md`, `paper/next/manuscript_skeleton.md`, and charter §现在做到哪 do **not** claim 150 rivers are in hand. They write 31 / 12 / 6 and “没有 150 条河.”
+`paper_archived/next/results.md`, `paper_archived/next/claim_matrix.md`, `paper_archived/next/manuscript_skeleton.md`, and charter §现在做到哪 do **not** claim 150 rivers are in hand. They write 31 / 12 / 6 and “没有 150 条河.”
 
 What is still wrong for Phase 3:
 
@@ -263,4 +263,4 @@ Forbidden in v2:
 
 ## What this pass does not claim
 
-`paper/next/results.md` did not pretend the 31 were already download-concurrent. It did not write 150 as stock. It did not score Loire/Swiss daily. The 12 burned rivers were not moved to sealed, and last-check daily files are not in `data/public_rivers/nwis/`. Those are the honest sentences. They do not make the 31 a corpus, and they do not replace the missing v2 algorithm.
+`paper_archived/next/results.md` did not pretend the 31 were already download-concurrent. It did not write 150 as stock. It did not score Loire/Swiss daily. The 12 burned rivers were not moved to sealed, and last-check daily files are not in `data/public_rivers/nwis/`. Those are the honest sentences. They do not make the 31 a corpus, and they do not replace the missing v2 algorithm.

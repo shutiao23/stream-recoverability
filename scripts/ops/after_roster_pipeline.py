@@ -714,7 +714,7 @@ def fill_results(status: dict[str, Any]) -> bool:
     roster = roster_doc()
     top = read_json(frozen_dir(PRIMARY_DATA_VERSION) / "top_manifest.json") or {}
     analysis_dir = ROOT / "results/analysis"
-    tables = ROOT / "paper/tables"
+    tables = ROOT / "paper_archived/tables"
     r1 = (
         f"The primary aggregate manifest reports schema {top.get('schema_version')}, "
         f"formal_design_complete={top.get('formal_design_complete')}, "
@@ -804,7 +804,7 @@ def fill_results(status: dict[str, Any]) -> bool:
     a2 = (
         "Archived scientific artifacts are the finalized roster, the four frozen "
         "aggregates under results/frozen/, results/analysis/analysis_manifest.json, "
-        "and generated paper/tables files whose status is generated. Restricted hydrology "
+        "and generated paper_archived/tables files whose status is generated. Restricted hydrology "
         "and CMA/GSOD-matched columns are not redistributed."
     )
     mapping = {
@@ -830,7 +830,7 @@ def fill_results(status: dict[str, Any]) -> bool:
         "A1_CODE_ARCHIVE": a1,
         "A2_RESULT_ARTIFACTS": a2,
     }
-    manuscript = ROOT / "paper/manuscript.md"
+    manuscript = ROOT / "paper_archived/manuscript.md"
     original = manuscript.read_text(encoding="utf-8")
 
     def replace(match: re.Match[str]) -> str:
@@ -877,7 +877,7 @@ def update_readme_after_roster() -> None:
             "current_protocol_result_claims": "none",
         }
     )
-    cover = ROOT / "paper/cover_letter.md"
+    cover = ROOT / "paper_archived/cover_letter.md"
     text = cover.read_text(encoding="utf-8")
     old = (
         "README evidence status remains `validation_funnel=pending_execution` "

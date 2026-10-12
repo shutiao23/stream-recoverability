@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write paper/next/results.md from the files we actually have. No invented scores."""
+"""Write paper_archived/next/results.md from the files we actually have. No invented scores."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "results/framework/public_catalog"
 RIVERS = ROOT / "results/framework/public_rivers"
-DEST = ROOT / "paper/next/results.md"
+DEST = ROOT / "paper_archived/next/results.md"
 
 
 def _read_json(path: Path) -> dict:

@@ -40,7 +40,7 @@ def test_design_freeze_v10_is_executable_charter_not_v4_replacement() -> None:
 
 
 def test_main_v9_results_registry_records_failed_sealed_qc_gate() -> None:
-    reg = json.loads((ROOT / "paper/main_v9/results_registry.json").read_text(encoding="utf-8"))
+    reg = json.loads((ROOT / "paper_archived/main_v9/results_registry.json").read_text(encoding="utf-8"))
     assert reg["formal_evidence"] is False
     assert reg["sealed_outcomes_opened"] is True
     assert reg["confirmatory_scoring_performed"] is False
@@ -104,7 +104,7 @@ def test_qualified_catalog_has_exclusion_and_balance_audits() -> None:
 
 def test_case_study_v1_package_manifest() -> None:
     pkg = json.loads(
-        (ROOT / "paper/case_study_v1/package_manifest.json").read_text(encoding="utf-8")
+        (ROOT / "paper_archived/case_study_v1/package_manifest.json").read_text(encoding="utf-8")
     )
     assert pkg["design_id"] == "design_freeze_v4"
     assert pkg["lineage"] == "case_study_v4"

@@ -42,7 +42,7 @@ That is an accounting identity, not an identification. `test_bias_terms_split_ol
 
 At \(d=14\), turning orthogonality **off** *shrinks* \(|\varepsilon_\perp|\). The “grows” test is a \(d=30\) window. There is no reported \(\Delta\varepsilon_\perp\), no predeclared two-sided remainder, and no third column for ACF / topology misspecification.
 
-`epsilon_d_over_4` always uses scalar \(\varphi=|A_{00}|\) and `jensen_acf_gap`. On `advection_chain` and `endpoint_*` that AR(1) story is false, so the misspecification is dumped into \(\varepsilon_\perp\) (advection \(d=14\): \(\varepsilon_\perp=-0.155\)). `paper/theory.md` limitations say \(\varepsilon_\perp\) absorbs the two-sided remainder. They do not say it absorbs a wrong ACF.
+`epsilon_d_over_4` always uses scalar \(\varphi=|A_{00}|\) and `jensen_acf_gap`. On `advection_chain` and `endpoint_*` that AR(1) story is false, so the misspecification is dumped into \(\varepsilon_\perp\) (advection \(d=14\): \(\varepsilon_\perp=-0.155\)). `paper_archived/theory.md` limitations say \(\varepsilon_\perp\) absorbs the two-sided remainder. They do not say it absorbs a wrong ACF.
 
 `test_high_donor_high_memory_forces_the_hard_label` only asserts the heuristic identity. It does not assert operator \(V_B(\mathcal R)>0\) in the degeneration region. CSV at mixed \(d=30\): \(\mathcal R(B\cup D)=0.661\), heuristic forced. Remaining boundary value is untested.
 

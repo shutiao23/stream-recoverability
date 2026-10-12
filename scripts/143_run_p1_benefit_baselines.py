@@ -4,7 +4,7 @@
 P0 (scripts/140_run_p0_differential_stress.py) built a fitting-period
 differential benefit curve (benefit = MAE(climatology default) - MAE(model))
 and scored it forward on the outer evaluation placements.  P1 adds the
-Tier-0 trivial baselines of paper/v14_plan/PLAN.md section 4 and evaluates
+Tier-0 trivial baselines of paper_archived/v14_plan/PLAN.md section 4 and evaluates
 them on exactly the same evaluation placements:
 
   * R&H gamma_m (Richardson & Hollinger 2007 prior technique, PLAN 4.3):

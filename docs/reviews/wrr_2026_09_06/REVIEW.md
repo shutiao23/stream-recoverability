@@ -1,6 +1,6 @@
 WRR 对抗式实验设计评审，2026-09-06
 
-本评审采用严格的水文学同行评议口吻，不代表杨大文教授本人，也不是期刊已经作出的决定。评审对象是已并入 v15 结果的 [当前主稿](../../../paper/v14_plan/manuscript_v14_skeleton.md)，结合 protocol_v5.md、v14/v15 实验表及必要的实验实现定义。复算限于已有数据表，没有训练新模型，没有修改原论文及原实验结果。代码是否整洁、归档流程是否漂亮，不计入下面的评价。
+本评审采用严格的水文学同行评议口吻，不代表杨大文教授本人，也不是期刊已经作出的决定。评审对象是已并入 v15 结果的 [当前主稿](../../../paper_archived/v14_plan/manuscript_v14_skeleton.md)，结合 protocol_v5.md、v14/v15 实验表及必要的实验实现定义。复算限于已有数据表，没有训练新模型，没有修改原论文及原实验结果。代码是否整洁、归档流程是否漂亮，不计入下面的评价。
 
 **我的审稿建议是拒稿，完成实质性实验后重新投稿。** 目前没有理由建议接收或小修；若编辑愿意把文章限制为特定恢复流程下的经验性研究，也可能给大修，但所需工作已超出文字修改。WRR 官方强调 novelty、accuracy、significance 和 broader implications；这里欠缺的是科学主张与实验证据的对应关系，而不是格式。[WRR 宗旨与范围](https://agupubs.onlinelibrary.wiley.com/hub/journal/19447973/aims-and-scope/read-full-aims-and-scope)
 

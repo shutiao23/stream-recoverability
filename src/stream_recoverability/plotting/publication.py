@@ -1141,7 +1141,7 @@ def generate_publication_outputs(
     availability_image_path: str | Path = "figures/eda/availability.png",
     online_dir: str | Path = "results/online",
     figure_dir: str | Path = "figures/main",
-    table_dir: str | Path = "paper/tables",
+    table_dir: str | Path = "paper_archived/tables",
     manifest_path: str | Path = "results/final_results_manifest.json",
 ) -> dict[str, Any]:
     """Generate available main artifacts and freeze their exact input summaries."""

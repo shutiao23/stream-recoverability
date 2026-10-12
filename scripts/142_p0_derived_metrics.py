@@ -11,7 +11,7 @@ scripts/140_run_p0_differential_stress.py and emits:
   gates.json                     rewritten with both gate scales
   REPORT.md                      rewritten final report with verdicts
 
-Gates follow paper/v14_plan/PLAN.md section 3.4.  G1 is judged on the
+Gates follow paper_archived/v14_plan/PLAN.md section 3.4.  G1 is judged on the
 network-level Spearman (the plan's wording), with the placement-level
 per-duration values reported as the pooled-convention robustness scale and
 interpreted with the plan's 0.25-0.35 partial-GO band.

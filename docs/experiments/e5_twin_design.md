@@ -20,7 +20,7 @@
 2×2 交叉必须齐：坝样×内部、普通×端点、坝样×端点、普通×内部。全节点 AUC 会把「高 AR」 tautology 算进去；硬负例 AUC 只拿内部坝样对普通端点。第一次生成器如果单变量也是 1.00，就如实记失败，不要为了 0.65 去改坝样定义。
 
 **已记录结果（作废门槛上的无信息结果，不是负向可恢复性结论，也不是 T5 完成）：**  
-`operator_auc=1`，`univariate_max_auc=1`，`identifiability_status: operator_separable_univariates_also_separable`，`gate_pass: false`。坝样定义就是高 AR + 隔离，所以单变量也会到 1。禁止把这组 AUC 写进 `paper/next/` 当「孪生过关」。禁止重调 φ / 噪声去救 0.65。
+`operator_auc=1`，`univariate_max_auc=1`，`identifiability_status: operator_separable_univariates_also_separable`，`gate_pass: false`。坝样定义就是高 AR + 隔离，所以单变量也会到 1。禁止把这组 AUC 写进 `paper_archived/next/` 当「孪生过关」。禁止重调 φ / 噪声去救 0.65。
 
 ---
 

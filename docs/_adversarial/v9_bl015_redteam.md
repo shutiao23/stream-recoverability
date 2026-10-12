@@ -1,7 +1,7 @@
 # RED TEAM — BL-015 (second pass)
 
 Date: 2026-08-26  
-Target: current `## BL-015` in `paper/boundary_ledger.md` (parent-edited) and `paper/next/boundary_ledger.md` item 8.  
+Target: current `## BL-015` in `paper_archived/boundary_ledger.md` (parent-edited) and `paper_archived/next/boundary_ledger.md` item 8.  
 Closed (do not re-litigate): four stations formula-forced; B1/S2 empirically unflippable, not `forced_donor_dominated`; do not claim every univariate reproduces the paper; annual range 14.5 vs 14.8 counterexample.
 
 Verdict: item 8 does **not** say「六站都不含记忆信息」. The four-vs-two distinction is present in both ledgers. No wrong CSV numbers. No illegal unfreeze of a frozen primary. Two leftover overclaims remain.
@@ -22,7 +22,7 @@ Verdict: item 8 does **not** say「六站都不含记忆信息」. The four-vs-t
 
 ### 1. Q3 still assigns the whole headline partition to the estimator
 
-`paper/boundary_ledger.md` Q3:
+`paper_archived/boundary_ledger.md` Q3:
 
 > The additive \(d/4\) rule cannot emit a memory label once \(R^2_{\mathrm{donor}}\ge 0.5\). This is the same class of defect as BL-011 question 3: **the estimator, not the river, produced the headline partition.**
 
@@ -32,7 +32,7 @@ Fix: keep the identity sentence; replace “headline partition” with “the fo
 
 ### 2. Next-paper item 8 says the degeneration has already been replaced
 
-`paper/next/boundary_ledger.md` item 8:
+`paper_archived/next/boundary_ledger.md` item 8:
 
 > 下一篇把它当资产：我们自己找到并**替换了**这套退化；…主证据是真实数据上相对邻站 R² 的增量 ΔR²。
 

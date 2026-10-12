@@ -2,8 +2,8 @@
 """145_run_v14_figures.py -- publication figures for the v14 manuscript and its
 negative-result note.
 
-Provenance per figure follows paper/v14_plan/figure_plan_v14.md (authoritative
-per-panel spec) and paper/v14_plan/negative_result_note.md.  All figures are
+Provenance per figure follows paper_archived/v14_plan/figure_plan_v14.md (authoritative
+per-panel spec) and paper_archived/v14_plan/negative_result_note.md.  All figures are
 written to results/v14/figures/ at 300 dpi.
 
 Figures:
@@ -1194,7 +1194,7 @@ def legacy_workflow(d: dict) -> str:
                       "see note_fig_01…03 and v13_legacy_figs.txt.", fontsize=6.8,
             ha="center", va="top", color="#555555")
 
-    footer(fig, "data: design schematic per paper/development_v13/figure_plan_v13.md §Fig 1 "
+    footer(fig, "data: design schematic per paper_archived/development_v13/figure_plan_v13.md §Fig 1 "
                 "(counts as tabulated there, from revision_v12 t02/t03/t04 artifacts)")
     fig.savefig(out, dpi=300)
     plt.close(fig)
@@ -1203,11 +1203,11 @@ def legacy_workflow(d: dict) -> str:
 
 def write_legacy_txt() -> str:
     p = FIGDIR / "v13_legacy_figs.txt"
-    text = """v13 legacy figures (paper/development_v13/figure_plan_v13.md) - supersession note
+    text = """v13 legacy figures (paper_archived/development_v13/figure_plan_v13.md) - supersession note
 =====================================================================================
 
 The five v13 figure spec sources all live in figure_plan_v13.md
-(paper/development_v13/), with supporting artifacts under
+(paper_archived/development_v13/), with supporting artifacts under
 results/revision_v12/* and results/revision_v13/*:
 
   1. Fig 1 - nested temporal design, support tiers, interpolation/extrapolation
@@ -1230,7 +1230,7 @@ Art produced here:
     tabulated in that section). Cheap to produce - no estimation involved.
 
 Why each remaining figure is superseded (one line each; see
-paper/v14_plan/negative_result_note.md "Relationship to v14"):
+paper_archived/v14_plan/negative_result_note.md "Relationship to v14"):
 
   - v13 Fig 2 (loss-ranking near-tie, empirical vs r6): superseded by
     note_fig_01.png + the negative-result note; loss ranking is now cited as

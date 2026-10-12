@@ -67,7 +67,7 @@ v8（`research_charter_v1.md` + `recoverability_study_freeze_v1.yaml`）已经�
 
 5. **硬类型标签是设计缺陷，不是发现。**  
    当 \(R^2_{\mathrm{donor}}\ge 0.5\) 时，加性公式会强迫写成邻站型，不管本地记忆有多强。这是公式恒等，不是八站上的经验发现。  
-   正式记录是 **BL-015**（已写入 `paper/boundary_ledger.md`）。它引用八站恒等和 `heuristic_degeneration.py`，数字来自 `results/revision/recoverability_type_classification_uncertainty.csv`。四站是 \(R^2_{\mathrm{donor}}\ge 0.5\) 的公式强制；B1/S2 不是恒等（\(D<0.5\)），只是实现的 30 天记忆远低于翻转阈值。不得把「六站都不含记忆信息」写成公式恒等。v8 的 `known_degeneration` 和 `hard_type_labels_are_primary: false` 继续有效。
+   正式记录是 **BL-015**（已写入 `paper_archived/boundary_ledger.md`）。它引用八站恒等和 `heuristic_degeneration.py`，数字来自 `results/revision/recoverability_type_classification_uncertainty.csv`。四站是 \(R^2_{\mathrm{donor}}\ge 0.5\) 的公式强制；B1/S2 不是恒等（\(D<0.5\)），只是实现的 30 天记忆远低于翻转阈值。不得把「六站都不含记忆信息」写成公式恒等。v8 的 `known_degeneration` 和 `hard_type_labels_are_primary: false` 继续有效。
 
 6. **推断单元是 river network。**  
    站年嵌套在站里，站嵌套在河里。缺口、掩膜、锚点都是重复测量，不是独立样本。  
@@ -160,7 +160,7 @@ v8（`research_charter_v1.md` + `recoverability_study_freeze_v1.yaml`）已经�
 | Phase | 目标 |
 | --- | --- |
 | 0 | Stop-loss + preregister：本文件、`configs/design_freeze_v9.yaml`、BL-015、章程/校验器改到 v9 |
-| 1 | Operator + theory：`paper/theory.md`、算子扩展、Shapley、合成偏差表 |
+| 1 | Operator + theory：`paper_archived/theory.md`、算子扩展、Shapley、合成偏差表 |
 | 2 | Identifiability + twins |
 | 3 | Corpus：公开目录扩到库存目标，密封锁名单，质量旗标。**现在不切现有目录。** |
 | 4 | Main experiment：嵌套消融、校准、按河 cluster bootstrap |

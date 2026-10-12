@@ -4,7 +4,7 @@ A reproducible study of how reservoir regulation reshapes the information
 available to recover daily stream temperature under monitoring outages.
 
 The completed v11 reviewer-response study is implemented under
-[`paper/development_v11/`](paper/development_v11/README.md). Run
+[`paper_archived/development_v11/`](paper_archived/development_v11/README.md). Run
 `make development-v11` to reproduce its 55-network LONO calibration and nested
 simple-baseline comparison. Run `make development-v11-score` to fit the open-development
 XGBoost recovery models once on the first 70% of years and score B+D versus
@@ -85,7 +85,7 @@ artifacts.
 降门槛、换河或重跑修复。逐项状态见
 [`docs/blueprint_completion_audit.md`](docs/blueprint_completion_audit.md)。
 v4 与 v9 的唯一谱系规则见
-[`paper/study_manifest.json`](paper/study_manifest.json)。
+[`paper_archived/study_manifest.json`](paper_archived/study_manifest.json)。
 
 The v5 scope amendment is recorded in
 `docs/protocol_change_v4_to_v5.md`; major-review corrections are recorded in
@@ -561,17 +561,17 @@ figures/                    study-area, diagnostic, and publication figures
 
 ## Documentation
 
-- [Dual-lineage study manifest](paper/study_manifest.json)
+- [Dual-lineage study manifest](paper_archived/study_manifest.json)
 - [P0--P2 completion audit](docs/blueprint_completion_audit.md)
 - [v9 sealed-QC failure closure](docs/sealed_t7_qc_failure_closure.md)
-- [v9 failure-closure package](paper/main_v9/package_manifest.json)
-- [Manuscript source](paper/manuscript.md)
-- [AGU Key Points](paper/key_points.md)
-- [Plain-language summary](paper/plain_language_summary.md)
-- [Cover letter](paper/cover_letter.md)
-- [Supporting Information index](paper/si.md)
-- [Submission checklist](paper/submission_checklist.md)
-- [Detailed executable methods](paper/methods.md)
+- [v9 failure-closure package](paper_archived/main_v9/package_manifest.json)
+- [Manuscript source](paper_archived/manuscript.md)
+- [AGU Key Points](paper_archived/key_points.md)
+- [Plain-language summary](paper_archived/plain_language_summary.md)
+- [Cover letter](paper_archived/cover_letter.md)
+- [Supporting Information index](paper_archived/si.md)
+- [Submission checklist](paper_archived/submission_checklist.md)
+- [Detailed executable methods](paper_archived/methods.md)
 - [Frozen design (executable v4)](configs/design_freeze_v4.yaml)
 - [Historical freeze v2](configs/design_freeze_v2.yaml)
 - [Historical freeze v1](configs/design_freeze_v1.yaml)
@@ -581,9 +581,9 @@ figures/                    study-area, diagnostic, and publication figures
 - [Protocol change v4 to v5](docs/protocol_change_v4_to_v5.md)
 - [Major-review corrections v5 to v6](docs/protocol_change_v5_to_v6.md)
 - [Public release remediation](docs/public_release_remediation.md)
-- [Terminology](paper/terminology.md)
+- [Terminology](paper_archived/terminology.md)
 - [Submission gate](scripts/27_submission_gate.py)
 - [Study manifest](study_manifest.yaml)
 - [Data dictionary](metadata/data_dictionary.csv)
 - [Source and provenance notes](metadata/source_documentation/README.md)
-- [Bibliography](paper/references.bib)
+- [Bibliography](paper_archived/references.bib)

@@ -171,4 +171,4 @@ python scripts/45_validate_research_charter.py
 PYTHONPATH=src python -m pytest tests/test_network_catalog_and_charter.py tests/test_design_contracts.py tests/test_p0_protocol.py -q
 ```
 
-必须：本文件存在；`paper/boundary_ledger.md` 含 BL-016 与 BL-017；`design_freeze_v9.yaml` 含 `protocol_amendment: v9.1` 与新的 E5 Spearman / Twin E 键；T2 地板未被降低；`never_sealed_networks` 仍含原 14 个 id；`DEFAULT_DESIGN_PATH` 仍是 `design_freeze_v4`。
+必须：本文件存在；`paper_archived/boundary_ledger.md` 含 BL-016 与 BL-017；`design_freeze_v9.yaml` 含 `protocol_amendment: v9.1` 与新的 E5 Spearman / Twin E 键；T2 地板未被降低；`never_sealed_networks` 仍含原 14 个 id；`DEFAULT_DESIGN_PATH` 仍是 `design_freeze_v4`。

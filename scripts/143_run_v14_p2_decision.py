@@ -6,7 +6,7 @@ model refits.  For every evaluation placement the predictive distribution
 F_hat is the empirical CDF of the fitting-period benefits in its cell, with
 the standard fallback chain (network, station, gap, season) -> (network,
 station, gap) -> (network, gap) -> network -> global pool of fitting
-benefits, requiring >= 5 fitting values per cell (paper/v14_plan/PLAN.md
+benefits, requiring >= 5 fitting values per cell (paper_archived/v14_plan/PLAN.md
 section 5; mirrors the P0 transfer machinery).
 
 Parts:

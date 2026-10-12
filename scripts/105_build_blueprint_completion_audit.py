@@ -41,7 +41,7 @@ def _item(
 
 
 def build_audit() -> dict[str, Any]:
-    study = _json("paper/study_manifest.json")
+    study = _json("paper_archived/study_manifest.json")
     corpus = _json(
         "data_versions/global_network_corpus_v1/qualified_corpus_v1/qualified_corpus_manifest.json"
     )
@@ -51,7 +51,7 @@ def build_audit() -> dict[str, Any]:
     sealed = _json(
         "results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json"
     )
-    registry = _json("paper/main_v9/results_registry.json")
+    registry = _json("paper_archived/main_v9/results_registry.json")
     twin = _json(
         "results/framework/synthetic_v2/twin_e_holdout/twin_e_holdout_negative_result.json"
     )
@@ -74,7 +74,7 @@ def build_audit() -> dict[str, Any]:
             "P0-0",
             "Split v4 and v9 paper lineages",
             "complete",
-            ["paper/study_manifest.json", "paper/case_study_v1/", "paper/main_v9/"],
+            ["paper_archived/study_manifest.json", "paper_archived/case_study_v1/", "paper_archived/main_v9/"],
             "Two canonical lineages have separate designs, manuscripts, claim matrices, and registries.",
             "None.",
         ),
@@ -94,7 +94,7 @@ def build_audit() -> dict[str, Any]:
             "P0-2",
             "Executable confirmatory protocol",
             "complete",
-            ["configs/design_freeze_v10_executable.yaml", "paper/main_v9/results_registry.json"],
+            ["configs/design_freeze_v10_executable.yaml", "paper_archived/main_v9/results_registry.json"],
             "Primary horizon, loss, roster, split, thresholds, and once semantics were frozen before unseal.",
             "Execution failed later gates; the frozen YAML remains an immutable pre-unseal record.",
         ),
@@ -169,7 +169,7 @@ def build_audit() -> dict[str, Any]:
             "Decision utility and uncertainty",
             "development_failed_sealed_untested",
             [
-                "paper/main_v9/results.md",
+                "paper_archived/main_v9/results.md",
                 "results/framework/t4_t5_post_t2_v1/t5_result_manifest.json",
             ],
             "Development placement/triage gates failed; sealed utility could not be evaluated after P0-7 stopped.",
@@ -180,8 +180,8 @@ def build_audit() -> dict[str, Any]:
             "Manuscript, figures, SI, and FAIR package",
             "partial_external_blocked",
             [
-                "paper/case_study_v1/",
-                "paper/main_v9/",
+                "paper_archived/case_study_v1/",
+                "paper_archived/main_v9/",
                 "results/audits/submission_gate.json",
             ],
             "The case-study package and v9 failure closure are synchronized; the release gate remains NO-GO.",
@@ -221,7 +221,7 @@ def build_audit() -> dict[str, Any]:
             "P1-4",
             "Risk intervals and calibration",
             "blocked_no_sealed_score",
-            ["configs/design_freeze_v10_executable.yaml", "paper/main_v9/results_registry.json"],
+            ["configs/design_freeze_v10_executable.yaml", "paper_archived/main_v9/results_registry.json"],
             "Calibration and interval gates are frozen but have no confirmatory outcome vector.",
             "Coverage, width, and OOD calibration cannot be computed without a valid scored panel.",
         ),
@@ -245,7 +245,7 @@ def build_audit() -> dict[str, Any]:
             "external_data_blocked",
             [
                 "results/framework/public_catalog/reservoir_operations_check.json",
-                "paper/main_v9/boundary_ledger.md",
+                "paper_archived/main_v9/boundary_ledger.md",
             ],
             (
                 f"The modern USGS API is reachable and exposes {operations['example_storage_sites_found']} "
@@ -277,7 +277,7 @@ def build_audit() -> dict[str, Any]:
             "P2-4",
             "Management dashboard",
             "not_started_not_licensed",
-            ["paper/main_v9/claim_matrix.md"],
+            ["paper_archived/main_v9/claim_matrix.md"],
             "No calibrated decision output exists to power a responsible dashboard.",
             "Building recommendations now would exceed the evidence license.",
         ),

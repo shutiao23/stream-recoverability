@@ -24,7 +24,7 @@ DOCUMENTATION = (
     "metadata/data_rights.csv",
     "metadata/data_dictionary.csv",
     "metadata/station_metadata.csv",
-    "paper/editor_data_exception_request.md",
+    "paper_archived/editor_data_exception_request.md",
 )
 RAW_CSVS = ("data/raw/b1.csv", "data/raw/s2.csv", "data/raw/p3.csv")
 PROCESSED_FILES = (

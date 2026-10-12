@@ -235,7 +235,7 @@ def _generate(root: Path, inputs: dict[str, Path]) -> dict:
         availability_image_path=root / "missing-availability.png",
         online_dir=root / "missing-online",
         figure_dir=root / "figures/main",
-        table_dir=root / "paper/tables",
+        table_dir=root / "paper_archived/tables",
         manifest_path=root / "results/final_results_manifest.json",
     )
 
@@ -251,7 +251,7 @@ def test_missing_inputs_are_explicitly_skipped_without_placeholder_results(tmp_p
         availability_image_path=tmp_path / "missing-availability.png",
         online_dir=tmp_path / "missing-online",
         figure_dir=tmp_path / "figures/main",
-        table_dir=tmp_path / "paper/tables",
+        table_dir=tmp_path / "paper_archived/tables",
         manifest_path=tmp_path / "results/final_results_manifest.json",
     )
     assert manifest["figures"]["figure_02"]["status"] == "generated"
@@ -260,7 +260,7 @@ def test_missing_inputs_are_explicitly_skipped_without_placeholder_results(tmp_p
     assert not (tmp_path / "figures/main/figure_03.png").exists()
     assert manifest["tables"]["table_02"]["status"] == "skipped"
     assert (tmp_path / "figures/main/figure_manifest.json").exists()
-    assert (tmp_path / "paper/tables/table_manifest.json").exists()
+    assert (tmp_path / "paper_archived/tables/table_manifest.json").exists()
     serialized = json.dumps(manifest).lower()
     assert "sha256" not in serialized
 
@@ -278,7 +278,7 @@ def test_all_core_figures_and_tables_are_generated_from_synthetic_results(tmp_pa
         path = tmp_path / f"figures/main/figure_{index:02d}.png"
         assert path.exists() and path.stat().st_size > 1_000
     for index in range(1, 6):
-        table = pd.read_csv(tmp_path / f"paper/tables/table_{index:02d}.csv")
+        table = pd.read_csv(tmp_path / f"paper_archived/tables/table_{index:02d}.csv")
         assert not table.empty
     frozen = manifest["frozen_result_summary"]
     assert frozen["daily_predictions"]["rows"] > 0

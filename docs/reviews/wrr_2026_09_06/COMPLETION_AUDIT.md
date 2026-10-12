@@ -27,8 +27,8 @@ alternatives, on data that did not participate in design?
 | 5b. Competitive benefit baselines | r6, default_difficulty, −risk, switch, ridge | same | **complete** on MAE; not a unique design |
 | 6. Downstream / thermal endpoint | hottest-30 station-year replay | `step6_frozen_replay/` + `step8_frozen_replay/` | **complete** (42-net development and 36-net confirmation, full-grid inner history) |
 | 6b. Refuse reconstruction as a real action | freeze + replay vs all-default and gated always-reconstruct | same | **complete** |
-| 7. Johnson 49 d not used as validation | manuscript + claims matrix | `paper/v16/` | **complete** (forbidden claim) |
-| 7b. Beaufort cited as the fill-and-recompute precedent | manuscript §1 | `paper/v16/manuscript.md` | **complete** |
+| 7. Johnson 49 d not used as validation | manuscript + claims matrix | `paper_archived/v16/` | **complete** (forbidden claim) |
+| 7b. Beaufort cited as the fill-and-recompute precedent | manuscript §1 | `paper_archived/v16/manuscript.md` | **complete** |
 | 8. Second panel is not prospective | manuscript + freeze confirmation_panel | freeze + manuscript | **complete** |
 | 8b. Confirmation on unused networks | 36 eligible IDs; recoverer table; frozen replay | `step8_confirmation/` + `step8_frozen_replay/` | **complete** (36/36 recoverer table; full-grid yearly replay) |
 | 9. Unsupported / donor-missing / no right flank → one rule | freeze fields + step5 + frozen replay | freeze, step5, step6/8 replay | **complete**; unsupported, donor co-missing, and missing right boundary reject to default end-to-end |

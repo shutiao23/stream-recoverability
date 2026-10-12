@@ -2,7 +2,7 @@
 
 Date: 2026-08-26
 Status: attack, not a patch. No other files were edited.
-Target: `paper/theory.md` (exists; 135 lines). Cross-checked against T1 in `docs/v9_redesign_master_plan.md:27-33`, `configs/design_freeze_v9.yaml` `theory_propositions` / `primary_estimand` / `decision_endpoints.a_placement`, `src/stream_recoverability/analysis/conditional_observability.py`, and `src/stream_recoverability/analysis/heuristic_degeneration.py`.
+Target: `paper_archived/theory.md` (exists; 135 lines). Cross-checked against T1 in `docs/v9_redesign_master_plan.md:27-33`, `configs/design_freeze_v9.yaml` `theory_propositions` / `primary_estimand` / `decision_endpoints.a_placement`, `src/stream_recoverability/analysis/conditional_observability.py`, and `src/stream_recoverability/analysis/heuristic_degeneration.py`.
 Sealed temperatures were not opened.
 
 Verdict: T1 is not closed. Prop 1 is the only population identity that is actually proved, and it is proved for a known PSD \(\Sigma\) and a nested pair \(O_1\subseteq O_2\), not for the ridged empirical operator the code returns. Prop 2 cites Krause, Singh, and Guestrin (2008) for a *different* set function than \(\eqref{eq:F}\) in `theory.md`, then states a \((1-1/e)\) guarantee that T3(a) will apply to worst-case MAE. Prop 3 writes \(\varepsilon_\perp+\varepsilon_{d/4}\) as a tautological split of old-minus-new; \(\varepsilon_\perp\) does not vanish under the stated hypotheses because \(B\) is two-sided. Prop 4 is a univariate Gaussian integral restated as an estimator-independent law for `mae_degC` on non-Gaussian recovery models. Section 4 correctly refuses eight-station *labels* as discoveries and refuses calibration claims; it does not name the 6-river LORO or the 8-station table as forbidden *theory* confirmation, and the scoring path already treats \(\sqrt{2/\pi}\,\overline{\sigma}(\hat\Sigma_{G|O})\) as predicted risk on real rivers.
@@ -11,7 +11,7 @@ Verdict: T1 is not closed. Prop 1 is the only population identity that is actual
 
 ## 0. What was attacked
 
-`paper/theory.md` is present. This is not an attack on a missing file. It is an attack on the four proposition statements, their proofs, and the freeze keys that will cite them.
+`paper_archived/theory.md` is present. This is not an attack on a missing file. It is an attack on the four proposition statements, their proofs, and the freeze keys that will cite them.
 
 T1 required (`docs/v9_redesign_master_plan.md:28-33`):
 
@@ -261,8 +261,8 @@ What the note must also refuse, by name:
 | Number | Where it lives | What it is | What it is not |
 | --- | --- | --- | --- |
 | Eight-station 30-day \(D\), \(M\), labels | `results/revision/recoverability_type_classification_uncertainty.csv`; BL-015 table | Audit of the *label* identity, and two unforced empirical comparisons (B1/S2, P3/02334430) | Not a measurement of \(\varepsilon_\perp\) or \(\varepsilon_{d/4}\); not a special-case check of \(\eqref{eq:schur}\); not Prop 3. Four of eight labels are forced by \(R^2_D\ge 0.5\) in empty arithmetic. |
-| 6-river LORO Spearman \(\approx 0.77\), CI \(\approx(-0.01,1)\) | `paper/next/results.md`; charter T2 | Failed pilot of a *prediction* task; interval includes 0; failed the 0.40 floor | Not Prop 1, not Prop 4, not confirmation that \(\hat{\mathcal R}\) equals achieved skill. The scorer used \(s\) and \(c\,\overline{\sigma}(\hat\Sigma)\), not \(\eqref{eq:R}\). `public_river_check.json` 0.821 / 0.094 includes Clearwater and is a different failed number. |
-| 10-river sensor-policy 2/10 at 15% | `paper/next/results.md` | Failed T3(a) peek | Not a \((1-1/e)\) demonstration. |
+| 6-river LORO Spearman \(\approx 0.77\), CI \(\approx(-0.01,1)\) | `paper_archived/next/results.md`; charter T2 | Failed pilot of a *prediction* task; interval includes 0; failed the 0.40 floor | Not Prop 1, not Prop 4, not confirmation that \(\hat{\mathcal R}\) equals achieved skill. The scorer used \(s\) and \(c\,\overline{\sigma}(\hat\Sigma)\), not \(\eqref{eq:R}\). `public_river_check.json` 0.821 / 0.094 includes Clearwater and is a different failed number. |
+| 10-river sensor-policy 2/10 at 15% | `paper_archived/next/results.md` | Failed T3(a) peek | Not a \((1-1/e)\) demonstration. |
 | `jensen_acf_gap`, `degeneration_bound`, `donor_count_inflation` | `heuristic_degeneration.py` | Formula identities and one Monte Carlo | Not proofs on a river; `donor_count_inflation` is not a theorem. |
 | `results/framework/baseline_nested_r2.csv` | framework | Synthetic nested sequence | Not a real-data \(\Delta R^2\) after donor \(R^2\) (BL-015 already says this). |
 
@@ -295,7 +295,7 @@ The scoring path already does the smuggle in code: `real_river_checks.py` treats
 
 6. **Name the numbers that are not confirmation.** In §4, forbid by name: the eight-station 30-day table as confirmation of \(\eqref{eq:eperp}\)–\(\eqref{eq:ed4}\) or of \(\eqref{eq:schur}\); the 6-river Spearman \(\approx 0.77\) / CI lower \(\approx-0.01\) as confirmation of Props 1–4; `public_river_check.json` 0.821; the 2/10 sensor-policy peek as a \((1-1/e)\) result; E0 / `jensen_acf_gap` / `degeneration_bound` as river theorems. BL-015 remains a label-identity audit. T1 is proofs.
 
-Until 1–6 are in `paper/theory.md` (and the freeze keys that quote it), Phase 1 theory is not a gate pass.
+Until 1–6 are in `paper_archived/theory.md` (and the freeze keys that quote it), Phase 1 theory is not a gate pass.
 
 ---
 

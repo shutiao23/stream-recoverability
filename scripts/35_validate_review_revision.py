@@ -105,7 +105,7 @@ def main() -> None:
         "withheld_insufficient_independent_clusters"
     )
 
-    budget = pd.read_csv(ROOT / "paper/tables/table_03.csv")
+    budget = pd.read_csv(ROOT / "paper_archived/tables/table_03.csv")
     original_p3 = budget.loc[
         budget["analysis"].eq("original_training_climatology")
         & budget["station_id"].eq("P3")
@@ -118,7 +118,7 @@ def main() -> None:
     assert state_p3["best_lower_ci_exceeds_budget_count"] == 1
 
     fingerprint = pd.read_csv(
-        ROOT / "paper/tables/table_01.csv", dtype={"station_id": str}
+        ROOT / "paper_archived/tables/table_01.csv", dtype={"station_id": str}
     )
     memory = set(
         fingerprint.loc[
@@ -313,7 +313,7 @@ def main() -> None:
     assert abs(float(seplains["within_fold_auc"]) - 0.13205645161290322) < 1e-9
     assert pd.isna(alaska["within_fold_auc"])
 
-    manuscript = (ROOT / "paper/manuscript.md").read_text(encoding="utf-8")
+    manuscript = (ROOT / "paper_archived/manuscript.md").read_text(encoding="utf-8")
     assert "RESULTS_PENDING" not in manuscript
     assert "changed abruptly at the end of 2014" not in manuscript
     assert "0.407" in manuscript
@@ -324,34 +324,34 @@ def main() -> None:
     assert re.search(r"Southeast Plains|SEPlains", manuscript)
     assert "0.105" in manuscript
     assert "14 passed BH" not in manuscript
-    ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
+    ledger = (ROOT / "paper_archived/boundary_ledger.md").read_text(encoding="utf-8")
     assert "## BL-011" in ledger
     assert "## BL-012" in ledger
     assert "implementation defect" in ledger.lower()
-    claims = (ROOT / "paper/claim_matrix.md").read_text(encoding="utf-8")
+    claims = (ROOT / "paper_archived/claim_matrix.md").read_text(encoding="utf-8")
     assert re.search(r"Southeast Plains|ecoregion-dependent|region-dependent", claims)
     assert "mechanism sketch" in manuscript
     assert "not a causal attribution" in manuscript
-    key_points = (ROOT / "paper/key_points.md").read_text(encoding="utf-8")
+    key_points = (ROOT / "paper_archived/key_points.md").read_text(encoding="utf-8")
     assert "post-hoc" in key_points.lower()
     abstract = re.search(r"## Abstract\n\n(.*?)\n\n##", manuscript, re.DOTALL)
     assert abstract is not None and len(abstract.group(1).split()) <= 250
-    for line in (ROOT / "paper/key_points.md").read_text(encoding="utf-8").splitlines():
+    for line in (ROOT / "paper_archived/key_points.md").read_text(encoding="utf-8").splitlines():
         if line.startswith("- "):
             assert len(line[2:]) <= 140
             assert " US " not in f" {line[2:]} "
-    plain = (ROOT / "paper/plain_language_summary.md").read_text(encoding="utf-8")
+    plain = (ROOT / "paper_archived/plain_language_summary.md").read_text(encoding="utf-8")
     plain = plain.split("\n", 1)[1]
     assert len(re.findall(r"\b[\w’'-]+\b", plain)) <= 200
 
     cited = set()
-    for source in ("paper/manuscript.md", "paper/methods.md"):
+    for source in ("paper_archived/manuscript.md", "paper_archived/methods.md"):
         for group in re.findall(r"\[@([^\]]+)\]", (ROOT / source).read_text()):
             cited.update(item.strip().lstrip("@") for item in group.split(";"))
     bib_keys = set(
         re.findall(
             r"@\w+\{([^,]+),",
-            (ROOT / "paper/references.bib").read_text(encoding="utf-8"),
+            (ROOT / "paper_archived/references.bib").read_text(encoding="utf-8"),
         )
     )
     assert not cited.difference(bib_keys), sorted(cited.difference(bib_keys))
@@ -361,18 +361,18 @@ def main() -> None:
     )
     assert figure_count == 7
     table_count = _assert_manifest_identities(
-        ROOT / "paper/tables/table_manifest.json", "tables"
+        ROOT / "paper_archived/tables/table_manifest.json", "tables"
     )
-    assert len(pd.read_csv(ROOT / "paper/tables/table_04.csv")) == 9
+    assert len(pd.read_csv(ROOT / "paper_archived/tables/table_04.csv")) == 9
     package = json.loads(
-        (ROOT / "paper/submission/submission_package_manifest.json").read_text(
+        (ROOT / "paper_archived/submission/submission_package_manifest.json").read_text(
             encoding="utf-8"
         )
     )
     assert package["status"] == "draft_blocked_external_and_author_inputs"
     assert package["main_figures"] == 7
     si_built = (
-        ROOT / "paper/submission/agu_supporting_information.md"
+        ROOT / "paper_archived/submission/agu_supporting_information.md"
     ).read_text(encoding="utf-8")
     for heading in (
         "# Text S3.",

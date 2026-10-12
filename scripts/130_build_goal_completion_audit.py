@@ -97,8 +97,8 @@ def main() -> None:
             f"empirical network Spearman={empirical_second.get('network_spearman')}; "
             f"empirical slope={empirical_second.get('calibration_slope')}"
         )
-    references = (ROOT / "paper/references.bib").read_text(encoding="utf-8")
-    manuscript = (ROOT / "paper/development_v11/manuscript.md").read_text(
+    references = (ROOT / "paper_archived/references.bib").read_text(encoding="utf-8")
+    manuscript = (ROOT / "paper_archived/development_v11/manuscript.md").read_text(
         encoding="utf-8"
     )
     authors = json.loads(
@@ -133,7 +133,7 @@ def main() -> None:
         "package_manifest.json",
     ]
     package_present = all(
-        (ROOT / "paper/development_v11" / name).is_file()
+        (ROOT / "paper_archived/development_v11" / name).is_file()
         for name in manuscript_files
     ) and len(list(REVIEW.glob("figure_*.png"))) == 6
 

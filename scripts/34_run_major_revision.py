@@ -59,7 +59,7 @@ FROZEN_PREDICTION = (
 )
 OUTPUT = PROJECT_ROOT / "results/revision"
 FIGURES = PROJECT_ROOT / "figures/main"
-TABLES = PROJECT_ROOT / "paper/tables"
+TABLES = PROJECT_ROOT / "paper_archived/tables"
 GAPS = (1, 3, 7, 10, 14, 21, 30, 45, 60, 90, 120, 150, 180, 240, 365)
 INTERNAL_STATIONS = ("B1", "S2", "P3")
 EXTERNAL_STATIONS = (
@@ -1593,7 +1593,7 @@ def main() -> None:
             for name, frame in outputs.items()
         },
         "figures": [f"figures/main/figure_{index:02d}.png" for index in range(1, 8)],
-        "main_tables": [f"paper/tables/table_{index:02d}.csv" for index in range(1, 6)],
+        "main_tables": [f"paper_archived/tables/table_{index:02d}.csv" for index in range(1, 6)],
         "interpretation_guard": (
             "state-matched and annual-demeaned analyses are reviewer-requested "
             "post-hoc diagnostics, not a replacement for the frozen prediction"

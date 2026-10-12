@@ -44,7 +44,7 @@ Hard-negative AUC ignores C/D by design. All-node AUC’s 73 negatives include D
 
 Operator AUC 1.0 / univariate 1.0 is therefore an in-sample identity of “high AR + isolation,” which parent already accepted as the honest fail. It is not a hold-out identifiability number.
 
-**Must-fix:** do not move `operator_auc: 1.0` into `paper/next/`, tables, or a later “twins passed.” Any future pass claim needs a family locked before scoring. Do not bump constants until 0.65.
+**Must-fix:** do not move `operator_auc: 1.0` into `paper_archived/next/`, tables, or a later “twins passed.” Any future pass claim needs a family locked before scoring. Do not bump constants until 0.65.
 
 ---
 

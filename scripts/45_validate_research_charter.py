@@ -138,7 +138,7 @@ def main() -> None:
     assert "selecting_the_better_of_90_and_180_days" in forbids
     assert "posthoc_roster_shrink_after_download" in forbids
     assert freeze["ingest_qc"]["any_nwis_sentinel_in_values"] == "rejected_sentinel"
-    ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
+    ledger = (ROOT / "paper_archived/boundary_ledger.md").read_text(encoding="utf-8")
     assert "## BL-015" in ledger
     assert "forced_donor_dominated" in ledger
     assert "## BL-016" in ledger

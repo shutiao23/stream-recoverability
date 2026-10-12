@@ -79,7 +79,7 @@ def test_readme_and_methods_grid_counts_follow_executable_builders() -> None:
     }
 
     readme = _documented_counts(REPOSITORY_ROOT / "README.md")
-    methods = _documented_counts(REPOSITORY_ROOT / "paper/methods.md")
+    methods = _documented_counts(REPOSITORY_ROOT / "paper_archived/methods.md")
     assert readme == computed
     assert methods == computed
 

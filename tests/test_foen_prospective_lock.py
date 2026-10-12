@@ -121,7 +121,7 @@ def test_condition_note_and_ledger_withhold_t8() -> None:
     note = (ROOT / "docs/protocol_condition_foen_public_daily_v9_1.md").read_text(
         encoding="utf-8"
     )
-    ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
+    ledger = (ROOT / "paper_archived/boundary_ledger.md").read_text(encoding="utf-8")
     assert "BL-018" in ledger
     assert "zero qualified Swiss networks" in ledger
     assert "No temperature value was queried" in note

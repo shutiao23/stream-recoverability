@@ -46,7 +46,7 @@ Re-run it after the working files change. Confirm `git status` does not list
 
 ## Upload later in GEMS (after written editor acceptance)
 
-1. Do not upload until `paper/editor_data_exception_request.md` has a written
+1. Do not upload until `paper_archived/editor_data_exception_request.md` has a written
    acceptance and the manuscript is ready to submit.
 2. Zip `private/gems_reviewer_bundle/` locally. Keep the zip outside git.
 3. In WRR GEMS (https://wrr-submit.agu.org/), upload the zip as

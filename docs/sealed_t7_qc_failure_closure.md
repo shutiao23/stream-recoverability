@@ -1,7 +1,7 @@
 # Sealed T7 QC failure closure
 
 Date: 2026-08-27
-Lineage: `paper/main_v9/`
+Lineage: `paper_archived/main_v9/`
 Protocol: `configs/design_freeze_v10_executable.yaml`
 
 ## Outcome
@@ -33,7 +33,7 @@ sealed floor pass.
 - Run ledger: `results/framework/t2_sealed_confirmatory_v1/evaluate_once_run_ledger.json`
 - QC manifest: `results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/sealed_qc_manifest.json`
 - Eligible-network list: `results/framework/t2_sealed_confirmatory_v1/sealed_qc_v1/eligible_networks.csv`
-- Current results registry: `paper/main_v9/results_registry.json`
+- Current results registry: `paper_archived/main_v9/results_registry.json`
 
 The frozen v10 YAML retains `sealed_outcomes_opened: false` and its 67-network
 pre-unseal count deliberately: those fields describe the state at protocol

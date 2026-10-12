@@ -21,7 +21,7 @@ paper and it does not waive the submission gate.
 | P0.1-v5 | Complete | The old dense process was stopped with 1/900 scenarios present. CSDI is diagnostic-only at seed 11 and gaps 7/30/90/180. |
 | P0.2-v5 | Complete | Validation objective/scaler/loss histories were diagnosed. `best_epoch < 50` is now `training_unstable` and excludes a model from the roster. |
 | P0.3-v5 | Complete | `recoverability_prediction_v1.json` is frozen from 2006--2015 before a dense aggregate. |
-| P1-v5 | Complete | Claim matrix converted to an effect ledger; `paper/boundary_ledger.md` records counterevidence and claim changes. |
+| P1-v5 | Complete | Claim matrix converted to an effect ledger; `paper_archived/boundary_ledger.md` records counterevidence and claim changes. |
 | P3-v5 | Complete evaluate-once | Feasibility passed 60/60; the 2012--2020 predictor found four donor and one memory site; 2023--2025 outcomes were opened once after the review corrections and all 540 units completed. |
 | v6 review | Complete scientifically | P3 regulation transition, stationarity controls, absolute MAE, 8-site fingerprint, frontier/p-value repairs, corrected node importance, and external confirmation are complete. |
 | v6 P0(a--c) | Complete | External validation placement SD uses 20 seeds without confirmation access; confirmatory bundle/lock are tracked; P3 change date is method-sensitive and reported accordingly. |

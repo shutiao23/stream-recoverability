@@ -28,7 +28,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--availability-image", type=Path, default=PROJECT_ROOT / "figures/eda/availability.png")
     parser.add_argument("--online-dir", type=Path, default=PROJECT_ROOT / "results/online")
     parser.add_argument("--figure-dir", type=Path, default=PROJECT_ROOT / "figures/main")
-    parser.add_argument("--table-dir", type=Path, default=PROJECT_ROOT / "paper/tables")
+    parser.add_argument("--table-dir", type=Path, default=PROJECT_ROOT / "paper_archived/tables")
     parser.add_argument("--manifest", type=Path, default=PROJECT_ROOT / "results/final_results_manifest.json")
     return parser
 

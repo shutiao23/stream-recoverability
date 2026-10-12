@@ -3,7 +3,7 @@
 Date: 2026-08-26  
 Role: attack the Phase 4 nested / stop-loss ablation only. Not a protocol. Not a license to implement.  
 Required artifacts: `public_river_operator_ablation*` (any path). **None exist.**  
-Read: `results/framework/baseline_nested_r2.csv`, `baseline_predictions.csv`, `baseline_residual_gain.csv`, `results/framework/public_rivers/leave_one_year_scores.csv`, `leave_one_river_out.csv`, `leave_one_river_out_without_clearwater.csv`, `public_river_check.json`, `overlap.csv`, `paper/next/results.md`, `paper/next/manuscript_skeleton.md`, `paper/next/claim_matrix.md`, freeze T2 / incremental / never-sealed, `recoverability_baselines.py`, `real_river_checks.py`, `scripts/47`.
+Read: `results/framework/baseline_nested_r2.csv`, `baseline_predictions.csv`, `baseline_residual_gain.csv`, `results/framework/public_rivers/leave_one_year_scores.csv`, `leave_one_river_out.csv`, `leave_one_river_out_without_clearwater.csv`, `public_river_check.json`, `overlap.csv`, `paper_archived/next/results.md`, `paper_archived/next/manuscript_skeleton.md`, `paper_archived/next/claim_matrix.md`, freeze T2 / incremental / never-sealed, `recoverability_baselines.py`, `real_river_checks.py`, `scripts/47`.
 
 Sealed temperatures were not opened. That is the only check that passes.
 
@@ -76,7 +76,7 @@ This is not a stop-loss. A last-step \(\Delta R^2>0\) is guaranteed once \(X=Y\)
 
 `scripts/47` does **not** use that rule to score. It scores if `days_with_min_stations >= 365*4` (1460) and `n_stations >= 3`. Clearwater (1824) and Suwannee (1648) both enter `leave_one_year_scores.csv`. Yellowstone (1350) and Rio Grande (1425) do not.
 
-Seven rivers then have finite scores. Clearwater test MAE is 66332 / 8188 / 9701 / 10811 °C; skill \(-10033\) / \(-2607\) / \(-2863\) / \(-0.05\). `paper/next/results.md` and `manuscript_skeleton.md` say, after that number: 数据坏了 / 误差大到不合理，丢掉. Remaining \(n=6\), Spearman \(\approx 0.77\).
+Seven rivers then have finite scores. Clearwater test MAE is 66332 / 8188 / 9701 / 10811 °C; skill \(-10033\) / \(-2607\) / \(-2863\) / \(-0.05\). `paper_archived/next/results.md` and `manuscript_skeleton.md` say, after that number: 数据坏了 / 误差大到不合理，丢掉. Remaining \(n=6\), Spearman \(\approx 0.77\).
 
 That exclusion is not in the freeze, not in `overlap_report`, not in `score_rivers`, and not in any QC constant. There is no predeclared “drop if MAE \(> X\)” or “drop if skill \(< 0\)”.
 
@@ -105,8 +105,8 @@ T2 (locked): \(\ge 150\) networks (design), inference \(n\ge 100\), out-of-netwo
 
 What was written:
 
-- `paper/next/results.md`: 6-river rank correlation \(\approx 0.77\); bootstrap interval \(\approx(-0.01, 1.0)\); lower bound misses 0.40; “没有过关”.
-- `paper/next/claim_matrix.md`: row「能预估没见过的真河」= 「6 条河相关大约 0.77」.
+- `paper_archived/next/results.md`: 6-river rank correlation \(\approx 0.77\); bootstrap interval \(\approx(-0.01, 1.0)\); lower bound misses 0.40; “没有过关”.
+- `paper_archived/next/claim_matrix.md`: row「能预估没见过的真河」= 「6 条河相关大约 0.77」.
 - `manuscript_skeleton.md` §5: same 0.77 / 0.40 miss.
 
 Calling it a failed pilot does not make \(n=6\) into T2. Reporting the CI already violates the freeze. `evaluate_success` now sets `confirmatory_eligible` only at \(n\ge 100\), but `network_bootstrap_spearman` still emits a “tested” CI at \(n\ge 5\). The on-disk check file used the 5-river floor.
@@ -146,7 +146,7 @@ That path does not average test years into the climatology or into the Schur fit
 
 `incremental_fit` is in-sample OLS. It returns `nan` when `n <= n_params`. Six network means + intercept + five predictors = six columns, six rows → `nan` or a saturated \(R^2=1\). Thirty station-rows (the six rivers after the peek) still treat stations as independent and use the same rivers that produced 0.77.
 
-The only shipped nested table is the 28-row synthetic identity (attack 1). `paper/next/results.md` does not report a real-river \(\Delta R^2\). It reports the peeked Spearman instead. That is how a missing stop-loss gets replaced by a T2-shaped headline on \(n=6\).
+The only shipped nested table is the 28-row synthetic identity (attack 1). `paper_archived/next/results.md` does not report a real-river \(\Delta R^2\). It reports the peeked Spearman instead. That is how a missing stop-loss gets replaced by a T2-shaped headline on \(n=6\).
 
 `intended_locks_after_phase_4` still lists `incremental_over` and the T2 floors. If Phase 4 “locks” incremental value from six in-sample points, the leftover protocol hole becomes the lock date.
 
@@ -156,7 +156,7 @@ The only shipped nested table is the 28-row synthetic identity (attack 1). `pape
 
 ## 6. Sealed rivers
 
-**Pass on existing files.** `leave_one_year_scores.csv` is only the 12 `never_sealed` rivers. `scripts/47` iterates `build`/`lock`/`development`/`validation` and keeps `DO_NOT_DOWNLOAD` for named sealed Colorado / Columbia / Ohio / Deschutes sites. `framework_manifest.json`: `sealed_outcomes_opened: false`. `paper/next/results.md`: last-check rivers were not scored with temperatures. `data/public_rivers/nwis/` is the burned 12.
+**Pass on existing files.** `leave_one_year_scores.csv` is only the 12 `never_sealed` rivers. `scripts/47` iterates `build`/`lock`/`development`/`validation` and keeps `DO_NOT_DOWNLOAD` for named sealed Colorado / Columbia / Ohio / Deschutes sites. `framework_manifest.json`: `sealed_outcomes_opened: false`. `paper_archived/next/results.md`: last-check rivers were not scored with temperatures. `data/public_rivers/nwis/` is the burned 12.
 
 **Required method.** Phase 4 must stay on those 12 (or a predeclared input-eligible subset). Do not download sealed catalog IDs to “get past \(n=6\)”. Do not score Loire / Swiss daily. T7 is evaluate-once after the stop-loss is written, not a rescue sample.
 

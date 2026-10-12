@@ -12,14 +12,14 @@ Machine-readable/current requirement audit:
 
 | Lineage | WRR readiness | Action |
 | --- | ---: | --- |
-| v4 case study (`paper/case_study_v1/`) | 2.5/10 | JoH case study; abstract/conclusion tightened |
-| v9 main (`paper/main_v9/`) | 2/10; current lineage closed before scoring | Sealed QC retained 32/40; a future test needs a new prospective protocol and untouched networks |
+| v4 case study (`paper_archived/case_study_v1/`) | 2.5/10 | JoH case study; abstract/conclusion tightened |
+| v9 main (`paper_archived/main_v9/`) | 2/10; current lineage closed before scoring | Sealed QC retained 32/40; a future test needs a new prospective protocol and untouched networks |
 
 ## P0 blockers
 
 | ID | Task | Status | Evidence |
 | --- | --- | --- | --- |
-| P0-0 | Split two paper lineages | **done** | `paper/study_manifest.json`, `paper/case_study_v1/`, `paper/main_v9/` |
+| P0-0 | Split two paper lineages | **done** | `paper_archived/study_manifest.json`, `paper_archived/case_study_v1/`, `paper_archived/main_v9/` |
 | P0-1 | Qualified network catalog ≥100 | **outputs complete; gate failed by 1** | 99/100 plus 78-row exclusion ledger and five-dimension balance report |
 | P0-2 | Executable v10 protocol | **done; execution gate failed** | Frozen pre-unseal protocol is preserved; current state is in the results registry |
 | P0-3 | Operator identification (synthetic) | **complete negative** | holdout Spearman 0.936; calibration slope 0.760 missed frozen band; no retuning |

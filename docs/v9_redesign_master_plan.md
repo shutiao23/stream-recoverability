@@ -80,7 +80,7 @@ v8 freeze used 40/20/40 and inventory 12–20. That is superseded. Do not remap 
 | Phase | Goal | First concrete artifacts |
 | --- | --- | --- |
 | 0 | Stop-loss + preregister | `docs/protocol_change_v8_to_v9.md`, `configs/design_freeze_v9.yaml`, BL-015, validator/charter update |
-| 1 | Operator + theory | `paper/theory.md`, operator extensions, Shapley, synthetic bias tables |
+| 1 | Operator + theory | `paper_archived/theory.md`, operator extensions, Shapley, synthetic bias tables |
 | 2 | Identifiability + twins | `results/framework/synthetic_v2/`, twin design |
 | 3 | Corpus | public catalog expansion, sealed lock, quality flags |
 | 4 | Main experiment | nested ablation, calibration, cluster bootstrap |
@@ -117,7 +117,7 @@ Parent reviews both and merges. Red files live under `docs/_adversarial/`.
 
 `python scripts/45_validate_research_charter.py` exits 0 against the v9 freeze.
 Historical formal-roster tests that pin `design_freeze_v4` still pass.
-BL-015 exists in `paper/boundary_ledger.md` and records the \(R^2_{\mathrm{donor}}\ge 0.5\) identity as a design defect, not an empirical discovery.
+BL-015 exists in `paper_archived/boundary_ledger.md` and records the \(R^2_{\mathrm{donor}}\ge 0.5\) identity as a design defect, not an empirical discovery.
 
 ## Parent review of Phase 0 adversarial pairs (2026-08-26)
 
@@ -137,7 +137,7 @@ Phase 0 is closed only after a second Red pass on the *merged* files.
 
 ## Parent review of Phase 1–2 (2026-08-26)
 
-- `paper/theory.md` exists. Red's valid limits were merged: ridged code map is not the population theorem; (1−1/e) is only for log-det F; ε_⊥ includes a two-sided remainder; Prop 4 is Gaussian only.
+- `paper_archived/theory.md` exists. Red's valid limits were merged: ridged code map is not the population theorem; (1−1/e) is only for log-det F; ε_⊥ includes a two-sided remainder; Prop 4 is Gaussian only.
 - Operator `recoverability_r`, Shapley, and bias terms exist and tests pass. Empirical incomplete lags now withhold instead of filling zeros.
 - Twin 2×2 landed under `results/framework/synthetic_v2/`. Joint gate **failed honestly**: operator AUC 1.00 and univariate max AUC 1.00, because dam-like was defined as high AR + isolation. Do not retune the generator to manufacture 0.65. Hard-negative (interior dam vs ordinary endpoint) is the scientifically relevant contrast and is also currently tautological on ACF. This is a development result, not confirmation.
 

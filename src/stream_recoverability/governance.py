@@ -159,7 +159,7 @@ def evidence_snapshot(repository: Path = REPOSITORY_ROOT) -> dict[str, Any]:
     hosting = audit_restricted_hosting(repository)
     roster = roster_path(repository)
     formal = formal_manifest_path(repository)
-    manuscript = (repository / "paper/manuscript.md").read_text(encoding="utf-8")
+    manuscript = (repository / "paper_archived/manuscript.md").read_text(encoding="utf-8")
     pending = manuscript.count("RESULTS_PENDING")
     citation = yaml.safe_load((repository / "CITATION.cff").read_text(encoding="utf-8"))
     citation_doi = citation.get("doi") if isinstance(citation, Mapping) else None

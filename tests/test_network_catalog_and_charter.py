@@ -162,7 +162,7 @@ def test_charter_and_protocol_exist() -> None:
     assert "161 条已在手" not in amendment_text
     assert "T2 is met" not in amendment_text
     assert "univariate ceiling raised 0.65" not in amendment_text
-    ledger = (ROOT / "paper/boundary_ledger.md").read_text(encoding="utf-8")
+    ledger = (ROOT / "paper_archived/boundary_ledger.md").read_text(encoding="utf-8")
     assert "## BL-016" in ledger
     assert "## BL-017" in ledger
     assert "## BL-015" in ledger
@@ -173,7 +173,7 @@ def test_charter_and_protocol_exist() -> None:
     assert "W1-A" in ledger or "166" in ledger
     if historical_protocol.is_file():
         assert "design_freeze_v4" in historical_protocol.read_text(encoding="utf-8")
-    assert (ROOT / "paper/next/manuscript_skeleton.md").is_file()
+    assert (ROOT / "paper_archived/next/manuscript_skeleton.md").is_file()
 
 
 def test_topology_suite_labels_one_sided_endpoints() -> None:
