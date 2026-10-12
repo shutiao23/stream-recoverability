@@ -15,8 +15,8 @@
 
 \journalname{Water Resources Research}
 
-\title{Supporting Information for ``Measure missingness where the statistic
-lives: a continuous screening law for gap-affected stream-temperature records''}
+\title{Supporting Information for ``Support-conditioned screening of incomplete
+river-temperature years: retrospective evidence from 146 networks''}
 
 \authors{AUTHOR ONE\affil{1}}
 \affiliation{1}{AFFILIATION PENDING AUTHOR CONFIRMATION}
@@ -29,8 +29,8 @@ lives: a continuous screening law for gap-affected stream-temperature records''}
 \section*{Contents of this file}
 
 \begin{enumerate}
-  \item Text S1 to S6
-  \item Figures S1 to S5
+  \item Text S1 to S8
+  \item Figures S1 to S6
   \item Table S1
 \end{enumerate}
 
@@ -44,8 +44,15 @@ reproduction path. Nothing here is required to follow the article.
 \section{Data sources}
 
 Daily water-temperature series were assembled from nine public providers
-(Table~\ref{tab:si-providers}). All are open archives; none required a data-use
-agreement.
+(Table~\ref{tab:si-providers}); two further agencies (SMHI, UK Environment
+Agency) supply the never-developed transport panel. Each provider's product,
+documented statistic, quality codes, licence and acquisition route were
+re-verified against the provider's own documentation on 2026-10-12
+(\texttt{results/wrr\_submission\_ready/measurement\_provenance\_dictionary.csv}).
+Eight of the eleven publish under a named open licence and none required a
+data-use agreement, but LUBW reserves copyright on its raw values: those seven
+networks are not redistributed here and are read locally through LUBW's own
+service.
 
 \begin{table}
 \caption{Providers and their role in the study.}
@@ -79,7 +86,7 @@ Daily 2\,m air temperature is NASA POWER (MERRA-2), 1 January 1981 to 31 August
 2026, one point per station at the product's native resolution: 16{,}679 days
 for each of the 457 stations. An earlier version of this study used a much
 smaller forcing table covering 2.3\% of development cases; both are retained and
-Section 5.7 of the article compares them.
+Section 4.9 of the article compares them.
 
 Basin characteristics for the United States subset are GAGES-II, joined on the
 eight-digit gauge identifier and matching 140 of 204 eligible stations.
@@ -99,7 +106,36 @@ than four fully observed calendar years are excluded, because the
 leave-one-year-out estimator protocol requires them. The resulting denominator,
 with every exclusion and its count, is in the repository. The same stations
 contribute 2422 station-years with at least 360 daily slots and at least one
-missing day; those form the deployment panel of Section 5.10 of the article.
+missing day; those form the deployment panel of Section 4.12 of the article.
+
+Three measurement strata are reported rather than merged. In the study panel,
+five providers document a daily mean that the parser reads directly (USGS, FOEN,
+GKD Bayern, NVE, LUBW); two are project-derived daily means of the provider's own
+sub-daily values (CHMI's $T_O$ instantaneous series, Rijkswaterstaat's raw
+\texttt{NVT} readings); and two are not a documented daily mean at all (SYKE's
+08:00 nearshore reference reading, ARSO's undocumented statistic). The transport
+panel adds the UK Environment Agency, which documents a daily mean, and SMHI and
+Hub'Eau, whose daily statistics are undocumented and continuous respectively;
+those sit in the assurance strata recorded by the transport seal. Restricting the development panel to the documented-daily-mean
+stratum gives a contrast of $-5.7$ points ($[-6.5,-4.9]$, 84 networks) against
+$-6.4$ for the full panel, and the reserved panel $-6.6$ ($[-7.9,-5.3]$, 29
+networks) against $-7.1$; the sealed confirmation is USGS-only and lies entirely
+inside the documented stratum
+(\texttt{amendments/provider\_contract\_sensitivity/}). Each provider's
+product, documented statistic, quality codes, licence and acquisition route are
+tabulated with verbatim evidence in
+\texttt{measurement\_provenance\_dictionary.csv} and
+\texttt{current\_data\_acquisition.csv}.
+
+Transport-panel panels receive one additional structural quality-control pass
+before sealing, applied identically to every provider and recorded before any
+score: warm-season (May--September) runs of three or more consecutive days at
+exactly $0.0\,^{\circ}$C are blanked as stuck-sensor values. Two such runs were
+found in the UK Environment Agency ingest, one of them inside a hottest-30
+window; the rule and its counts are in
+\texttt{multi\_agency\_ingest/QC\_SUMMARY.json} and the per-provider copies in
+\texttt{multi\_agency\_ingest/uk\_ea/qc\_report.csv} and
+\texttt{multi\_agency\_ingest/smhi/qc\_report.csv}.
 
 \section{Protocol history}
 
@@ -110,7 +146,7 @@ recorded here rather than silently repaired.
 \textbf{The incumbent's imputed limit was mis-stated.} An earlier version placed
 the comparison at a thirteen-week (91-day) limit attributed to Johnson et al.
 (2021). The source says twenty weeks. The analysis code now uses 140 days and
-every artifact that used the old value was re-run; Section 5.6 of the article
+every artifact that used the old value was re-run; Section 4.8 of the article
 reports the corrected operating point. The direction of the error flattered the
 incumbent at that point, so correcting it reduces the screen's advantage there
 from 6.2 to 4.4 percentage points.
@@ -119,7 +155,7 @@ from 6.2 to 4.4 percentage points.
 an empirical arm, drawn from the outage geometry the same networks experience,
 with a stratified arm built to span the decision space. Their base rates differ
 by an order of magnitude. The pre-registered test was run on the pooled set, as
-declared; Section 5.9 reports the decomposition and states that the declared
+declared; Section 4.10 reports the decomposition and states that the declared
 effect is not met on the empirical arm alone.
 
 \textbf{The natural scale of the peak has two values.} Computed over the full
@@ -128,6 +164,73 @@ table it is 1.08\,$^{\circ}$C. The primary tolerance is 0.50\,$^{\circ}$C
 throughout except in cross-metric comparisons, where each endpoint's scale is
 recomputed on the same footing. The tolerance sweep shows the axis ordering is
 unchanged between 0.25 and 1.0 standard deviations.
+
+\section{Confirmation, transport and the amendment register}
+
+\textbf{The sealed confirmation.} Thirty-nine USGS HUC4 networks outside the
+v17/v18 development panel (91 stations, 18 HUC2 contexts, 8973 designed outage
+cases) were ingested, hashed and scored once with the frozen certificate at the
+pre-registered operating point. The pooled contrast is $-7.9$ points
+($[-10.2,-5.8]$) and the empirical arm $-1.7$ ($[-3.0,-0.7]$). The panel is
+outside the development programme but is not untouched by the wider programme: a
+repo-wide, provider-aware audit of every artifact carrying a station identifier
+finds 24 of the 39 networks in earlier programme iterations, so the earlier
+``never used'' label was wrong and is corrected in
+\texttt{AMENDMENT\_prior\_access\_sealed\_panel.md}. The result does not rest
+on the touched networks: on the 15 networks with no outcome-bearing prior use the
+pooled contrast is $-9.4$ points ($[-12.4,-6.0]$) with an empirical-arm gain of
+$-3.7$ ($[-5.8,-1.6]$), and on the 45 outcome-clean stations it is $-8.3$
+($[-10.4,-6.4]$). Those subsets are read from the already-sealed score and are a
+transparency diagnostic, not new confirmation.
+
+\textbf{The transport test.} The confirmation is single-agency, so the
+pre-registered transport protocol
+(\texttt{MULTI\_AGENCY\_TRANSPORT\_PROTOCOL.md}) recruits agencies absent from
+the v17 roster and scores the same frozen configuration once on them. Three
+amendments were recorded before sealing: prior access is judged per station
+against every artifact in the repository (metadata catalogues keyed by
+\texttt{site\_id} carry no series values and are not series use), providers
+whose published values are labelled uncontrolled form a separate assurance
+stratum reported alongside the pooled verdict, and networks from a provider that
+took part in development may enter only as a labelled secondary stratum. The
+protocol fixes the primary endpoint, tolerance, retention, the pooled decision
+rule ($\Delta \le -1.0$ percentage points with a clustered interval excluding
+zero and at least two providers in the same direction) and the requirement that
+the pooled and quality-checked-only verdicts agree. It also discloses that it was
+designed after the USGS score was known, so it is a transport test and never a
+pristine first confirmation.
+
+The sealed transport panel holds 53 networks: 32 primary networks from Sweden
+(SMHI, 16), England (UK Environment Agency, 2) and France (Hub'Eau, 14) across
+three climate contexts and four assurance strata combinations, plus 21 Norwegian
+(NVE) basins as the secondary stratum. All 291 candidate stations are unused
+anywhere in the repository, the 47 Hub'Eau and 143 SMHI stations sit in the
+provider-published-unqualified stratum, and one structural quality-control pass
+(June--September runs of three or more days at exactly $0.0\,^{\circ}$C blanked
+as stuck sensors) was applied identically to every provider before the seal. The
+primary panel is 17\,826 cases: pooled contrast $-4.6$ points ($[-6.5,-3.3]$),
+with SMHI $-4.3$, Hub'Eau $-4.9$ and the UK EA $-6.4$ (2 networks, wide
+interval); the quality-checked stratum alone is $-6.2$ ($[-8.4,-4.5]$) and the
+empirical arm $-1.9$ ($[-3.3,-1.0]$). The pre-declared rule is met on both the
+pooled primary panel and the quality-checked stratum, and the two agree. The
+secondary NVE stratum is $-6.1$ ($[-8.7,-4.6]$) and the extended pooled estimate
+$-5.2$ ($[-6.7,-4.1]$).
+
+\textbf{The amendment register.} Each adversarial finding closed after the
+freeze has an amendment directory holding the recomputation, the preserved
+pre-fix bytes and a report: instrument error under a locked method
+(\texttt{step22\_noise\_post\_fix}), support-width uncertainty and the
+fixed-centre dilation test (\texttt{e6\_support\_width\_uncertainty}),
+exact-donor-count mechanism control (\texttt{step5\_mechanism\_equal\_k}), the
+climatological-peak proxy's misclassification rate
+(\texttt{peak\_proxy\_bridge}), provider-contract sensitivity
+(\texttt{provider\_contract\_sensitivity}), a faithful reimplementation of the
+cited air-regression baseline (\texttt{faithful\_baseline}), hidden-bias
+sensitivity (\texttt{mnar\_pattern\_mixture}), cold-season support axes
+(\texttt{winter\_regulatory}), and the sealed panel's prior-access diagnostic
+(\texttt{sealed\_usgs\_prior\_access\_diagnostic}). The maintenance
+counterfactual was recomputed under multi-year outage placement
+(\texttt{e1\_maintenance\_recompute}) and remains exploratory.
 
 \section{Predictions that failed}
 
@@ -150,9 +253,21 @@ is itself uncertain, so the conditioning set has to be the support dilated by
 that uncertainty. Failure 3 has a related cause: a hand-drawn window is a crude
 approximation to an influence function that is spread over half the year.
 
+Three further numbers changed under a corrected comparison rather than under new
+data, and the corrected values are the ones reported. The instrument-error check
+had evaluated its two arms with two different reconstruction choices; with one
+method on both arms the perturbation moves the reserved contrast from 6.21 to
+6.22 points instead of from 7.06 to 6.67, and the apparent reduction disappears.
+The donor-count control had not actually held the donor count fixed (the paired
+cases differ by up to seven donors in a third of cases); an exact-match
+recomputation gives $+0.084\,^{\circ}$C (0.064 to 0.110), so the claim survives
+and the interval is restated. The support-width crossover is an interval, not a
+day: the bootstrap gives 77 to 107 days and the curve is a hump peaking near 60
+days, not a monotone decay.
+
 A fourth statement was \emph{withdrawn} rather than falsified. An earlier version
 framed the standing guidance as getting an ordering backwards. On the guidance's
-own estimands it does not; Section 5.4 of the article reports that a completeness
+own estimands it does not; Section 4.6 of the article reports that a completeness
 threshold is the correct axis for the sine-fit mean and within 0.02 AUC of the
 best for the phase.
 
@@ -184,6 +299,17 @@ full.
   \item The schematic figures are generated from editable draw.io sources held
     in the repository; a test checks that each exported PDF is newer than its
     source.
+  \item The claim registry binds every number allowed into the abstract, key
+    points and conclusions to an artifact and is checked by
+    \texttt{scripts/254\_wrr\_claim\_binding\_check.py}, which recomputes the
+    allowed numbers and flags any barred number that appears in those regions.
+  \item Every input the current study reads is listed with a byte count and a
+    SHA-256 in \texttt{current\_data\_manifest.csv} (146 networks, 0 missing),
+    and every ingest for the transport panel records its own hashes before the
+    seal is written.
+  \item Failed worker runs cannot leave a success table behind: the mechanism
+    recomputation writes its summary last inside a hash-bound generation
+    directory and re-verifies the generation on read.
 \end{itemize}
 
 Figure~\ref{fig:si-chain} lays the study out as a chain and labels each link with
@@ -192,15 +318,18 @@ versions of this work left open and this one closes.
 
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/f3_evidence_chain.pdf}
-\caption{The evidence chain by research question. Every link is labelled with
-the section that establishes it; the deployment and consequence links, drawn
-open in earlier versions of this work, are closed here, and the consequence link
-carries the finding that the regional aggregate barely moves.}
+\caption{The evidence chain by research question. Every link is labelled with the section that establishes it and with the evidence class it rests on (sample fact, retrospective holdout, sealed confirmation, exploratory post-open); the deployment link is closed for pooled designed outages and remains open on the empirical arm, and the consequence link carries the finding that the regional aggregate barely moves.}
 \label{fig:si-chain}
 \end{figure}
 
 
 \section{Supporting figures}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{figures/f0_problem_frame.pdf}
+\caption{Problem frame (schematic), the earlier opening figure. The same station-year and outage mask feed an annual mean and a hottest 30-day mean; different supports imply different governing axes. Boxes that quote numerical gradients are mechanism diagnostics from the scored panel, not the sealed confirmation. The data-driven version of this idea is Figure 1 of the article.}
+\label{fig:si-frame}
+\end{figure}
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f1_system_architecture.pdf}
@@ -216,7 +345,7 @@ carries the finding that the regional aggregate barely moves.}
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/fig5_robustness.pdf}
-\caption{Network-clustered intervals on the axis contrasts (a), the reference-noise perturbation (b), and the exceedance-threshold sweep (c).}
+\caption{Development cases (n = 40 704, 110 networks; all intervals network-clustered 95\%): AUC difference between the timing axis and the outage-length rule for each endpoint, in AUC units (a); the consequential-error advantage over the length rule in percentage points under a clean and a perturbed reference series, with the paired change interval (b); and the misclassification rate against the exceedance threshold in $^{\circ}$C, per treatment (c). Panel (b) uses one reconstruction choice on both arms.}
 \label{fig:si-robust}
 \end{figure}
 

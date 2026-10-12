@@ -5,6 +5,22 @@
 > crossover, maintenance calendars, and wholly-hidden peaks are
 > exploratory / proxy / pending recompute and must not be treated as sealed
 > confirmation. The authoritative submission prose is `paper/wrr/wrr_manuscript.tex`.
+>
+> **Superseding amendments (2026-10-12, later run).** Where this archived text
+> still prints a frozen number, the amendment governs:
+> `amendments/e6_support_width_uncertainty/` (the 91.05-day crossing becomes the
+> interval 76–107 days; the fixed-window crossing is not a support-width law; the
+> advantage is a hump, not monotone decay),
+> `amendments/step22_noise_post_fix/` (locked-method instrument-error numbers
+> 5.98→6.03 and 6.21→6.22 points, MAE 0.2361→0.2363 °C; the previously reported
+> reduction was a method switch),
+> `amendments/step5_mechanism_equal_k/` (exact-donor-count control, 0.084 °C),
+> `e1_maintenance_recompute/` (multi-year outage placement; autumn saving −3.32
+> points, not −3.88), `amendments/peak_proxy_bridge/` (the climatological
+> wholly-hidden-peak proxy has positive predictive value 0.74 on sealed designed
+> cases, so 17 flagged real station-years imply about 12–13 with a wholly hidden
+> realised peak), and `AMENDMENT_prior_access_sealed_panel.md` (the USGS panel is
+> outside the development programme but not "never used anywhere").
 
 <!-- numbers:start -->
 ```json
@@ -109,8 +125,13 @@ condition on the share of the target statistic's support that the outage hides,
 and because that support is a property of the statistic rather than of the
 record, the governing axis moves continuously with the statistic's form.**
 Figure 1 states the argument; Figure 5a measures it. Sweeping the hottest-*k*-day
-mean from *k* = 1 to *k* = 365 traces the whole scale, and the crossover between
-the two regimes is a number we can report: 91 days.
+mean from *k* = 1 to *k* = 365 traces the whole scale. The crossing of a *fixed
+30-day* window against whole-year completeness is not a day count but an
+interval: the first grid point indistinguishable from zero is 90 days and the
+first clearly negative one is 182, and a network-clustered bootstrap of the whole
+curve gives a 95% interval of 76 to 107 days (amendment
+`results/wrr_submission_ready/amendments/e6_support_width_uncertainty/`, which
+supersedes the 91.05-day point value).
 
 Two consequences run through the rest of the paper. The first is practical: a
 support has to be *located* before it can be conditioned on, and a station's
@@ -145,7 +166,8 @@ Our contributions are at five levels.
 1. **A law with a measured parameter.** The share of the estimand's support that
    an outage hides governs the error of the reported statistic; the familiar
    timing-versus-length contrast is its behaviour at the two ends of a scale,
-   and the crossover sits at a support width of 91 days.
+   and the crossing of a fixed 30-day window is located between 60 and 182 days
+   (bootstrap 95% interval 76 to 107 days), not at a single day.
 2. **A correction to the law that makes it deployable.** The support must be
    dilated by the year-to-year wander of its own location, which we measure; one
    60-to-90-day climatological window is near-optimal for every endpoint from
@@ -500,12 +522,18 @@ development cases.
 
 The advantage of the fixed peak window is flat at about +0.075 AUC for every
 estimand whose support is a month or less, decays through +0.050 at a two-month
-support, and **crosses zero at a support width of 91 days**; beyond that the
-whole-year completeness axis wins, by 0.095 AUC at a half-year support and 0.173
-at the annual mean. Every interval excludes zero except the one at *k* = 90,
-which is where the crossing is. There is no dichotomy to explain. There is one
-scale with a measured crossover, and the two regimes the previous account named
-are its ends.
+support, and **reaches zero between a two- and a six-month support**: the 90-day
+grid point is +0.002 with an interval containing zero, the first clearly negative
+grid point is 182 days, and the network-clustered bootstrap interval for the
+crossing is **76 to 107 days**; beyond that the whole-year completeness axis
+wins, by 0.095 AUC at a half-year support and 0.173 at the annual mean. Every
+interval excludes zero except the one at *k* = 90, which is where the crossing is.
+The bootstrap also shows what the crossing is *not*: a conditioning window
+dilated around the estimand's own support keeps its advantage out to about 359
+days, so the mid-range crossing belongs to holding the window fixed and narrow,
+and the advantage is a hump peaking near 60 days rather than a monotone decay.
+There is no dichotomy to explain. There is one scale, and the two regimes the
+previous account named are its ends.
 
 **Is the mechanism a measurement?** Binning development cases on both covariates
 simultaneously and measuring the growth of error along each axis with the other
@@ -695,7 +723,7 @@ at an arbitrary retention: at the seven-week unfilled limit (49 days, 49.2%
 retention on the reserved panel) the length rule leaves 5.2% and the screen 0.3%;
 at the twenty-week imputed limit (140 days, 85.1% retention) the length rule
 leaves 11.3% and the screen 6.9%. The second of those numbers is new to this
-version and it matters: the v17 manuscript placed this comparison at 91 days,
+version and it matters: the v17 manuscript placed this comparison at 91 days of support,
 having mis-stated the imputed limit as thirteen weeks rather than twenty. The
 corrected limit is far more permissive — it admits 85% of cases rather than 74% —
 and the screen's advantage there is 4.4 points rather than 6.2.
@@ -1025,10 +1053,22 @@ magnitude rather than on a null result, and the one class that warrants a
 limitation is outages of three months and longer.
 
 **Instrument error in the reference.** Perturbing the reference series by 0.15 °C
-of normal noise — the upper end of logger accuracy — moves the development
-contrast from 6.32 to 6.21 points and the reserved contrast from 7.06 to 6.67
-points, and the mean absolute error from 0.2416 to 0.2418 °C (Figure 12b). The
-conclusion is not inside the measurement error.
+of normal noise moves the development contrast from 5.98 to 6.03 points and the
+reserved contrast from 6.21 to 6.22 points, and the mean absolute error from
+0.2361 to 0.2363 °C (Figure 12b). The paired change is +0.049 points
+(−0.036, +0.150) on development and +0.013 (−0.175, +0.185) on the reserved
+panel, so this check no longer reports a reduction in the advantage: an earlier
+version of it evaluated the clean arm with the simple policy's error and the
+perturbed certificate arm with a different method's error, and re-running it
+with one reconstruction choice on both arms removes that artefact. Error
+correlated in time moves the endpoint harder at the same daily scale and still
+leaves the contrast within its interval: an AR(1) process with ρ = 0.7 displaces
+the 30-day mean 2.25 times as much as independent noise with the same standard
+deviation, and a mid-year 0.3 °C step 2.12 times, giving contrasts of 5.95 and
+6.21 points on development and 6.19 and 6.43 on the reserved panel. A constant
+annual bias of ±0.5 °C is an exact shift of the endpoint, so it moves the
+contrast by at most one point while raising the mean absolute error to 0.30 °C.
+The conclusion is not inside the measurement error.
 
 **Estimators that may see only prior years.** Under the stricter protocol in
 which only years before the outage are available, the panel falls to 33,633
@@ -1107,7 +1147,8 @@ show a timing effect.
 **What generalises beyond rivers.** The law is a statement about estimators and
 estimands, and its ingredients — an influence function and a mask — exist wherever
 a derived statistic is computed from an incomplete record. What does not
-generalise is the numerical crossover at 91 days: that depends on how
+generalise is the exact crossing day of a fixed narrow window (interval 76 to 107
+days here): that depends on how
 concentrated a river's thermal year is and on how far the peak wanders between
 years, both of which are properties of this climate and this variable. What we
 would expect to transfer is the shape of the argument and the measurement
@@ -1179,7 +1220,7 @@ analysis artifacts by `scripts/188_v17_figures.py` and
 | 2 | `figures/v17/f1_system_architecture.pdf` | The screening system: visible features under an information barrier, the estimator library with per-case support, the risk model, selection-conditional multiplicative conformal calibration, and the two action spaces. |
 | 3 | `figures/v17/f2_experiment_design.pdf` | Study design and data flow, from nine providers to the single opening of the reserved panel, with the quality-control exclusions, the network-level stratified split, the §4.7 gate and the pre-registered freeze in execution order. |
 | 4 | `figures/v17/fig1_mechanism.pdf` | Mechanism: the length-by-overlap reversal (a), nested feature sets (b), permutation importance (c), endpoint dependence (d). |
-| 5 | `figures/v18/figv3_support_law.pdf` | The law. (a) The advantage of a fixed 30-day peak window over whole-year completeness against the support width of the estimand, with network-clustered intervals and the crossover at 91 days. (b) AUC for every estimand against every conditioning window; the best window is 60–90 days for every estimand narrower than that, and the black square marks the estimand's own support. (c) The three sine-fit parameters Johnson et al. use, by axis. |
+| 5 | `figures/v18/figv3_support_law.pdf` | The law. (a) The advantage of a fixed 30-day peak window over whole-year completeness against the support width of the estimand, with network-clustered intervals and the crossing located at 76-107 days, not at a single day. (b) AUC for every estimand against every conditioning window; the best window is 60–90 days for every estimand narrower than that, and the black square marks the estimand's own support. (c) The three sine-fit parameters Johnson et al. use, by axis. |
 | 6 | `figures/v17/fig2_frontier.pdf` | Retention–error frontier on development cases (a) and on the reserved panel (b). |
 | 7 | `figures/v18/figv1_outage_seasonality.pdf` | (a) Start month of 6,472 real interior gaps by length class; outages of 90 days and longer begin in autumn and winter. (b) What the maintenance calendar is worth: the consequential-error rate under four placement calendars, holding the real outage-length distribution fixed. |
 | 8 | `figures/v18/figv2_archive_deployment.pdf` | The rules on 2,422 real incomplete station-years. (a) Agreement and disagreement at each published limit. (b) Transported risk of each admitted set. (c) Station-years admitted with the peak window more than half, or wholly, unobserved. |

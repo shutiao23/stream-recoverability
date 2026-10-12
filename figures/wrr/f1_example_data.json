@@ -1,0 +1,85 @@
+{
+  "figure": "figures/wrr/f1_example.pdf",
+  "purpose": "Illustration of the mechanism on one real station-year; not a result. No model, no population estimate, no test.",
+  "source": {
+    "panel_path": "results/development_v11/confirmation_daily_qc/networks/chmi_berounka/daily_wide_temperature.csv",
+    "panel_root": "results/development_v11/confirmation_daily_qc/networks",
+    "network_id": "chmi_berounka",
+    "provider": "chmi",
+    "river_group": "Berounka",
+    "station_id": "0-203-1-198600",
+    "year": 2013,
+    "split_role": "reserved",
+    "prior_access_bucket": "prior_descriptive",
+    "qc_verdict": "accepted",
+    "network_data_window": [
+      "2010-01-01",
+      "2018-01-01"
+    ],
+    "n_days": 365,
+    "complete_calendar_year": true
+  },
+  "definitions": {
+    "hottest_30_day_mean": "maximum of the 30-day rolling mean over windows that are fully observed (min_periods = 30)",
+    "annual_mean": "mean of the observed days of the calendar year",
+    "window_days": 30,
+    "implementation": "src/stream_recoverability/experiments/wrr_revision/thermal.py",
+    "units": "degC"
+  },
+  "truth": {
+    "annual_mean_c": 10.050721430839765,
+    "hottest_30_day_mean_c": 21.580624999999998,
+    "peak_window_start": "2013-07-15",
+    "peak_window_end": "2013-08-13"
+  },
+  "gaps": {
+    "gap_a": {
+      "label": "over the peak window",
+      "start": "2013-07-15",
+      "end": "2013-08-13",
+      "length_days": 30,
+      "annual_mean_c": 9.01819275300452,
+      "annual_mean_error_c": -1.032528677835245,
+      "hottest_30_day_mean_c": 17.58842592592593,
+      "hottest_30_day_error_c": -3.992199074074069
+    },
+    "gap_b": {
+      "label": "late autumn",
+      "start": "2013-11-01",
+      "end": "2013-11-30",
+      "length_days": 30,
+      "annual_mean_c": 10.295640928792247,
+      "annual_mean_error_c": 0.24491949795248225,
+      "hottest_30_day_mean_c": 21.580624999999998,
+      "hottest_30_day_error_c": 0.0
+    }
+  },
+  "contrast": {
+    "hottest_30_error_gap_a_c": 3.992199074074069,
+    "annual_mean_error_gap_b_c": 0.24491949795248225,
+    "ratio": 16.30004596387263
+  },
+  "selection_rule": [
+    "C1 primary confirmation daily-QC root of the study panel",
+    "C2 station QC verdict accepted, eligible for its network",
+    "C3 complete calendar year, no missing day",
+    "C4 July mean minus January mean >= 15 degC",
+    "C5 truth hottest-30 window wholly inside June-August",
+    "C6 reserved (held-out) split role",
+    "C7 the 1-30 November gap leaves the hottest 30-day mean exactly unchanged",
+    "rank by err(hottest 30-day mean | gap A) - err(annual mean | gap B)"
+  ],
+  "screening": {
+    "n_networks_scanned": 165,
+    "n_complete_station_years": 551,
+    "n_rule_survivors": 195
+  },
+  "sweep": {
+    "n_gap_starts": 336,
+    "hottest_30_error_min_c": -3.992199074074069,
+    "hottest_30_error_at_gap_b_c": 0.0,
+    "annual_mean_error_min_c": -1.032528677835245,
+    "annual_mean_error_max_c": 0.7478299457136774,
+    "file": "figures/wrr/f1_example_sweep.csv"
+  }
+}

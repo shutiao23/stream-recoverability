@@ -1,9 +1,13 @@
 # Water Resources Research submission
 
 The journal-format rendering of `paper_archived/v18/`, typeset with AGU's own document
-class. The Markdown in `paper_archived/v18/` remains the source of the prose and of every
-number in it, because it is what `scripts/221_v18_audit_manuscript.py` checks
-against the analysis artifacts; this directory is what a desk editor would open.
+class. The Markdown in `paper_archived/v18/` is the v18 source of record and
+`scripts/221_v18_audit_manuscript.py` checks its archived number block against the
+analysis artifacts. Since 2026-10-12 the live submission prose here also carries
+the amendment numbers (`results/wrr_submission_ready/amendments/`), which the v18
+markdown does not contain; `scripts/254_wrr_claim_binding_check.py` is the check
+that binds the live headline numbers, and `paper/wrr/wrr_manuscript.tex` is what a
+desk editor opens.
 
 | file | what it is |
 |---|---|
@@ -57,9 +61,9 @@ build fails on them rather than reporting them:
 - a Plain Language Summary of 200 words or fewer, which WRR requires;
 - an Open Research Statement, which WRR requires;
 - every citation resolving to a bibliography entry, and no uncited entries;
-- the bibliography actually rendering all 18 entries.
+- the bibliography actually rendering all 28 entries.
 
-The current values are 110, 118 and 126 characters; 249 words; and 196 words.
+The current values are 138, 140 and 122 characters; 186 words; and 119 words.
 
 The test suite adds four checks the build does not: that no LaTeX log contains
 an error, that every figure is page-shaped, that the figures sit in the text
