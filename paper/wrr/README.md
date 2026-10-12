@@ -8,11 +8,11 @@ against the analysis artifacts; this directory is what a desk editor would open.
 | file | what it is |
 |---|---|
 | `wrr_manuscript.tex` | the article |
-| `wrr_manuscript.pdf` | **the submission copy**: AGU's `draft` layout, double-spaced, 46 pages |
-| `wrr_manuscript_published.pdf` | the same source in AGU's `published` layout, which renders close to the version of record: 28 pages. Generated; not the file to submit |
+| `wrr_manuscript.pdf` | **the submission copy**: AGU's `draft` layout, double-spaced (rebuild for current page count) |
+| `wrr_manuscript_published.pdf` | the same source in AGU's `published` layout. Generated; not the file to submit |
 | `wrr_supporting_information.tex` | supporting information, S-numbered as AGU requires |
-| `wrr_supporting_information.pdf` | built: 5 pages |
-| `references.bib` | 18 entries, rendered by apacite as the class requires |
+| `wrr_supporting_information.pdf` | supporting information PDF |
+| `references.bib` | bibliography (apacite); rebuild after edits so `.bbl` matches |
 | `figures/` | the figures, copied from `figures/v17/` and `figures/v18/` |
 | `template/` | AGU's class and its supporting files, vendored unmodified — see `template/PROVENANCE.md` |
 | `build_report.json` | the result of the last build, including the desk checks |

@@ -262,3 +262,14 @@ wrr-figures:
 
 wrr-check:
 	$(PYTHON) scripts/223_wrr_build.py --skip-build
+
+# Submission-readiness tree: evidence identity, manifests, predict deploy, preflight.
+# Does not invent author metadata; build remains NOT submission-ready until humans fill
+# metadata/submission_author_metadata.json.
+wrr-submission-ready:
+	PYTHONPATH=src $(PYTHON) scripts/229_wrr_preflight.py
+	PYTHONPATH=src $(PYTHON) scripts/232_wrr_measurement_provenance.py
+	PYTHONPATH=src $(PYTHON) scripts/228_wrr_rebuild_from_inputs.py
+	PYTHONPATH=src $(PYTHON) scripts/231_wrr_certificate_deploy_predict.py
+	$(PYTHON) scripts/223_wrr_build.py --skip-build
+	@echo "See results/wrr_submission_ready/STATUS.md and SUBMISSION_CHECKLIST.md"

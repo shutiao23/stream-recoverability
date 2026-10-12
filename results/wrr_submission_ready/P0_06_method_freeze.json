@@ -1,0 +1,20 @@
+{
+  "primary_endpoint": "hottest_30_mean_C",
+  "primary_tolerance_C": 0.5,
+  "primary_retention": 0.7,
+  "decision_features_allowed": "decision-time visible only; no truth/err/abserr at predict time",
+  "baselines": {
+    "length_rule": "longest_run threshold at equal retention",
+    "peak_window_rule": "climatological peak-window overlap threshold",
+    "air_ridge_sensitivity": "label as in-library air-ridge (alpha=1.0), not faithful Beaufort"
+  },
+  "falsification_tests": [
+    "Fixed hidden-support share, vary residual correlation and competing-window margin; if loss moves systematically, withdraw proportion law",
+    "Fixed-center dilation vs re-seeking wide window on development only; confirm on sealed networks",
+    "Natural-outage population weighted evaluation separate from stratified stress test",
+    "Predict invariance: dropping truth columns must not change choice or bounds",
+    "Cross-year outage length invariant: declared length equals masked days on multi-year axis"
+  ],
+  "calibration_selection": "Choose conformal cluster_level and features only on development/calibration; never on confirmation networks",
+  "confirmation_gate": "See CONFIRMATION_PROTOCOL_SEALED.md; score once"
+}

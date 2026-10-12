@@ -1,0 +1,5 @@
+# Ephemeral fail-closed run copies (recreated by scripts).
+runs/
+
+# NWIS/HydAPI raw download caches; sealed daily_wide panels + sha256 manifests remain.
+confirmation_ingest/**/raw_cache/

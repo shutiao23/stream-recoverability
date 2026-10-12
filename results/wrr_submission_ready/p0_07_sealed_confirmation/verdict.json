@@ -1,0 +1,32 @@
+{
+  "panel": "sealed_never_used_usgs_huc4_networks",
+  "n_networks": 39,
+  "n_stations": 91,
+  "n_cases": 8973,
+  "n_huc2_contexts": 18,
+  "retention": 0.7,
+  "tolerance_C": 0.5,
+  "contrast_points": -7.943603851444292,
+  "ci_low_points": -10.15398785117217,
+  "ci_high_points": -5.753458605902341,
+  "by_arm_points": {
+    "empirical": {
+      "contrast_points": -1.7444395987788925,
+      "ci_low_points": -2.9819492323217274,
+      "ci_high_points": -0.6821456270556999
+    },
+    "stratified": {
+      "contrast_points": -11.524269088844735,
+      "ci_low_points": -14.099198195265474,
+      "ci_high_points": -8.929434923487552
+    }
+  },
+  "freeze_certificate": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "scored_once": true,
+  "evidence_type": "sealed_confirmation_single_provider_usgs",
+  "limitations": [
+    "USGS-only; multi-agency contexts still pending",
+    "Provisional HUC4 networks, not agency-defined river systems",
+    "Do not retune thresholds after this score"
+  ]
+}

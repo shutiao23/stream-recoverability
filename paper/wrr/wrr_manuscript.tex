@@ -49,8 +49,8 @@
 
 \journalname{Water Resources Research}
 
-\title{Data gaps degrade a thermal statistic in proportion to the share of its
-support they hide: evidence from 146 river networks}
+\title{Support-conditioned screening of incomplete river-temperature years:
+retrospective evidence from 146 networks}
 
 %% AUTHOR BLOCK IS A PLACEHOLDER.
 %% paper_archived/author_information_required.md records why: the repository does not
@@ -65,51 +65,40 @@ support they hide: evidence from 146 river networks}
 \titlerunninghead{Ignored.}
 
 \keypoints
- {Whether a data gap matters depends on how much the statistic being computed depends on the days that gap hides}
- {The governing axis turns from outage timing to outage length as the statistic support widens, crossing over at 91 days}
- {On 2422 real incomplete station years the new rule reverses one admission in six and admits no year whose peak went unobserved}
+ {Whether a gap matters depends on how much of the target statistic's support it hides; we use that as a screening axis, not a universal law}
+ {Retrospective holdout: pooled artificial outages cut consequential errors from 9.7 to 2.5\% at 70\% retention; empirical-arm gain unresolved}
+ {On 2422 real incomplete years, peak-window and length rules disagree; wholly-hidden peak counts use a climatological proxy}
 
 \maketitle
 
 \begin{abstract}
-Thermal archives are screened before use, almost always by a completeness
-threshold: a minimum share of the year, or a maximum consecutive gap. Both
-measure the size of an outage and are applied to whichever statistic an analyst
-wants. We show that the governing quantity is the share of the target
-statistic's own support that the outage hides, and that the familiar contrast
-between outage timing and outage length is the two ends of one continuous
-scale. On 5114 fully observed river station-years from 146 networks and nine
-agencies, with 51524 outage realizations, we sweep the support of the estimand
-from one day to a full year: the advantage of a peak-window axis over a
-completeness axis decays from 0.074 AUC and crosses zero at a support of 91
-days. Because a support must be located before it can be conditioned on, and
-its location wanders between years by 7 to 17 days, the best conditioning set is
-that support dilated by the wander; one window of 60 to 90 days serves every
-warm-season endpoint. A pre-registered screen scored once on 36 reserved
-networks cuts the consequential-error rate from 9.7\% to 2.5\% at equal
-retention. Applied to 2422 real incomplete station-years it reverses 15.1\% of
-admissions and removes the 17 years published guidance admits with the annual
-peak never observed. Two boundaries are equally prominent: the gain is not
-resolvable under the outage geometry these networks experience, and a screen
-selecting on difficulty selects against high-elevation catchments unless
-stratified.
+Thermal archives are usually screened by completeness thresholds that measure
+outage size, not the support of the target statistic. We develop a framework that
+conditions on how much of that support a gap hides, links it to reconstruction
+error and archive admission, and calibrates risk. On 5114 complete river
+station-years from 146 networks (51524 designed outages), a frozen hottest-30
+screen on a retrospective 36-network holdout cuts consequential errors from
+9.7\% to 2.5\% at 70\% retention (about $[-8.97,-5.36]$ points); the empirical
+arm is unresolved. A sealed never-used USGS panel (39 HUC4 networks; 8973 cases)
+scored once recovers about $-7.9$ points ($[-10.2,-5.8]$), with a smaller
+non-zero empirical-arm gain; multi-agency confirmation remains open. Continuum,
+crossover and dilation results from the opened reserved panel stay exploratory
+outside that seal. On 2422 real incomplete years, a peak-window rule disagrees
+with length guidance on 15.1\% of admissions and flags wholly masked
+\emph{climatological} peak windows (a proxy). Difficulty-based screening can
+thin high-elevation catchments unless stratified.
 
 \begin{plainlanguagesummary}
-Rivers are getting warmer, and the question managers ask is how hot a river got
-last summer and whether that is changing. The answer comes from a year of daily
-temperature readings, but those records have holes in them: loggers fail, get
-buried by ice, or are simply not visited. Before a year of data is used,
-somebody has to decide whether to trust it. Today that decision is made by
-counting how much data is missing. We show that counting is the wrong question.
-What matters is whether the missing days are the ones the number you want
-actually depends on. An annual average depends on every day a little; a summer
-peak depends almost entirely on one hot stretch. So a short outage over that
-stretch is worse than a long one that misses it, while for an annual average the
-opposite holds. We measure exactly where the switch happens, give agencies a
-rule they can apply in a spreadsheet, and test it on 2422 real incomplete
-records. We also find that when gauges fail matters as much as which records get
-discarded: servicing loggers in autumn rather than spring protects the summer
-peak.
+Rivers are getting warmer, and managers ask how hot a river got last summer.
+The answer needs a year of daily temperatures, but records have holes. Screening
+today mostly counts missing days. We argue the better question is whether the
+missing days are ones the number you want depends on, and we test a screening
+rule built that way on many river networks. On held-out networks with designed
+gaps the rule reduces large errors for the summer peak at equal retention; under
+the gaps these networks actually experience the gain is not yet clear. Results
+about exact crossover days, autumn maintenance benefits, and ``peak never
+observed'' counts are exploratory or use proxies and need confirmation before
+they guide operations.
 \end{plainlanguagesummary}
 \end{abstract}
 
@@ -152,12 +141,18 @@ The gap-filling literature optimises the accuracy of the filled series rather
 than the admissibility of the completed year \cite{mohseni1998,li2017}, and the
 closest prior work fills incomplete summer records so that a thermal peak can be
 computed, but applies the filling uniformly and declines no station-year
-\cite{beaufort2022}. Across all of them the conditioning variable is a property
-of the record. None is a property of the statistic being computed from it, and
-the transfer does happen in practice: \citeA{mauger2017}, for example, retain a
-site-year for a mean July temperature only ``when at least 90\% of the days were
-captured'', and then report the maximum weekly maximum temperature from the same
-records.
+\cite{beaufort2022}. Irregular sampling and sampling artifacts already bias
+mean and trend estimates in stream-temperature series
+\cite{grey2024}, and long-term reconstruction frameworks have been developed for
+regulated and data-sparse basins including Chinese catchments
+\cite{huang2023}. Those studies answer prediction and reconstruction questions;
+they do not yet close the archive-admission question for a named annual
+estimand. Across the completeness thresholds in common use the conditioning
+variable is a property of the record. None is a property of the statistic being
+computed from it, and the transfer does happen in practice:
+\citeA{mauger2017}, for example, retain a site-year for a mean July temperature
+only ``when at least 90\% of the days were captured'', and then report the
+maximum weekly maximum temperature from the same records.
 
 That is the assumption we examine, and its consequence is not confined to a
 prediction. An annual mean is a sum over days: removing $k$ days removes $k$
@@ -167,23 +162,24 @@ almost exactly however long the outage is, and if the outage covers it the
 statistic must be inferred however short the outage is. A single completeness
 threshold therefore cannot be correct for both, and the direction of its error
 is opposite in the two cases. Applied to a summer extreme, a threshold on gap
-length admits station-years whose peak was never observed and discards
-station-years whose peak is intact; which of the two dominates is an empirical
-question about the archive, not a matter of taste. The consequence is an archive
-whose composition, and not only whose accuracy, depends on a choice nobody
+length can admit station-years whose climatological peak window is wholly masked
+and discard station-years whose realised peak is intact; which of the two
+dominates is an empirical question about the archive, not a matter of taste. The
+consequence is an archive whose composition, and not only whose accuracy,
+depends on a choice nobody
 records.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f0_problem_frame.pdf}
-\caption{Why one completeness threshold cannot serve two estimands. The same station-year and outage mask feed an annual mean and a hottest 30-day mean; the two have different supports and therefore different governing axes. The incumbent rule conditions on outage size alone, which matches the support of the mean and ignores the support of the extreme. The measured error gradients along each axis are quoted in the lower boxes.}
+\caption{Problem frame (schematic). The same station-year and outage mask feed an annual mean and a hottest 30-day mean; different supports imply different governing axes. Boxes that quote numerical gradients are mechanism diagnostics from the scored panel, not the sealed never-used confirmation.}
 \label{fig:frame}
 \end{figure}
 
 Three things make the question answerable now that were not available to the
 studies that raised it. Water-temperature archives from nine national agencies
 can be assembled into a panel large enough to hold out whole river networks, so
-a screening rule can be scored on networks never used to build it rather than on
-a resampling of the networks that built it. Because a fully observed calendar
+a screening rule can be scored on held-out river networks, and --- after external
+recruitment --- on networks never used anywhere in the programme. Because a fully observed calendar
 year supplies a truth, a gap can be placed on it deliberately, which converts
 the comparison between conditioning variables from an observational contrast
 into a designed one: the two candidate properties of a gap can be varied
@@ -278,14 +274,25 @@ Section~\ref{sec:dilate} shows the error is large enough to change what a
 screening rule should condition on.
 
 \subsection{Records, and what each dataset is for}
+\label{sec:records}
 
 Daily water-temperature series were assembled from nine national providers: ARSO
 (Slovenia), CHMI (Czechia), FOEN (Switzerland), GKD Bayern and LUBW (Germany),
 NVE (Norway), Rijkswaterstaat (Netherlands), SYKE (Finland) and the USGS (United
-States). A \emph{network} is one provider's group of stations on a common river
-system. It is the unit at which donor stations are available to one another, and
-it is the clustering unit for every interval reported here, because station-years
-within a network share weather, regulation and instrumentation.
+States). Acquisition contracts differ. USGS series are requested as NWIS daily
+means (\texttt{parameterCd=00010}, \texttt{statCd=00003}); NVE HydAPI series are
+measured daily river temperature; Rijkswaterstaat values are aggregated to daily
+means in the project parser. Several other providers publish daily tables whose
+native statistic (24\,h mean versus a timed reference reading) is not yet proven
+station by station. In particular, SYKE's public day values can be morning
+nearshore references rather than 24\,h means; the three SYKE stations in the
+panel are therefore flagged in
+\texttt{results/wrr\_submission\_ready/measurement\_provenance\_stations.csv}
+and should be read as a sensitivity stratum, not as proven daily means. A
+\emph{network} is one provider's group of stations on a common river system. It
+is the unit at which donor stations are available to one another, and it is the
+clustering unit for every interval reported here, because station-years within a
+network share weather, regulation and instrumentation.
 
 Waterbody class was assigned per network and non-river objects --- seas, lakes,
 canals, estuaries, deltas --- are excluded rather than averaged into a river
@@ -296,8 +303,11 @@ are excluded because the estimator protocol requires them. This leaves
 
 The same 457 stations contribute \textbf{2422 further station-years that are
 genuinely incomplete}. These carry no truth and are therefore not part of the
-scored population; they are the population a screening rule exists for, and
-Section~\ref{sec:deploy} decides them.
+scored population; they are the population a screening rule exists for.
+Section~\ref{sec:deploy} reports overlap-rule decisions on that panel; the frozen
+certificate can also be applied through a truth-free \texttt{predict} interface
+(repository amendment
+\texttt{results/wrr\_submission\_ready/e2\_certificate\_predict/}).
 
 Station coordinates were assembled for all 457 stations, from the providers' own
 catalogues, from the USGS NWIS site service for 195 United States gauges, and
@@ -314,15 +324,26 @@ Table~\ref{tab:quantities} lists every quantity the analysis uses, what it means
 physically, where its value comes from, and whether it was calibrated. Networks
 --- never station-years --- were split into development and reserved, stratified
 on provider and on donor regime, with the seed recorded before any scoring. This
-gives \textbf{110 development and 36 reserved networks}. The reserved panel was
-opened once, after the analysis was frozen, and the model was not retuned;
-everything added after that opening is reported on development cases, with
-reserved numbers shown only where they are informative and labelled as no longer
-blind.
+gives \textbf{110 development and 36 reserved networks}. That reserved panel is a
+retrospective network holdout for the frozen v17 screen: 28 of 36 networks have
+prior development, descriptive or scoring use in earlier programme stages
+(\texttt{results/wrr\_submission\_ready/prior\_access\_ledger\_reserved\_networks.csv}).
+It is not an unused confirmation set for analyses developed after opening.
+A sealed confirmation was therefore recruited externally: 39 never-used USGS
+HUC4 networks (91 stations; 18 HUC2 contexts; 8973 designed outage cases) were
+ingested, hashed, and scored once with the frozen certificate
+(\texttt{results/wrr\_submission\_ready/p0\_07\_sealed\_confirmation/verdict.json}).
+At 70\% retention and $0.5\,^{\circ}$C the pooled contrast is about $-7.9$
+percentage points (clustered interval about $[-10.2,-5.8]$); the empirical arm
+is smaller but excludes zero (about $-1.7$ points, $[-3.0,-0.7]$). That panel is USGS-only and uses provisional HUC4 groupings rather than agency
+river systems. A never-used NVE probe reached only two basins with qualifying
+complete years (62 cases) and does not support transfer
+(\texttt{p0\_07\_nve\_probe/verdict.json}); multi-agency confirmation therefore
+remains open by an explicit failure closure rather than by silence.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f2_experiment_design.pdf}
-\caption{Study design and data flow, from nine providers to the single opening of the reserved panel, with the quality-control exclusions, the network-level stratified split, the action-space gate and the pre-registered freeze shown in the order they were executed.}
+\caption{Study design and data flow from nine providers through quality control, the network stratified split, and the freeze. The v17 reserved panel is a retrospective holdout with mixed prior access; sealed never-used confirmation uses a separate USGS ingest (and a thin NVE probe).}
 \label{fig:design}
 \end{figure}
 
@@ -405,7 +426,7 @@ version of this analysis, so the reconstruction this field actually uses was
 effectively absent, and 36 of the 110 development networks have no synchronous
 donor at all. With coordinates joined for all 457 stations and NASA POWER pulled
 for the whole panel, air forcing now covers 98.6\% of development cases and
-100\% of reserved cases. The pre-registered confirmation is not re-scored
+100\% of reserved cases. The retrospective reserved holdout is not re-scored
 against the new forcing; Section~\ref{sec:fair} reports it as a
 development-panel sensitivity analysis.
 
@@ -544,16 +565,19 @@ between them as a dichotomy. Sweeping the hottest-$k$-day mean of
 Equation~\eqref{eq:qk} from $k=1$ to $k=365$ evaluates it everywhere
 (Table~\ref{tab:sweep}, Figure~\ref{fig:law}a). The advantage of a fixed peak
 window is flat at about $+0.075$ AUC for every estimand whose support is a month
-or less, decays through $+0.050$ at a two-month support, and \textbf{crosses zero
-at a support width of 91 days}; beyond that the whole-year completeness axis
-wins, by 0.095 AUC at a half-year support and 0.173 at the annual mean. Every
-interval excludes zero except the one at $k=90$, which is where the crossing is.
-There is no dichotomy to explain: there is one scale with a measured crossover,
-and the two regimes of Table~\ref{tab:axes} are its ends.
+or less, decays through $+0.050$ at a two-month support, and crosses zero near a
+three-month support on the development width grid (interpolated crossover about
+91 days; opened-reserved estimates differ). Beyond that the whole-year
+completeness axis wins, by 0.095 AUC at a half-year support and 0.173 at the
+annual mean. These continuum numbers are exploratory analyses developed after
+the reserved panel was opened; they motivate the screening axis but are not the
+sealed USGS confirmation reported with the data description. The two regimes of
+Table~\ref{tab:axes} are useful ends of that exploratory scale, not a proven
+universal dichotomy.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv3_support_law.pdf}
-\caption{The law. (a) The advantage of a fixed 30-day peak window over whole-year completeness against the support width of the estimand, with network-clustered intervals and the crossover at 91 days. (b) AUC for every estimand against every conditioning window; the best window is 60 to 90 days for every estimand narrower than that, and the black square marks the estimand's own support. (c) The three sine-fit parameters of Johnson et al. (2021), by axis.}
+\caption{Exploratory continuum on the opened panel (not the sealed USGS confirmation). (a) Advantage of a fixed 30-day peak window over whole-year completeness versus support width, with network-clustered intervals; the development-grid crossing is near 91 days and should be read with interpolation uncertainty. (b) AUC for every estimand against every conditioning window. (c) Sine-fit parameters of Johnson et al. (2021), by axis.}
 \label{fig:law}
 \end{figure}
 
@@ -757,16 +781,18 @@ and three variables carry most of it}
 At 70\% retention on development cases, the share of retained station-years with
 a peak error above 0.5\,$^{\circ}$C is 2.9\% for the calibrated screen, 5.6\% for
 a rule on peak overlap alone, 9.2\% for the gap-length rule and 15.0\% for random
-retention (Figure~\ref{fig:frontier}a). On the 36 reserved networks, opened once
-with the frozen rule and no retuning, the screen gives 2.5\% against 9.7\% for
-the length rule (Figure~\ref{fig:frontier}b): a contrast of $-7.13$ points, 95\%
-network-clustered interval $-8.97$ to $-5.36$, against a pre-registered effect of
-five points and a resolvable margin of 1.44 points. Both pre-registered
-conditions are met, in every donor regime ($-6.6$, $-6.7$, $-7.2$, all excluding
-zero), and the result is not carried by the largest agencies: case-equal $-7.01$,
-provider-equal $-6.29$, network-equal $-5.82$, station-equal $-5.54$ points,
-with a median across individual reserved networks of $-5.0$, 83\% of networks
-favouring the screen, and a worst network of $+2.8$.
+retention (Figure~\ref{fig:frontier}a). On the 36 reserved networks scored as a
+retrospective network holdout (mixed prior access; see the prior-access ledger),
+the screen gives 2.5\% against 9.7\% for the length rule
+(Figure~\ref{fig:frontier}b): a contrast of $-7.13$ points, 95\%
+network-clustered interval $-8.97$ to $-5.36$, against the five-point effect
+declared for that freeze. Both declared conditions are met on that holdout, in
+every donor regime ($-6.6$, $-6.7$, $-7.2$, all excluding zero). An independent
+sealed USGS confirmation recovers a similar pooled contrast (Section~\ref{sec:records}).
+The holdout result is not carried by the largest agencies alone: case-equal
+$-7.01$, provider-equal $-6.29$, network-equal $-5.82$, station-equal $-5.54$
+points, with a median across individual reserved networks of $-5.0$, 83\% of
+networks favouring the screen, and a worst network of $+2.8$.
 
 \begin{table}
 \caption{Reserved panel at 70\% retention, across tolerances.}
@@ -882,13 +908,15 @@ from 0.340 to 0.364\,$^{\circ}$C.
 because long gaps begin in autumn}
 \label{sec:absent}
 
-The pre-registered test was run on the pooled case set, which mixes two arms
+The frozen holdout test was run on the pooled case set, which mixes two arms
 whose base rates differ by an order of magnitude, and they must be reported apart
 (Table~\ref{tab:arms}). The declared five-point effect is met on the pooled and
-stratified populations and \emph{not} on the empirical arm, where the reserved
-interval includes zero. The headline $-7.13$ points is therefore an effect on a
-mixture that includes a designed arm, and it is not an estimate of what an agency
-will experience next year.
+stratified populations and \emph{not} on the reserved empirical arm, where the
+interval includes zero. The holdout headline $-7.13$ points is therefore an
+effect on a mixture that includes a designed arm. The sealed USGS confirmation
+likewise finds a much smaller empirical-arm gain than the pooled contrast, so
+neither number should be quoted as next year's agency experience under natural
+outages alone.
 
 \begin{table}
 \caption{Decomposition by outage arm.}
@@ -919,15 +947,16 @@ warm season has been recorded, so little is at risk and little can be screened
 out: 4.2\% of reserved empirical cases exceed the tolerance with no screening at
 all.
 
-Holding the real gap-length distribution fixed and changing only where gaps are
-placed, the consequential-error rate of the annual peak is 4.9\% under a calendar
-concentrated in September to January, 8.7\% as observed, 9.1\% uniform, and
-13.2\% concentrated in March to July (Figure~\ref{fig:season}b): swings of $-3.9$
-and $+4.4$ percentage points against a screening gain of 6.3.
+A counterfactual that holds gap lengths fixed and moves only start month is
+reported in Figure~\ref{fig:season}b as an exploratory amendment after correcting
+year-end truncation in the placement code
+(\texttt{results/wrr\_submission\_ready/e1\_maintenance\_recompute/}). Those
+percentage-point swings are not sealed confirmation and are not used as
+agency recommendations.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv1_outage_seasonality.pdf}
-\caption{(a) Start month of 6472 real interior gaps by length class; outages of 90 days and longer begin in autumn and winter. (b) What the maintenance calendar is worth: the consequential-error rate under four placement calendars, holding the real outage-length distribution fixed.}
+\caption{(a) Start month of 6472 real interior gaps by length class; long outages begin in autumn and winter (descriptive). (b) Exploratory maintenance-calendar counterfactual after multi-year placement correction; not a verified operational benefit.}
 \label{fig:season}
 \end{figure}
 
@@ -1100,12 +1129,13 @@ the estimators, or of the screening rule. It is a property of the functional
 being computed, and it follows from where that functional puts its weight. A
 statistic whose influence is concentrated on a few days is destroyed by losing
 those days and is almost unaffected by losing any others; a statistic whose
-influence is spread evenly over the year is degraded in proportion to how many
-days go missing and is indifferent to which. Between those two limits the
-influence is neither concentrated nor uniform, and the discriminating power of a
-narrow conditioning window falls smoothly as the weight it captures falls. The
-crossing at 91 days is where a fixed 30-day window stops capturing more influence
-than a whole-year count does.
+influence is spread evenly over the year tends to degrade with how many days go
+missing and is less sensitive to which. Between those two limits the influence
+is neither concentrated nor uniform, and the discriminating power of a narrow
+conditioning window falls as the weight it captures falls. On this panel's
+exploratory width sweep, a fixed 30-day window stops beating a whole-year count
+near a three-month support; that numerical crossing is panel- and climate-dependent,
+not a universal constant.
 
 Two measurements distinguish that account from a re-description of the data.
 First, the gradient ratios swap by roughly an order of magnitude in each
@@ -1179,16 +1209,14 @@ dilate by that amount, and condition on the result. And the finding that a
 screening rule must be specified together with its strata is a statement about
 selection, not about temperature.
 
-Three parts are not. The numerical crossover at 91 days depends on how
+Three parts are not. The numerical crossover near three months depends on how
 concentrated a river's thermal year is and on how far its peak wanders between
-years; both are properties of this climate and this variable, and we would expect
-the crossover to move in a system with a flatter seasonal cycle or a more mobile
-peak. The operational gain is regime-dependent and is not resolvable under the
-gap geometry these networks currently experience (Section~\ref{sec:absent}), so
-the headline contrast should not be quoted as what an agency will obtain. And the
-catchment attribution rests on 140 of 204 stations in one country, so the
-statement that topography rather than geology makes a river hard is a statement
-about the United States subset of this panel.
+years; both are properties of this climate and this variable. The operational
+gain is regime-dependent: the sealed USGS confirmation recovers a pooled
+contrast, but the empirical arm remains much smaller, and multi-agency
+never-used confirmation is still thin. Catchment associations rest on 140 of
+204 stations in one country and should be read as attribute correlations on that
+subset, not as a geology-versus-terrain law.
 
 One boundary deserves naming separately, because it limits interpretation rather
 than transfer. The mechanism argument is supported by an influence-function
@@ -1270,75 +1298,63 @@ argument for calibrating rather than for screening.
 
 \subsection{What an agency should change, and in what order}
 
-The first recommendation is not to adopt a model and not even to change a
-screening rule. It is to look at the maintenance calendar. Holding the real
-distribution of gap lengths fixed and changing only when gaps begin, a calendar
-concentrated in March to July would raise the consequential-error rate of the
-annual peak from 8.7\% to 13.2\%, and one concentrated in September to January
-would lower it to 4.9\%: swings of $+4.4$ and $-3.9$ percentage points against a
-screening gain of 6.3 points at 70\% retention. That is the same order of
-magnitude, and it is available before any data are lost rather than after. Our
-archives sit near the good end of that range for gaps of three months and more
-and near the indifferent middle for everything shorter, so the headroom is real.
-Servicing loggers, replacing batteries and scheduling site visits in autumn
-converts recoverable gaps into harmless ones; doing it in late spring does the
-reverse. Redundancy follows the same logic: a second station is worth having in
-proportion to its synchronous anomaly correlation with the target rather than its
-mere existence, and synchrony is lowest at high-elevation, steep sites, which is
-where a redundant gauge buys the most.
+The first recommendation is to treat screening as estimand-specific. An agency
+assembling warm-season extremes from maximum gap length should trial conditioning
+on how much of a station's climatological warm window the gap hides, and should
+keep length-based rules for annual means, cold extremes and the sine-fit regime
+parameters for which standing guidance was derived. On the retrospective reserved
+holdout, substituting a support-aware screen takes the consequential-error rate
+from 9.7\% to 2.5\% at equal retention on pooled designed outages; the
+empirical-arm gain is not resolved, so this is not yet a claim about the
+networks' natural failure calendar.
 
-The second recommendation is to change what the rule conditions on, and the third
-is to stratify the change. An agency screening station-years for warm-season
-extremes on maximum gap length should condition instead on how much of the
-station's climatological warm window the gap hides, widened to 60 to 90 days
-rather than the 30 days of the metric itself, because one window of that width
-serves every warm-season endpoint and absorbs the year-to-year wander of the
-peak's position. On our reserved panel that substitution takes the
-consequential-error rate from 9.7\% to 4.2\% at equal retention with three
-variables and to 2.5\% with the calibrated screen. But the threshold should be
-applied within strata, not globally, or the archive quietly loses its mountain
-stations at a cost of 0.31 points to prevent. Equally, agencies should
-\emph{keep} their length-based rules for annual means, cold extremes and the
-sine-fit regime parameters the standing guidance was written for.
+Maintenance-calendar pricing that previously appeared to show autumn servicing
+gains of several percentage points is withdrawn from recommendations until the
+cross-year outage placement is recomputed: the earlier counterfactual truncated
+late-year gaps at day 366 while still labelling them by their nominal length.
+Until that recompute and a never-used-network confirmation exist, schedule
+changes remain a hypothesis suggested by autumn-heavy long outages, not a
+verified error-rate benefit. Redundancy investments similarly need cost and
+failure-mode evidence beyond synchrony correlations on the opened panel.
 
-Two cautions bound the recommendation. Nothing here applies to ungauged sites,
-because the rule uses a station's own history to locate the support. And a
-calibrated interval is not a deployment guarantee: the pooled interval is valid
-for a population of networks and not at a single new site unless the cluster
-calibration is used, which costs about a 1.5-fold widening. An agency that needs
-a site-level statement should pay that price explicitly rather than read the
-pooled interval as one.
+Thresholds should be applied within strata when difficulty correlates with
+elevation or donor poverty, or the archive can quietly lose mountain stations.
+Nothing here applies to ungauged sites, because locating support uses a
+station's own history. A pooled conformal interval is a statement about a
+population of networks, not an automatic guarantee at a single new site;
+cluster-aware calibration must be chosen on calibration data only and validated
+on never-used networks before it is sold as site-level coverage.
 
 \section{Conclusions}
 
-Whether a data gap matters depends on how much the statistic being computed
-depends on the days it hides. Measuring that share --- the hidden mass on the
-statistic's support --- orders the regimes a completeness threshold cannot see,
-and it does so continuously: sweeping the support of a warm-season mean from one
-day to a full year, the advantage of a peak-window axis over a completeness axis
-decays from $+0.074$ AUC and crosses zero at 91 days. Because a support must be
-located before it can be conditioned on, and a river's hottest window wanders by
-one to two weeks between years, the conditioning set that works is the support
-widened by that wander, and one climatological window of 60 to 90 days is
-near-optimal for every warm-season endpoint we examined.
+Whether a data gap matters depends on how much of the target statistic's support
+it hides. That quantity is a useful risk descriptor and screening axis for
+archive decisions; we do not claim an unconditional proportion law relating
+hidden support to loss for every residual structure and every competing peak
+window. A frozen screen, scored as a retrospective network holdout on 36
+held-out networks, reduces consequential error for the hottest-30 mean from
+9.7\% to 2.5\% at 70\% retention on pooled designed outages. Continuum,
+crossover and dilation results that suggest when timing versus length should
+govern were developed after that panel was opened and remain exploratory until
+confirmed on never-used networks.
 
-Three conditions bound that statement. On the sine-fit estimands the standing
-guidance was derived for, the same account says the guidance is right, so the
-correction is to the transfer of a threshold and not to the threshold. The
-operational gain is regime-dependent: under the gap calendar these agencies
-currently keep it is not resolvable, because gaps long enough to destroy a summer
-peak already begin in autumn. And a rule that conditions on difficulty selects
-against high, steep, donor-poor catchments unless its threshold is applied within
-strata.
+Three conditions bound what can be said now. On the sine-fit estimands standing
+guidance was derived for, transferring a warm-season threshold is the mistake to
+avoid rather than the guidance itself. Operational gain under the agencies' own
+outage geometry is not established on the empirical arm. Difficulty-based
+screening can thin high, steep, donor-poor catchments unless thresholds are
+applied within strata. Maintenance-calendar benefits and ``annual peak never
+observed'' counts are not retained as verified effects: the former require a
+corrected multi-year outage geometry, and the latter currently flag wholly masked
+\emph{climatological} windows.
 
-What follows for practice is correspondingly specific. Keep length-based
-completeness rules for averages and for sine-fit regime parameters; replace them
-with support-based rules for warm-season extremes, using a window of 60 to 90
-days rather than the width of the metric; report retention by catchment attribute
-alongside the error rate, because a rule that removes the mountain stations from
-a national thermal archive has done damage no error rate will show; and schedule
-the loggers, because on this panel when a gauge fails is worth as much as which
-records are discarded afterwards.
+What follows for practice is correspondingly limited. Prefer estimand-specific
+rules; keep length-based completeness for averages and sine-fit regime
+parameters while trialling support-aware rules for warm-season extremes; report
+retention by catchment attribute alongside error rates; deploy only prediction
+interfaces that do not require true errors at decision time; and treat autumn
+maintenance and regulatory hottest-7 claims as unvalidated until recomputed on
+the correct endpoints and geometries.
 
 \section*{Open Research Statement}
 
@@ -1351,11 +1367,15 @@ station feed. Daily 2\,m air temperature is NASA POWER (MERRA-2)
 
 All analysis code, derived artifacts, figures, the editable draw.io sources of
 the schematic figures and the frozen pre-registration are in the accompanying
-repository. Every number in this article is re-derived from the artifacts by an
-automated audit that runs in the test suite, and a claim-to-artifact matrix
-records which artifact settles each claim, including the claims that did not
-stand. A permanent archive of the repository and a DOI will be deposited on
-acceptance.
+repository. A claim registry
+(\texttt{results/wrr\_submission\_ready/claim\_registry.csv}) records each
+headline claim's artifact, endpoint, unit, denominator, evidence type and
+whether it may enter the abstract or conclusions. An automated audit checks a
+declared set of archived manuscript numbers against artifacts; it is not yet a
+full semantic binding of every live \TeX\ numeral. Input-file hashes for the
+146 study networks are in
+\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}. A permanent
+archive of the repository and a DOI will be deposited on acceptance.
 
 \section*{Acknowledgments}
 

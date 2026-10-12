@@ -204,8 +204,12 @@ class Certificate:
         return self
 
     # -- internals --------------------------------------------------------
-    def _raw(self, cases: pd.DataFrame) -> pd.DataFrame | None:
-        """Uncalibrated bounds, the selection they imply, and the realised error."""
+    def _predict_raw(self, cases: pd.DataFrame) -> pd.DataFrame | None:
+        """Uncalibrated bounds and selection from decision-time features only.
+
+        Never reads truth, err_*, or abserr_*. Supported estimators are scored
+        whenever their inputs exist, so real incomplete years can be screened.
+        """
 
         X = feature_frame(cases, self.features)
         n = len(cases)
@@ -219,7 +223,7 @@ class Certificate:
             high = np.full(n, np.nan, dtype=float)
             if head.trained:
                 any_trained = True
-                mask = supported(cases, estimator) & cases[f"abserr_{estimator}"].notna().to_numpy()
+                mask = supported(cases, estimator)
                 if mask.any():
                     block = X.loc[mask]
                     column[mask] = np.maximum(head.upper.predict(block), 0.0)
@@ -238,27 +242,53 @@ class Certificate:
         frame["raw_bound"] = raw_bound
         picked_low = np.full(n, np.nan, dtype=float)
         picked_high = np.full(n, np.nan, dtype=float)
-        abs_error = np.full(n, np.nan, dtype=float)
-        signed_error = np.full(n, np.nan, dtype=float)
-        metric = np.full(n, np.nan, dtype=float)
         for estimator in bounds.columns:
             mask = (chosen == estimator).to_numpy() & valid
             if not mask.any():
                 continue
             picked_low[mask] = lows[estimator].to_numpy()[mask]
             picked_high[mask] = highs[estimator].to_numpy()[mask]
-            abs_error[mask] = pd.to_numeric(cases[f"abserr_{estimator}"], errors="coerce").to_numpy()[mask]
-            signed_error[mask] = pd.to_numeric(cases[f"err_{estimator}"], errors="coerce").to_numpy()[mask]
-            metric[mask] = pd.to_numeric(cases[f"metric_{estimator}"], errors="coerce").to_numpy()[mask]
         frame["raw_low"] = picked_low
         frame["raw_high"] = picked_high
+        for estimator in bounds.columns:
+            frame[f"bound_{estimator}"] = bounds[estimator]
+        keep = frame["raw_bound"].notna() & np.isfinite(frame["raw_bound"])
+        return frame.loc[keep]
+
+    @staticmethod
+    def _attach_truth(cases: pd.DataFrame, predicted: pd.DataFrame) -> pd.DataFrame:
+        """Join realised errors when evaluation columns exist; else leave NaN."""
+
+        frame = predicted.copy()
+        n = len(frame)
+        abs_error = np.full(n, np.nan, dtype=float)
+        signed_error = np.full(n, np.nan, dtype=float)
+        metric = np.full(n, np.nan, dtype=float)
+        chosen = frame["chosen"].astype(str).to_numpy()
+        for estimator in sorted(set(chosen)):
+            mask = chosen == estimator
+            if not mask.any():
+                continue
+            abs_col, err_col, metric_col = f"abserr_{estimator}", f"err_{estimator}", f"metric_{estimator}"
+            if abs_col in cases.columns:
+                abs_error[mask] = pd.to_numeric(cases.loc[frame.index, abs_col], errors="coerce").to_numpy()[mask]
+            if err_col in cases.columns:
+                signed_error[mask] = pd.to_numeric(cases.loc[frame.index, err_col], errors="coerce").to_numpy()[mask]
+            if metric_col in cases.columns:
+                metric[mask] = pd.to_numeric(cases.loc[frame.index, metric_col], errors="coerce").to_numpy()[mask]
         frame["abs_error"] = abs_error
         frame["signed_error"] = signed_error
         frame["metric"] = metric
-        for estimator in bounds.columns:
-            frame[f"bound_{estimator}"] = bounds[estimator]
-        keep = frame["raw_bound"].notna() & np.isfinite(frame["raw_bound"]) & frame["abs_error"].notna()
-        return frame.loc[keep]
+        return frame
+
+    def _raw(self, cases: pd.DataFrame) -> pd.DataFrame | None:
+        """Calibration view: predictions restricted to rows with realised absolute error."""
+
+        predicted = self._predict_raw(cases)
+        if predicted is None or predicted.empty:
+            return None
+        scored = self._attach_truth(cases, predicted)
+        return scored.loc[scored["abs_error"].notna()]
 
     # -- application ------------------------------------------------------
     def cluster_scales(self, level: float) -> tuple[float, float]:
@@ -274,20 +304,15 @@ class Certificate:
             self.cluster_quantiles_interval, self.scale_interval
         )
 
-    def apply(
+    def _calibrated_frame(
         self,
+        raw: pd.DataFrame,
         cases: pd.DataFrame,
         *,
-        mondrian: bool = False,
-        cluster_aware: bool = False,
-        cluster_level: float | None = None,
+        mondrian: bool,
+        cluster_aware: bool,
+        cluster_level: float | None,
     ) -> pd.DataFrame:
-        raw = self._raw(cases)
-        out = pd.DataFrame(index=cases.index)
-        if raw is None or raw.empty:
-            for column in ("certificate_choice", "certificate_bound", "certificate_abs_error"):
-                out[column] = np.nan
-            return out
         if cluster_aware:
             scale, interval_scale = self.cluster_scales(
                 self.cluster_level if cluster_level is None else float(cluster_level)
@@ -306,19 +331,80 @@ class Certificate:
         frame["certificate_choice"] = raw["chosen"]
         frame["certificate_bound"] = bound
         frame["certificate_raw_bound"] = raw["raw_bound"]
-        frame["certificate_abs_error"] = raw["abs_error"]
-        frame["certificate_signed_error"] = raw["signed_error"]
-        frame["certificate_metric"] = raw["metric"]
         frame["interval_low"] = low
         frame["interval_high"] = high
         frame["interval_width"] = high - low
-        frame["covered"] = (raw["signed_error"].to_numpy() >= low) & (raw["signed_error"].to_numpy() <= high)
-        frame["bound_covered"] = raw["abs_error"].to_numpy() <= bound
         for estimator in self.heads:
             column = f"bound_{estimator}"
             if column in raw.columns:
                 frame[column] = raw[column]
+        return frame
+
+    def predict(
+        self,
+        cases: pd.DataFrame,
+        *,
+        mondrian: bool = False,
+        cluster_aware: bool = False,
+        cluster_level: float | None = None,
+    ) -> pd.DataFrame:
+        """Deployment interface: choice, bound and interval without truth columns."""
+
+        raw = self._predict_raw(cases)
+        out = pd.DataFrame(index=cases.index)
+        if raw is None or raw.empty:
+            for column in ("certificate_choice", "certificate_bound", "certificate_raw_bound"):
+                out[column] = np.nan
+            return out
+        frame = self._calibrated_frame(
+            raw, cases, mondrian=mondrian, cluster_aware=cluster_aware, cluster_level=cluster_level
+        )
         return frame.reindex(cases.index)
+
+    def apply(
+        self,
+        cases: pd.DataFrame,
+        *,
+        mondrian: bool = False,
+        cluster_aware: bool = False,
+        cluster_level: float | None = None,
+    ) -> pd.DataFrame:
+        """Evaluation interface: predict, then attach realised errors when present.
+
+        Rows without abserr_* remain in the prediction columns but have NaN
+        evaluation fields. Calibration training still uses :meth:`_raw`, which
+        keeps only scored rows.
+        """
+
+        predictions = self.predict(
+            cases, mondrian=mondrian, cluster_aware=cluster_aware, cluster_level=cluster_level
+        )
+        out = predictions.copy()
+        if out["certificate_choice"].isna().all():
+            for column in ("certificate_abs_error", "certificate_signed_error", "certificate_metric"):
+                out[column] = np.nan
+            return out
+        scored = self._attach_truth(
+            cases,
+            pd.DataFrame(
+                {
+                    "chosen": out["certificate_choice"],
+                    "raw_bound": out["certificate_raw_bound"],
+                },
+                index=out.index,
+            ).dropna(subset=["chosen"]),
+        )
+        out["certificate_abs_error"] = scored["abs_error"].reindex(out.index)
+        out["certificate_signed_error"] = scored["signed_error"].reindex(out.index)
+        out["certificate_metric"] = scored["metric"].reindex(out.index)
+        signed = out["certificate_signed_error"].to_numpy(dtype=float)
+        abs_err = out["certificate_abs_error"].to_numpy(dtype=float)
+        low = out["interval_low"].to_numpy(dtype=float)
+        high = out["interval_high"].to_numpy(dtype=float)
+        bound = out["certificate_bound"].to_numpy(dtype=float)
+        out["covered"] = (signed >= low) & (signed <= high)
+        out["bound_covered"] = abs_err <= bound
+        return out
 
 
 def _per_cluster_quantiles(scores: np.ndarray, clusters: np.ndarray, coverage: float) -> tuple:

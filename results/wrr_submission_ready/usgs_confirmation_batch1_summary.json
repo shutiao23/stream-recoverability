@@ -1,0 +1,62 @@
+{
+  "n_networks_attempted": 35,
+  "n_networks_with_panel_file": 15,
+  "n_networks_with_ge1_station_4plus_complete_years": 15,
+  "n_stations_ge4_complete_years": 31,
+  "design_floor": 30,
+  "shortfall_networks": 15,
+  "n_errors": 50,
+  "errors_head": [
+    {
+      "network_id": "usgs_confirm_3090",
+      "site_id": "2266300",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2266300&parameterCd=00010&statCd=00003&startDT=1977-06-22&endDT=2025-11-24"
+    },
+    {
+      "network_id": "usgs_confirm_3090",
+      "site_id": "2266495",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2266495&parameterCd=00010&statCd=00003&startDT=1985-01-24&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_1401",
+      "site_id": "9085000",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=9085000&parameterCd=00010&statCd=00003&startDT=1980-01-18&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_1401",
+      "site_id": "9070500",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=9070500&parameterCd=00010&statCd=00003&startDT=1980-02-15&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_1401",
+      "site_id": "9041090",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=9041090&parameterCd=00010&statCd=00003&startDT=1990-04-08&endDT=2026-10-07"
+    },
+    {
+      "network_id": "usgs_confirm_3080",
+      "site_id": "2236000",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2236000&parameterCd=00010&statCd=00003&startDT=1985-11-15&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_3080",
+      "site_id": "2244040",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2244040&parameterCd=00010&statCd=00003&startDT=1995-04-29&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_3100",
+      "site_id": "2297350",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2297350&parameterCd=00010&statCd=00003&startDT=2016-04-04&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_3100",
+      "site_id": "2297345",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=2297345&parameterCd=00010&statCd=00003&startDT=2016-04-04&endDT=2026-10-10"
+    },
+    {
+      "network_id": "usgs_confirm_2020",
+      "site_id": "1362500",
+      "error": "HTTP 400 for https://waterservices.usgs.gov/nwis/dv/?format=json&sites=1362500&parameterCd=00010&statCd=00003&startDT=1996-06-01&endDT=2026-10-11"
+    }
+  ],
+  "status": "batch1_partial_ingest"
+}

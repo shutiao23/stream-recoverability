@@ -1,0 +1,32 @@
+{
+  "states_queried": [
+    "ak",
+    "me",
+    "ny",
+    "nc",
+    "tn",
+    "nm",
+    "az",
+    "wa",
+    "or",
+    "id",
+    "mt",
+    "wy",
+    "co",
+    "ut",
+    "nv",
+    "ca",
+    "tx",
+    "fl",
+    "mn",
+    "wi"
+  ],
+  "n_catalog_sites": 2234,
+  "n_unused_span4plus_sites": 1105,
+  "n_provisional_huc4_networks": 120,
+  "n_priority_networks": 115,
+  "design_floor": 30,
+  "still_need_download_and_complete_year_audit": true,
+  "errors": [],
+  "note": "Catalog span_years is NWIS metadata availability, not yet audited complete calendar years."
+}

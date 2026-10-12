@@ -1,0 +1,23 @@
+finding_id,severity,status,closure_mode,evidence,residual_risk
+F01,Blocker,closed_with_scope,prior_access_ledger+sealed_USGS_confirm,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json,v18 continuum still exploratory; multi-agency confirm open
+F02,Blocker,closed_code_plus_shoukou,multi_year_placement_fix+withdraw_headline_numbers,scripts/210_v18_outage_seasonality.py; e1_maintenance_recompute/,recomputed swings exploratory only
+F03,Blocker,closed,Certificate.predict on 2422 incomplete years,e2_certificate_predict/summary.json,historical E2 overlap rules remain separate artifact
+F04,Major,closed_by_rewrite,withdraw_proportion_law_from_headlines,title/abstract/conclusions; claim_registry L1,body still discusses influence account carefully
+F05,Major,closed_by_rewrite,crossover_labelled_exploratory_with_uncertainty,fig:law caption; Methods continuum section,no bootstrap curve yet
+F06,Major,closed_by_rewrite_plus_sealed_arm,rewrite_or_shoukou,Empirical vs pooled reported on holdout and sealed USGS confirm; natural-fault population reweighting deferred as non-headline. Evidence: tab:arms; p0_07 verdict by_arm.,natural-fault population weighting still incomplete
+F07,Major,closed_by_rewrite,climatological_proxy_wording,abstract/keypoints/conclusions/deploy,bridge diagnostic not rebuilt
+F08,Major,closed_local_checkout,current_data_manifest 146/146 hashed+rebuild entry,current_data_manifest.csv; scripts/228,third-party empty clone may still lack large panels if not shipped
+F09,Major,closed_partial_shoukou,station_provenance; SYKE excluded from unified daily-mean claim,measurement_provenance_stations.csv,ARSO/CHMI/FOEN/GKD/LUBW still unverified
+F10,Major,deferred_failure_shoukou_P1,rewrite_or_shoukou,MNAR claims barred from abstract/conclusions (claim_registry M1); full pattern-mixture left as P1.,if MNAR claims return upgrade to P0
+F11,Major,closed_code_pending_full_recompute,noise_sensitivity locked to certificate_choice,scripts/202_v17_robustness.py,old published noise numbers not regenerated
+F12,Major,closed_code_pending_full_recompute,equal_K donor control,mechanism.py,old mechanism tables not regenerated
+F13,Major,closed_by_rewrite,attribute_association_not_geology_law,Discussion catchment paragraph,US-only correlations remain
+F14,Major,closed_by_rewrite,rewrite_or_shoukou,Site-level conformal guarantee removed from agency recommendations; pooled vs cluster distinction retained.,cluster level still historically selected on opened panel
+F15,Major,closed_by_rewrite,air_ridge not faithful Beaufort,P0_06_method_freeze.json; estimators note,no new faithful baseline run
+F16,Major,closed_by_rewrite,cold/sine generality limited in conclusions,conclusions,winter support comparison not added
+F17,Major,closed_by_rewrite,hottest7 labelled unvalidated for WAC,conclusions,no daily-max reanalysis
+F18,Major,closed,SI provider roles regenerated from split,wrr_supporting_information.tex; provider_roles_from_split.csv,none material
+F19,Major,closed_by_narrowing,Open Research states audit scope limits,Open Research Statement,TeX not fully claim-bound
+F20,Major,closed_partial,Grey2024+Huang2023 cited; novelty narrowed,references.bib; intro,Hare/Jackson not added
+F21,Minor,closed_partial_captions,rewrite_or_shoukou,Key figure captions now label exploratory vs sealed evidence; full Figure-1 redraw optional polish.,Figure 1 schematic redraw still pending
+F22,Admin,blocked_human,author metadata cannot be invented,submission_author_metadata.json; AUTHOR_METADATA_FAILURE_SHOUKOU.md,submission_ready remains false until humans fill

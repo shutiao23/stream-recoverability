@@ -1,0 +1,27 @@
+{
+  "candidate_unseen_networks": [
+    "nve_basin_151",
+    "nve_basin_84",
+    "usgs2_huc2_14",
+    "usgs2_huc2_19",
+    "usgs2_huc2_90",
+    "usgs2_huc6_100700",
+    "usgs2_huc6_190204",
+    "usgs2_huc6_190205"
+  ],
+  "n_reserved_networks": 36,
+  "n_reserved_station_years_in_trusted_join": 1092,
+  "networks_by_bucket": {
+    "candidate_unseen": 8,
+    "prior_confirmation_scored": 6,
+    "prior_descriptive": 13,
+    "prior_development": 9
+  },
+  "note": "v17 reserved is a retrospective network holdout for the frozen v17 screen; not an unseen panel for v18 claims developed after opening.",
+  "station_years_by_bucket": {
+    "candidate_unseen": 80,
+    "prior_confirmation_scored": 73,
+    "prior_descriptive": 345,
+    "prior_development": 594
+  }
+}

@@ -152,9 +152,12 @@ def _simulate_overlaps(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Place each real outage length under a calendar and measure peak overlap.
 
-    The outage is placed inside a 365-day year; the peak window is the 30 days
-    beginning at the station's climatological peak start. Only the placement
-    distribution changes between calendars.
+    Outages are placed on a multi-year day axis so a gap that starts late in the
+    year keeps its declared length instead of being truncated at day 366. Each
+    calendar year that the gap intersects contributes one (length_in_year,
+    peak_overlap) observation for the response-surface lookup. The peak window
+    is the 30 days beginning at the station's climatological peak start. Only
+    the placement distribution changes between calendars.
     """
 
     month_starts = np.array([1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335])
@@ -168,12 +171,31 @@ def _simulate_overlaps(
         starts = month_starts[months] + offsets
         peaks = rng.choice(peak_starts, size=draws_per_length)
         for start, peak in zip(starts, peaks):
-            outage = np.zeros(366, dtype=bool)
-            end = min(int(start) + length, 366)
-            outage[int(start) : end] = True
+            start = int(start)
+            axis = np.zeros(start + length + 366, dtype=bool)
+            axis[start : start + length] = True
+            if int(axis.sum()) != length:
+                raise AssertionError(
+                    f"declared length {length} != masked days {int(axis.sum())} at start {start}"
+                )
+            first_year = start // 366
+            last_year = (start + length - 1) // 366
             window = np.arange(int(peak), int(peak) + 30) % 366
-            out_lengths.append(length)
-            out_overlaps.append(float(outage[window].mean()))
+            for year in range(first_year, last_year + 1):
+                base = year * 366
+                year_slice = axis[base : base + 366]
+                if year_slice.size < 366:
+                    year_mask = np.zeros(366, dtype=bool)
+                    year_mask[: year_slice.size] = year_slice
+                else:
+                    year_mask = year_slice
+                actual_length = int(year_mask.sum())
+                if actual_length <= 0:
+                    continue
+                # Lookup uses the days hidden inside this calendar year, which
+                # is the quantity the designed-arm response surface was built on.
+                out_lengths.append(actual_length)
+                out_overlaps.append(float(year_mask[window].mean()))
     return np.asarray(out_lengths, dtype=float), np.asarray(out_overlaps, dtype=float)
 
 

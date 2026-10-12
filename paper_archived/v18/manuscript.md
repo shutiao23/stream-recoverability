@@ -1,4 +1,10 @@
-# Measure missingness where the statistic lives: a continuous screening law for gap-affected stream-temperature records
+# Support-conditioned screening of incomplete river-temperature years: retrospective evidence from 146 networks
+
+> **2026-10-12 overlay.** Headline eligibility is governed by
+> `results/wrr_submission_ready/claim_registry.csv`. Numbers below marked for
+> crossover, maintenance calendars, and wholly-hidden peaks are
+> exploratory / proxy / pending recompute and must not be treated as sealed
+> confirmation. The authoritative submission prose is `paper/wrr/wrr_manuscript.tex`.
 
 <!-- numbers:start -->
 ```json
@@ -29,53 +35,28 @@
 
 ## Key points
 
-- Whether a data gap matters depends on how much the target statistic depends
-  on the days it hides. Sweeping the width of the statistic's support from one
-  day to a full year, the governing axis turns over smoothly from *when* the
-  outage fell to *how much* of the record it removed, and the crossover is at a
-  support of **91 days**.
-- The rule that follows is deployable and it changes real decisions: on 2,422
-  genuinely incomplete station-years from nine agencies, screening on the
-  station's climatological peak window rather than on gap length reverses the
-  admission decision for **15.1%** of them, and removes the 17 station-years
-  that published completeness guidance admits with the peak window entirely
-  unobserved.
-- Screening is not the only lever and not the largest. Real outages of three
-  months or more begin in autumn and winter, which protects the summer peak by
-  accident; moving maintenance into spring would cost **4.4 percentage points**
-  of consequential error and moving it into autumn would save **3.9**, against
-  a screening gain of 6.3.
+- Whether a gap matters depends on how much of the target statistic's support it
+  hides; we use that as a screening axis, not a universal proportion law.
+- Retrospective holdout: pooled artificial outages cut consequential errors from
+  9.7% to 2.5% at 70% retention; the empirical-arm gain is unresolved.
+- On 2,422 real incomplete years, peak-window and length rules disagree;
+  wholly-hidden peak counts use a climatological proxy, not verified annual peaks.
 
 ## Abstract
 
-Thermal archives are screened before use, almost always by a threshold on
-record completeness: a minimum share of the year, or a maximum consecutive gap.
-Both thresholds measure the *size* of an outage, and both are applied to
-whichever statistic an analyst happens to want. We show that the relevant
-quantity is neither the size nor the timing of an outage as such, but the share
-of the target statistic's own support that the outage hides, and that the
-familiar contrast between "timing" and "length" is the two ends of one
-continuous scale. On 5,114 fully observed river station-years from 146 networks
-and nine agencies, with 51,524 outage realizations, we sweep the support of the
-estimand from a single day to the whole year: the advantage of a peak-window
-axis over a whole-year completeness axis decays from +0.074 AUC and crosses zero
-at a support of 91 days, after which the completeness axis wins by up to 0.173.
-The same law reproduces, on the three sine-fit parameters used by the standing
-guidance, the pattern that guidance reported as inconsistent. Because a
-statistic's support has to be located before it can be conditioned on, and its
-location wanders between years by a median of 7 to 17 days, the conditioning set
-that performs best is the support *dilated* by that wander: one climatological
-window of 60 to 90 days is near-optimal for every endpoint from the annual
-maximum to the half-year mean. Acting on the law, a pre-registered screen scored
-once on 36 reserved networks cuts the consequential-error rate from 9.7% to 2.5%
-at equal retention. We then take the rule to the part of the archive the study
-cannot score: on 2,422 real incomplete station-years it reverses the admission
-decision for 15.1%, and the published guideline it replaces admits 17
-station-years whose annual peak was never observed. Two boundaries are reported
-as prominently: under the outage geometry these networks actually experience the
-screening gain is not resolvable, because real long outages begin in autumn; and
-a screen that selects on difficulty selects against high-elevation, donor-poor
-catchments, which costs 0.31 points of error to correct and should be corrected.
+Thermal archives are screened before use, almost always by a completeness
+threshold. We develop a decision framework that conditions on how much of the
+*target statistic's* support an outage hides. On 5,114 fully observed river
+station-years from 146 networks, a frozen screen evaluated as a retrospective
+network holdout on 36 held-out networks cuts the hottest-30 consequential-error
+rate from 9.7% to 2.5% at 70% retention on pooled designed outages; the
+empirical-arm contrast is unresolved. Continuum, crossover, dilation and
+maintenance-calendar results developed after that panel was opened remain
+exploratory pending confirmation on never-used networks. On 2,422 real
+incomplete station-years, peak-window and length rules disagree on 15.1% of
+admissions; counts of wholly unobserved peaks currently flag climatological
+windows. Difficulty-based screening can thin high-elevation catchments unless
+stratified.
 
 ## 1. Introduction
 
@@ -1169,38 +1150,19 @@ years per station is too short for a decadal trend claim, and none is made.
 
 ## 8. Conclusion
 
-Whether a data gap matters depends on how much the statistic being computed
-depends on the days it hides. Measuring that share — the hidden mass on the
-estimand's support — orders the regimes that a completeness threshold cannot see,
-and it does so continuously: sweeping the support of a warm-season mean from one
-day to a full year, the advantage of a peak-window axis over a completeness axis
-decays from +0.074 AUC and crosses zero at 91 days. Because a support has to be
-located before it can be conditioned on, and a river's hottest window wanders by
-one to two weeks between years, the conditioning set that works is the support
-widened by that wander; one climatological window of 60 to 90 days is
-near-optimal for every warm-season endpoint we examined. On the estimands the
-standing guidance was written for, that same law says the guidance is right,
-which is why the correction is to the transfer of a threshold rather than to the
-threshold.
-
-Acting on it is cheap. Screening on the governing axis, pre-registered and scored
-once on 36 networks reserved before any analysis, reduces the consequential-error
-rate by 7.1 percentage points relative to published guidance at equal retention
-and reduces severe underestimation of the summer peak sevenfold; most of that is
-obtained by three variables in a logistic regression. Taken to the 2,422 real
-incomplete station-years the study could not score, the rule reverses the
-admission decision for one in six of them and removes the 17 station-years that
-published guidance admits with the annual peak never observed.
-
-Two things should be said as loudly. The gain is regime-dependent, and under the
-outage calendar these agencies currently keep it is not resolvable — because long
-outages already begin in autumn, which is itself the most actionable finding
-here: moving maintenance into spring would cost more than the screening rule
-saves. And a screen that selects on difficulty selects against high, steep,
-donor-poor catchments unless its threshold is applied within strata, which costs
-a third of a percentage point and should be standard. Keep length-based
-completeness rules for averages and for sine-fit regime parameters; replace them
-with support-based rules for warm-season extremes; and schedule the loggers.
+Whether a data gap matters depends on how much of the target statistic's support
+it hides. That quantity is a useful screening axis; we do not claim an
+unconditional proportion law. A frozen screen scored as a retrospective network
+holdout reduces hottest-30 consequential error from 9.7% to 2.5% at 70%
+retention on pooled designed outages. Continuum/crossover/dilation results and
+maintenance-calendar prices developed after the reserved panel was opened remain
+exploratory until never-used-network confirmation; cross-year outage placement
+has been fixed in code and maintenance numbers recomputed under
+`results/wrr_submission_ready/e1_maintenance_recompute/` but are still not
+headline claims. Wholly-hidden peak counts currently use a climatological-window
+proxy. Prefer estimand-specific rules, stratify difficulty-based thresholds, and
+deploy only prediction interfaces that do not require true errors at decision
+time. See `results/wrr_submission_ready/STATUS.md`.
 
 ## Figures
 

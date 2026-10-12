@@ -246,10 +246,19 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
             observed = truth.copy()
             observed[mask] = np.nan
             visible = set(usable_donors(donors, year_index, mask))
+            visible_strong = [s for s in strong if s in visible]
+            visible_weak = [w for w in weak if w in visible]
+            # Equal-K control: after visibility is known, match the number of
+            # donors so the contrast is correlation strength, not count.
+            k_matched = min(len(visible_strong), len(visible_weak))
+            if k_matched < 1:
+                continue
+            strong_matched = tuple(visible_strong[:k_matched])
+            weak_matched = tuple(visible_weak[:k_matched])
             arms = {
                 "all_donors": (base_models, tuple(sorted(visible))),
-                "strong_half": (base_models, tuple(sorted(visible & set(strong)))),
-                "weak_half": (base_models, tuple(sorted(visible & set(weak)))),
+                "strong_half": (base_models, strong_matched),
+                "weak_half": (base_models, weak_matched),
                 "anomaly_shuffled": (shuffled_models, tuple(sorted(visible))),
             }
             row = {
@@ -260,10 +269,11 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
                 "arm": realization.arm,
                 "overlap_class": realization.overlap_class,
                 "longest_run": int(realization.longest_run),
-                "n_strong": len(visible & set(strong)),
-                "n_weak": len(visible & set(weak)),
-                "corr_strong_mean": float(correlations.reindex(list(visible & set(strong))).mean()) if visible & set(strong) else float("nan"),
-                "corr_weak_mean": float(correlations.reindex(list(visible & set(weak))).mean()) if visible & set(weak) else float("nan"),
+                "n_strong": len(strong_matched),
+                "n_weak": len(weak_matched),
+                "k_matched": int(k_matched),
+                "corr_strong_mean": float(correlations.reindex(list(strong_matched)).mean()),
+                "corr_weak_mean": float(correlations.reindex(list(weak_matched)).mean()),
                 "truth_metric": float(truth_metric),
             }
             for label, (models, subset) in arms.items():
@@ -281,5 +291,9 @@ def donor_control_experiment(job: dict) -> pd.DataFrame:
                     row[f"abserr_{label}"] = float("nan")
                     continue
                 row[f"abserr_{label}"] = float(abs(hottest_window_mean(completed) - truth_metric))
+            if row["n_strong"] != row["n_weak"]:
+                raise AssertionError(
+                    f"strong/weak donor counts differ after matching: {row['n_strong']} vs {row['n_weak']}"
+                )
             rows.append(row)
     return pd.DataFrame(rows)

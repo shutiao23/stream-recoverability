@@ -1,0 +1,8 @@
+{
+  "n_incomplete_rows": 2422,
+  "n_with_certificate_choice": 2422,
+  "share_would_admit_at_0.5C": 0.9004954582989265,
+  "certificate_path": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "identity": "frozen Certificate.predict; no truth/err/abserr used",
+  "vs_e2_overlap_rules": "Historical E2 artifacts use peak-overlap / length thresholds and a separate risk classifier. This amendment is the verified-model deployment interface."
+}

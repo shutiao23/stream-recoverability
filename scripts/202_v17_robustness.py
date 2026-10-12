@@ -91,10 +91,30 @@ def auc_contrast(cases: pd.DataFrame, metric: str, tolerance: float) -> dict:
     }
 
 
-def noise_sensitivity(cases: pd.DataFrame, certificates: pd.DataFrame) -> dict:
-    """Recompute the headline with a perturbed reference series."""
+def _rate_locked(score: pd.Series, clean_errors: pd.Series, eval_errors: pd.Series) -> float:
+    """Rank by ``score`` using the clean finite mask; evaluate ``eval_errors`` on that set."""
 
-    choice = information_conditioned_choice(cases)
+    values = pd.to_numeric(score, errors="coerce").to_numpy(dtype=float)
+    clean = pd.to_numeric(clean_errors, errors="coerce").to_numpy(dtype=float)
+    eval_err = pd.to_numeric(eval_errors, errors="coerce").to_numpy(dtype=float)
+    good = np.isfinite(clean) & np.isfinite(eval_err)
+    values = np.where(np.isfinite(values), values, np.inf)[good]
+    eval_err = eval_err[good]
+    order = np.argsort(values, kind="mergesort")
+    k = max(1, int(round(float(RETENTION) * len(eval_err))))
+    return float((eval_err[order[:k]] > PRIMARY_TOLERANCE_C).mean())
+
+
+def noise_sensitivity(cases: pd.DataFrame, certificates: pd.DataFrame) -> dict:
+    """Recompute the headline with a perturbed reference series.
+
+    Clean and noisy branches must use the same reconstruction choice, the same
+    ranking scores, and the same retained cases. Using information-conditioned
+    choice for the noisy arm while the certificate arm reports certificate
+    errors compares different methods, not sensor noise.
+    """
+
+    choice = certificates["certificate_choice"]
     clean = pd.Series(gather(cases, choice, prefix="abserr_"), index=cases.index)
     noisy = pd.Series(gather(cases, choice, prefix="abserr_noisy_"), index=cases.index)
     rng = np.random.default_rng(83)
@@ -102,22 +122,22 @@ def noise_sensitivity(cases: pd.DataFrame, certificates: pd.DataFrame) -> dict:
         pd.to_numeric(cases["longest_run"], errors="coerce").to_numpy() + rng.random(len(cases)), index=cases.index
     )
     score = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
-    cert_clean = pd.to_numeric(certificates["certificate_abs_error"], errors="coerce")
 
-    def rate(s: pd.Series, e: pd.Series) -> float:
-        frame = frontier_for_score(s, e)
-        return float(frame.loc[frame["retention"].eq(RETENTION), f"rate_above_{PRIMARY_TOLERANCE_C}"].iloc[0])
-
+    length_clean = _rate_locked(length, clean, clean)
+    length_noisy = _rate_locked(length, clean, noisy)
+    cert_clean = _rate_locked(score, clean, clean)
+    cert_noisy = _rate_locked(score, clean, noisy)
     return {
         "sensor_noise_c": SENSOR_NOISE_C,
+        "method_locked_to": "certificate_choice",
         "mean_abs_error_clean_c": float(clean.mean()),
         "mean_abs_error_noisy_c": float(noisy.mean()),
-        "length_rule_at_70_clean": rate(length, clean),
-        "length_rule_at_70_noisy": rate(length, noisy),
-        "certificate_at_70_clean": rate(score, cert_clean),
-        "certificate_at_70_noisy": rate(score, noisy),
-        "contrast_clean_points": (rate(length, clean) - rate(score, cert_clean)) * 100,
-        "contrast_noisy_points": (rate(length, noisy) - rate(score, noisy)) * 100,
+        "length_rule_at_70_clean": length_clean,
+        "length_rule_at_70_noisy": length_noisy,
+        "certificate_at_70_clean": cert_clean,
+        "certificate_at_70_noisy": cert_noisy,
+        "contrast_clean_points": (length_clean - cert_clean) * 100,
+        "contrast_noisy_points": (length_noisy - cert_noisy) * 100,
     }
 
 

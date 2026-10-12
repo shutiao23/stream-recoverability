@@ -1,0 +1,8 @@
+{
+  "n_stations": 547,
+  "n_excluded_from_unified_daily_mean_main": 3,
+  "excluded_providers": [
+    "syke"
+  ],
+  "failure_shoukou": "SYKE stations must not remain in a unified daily-mean main analysis until station-level proof exists; manuscript Methods should state the exclusion or sensitivity stratum."
+}

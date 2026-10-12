@@ -1,0 +1,42 @@
+{
+  "n_outage_lengths": 806,
+  "n_peak_windows": 60,
+  "table": [
+    {
+      "calendar": "observed",
+      "n_placements": 39199,
+      "mean_peak_overlap": 0.16188083029328978,
+      "share_hitting_peak_window": 0.22477614224852674,
+      "share_hiding_half_the_window": 0.15645807291002323,
+      "consequential_rate": 0.07773571826957652,
+      "points_vs_observed": 0.0
+    },
+    {
+      "calendar": "uniform",
+      "n_placements": 38738,
+      "mean_peak_overlap": 0.1718226719672329,
+      "share_hitting_peak_window": 0.23746708658165108,
+      "share_hiding_half_the_window": 0.1665806185141205,
+      "consequential_rate": 0.08170983293141103,
+      "points_vs_observed": 0.39741146618345047
+    },
+    {
+      "calendar": "spring_mar_to_jul",
+      "n_placements": 35392,
+      "mean_peak_overlap": 0.27041610156720913,
+      "share_hitting_peak_window": 0.3538935352622061,
+      "share_hiding_half_the_window": 0.2662183544303797,
+      "consequential_rate": 0.11868189711544193,
+      "points_vs_observed": 4.09461788458654
+    },
+    {
+      "calendar": "autumn_sep_to_jan",
+      "n_placements": 43301,
+      "mean_peak_overlap": 0.07044256098781398,
+      "share_hitting_peak_window": 0.09341585644673334,
+      "share_hiding_half_the_window": 0.06658044848848757,
+      "consequential_rate": 0.044497696433158256,
+      "points_vs_observed": -3.323802183641827
+    }
+  ]
+}

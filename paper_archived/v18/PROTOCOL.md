@@ -4,6 +4,14 @@ The v17 protocol (`paper/v17/PROTOCOL.md`) is unchanged and its freeze stands.
 This file records what was added after the reserved panel was opened, which is
 why none of it is confirmatory.
 
+**2026-10-12 submission-readiness overlay.** Evidence identity and headline
+eligibility live in `results/wrr_submission_ready/claim_registry.csv`. Code
+fixes for cross-year outage placement, Certificate `predict` without truth, and
+locked noise/donor controls are in tree; affected numeric artifacts remain
+`[pending — 探索期数据，不可写入结论]` until recomputed under
+`P0_06_method_freeze.json` and scored once via
+`scripts/230_wrr_sealed_confirmation.py` on never-used networks.
+
 ## Standing rule added in this round
 
 19. **A panel that cannot be scored is still a population.** Records that carry

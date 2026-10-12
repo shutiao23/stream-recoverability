@@ -1,0 +1,16 @@
+{
+  "n_outside_river_networks_in_roster": 118,
+  "n_with_any_eligible_years": 11,
+  "n_meeting_design_floor_already": 0,
+  "design_floor_networks": 30,
+  "parsers_ready": {
+    "usgs": "src/stream_recoverability/data/nwis_temperature.py",
+    "nve_hydapi": "src/stream_recoverability/data/nve_water_temperature.py",
+    "hubeau": "src/stream_recoverability/data/hubeau_temperature.py",
+    "uk_ea": "src/stream_recoverability/data/uk_ea_temperature.py",
+    "smhi": "src/stream_recoverability/data/smhi_water_temperature.py",
+    "ehyd": "src/stream_recoverability/data/ehyd_temperature.py",
+    "eccc_automated": "src/stream_recoverability/data/eccc_automated_temperature.py"
+  },
+  "next_human_or_agent_action": "Fetch \u226530 new river networks with \u22654 complete years/station from USGS/NVE/Hub'Eau/UK EA/SMHI into a sealed root outside development_v11 confirmation paths; write confirmation_inputs_manifest.csv; then unseal once."
+}

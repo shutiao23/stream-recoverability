@@ -1,0 +1,10 @@
+provider,n_stations,n_networks,statistic_class,statistic_proven_for_panel,include_in_unified_daily_mean_main,native_statistic_requested
+arso,47,12,provider_daily_unverified_definition,unverified,True,ARSO HIDARHIV daily river archive values as ingested
+chmi,73,17,provider_daily_unverified_definition,unverified,True,CHMI hydrological temperature tables as ingested
+foen,11,2,provider_daily_unverified_definition,unverified,True,FOEN water-observation service as ingested
+gkd_bayern,55,9,provider_daily_unverified_definition,unverified,True,GKD Bayern official downloads as ingested
+lubw,22,7,provider_daily_unverified_definition,unverified,True,LUBW session workbook values as ingested
+nve_hydapi,57,19,daily_mean,true_by_request_contract,True,"HydAPI Parameter 1003, resTime=1440 measured river series"
+rws_waterwebservices,5,2,daily_mean_from_raw,true_by_parser_aggregation,True,raw observations aggregated to daily mean in project parser
+syke,3,2,unknown_may_be_morning_reference,false,False,OData LampoPintavesi Arvo; grouped mean per timestamp date
+usgs,274,91,daily_mean,true_by_request_contract,True,NWIS DV parameterCd=00010 statCd=00003 (daily mean)

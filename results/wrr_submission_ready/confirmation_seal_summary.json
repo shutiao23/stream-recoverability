@@ -1,0 +1,9 @@
+{
+  "n_ready_total": 53,
+  "n_sealed": 39,
+  "n_huc2": 18,
+  "shortfall_vs_30": 0,
+  "seal_path": "results/wrr_submission_ready/confirmation_seal.json",
+  "manifest_path": "results/wrr_submission_ready/confirmation_inputs_manifest.csv",
+  "next": "Implement/run sealed case build + Certificate.apply once; mark scored=true only after single score."
+}
