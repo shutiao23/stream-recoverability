@@ -202,9 +202,13 @@ def figure1_mechanism() -> None:
         winner = "timing" if timing > length else "length"
         ax.text(
             xi,
-            0.955 if journal_mode() else max(timing, length) + 0.018,
+            0.905 if journal_mode() else max(timing, length) + 0.018,
             winner,
             ha="center",
+            va="bottom",
+            # Rotated: at 5.6 pt the words are wider than the bar pitch, so five
+            # horizontal labels merge into one run when the panel is printed.
+            rotation=90 if journal_mode() else 0,
             fontsize=5.6 if journal_mode() else 7.6,
             color=BLUE if winner == "timing" else ORANGE,
             fontweight="bold",

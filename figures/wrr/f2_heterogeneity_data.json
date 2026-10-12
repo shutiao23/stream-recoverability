@@ -1,0 +1,663 @@
+{
+  "figure": [
+    "figures/wrr/f2a_endpoint_ordering.pdf",
+    "figures/wrr/f2b_panel_heterogeneity.pdf"
+  ],
+  "generated_by": "scripts/267_wrr_heterogeneity_figures.py",
+  "purpose": "Heterogeneity of the certificate screen's gain: which endpoints keep it (panel a) and which evidence panels keep it (panel b).",
+  "conventions": {
+    "panel_a_units": "AUC units (difference of two AUCs); dimensionless",
+    "panel_b_units": "percentage points of the consequential-error rate at 70% retention",
+    "panel_b_sign": "certificate rate minus length-rule rate; negative favours the screen",
+    "interval": "95% network-clustered confidence interval; the resampling unit is the network",
+    "threshold_points": -1.0,
+    "threshold_source": {
+      "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+      "filter": "predeclared_rule.delta_points"
+    },
+    "note_on_threshold": "The v17 retrospective panels were declared against a 5.0-point effect (results/v17_fitness/step10_confirmation/verdict.json, primary.declared_effect_points); the -1.0-point threshold drawn here is the transport protocol's pre-declared rule and is the same line for every row.",
+    "case_masks": "Retrospective, sealed and transport cases are designed masks punched into complete station-years, except where a row is labelled empirical (the panel's own real outage geometry)."
+  },
+  "panel_a": {
+    "file": "figures/wrr/f2a_endpoint_ordering.pdf",
+    "endpoint_order": [
+      "hottest7",
+      "hottest30",
+      "amplitude30",
+      "annual_mean",
+      "coldest30"
+    ],
+    "ordering_rule": "most positive to most negative contrast",
+    "rows": [
+      {
+        "rank": 0,
+        "metric": "hottest7",
+        "label": "hottest 7-day mean",
+        "auc_timing_minus_length": 0.0722661176282016,
+        "ci_low": 0.0632073310252025,
+        "ci_high": 0.0960093719659199,
+        "tolerance_c": 0.544310250074198,
+        "base_rate": 0.1664209905660377,
+        "timing_wins": true,
+        "length_wins": false,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+          "filter": "metric == 'hottest7' (whole table; five rows)",
+          "fields": [
+            "auc_timing_minus_length",
+            "ci_low",
+            "ci_high",
+            "tolerance_c",
+            "base_rate",
+            "timing_wins",
+            "length_wins",
+            "n"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+            "filter": "metric == 'hottest7'",
+            "field": "n"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "truth_hottest7, peak_overlap, warm_observed_fraction and longest_run all non-null; count distinct network_id",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "rank": 1,
+        "metric": "hottest30",
+        "label": "hottest 30-day mean",
+        "auc_timing_minus_length": 0.0702044493779293,
+        "ci_low": 0.0606626262875113,
+        "ci_high": 0.097676725124521,
+        "tolerance_c": 0.5090130705091817,
+        "base_rate": 0.1458087657232704,
+        "timing_wins": true,
+        "length_wins": false,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+          "filter": "metric == 'hottest30' (whole table; five rows)",
+          "fields": [
+            "auc_timing_minus_length",
+            "ci_low",
+            "ci_high",
+            "tolerance_c",
+            "base_rate",
+            "timing_wins",
+            "length_wins",
+            "n"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+            "filter": "metric == 'hottest30'",
+            "field": "n"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "truth_hottest30, peak_overlap, warm_observed_fraction and longest_run all non-null; count distinct network_id",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "rank": 2,
+        "metric": "amplitude30",
+        "label": "amplitude",
+        "auc_timing_minus_length": 0.0243587147943562,
+        "ci_low": 0.0145155053315943,
+        "ci_high": 0.0370253044419739,
+        "tolerance_c": 0.6421505999903545,
+        "base_rate": 0.1313875786163522,
+        "timing_wins": true,
+        "length_wins": false,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+          "filter": "metric == 'amplitude30' (whole table; five rows)",
+          "fields": [
+            "auc_timing_minus_length",
+            "ci_low",
+            "ci_high",
+            "tolerance_c",
+            "base_rate",
+            "timing_wins",
+            "length_wins",
+            "n"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+            "filter": "metric == 'amplitude30'",
+            "field": "n"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "truth_amplitude30, peak_overlap, warm_observed_fraction and longest_run all non-null; count distinct network_id",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "rank": 3,
+        "metric": "annual_mean",
+        "label": "annual mean",
+        "auc_timing_minus_length": -0.0270302730144011,
+        "ci_low": -0.0361935057644054,
+        "ci_high": -0.0178949527477399,
+        "tolerance_c": 0.2567907086375038,
+        "base_rate": 0.0993268474842767,
+        "timing_wins": false,
+        "length_wins": true,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+          "filter": "metric == 'annual_mean' (whole table; five rows)",
+          "fields": [
+            "auc_timing_minus_length",
+            "ci_low",
+            "ci_high",
+            "tolerance_c",
+            "base_rate",
+            "timing_wins",
+            "length_wins",
+            "n"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+            "filter": "metric == 'annual_mean'",
+            "field": "n"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "truth_annual_mean, peak_overlap, warm_observed_fraction and longest_run all non-null; count distinct network_id",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "rank": 4,
+        "metric": "coldest30",
+        "label": "coldest 30-day mean",
+        "auc_timing_minus_length": -0.1843745744230535,
+        "ci_low": -0.2274887583225499,
+        "ci_high": -0.1563373862742271,
+        "tolerance_c": 0.3763208291421948,
+        "base_rate": 0.0518130896226415,
+        "timing_wins": false,
+        "length_wins": true,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+          "filter": "metric == 'coldest30' (whole table; five rows)",
+          "fields": [
+            "auc_timing_minus_length",
+            "ci_low",
+            "ci_high",
+            "tolerance_c",
+            "base_rate",
+            "timing_wins",
+            "length_wins",
+            "n"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+            "filter": "metric == 'coldest30'",
+            "field": "n"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "truth_coldest30, peak_overlap, warm_observed_fraction and longest_run all non-null; count distinct network_id",
+            "field": "network_id.nunique()"
+          }
+        }
+      }
+    ]
+  },
+  "panel_b": {
+    "file": "figures/wrr/f2b_panel_heterogeneity.pdf",
+    "order": "oldest to newest",
+    "rows": [
+      {
+        "label": "v17 development, pooled",
+        "identity": "retrospective",
+        "marker": "primary",
+        "estimate_points": -6.345418172884568,
+        "ci_low_points": -7.12031069874207,
+        "ci_high_points": -5.524692276175337,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "source": {
+          "artifact": "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv",
+          "filter": "panel == 'development' & arm == 'pooled'",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv",
+            "filter": "panel == 'development' & arm == 'pooled'",
+            "field": "n_cases"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+            "filter": "count distinct network_id (the development panel)",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "label": "v17 reserved, pooled",
+        "identity": "retrospective",
+        "marker": "primary",
+        "estimate_points": -7.129654079746501,
+        "ci_low_points": -8.965660197802626,
+        "ci_high_points": -5.3573631548047524,
+        "n_cases": 10820,
+        "n_networks": 36,
+        "source": {
+          "artifact": "results/v17_fitness/step10_confirmation/verdict.json",
+          "filter": "(whole file; 'primary' block = the reserved panel at 70% retention)",
+          "fields": [
+            "primary.contrast_points",
+            "primary.ci_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/v17_fitness/step10_confirmation/verdict.json",
+            "filter": "whole file",
+            "field": "n_cases"
+          },
+          "n_networks": {
+            "artifact": "results/v17_fitness/step10_confirmation/verdict.json",
+            "filter": "whole file",
+            "field": "n_networks"
+          }
+        },
+        "cross_check": {
+          "artifact": "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv",
+          "filter": "panel == 'reserved' & arm == 'pooled'",
+          "estimate_points": -7.129654079746501,
+          "ci_low_points": -8.980095089969291,
+          "ci_high_points": -5.407305174918186,
+          "note": "Same point estimate to the last digit; the two artifacts draw the network-clustered bootstrap differently, so the interval ends differ by about 0.05 points. The verdict artifact is plotted because it also carries n_networks."
+        }
+      },
+      {
+        "label": "Sealed USGS, pooled",
+        "identity": "sealed",
+        "marker": "primary",
+        "estimate_points": -7.943603851444292,
+        "ci_low_points": -10.15398785117217,
+        "ci_high_points": -5.753458605902341,
+        "n_cases": 8973,
+        "n_networks": 39,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
+          "filter": "whole file (pooled panel, 70% retention, scored once)",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        }
+      },
+      {
+        "label": "Sealed USGS, empirical arm",
+        "identity": "sealed",
+        "marker": "empirical",
+        "estimate_points": -1.7444395987788925,
+        "ci_low_points": -2.9819492323217274,
+        "ci_high_points": -0.6821456270556999,
+        "n_cases": 3397,
+        "n_networks": 39,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
+          "filter": "by_arm_points.empirical",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points"
+          ]
+        },
+        "n_source": {
+          "n_cases": {
+            "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
+            "filter": "arm == 'empirical'",
+            "field": "row count"
+          },
+          "n_networks": {
+            "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
+            "filter": "arm == 'empirical'",
+            "field": "network_id.nunique()"
+          }
+        }
+      },
+      {
+        "label": "Sealed USGS, clean subset",
+        "identity": "sealed",
+        "marker": "diagnostic",
+        "estimate_points": -9.42084942084942,
+        "ci_low_points": -12.435193024908124,
+        "ci_high_points": -6.031415343915346,
+        "n_cases": 1923,
+        "n_networks": 15,
+        "source": {
+          "artifact": "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json",
+          "filter": "rows[subset == 'networks_clean_of_outcome_use']",
+          "fields": [
+            "pooled_contrast_points",
+            "pooled_ci_low_points",
+            "pooled_ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "note": "Post-seal robustness diagnostic on the networks with no outcome-bearing prior use; it does not revise the primary verdict."
+      },
+      {
+        "label": "Transport, primary panel",
+        "identity": "transport",
+        "marker": "primary",
+        "estimate_points": -4.607779125081615,
+        "ci_low_points": -6.531224999396276,
+        "ci_high_points": -3.304640766719575,
+        "n_cases": 17826,
+        "n_networks": 32,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+          "filter": "primary_panel (agencies absent from the v17/v18 development programme)",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        }
+      },
+      {
+        "label": "   SMHI",
+        "identity": "transport",
+        "marker": "primary",
+        "provider": "smhi",
+        "estimate_points": -4.34729365662503,
+        "ci_low_points": -6.280553595852381,
+        "ci_high_points": -3.153504237465754,
+        "n_cases": 14115,
+        "n_networks": 16,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+          "filter": "by_provider_points.smhi",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
+      },
+      {
+        "label": "   UK EA",
+        "identity": "transport",
+        "marker": "primary",
+        "provider": "uk_ea",
+        "estimate_points": -6.403940886699508,
+        "ci_low_points": -7.968127490039841,
+        "ci_high_points": 1.2903225806451615,
+        "n_cases": 307,
+        "n_networks": 2,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+          "filter": "by_provider_points.uk_ea",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
+      },
+      {
+        "label": "   Hub'Eau",
+        "identity": "transport",
+        "marker": "primary",
+        "provider": "hubeau",
+        "estimate_points": -4.889455782312925,
+        "ci_low_points": -8.509200412247177,
+        "ci_high_points": -1.4710290272568665,
+        "n_cases": 3404,
+        "n_networks": 14,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+          "filter": "by_provider_points.hubeau",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
+      },
+      {
+        "label": "Transport, NVE secondary",
+        "identity": "transport",
+        "marker": "secondary",
+        "estimate_points": -6.141618497109826,
+        "ci_low_points": -8.699288727627307,
+        "ci_high_points": -4.591379203676586,
+        "n_cases": 10075,
+        "n_networks": 21,
+        "source": {
+          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+          "filter": "secondary_panel (development provider, individually never-used stations)",
+          "fields": [
+            "contrast_points",
+            "ci_low_points",
+            "ci_high_points",
+            "n_cases",
+            "n_networks"
+          ]
+        },
+        "note": "Secondary stratum: the provider took part in v17 development, so this row is reported separately from the primary transport panel."
+      }
+    ]
+  },
+  "unavailable_rows": [
+    {
+      "requested_row": "real-archive empirical arm",
+      "plotted": false,
+      "reason": "The real archive is the 2422 real incomplete station-years of e2_archive_deployment. Those years carry no truth by construction, so no certificate-minus-length error-rate contrast (or interval) exists for them; the requested row cannot be sourced and is not drawn.",
+      "checked_artifacts": [
+        "results/v18_closure/e2_archive_deployment/summary.json",
+        "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv"
+      ],
+      "closest_available_evidence": {
+        "artifact": "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv",
+        "filter": "row 'Johnson unfilled, longest run <= 49 d'",
+        "n_station_years": 2422,
+        "length_admits_pct": 83.23699421965318,
+        "timing_admits_pct": 81.21387283236994,
+        "disagreement_pct": 15.070189925681255,
+        "units": "percent of real incomplete station-years",
+        "why_not_plotted": "A disagreement rate between admission rules, not an error-rate contrast; the real years carry no truth."
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "results/v17_fitness/step22_robustness/auc_contrasts.csv",
+      "sha256": "1f7fcacae0a86a946c8b73e7e9eeb21b7fbf2653d87ffe1e790875cad639640f",
+      "bytes": 734
+    },
+    {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8",
+      "bytes": 17491833
+    },
+    {
+      "path": "results/v17_fitness/step10_confirmation/verdict.json",
+      "sha256": "08bca0d4693c0bc0ff52f4e3160188d3ff743da524f80636f09d4e4222ff8a2c",
+      "bytes": 1382
+    },
+    {
+      "path": "results/v17_fitness/step11_arm_robustness/arm_contrasts.csv",
+      "sha256": "1c476ef636ddfe3a5bea39613c6c0b9835feacd88200e2967d72c5f7210ef304",
+      "bytes": 2237
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
+      "sha256": "798cb96ea11fff74bae77e9ff64f5c214788288ec225d4608ec65e09df711552",
+      "bytes": 1003
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
+      "sha256": "8dac65de359eb88cc59b3fca4ea386c0a7b97b81cb843ad2f136539434920445",
+      "bytes": 3649020
+    },
+    {
+      "path": "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json",
+      "sha256": "ac166827ee277cc5ba804a396b1c9ffc2656101744e21f1aacce24e627f42300",
+      "bytes": 2454
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
+      "sha256": "ea9eb7088ac5bd3c5fdfed202ff1c3c0836490a9d11d23b3384372a02cf469c8",
+      "bytes": 5141
+    },
+    {
+      "path": "results/v18_closure/e2_archive_deployment/summary.json",
+      "sha256": "0d8d1dca19c883ca03327adc8a4aa6f50865f5f38621dde3d3dfbee8b45c5717",
+      "bytes": 1014
+    },
+    {
+      "path": "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv",
+      "sha256": "40635b078a1a5131448fb0d8b359916a0e755bf8d977cbf053bcc650d023201b",
+      "bytes": 421
+    }
+  ],
+  "render_checks": {
+    "f2a_endpoint_ordering": {
+      "pdf": "figures/wrr/f2a_endpoint_ordering.pdf",
+      "png": "figures/wrr/f2a_endpoint_ordering.png",
+      "pages": 1,
+      "page_size_pt": [
+        391.11,
+        180.98
+      ],
+      "page_size_in": [
+        5.432,
+        2.514
+      ],
+      "fits_column_inches": 5.5,
+      "fonts": [
+        {
+          "name": "BMQQDV+DejaVuSans",
+          "type": "CID TrueType",
+          "encoding": "Identity-H",
+          "embedded": true,
+          "subset": true,
+          "unicode": true
+        }
+      ],
+      "fonts_all_embedded": true,
+      "fonts_all_type42": true,
+      "font_embedding_note": "pdf.fonttype = 42 (TrueType outlines). Matplotlib 3.9 writes these as a CID-keyed TrueType font with Identity-H encoding, which pdffonts reports as 'CID TrueType': outlines embedded, subset, with a Unicode map.",
+      "n_words": 67,
+      "words_outside_page": [],
+      "n_overlapping_word_pairs": 0,
+      "overlapping_word_pairs": [],
+      "min_word_box_height_pt": 6.99,
+      "min_word_box_height_pt_at_column_width": 7.077,
+      "min_cap_or_digit_word_height_pt": 6.99,
+      "min_cap_or_digit_word_height_pt_at_column_width": 7.077,
+      "font_box_ratio_em": 1.1641,
+      "min_implied_type_size_pt": 6.005,
+      "min_implied_type_size_pt_at_column_width": 6.08,
+      "scale_to_column_width": 1.0125,
+      "words_dump": "scratch/heterogeneity/f2a_endpoint_ordering_words.tsv"
+    },
+    "f2b_panel_heterogeneity": {
+      "pdf": "figures/wrr/f2b_panel_heterogeneity.pdf",
+      "png": "figures/wrr/f2b_panel_heterogeneity.png",
+      "pages": 1,
+      "page_size_pt": [
+        380.62,
+        291.75
+      ],
+      "page_size_in": [
+        5.286,
+        4.052
+      ],
+      "fits_column_inches": 5.5,
+      "fonts": [
+        {
+          "name": "BMQQDV+DejaVuSans",
+          "type": "CID TrueType",
+          "encoding": "Identity-H",
+          "embedded": true,
+          "subset": true,
+          "unicode": true
+        }
+      ],
+      "fonts_all_embedded": true,
+      "fonts_all_type42": true,
+      "font_embedding_note": "pdf.fonttype = 42 (TrueType outlines). Matplotlib 3.9 writes these as a CID-keyed TrueType font with Identity-H encoding, which pdffonts reports as 'CID TrueType': outlines embedded, subset, with a Unicode map.",
+      "n_words": 108,
+      "words_outside_page": [],
+      "n_overlapping_word_pairs": 0,
+      "overlapping_word_pairs": [],
+      "min_word_box_height_pt": 6.99,
+      "min_word_box_height_pt_at_column_width": 7.272,
+      "min_cap_or_digit_word_height_pt": 6.99,
+      "min_cap_or_digit_word_height_pt_at_column_width": 7.272,
+      "font_box_ratio_em": 1.1641,
+      "min_implied_type_size_pt": 6.005,
+      "min_implied_type_size_pt_at_column_width": 6.248,
+      "scale_to_column_width": 1.0404,
+      "words_dump": "scratch/heterogeneity/f2b_panel_heterogeneity_words.tsv"
+    }
+  },
+  "font_sizes_pt": {
+    "tick": 6.4,
+    "axis_label": 7.0,
+    "panel_title": 7.6,
+    "legend": 6.2,
+    "value_annotation": 6.2,
+    "note": 6.0,
+    "minimum_nominal": 6.0
+  },
+  "caption_material": "figures/wrr/f2_caption_material.md"
+}

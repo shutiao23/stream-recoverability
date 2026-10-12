@@ -58,18 +58,6 @@
   "barred_phrase_review_items": [
     {
       "claim_id": "L3",
-      "match": "cross",
-      "pattern": "cross(?:es|over|ing)?\\b",
-      "region": "abstract"
-    },
-    {
-      "claim_id": "L3",
-      "match": "crossover",
-      "pattern": "cross(?:es|over|ing)?\\b",
-      "region": "abstract"
-    },
-    {
-      "claim_id": "L3",
       "match": "crossover",
       "pattern": "cross(?:es|over|ing)?\\b",
       "region": "abstract"
@@ -87,22 +75,10 @@
       "region": "abstract"
     },
     {
-      "claim_id": "L1",
-      "match": "proportion law",
-      "pattern": "proportion(?:al)?\\s+law",
-      "region": "conclusions"
-    },
-    {
-      "claim_id": "L3",
-      "match": "crossover",
-      "pattern": "cross(?:es|over|ing)?\\b",
-      "region": "conclusions"
-    },
-    {
       "claim_id": "A4",
-      "match": "Maintenance",
-      "pattern": "maintenance",
-      "region": "conclusions"
+      "match": "autumn",
+      "pattern": "autumn",
+      "region": "abstract"
     },
     {
       "claim_id": "A4",
@@ -112,7 +88,7 @@
     },
     {
       "claim_id": "A4",
-      "match": "autumn",
+      "match": "Autumn",
       "pattern": "autumn",
       "region": "conclusions"
     }

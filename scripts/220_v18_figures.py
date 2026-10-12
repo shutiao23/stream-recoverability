@@ -80,7 +80,9 @@ def panel_label(ax, letter: str, title: str) -> None:
 def save(fig, stem: str) -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     for extension in ("pdf", "png"):
-        fig.savefig(FIGURES / f"{stem}.{extension}", dpi=260, bbox_inches="tight")
+        # 400 dpi: the support-law panel rasterises a heatmap, and at 260 dpi the
+        # embedded image printed at only 260 ppi.
+        fig.savefig(FIGURES / f"{stem}.{extension}", dpi=400, bbox_inches="tight")
     plt.close(fig)
     print(FIGURES.relative_to(ROOT) / f"{stem}.pdf")
 

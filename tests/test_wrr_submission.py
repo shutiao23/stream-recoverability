@@ -108,8 +108,9 @@ def test_result_headings_state_conclusions():
     results = text.split("\\section{Results}")[1].split("\\section{Discussion}")[0]
     headings = [
         " ".join(h.split())
-        for h in re.findall(r"\\subsection\{((?:[^{}]|\n)*?)\}", results)
+        for h in re.findall(r"\\sub(?:sub)?section\{((?:[^{}]|\n)*?)\}", results)
     ]
+    # Four step headings plus their claim-titled sub-headings.
     assert len(headings) >= 8, headings
     banned = ("RQ", "Model validation", "Sensitivity analysis", "Ablation study")
     for heading in headings:
@@ -122,7 +123,7 @@ def test_introduction_ends_in_linked_questions_not_a_contribution_list():
     text = MANUSCRIPT.read_text(encoding="utf-8")
     intro = text.split("\\section{Introduction}")[1].split("\\section{Study system")[0]
     assert "\\begin{enumerate}" not in intro, "the introduction still carries a contribution list"
-    assert "three linked questions" in intro
+    assert "Three questions organise the paper" in intro
     assert intro.count("?") >= 3, intro.count("?")
 
 
@@ -166,7 +167,8 @@ def test_figures_are_placed_in_the_text():
     # Six since 2026-10-12: the dense "problem frame" schematic moved from the
     # article (where a data-driven example figure now opens the paper) into the
     # supporting information as Figure S1.
-    assert si.count("\\begin{figure}") == 6, si.count("\\begin{figure}")
+    # Seven since 2026-10-12: the catchment-attribute figure moved to the SI.
+    assert si.count("\\begin{figure}") == 7, si.count("\\begin{figure}")
 
 
 def test_tables_fit_the_column():

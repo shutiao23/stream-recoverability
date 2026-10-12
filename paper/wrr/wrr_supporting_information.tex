@@ -5,6 +5,11 @@
 \documentclass[draft]{agujournal2025}
 
 \usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\let\wrrtexttt\texttt
+\renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
+\setlength{\emergencystretch}{1.5em}
 \usepackage{amsmath}
 
 \renewcommand{\thefigure}{S\arabic{figure}}
@@ -15,8 +20,8 @@
 
 \journalname{Water Resources Research}
 
-\title{Supporting Information for ``Support-conditioned screening of incomplete
-river-temperature years: retrospective evidence from 146 networks''}
+\title{Supporting Information for ``Gap position, not gap length, governs the error of
+annual thermal extremes in incomplete river-temperature records''}
 
 \authors{AUTHOR ONE\affil{1}}
 \affiliation{1}{AFFILIATION PENDING AUTHOR CONFIRMATION}
@@ -30,7 +35,7 @@ river-temperature years: retrospective evidence from 146 networks''}
 
 \begin{enumerate}
   \item Text S1 to S8
-  \item Figures S1 to S6
+  \item Figures S1 to S7
   \item Table S1
 \end{enumerate}
 
@@ -86,7 +91,7 @@ Daily 2\,m air temperature is NASA POWER (MERRA-2), 1 January 1981 to 31 August
 2026, one point per station at the product's native resolution: 16{,}679 days
 for each of the 457 stations. An earlier version of this study used a much
 smaller forcing table covering 2.3\% of development cases; both are retained and
-Section 4.9 of the article compares them.
+Section 4.4.2 of the article compares them.
 
 Basin characteristics for the United States subset are GAGES-II, joined on the
 eight-digit gauge identifier and matching 140 of 204 eligible stations.
@@ -106,7 +111,7 @@ than four fully observed calendar years are excluded, because the
 leave-one-year-out estimator protocol requires them. The resulting denominator,
 with every exclusion and its count, is in the repository. The same stations
 contribute 2422 station-years with at least 360 daily slots and at least one
-missing day; those form the deployment panel of Section 4.12 of the article.
+missing day; those form the deployment panel of Section 4.4.3 of the article.
 
 Three measurement strata are reported rather than merged. In the study panel,
 five providers document a daily mean that the parser reads directly (USGS, FOEN,
@@ -146,7 +151,7 @@ recorded here rather than silently repaired.
 \textbf{The incumbent's imputed limit was mis-stated.} An earlier version placed
 the comparison at a thirteen-week (91-day) limit attributed to Johnson et al.
 (2021). The source says twenty weeks. The analysis code now uses 140 days and
-every artifact that used the old value was re-run; Section 4.8 of the article
+every artifact that used the old value was re-run; Section 4.4.1 of the article
 reports the corrected operating point. The direction of the error flattered the
 incumbent at that point, so correcting it reduces the screen's advantage there
 from 6.2 to 4.4 percentage points.
@@ -155,7 +160,7 @@ from 6.2 to 4.4 percentage points.
 an empirical arm, drawn from the outage geometry the same networks experience,
 with a stratified arm built to span the decision space. Their base rates differ
 by an order of magnitude. The pre-registered test was run on the pooled set, as
-declared; Section 4.10 reports the decomposition and states that the declared
+declared; Section 4.2.3 reports the decomposition and states that the declared
 effect is not met on the empirical arm alone.
 
 \textbf{The natural scale of the peak has two values.} Computed over the full
@@ -267,7 +272,7 @@ days, not a monotone decay.
 
 A fourth statement was \emph{withdrawn} rather than falsified. An earlier version
 framed the standing guidance as getting an ordering backwards. On the guidance's
-own estimands it does not; Section 4.6 of the article reports that a completeness
+own estimands it does not; Section 4.2.2 of the article reports that a completeness
 threshold is the correct axis for the sine-fit mean and within 0.02 AUC of the
 best for the phase.
 
@@ -353,6 +358,12 @@ versions of this work left open and this one closes.
 \includegraphics[width=\textwidth]{figures/f4_deployment_workflow.pdf}
 \caption{What an agency does with the result: which endpoint, where the peak window comes from, the three numbers of the deployable rule, the representativeness guardrail, and what the substitution buys on networks never used for fitting.}
 \label{fig:si-workflow}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{figures/fig6_hydrology.pdf}
+\caption{Catchment attribution on the United States subset, moved here from the article: 140 of 204 stations matched to GAGES-II across 57 networks. Donor synchrony against site elevation (a), completed-year absolute error ($^{\circ}$C) against elevation (b), and the decomposition of the baseflow-index effect (c). Points are stations; bands are network-clustered 95\% intervals. These are attribute associations on one country and are not a geology law.}
+\label{fig:si-hydro}
 \end{figure}
 
 \end{document}

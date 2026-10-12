@@ -1,64 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="968" height="674" viewBox="0 0 968 674">
+<svg xmlns="http://www.w3.org/2000/svg" width="5.500in" height="3.538in" viewBox="0 0 998 642">
 <title>Problem frame</title>
-<rect width="968" height="674" fill="#ffffff"/>
+<rect width="998" height="642" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#37474f"/></marker><marker id="arrowdim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#90a4ae"/></marker></defs>
-<g transform="translate(-76.0,4.0)">
-<rect x="140.0" y="560.0" width="840.0" height="86.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
-<text x="560.0" y="583.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">One law, not two regimes:  measure missingness on the support of the estimand.</text>
-<text x="560.0" y="600.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">‘Timing versus length’ is that law at the two ends of a scale; the crossover is at a support width of 91 days.</text>
-<text x="560.0" y="616.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">A support must be located before it can be conditioned on, so the conditioning set is the support dilated by the</text>
-<text x="560.0" y="633.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">year-to-year wander of its own location — one window of 60 to 90 days serves every warm-season endpoint.</text>
-<rect x="420.0" y="140.0" width="280.0" height="154.0" rx="10" ry="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.4"/>
-<text x="560.0" y="190.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Incumbent completeness rule</text>
-<text x="560.0" y="206.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">s(m) = 1{ max run(m) ≤ θ }</text>
-<text x="560.0" y="222.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve"></text>
-<text x="560.0" y="238.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Conditioning set: the size of the outage.</text>
-<text x="560.0" y="254.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Applied to every estimand alike.</text>
-<rect x="300.0" y="20.0" width="520.0" height="62.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
-<text x="560.0" y="48.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">A station-year  y = (y₁ … y_T),  T ∈ {365, 366}</text>
-<text x="560.0" y="64.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">with an outage mask  m ∈ {0,1}^T ;  the analyst sees only the days where mₜ = 0</text>
-<rect x="100.0" y="446.0" width="290.0" height="66.0" rx="0" ry="0" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
-<text x="245.0" y="469.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Measured on 40,704 development cases</text>
-<text x="245.0" y="483.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">error grows 10.2× along missing days</text>
-<text x="245.0" y="498.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">and 1.5× along peak-window overlap</text>
-<rect x="730.0" y="446.0" width="290.0" height="66.0" rx="0" ry="0" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
-<text x="875.0" y="469.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Measured on the same cases</text>
-<text x="875.0" y="483.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">error grows 3.5× along missing days</text>
-<text x="875.0" y="498.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">and 9.6× along peak-window overlap</text>
-<rect x="100.0" y="140.0" width="290.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="245.0" y="168.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Estimand A — annual mean</text>
-<text x="245.0" y="184.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">q(y) = (1/T) Σₜ yₜ</text>
-<rect x="730.0" y="140.0" width="290.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="875.0" y="168.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Estimand B — hottest 30-day mean</text>
-<text x="875.0" y="184.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">q(y) = maxₜ (1/30) Σᵢ₊ₜ yᵢ</text>
-<rect x="100.0" y="238.0" width="290.0" height="56.0" rx="0" ry="0" fill="#FFFFFF" stroke="#78909C" stroke-width="1.4"/>
-<text x="245.0" y="263.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#102027" text-anchor="middle" xml:space="preserve">Support: all T days,</text>
-<text x="245.0" y="278.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#102027" text-anchor="middle" xml:space="preserve">each carrying weight 1/T</text>
-<rect x="730.0" y="238.0" width="290.0" height="56.0" rx="0" ry="0" fill="#FFFFFF" stroke="#78909C" stroke-width="1.4"/>
-<text x="875.0" y="263.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#102027" text-anchor="middle" xml:space="preserve">Support: one 30-day window W_q,</text>
-<text x="875.0" y="278.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#102027" text-anchor="middle" xml:space="preserve">located by the station's own climatology</text>
-<rect x="100.0" y="352.0" width="290.0" height="56.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
-<text x="245.0" y="377.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Governing axis</text>
-<text x="245.0" y="393.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">how many days are missing</text>
-<rect x="730.0" y="352.0" width="290.0" height="56.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
-<text x="875.0" y="377.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Governing axis</text>
-<text x="875.0" y="393.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">how much of W_q is hidden</text>
-<polyline points="560.0,83.0 560.0,112.0 245.0,112.0 245.0,139.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="560.0,83.0 560.0,112.0 875.0,112.0 875.0,139.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="245.0,203.0 245.0,237.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="875.0,203.0 875.0,237.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="245.0,295.0 245.0,351.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="875.0,295.0 875.0,351.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="245.0,409.0 245.0,445.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="875.0,409.0 875.0,445.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="560.0,295.0 560.0,326.0 245.0,326.0 245.0,351.0" fill="none" stroke="#2E7D32" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
-<rect x="345.6" y="311.1" width="113.7" height="29.9" fill="#ffffff" stroke="none"/>
-<text x="402.5" y="321.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">conditioning set</text>
-<text x="402.5" y="334.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">matches the support</text>
-<polyline points="560.0,295.0 560.0,326.0 875.0,326.0 875.0,351.0" fill="none" stroke="#C62828" stroke-width="1.4" marker-end="url(#arrow)"/>
-<rect x="660.6" y="311.1" width="113.7" height="29.9" fill="#ffffff" stroke="none"/>
-<text x="717.5" y="321.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">conditioning set</text>
-<text x="717.5" y="334.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">ignores the support</text>
-<polyline points="245.0,513.0 245.0,536.0 420.0,536.0 468.1,559.0" fill="none" stroke="#90A4AE" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="875.0,513.0 875.0,536.0 700.0,536.0 651.9,559.0" fill="none" stroke="#90A4AE" stroke-width="1.4" marker-end="url(#arrow)"/>
+<g transform="translate(4.0,4.0)">
+<rect x="20.0" y="514.0" width="950.0" height="100.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="495.0" y="541.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">One scale, not two regimes: measure missingness on the support of the estimand.</text>
+<text x="495.0" y="560.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">‘Timing versus length’ is that scale at its two ends; the crossing is an interval, 77 to 107 days.</text>
+<text x="495.0" y="579.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">The conditioning set is the support dilated by the wander of its own location:</text>
+<text x="495.0" y="598.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">one agency window of 60 to 90 days serves every warm-season endpoint.</text>
+<rect x="20.0" y="20.0" width="950.0" height="76.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="495.0" y="54.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">A station-year  y = (y₁ … y_T),  T ∈ {365, 366},  with an outage mask  m ∈ {0,1}^T</text>
+<text x="495.0" y="73.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">the analyst sees only the days where m_t = 0</text>
+<rect x="330.0" y="126.0" width="290.0" height="110.0" rx="10" ry="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.4"/>
+<text x="475.0" y="148.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#B71C1C" text-anchor="middle" font-weight="600" xml:space="preserve">Incumbent completeness rule</text>
+<text x="475.0" y="167.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">s(m) = 1{ max run(m) ≤ θ }</text>
+<text x="475.0" y="187.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Conditioning set: the size of</text>
+<text x="475.0" y="206.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">the outage. Applied to every</text>
+<text x="475.0" y="225.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">estimand alike.</text>
+<rect x="640.0" y="398.0" width="330.0" height="86.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="805.0" y="428.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Measured on the same cases</text>
+<text x="805.0" y="446.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">error grows 3.5× along missing days</text>
+<text x="805.0" y="464.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">and 9.6× along peak-window overlap</text>
+<rect x="20.0" y="398.0" width="300.0" height="86.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="170.0" y="428.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Measured on 40,704 development cases</text>
+<text x="170.0" y="446.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">error grows 10.2× along missing days</text>
+<text x="170.0" y="464.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">and 1.5× along peak-window overlap</text>
+<rect x="640.0" y="126.0" width="330.0" height="68.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="805.0" y="156.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Estimand B — hottest 30-day mean</text>
+<text x="805.0" y="174.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#102027" text-anchor="middle" xml:space="preserve">q(y) = max_t (1/30) Σ_{i=t..t+29} y_i</text>
+<rect x="640.0" y="220.0" width="330.0" height="68.0" rx="10" ry="10" fill="#ECEFF1" stroke="#546E7A" stroke-width="1.4"/>
+<text x="805.0" y="250.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#37474F" text-anchor="middle" xml:space="preserve">Support: one 30-day window W_q,</text>
+<text x="805.0" y="268.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#37474F" text-anchor="middle" xml:space="preserve">located by the station's own climatology</text>
+<rect x="640.0" y="310.0" width="330.0" height="68.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="805.0" y="340.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Governing axis</text>
+<text x="805.0" y="358.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#E65100" text-anchor="middle" xml:space="preserve">how much of W_q is hidden</text>
+<rect x="20.0" y="126.0" width="300.0" height="68.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="170.0" y="156.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Estimand A — annual mean</text>
+<text x="170.0" y="174.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#102027" text-anchor="middle" xml:space="preserve">q(y) = (1/T) Σ_t y_t</text>
+<rect x="20.0" y="220.0" width="300.0" height="68.0" rx="10" ry="10" fill="#ECEFF1" stroke="#546E7A" stroke-width="1.4"/>
+<text x="170.0" y="250.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#37474F" text-anchor="middle" xml:space="preserve">Support: all T days,</text>
+<text x="170.0" y="268.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#37474F" text-anchor="middle" xml:space="preserve">each carrying weight 1/T</text>
+<rect x="20.0" y="310.0" width="300.0" height="68.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="170.0" y="340.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Governing axis</text>
+<text x="170.0" y="358.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.0" fill="#E65100" text-anchor="middle" xml:space="preserve">how many days are missing</text>
+<polyline points="495.0,97.0 495.0,110.0 170.0,110.0 170.0,125.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="495.0,97.0 495.0,110.0 805.0,110.0 805.0,125.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="170.0,195.0 170.0,219.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="805.0,195.0 805.0,219.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="170.0,289.0 170.0,309.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="805.0,289.0 805.0,309.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="170.0,379.0 170.0,397.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="805.0,379.0 805.0,397.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="475.0,237.0 475.0,300.0 240.0,300.0 225.7,309.0" fill="none" stroke="#2E7D32" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="287.8" y="281.9" width="139.4" height="36.3" fill="#ffffff" stroke="none"/>
+<text x="357.5" y="294.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">conditioning set</text>
+<text x="357.5" y="310.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">matches the support</text>
+<polyline points="475.0,237.0 475.0,300.0 700.0,300.0 721.5,309.0" fill="none" stroke="#C62828" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="517.8" y="281.9" width="139.4" height="36.3" fill="#ffffff" stroke="none"/>
+<text x="587.5" y="294.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">conditioning set</text>
+<text x="587.5" y="310.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="13.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">ignores the support</text>
+<polyline points="286.3,485.0 360.2,513.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="694.1,485.0 623.5,513.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
 </g></svg>

@@ -12,14 +12,23 @@ That application is an Electron binary and cannot be installed in every build
 environment, so this script renders the *same* XML through a small mxGraph
 subset renderer (SVG, then `rsvg-convert` to PDF).  It supports exactly the
 shapes the sources use — rectangles, rounded rectangles, ellipses, notes,
-orthogonal edges with explicit waypoints and labels — and fails loudly on
-anything else rather than silently dropping it, so a figure edited in draw.io
-cannot quietly stop matching its PDF.
+orthogonal edges with explicit waypoints and labels, and `html=1` labels whose
+lines carry `<b>` / `<i>` runs — and fails loudly on anything else rather than
+silently dropping it, so a figure edited in draw.io cannot quietly stop
+matching its PDF.
+
+The PDF is written at the width it will be printed at (`--print-width-in`,
+5.5 in by default, the AGU single column), the same rule the analysis figures
+follow through `stream_recoverability.plotting.journal`.  A schematic is
+therefore never scaled down by the manuscript, and the type size measured in
+the PDF is the type size on the page.
 """
 
 from __future__ import annotations
 
+import argparse
 import html
+import re
 import shutil
 import subprocess
 import sys
@@ -33,6 +42,12 @@ OUTPUT_DIR = ROOT / "figures" / "v17"
 
 FONT_STACK = "Helvetica, Arial, 'Liberation Sans', sans-serif"
 SUPPORTED_SHAPES = {"rectangle", "rounded", "ellipse", "note", "label", "hexagon"}
+
+#: Printed width of a schematic, in inches: the AGU single column.
+PRINT_WIDTH_IN = 5.5
+
+#: Inline runs of a draw.io ``html=1`` label.
+TAG_RE = re.compile(r"</?([bi])>", re.IGNORECASE)
 
 
 def parse_style(style: str | None) -> dict[str, str]:
@@ -142,6 +157,27 @@ def escape(text: str) -> str:
     return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def inline_runs(line: str, bold: bool) -> list[tuple[str, bool, bool]]:
+    """Split one line of a draw.io rich-text label into (text, bold, italic)."""
+    runs: list[tuple[str, bool, bool]] = []
+    italic = False
+    position = 0
+    for match in TAG_RE.finditer(line):
+        if match.start() > position:
+            runs.append((line[position : match.start()], bold, italic))
+        closing = match.group(0).startswith("</")
+        if match.group(1).lower() == "b":
+            bold = not closing
+        else:
+            italic = not closing
+        position = match.end()
+    if position < len(line):
+        runs.append((line[position:], bold, italic))
+    if not runs:
+        runs.append((line, bold, False))
+    return runs
+
+
 def text_block(
     label: str,
     cx: float,
@@ -151,21 +187,38 @@ def text_block(
     bold: bool,
     anchor: str = "middle",
     line_height: float = 1.28,
+    rich: bool = False,
 ) -> list[str]:
     lines = label.split("\n")
-    weight = ' font-weight="600"' if bold else ""
     out = []
     for index, line in enumerate(lines):
         baseline = top + size * (0.82 + index * line_height)
-        out.append(
+        head = (
             f'<text x="{cx:.1f}" y="{baseline:.1f}" font-family="{FONT_STACK}" '
-            f'font-size="{size:.1f}" fill="{colour}" text-anchor="{anchor}"{weight}'
-            f' xml:space="preserve">{escape(line)}</text>'
+            f'font-size="{size:.1f}" fill="{colour}" text-anchor="{anchor}"'
         )
+        runs = inline_runs(line, bold) if rich else [(line, bold, False)]
+        if len(runs) == 1 and not runs[0][2]:
+            weight = ' font-weight="600"' if runs[0][1] else ""
+            out.append(f"{head}{weight} xml:space=\"preserve\">{escape(runs[0][0])}</text>")
+            continue
+        spans = []
+        for text, run_bold, run_italic in runs:
+            if not text:
+                continue
+            weight = ' font-weight="600"' if run_bold else ""
+            style = ' font-style="italic"' if run_italic else ""
+            spans.append(f"<tspan{weight}{style}>{escape(text)}</tspan>")
+        out.append(f'{head} xml:space="preserve">{"".join(spans)}</text>')
     return out
 
 
-def render_svg(title: str, vertices: dict[str, Vertex], edges: list[Edge]) -> str:
+def render_svg(
+    title: str,
+    vertices: dict[str, Vertex],
+    edges: list[Edge],
+    print_width_in: float = PRINT_WIDTH_IN,
+) -> str:
     margin = 24.0
     xs = [v.x for v in vertices.values()] + [p[0] for e in edges for p in e.waypoints]
     ys = [v.y for v in vertices.values()] + [p[1] for e in edges for p in e.waypoints]
@@ -174,10 +227,11 @@ def render_svg(title: str, vertices: dict[str, Vertex], edges: list[Edge]) -> st
     min_x, min_y, max_x, max_y = min(xs), min(ys), max(xe), max(ye)
     width, height = max_x - min_x + 2 * margin, max_y - min_y + 2 * margin
     shift_x, shift_y = margin - min_x, margin - min_y
+    print_height_in = height * print_width_in / width
 
     body: list[str] = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width:.0f}" height="{height:.0f}" '
-        f'viewBox="0 0 {width:.0f} {height:.0f}">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{print_width_in:.3f}in" '
+        f'height="{print_height_in:.3f}in" viewBox="0 0 {width:.0f} {height:.0f}">',
         f"<title>{escape(title)}</title>",
         f'<rect width="{width:.0f}" height="{height:.0f}" fill="#ffffff"/>',
         '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" '
@@ -233,7 +287,18 @@ def render_svg(title: str, vertices: dict[str, Vertex], edges: list[Edge]) -> st
             anchor, cx = "end", vertex.x + vertex.width - 12
         else:
             anchor, cx = "middle", vertex.cx
-        body.extend(text_block(vertex.label, cx, top, size, colour, bold, anchor))
+        body.extend(
+            text_block(
+                vertex.label,
+                cx,
+                top,
+                size,
+                colour,
+                bold,
+                anchor,
+                rich=style.get("html") == "1",
+            )
+        )
 
     for edge in edges:
         source, target = vertices.get(edge.source), vertices.get(edge.target)
@@ -277,9 +342,9 @@ def render_svg(title: str, vertices: dict[str, Vertex], edges: list[Edge]) -> st
     return "\n".join(body)
 
 
-def export(path: Path) -> Path:
+def export(path: Path, print_width_in: float = PRINT_WIDTH_IN) -> Path:
     title, vertices, edges = read_diagram(path)
-    svg = render_svg(title, vertices, edges)
+    svg = render_svg(title, vertices, edges, print_width_in)
     svg_path = OUTPUT_DIR / f"{path.stem}.svg"
     pdf_path = OUTPUT_DIR / f"{path.stem}.pdf"
     svg_path.write_text(svg, encoding="utf-8")
@@ -293,12 +358,22 @@ def export(path: Path) -> Path:
 
 
 def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument(
+        "--print-width-in",
+        type=float,
+        default=PRINT_WIDTH_IN,
+        help=f"printed width of the exported PDF in inches (default {PRINT_WIDTH_IN})",
+    )
+    parser.add_argument("sources", nargs="*", help=".drawio files (default: every source)")
+    args = parser.parse_args(argv[1:])
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    sources = [Path(a).resolve() for a in argv[1:]] or sorted(SOURCE_DIR.glob("*.drawio"))
+    sources = [Path(a).resolve() for a in args.sources] or sorted(SOURCE_DIR.glob("*.drawio"))
     if not sources:
         raise SystemExit(f"no .drawio sources under {SOURCE_DIR}")
     for source in sources:
-        pdf = export(source)
+        pdf = export(source, args.print_width_in)
         print(f"{source.relative_to(ROOT)} -> {pdf.relative_to(ROOT)}")
     return 0
 

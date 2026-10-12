@@ -132,6 +132,9 @@ plt.rcParams.update(
         "axes.spines.top": False,
         "axes.spines.right": False,
         "lines.linewidth": 2.0,
+        # Type 42 outlines keep the PDF free of Type 3 fonts, which AGU does not accept.
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
     }
 )
 plt.rcParams.update(rc_overrides())
@@ -605,7 +608,8 @@ def main() -> int:
 
     figure = build_figure(block, row, sweep)
     for suffix in ("pdf", "png"):
-        figure.savefig(FIGURES / f"{NAME}.{suffix}", dpi=300, bbox_inches="tight", pad_inches=0.02)
+        figure.savefig(FIGURES / f"{NAME}.{suffix}", dpi=300, bbox_inches="tight",
+                       pad_inches=0.06)
     plt.close(figure)
 
     payload = {

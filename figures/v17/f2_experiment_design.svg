@@ -1,84 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1188" height="912" viewBox="0 0 1188 912">
+<svg xmlns="http://www.w3.org/2000/svg" width="5.500in" height="5.227in" viewBox="0 0 968 920">
 <title>Study design and data flow</title>
-<rect width="1188" height="912" fill="#ffffff"/>
+<rect width="968" height="920" fill="#ffffff"/>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#37474f"/></marker><marker id="arrowdim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#90a4ae"/></marker></defs>
 <g transform="translate(4.0,4.0)">
-<rect x="250.0" y="112.0" width="680.0" height="82.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="590.0" y="136.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Quality control</text>
-<text x="590.0" y="150.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">waterbody class assigned per network; seas, lakes, canals, estuaries and deltas excluded rather than averaged in</text>
-<text x="590.0" y="164.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">reference series never imputed — a year with any missing day supplies no truth</text>
-<text x="590.0" y="178.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">stations with fewer than four fully observed calendar years excluded (the estimator protocol requires them)</text>
-<rect x="140.0" y="20.0" width="900.0" height="56.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
-<text x="590.0" y="45.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#0D47A1" text-anchor="middle" xml:space="preserve">Nine national providers</text>
-<text x="590.0" y="60.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#0D47A1" text-anchor="middle" xml:space="preserve">ARSO (SI) · CHMI (CZ) · FOEN (CH) · GKD Bayern (DE) · LUBW (DE) · NVE (NO) · Rijkswaterstaat (NL) · SYKE (FI) · USGS (US)</text>
-<rect x="90.0" y="670.0" width="450.0" height="110.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
-<text x="315.0" y="694.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">Gate before rule (§4.7)</text>
-<text x="315.0" y="708.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">oracle ceiling of each action space measured first, against the margin</text>
-<text x="315.0" y="722.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">the reserved panel can resolve (0.136 °C)</text>
-<text x="315.0" y="736.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">adopt / reject a fixed reconstruction: +0.038 °C — not pursued</text>
-<text x="315.0" y="750.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">choose among reconstruction methods: +0.080 °C — not pursued</text>
-<text x="315.0" y="764.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">retain / exclude: clears the gate by a factor of five — studied here</text>
-<rect x="620.0" y="670.0" width="500.0" height="90.0" rx="10" ry="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.4"/>
-<text x="870.0" y="698.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" font-weight="600" xml:space="preserve">FREEZE — pre-registration written before the reserved panel was opened</text>
-<text x="870.0" y="712.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" font-weight="600" xml:space="preserve">at the retention of the matched length rule the screen must cut the consequential-error rate by</text>
-<text x="870.0" y="726.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" font-weight="600" xml:space="preserve">at least five percentage points, with a network-clustered interval excluding zero</text>
-<text x="870.0" y="740.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" font-weight="600" xml:space="preserve">precision computed in advance: the reserved panel resolves 1.44 points</text>
-<rect x="90.0" y="480.0" width="450.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="315.0" y="504.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Outage design — 51,524 cases on two arms, reported apart</text>
-<text x="315.0" y="518.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">empirical arm (19,036): real outage runs — length and start month —</text>
-<text x="315.0" y="532.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">drawn from the same network’s own records</text>
-<text x="315.0" y="546.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">stratified arm (32,488): length {14, 30, 60, 90, 120, 180, 270 d}</text>
-<text x="315.0" y="560.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">crossed with peak-window overlap</text>
-<rect x="250.0" y="316.0" width="680.0" height="58.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
-<text x="590.0" y="342.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" xml:space="preserve">Split declared at the network level — never at the station-year level</text>
-<text x="590.0" y="357.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" xml:space="preserve">stratified on provider × donor regime (none / one to two / three or more), seed recorded before any scoring</text>
-<rect x="620.0" y="808.0" width="500.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
-<text x="870.0" y="836.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">Reserved panel opened once, model applied without retuning</text>
-<text x="870.0" y="850.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">−7.13 points (95% network-clustered interval −8.97 to −5.36) · marginal coverage 0.909</text>
-<text x="870.0" y="864.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">negative with an interval excluding zero in all nine agencies under leave-one-provider-out</text>
-<rect x="250.0" y="230.0" width="680.0" height="48.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
-<text x="590.0" y="258.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">Evaluation population — 146 networks · 457 stations · 5,114 fully observed station-years</text>
-<rect x="90.0" y="590.0" width="450.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="315.0" y="613.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Estimator library applied to every case; five endpoints scored</text>
-<text x="315.0" y="627.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">against fully observed complete-year truth</text>
-<rect x="90.0" y="808.0" width="450.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="315.0" y="831.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Mechanism (H1) · screen fitting · conformal calibration · retention–error frontier</text>
-<text x="315.0" y="845.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">fitting, calibration and test networks always disjoint</text>
-<rect x="20.0" y="216.0" width="200.0" height="104.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
-<text x="32.0" y="238.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">GAGES-II basin attributes</text>
-<text x="32.0" y="252.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">joined for 140 of 204 US stations.</text>
-<text x="32.0" y="265.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Used in §5.3 to ask which rivers</text>
-<text x="32.0" y="279.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">are hard; never an input to the</text>
-<text x="32.0" y="292.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">screen, because eight agencies</text>
-<text x="32.0" y="305.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">do not have them.</text>
-<rect x="90.0" y="412.0" width="450.0" height="42.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
-<text x="315.0" y="437.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">110 development networks</text>
-<rect x="660.0" y="412.0" width="450.0" height="42.0" rx="10" ry="10" fill="#ECEFF1" stroke="#546E7A" stroke-width="1.4"/>
-<text x="885.0" y="437.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#37474F" text-anchor="middle" font-weight="600" xml:space="preserve">36 reserved networks — sealed</text>
-<rect x="960.0" y="216.0" width="200.0" height="90.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
-<text x="972.0" y="238.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">2,422 incomplete station-years</text>
-<text x="972.0" y="251.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">carry no truth. In this design they</text>
-<text x="972.0" y="265.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">enter only as a source of realistic</text>
-<text x="972.0" y="278.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">outage geometry and are never</text>
-<text x="972.0" y="292.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">scored.</text>
-<polyline points="590.0,77.0 590.0,111.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="590.0,195.0 590.0,229.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="221.0,265.0 249.0,264.2" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
-<polyline points="959.0,259.5 931.0,259.1" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
-<polyline points="590.0,279.0 590.0,315.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="590.0,375.0 590.0,390.0 315.0,390.0 315.0,411.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="590.0,375.0 590.0,390.0 885.0,390.0 885.0,411.0" fill="none" stroke="#546E7A" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="315.0,455.0 315.0,479.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="315.0,577.0 315.0,589.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="315.0,643.0 315.0,669.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="315.0,781.0 315.0,807.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
-<polyline points="541.0,834.0 580.0,834.0 580.0,715.0 619.0,715.0" fill="none" stroke="#C62828" stroke-width="1.4" marker-end="url(#arrow)"/>
-<rect x="506.8" y="766.6" width="146.4" height="15.8" fill="#ffffff" stroke="none"/>
-<text x="580.0" y="776.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">the frozen rule, unchanged</text>
-<polyline points="1111.0,433.0 1150.0,433.0 1150.0,846.0 1121.0,846.0" fill="none" stroke="#546E7A" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
-<rect x="1066.0" y="631.6" width="168.0" height="15.8" fill="#ffffff" stroke="none"/>
-<text x="1150.0" y="641.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.0" fill="#37474F" text-anchor="middle" xml:space="preserve">sealed until the freeze exists</text>
-<polyline points="870.0,761.0 870.0,807.0" fill="none" stroke="#C62828" stroke-width="1.4" marker-end="url(#arrow)"/>
-<rect x="837.3" y="776.1" width="65.4" height="15.8" fill="#ffffff" stroke="none"/>
-<text x="870.0" y="785.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">scored once</text>
+<rect x="20.0" y="462.0" width="450.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="245.0" y="494.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Sealed USGS confirmation</text>
+<text x="245.0" y="514.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">39 HUC4 networks · 91 stations ·</text>
+<text x="245.0" y="533.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">8,973 designed cases, outside the</text>
+<text x="245.0" y="552.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">development programme; scored once</text>
+<text x="245.0" y="571.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">−7.9 points [−10.2, −5.8]</text>
+<rect x="20.0" y="20.0" width="450.0" height="128.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="71.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">Nine national providers</text>
+<text x="245.0" y="90.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">ARSO · CHMI · FOEN · GKD Bayern ·</text>
+<text x="245.0" y="109.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">LUBW · NVE · Rijkswaterstaat · SYKE · USGS</text>
+<rect x="20.0" y="304.0" width="450.0" height="128.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="245.0" y="327.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Outages designed, configuration frozen</text>
+<text x="245.0" y="346.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" xml:space="preserve">51,524 cases; empirical and stratified arms</text>
+<text x="245.0" y="364.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" xml:space="preserve">40,704 development · 10,820 reserved</text>
+<text x="245.0" y="383.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" xml:space="preserve">declared before the reserved panel opened</text>
+<text x="245.0" y="401.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" xml:space="preserve">matched retention; at least five points;</text>
+<text x="245.0" y="420.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="14.5" fill="#102027" text-anchor="middle" xml:space="preserve">a network-clustered interval excluding zero</text>
+<rect x="20.0" y="622.0" width="450.0" height="128.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="245.0" y="644.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Pre-registered transport panel</text>
+<text x="245.0" y="663.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">SMHI · UK EA · Hub'Eau: 32 primary</text>
+<text x="245.0" y="682.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">networks across three contexts,</text>
+<text x="245.0" y="701.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">four assurance strata combinations,</text>
+<text x="245.0" y="721.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">sealed and scored once: −4.6 points</text>
+<text x="245.0" y="740.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">[−6.5, −3.3]</text>
+<rect x="510.0" y="462.0" width="430.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="725.0" y="494.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Prior-access audit and clean subset</text>
+<text x="725.0" y="514.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">24 of 39 networks appear in earlier work</text>
+<text x="725.0" y="533.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">15 outcome-clean networks: −9.4 points</text>
+<text x="725.0" y="552.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">[−12.4, −6.0]; a transparency diagnostic,</text>
+<text x="725.0" y="571.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">not new confirmation</text>
+<rect x="510.0" y="20.0" width="430.0" height="128.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="725.0" y="42.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">River-only, complete-year filter</text>
+<text x="725.0" y="61.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">lakes, seas, canals, estuaries, deltas out</text>
+<text x="725.0" y="80.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">a year with any missing day: no truth</text>
+<text x="725.0" y="99.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">fewer than four complete years: out</text>
+<text x="725.0" y="119.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">146 networks · 457 stations ·</text>
+<text x="725.0" y="138.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">5,114 completely observed station-years</text>
+<rect x="510.0" y="304.0" width="430.0" height="128.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="725.0" y="345.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">Reserved panel opened once</text>
+<text x="725.0" y="364.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">9.7% → 2.5% at 70% retention</text>
+<text x="725.0" y="383.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">−7.13 points [−8.97, −5.36]</text>
+<text x="725.0" y="403.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">the empirical arm is unresolved</text>
+<rect x="510.0" y="622.0" width="430.0" height="128.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="725.0" y="653.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Primary and secondary strata</text>
+<text x="725.0" y="673.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">quality-checked stratum: −6.2 points</text>
+<text x="725.0" y="692.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">[−8.4, −4.5], agreeing with the pooled</text>
+<text x="725.0" y="711.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">verdict; NVE secondary stratum,</text>
+<text x="725.0" y="730.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#102027" text-anchor="middle" xml:space="preserve">21 networks: −6.1 points [−8.7, −4.6]</text>
+<rect x="20.0" y="780.0" width="450.0" height="112.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="245.0" y="813.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">Truth-free deployment</text>
+<text x="245.0" y="832.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">2,422 real incomplete station-years,</text>
+<text x="245.0" y="851.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">which carry no truth; the frozen</text>
+<text x="245.0" y="870.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">screen is applied to them unchanged</text>
+<rect x="510.0" y="780.0" width="430.0" height="112.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="725.0" y="803.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">Two admission rules compared</text>
+<text x="725.0" y="823.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">length rule vs peak-window screening</text>
+<text x="725.0" y="842.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">disagree on 15.1% of the 2,422 years;</text>
+<text x="725.0" y="861.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">the certificate instead supports abstention</text>
+<text x="725.0" y="880.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">where the interval straddles the threshold</text>
+<rect x="20.0" y="178.0" width="450.0" height="96.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="245.0" y="203.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Split at the network level</text>
+<text x="245.0" y="222.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#E65100" text-anchor="middle" xml:space="preserve">never at the station-year level;</text>
+<text x="245.0" y="241.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#E65100" text-anchor="middle" xml:space="preserve">stratified on provider × donor regime</text>
+<text x="245.0" y="261.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#E65100" text-anchor="middle" xml:space="preserve">110 development · 36 reserved</text>
+<rect x="510.0" y="178.0" width="430.0" height="96.0" rx="10" ry="10" fill="#ECEFF1" stroke="#546E7A" stroke-width="1.4"/>
+<text x="725.0" y="203.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#37474F" text-anchor="middle" font-weight="600" xml:space="preserve">Reserved panel: retrospective holdout</text>
+<text x="725.0" y="222.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#37474F" text-anchor="middle" xml:space="preserve">28 of 36 networks have earlier</text>
+<text x="725.0" y="241.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#37474F" text-anchor="middle" xml:space="preserve">programme use; not an unused</text>
+<text x="725.0" y="261.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="15.0" fill="#37474F" text-anchor="middle" xml:space="preserve">confirmation set for new analyses</text>
+<polyline points="471.0,84.0 490.0,84.0 490.0,84.0 509.0,84.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="725.0,149.0 725.0,163.0 245.0,163.0 245.0,177.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="471.0,226.0 490.0,226.0 490.0,226.0 509.0,226.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="725.0,275.0 725.0,289.0 245.0,289.0 245.0,303.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="471.0,368.0 490.0,368.0 490.0,368.0 509.0,368.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="725.0,433.0 725.0,447.0 245.0,447.0 245.0,461.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="471.0,527.0 490.0,527.0 490.0,527.0 509.0,527.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="725.0,593.0 725.0,607.0 245.0,607.0 245.0,621.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="471.0,686.0 490.0,686.0 490.0,686.0 509.0,686.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="725.0,751.0 725.0,765.0 245.0,765.0 245.0,779.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="471.0,836.0 490.0,836.0 490.0,836.0 509.0,836.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
 </g></svg>

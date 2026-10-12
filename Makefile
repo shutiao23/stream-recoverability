@@ -250,6 +250,12 @@ wrr:
 # changes; the built PDFs are committed alongside the manuscript.
 wrr-figures:
 	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
+		$(PYTHON) scripts/265_wrr_figure1_example.py
+	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
+		$(PYTHON) scripts/267_wrr_heterogeneity_figures.py
+	cp figures/wrr/f1_example.pdf figures/wrr/f2a_endpoint_ordering.pdf \
+	   figures/wrr/f2b_panel_heterogeneity.pdf paper/wrr/figures/
+	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
 		$(PYTHON) scripts/188_v17_figures.py
 	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
 		$(PYTHON) scripts/204_v17_figures_q1.py
@@ -260,8 +266,20 @@ wrr-figures:
 	   figures/v17/f2_experiment_design.pdf figures/v17/f3_evidence_chain.pdf \
 	   figures/v17/f4_deployment_workflow.pdf paper/wrr/figures/
 
+# Re-export the draw.io architecture and system-design sources at the printed
+# 5.5 in width, so PDF type size equals printed type size.
+wrr-schematics:
+	$(PYTHON) scripts/205_v17_drawio_export.py
+	cp figures/v17/f0_problem_frame.pdf figures/v17/f1_system_architecture.pdf \
+	   figures/v17/f2_experiment_design.pdf figures/v17/f3_evidence_chain.pdf \
+	   figures/v17/f4_deployment_workflow.pdf paper/wrr/figures/
+
 wrr-check:
 	$(PYTHON) scripts/223_wrr_build.py --skip-build
+
+# Font embedding, page geometry, text bounds, overlap and figure provenance.
+wrr-figure-qa:
+	$(PYTHON) scripts/266_wrr_figure_qa.py
 
 # Submission-readiness tree: evidence identity, manifests, predict deploy, preflight.
 # Does not invent author metadata; build remains NOT submission-ready until humans fill
