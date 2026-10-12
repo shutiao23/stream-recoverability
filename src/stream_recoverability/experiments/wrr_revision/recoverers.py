@@ -14,7 +14,9 @@ from sklearn.preprocessing import StandardScaler
 from xgboost import XGBRegressor
 
 from stream_recoverability.experiments.air2stream_equivalent import (
+    fit_air2stream3,
     fit_air2stream8,
+    simulate_air2stream3,
     simulate_air2stream8,
 )
 from stream_recoverability.experiments.development_recovery import (
@@ -125,6 +127,21 @@ class Air2StreamRecoverer(FittedRecoverer):
     ) -> np.ndarray:
         if air is None or discharge is None:
             return np.full(int(gap_length), np.nan)
+        simulated = np.asarray(self.extra["simulated"], dtype=float)
+        return simulated[int(start) : int(start) + int(gap_length)]
+
+
+class Air2Stream3Recoverer(FittedRecoverer):
+    def predict_gap(
+        self,
+        *,
+        features: pd.DataFrame,
+        target: pd.Series,
+        start: int,
+        gap_length: int,
+        air: pd.Series | None = None,
+        discharge: pd.Series | None = None,
+    ) -> np.ndarray:
         simulated = np.asarray(self.extra["simulated"], dtype=float)
         return simulated[int(start) : int(start) + int(gap_length)]
 
@@ -311,30 +328,13 @@ def fit_station_recoverers(
             fitted[name] = model
 
     if include_external and air is not None:
+        air_numeric = pd.to_numeric(air, errors="coerce").reindex(target.index)
         air_frame = features[[column for column in features.columns if column.startswith("doy_")]].copy()
-        air_frame["M__Ta"] = pd.to_numeric(air, errors="coerce")
-        x, y = neighbor_training_table(air_frame, target, train_mask, include_boundary=False)
-        model = _fit_sklearn(
-            "air_ridge",
-            "ridge",
-            "neighbor",
-            x=x,
-            y=y,
-            uses_boundary=False,
-            uses_donors=False,
-            uses_air=True,
-            uses_flow=False,
-            information_group="external",
-            xgboost=False,
-        )
-        if model is not None:
-            fitted["air_ridge"] = model
-        if discharge is not None:
-            flow_frame = air_frame.copy()
-            flow_frame["H__F"] = pd.to_numeric(discharge, errors="coerce")
-            x, y = neighbor_training_table(flow_frame, target, train_mask, include_boundary=False)
+        air_frame["M__Ta"] = air_numeric
+        if include_names is None or "air_ridge" in include_names:
+            x, y = neighbor_training_table(air_frame, target, train_mask, include_boundary=False)
             model = _fit_sklearn(
-                "air_flow_ridge",
+                "air_ridge",
                 "ridge",
                 "neighbor",
                 x=x,
@@ -342,15 +342,61 @@ def fit_station_recoverers(
                 uses_boundary=False,
                 uses_donors=False,
                 uses_air=True,
-                uses_flow=True,
+                uses_flow=False,
                 information_group="external",
                 xgboost=False,
             )
             if model is not None:
-                fitted["air_flow_ridge"] = model
-            air2 = _fit_air2stream(target, train_mask, air, discharge)
-            if air2 is not None:
-                fitted["air2stream"] = air2
+                fitted["air_ridge"] = model
+        if include_names is None or "air_lag_ridge" in include_names:
+            lag_frame = air_frame.copy()
+            lag_frame["M__Ta_lag1"] = air_numeric.shift(1)
+            lag_frame["M__Ta_lag3"] = air_numeric.shift(3)
+            lag_frame["M__Ta_lag7"] = air_numeric.shift(7)
+            x, y = neighbor_training_table(lag_frame, target, train_mask, include_boundary=False)
+            model = _fit_sklearn(
+                "air_lag_ridge",
+                "ridge",
+                "neighbor",
+                x=x,
+                y=y,
+                uses_boundary=False,
+                uses_donors=False,
+                uses_air=True,
+                uses_flow=False,
+                information_group="external",
+                xgboost=False,
+            )
+            if model is not None:
+                fitted["air_lag_ridge"] = model
+        if include_names is None or "air2stream3" in include_names:
+            air3 = _fit_air2stream3(target, train_mask, air_numeric)
+            if air3 is not None:
+                fitted["air2stream3"] = air3
+        if discharge is not None:
+            flow_frame = air_frame.copy()
+            flow_frame["H__F"] = pd.to_numeric(discharge, errors="coerce")
+            if include_names is None or "air_flow_ridge" in include_names:
+                x, y = neighbor_training_table(flow_frame, target, train_mask, include_boundary=False)
+                model = _fit_sklearn(
+                    "air_flow_ridge",
+                    "ridge",
+                    "neighbor",
+                    x=x,
+                    y=y,
+                    uses_boundary=False,
+                    uses_donors=False,
+                    uses_air=True,
+                    uses_flow=True,
+                    information_group="external",
+                    xgboost=False,
+                )
+                if model is not None:
+                    fitted["air_flow_ridge"] = model
+            if include_names is None or "air2stream" in include_names:
+                air2 = _fit_air2stream(target, train_mask, air, discharge)
+                if air2 is not None:
+                    fitted["air2stream"] = air2
     return fitted
 
 
@@ -396,6 +442,48 @@ def _fit_air2stream(
         uses_donors=False,
         uses_air=True,
         uses_flow=True,
+        information_group="external",
+        n_train_rows=int(np.isfinite(fit_water).sum()),
+        extra={"simulated": simulated, "parameters": fit.parameters},
+    )
+
+
+def _fit_air2stream3(
+    target: pd.Series,
+    train_mask: pd.Series,
+    air: pd.Series,
+) -> FittedRecoverer | None:
+    water = pd.to_numeric(target, errors="coerce").to_numpy(dtype=float)
+    ta = pd.to_numeric(air, errors="coerce").reindex(target.index).to_numpy(dtype=float)
+    fit_water = np.where(train_mask.to_numpy(dtype=bool), water, np.nan)
+    if not np.isfinite(ta).all() or np.isfinite(fit_water).sum() < 400:
+        return None
+    try:
+        fit = fit_air2stream3(
+            target.index,
+            fit_water,
+            ta,
+            minimum_training_observations=200,
+            warmup_days=30,
+            max_nfev=120,
+        )
+        initial = float(np.nanmean(fit_water[np.isfinite(fit_water)][:30]))
+        simulated = simulate_air2stream3(
+            target.index,
+            ta,
+            fit.parameters,
+            initial_water_temperature_c=initial,
+        )
+    except (ValueError, RuntimeError):
+        return None
+    return Air2Stream3Recoverer(
+        name="air2stream3",
+        family="process",
+        training_protocol="state_equation_air_only",
+        uses_boundary=False,
+        uses_donors=False,
+        uses_air=True,
+        uses_flow=False,
         information_group="external",
         n_train_rows=int(np.isfinite(fit_water).sum()),
         extra={"simulated": simulated, "parameters": fit.parameters},

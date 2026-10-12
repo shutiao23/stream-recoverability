@@ -1,0 +1,285 @@
+network_id,provider,river_group,legacy_qc_status,source_root,v16_role,waterbody_class,waterbody_family,classification_rule,regulation_status,has_temperature,n_stations,n_days,start,end,n_station_years,n_eligible_annual_station_years,n_calendar_years_present,in_river_main
+arso_bistrica,arso,Bistrica,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,3653,2015-01-01,2024-12-31,40,36,10,True
+arso_drava,arso,Drava,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,26,10,True
+arso_dravinja,arso,Dravinja,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,3653,2015-01-01,2024-12-31,40,37,10,True
+arso_kamniska_bistrica,arso,Kamniška Bistrica,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,28,10,True
+arso_kolpa,arso,Kolpa,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,25,10,True
+arso_krka,arso,Krka,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,3653,2015-01-01,2024-12-31,40,37,10,True
+arso_ljubljanica,arso,Ljubljanica,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,28,10,True
+arso_paka,arso,Paka,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,27,10,True
+arso_sava,arso,Sava,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,8,3653,2015-01-01,2024-12-31,80,72,10,True
+arso_savinja,arso,Savinja,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,5,3653,2015-01-01,2024-12-31,50,44,10,True
+arso_soca,arso,Soča,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,3653,2015-01-01,2024-12-31,30,27,10,True
+arso_vipava,arso,Vipava,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,3653,2015-01-01,2024-12-31,40,35,10,True
+ccg_st_lawrence_ship_channel,canadian_coast_guard,St. Lawrence ship channel,daily_qc_not_qualified,second,no_temperature,canal,non_river,explicit_network_map,unknown,False,0,0,,,0,0,0,False
+chmi_bela,chmi,Bělá,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,16,9,True
+chmi_berounka,chmi,Berounka,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,5,2923,2010-01-01,2018-01-01,45,39,9,True
+chmi_blanice,chmi,Blanice,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,4,3654,2016-01-01,2026-01-01,44,38,11,True
+chmi_botic,chmi,Botič,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,5,3288,2017-01-01,2026-01-01,50,44,10,True
+chmi_dyje,chmi,Dyje,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,4,6941,2007-01-01,2026-01-01,80,62,20,True
+chmi_jizera,chmi,Jizera,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,5,4384,2014-01-01,2026-01-01,65,60,13,True
+chmi_kamenice,chmi,Kamenice,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,3,4019,2015-01-01,2026-01-01,36,32,12,True
+chmi_labe,chmi,Labe,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,6,5115,2012-01-01,2026-01-01,90,82,15,True
+chmi_luznice,chmi,Lužnice,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,3,6941,2007-01-01,2026-01-01,60,54,20,True
+chmi_morava,chmi,Morava,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,6,5115,2012-01-01,2026-01-01,90,71,15,True
+chmi_odra,chmi,Odra,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,3,6941,2007-01-01,2026-01-01,60,55,20,True
+chmi_ohre,chmi,Ohře,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,4750,2012-01-01,2025-01-01,28,15,14,True
+chmi_olse,chmi,Olše,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+chmi_ostravice,chmi,Ostravice,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+chmi_otava,chmi,Otava,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,3,7306,2006-01-01,2026-01-01,63,56,21,True
+chmi_sazava,chmi,Sázava,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,8,4384,2014-01-01,2026-01-01,104,94,13,True
+chmi_smeda,chmi,Smědá,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,3,4749,2013-01-01,2026-01-01,42,32,14,True
+chmi_vltava,chmi,Vltava,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,6,3654,2015-01-01,2025-01-01,66,56,11,True
+chmi_zelivka,chmi,Želivka,qualified,first,second_panel_descriptive,river,river,default_river,unmatched_gages,True,5,3654,2016-01-01,2026-01-01,55,46,11,True
+eccc_automated_great_lakes,eccc_automated,GREAT LAKES,daily_qc_not_qualified,first,no_temperature,lake,non_river,explicit_network_map,unmatched_gages,False,0,0,,,0,0,0,False
+eccc_automated_maritime_coastal,eccc_automated,MARITIME COASTAL,daily_qc_not_qualified,first,no_temperature,coastal,non_river,explicit_network_map,unmatched_gages,False,0,0,,,0,0,0,False
+eccc_automated_saint_john_st_croix,eccc_automated,SAINT JOHN–ST. CROIX,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_ager,ehyd,Ager,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_alm,ehyd,Alm,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_bregenzerach,ehyd,Bregenzerach,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_donau,ehyd,Donau,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_drau,ehyd,Drau,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_enns,ehyd,Enns,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_gail,ehyd,Gail,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_gurk,ehyd,Gurk,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_inn,ehyd,Inn,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_isel,ehyd,Isel,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_krems,ehyd,Krems,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_lieser,ehyd,Lieser,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_march,ehyd,March,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_moll,ehyd,Möll,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_neusiedler_see,ehyd,Neusiedler See,source_qc_failed_monthly_only,first,no_temperature,lake,non_river,explicit_network_map,unmatched_gages,False,0,0,,,0,0,0,False
+ehyd_pram,ehyd,Pram,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_saalach,ehyd,Saalach,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_salzach,ehyd,Salzach,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_sill,ehyd,Sill,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_steyr,ehyd,Steyr,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_trattnach,ehyd,Trattnach,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_traun,ehyd,Traun,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+ehyd_ziller,ehyd,Ziller,source_qc_failed_monthly_only,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+foen_aare_aaregebiet,foen,Aare,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,9,9694,2000-01-01,2026-07-16,243,233,27,True
+foen_murg_multi,foen,Murg,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,8962,2001-12-31,2026-07-14,52,43,26,True
+gkd_bayern_alz,gkd_bayern,Alz,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,16466,1980-11-01,2025-11-30,138,59,46,True
+gkd_bayern_donau,gkd_bayern,Donau,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,15,16729,1980-11-01,2026-08-20,705,357,47,True
+gkd_bayern_fraenkische_saale,gkd_bayern,Fränkische Saale,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,16711,1980-11-01,2026-08-02,141,52,47,True
+gkd_bayern_iller,gkd_bayern,Iller,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,16710,1980-11-01,2026-08-01,141,89,47,True
+gkd_bayern_inn,gkd_bayern,Inn,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,16708,1980-11-01,2026-07-30,188,86,47,True
+gkd_bayern_isar,gkd_bayern,Isar,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,6,16678,1980-11-01,2026-06-30,282,157,47,True
+gkd_bayern_main,gkd_bayern,Main,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,15,16729,1980-11-01,2026-08-20,705,317,47,True
+gkd_bayern_mangfall,gkd_bayern,Mangfall,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,5449,2011-02-01,2026-01-01,48,28,16,True
+gkd_bayern_vils,gkd_bayern,Vils,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,16707,1980-11-01,2026-07-29,188,79,47,True
+hubeau_l_adour,hubeau,L'Adour,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_aire,hubeau,L'Aire,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_aisne,hubeau,L'Aisne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_allier,hubeau,l'Allier,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_ance,hubeau,l'Ance,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_ard_che,hubeau,L'Ardèche,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_ari_ge,hubeau,L'Ariège,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_arroux,hubeau,l'Arroux,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_aube,hubeau,L'Aube,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_aude,hubeau,L'Aude,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_l_aveyron,hubeau,L'Aveyron,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_huisne,hubeau,l'Huisne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_ill,hubeau,L'Ill,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_oise,hubeau,L'Oise,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_l_orne,hubeau,L'Orne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_la_besbre,hubeau,la Besbre,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_creuse,hubeau,la Creuse,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_cure,hubeau,La Cure,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unregulated,False,0,0,,,0,0,0,True
+hubeau_la_dordogne,hubeau,La Dordogne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_la_dore,hubeau,la Dore,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_durance,hubeau,La Durance,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_la_garonne,hubeau,La Garonne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_marne,hubeau,La Marne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_meuse,hubeau,La Meuse,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unregulated,False,0,0,,,0,0,0,True
+hubeau_la_moselle,hubeau,La Moselle,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_sa_ne,hubeau,La Saône,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_sarthe,hubeau,la Sarthe,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_la_seille,hubeau,La Seille,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_seine,hubeau,La Seine,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unregulated,False,0,0,,,0,0,0,True
+hubeau_la_sioule,hubeau,la Sioule,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_vienne,hubeau,la Vienne,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_la_vilaine,hubeau,la Vilaine,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_cher,hubeau,le Cher,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_le_doubs,hubeau,Le Doubs,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_drac,hubeau,Le Drac,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_golo,hubeau,Le Golo,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_lot,hubeau,Le Lot,daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+hubeau_le_rh_ne,hubeau,Le Rhône,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_taravo,hubeau,Le Taravo,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+hubeau_le_tarn,hubeau,Le Tarn,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+huc8_02040101,usgs,huc8_02040101,qualified,first,first_panel_development,river,river,default_river,regulated,True,6,9670,2000-01-01,2026-06-22,162,86,27,True
+huc8_02040102,usgs,huc8_02040102,qualified,first,first_panel_development,river,river,default_river,regulated,True,3,9580,2000-01-01,2026-03-24,81,45,27,True
+huc8_02040104,usgs,huc8_02040104,qualified,first,first_panel_development,river,river,default_river,regulated,True,6,9692,2000-01-01,2026-07-14,162,65,27,True
+huc8_02040202,usgs,huc8_02040202,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unregulated,True,2,9567,2000-04-01,2026-06-10,54,9,27,True
+huc8_03010107,usgs,huc8_03010107,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,3,9678,2000-01-01,2026-06-30,81,37,27,True
+huc8_03110205,usgs,huc8_03110205,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,1,9531,2000-01-01,2026-02-03,27,8,27,True
+huc8_03110206,usgs,huc8_03110206,qualified,first,first_panel_development,river,river,default_river,unregulated,True,5,3939,2015-08-22,2026-06-03,60,16,12,True
+huc8_03150202,usgs,huc8_03150202,qualified,first,first_panel_development,river,river,default_river,regulated,True,4,9574,2000-01-01,2026-03-18,108,34,27,True
+huc8_05030103,usgs,huc8_05030103,qualified,first,first_panel_development,river,river,default_river,regulated,True,9,9627,2000-01-01,2026-05-10,243,100,27,True
+huc8_10020007,usgs,huc8_10020007,qualified,first,first_panel_development,river,river,default_river,regulated,True,8,9658,2000-01-01,2026-06-10,216,97,27,True
+huc8_10070002,usgs,huc8_10070002,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unregulated,True,1,9112,2001-05-04,2026-04-14,26,2,26,True
+huc8_17060306,usgs,huc8_17060306,qualified,first,first_panel_development,river,river,default_river,regulated,True,3,9692,2000-01-01,2026-07-14,81,48,27,True
+huc8_17090001,usgs,huc8_17090001,qualified,first,first_panel_development,river,river,default_river,regulated,True,10,9356,2000-10-06,2026-05-18,270,125,27,True
+huc8_17090002,usgs,huc8_17090002,qualified,first,first_panel_development,river,river,default_river,regulated,True,3,9030,2001-08-02,2026-04-22,78,38,26,True
+huc8_17090003,usgs,huc8_17090003,qualified,first,first_panel_development,river,river,default_river,regulated,True,4,9356,2000-10-05,2026-05-17,108,55,27,True
+huc8_17090004,usgs,huc8_17090004,qualified,first,first_panel_development,river,river,default_river,regulated,True,16,9411,2000-11-03,2026-08-09,432,147,27,True
+huc8_17090012,usgs,huc8_17090012,qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,7,9630,2000-01-01,2026-05-13,189,82,27,True
+lubw_donau,lubw,Donau,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,15213,1985-01-01,2026-08-26,84,14,42,True
+lubw_enz,lubw,Enz,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,8086,2004-07-07,2026-08-26,23,7,23,True
+lubw_fils,lubw,Fils,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,13882,1988-08-24,2026-08-26,39,13,39,True
+lubw_jagst,lubw,Jagst,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,16666,1981-01-09,2026-08-26,46,17,46,True
+lubw_kocher,lubw,Kocher,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,16674,1981-01-01,2026-08-26,46,12,46,True
+lubw_lauter,lubw,Lauter,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+lubw_murg,lubw,Murg,daily_qc_not_qualified,first,no_temperature,river,river,default_river,unmatched_gages,False,0,0,,,0,0,0,True
+lubw_neckar,lubw,Neckar,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,12,18858,1975-01-09,2026-08-26,624,114,52,True
+lubw_rhein,lubw,Rhein,qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,14103,1988-01-16,2026-08-26,156,23,39,True
+nve_basin_103,nve_hydapi,NVE drainage basin 103,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,3614,2013-11-01,2023-09-23,44,13,11,True
+nve_basin_109,nve_hydapi,NVE drainage basin 109,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_112,nve_hydapi,NVE drainage basin 112,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3704,2012-10-14,2022-12-04,22,12,11,True
+nve_basin_12,,,,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_121,nve_hydapi,NVE drainage basin 121,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3608,2013-11-02,2023-09-18,22,8,11,True
+nve_basin_123,nve_hydapi,NVE drainage basin 123,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_124,nve_hydapi,NVE drainage basin 124,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4321,1994-06-28,2006-04-26,52,14,13,True
+nve_basin_15,nve_hydapi,NVE drainage basin 15,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_151,nve_hydapi,NVE drainage basin 151,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3108,2014-05-19,2022-11-20,9,7,9,True
+nve_basin_16,nve_hydapi,NVE drainage basin 16,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,8,3781,2005-06-08,2015-10-14,88,61,11,True
+nve_basin_161,nve_hydapi,NVE drainage basin 161,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_167,nve_hydapi,NVE drainage basin 167,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_196,nve_hydapi,NVE drainage basin 196,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_2,nve_hydapi,NVE drainage basin 2,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4271,2013-03-16,2024-11-23,48,16,12,True
+nve_basin_212,nve_hydapi,NVE drainage basin 212,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3203,1998-12-11,2007-09-17,30,14,10,True
+nve_basin_234,nve_hydapi,NVE drainage basin 234,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3602,1998-10-25,2008-09-03,11,7,11,True
+nve_basin_26,nve_hydapi,NVE drainage basin 26,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4383,2000-11-22,2012-11-21,52,29,13,True
+nve_basin_27,nve_hydapi,NVE drainage basin 27,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3667,2014-01-16,2024-01-30,22,15,11,True
+nve_basin_311,nve_hydapi,NVE drainage basin 311,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3644,2013-08-19,2023-08-10,33,17,11,True
+nve_basin_36,nve_hydapi,NVE drainage basin 36,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4383,1992-01-05,2004-01-04,26,4,13,True
+nve_basin_400,nve_hydapi,NVE drainage basin 400,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_55,nve_hydapi,NVE drainage basin 55,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_70,nve_hydapi,NVE drainage basin 70,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_74,nve_hydapi,NVE drainage basin 74,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3616,2014-04-06,2024-02-28,22,14,11,True
+nve_basin_76,nve_hydapi,NVE drainage basin 76,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4383,2007-11-27,2019-11-26,39,5,13,True
+nve_basin_78,nve_hydapi,NVE drainage basin 78,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4383,2007-04-29,2019-04-28,52,30,13,True
+nve_basin_79,nve_hydapi,NVE drainage basin 79,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3695,2013-05-31,2023-07-12,22,12,11,True
+nve_basin_84,nve_hydapi,NVE drainage basin 84,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3840,2013-09-01,2024-03-06,24,14,12,True
+nve_basin_86,nve_hydapi,NVE drainage basin 86,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+nve_basin_88,nve_hydapi,NVE drainage basin 88,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4383,2001-11-26,2013-11-25,52,25,13,True
+rws_amsterdam_rijnkanaal,rws_waterwebservices,Amsterdam-Rijnkanaal,non_river_domain_excluded,first,v16_confirmation_scored,canal,non_river,explicit_network_map,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,0,9,False
+rws_grevelingen,rws_waterwebservices,Grevelingen,non_river_domain_excluded,first,v16_confirmation_scored,lake,non_river,explicit_network_map,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,0,9,False
+rws_haringvliet,rws_waterwebservices,Haringvliet,non_river_domain_excluded,first,v16_confirmation_scored,estuary,non_river,explicit_network_map,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,0,9,False
+rws_ijsselmeer_markermeer,rws_waterwebservices,IJsselmeer–Markermeer,non_river_domain_excluded,first,v16_confirmation_scored,lake,non_river,explicit_network_map,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,0,9,False
+rws_maas,rws_waterwebservices,Maas,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,rws_river_allowlist,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,15,9,True
+rws_noordzee,rws_waterwebservices,Noordzee,non_river_domain_excluded,first,v16_confirmation_scored,sea,non_river,explicit_network_map,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,0,9,False
+rws_oosterschelde,rws_waterwebservices,Oosterschelde,non_river_domain_excluded,first,no_temperature,estuary,non_river,explicit_network_map,unmatched_gages,False,0,0,,,0,0,0,False
+rws_rijn_lek_nederrijn,rws_waterwebservices,Rijn–Lek–Nederrijn,qualified,first,first_panel_development,river,river,rws_river_allowlist,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,17,9,True
+rws_rijn_maas_delta,rws_waterwebservices,Rijn–Maasdelta,non_river_domain_excluded,first,v16_confirmation_scored,estuary_delta,non_river,explicit_network_map,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,0,9,False
+rws_twentekanalen,rws_waterwebservices,Twentekanalen,non_river_domain_excluded,first,v16_confirmation_scored,canal,non_river,explicit_network_map,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,0,9,False
+rws_volkerak_krammer,rws_waterwebservices,Volkerak–Krammer,non_river_domain_excluded,first,v16_confirmation_scored,lake,non_river,explicit_network_map,unmatched_gages,True,2,2923,2017-01-01,2025-01-01,18,0,9,False
+rws_waddenzee,rws_waterwebservices,Waddenzee,non_river_domain_excluded,first,v16_confirmation_scored,sea,non_river,explicit_network_map,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,0,9,False
+rws_westerschelde,rws_waterwebservices,Westerschelde,non_river_domain_excluded,first,v16_confirmation_scored,estuary,non_river,explicit_network_map,unmatched_gages,True,3,2923,2017-01-01,2025-01-01,27,0,9,False
+syke_basin_kokemaeenjoki,syke,Kokemäenjoki,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,10804,1962-01-01,1991-07-31,30,19,30,True
+syke_basin_kymijoki,syke,Kymijoki,daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,23891,1934-01-02,1999-05-31,132,52,66,True
+usgs2_huc2_08,usgs,untouched HUC2 basin 08,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,5599,2005-02-19,2020-06-18,64,13,16,True
+usgs2_huc2_12,usgs,untouched HUC2 basin 12,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,5,3694,2008-11-05,2018-12-16,55,15,11,True
+usgs2_huc2_14,usgs,untouched HUC2 basin 14,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,5126,2012-04-01,2026-04-13,30,10,15,True
+usgs2_huc2_15,usgs,untouched HUC2 basin 15,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,3723,2016-04-27,2026-07-06,44,17,11,True
+usgs2_huc2_18,usgs,untouched HUC2 basin 18,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3034,2018-01-09,2026-04-30,27,11,9,True
+usgs2_huc2_19,usgs,untouched HUC2 basin 19,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3288,2003-09-30,2012-09-29,10,7,10,True
+usgs2_huc2_20,usgs,untouched HUC2 basin 20,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,5460,1980-10-18,1995-09-29,16,3,16,True
+usgs2_huc2_41,usgs,untouched HUC2 basin 41,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc2_90,usgs,untouched HUC2 basin 90,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,4107,2012-06-26,2023-09-23,12,6,12,True
+usgs2_huc4_0306,usgs,untouched HUC4 basin 0306,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4267,2014-11-24,2026-07-30,39,13,13,True
+usgs2_huc4_0313,usgs,untouched HUC4 basin 0313,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc4_0401,usgs,untouched HUC4 basin 0401,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4438,2013-09-30,2025-11-23,39,11,13,True
+usgs2_huc4_0410,usgs,untouched HUC4 basin 0410,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3867,2011-04-22,2021-11-21,22,5,11,True
+usgs2_huc4_0601,usgs,untouched HUC4 basin 0601,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4220,2014-10-03,2026-04-22,39,21,13,True
+usgs2_huc4_1111,usgs,untouched HUC4 basin 1111,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,3910,2011-10-08,2022-06-21,48,8,12,True
+usgs2_huc4_1704,usgs,untouched HUC4 basin 1704,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4885,2001-05-10,2014-09-23,28,12,14,True
+usgs2_huc4_1705,usgs,untouched HUC4 basin 1705,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3893,2015-11-17,2026-07-14,36,17,12,True
+usgs2_huc4_1707,usgs,untouched HUC4 basin 1707,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4760,2009-06-17,2022-06-28,56,24,14,True
+usgs2_huc4_1802,usgs,untouched HUC4 basin 1802,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,6747,2004-10-01,2023-03-22,20,9,20,True
+usgs2_huc4_1804,usgs,untouched HUC4 basin 1804,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,9544,1992-10-01,2018-11-17,54,0,27,True
+usgs2_huc4_1809,usgs,untouched HUC4 basin 1809,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc4_1901,usgs,untouched HUC4 basin 1901,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4109,2014-09-30,2025-12-29,24,8,12,True
+usgs2_huc4_1902,usgs,untouched HUC4 basin 1902,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3106,2017-08-11,2026-02-10,20,15,10,True
+usgs2_huc4_1903,usgs,untouched HUC4 basin 1903,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3784,2006-06-02,2016-10-10,33,23,11,True
+usgs2_huc4_1905,usgs,untouched HUC4 basin 1905,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc4_1906,usgs,untouched HUC4 basin 1906,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc4_1909,usgs,untouched HUC4 basin 1909,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc4_2040,usgs,untouched HUC4 basin 2040,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_010100,usgs,untouched HUC6 basin 010100,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_010500,usgs,untouched HUC6 basin 010500,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,13782,1978-01-06,2015-09-30,38,1,38,True
+usgs2_huc6_010802,usgs,untouched HUC6 basin 010802,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3486,2015-10-01,2025-04-16,33,11,11,True
+usgs2_huc6_020502,usgs,untouched HUC6 basin 020502,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4878,2012-02-16,2025-06-24,42,15,14,True
+usgs2_huc6_030502,usgs,untouched HUC6 basin 030502,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3410,2017-01-26,2026-05-28,30,12,10,True
+usgs2_huc6_031300,usgs,untouched HUC6 basin 031300,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,6,3362,2017-05-16,2026-07-29,60,16,10,True
+usgs2_huc6_031700,usgs,untouched HUC6 basin 031700,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4486,2011-03-30,2023-07-10,52,8,13,True
+usgs2_huc6_040301,usgs,untouched HUC6 basin 040301,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3911,2012-02-23,2022-11-07,33,10,11,True
+usgs2_huc6_040500,usgs,untouched HUC6 basin 040500,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4924,2011-04-09,2024-09-30,42,12,14,True
+usgs2_huc6_041000,usgs,untouched HUC6 basin 041000,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_041100,usgs,untouched HUC6 basin 041100,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4485,2012-05-24,2024-09-02,26,2,13,True
+usgs2_huc6_050500,usgs,untouched HUC6 basin 050500,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4917,2007-04-06,2020-09-20,28,7,14,True
+usgs2_huc6_051201,usgs,untouched HUC6 basin 051201,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3547,2014-12-13,2024-08-28,11,3,11,True
+usgs2_huc6_060102,usgs,untouched HUC6 basin 060102,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,3031,2012-08-28,2020-12-14,36,16,9,True
+usgs2_huc6_060400,usgs,untouched HUC6 basin 060400,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,6564,1991-10-11,2009-09-29,19,3,19,True
+usgs2_huc6_070102,usgs,untouched HUC6 basin 070102,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_070300,usgs,untouched HUC6 basin 070300,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,6289,2000-01-21,2017-04-09,54,20,18,True
+usgs2_huc6_070700,usgs,untouched HUC6 basin 070700,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4742,2009-10-02,2022-09-25,28,0,14,True
+usgs2_huc6_070900,usgs,untouched HUC6 basin 070900,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4936,2012-07-04,2026-01-07,45,10,15,True
+usgs2_huc6_071000,usgs,untouched HUC6 basin 071000,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_071200,usgs,untouched HUC6 basin 071200,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_071300,usgs,untouched HUC6 basin 071300,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3875,2015-10-24,2026-06-02,36,9,12,True
+usgs2_huc6_071401,usgs,untouched HUC6 basin 071401,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3846,2015-10-24,2026-05-04,36,9,12,True
+usgs2_huc6_080302,usgs,untouched HUC6 basin 080302,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3065,2010-07-29,2018-12-18,9,4,9,True
+usgs2_huc6_100301,usgs,untouched HUC6 basin 100301,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3409,2008-03-01,2017-06-30,10,6,10,True
+usgs2_huc6_100700,usgs,untouched HUC6 basin 100700,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4423,2014-05-01,2026-06-09,26,10,13,True
+usgs2_huc6_100902,usgs,untouched HUC6 basin 100902,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_110702,usgs,untouched HUC6 basin 110702,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3177,2007-02-08,2015-10-20,18,7,9,True
+usgs2_huc6_111302,usgs,untouched HUC6 basin 111302,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4018,1998-09-30,2009-09-29,24,0,12,True
+usgs2_huc6_111401,usgs,untouched HUC6 basin 111401,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_120301,usgs,untouched HUC6 basin 120301,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,5286,2010-09-21,2025-03-11,64,10,16,True
+usgs2_huc6_120800,usgs,untouched HUC6 basin 120800,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,7094,1983-04-27,2002-09-27,60,8,20,True
+usgs2_huc6_120901,usgs,untouched HUC6 basin 120901,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_121003,usgs,untouched HUC6 basin 121003,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,4739,2011-07-27,2024-07-16,42,7,14,True
+usgs2_huc6_140200,usgs,untouched HUC6 basin 140200,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_140300,usgs,untouched HUC6 basin 140300,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,4,4409,2014-06-20,2026-07-15,52,21,13,True
+usgs2_huc6_140500,usgs,untouched HUC6 basin 140500,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_140600,usgs,untouched HUC6 basin 140600,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3839,2015-12-04,2026-06-07,12,5,12,True
+usgs2_huc6_150100,usgs,untouched HUC6 basin 150100,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_160502,usgs,untouched HUC6 basin 160502,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_170102,usgs,untouched HUC6 basin 170102,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,8285,2001-04-25,2023-12-30,69,15,23,True
+usgs2_huc6_170200,usgs,untouched HUC6 basin 170200,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_170300,usgs,untouched HUC6 basin 170300,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_170402,usgs,untouched HUC6 basin 170402,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_170501,usgs,untouched HUC6 basin 170501,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_170602,usgs,untouched HUC6 basin 170602,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3721,2016-03-03,2026-05-10,22,8,11,True
+usgs2_huc6_170703,usgs,untouched HUC6 basin 170703,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,5228,2011-07-29,2025-11-19,45,31,15,True
+usgs2_huc6_171002,usgs,untouched HUC6 basin 171002,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_171003,usgs,untouched HUC6 basin 171003,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,5,5038,2012-08-15,2026-05-31,75,37,15,True
+usgs2_huc6_171100,usgs,untouched HUC6 basin 171100,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3857,1996-03-09,2006-09-29,11,6,11,True
+usgs2_huc6_180102,usgs,untouched HUC6 basin 180102,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,6,3434,2016-10-01,2026-02-24,66,38,11,True
+usgs2_huc6_180201,usgs,untouched HUC6 basin 180201,qualified,second,second_panel_descriptive,river,river,default_river,unknown,True,3,3350,2016-10-01,2025-12-02,30,20,10,True
+usgs2_huc6_180300,usgs,untouched HUC6 basin 180300,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3357,2016-10-02,2025-12-10,20,5,10,True
+usgs2_huc6_180400,usgs,untouched HUC6 basin 180400,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3511,2016-10-01,2026-05-12,22,8,11,True
+usgs2_huc6_190101,usgs,untouched HUC6 basin 190101,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,1,3163,2017-06-07,2026-02-02,10,8,10,True
+usgs2_huc6_190204,usgs,untouched HUC6 basin 190204,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,3942,2015-06-11,2026-03-26,24,16,12,True
+usgs2_huc6_190205,usgs,untouched HUC6 basin 190205,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4289,2014-10-11,2026-07-08,26,10,13,True
+usgs2_huc6_190303,usgs,untouched HUC6 basin 190303,daily_qc_not_qualified,second,no_temperature,river,river,default_river,unknown,False,0,0,,,0,0,0,True
+usgs2_huc6_190803,usgs,untouched HUC6 basin 190803,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,4051,2014-09-30,2025-11-01,24,11,12,True
+usgs2_huc6_204030,usgs,untouched HUC6 basin 204030,daily_qc_not_qualified,second,unscored_available,river,river,default_river,unknown,True,2,5381,2006-12-29,2021-09-21,32,5,16,True
+usgs_arkansas_river_huc11,usgs,ARKANSAS RIVER (HUC2 11),qualified,first,first_panel_development,river,river,default_river,regulated,True,3,9453,2000-01-01,2025-11-17,78,12,26,True
+usgs_flathead_river_huc4_1701,usgs,Flathead River (HUC4 1701),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,1,9525,2000-01-01,2026-01-28,27,14,27,True
+usgs_fox_river_huc4_0403,usgs,FOX RIVER (HUC4 0403),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,2,5388,2011-03-04,2025-12-02,30,11,15,True
+usgs_missouri_river_huc10,usgs,Missouri River (HUC2 10),qualified,first,first_panel_development,river,river,default_river,regulated,True,5,9671,2000-01-01,2026-06-23,135,49,27,True
+usgs_missouri_river_huc4_1024,usgs,Missouri River (HUC4 1024),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,7257,2006-03-01,2026-01-11,21,3,21,True
+usgs_niobrara_river_huc4_1015,usgs,Niobrara River (HUC4 1015),daily_qc_not_qualified,first,no_temperature,river,river,default_river,regulated,False,0,0,,,0,0,0,True
+usgs_platte_river_huc4_1020,usgs,Platte River (HUC4 1020),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,2,8081,2004-05-28,2026-07-12,46,5,23,True
+usgs_red_river_of_the_north_huc4_0902,usgs,RED RIVER OF THE NORTH (HUC4 0902),qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,3,9453,2000-01-01,2025-11-17,78,5,26,True
+usgs_rio_grande_huc13,usgs,RIO GRANDE (HUC2 13),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,1,5307,2011-09-06,2026-03-17,16,0,16,True
+usgs_rio_grande_huc4_1302,usgs,RIO GRANDE (HUC4 1302),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,2,8285,2003-09-30,2026-06-05,48,1,24,True
+usgs_san_juan_river_huc4_1408,usgs,SAN JUAN RIVER (HUC4 1408),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,2,9435,2000-07-15,2026-05-14,54,8,27,True
+usgs_sheyenne_r_huc4_0902,usgs,SHEYENNE R (HUC4 0902),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,1,7698,2004-10-21,2025-11-17,22,2,22,True
+usgs_snake_river_huc4_1704,usgs,SNAKE RIVER (HUC4 1704),qualified,first,first_panel_development,river,river,default_river,regulated,True,3,5668,2000-04-28,2015-11-03,48,20,16,True
+usgs_snake_river_huc4_1705,usgs,SNAKE RIVER (HUC4 1705),qualified,first,v16_confirmation_scored,river,river,default_river,unmatched_gages,True,3,9498,2000-04-19,2026-04-20,81,27,27,True
+usgs_snake_river_huc4_1706,usgs,SNAKE RIVER (HUC4 1706),qualified,first,first_panel_development,river,river,default_river,unmatched_gages,True,4,9721,2000-01-01,2026-08-12,108,41,27,True
+usgs_walker_rv_huc4_1605,usgs,WALKER RV (HUC4 1605),daily_qc_not_qualified,first,v16_confirmation_scored,river,river,default_river,regulated,True,2,9663,2000-01-01,2026-06-15,54,13,27,True

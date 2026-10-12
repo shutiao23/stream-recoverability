@@ -1,0 +1,30 @@
+{
+  "frozen_on": "2026-09-07",
+  "status": "confirmation_complete_no_superior_decision_layer",
+  "population": "river waterbodies with fully observed calendar-year reference; non-river objects are a transfer experiment and are not averaged into the river main result",
+  "do_not_impute_reference": true,
+  "primary_endpoint": "hottest_30 absolute error on a complete calendar year",
+  "benefit": "B_q = L_q(default climatology, truth) - L_q(policy, truth)",
+  "default": "doy_climatology; reject means adopt this default",
+  "strong_simple_competitor": "information-conditioned simple policy from Step 4: donor-only whenever donors are observed (right boundary not required); else air ridge when air exists; else linear interpolation for gaps of 30 days or shorter with both flanks; else smooth climatology",
+  "primary_claim": "risk_control",
+  "mean_non_inferiority_epsilon_C": 0.05,
+  "epsilon_justification": "0.05 C is below typical in-situ temperature probe accuracy (about 0.1-0.2 C) and is pre-specified from measurement precision, not from confirmation intervals. A policy may not lose more than this network-equal mean B_q relative to the strong simple competitor.",
+  "harm_definition": "B_q < 0 versus climatology default",
+  "severe_error_definition": "hottest-30 underestimate of the true complete-year peak greater than 1.0 C; diagnostic until an ecological threshold is independently justified",
+  "success_if_risk_control": [
+    "network-equal mean B_q no worse than the strong simple competitor by more than 0.05 C on unseen river complete years",
+    "harm rate strictly lower than the strong simple competitor",
+    "same-adoption-rate random reject and a simple length/season threshold do not match the harm reduction"
+  ],
+  "success_if_mean_benefit": "network-equal mean B_q exceeds the strong simple competitor; this is an alternative claim and is not assumed",
+  "if_neither_passes": "keep the training-mismatch diagnosis and simple-method applicability; do not claim a superior decision layer",
+  "opened_panels_are_not_unseen_confirmation": [
+    "first_panel_42",
+    "second_panel_57",
+    "v16_confirmation_36_including_the_846_case_subset"
+  ],
+  "reserved_unseen_pool": "step1_universe candidate_unseen river complete station-years; do not use for rule selection",
+  "right_boundary_gate": "donor-only does not need the right flank (prediction delta 0.0 C on 8 ARSO + 17 POWER development networks); interpolation does, and only for short gaps",
+  "air2stream": "air2stream-3 (no daily discharge) is the air-only process control; the 8-parameter flow version is used only where discharge exists"
+}

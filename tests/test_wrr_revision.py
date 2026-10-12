@@ -27,9 +27,12 @@ from stream_recoverability.experiments.wrr_revision.mechanism import (
 from stream_recoverability.experiments.wrr_revision.recoverers import fit_station_recoverers
 from stream_recoverability.experiments.wrr_revision.score import crossing_day, score_network
 from stream_recoverability.experiments.wrr_revision.thermal import (
+    annual_exceedance_days,
+    annual_hottest_consecutive_mean,
     benefit,
     exceedance_days,
     hottest_consecutive_mean,
+    seasonal_hottest_consecutive_mean,
     series_losses,
 )
 
@@ -72,6 +75,21 @@ def test_hottest_30_and_benefit_identity() -> None:
     assert losses["hottest_30_benefit"] < 0
     assert abs(benefit(1.0, 0.4) - 0.6) < 1e-12
     assert exceedance_days(truth, threshold_c=15.0) == float((truth > 15.0).sum())
+
+    year = pd.date_range("2020-01-01", "2020-12-31", freq="D")
+    complete = pd.Series(10.0, index=year)
+    complete.loc["2020-07-01":"2020-07-30"] = 25.0
+    assert abs(annual_hottest_consecutive_mean(complete, 2020) - 25.0) < 1e-9
+    winter_gap = complete.copy()
+    winter_gap.loc["2020-01-15"] = np.nan
+    assert np.isnan(annual_hottest_consecutive_mean(winter_gap, 2020))
+    assert np.isnan(annual_exceedance_days(winter_gap, 2020))
+    assert np.isfinite(hottest_consecutive_mean(winter_gap))
+    assert abs(seasonal_hottest_consecutive_mean(winter_gap, 2020) - 25.0) < 1e-9
+    assert abs(
+        annual_hottest_consecutive_mean(complete, 2020)
+        - seasonal_hottest_consecutive_mean(complete, 2020)
+    ) < 1e-9
 
 
 def test_neighbor_boundary_is_adjacent_mean_not_gap_interp() -> None:

@@ -1,0 +1,36 @@
+{
+  "status": "diagnostic_on_existing_replay",
+  "not_a_new_confirmation": true,
+  "bootstrap_replicates": 10000,
+  "seed": 20260907,
+  "oracle_definition": "max(gated_donor_benefit, 0); undeployable; understates unrestricted adopt/default when gates reject",
+  "subsets": {
+    "development_all_existing": {
+      "n_cases": 11060,
+      "n_networks": 42,
+      "n_station_years": 1657
+    },
+    "confirmation_all_existing": {
+      "n_cases": 2501,
+      "n_networks": 36,
+      "n_station_years": 306
+    },
+    "development_river_complete_years": {
+      "n_cases": 7787,
+      "n_networks": 42,
+      "n_station_years": 1115
+    },
+    "retrospective_confirmation_river_complete_years": {
+      "n_cases": 846,
+      "n_networks": 23,
+      "n_station_years": 91
+    },
+    "retrospective_confirmation_opened_846_like": {
+      "n_cases": 846,
+      "n_networks": 23,
+      "n_station_years": 91
+    }
+  },
+  "smooth_climatology_not_in_existing_replay": true,
+  "historically_chosen_best_fixed_is_duration_switch_in_freeze": true
+}

@@ -110,3 +110,128 @@ def heatwave_mask(series: pd.Series, train_mask: pd.Series) -> pd.Series:
 
     threshold = float(series.loc[train_mask].quantile(0.9))
     return series > threshold
+
+
+def seasonal_threshold_from_training(
+    series: pd.Series,
+    train_mask: pd.Series,
+    *,
+    quantile: float = 0.9,
+) -> pd.Series:
+    """Per-DOY threshold fit on training years only. Never uses evaluation truth."""
+
+    train = pd.to_numeric(series, errors="coerce").loc[train_mask.reindex(series.index).fillna(False)]
+    doy = pd.Series(train.index.dayofyear, index=train.index)
+    grouped = train.groupby(doy).quantile(float(quantile))
+    fallback = float(train.quantile(float(quantile))) if train.notna().any() else float("nan")
+    mapped = pd.Series(series.index.dayofyear, index=series.index).map(grouped).astype(float)
+    return mapped.fillna(fallback)
+
+
+def heat_event_mask(
+    series: pd.Series,
+    threshold: pd.Series,
+    *,
+    min_duration: int = 3,
+) -> pd.Series:
+    """Runs at least ``min_duration`` days above a training-period seasonal threshold."""
+
+    above = pd.to_numeric(series, errors="coerce") > pd.to_numeric(threshold, errors="coerce").reindex(series.index)
+    above = above.fillna(False).to_numpy(dtype=bool)
+    out = np.zeros(len(series), dtype=bool)
+    start = None
+    for i, flag in enumerate(above):
+        if flag and start is None:
+            start = i
+        elif not flag and start is not None:
+            if i - start >= int(min_duration):
+                out[start:i] = True
+            start = None
+    if start is not None and len(above) - start >= int(min_duration):
+        out[start:] = True
+    return pd.Series(out, index=series.index)
+
+
+def heat_event_overlap(gaps: pd.DataFrame, event_mask: pd.Series) -> pd.Series:
+    """Post-hoc diagnostic: whether a gap overlaps a heat event. Not a deployment input."""
+
+    flags = []
+    for row in gaps.itertuples(index=False):
+        start = int(event_mask.index.get_indexer([pd.Timestamp(row.gap_start)])[0])
+        length = int(row.gap_length)
+        if start < 0 or start + length > len(event_mask):
+            flags.append(False)
+            continue
+        flags.append(bool(event_mask.iloc[start : start + length].any()))
+    return pd.Series(flags, index=gaps.index)
+
+
+def transplant_month_length_pattern(
+    evaluation_index: pd.DatetimeIndex,
+    geometry: pd.DataFrame,
+    *,
+    max_gaps: int = 4,
+    min_length: int = 7,
+    max_length: int = 180,
+) -> pd.DataFrame:
+    """Copy historical month/length/count onto a later complete year without overlap."""
+
+    if geometry is None or geometry.empty:
+        return pd.DataFrame(columns=["gap_start", "gap_length", "gap_end"])
+    usable = geometry.loc[pd.to_numeric(geometry["gap_length"], errors="coerce").between(min_length, max_length)]
+    if usable.empty:
+        return pd.DataFrame(columns=["gap_start", "gap_length", "gap_end"])
+    years = sorted(set(pd.DatetimeIndex(evaluation_index).year))
+    occupied = np.zeros(len(evaluation_index), dtype=bool)
+    rows: list[dict[str, object]] = []
+    eval_index = pd.DatetimeIndex(evaluation_index)
+    for row in usable.itertuples(index=False):
+        if len(rows) >= int(max_gaps):
+            break
+        month = int(pd.Timestamp(row.gap_start).month)
+        length = int(row.gap_length)
+        placed = False
+        for year in years:
+            candidates = np.flatnonzero((eval_index.year == year) & (eval_index.month == month))
+            if len(candidates) == 0:
+                continue
+            for rel in candidates:
+                start = int(rel)
+                if start < 1 or start + length >= len(eval_index):
+                    continue
+                if occupied[start : start + length].any():
+                    continue
+                occupied[start : start + length] = True
+                rows.append(
+                    {
+                        "gap_start": eval_index[start],
+                        "gap_length": length,
+                        "gap_end": eval_index[start + length - 1],
+                        "source": "transplanted_geometry",
+                    }
+                )
+                placed = True
+                break
+            if placed:
+                break
+    return pd.DataFrame(rows)
+
+
+def hide_donors_on_gaps(
+    panel: pd.DataFrame,
+    donors: Sequence[str],
+    gaps: pd.DataFrame,
+) -> pd.DataFrame:
+    """Synchronous co-missingness: donors are unobserved on the same windows as the target."""
+
+    out = panel.copy()
+    for row in gaps.itertuples(index=False):
+        start = int(out.index.get_indexer([pd.Timestamp(row.gap_start)])[0])
+        length = int(row.gap_length)
+        if start < 0:
+            continue
+        for donor in donors:
+            if donor in out.columns:
+                out.iloc[start : start + length, out.columns.get_loc(donor)] = np.nan
+    return out
+

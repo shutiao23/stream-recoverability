@@ -1,0 +1,38 @@
+{
+  "as_of": "2026-09-07",
+  "do_not_impute_reference": true,
+  "main_truth_endpoint": "hottest_30_on_complete_calendar_year",
+  "warm_season_months": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "n_networks_scanned": 284,
+  "n_river_networks": 269,
+  "n_non_river_networks": 15,
+  "n_station_years": 11799,
+  "n_eligible_annual_station_years": 5307,
+  "n_eligible_annual_networks": 161,
+  "n_eligible_annual_stations": 547,
+  "n_opened_confirmation_eligible_station_years": 413,
+  "n_candidate_unseen_station_years": 293,
+  "n_candidate_unseen_networks": 37,
+  "v16_non_river_confirmation_network_ids": [
+    "rws_amsterdam_rijnkanaal",
+    "rws_grevelingen",
+    "rws_haringvliet",
+    "rws_ijsselmeer_markermeer",
+    "rws_noordzee",
+    "rws_rijn_maas_delta",
+    "rws_twentekanalen",
+    "rws_volkerak_krammer",
+    "rws_waddenzee",
+    "rws_westerschelde"
+  ],
+  "opened_confirmation_cannot_be_unseen": true,
+  "846_case_subset_is_development_only": true,
+  "exclusion_rows": 22,
+  "warm_season_equals_annual_on_complete_years": 0.9817162910888049
+}

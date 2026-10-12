@@ -1,0 +1,13 @@
+{
+  "donor_synchrony": {
+    "high_long_Bq": 0.48587893662419235,
+    "low_long_Bq": -0.08279285996690959,
+    "hypothesis_supported": true,
+    "notes": "Supported if long-gap donor-only B_q is higher under high training synchrony than under low."
+  },
+  "n_networks_breaking_hist": 25,
+  "n_networks_compared": 42,
+  "regulation_rows": 3,
+  "response_rows": 4,
+  "notes": "Synthetic mechanism scenarios remain in step7_mechanism/; these tables are the hydrologic counterparts on complete river years."
+}

@@ -1,0 +1,66 @@
+{
+  "n_rows": 149652,
+  "n_networks": 40,
+  "n_stations": 215,
+  "best_simple_by_quality_cell": [
+    {
+      "cell": "partial_half_donors",
+      "recoverer": "donor_subset_ridge",
+      "n": 12468,
+      "mae_benefit_mean": 0.7353123390465877,
+      "mae_mean": 0.6484001489433427
+    },
+    {
+      "cell": "strong_donors_only",
+      "recoverer": "donor_subset_ridge",
+      "n": 12428,
+      "mae_benefit_mean": 0.9082908931513766,
+      "mae_mean": 0.47516823768514016
+    },
+    {
+      "cell": "weak_donors_only",
+      "recoverer": "air_ridge",
+      "n": 2446,
+      "mae_benefit_mean": 0.25907210672271913,
+      "mae_mean": 0.9715866785957146
+    }
+  ],
+  "impute_vs_subset": [
+    {
+      "cell": "partial_half_donors",
+      "recoverer": "donor_only_ridge",
+      "n": 12468,
+      "mae_benefit_mean": -1.5590976918784198
+    },
+    {
+      "cell": "partial_half_donors",
+      "recoverer": "donor_subset_ridge",
+      "n": 12468,
+      "mae_benefit_mean": 0.7353123390465877
+    },
+    {
+      "cell": "strong_donors_only",
+      "recoverer": "donor_only_ridge",
+      "n": 12428,
+      "mae_benefit_mean": 0.8590849041632055
+    },
+    {
+      "cell": "strong_donors_only",
+      "recoverer": "donor_subset_ridge",
+      "n": 12428,
+      "mae_benefit_mean": 0.9082908931513766
+    },
+    {
+      "cell": "weak_donors_only",
+      "recoverer": "donor_only_ridge",
+      "n": 2446,
+      "mae_benefit_mean": -2.5861128262492956
+    },
+    {
+      "cell": "weak_donors_only",
+      "recoverer": "donor_subset_ridge",
+      "n": 2446,
+      "mae_benefit_mean": 0.21035415490511408
+    }
+  ]
+}

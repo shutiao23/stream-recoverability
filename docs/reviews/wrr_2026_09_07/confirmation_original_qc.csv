@@ -1,0 +1,37 @@
+network_id,provider,river_group,n_requested_stations,n_stations_with_values,n_eligible_stations,n_daily_rows,n_concurrent_days,overlap_start,overlap_end,overlap_years,complete_enough,qc_status
+chmi_bela,chmi,Bělá,3,3,2,2923,0,,,0.0,False,daily_qc_not_qualified
+chmi_ohre,chmi,Ohře,4,4,2,2925,0,,,0.0,False,daily_qc_not_qualified
+foen_murg_multi,foen,Murg,3,2,2,8873,0,,,0.0,False,daily_qc_not_qualified
+huc8_02040202,usgs,huc8_02040202,5,5,2,8185,0,,,0.0,False,daily_qc_not_qualified
+huc8_03110205,usgs,huc8_03110205,3,3,1,7905,0,,,0.0,False,daily_qc_not_qualified
+huc8_10070002,usgs,huc8_10070002,4,4,1,3956,0,,,0.0,False,daily_qc_not_qualified
+huc8_17090012,usgs,huc8_17090012,7,7,7,9630,9461,2000-01-01,2025-11-25,25.90006844626968,True,qualified
+lubw_donau,lubw,Donau,5,5,2,14661,0,,,0.0,False,daily_qc_not_qualified
+lubw_enz,lubw,Enz,3,3,1,7827,0,,,0.0,False,daily_qc_not_qualified
+lubw_fils,lubw,Fils,3,3,1,13593,0,,,0.0,False,daily_qc_not_qualified
+lubw_jagst,lubw,Jagst,4,4,1,16357,0,,,0.0,False,daily_qc_not_qualified
+lubw_kocher,lubw,Kocher,5,5,1,16027,0,,,0.0,False,daily_qc_not_qualified
+rws_amsterdam_rijnkanaal,rws_waterwebservices,Amsterdam-Rijnkanaal,3,3,2,2923,0,,,0.0,False,non_river_domain_excluded
+rws_grevelingen,rws_waterwebservices,Grevelingen,3,3,2,2923,0,,,0.0,False,non_river_domain_excluded
+rws_haringvliet,rws_waterwebservices,Haringvliet,3,3,2,2923,0,,,0.0,False,non_river_domain_excluded
+rws_ijsselmeer_markermeer,rws_waterwebservices,IJsselmeer–Markermeer,3,3,2,2912,0,,,0.0,False,non_river_domain_excluded
+rws_maas,rws_waterwebservices,Maas,3,3,2,2923,0,,,0.0,False,daily_qc_not_qualified
+rws_noordzee,rws_waterwebservices,Noordzee,3,3,3,2923,2904,2017-01-01,2025-01-01,8.0,False,non_river_domain_excluded
+rws_rijn_maas_delta,rws_waterwebservices,Rijn–Maasdelta,3,3,3,2923,2863,2017-01-01,2025-01-01,8.0,False,non_river_domain_excluded
+rws_twentekanalen,rws_waterwebservices,Twentekanalen,3,3,3,2923,2780,2017-01-01,2025-01-01,8.0,False,non_river_domain_excluded
+rws_volkerak_krammer,rws_waterwebservices,Volkerak–Krammer,3,3,2,2919,0,,,0.0,False,non_river_domain_excluded
+rws_waddenzee,rws_waterwebservices,Waddenzee,3,3,3,2923,2694,2017-01-01,2025-01-01,8.0,False,non_river_domain_excluded
+rws_westerschelde,rws_waterwebservices,Westerschelde,3,3,3,2923,2850,2017-01-01,2025-01-01,8.0,False,non_river_domain_excluded
+syke_basin_kokemaeenjoki,syke,Kokemäenjoki,3,3,1,10007,0,,,0.0,False,daily_qc_not_qualified
+syke_basin_kymijoki,syke,Kymijoki,3,3,2,22533,0,,,0.0,False,daily_qc_not_qualified
+usgs_flathead_river_huc4_1701,usgs,Flathead River (HUC4 1701),3,3,1,9405,0,,,0.0,False,daily_qc_not_qualified
+usgs_fox_river_huc4_0403,usgs,FOX RIVER (HUC4 0403),3,3,2,5323,0,,,0.0,False,daily_qc_not_qualified
+usgs_missouri_river_huc4_1024,usgs,Missouri River (HUC4 1024),3,3,1,6784,0,,,0.0,False,daily_qc_not_qualified
+usgs_platte_river_huc4_1020,usgs,Platte River (HUC4 1020),3,3,2,5686,0,,,0.0,False,daily_qc_not_qualified
+usgs_red_river_of_the_north_huc4_0902,usgs,RED RIVER OF THE NORTH (HUC4 0902),4,4,3,9313,3103,2007-03-31,2017-09-30,10.50239561943874,True,qualified
+usgs_rio_grande_huc13,usgs,RIO GRANDE (HUC2 13),3,3,1,4726,0,,,0.0,False,daily_qc_not_qualified
+usgs_rio_grande_huc4_1302,usgs,RIO GRANDE (HUC4 1302),3,3,2,7909,0,,,0.0,False,daily_qc_not_qualified
+usgs_san_juan_river_huc4_1408,usgs,SAN JUAN RIVER (HUC4 1408),5,5,2,9144,0,,,0.0,False,daily_qc_not_qualified
+usgs_sheyenne_r_huc4_0902,usgs,SHEYENNE R (HUC4 0902),3,3,1,6699,0,,,0.0,False,daily_qc_not_qualified
+usgs_snake_river_huc4_1705,usgs,SNAKE RIVER (HUC4 1705),4,4,3,8624,3461,2005-01-11,2015-10-18,10.765229295003422,True,qualified
+usgs_walker_rv_huc4_1605,usgs,WALKER RV (HUC4 1605),3,3,2,9417,0,,,0.0,False,daily_qc_not_qualified

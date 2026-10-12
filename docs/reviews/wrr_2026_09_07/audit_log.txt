@@ -1,0 +1,108 @@
+{
+  "status": "exploratory_review_reanalysis",
+  "bootstrap": "percentile, resample network IDs, equal network weights",
+  "bootstrap_replicates": 10000,
+  "seed": 20260907,
+  "nonriver_ids_previously_excluded": [
+    "rws_amsterdam_rijnkanaal",
+    "rws_grevelingen",
+    "rws_haringvliet",
+    "rws_ijsselmeer_markermeer",
+    "rws_noordzee",
+    "rws_rijn_maas_delta",
+    "rws_twentekanalen",
+    "rws_volkerak_krammer",
+    "rws_waddenzee",
+    "rws_westerschelde"
+  ],
+  "development": {
+    "n_cases": 11066,
+    "n_finite_cases": 11060,
+    "n_network_ids": 42,
+    "n_station_ids": 222,
+    "unique_station_years": 1659,
+    "n_nonriver_cases": 0,
+    "zero_donor_cases": 357,
+    "incomplete_station_years": 544,
+    "cases_on_incomplete_years": 3279,
+    "years_with_summer_missing": 245,
+    "maximum_missing_calendar_days": 346
+  },
+  "confirmation": {
+    "n_cases": 2512,
+    "n_finite_cases": 2501,
+    "n_network_ids": 36,
+    "n_station_ids": 70,
+    "unique_station_years": 310,
+    "n_nonriver_cases": 451,
+    "zero_donor_cases": 826,
+    "incomplete_station_years": 191,
+    "cases_on_incomplete_years": 1398,
+    "years_with_summer_missing": 108,
+    "maximum_missing_calendar_days": 354
+  },
+  "exact_station_id_overlaps": 0
+}
+       panel                                         subset          comparator  case_mean_difference  network_mean_difference  network_ci_low  network_ci_high  network_harm_rate_difference  harm_difference_ci_low  harm_difference_ci_high
+ development                             all_existing_cases always_switch_gated             -0.086057                -0.040511       -0.070025        -0.015385                     -0.020814               -0.031886                -0.011160
+ development                             all_existing_cases  always_donor_gated             -0.084297                -0.038297       -0.068111        -0.012845                     -0.023627               -0.035904                -0.012835
+ development                             all_existing_cases       seasonal_le30              0.161571                 0.194826        0.144238         0.248642                      0.065072                0.046660                 0.084050
+ development                                 mixed_patterns always_switch_gated             -0.158902                -0.062789       -0.119563        -0.016588                     -0.032301               -0.051935                -0.016371
+ development                                 mixed_patterns  always_donor_gated             -0.158852                -0.062778       -0.119553        -0.016568                     -0.032301               -0.051935                -0.016371
+ development                                 mixed_patterns       seasonal_le30              0.245887                 0.346901        0.250805         0.448309                      0.103618                0.072416                 0.136103
+ development                       full_calendar_truth_only always_switch_gated             -0.103329                -0.047982       -0.083429        -0.017665                     -0.020701               -0.032929                -0.010925
+ development                       full_calendar_truth_only  always_donor_gated             -0.101630                -0.045995       -0.081596        -0.015500                     -0.022573               -0.036485                -0.011207
+ development                       full_calendar_truth_only       seasonal_le30              0.183895                 0.191700        0.139808         0.245774                      0.077261                0.056093                 0.100562
+confirmation                             all_existing_cases always_switch_gated             -0.004675                -0.008207       -0.030042         0.008760                     -0.042320               -0.079213                -0.013492
+confirmation                             all_existing_cases  always_donor_gated             -0.002508                -0.005474       -0.026913         0.011215                     -0.048225               -0.094023                -0.013373
+confirmation                             all_existing_cases       seasonal_le30              0.110567                 0.107382        0.057630         0.160666                      0.025611               -0.010768                 0.058329
+confirmation                                 mixed_patterns always_switch_gated              0.001813                -0.001936       -0.037836         0.028562                     -0.056746               -0.105362                -0.017857
+confirmation                                 mixed_patterns  always_donor_gated              0.001813                -0.001936       -0.037836         0.028562                     -0.056746               -0.105362                -0.017857
+confirmation                                 mixed_patterns       seasonal_le30              0.173402                 0.185892        0.100943         0.277140                      0.051207               -0.005724                 0.106978
+confirmation                       full_calendar_truth_only always_switch_gated             -0.004137                 0.006931       -0.039650         0.066914                     -0.057568               -0.108668                -0.017209
+confirmation                       full_calendar_truth_only  always_donor_gated             -0.002419                 0.009450       -0.036624         0.069095                     -0.064489               -0.120066                -0.020190
+confirmation                       full_calendar_truth_only       seasonal_le30              0.176410                 0.136511        0.062506         0.217969                      0.037442               -0.001579                 0.074445
+confirmation          excluding_previously_flagged_nonriver always_switch_gated             -0.005265                -0.010742       -0.040010         0.012393                     -0.057248               -0.108691                -0.017817
+confirmation          excluding_previously_flagged_nonriver  always_donor_gated             -0.002668                -0.006949       -0.035907         0.016078                     -0.064036               -0.126932                -0.015927
+confirmation          excluding_previously_flagged_nonriver       seasonal_le30              0.090972                 0.065601        0.015887         0.124777                      0.004130               -0.039159                 0.042495
+confirmation full_calendar_truth_excluding_flagged_nonriver always_switch_gated             -0.004384                 0.010793       -0.055071         0.091985                     -0.077807               -0.147317                -0.022307
+confirmation full_calendar_truth_excluding_flagged_nonriver  always_donor_gated             -0.002204                 0.014234       -0.050882         0.094903                     -0.086228               -0.161963                -0.025654
+confirmation full_calendar_truth_excluding_flagged_nonriver       seasonal_le30              0.159480                 0.087779        0.008559         0.186756                      0.012626               -0.032645                 0.054004
+Original confirmation QC:
+                           network_id             provider                        river_group  n_requested_stations  n_stations_with_values  n_eligible_stations  n_daily_rows  n_concurrent_days overlap_start overlap_end  overlap_years  complete_enough                 qc_status
+                            chmi_bela                 chmi                               Bělá                     3                       3                    2          2923                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                            chmi_ohre                 chmi                               Ohře                     4                       4                    2          2925                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                      foen_murg_multi                 foen                               Murg                     3                       2                    2          8873                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                        huc8_02040202                 usgs                      huc8_02040202                     5                       5                    2          8185                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                        huc8_03110205                 usgs                      huc8_03110205                     3                       3                    1          7905                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                        huc8_10070002                 usgs                      huc8_10070002                     4                       4                    1          3956                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                        huc8_17090012                 usgs                      huc8_17090012                     7                       7                    7          9630               9461    2000-01-01  2025-11-25      25.900068             True                 qualified
+                           lubw_donau                 lubw                              Donau                     5                       5                    2         14661                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                             lubw_enz                 lubw                                Enz                     3                       3                    1          7827                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                            lubw_fils                 lubw                               Fils                     3                       3                    1         13593                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                           lubw_jagst                 lubw                              Jagst                     4                       4                    1         16357                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                          lubw_kocher                 lubw                             Kocher                     5                       5                    1         16027                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+             rws_amsterdam_rijnkanaal rws_waterwebservices               Amsterdam-Rijnkanaal                     3                       3                    2          2923                  0           NaN         NaN       0.000000            False non_river_domain_excluded
+                      rws_grevelingen rws_waterwebservices                        Grevelingen                     3                       3                    2          2923                  0           NaN         NaN       0.000000            False non_river_domain_excluded
+                      rws_haringvliet rws_waterwebservices                        Haringvliet                     3                       3                    2          2923                  0           NaN         NaN       0.000000            False non_river_domain_excluded
+            rws_ijsselmeer_markermeer rws_waterwebservices              IJsselmeer–Markermeer                     3                       3                    2          2912                  0           NaN         NaN       0.000000            False non_river_domain_excluded
+                             rws_maas rws_waterwebservices                               Maas                     3                       3                    2          2923                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                         rws_noordzee rws_waterwebservices                           Noordzee                     3                       3                    3          2923               2904    2017-01-01  2025-01-01       8.000000            False non_river_domain_excluded
+                  rws_rijn_maas_delta rws_waterwebservices                     Rijn–Maasdelta                     3                       3                    3          2923               2863    2017-01-01  2025-01-01       8.000000            False non_river_domain_excluded
+                    rws_twentekanalen rws_waterwebservices                      Twentekanalen                     3                       3                    3          2923               2780    2017-01-01  2025-01-01       8.000000            False non_river_domain_excluded
+                 rws_volkerak_krammer rws_waterwebservices                   Volkerak–Krammer                     3                       3                    2          2919                  0           NaN         NaN       0.000000            False non_river_domain_excluded
+                        rws_waddenzee rws_waterwebservices                          Waddenzee                     3                       3                    3          2923               2694    2017-01-01  2025-01-01       8.000000            False non_river_domain_excluded
+                    rws_westerschelde rws_waterwebservices                      Westerschelde                     3                       3                    3          2923               2850    2017-01-01  2025-01-01       8.000000            False non_river_domain_excluded
+             syke_basin_kokemaeenjoki                 syke                       Kokemäenjoki                     3                       3                    1         10007                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+                  syke_basin_kymijoki                 syke                           Kymijoki                     3                       3                    2         22533                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+        usgs_flathead_river_huc4_1701                 usgs         Flathead River (HUC4 1701)                     3                       3                    1          9405                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+             usgs_fox_river_huc4_0403                 usgs              FOX RIVER (HUC4 0403)                     3                       3                    2          5323                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+        usgs_missouri_river_huc4_1024                 usgs         Missouri River (HUC4 1024)                     3                       3                    1          6784                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+          usgs_platte_river_huc4_1020                 usgs           Platte River (HUC4 1020)                     3                       3                    2          5686                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+usgs_red_river_of_the_north_huc4_0902                 usgs RED RIVER OF THE NORTH (HUC4 0902)                     4                       4                    3          9313               3103    2007-03-31  2017-09-30      10.502396             True                 qualified
+                usgs_rio_grande_huc13                 usgs               RIO GRANDE (HUC2 13)                     3                       3                    1          4726                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+            usgs_rio_grande_huc4_1302                 usgs             RIO GRANDE (HUC4 1302)                     3                       3                    2          7909                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+        usgs_san_juan_river_huc4_1408                 usgs         SAN JUAN RIVER (HUC4 1408)                     5                       5                    2          9144                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+            usgs_sheyenne_r_huc4_0902                 usgs             SHEYENNE R (HUC4 0902)                     3                       3                    1          6699                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified
+           usgs_snake_river_huc4_1705                 usgs            SNAKE RIVER (HUC4 1705)                     4                       4                    3          8624               3461    2005-01-11  2015-10-18      10.765229             True                 qualified
+             usgs_walker_rv_huc4_1605                 usgs              WALKER RV (HUC4 1605)                     3                       3                    2          9417                  0           NaN         NaN       0.000000            False    daily_qc_not_qualified

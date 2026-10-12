@@ -1,0 +1,45 @@
+{
+  "status": "exploratory_review_reanalysis",
+  "bootstrap": "percentile, resample network IDs, equal network weights",
+  "bootstrap_replicates": 10000,
+  "seed": 20260907,
+  "nonriver_ids_previously_excluded": [
+    "rws_amsterdam_rijnkanaal",
+    "rws_grevelingen",
+    "rws_haringvliet",
+    "rws_ijsselmeer_markermeer",
+    "rws_noordzee",
+    "rws_rijn_maas_delta",
+    "rws_twentekanalen",
+    "rws_volkerak_krammer",
+    "rws_waddenzee",
+    "rws_westerschelde"
+  ],
+  "development": {
+    "n_cases": 11066,
+    "n_finite_cases": 11060,
+    "n_network_ids": 42,
+    "n_station_ids": 222,
+    "unique_station_years": 1659,
+    "n_nonriver_cases": 0,
+    "zero_donor_cases": 357,
+    "incomplete_station_years": 544,
+    "cases_on_incomplete_years": 3279,
+    "years_with_summer_missing": 245,
+    "maximum_missing_calendar_days": 346
+  },
+  "confirmation": {
+    "n_cases": 2512,
+    "n_finite_cases": 2501,
+    "n_network_ids": 36,
+    "n_station_ids": 70,
+    "unique_station_years": 310,
+    "n_nonriver_cases": 451,
+    "zero_donor_cases": 826,
+    "incomplete_station_years": 191,
+    "cases_on_incomplete_years": 1398,
+    "years_with_summer_missing": 108,
+    "maximum_missing_calendar_days": 354
+  },
+  "exact_station_id_overlaps": 0
+}

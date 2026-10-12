@@ -1,0 +1,6 @@
+{
+  "heat_event_labels": "training-period seasonal 90th percentile, min 3 days; overlap is a post-hoc diagnostic, not a deployment input",
+  "hidden_observations": "replay_case hides every gap interior before prediction so adjacent outages cannot supply boundaries",
+  "co_missing": "donors are masked on the same windows as the target",
+  "geometry": "month/length/count transplanted from training-year natural gaps onto later complete years"
+}

@@ -70,6 +70,24 @@ def year_gaps(
     ].sort_values(["gap_start", "gap_length"])
 
 
+def hide_gap_interiors(
+    truth: pd.Series,
+    gaps: pd.DataFrame,
+) -> pd.Series:
+    """Replace every gap interior with NA so adjacent outages cannot supply boundaries."""
+
+    masked = truth.copy()
+    if gaps.empty:
+        return masked
+    for row in gaps.itertuples(index=False):
+        start = int(truth.index.get_indexer([pd.Timestamp(row.gap_start)])[0])
+        length = int(row.gap_length)
+        if start < 0 or start + length > len(masked):
+            continue
+        masked.iloc[start : start + length] = np.nan
+    return masked
+
+
 def apply_fills(
     truth: pd.Series,
     gaps: Sequence[tuple[int, int, np.ndarray]],
@@ -116,6 +134,7 @@ def replay_case(
         names = [str(name) for name in recoverer_names]
         if len(names) != len(gaps):
             raise ValueError("chosen_recoverer series must align with gaps")
+    masked_target = hide_gap_interiors(truth, gaps)
     for row, action, rec_name in zip(gaps.itertuples(index=False), actions, names):
         start = int(truth.index.get_indexer([pd.Timestamp(row.gap_start)])[0])
         length = int(row.gap_length)
@@ -128,7 +147,7 @@ def replay_case(
             recon = np.asarray(
                 rec.predict_gap(
                     features=features,
-                    target=truth,
+                    target=masked_target,
                     start=start,
                     gap_length=length,
                     air=air,
@@ -161,8 +180,26 @@ def replay_case(
         "mae_benefit": vs_chosen["mae_benefit"],
         "hottest_30_benefit_all_reconstruct": vs_all["hottest_30_benefit"],
         "mae_benefit_all_reconstruct": vs_all["mae_benefit"],
+        "hottest_30_truth": vs_chosen["hottest_30_truth"],
+        "hottest_30_default": vs_chosen["hottest_30_default"],
+        "hottest_30_policy": vs_chosen["hottest_30_alternative"],
         "hottest_30_default_loss": vs_chosen["hottest_30_default_loss"],
         "hottest_30_chosen_loss": vs_chosen["hottest_30_alternative_loss"],
+        "hottest_30_policy_minus_truth": (
+            float(vs_chosen["hottest_30_alternative"] - vs_chosen["hottest_30_truth"])
+            if np.isfinite(vs_chosen["hottest_30_alternative"]) and np.isfinite(vs_chosen["hottest_30_truth"])
+            else float("nan")
+        ),
+        "underestimate": float(
+            vs_chosen["hottest_30_alternative"] < vs_chosen["hottest_30_truth"]
+        )
+        if np.isfinite(vs_chosen["hottest_30_alternative"]) and np.isfinite(vs_chosen["hottest_30_truth"])
+        else float("nan"),
+        "severe_underestimate": float(
+            (vs_chosen["hottest_30_truth"] - vs_chosen["hottest_30_alternative"]) > 1.0
+        )
+        if np.isfinite(vs_chosen["hottest_30_alternative"]) and np.isfinite(vs_chosen["hottest_30_truth"])
+        else float("nan"),
         "unused_default_is_zero": 1.0 if n_adopted == 0 else 0.0,
         "n_year_days": float(len(year_truth)),
         "default_mae_vs_truth": losses_default["mae_alternative"],

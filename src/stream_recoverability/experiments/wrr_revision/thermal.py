@@ -10,6 +10,8 @@ import pandas as pd
 from stream_recoverability.experiments.wrr_revision.paths import (
     EXCEEDANCE_THRESHOLD_C,
     HOTTEST_WINDOW_DAYS,
+    JJA_MONTHS,
+    WARM_SEASON_MONTHS,
 )
 
 METRIC_NAMES = (
@@ -31,13 +33,48 @@ def _as_series(values: pd.Series | np.ndarray, index: pd.Index | None = None) ->
     return pd.Series(np.asarray(values, dtype=float), index=index)
 
 
+def calendar_year_index(year: int) -> pd.DatetimeIndex:
+    """Every calendar day of ``year``, including 29 February in leap years."""
+
+    return pd.date_range(f"{int(year)}-01-01", f"{int(year)}-12-31", freq="D")
+
+
+def reindex_calendar_year(values: pd.Series | np.ndarray, year: int) -> pd.Series:
+    """Place observations onto the full calendar year. Missing days stay NA."""
+
+    index = calendar_year_index(year)
+    series = _as_series(values)
+    if not isinstance(series.index, pd.DatetimeIndex):
+        raise TypeError("values must be indexed by dates to score a calendar year")
+    return series.reindex(index)
+
+
+def calendar_year_is_complete(values: pd.Series | np.ndarray, year: int) -> bool:
+    return bool(reindex_calendar_year(values, year).notna().all())
+
+
+def month_block_is_complete(
+    values: pd.Series | np.ndarray,
+    year: int,
+    months: tuple[int, ...] = WARM_SEASON_MONTHS,
+) -> bool:
+    series = reindex_calendar_year(values, year)
+    block = series.loc[series.index.month.isin(months)]
+    return bool(len(block) > 0 and block.notna().all())
+
+
 def hottest_consecutive_mean(
     values: pd.Series | np.ndarray,
     *,
     index: pd.Index | None = None,
     window: int = HOTTEST_WINDOW_DAYS,
 ) -> float:
-    """Maximum of the fully observed ``window``-day rolling mean."""
+    """Maximum of the fully observed ``window``-day rolling mean.
+
+    This returns a number whenever any complete window exists. It is **not**
+    an annual thermal peak if the calendar year has unobserved days. Use
+    ``annual_hottest_consecutive_mean`` for complete-year truth.
+    """
 
     series = _as_series(values, index)
     if window < 1:
@@ -47,6 +84,58 @@ def hottest_consecutive_mean(
     if not np.isfinite(finite).any():
         return float("nan")
     return float(np.nanmax(finite))
+
+
+def annual_hottest_consecutive_mean(
+    values: pd.Series | np.ndarray,
+    year: int,
+    *,
+    window: int = HOTTEST_WINDOW_DAYS,
+) -> float:
+    """Hottest consecutive ``window``-day mean on a fully observed calendar year.
+
+    Returns NaN when any calendar day is missing. Reference series are never
+    imputed to manufacture this endpoint.
+    """
+
+    series = reindex_calendar_year(values, year)
+    if not bool(series.notna().all()):
+        return float("nan")
+    return hottest_consecutive_mean(series, window=window)
+
+
+def seasonal_hottest_consecutive_mean(
+    values: pd.Series | np.ndarray,
+    year: int,
+    *,
+    months: tuple[int, ...] = WARM_SEASON_MONTHS,
+    window: int = HOTTEST_WINDOW_DAYS,
+) -> float:
+    """Hottest consecutive window inside a fully observed month block.
+
+    The block itself must have no missing days. This is a defined warm-season
+    endpoint, not a substitute for an incomplete annual peak.
+    """
+
+    series = reindex_calendar_year(values, year)
+    block = series.loc[series.index.month.isin(months)]
+    if len(block) < int(window) or not bool(block.notna().all()):
+        return float("nan")
+    return hottest_consecutive_mean(block, window=window)
+
+
+def annual_exceedance_days(
+    values: pd.Series | np.ndarray,
+    year: int,
+    *,
+    threshold_c: float = EXCEEDANCE_THRESHOLD_C,
+) -> float:
+    """Count of days above threshold on a fully observed calendar year."""
+
+    series = reindex_calendar_year(values, year)
+    if not bool(series.notna().all()):
+        return float("nan")
+    return exceedance_days(series, threshold_c=threshold_c)
 
 
 def exceedance_days(
@@ -85,7 +174,7 @@ def thermal_metrics(values: pd.Series) -> dict[str, float]:
     out["exceed_days_20"] = exceedance_days(series)
     out["annual_mean"] = float(present.mean())
     out["p90"] = float(present.quantile(0.9))
-    jja = present.loc[present.index.month.isin((6, 7, 8))]
+    jja = present.loc[present.index.month.isin(JJA_MONTHS)]
     if len(jja) >= 20:
         out["summer_mean"] = float(jja.mean())
     july = present.loc[present.index.month == 7]

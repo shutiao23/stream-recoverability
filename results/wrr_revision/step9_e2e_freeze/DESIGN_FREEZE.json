@@ -1,0 +1,101 @@
+{
+  "recoverer": "information_conditioned_simple",
+  "default": "doy_climatology",
+  "diagnostics": [
+    "donors_present",
+    "right_present",
+    "air_present",
+    "gap_length",
+    "mean_donor_corr"
+  ],
+  "calibration": {
+    "tau_thermal": 0.0,
+    "tau_mae": 0.0,
+    "n_hist": 424,
+    "hist_net_thermal": 0.48039224639967254,
+    "epsilon_C": 0.05,
+    "severe_underestimate_C": 1.0,
+    "eval_n": 918
+  },
+  "failure_criteria": {
+    "harm": "Bq < 0 versus climatology",
+    "severe_underestimate_C": 1.0
+  },
+  "weights": "network-equal mean of station-year complete-year Bq; reused masks in one year are one observation",
+  "full_default_legal": true,
+  "no_reconstruction_budget": true,
+  "development_verdict": {
+    "claim": "pending_unseen_confirmation",
+    "panel_claim": "risk_control",
+    "superior_decision_layer": false,
+    "confirmation_panel": false,
+    "noninferior_eps_0_05": true,
+    "harm_reduced_vs_simple": true,
+    "harm_beats_random": true,
+    "harm_beats_length_season": true,
+    "length_season_noninferior": false,
+    "mean_beats_simple": false,
+    "simple_network_equal_Bq": 0.3290558069805089,
+    "policy_network_equal_Bq": 0.2936929164662085,
+    "delta_vs_simple": -0.0353628905143004,
+    "policy_harm_rate": 0.1427015250544662,
+    "simple_harm_rate": 0.2233115468409586,
+    "mean_abs_default_error": 0.7683223184770841,
+    "mean_abs_policy_error": 0.4036211750944892
+  },
+  "success_criterion": {
+    "frozen_on": "2026-09-07",
+    "status": "frozen_before_new_confirmation",
+    "population": "river waterbodies with fully observed calendar-year reference; non-river objects are a transfer experiment and are not averaged into the river main result",
+    "do_not_impute_reference": true,
+    "primary_endpoint": "hottest_30 absolute error on a complete calendar year",
+    "benefit": "B_q = L_q(default climatology, truth) - L_q(policy, truth)",
+    "default": "doy_climatology; reject means adopt this default",
+    "strong_simple_competitor": "information-conditioned simple policy from Step 4: donor-only whenever donors are observed (right boundary not required); else air ridge when air exists; else linear interpolation for gaps of 30 days or shorter with both flanks; else smooth climatology",
+    "primary_claim": "risk_control",
+    "mean_non_inferiority_epsilon_C": 0.05,
+    "epsilon_justification": "0.05 C is below typical in-situ temperature probe accuracy (about 0.1-0.2 C) and is pre-specified from measurement precision, not from confirmation intervals. A policy may not lose more than this network-equal mean B_q relative to the strong simple competitor.",
+    "harm_definition": "B_q < 0 versus climatology default",
+    "severe_error_definition": "hottest-30 underestimate of the true complete-year peak greater than 1.0 C; diagnostic until an ecological threshold is independently justified",
+    "success_if_risk_control": [
+      "network-equal mean B_q no worse than the strong simple competitor by more than 0.05 C on unseen river complete years",
+      "harm rate strictly lower than the strong simple competitor",
+      "same-adoption-rate random reject and a simple length/season threshold do not match the harm reduction"
+    ],
+    "success_if_mean_benefit": "network-equal mean B_q exceeds the strong simple competitor; this is an alternative claim and is not assumed",
+    "if_neither_passes": "keep the training-mismatch diagnosis and simple-method applicability; do not claim a superior decision layer",
+    "opened_panels_are_not_unseen_confirmation": [
+      "first_panel_42",
+      "second_panel_57",
+      "v16_confirmation_36_including_the_846_case_subset"
+    ],
+    "reserved_unseen_pool": "step1_universe candidate_unseen river complete station-years; do not use for rule selection",
+    "right_boundary_gate": "donor-only does not need the right flank (prediction delta 0.0 C on 8 ARSO + 17 POWER development networks); interpolation does, and only for short gaps",
+    "air2stream": "air2stream-3 (no daily discharge) is the air-only process control; the 8-parameter flow version is used only where discharge exists"
+  },
+  "opened_panels_not_unseen": true,
+  "deployable_until_unseen": "information_conditioned_simple",
+  "confirmation_verdict": {
+    "claim": "training_mismatch_and_simple_applicability",
+    "panel_claim": "training_mismatch_and_simple_applicability",
+    "superior_decision_layer": false,
+    "confirmation_panel": true,
+    "noninferior_eps_0_05": false,
+    "harm_reduced_vs_simple": true,
+    "harm_beats_random": true,
+    "harm_beats_length_season": true,
+    "length_season_noninferior": false,
+    "mean_beats_simple": false,
+    "simple_network_equal_Bq": 0.14575904904473175,
+    "policy_network_equal_Bq": 0.059769866312426395,
+    "delta_vs_simple": -0.08598918273230535,
+    "policy_harm_rate": 0.06097560975609756,
+    "simple_harm_rate": 0.3780487804878049,
+    "mean_abs_default_error": 0.9745663199186991,
+    "mean_abs_policy_error": 0.8651646596948247,
+    "panel": "candidate_unseen"
+  },
+  "superior_decision_layer": false,
+  "paper_claim": "training_mismatch_and_simple_applicability",
+  "deployable": "information_conditioned_simple"
+}

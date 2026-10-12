@@ -193,11 +193,131 @@ def fit_air2stream8(
     )
 
 
+AIR2STREAM3_LOWER = np.array([-10.0, -2.0, 0.2])
+AIR2STREAM3_UPPER = np.array([20.0, 3.0, 40.0])
+
+
+def simulate_air2stream3(
+    index: pd.DatetimeIndex,
+    air_temperature_c: np.ndarray,
+    parameters: np.ndarray,
+    *,
+    initial_water_temperature_c: float,
+    ice_floor_c: float = 0.0,
+) -> np.ndarray:
+    """3-parameter air2stream without daily discharge.
+
+    Crank--Nicolson integration of
+    dT_w/dt = (1/δ) (a1 + a2 T_a - T_w).
+    This is the constant-depth, air-only reduction discussed by Almeida and
+    Coelho (2023); it is not the 8-parameter flow-dependent model.
+    """
+
+    air = np.asarray(air_temperature_c, dtype=float)
+    par = np.asarray(parameters, dtype=float)
+    if air.ndim != 1 or len(air) < 2 or not np.isfinite(air).all():
+        raise ValueError("air2stream-3 requires complete finite air temperature")
+    if par.shape != (3,) or not np.isfinite(par).all() or par[2] <= 0:
+        raise ValueError("air2stream-3 requires finite a1, a2, and positive depth")
+    if len(index) != len(air):
+        raise ValueError("forcing length differs from date index")
+    a1, a2, depth = (float(par[0]), float(par[1]), float(par[2]))
+    k = 1.0 / (2.0 * depth)
+    result = np.empty(len(air), dtype=float)
+    result[0] = max(float(initial_water_temperature_c), float(ice_floor_c))
+    for day in range(len(air) - 1):
+        rhs = (1.0 - k) * result[day] + k * (2.0 * a1 + a2 * (air[day] + air[day + 1]))
+        result[day + 1] = max(rhs / (1.0 + k), float(ice_floor_c))
+    return result
+
+
+def fit_air2stream3(
+    index: pd.DatetimeIndex,
+    water_temperature_c: np.ndarray,
+    air_temperature_c: np.ndarray,
+    *,
+    minimum_training_observations: int = 365,
+    warmup_days: int = 60,
+    max_nfev: int = 200,
+) -> Air2StreamFit:
+    """Calibrate the air-only 3-parameter model on fitting-period water temperature."""
+
+    water = np.asarray(water_temperature_c, dtype=float)
+    air = np.asarray(air_temperature_c, dtype=float)
+    if water.shape != air.shape or len(index) != len(water):
+        raise ValueError("water temperature and air temperature must be date aligned")
+    if not np.isfinite(air).all():
+        raise ValueError("air2stream-3 requiring complete air temperature")
+    finite_water = np.flatnonzero(np.isfinite(water))
+    if not len(finite_water):
+        raise ValueError("no observed fitting-period water temperature")
+    first = int(finite_water[0])
+    objective_mask = np.isfinite(water)
+    objective_mask[: min(len(water), first + warmup_days)] = False
+    n_observed = int(objective_mask.sum())
+    if n_observed < minimum_training_observations:
+        raise ValueError("insufficient fitting observations after warm-up")
+    initial = float(water[first])
+    fit_index = index[first:]
+    fit_air = air[first:]
+    fit_water = water[first:]
+    fit_mask = objective_mask[first:]
+
+    def residual(parameters: np.ndarray) -> np.ndarray:
+        try:
+            predicted = simulate_air2stream3(
+                fit_index,
+                fit_air,
+                parameters,
+                initial_water_temperature_c=initial,
+            )
+            values = predicted[fit_mask] - fit_water[fit_mask]
+            if not np.isfinite(values).all():
+                raise ValueError("non-finite residual")
+            return values
+        except ValueError:
+            return np.full(n_observed, 1e3, dtype=float)
+
+    starts = [
+        np.array([4.0, 0.8, 3.0]),
+        np.array([0.0, 1.0, 8.0]),
+        (AIR2STREAM3_LOWER + AIR2STREAM3_UPPER) / 2.0,
+    ]
+    best = None
+    best_cost = np.inf
+    for start in starts:
+        fitted = least_squares(
+            residual,
+            np.clip(start, AIR2STREAM3_LOWER + 1e-8, AIR2STREAM3_UPPER - 1e-8),
+            bounds=(AIR2STREAM3_LOWER, AIR2STREAM3_UPPER),
+            max_nfev=max_nfev,
+            method="trf",
+        )
+        current = residual(fitted.x)
+        cost = float(np.mean(np.square(current)))
+        if cost < best_cost:
+            best, best_cost = fitted, cost
+    if best is None or not np.isfinite(best_cost) or best_cost >= 1e5:
+        raise ValueError("air2stream-3 calibration failed")
+    return Air2StreamFit(
+        parameters=np.asarray(best.x, dtype=float),
+        discharge_reference=float("nan"),
+        training_rmse=float(np.sqrt(best_cost)),
+        n_training_observations=n_observed,
+        n_function_evaluations=int(best.nfev),
+        optimizer_status=int(best.status),
+    )
+
+
 __all__ = [
+    "AIR2STREAM3_LOWER",
+    "AIR2STREAM3_UPPER",
     "AIR2STREAM8_LOWER",
     "AIR2STREAM8_UPPER",
     "Air2StreamFit",
     "annual_phase",
+    "fit_air2stream3",
     "fit_air2stream8",
+    "simulate_air2stream3",
     "simulate_air2stream8",
 ]

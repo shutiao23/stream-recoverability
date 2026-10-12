@@ -8,6 +8,41 @@ import numpy as np
 import pandas as pd
 
 
+def same_adoption_rate_random(
+    adopt: pd.Series,
+    *,
+    rng: np.random.Generator | None = None,
+    seed: int = 0,
+) -> pd.Series:
+    """Match the empirical adoption rate with independent Bernoulli draws."""
+
+    generator = rng if rng is not None else np.random.default_rng(int(seed))
+    rate = float(adopt.astype(bool).mean()) if len(adopt) else 0.0
+    if not np.isfinite(rate) or rate <= 0:
+        return pd.Series(False, index=adopt.index)
+    if rate >= 1:
+        return pd.Series(True, index=adopt.index)
+    return pd.Series(generator.random(len(adopt)) < rate, index=adopt.index)
+
+
+def simple_length_season_adopt(
+    gaps: pd.DataFrame,
+    *,
+    max_length: int = 30,
+    seasons: Sequence[str] = ("JJA",),
+) -> pd.Series:
+    """Pre-specified simple rule: adopt only short gaps in listed seasons."""
+
+    from stream_recoverability.experiments.recovery_roster import season_label
+
+    labels = season_label(pd.to_datetime(gaps["gap_start"]))
+    return pd.Series(
+        (pd.to_numeric(gaps["gap_length"], errors="coerce").to_numpy(dtype=float) <= int(max_length))
+        & np.isin(np.asarray(labels, dtype=object), list(seasons)),
+        index=gaps.index,
+    )
+
+
 def reliability_table(
     predicted: pd.Series,
     realized: pd.Series,

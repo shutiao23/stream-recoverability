@@ -1,0 +1,10 @@
+cell,gap_length,recoverer,n,mae_benefit_mean,mae_mean
+partial_half_donors,30,donor_subset_ridge,4300,0.7385734301892358,0.6428538174310966
+partial_half_donors,90,donor_subset_ridge,4300,0.731977864249379,0.6544572674157053
+partial_half_donors,180,donor_subset_ridge,3868,0.7353939186005197,0.6478323144220136
+strong_donors_only,30,donor_subset_ridge,4280,0.9093383340067085,0.47151030262119564
+strong_donors_only,90,donor_subset_ridge,4280,0.9028369935414056,0.48344311018234243
+strong_donors_only,180,donor_subset_ridge,3868,0.9131667058374818,0.4700595271850515
+weak_donors_only,30,linear_interp,900,0.315486917562724,0.9254778972520908
+weak_donors_only,90,air_ridge,900,0.2639725599469166,0.9757459585716018
+weak_donors_only,180,donor_subset_ridge,646,0.24819083556942975,0.9554877850016058

@@ -1,0 +1,20 @@
+{
+  "claim": "training_mismatch_and_simple_applicability",
+  "panel_claim": "training_mismatch_and_simple_applicability",
+  "superior_decision_layer": false,
+  "confirmation_panel": true,
+  "noninferior_eps_0_05": false,
+  "harm_reduced_vs_simple": true,
+  "harm_beats_random": true,
+  "harm_beats_length_season": true,
+  "length_season_noninferior": false,
+  "mean_beats_simple": false,
+  "simple_network_equal_Bq": 0.14575904904473175,
+  "policy_network_equal_Bq": 0.059769866312426395,
+  "delta_vs_simple": -0.08598918273230535,
+  "policy_harm_rate": 0.06097560975609756,
+  "simple_harm_rate": 0.3780487804878049,
+  "mean_abs_default_error": 0.9745663199186991,
+  "mean_abs_policy_error": 0.8651646596948247,
+  "panel": "candidate_unseen"
+}

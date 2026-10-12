@@ -1,0 +1,82 @@
+{
+  "n_rows": 147504,
+  "n_networks": 17,
+  "n_stations": 95,
+  "donor_only_max_right_delta": 0.0,
+  "donor_only_right_invariance_holds": true,
+  "mean_mae_benefit_by_cell_recoverer": {
+    "air2stream3": {
+      "donors_and_right": 0.2219418777341904,
+      "donors_no_right": 0.2219418777341904,
+      "no_donors_no_right": 0.2219418777341904,
+      "no_donors_right": 0.2219418777341904
+    },
+    "air_lag_ridge": {
+      "donors_and_right": -0.7049205233378851,
+      "donors_no_right": -0.7049205233378851,
+      "no_donors_no_right": -0.7049205233378851,
+      "no_donors_right": -0.7049205233378851
+    },
+    "air_ridge": {
+      "donors_and_right": 0.2751318446370661,
+      "donors_no_right": 0.2751318446370661,
+      "no_donors_no_right": 0.2751318446370661,
+      "no_donors_right": 0.2751318446370661
+    },
+    "donor_only_ridge": {
+      "donors_and_right": 0.7070712660018056,
+      "donors_no_right": 0.7070712660018056,
+      "no_donors_no_right": 0.0,
+      "no_donors_right": 0.0
+    },
+    "doy_climatology": {
+      "donors_and_right": 0.0,
+      "donors_no_right": 0.0,
+      "no_donors_no_right": 0.0,
+      "no_donors_right": 0.0
+    },
+    "linear_interp": {
+      "donors_and_right": -0.647661710715159,
+      "donors_no_right": 0.0,
+      "no_donors_no_right": 0.0,
+      "no_donors_right": -0.647661710715159
+    },
+    "smooth_climatology": {
+      "donors_and_right": 0.042692488188644226,
+      "donors_no_right": 0.042692488188644226,
+      "no_donors_no_right": 0.042692488188644226,
+      "no_donors_right": 0.042692488188644226
+    }
+  },
+  "best_simple_by_cell": [
+    {
+      "cell": "donors_and_right",
+      "recoverer": "donor_only_ridge",
+      "n": 5268,
+      "mae_benefit_mean": 0.7070712660018056,
+      "mae_mean": 0.5854226736477909
+    },
+    {
+      "cell": "donors_no_right",
+      "recoverer": "donor_only_ridge",
+      "n": 5268,
+      "mae_benefit_mean": 0.7070712660018056,
+      "mae_mean": 0.5854226736477909
+    },
+    {
+      "cell": "no_donors_no_right",
+      "recoverer": "air_ridge",
+      "n": 5268,
+      "mae_benefit_mean": 0.2751318446370661,
+      "mae_mean": 1.0173620950125304
+    },
+    {
+      "cell": "no_donors_right",
+      "recoverer": "air_ridge",
+      "n": 5268,
+      "mae_benefit_mean": 0.2751318446370661,
+      "mae_mean": 1.0173620950125304
+    }
+  ],
+  "donor_only_supported_without_right": true
+}

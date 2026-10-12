@@ -58,7 +58,28 @@ PRIMARY_METRIC = "hottest_30"
 SECONDARY_METRIC = "exceed_days_20"
 EXCEEDANCE_THRESHOLD_C = 20.0
 HOTTEST_WINDOW_DAYS = 30
+WARM_SEASON_MONTHS = (5, 6, 7, 8, 9)
+JJA_MONTHS = (6, 7, 8)
+UNIVERSE_AS_OF = "2026-09-07"
 DEFAULT_HANDLER = "doy_climatology"
+STEP1_UNIVERSE = RESULTS_ROOT / "step1_universe"
+STEP2_HEADROOM = RESULTS_ROOT / "step2_simple_headroom"
+STEP4_INFORMATION = RESULTS_ROOT / "step4_information"
+STEP5_THERMAL_DECISION = RESULTS_ROOT / "step5_thermal_decision"
+STEP6_ABLATIONS = RESULTS_ROOT / "step6_ablations"
+STEP7_FAILURE_REPLAY = RESULTS_ROOT / "step7_failure_replay"
+STEP8_HYDROLOGY = RESULTS_ROOT / "step8_hydrology"
+STEP9_E2E_FREEZE = RESULTS_ROOT / "step9_e2e_freeze"
+STEP10_UNSEEN = RESULTS_ROOT / "step10_unseen_confirmation"
+SUCCESS_CRITERION = RESULTS_ROOT / "SUCCESS_CRITERION.json"
+NON_INFERIORITY_EPSILON_C = 0.05
+SEVERE_UNDERESTIMATE_C = 1.0
+GAGES_II_ARCHIVE = (
+    REPO_ROOT / "data" / "cache" / "regulation_panel_v1" / "basinchar_and_report_sept_2011.zip"
+)
+QC_SUMMARY = REPO_ROOT / "results" / "development_v11" / "confirmation_qc_summary.csv"
+CANDIDATES = REPO_ROOT / "results" / "development_v11" / "confirmation_candidates.csv"
+DEVELOPMENT_INVENTORY = REPO_ROOT / "results" / "development_v11" / "network_inventory.csv"
 DEVELOPMENT_PANEL = "first"
 CONFIRMATION_ROLE = "held_out_qc_not_in_first_or_second"
 
@@ -75,6 +96,8 @@ SAME_INFORMATION_RECOVERERS = (
 )
 EXTERNAL_INFORMATION_RECOVERERS = (
     "air_ridge",
+    "air_lag_ridge",
+    "air2stream3",
     "air_flow_ridge",
     "air2stream",
 )
