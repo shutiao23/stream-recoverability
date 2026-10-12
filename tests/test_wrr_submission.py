@@ -184,3 +184,25 @@ def test_tables_fit_the_column():
         weights = [float(w) for w in re.findall(r"[YZ]\{([0-9.]+)\}", spec)]
         assert weights, spec
         assert abs(sum(weights) - len(weights)) < 0.02, (spec, sum(weights), len(weights))
+
+def test_title_and_abstract_state_the_finding():
+    """The title names a finding, not a study object, and the abstract carries
+    the prevailing assumption, the gap and a number."""
+
+    import re  # noqa: PLC0415
+
+    text = MANUSCRIPT.read_text(encoding="utf-8")
+    title = re.search(r"\\title\{(.*?)\}", text, re.S).group(1)
+    lowered = " ".join(title.lower().split())
+    for vague in ("a study of", "analysis of", "assessment of", "research on",
+                  "investigation of", "towards ", "toward "):
+        assert vague not in lowered, (vague, title)
+    assert "not" in lowered or "," in lowered, title
+
+    abstract = text.split("\\begin{abstract}")[1].split("\\end{abstract}")[0]
+    assert re.search(r"\d", abstract), "the abstract carries no number"
+    for word in ("position", "length", "support"):
+        assert word in abstract.lower(), word
+    for hype in ("groundbreaking", "unprecedented", "paradigm-shifting", "novel framework"):
+        assert hype not in text.lower(), hype
+    assert not re.search(r"\bremarkable\b", text, re.I), "remarkable"  # 'unremarkable' is fine
