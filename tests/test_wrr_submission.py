@@ -163,7 +163,10 @@ def test_figures_are_placed_in_the_text():
     assert "\\begin{figure}" not in tail
     assert "\\begin{figure}[htbp]" in body
     si = (PAPER / "wrr_supporting_information.tex").read_text(encoding="utf-8")
-    assert si.count("\\begin{figure}") == 5, si.count("\\begin{figure}")
+    # Six since 2026-10-12: the dense "problem frame" schematic moved from the
+    # article (where a data-driven example figure now opens the paper) into the
+    # supporting information as Figure S1.
+    assert si.count("\\begin{figure}") == 6, si.count("\\begin{figure}")
 
 
 def test_tables_fit_the_column():

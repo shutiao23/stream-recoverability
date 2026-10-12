@@ -290,13 +290,31 @@ def main() -> int:
         check("inline/simple rule ci low", -float(m.group(2)), row["mean_abs_error_at_70"], tol=0.01)
         check("inline/simple rule ci high", -float(m.group(3)), row["severe_underestimate_at_70"], tol=0.01)
 
-    noise = json.loads((RESULTS_ROOT / "step22_robustness" / "noise_sensitivity.json").read_text())
-    m = re.search(r"development contrast from ([\d.]+) to ([\d.]+) points and the reserved contrast from\s*\n?([\d.]+) to ([\d.]+) points", text)
+    # F11: the frozen step-22 noise JSON predates the method lock in
+    # scripts/202_v17_robustness.py; the amendment supersedes it.
+    _noise_amendment = (
+        ROOT
+        / "results/wrr_submission_ready/amendments/step22_noise_post_fix/noise_sensitivity.json"
+    )
+    _noise_source = (
+        _noise_amendment
+        if _noise_amendment.is_file()
+        else RESULTS_ROOT / "step22_robustness" / "noise_sensitivity.json"
+    )
+    noise = json.loads(_noise_source.read_text())
+
+    def _noise_block(panel: str) -> dict:
+        """The amendment nests old/new under the panel name; the frozen file is flat."""
+
+        block = noise[panel]
+        return block.get("new_fixed", block)
+
+    m = re.search(r"development contrast from ([\d.]+) to ([\d.]+) points, the reserved contrast from\s*\n?([\d.]+) to\s*\n?([\d.]+) points", text)
     if m:
-        check("inline/noise dev clean", float(m.group(1)), noise["development"]["contrast_clean_points"], tol=0.02)
-        check("inline/noise dev noisy", float(m.group(2)), noise["development"]["contrast_noisy_points"], tol=0.02)
-        check("inline/noise res clean", float(m.group(3)), noise["reserved"]["contrast_clean_points"], tol=0.02)
-        check("inline/noise res noisy", float(m.group(4)), noise["reserved"]["contrast_noisy_points"], tol=0.02)
+        check("inline/noise dev clean", float(m.group(1)), _noise_block("development")["contrast_clean_points"], tol=0.02)
+        check("inline/noise dev noisy", float(m.group(2)), _noise_block("development")["contrast_noisy_points"], tol=0.02)
+        check("inline/noise res clean", float(m.group(3)), _noise_block("reserved")["contrast_clean_points"], tol=0.02)
+        check("inline/noise res noisy", float(m.group(4)), _noise_block("reserved")["contrast_noisy_points"], tol=0.02)
 
     prior = pd.read_csv(RESULTS_ROOT / "step13_prior_years" / "protocol_comparison.csv")
     strict = prior.loc[prior["protocol"].str.startswith("strictly")].iloc[0]

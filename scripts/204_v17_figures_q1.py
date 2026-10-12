@@ -68,7 +68,12 @@ def figure5_robustness() -> None:
     step = RESULTS_ROOT / "step22_robustness"
     contrasts = pd.read_csv(step / "auc_contrasts.csv")
     sweep = pd.read_csv(step / "threshold_sweep.csv")
-    noise = json.loads((step / "noise_sensitivity.json").read_text())
+    # F11: the frozen step-22 noise JSON predates the method lock in
+    # scripts/202_v17_robustness.py. Prefer the amendment, which re-ran the same
+    # comparison with one method on both arms; fall back only if it is absent.
+    amendment = ROOT / "results/wrr_submission_ready/amendments/step22_noise_post_fix/noise_sensitivity.json"
+    noise_source = amendment if amendment.is_file() else step / "noise_sensitivity.json"
+    noise = json.loads(noise_source.read_text())
 
     fig, axes = panel_grid(3, (13.0, 3.6), width_ratios=[1.05, 0.85, 1.0])
 

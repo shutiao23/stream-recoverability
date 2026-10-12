@@ -50,7 +50,12 @@ def environment() -> dict[str, str]:
 
 
 def run(command: list[str], *, cwd: Path, env: dict[str, str]) -> subprocess.CompletedProcess:
-    return subprocess.run(command, cwd=cwd, env=env, capture_output=True, text=True)
+    # TeX logs are not guaranteed to be UTF-8 (pdflatex writes byte strings from
+    # the .tex source and from font metrics), and a decode error here would mask
+    # the real LaTeX error, so decode leniently.
+    return subprocess.run(
+        command, cwd=cwd, env=env, capture_output=True, text=True, errors="replace"
+    )
 
 
 def body(text: str, macro: str) -> str:
@@ -99,14 +104,14 @@ def key_points(text: str) -> list[str]:
 HEADLINE_NUMBERS = (
     "146", "457", "5114", "2422", "51524", "40704", "10820",
     "1.305", "0.402", "0.225", "0.130",
-    "0.074", "0.173", "91 days",
+    "0.074", "0.173", "[77,107]",
     "0.102", "16.7", "7.4",
     "0.672", "0.845", "0.583", "0.847",
     "9.7", "2.5", "7.13", "1.44",
     "72.3", "17.9", "86.1",
     "15.1", "207", "158",
     "0.31", "77.7", "66.9",
-    "98.6", "15.16", "2.87",
+    "98.6", "15.16", "12.76", "2.87",
     "0.063", "0.215",
 )
 

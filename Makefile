@@ -271,5 +271,22 @@ wrr-submission-ready:
 	PYTHONPATH=src $(PYTHON) scripts/232_wrr_measurement_provenance.py
 	PYTHONPATH=src $(PYTHON) scripts/228_wrr_rebuild_from_inputs.py
 	PYTHONPATH=src $(PYTHON) scripts/231_wrr_certificate_deploy_predict.py
+	PYTHONPATH=src $(PYTHON) scripts/245_multi_agency_prior_access_audit.py
 	$(PYTHON) scripts/223_wrr_build.py --skip-build
 	@echo "See results/wrr_submission_ready/STATUS.md and SUBMISSION_CHECKLIST.md"
+
+# P0-07 extension: multi-agency transport test (see
+# results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md). Ingest output
+# lives under results/wrr_submission_ready/multi_agency_ingest/<provider>/.
+# Seal once, then score once; the score script refuses a second run.
+wrr-transport-seal:
+	PYTHONPATH=src $(PYTHON) scripts/245_multi_agency_prior_access_audit.py
+	PYTHONPATH=src $(PYTHON) scripts/249_multi_agency_transport_seal.py --seal
+
+wrr-transport-score:
+	PYTHONPATH=src $(PYTHON) scripts/250_multi_agency_transport_score.py --unseal-score
+
+# P2-03 companion dataset and static dashboard (tracked dataset in docs/companion,
+# self-contained HTML in dist/companion).
+wrr-companion:
+	PYTHONPATH=src $(PYTHON) scripts/264_wrr_companion_dataset.py

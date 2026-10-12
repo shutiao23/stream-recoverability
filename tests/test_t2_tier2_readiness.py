@@ -116,8 +116,16 @@ def test_model_audit_preserves_every_obligation_and_honest_run_state() -> None:
         "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
     }
     assert {row["path"] for row in mentions["air2stream"]} == roster_only_path | {
+        # The in-repo equivalent implementation and the process-hybrid contrast.
         "src/stream_recoverability/experiments/air2stream_equivalent.py",
-        "src/stream_recoverability/experiments/process_hybrid_sensitivity.py"
+        "src/stream_recoverability/experiments/process_hybrid_sensitivity.py",
+        # Later studies reuse the same equivalent implementation rather than the
+        # published original: the v17 air-forcing path and the wrr_revision
+        # recoverers/information set only ever call fit_/simulate_air2stream*.
+        "src/stream_recoverability/experiments/v17_fitness/paths.py",
+        "src/stream_recoverability/experiments/wrr_revision/paths.py",
+        "src/stream_recoverability/experiments/wrr_revision/information.py",
+        "src/stream_recoverability/experiments/wrr_revision/recoverers.py",
     }
     process_manifest = json.loads(
         (
