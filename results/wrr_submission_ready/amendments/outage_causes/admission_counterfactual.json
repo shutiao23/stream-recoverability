@@ -1,0 +1,134 @@
+{
+  "archive_side_loss_recoverable_without_any_cause_information": {
+    "n_gaps_entirely_published_by_provider": 6,
+    "n_gaps_partly_published_by_provider": 2,
+    "n_missing_days_published_other_statistic_only": 2905,
+    "n_missing_days_published_target_statistic": 191,
+    "n_station_years_affected": 5,
+    "note": "these days are recoverable by re-ingesting the provider's records, or by widening the statistic filter; they need no maintenance log and no change to servicing schedules",
+    "station_years": [
+      "01466500:2025",
+      "05578100:2025",
+      "07119700:2024",
+      "09380000:2024",
+      "09505800:2025"
+    ]
+  },
+  "bounds_if_all_unclassified_gaps_were_assigned_one_cause": {
+    "all_equipment_n_station_years_retained": 1361,
+    "all_maintenance_n_station_years_excluded": 1361,
+    "current_length_rule_would_reject_n": 256,
+    "current_peak_rule_would_reject_n": 263,
+    "note": "these are logical bounds, not estimates; the data do not locate the true rule anywhere inside them"
+  },
+  "documented_causes_observed": {
+    "cause_code_counts": {},
+    "n_gaps_with_any_documented_cause_code": 0,
+    "n_station_years_with_documented_equipment_gap": 0,
+    "n_station_years_with_documented_maintenance_gap": 0
+  },
+  "documented_partial_aggregation": {
+    "n_provider_records_all_retrieved": 832983,
+    "n_provider_records_in_population": 445442,
+    "n_records_graded_incomplete_or_partial": 1004,
+    "n_records_graded_incomplete_or_partial_in_population": 815,
+    "note": "USGS does document partial data loss per day, but as a grade code on an observed day, not as a cause on a missing day",
+    "share_pct_of_all_retrieved": 0.1205,
+    "share_pct_of_population_records": 0.183
+  },
+  "identifiability": {
+    "cause_conditional_rescheduling_validated": false,
+    "descriptive_cause_mix_available": true,
+    "reason": "the NWIS daily-value service returns a record only for days it has a value for; a qualification code therefore rides on an observed day and a day with no record carries no code at all. Cause-naming codes (maintenance, equipment, ice) were not observed in any retrieved record for parameter 00010 daily mean."
+  },
+  "observed_effect_on_admission": {
+    "n_station_years_changed_vs_current_default": 0,
+    "n_station_years_excluded_if_only_documented_maintenance": 0,
+    "n_station_years_retained_because_equipment": 0,
+    "note": "no missing day in the retrieved USGS records carries a cause-naming qualification code, so the rule as written is a no-op on this population"
+  },
+  "observed_shares": {
+    "gaps_with_at_least_one_provider_record": {
+      "hi": 0.3845854325387073,
+      "lo": 0.2072671850470856,
+      "n": 2921,
+      "n_clusters": 77,
+      "share": 0.29613146182814104
+    },
+    "gaps_with_documented_cause_code": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "n": 2921,
+      "n_clusters": 77,
+      "share": 0.0
+    },
+    "interval_definition": "network-clustered bootstrap, 2000 resamples of the network identifier, 2.5th and 97.5th percentiles",
+    "missing_days_no_provider_record_inside_declared_coverage": {
+      "hi": 0.9818816926428907,
+      "lo": 0.8866329052301356,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.9492519800528014
+    },
+    "missing_days_no_provider_record_outside_declared_coverage": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.0
+    },
+    "missing_days_published_any_00010_statistic": {
+      "hi": 0.1133670947698643,
+      "lo": 0.018118307357109367,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.05074801994719859
+    },
+    "missing_days_published_other_statistic_only": {
+      "hi": 0.1107761251638474,
+      "lo": 0.01584972456660202,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.047946611909650924
+    },
+    "missing_days_published_target_statistic_then_dropped": {
+      "hi": 0.006966104843965713,
+      "lo": 2.828167416691973e-05,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.002801408037547668
+    },
+    "missing_days_with_documented_cause_code": {
+      "hi": 0.0,
+      "lo": 0.0,
+      "n": 68180,
+      "n_clusters": 77,
+      "share": 0.0
+    },
+    "zero_cause_upper_bound": {
+      "day_level_rule_of_three_95_upper_pct": 0.0044,
+      "gap_level_rule_of_three_95_upper_pct": 0.1027,
+      "n_days": 68180,
+      "n_gaps": 2921,
+      "n_networks": 77,
+      "network_level_rule_of_three_95_upper_pct": 3.8961,
+      "note": "a zero count has no bootstrap interval; the rule-of-three bound is reported at day, gap and network level. The network-level bound is the conservative one.",
+      "observed_cause_bearing_days": 0,
+      "observed_cause_bearing_gaps": 0
+    }
+  },
+  "peak_window_validation": {
+    "max_abs_difference": 0.0,
+    "station_years_checked": 1361,
+    "verdict": "consistent",
+    "worst_station_year": null
+  },
+  "population": {
+    "n_gaps_in_scope": 2921,
+    "n_gaps_usgs_total": 3100,
+    "n_incomplete_station_years": 1361,
+    "n_missing_days_in_scope": 68180,
+    "provider": "usgs"
+  },
+  "rule_under_test": "exclude a station-year if its longest gap is documented planned maintenance; do not exclude it if the gap is a documented equipment failure"
+}

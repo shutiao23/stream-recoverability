@@ -1,29 +1,24 @@
 requirement,ok,mode,evidence
-artifact:claim_registry,True,done,results/wrr_submission_ready/claim_registry.csv
-artifact:prior_access,True,done,results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv
-artifact:data_manifest,True,done,results/wrr_submission_ready/current_data_manifest.csv
-artifact:meas_prov,True,done,results/wrr_submission_ready/measurement_provenance_stations.csv
-artifact:freeze,True,done,results/wrr_submission_ready/P0_06_method_freeze.json
-artifact:seal,True,done,results/wrr_submission_ready/confirmation_seal.json
-artifact:sealed_verdict,True,done,results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json
-artifact:predict,True,done,results/wrr_submission_ready/e2_certificate_predict/summary.json
-artifact:f_audit,True,done,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv
-artifact:author_shoukou,True,done,results/wrr_submission_ready/AUTHOR_METADATA_FAILURE_SHOUKOU.md
-artifact:checklist,True,done,results/wrr_submission_ready/SUBMISSION_CHECKLIST.md
-P0-02 all study inputs present,True,done,n=146 missing=0
-P0-07 sealed scored once,True,done,results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json
-P0-07 >=30 never-used networks,True,done,n_networks=39
-P0-07 pooled CI excludes zero,True,done,"CI[-10.15,-5.75]"
-P0-05 predict without truth,True,done,"{'n_incomplete_rows': 2422, 'n_with_certificate_choice': 2422, 'share_would_admit_at_0.5C': 0.9004954582989265, 'certificate_path': 'results/v17_fitness/step9_freeze/certificate.joblib', 'identity': 'frozen Certificate.predict; no truth/err/abserr used', 'vs_e2_overlap_rules': 'Historical E2 artifacts use peak-overlap / length thresholds and a separate risk classifier. This amendment is the verified-model deployment interface.'}"
-P0-05 Certificate.predict exists,True,done,screen.py
-P0-04 multi-year outage placement,True,done,scripts/210
-P0-04 noise locked to certificate_choice,True,done,scripts/202
-P0-04 equal-K donors,True,done,mechanism.py
-title not proportion law,True,done,title
-abstract has sealed USGS confirm,True,done,abstract
-conclusions withdraw maintenance as verified,True,done,conclusions/body
-all Blockers closed-ish,True,done,"[{'finding_id': 'F01', 'status': 'closed_with_scope'}, {'finding_id': 'F02', 'status': 'closed_code_plus_shoukou'}, {'finding_id': 'F03', 'status': 'closed'}]"
-no fully open Majors without mode,True,done,"open_partial=['F06', 'F10', 'F14']"
-F22 author complete OR explicit shoukou,True,failure_shoukou,AUTHOR_METADATA_FAILURE_SHOUKOU.md
-rebuild/preflight scripts,True,done,228/229
-submission PDF exists,True,done,paper/wrr/wrr_manuscript.pdf
+P0-01 claim registry + live binding check,True,done,claim_registry.csv; claim_binding_check.json (hard_ok=True allowed_failures=0 barred_violations=0 label_violations=0)
+"P0-02 input manifest complete (146 networks, 0 missing)",True,done,n=146 missing=0
+P0-02 measurement provenance + acquisition routes,True,done,measurement_provenance_dictionary.csv; current_data_acquisition.csv
+P0-02/P0-08 reviewer access route and frozen bundle,True,done,docs/reviews/wrr_input_access_route.md; reviewer_input_bundle_manifest.json; scripts/262
+P0-03/P0-04 outage geometry fix recomputed,True,done,"e1_maintenance_recompute/ (multi-year placement, assertion in scripts/210)"
+P0-04 instrument-error recompute under a locked method,True,done,amendments/step22_noise_post_fix/
+P0-04 exact-donor-count control with generation guard,True,done,amendments/step5_mechanism_equal_k/; equal_k_mechanism.py
+P0-05 predict without truth columns,True,done,e2_certificate_predict n=2422; invariance test in amendments notes
+P0-06 method freeze,True,done,P0_06_method_freeze.json
+P0-07 sealed single-provider confirmation scored once,True,done,"39 networks, 8973 cases, pooled -7.94 pp"
+P0-07 prior-access audit corrected and reported,True,done,AMENDMENT_prior_access_sealed_panel.md; clean-subset diagnostic
+P0-07 multi-agency transport scored once (or under-delivery recorded),True,done,p0_07b_multi_agency_transport/verdict.json
+P0-08 submission PDFs built from the live source,True,done,paper/wrr/wrr_manuscript.pdf; paper/wrr/wrr_supporting_information.pdf
+P0-08 author metadata,False,human_gate,metadata/submission_author_metadata.json; AUTHOR_METADATA_FAILURE_SHOUKOU.md
+P1-01 hidden-bias (pattern-mixture) sensitivity,True,done,"amendments/mnar_pattern_mixture/ (delta in [-1,+1] C, no flip)"
+P1-02 reference-error scenarios and phase identifiability rule,True,done,scenario_contrasts.csv; summary_sine.json (A/sigma >= 4.5)
+P1-03 cold-endpoint and regulatory-endpoint analyses,True,done,winter_regulatory/; regulatory_daily_max/
+P1-04 faithful baseline reimplementation,True,done,amendments/faithful_baseline/ (12.76% vs 15.16% vs 9.00%)
+P1-05 SI and amendment register,True,done,"wrr_supporting_information.tex (confirmation, transport and amendment register)"
+P2-01 observed outage-cause classification and closure,True,failure_shoukou,"amendments/outage_causes/: no cause-naming qualifier exists, so the simulated counterfactual stays exploratory"
+P2-02 transfer boundary documented,True,failure_shoukou,docs/reviews/p2_02_transfer_boundary.md (no Chinese archive; transport panel is the transfer case)
+P2-03 companion dataset and dashboard,True,done,docs/companion/companion_dataset.csv; dist/companion/index.html; scripts/264
+F01-F22 closure audit without open blockers,True,done,"22 findings, 0 open blockers"

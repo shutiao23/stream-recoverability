@@ -1,0 +1,71 @@
+{
+  "provider": "smhi",
+  "status": "EMITTED_UNDER_AMENDMENT_2_STRATUM",
+  "qc_stratum": "provider_published_unqualified",
+  "retrieval_utc": "2026-10-12T10:03:43Z",
+  "command": "PYTHONPATH=src python3 scripts/240_multi_agency_smhi_ingest.py --qc-stratum provider_published_unqualified",
+  "strict_gate": {
+    "retrieval_utc": "2026-10-12T09:55:14Z",
+    "n_downloaded": 176,
+    "n_stations_with_accepted_G_or_Y_days": 0,
+    "n_stations_with_ge_4_complete_years": 0,
+    "n_networks": 0,
+    "n_station_years_complete": 0,
+    "quality_code_rows": {
+      "O": 1063746
+    },
+    "cause": "The entire SMHI parameter-4 corrected-archive is flagged with quality code 'O'. Orange (O) = Okontrollerade värden.",
+    "not_substituted": "No proxy rule was applied (i.e. the table was NOT relaxed to accept 'O'). Doing so would be a rule change on never-scored data and is left to the coordinator as an explicit, separately recorded decision.",
+    "record_file": "QC_AND_ELIGIBILITY_FAILURE.md (retained unchanged)"
+  },
+  "amended_stratum": {
+    "name": "provider_published_unqualified",
+    "accepted_quality_codes": [
+      "O"
+    ],
+    "amendment": "MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 2 (assurance strata), made after ingest attempts and before sealing or any transport scoring",
+    "n_catalog_stations": 176,
+    "n_downloaded": 176,
+    "n_download_failures": 0,
+    "n_networks": 16,
+    "n_stations_emitted": 143,
+    "n_stations_emitted_ge_4_complete_years": 101,
+    "n_stations_ge_4_complete_years_provider_wide": 118,
+    "n_complete_station_years": 1601,
+    "n_complete_station_years_stations_ge_4_years": 1549,
+    "n_complete_station_years_in_emitted_networks": 1372,
+    "n_stations_ge_4_years_not_in_emitted_networks": 17,
+    "n_complete_station_years_not_in_emitted_networks": 177,
+    "n_rows_parsed": 1063746,
+    "n_rows_accepted": 1063746,
+    "n_rows_dropped": 0
+  },
+  "independent_verification": {
+    "strict_gate_script": "scratch/smhi_verify_smhi_ingest.py",
+    "strict_gate_report": "scratch/smhi_verify_report.json",
+    "emitted_panel_script": "scratch/smhi_verify_emitted_panels.py",
+    "emitted_panel_report": "scratch/smhi_verify_emitted_report.json",
+    "emitted_panels_ok": true,
+    "problems": [],
+    "claim_vs_recomputed_mismatches": {},
+    "stations_csv_sha256": "7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9"
+  },
+  "prior_use_scan": {
+    "scope": "repo-wide scan of CSVs with a station_id column under results/ and metadata/ (excluding multi_agency_ingest and run dirs); scripts/245 remains authoritative",
+    "n_smhi_station_ids": 176,
+    "n_csv_files_with_station_id_scanned": 413,
+    "n_files_with_overlap": 0,
+    "overlaps": {},
+    "n_distinct_overlapping_ids": 0
+  },
+  "artifacts_retained": [
+    "QC_AND_ELIGIBILITY_FAILURE.md",
+    "QC_legend_verbatim.json",
+    "networks_not_eligible.csv",
+    "raw_cache_manifest.csv",
+    "stations_all.csv",
+    "station_years.csv",
+    "README.md",
+    "ingest.json"
+  ]
+}

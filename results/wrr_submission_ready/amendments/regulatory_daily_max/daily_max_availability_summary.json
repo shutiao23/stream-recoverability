@@ -1,0 +1,18 @@
+{
+  "n_stations_requested": 91,
+  "n_stations_in_catalog": 91,
+  "n_stations_with_daily_max_00001": 90,
+  "n_stations_with_daily_mean_00003": 91,
+  "n_stations_with_max_but_no_mean": [],
+  "n_stations_with_mean_but_no_max": [
+    "09383100"
+  ],
+  "stations_missing_from_catalog": [],
+  "catalog_sha256": [
+    "04f2baf565c4c0d7dada328009b70af34bc6c71f12aaab85a17e4550abe27dbc",
+    "3276f449c8e8c532050f0718cf8a7514d459cfcf7c1c677c271258409b97b958",
+    "751b234dc0c7a944b8aaf0884ae7413712d273dc11802000738b63ff1a96c1d0",
+    "92e009a8dff968bc24e879a8e4860ebae44fe415a9a26cce6f9193f27250784d",
+    "c0cdd137c4d15ba8e75061c154e223105677237a685473ef15d3d274d6c48f75"
+  ]
+}

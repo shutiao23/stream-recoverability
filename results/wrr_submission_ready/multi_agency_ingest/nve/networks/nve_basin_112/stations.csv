@@ -1,0 +1,4 @@
+network_id,network_name,station_id,provider,river_name,latitude,longitude,basin_number,regine_no,n_complete_years,complete_years,first_date,last_date,n_days,n_dropped_qc,accepted_quality_codes,measurement_statistic,quality_assurance,catchment_regulation_type,first_year_regulation,in_coastal_catchment,network_in_v17_basin
+nve_basin_112,Surna,112.27.0,nve_hydapi,Surna,63.00002,8.9905,112,112.B2,4,1997;2002;2003;2004,1996-03-25,2005-07-29,2556,4231,2;3,daily_mean_1440min_mean,quality_checked,regulert m/magasin og uregulert restfelt,1968.0,False,True
+nve_basin_112,,112.4.0,nve_hydapi,,62.98184,8.73944,112,,5,2000;2001;2002;2003;2004,1999-06-15,2005-04-30,2096,142,2;3,daily_mean_1440min_mean,quality_checked,,,False,True
+nve_basin_112,Vinddølelva/Surna,112.43.0,nve_hydapi,Vinddølelva,62.95909,8.9724,112,112.AA210,9,2004;2005;2006;2007;2008;2009;2013;2015;2020,1998-06-23,2023-10-25,7810,2179,2;3,daily_mean_1440min_mean,quality_checked,,,False,True

@@ -1,0 +1,240 @@
+{
+  "provider": "smhi",
+  "agency": "Sveriges meteorologiska och hydrologiska institut (SMHI), Sweden",
+  "provider_full_name": "Sveriges meteorologiska och hydrologiska institut (SMHI)",
+  "context": "boreal_nordic (matches the CONTEXT map used by scripts/249)",
+  "command": "PYTHONPATH=src python3 scripts/240_multi_agency_smhi_ingest.py --qc-stratum provider_published_unqualified",
+  "qc_stratum": "provider_published_unqualified",
+  "parameter": {
+    "key": "4",
+    "title": "Vattendragstemperatur: Välj station (sedan tidsutsnitt)",
+    "unit": "°C",
+    "archive_period": "corrected-archive"
+  },
+  "retrieval_utc": "2026-10-12T10:03:43Z",
+  "url_patterns": {
+    "catalog": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4.json",
+    "series": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/station/{station_id}/period/corrected-archive/data.csv",
+    "metadata": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/metadata.json",
+    "series_period": "corrected-archive (only period served for parameter 4; latest-day/latest-months return HTTP 404 for these stations)"
+  },
+  "user_agent": "stream-recoverability-smhi-ingest/1.0 (WRR multi-agency transport ingest; research use; contact: study operator)",
+  "request_throttle_seconds": 0.4,
+  "n_catalog_stations": 176,
+  "n_downloaded": 176,
+  "n_download_failures": 0,
+  "n_networks": 16,
+  "n_networks_considered": 42,
+  "n_stations": 118,
+  "n_stations_downloaded_with_data": 176,
+  "n_stations_with_accepted_days": 176,
+  "n_station_years_complete": 1601,
+  "n_complete_station_years": 1601,
+  "n_stations_emitted": 143,
+  "n_stations_emitted_ge_4_complete_years": 101,
+  "n_complete_station_years_stations_ge_4_years": 1549,
+  "n_complete_station_years_in_emitted_networks": 1372,
+  "n_stations_ge_4_years_not_in_emitted_networks": 17,
+  "n_complete_station_years_not_in_emitted_networks": 177,
+  "stratum_provenance": {
+    "amendment": "MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 2 (assurance strata), made after ingest attempts and before sealing or any transport scoring",
+    "strata": {
+      "provider_published_unqualified": {
+        "accepted_quality_codes": [
+          "O"
+        ],
+        "definition": "the provider publishes the series but labels it uncontrolled/unqualified (SMHI O = Okontrollerade värden)"
+      },
+      "quality_checked": {
+        "accepted_quality_codes": [
+          "G",
+          "Y"
+        ],
+        "definition": "the provider documents the values as checked or coarsely checked (SMHI G = Kontrollerade och godkända värden, Y = Grovt kontrollerade värden)"
+      }
+    },
+    "run_stratum": "provider_published_unqualified",
+    "strict_gate_audit": {
+      "stratum": "quality_checked",
+      "accepted_quality_codes": [
+        "G",
+        "Y"
+      ],
+      "n_rows_passing_strict_gate": 0,
+      "per_station_g_y_counts": "see the quality_code_counts column of stations_all.csv",
+      "outcome_on_this_provider": "0 stations and 0 networks on the same raw bytes; see QC_AND_ELIGIBILITY_FAILURE.md, retained unchanged as the strict-gate audit record of retrieval 2026-10-12T09:55:14Z"
+    }
+  },
+  "eligibility_rule": {
+    "network_definition": "SMHI catchmentNumber (agency-native grouping)",
+    "min_stations_per_network": 2,
+    "min_complete_calendar_years_per_station": 4,
+    "complete_year_definition": "365 (366 in leap years) distinct calendar days with a finite value that passed the quality-code gate"
+  },
+  "qc": {
+    "accepted_quality_codes": [
+      "O"
+    ],
+    "qc_stratum": "provider_published_unqualified",
+    "stratum_definition": "the provider publishes the series but labels it uncontrolled/unqualified (SMHI O = Okontrollerade värden)",
+    "legend_quote_for_accepted_codes": {
+      "O": [
+        "Orange (O) = Okontrollerade värden."
+      ]
+    },
+    "legend_verbatim_by_code": {
+      "G": [
+        "Grön (G) = Kontrollerade och godkända värden."
+      ],
+      "O": [
+        "Orange (O) = Okontrollerade värden."
+      ],
+      "Y": [
+        "Gul (Y) = Grovt kontrollerade värden."
+      ]
+    },
+    "legend_source": "SMHI embeds the legend as trailing free-text fields on the first data rows of every station CSV ('Kvalitetskoderna:' followed by '<Name> (<CODE>) = <meaning>.'); identical across all downloaded stations. Verbatim copy in QC_legend_verbatim.json and station_header_block.txt.",
+    "n_stations_with_legend_extracted": 176,
+    "n_stations_with_expected_legend_codes": 176,
+    "header_block_verbatim_example": [
+      "Vattendragstemperatur;°C",
+      "",
+      "Datum (svensk sommartid);Vattendragstemperatur;Kvalitet;;"
+    ],
+    "value_column_headers_seen": [
+      "Vattendragstemperatur"
+    ],
+    "quality_column_headers_seen": [
+      "Kvalitet"
+    ],
+    "undocumented_codes_observed": [],
+    "dropped_codes": [],
+    "quality_code_distribution_rows_parsed": {
+      "O": 1063746
+    },
+    "n_value_rows_parsed": 1063746,
+    "n_rows_dropped_by_quality_gate_or_missing_value": 0,
+    "n_rows_accepted": 1063746,
+    "loss_fraction_of_parsed_rows": 0.0,
+    "value_parse_notes": {
+      "": 1063746
+    }
+  },
+  "deduplication": {
+    "rule": "same calendar date repeated -> keep the row with the highest-ranked quality code (G > Y > O > undocumented/blank); ties broken by last occurrence in file order",
+    "n_stations_with_duplicate_dates": 0,
+    "n_duplicate_rows_removed_total": 0,
+    "per_station": {}
+  },
+  "file_level_metadata": {
+    "station_network_class_values_in_series_files": {
+      "Övriga stationer": 176
+    },
+    "parameter_name_values": {
+      "Vattendragstemperatur": 176
+    },
+    "parameter_unit_values": {
+      "°C": 176
+    },
+    "n_station_name_mismatches_vs_catalog": 0,
+    "station_name_mismatch_examples": [],
+    "note": "'Övriga stationer' in Stationsnät is SMHI's label for stations outside SMHI's own station network (data collected and stored by SMHI under agreement with a third party)."
+  },
+  "panel_character": {
+    "latitude_range": [
+      55.4497,
+      68.3617
+    ],
+    "active_flag_values_in_catalog": [
+      "False"
+    ],
+    "measuring_stations_values_in_catalog": [
+      "ADDITIONAL"
+    ],
+    "domain_note": "all catalogued parameter-4 stations carry measuringStations = ADDITIONAL ('Övriga stationer' = stations outside SMHI's own station network; data collected and stored by SMHI through agreement with a third party) and are flagged active = false in the catalog",
+    "coverage_note": "the corrected-archive series are historical (see station_catalog.csv and stations_all.csv for the observed per-station spans)"
+  },
+  "provider_documentation": {
+    "parameter_4_metadata_url": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/metadata.json",
+    "parameter_4_abstract_verbatim": "Syfte: Beskriver aktuellt och historiskt hydrologiskt tillstånd i Sverige.\n\nEnhet: Grader Celsius\n\nEgenskaper: Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.\n\nNätinformation:\n- SMHIs stationsnät: Data samlas in och lagras i SMHIs databaser. Data rimlighetskontrolleras vilket innebär att felaktiga data korrigeras och att databortfall kompletteras utifrån expertbedömning där det är möjligt. Fysiska stationer övervakas, inspekteras och underhålls löpande av SMHI.\n- Övriga stationer: Stationerna ingår ej i SMHIs stationsnät men data samlas in och lagras i SMHIs databaser genom avtal med en tredje part.\n\nKvalitetskoder: Grön (G) = Kontrollerade och godkända värden. Gul (Y) = Grovt kontrollerade värden, misstänkta eller aggregerade värden. Orange (O) = Okontrollerade värden",
+    "catalog_record": "https://opendata-catalog.smhi.se/md/9d61ab90-7d21-11ed-a51b-432755aaeed3",
+    "statistic_quote_verbatim": "Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.",
+    "unit_quote_verbatim": "Enhet: Grader Celsius",
+    "aggregation_operator_documented": false,
+    "measurement_statistic_assigned": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record"
+  },
+  "artifacts": {
+    "stations_csv": "stations.csv (one row per station appearing in an emitted panel, with provider, coordinates, complete years, n_days, n_dropped_qc, accepted_quality_codes, measurement_statistic, quality_assurance; the seal-facing table read by scripts/245 and scripts/249)",
+    "stations_all_csv": "stations_all.csv (every downloaded station, including zero accepted days)",
+    "readme": "README.md (what was downloaded, the QC legend, why O was admitted, caveats)",
+    "strict_gate_failure_note": "QC_AND_ELIGIBILITY_FAILURE.md (retained strict-gate record)",
+    "per_network_stations_csv": "networks/<network_id>/stations.csv",
+    "station_catalog_csv": "station_catalog.csv",
+    "station_years_csv": "station_years.csv",
+    "networks_summary_csv": "networks_summary.csv",
+    "networks_not_eligible_csv": "networks_not_eligible.csv",
+    "networks_dir": "networks/",
+    "station_daily_dir": "station_daily/",
+    "raw_cache_dir": "raw_cache/",
+    "download_failures_csv": "download_failures.csv"
+  },
+  "script": "scripts/240_multi_agency_smhi_ingest.py",
+  "raw_provenance": {
+    "catalog": {
+      "url": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4.json",
+      "path": "results/wrr_submission_ready/multi_agency_ingest/smhi/raw_cache/parameter_4_catalog.json",
+      "bytes": 149182,
+      "sha256": "1e8849a284e60f812fdc7f1329ad309709f141f67091098041295cb2b3fa531d",
+      "retrieved_utc": "2026-10-12T10:03:43Z",
+      "served_from_cache": true
+    },
+    "metadata_urls": [
+      "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/metadata.json"
+    ],
+    "n_series_urls": 176,
+    "series_url_example": "https://opendata-download-hydroobs.smhi.se/api/version/latest/parameter/4/station/80001/period/corrected-archive/data.csv"
+  },
+  "caveats": [
+    "Date column header is 'Datum (svensk sommartid)': timestamps are Swedish summer time (UTC+2), not UTC. Local Swedish time on the same date still maps to that calendar date, so date-only panels are unaffected, but any diurnal or UTC alignment would be wrong. The download portal text separately says file times are UTC (+1/+2 h); the two statements conflict and the header is the file-level one, so it is reported as-is.",
+    "'Övriga stationer' (Stationsnät field) = the station is not part of SMHI's own station network; data are collected and stored by SMHI under agreement with a third party. Every parameter-4 station is catalogued this way, so this panel is not SMHI's official network.",
+    "Provider metadata documents only 'daily watercourse temperature'; the daily aggregation operator (mean vs. instantaneous reading) is not documented for parameter 4. The panel is therefore assigned the statistic 'daily provider statistic (°C)' and NOT a confirmed daily mean.",
+    "No recent data: the catalog flags every parameter-4 station active = false and the archive ends in the early 2000s; the panel is historical and does not overlap the recent-period regime of the frozen model's development panel.",
+    "Rows outside the accepted quality-code set for this run's stratum are dropped even when their values look physical; no imputation, no gap filling beyond leaving cells blank.",
+    "Assurance stratum of this run: 'provider_published_unqualified'. Values accepted here are labelled at source as uncontrolled/unqualified; the per-station quality_assurance column carries the stratum into the seal so the strata are never pooled silently.",
+    "Complete-year counting is done on QC-accepted, deduplicated values only."
+  ],
+  "counts": {
+    "n_catalog_stations": 176,
+    "n_downloaded": 176,
+    "n_download_failures": 0,
+    "n_stations_with_data": 176,
+    "n_stations_with_accepted_days": 176,
+    "n_stations_ge_4_complete_years": 118,
+    "n_networks_emitted": 16,
+    "n_networks_in_catalog_grouping": 42,
+    "n_station_years_complete": 1601,
+    "n_complete_station_years": 1601,
+    "n_complete_station_years_stations_ge_4_years": 1549,
+    "n_complete_station_years_in_emitted_networks": 1372,
+    "n_rows_parsed": 1063746,
+    "n_rows_accepted": 1063746,
+    "n_rows_dropped": 0
+  },
+  "networks_emitted": 16,
+  "stations_emitted": 143,
+  "stations_emitted_ge_4_complete_years": 101,
+  "v17_roster_overlap": {
+    "n_station_ids_checked": 176,
+    "checked_files": [
+      "results/v17_fitness/step1_panel/station_roster.csv",
+      "results/wrr_revision/step1_universe/trusted_river_complete_years.csv",
+      "results/wrr_submission_ready/prior_access_ledger_reserved_station_years.csv",
+      "results/wrr_submission_ready/confirmation_inputs_manifest.csv"
+    ],
+    "n_overlapping_station_ids": 0,
+    "overlapping_station_ids": [],
+    "numerator_note": "SMHI station ids are provider-native numeric ids; all overlaps are recomputed by scripts/245 as well"
+  },
+  "failure": null,
+  "verdict": "panel emitted under stratum 'provider_published_unqualified': 16 networks, 101 stations with >= 4 complete calendar years (143 stations in total across the emitted panels), 1372 complete station-years; values are labelled uncontrolled at source and must be reported as the provider_published_unqualified stratum"
+}

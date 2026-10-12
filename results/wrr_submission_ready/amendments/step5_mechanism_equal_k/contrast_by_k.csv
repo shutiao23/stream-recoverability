@@ -1,0 +1,8 @@
+contrast,spec,arm,selection_rule,note,n_paired,n_networks,point_c,ci_low_c,ci_high_c,se_c,n_clusters,k_matched
+weak_half - strong_half,matched_exact_k_by_k,K=1,top_of_half,matched sample restricted to K=1,1281,20,0.100548873971119,0.06460028108134998,0.1446880325849787,0.02065931654148107,20,1
+weak_half - strong_half,matched_exact_k_by_k,K=2,top_of_half,matched sample restricted to K=2,4045,23,0.09072971093805601,0.06172466130769229,0.13308398142110242,0.018637822253570115,23,2
+weak_half - strong_half,matched_exact_k_by_k,K=3,top_of_half,matched sample restricted to K=3,1929,10,0.12808104512063398,0.08092282569302782,0.1612267783839568,0.02052611009298929,10,3
+weak_half - strong_half,matched_exact_k_by_k,K=4,top_of_half,matched sample restricted to K=4,2540,4,0.06166310325342303,0.04826267815501244,0.1202226776263928,0.020289622821592714,4,4
+weak_half - strong_half,matched_exact_k_by_k,K=5,top_of_half,matched sample restricted to K=5,450,3,0.07875169061811117,-0.017752459650574703,0.12337681686342156,0.03762814377254437,3,5
+weak_half - strong_half,matched_exact_k_by_k,K=6,top_of_half,matched sample restricted to K=6,540,3,0.04354311413657788,0.00694632776465607,0.07665224125019318,0.02256666530542331,3,6
+weak_half - strong_half,matched_exact_k_by_k,K=7,top_of_half,matched sample restricted to K=7,831,3,0.020797534455262896,0.009758559209188875,0.05537645560885959,0.01199493790298415,3,7

@@ -1,0 +1,8 @@
+station_id,n_values_returned,n_values_dropped_total,n_values_accepted,accepted_quality_codes,rejected_quality_codes,n_duplicate_extra_days,n_days_value_exactly_0c,longest_identical_run_days,longest_identical_run_start,longest_identical_run_end,frozen_sensor_suspected,dropped_provider_marked_missing_day
+6ff82c44-bbf2-4593-8218-76569f550b47,826,0,826,Unchecked,,0,3,3,2023-06-13,2023-06-15,False,
+a473e348-c00a-46c6-a93b-921f9747f96f,5648,743,4905,Unchecked,,0,339,295,2017-06-06,2018-03-27,True,743.0
+bbaa85be-3a06-4d2b-b5ad-7f1f55b6554d,7771,144,7627,Good;Suspect;Unchecked,,0,0,13,2015-06-26,2015-07-08,False,144.0
+bfc68b5e-abb1-4d68-97cb-f066350d2e01,2159,15,2144,Unchecked,,0,0,2,2019-12-24,2019-12-25,False,15.0
+d1df8d19-d1f7-4e83-8aa6-75820613be72,2785,2,2783,Unchecked,,0,0,4,2020-08-29,2020-09-01,False,2.0
+da031053-d267-49da-857a-b8e28a7205eb,3008,0,3008,Unchecked,,0,5,4,2016-10-06,2016-10-09,False,
+f8ae6b4c-56c4-45a1-b83f-4697843b937f,2786,0,2786,Unchecked,,0,13,13,2019-07-27,2019-08-08,True,

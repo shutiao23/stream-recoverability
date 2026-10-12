@@ -1,0 +1,61 @@
+{
+  "forcing_path": "/home/lzq/workspace/parttime/stream-recoverability/data/interim/v18_air_forcing.parquet",
+  "cases_path": "/home/lzq/workspace/parttime/stream-recoverability/results/v17_fitness/step3_cases/cases_air.parquet",
+  "n_rebuilt_rows": 40704,
+  "n_development_cases": 40704,
+  "min_fit_days": 120,
+  "beaufort_lags": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "debug_limit_networks": 0,
+  "n_stations_rebuilt": 354,
+  "n_networks_rebuilt": 110,
+  "workers": 24,
+  "wall_seconds": 30.657996654510498,
+  "summer_months": [
+    7,
+    8
+  ],
+  "mask_checks_source": "rebuilt rows joined to the stored case table",
+  "air_available_pct": {
+    "v17_forcing_panel": 2.2626768867924527,
+    "v18_forcing_panel": 98.63649764150944,
+    "n_cases_v17_dev": 40704,
+    "n_cases_v18_dev": 40704
+  },
+  "forcing_source_note": "see results/v18_closure/e5_air_forcing/air_forcing_summary.json for the forcing product description",
+  "n_matched_rows": 40704,
+  "mask_total_missing_mismatches": 0,
+  "mask_longest_run_mismatches": 0,
+  "mask_peak_overlap_max_abs_dev": 0.0,
+  "mask_warm_fraction_max_abs_dev": 0.0,
+  "truth_hottest30_max_abs_dev": 0.0,
+  "library_air_ridge_repro_n": 643,
+  "library_air_ridge_repro_networks": [
+    "arso_bistrica",
+    "arso_drava"
+  ],
+  "library_air_ridge_repro_max_abs_dev": 0.0,
+  "sufficient_stats_vs_lstsq_n": 25,
+  "sufficient_stats_vs_lstsq_max_abs_dev_c": 1.7408297026122455e-13,
+  "manuscript_air_ridge_rate_pct_reproduced": 15.161618643175517,
+  "bootstrap_point_matches_repo": true,
+  "bootstrap_repo_point": -0.02833214333870912,
+  "bootstrap_this_script_point": -0.028332143338709072,
+  "bootstrap_repo_ci": [
+    -0.046374542443729135,
+    -0.009146205699465637
+  ],
+  "bootstrap_this_script_ci": [
+    -0.04637454244372915,
+    -0.009146205699465629
+  ]
+}

@@ -1,0 +1,1757 @@
+{
+  "provider": "waterinfo_be",
+  "context": "Flanders (Belgium): Vlaamse waterbeheerders / VMM, waterinfo.be KiWIS web service",
+  "generated_utc": "2026-10-12T10:42:58Z",
+  "script": "scripts/260_multi_agency_be_es_ingest.py",
+  "command": "python3 scripts/260_multi_agency_be_es_ingest.py --provider be",
+  "api": {
+    "base": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS",
+    "common_params": {
+      "service": "kisters",
+      "type": "queryServices",
+      "datasource": "0"
+    },
+    "requests_used": [
+      "getStationList",
+      "getTimeseriesList",
+      "getTimeseriesValues"
+    ]
+  },
+  "licence": {
+    "disclaimer_url": "https://www.waterinfo.vlaanderen.be/default.aspx?path=NL/Algemene_Info/Disclaimer",
+    "statement_nl_verbatim": "De toegang tot de informatie op deze website is kosteloos, doch houdt de aanvaarding in door de gebruiker van de hierna volgende voorwaarden. De gegevens van deze website zijn bedoeld voor informatieve en niet-commerciële doeleinden en worden aangeboden door de Vlaamse waterbeheerders en kennisinstituten.",
+    "interpretation": "informative and non-commercial use; academic research use recorded, redistribution not asserted",
+    "help_url": "https://www.waterinfo.vlaanderen.be/default.aspx?path=NL/Algemene_Info/Help_algemeen"
+  },
+  "measurement_statistic": "provider daily mean, degrees C: KiWIS ts_name 'DagGem' (daggemiddelde) of parametertype WT, ts_unitname 'degree Celsius', ts_unitsymbol '°C'; one value per calendar day, KiWIS timestamp is local clock 01:00 with the Brussels UTC offset of that date",
+  "quality_assurance": "provider_published_unqualified",
+  "quality_assurance_note": "the KiWIS values payload carries no quality flag ('Timestamp,Value' only) and no provider statement that these series are checked/approved was found on https://www.waterinfo.vlaanderen.be/ (disclaimer read 2026-10-12); the umbrella disclaimer states the data are offered for informative, non-commercial use",
+  "station_list": {
+    "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getStationList&format=json&parametertype=noType",
+    "sha256": "bb2cdda8e6ffa1a4443e2c4b13ede4417e3669f284c67347e65b85024130aee7",
+    "bytes": 185548,
+    "served_from_cache": true
+  },
+  "timeseries_catalogue": {
+    "all_WT": {
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesList&format=json&parametertype_name=WT",
+      "sha256": "7b3b67004b902b4515180d9d614c597b73dab52b28ff3e245e0d4ba49bfb9dff",
+      "bytes": 318895,
+      "rows": 3365
+    },
+    "WT_DagGem": {
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesList&format=json&station_name=%2A&ts_name=DagGem&parametertype_name=WT",
+      "sha256": "0d670e2cf7310c36c10ff9fab4a699ea52d58ac85719c7571357b2fcba678012",
+      "bytes": 39071,
+      "rows": 408
+    },
+    "cross_check": {
+      "all_WT_series": 3365,
+      "all_WT_DagGem_series": 408,
+      "filtered_DagGem_series": 408,
+      "identical_ts_id_sets": true,
+      "ts_name_census_all_WT": {
+        "Pv.15": 414,
+        "KalJaarGem": 409,
+        "MaandGem": 409,
+        "DagGem": 408,
+        "HydJaarGem": 408,
+        "P.15": 406,
+        "O.15": 329,
+        "MaandMax": 59,
+        "DagMin": 59,
+        "HydJaarMax": 59,
+        "KalJaarMin": 59,
+        "HydJaarMin": 59,
+        "P.60": 59,
+        "MaandMin": 59,
+        "DagMax": 59,
+        "KalJaarMax": 59,
+        "O.5": 31,
+        "O": 16,
+        "O.15-tmp": 2,
+        "Dag": 1,
+        "O.Obs": 1
+      }
+    }
+  },
+  "quota_probe": {
+    "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01198674042&from=2024-01-01&to=2024-01-02",
+    "retrieved_utc": "2026-10-12T10:42:58Z",
+    "status": 429,
+    "bytes": 198,
+    "sha256": "785a6f9fee98278354216e9554d55676f5281ba5c99cab9b060241725fc792c0",
+    "content_type": "(via curl)",
+    "sample": "<?xml version=\"1.0\" ?><ExceptionReport><Exception exceptionCode=\"AuthCreditLimit\"><ExceptionText>Credit limit exceeded for type IP and key 46.224.42.132</ExceptionText></Exception></ExceptionReport>",
+    "transport": "curl",
+    "urllib_error": "CreditLimitExceeded: HTTP 429 credit limit for https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01198674042&from=2024-01-01&to=2024-01-02: <?xml version=\"1.0\" ?><ExceptionReport><Exception exceptionCode=\"AuthCreditLimit\"><ExceptionText>Credit limit exceeded for type IP and key 46.224.42.132</ExceptionText></Exception></ExceptionReport>",
+    "elapsed_s": 1.468
+  },
+  "value_requests": {
+    "template": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=%3Cts_id%3E&from=1990-01-01&to=2026-10-13&metadata=true",
+    "end_date_used": "2026-10-13",
+    "series_requested": 408,
+    "series_returned_rows": 236166,
+    "series_failed": 258
+  },
+  "download_failures": [
+    {
+      "ts_id": "01281133042",
+      "station_no": "01IMM0069",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01281133042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01281208042",
+      "station_no": "01IMM0068",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01281208042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282273042",
+      "station_no": "01IMM0065",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282273042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282373042",
+      "station_no": "01IMM0066",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282373042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282441042",
+      "station_no": "01IMM0067",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282441042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282509042",
+      "station_no": "01IMM0070",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282509042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282577042",
+      "station_no": "01IMM0071",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282577042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01282645042",
+      "station_no": "01IMM0072",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01282645042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283332042",
+      "station_no": "01IMM0050",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283332042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283400042",
+      "station_no": "01IMM0073",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283400042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283515042",
+      "station_no": "01IMM0074",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283515042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283578042",
+      "station_no": "01IME0001",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283578042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283652042",
+      "station_no": "01IME0002",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283652042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283719042",
+      "station_no": "01IMM0075",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283719042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283787042",
+      "station_no": "01IMM0076",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283787042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01283887042",
+      "station_no": "01IMM0077",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01283887042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284217042",
+      "station_no": "01IMM0079",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284217042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284306042",
+      "station_no": "01IMM0080",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284306042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284476042",
+      "station_no": "01IMM0078",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284476042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284544042",
+      "station_no": "01IMM0082",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284544042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284780042",
+      "station_no": "01IMM0081",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284780042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284848042",
+      "station_no": "01IMM0083",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284848042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284916042",
+      "station_no": "01IMM0084",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284916042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01284984042",
+      "station_no": "01IMM0085",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01284984042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285058042",
+      "station_no": "01IMM0086",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285058042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285126042",
+      "station_no": "01IMM0087",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285126042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285194042",
+      "station_no": "01IMM0088",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285194042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285262042",
+      "station_no": "01IMM0089",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285262042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285433042",
+      "station_no": "01IMM0090",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285433042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285533042",
+      "station_no": "01IMM0091",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285533042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285631042",
+      "station_no": "01IMM0092",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285631042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01285699042",
+      "station_no": "01IMM0093",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01285699042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01286309042",
+      "station_no": "01IMM0500HYB",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01286309042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01286601042",
+      "station_no": "01IMM0104",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01286601042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01286695042",
+      "station_no": "01IMM0105",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01286695042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01288851042",
+      "station_no": "01IMM0101",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01288851042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01288925042",
+      "station_no": "01IMM0102",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01288925042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289025042",
+      "station_no": "01IMM0103",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289025042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289099042",
+      "station_no": "01IMM0100",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289099042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289756042",
+      "station_no": "01IMM0094",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289756042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289830042",
+      "station_no": "01IMM0095",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289830042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289904042",
+      "station_no": "01IMM0096",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289904042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01289978042",
+      "station_no": "01IMM0097",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01289978042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01290052042",
+      "station_no": "01IMM0098",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01290052042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01290952042",
+      "station_no": "01IMM0106",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01290952042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291020042",
+      "station_no": "01IMM0107",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291020042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291094042",
+      "station_no": "01IMM0108",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291094042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291168042",
+      "station_no": "01IMM0109",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291168042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291497042",
+      "station_no": "01IMM0113",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291497042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291571042",
+      "station_no": "01IMM0114",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291571042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291645042",
+      "station_no": "01IMM0112",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291645042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291719042",
+      "station_no": "01IMM0110",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291719042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291887042",
+      "station_no": "01IMM0118",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291887042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01291969042",
+      "station_no": "01IMM0111",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01291969042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01292043042",
+      "station_no": "01IMM0119",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01292043042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01292791042",
+      "station_no": "01IMM0121",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01292791042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01293935042",
+      "station_no": "01IMM0123",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01293935042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294141042",
+      "station_no": "01IMM0122",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294141042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294283042",
+      "station_no": "01IMM0130",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294283042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294514042",
+      "station_no": "01IMM0127",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294514042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294588042",
+      "station_no": "01IMM0131",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294588042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294662042",
+      "station_no": "01IMM0132",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294662042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294736042",
+      "station_no": "01IMM0133",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294736042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01294810042",
+      "station_no": "01IMM0134",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01294810042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295106042",
+      "station_no": "01IMM0124",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295106042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295191042",
+      "station_no": "01IMM0125",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295191042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295265042",
+      "station_no": "01IMM0126",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295265042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295339042",
+      "station_no": "01IMM0128",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295339042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295413042",
+      "station_no": "01IMM0129",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295413042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295915042",
+      "station_no": "01IMM0115",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295915042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01295989042",
+      "station_no": "01IMM0116",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01295989042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296198042",
+      "station_no": "01IMM5010",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296198042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296460042",
+      "station_no": "01IMM5005",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296460042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296550042",
+      "station_no": "01IMM5006",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296550042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296624042",
+      "station_no": "01IMM5007",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296624042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296698042",
+      "station_no": "01IMM5008",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296698042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01296772042",
+      "station_no": "01IMM5009",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01296772042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297166042",
+      "station_no": "01IMM0120",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297166042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297263042",
+      "station_no": "01IMM5011",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297263042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297337042",
+      "station_no": "01IMM5012",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297337042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297411042",
+      "station_no": "01IMM5013",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297411042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297485042",
+      "station_no": "01IMM5014",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297485042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297761042",
+      "station_no": "01IMM0135",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297761042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01297935042",
+      "station_no": "01IMM0117",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01297935042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01298313042",
+      "station_no": "01IMM5001",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01298313042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01298387042",
+      "station_no": "01IMM5004",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01298387042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01298461042",
+      "station_no": "01IMM5002",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01298461042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01298535042",
+      "station_no": "01IMM5003",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01298535042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01298714042",
+      "station_no": "01IMM5015",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01298714042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300060042",
+      "station_no": "01IMM5023",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300060042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300222042",
+      "station_no": "01IMM5022",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300222042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300296042",
+      "station_no": "01IMM5021",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300296042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300370042",
+      "station_no": "01IMM5020",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300370042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300444042",
+      "station_no": "01IMM5019",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300444042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300518042",
+      "station_no": "01IMM5018",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300518042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300608042",
+      "station_no": "01IMM5016",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300608042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300693042",
+      "station_no": "01IMM5024",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300693042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01300906042",
+      "station_no": "01L03_44F",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01300906042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301173042",
+      "station_no": "01L03_30G",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301173042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301483042",
+      "station_no": "01IMM5017",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301483042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301557042",
+      "station_no": "01IMM0136",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301557042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301631042",
+      "station_no": "01IMM0137",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301631042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301908042",
+      "station_no": "01IMM5025",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301908042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01301982042",
+      "station_no": "01IMM5026",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01301982042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01302056042",
+      "station_no": "01IMM5027",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01302056042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01302236042",
+      "station_no": "01IMM5032",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01302236042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01302310042",
+      "station_no": "01IMM5030",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01302310042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01302384042",
+      "station_no": "01IMM5031",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01302384042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01303007042",
+      "station_no": "01IMM5002_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01303007042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01303130042",
+      "station_no": "01IMM5033",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01303130042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01303743042",
+      "station_no": "01IMM0138",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01303743042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01304422042",
+      "station_no": "01IMM5034",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01304422042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01304498042",
+      "station_no": "01IMM0143",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01304498042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01304984042",
+      "station_no": "01IMM0139",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01304984042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305058042",
+      "station_no": "01IMM0140",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305058042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305132042",
+      "station_no": "01IMM0141",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305132042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305206042",
+      "station_no": "01IMM0146",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305206042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305280042",
+      "station_no": "01IMM0145",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305280042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305354042",
+      "station_no": "01IMM0147",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305354042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305445042",
+      "station_no": "01IMM0148",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305445042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305621042",
+      "station_no": "01IMM0142",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305621042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01305695042",
+      "station_no": "01IMM0149",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01305695042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01306078042",
+      "station_no": "01IMM0144",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01306078042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307069042",
+      "station_no": "01IMC_877910",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307069042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307123042",
+      "station_no": "01IMM5001_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307123042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307214042",
+      "station_no": "01IMM0150",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307214042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307288042",
+      "station_no": "01IMM0151",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307288042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307348042",
+      "station_no": "01IMC_999030",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307348042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01307766042",
+      "station_no": "01IMC_866000",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01307766042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01308097042",
+      "station_no": "01IMM5028",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01308097042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01308171042",
+      "station_no": "01IMM5029",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01308171042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01308245042",
+      "station_no": "01IMM5035",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01308245042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01309729042",
+      "station_no": "01IMC_999031",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01309729042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01309964042",
+      "station_no": "01IMM0152",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01309964042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01310061042",
+      "station_no": "01IMM0153",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01310061042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01310135042",
+      "station_no": "01IMM0154",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01310135042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01310209042",
+      "station_no": "01IMM0155",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01310209042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01310827042",
+      "station_no": "01IMM0156",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01310827042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311007042",
+      "station_no": "01IMM5036",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311007042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311081042",
+      "station_no": "01IMM5038",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311081042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311155042",
+      "station_no": "01IMM5039",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311155042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311255042",
+      "station_no": "01IMM5037",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311255042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311588042",
+      "station_no": "01IMM5040",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311588042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311669042",
+      "station_no": "01IMM5041",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311669042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311853042",
+      "station_no": "01IMM0157",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311853042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01311970042",
+      "station_no": "01IMM5042",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01311970042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01312017042",
+      "station_no": "01IMC_999032",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01312017042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01314073042",
+      "station_no": "01IMT0032",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01314073042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01314173042",
+      "station_no": "01IMT0068",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01314173042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01314247042",
+      "station_no": "01IMT0001",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01314247042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01314321042",
+      "station_no": "01IMT0002",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01314321042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01314417042",
+      "station_no": "01IMM0158",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01314417042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01315147042",
+      "station_no": "01IMM0159",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01315147042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01315455042",
+      "station_no": "01IMM0160",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01315455042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01317028042",
+      "station_no": "01IMM0161",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01317028042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01317978042",
+      "station_no": "01IMM5043",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01317978042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01318052042",
+      "station_no": "01IMM5044",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01318052042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01318959042",
+      "station_no": "01IMM5047",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01318959042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01319033042",
+      "station_no": "01IMM5046",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01319033042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01319975042",
+      "station_no": "01IMM0162",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01319975042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01320334042",
+      "station_no": "01IMM5045",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01320334042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01320408042",
+      "station_no": "01IMM5048",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01320408042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01320886042",
+      "station_no": "01IMM9998",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01320886042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01320986042",
+      "station_no": "01IMM0163",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01320986042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01321060042",
+      "station_no": "01IMM0164",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01321060042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01321236042",
+      "station_no": "01IMM5049",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01321236042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01321841042",
+      "station_no": "01IMM0165",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01321841042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01321904042",
+      "station_no": "01IMM0165",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01321904042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01322148042",
+      "station_no": "01IMM0166",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01322148042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01322357042",
+      "station_no": "01IMM5052",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01322357042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01322431042",
+      "station_no": "01IMM5053",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01322431042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01322505042",
+      "station_no": "01IMM5050",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01322505042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01322969042",
+      "station_no": "01IMM5055",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01322969042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01323043042",
+      "station_no": "01IMM5054",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01323043042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01323117042",
+      "station_no": "01IMM5003_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01323117042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01323395042",
+      "station_no": "01IMM0167",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01323395042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01323753042",
+      "station_no": "01IMM0168",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01323753042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01324934042",
+      "station_no": "01IMM5056",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01324934042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01325094042",
+      "station_no": "01IMM5051",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01325094042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01326304042",
+      "station_no": "01IMM5004_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01326304042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01329503042",
+      "station_no": "01HMN624515",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01329503042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01329617042",
+      "station_no": "01HMN624550",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01329617042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330420042",
+      "station_no": "01Loc-00016-42bis",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330420042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330445042",
+      "station_no": "01Loc-00000-02",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330445042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330471042",
+      "station_no": "01Loc-00018-36bis",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330471042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330491042",
+      "station_no": "01Loc-00058-13",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330491042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330545042",
+      "station_no": "01Loc-00064-94",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330545042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330571042",
+      "station_no": "01Loc-00092-08",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330571042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330596042",
+      "station_no": "01Loc-00093-05",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330596042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330621042",
+      "station_no": "01Loc-00094-02",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330621042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330646042",
+      "station_no": "01Loc-00101-78",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330646042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330671042",
+      "station_no": "01Loc-00104-69",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330671042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330696042",
+      "station_no": "01Loc-00240-49",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330696042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330721042",
+      "station_no": "01Loc-00000-01",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330721042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01330952042",
+      "station_no": "01HMN0026",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01330952042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01331113042",
+      "station_no": "01HMN0025",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01331113042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01331213042",
+      "station_no": "01L04_037",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01331213042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01331559042",
+      "station_no": "01IMM0170",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01331559042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01331607042",
+      "station_no": "01IMM0171",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01331607042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01331699042",
+      "station_no": "01IMM0172",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01331699042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01333375042",
+      "station_no": "01IMM5005_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01333375042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01336461042",
+      "station_no": "01IMM5999",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01336461042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01336504042",
+      "station_no": "01IMM5058",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01336504042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337168042",
+      "station_no": "01IMM5061",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337168042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337194042",
+      "station_no": "01IMM5062",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337194042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337404042",
+      "station_no": "01IMM5006_POV",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337404042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337584042",
+      "station_no": "01IMM5057",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337584042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337602042",
+      "station_no": "01IMM5057",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337602042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337814042",
+      "station_no": "01IMM0169",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337814042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337906042",
+      "station_no": "01Loc-00999-02",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337906042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337936042",
+      "station_no": "01Loc-00999-03",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337936042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01337965042",
+      "station_no": "01IMM5063",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01337965042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01338100042",
+      "station_no": "01IMM5059",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01338100042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01338174042",
+      "station_no": "01IMM5064",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01338174042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "01338248042",
+      "station_no": "01IMM5065",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=01338248042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138778042",
+      "station_no": "01L01_428",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138778042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138810042",
+      "station_no": "01HIS_L01_42H",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138810042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138826042",
+      "station_no": "01L01_488",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138826042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138842042",
+      "station_no": "01L01_48C",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138842042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138858042",
+      "station_no": "01L01_492",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138858042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138874042",
+      "station_no": "01L01_497",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138874042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138890042",
+      "station_no": "01L01_49A",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138890042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138906042",
+      "station_no": "01L02_423",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138906042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138922042",
+      "station_no": "01HIS_L02_43B",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138922042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138938042",
+      "station_no": "01L02_442",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138938042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138970042",
+      "station_no": "01L02_455",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138970042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0138986042",
+      "station_no": "01L03_438",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0138986042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139002042",
+      "station_no": "01L05_402",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139002042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139018042",
+      "station_no": "01L05_407",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139018042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139034042",
+      "station_no": "01L05_408",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139034042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139050042",
+      "station_no": "01L07_282",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139050042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139066042",
+      "station_no": "01L07_286",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139066042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139082042",
+      "station_no": "01L07_28A",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139082042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139098042",
+      "station_no": "01HIS_L08_095",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139098042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139114042",
+      "station_no": "01L08_110",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139114042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139130042",
+      "station_no": "01L08_231",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139130042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139146042",
+      "station_no": "01L08_233",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139146042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139162042",
+      "station_no": "01L09_143",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139162042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139178042",
+      "station_no": "01L09_148",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139178042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139194042",
+      "station_no": "01L09_157",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139194042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139210042",
+      "station_no": "01L09_162",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139210042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139226042",
+      "station_no": "01L09_167",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139226042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139242042",
+      "station_no": "01L09_16G",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139242042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139258042",
+      "station_no": "01L10_066",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139258042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139274042",
+      "station_no": "01L10_067",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139274042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139290042",
+      "station_no": "01L10_077",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139290042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139306042",
+      "station_no": "01L10_087",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139306042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139322042",
+      "station_no": "01L10_089",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139322042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139338042",
+      "station_no": "01L11_022",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139338042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139354042",
+      "station_no": "01HIS_L11_049",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139354042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139370042",
+      "station_no": "01HIS_L11_04A",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139370042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139386042",
+      "station_no": "01L11_567",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139386042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0139402042",
+      "station_no": "01HIS_LS02_429",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0139402042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0160094042",
+      "station_no": "01L03_443",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0160094042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0160110042",
+      "station_no": "01L04_00E",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0160110042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0160126042",
+      "station_no": "01L07_281",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0160126042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0160142042",
+      "station_no": "01L10_085",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0160142042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    },
+    {
+      "ts_id": "0196708042",
+      "station_no": "01L03_43D",
+      "url": "https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesValues&format=json&ts_id=0196708042&from=1990-01-01&to=2026-10-13&metadata=true",
+      "error": "not in raw cache and --offline was requested"
+    }
+  ],
+  "download_stopped_by_credit_limit": null,
+  "series_served_from_cache": 150,
+  "timestamp_shape": {
+    "n_rows": 236166,
+    "local_time_census": {
+      "01:00:00": 143363,
+      "00:00:00": 92803
+    },
+    "utc_offset_census": {
+      ".000+02:00": 143363,
+      ".000+01:00": 92803
+    },
+    "expected_local_time": "01:00:00",
+    "n_rows_unexpected_local_time": 92803
+  },
+  "qc": {
+    "rule": "value present; duplicate (station_no, calendar date) rows dropped keeping the last API row; value within [-5.0, 45.0] degC",
+    "rows_retrieved": 236166,
+    "dropped_null_value": 93617,
+    "dropped_duplicate_date": 0,
+    "duplicate_date_value_conflicts": 0,
+    "dropped_out_of_range": 59,
+    "range_degc": [
+      -5.0,
+      45.0
+    ],
+    "rows_kept": 142490
+  },
+  "stations_without_values": 17,
+  "stations_without_coordinates": 17,
+  "subdaily_catalogue_error": "CreditLimitExceeded: HTTP 429 credit limit for https://download.waterinfo.be/tsmdownload/KiWIS/KiWIS?service=kisters&type=queryServices&datasource=0&request=getTimeseriesList&format=json&station_name=%2A&ts_name=P.15&parametertype_name=WT: <?xml version=\"1.0\" ?><ExceptionReport><Exception exceptionCode=\"AuthCreditLimit\"><ExceptionText>Credit limit exceeded for type IP and key 46.224.42.132</ExceptionText></Exception></ExceptionReport>",
+  "subdaily_series": [],
+  "day_boundary_qc": [],
+  "networks": {
+    "stations_with_daily_mean_WT": 150,
+    "stations_ge4_complete_years": 0,
+    "stations_ge4_complete_years_river_class": 0,
+    "watercourse_groups": 103,
+    "networks_emitted": 0,
+    "stations_in_emitted_networks": 0,
+    "complete_station_years_in_emitted_networks": 0,
+    "watercourse_class_census": {
+      "river": 69,
+      "canal": 45,
+      "excluded_non_river": 23,
+      "excluded_no_watercourse_token": 13
+    }
+  },
+  "final_counts": {
+    "stations_in_panel": 0,
+    "networks": 0,
+    "complete_station_years_in_panel": 0,
+    "days_in_panel": 0
+  },
+  "complete_year_gap_evidence": {
+    "note": "the sealed complete-calendar-year definition needs >= 365 (366) QC-passing values, i.e. a gap-free year; these are the shortfalls of the retrieved tranche",
+    "station_years": 644,
+    "gap_free_station_years": 26,
+    "gap_free_share": 0.040372670807453416,
+    "shortfall_days_median": 140.5,
+    "shortfall_days_p90": 320.0,
+    "shortfall_days_max": 363,
+    "min_shortfall_days_per_station_median": 53.0
+  },
+  "retrieval_status": {
+    "catalogued_daily_mean_WT_series": 408,
+    "series_in_raw_cache": 150,
+    "series_not_retrieved": 258,
+    "stopped_by_credit_limit": null,
+    "quota_probe_status": 429,
+    "quota_probe_sample": "<?xml version=\"1.0\" ?><ExceptionReport><Exception exceptionCode=\"AuthCreditLimit\"><ExceptionText>Credit limit exceeded for type IP and key 46.224.42.132</ExceptionText></Exception>",
+    "run_mode": "offline (raw cache only)",
+    "resume_command": "python3 scripts/260_multi_agency_be_es_ingest.py --provider be",
+    "note": "the KiWIS service applies a per-IP credit quota; when it is exhausted every request answers HTTP 429 with an ExceptionReport exceptionCode='AuthCreditLimit'. The ingest stops there, keeps the raw cache, and resumes from it on the next run (no --refresh), so nothing is downloaded twice."
+  },
+  "under_delivery": {
+    "stations_retrieved": 133,
+    "stations_ge4_complete_years_in_tranche": 0,
+    "max_complete_years_in_tranche": 3,
+    "networks_emitted": 0,
+    "verdict": "UNDER-DELIVERY in the retrieved tranche: no station of the retrieved Flemish daily-mean series reaches the frozen >= 4 complete calendar years, so the provider contributes no network yet. This is a reported failure, not a silent drop.",
+    "extrapolation_warning": "only the retrieved tranche is evidence; the unretrieved series were blocked by the provider credit quota and must be fetched before any provider-level claim is made",
+    "manual_probe_series": {
+      "file": "scratch/be_manual_probe_complete_years.csv",
+      "script": "scratch/be_manual_probe_complete_years.py",
+      "note": "three further long daily-mean series (2010-2025/2026) fetched by hand before the credit limit was reached, judged with the same complete-calendar-year rule",
+      "n_series": 3,
+      "n_series_ge4_complete_years": 0,
+      "max_complete_years": 2
+    }
+  },
+  "artifacts": {
+    "stations_csv": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/stations.csv",
+    "stations_all_csv": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/stations_all.csv",
+    "networks_dir": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/networks/<network_id>/daily_wide_temperature.csv",
+    "networks_manifest": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/networks_manifest.csv",
+    "networks_not_eligible": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/networks_not_eligible.csv",
+    "daily_long_qc": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/daily_long_qc.csv.gz",
+    "raw_cache": "results/wrr_submission_ready/multi_agency_ingest/waterinfo_be/raw_cache/"
+  },
+  "caveats": [
+    "Provider daily statistic only: the accepted series are the KiWIS WT 'DagGem' (daily mean) series. No sub-daily value is aggregated into the panel; the 15-minute series is read for day-boundary QC evidence only.",
+    "The KiWIS daily stamp is local clock 01:00 with the Brussels UTC offset of that date; day-identity is taken from the stamp's calendar date. The day-boundary QC block ('day_boundary_qc' and raw_cache/day_boundary_qc.csv) compares the provider daily mean with the mean of the provider 15-minute series for the same and the previous calendar day, so the convention is checked rather than assumed.",
+    "Quality assurance is 'provider_published_unqualified': the API payload carries no quality flag and no provider statement that these series are checked/approved was found; the site disclaimer (URL recorded) offers the data for informative, non-commercial use.",
+    "Network identity is provider name evidence: KiWIS station_name has the form '<municipality>/<watercourse>', and the network key is the watercourse token lowercased with non-alphanumerics removed (so 'Grote Nete' == 'GroteNete'). Networks are watercourse groups, not catchments.",
+    "Waterbody filter is name based: tokens matching dock/harbour/sluice/tidal-inlet/pond/reservoir/dike/WWTP/test/street/soil are classed excluded_non_river and canal/vaart/gracht/leiding tokens are classed 'canal'; neither class enters a river network. networks_not_eligible.csv lists every group with its class so the filter is auditable.",
+    "Some catalogue entries are process monitors of the water utilities (WWTP influent/effluent, CSO, spaarbekken, docks) that share the same KiWIS surface as the river network; they are dropped by the class filter, and those without a '<municipality>/<watercourse>' name are classed excluded_no_watercourse_token.",
+    "Complete calendar year == >= 365 (366 leap) QC-passing daily values, the sealed definition used for the UK EA and SMHI providers; because the provider statistic is one value per day this requires a gap-free year.",
+    "No frozen-screen endpoint, retention, model or score is computed by this script (ingest and QC only)."
+  ]
+}

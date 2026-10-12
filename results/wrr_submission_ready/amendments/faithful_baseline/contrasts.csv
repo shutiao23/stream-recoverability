@@ -1,0 +1,49 @@
+retention_set,quantity,left,right,point,low,high,n_pairs,n_clusters
+all_cases,rate_above_0.5,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.029530267295597483,-0.03945989917070978,-0.019567057538744936,40704,110
+all_cases,mean_abs_error_c,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.0315738969507367,-0.061865700439028594,0.006542559291345909,40704,110
+all_cases,rate_above_0.5,faithful Beaufort (else climatology),linear interpolation,-0.08198211477987422,-0.09697261993349952,-0.06469161333942214,40704,110
+all_cases,mean_abs_error_c,faithful Beaufort (else climatology),linear interpolation,-0.7231171641670577,-0.8759827066679924,-0.5998013774400178,40704,110
+all_cases,rate_above_0.5,faithful Beaufort (else climatology),donor ridge (else climatology),0.03491057389937107,0.01857465645117883,0.05387589008875434,40704,110
+all_cases,mean_abs_error_c,faithful Beaufort (else climatology),donor ridge (else climatology),0.04974569983543669,0.008317713339650907,0.10318654049322129,40704,110
+all_cases,rate_above_0.5,faithful Beaufort (else climatology),information-conditioned policy (reference),0.045056996855345914,0.031239031200778405,0.05935540514428178,40704,110
+all_cases,mean_abs_error_c,faithful Beaufort (else climatology),information-conditioned policy (reference),0.06944526491151315,0.04062765125301236,0.11014186533880828,40704,110
+all_cases,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.02685239779874214,-0.0368993973534834,-0.01667521072082656,40704,110
+all_cases,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.028450711088783536,-0.05897454474922764,0.010135171620562287,40704,110
+all_cases,rate_above_0.5,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.015870676100628932,0.009081278804982997,0.021369980763684796,40704,110
+all_cases,mean_abs_error_c,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.02046170481596598,0.012227391851344048,0.027332276838548226,40704,110
+all_cases,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.0026778694968553458,0.00177352130178792,0.003871243561725077,40704,110
+all_cases,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.0031231858619531665,0.0022644280024945816,0.0042830390306298005,40704,110
+all_cases,rate_above_0.5,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.0050363600628930815,0.0006219746960618798,0.009708301682025362,40704,110
+all_cases,mean_abs_error_c,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.007317423004138692,0.001316572332021325,0.013784271266823307,40704,110
+both_air_methods_supported,rate_above_0.5,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.03183361629881155,-0.04121571196719353,-0.022273586237779763,40052,110
+both_air_methods_supported,mean_abs_error_c,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.05311846285467682,-0.07629351514953986,-0.033703793828615075,40052,110
+both_air_methods_supported,rate_above_0.5,faithful Beaufort (else climatology),linear interpolation,-0.08516428642764406,-0.09974363575503574,-0.06854976952500835,40052,110
+both_air_methods_supported,mean_abs_error_c,faithful Beaufort (else climatology),linear interpolation,-0.7434421102181801,-0.8917946901429024,-0.620668334391133,40052,110
+both_air_methods_supported,rate_above_0.5,faithful Beaufort (else climatology),donor ridge (else climatology),0.03325676620393488,0.016644736079997148,0.05284334485737107,40052,110
+both_air_methods_supported,mean_abs_error_c,faithful Beaufort (else climatology),donor ridge (else climatology),0.02880959891027633,-0.002000477957825481,0.06417720559706389,40052,110
+both_air_methods_supported,rate_above_0.5,faithful Beaufort (else climatology),information-conditioned policy (reference),0.0432937181663837,0.02931972319322578,0.057503466593257994,40052,110
+both_air_methods_supported,mean_abs_error_c,faithful Beaufort (else climatology),information-conditioned policy (reference),0.048305547385399376,0.029171901391863396,0.06706263832743291,40052,110
+both_air_methods_supported,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.029112154199540597,-0.038568190842695714,-0.019475769967429824,40052,110
+both_air_methods_supported,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.049950877670698376,-0.07312114025252581,-0.030241277908407728,40052,110
+both_air_methods_supported,rate_above_0.5,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.016054129631479078,0.009225441020845286,0.021503440105380654,40052,110
+both_air_methods_supported,mean_abs_error_c,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.020731597214162532,0.012367740908777172,0.02764049199215966,40052,110
+both_air_methods_supported,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.002721462099270948,0.00181160331462103,0.003941666034750936,40052,110
+both_air_methods_supported,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.0031675851839784515,0.002297903481358532,0.004391398102112098,40052,110
+both_air_methods_supported,rate_above_0.5,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.00514331369220014,0.0006239089443239935,0.009926907727370217,40052,110
+both_air_methods_supported,mean_abs_error_c,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.007472127103199205,0.0013876505765842563,0.013964594140329445,40052,110
+length_rule_70pct,rate_above_0.5,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.024040992524479696,-0.031992681549653505,-0.016204472136359466,28493,110
+length_rule_70pct,mean_abs_error_c,faithful Beaufort (else climatology),library air ridge alpha=1.0 (else climatology),-0.028332143338709072,-0.04562344947187718,-0.009827848284741501,28493,110
+length_rule_70pct,rate_above_0.5,faithful Beaufort (else climatology),linear interpolation,-0.03260449935071772,-0.042669601212459794,-0.019857929888675095,28493,110
+length_rule_70pct,mean_abs_error_c,faithful Beaufort (else climatology),linear interpolation,-0.07427468461923498,-0.0978243511666933,-0.04515577570506061,28493,110
+length_rule_70pct,rate_above_0.5,faithful Beaufort (else climatology),donor ridge (else climatology),0.031867476222230025,0.02022071078173468,0.04429162292596597,28493,110
+length_rule_70pct,mean_abs_error_c,faithful Beaufort (else climatology),donor ridge (else climatology),0.04335289546502044,0.024163190269209985,0.06836770809955833,28493,110
+length_rule_70pct,rate_above_0.5,faithful Beaufort (else climatology),information-conditioned policy (reference),0.037588179552872636,0.027379839950046996,0.047597502029963434,28493,110
+length_rule_70pct,mean_abs_error_c,faithful Beaufort (else climatology),information-conditioned policy (reference),0.05259759346310798,0.0378214920342814,0.07047697101831163,28493,110
+length_rule_70pct,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.02147895974449865,-0.02929613176217575,-0.013892383701758788,28493,110
+length_rule_70pct,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",library air ridge alpha=1.0 (else climatology),-0.025461102829794472,-0.04246152708835483,-0.007125647293434269,28493,110
+length_rule_70pct,rate_above_0.5,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.011441406661285227,0.007348014719189461,0.014868602398475773,28493,110
+length_rule_70pct,mean_abs_error_c,"faithful Beaufort, lagged-window reading (else climatology)",faithful Beaufort (else climatology),0.0139971005921053,0.008704508702194387,0.01869440089231571,28493,110
+length_rule_70pct,rate_above_0.5,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.002562032779981048,0.0017315225894442706,0.0035939429815815198,28493,110
+length_rule_70pct,mean_abs_error_c,"faithful Beaufort, train years only (else climatology)",faithful Beaufort (else climatology),0.0028710405089145954,0.00213217366902865,0.0038489474708818163,28493,110
+length_rule_70pct,rate_above_0.5,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.0030884778717579758,0.00010277638415512934,0.005776233283977652,28493,110
+length_rule_70pct,mean_abs_error_c,"faithful Beaufort, July-August fill only (else climatology)",faithful Beaufort (else climatology),0.004019663193073603,-0.0004935358029403814,0.008081416742097683,28493,110

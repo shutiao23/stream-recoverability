@@ -1,0 +1,151 @@
+{
+  "by_arm_points": {
+    "empirical": {
+      "ci_high_points": -0.9881405703096348,
+      "ci_low_points": -3.245344400431426,
+      "contrast_points": -1.8550007729169888
+    },
+    "stratified": {
+      "ci_high_points": -5.675813500230007,
+      "ci_low_points": -9.043564735704544,
+      "contrast_points": -7.060386226627157
+    }
+  },
+  "by_assurance_points": {
+    "provider_published_unqualified": {
+      "ci_high_points": -3.2589578702150366,
+      "ci_low_points": -6.231535299873961,
+      "contrast_points": -4.582620270013312
+    },
+    "quality_checked": {
+      "ci_high_points": -4.5293944807767845,
+      "ci_low_points": -8.400807283706515,
+      "contrast_points": -6.150897368879596
+    }
+  },
+  "by_context_points": {
+    "boreal_atlantic": {
+      "ci_high_points": -4.591379203676586,
+      "ci_low_points": -8.699288727627307,
+      "contrast_points": -6.141618497109826
+    },
+    "boreal_nordic": {
+      "ci_high_points": -3.153504237465754,
+      "ci_low_points": -6.280553595852381,
+      "contrast_points": -4.34729365662503
+    },
+    "temperate_oceanic": {
+      "ci_high_points": 1.2903225806451615,
+      "ci_low_points": -7.968127490039841,
+      "contrast_points": -6.403940886699508
+    },
+    "temperate_oceanic_continental": {
+      "ci_high_points": -1.4710290272568665,
+      "ci_low_points": -8.509200412247177,
+      "contrast_points": -4.889455782312925
+    }
+  },
+  "by_provider_points": {
+    "hubeau": {
+      "ci_high_points": -1.4710290272568665,
+      "ci_low_points": -8.509200412247177,
+      "contrast_points": -4.889455782312925,
+      "n_cases": 3404,
+      "n_networks": 14
+    },
+    "nve": {
+      "ci_high_points": -4.591379203676586,
+      "ci_low_points": -8.699288727627307,
+      "contrast_points": -6.141618497109826,
+      "n_cases": 10075,
+      "n_networks": 21
+    },
+    "smhi": {
+      "ci_high_points": -3.153504237465754,
+      "ci_low_points": -6.280553595852381,
+      "contrast_points": -4.34729365662503,
+      "n_cases": 14115,
+      "n_networks": 16
+    },
+    "uk_ea": {
+      "ci_high_points": 1.2903225806451615,
+      "ci_low_points": -7.968127490039841,
+      "contrast_points": -6.403940886699508,
+      "n_cases": 307,
+      "n_networks": 2
+    }
+  },
+  "ci_high_points": -4.093734468948134,
+  "ci_low_points": -6.686439856181544,
+  "contexts": [
+    "boreal_atlantic",
+    "boreal_nordic",
+    "temperate_oceanic",
+    "temperate_oceanic_continental"
+  ],
+  "contrast_points": -5.203912160915299,
+  "evidence_type": "sealed_multi_agency_transport_single_score",
+  "extended_panel_points": {
+    "caveat": "includes a provider that participated in development; primary panel excludes it",
+    "ci_high_points": -4.122643139631717,
+    "ci_low_points": -6.736823903725825,
+    "contrast_points": -5.203912160915299,
+    "n_cases": 27901
+  },
+  "freeze_certificate": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "limitations": [
+    "Provider-daily series with provider-specific QC; comparability documented per station, not instrument-audited",
+    "Provisional agency-native networks where the agency does not define basins",
+    "Post-USGS ordering disclosed; no threshold retuning after this score"
+  ],
+  "n_cases": 27901,
+  "n_networks": 53,
+  "n_providers": 4,
+  "n_stations": 245,
+  "ordering_disclosure": "Designed and sealed after the USGS confirmation score; a transport test, not a pristine first confirmation.",
+  "panel": "sealed_multi_agency_transport",
+  "post_score_metadata_correction": "The n_cases/n_networks fields inside by_provider_points were empty (0) in the scored verdict because the contrast helper does not return a count; they were filled from the stored transport_cases.parquet after the score. No contrast, interval, stratum or rule value was recomputed or altered.",
+  "predeclared_rule": {
+    "delta_points": -1.0,
+    "pooled_supported": true,
+    "providers_same_direction": 3,
+    "quality_checked_only_supported": true,
+    "requires": "delta <= -1.0 pp, 95% network-clustered CI upper bound < 0, >=2 providers same direction; pooled and quality-checked-only verdicts must agree (Amendment 2)",
+    "strata_disagree": false,
+    "transport_supported": true
+  },
+  "primary_panel": {
+    "ci_high_points": -3.304640766719575,
+    "ci_low_points": -6.531224999396276,
+    "contrast_points": -4.607779125081615,
+    "definition": "agencies absent from the v17/v18 development programme (Amendment 1/3)",
+    "n_cases": 17826,
+    "n_networks": 32
+  },
+  "providers": [
+    "hubeau",
+    "nve",
+    "smhi",
+    "uk_ea"
+  ],
+  "quality_checked_only_points": {
+    "ci_high_points": -4.5293944807767845,
+    "ci_low_points": -8.400807283706515,
+    "contrast_points": -6.150897368879596,
+    "n_cases": 10382
+  },
+  "retention": 0.7,
+  "secondary_panel": {
+    "ci_high_points": -4.591379203676586,
+    "ci_low_points": -8.699288727627307,
+    "contrast_points": -6.141618497109826,
+    "definition": "development provider, individually never-used stations (Amendment 3)",
+    "n_cases": 10075,
+    "n_networks": 21,
+    "providers": [
+      "nve"
+    ]
+  },
+  "status": "scored_once",
+  "tolerance_C": 0.5
+}

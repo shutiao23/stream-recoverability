@@ -1,0 +1,24 @@
+{
+  "development": {
+    "sensor_noise_c": 0.15,
+    "mean_abs_error_clean_c": 0.24157744533035794,
+    "mean_abs_error_noisy_c": 0.24176944931490021,
+    "length_rule_at_70_clean": 0.09254904713438389,
+    "length_rule_at_70_noisy": 0.0931456849050644,
+    "certificate_at_70_clean": 0.02934053978170077,
+    "certificate_at_70_noisy": 0.031095356754290527,
+    "contrast_clean_points": 6.320850735268311,
+    "contrast_noisy_points": 6.205032815077388
+  },
+  "reserved": {
+    "sensor_noise_c": 0.15,
+    "mean_abs_error_clean_c": 0.21873752327323404,
+    "mean_abs_error_noisy_c": 0.21866706312368175,
+    "length_rule_at_70_clean": 0.09598626881436494,
+    "length_rule_at_70_noisy": 0.09466596250330077,
+    "certificate_at_70_clean": 0.025349881172432004,
+    "certificate_at_70_noisy": 0.02799049379456034,
+    "contrast_clean_points": 7.063638764193294,
+    "contrast_noisy_points": 6.667546870874043
+  }
+}

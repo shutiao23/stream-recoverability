@@ -1,0 +1,27 @@
+{
+  "generated_by": "scripts/246_wrr_noise_recompute.py",
+  "generated_utc": "2026-10-12T09:56:10Z",
+  "git_head": "5acda75b47afc91ab2bc7b84b54fe323b1465a08",
+  "purpose": "Pre-fix bytes of the step-22 reference-series sensitivity, preserved before the F11 recompute so that the superseded numbers stay citable.",
+  "fix_commit": "a9a7ad99cf",
+  "files": [
+    {
+      "file": "noise_sensitivity.json",
+      "source": "results/v17_fitness/step22_robustness/noise_sensitivity.json",
+      "destination": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json",
+      "bytes": 914,
+      "sha256": "3673b396b41ccbf60bd1b1f0c13fcede7f024e2749998406248ed4128ac9a256",
+      "source_sha256": "3673b396b41ccbf60bd1b1f0c13fcede7f024e2749998406248ed4128ac9a256",
+      "byte_identical": true
+    },
+    {
+      "file": "REPORT.md",
+      "source": "results/v17_fitness/step22_robustness/REPORT.md",
+      "destination": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/REPORT.md",
+      "bytes": 3000,
+      "sha256": "e7f37a6ba93b90b256d23cdc905fe592b358c1234d209c14d1e073c3ce238147",
+      "source_sha256": "e7f37a6ba93b90b256d23cdc905fe592b358c1234d209c14d1e073c3ce238147",
+      "byte_identical": true
+    }
+  ]
+}

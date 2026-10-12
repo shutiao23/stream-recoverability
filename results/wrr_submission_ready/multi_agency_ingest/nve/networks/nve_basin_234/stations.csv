@@ -1,0 +1,6 @@
+network_id,network_name,station_id,provider,river_name,latitude,longitude,basin_number,regine_no,n_complete_years,complete_years,first_date,last_date,n_days,n_dropped_qc,accepted_quality_codes,measurement_statistic,quality_assurance,catchment_regulation_type,first_year_regulation,in_coastal_catchment,network_in_v17_basin
+nve_basin_234,,234.11.0,nve_hydapi,,69.88697,26.41737,234,,4,2002;2003;2004;2005,1997-10-24,2006-09-30,2399,865,2,daily_mean_1440min_mean,quality_checked,,,False,True
+nve_basin_234,,234.12.0,nve_hydapi,,69.94462,26.48579,234,,4,1999;2000;2006;2007,1997-10-22,2008-09-04,2718,1253,2;3,daily_mean_1440min_mean,quality_checked,,,False,True
+nve_basin_234,Tana,234.19.0,nve_hydapi,Tana,70.07205,28.05574,234,234.B6,12,2000;2001;2002;2003;2004;2006;2008;2009;2010;2011;2012;2015,1994-06-17,2023-08-03,8483,4437,2;3,daily_mean_1440min_mean,quality_checked,,,False,True
+nve_basin_234,Karasjåkka/Tana,234.21.0,nve_hydapi,Karasjåkka,69.40799,25.14782,234,234.GC20,10,1999;2000;2001;2002;2003;2008;2009;2010;2015;2020,1995-10-13,2021-09-20,7427,3593,2;3,daily_mean_1440min_mean,quality_checked,,,False,True
+nve_basin_234,Tana,234.33.0,nve_hydapi,Tana,70.07063,27.78257,234,234.C0,5,1999;2002;2005;2006;2007,1997-10-24,2010-10-08,3869,876,2;3,daily_mean_1440min_mean,quality_checked,,,False,True

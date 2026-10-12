@@ -1,0 +1,340 @@
+{
+ "provider": "uk_ea",
+ "context": "temperate_oceanic",
+ "protocol": "results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md",
+ "generated_utc": "2026-10-12T09:55:39Z",
+ "script": "scripts/244_multi_agency_uk_ea_ingest.py",
+ "command": "PYTHONPATH=src python3 scripts/244_multi_agency_uk_ea_ingest.py",
+ "api": {
+  "measures_url": "https://environment.data.gov.uk/hydrology/id/measures.json",
+  "readings_url": "https://environment.data.gov.uk/hydrology/data/readings.json",
+  "station_url_template": "https://environment.data.gov.uk/hydrology/id/stations/{station}.json",
+  "measure_page_limit": 5000,
+  "readings_page_limit": 10000,
+  "readings_window": [
+   "1990-01-01",
+   "2024-12-31"
+  ],
+  "provider_daily_statistic": "measure id suffix '-temp-m-86400-C-qualified' = EA 'Daily mean Temperature (°C) time series', period 86400 s, unitName °C, observedProperty Temperature",
+  "day_definition": "one value per calendar date; reading payload carries date (YYYY-MM-DD) and dateTime (T00:00:00, no offset) = the provider's daily mean for that calendar day in UK local time as published",
+  "rejected_daily_statistics": [
+   "provider daily min (-temp-min-86400)",
+   "provider daily max (-temp-max-86400)",
+   "15-minute instantaneous (-temp-i-900)",
+   "event-monitor sub-daily spot series (E-codes, '-temp-i-subdaily-C')"
+  ]
+ },
+ "rules": {
+  "min_stations_per_network": 2,
+  "min_complete_years_per_station": 4,
+  "complete_year_definition": ">=365 QC-passing days (366 in leap years)",
+  "spatial_cap_km": 50.0,
+  "spatial_sensitivity_cap_km": 100.0,
+  "plausible_range_c": [
+   -5.0,
+   40.0
+  ],
+  "rejected_quality_codes": [
+   "bad",
+   "deleted",
+   "invalid",
+   "rejected"
+  ],
+  "v17_roster_exclusion": "results/v17_fitness/step1_panel/station_roster.csv"
+ },
+ "requests": [
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F001fc3f6-5980-42be-b553-6a09c6b69b69-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/001fc3f6-5980-42be-b553-6a09c6b69b69_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:48Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F01e18338-4de1-4617-b1b0-a09c53464961-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/01e18338-4de1-4617-b1b0-a09c53464961_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:48Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F370cba4c-c28e-4063-aaea-a99575c408b6-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/370cba4c-c28e-4063-aaea-a99575c408b6_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:48Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F8b07239d-fb98-4f27-b182-def7799b6c34_2044-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/8b07239d-fb98-4f27-b182-def7799b6c34_2044_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:49Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F8b07239d-fb98-4f27-b182-def7799b6c34_2052-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/8b07239d-fb98-4f27-b182-def7799b6c34_2052_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:49Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2Fb401b1e3-c946-4a3e-bca3-3427e64eebba-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/b401b1e3-c946-4a3e-bca3-3427e64eebba_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:49Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2Fc36a8cef-c677-4f3b-88ff-64dfcccd89b1-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/c36a8cef-c677-4f3b-88ff-64dfcccd89b1_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:50Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2Ffe43947f-a0e9-49fe-9a11-5ef97f102fbd-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/fe43947f-a0e9-49fe-9a11-5ef97f102fbd_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:50Z",
+   "n_items": 0
+  },
+  {
+   "url": "https://environment.data.gov.uk/hydrology/data/readings.json?measure=http%3A%2F%2Fenvironment.data.gov.uk%2Fhydrology%2Fid%2Fmeasures%2F553c2147-bb82-4d86-8f0a-00b892d3c314-temp-m-86400-C-qualified&mineq-date=1990-01-01&max-date=2024-12-31&_limit=10000&_offset=0",
+   "cache_path": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache/readings/553c2147-bb82-4d86-8f0a-00b892d3c314_daily.csv",
+   "retrieved_utc": "2026-10-12T09:55:51Z",
+   "n_items": 0
+  }
+ ],
+ "caveats": [
+  "Provider daily statistic only, no re-aggregation: the accepted series are the EA 'Daily mean Temperature (°C)' measures (period 86400 s). The daily min/max measures and the 15-minute instantaneous series are not used to build panels; a derived daily mean from the 15-minute series is written to derived_subdaily_vs_provider_daily.csv as QC evidence only, because protocol rule 3 requires the provider's own daily statistic.",
+  "Coverage is small and this is the central caveat: of 2012 temperature measures in the live EA catalogue, only 16 are provider daily means, covering 16 hydrometric stations. Temperature measure kinds: event_monitor_subdaily_900s=1926, provider_daily_min_or_max_86400s=32, other_named_monitor_subdaily_900s=22, hydrometric_guid_15min_instantaneous_900s=16, provider_daily_mean_86400s=16. Everything else in the temperature catalogue is sub-daily (900 s): E-code event-monitor spot series and other named monitors, which carry no daily statistic, plus the same 16 stations' daily min/max statistics.",
+  "Day boundary: the EA daily mean is published per calendar date (dateTime T00:00:00, no offset) in UK local time. The 15-minute series used in the derived QC carries local clock timestamps; no UTC conversion was applied by this ingest. The frozen endpoint (hottest-30 mean) is a summer statistic, so a one-hour DST boundary difference cannot reorder the hottest 30 days, but downstream code must not reinterpret the dates as UTC.",
+  "Missing days are blank in daily_wide_temperature.csv. The EA also publishes 'completeness', 'valid', 'invalid' and 'missing' fields per daily reading; these are cached in raw_cache/readings/<station>_daily.csv and summarised in ingest.json so a reviewer can apply a stricter completeness rule than the one used here.",
+  "Networks are a documented spatial proxy (complete-linkage on lat/lon with a 50 km maximum pairwise geodesic cap, >= 2 stations), not an EA-native catchment label: the hydrology API exposes no catchment grouping for these stations. The 100 km sensitivity grouping is written to spatial_clusters_100km_sensitivity.csv but is never emitted as panels, so no station is double counted across caps.",
+  "Complete years use the sealed definition (>= 365 days, 366 in leap years). The EA daily archive currently ends 2024-12-30, so calendar year 2024 is incomplete for every station and is excluded, which costs one otherwise complete year per station.",
+  "Automatic QC excludes only non-numeric values, values outside -5..40 degC and readings whose EA quality code is one of ['bad', 'deleted', 'invalid', 'rejected']; every accepted station records its own accepted_quality_codes in stations.csv.",
+  "No frozen-screen performance was computed on this panel: ingest + QC stops at structural eligibility, as the protocol requires.",
+  "Frozen-sensor evidence at station a473e348-c00a-46c6-a93b-921f9747f96f: 339 accepted days are exactly 0.0 degC and the longest identical run is 295 days (2017-06-06 .. 2018-03-27). The values were NOT deleted (the protocol asks for the provider's daily statistic, and a silent deletion would be a substitution); the station is flagged in stations.csv (frozen_sensor_suspected) so the transport analysis can exclude it explicitly.",
+  "Frozen-sensor evidence at station f8ae6b4c-56c4-45a1-b83f-4697843b937f: 13 accepted days are exactly 0.0 degC and the longest identical run is 13 days (2019-07-27 .. 2019-08-08). The values were NOT deleted (the protocol asks for the provider's daily statistic, and a silent deletion would be a substitution); the station is flagged in stations.csv (frozen_sensor_suspected) so the transport analysis can exclude it explicitly.",
+  "Frozen-run sensitivity for a473e348-c00a-46c6-a93b-921f9747f96f: dropping the 295-day run (2017-06-06 .. 2018-03-27) would take complete years from 7 to 6 (lost: 2017); see results/wrr_submission_ready/multi_agency_ingest/uk_ea/frozen_sensor_sensitivity.csv",
+  "Frozen-run sensitivity for f8ae6b4c-56c4-45a1-b83f-4697843b937f: dropping the 13-day run (2019-07-27 .. 2019-08-08) would take complete years from 6 to 5 (lost: 2019); see results/wrr_submission_ready/multi_agency_ingest/uk_ea/frozen_sensor_sensitivity.csv",
+  "Under-delivery: only 2 network(s) survive the >= 2 stations with >= 4 complete years rule, far below the 30-network panel target. This is reported as under-delivery, not repaired by loosening the rule."
+ ],
+ "failures": [],
+ "measure_catalogue": {
+  "n_measures_total": 32443,
+  "n_temperature_measures": 2012,
+  "temperature_measure_kinds": {
+   "event_monitor_subdaily_900s": 1926,
+   "provider_daily_min_or_max_86400s": 32,
+   "other_named_monitor_subdaily_900s": 22,
+   "hydrometric_guid_15min_instantaneous_900s": 16,
+   "provider_daily_mean_86400s": 16
+  },
+  "subdaily_station_id_shapes": {
+   "event_monitor_code": 1926,
+   "other_named_monitor": 22,
+   "hydrometric_guid": 16
+  },
+  "other_named_monitor_examples": [
+   "ANGEL1",
+   "BARIERA",
+   "BREPON",
+   "CADOG2",
+   "ERITH1",
+   "GPR177A",
+   "HAMME2",
+   "KEWPON",
+   "M01015A",
+   "M04018A",
+   "M06018A",
+   "M18900",
+   "MCRO02A",
+   "ME1011",
+   "ME1011A",
+   "MIN009",
+   "PUTNEY",
+   "SALMON",
+   "SHLFD2",
+   "SPRING",
+   "TOTLK1",
+   "TOTLK2"
+  ]
+ },
+ "daily_mean_measure_selection": {
+  "n_daily_mean_temperature_measures": 16,
+  "n_distinct_stations": 16,
+  "n_hydrometric_station_ids": 16,
+  "selection": "parameter=TEMPERATURE, period=86400, statistic token 'm', unit °C"
+ },
+ "existing_catalog_check": {
+  "catalog": "results/framework/public_catalog/uk_ea_temperature_stations.csv",
+  "n_catalog_stations": 1964,
+  "n_catalog_stations_with_provider_daily_mean_measure": 16,
+  "note": "the existing catalog is not trusted as evidence: liveness and the daily-statistic claim were re-verified against the live measures collection and per-station documents"
+ },
+ "river_only_filter": {
+  "policy": "station is dropped when its label, riverName or EA type list marks coastal, estuary, groundwater, lake, reservoir",
+  "n_stations_with_daily_mean_measure": 16,
+  "dropped_counts": {},
+  "dropped_fraction": 0.0,
+  "kept": 16,
+  "flagged_canal_or_navigation_but_kept": 0
+ },
+ "observation_errors": [],
+ "derived_subdaily_qc": {
+  "stations_tested": 8,
+  "stations_with_overlap": 2,
+  "median_mean_abs_difference_c": 0.12898493150684937,
+  "note": "uk_ea_daily (module) derived daily means from the 15-minute series, compared with the provider's own daily mean for the same calendar days. Derived values are NOT emitted as transport networks (protocol rule 3)."
+ },
+ "qc_counts": {
+  "quality_code_counts": {
+   "Unchecked": 23918,
+   "Missing": 904,
+   "Suspect": 157,
+   "Good": 4
+  },
+  "completeness_code_counts": {
+   "Complete": 23955,
+   "Incomplete": 1028
+  },
+  "rows_dropped_total": 904,
+  "drop_reason_totals": {
+   "provider_marked_missing_day": 904
+  }
+ },
+ "v17_roster_overlap": {
+  "n_overlap": 0,
+  "overlap_ids": []
+ },
+ "frozen_sensor_census": {
+  "policy": "runs of identical consecutive accepted daily values are reported, not deleted: the provider value is emitted and stations.csv carries longest_identical_run_days / frozen_sensor_suspected so a downstream step can exclude the station explicitly",
+  "stations_flagged": [
+   "a473e348-c00a-46c6-a93b-921f9747f96f",
+   "f8ae6b4c-56c4-45a1-b83f-4697843b937f"
+  ],
+  "detail": [
+   {
+    "station_id": "a473e348-c00a-46c6-a93b-921f9747f96f",
+    "n_days_value_exactly_0c": 339,
+    "longest_identical_run_days": 295,
+    "longest_identical_run_start": "2017-06-06",
+    "longest_identical_run_end": "2018-03-27",
+    "frozen_sensor_suspected": true
+   },
+   {
+    "station_id": "bbaa85be-3a06-4d2b-b5ad-7f1f55b6554d",
+    "n_days_value_exactly_0c": 0,
+    "longest_identical_run_days": 13,
+    "longest_identical_run_start": "2015-06-26",
+    "longest_identical_run_end": "2015-07-08",
+    "frozen_sensor_suspected": false
+   },
+   {
+    "station_id": "f8ae6b4c-56c4-45a1-b83f-4697843b937f",
+    "n_days_value_exactly_0c": 13,
+    "longest_identical_run_days": 13,
+    "longest_identical_run_start": "2019-07-27",
+    "longest_identical_run_end": "2019-08-08",
+    "frozen_sensor_suspected": true
+   }
+  ],
+  "sensitivity_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/frozen_sensor_sensitivity.csv",
+  "sensitivity": [
+   {
+    "station_id": "a473e348-c00a-46c6-a93b-921f9747f96f",
+    "run_start": "2017-06-06",
+    "run_end": "2018-03-27",
+    "run_days": 295,
+    "n_complete_years_kept_values": 7,
+    "n_complete_years_minus_frozen_run": 6,
+    "complete_years_lost": "2017"
+   },
+   {
+    "station_id": "f8ae6b4c-56c4-45a1-b83f-4697843b937f",
+    "run_start": "2019-07-27",
+    "run_end": "2019-08-08",
+    "run_days": 13,
+    "n_complete_years_kept_values": 6,
+    "n_complete_years_minus_frozen_run": 5,
+    "complete_years_lost": "2019"
+   }
+  ],
+  "networks_kept_after_frozen_run_filter": [
+   "uk_ea_s50_001",
+   "uk_ea_s50_002"
+  ],
+  "n_networks_kept_after_frozen_run_filter": 2
+ },
+ "spatial_clustering": {
+  "cap_km": 50.0,
+  "sensitivity_cap_km": 100.0,
+  "n_stations_clustered": 7,
+  "n_clusters_50km": 2,
+  "n_clusters_100km": 2,
+  "grouping": "complete_linkage_max_pairwise_geodesic (uk_ea_spatial.cluster_uk_ea_spatial)",
+  "isolated_station_100km_cluster_sizes": {
+   "d1df8d19-d1f7-4e83-8aa6-75820613be72": 5
+  },
+  "isolated_station_ids": [
+   "d1df8d19-d1f7-4e83-8aa6-75820613be72"
+  ]
+ },
+ "networks": [
+  {
+   "network_id": "uk_ea_s50_001",
+   "provider": "uk_ea",
+   "context": "temperate_oceanic",
+   "n_stations": 4,
+   "station_ids": "6ff82c44-bbf2-4593-8218-76569f550b47;bfc68b5e-abb1-4d68-97cb-f066350d2e01;da031053-d267-49da-857a-b8e28a7205eb;f8ae6b4c-56c4-45a1-b83f-4697843b937f",
+   "n_stations_ge4_years": 2,
+   "n_complete_station_years": 13,
+   "first_date": "2016-10-06",
+   "last_date": "2024-12-30",
+   "n_days": 3008,
+   "max_pairwise_km": 18.23557511471684,
+   "daily_wide_temperature_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_001/daily_wide_temperature.csv",
+   "daily_wide_temperature_sha256": "15bfe5746b3ce396df2c8980a173e1076aee5bfb163a09079178c04aadbed4f0",
+   "stations_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_001/stations.csv",
+   "measurement_statistic": "provider_daily_mean_86400s_degc"
+  },
+  {
+   "network_id": "uk_ea_s50_002",
+   "provider": "uk_ea",
+   "context": "temperate_oceanic",
+   "n_stations": 2,
+   "station_ids": "a473e348-c00a-46c6-a93b-921f9747f96f;bbaa85be-3a06-4d2b-b5ad-7f1f55b6554d",
+   "n_stations_ge4_years": 2,
+   "n_complete_station_years": 20,
+   "first_date": "2003-09-22",
+   "last_date": "2024-12-30",
+   "n_days": 7755,
+   "max_pairwise_km": 32.69321342884238,
+   "daily_wide_temperature_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_002/daily_wide_temperature.csv",
+   "daily_wide_temperature_sha256": "4d6de5ec25e63212f69f23bb26466e1f9fe913065b41d0e9a643bf61338fed07",
+   "stations_csv": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks/uk_ea_s50_002/stations.csv",
+   "measurement_statistic": "provider_daily_mean_86400s_degc"
+  }
+ ],
+ "final_counts": {
+  "stations_with_provider_daily_mean_series_downloaded": 7,
+  "stations_with_qc_passing_days": 6,
+  "stations_ge4_complete_years": 4,
+  "networks_kept": 2,
+  "complete_station_years_in_kept_networks": 37,
+  "stations_with_data_but_no_network": [
+   "d1df8d19-d1f7-4e83-8aa6-75820613be72"
+  ]
+ },
+ "panel_construction": {
+  "panel_index": "each network panel is trimmed to the rows where at least one member station has a QC-passing value, so first_date/last_date/n_days describe the network, not the global cross-station index",
+  "provider_missing_rows": "the EA daily readings include explicit no-data rows (provider_quality='Missing', value null, completeness='Incomplete'); they are dropped as 'provider_marked_missing_day' and counted per station in qc_ledger.csv"
+ },
+ "artifacts": {
+  "readme": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/README.md",
+  "readme_sha256": "73c279f9cf0add5ef662b9ec215f09862fff823fb19c9e75554ffe48e8353b02",
+  "networks_manifest": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv",
+  "stations": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/stations.csv",
+  "qc_ledger": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/qc_ledger.csv",
+  "raw_cache": "results/wrr_submission_ready/multi_agency_ingest/uk_ea/raw_cache"
+ },
+ "inputs_sha256": {
+  "results/v17_fitness/step1_panel/station_roster.csv": "c96e8838b3cc06934c25208fc71a5b37d49b0d96671f2e679694419fb92aedc8",
+  "results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md": "79784834cbe91468d7d397dd31781cae9a34f17a3766137ad47b4fc04a57428d",
+  "scripts/244_multi_agency_uk_ea_ingest.py": "f380472d40f24c7936ae79e3fe2ddc98d04a033777464046355192bc99a5a8b8"
+ }
+}

@@ -1,0 +1,31 @@
+{
+  "detail": [
+    {
+      "n_values_blanked": 3,
+      "network_id": "uk_ea_s50_001",
+      "provider": "uk_ea",
+      "rule": "core_warm_season_run_ge3_at_0.0C",
+      "station_id": "6ff82c44-bbf2-4593-8218-76569f550b47"
+    },
+    {
+      "n_values_blanked": 13,
+      "network_id": "uk_ea_s50_001",
+      "provider": "uk_ea",
+      "rule": "core_warm_season_run_ge3_at_0.0C",
+      "station_id": "f8ae6b4c-56c4-45a1-b83f-4697843b937f"
+    },
+    {
+      "n_values_blanked": 124,
+      "network_id": "uk_ea_s50_002",
+      "provider": "uk_ea",
+      "rule": "core_warm_season_run_ge3_at_0.0C",
+      "station_id": "a473e348-c00a-46c6-a93b-921f9747f96f"
+    }
+  ],
+  "n_stations_affected": 3,
+  "n_values_blanked": 140,
+  "providers": [
+    "uk_ea"
+  ],
+  "rule": "core-warm-season (Jun-Sep) runs of >=3 consecutive days at exactly 0.0 C are blanked as stuck-sensor values"
+}

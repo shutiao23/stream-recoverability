@@ -1,0 +1,400 @@
+{
+  "provider": "saih_ebro",
+  "country": "Spain",
+  "context": "Confederacion Hidrografica del Ebro (CHE) -- SAIH Ebro automatic hydrologic information system",
+  "generated_utc": "2026-10-12T10:47:25Z",
+  "script": "scripts/260_multi_agency_be_es_ingest.py",
+  "command": "python3 scripts/260_multi_agency_be_es_ingest.py --provider es",
+  "api": {
+    "base": "https://www.saihebro.com/api/datos-historicos",
+    "requests_used": [
+      "getTiposSenal",
+      "getEstaciones",
+      "getSenales",
+      "getPeriodo",
+      "obtenerDatosHistoricos"
+    ]
+  },
+  "catalogue": {
+    "signal_types_url": "https://www.saihebro.com/api/datos-historicos/getTiposSenal?tipoConsolidado=diario",
+    "signal_types": {
+      "NRIO": "NRIO - Nivel aforo en río",
+      "NCAL": "NCAL - Nivel canal",
+      "NPIEZ": "NPIEZ - Nivel Piezométrico del sondeo",
+      "NEMBA": "NEMBA - Nivel Embalse",
+      "CPIEZ": "CPIEZ - Cota lámina de agua en piezometro de sondeo",
+      "NESCP": "NESCP - nivel escala peces",
+      "VEMBA": "VEMBA - Volumen embalse",
+      "QRIO": "QRIO - Caudal aforo en Río",
+      "QCAL": "QCAL - Caudal Canal/Embalse",
+      "QCAU": "QCAU - Caudal por caudalímetro",
+      "QCENT": "QCENT - Caudal por Central Hidroeléctrica",
+      "PQUIN": "PQUIN - Precipitación quinceminutal",
+      "PACUM": "PACUM - Precipitación acumulada diaria (de 0 a 24 horas)",
+      "PA24H": "PA24H - Precipitación últimas 24 horas",
+      "PCINC": "PCINC - Precipitación cincominutal",
+      "TEMPE": "TEMPE - Temperatura ambiente",
+      "SMVVI": "SMVVI - Medida velocidad de viento",
+      "SMDVI": "SMDVI - Medida dirección de viento",
+      "VMVIE": "VMVIE - Velocidad de racha máxima viento",
+      "SMPRE": "SMPRE - Medida presión atmosférica",
+      "SMHUM": "SMHUM - Medida humedad relativa",
+      "SMRAD": "SMRAD - Medida radiación solar",
+      "INSOL": "INSOL - Insolación acumulada en periodo de quince minutos",
+      "VOLTI": "VOLTI - Voltímetro",
+      "TEMPA": "TEMPA - Temperatura del Agua",
+      "NIEVE": "NIEVE - Altura de nieve medida por telenivometro",
+      "NAGUA": "NAGUA - Equivalente en agua medido por telenivometro"
+    },
+    "water_temperature_signal_present": true,
+    "stations_url": "https://www.saihebro.com/api/datos-historicos/getEstaciones?tipoConsolidado=diario&tiposSenal=TEMPA",
+    "stations_with_daily_water_temperature": [
+      {
+        "id": "A017",
+        "parent": "#",
+        "text": "A017 - Río Cinca en Fraga"
+      },
+      {
+        "id": "A027",
+        "parent": "#",
+        "text": "A027 - Río Ebro en Tortosa"
+      },
+      {
+        "id": "A263",
+        "parent": "#",
+        "text": "A263 - Río Ebro en Gelsa"
+      },
+      {
+        "id": "E104",
+        "parent": "#",
+        "text": "E104 - Embalse de Nagore"
+      }
+    ],
+    "station_classification": [
+      {
+        "station_id": "A017",
+        "station_label": "Río Cinca en Fraga",
+        "tree_id": "A017",
+        "watercourse_class": "river",
+        "river_name": "Cinca",
+        "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A017",
+        "signals": [
+          {
+            "id": 58932,
+            "parent": "#",
+            "text": "A017 -> TEMPERATURA  AGUA CINCA EN FRAGA",
+            "data": {
+              "LS_TIPO_CONS": 1,
+              "LS_TIPO_SENAL": "TEMPA"
+            }
+          }
+        ],
+        "signal_id": "58932",
+        "signal_text": "A017 -> TEMPERATURA  AGUA CINCA EN FRAGA",
+        "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=58932",
+        "period": [
+          {
+            "MIN_FECHA": "2012-08-09 00:00:00",
+            "MAX_FECHA": "2026-10-03 00:00:00"
+          }
+        ],
+        "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=58932&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+        "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A017_58932_diario.zip",
+        "raw_sha256": "70bbf76a8b50c76648f63cf02e0ba071854ef2559b9224a3d1da9c33ca3dacab",
+        "raw_bytes": 285741,
+        "served_from_cache": true,
+        "csv_entry": "DatosHistoricos_20261012_A017M04TEMPA.csv",
+        "csv_columns": [
+          "FECHA_GRUPO",
+          "MINIMO (oC)",
+          "MEDIA (oC)",
+          "MAXIMO (oC)",
+          "FECHA_MINIMO",
+          "FECHA_MAXIMO"
+        ],
+        "csv_rows": 4890
+      },
+      {
+        "station_id": "A027",
+        "station_label": "Río Ebro en Tortosa",
+        "tree_id": "A027",
+        "watercourse_class": "river",
+        "river_name": "Ebro",
+        "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A027",
+        "signals": [
+          {
+            "id": 27254,
+            "parent": "#",
+            "text": "A027 -> TEMPERATURA AGUA EBRO EN TORTOSA",
+            "data": {
+              "LS_TIPO_CONS": 1,
+              "LS_TIPO_SENAL": "TEMPA"
+            }
+          }
+        ],
+        "signal_id": "27254",
+        "signal_text": "A027 -> TEMPERATURA AGUA EBRO EN TORTOSA",
+        "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=27254",
+        "period": [
+          {
+            "MIN_FECHA": "2012-08-29 00:00:00",
+            "MAX_FECHA": "2026-10-12 00:00:00"
+          }
+        ],
+        "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=27254&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+        "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A027_27254_diario.zip",
+        "raw_sha256": "87693e9f34f0a169a1e5bb652ea5a6625c1463bd1810593e947b12287eb48996",
+        "raw_bytes": 302723,
+        "served_from_cache": true,
+        "csv_entry": "DatosHistoricos_20261012_A027C04TEMPA.csv",
+        "csv_columns": [
+          "FECHA_GRUPO",
+          "MINIMO (oC)",
+          "MEDIA (oC)",
+          "MAXIMO (oC)",
+          "FECHA_MINIMO",
+          "FECHA_MAXIMO"
+        ],
+        "csv_rows": 5136
+      },
+      {
+        "station_id": "A263",
+        "station_label": "Río Ebro en Gelsa",
+        "tree_id": "A263",
+        "watercourse_class": "river",
+        "river_name": "Ebro",
+        "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A263",
+        "signals": [
+          {
+            "id": 27440,
+            "parent": "#",
+            "text": "A263 -> TEMPERATURA AGUA EBRO EN GELSA",
+            "data": {
+              "LS_TIPO_CONS": 1,
+              "LS_TIPO_SENAL": "TEMPA"
+            }
+          }
+        ],
+        "signal_id": "27440",
+        "signal_text": "A263 -> TEMPERATURA AGUA EBRO EN GELSA",
+        "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=27440",
+        "period": [
+          {
+            "MIN_FECHA": "2012-08-09 00:00:00",
+            "MAX_FECHA": "2025-12-23 00:00:00"
+          }
+        ],
+        "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=27440&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+        "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A263_27440_diario.zip",
+        "raw_sha256": "0e3f6f337445af796973534307ca261e0aeca7c63c8cdcf71b8dc3e26fed03d4",
+        "raw_bytes": 242300,
+        "served_from_cache": true,
+        "csv_entry": "DatosHistoricos_20261012_A263H07TEMPA.csv",
+        "csv_columns": [
+          "FECHA_GRUPO",
+          "MINIMO (oC)",
+          "MEDIA (oC)",
+          "MAXIMO (oC)",
+          "FECHA_MINIMO",
+          "FECHA_MAXIMO"
+        ],
+        "csv_rows": 4850
+      },
+      {
+        "station_id": "E104",
+        "station_label": "Embalse de Nagore",
+        "tree_id": "E104",
+        "watercourse_class": "reservoir",
+        "river_name": "",
+        "skipped": "not a river station (protocol rule 2)"
+      }
+    ]
+  },
+  "series": [
+    {
+      "station_id": "A017",
+      "station_label": "Río Cinca en Fraga",
+      "tree_id": "A017",
+      "watercourse_class": "river",
+      "river_name": "Cinca",
+      "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A017",
+      "signals": [
+        {
+          "id": 58932,
+          "parent": "#",
+          "text": "A017 -> TEMPERATURA  AGUA CINCA EN FRAGA",
+          "data": {
+            "LS_TIPO_CONS": 1,
+            "LS_TIPO_SENAL": "TEMPA"
+          }
+        }
+      ],
+      "signal_id": "58932",
+      "signal_text": "A017 -> TEMPERATURA  AGUA CINCA EN FRAGA",
+      "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=58932",
+      "period": [
+        {
+          "MIN_FECHA": "2012-08-09 00:00:00",
+          "MAX_FECHA": "2026-10-03 00:00:00"
+        }
+      ],
+      "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=58932&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+      "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A017_58932_diario.zip",
+      "raw_sha256": "70bbf76a8b50c76648f63cf02e0ba071854ef2559b9224a3d1da9c33ca3dacab",
+      "raw_bytes": 285741,
+      "served_from_cache": true,
+      "csv_entry": "DatosHistoricos_20261012_A017M04TEMPA.csv",
+      "csv_columns": [
+        "FECHA_GRUPO",
+        "MINIMO (oC)",
+        "MEDIA (oC)",
+        "MAXIMO (oC)",
+        "FECHA_MINIMO",
+        "FECHA_MAXIMO"
+      ],
+      "csv_rows": 4890
+    },
+    {
+      "station_id": "A027",
+      "station_label": "Río Ebro en Tortosa",
+      "tree_id": "A027",
+      "watercourse_class": "river",
+      "river_name": "Ebro",
+      "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A027",
+      "signals": [
+        {
+          "id": 27254,
+          "parent": "#",
+          "text": "A027 -> TEMPERATURA AGUA EBRO EN TORTOSA",
+          "data": {
+            "LS_TIPO_CONS": 1,
+            "LS_TIPO_SENAL": "TEMPA"
+          }
+        }
+      ],
+      "signal_id": "27254",
+      "signal_text": "A027 -> TEMPERATURA AGUA EBRO EN TORTOSA",
+      "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=27254",
+      "period": [
+        {
+          "MIN_FECHA": "2012-08-29 00:00:00",
+          "MAX_FECHA": "2026-10-12 00:00:00"
+        }
+      ],
+      "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=27254&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+      "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A027_27254_diario.zip",
+      "raw_sha256": "87693e9f34f0a169a1e5bb652ea5a6625c1463bd1810593e947b12287eb48996",
+      "raw_bytes": 302723,
+      "served_from_cache": true,
+      "csv_entry": "DatosHistoricos_20261012_A027C04TEMPA.csv",
+      "csv_columns": [
+        "FECHA_GRUPO",
+        "MINIMO (oC)",
+        "MEDIA (oC)",
+        "MAXIMO (oC)",
+        "FECHA_MINIMO",
+        "FECHA_MAXIMO"
+      ],
+      "csv_rows": 5136
+    },
+    {
+      "station_id": "A263",
+      "station_label": "Río Ebro en Gelsa",
+      "tree_id": "A263",
+      "watercourse_class": "river",
+      "river_name": "Ebro",
+      "signals_url": "https://www.saihebro.com/api/datos-historicos/getSenales?tipoConsolidado=diario&tiposSenal=TEMPA&estaciones=A263",
+      "signals": [
+        {
+          "id": 27440,
+          "parent": "#",
+          "text": "A263 -> TEMPERATURA AGUA EBRO EN GELSA",
+          "data": {
+            "LS_TIPO_CONS": 1,
+            "LS_TIPO_SENAL": "TEMPA"
+          }
+        }
+      ],
+      "signal_id": "27440",
+      "signal_text": "A263 -> TEMPERATURA AGUA EBRO EN GELSA",
+      "period_url": "https://www.saihebro.com/api/datos-historicos/getPeriodo?tipoConsolidado=diario&senales=27440",
+      "period": [
+        {
+          "MIN_FECHA": "2012-08-09 00:00:00",
+          "MAX_FECHA": "2025-12-23 00:00:00"
+        }
+      ],
+      "download_url": "https://www.saihebro.com/api/datos-historicos/obtenerDatosHistoricos?tipoConsolidado=diario&senalesSeleccionadas=27440&fechaIni=01%2F01%2F2000+00%3A00&fechaFin=12%2F10%2F2026+00%3A00&formato=csv",
+      "raw_zip": "results/wrr_submission_ready/multi_agency_ingest/roea_es/raw_cache/daily/A263_27440_diario.zip",
+      "raw_sha256": "0e3f6f337445af796973534307ca261e0aeca7c63c8cdcf71b8dc3e26fed03d4",
+      "raw_bytes": 242300,
+      "served_from_cache": true,
+      "csv_entry": "DatosHistoricos_20261012_A263H07TEMPA.csv",
+      "csv_columns": [
+        "FECHA_GRUPO",
+        "MINIMO (oC)",
+        "MEDIA (oC)",
+        "MAXIMO (oC)",
+        "FECHA_MINIMO",
+        "FECHA_MAXIMO"
+      ],
+      "csv_rows": 4850
+    },
+    {
+      "station_id": "E104",
+      "station_label": "Embalse de Nagore",
+      "tree_id": "E104",
+      "watercourse_class": "reservoir",
+      "river_name": "",
+      "skipped": "not a river station (protocol rule 2)"
+    }
+  ],
+  "licence": {
+    "legal_notice_url": "https://www.chebro.es/web/guest/aviso-legal",
+    "statement_verbatim": "Aviso legal de la Confederacion Hidrografica del Ebro. The notice cites the Ley 37/2007 sobre reutilizacion de la informacion del sector publico and its Reglamento (RD 1495/2011) for the reuse of the information published on the portal.",
+    "access_note": "the human-facing download page https://www.saihebro.com/datos/historicos ('Datos historicos') asks for a free user account; the underlying api/datos-historicos endpoints answered HTTP 200 without credentials at retrieval time, and that is what this ingest used"
+  },
+  "measurement_statistic": "provider daily mean, degrees C: consolidated daily CSV column 'MEDIA (oC)' for 'FECHA_GRUPO' (calendar day); the same file also carries 'MINIMO (oC)' / 'MAXIMO (oC)' with their intra-day timestamps",
+  "quality_assurance": "provider_published_unqualified",
+  "quality_assurance_note": "the ingested series come from the 'diario' (consolidated daily) endpoint of the provider's 'Datos historicos' API, not from the real-time feed, but no fetched page states that these consolidated values are checked/approved. The provider's own notice (https://www.saihebro.com/info/datos-provisionales-ebro) says real-time data are 'de naturaleza provisional hasta que sean revisados, depurados y validados por el Servicio de Hidrologia'; the human-facing 'Datos historicos' page (https://www.saihebro.com/datos/historicos) asks for a (free) user account, while the API endpoint answered without credentials at retrieval time.",
+  "qc": {
+    "rule": "daily mean present; duplicate (station, calendar day) rows dropped keeping the last downloaded row; value within [-5.0, 45.0] degC",
+    "rows_downloaded": 14876,
+    "dropped_blank_daily_mean": 1458,
+    "dropped_duplicate_date": 0,
+    "dropped_out_of_range": 0,
+    "rows_kept": 13418,
+    "min_max_within_day_share": 0.9999254732448949
+  },
+  "stations_in_panel": 2,
+  "networks": [
+    {
+      "network_id": "saih_ebro_ebro_basin",
+      "grouping_rule": "AGENCY BASIN grouping (whole SAIH Ebro basin), NOT a single river watercourse: the provider is a basin authority and its stations are spread over different rivers",
+      "provider": "saih_ebro",
+      "river_name": "Ebro basin (mixed: Rio Ebro, Rio Cinca)",
+      "n_stations": 2,
+      "station_ids": "A017;A027",
+      "n_complete_years_total": 18,
+      "first_date": "2012-08-09",
+      "last_date": "2026-10-12",
+      "n_days": 5178,
+      "caveat": "stations lie on different rivers (Ebro at Tortosa, Cinca at Fraga) hundreds of km apart; emitted only as a flagged fallback for the coordinator, not as a river network"
+    }
+  ],
+  "final_counts": {
+    "river_stations_with_daily_water_temperature": 3,
+    "river_stations_ge4_complete_years": 2,
+    "networks_emitted": 1,
+    "complete_station_years_in_panel": 18
+  },
+  "caveats": [
+    "Only three SAIH Ebro river stations publish a consolidated daily water-temperature signal (A017 Rio Cinca en Fraga, A027 Rio Ebro en Tortosa, A263 Rio Ebro en Gelsa); a fourth TEMPA station is a reservoir (E104 Embalse de Nagore) and is dropped by protocol rule 2.",
+    "Complete-year floor bites: A263 (Ebro at Gelsa) has only 3 complete calendar years, so the river-watercourse network 'Ebro' does not reach >= 2 stations x >= 4 complete years. The only grouping that does is the flagged basin-level fallback 'saih_ebro_ebro_basin' (A017 + A027), whose stations are on different rivers hundreds of km apart.",
+    "A027 'Rio Ebro en Tortosa' sits at the tidal limit of the Ebro; if the coordinator reads protocol rule 2 strictly (no estuary-influenced sites) the Spanish panel becomes empty.",
+    "The provider publishes no coordinates in these API responses, so latitude/longitude are blank; station identity is the CHE station code and the river name comes from the station label ('Rio <name> en <place>').",
+    "The daily file also carries 'MINIMO (oC)' and 'MAXIMO (oC)' with intra-day timestamps; the ingest QC records the share of days whose min/max timestamps fall inside the stamped calendar day (evidence that the daily stamp is the calendar day).",
+    "the ingested series come from the 'diario' (consolidated daily) endpoint of the provider's 'Datos historicos' API, not from the real-time feed, but no fetched page states that these consolidated values are checked/approved. The provider's own notice (https://www.saihebro.com/info/datos-provisionales-ebro) says real-time data are 'de naturaleza provisional hasta que sean revisados, depurados y validados por el Servicio de Hidrologia'; the human-facing 'Datos historicos' page (https://www.saihebro.com/datos/historicos) asks for a (free) user account, while the API endpoint answered without credentials at retrieval time.",
+    "No frozen-screen endpoint, retention, model or score is computed by this script (ingest and QC only)."
+  ]
+}

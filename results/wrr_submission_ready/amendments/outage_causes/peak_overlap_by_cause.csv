@@ -1,0 +1,17 @@
+stratum,unit,observed_class,n,share_pct,n_missing_days,mean_gap_length_days,mean_peak_overlap
+overlaps_peak_window,gap,no_provider_record_inside_declared_coverage,333,82.63,43255,130.495,0.2755
+overlaps_peak_window,gap,published_other_statistic_for_most_days,69,17.122,2735,39.638,0.1048
+overlaps_peak_window,gap,published_target_statistic_for_part_of_gap,0,0.0,0,,
+overlaps_peak_window,gap,published_target_statistic_then_dropped,1,0.248,91,91.0,1.0
+overlaps_peak_window,gap,ALL,403,100.0,46081,114.841,0.2481
+overlaps_peak_window,missing_day,no_provider_record_inside_declared_coverage,4976,92.594,4976,1580.168,
+overlaps_peak_window,missing_day,published_other_statistic_only,368,6.848,368,927.766,
+overlaps_peak_window,missing_day,published_target_statistic_then_dropped,30,0.558,30,91.0,
+no_peak_overlap,gap,no_provider_record_inside_declared_coverage,1988,78.952,20975,10.942,0.0
+no_peak_overlap,gap,published_other_statistic_for_most_days,523,20.77,1020,1.981,0.0
+no_peak_overlap,gap,published_target_statistic_for_part_of_gap,2,0.079,87,98.5,0.0
+no_peak_overlap,gap,published_target_statistic_then_dropped,5,0.199,17,4.4,0.0
+no_peak_overlap,gap,ALL,2518,100.0,22099,9.137,0.0
+no_peak_overlap,missing_day,no_provider_record_inside_declared_coverage,59744,95.125,59744,1536.3,
+no_peak_overlap,missing_day,published_other_statistic_only,2901,4.619,2901,1108.168,
+no_peak_overlap,missing_day,published_target_statistic_then_dropped,161,0.256,161,134.391,

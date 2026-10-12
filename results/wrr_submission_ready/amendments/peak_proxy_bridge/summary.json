@@ -1,0 +1,80 @@
+{
+  "development_designed": {
+    "fn": 1905,
+    "fp": 3432,
+    "n_cases": 51524,
+    "npv_true_observed_given_proxy_clear": 0.9520247809005742,
+    "population": "development_designed",
+    "ppv_true_hidden_given_proxy": 0.7095463777928233,
+    "proxy_flagged": 11816,
+    "sensitivity_proxy_given_true_hidden": 0.8148508115463116,
+    "share_true_peak_hidden_when_proxy_clear": 0.04797521909942581,
+    "spearman_peak_overlap_vs_true_peak_hidden": 0.6642850332441446,
+    "tn": 37803,
+    "tp": 8384,
+    "truth_peak_hidden": 10289
+  },
+  "proxy_rule": "climatological peak window wholly hidden (peak_overlap >= 1.0)",
+  "real_archive_transport": {
+    "caveat": "Real incomplete years have no truth by construction. This expectation transports the proxy's positive predictive value measured on sealed never-used designed cases; it is an estimate about proxy quality, not an observation of the real years.",
+    "expected_true_peak_hidden": 12.523538541127781,
+    "expected_true_peak_hidden_ci": [
+      12.052846515346515,
+      12.940109094050834
+    ],
+    "ppv_used": {
+      "draws": 1000,
+      "high": 0.7611828878853432,
+      "low": 0.7089909714909715,
+      "n_networks_flagged": 39,
+      "point": 0.7366787377133989
+    },
+    "proxy_flagged_peak_wholly_hidden": 17,
+    "rule": "Johnson with imputation (<= 140 d)",
+    "station_years_admitted": 2221
+  },
+  "reserved_designed": {
+    "fn": 301,
+    "fp": 679,
+    "n_cases": 10820,
+    "npv_true_observed_given_proxy_clear": 0.9642177841179268,
+    "population": "reserved_designed",
+    "ppv_clustered": {
+      "draws": 1000,
+      "high": 0.7563868378251628,
+      "low": 0.6861677372899021,
+      "n_networks_flagged": 36,
+      "point": 0.7180232558139535
+    },
+    "ppv_true_hidden_given_proxy": 0.7180232558139535,
+    "proxy_flagged": 2408,
+    "sensitivity_proxy_given_true_hidden": 0.8517241379310345,
+    "share_true_peak_hidden_when_proxy_clear": 0.035782215882073226,
+    "spearman_peak_overlap_vs_true_peak_hidden": 0.680208235920863,
+    "tn": 8111,
+    "tp": 1729,
+    "truth_peak_hidden": 2030
+  },
+  "sealed_usgs_designed": {
+    "fn": 220,
+    "fp": 509,
+    "n_cases": 8973,
+    "npv_true_observed_given_proxy_clear": 0.96875,
+    "population": "sealed_usgs_designed",
+    "ppv_clustered": {
+      "draws": 1000,
+      "high": 0.7611828878853432,
+      "low": 0.7089909714909715,
+      "n_networks_flagged": 39,
+      "point": 0.7366787377133989
+    },
+    "ppv_true_hidden_given_proxy": 0.7366787377133989,
+    "proxy_flagged": 1933,
+    "sensitivity_proxy_given_true_hidden": 0.8661800486618005,
+    "share_true_peak_hidden_when_proxy_clear": 0.03125,
+    "spearman_peak_overlap_vs_true_peak_hidden": 0.6864103256971217,
+    "tn": 6820,
+    "tp": 1424,
+    "truth_peak_hidden": 1644
+  }
+}

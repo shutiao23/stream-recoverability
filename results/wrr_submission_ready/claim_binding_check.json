@@ -1,0 +1,128 @@
+{
+  "allowed_claim_checks": {
+    "D1": {
+      "detail": "15.070%",
+      "ok": true
+    },
+    "DEPLOY-CERT": {
+      "detail": "n=2422",
+      "ok": true
+    },
+    "NVE-PROBE": {
+      "detail": "{\"panel\": \"nve_never_used_probe_not_full_floor\", \"n_networks\": 2, \"n_stations\": 2, \"n_cases\": 62, \"contrast_points\": 2.3",
+      "ok": true
+    },
+    "P0-07-POOL": {
+      "detail": "-7.94 [-10.15,-5.75]",
+      "ok": true
+    },
+    "S1": {
+      "detail": "{\"n_networks\": 146, \"n_stations\": 457, \"n_station_years\": 5114, \"n_cases\": 51524}",
+      "ok": true
+    },
+    "S2": {
+      "detail": "{\"development\": 110, \"reserved\": 36}",
+      "ok": true
+    },
+    "S3": {
+      "detail": "provider_roles_from_split rows=9 missing_in_SI=[]",
+      "ok": true
+    },
+    "V17-A1": {
+      "detail": "empirical arm recorded as {\"panel\": \"development\", \"arm\": \"empirical\", \"n_cases\": 14995, \"base_rate_retain_all\": 0.0734911637212404, \"length_rule_at_70\": 0.0251524390243902, \"certificate_at_70\": 0.003810975609756, \"peak_overlap_at_70\": 0.0104801829268292, \"random_at_70\": 0.0754573170731707, \"absolute_points_saved\": 2.1341463414634148, \"relative_reduction\": 0.8484848484848485, \"contrast_points\": -2.1341463414634148, \"ci_low_points\": -3.454255994743305, \"ci_high_points\": -1.2581279501757263, \"johnson91_retention\": 0.8384794931643881, \"johnson91_rate\": 0.0368249423367533, \"certificate_at_johnson_retention\": 0.0122484689413823, \"self_selected_retention\": 0.8515505168389463, \"self_selected_rate_retained\": 0.0137050669590414}",
+      "ok": true
+    },
+    "V17-H2": {
+      "detail": "recomputed -7.1297 pp",
+      "ok": true
+    }
+  },
+  "allowed_failures": {},
+  "barred_claims_registered": [
+    "A4",
+    "BASE",
+    "C14",
+    "FAIR",
+    "HY",
+    "L1",
+    "L3",
+    "L7",
+    "M1",
+    "MEAS",
+    "N1",
+    "NVE-PROBE",
+    "R1",
+    "REG"
+  ],
+  "barred_number_violations": [],
+  "barred_phrase_review_items": [
+    {
+      "claim_id": "L3",
+      "match": "cross",
+      "pattern": "cross(?:es|over|ing)?\\b",
+      "region": "abstract"
+    },
+    {
+      "claim_id": "L3",
+      "match": "crossover",
+      "pattern": "cross(?:es|over|ing)?\\b",
+      "region": "abstract"
+    },
+    {
+      "claim_id": "L3",
+      "match": "crossover",
+      "pattern": "cross(?:es|over|ing)?\\b",
+      "region": "abstract"
+    },
+    {
+      "claim_id": "A4",
+      "match": "maintenance",
+      "pattern": "maintenance",
+      "region": "abstract"
+    },
+    {
+      "claim_id": "A4",
+      "match": "autumn",
+      "pattern": "autumn",
+      "region": "abstract"
+    },
+    {
+      "claim_id": "L1",
+      "match": "proportion law",
+      "pattern": "proportion(?:al)?\\s+law",
+      "region": "conclusions"
+    },
+    {
+      "claim_id": "L3",
+      "match": "crossover",
+      "pattern": "cross(?:es|over|ing)?\\b",
+      "region": "conclusions"
+    },
+    {
+      "claim_id": "A4",
+      "match": "Maintenance",
+      "pattern": "maintenance",
+      "region": "conclusions"
+    },
+    {
+      "claim_id": "A4",
+      "match": "maintenance",
+      "pattern": "maintenance",
+      "region": "conclusions"
+    },
+    {
+      "claim_id": "A4",
+      "match": "autumn",
+      "pattern": "autumn",
+      "region": "conclusions"
+    }
+  ],
+  "hard_ok": true,
+  "label_violations": [],
+  "seal_consistency": {
+    "abstract_says_open": false,
+    "consistent": true,
+    "detail": "scored=True networks=53 providers=4",
+    "transport_seal_scored": true
+  }
+}

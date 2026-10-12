@@ -1,0 +1,346 @@
+{
+  "finding": "F15 - the manuscript's Beaufort-style baseline is an in-library air ridge, not the cited method",
+  "cited_method": {
+    "reference": "Beaufort, A., Diamond, J. S., Sauquet, E., & Moatar, F. (2022). Spatial extrapolation of stream thermal peaks using heterogeneous time series at a national scale. Hydrology and Earth System Sciences, 26(13), 3477-3495.",
+    "doi": "10.5194/hess-26-3477-2022",
+    "url": "https://hess.copernicus.org/articles/26/3477/2022/",
+    "climate_correction": "station-specific summer regression of daily Tw on a right-aligned moving average of Tair over 2-10 d windows; window chosen per station by highest R2; hidden days reconstructed from the observed Tair window",
+    "endpoint_in_paper": "Tp = interannual mean of the mean of the 30 hottest consecutive days of each year",
+    "reported_metric": "absolute bias of Tp after gap filling vs the reference-station Tp, in a 1-9 introduced-gap-year permutation test (median 0.03 C at 1 gap year to 0.25 C at 8; no systematic bias)"
+  },
+  "implemented": {
+    "windows_days": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "window_selection": "per station-year by highest in-sample R2 of the selected fit sample",
+    "season": "July-August (SUMMER_MONTHS)",
+    "fallback_convention": "reconstruction where available, else day-of-year climatology (the manuscript's table convention)",
+    "variants": {
+      "beaufort": "fit on all visible summer days of the record including visible days of the evaluation year",
+      "beaufort_trainonly": "fit on summer days outside the evaluation year only (the library estimator's information budget)",
+      "beaufort_lagshift": "window right edge L-1 days earlier (the alternative reading of 'at lag L')",
+      "beaufort_jja": "only hidden July-August days are reconstructed, as in the paper's summer-only records"
+    }
+  },
+  "integrity": {
+    "forcing_path": "/home/lzq/workspace/parttime/stream-recoverability/data/interim/v18_air_forcing.parquet",
+    "cases_path": "/home/lzq/workspace/parttime/stream-recoverability/results/v17_fitness/step3_cases/cases_air.parquet",
+    "n_rebuilt_rows": 40704,
+    "n_development_cases": 40704,
+    "min_fit_days": 120,
+    "beaufort_lags": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "debug_limit_networks": 0,
+    "n_stations_rebuilt": 354,
+    "n_networks_rebuilt": 110,
+    "workers": 24,
+    "wall_seconds": 30.657996654510498,
+    "summer_months": [
+      7,
+      8
+    ],
+    "mask_checks_source": "rebuilt rows joined to the stored case table",
+    "air_available_pct": {
+      "v17_forcing_panel": 2.2626768867924527,
+      "v18_forcing_panel": 98.63649764150944,
+      "n_cases_v17_dev": 40704,
+      "n_cases_v18_dev": 40704
+    },
+    "forcing_source_note": "see results/v18_closure/e5_air_forcing/air_forcing_summary.json for the forcing product description",
+    "n_matched_rows": 40704,
+    "mask_total_missing_mismatches": 0,
+    "mask_longest_run_mismatches": 0,
+    "mask_peak_overlap_max_abs_dev": 0.0,
+    "mask_warm_fraction_max_abs_dev": 0.0,
+    "truth_hottest30_max_abs_dev": 0.0,
+    "library_air_ridge_repro_n": 643,
+    "library_air_ridge_repro_networks": [
+      "arso_bistrica",
+      "arso_drava"
+    ],
+    "library_air_ridge_repro_max_abs_dev": 0.0,
+    "sufficient_stats_vs_lstsq_n": 25,
+    "sufficient_stats_vs_lstsq_max_abs_dev_c": 1.7408297026122455e-13,
+    "manuscript_air_ridge_rate_pct_reproduced": 15.161618643175517,
+    "bootstrap_point_matches_repo": true,
+    "bootstrap_repo_point": -0.02833214333870912,
+    "bootstrap_this_script_point": -0.028332143338709072,
+    "bootstrap_repo_ci": [
+      -0.046374542443729135,
+      -0.009146205699465637
+    ],
+    "bootstrap_this_script_ci": [
+      -0.04637454244372915,
+      -0.009146205699465629
+    ]
+  },
+  "n_cases": 40704,
+  "n_networks": 110,
+  "retention": 0.7,
+  "tolerance_c": 0.5,
+  "bootstrap_draws": 1200,
+  "beaufort_lag_choice_counts": {
+    "2": 6626,
+    "3": 6662,
+    "4": 5774,
+    "5": 2653,
+    "6": 3487,
+    "7": 3309,
+    "8": 3185,
+    "9": 2641,
+    "10": 6367
+  },
+  "beaufort_support": {
+    "n_reconstructed": 40704,
+    "pct_reconstructed": 100.0,
+    "median_r2": 0.6192400855286277,
+    "median_fit_days": 1102.0,
+    "cases_with_unfilled_hidden_days": 582
+  },
+  "verdict": {
+    "beaufort_label_defensible": false,
+    "reason": "the library estimator named 'Beaufort-style' is a Ridge(alpha=1.0) on seven individual air lags plus two harmonics fitted over the whole year; the cited method is an OLS regression on a single right-aligned 2-10 d moving average of air temperature, selected per station by R2, fitted on summer days only. A faithful reimplementation now exists and is scored here on the identical cases.",
+    "recommendation": "either report the faithful reimplementation as the cited-method baseline, or rename the library row to 'in-library air ridge (alpha = 1.0), applied to every record alike' and drop the Beaufort attribution from that table row."
+  },
+  "headline": {
+    "faithful Beaufort (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.20307860364968983,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.6207000185105979,
+      "p95_ae_c": 0.97915041228,
+      "max_ae_c": 10.923333333333334,
+      "rate_above_0.5_pct": 12.757519390727548
+    },
+    "faithful Beaufort, train years only (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.20594964415860445,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.6304919565985513,
+      "p95_ae_c": 0.9913546228039641,
+      "max_ae_c": 10.923333333333334,
+      "rate_above_0.5_pct": 13.013722668725652
+    },
+    "faithful Beaufort, lagged-window reading (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.21707570424179518,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.6692900640069456,
+      "p95_ae_c": 1.0485097281609017,
+      "max_ae_c": 10.923333333333334,
+      "rate_above_0.5_pct": 13.90166005685607
+    },
+    "faithful Beaufort, July-August fill only (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.2070982668427635,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.6373676043987269,
+      "p95_ae_c": 1.0108029885447,
+      "max_ae_c": 10.923333333333334,
+      "rate_above_0.5_pct": 13.066367177903345
+    },
+    "library air ridge alpha=1.0 (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 28067.0,
+      "support_pct": 98.50489593935352,
+      "mae_c": 0.23141074698839895,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.7403191029708971,
+      "p95_ae_c": 1.201097078302547,
+      "max_ae_c": 7.355651859210072,
+      "rate_above_0.5_pct": 15.161618643175517
+    },
+    "linear interpolation": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.27735328826892486,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.867420412480168,
+      "p95_ae_c": 1.5200437158469964,
+      "max_ae_c": 8.657289377289379,
+      "rate_above_0.5_pct": 16.01796932579932
+    },
+    "donor ridge (else climatology)": {
+      "n_cases": 28493.0,
+      "n_supported": 23679.0,
+      "support_pct": 83.10462218790579,
+      "mae_c": 0.1597257081846694,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.48165544645913766,
+      "p95_ae_c": 0.8401186817348816,
+      "max_ae_c": 6.542629452428939,
+      "rate_above_0.5_pct": 9.570771768504544
+    },
+    "observed days (incumbent estimator)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.44829404522548416,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 1.548698027777775,
+      "p95_ae_c": 2.5280042666666596,
+      "max_ae_c": 10.617230958333328,
+      "rate_above_0.5_pct": 22.13175165830204
+    },
+    "information-conditioned policy (reference)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.1504810101865819,
+      "median_ae_c": 3.552713678800501e-15,
+      "p90_ae_c": 0.45731223208406746,
+      "p95_ae_c": 0.7829829066777076,
+      "max_ae_c": 7.355651859210072,
+      "rate_above_0.5_pct": 8.998701435440283
+    },
+    "oracle over library methods (not deployable)": {
+      "n_cases": 28493.0,
+      "n_supported": 28493.0,
+      "support_pct": 100.0,
+      "mae_c": 0.07586391524114351,
+      "median_ae_c": 0.0,
+      "p90_ae_c": 0.21166666666666528,
+      "p95_ae_c": 0.4023911050865072,
+      "max_ae_c": 4.927540983606557,
+      "rate_above_0.5_pct": 3.6219422314252627
+    }
+  },
+  "headline_all_cases": {
+    "faithful Beaufort (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.29408646253396076,
+      "median_ae_c": 0.02999999999999936,
+      "p90_ae_c": 0.8344786141373564,
+      "p95_ae_c": 1.2599192705340994,
+      "max_ae_c": 20.073333333333334,
+      "rate_above_0.5_pct": 18.474842767295595
+    },
+    "faithful Beaufort, train years only (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.29720964839591396,
+      "median_ae_c": 0.030535268228561563,
+      "p90_ae_c": 0.8446321262394415,
+      "p95_ae_c": 1.270748124341356,
+      "max_ae_c": 20.073333333333334,
+      "rate_above_0.5_pct": 18.74262971698113
+    },
+    "faithful Beaufort, lagged-window reading (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.31454816734992674,
+      "median_ae_c": 0.034882795007851186,
+      "p90_ae_c": 0.9071283096993952,
+      "p95_ae_c": 1.370822397937679,
+      "max_ae_c": 20.073333333333334,
+      "rate_above_0.5_pct": 20.06191037735849
+    },
+    "faithful Beaufort, July-August fill only (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.3014038855380995,
+      "median_ae_c": 0.025887872443877136,
+      "p90_ae_c": 0.8674312058964013,
+      "p95_ae_c": 1.308796128552846,
+      "max_ae_c": 20.073333333333334,
+      "rate_above_0.5_pct": 18.978478773584907
+    },
+    "library air ridge alpha=1.0 (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 40052.0,
+      "support_pct": 98.39819182389937,
+      "mae_c": 0.3256603594846975,
+      "median_ae_c": 0.03210533621034983,
+      "p90_ae_c": 1.0191665829756715,
+      "p95_ae_c": 1.536633902235076,
+      "max_ae_c": 8.445450271339597,
+      "rate_above_0.5_pct": 21.427869496855344
+    },
+    "linear interpolation": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 1.0172036267010183,
+      "median_ae_c": 0.017482782369146577,
+      "p90_ae_c": 2.8236027146218454,
+      "p95_ae_c": 6.331776531588138,
+      "max_ae_c": 23.855252152521526,
+      "rate_above_0.5_pct": 26.67305424528302
+    },
+    "donor ridge (else climatology)": {
+      "n_cases": 40704.0,
+      "n_supported": 31787.0,
+      "support_pct": 78.09306210691824,
+      "mae_c": 0.2443407626985241,
+      "median_ae_c": 0.01666234025207025,
+      "p90_ae_c": 0.7399913850299705,
+      "p95_ae_c": 1.2363569617264119,
+      "max_ae_c": 8.296666666666667,
+      "rate_above_0.5_pct": 14.98378537735849
+    },
+    "observed days (incumbent estimator)": {
+      "n_cases": 40691.0,
+      "n_supported": 40691.0,
+      "support_pct": 99.96806210691824,
+      "mae_c": 1.3052452755935182,
+      "median_ae_c": 0.04416666666666558,
+      "p90_ae_c": 4.076666666666664,
+      "p95_ae_c": 7.80841724537037,
+      "max_ae_c": 23.953333333333337,
+      "rate_above_0.5_pct": 31.881742891548498
+    },
+    "information-conditioned policy (reference)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.22464119762244766,
+      "median_ae_c": 0.015326957101624572,
+      "p90_ae_c": 0.6738880761903255,
+      "p95_ae_c": 1.1033691595458137,
+      "max_ae_c": 8.445450271339597,
+      "rate_above_0.5_pct": 13.969143081761008
+    },
+    "oracle over library methods (not deployable)": {
+      "n_cases": 40704.0,
+      "n_supported": 40704.0,
+      "support_pct": 100.0,
+      "mae_c": 0.1304204136872218,
+      "median_ae_c": 0.003495370370366402,
+      "p90_ae_c": 0.3765412974728248,
+      "p95_ae_c": 0.6650182593608882,
+      "max_ae_c": 7.250727606270694,
+      "rate_above_0.5_pct": 7.1884827044025155
+    }
+  }
+}

@@ -1,0 +1,792 @@
+{
+ "checks": [
+  {
+   "check": "network_directories",
+   "ok": true,
+   "detail": [
+    "nve_basin_002",
+    "nve_basin_012",
+    "nve_basin_015",
+    "nve_basin_021",
+    "nve_basin_022",
+    "nve_basin_023",
+    "nve_basin_062",
+    "nve_basin_072",
+    "nve_basin_073",
+    "nve_basin_075",
+    "nve_basin_083",
+    "nve_basin_087",
+    "nve_basin_112",
+    "nve_basin_124",
+    "nve_basin_139",
+    "nve_basin_156",
+    "nve_basin_163",
+    "nve_basin_166",
+    "nve_basin_196",
+    "nve_basin_212",
+    "nve_basin_234"
+   ]
+  },
+  {
+   "check": "nve_basin_002:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_002/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_002:sha256_matches_manifest",
+   "ok": true,
+   "detail": "6325057459012d02ea917b30ece5dbc30135a60fd8f4a1195bfb333156cec608"
+  },
+  {
+   "check": "nve_basin_012:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_012/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_012:sha256_matches_manifest",
+   "ok": true,
+   "detail": "1b14c2dd7ab2851e9332b5d3bcd6f8ecf584cdb4f21d964eb469918c11bc4748"
+  },
+  {
+   "check": "nve_basin_015:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_015/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_015:sha256_matches_manifest",
+   "ok": true,
+   "detail": "4852f402b076a55f2a80ea446ca81c4894db45ed28d2a4b412044d73eb4e0afb"
+  },
+  {
+   "check": "nve_basin_021:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_021/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_021:sha256_matches_manifest",
+   "ok": true,
+   "detail": "16444ae3aa43406bc3c999870bfca0008a5546110b4c9ed8d4f6c7e04a4cbcf5"
+  },
+  {
+   "check": "nve_basin_022:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_022/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_022:sha256_matches_manifest",
+   "ok": true,
+   "detail": "a0ece66eb97d03b66be5fd99ed8391ab6241a60da2453444eb4860459dc92283"
+  },
+  {
+   "check": "nve_basin_023:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_023/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_023:sha256_matches_manifest",
+   "ok": true,
+   "detail": "8056185185923a41eabed3722668157c54fb099f3961e005a2368954b34beb73"
+  },
+  {
+   "check": "nve_basin_062:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_062/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_062:sha256_matches_manifest",
+   "ok": true,
+   "detail": "5d415e0f45510c53c8d387f5d8d0fbff5f04e9253c44cfdf0f79065ecf502cf2"
+  },
+  {
+   "check": "nve_basin_072:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_072/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_072:sha256_matches_manifest",
+   "ok": true,
+   "detail": "98b90e603c4ac0f7128276b28472ac67a81972ef3065b940ca239c624c7aaebb"
+  },
+  {
+   "check": "nve_basin_073:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_073/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_073:sha256_matches_manifest",
+   "ok": true,
+   "detail": "00bcec93cbc09ca6cb0392cdc6eec1a4e1cc1cdcd682fd12788b8ce3c95d6f6c"
+  },
+  {
+   "check": "nve_basin_075:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_075/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_075:sha256_matches_manifest",
+   "ok": true,
+   "detail": "d48390bc2d048df9cb2604d487170fc5835eedb0b0c5130c6421d400c53a078f"
+  },
+  {
+   "check": "nve_basin_083:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_083/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_083:sha256_matches_manifest",
+   "ok": true,
+   "detail": "7263d3eb2722168fb49d093245f2b307e2376639bda54695742d363ed9523bee"
+  },
+  {
+   "check": "nve_basin_087:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_087/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_087:sha256_matches_manifest",
+   "ok": true,
+   "detail": "c19adffb27981e107c1db8bfe81560619ca087f291ca2b53a916cafabc96b8c9"
+  },
+  {
+   "check": "nve_basin_112:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_112/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_112:sha256_matches_manifest",
+   "ok": true,
+   "detail": "135545f82eebb1a6053750032019be33bc808a9fcf4b3e92114b453956c88a7c"
+  },
+  {
+   "check": "nve_basin_124:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_124/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_124:sha256_matches_manifest",
+   "ok": true,
+   "detail": "62ed843681aef7ce711dda688ade09d210ce4b082d818bd56692d40e79013cdf"
+  },
+  {
+   "check": "nve_basin_139:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_139/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_139:sha256_matches_manifest",
+   "ok": true,
+   "detail": "e06365f272bfc166ae2a313ee280b44b1b2e2e3433adeab5578e412a53993111"
+  },
+  {
+   "check": "nve_basin_156:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_156/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_156:sha256_matches_manifest",
+   "ok": true,
+   "detail": "edce6d7611cc9b07cee946c4bbd37bd0adbc6fc6c462ad6235aca8305348f50e"
+  },
+  {
+   "check": "nve_basin_163:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_163/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_163:sha256_matches_manifest",
+   "ok": true,
+   "detail": "6a5178195d89f2c47184a32d93d8af29cc24f39b9f53f472610e624501164cd6"
+  },
+  {
+   "check": "nve_basin_166:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_166/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_166:sha256_matches_manifest",
+   "ok": true,
+   "detail": "3baecd021fa023c0c1c4b8bfb7c9cf11fc5b96a60efe56f7ae4f27977b27d350"
+  },
+  {
+   "check": "nve_basin_196:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_196/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_196:sha256_matches_manifest",
+   "ok": true,
+   "detail": "a99b30e66c92d3b2210540f923de1493a921cf79332ae014799ab746a3403ea6"
+  },
+  {
+   "check": "nve_basin_212:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_212/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_212:sha256_matches_manifest",
+   "ok": true,
+   "detail": "5c0dce5e6cd0929bbb88774b52f347160ce35230bcd1f99f13faecdd83a58920"
+  },
+  {
+   "check": "nve_basin_234:files_exist",
+   "ok": true,
+   "detail": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/multi_agency_ingest/nve/networks/nve_basin_234/daily_wide_temperature.csv"
+  },
+  {
+   "check": "nve_basin_234:sha256_matches_manifest",
+   "ok": true,
+   "detail": "146b615702cdb386aff6f7071037a0674ec89c31dde7e15a3175f4ac8e8db133"
+  },
+  {
+   "check": "nve_basin_002:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "2.1051.0",
+    "2.1093.0",
+    "2.205.0",
+    "2.31.0",
+    "2.39.0",
+    "2.60.0",
+    "2.639.0",
+    "2.640.0",
+    "2.643.0",
+    "2.645.0",
+    "2.650.0",
+    "2.654.0",
+    "2.658.0",
+    "2.660.0",
+    "2.661.0",
+    "2.666.0",
+    "2.677.0",
+    "2.684.0",
+    "2.685.0",
+    "2.686.0",
+    "2.687.0",
+    "2.69.0",
+    "2.704.0",
+    "2.706.0",
+    "2.74.0",
+    "2.75.0",
+    "2.967.0",
+    "2.995.0",
+    "2.996.0",
+    "2.997.0"
+   ]
+  },
+  {
+   "check": "nve_basin_002:station_years",
+   "ok": true,
+   "detail": {
+    "written": 331,
+    "recomputed": 331
+   }
+  },
+  {
+   "check": "nve_basin_012:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "12.298.0",
+    "12.307.0",
+    "12.308.0",
+    "12.311.0",
+    "12.315.0",
+    "12.333.0",
+    "12.336.0",
+    "12.548.0",
+    "12.550.0",
+    "12.551.0",
+    "12.78.0"
+   ]
+  },
+  {
+   "check": "nve_basin_012:station_years",
+   "ok": true,
+   "detail": {
+    "written": 139,
+    "recomputed": 139
+   }
+  },
+  {
+   "check": "nve_basin_015:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "15.104.0",
+    "15.114.0",
+    "15.115.0"
+   ]
+  },
+  {
+   "check": "nve_basin_015:station_years",
+   "ok": true,
+   "detail": {
+    "written": 26,
+    "recomputed": 26
+   }
+  },
+  {
+   "check": "nve_basin_021:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "21.69.0",
+    "21.75.0",
+    "21.77.0",
+    "21.79.0"
+   ]
+  },
+  {
+   "check": "nve_basin_021:station_years",
+   "ok": true,
+   "detail": {
+    "written": 50,
+    "recomputed": 50
+   }
+  },
+  {
+   "check": "nve_basin_022:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "22.25.0",
+    "22.29.0",
+    "22.56.0"
+   ]
+  },
+  {
+   "check": "nve_basin_022:station_years",
+   "ok": true,
+   "detail": {
+    "written": 35,
+    "recomputed": 35
+   }
+  },
+  {
+   "check": "nve_basin_023:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "23.14.0",
+    "23.15.0"
+   ]
+  },
+  {
+   "check": "nve_basin_023:station_years",
+   "ok": true,
+   "detail": {
+    "written": 24,
+    "recomputed": 24
+   }
+  },
+  {
+   "check": "nve_basin_062:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "62.30.0",
+    "62.33.0",
+    "62.34.0",
+    "62.35.0"
+   ]
+  },
+  {
+   "check": "nve_basin_062:station_years",
+   "ok": true,
+   "detail": {
+    "written": 58,
+    "recomputed": 58
+   }
+  },
+  {
+   "check": "nve_basin_072:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "72.24.0",
+    "72.25.0"
+   ]
+  },
+  {
+   "check": "nve_basin_072:station_years",
+   "ok": true,
+   "detail": {
+    "written": 36,
+    "recomputed": 36
+   }
+  },
+  {
+   "check": "nve_basin_073:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "73.41.0",
+    "73.44.0"
+   ]
+  },
+  {
+   "check": "nve_basin_073:station_years",
+   "ok": true,
+   "detail": {
+    "written": 22,
+    "recomputed": 22
+   }
+  },
+  {
+   "check": "nve_basin_075:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "75.35.0",
+    "75.70.0"
+   ]
+  },
+  {
+   "check": "nve_basin_075:station_years",
+   "ok": true,
+   "detail": {
+    "written": 18,
+    "recomputed": 18
+   }
+  },
+  {
+   "check": "nve_basin_083:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "83.16.0",
+    "83.18.0"
+   ]
+  },
+  {
+   "check": "nve_basin_083:station_years",
+   "ok": true,
+   "detail": {
+    "written": 31,
+    "recomputed": 31
+   }
+  },
+  {
+   "check": "nve_basin_087:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "87.4.0",
+    "87.9.0"
+   ]
+  },
+  {
+   "check": "nve_basin_087:station_years",
+   "ok": true,
+   "detail": {
+    "written": 27,
+    "recomputed": 27
+   }
+  },
+  {
+   "check": "nve_basin_112:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "112.27.0",
+    "112.4.0",
+    "112.43.0"
+   ]
+  },
+  {
+   "check": "nve_basin_112:station_years",
+   "ok": true,
+   "detail": {
+    "written": 18,
+    "recomputed": 18
+   }
+  },
+  {
+   "check": "nve_basin_124:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "124.15.0",
+    "124.19.0",
+    "124.20.0",
+    "124.26.0"
+   ]
+  },
+  {
+   "check": "nve_basin_124:station_years",
+   "ok": true,
+   "detail": {
+    "written": 32,
+    "recomputed": 32
+   }
+  },
+  {
+   "check": "nve_basin_139:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "139.35.0",
+    "139.37.0"
+   ]
+  },
+  {
+   "check": "nve_basin_139:station_years",
+   "ok": true,
+   "detail": {
+    "written": 14,
+    "recomputed": 14
+   }
+  },
+  {
+   "check": "nve_basin_156:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "156.13.0",
+    "156.52.0"
+   ]
+  },
+  {
+   "check": "nve_basin_156:station_years",
+   "ok": true,
+   "detail": {
+    "written": 18,
+    "recomputed": 18
+   }
+  },
+  {
+   "check": "nve_basin_163:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "163.19.0",
+    "163.24.0"
+   ]
+  },
+  {
+   "check": "nve_basin_163:station_years",
+   "ok": true,
+   "detail": {
+    "written": 10,
+    "recomputed": 10
+   }
+  },
+  {
+   "check": "nve_basin_166:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "166.15.0",
+    "166.16.0"
+   ]
+  },
+  {
+   "check": "nve_basin_166:station_years",
+   "ok": true,
+   "detail": {
+    "written": 12,
+    "recomputed": 12
+   }
+  },
+  {
+   "check": "nve_basin_196:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "196.36.0",
+    "196.43.0"
+   ]
+  },
+  {
+   "check": "nve_basin_196:station_years",
+   "ok": true,
+   "detail": {
+    "written": 12,
+    "recomputed": 12
+   }
+  },
+  {
+   "check": "nve_basin_212:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "212.48.0",
+    "212.62.0",
+    "212.64.0",
+    "212.69.0"
+   ]
+  },
+  {
+   "check": "nve_basin_212:station_years",
+   "ok": true,
+   "detail": {
+    "written": 45,
+    "recomputed": 45
+   }
+  },
+  {
+   "check": "nve_basin_234:no_empty_station_column",
+   "ok": true,
+   "detail": [
+    "234.11.0",
+    "234.12.0",
+    "234.19.0",
+    "234.21.0",
+    "234.33.0"
+   ]
+  },
+  {
+   "check": "nve_basin_234:station_years",
+   "ok": true,
+   "detail": {
+    "written": 35,
+    "recomputed": 35
+   }
+  },
+  {
+   "check": "recomputed_networks",
+   "ok": true,
+   "detail": 21
+  },
+  {
+   "check": "recomputed_stations",
+   "ok": true,
+   "detail": 93
+  },
+  {
+   "check": "recomputed_station_years",
+   "ok": true,
+   "detail": 993
+  },
+  {
+   "check": "stations_csv_rows_match_panels",
+   "ok": true,
+   "detail": 93
+  },
+  {
+   "check": "stations_csv_network_id_matches_dirs",
+   "ok": true,
+   "detail": [
+    "nve_basin_002",
+    "nve_basin_012",
+    "nve_basin_015",
+    "nve_basin_021",
+    "nve_basin_022",
+    "nve_basin_023",
+    "nve_basin_062",
+    "nve_basin_072",
+    "nve_basin_073",
+    "nve_basin_075",
+    "nve_basin_083",
+    "nve_basin_087",
+    "nve_basin_112",
+    "nve_basin_124",
+    "nve_basin_139",
+    "nve_basin_156",
+    "nve_basin_163",
+    "nve_basin_166",
+    "nve_basin_196",
+    "nve_basin_212",
+    "nve_basin_234"
+   ]
+  },
+  {
+   "check": "date_is_first_column_everywhere",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "check": "per_station_year_agreement",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "every_written_station_has_ge4_years",
+   "ok": true,
+   "detail": 4
+  },
+  {
+   "check": "every_network_has_ge2_eligible_stations",
+   "ok": true,
+   "detail": 2
+  },
+  {
+   "check": "no_v17_station_id_in_panel",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "no_svalbard_station_in_panel",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "complete_station_years_file_agrees",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "check": "qc_ledger_covers_every_requested_station",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "qc_ledger_arithmetic",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "check": "drop_reasons_sum_to_dropped_total",
+   "ok": true,
+   "detail": {
+    "reasons": 1783797,
+    "total": 1783797
+   }
+  },
+  {
+   "check": "raw_rows_match_record",
+   "ok": true,
+   "detail": 3238298
+  },
+  {
+   "check": "values_inside_plausible_range",
+   "ok": true,
+   "detail": {
+    "n_values": 687160,
+    "min_c": -0.4725,
+    "max_c": 24.16885,
+    "mean_c": 5.594224450770927,
+    "n_below_zero": 15552,
+    "n_below_minus_0p5": 0,
+    "n_above_30": 0
+   }
+  },
+  {
+   "check": "read_only_inputs_unchanged",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "failures": [],
+ "value_sanity": {
+  "n_values": 687160,
+  "min_c": -0.4725,
+  "max_c": 24.16885,
+  "mean_c": 5.594224450770927,
+  "n_below_zero": 15552,
+  "n_below_minus_0p5": 0,
+  "n_above_30": 0
+ },
+ "summary": {
+  "networks": 21,
+  "stations": 93,
+  "complete_station_years": 993,
+  "panel_value_rows": 687160,
+  "network_ids": [
+   "nve_basin_002",
+   "nve_basin_012",
+   "nve_basin_015",
+   "nve_basin_021",
+   "nve_basin_022",
+   "nve_basin_023",
+   "nve_basin_062",
+   "nve_basin_072",
+   "nve_basin_073",
+   "nve_basin_075",
+   "nve_basin_083",
+   "nve_basin_087",
+   "nve_basin_112",
+   "nve_basin_124",
+   "nve_basin_139",
+   "nve_basin_156",
+   "nve_basin_163",
+   "nve_basin_166",
+   "nve_basin_196",
+   "nve_basin_212",
+   "nve_basin_234"
+  ],
+  "networks_with_no_v17_station": 16
+ },
+ "ok": true
+}

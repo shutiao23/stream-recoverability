@@ -1,0 +1,226 @@
+{
+  "generated_by": "scripts/246_wrr_noise_recompute.py",
+  "generated_utc": "2026-10-12T09:56:11Z",
+  "git_head": "5acda75b47afc91ab2bc7b84b54fe323b1465a08",
+  "status": "supersedes the published pre-fix artifact",
+  "supersedes": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json",
+  "superseded_by": "results/wrr_submission_ready/amendments/step22_noise_post_fix/noise_sensitivity.json",
+  "fix_commit": "a9a7ad99cf",
+  "fixed_function": {
+    "source": "scripts/202_v17_robustness.py",
+    "sha256": "3c38c20fbd54b03f105726131e8ea3dd8b9db93f3af51cccca9ff5b29afd5926",
+    "imported_as": "importlib.import_module('202_v17_robustness') with scripts/ on sys.path",
+    "method_locked_to": "certificate_choice"
+  },
+  "what_changed": {
+    "published_pre_fix": [
+      "clean arm: information-conditioned simple policy (abserr_policy)",
+      "perturbed arm: the same information-conditioned choice on the perturbed reference",
+      "certificate arm: ranked by certificate_bound but evaluated on certificate_abs_error in the clean arm and on the information-conditioned noisy error in the perturbed arm",
+      "retention: frontier_for_score lookup at retention == 0.70"
+    ],
+    "fixed": [
+      "both arms use the certificate's own reconstruction choice (certificate_choice) in the clean and the perturbed evaluation",
+      "the certificate is ranked by certificate_bound and evaluated on the error of that same chosen method",
+      "retention: top-k on the finite mask, same k and same retained cases in both arms"
+    ],
+    "why_it_matters": "the published contrast difference between the clean and perturbed arms mixed a method change into the noise effect; the fixed number isolates the sensor-error effect"
+  },
+  "development": {
+    "old_published": {
+      "sensor_noise_c": 0.15,
+      "mean_abs_error_clean_c": 0.24157744533035794,
+      "mean_abs_error_noisy_c": 0.24176944931490021,
+      "length_rule_at_70_clean": 0.09254904713438389,
+      "length_rule_at_70_noisy": 0.0931456849050644,
+      "certificate_at_70_clean": 0.02934053978170077,
+      "certificate_at_70_noisy": 0.031095356754290527,
+      "contrast_clean_points": 6.320850735268311,
+      "contrast_noisy_points": 6.205032815077388
+    },
+    "new_fixed": {
+      "sensor_noise_c": 0.15,
+      "method_locked_to": "certificate_choice",
+      "mean_abs_error_clean_c": 0.23614271229250278,
+      "mean_abs_error_noisy_c": 0.23631701865670549,
+      "length_rule_at_70_clean": 0.08917979854701155,
+      "length_rule_at_70_noisy": 0.08956585828098129,
+      "certificate_at_70_clean": 0.02934053978170077,
+      "certificate_at_70_noisy": 0.029235250763345384,
+      "contrast_clean_points": 5.983925876531078,
+      "contrast_noisy_points": 6.033060751763591
+    },
+    "change_new_minus_old": {
+      "sensor_noise_c": 0.0,
+      "mean_abs_error_clean_c": -0.005434733037855161,
+      "mean_abs_error_noisy_c": -0.005452430658194729,
+      "length_rule_at_70_clean": -0.0033692485873723366,
+      "length_rule_at_70_noisy": -0.003579826624083113,
+      "certificate_at_70_clean": 0.0,
+      "certificate_at_70_noisy": -0.0018601059909451427,
+      "contrast_clean_points": -0.3369248587372331,
+      "contrast_noisy_points": -0.1719720633137971
+    },
+    "relative_change": {
+      "contrast_clean_relative_change": -0.05330372015546909,
+      "contrast_noisy_relative_change": -0.02771493212669695
+    },
+    "retention_detail": {
+      "n_cases": 40704,
+      "n_certificate_choice_finite_clean": 40704,
+      "n_certificate_choice_finite_iid": 40704,
+      "n_evaluated": 40704,
+      "n_retained_at_70": 28493,
+      "retained_set_identical_clean_vs_iid": true,
+      "mean_abs_error_clean_c": 0.23614271229250278,
+      "mean_abs_error_iid_c": 0.23631701865670549,
+      "mean_abs_error_clean_on_evaluated_c": 0.23614271229250278,
+      "mean_abs_error_iid_on_evaluated_c": 0.23631701865670549,
+      "mirror_vs_fixed_max_abs_rate_gap": 0.0,
+      "cases_where_iid_error_differs_from_clean": 27080
+    },
+    "verdict": {
+      "definition": "the qualitative conclusion is that timing beats outage length, i.e. the contrast is positive and its clustered 95% interval excludes zero, under a reference series perturbed by the sensor error",
+      "new_noisy_contrast_points": 6.033060751763591,
+      "new_noisy_contrast_positive": true,
+      "old_noisy_contrast_points": 6.205032815077388,
+      "old_noisy_contrast_positive": true,
+      "sensor_noise_moves_contrast_by_points": 0.0491348752325127,
+      "sensor_noise_moves_contrast_relative": 0.00821114369501457,
+      "clustered_interval_reported_in": "results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv"
+    }
+  },
+  "reserved": {
+    "old_published": {
+      "sensor_noise_c": 0.15,
+      "mean_abs_error_clean_c": 0.21873752327323404,
+      "mean_abs_error_noisy_c": 0.21866706312368175,
+      "length_rule_at_70_clean": 0.09598626881436494,
+      "length_rule_at_70_noisy": 0.09466596250330077,
+      "certificate_at_70_clean": 0.025349881172432004,
+      "certificate_at_70_noisy": 0.02799049379456034,
+      "contrast_clean_points": 7.063638764193294,
+      "contrast_noisy_points": 6.667546870874043
+    },
+    "new_fixed": {
+      "sensor_noise_c": 0.15,
+      "method_locked_to": "certificate_choice",
+      "mean_abs_error_clean_c": 0.20774456971755714,
+      "mean_abs_error_noisy_c": 0.20803006201524218,
+      "length_rule_at_70_clean": 0.08740427779244785,
+      "length_rule_at_70_noisy": 0.08661209400580935,
+      "certificate_at_70_clean": 0.025349881172432004,
+      "certificate_at_70_noisy": 0.024425666754687086,
+      "contrast_clean_points": 6.205439662001584,
+      "contrast_noisy_points": 6.218642725112226
+    },
+    "change_new_minus_old": {
+      "sensor_noise_c": 0.0,
+      "mean_abs_error_clean_c": -0.010992953555676893,
+      "mean_abs_error_noisy_c": -0.01063700110843957,
+      "length_rule_at_70_clean": -0.00858199102191709,
+      "length_rule_at_70_noisy": -0.008053868497491415,
+      "certificate_at_70_clean": 0.0,
+      "certificate_at_70_noisy": -0.0035648270398732536,
+      "contrast_clean_points": -0.8581991021917093,
+      "contrast_noisy_points": -0.4489041457618166
+    },
+    "relative_change": {
+      "contrast_clean_relative_change": -0.12149532710280384,
+      "contrast_noisy_relative_change": -0.0673267326732673
+    },
+    "retention_detail": {
+      "n_cases": 10820,
+      "n_certificate_choice_finite_clean": 10820,
+      "n_certificate_choice_finite_iid": 10820,
+      "n_evaluated": 10820,
+      "n_retained_at_70": 7574,
+      "retained_set_identical_clean_vs_iid": true,
+      "mean_abs_error_clean_c": 0.20774456971755714,
+      "mean_abs_error_iid_c": 0.20803006201524218,
+      "mean_abs_error_clean_on_evaluated_c": 0.20774456971755714,
+      "mean_abs_error_iid_on_evaluated_c": 0.20803006201524218,
+      "mirror_vs_fixed_max_abs_rate_gap": 0.0,
+      "cases_where_iid_error_differs_from_clean": 6836
+    },
+    "verdict": {
+      "definition": "the qualitative conclusion is that timing beats outage length, i.e. the contrast is positive and its clustered 95% interval excludes zero, under a reference series perturbed by the sensor error",
+      "new_noisy_contrast_points": 6.218642725112226,
+      "new_noisy_contrast_positive": true,
+      "old_noisy_contrast_points": 6.667546870874043,
+      "old_noisy_contrast_positive": true,
+      "sensor_noise_moves_contrast_by_points": 0.0132030631106419,
+      "sensor_noise_moves_contrast_relative": 0.0021276595744681224,
+      "clustered_interval_reported_in": "results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv"
+    }
+  },
+  "pre_fix_reproduction": {
+    "development": {
+      "reproduced_pre_fix_rates": {
+        "mean_abs_error_clean_c": 0.24157744533035794,
+        "mean_abs_error_noisy_c": 0.24176944931490021,
+        "length_rule_at_70_clean": 0.09254904713438389,
+        "length_rule_at_70_noisy": 0.0931456849050644,
+        "certificate_at_70_clean": 0.02934053978170077,
+        "certificate_at_70_noisy": 0.031095356754290527,
+        "contrast_clean_points": 6.320850735268311,
+        "contrast_noisy_points": 6.205032815077388
+      },
+      "gaps_reproduced_minus_published": {
+        "mean_abs_error_clean_c": 0.0,
+        "mean_abs_error_noisy_c": 0.0,
+        "length_rule_at_70_clean": 0.0,
+        "length_rule_at_70_noisy": 0.0,
+        "certificate_at_70_clean": 0.0,
+        "certificate_at_70_noisy": 0.0,
+        "contrast_clean_points": 0.0,
+        "contrast_noisy_points": 0.0
+      },
+      "max_abs_gap_vs_published": 0.0,
+      "pre_fix_artifact_reproduced_exactly": true,
+      "certificate_abs_error_identical_to_chosen_case_error": {
+        "max_abs_difference": 0.0,
+        "rows": 40704,
+        "identical": true
+      }
+    },
+    "reserved": {
+      "reproduced_pre_fix_rates": {
+        "mean_abs_error_clean_c": 0.21873752327323404,
+        "mean_abs_error_noisy_c": 0.21866706312368175,
+        "length_rule_at_70_clean": 0.09598626881436494,
+        "length_rule_at_70_noisy": 0.09466596250330077,
+        "certificate_at_70_clean": 0.025349881172432004,
+        "certificate_at_70_noisy": 0.02799049379456034,
+        "contrast_clean_points": 7.063638764193294,
+        "contrast_noisy_points": 6.667546870874043
+      },
+      "gaps_reproduced_minus_published": {
+        "mean_abs_error_clean_c": 0.0,
+        "mean_abs_error_noisy_c": 0.0,
+        "length_rule_at_70_clean": 0.0,
+        "length_rule_at_70_noisy": 0.0,
+        "certificate_at_70_clean": 0.0,
+        "certificate_at_70_noisy": 0.0,
+        "contrast_clean_points": 0.0,
+        "contrast_noisy_points": 0.0
+      },
+      "max_abs_gap_vs_published": 0.0,
+      "pre_fix_artifact_reproduced_exactly": true,
+      "certificate_abs_error_identical_to_chosen_case_error": {
+        "max_abs_difference": 0.0,
+        "rows": 10820,
+        "identical": true
+      }
+    },
+    "what_this_shows": "the preserved pre-fix numbers are exactly what the frozen case table and certificates produce under the pre-fix method mix, so the old-versus-new difference is a code change and not a data change; the two choices that moved are the length arm's reconstruction (information-conditioned policy error -> certificate_choice error) and the perturbed certificate arm's error column (policy noisy error -> certificate_choice noisy error). Because certificate_abs_error is identical to the chosen method's case error on every row, the clean certificate arm cannot move."
+  },
+  "preserved_pre_fix": {
+    "directory": "results/wrr_submission_ready/amendments/step22_noise_pre_fix",
+    "sha256_record": "results/wrr_submission_ready/amendments/step22_noise_pre_fix/sha256.json",
+    "files": [
+      "noise_sensitivity.json",
+      "REPORT.md"
+    ]
+  }
+}

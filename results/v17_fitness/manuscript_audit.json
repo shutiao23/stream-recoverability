@@ -1,5 +1,5 @@
 {
-  "n_checked": 141,
+  "n_checked": 137,
   "findings": [
     {
       "item": "metric/hottest7 peak overlap",
@@ -762,30 +762,6 @@
       "status": "ok",
       "quoted": -3.96,
       "expected": -3.9587
-    },
-    {
-      "item": "inline/noise dev clean",
-      "status": "ok",
-      "quoted": 6.32,
-      "expected": 6.3209
-    },
-    {
-      "item": "inline/noise dev noisy",
-      "status": "ok",
-      "quoted": 6.21,
-      "expected": 6.205
-    },
-    {
-      "item": "inline/noise res clean",
-      "status": "ok",
-      "quoted": 7.06,
-      "expected": 7.0636
-    },
-    {
-      "item": "inline/noise res noisy",
-      "status": "ok",
-      "quoted": 6.67,
-      "expected": 6.6675
     },
     {
       "item": "inline/prior-years point",

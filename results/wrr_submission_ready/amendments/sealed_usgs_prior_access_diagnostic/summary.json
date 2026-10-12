@@ -1,0 +1,62 @@
+{
+  "audit": "results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv",
+  "interpretation_limit": "Subsets are read from an already-sealed score, so they are a robustness diagnostic, not new confirmation. The primary verdict is not revised; the manuscript must report the contamination rate and this diagnostic.",
+  "n_networks_with_outcome_prior_use": 24,
+  "primary_score_unchanged": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
+  "rows": [
+    {
+      "empirical_ci_high_points": -0.6821456270556999,
+      "empirical_ci_low_points": -2.9819492323217274,
+      "empirical_contrast_points": -1.7444395987788925,
+      "n_cases": 8973,
+      "n_networks": 39,
+      "n_stations": 91,
+      "pooled_ci_high_points": -5.9046615826488695,
+      "pooled_ci_low_points": -10.169736867097622,
+      "pooled_contrast_points": -7.943603851444292,
+      "subset": "primary_all_39_networks"
+    },
+    {
+      "empirical_ci_high_points": -1.6165350517768011,
+      "empirical_ci_low_points": -5.800642998808325,
+      "empirical_contrast_points": -3.6511156186612577,
+      "n_cases": 1923,
+      "n_networks": 15,
+      "n_stations": 26,
+      "pooled_ci_high_points": -6.031415343915346,
+      "pooled_ci_low_points": -12.435193024908124,
+      "pooled_contrast_points": -9.42084942084942,
+      "subset": "networks_clean_of_outcome_use"
+    },
+    {
+      "n_cases": 187,
+      "note": "below 200 cases; not scored",
+      "subset": "networks_clean_of_any_prior_use"
+    },
+    {
+      "empirical_ci_high_points": -1.4123851017480473,
+      "empirical_ci_low_points": -4.861378205128205,
+      "empirical_contrast_points": -2.711864406779661,
+      "n_cases": 3494,
+      "n_networks": 28,
+      "n_stations": 45,
+      "pooled_ci_high_points": -6.370047762458868,
+      "pooled_ci_low_points": -10.352458253302496,
+      "pooled_contrast_points": -8.264820424058847,
+      "subset": "stations_clean_of_outcome_use"
+    },
+    {
+      "empirical_ci_high_points": -0.4273276474769013,
+      "empirical_ci_low_points": -4.96480364136763,
+      "empirical_contrast_points": -1.735357917570499,
+      "n_cases": 1794,
+      "n_networks": 18,
+      "n_stations": 21,
+      "pooled_ci_high_points": -4.577922077922082,
+      "pooled_ci_low_points": -10.28431834430545,
+      "pooled_contrast_points": -7.271171941830625,
+      "subset": "stations_clean_of_any_prior_use"
+    }
+  ],
+  "status": "post_seal_transparency_diagnostic"
+}

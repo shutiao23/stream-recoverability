@@ -1,0 +1,458 @@
+{
+  "agency": "Hydrographisches Zentralb\u00fcro / eHYD (Austria)",
+  "artifacts": {
+    "ftyp_census": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/ftyp_census.csv",
+    "monthly_river_candidates": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/ehyd_monthly_river_candidates.csv",
+    "monthly_station_table": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/ehyd_surface_temperature_stations_monthly.csv",
+    "package_folder_census": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/package_folder_census.csv",
+    "raw_cache": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache"
+  },
+  "caveats": [
+    "eHYD's own download service enumerates the allowed data types server-side; owf_wassertemp_monatsmittel is the only surface-water temperature type.",
+    "The bulk package contains WT-Monatsmittel only (324 files, no daily WT folder).",
+    "Monthly rows are ~11.7 per station-year and all fall on one day of month, so they cannot be expanded into daily series without invention.",
+    "qu_quellwassertemp is a DAILY temperature series but for spring water, not for a river waterbody, and it is therefore not eligible under protocol rule 2/3.",
+    "The station listing marks several monthly candidates as lakes (e.g. Neusiedler See, Altausseer See); river-only filtering was not applied because no daily product exists to filter.",
+    "No frozen-screen performance was computed on eHYD data (ingest + QC only)."
+  ],
+  "command": "PYTHONPATH=src python3 scripts/243_multi_agency_ehyd_ingest.py",
+  "counts": {
+    "n_daily_surface_temperature_file_types": 0,
+    "n_daily_temperature_file_types_any_compartment": 1,
+    "n_distinct_file_types_in_listing": 22,
+    "n_file_entries_in_listing": 26819,
+    "n_monthly_river_candidates_ge3_stations_ge8_common_years": 23,
+    "n_package_entries": 5336,
+    "n_package_folders": 12,
+    "n_stations_in_official_listing": 5662,
+    "n_wt_monthly_files": 324,
+    "n_wt_monthly_stations_with_metadata": 324,
+    "n_wt_monthly_unique_rivers": 199
+  },
+  "networks_emitted": 0,
+  "observations": {
+    "daily_surface_temperature_file_types": [],
+    "daily_temperature_file_types_any_compartment": [
+      "qu_quellwassertemp"
+    ],
+    "documented_statistic": "monthly mean (WT-Monatsmittel); the only temperature product for surface waters. Daily statistics exist for discharge, water level, snow, bedload and suspended sediment, and for spring water temperature (qu_quellwassertemp, not a river series).",
+    "monthly_payload_samples": {
+      "file_samples": [
+        {
+          "bytes": 10081,
+          "file": "WT-Monatsmittel/WT-Monatsmittel-200048.csv",
+          "first_data_lines": [
+            "01.01.1997 00:00:00;   1,3",
+            "01.02.1997 00:00:00;   1,7",
+            "01.03.1997 00:00:00;   3,2",
+            "01.04.1997 00:00:00;   3,0",
+            "01.08.1997 00:00:00;  10,5",
+            "01.09.1997 00:00:00;  10,3"
+          ],
+          "first_lines": [
+            "Messstelle:                ;Schruns (Vonbunweg)",
+            "HZB-Nummer:                ;200048",
+            "HD-Nummer:                 ;",
+            "DBMS-Nummer:               ;8001004",
+            "Gew\u00e4sser:                  ;Litz",
+            "Sachgebiet:                ;OWF",
+            "Dienststelle:              ;HD-Vorarlberg",
+            "Messstellenbetreiber:      ;Hydrographischer Dienst",
+            "orogr.Einzugsgebiet [km\u00b2]: ;101,37",
+            "Pegelnullpunkt:",
+            "  g\u00fcltig seit:             ;H\u00f6he [m \u00fc.A.]:",
+            "   01.01.1976              ;00705,62",
+            "   01.01.1980              ;00671,13",
+            "   01.01.1997              ;00673,25",
+            "Bundesmeldenetz(BMN)-Koordinaten:",
+            "  g\u00fcltig seit:             ;Rechtswert y [m] - Hochwert x [m]:",
+            "   01.01.1959              ;118023,88 - 215726,79",
+            "   01.01.1997              ;118153,00 - 215792,00"
+          ],
+          "last_data_lines": [
+            "01.10.2023 00:00:00;   9,1",
+            "01.11.2023 00:00:00;   5,0",
+            "01.12.2023 00:00:00;   4,4"
+          ],
+          "n_data_lines": 179
+        },
+        {
+          "bytes": 10472,
+          "file": "WT-Monatsmittel/WT-Monatsmittel-200147.csv",
+          "first_data_lines": [
+            "01.04.1996 00:00:00;   6,8",
+            "01.05.1996 00:00:00;   8,2",
+            "01.06.1996 00:00:00;  10,4",
+            "01.07.1996 00:00:00;  10,4",
+            "01.08.1996 00:00:00;  10,7",
+            "01.09.1996 00:00:00;   9,1"
+          ],
+          "first_lines": [
+            "Messstelle:                ;Gisingen",
+            "HZB-Nummer:                ;200147",
+            "HD-Nummer:                 ;",
+            "DBMS-Nummer:               ;8001014",
+            "Gew\u00e4sser:                  ;Ill",
+            "Sachgebiet:                ;OWF",
+            "Dienststelle:              ;HD-Vorarlberg",
+            "Messstellenbetreiber:      ;Hydrographischer Dienst",
+            "orogr.Einzugsgebiet [km\u00b2]: ;1278,17",
+            "Pegelnullpunkt:",
+            "  g\u00fcltig seit:             ;H\u00f6he [m \u00fc.A.]:",
+            "   01.01.1912              ;00434,34",
+            "   01.01.1928              ;00439,37",
+            "   01.11.1939              ;00434,37",
+            "   01.01.1976              ;00434,34",
+            "   01.01.1996              ;00434,35",
+            "   01.03.2002              ;00434,30",
+            "   06.03.2018              ;00434,31"
+          ],
+          "last_data_lines": [
+            "01.10.2023 00:00:00;  10,2",
+            "01.11.2023 00:00:00;   6,8",
+            "01.12.2023 00:00:00;   5,9"
+          ],
+          "n_data_lines": 149
+        },
+        {
+          "bytes": 12440,
+          "file": "WT-Monatsmittel/WT-Monatsmittel-200196.csv",
+          "first_data_lines": [
+            "01.01.1990 00:00:00;   3,1",
+            "01.02.1990 00:00:00;   5,1",
+            "01.03.1990 00:00:00;   6,2",
+            "01.04.1990 00:00:00;   7,5",
+            "01.05.1990 00:00:00;   9,8",
+            "01.06.1990 00:00:00;  10,3"
+          ],
+          "first_lines": [
+            "Messstelle:                ;Lustenau (H\u00f6chster Br\u00fccke)",
+            "HZB-Nummer:                ;200196",
+            "HD-Nummer:                 ;",
+            "DBMS-Nummer:               ;8001019",
+            "Gew\u00e4sser:                  ;Rhein",
+            "Sachgebiet:                ;OWF",
+            "Dienststelle:              ;HD-Vorarlberg",
+            "Messstellenbetreiber:      ;Hydrographischer Dienst",
+            "orogr.Einzugsgebiet [km\u00b2]: ;6301,12",
+            "Pegelnullpunkt:",
+            "  g\u00fcltig seit:             ;H\u00f6he [m \u00fc.A.]:",
+            "   01.01.1976              ;00394,03",
+            "   01.01.1996              ;00394,04",
+            "   01.01.2013              ;00393,51",
+            "Bundesmeldenetz(BMN)-Koordinaten:",
+            "  g\u00fcltig seit:             ;Rechtswert y [m] - Hochwert x [m]:",
+            "   01.01.1919              ;99121,00 - 256760,00",
+            "   01.01.2013              ;99447,00 - 257210,00"
+          ],
+          "last_data_lines": [
+            "01.10.2023 00:00:00;  10,6",
+            "01.11.2023 00:00:00;   6,5",
+            "01.12.2023 00:00:00;   5,4"
+          ],
+          "n_data_lines": 408
+        }
+      ],
+      "parsed_monthly_series": [
+        {
+          "distinct_day_of_month": [
+            1
+          ],
+          "first_date": "1997-01-01",
+          "last_date": "2023-12-01",
+          "n_distinct_years": 21,
+          "rows": 179,
+          "rows_per_year": 8.524,
+          "site_id": "200048"
+        },
+        {
+          "distinct_day_of_month": [
+            1
+          ],
+          "first_date": "1976-02-01",
+          "last_date": "2022-12-01",
+          "n_distinct_years": 47,
+          "rows": 563,
+          "rows_per_year": 11.979,
+          "site_id": "210534"
+        },
+        {
+          "distinct_day_of_month": [
+            21
+          ],
+          "first_date": "2007-05-21",
+          "last_date": "2020-12-21",
+          "n_distinct_years": 14,
+          "rows": 164,
+          "rows_per_year": 11.714,
+          "site_id": "212704"
+        }
+      ]
+    },
+    "roster_overlap": {
+      "exists": true,
+      "n_overlap": 0,
+      "n_roster_stations": 547,
+      "overlap_ids": [],
+      "roster_file": "results/v17_fitness/step1_panel/station_roster.csv"
+    },
+    "surface_water_temperature_file_types": [
+      "owf_wassertemp_monatsmittel"
+    ],
+    "temperature_token_file_types": [
+      "owf_wassertemp_monatsmittel",
+      "qu_quellwassertemp"
+    ],
+    "timezone_day_boundary": "not applicable: no daily surface-water temperature product exists"
+  },
+  "provider": "ehyd",
+  "reason": "eHYD publishes surface-water (river) water temperature only as monthly means (WT-Monatsmittel); no daily surface-water temperature product exists, so no provider daily statistic in degC is available.",
+  "retrieved_utc": "2026-10-12T09:55:12.123454+00:00",
+  "script": "scripts/243_multi_agency_ehyd_ingest.py",
+  "sources": {
+    "app_bundle": {
+      "all_data_type_menu_entries": [
+        {
+          "id": "nlv_tagessummen",
+          "label": "Niederschlag-Tagessummen"
+        },
+        {
+          "id": "nlv_5minutensummen",
+          "label": "Niederschlag-5-Minutensummen"
+        },
+        {
+          "id": "nlv_schneehoehe",
+          "label": "Schneeh\\xF6he-Tageswerte"
+        },
+        {
+          "id": "nlv_neuschnee",
+          "label": "Neuschnee-Tagessummen"
+        },
+        {
+          "id": "owf_abfl_tagesmittel",
+          "label": "Abfluss-Tagesmittel"
+        },
+        {
+          "id": "owf_abfl_monatsmaxima",
+          "label": "Abfluss-Monatsmaxima"
+        },
+        {
+          "id": "owf_abfl_monatsminima",
+          "label": "Abfluss-Monatsminima"
+        },
+        {
+          "id": "owf_wasserst_tagesmittel",
+          "label": "Wasserstand-Tagesmittel"
+        },
+        {
+          "id": "owf_wasserst_monatsmaxima",
+          "label": "Wasserstand-Monatsmaxima"
+        },
+        {
+          "id": "owf_wasserst_monatsminima",
+          "label": "Wasserstand-Monatsminima"
+        },
+        {
+          "id": "owf_wassertemp_monatsmittel",
+          "label": "Wassertemperatur-Monatsmittel"
+        },
+        {
+          "id": "owf_geschiebe_tagesfracht",
+          "label": "Geschiebe-Tagesfracht"
+        },
+        {
+          "id": "owf_schwebstoff_tagesfracht",
+          "label": "Schwebstoff-Tagesfracht"
+        },
+        {
+          "id": "gw_monatsmittel",
+          "label": "Grundwasserstand-Monatsmittel"
+        },
+        {
+          "id": "gw_jahresmaxima",
+          "label": "Grundwasserstand-Jahresmaxima"
+        },
+        {
+          "id": "gw_jahresminima",
+          "label": "Grundwasserstand-Jahresminima"
+        },
+        {
+          "id": "gw_temp_monatsmittel",
+          "label": "Grundwassertemperatur-Monatsmittel"
+        },
+        {
+          "id": "qu_quellschuettung",
+          "label": "Quellsch\\xFCttung"
+        },
+        {
+          "id": "qu_quellwassertemp",
+          "label": "Quellwassertemperatur"
+        },
+        {
+          "id": "qu_quellleitfaehigkeit",
+          "label": "Quellleitf\\xE4higkeit"
+        }
+      ],
+      "bundle_bytes": 121100,
+      "bundle_sha256": "3d3fcf632b915cc1f6468dded6c3f477e05db8befa264aeecd14e4b0b5752826",
+      "bundle_url": "https://ehyd.gv.at/main-UFXEVZGM.js",
+      "index_url": "https://ehyd.gv.at/",
+      "ok": true,
+      "surface_water_menu": [
+        {
+          "id": "owf_abfl_tagesmittel",
+          "label": "Abfluss-Tagesmittel"
+        },
+        {
+          "id": "owf_abfl_monatsmaxima",
+          "label": "Abfluss-Monatsmaxima"
+        },
+        {
+          "id": "owf_abfl_monatsminima",
+          "label": "Abfluss-Monatsminima"
+        },
+        {
+          "id": "owf_wasserst_tagesmittel",
+          "label": "Wasserstand-Tagesmittel"
+        },
+        {
+          "id": "owf_wasserst_monatsmaxima",
+          "label": "Wasserstand-Monatsmaxima"
+        },
+        {
+          "id": "owf_wasserst_monatsminima",
+          "label": "Wasserstand-Monatsminima"
+        },
+        {
+          "id": "owf_wassertemp_monatsmittel",
+          "label": "Wassertemperatur-Monatsmittel"
+        },
+        {
+          "id": "owf_geschiebe_tagesfracht",
+          "label": "Geschiebe-Tagesfracht"
+        },
+        {
+          "id": "owf_schwebstoff_tagesfracht",
+          "label": "Schwebstoff-Tagesfracht"
+        }
+      ]
+    },
+    "bulk_package": {
+      "bytes": 105735422,
+      "cache_file": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/ehyd_messstellen_all_owf.zip",
+      "fetched_this_run": false,
+      "server_head": {
+        "accept-ranges": "bytes",
+        "age": "22",
+        "alt-svc": "h3=\":443\"; ma=2592000",
+        "connection": "close",
+        "content-length": "105735422",
+        "content-type": "application/x-zip-compressed",
+        "date": "Mon, 12 Oct 2026 09:54:50 GMT",
+        "etag": "\"2dea629bc71fdd1:0\"",
+        "last-modified": "Thu, 30 Jul 2026 02:03:25 GMT",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN",
+        "x-node": "C",
+        "x-permitted-cross-domain-policies": "none"
+      },
+      "sha256": "2fb165ee97520cdef280a9e8ee9921a6f0f1d1a727c1e98db3bb9a9ad9aa7265",
+      "url": "https://gis.lfrz.gv.at/api/ehyd/messstellen/paket/ehyd_messstellen_all_owf.zip"
+    },
+    "diagram_probes": [
+      {
+        "cache_file": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/diagram_pegelLongterm_200048.json",
+        "data_from_year": 1996,
+        "data_till_year": 2025,
+        "first_point": "2026-01-01",
+        "last_point": "2026-12-31",
+        "n_points": 365,
+        "parameter": "Abfluss",
+        "unit": "m\u00b3/s",
+        "url": "https://ehyd.gv.at/services/Diagram/pegelLongterm?hzbnr=200048"
+      },
+      {
+        "cache_file": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/diagram_pegelLongterm_212704.json",
+        "data_from_year": null,
+        "data_till_year": null,
+        "first_point": null,
+        "last_point": null,
+        "n_points": 0,
+        "parameter": null,
+        "unit": null,
+        "url": "https://ehyd.gv.at/services/Diagram/pegelLongterm?hzbnr=212704"
+      }
+    ],
+    "download_type_probe": {
+      "allowed_download_types": [
+        "gw_jahresmaxima",
+        "gw_jahresminima",
+        "gw_monatsmittel",
+        "gw_temp_monatsmittel",
+        "nlv_tagessummen",
+        "nlv_minutensummen",
+        "nlv_5minutensummen",
+        "nlv_schneehoehe",
+        "nlv_neuschnee",
+        "qu_quellschuettung",
+        "qu_quellwassertemp",
+        "qu_quellleitfaehigkeit",
+        "owf_abfl_tagesmittel",
+        "owf_abfl_monatsmaxima",
+        "owf_abfl_monatsminima",
+        "owf_wasserst_tagesmittel",
+        "owf_wasserst_monatsmaxima",
+        "owf_wasserst_monatsminima",
+        "owf_wassertemp_monatsmittel",
+        "owf_geschiebe_tagesfracht",
+        "owf_schwebstoff_tagesfracht"
+      ],
+      "daily_surface_temperature_types": [],
+      "daily_temperature_types_any_compartment": [],
+      "n_allowed_download_types": 21,
+      "probes": {
+        "owf_wassertemp_monatsmittel": {
+          "response": "empty dat-parameter; allowed types are gw_jahresmaxima, gw_jahresminima, gw_monatsmittel, gw_temp_monatsmittel, nlv_tagessummen, nlv_minutensummen, nlv_5minutensummen, nlv_schneehoehe, nlv_neuschnee, qu_quellschuettung, qu_quellwassertemp, qu_quellleitfaehigkeit, owf_abfl_tagesmittel, owf_abfl_monatsmaxima, owf_abfl_monatsminima, owf_wasserst_tagesmittel, owf_wasserst_monatsmaxima, owf_wasserst_monatsminima, owf_wassertemp_monatsmittel, owf_geschiebe_tagesfracht, owf_schwebstoff_tagesfracht",
+          "url": "https://ehyd.gv.at/services/AreaSelection/download?cat=owf_wassertemp_monatsmittel&reg=0"
+        },
+        "owf_wassertemp_tagesmittel": {
+          "response": "empty dat-parameter; allowed types are gw_jahresmaxima, gw_jahresminima, gw_monatsmittel, gw_temp_monatsmittel, nlv_tagessummen, nlv_minutensummen, nlv_5minutensummen, nlv_schneehoehe, nlv_neuschnee, qu_quellschuettung, qu_quellwassertemp, qu_quellleitfaehigkeit, owf_abfl_tagesmittel, owf_abfl_monatsmaxima, owf_abfl_monatsminima, owf_wasserst_tagesmittel, owf_wasserst_monatsmaxima, owf_wasserst_monatsminima, owf_wassertemp_monatsmittel, owf_geschiebe_tagesfracht, owf_schwebstoff_tagesfracht",
+          "url": "https://ehyd.gv.at/services/AreaSelection/download?cat=owf_wassertemp_tagesmittel&reg=0"
+        },
+        "qu_quellwassertemp": {
+          "response": "empty dat-parameter; allowed types are gw_jahresmaxima, gw_jahresminima, gw_monatsmittel, gw_temp_monatsmittel, nlv_tagessummen, nlv_minutensummen, nlv_5minutensummen, nlv_schneehoehe, nlv_neuschnee, qu_quellschuettung, qu_quellwassertemp, qu_quellleitfaehigkeit, owf_abfl_tagesmittel, owf_abfl_monatsmaxima, owf_abfl_monatsminima, owf_wasserst_tagesmittel, owf_wasserst_monatsmaxima, owf_wasserst_monatsminima, owf_wassertemp_monatsmittel, owf_geschiebe_tagesfracht, owf_schwebstoff_tagesfracht",
+          "url": "https://ehyd.gv.at/services/AreaSelection/download?cat=qu_quellwassertemp&reg=0"
+        }
+      },
+      "temperature_types": [
+        "qu_quellwassertemp",
+        "owf_wassertemp_monatsmittel"
+      ]
+    },
+    "station_listing": {
+      "bytes": 6722863,
+      "cache_file": "results/wrr_submission_ready/multi_agency_ingest/ehyd/raw_cache/messstellen_alle.json",
+      "fetched_this_run": false,
+      "server_head": {
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        "age": "0",
+        "alt-svc": "h3=\":443\"; ma=2592000",
+        "cache-control": "no-cache",
+        "connection": "close",
+        "content-type": "application/json",
+        "date": "Mon, 12 Oct 2026 09:55:12 GMT",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN",
+        "x-node": "C",
+        "x-permitted-cross-domain-policies": "none"
+      },
+      "sha256": "9253bb55c0612c5ee4269a34f24515b484cfa27357aae0511df53583b768e022",
+      "url": "https://ehyd.gv.at/services/Messstellen/json?filter=alle"
+    }
+  },
+  "stations_emitted": 0,
+  "verdict": "infeasible"
+}

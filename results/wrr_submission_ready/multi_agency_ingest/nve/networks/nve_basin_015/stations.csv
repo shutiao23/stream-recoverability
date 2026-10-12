@@ -1,0 +1,4 @@
+network_id,network_name,station_id,provider,river_name,latitude,longitude,basin_number,regine_no,n_complete_years,complete_years,first_date,last_date,n_days,n_dropped_qc,accepted_quality_codes,measurement_statistic,quality_assurance,catchment_regulation_type,first_year_regulation,in_coastal_catchment,network_in_v17_basin
+nve_basin_015,Numedalslågen,15.104.0,nve_hydapi,Numedalslågen,59.79183,9.57635,015,015.E7,11,2003;2006;2008;2010;2011;2012;2013;2014;2019;2020;2022,2002-10-10,2023-06-27,7303,977,2,daily_mean_1440min_mean,quality_checked,,,False,False
+nve_basin_015,,15.114.0,nve_hydapi,,59.08966,10.06905,015,,4,2005;2006;2007;2008,1984-09-06,2010-11-01,3541,6018,2,daily_mean_1440min_mean,quality_checked,,,False,False
+nve_basin_015,Numedalslågen,15.115.0,nve_hydapi,Numedalslågen,59.42728,9.99187,015,015.C31,11,2005;2006;2007;2010;2011;2012;2013;2014;2016;2018;2021,1984-11-15,2023-10-28,9263,5742,2;3,daily_mean_1440min_mean,quality_checked,,,False,False

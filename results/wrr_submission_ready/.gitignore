@@ -3,3 +3,8 @@ runs/
 
 # NWIS/HydAPI raw download caches; sealed daily_wide panels + sha256 manifests remain.
 confirmation_ingest/**/raw_cache/
+
+# Transport-panel and amendment raw download caches: reproducible from the
+# documented acquisition routes; sealed panels and manifests remain tracked.
+multi_agency_ingest/**/raw_cache/
+amendments/**/raw_cache/

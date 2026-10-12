@@ -1,0 +1,10 @@
+population,subset,n_cases,n_networks,providers,contrast_points,ci_low_points,ci_high_points,note
+development_retrospective,all_providers,40704,110.0,arso;chmi;foen;gkd_bayern;lubw;nve_hydapi;rws_waterwebservices;syke;usgs,-6.3454181728845676,-7.1240992531196365,-5.561923903542943,
+development_retrospective,documented_daily_mean_only,30289,84.0,foen;gkd_bayern;lubw;nve_hydapi;usgs,-5.664559947174795,-6.4827642593214145,-4.867344436051225,
+development_retrospective,project_derived_or_non_daily,10415,26.0,arso;chmi;rws_waterwebservices;syke,-7.489711934156379,-9.075779759988647,-5.4582027404047,
+reserved_retrospective,all_providers,10820,36.0,arso;chmi;gkd_bayern;lubw;nve_hydapi;usgs,-7.129654079746501,-8.989990772455952,-5.400301192067243,
+reserved_retrospective,documented_daily_mean_only,7985,29.0,gkd_bayern;lubw;nve_hydapi;usgs,-6.583184257602862,-7.8659209584642635,-5.27714517244511,
+reserved_retrospective,project_derived_or_non_daily,2835,7.0,arso;chmi,-7.258064516129031,-11.857110235491946,-1.2242157820157764,
+sealed_usgs,all_providers,8973,39.0,usgs,-7.943603851444292,-10.169736867097622,-5.9046615826488695,
+sealed_usgs,documented_daily_mean_only,8973,39.0,usgs,-7.943603851444292,-10.169736867097622,-5.9046615826488695,
+sealed_usgs,project_derived_or_non_daily,0,,,,,,below 200 cases; not scored

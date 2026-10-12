@@ -1,0 +1,391 @@
+{
+  "question": "F16: is the manuscript's cold-extreme recommendation ('keep length-based rules for cold extremes') supported by a cold-season support axis, or only by a warm-season axis that cannot see the cold window?",
+  "coldest30_reconstruction_error_available": true,
+  "coldest30_error_source": "step3_cases/cases.parquet columns abserr_coldest30_<estimator>",
+  "estimand": "coldest 30-day mean daily water temperature",
+  "primary_endpoint_tolerance_c": 0.5,
+  "equal_relative_tolerance_rule": "0.4717 of the metric's interannual sd",
+  "retention": 0.7,
+  "n_cases": 40704,
+  "n_networks": 110,
+  "cold_axis_definitions": {
+    "cold_window_overlap": "share of the station's climatological coldest-30-day window (estimated from every year but the target year) that the outage hides; exact mirror of the stored peak_overlap column",
+    "cold_season_observed_fraction": "observed share of the non-warm calendar months (Oct-Apr); exact algebraic function of stored total_missing, missing_fraction and warm_observed_fraction"
+  },
+  "regeneration_checks": {
+    "max_abs_deviation_longest_run": 0.0,
+    "agreement_within_1e-9_longest_run": 1.0,
+    "max_abs_deviation_total_missing": 0.0,
+    "agreement_within_1e-9_total_missing": 1.0,
+    "max_abs_deviation_peak_overlap": 0.0,
+    "agreement_within_1e-9_peak_overlap": 1.0,
+    "max_abs_deviation_warm_observed_fraction": 0.0,
+    "agreement_within_1e-9_warm_observed_fraction": 1.0,
+    "max_abs_deviation_cold_season_observed_fraction": 1.1102230246251565e-16,
+    "regeneration_covers_stored_rows": 1.0,
+    "n_days_consistency_max_abs_deviation": 0.0,
+    "n_days_distinct": [
+      365,
+      366
+    ],
+    "max_abs_out_of_unit_interval": 0.0
+  },
+  "cold_window_wander": {
+    "n_stations": 354,
+    "circular_sd_days_median": 1.5754605618980255,
+    "circular_sd_days_mean": 3.002386629064157,
+    "circular_sd_days_p90": 6.902910391801176,
+    "raw_doy_sd_median": 2.0212562694481697,
+    "note": "raw doy sd is inflated by the 31 December wrap; circular sd is the honest figure"
+  },
+  "cold_window_placement": {
+    "start_month_counts": {
+      "1": 33429,
+      "2": 2048,
+      "3": 42,
+      "11": 124,
+      "12": 5061
+    },
+    "share_of_distinct_windows_fully_inside_cold_months": 1.0,
+    "mean_share_of_cold_window_inside_climatological_peak_window": 0.0,
+    "max_share_of_cold_window_inside_climatological_peak_window": 0.0
+  },
+  "cold_versus_warm_support": {
+    "spearman_warm_observed_fraction_vs_cold_window_overlap": 0.0006627627146485773,
+    "spearman_longest_run_vs_cold_window_overlap": 0.28515385634568235
+  },
+  "results": [
+    {
+      "metric": "coldest30",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40704,
+      "n_networks": 110,
+      "base_rate": 0.036040683962264154,
+      "auc_cold_window_overlap": 0.8761190169421038,
+      "rate_at_70_cold_window_overlap_rule": 0.005404836275576457,
+      "auc_cold_season_observed_fraction": 0.8966168988381807,
+      "rate_at_70_cold_season_observed_fraction_rule": 0.004527427789281578,
+      "auc_longest_run": 0.8190675096101628,
+      "rate_at_70_longest_run_rule": 0.010423612817183167,
+      "auc_peak_overlap": 0.46844244141039404,
+      "rate_at_70_peak_overlap_rule": 0.03537711016740954,
+      "auc_warm_observed_fraction": 0.640506004107422,
+      "rate_at_70_warm_observed_fraction_rule": 0.019232794019583756,
+      "auc_missing_fraction": 0.8312094963299512,
+      "rate_at_70_missing_fraction_rule": 0.009932264064858035,
+      "best_cold_axis": "cold_season_observed_fraction",
+      "auc_best_cold_axis_minus_longest_run": 0.0775493892280179,
+      "auc_cold_window_overlap_minus_warm_observed_fraction": 0.23561301283468183,
+      "rate_at_70_best_cold_rule_minus_length_rule": -0.005896185027901589,
+      "grouped_logistic_auc_length_only": 0.8132296875789113,
+      "grouped_logistic_auc_length_plus_cold_window": 0.9048486815105151,
+      "grouped_logistic_auc_length_plus_cold_season": 0.8977204560078245,
+      "grouped_logistic_auc_length_plus_missing_fraction": 0.8274825423793212
+    },
+    {
+      "metric": "coldest30",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 40704,
+      "n_networks": 110,
+      "base_rate": 0.051542845911949686,
+      "auc_cold_window_overlap": 0.8778575454197466,
+      "rate_at_70_cold_window_overlap_rule": 0.008177447092268277,
+      "auc_cold_season_observed_fraction": 0.8917969070041369,
+      "rate_at_70_cold_season_observed_fraction_rule": 0.008107254413364686,
+      "auc_longest_run": 0.8033509945035389,
+      "rate_at_70_longest_run_rule": 0.017513073386445793,
+      "auc_peak_overlap": 0.4473100986935207,
+      "rate_at_70_peak_overlap_rule": 0.05285508721440354,
+      "auc_warm_observed_fraction": 0.6186555708579359,
+      "rate_at_70_warm_observed_fraction_rule": 0.030147755589092058,
+      "auc_missing_fraction": 0.8177062995241161,
+      "rate_at_70_missing_fraction_rule": 0.01660056856069912,
+      "best_cold_axis": "cold_season_observed_fraction",
+      "auc_best_cold_axis_minus_longest_run": 0.08844591250059808,
+      "auc_cold_window_overlap_minus_warm_observed_fraction": 0.2592019745618107,
+      "rate_at_70_best_cold_rule_minus_length_rule": -0.009405818973081107,
+      "grouped_logistic_auc_length_only": 0.7981128999591927,
+      "grouped_logistic_auc_length_plus_cold_window": 0.9049827935881978,
+      "grouped_logistic_auc_length_plus_cold_season": 0.8962546855136986,
+      "grouped_logistic_auc_length_plus_missing_fraction": 0.816462018800379
+    },
+    {
+      "metric": "hottest30",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40704,
+      "n_networks": 110,
+      "base_rate": 0.14868317610062892,
+      "auc_cold_window_overlap": 0.4870646344936671,
+      "rate_at_70_cold_window_overlap_rule": 0.15470466430351315,
+      "auc_cold_season_observed_fraction": 0.5379274065681405,
+      "rate_at_70_cold_season_observed_fraction_rule": 0.1316814656231355,
+      "auc_longest_run": 0.748793353730137,
+      "rate_at_70_longest_run_rule": 0.09223318007931773,
+      "auc_peak_overlap": 0.8190228936847219,
+      "rate_at_70_peak_overlap_rule": 0.05668058821464921,
+      "auc_warm_observed_fraction": 0.8194288610449023,
+      "rate_at_70_warm_observed_fraction_rule": 0.06871863264661496,
+      "auc_missing_fraction": 0.7426587628639063,
+      "rate_at_70_missing_fraction_rule": 0.0938125153546485,
+      "best_cold_axis": "cold_season_observed_fraction",
+      "auc_best_cold_axis_minus_longest_run": -0.21086594716199647,
+      "auc_cold_window_overlap_minus_warm_observed_fraction": -0.3323642265512352,
+      "rate_at_70_best_cold_rule_minus_length_rule": 0.03944828554381778,
+      "grouped_logistic_auc_length_only": 0.7429259912113408,
+      "grouped_logistic_auc_length_plus_cold_window": 0.7680925557515729,
+      "grouped_logistic_auc_length_plus_cold_season": 0.8174714824821534,
+      "grouped_logistic_auc_length_plus_missing_fraction": 0.7424211248291863
+    },
+    {
+      "metric": "hottest30",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.5099734725290103,
+      "n": 40704,
+      "n_networks": 110,
+      "base_rate": 0.14563679245283018,
+      "auc_cold_window_overlap": 0.48790128909074365,
+      "rate_at_70_cold_window_overlap_rule": 0.15140560839504438,
+      "auc_cold_season_observed_fraction": 0.5391173648229332,
+      "rate_at_70_cold_season_observed_fraction_rule": 0.1287333731091847,
+      "auc_longest_run": 0.7501290430530991,
+      "rate_at_70_longest_run_rule": 0.08988172533604745,
+      "auc_peak_overlap": 0.8187915261296745,
+      "rate_at_70_peak_overlap_rule": 0.055066156599866634,
+      "auc_warm_observed_fraction": 0.8204387174698482,
+      "rate_at_70_warm_observed_fraction_rule": 0.06664794861895905,
+      "auc_missing_fraction": 0.7441072473430882,
+      "rate_at_70_missing_fraction_rule": 0.09135577159302284,
+      "best_cold_axis": "cold_season_observed_fraction",
+      "auc_best_cold_axis_minus_longest_run": -0.21101167823016598,
+      "auc_cold_window_overlap_minus_warm_observed_fraction": -0.33253742837910455,
+      "rate_at_70_best_cold_rule_minus_length_rule": 0.03885164777313725,
+      "grouped_logistic_auc_length_only": 0.7445657340000875,
+      "grouped_logistic_auc_length_plus_cold_window": 0.769368526722169,
+      "grouped_logistic_auc_length_plus_cold_season": 0.818255099457426,
+      "grouped_logistic_auc_length_plus_missing_fraction": 0.7438823163639621
+    }
+  ],
+  "per_estimator": [
+    {
+      "metric": "coldest30",
+      "estimator": "observed_days",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40691,
+      "base_rate": 0.12481875599026812,
+      "auc_cold_window_overlap": 0.890732417359798,
+      "auc_longest_run": 0.7457183354620052,
+      "auc_warm_observed_fraction": 0.5534833495756378
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "doy_climatology",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40704,
+      "base_rate": 0.07571737421383648,
+      "auc_cold_window_overlap": 0.8852640767129537,
+      "auc_longest_run": 0.7552408127488056,
+      "auc_warm_observed_fraction": 0.5686170298275296
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "smooth_climatology",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40704,
+      "base_rate": 0.07510318396226415,
+      "auc_cold_window_overlap": 0.8866679059043733,
+      "auc_longest_run": 0.7592558835486363,
+      "auc_warm_observed_fraction": 0.5706499478537428
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "linear_interp",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 40704,
+      "base_rate": 0.07763364779874214,
+      "auc_cold_window_overlap": 0.900215190547732,
+      "auc_longest_run": 0.8149657439911853,
+      "auc_warm_observed_fraction": 0.6078517745929165
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "donor_ridge",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 31787,
+      "base_rate": 0.020668826878912763,
+      "auc_cold_window_overlap": 0.882984963630203,
+      "auc_longest_run": 0.7991497334543949,
+      "auc_warm_observed_fraction": 0.5996245185775173
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "air_ridge",
+      "tolerance_rule": "literal_0.5C",
+      "tolerance_c": 0.5,
+      "n": 921,
+      "base_rate": 0.09120521172638436,
+      "auc_cold_window_overlap": 0.7783111452466291,
+      "auc_longest_run": 0.7865036695681857,
+      "auc_warm_observed_fraction": 0.582415941286909
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "observed_days",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 40691,
+      "base_rate": 0.14600280160231993,
+      "auc_cold_window_overlap": 0.8622006807952056,
+      "auc_longest_run": 0.7254878196752479,
+      "auc_warm_observed_fraction": 0.5454312247895674
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "doy_climatology",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 40704,
+      "base_rate": 0.09709119496855347,
+      "auc_cold_window_overlap": 0.8849151011528855,
+      "auc_longest_run": 0.7474773743344161,
+      "auc_warm_observed_fraction": 0.559502931014578
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "smooth_climatology",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 40704,
+      "base_rate": 0.09704205974842767,
+      "auc_cold_window_overlap": 0.8867548455933152,
+      "auc_longest_run": 0.7477307800132664,
+      "auc_warm_observed_fraction": 0.5584957014925784
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "linear_interp",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 40704,
+      "base_rate": 0.09419221698113207,
+      "auc_cold_window_overlap": 0.8976943338399845,
+      "auc_longest_run": 0.8061750926254875,
+      "auc_warm_observed_fraction": 0.5989627374388068
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "donor_ridge",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 31787,
+      "base_rate": 0.033724478560417784,
+      "auc_cold_window_overlap": 0.8874550210043709,
+      "auc_longest_run": 0.7833669283810477,
+      "auc_warm_observed_fraction": 0.5812335390846516
+    },
+    {
+      "metric": "coldest30",
+      "estimator": "air_ridge",
+      "tolerance_rule": "equal_relative_0.4717sd",
+      "tolerance_c": 0.3770308684424631,
+      "n": 921,
+      "base_rate": 0.10097719869706841,
+      "auc_cold_window_overlap": 0.774297439094073,
+      "auc_longest_run": 0.7759142382213912,
+      "auc_warm_observed_fraction": 0.5782816477066126
+    }
+  ],
+  "clustered_bootstrap": {
+    "coldest30__literal_0.5C__rate_gap_cold_window_minus_length": {
+      "point": -0.00501877654160671,
+      "low": -0.008563421771993665,
+      "high": -0.002932741819754381,
+      "se": 0.00145829351073663,
+      "n_clusters": 110
+    },
+    "coldest30__literal_0.5C__rate_gap_cold_season_minus_length": {
+      "point": -0.005896185027901589,
+      "low": -0.009008650311012183,
+      "high": -0.004818337654117178,
+      "se": 0.0010690175249607244,
+      "n_clusters": 110
+    },
+    "coldest30__literal_0.5C__auc_gap_cold_window_minus_length": {
+      "point": 0.057051507331940976,
+      "low": 0.0365335506428448,
+      "high": 0.08269143923819537,
+      "se": 0.012200584506110647,
+      "n_clusters": 110
+    },
+    "coldest30__equal_relative_0.4717sd__rate_gap_cold_window_minus_length": {
+      "point": -0.009335626294177515,
+      "low": -0.015267991182459752,
+      "high": -0.005761238588800441,
+      "se": 0.0023697148435166673,
+      "n_clusters": 110
+    },
+    "coldest30__equal_relative_0.4717sd__rate_gap_cold_season_minus_length": {
+      "point": -0.009405818973081107,
+      "low": -0.014300234257463237,
+      "high": -0.007713619194560142,
+      "se": 0.001621125634712932,
+      "n_clusters": 110
+    },
+    "coldest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length": {
+      "point": 0.07450655091620773,
+      "low": 0.05080181113653773,
+      "high": 0.10377605820940212,
+      "se": 0.013995822169615292,
+      "n_clusters": 110
+    },
+    "hottest30__literal_0.5C__rate_gap_cold_window_minus_length": {
+      "point": 0.06247148422419542,
+      "low": 0.0538130918898499,
+      "high": 0.07164717757951822,
+      "se": 0.004653857380422661,
+      "n_clusters": 110
+    },
+    "hottest30__literal_0.5C__rate_gap_cold_season_minus_length": {
+      "point": 0.03944828554381778,
+      "low": 0.03399090256849481,
+      "high": 0.04451888934481315,
+      "se": 0.002698934749893433,
+      "n_clusters": 110
+    },
+    "hottest30__literal_0.5C__auc_gap_cold_window_minus_length": {
+      "point": -0.2617287192364699,
+      "low": -0.28294719176337696,
+      "high": -0.23870208668005016,
+      "se": 0.01133034513707637,
+      "n_clusters": 110
+    },
+    "hottest30__equal_relative_0.4717sd__rate_gap_cold_window_minus_length": {
+      "point": 0.061523883058996934,
+      "low": 0.052893659188685,
+      "high": 0.07074195075637053,
+      "se": 0.004622738945149813,
+      "n_clusters": 110
+    },
+    "hottest30__equal_relative_0.4717sd__rate_gap_cold_season_minus_length": {
+      "point": 0.03885164777313725,
+      "low": 0.03346384903412799,
+      "high": 0.04384417975967399,
+      "se": 0.0026520393329892834,
+      "n_clusters": 110
+    },
+    "hottest30__equal_relative_0.4717sd__auc_gap_cold_window_minus_length": {
+      "point": -0.2622277539623555,
+      "low": -0.2830574903631079,
+      "high": -0.23952449489461686,
+      "se": 0.011246998382835107,
+      "n_clusters": 110
+    }
+  }
+}

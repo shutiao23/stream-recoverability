@@ -1,0 +1,1035 @@
+{
+  "acquisition_routes": "results/wrr_submission_ready/current_data_acquisition.csv",
+  "air_forcing": {
+    "bytes": 360453,
+    "path": "results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet",
+    "sha256": "d109dfe2a4ba04e2ed07f1a20337b70cbdab8c9b017c896e40e226eacc0a2519"
+  },
+  "n_panels": 146,
+  "note": "Contains the exact daily panels and air forcing the current study reads. LUBW values are included here for confidential peer review only because LUBW reserves copyright; they are not redistributed publicly.",
+  "panels": [
+    {
+      "bytes": 103123,
+      "network_id": "arso_bistrica",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_bistrica/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "245968ded2d8e053d98d37efc5bf2a72d4823bffa0643d14b5344bead9e0b64d"
+    },
+    {
+      "bytes": 102783,
+      "network_id": "arso_dravinja",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_dravinja/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "36bc805a18775a4435dfeadfbe73c7030932739b3001f62c9941d4b6d2a80159"
+    },
+    {
+      "bytes": 105032,
+      "network_id": "arso_krka",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_krka/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "6d3fc8fd5c7a9065061957d2caaf996f6da69437316b6aa40e9ae8a2dd28ec70"
+    },
+    {
+      "bytes": 169075,
+      "network_id": "arso_sava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_sava/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "71603c00123136e15acda94f9cac2bba355cb49d0a8d129f43aad788339491f7"
+    },
+    {
+      "bytes": 118750,
+      "network_id": "arso_savinja",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_savinja/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "4510466366fdc026187d0f946b04698e77ad72eecc6b47b53b65d720d3e58c98"
+    },
+    {
+      "bytes": 102634,
+      "network_id": "arso_vipava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_vipava/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "3b1fb7a6bbfea1f46d93a4d249e91a90f6d0158c32620f87a344dee9595ec117"
+    },
+    {
+      "bytes": 87548,
+      "network_id": "arso_drava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_drava/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "ee60b9d56a38069e33dc201bf777e69ea72c8c66c06f83d25aa0d370353018d2"
+    },
+    {
+      "bytes": 86248,
+      "network_id": "arso_kamniska_bistrica",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_kamniska_bistrica/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "e8c2a1a40bfabea930ea466554a67ad850fb44e555dca3bb9b5cf5d0f0707bc9"
+    },
+    {
+      "bytes": 85856,
+      "network_id": "arso_kolpa",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_kolpa/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "27d9e62bc4942411fdd5b95dfeb8b893fcf2d1ec73ae889bc6c365d7d660815c"
+    },
+    {
+      "bytes": 89950,
+      "network_id": "arso_ljubljanica",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_ljubljanica/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "e8a6d24a018f28d0445c03889d77ebe5939d0282b0a2ddf2533205b1ece72b71"
+    },
+    {
+      "bytes": 89725,
+      "network_id": "arso_paka",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_paka/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "c316f9cd198631a195a7732f75d58f797852351a4f7bbdf9cfb6369ed81dc3fc"
+    },
+    {
+      "bytes": 85216,
+      "network_id": "arso_soca",
+      "path": "results/development_v11/confirmation_daily_qc/networks/arso_soca/daily_wide_temperature.csv",
+      "provider": "arso",
+      "sha256": "5cd97a1503e5e9ff69a3f93d08fa34aa00f01a922a2974c11faebe1182378b25"
+    },
+    {
+      "bytes": 283074,
+      "network_id": "chmi_berounka",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_berounka/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "824d5d31882edcce49bf60cdf1a8986b7b0be75d41b2753490aa9e8585d3ca1c"
+    },
+    {
+      "bytes": 295538,
+      "network_id": "chmi_blanice",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_blanice/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "c716b1acec6789a50f8ac87a395d6267a46709b0604125fbc838744d7fea084c"
+    },
+    {
+      "bytes": 329113,
+      "network_id": "chmi_botic",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_botic/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "d3e6d34ca752ba06dfed1400076dd6208adaa00f2052316c0a0afd670a19d82e"
+    },
+    {
+      "bytes": 526684,
+      "network_id": "chmi_dyje",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_dyje/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "37f7a6b050093aa0ce479edd8a6610f5f2558a2e2bdd91171a24bf959d12ce1e"
+    },
+    {
+      "bytes": 438991,
+      "network_id": "chmi_jizera",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_jizera/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "c682906ce842eb7d97e195e43f4c80a6b8be424ea981d37f1fd80da04feaebb7"
+    },
+    {
+      "bytes": 584108,
+      "network_id": "chmi_labe",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_labe/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "ec88420c9e211c691b5b3c139fd68cd3fcf96d70086c28395e319ba783a88ad1"
+    },
+    {
+      "bytes": 545216,
+      "network_id": "chmi_morava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_morava/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "3c2b63405a7bbdcc93aa0d27f35e0d552cc09f00b89ea67bbbbda16d16247fdb"
+    },
+    {
+      "bytes": 665827,
+      "network_id": "chmi_sazava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_sazava/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "6c705a2f66ae53a9d45e1bcb0af6f3bb0c3920065ce607fbc33755f12b172fea"
+    },
+    {
+      "bytes": 379020,
+      "network_id": "chmi_vltava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_vltava/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "d203ac67d8595c4e02dbe7e011958dc389ae77fde222145ba5956f72d52ecb80"
+    },
+    {
+      "bytes": 362467,
+      "network_id": "chmi_zelivka",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_zelivka/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "c5140aa7611a3bad9e66a6ff6316e52e7f4d576b66f4b5757bcc01667e833a6c"
+    },
+    {
+      "bytes": 135147,
+      "network_id": "chmi_bela",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_bela/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "c98b46c6724f06621aff1368fc69f872bcb1ceb658a28c5a24ed3a417bc54f13"
+    },
+    {
+      "bytes": 251949,
+      "network_id": "chmi_kamenice",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_kamenice/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "a4bf6556c2d80773356f15769d8a5fe62aaa0941232671248f2bca9f910de83d"
+    },
+    {
+      "bytes": 426425,
+      "network_id": "chmi_luznice",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_luznice/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "24f3957e258157d9827cb1cc7f9bb18cac3adead89935bd48f0ab696f59fa3a4"
+    },
+    {
+      "bytes": 439413,
+      "network_id": "chmi_odra",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_odra/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "c90c325d391bcb8db6b33d93dec60654867dc8e1fad2cbe65f99d3418ebc4d24"
+    },
+    {
+      "bytes": 132552,
+      "network_id": "chmi_ohre",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_ohre/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "432d394135d6fb8ed22912022e095af2006af62a67b07be2552586dbe740fb4d"
+    },
+    {
+      "bytes": 465492,
+      "network_id": "chmi_otava",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_otava/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "597d580b50cb8d03bb8c8f54194da4c8fda2ecb2015922562e185fd6676f89a1"
+    },
+    {
+      "bytes": 263971,
+      "network_id": "chmi_smeda",
+      "path": "results/development_v11/confirmation_daily_qc/networks/chmi_smeda/daily_wide_temperature.csv",
+      "provider": "chmi",
+      "sha256": "4bb4bf9504621296d80bc17fded1274596c431ef8c94312ffd20cd93d93b092c"
+    },
+    {
+      "bytes": 556537,
+      "network_id": "foen_aare_aaregebiet",
+      "path": "results/development_v11/confirmation_daily_qc/networks/foen_aare_aaregebiet/daily_wide_temperature.csv",
+      "provider": "foen",
+      "sha256": "58f81761ea2a50d78a27faff5d289bd3b8ae15f8b1ca66a84743993eb6aef52b"
+    },
+    {
+      "bytes": 185721,
+      "network_id": "foen_murg_multi",
+      "path": "results/development_v11/confirmation_daily_qc/networks/foen_murg_multi/daily_wide_temperature.csv",
+      "provider": "foen",
+      "sha256": "082b418b6f25e77492c3aec94815c5232c18f66690464d5ba92836f77e8f601b"
+    },
+    {
+      "bytes": 1035720,
+      "network_id": "gkd_bayern_donau",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_donau/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "acced5335a5a6db47fed8b1a97d5d369d5b1bb41f8d45182d86be9eacbbaddc4"
+    },
+    {
+      "bytes": 952237,
+      "network_id": "gkd_bayern_main",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_main/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "e7ad6178f371ef0061fad9437c73ff9d85c86134eaae1dfab92e4da16927cd12"
+    },
+    {
+      "bytes": 324089,
+      "network_id": "gkd_bayern_alz",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_alz/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "116c12c25c84fcc7908dab902d5d8663b63586bab83884d339db2608ed154a83"
+    },
+    {
+      "bytes": 329270,
+      "network_id": "gkd_bayern_fraenkische_saale",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_fraenkische_saale/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "6c626774bfdaa9691e63b6f24330f5d80e5c6b4218c628b9d260632fb5e11fd2"
+    },
+    {
+      "bytes": 377482,
+      "network_id": "gkd_bayern_iller",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_iller/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "13dc01b072f1fdafee9bed0cc87155952f9e15485bbda5228e50772a86c273a0"
+    },
+    {
+      "bytes": 387104,
+      "network_id": "gkd_bayern_inn",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_inn/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "dc25c45615c397f4c69e372fd394558a3f8aebf61f88b2cb57ea1a6066860e93"
+    },
+    {
+      "bytes": 507391,
+      "network_id": "gkd_bayern_isar",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_isar/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "739954d1315da55ce344c5d484c23e1be5c9d8461aec66ddf145e533d1bb847f"
+    },
+    {
+      "bytes": 128637,
+      "network_id": "gkd_bayern_mangfall",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_mangfall/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "2c97a86b794bdba1135ed10890517c56841d6525e79df15ed4fca792adb3c283"
+    },
+    {
+      "bytes": 370610,
+      "network_id": "gkd_bayern_vils",
+      "path": "results/development_v11/confirmation_daily_qc/networks/gkd_bayern_vils/daily_wide_temperature.csv",
+      "provider": "gkd_bayern",
+      "sha256": "ca1adce1331af4af013b1f55a0de47c0722c931edb956e5411ee8231120701fb"
+    },
+    {
+      "bytes": 278120,
+      "network_id": "lubw_donau",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_donau/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "cc7b32ce74a047ccc4cd94e56410c6b800d83fa926f426747904033759a8be48"
+    },
+    {
+      "bytes": 121995,
+      "network_id": "lubw_enz",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_enz/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "822f6d6cbed8ff4ac835d2636656b85667cf5180ba954b8a7e884b3a073e2822"
+    },
+    {
+      "bytes": 211487,
+      "network_id": "lubw_fils",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_fils/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "efcab488af94f98a6608a2be820f5ad851d3158079d1d3e9994d3b45a189b693"
+    },
+    {
+      "bytes": 254315,
+      "network_id": "lubw_jagst",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_jagst/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "b4cd3c75126094a212b4def6f80a50746c7f8dac0726e115904f4de1d8d76ec7"
+    },
+    {
+      "bytes": 249113,
+      "network_id": "lubw_kocher",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_kocher/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "0dd750b3d28ab0b356507ac12a16fac40ebb02625504e2fc5662329bda96d88d"
+    },
+    {
+      "bytes": 1001375,
+      "network_id": "lubw_neckar",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_neckar/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "0f60852cdb9b5371b84cf013b9b6ca5da73b0a3306dec3f3dd81f195cbb423cc"
+    },
+    {
+      "bytes": 369974,
+      "network_id": "lubw_rhein",
+      "path": "results/development_v11/confirmation_daily_qc/networks/lubw_rhein/daily_wide_temperature.csv",
+      "provider": "lubw",
+      "sha256": "e337a17723533f32aed3523f01e98806880506c9f220c6a6f257f54c8547ba9f"
+    },
+    {
+      "bytes": 62194,
+      "network_id": "nve_basin_151",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_151/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "9eb036a330f8a00f70138e1f9b998ae161c7f59b2f0920a322e9e303ae6d68fc"
+    },
+    {
+      "bytes": 189068,
+      "network_id": "nve_basin_2",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_2/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "6ed182085b253dec58ec3adea3a6e79b7db97c863419a7b04ade51c193fc26ce"
+    },
+    {
+      "bytes": 69876,
+      "network_id": "nve_basin_234",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_234/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "f68bb773e0710fd59d66fe1bc8c97a9031d5ee55bd0c4e7c01c13d679c1dbe8e"
+    },
+    {
+      "bytes": 106662,
+      "network_id": "nve_basin_79",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_79/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "274104013ca73884bde675dbffa0f7707115234c30e09ee00c3d0233d2c20a6a"
+    },
+    {
+      "bytes": 306037,
+      "network_id": "nve_basin_16",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_16/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "286f440a00893ce898c580c2bf13ced17fc76e31d8d3a4a43703b13a8655d975"
+    },
+    {
+      "bytes": 164916,
+      "network_id": "nve_basin_103",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_103/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "8cabea7652697ad5a44bc355f13db732f4b6bf9eb0a210ef1498a96ab28e5aa4"
+    },
+    {
+      "bytes": 107554,
+      "network_id": "nve_basin_112",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_112/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "819fbd3dcdd2c63a0c468e45587de17f2472fde9e8db305e809fbc6ad9a70a68"
+    },
+    {
+      "bytes": 105156,
+      "network_id": "nve_basin_121",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_121/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "c99623a9272d9529a005a41b3f4b325552f22820e49b4126ad3eb675b9b02bbc"
+    },
+    {
+      "bytes": 183169,
+      "network_id": "nve_basin_124",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_124/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "bb579c22a35f10b0b5ca096efedff9e0bf61a767fe129188db21c5e5d78b87f0"
+    },
+    {
+      "bytes": 121031,
+      "network_id": "nve_basin_212",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_212/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "1c07943f3af6952963f0b8e2dae6edab52e4f4e72e5491086d212c165baf3873"
+    },
+    {
+      "bytes": 197800,
+      "network_id": "nve_basin_26",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_26/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "96176bee0133153859dcf76982e7775dfdceceef434661722625f91ba403b71e"
+    },
+    {
+      "bytes": 104218,
+      "network_id": "nve_basin_27",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_27/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "fbde4c017008d365f7da823754fc2a57062620d9728de2383db497b5cb97a088"
+    },
+    {
+      "bytes": 135337,
+      "network_id": "nve_basin_311",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_311/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "3d6311f4d4045d387cc1e8f0fdc0440a04fe19edc6d1a095bc14327e2979b073"
+    },
+    {
+      "bytes": 98205,
+      "network_id": "nve_basin_74",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_74/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "b1818d96fe67af283e3a1a8bcd5d915d9a03d9fefdfe183e91f495fb8bdad38b"
+    },
+    {
+      "bytes": 196749,
+      "network_id": "nve_basin_78",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_78/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "2c4644ee47cdce695b3994a26603e67226438db902cf085591e2f417351e2572"
+    },
+    {
+      "bytes": 106563,
+      "network_id": "nve_basin_84",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_84/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "e1f0cebe954601f7a05348c2d2ee1a0efe6f20e1efd5b3b9cb7f01b39add176c"
+    },
+    {
+      "bytes": 193311,
+      "network_id": "nve_basin_88",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_88/daily_wide_temperature.csv",
+      "provider": "nve_hydapi",
+      "sha256": "240e5ef7ebe4a3455ab0dcb61cdc975653ae4edce804fd60d67e846acf415081"
+    },
+    {
+      "bytes": 136892,
+      "network_id": "rws_maas",
+      "path": "results/development_v11/confirmation_daily_qc/networks/rws_maas/daily_wide_temperature.csv",
+      "provider": "rws_waterwebservices",
+      "sha256": "3b43d8b7e5ad1667e73b4f9f3f1772bdc57c207f5ecaa5ae64e1e62fde25171f"
+    },
+    {
+      "bytes": 187785,
+      "network_id": "rws_rijn_lek_nederrijn",
+      "path": "results/development_v11/confirmation_daily_qc/networks/rws_rijn_lek_nederrijn/daily_wide_temperature.csv",
+      "provider": "rws_waterwebservices",
+      "sha256": "d86e9050ee088d2c81c7f5b502886b5206d5a63113904e68d4921f6163955d35"
+    },
+    {
+      "bytes": 153496,
+      "network_id": "syke_basin_kokemaeenjoki",
+      "path": "results/development_v11/confirmation_daily_qc/networks/syke_basin_kokemaeenjoki/daily_wide_temperature.csv",
+      "provider": "syke",
+      "sha256": "504275568ab2a7707df479c47adce8a77d76e6b33250db9ea3b12bd7dd370156"
+    },
+    {
+      "bytes": 382357,
+      "network_id": "syke_basin_kymijoki",
+      "path": "results/development_v11/confirmation_daily_qc/networks/syke_basin_kymijoki/daily_wide_temperature.csv",
+      "provider": "syke",
+      "sha256": "028c9bb702b3c81696527fda5eb4f0938de3b4288bb38f4853d9319ae4c1a9df"
+    },
+    {
+      "bytes": 152803,
+      "network_id": "huc8_02040202",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_02040202/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "426ec204e6c2d1f10e7600f0b6e950558daa4f860e1608396dd4f251351cfc60"
+    },
+    {
+      "bytes": 138271,
+      "network_id": "huc8_03110205",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_03110205/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "02b69397d089cc5a4ead025ce7fcf48510aaaa13b2586afe483420b4c5b109b1"
+    },
+    {
+      "bytes": 100853,
+      "network_id": "usgs2_huc2_14",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_14/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3bfc596f7a4ab27ff884d943f5f1f945e98c44856d56220b65addab3b264002f"
+    },
+    {
+      "bytes": 49353,
+      "network_id": "usgs2_huc2_19",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_19/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "32a24cd414da0eb9258eb4d9850cd25c5744f726dd13b2d752f0d9de42c0be9a"
+    },
+    {
+      "bytes": 62989,
+      "network_id": "usgs2_huc2_90",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_90/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0eea985c66d6e89c0fa51e9a25d9d99e8a9d92efcc1498a524b021b9426aa199"
+    },
+    {
+      "bytes": 105127,
+      "network_id": "usgs2_huc4_0306",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0306/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "34fcbf7c98b7f7d593c90ccc0461398fd8b667b0a024f6b79c45350ec83dfd22"
+    },
+    {
+      "bytes": 104424,
+      "network_id": "usgs2_huc4_0401",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0401/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "493c3b9fdfd185c6db8b0b45398dd410fa3654e5d720debf5b6fbace2e26fed0"
+    },
+    {
+      "bytes": 77548,
+      "network_id": "usgs2_huc4_0410",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0410/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "127b10ea4dc6ce66ac46cce49db0e0e14a77bfb855c3ec9368da956a2824641d"
+    },
+    {
+      "bytes": 71265,
+      "network_id": "usgs2_huc4_1802",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1802/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "c748c9cea17c302ac5b4a0e98a6b86fbfb8df45bd7109b065619548023efe28c"
+    },
+    {
+      "bytes": 76242,
+      "network_id": "usgs2_huc4_1901",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1901/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3ec8142fd7ba1b2917fa89048bc16271235d103cefa04c60d3cb014b55370b0d"
+    },
+    {
+      "bytes": 82162,
+      "network_id": "usgs2_huc6_010802",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_010802/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "f40cadaf6cdba2d487ca31c75b9c8eea66b2c9468ccc1eed6ed00d5c84a83bdf"
+    },
+    {
+      "bytes": 117843,
+      "network_id": "usgs2_huc6_020502",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_020502/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "e24e9ec94af6893df5d5714108589b47a0489ab7907f536f050a5846bdfee2bc"
+    },
+    {
+      "bytes": 94031,
+      "network_id": "usgs2_huc6_040301",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_040301/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "37ceaa0406765493d7bee5abe92e62277522b178ef6de07c7c2820f188de1cdc"
+    },
+    {
+      "bytes": 117561,
+      "network_id": "usgs2_huc6_040500",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_040500/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "f77eb100f23323bf5c8d2d5008bcbe0318251275fb320a973bb354b9361c239d"
+    },
+    {
+      "bytes": 93547,
+      "network_id": "usgs2_huc6_050500",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_050500/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0a58d4566dab7dba3dfb898bb2448dfe8ba8cd801678e2be67026b7385e432de"
+    },
+    {
+      "bytes": 120610,
+      "network_id": "usgs2_huc6_070900",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_070900/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3160708fc92f6075e2309d22c4d989bcebae97b242f8978c286523b474f11164"
+    },
+    {
+      "bytes": 97455,
+      "network_id": "usgs2_huc6_071300",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_071300/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "71e08a70ec38e2ec5359b5c5305599e4844882329733fd136b9745806edf9914"
+    },
+    {
+      "bytes": 92169,
+      "network_id": "usgs2_huc6_071401",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_071401/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0ef6551a93ad5dc84997ba37dac8a6caecff96b2d04c9a54556d0480d31755f9"
+    },
+    {
+      "bytes": 47875,
+      "network_id": "usgs2_huc6_080302",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_080302/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "533956c861114712242d92923c38ccbf6a57e9913c2b5d5f064e41301927162a"
+    },
+    {
+      "bytes": 51920,
+      "network_id": "usgs2_huc6_100301",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_100301/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "b6c3045cc72edcf2aa06ad268f2b7dc68fb8f3322b66bb5cb1ecf2c2392720da"
+    },
+    {
+      "bytes": 84765,
+      "network_id": "usgs2_huc6_100700",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_100700/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "c5c0367c8eeadf092e5cc65c88a12e3e2f469bd9656b72d274f4343ce34de842"
+    },
+    {
+      "bytes": 64835,
+      "network_id": "usgs2_huc6_110702",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_110702/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "5b62e0a4d0e2c9ed7ef3c6f9b4d99db5e52881b802cc2f04dc86e67cb4bbad30"
+    },
+    {
+      "bytes": 155565,
+      "network_id": "usgs2_huc6_120301",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_120301/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "5965dd9c8750c2555f3b7bcc200adc978f1ff0c1ec0536c597284d9e551b087f"
+    },
+    {
+      "bytes": 158505,
+      "network_id": "usgs2_huc6_120800",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_120800/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "7d90103702dd1ea5b0a4f68ff5cbb539395e25f6315e7c32a3ffa78e2245ff9f"
+    },
+    {
+      "bytes": 121621,
+      "network_id": "usgs2_huc6_121003",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_121003/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0aef743ed7f4b860e5fd4f9b510c5af161385233cd3583ee41ee3b673a230681"
+    },
+    {
+      "bytes": 59172,
+      "network_id": "usgs2_huc6_140600",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_140600/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "5efc110258c52ffb0d12a70dd93d0e747945c146abf8ae215155f139f51c4572"
+    },
+    {
+      "bytes": 194621,
+      "network_id": "usgs2_huc6_170102",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170102/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "eb7dbdeea8c15eecf1be0cc5f50ce1c6f1811c7395e038a649461c8b23cda62a"
+    },
+    {
+      "bytes": 70373,
+      "network_id": "usgs2_huc6_170602",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170602/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "64d4c4f06dc083c3eb7523d7c70903e82c66a88145f50bd77e3d57d40bc70863"
+    },
+    {
+      "bytes": 56399,
+      "network_id": "usgs2_huc6_171100",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_171100/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3c35900aca467f5f6b660d6e4ff4a1cb387b19f934b3c1be28509441a20b916c"
+    },
+    {
+      "bytes": 70424,
+      "network_id": "usgs2_huc6_180400",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180400/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "7dae444b8c2f2e19febebe2f89bd4d4cfc9820e590fcc87e02fdc99c4251552c"
+    },
+    {
+      "bytes": 48890,
+      "network_id": "usgs2_huc6_190101",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190101/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "1494c47a59f12122f30d5f18cea5b1e95ef3c02a8b6b72e804d0d469829369df"
+    },
+    {
+      "bytes": 80534,
+      "network_id": "usgs2_huc6_190205",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190205/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "348f73c532e630f7f8a3d47f10f3d06c47035c4603981d1154da40be207c6679"
+    },
+    {
+      "bytes": 204884,
+      "network_id": "usgs_arkansas_river_huc11",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_arkansas_river_huc11/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "38a363c284c158dd18bb8f402d00fe5f4a4f1ad6ba4a577a07fdd1f1e4d5667f"
+    },
+    {
+      "bytes": 143983,
+      "network_id": "usgs_flathead_river_huc4_1701",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_flathead_river_huc4_1701/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "b3473da561fc7a173bd6b897ecac91ed17ddb7657772af74e6d15836078ec690"
+    },
+    {
+      "bytes": 109674,
+      "network_id": "usgs_platte_river_huc4_1020",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_platte_river_huc4_1020/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "16bbb31edf45f45bb068189cf4027abffbc8b306f5d51f57e70e085572447ba5"
+    },
+    {
+      "bytes": 201073,
+      "network_id": "usgs_red_river_of_the_north_huc4_0902",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_red_river_of_the_north_huc4_0902/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "4bff2a84349fb9ec95b8dff147be5bfc4c32657e8c62558ba48d913d8f7977c7"
+    },
+    {
+      "bytes": 162885,
+      "network_id": "usgs_san_juan_river_huc4_1408",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_san_juan_river_huc4_1408/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3e933e5b89d6e881c3a9f7d7b3b5fac4bfa26f07449835330fb05a4530a815d1"
+    },
+    {
+      "bytes": 177534,
+      "network_id": "usgs_walker_rv_huc4_1605",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_walker_rv_huc4_1605/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "5dd7a03800241c96f028d55e63b014c9c069978f5a31afe1f05cba520fea8e53"
+    },
+    {
+      "bytes": 352366,
+      "network_id": "huc8_02040101",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_02040101/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "d43a8e89fb98f2699f2a8b92788e9c851aaf470df9ca04650029e99ebd704896"
+    },
+    {
+      "bytes": 348138,
+      "network_id": "huc8_05030103",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_05030103/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "5ffdc0ebb004250ffcbcbac3b8bfce6782595244a5db5771ab96abc8934c9174"
+    },
+    {
+      "bytes": 380330,
+      "network_id": "huc8_10020007",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_10020007/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "b4751286ef39b1ea955b81634ec52f39e2e7e2b400a0533f230962c7d9194a35"
+    },
+    {
+      "bytes": 428862,
+      "network_id": "huc8_17090001",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17090001/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0e043b0040003af5e0a4cd3dacb4d59a255d71b40b1a204b89e21e23f71b7265"
+    },
+    {
+      "bytes": 530050,
+      "network_id": "huc8_17090004",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17090004/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "fb88305022251083601e4fa0ea5c306401196922b900fd7d0ad505548e33de39"
+    },
+    {
+      "bytes": 369619,
+      "network_id": "huc8_17090012",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17090012/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "95764b38ab6c2db7de47f14d7b15a67cce8d0c9d8897cef8e14a5c6a0b890010"
+    },
+    {
+      "bytes": 129902,
+      "network_id": "usgs2_huc6_180102",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180102/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "be5c6f5fc97b28ab927c80b4c5e7bd5b2e2d256e255a5e4c86233f0bcd7db999"
+    },
+    {
+      "bytes": 222484,
+      "network_id": "huc8_02040102",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_02040102/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "d870794fd200039cb35c5ff7e040800dc23c48afa74a9092547313adc7c93b6d"
+    },
+    {
+      "bytes": 336353,
+      "network_id": "huc8_02040104",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_02040104/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "669d6c5b9f3465bb483d84a854130a56d6ae95eeae4393266482858d0866ce8e"
+    },
+    {
+      "bytes": 263875,
+      "network_id": "huc8_03010107",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_03010107/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "f5a7ca93804b87ea6dd6a4b1b54f8a3ea1309e265c00a005d3feb287f5087c2b"
+    },
+    {
+      "bytes": 134935,
+      "network_id": "huc8_03110206",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_03110206/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "dc0d57d75e59fbd243dc1d1201b7bcb5b5abb651b7efcf9053778b27a7a9d247"
+    },
+    {
+      "bytes": 263312,
+      "network_id": "huc8_03150202",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_03150202/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "02a1460688b876db4b28313caa0be36d74d4d21981c9c8127ae387909434c599"
+    },
+    {
+      "bytes": 226972,
+      "network_id": "huc8_17060306",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17060306/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "cad1c222f90d23f69f4714094d02ed664390794cd97f8d67157fdfa467e8d166"
+    },
+    {
+      "bytes": 209776,
+      "network_id": "huc8_17090002",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17090002/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "8c2a1bcfa7249cc580a6c83bab07327367ae6d1660a407193f57da4bd7007c8a"
+    },
+    {
+      "bytes": 256434,
+      "network_id": "huc8_17090003",
+      "path": "results/development_v11/confirmation_daily_qc/networks/huc8_17090003/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "cae69029a848a82aebe4739153497e8346174bcd992013b1a4fb6ccd62dc384e"
+    },
+    {
+      "bytes": 163852,
+      "network_id": "usgs2_huc2_08",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_08/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "77bf4ae6257e0e07055de6d1ba8e4e76538dab95494ab03cb90ca44a0533b1bd"
+    },
+    {
+      "bytes": 130883,
+      "network_id": "usgs2_huc2_12",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_12/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "81a0ed7f8d47bea791b145a1b29592fbb81c8737a49060c94b1e454c036ae1be"
+    },
+    {
+      "bytes": 109881,
+      "network_id": "usgs2_huc2_15",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_15/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "f891680aa2dc9400c1bff49e1e83e9a1ae2c3d7b4d5915f2252ef57dd6a396c2"
+    },
+    {
+      "bytes": 76940,
+      "network_id": "usgs2_huc2_18",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc2_18/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "e2e674354824a78270b11e926f08989f33d9e42b166f553a41a5587d71eac232"
+    },
+    {
+      "bytes": 104914,
+      "network_id": "usgs2_huc4_0601",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0601/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0cfb2001047206d336a3514b32aaf966afde331d0fea2a93435139ada93e7df5"
+    },
+    {
+      "bytes": 84657,
+      "network_id": "usgs2_huc4_1704",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1704/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "b947f3317afe3a1677bad331a5a875a1221a493bde45e4c87a9f24801ead7999"
+    },
+    {
+      "bytes": 94777,
+      "network_id": "usgs2_huc4_1705",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1705/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "2263c6084031b93f8cd576160f639d26eaafb77cbe479f3fd953631cb1c2054a"
+    },
+    {
+      "bytes": 132944,
+      "network_id": "usgs2_huc4_1707",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1707/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "4da034fcd007156b5fd4f3ca3f1f0dbb8df33edeea1a5086e1286c6fb1e5db7b"
+    },
+    {
+      "bytes": 58734,
+      "network_id": "usgs2_huc4_1902",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1902/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "907013fc230cdf16797a24f75b836fa3442b040c0b0934d53957f1c3de9f9ac5"
+    },
+    {
+      "bytes": 88314,
+      "network_id": "usgs2_huc4_1903",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_1903/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "a768317ffc26ee0666d80feade49993b775a7274f8bada154cb6b6a1ceaedbee"
+    },
+    {
+      "bytes": 85634,
+      "network_id": "usgs2_huc6_030502",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_030502/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "2ecf39d6ff272f7985cf44ceeb0e4eaf08912fd906c344e70fd41f3396a418af"
+    },
+    {
+      "bytes": 134268,
+      "network_id": "usgs2_huc6_031300",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_031300/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "1052026ded5de7cb1132b47b01fa00a8927b9f73b568fe425a279054b30e8a97"
+    },
+    {
+      "bytes": 89823,
+      "network_id": "usgs2_huc6_060102",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_060102/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "ede197ba8345c868abbf98ed392a53a877982ed9ed3900f9ea55e81da7292791"
+    },
+    {
+      "bytes": 143374,
+      "network_id": "usgs2_huc6_070300",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_070300/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "c49a031cf506d5b8ab6007579688bd9e399571dedd66739537c8cad99633c535"
+    },
+    {
+      "bytes": 126872,
+      "network_id": "usgs2_huc6_140300",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_140300/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0b346dbc2245a6557915cfcc59cb1ff235d3b41a9dd15256b064ca10f0b498c3"
+    },
+    {
+      "bytes": 129975,
+      "network_id": "usgs2_huc6_170703",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_170703/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "c0dc85aad58fb1320536df83baff92aa46aa5b45d358051002212ca1b267fcb9"
+    },
+    {
+      "bytes": 165586,
+      "network_id": "usgs2_huc6_171003",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_171003/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "6bd0cc3df9a3cc3413bf00c312283ae00ba0405b6d4265cc97f2a435227cf114"
+    },
+    {
+      "bytes": 83087,
+      "network_id": "usgs2_huc6_180201",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_180201/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "0869ee7533f7641ec21f6aa29adf802a6dc8f1ab6c3053d6a2b635a284017142"
+    },
+    {
+      "bytes": 74806,
+      "network_id": "usgs2_huc6_190204",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190204/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "41fb230ac05a8a974e852478884ab08c70d06c3899ab03241eca0bef12e7e7ea"
+    },
+    {
+      "bytes": 73400,
+      "network_id": "usgs2_huc6_190803",
+      "path": "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190803/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "dd1b8619f7478ef149aecb4fcc57c25e6c0b005b77405dde1d8292f4e2b5ca4f"
+    },
+    {
+      "bytes": 102759,
+      "network_id": "usgs_fox_river_huc4_0403",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_fox_river_huc4_0403/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "ecb767d6c4830edc840488c0e664420ddd475c8126b5501ee5295828d7659aa2"
+    },
+    {
+      "bytes": 282626,
+      "network_id": "usgs_missouri_river_huc10",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_missouri_river_huc10/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "573b30fe3aadd85ead10684c1502ae99a20d244a15ffdd5335fad91bb8e3ea61"
+    },
+    {
+      "bytes": 104316,
+      "network_id": "usgs_snake_river_huc4_1704",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1704/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "e6a0f8212bfc9fd3aa5da18d4307fa649e115af175ce9b011dbe547b79c5b417"
+    },
+    {
+      "bytes": 182454,
+      "network_id": "usgs_snake_river_huc4_1705",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1705/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "75d502288e0ef228fc59f0ead933da6115a7cf8ea081603833311612ad82a46d"
+    },
+    {
+      "bytes": 235956,
+      "network_id": "usgs_snake_river_huc4_1706",
+      "path": "results/development_v11/confirmation_daily_qc/networks/usgs_snake_river_huc4_1706/daily_wide_temperature.csv",
+      "provider": "usgs",
+      "sha256": "3ad3af1f833311c8c9350d188b7308a30adbf2b6d8a2938e35224b7c0070d72a"
+    }
+  ],
+  "purpose": "peer-review input bundle for the WRR submission"
+}

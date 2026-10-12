@@ -63,6 +63,14 @@ Hard prior-access audit against the full programme (not stale v16 labels alone):
 - never-used networks with ≥1 station of ≥4 complete years: **0**
 - design floor: 30 networks
 
-**Consequence:** unseal scoring is blocked until external networks are ingested
-and sealed. See `EXTERNAL_CONFIRMATION_RECRUITMENT.md` and
-`confirmation_recruitment_summary.json`. Do not reopen the v17 reserved panel.
+**Consequence (superseded later the same day):** unseal scoring was blocked
+until external networks were ingested and sealed. That was done: 39 never-used
+USGS HUC4 networks were ingested, sealed and scored once
+(`p0_07_sealed_confirmation/verdict.json`), and the panel's prior-access label was
+then corrected by a repo-wide audit
+(`AMENDMENT_prior_access_sealed_panel.md`) with a clean-subset diagnostic. A
+pre-registered multi-agency transport test followed
+(`MULTI_AGENCY_TRANSPORT_PROTOCOL.md`,
+`p0_07b_multi_agency_transport/verdict.json`). The v17 reserved panel was never
+re-scored. See `EXTERNAL_CONFIRMATION_RECRUITMENT.md` and
+`confirmation_recruitment_summary.json` for the recruitment history.

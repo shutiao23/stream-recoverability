@@ -1,0 +1,112 @@
+{
+  "question": "Does the screening contrast depend on providers whose daily value is not a documented provider daily mean?",
+  "retention": 0.7,
+  "rows": [
+    {
+      "ci_high_points": -5.561923903542943,
+      "ci_low_points": -7.1240992531196365,
+      "contrast_points": -6.3454181728845676,
+      "n_cases": 40704,
+      "n_networks": 110,
+      "population": "development_retrospective",
+      "providers": "arso;chmi;foen;gkd_bayern;lubw;nve_hydapi;rws_waterwebservices;syke;usgs",
+      "subset": "all_providers"
+    },
+    {
+      "ci_high_points": -4.867344436051225,
+      "ci_low_points": -6.4827642593214145,
+      "contrast_points": -5.664559947174795,
+      "n_cases": 30289,
+      "n_networks": 84,
+      "population": "development_retrospective",
+      "providers": "foen;gkd_bayern;lubw;nve_hydapi;usgs",
+      "subset": "documented_daily_mean_only"
+    },
+    {
+      "ci_high_points": -5.4582027404047,
+      "ci_low_points": -9.075779759988647,
+      "contrast_points": -7.489711934156379,
+      "n_cases": 10415,
+      "n_networks": 26,
+      "population": "development_retrospective",
+      "providers": "arso;chmi;rws_waterwebservices;syke",
+      "subset": "project_derived_or_non_daily"
+    },
+    {
+      "ci_high_points": -5.400301192067243,
+      "ci_low_points": -8.989990772455952,
+      "contrast_points": -7.129654079746501,
+      "n_cases": 10820,
+      "n_networks": 36,
+      "population": "reserved_retrospective",
+      "providers": "arso;chmi;gkd_bayern;lubw;nve_hydapi;usgs",
+      "subset": "all_providers"
+    },
+    {
+      "ci_high_points": -5.27714517244511,
+      "ci_low_points": -7.8659209584642635,
+      "contrast_points": -6.583184257602862,
+      "n_cases": 7985,
+      "n_networks": 29,
+      "population": "reserved_retrospective",
+      "providers": "gkd_bayern;lubw;nve_hydapi;usgs",
+      "subset": "documented_daily_mean_only"
+    },
+    {
+      "ci_high_points": -1.2242157820157764,
+      "ci_low_points": -11.857110235491946,
+      "contrast_points": -7.258064516129031,
+      "n_cases": 2835,
+      "n_networks": 7,
+      "population": "reserved_retrospective",
+      "providers": "arso;chmi",
+      "subset": "project_derived_or_non_daily"
+    },
+    {
+      "ci_high_points": -5.9046615826488695,
+      "ci_low_points": -10.169736867097622,
+      "contrast_points": -7.943603851444292,
+      "n_cases": 8973,
+      "n_networks": 39,
+      "population": "sealed_usgs",
+      "providers": "usgs",
+      "subset": "all_providers"
+    },
+    {
+      "ci_high_points": -5.9046615826488695,
+      "ci_low_points": -10.169736867097622,
+      "contrast_points": -7.943603851444292,
+      "n_cases": 8973,
+      "n_networks": 39,
+      "population": "sealed_usgs",
+      "providers": "usgs",
+      "subset": "documented_daily_mean_only"
+    },
+    {
+      "n_cases": 0,
+      "note": "below 200 cases; not scored",
+      "population": "sealed_usgs",
+      "subset": "project_derived_or_non_daily"
+    }
+  ],
+  "source": "results/wrr_submission_ready/measurement_provenance_dictionary.csv",
+  "strata": {
+    "documented_daily_mean": [
+      "foen",
+      "gkd_bayern",
+      "lubw",
+      "nve_hydapi",
+      "usgs"
+    ],
+    "non_daily_provider_statistic": [
+      "syke"
+    ],
+    "project_derived_daily_mean": [
+      "chmi",
+      "rws_waterwebservices"
+    ],
+    "undocumented_statistic": [
+      "arso"
+    ]
+  }
+}

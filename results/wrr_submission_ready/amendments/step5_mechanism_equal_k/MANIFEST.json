@@ -1,0 +1,47 @@
+{
+  "code": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/scripts/247_wrr_mechanism_equal_k.py",
+      "sha256": "9a747aaebb3259e61df580261705968f4e874058266100ec7d51e44cea84a95c"
+    },
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/src/stream_recoverability/experiments/wrr_submission_ready/equal_k_mechanism.py",
+      "sha256": "d34262ed88e49decacbe1cc299a599b305418c3a86cb4e6b7e00263a6357199b"
+    }
+  ],
+  "files": {
+    "REPORT.md": {
+      "bytes": 14581,
+      "sha256": "2cd3ca124c1ff0c2388f2ccfd6bff7e6af69e3fe5c9dd2bfb5bb0ea1045dc77e"
+    },
+    "arm_means_matched.csv": {
+      "bytes": 817,
+      "sha256": "6a8a9cbc4c551f13d9eb6d5182a757b448f10066f1c1d2dddfa33036e830e474"
+    },
+    "contrast_by_k.csv": {
+      "bytes": 1410,
+      "sha256": "e068750b83e0332f99473872a9f1522c7bbc979dd5a97cdab291d3596094be2e"
+    },
+    "contrasts_matched.csv": {
+      "bytes": 3745,
+      "sha256": "d5090e2650afe0d4caf1d8af60f18aa4467c8e00698b1670f28138dcdbb58a56"
+    },
+    "donor_controls_paired.parquet": {
+      "bytes": 1147221,
+      "sha256": "c3ff2ad57f224c28aefe03f2b3e67f82c4cc02899fb5dde41bfea2a92798eaf5"
+    },
+    "summary.json": {
+      "bytes": 23063,
+      "sha256": "85b131414ca02de7388d95ba6d4f480a665a0ea48758b17430277c744a164f5e"
+    }
+  },
+  "generation_id": "235d143e7c1c6441debbaf764c968fad228f0a75abeb1cd36d9692e4a7d1eff6",
+  "inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/v17_fitness/step1_panel/network_split.csv",
+      "sha256": "a24ceccea68316c543f7bbf87ac0d00bbf19b2595eb56caf3b2e752402d8e631"
+    }
+  ],
+  "summary": "summary.json",
+  "write_order_last": "summary.json"
+}

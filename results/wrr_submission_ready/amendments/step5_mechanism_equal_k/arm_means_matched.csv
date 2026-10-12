@@ -1,0 +1,7 @@
+spec,arm,sample,column,n,mean_abs_error_c,ci_low_c,ci_high_c,n_networks
+shuffle_control,all_donors,full,abserr_all_donors,12091,0.17357922957777508,0.13423807824938414,0.23251031559878962,24
+shuffle_control,anomaly_shuffled,full,abserr_anomaly_shuffled,6771,0.4428134095968039,0.4015248883375606,0.48833780365956525,24
+matched_exact_k,strong_half,matched,abserr_strong_top_of_half,13131,0.18043354631669628,0.14505493668317268,0.23145632724159917,24
+matched_exact_k,weak_half,matched,abserr_weak_top_of_half,12706,0.26978964209098916,0.21674471978776175,0.34175413912699437,24
+unmatched_original,strong_half,full,abserr_strong_orig,13234,0.18191748288907314,0.1456056971630297,0.2338778613082039,24
+unmatched_original,weak_half,full,abserr_weak_orig,13128,0.2642829371988245,0.21073769093135536,0.3377945278553518,24

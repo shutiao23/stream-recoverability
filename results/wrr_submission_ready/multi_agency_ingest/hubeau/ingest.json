@@ -1,0 +1,968 @@
+{
+  "provider": "hubeau",
+  "agency": "Hub'Eau / Eaufrance (Office francais de la biodiversite), France",
+  "api_root": "https://hubeau.eaufrance.fr/api/v1/temperature",
+  "retrieved_utc": "2026-10-12T11:38:46Z",
+  "script": "scripts/242_multi_agency_hubeau_ingest.py",
+  "protocol": "results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md",
+  "command": "scripts/242_multi_agency_hubeau_ingest.py --stage all --workers 3 --timeout 90 --retries 3 --outer-retries 3 --download-workers 2 --max-networks 15",
+  "frozen_model_touched": false,
+  "screening_only_no_frozen_score": true,
+  "api_urls": {
+    "station_catalog_template": "https://hubeau.eaufrance.fr/api/v1/temperature/station?size=20000&page=1",
+    "span_template": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=<id>&size=1&page=1&sort=asc|desc",
+    "qualification_count_template": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=<id>&code_qualification=<1|2|3|4>&size=1&page=1",
+    "window_template": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_station=<id>&date_debut_mesure=<YYYY-MM-DD>&date_fin_mesure=<YYYY-MM-DD>&code_qualification=<1|4>&size=20000&page=1&sort=asc",
+    "n_requests_logged": 2883,
+    "request_manifest": "raw_cache/url_manifest.csv",
+    "page_size_cap": 20000,
+    "deep_paging_used": false,
+    "conditional_default_code": 1
+  },
+  "qualification_counts": {
+    "global_api_counts": {
+      "global_api_counts": {
+        "by_code": {
+          "all_codes": {
+            "count": 53398772,
+            "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?size=1&page=1"
+          },
+          "code_1": {
+            "count": 5499909,
+            "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=1&size=1&page=1"
+          },
+          "code_2": {
+            "count": 0,
+            "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=2&size=1&page=1"
+          },
+          "code_3": {
+            "count": 0,
+            "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=3&size=1&page=1"
+          },
+          "code_4": {
+            "count": 47898863,
+            "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=4&size=1&page=1"
+          }
+        },
+        "labels": {
+          "all_codes": "all qualification codes",
+          "code_1": "Sandre code 1 (Correcte)",
+          "code_2": "Sandre code 2 (Incorrecte)",
+          "code_3": "Sandre code 3 (Incertaine)",
+          "code_4": "Sandre code 4 (Non qualifie)"
+        }
+      },
+      "n_stations_audited": 80,
+      "per_station_totals_over_audited": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 5587671
+      },
+      "per_station_station_counts": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 80
+      },
+      "n_stations_codes_sum_mismatch": 0
+    },
+    "audit_scope": "every station on a river with >= 2 stations that can still reach 4 complete calendar years (preliminary span/volume screen); the global probe covers the whole Hub'Eau temperature chronique",
+    "per_station_code_totals_over_audited_rivers": {
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 5587671
+    },
+    "n_stations_with_code_1": 0,
+    "n_stations_with_code_2": 0,
+    "n_stations_with_code_3": 0,
+    "n_stations_with_code_4": 80,
+    "n_stations_codes_sum_mismatch": 0,
+    "per_station_table": "raw_cache/qualification_counts.csv",
+    "note": "Counts were retrieved from the API count field, per code, over every station in the Hub'Eau temperature catalog before any series download. A station is ingested under exactly one code; codes 2 and 3 are never ingested."
+  },
+  "waterbody_filter": {
+    "catalog_stations": 872,
+    "river_stations_kept": 866,
+    "stations_dropped": 6,
+    "fraction_dropped": 0.006880733944954129,
+    "dropped_detail_file": "stations_dropped_waterbody_filter.csv",
+    "rule": "Hub'Eau temperature stations carry DCE water-body metadata. Every station with a water-body code is a river water body (MasseDEauRiviere_VEDL2019); the catalog contains no lake/plan-d'eau, coastal, transitional or groundwater water-body class, so no station was dropped for those classes. Stations without a water-body code were kept only with explicit river-name evidence. Stations whose water-body label is itself a standing water body (lac/etang/retenue/reservoir/plan d'eau/graviere/lagune) were dropped, and sea/estuary stations were dropped only on station-name or water-body-class evidence -- a river reach label that merely names the sea or an estuary as its downstream boundary was retained.",
+    "retained_although_label_mentions_sea_or_estuary": 14,
+    "canalised_name_flagged_but_kept": 4
+  },
+  "network_filter": {
+    "grouping": "normalized Hub'Eau river name (libelle_cours_eau) via cluster_hubeau_rivers",
+    "min_stations_per_network": 2,
+    "min_complete_years_per_station": 4,
+    "loire_last_check_excluded_station_ids": [
+      "03216600",
+      "03277200",
+      "03294500",
+      "03303280",
+      "03612500",
+      "04000100",
+      "04000600",
+      "04021000",
+      "04024000",
+      "04026000",
+      "04045900",
+      "04046800",
+      "04051850",
+      "04056000",
+      "04103200",
+      "04134700",
+      "09379500",
+      "09380000",
+      "09402500",
+      "09404120",
+      "09404200",
+      "12399500",
+      "12424000",
+      "14050000",
+      "14064500",
+      "14070500",
+      "14076500",
+      "14092500",
+      "14105700",
+      "14127100",
+      "14128870",
+      "2009",
+      "2135",
+      "2152",
+      "2243",
+      "2289"
+    ],
+    "n_candidate_networks_before_year_floor": 15,
+    "n_networks_final": 14,
+    "n_rivers_excluded_before_download": 633,
+    "max_networks_cap": 15,
+    "n_rivers_beyond_cap": 0,
+    "rivers_beyond_cap_file": "raw_cache/networks_beyond_cap.csv",
+    "cap_note": "the candidate river pool is capped to the largest --max-networks river groups (ranked by number of candidate stations, then candidate observations); every river beyond the cap is listed in raw_cache/networks_beyond_cap.csv and was NOT downloaded",
+    "n_networks_excluded_after_download": 1,
+    "networks_excluded_after_download_file": "networks_excluded_after_download.csv",
+    "rivers_excluded_before_download_file": "raw_cache/candidate_rivers_excluded.csv",
+    "stations_below_year_floor_file": "stations_below_year_floor.csv",
+    "max_stations_per_network_cap": 4,
+    "max_years_per_station_cap": 0
+  },
+  "aggregation_rule": {
+    "source_rows": "Hub'Eau temperature/chronique instantaneous observations",
+    "daily_value": "arithmetic mean of acceptable observations of the station's single accepted Sandre code within one calendar day",
+    "min_observations_per_day": 4,
+    "days_below_floor": "dropped and counted, never interpolated",
+    "plausible_range_c": [
+      -2.0,
+      45.0
+    ],
+    "n_dropped_qc_definition": "sub-daily observations removed before aggregation: unparsable date, non-finite resultat, or resultat outside the plausible range. Observations on days that fail the min-observations floor are not counted here; those days are reported in n_days_below_min_obs.",
+    "complete_calendar_year": "every calendar day of a year that has ended carries a daily value (frozen rule: experiments/wrr_revision/universe.py full_calendar_year and scripts/234_wrr_sealed_confirmation_score.py _complete_years_from_series)",
+    "sensitivity_file": "raw_cache/complete_year_sensitivity.csv",
+    "year_coverage_file": "raw_cache/station_year_coverage.csv"
+  },
+  "assurance": {
+    "statement": "ALL stations are Sandre code 4 'Non qualifie' (unqualified) - this panel is a lower-assurance subset and must be reported as such",
+    "codes_used_by_final_stations": [
+      "4"
+    ],
+    "n_final_stations": 47,
+    "unqualified_stations": 47,
+    "qualified_stations": 0,
+    "measurement_statistic": "daily mean water temperature (degC) from sub-daily in-situ observations",
+    "measurement_statistic_quality": "unqualified (Sandre code 4)"
+  },
+  "emitted_vs_resolved": {
+    "resolved_river_stations_in_catalog": 866,
+    "resolved_stations_with_span_ge_4y": 620,
+    "resolved_candidate_stations_before_cap": 175,
+    "resolved_candidate_networks_before_cap": 66,
+    "resolved_candidate_networks_before_cap_note": "resolved_* counts come from the uncapped preliminary screen; the cap then keeps the largest --max-networks river groups for the Sandre-code audit and download",
+    "cap_applied": {
+      "max_networks": 15,
+      "max_stations_per_network": 4,
+      "networks_beyond_cap": 51,
+      "network_ids_beyond_cap": [
+        "hubeau_l_adour",
+        "hubeau_dore",
+        "hubeau_vienne",
+        "hubeau_dordogne",
+        "hubeau_l_allier",
+        "hubeau_doubs",
+        "hubeau_riviere_langevin_aval",
+        "hubeau_riviere_des_roches",
+        "hubeau_riviere_sainte_suzanne",
+        "hubeau_riviere_des_marsouins",
+        "hubeau_cirque_de_salazie",
+        "hubeau_riviere_saint_jean",
+        "hubeau_loir",
+        "hubeau_truyere",
+        "hubeau_vire",
+        "hubeau_verdon",
+        "hubeau_dourbie",
+        "hubeau_cere",
+        "hubeau_tavignano",
+        "hubeau_charente",
+        "hubeau_l_oise",
+        "hubeau_thouet",
+        "hubeau_l_arros",
+        "hubeau_l_arc",
+        "hubeau_l_aumance",
+        "hubeau_vie",
+        "hubeau_bourbre",
+        "hubeau_l_yerres",
+        "hubeau_l_ain",
+        "hubeau_gave_de_pau",
+        "hubeau_sauldre",
+        "hubeau_l_alagnon",
+        "hubeau_touyre",
+        "hubeau_seugne",
+        "hubeau_l_argens",
+        "hubeau_see",
+        "hubeau_bourne",
+        "hubeau_dronne",
+        "hubeau_baume",
+        "hubeau_furans",
+        "hubeau_golo",
+        "hubeau_creuse",
+        "hubeau_l_indre",
+        "hubeau_nievre",
+        "hubeau_gabas",
+        "hubeau_l_ardeche",
+        "hubeau_taurion",
+        "hubeau_drac",
+        "hubeau_vidourle",
+        "hubeau_combade",
+        "hubeau_taravo"
+      ],
+      "stations_per_network_note": "at most --max-stations-per-network stations per network are downloaded, preferring Sandre code 1 stations and then the largest series"
+    },
+    "tranche_filter": {
+      "network_keys": [],
+      "networks_withheld_from_this_emission": 0,
+      "file": "raw_cache/networks_withheld_by_tranche_filter.csv"
+    },
+    "stations_not_downloaded_beyond_network_cap": 11,
+    "stations_downloaded": 56,
+    "emitted_networks": 14,
+    "emitted_stations": 47,
+    "emitted_station_years": 363
+  },
+  "days_below_observation_floor": {
+    "min_observations_per_day": 4,
+    "n_days_in_span": 226725,
+    "n_days_with_observations": 177962,
+    "n_days_with_daily_value": 177962,
+    "n_days_zero_observations": 48763,
+    "n_days_below_floor": 0,
+    "share_of_days_with_obs_below_floor": 0.0
+  },
+  "qualification_code_mix_per_emitted_station": {
+    "04022150": {
+      "network_id": "hubeau_besbre",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 145821
+    },
+    "04022210": {
+      "network_id": "hubeau_besbre",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 104011
+    },
+    "04023000": {
+      "network_id": "hubeau_besbre",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 58095
+    },
+    "04060500": {
+      "network_id": "hubeau_cher",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 76461
+    },
+    "04064000": {
+      "network_id": "hubeau_cher",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 73579
+    },
+    "04065000": {
+      "network_id": "hubeau_cher",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 111494
+    },
+    "04070300": {
+      "network_id": "hubeau_cher",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 76858
+    },
+    "03241170": {
+      "network_id": "hubeau_durance",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 53496
+    },
+    "06151000": {
+      "network_id": "hubeau_durance",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 69351
+    },
+    "06159000": {
+      "network_id": "hubeau_durance",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 52023
+    },
+    "05152000": {
+      "network_id": "hubeau_garonne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 122396
+    },
+    "05154250": {
+      "network_id": "hubeau_garonne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 79154
+    },
+    "05174000": {
+      "network_id": "hubeau_garonne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 113572
+    },
+    "05181000": {
+      "network_id": "hubeau_garonne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 106774
+    },
+    "03149081": {
+      "network_id": "hubeau_l_aisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 67139
+    },
+    "03152000": {
+      "network_id": "hubeau_l_aisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 70883
+    },
+    "03156000": {
+      "network_id": "hubeau_l_aisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 107210
+    },
+    "05165850": {
+      "network_id": "hubeau_l_ariege",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 77744
+    },
+    "05165900": {
+      "network_id": "hubeau_l_ariege",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 119351
+    },
+    "05170900": {
+      "network_id": "hubeau_l_ariege",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 99718
+    },
+    "05121000": {
+      "network_id": "hubeau_l_aveyron",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 84769
+    },
+    "05126000": {
+      "network_id": "hubeau_l_aveyron",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 100831
+    },
+    "05127000": {
+      "network_id": "hubeau_l_aveyron",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 102179
+    },
+    "05128000": {
+      "network_id": "hubeau_l_aveyron",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 129521
+    },
+    "04115580": {
+      "network_id": "hubeau_l_huisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 114109
+    },
+    "04116800": {
+      "network_id": "hubeau_l_huisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 96960
+    },
+    "04118000": {
+      "network_id": "hubeau_l_huisne",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 54883
+    },
+    "05092200": {
+      "network_id": "hubeau_lot",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 81472
+    },
+    "05094810": {
+      "network_id": "hubeau_lot",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 114978
+    },
+    "05099000": {
+      "network_id": "hubeau_lot",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 99022
+    },
+    "06065700": {
+      "network_id": "hubeau_rhone",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 58101
+    },
+    "06104000": {
+      "network_id": "hubeau_rhone",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 47447
+    },
+    "06113500": {
+      "network_id": "hubeau_rhone",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 51423
+    },
+    "06121500": {
+      "network_id": "hubeau_rhone",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 80563
+    },
+    "04110700": {
+      "network_id": "hubeau_sarthe",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 121414
+    },
+    "04111000": {
+      "network_id": "hubeau_sarthe",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 121328
+    },
+    "04113250": {
+      "network_id": "hubeau_sarthe",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 117783
+    },
+    "04119170": {
+      "network_id": "hubeau_sarthe",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 116631
+    },
+    "03125000": {
+      "network_id": "hubeau_seine",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 45688
+    },
+    "03174000": {
+      "network_id": "hubeau_seine",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 76795
+    },
+    "04041675": {
+      "network_id": "hubeau_sioule",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 119940
+    },
+    "04041780": {
+      "network_id": "hubeau_sioule",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 60218
+    },
+    "04043100": {
+      "network_id": "hubeau_sioule",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 67607
+    },
+    "04433002": {
+      "network_id": "hubeau_sioule",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 94512
+    },
+    "05119000": {
+      "network_id": "hubeau_tarn",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 76223
+    },
+    "05144000": {
+      "network_id": "hubeau_tarn",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 115098
+    },
+    "05147000": {
+      "network_id": "hubeau_tarn",
+      "accepted_code": "4",
+      "quality_assurance": "provider_published_unqualified",
+      "count_code_1": 0,
+      "count_code_2": 0,
+      "count_code_3": 0,
+      "count_code_4": 139821
+    }
+  },
+  "counts": {
+    "n_networks": 14,
+    "n_stations": 47,
+    "n_station_years": 363,
+    "n_candidate_stations_screened": 67,
+    "n_river_stations_screened": 866
+  },
+  "networks": [
+    {
+      "network_id": "hubeau_durance",
+      "provider": "hubeau",
+      "river_name": "La Durance",
+      "river_key": "durance",
+      "n_stations": 3,
+      "n_station_years": 15,
+      "complete_year_min": 4,
+      "complete_year_max": 6,
+      "station_ids": "03241170;06151000;06159000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_durance/daily_wide_temperature.csv",
+      "sha256": "e402252479fe2eca92cb7569917535dc2447558e0f101505ae6edff0a78a9b23",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_rhone",
+      "provider": "hubeau",
+      "river_name": "Le Rhône",
+      "river_key": "rhone",
+      "n_stations": 4,
+      "n_station_years": 20,
+      "complete_year_min": 4,
+      "complete_year_max": 6,
+      "station_ids": "06065700;06104000;06113500;06121500",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_rhone/daily_wide_temperature.csv",
+      "sha256": "ffd77ddf436cd695802c010a820bc7fbace3d6a1c4696d6349757bdd3c9ed543",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_garonne",
+      "provider": "hubeau",
+      "river_name": "La Garonne",
+      "river_key": "garonne",
+      "n_stations": 4,
+      "n_station_years": 37,
+      "complete_year_min": 8,
+      "complete_year_max": 12,
+      "station_ids": "05152000;05154250;05174000;05181000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_garonne/daily_wide_temperature.csv",
+      "sha256": "9899649870e01d7bad482bbe53cbdde3bcc12b92f4a1fddba506e3abd8e8235f",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_l_ariege",
+      "provider": "hubeau",
+      "river_name": "L'Ariège",
+      "river_key": "l ariege",
+      "n_stations": 3,
+      "n_station_years": 27,
+      "complete_year_min": 6,
+      "complete_year_max": 11,
+      "station_ids": "05165850;05165900;05170900",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_l_ariege/daily_wide_temperature.csv",
+      "sha256": "59e024f873013763d7dc7d575fab9047b288a61b853747c11db948ff476ffe68",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_tarn",
+      "provider": "hubeau",
+      "river_name": "Le Tarn",
+      "river_key": "tarn",
+      "n_stations": 3,
+      "n_station_years": 30,
+      "complete_year_min": 7,
+      "complete_year_max": 13,
+      "station_ids": "05119000;05144000;05147000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_tarn/daily_wide_temperature.csv",
+      "sha256": "8caf1cd6ebe0c15c48468091b1641e7484db6be004707082f01c18e5296c5679",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_l_aveyron",
+      "provider": "hubeau",
+      "river_name": "L'Aveyron",
+      "river_key": "l aveyron",
+      "n_stations": 4,
+      "n_station_years": 34,
+      "complete_year_min": 7,
+      "complete_year_max": 11,
+      "station_ids": "05121000;05126000;05127000;05128000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_l_aveyron/daily_wide_temperature.csv",
+      "sha256": "a7b962250658166df13579cc3c16bd396296767bdcc8c9dc69c94a453632a14e",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_lot",
+      "provider": "hubeau",
+      "river_name": "Le Lot",
+      "river_key": "lot",
+      "n_stations": 3,
+      "n_station_years": 25,
+      "complete_year_min": 7,
+      "complete_year_max": 10,
+      "station_ids": "05092200;05094810;05099000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_lot/daily_wide_temperature.csv",
+      "sha256": "20cda799aab98e2a1801740435993fa56bd3db68f8711354389de63b5243a3dd",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_sioule",
+      "provider": "hubeau",
+      "river_name": "la Sioule",
+      "river_key": "sioule",
+      "n_stations": 4,
+      "n_station_years": 32,
+      "complete_year_min": 6,
+      "complete_year_max": 11,
+      "station_ids": "04041675;04041780;04043100;04433002",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_sioule/daily_wide_temperature.csv",
+      "sha256": "396a4127e6ebd3e7880d6b932d49c669b756e4e24ad0bb50ca0cd018ff192ea1",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_sarthe",
+      "provider": "hubeau",
+      "river_name": "la Sarthe",
+      "river_key": "sarthe",
+      "n_stations": 4,
+      "n_station_years": 39,
+      "complete_year_min": 9,
+      "complete_year_max": 10,
+      "station_ids": "04110700;04111000;04113250;04119170",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_sarthe/daily_wide_temperature.csv",
+      "sha256": "3b7db488fc963759167f0332865c3a08e21aec77f9417565ea5e64ea135e485e",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_l_huisne",
+      "provider": "hubeau",
+      "river_name": "l'Huisne",
+      "river_key": "l huisne",
+      "n_stations": 3,
+      "n_station_years": 21,
+      "complete_year_min": 4,
+      "complete_year_max": 10,
+      "station_ids": "04115580;04116800;04118000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_l_huisne/daily_wide_temperature.csv",
+      "sha256": "40eca5a04b662ffb2b3a192173774238566fe47ea1e580a50013c03d59bc20b8",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_cher",
+      "provider": "hubeau",
+      "river_name": "le Cher",
+      "river_key": "cher",
+      "n_stations": 4,
+      "n_station_years": 29,
+      "complete_year_min": 5,
+      "complete_year_max": 10,
+      "station_ids": "04060500;04064000;04065000;04070300",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_cher/daily_wide_temperature.csv",
+      "sha256": "155eff43f8af5b333f6c7335e684107233955f064461ddb5b7d6eb9b3eb7350f",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_besbre",
+      "provider": "hubeau",
+      "river_name": "la Besbre",
+      "river_key": "besbre",
+      "n_stations": 3,
+      "n_station_years": 32,
+      "complete_year_min": 6,
+      "complete_year_max": 15,
+      "station_ids": "04022150;04022210;04023000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_besbre/daily_wide_temperature.csv",
+      "sha256": "9b4c5f52a638914fb32c599d119fcb2f4ababe8e638e78a2692622df2dcdb482",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_seine",
+      "provider": "hubeau",
+      "river_name": "La Seine",
+      "river_key": "seine",
+      "n_stations": 2,
+      "n_station_years": 9,
+      "complete_year_min": 4,
+      "complete_year_max": 5,
+      "station_ids": "03125000;03174000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_seine/daily_wide_temperature.csv",
+      "sha256": "0cb8422b4642d594973cba9e3574a97c184a274198b5499b1b9ab48ad4d7fa8f",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    },
+    {
+      "network_id": "hubeau_l_aisne",
+      "provider": "hubeau",
+      "river_name": "L'Aisne",
+      "river_key": "l aisne",
+      "n_stations": 3,
+      "n_station_years": 13,
+      "complete_year_min": 4,
+      "complete_year_max": 5,
+      "station_ids": "03149081;03152000;03156000",
+      "accepted_quality_codes": "4",
+      "quality_label": "unqualified (Sandre code 4)",
+      "quality_assurance": "provider_published_unqualified",
+      "daily_wide_temperature_csv": "networks/hubeau_l_aisne/daily_wide_temperature.csv",
+      "sha256": "30f6f8612e8955c4358668456eee89bb9f8fc33f738d0c60b3250cf08b5e5720",
+      "panels_include_only_stations_with_ge4_complete_years": true
+    }
+  ],
+  "prior_access": {
+    "protocol_rule": "no station in the panel may appear in the v17/v18 study rosters",
+    "sources_scanned": {
+      "results/v17_fitness/step1_panel/station_roster.csv": 547,
+      "results/wrr_revision/step1_universe/trusted_river_complete_years.csv": 547,
+      "results/wrr_submission_ready/prior_access_ledger_reserved_station_years.csv": 114,
+      "results/wrr_submission_ready/confirmation_inputs_manifest.csv": 91,
+      "results/wrr_revision/step1_universe/station_year_roster.csv": 589
+    },
+    "conflicts": {},
+    "n_conflicting_stations_ingested": 0
+  },
+  "ambiguous_river_names": {
+    "rule": "one river name that maps to more than one DCE watercourse code (code_cours_eau) cannot certify a single agency river; every station in such a name cluster is excluded from the panel rather than guessed into a network",
+    "n_clusters": 19,
+    "n_stations_excluded": 46,
+    "file": "raw_cache/ambiguous_river_name_clusters.csv"
+  },
+  "module_consistency_check": {
+    "performed": false,
+    "reason": "no candidate station has enough Sandre code-1 observations"
+  },
+  "protocol_rule_3_conformance": {
+    "rule": "the transport protocol requires a provider daily statistic in degrees C, with the provider's stated statistic recorded per station",
+    "hubeau_finding": "Hub'Eau temperature/chronique publishes instantaneous sub-daily in-situ observations (date_mesure_temp + heure_mesure_temp, libelle_parametre 'Temperature de l'Eau'), not an agency-computed daily statistic. The daily statistic in this panel is DERIVED by scripts/242 with the documented aggregation rule; measurement_statistic records that derivation, not a provider claim.",
+    "verdict": "strict rule-3 non-conformance; ingest is honest and documented, admission is the coordinator's call"
+  },
+  "caveats": [
+    "Hub'Eau temperature chronique values are instantaneous in-situ observations (probe readings), not agency-computed daily statistics; the daily series here is derived by this script's documented aggregation rule (protocol rule 3 is therefore met only by derivation, not by a provider-published daily statistic).",
+    "Sandre qualification provenance is per station and is never mixed inside one station; code 4 stations are unqualified and are a lower-assurance subset.",
+    "No frozen-screen performance was computed on this panel; ingest and QC only.",
+    "The panel is French metropolitan (plus any overseas) river water temperature and cannot represent other climate contexts by itself.",
+    "Loire last-check sites and the Loire river cluster are excluded, as required by the shared download policy."
+  ],
+  "failures": []
+}
