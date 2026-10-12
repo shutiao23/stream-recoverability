@@ -1507,13 +1507,377 @@ network,usgs_confirm_9030,never_used_repo_wide,False,bool,,sample_fact,results/w
 provider,usgs,n_stations_audited_sealed_usgs,91,stations,"sealed_usgs audited panel, usgs",sample_fact,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv,
 provider,usgs,n_stations_clean_of_outcome_use_sealed_usgs,45,stations,"sealed_usgs audited panel, usgs",sample_fact,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv,
 provider,usgs,n_stations_never_used_repo_wide_sealed_usgs,21,stations,"sealed_usgs audited panel, usgs",sample_fact,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv,
-network,multi_agency_panel,n_networks_audited,2,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
-network,multi_agency_panel,n_stations_audited,6,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
-network,multi_agency_panel,n_networks_clean_of_outcome_use,2,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean of outcome-bearing prior use
-network,multi_agency_panel,n_networks_never_used_repo_wide,2,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,"every station absent from all prior artifacts, outcome-bearing or descriptive"
-network,multi_agency_panel,n_stations_clean_of_outcome_use,6,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
-network,multi_agency_panel,n_stations_never_used_repo_wide,6,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,multi_agency_panel,n_networks_audited,54,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,multi_agency_panel,n_stations_audited,291,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,multi_agency_panel,n_networks_clean_of_outcome_use,54,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean of outcome-bearing prior use
+network,multi_agency_panel,n_networks_never_used_repo_wide,54,networks,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,"every station absent from all prior artifacts, outcome-bearing or descriptive"
+network,multi_agency_panel,n_stations_clean_of_outcome_use,291,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,multi_agency_panel,n_stations_never_used_repo_wide,291,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 network,multi_agency_panel,n_stations_with_outcome_use,0,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_besbre,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_besbre,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_besbre,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_besbre,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_besbre,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_besbre,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_besbre,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_cher,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_cher,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_cher,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_cher,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_cher,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_cher,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_cher,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_durance,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_durance,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_durance,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_durance,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_durance,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_durance,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_durance,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_garonne,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_garonne,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_garonne,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_garonne,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_garonne,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_garonne,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_garonne,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_l_aisne,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aisne,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aisne,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aisne,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_l_aisne,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_l_aisne,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_l_aisne,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_l_ariege,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_ariege,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_ariege,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_ariege,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_l_ariege,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_l_ariege,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_l_ariege,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_l_aveyron,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aveyron,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aveyron,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_aveyron,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_l_aveyron,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_l_aveyron,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_l_aveyron,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_l_huisne,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_huisne,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_huisne,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_l_huisne,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_l_huisne,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_l_huisne,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_l_huisne,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_lot,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_lot,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_lot,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_lot,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_lot,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_lot,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_lot,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_rhone,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_rhone,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_rhone,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_rhone,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_rhone,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_rhone,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_rhone,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_sarthe,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sarthe,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sarthe,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sarthe,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_sarthe,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_sarthe,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_sarthe,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_seine,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_seine,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_seine,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_seine,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_seine,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_seine,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_seine,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_sioule,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sioule,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sioule,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_sioule,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_sioule,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_sioule,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_sioule,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,hubeau_tarn,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_tarn,audit_provider,hubeau,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_tarn,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,hubeau_tarn,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,hubeau_tarn,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,hubeau_tarn,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,hubeau_tarn,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_002,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_002,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_002,n_stations_audited,30,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_002,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_002,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_002,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_002,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_012,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_012,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_012,n_stations_audited,11,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_012,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_012,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_012,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_012,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_015,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_015,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_015,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_015,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_015,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_015,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_015,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_021,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_021,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_021,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_021,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_021,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_021,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_021,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_022,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_022,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_022,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_022,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_022,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_022,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_022,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_023,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_023,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_023,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_023,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_023,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_023,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_023,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_062,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_062,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_062,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_062,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_062,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_062,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_062,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_072,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_072,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_072,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_072,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_072,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_072,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_072,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_073,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_073,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_073,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_073,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_073,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_073,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_073,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_075,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_075,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_075,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_075,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_075,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_075,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_075,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_083,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_083,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_083,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_083,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_083,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_083,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_083,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_087,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_087,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_087,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_087,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_087,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_087,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_087,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_112,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_112,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_112,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_112,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_112,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_112,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_112,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_124,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_124,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_124,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_124,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_124,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_124,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_124,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_139,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_139,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_139,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_139,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_139,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_139,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_139,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_156,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_156,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_156,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_156,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_156,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_156,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_156,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_163,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_163,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_163,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_163,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_163,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_163,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_163,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_166,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_166,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_166,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_166,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_166,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_166,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_166,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_196,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_196,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_196,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_196,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_196,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_196,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_196,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_212,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_212,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_212,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_212,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_212,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_212,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_212,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,nve_basin_234,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_234,audit_provider,nve,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_234,n_stations_audited,5,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,nve_basin_234,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,nve_basin_234,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,nve_basin_234,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,nve_basin_234,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,saih_ebro_ebro_basin,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,saih_ebro_ebro_basin,audit_provider,roea_es,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,saih_ebro_ebro_basin,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,saih_ebro_ebro_basin,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,saih_ebro_ebro_basin,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,saih_ebro_ebro_basin,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,saih_ebro_ebro_basin,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_103000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_103000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_103000,n_stations_audited,3,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_103000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_103000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_103000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_103000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_108000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_108000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_108000,n_stations_audited,19,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_108000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_108000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_108000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_108000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_110000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_110000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_110000,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_110000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_110000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_110000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_110000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_20000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_20000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_20000,n_stations_audited,7,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_20000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_20000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_20000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_20000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_28000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_28000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_28000,n_stations_audited,11,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_28000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_28000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_28000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_28000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_38000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_38000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_38000,n_stations_audited,22,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_38000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_38000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_38000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_38000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_40000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_40000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_40000,n_stations_audited,13,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_40000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_40000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_40000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_40000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_42000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_42000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_42000,n_stations_audited,12,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_42000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_42000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_42000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_42000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_48000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_48000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_48000,n_stations_audited,9,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_48000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_48000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_48000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_48000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_53000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_53000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_53000,n_stations_audited,11,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_53000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_53000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_53000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_53000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_61000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_61000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_61000,n_stations_audited,5,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_61000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_61000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_61000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_61000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_67000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_67000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_67000,n_stations_audited,6,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_67000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_67000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_67000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_67000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_86000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_86000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_86000,n_stations_audited,6,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_86000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_86000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_86000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_86000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_88000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_88000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_88000,n_stations_audited,2,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_88000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_88000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_88000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_88000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_9000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_9000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_9000,n_stations_audited,8,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_9000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_9000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_9000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_9000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+network,smhi_catchment_98000,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_98000,audit_provider,smhi,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_98000,n_stations_audited,7,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+network,smhi_catchment_98000,n_outcome_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station outcome-bearing artifact counts in the audit CSV
+network,smhi_catchment_98000,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
+network,smhi_catchment_98000,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
+network,smhi_catchment_98000,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
 network,uk_ea_s50_001,audit_population,multi_agency,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 network,uk_ea_s50_001,audit_provider,uk_ea,text,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 network,uk_ea_s50_001,n_stations_audited,4,stations,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
@@ -1528,6 +1892,18 @@ network,uk_ea_s50_002,n_outcome_artifacts_referencing_any_station,0,count,multi_
 network,uk_ea_s50_002,n_descriptive_artifacts_referencing_any_station,0,count,multi_agency audited panel,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,sum of per-station descriptive artifact counts in the audit CSV
 network,uk_ea_s50_002,clean_of_outcome_use,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is clean
 network,uk_ea_s50_002,never_used_repo_wide,True,bool,,sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,every station of the network is absent repo-wide
+provider,hubeau,n_stations_audited_multi_agency,47,stations,"multi_agency audited panel, hubeau",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,hubeau,n_stations_clean_of_outcome_use_multi_agency,47,stations,"multi_agency audited panel, hubeau",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,hubeau,n_stations_never_used_repo_wide_multi_agency,47,stations,"multi_agency audited panel, hubeau",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,nve,n_stations_audited_multi_agency,93,stations,"multi_agency audited panel, nve",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,nve,n_stations_clean_of_outcome_use_multi_agency,93,stations,"multi_agency audited panel, nve",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,nve,n_stations_never_used_repo_wide_multi_agency,93,stations,"multi_agency audited panel, nve",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,roea_es,n_stations_audited_multi_agency,2,stations,"multi_agency audited panel, roea_es",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,roea_es,n_stations_clean_of_outcome_use_multi_agency,2,stations,"multi_agency audited panel, roea_es",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,roea_es,n_stations_never_used_repo_wide_multi_agency,2,stations,"multi_agency audited panel, roea_es",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,smhi,n_stations_audited_multi_agency,143,stations,"multi_agency audited panel, smhi",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,smhi,n_stations_clean_of_outcome_use_multi_agency,143,stations,"multi_agency audited panel, smhi",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
+provider,smhi,n_stations_never_used_repo_wide_multi_agency,143,stations,"multi_agency audited panel, smhi",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 provider,uk_ea,n_stations_audited_multi_agency,6,stations,"multi_agency audited panel, uk_ea",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 provider,uk_ea,n_stations_clean_of_outcome_use_multi_agency,6,stations,"multi_agency audited panel, uk_ea",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
 provider,uk_ea,n_stations_never_used_repo_wide_multi_agency,6,stations,"multi_agency audited panel, uk_ea",sample_fact,results/wrr_submission_ready/prior_access_audit_multi_agency.csv,
@@ -1556,9 +1932,9 @@ claim,S2,population,v17 split,text,,sample_fact,results/wrr_submission_ready/cla
 claim,S2,may_enter_abstract_or_conclusions,True,bool,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S2,status,confirmed,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S2,finding_ids,F01,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
-claim,S2,finding_F01_status,closed_with_scope,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger+sealed_USGS_confirm
-claim,S2,finding_F01_closure_mode,prior_access_ledger+sealed_USGS_confirm,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json
-claim,S2,finding_F01_residual_risk,v18 continuum still exploratory; multi-agency confirm open,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,S2,finding_F01_status,closed_with_scope_and_diagnostic,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,S2,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,S2,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,S2,registry_notes,Reserved prior-access is mixed; see prior_access_ledger.,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S2,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=sample_fact via the documented map
 claim,S2,n_networks_development,110,networks,development split,sample_fact,results/v17_fitness/step1_panel/network_split.csv,counted from network_split.csv; cross-checked against claim_binding_check.json
@@ -1574,9 +1950,9 @@ claim,S3,population,v17 split,text,,sample_fact,results/wrr_submission_ready/cla
 claim,S3,may_enter_abstract_or_conclusions,True,bool,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S3,status,confirmed,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S3,finding_ids,F18,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
-claim,S3,finding_F18_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,SI provider roles regenerated from split
-claim,S3,finding_F18_closure_mode,SI provider roles regenerated from split,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,wrr_supporting_information.tex; provider_roles_from_split.csv
-claim,S3,finding_F18_residual_risk,none material,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,S3,finding_F18_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,SI_provider_table_regenerated+automated_check
+claim,S3,finding_F18_closure_mode,SI_provider_table_regenerated+automated_check,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,paper/wrr/wrr_supporting_information.tex; results/wrr_submission_ready/provider_roles_from_split.csv; scripts/254_wrr_claim_binding_check.py
+claim,S3,finding_F18_residual_risk,Provider roles and countries match the split file line by line.,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,S3,registry_notes,SI provider roles corrected from network_split via provider_roles_from_split.csv,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,S3,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=sample_fact via the documented map
 claim,V17-H2,statement,"Pooled reserved consequential-error rate 9.7%→2.5% at 70% retention, Δ=-7.13 pp CI[-8.97,-5.36]",text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
@@ -1589,9 +1965,9 @@ claim,V17-H2,population,v17 reserved pooled arms,text,,retrospective_holdout,res
 claim,V17-H2,may_enter_abstract_or_conclusions,True,bool,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-H2,status,retrospective_only,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-H2,finding_ids,F01,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
-claim,V17-H2,finding_F01_status,closed_with_scope,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger+sealed_USGS_confirm
-claim,V17-H2,finding_F01_closure_mode,prior_access_ledger+sealed_USGS_confirm,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json
-claim,V17-H2,finding_F01_residual_risk,v18 continuum still exploratory; multi-agency confirm open,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,V17-H2,finding_F01_status,closed_with_scope_and_diagnostic,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,V17-H2,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,V17-H2,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,V17-H2,registry_notes,"Not independent unseen confirmation for the full research programme; 28/36 reserved networks have prior use. POLICY 2026-10-12: allowed into the abstract/conclusions only with an explicit ""retrospective holdout"" label; scripts/254 checks that the label appears in those regions.",text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-H2,evidence_class,retrospective_holdout,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=retrospective_network_holdout via the documented map
 claim,V17-H2,contrast_points,-7.129654079746501,percentage_points,reserved cases at 70% retention,retrospective_holdout,results/v17_fitness/step10_confirmation/verdict.json,
@@ -1638,9 +2014,9 @@ claim,V17-A1,population,v17 reserved empirical arm,text,,retrospective_holdout,r
 claim,V17-A1,may_enter_abstract_or_conclusions,True,bool,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-A1,status,retrospective_only,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-A1,finding_ids,F06,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
-claim,V17-A1,finding_F06_status,closed_by_rewrite_plus_sealed_arm,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,rewrite_or_shoukou
-claim,V17-A1,finding_F06_closure_mode,rewrite_or_shoukou,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Empirical vs pooled reported on holdout and sealed USGS confirm; natural-fault population reweighting deferred as non-headline. Evidence: tab:arms; p0_07 verdict by_arm.
-claim,V17-A1,finding_F06_residual_risk,natural-fault population weighting still incomplete,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,V17-A1,finding_F06_status,closed_by_rewrite_plus_sealed_and_transport_arms,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,arm_decomposition_reported_everywhere
+claim,V17-A1,finding_F06_closure_mode,arm_decomposition_reported_everywhere,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/v17_fitness/step11_arm_robustness/arm_contrasts.csv; p0_07 verdict by_arm; transport verdict by_arm
+claim,V17-A1,finding_F06_residual_risk,Natural-fault population reweighting still not attempted; empirical-arm gains are reported separately and the pooled number is labelled a mixture.,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,V17-A1,registry_notes,"Empirical arm itself alters real outage joint structure. POLICY 2026-10-12: allowed into the abstract/conclusions only with an explicit ""retrospective holdout"" label; scripts/254 checks that the label appears in those regions.",text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,V17-A1,evidence_class,retrospective_holdout,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=retrospective_network_holdout via the documented map
 claim,V17-A1,contrast_points,-0.7069635913750443,percentage_points,reserved empirical arm at 70% retention,retrospective_holdout,results/v17_fitness/step11_arm_robustness/arm_contrasts.csv,
@@ -1666,9 +2042,9 @@ claim,L1,population,v18 after reserved opened,text,,withdrawn,results/wrr_submis
 claim,L1,may_enter_abstract_or_conclusions,False,bool,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,L1,status,pending_new_confirmation,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,L1,finding_ids,F04,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
-claim,L1,finding_F04_status,closed_by_rewrite,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,withdraw_proportion_law_from_headlines
-claim,L1,finding_F04_closure_mode,withdraw_proportion_law_from_headlines,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,title/abstract/conclusions; claim_registry L1
-claim,L1,finding_F04_residual_risk,body still discusses influence account carefully,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,L1,finding_F04_status,closed_by_rewrite,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,proportion_law_withdrawn_from_headlines
+claim,L1,finding_F04_closure_mode,proportion_law_withdrawn_from_headlines,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,paper/wrr/wrr_manuscript.tex abstract/key points/conclusions; claim_registry L1
+claim,L1,finding_F04_residual_risk,Body still discusses the influence account with conditional wording; no unconditional proportionality claim in the restricted regions (scripts/254 enforces).,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,L1,registry_notes,AUC ordering ≠ proportionality. Withdraw unconditional proportion headline.,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,L1,evidence_class,withdrawn,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,evidence class overridden: F04 closure_mode=withdraw_proportion_law_from_headlines (results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv); registry notes: 'Withdraw unconditional proportion headline.'
 claim,L1,numeric_extraction,none,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,the unconditional proportion-law headline is withdrawn (F04); the registry artifact is a directory with no single headline number
@@ -1682,9 +2058,9 @@ claim,L3,population,development ~91d; opened reserved ~119d,text,,exploratory_po
 claim,L3,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L3,status,exploratory_interval_reported,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L3,finding_ids,F05,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,L3,finding_F05_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,crossover_labelled_exploratory_with_uncertainty
-claim,L3,finding_F05_closure_mode,crossover_labelled_exploratory_with_uncertainty,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,fig:law caption; Methods continuum section
-claim,L3,finding_F05_residual_risk,no bootstrap curve yet,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,L3,finding_F05_status,closed_by_amendment,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,interval_and_no_crossover_probability+fixed_centre_dilation_test
+claim,L3,finding_F05_closure_mode,interval_and_no_crossover_probability+fixed_centre_dilation_test,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md
+claim,L3,finding_F05_residual_risk,"Crossing reported as 77-107 days; 90-day grid point +0.0016 [-0.0180,+0.0255], positive in 55% of draws; the dilated-window advantage persists to ~359 days, so the mid-range crossing belongs to a fixed narrow window. Still exploratory_post_open.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,L3,registry_notes,"F05 amendment: 1000-draw network-clustered bootstrap of the whole curve; 90-day grid point +0.002 [-0.019,+0.027], first negative grid point 182 days; P(no crossover in swept range)=0.000; the 91.05-day point value is superseded. A dilated support-conditioned window keeps its advantage to ~359 days, so the mid-range crossing belongs to holding the window fixed and narrow.",text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L3,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_post_open via the documented map
 claim,L3,crossover_days_point_interpolated,91.04832050492402,days,"development cases, fixed 30-day climatological peak-window axis",exploratory_post_open,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json,
@@ -1715,9 +2091,9 @@ claim,L7,population,opened panel,text,,exploratory_post_open,results/wrr_submiss
 claim,L7,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L7,status,exploratory_range_only,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L7,finding_ids,F05,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,L7,finding_F05_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,crossover_labelled_exploratory_with_uncertainty
-claim,L7,finding_F05_closure_mode,crossover_labelled_exploratory_with_uncertainty,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,fig:law caption; Methods continuum section
-claim,L7,finding_F05_residual_risk,no bootstrap curve yet,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,L7,finding_F05_status,closed_by_amendment,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,interval_and_no_crossover_probability+fixed_centre_dilation_test
+claim,L7,finding_F05_closure_mode,interval_and_no_crossover_probability+fixed_centre_dilation_test,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md
+claim,L7,finding_F05_residual_risk,"Crossing reported as 77-107 days; 90-day grid point +0.0016 [-0.0180,+0.0255], positive in 55% of draws; the dilated-window advantage persists to ~359 days, so the mid-range crossing belongs to a fixed narrow window. Still exploratory_post_open.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,L7,registry_notes,"F05 amendment: report a range (roughly one to three months) and per-width paired intervals; no single universal window; advantage is a hump peaking near 60 days, not monotone.",text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,L7,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_post_open via the documented map
 claim,L7,argmax_auc,0.8615471530546903,fraction,"development cases, re-seeked support axis, conditioning-grid AUC (81 rows)",exploratory_post_open,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/curve_with_ci.csv,"argmax over the conditioning grid: evaluation width 1 d, conditioning width 90 d"
@@ -1747,12 +2123,12 @@ claim,D1,population,real incomplete years,text,,sample_fact,results/wrr_submissi
 claim,D1,may_enter_abstract_or_conclusions,True,bool,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,D1,status,confirmed_as_rule_disagreement,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,D1,finding_ids,F03/F07,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
-claim,D1,finding_F03_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Certificate.predict on 2422 incomplete years
-claim,D1,finding_F03_closure_mode,Certificate.predict on 2422 incomplete years,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,e2_certificate_predict/summary.json
-claim,D1,finding_F03_residual_risk,historical E2 overlap rules remain separate artifact,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
-claim,D1,finding_F07_status,closed_by_rewrite,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,climatological_proxy_wording
-claim,D1,finding_F07_closure_mode,climatological_proxy_wording,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,abstract/keypoints/conclusions/deploy
-claim,D1,finding_F07_residual_risk,bridge diagnostic not rebuilt,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,D1,finding_F03_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Certificate.predict_on_2422_incomplete_years_without_truth
+claim,D1,finding_F03_closure_mode,Certificate.predict_on_2422_incomplete_years_without_truth,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/e2_certificate_predict/summary.json; independent invariance check
+claim,D1,finding_F03_residual_risk,"Invariance test: predictions identical with all truth/err/abserr columns dropped or overwritten (3000-case sample, max bound difference 0.0). Historical E2 overlap rules remain a separate, clearly labelled artifact.",text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,D1,finding_F07_status,closed_by_rewrite_plus_bridge,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,proxy_misclassification_measured
+claim,D1,finding_F07_closure_mode,proxy_misclassification_measured,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json
+claim,D1,finding_F07_residual_risk,"PPV 0.737 (cluster CI [0.709,0.761]), sensitivity 0.866; 17 flagged real station-years imply about 12-13 truly hidden realised peaks and about 4 false alarms. Counts remain proxy-based and labelled.",text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,D1,registry_notes,Rule disagreement is descriptive; not Certificate deployment.,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,D1,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=deployment_description via the documented map
 claim,D1,"disagreement_pct[Johnson unfilled, longest run <= 49 d]",15.070189925681255,percent,"2422 real incomplete station-years; incumbent: Johnson unfilled, longest run <= 49 d",sample_fact,results/v18_closure/e2_archive_deployment/threshold_disagreement.csv,
@@ -1792,9 +2168,9 @@ claim,D2,population,real incomplete years,text,,proxy,results/wrr_submission_rea
 claim,D2,may_enter_abstract_or_conclusions,True,bool,,proxy,results/wrr_submission_ready/claim_registry.csv,
 claim,D2,status,proxy_quantified_labelled,text,,proxy,results/wrr_submission_ready/claim_registry.csv,
 claim,D2,finding_ids,F07,text,,proxy,results/wrr_submission_ready/claim_registry.csv,
-claim,D2,finding_F07_status,closed_by_rewrite,text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,climatological_proxy_wording
-claim,D2,finding_F07_closure_mode,climatological_proxy_wording,text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,abstract/keypoints/conclusions/deploy
-claim,D2,finding_F07_residual_risk,bridge diagnostic not rebuilt,text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,D2,finding_F07_status,closed_by_rewrite_plus_bridge,text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,proxy_misclassification_measured
+claim,D2,finding_F07_closure_mode,proxy_misclassification_measured,text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json
+claim,D2,finding_F07_residual_risk,"PPV 0.737 (cluster CI [0.709,0.761]), sensitivity 0.866; 17 flagged real station-years imply about 12-13 truly hidden realised peaks and about 4 false alarms. Counts remain proxy-based and labelled.",text,,proxy,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,D2,registry_notes,"F07 bridge: on sealed never-used designed cases (n=8973) the proxy has PPV 0.737 (cluster CI [0.709,0.761]) for a wholly hidden realised peak, sensitivity 0.866, and 3.1% of proxy-clear cases hide the realised peak. Transported to the 17 flagged real station-years: about 12-13 with a wholly unobserved realised peak, about 4 false alarms. Counts remain proxy-based and are labelled as such. POLICY 2026-10-12: the count may be reported only together with the measured proxy positive predictive value and the word ""climatological""/""proxy""; scripts/254 checks the label.",text,,proxy,results/wrr_submission_ready/claim_registry.csv,
 claim,D2,evidence_class,proxy,text,,proxy,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=proxy_not_truth via the documented map
 claim,D2,proxy_ppv_point,0.7366787377133989,fraction,sealed never-used designed cases (n=8973),proxy,results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json,
@@ -1823,9 +2199,9 @@ claim,A4,population,counterfactual calendars,text,,exploratory_post_open,results
 claim,A4,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,A4,status,recomputed_exploratory_not_for_headline,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,A4,finding_ids,F02,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,A4,finding_F02_status,closed_code_plus_shoukou,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,multi_year_placement_fix+withdraw_headline_numbers
-claim,A4,finding_F02_closure_mode,multi_year_placement_fix+withdraw_headline_numbers,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,scripts/210_v18_outage_seasonality.py; e1_maintenance_recompute/
-claim,A4,finding_F02_residual_risk,recomputed swings exploratory only,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,A4,finding_F02_status,closed_code_and_recomputed,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,multi_year_placement_fix+recompute+headline_withdrawal
+claim,A4,finding_F02_closure_mode,multi_year_placement_fix+recompute+headline_withdrawal,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,scripts/210_v18_outage_seasonality.py; results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json
+claim,A4,finding_F02_residual_risk,Recomputed autumn-vs-observed -3.32 points (was -3.9). Values remain exploratory_post_open and are barred from abstract and conclusions; the code asserts declared length equals masked days.,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,A4,registry_notes,F02 fix: gaps are placed on a multi-year day axis and each affected calendar year contributes its own hidden length; the earlier truncation at day 366 is repaired. Values remain post-open exploratory and are barred from the abstract and conclusions.,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,A4,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_with_implementation_bug via the documented map
 claim,A4,n_outage_lengths,806,count,simulated placements,exploratory_post_open,results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json,
@@ -1877,9 +2253,9 @@ claim,M1,population,opened panel,text,,exploratory_post_open,results/wrr_submiss
 claim,M1,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,M1,status,exploratory_with_bias_sensitivity,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,M1,finding_ids,F10,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,M1,finding_F10_status,deferred_failure_shoukou_P1,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,rewrite_or_shoukou
-claim,M1,finding_F10_closure_mode,rewrite_or_shoukou,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,MNAR claims barred from abstract/conclusions (claim_registry M1); full pattern-mixture left as P1.
-claim,M1,finding_F10_residual_risk,if MNAR claims return upgrade to P0,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,M1,finding_F10_status,closed_with_bias_sensitivity,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,pattern_mixture_grid
+claim,M1,finding_F10_closure_mode,pattern_mixture_grid,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json
+claim,M1,finding_F10_residual_risk,"Contrast keeps its sign and a clustered interval excluding zero for hidden bias delta in [-1,+1] C on development, reserved and the sealed panel. Bounds the assumption; does not verify it, and no flip was observed inside the grid.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,M1,registry_notes,"P1-01 pattern-mixture: adding delta C to every filled day moves the hottest-30 mean by delta x hidden share of the realised peak window. Contrast (certificate minus length, same reconstruction) stays negative with clustered intervals excluding zero across delta in {-1,-0.5,-0.25,0,+0.25,+0.5,+1} C on development (n=40704), reserved (10820) and the sealed panel (8309). No flip inside the grid. This bounds, but does not eliminate, MNAR risk.",text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,M1,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_with_inference_flaws via the documented map
 claim,M1,delta_zero_contrast_points[development],-5.976906608640718,percentage_points,development cases,exploratory_post_open,results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json,
@@ -1921,9 +2297,9 @@ claim,HY,population,GAGES-II matched,text,,exploratory_post_open,results/wrr_sub
 claim,HY,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,HY,status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,HY,finding_ids,F13,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,HY,finding_F13_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,attribute_association_not_geology_law
-claim,HY,finding_F13_closure_mode,attribute_association_not_geology_law,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Discussion catchment paragraph
-claim,HY,finding_F13_residual_risk,US-only correlations remain,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,HY,finding_F13_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,attribute_association_wording+split_definition
+claim,HY,finding_F13_closure_mode,attribute_association_wording+split_definition,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,paper/wrr/wrr_manuscript.tex catchment subsection; results/v17_fitness/step21_hydrology/verdict.json
+claim,HY,finding_F13_residual_risk,"The text states the US subset, the median split for the error difference and the tertile table separately; no geology law. BFI is not all subsurface process.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,HY,registry_notes,"F13: rewritten as attribute associations on the US subset (140 of 204 stations); no geology law, expected signs undeclared, BFI split reported as median not tertile.",text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,HY,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_overclaim via the documented map
 claim,HY,n_stations,140,stations,US GAGES-II matched subset,exploratory_post_open,results/v17_fitness/step21_hydrology/verdict.json,
@@ -1944,9 +2320,9 @@ claim,N1,population,scored cases,text,,exploratory_post_open,results/wrr_submiss
 claim,N1,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,N1,status,recomputed_exploratory_locked_method,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,N1,finding_ids,F11,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,N1,finding_F11_status,closed_code_pending_full_recompute,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,noise_sensitivity locked to certificate_choice
-claim,N1,finding_F11_closure_mode,noise_sensitivity locked to certificate_choice,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,scripts/202_v17_robustness.py
-claim,N1,finding_F11_residual_risk,old published noise numbers not regenerated,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,N1,finding_F11_status,closed_by_recompute,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,locked_method_noise_recompute+scenario_suite
+claim,N1,finding_F11_closure_mode,locked_method_noise_recompute+scenario_suite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json
+claim,N1,finding_F11_residual_risk,"Dev 5.98->6.03, reserved 6.21->6.22 with one method on both arms; AR(1) and step displace the endpoint 2.25x/2.12x and leave the contrast inside its interval; bias +/-0.5 C moves it by at most 1.0 point. Pre-fix bytes preserved.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,N1,registry_notes,"F11 amendment: same reconstruction choice on both arms. Dev 5.98->6.03, reserved 6.21->6.22; paired change +0.049 [-0.036,+0.150] and +0.013 [-0.175,+0.185]. AR(1) rho=0.7 and a mid-year 0.3 C step displace the endpoint 2.25x and 2.12x as much and leave the contrast inside its interval; annual bias +/-0.5 C moves it by at most one point while raising MAE to 0.30 C. Pre-fix bytes preserved.",text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,N1,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_with_method_switch via the documented map
 claim,N1,contrast_clean_points[development],5.983925876531078,percentage_points,development cases,exploratory_post_open,results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json,locked reconstruction on both arms (F11 fix)
@@ -1992,9 +2368,9 @@ claim,C14,population,opened reserved,text,,exploratory_post_open,results/wrr_sub
 claim,C14,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,C14,status,pending_new_confirmation,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,C14,finding_ids,F14,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,C14,finding_F14_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,rewrite_or_shoukou
-claim,C14,finding_F14_closure_mode,rewrite_or_shoukou,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Site-level conformal guarantee removed from agency recommendations; pooled vs cluster distinction retained.
-claim,C14,finding_F14_residual_risk,cluster level still historically selected on opened panel,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,C14,finding_F14_status,closed_by_rewrite,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,pooled_guarantee_scoped
+claim,C14,finding_F14_closure_mode,pooled_guarantee_scoped,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,paper/wrr/wrr_manuscript.tex conclusions; claim_registry C14
+claim,C14,finding_F14_residual_risk,The cluster level was historically selected on the opened panel; the site-level guarantee is removed and the pooled statement is scoped to a population of networks.,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,C14,registry_notes,Do not claim per-new-station guarantee from pooled coverage.,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,C14,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=exploratory_level_selected_on_opened via the documented map
 claim,C14,pooled_median_interval_width_c,0.5351740631727304,celsius,"v17 reserved networks, frozen certificate at 70% retention",exploratory_post_open,results/v17_fitness/step18_cluster_conformal/summary.json,
@@ -2016,9 +2392,9 @@ claim,REG,population,illustration only,text,,withdrawn,results/wrr_submission_re
 claim,REG,may_enter_abstract_or_conclusions,False,bool,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,REG,status,rewrite_required,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,REG,finding_ids,F17,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
-claim,REG,finding_F17_status,closed_by_rewrite,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,hottest7 labelled unvalidated for WAC
-claim,REG,finding_F17_closure_mode,hottest7 labelled unvalidated for WAC,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,conclusions
-claim,REG,finding_F17_residual_risk,no daily-max reanalysis,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,REG,finding_F17_status,closed_by_analysis_and_rewrite,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,daily_max_endpoint_fetched_and_compared
+claim,REG,finding_F17_closure_mode,daily_max_endpoint_fetched_and_compared,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/regulatory_daily_max/
+claim,REG,finding_F17_residual_risk,"USGS daily maximum (statCd 00001) exists for 90 of the 91 sealed stations; the 7-DADMax versus hottest-7 daily-mean comparison quantifies the endpoint gap. The manuscript labels the illustration an example decision, not compliance validation.",text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,REG,registry_notes,"Input is daily mean, not daily maximum; not a compliance validation.",text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,REG,evidence_class,withdrawn,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=endpoint_mismatch via the documented map
 claim,REG,numeric_extraction,none,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,"endpoint mismatch: the illustration uses daily mean temperature, not daily maximum; it is not a compliance validation and no number from it enters this dataset"
@@ -2032,9 +2408,9 @@ claim,BASE,population,development air sensitivity,text,,retrospective_holdout,re
 claim,BASE,may_enter_abstract_or_conclusions,False,bool,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,BASE,status,closed_by_faithful_baseline,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,BASE,finding_ids,F15,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
-claim,BASE,finding_F15_status,closed_by_rewrite,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,air_ridge not faithful Beaufort
-claim,BASE,finding_F15_closure_mode,air_ridge not faithful Beaufort,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,P0_06_method_freeze.json; estimators note
-claim,BASE,finding_F15_residual_risk,no new faithful baseline run,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,BASE,finding_F15_status,closed_by_faithful_baseline,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,faithful_reimplementation_plus_relabel
+claim,BASE,finding_F15_closure_mode,faithful_reimplementation_plus_relabel,text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/amendments/faithful_baseline/comparison.csv
+claim,BASE,finding_F15_residual_risk,"Faithful Beaufort climate correction 12.76% vs library air ridge 15.16% (paired -2.40 pp [-3.20,-1.62]) vs per-case selection 9.00%. The alpha=1.0 ridge is relabelled an in-library sensitivity.",text,,retrospective_holdout,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,BASE,registry_notes,"F15 amendment: the alpha=1.0 library ridge is relabelled as an in-library sensitivity; the cited method was reimplemented (per-station OLS on 2-10 day right-aligned air-temperature moving averages, July-August) and is better than the library ridge (paired -2.40 pp [-3.20,-1.62]) but still worse than per-case selection.",text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,
 claim,BASE,evidence_class,retrospective_holdout,text,,retrospective_holdout,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=mislabelled_baseline via the documented map
 claim,BASE,rate_above_0.5c_pct[faithful_beaufort],12.757519390727548,percent,development cases at the length-rule 70% retention set (n=28493),retrospective_holdout,results/wrr_submission_ready/amendments/faithful_baseline/summary.json,
@@ -2058,9 +2434,9 @@ claim,MEAS,population,all providers,text,,sample_fact,results/wrr_submission_rea
 claim,MEAS,may_enter_abstract_or_conclusions,False,bool,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,MEAS,status,closed_with_strata_and_sensitivity,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,MEAS,finding_ids,F09,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
-claim,MEAS,finding_F09_status,closed_partial_shoukou,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,station_provenance; SYKE excluded from unified daily-mean claim
-claim,MEAS,finding_F09_closure_mode,station_provenance; SYKE excluded from unified daily-mean claim,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,measurement_provenance_stations.csv
-claim,MEAS,finding_F09_residual_risk,ARSO/CHMI/FOEN/GKD/LUBW still unverified,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,MEAS,finding_F09_status,closed_with_strata_and_sensitivity,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,provider_measurement_dictionary+contract_sensitivity
+claim,MEAS,finding_F09_closure_mode,provider_measurement_dictionary+contract_sensitivity,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/measurement_provenance_dictionary.csv; amendments/provider_contract_sensitivity/summary.json
+claim,MEAS,finding_F09_residual_risk,"Documented-daily-mean stratum: dev -5.66 [-6.48,-4.87] (84 networks), reserved -6.58 [-7.87,-5.28] (29 networks). CHMI/RWS project-derived means, SYKE fixed-hour reading, ARSO/SMHI aggregation undocumented; the executable repairs (CHMI TD, RWS GEM24H) are not ingested.",text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,MEAS,registry_notes,"F09 amendment: usgs/foen/gkd_bayern/nve_hydapi/uk_ea documented daily means; chmi and rws are project-derived means of provider sub-daily values (provider daily products TD and GEM24H exist and are unused); syke is an 08:00 nearshore reading; arso and smhi aggregation undocumented; hubeau is a continuous chronicle. Provider-contract sensitivity: documented stratum dev -5.7 [-6.5,-4.9] (84 networks), reserved -6.6 [-7.9,-5.3] (29); full panel -6.4 / -7.1. Sealed panel is USGS-only. LUBW reserves copyright: raw values not redistributed.",text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,MEAS,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=incomplete_measurement_provenance via the documented map
 claim,MEAS,n_provider_rows_documented,12,count,provider measurement dictionary,sample_fact,results/wrr_submission_ready/measurement_provenance_dictionary.csv,
@@ -2125,9 +2501,9 @@ claim,FAIR,population,current TeX not fully bound,text,,withdrawn,results/wrr_su
 claim,FAIR,may_enter_abstract_or_conclusions,False,bool,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,FAIR,status,narrow_statement,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,FAIR,finding_ids,F19,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
-claim,FAIR,finding_F19_status,closed_by_narrowing,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Open Research states audit scope limits
-claim,FAIR,finding_F19_closure_mode,Open Research states audit scope limits,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Open Research Statement
-claim,FAIR,finding_F19_residual_risk,TeX not fully claim-bound,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,FAIR,finding_F19_status,closed_by_executable_binding,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,claim_binding_check_on_live_tex+independent_audit
+claim,FAIR,finding_F19_closure_mode,claim_binding_check_on_live_tex+independent_audit,text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,scripts/254_wrr_claim_binding_check.py; results/wrr_submission_ready/claim_binding_check.json; docs/reviews/wrr_claim_binding_audit.md
+claim,FAIR,finding_F19_residual_risk,"Allowed headline numbers recomputed, barred numbers absent, the conclusions region located dynamically, and label requirements enforced for retrospective and proxy claims. Body-text numbers outside the restricted regions remain unbound by construction.",text,,withdrawn,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,FAIR,registry_notes,Audit covers archived markdown expectations more than live TeX semantics.,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,
 claim,FAIR,evidence_class,withdrawn,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=overstated_reproducibility via the documented map
 claim,FAIR,numeric_extraction,none,text,,withdrawn,results/wrr_submission_ready/claim_registry.csv,the overstated reproducibility claim is withdrawn and narrowed; it carries no scientific number
@@ -2141,9 +2517,9 @@ claim,DEPLOY-CERT,population,real incomplete years,text,,sample_fact,results/wrr
 claim,DEPLOY-CERT,may_enter_abstract_or_conclusions,True,bool,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,DEPLOY-CERT,status,confirmed_interface,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,DEPLOY-CERT,finding_ids,F03,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
-claim,DEPLOY-CERT,finding_F03_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Certificate.predict on 2422 incomplete years
-claim,DEPLOY-CERT,finding_F03_closure_mode,Certificate.predict on 2422 incomplete years,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,e2_certificate_predict/summary.json
-claim,DEPLOY-CERT,finding_F03_residual_risk,historical E2 overlap rules remain separate artifact,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,DEPLOY-CERT,finding_F03_status,closed,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,Certificate.predict_on_2422_incomplete_years_without_truth
+claim,DEPLOY-CERT,finding_F03_closure_mode,Certificate.predict_on_2422_incomplete_years_without_truth,text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/e2_certificate_predict/summary.json; independent invariance check
+claim,DEPLOY-CERT,finding_F03_residual_risk,"Invariance test: predictions identical with all truth/err/abserr columns dropped or overwritten (3000-case sample, max bound difference 0.0). Historical E2 overlap rules remain a separate, clearly labelled artifact.",text,,sample_fact,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,DEPLOY-CERT,registry_notes,Report separately from overlap-rule 15.1% disagreement; admission rate at 0.5C is model output not validated error rate,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,
 claim,DEPLOY-CERT,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=deployment_interface_verified via the documented map
 claim,DEPLOY-CERT,n_incomplete_rows,2422,station_years,2422 real incomplete station-years,sample_fact,results/wrr_submission_ready/e2_certificate_predict/summary.json,
@@ -2162,9 +2538,9 @@ claim,P0-07,population,external,text,,sealed_confirmation,results/wrr_submission
 claim,P0-07,may_enter_abstract_or_conclusions,True,bool,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07,status,sealed_confirmation_usgs_only,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07,finding_ids,F01,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
-claim,P0-07,finding_F01_status,closed_with_scope,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger+sealed_USGS_confirm
-claim,P0-07,finding_F01_closure_mode,prior_access_ledger+sealed_USGS_confirm,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json
-claim,P0-07,finding_F01_residual_risk,v18 continuum still exploratory; multi-agency confirm open,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,P0-07,finding_F01_status,closed_with_scope_and_diagnostic,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,P0-07,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,P0-07,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,P0-07,registry_notes,"39 USGS HUC4 networks outside the v17/v18 development panel. Repo-wide prior-access audit (scripts/245) finds 24 networks touched by earlier programme iterations; 15 networks with no outcome-bearing prior use (26 stations, 1923 cases, pooled -9.42 pp CI[-12.44,-6.03], empirical -3.65 CI[-5.80,-1.62]); 28 networks / 45 stations clean at station level (3494 cases, -8.26 CI[-10.35,-6.37]); 18 networks / 21 stations clean of any prior use (1794 cases, -7.27 CI[-10.28,-4.58]); the 4 fully never-used networks give 187 cases, below the 200-case scoring floor. Primary sealed score: pooled -7.94 pp CI[-10.15,-5.75], empirical -1.74 CI[-2.98,-0.68]. Earlier 'never used in the programme' label superseded by AMENDMENT_prior_access_sealed_panel.md.",text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07,evidence_class,sealed_confirmation,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=sealed_confirmation_single_provider_usgs via the documented map
 claim,P0-07,panel,sealed_never_used_usgs_huc4_networks,text,,sealed_confirmation,results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json,
@@ -2196,9 +2572,9 @@ claim,P0-07-POOL,population,39 USGS HUC4 networks outside the v17/v18 panel (15 
 claim,P0-07-POOL,may_enter_abstract_or_conclusions,True,bool,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07-POOL,status,confirmed_with_scope_limits,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07-POOL,finding_ids,F01,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
-claim,P0-07-POOL,finding_F01_status,closed_with_scope,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger+sealed_USGS_confirm
-claim,P0-07-POOL,finding_F01_closure_mode,prior_access_ledger+sealed_USGS_confirm,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json
-claim,P0-07-POOL,finding_F01_residual_risk,v18 continuum still exploratory; multi-agency confirm open,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,P0-07-POOL,finding_F01_status,closed_with_scope_and_diagnostic,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,P0-07-POOL,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,P0-07-POOL,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,P0-07-POOL,registry_notes,"39 USGS HUC4 networks outside the v17/v18 development panel. Repo-wide prior-access audit (scripts/245) finds 24 networks touched by earlier programme iterations; 15 networks with no outcome-bearing prior use (26 stations, 1923 cases, pooled -9.42 pp CI[-12.44,-6.03], empirical -3.65 CI[-5.80,-1.62]); 28 networks / 45 stations clean at station level (3494 cases, -8.26 CI[-10.35,-6.37]); 18 networks / 21 stations clean of any prior use (1794 cases, -7.27 CI[-10.28,-4.58]); the 4 fully never-used networks give 187 cases, below the 200-case scoring floor. Primary sealed score: pooled -7.94 pp CI[-10.15,-5.75], empirical -1.74 CI[-2.98,-0.68]. Earlier 'never used in the programme' label superseded by AMENDMENT_prior_access_sealed_panel.md.",text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
 claim,P0-07-POOL,evidence_class,sealed_confirmation,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=sealed_confirmation_single_provider_usgs via the documented map
 claim,P0-07-POOL,contrast_points,-7.943603851444292,percentage_points,sealed confirmation cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json,
@@ -2260,9 +2636,9 @@ claim,NVE-PROBE,population,2 NVE basins,text,,exploratory_post_open,results/wrr_
 claim,NVE-PROBE,may_enter_abstract_or_conclusions,False,bool,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,NVE-PROBE,status,failed_transfer_or_underpowered,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,NVE-PROBE,finding_ids,F01,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
-claim,NVE-PROBE,finding_F01_status,closed_with_scope,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger+sealed_USGS_confirm
-claim,NVE-PROBE,finding_F01_closure_mode,prior_access_ledger+sealed_USGS_confirm,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,prior_access_ledger_reserved_networks.csv; p0_07_sealed_confirmation/verdict.json
-claim,NVE-PROBE,finding_F01_residual_risk,v18 continuum still exploratory; multi-agency confirm open,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,NVE-PROBE,finding_F01_status,closed_with_scope_and_diagnostic,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,NVE-PROBE,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,NVE-PROBE,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,exploratory_post_open,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
 claim,NVE-PROBE,registry_notes,n_networks=2 <<30; contrast +2.3 pp; do not headline; multi-agency confirmation remains open by failure收口,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,
 claim,NVE-PROBE,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=supplementary_multi_agency_probe_below_floor via the documented map
 claim,NVE-PROBE,n_networks,2,networks,NVE probe cases,exploratory_post_open,results/wrr_submission_ready/p0_07_nve_probe/verdict.json,design floor is 30 networks
@@ -2273,6 +2649,62 @@ claim,NVE-PROBE,ci_low_points,2.325581395348836,percentage_points,NVE probe case
 claim,NVE-PROBE,ci_high_points,5.555555555555558,percentage_points,NVE probe cases,exploratory_post_open,results/wrr_submission_ready/p0_07_nve_probe/verdict.json,
 claim,NVE-PROBE,may_enter_abstract,False,bool,,exploratory_post_open,results/wrr_submission_ready/p0_07_nve_probe/verdict.json,
 claim,NVE-PROBE,probe_note,Only 2 NVE networks met >=4 complete years; below design floor of 30. Do not treat as sealed multi-agency confirmation.,text,,exploratory_post_open,results/wrr_submission_ready/p0_07_nve_probe/verdict.json,
+claim,P0-07-TRANSPORT,statement,"On a pre-registered multi-agency transport panel of 32 never-used networks, the frozen screen cuts consequential error by ~4.6 pp at 70% retention (0.5C)",text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,registry_artifact,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,artifact as recorded in claim_registry.csv
+claim,P0-07-TRANSPORT,endpoint,hottest_30,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,unit,percentage_points,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,denominator,sealed transport cases at 70% retention,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,evidence_type,sealed_multi_agency_transport_single_score,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,population,"SMHI 16 + UK EA 2 + Hub'Eau 14 networks (boreal, oceanic, continental)",text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,may_enter_abstract_or_conclusions,True,bool,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,status,transport_supported,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,finding_ids,F01/F06/F20,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,finding_F01_status,closed_with_scope_and_diagnostic,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol
+claim,P0-07-TRANSPORT,finding_F01_closure_mode,repo_wide_prior_access_ledger+clean_subset_diagnostic+transport_protocol,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv; AMENDMENT_prior_access_sealed_panel.md; amendments/sealed_usgs_prior_access_diagnostic/summary.json; scripts/245_multi_agency_prior_access_audit.py
+claim,P0-07-TRANSPORT,finding_F01_residual_risk,"USGS panel: 24/39 networks touched by earlier iterations, 15 outcome-clean (pooled -9.42 CI[-12.44,-6.03]) and 4 fully never-used (187 cases, below the scoring floor). Primary score unchanged at -7.94. Transport primary panel is new agencies only (SMHI 16 + UK EA 2 = 18 networks, 2 contexts, under the 30/3 floor) with NVE 21 networks as a labelled secondary stratum.",text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,P0-07-TRANSPORT,finding_F06_status,closed_by_rewrite_plus_sealed_and_transport_arms,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,arm_decomposition_reported_everywhere
+claim,P0-07-TRANSPORT,finding_F06_closure_mode,arm_decomposition_reported_everywhere,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,results/v17_fitness/step11_arm_robustness/arm_contrasts.csv; p0_07 verdict by_arm; transport verdict by_arm
+claim,P0-07-TRANSPORT,finding_F06_residual_risk,Natural-fault population reweighting still not attempted; empirical-arm gains are reported separately and the pooled number is labelled a mixture.,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,P0-07-TRANSPORT,finding_F20_status,closed_by_literature,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,verified_novelty_comparison+8_entries+softening_edits
+claim,P0-07-TRANSPORT,finding_F20_closure_mode,verified_novelty_comparison+8_entries+softening_edits,text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,docs/reviews/wrr_novelty_comparison.md; paper/wrr/references_additions.bib; paper/wrr/references.bib
+claim,P0-07-TRANSPORT,finding_F20_residual_risk,"Beaufort 2022 and Johnson 2021 already cover parts of the claim; the intro now says so, the map table is corrected, and the unverified Johnson quote is replaced with verifiable wording. The Mauger quote still needs confirmation against the paywalled PDF.",text,,sealed_confirmation,results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv,
+claim,P0-07-TRANSPORT,registry_notes,"Pooled primary -4.61 pp CI[-6.53,-3.30]; quality-checked stratum -6.15 CI[-8.40,-4.53]; empirical arm -1.86 CI[-3.25,-0.99]; per provider smhi -4.35, hubeau -4.89, uk_ea -6.40 (2 networks). Secondary NVE stratum 21 networks -6.14 CI[-8.70,-4.59]; extended pooled -5.20 CI[-6.74,-4.12]. Pre-declared rule met and strata agree. Designed after the USGS score was known; disclosed.",text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,
+claim,P0-07-TRANSPORT,evidence_class,sealed_confirmation,text,,sealed_confirmation,results/wrr_submission_ready/claim_registry.csv,assigned from registry evidence_type=sealed_multi_agency_transport_single_score via the documented map
+claim,P0-07-TRANSPORT,panel,sealed_multi_agency_transport,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,n_networks,53,networks,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,n_stations,245,stations,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,n_cases,27901,cases,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,provider_1,hubeau,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,provider_2,nve,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,provider_3,smhi,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,provider_4,uk_ea,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,context_1,boreal_atlantic,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,context_2,boreal_nordic,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,context_3,temperate_oceanic,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,context_4,temperate_oceanic_continental,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,contrast_points,-5.203912160915299,percentage_points,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,contrast_ci_low,-6.686439856181544,percentage_points,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,contrast_ci_high,-4.093734468948134,percentage_points,sealed multi-agency transport cases at 70% retention (0.5 C),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,primary_panel_contrast_points,-4.607779125081615,percentage_points,primary panel (new agencies),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,primary_panel_ci_low,-6.531224999396276,percentage_points,primary panel (new agencies),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,primary_panel_ci_high,-3.304640766719575,percentage_points,primary panel (new agencies),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,secondary_panel_contrast_points,-6.141618497109826,percentage_points,secondary stratum (development provider),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,secondary_panel_ci_low,-8.699288727627307,percentage_points,secondary stratum (development provider),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,secondary_panel_ci_high,-4.591379203676586,percentage_points,secondary stratum (development provider),sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_quality_checked_contrast_points,-6.150897368879596,percentage_points,quality_checked stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_quality_checked_ci_low,-8.400807283706515,percentage_points,quality_checked stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_quality_checked_ci_high,-4.5293944807767845,percentage_points,quality_checked stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_provider_published_unqualified_contrast_points,-4.582620270013312,percentage_points,provider_published_unqualified stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_provider_published_unqualified_ci_low,-6.231535299873961,percentage_points,provider_published_unqualified stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,assurance_provider_published_unqualified_ci_high,-3.2589578702150366,percentage_points,provider_published_unqualified stratum,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_empirical_contrast_points,-1.8550007729169888,percentage_points,transport empirical arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_empirical_ci_low,-3.245344400431426,percentage_points,transport empirical arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_empirical_ci_high,-0.9881405703096348,percentage_points,transport empirical arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_stratified_contrast_points,-7.060386226627157,percentage_points,transport stratified arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_stratified_ci_low,-9.043564735704544,percentage_points,transport stratified arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,arm_stratified_ci_high,-5.675813500230007,percentage_points,transport stratified arm,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,transport_supported,True,bool,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,P0-07-TRANSPORT,ordering_disclosure,"Designed and sealed after the USGS confirmation score; a transport test, not a pristine first confirmation.",text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
 amendment,e6_support_width_uncertainty,finding_id,F05,text,,exploratory_post_open,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json,
 amendment,e6_support_width_uncertainty,artifact,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json,text,,exploratory_post_open,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json,
 amendment,e6_support_width_uncertainty,evidence_class,exploratory_post_open,text,,exploratory_post_open,results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json,declared in this builder's amendment spec
@@ -2349,18 +2781,18 @@ amendment,outage_causes,finding_id,not_declared_in_artifact,text,,sample_fact,re
 amendment,outage_causes,artifact,results/wrr_submission_ready/amendments/outage_causes/summary.json,text,,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,
 amendment,outage_causes,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,declared in this builder's amendment spec
 amendment,outage_causes,directory,results/wrr_submission_ready/amendments/outage_causes,text,,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,amendment directory; summary.json present
-amendment,outage_causes,n_gaps,55,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
-amendment,outage_causes,n_missing_days,619,days,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
-amendment,outage_causes,n_gaps_with_no_day_in_population,3,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
-amendment,outage_causes,share_graded_incomplete_or_partial_all_pct,0.0169,percent,provider records retrieved for the subsample,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
-amendment,outage_causes,share_graded_incomplete_or_partial_in_population_pct,0,percent,provider records inside the incomplete-year population,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
-amendment,outage_causes,n_records_graded_incomplete_or_partial_in_population,0,count,provider records inside the incomplete-year population,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,n_gaps,2921,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,n_missing_days,68180,days,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,n_gaps_with_no_day_in_population,179,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,share_graded_incomplete_or_partial_all_pct,0.1205,percent,provider records retrieved for the subsample,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,share_graded_incomplete_or_partial_in_population_pct,0.183,percent,provider records inside the incomplete-year population,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
+amendment,outage_causes,n_records_graded_incomplete_or_partial_in_population,815,count,provider records inside the incomplete-year population,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
 amendment,outage_causes,peak_window_validation_max_abs_difference,0,fraction,station-years checked,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide."
 amendment,outage_causes,notes,"artifact declares no F-number; the dataset assigns none. The subsample is 3 USGS stations (summary.json subsampled=true), so the counts are not panel-wide.",text,,sample_fact,results/wrr_submission_ready/amendments/outage_causes/summary.json,
 amendment,regulatory_daily_max,finding_id,not_declared_in_artifact,text,,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,the artifact declares no finding id; none is assigned by this dataset
 amendment,regulatory_daily_max,artifact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,text,,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,
 amendment,regulatory_daily_max,evidence_class,sample_fact,text,,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,declared in this builder's amendment spec
-amendment,regulatory_daily_max,directory,results/wrr_submission_ready/amendments/regulatory_daily_max,text,,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,"amendment directory; no summary.json, headline read from the declared artifact"
+amendment,regulatory_daily_max,directory,results/wrr_submission_ready/amendments/regulatory_daily_max,text,,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,amendment directory; summary.json present
 amendment,regulatory_daily_max,n_stations_requested,91,stations,sealed USGS confirmation stations,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,"data-availability fact behind the REG endpoint-mismatch flag: the daily-maximum product exists for these stations but the manuscript illustration used daily means, so no daily-max reanalysis is claimed here. The artifact declares no F-number; the dataset assigns none."
 amendment,regulatory_daily_max,n_stations_with_daily_max_00001,90,stations,sealed USGS confirmation stations,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,"data-availability fact behind the REG endpoint-mismatch flag: the daily-maximum product exists for these stations but the manuscript illustration used daily means, so no daily-max reanalysis is claimed here. The artifact declares no F-number; the dataset assigns none."
 amendment,regulatory_daily_max,n_stations_with_daily_mean_00003,91,stations,sealed USGS confirmation stations,sample_fact,results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json,"data-availability fact behind the REG endpoint-mismatch flag: the daily-maximum product exists for these stations but the manuscript illustration used daily means, so no daily-max reanalysis is claimed here. The artifact declares no F-number; the dataset assigns none."
@@ -2375,8 +2807,8 @@ amendment,winter_regulatory,n_observed_days_median,305,days,sine-fit cases,explo
 amendment,winter_regulatory,coldest30_auc_cold_window_overlap,0.8761190169421038,fraction,"development cases, coldest-30 endpoint",exploratory_post_open,results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv,
 amendment,winter_regulatory,coldest30_rate_at_70_best_cold_minus_length_rule,-0.005896185027901589,percentage_points,development cases at 70% retention,exploratory_post_open,results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv,
 amendment,outage_causes,n_gaps_with_documented_cause_code,0,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv,summed at build time over the gap/ALL rows of cause_mix.csv and cross-checked against summary.json gap and missing-day totals
-amendment,outage_causes,n_gaps_from_detail_csv,55,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv,
-amendment,outage_causes,n_missing_days_from_detail_csv,619,days,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv,
+amendment,outage_causes,n_gaps_from_detail_csv,2921,count,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv,
+amendment,outage_causes,n_missing_days_from_detail_csv,68180,days,"real USGS interior gaps, 3-station subsample",sample_fact,results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv,
 amendment,step5_mechanism_equal_k,point_c[K=1],0.100548873971119,celsius,"equal-K matched sample, K=1 (1281 paired cases in 20 networks)",exploratory_post_open,results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv,"weak_half minus strong_half, matched exact K"
 amendment,step5_mechanism_equal_k,ci_low_c[K=1],0.06460028108134998,celsius,"equal-K matched sample, K=1 (1281 paired cases in 20 networks)",exploratory_post_open,results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv,
 amendment,step5_mechanism_equal_k,ci_high_c[K=1],0.1446880325849787,celsius,"equal-K matched sample, K=1 (1281 paired cases in 20 networks)",exploratory_post_open,results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv,
@@ -2742,7 +3174,10 @@ claim,D1,archive_shift_vs_complete_only_c[peak window <= 10% hidden],0.451893956
 claim,D1,archive_share_above_20c_pct[peak window <= 10% hidden],50.67080920773902,percent,real archive under rule: peak window <= 10% hidden,sample_fact,results/v18_closure/e2_archive_deployment/archive_consequence.csv,
 claim,D1,archive_admitted_with_peak_window_wholly_hidden[peak window <= 10% hidden],0,station_years,real archive under rule: peak window <= 10% hidden,sample_fact,results/v18_closure/e2_archive_deployment/archive_consequence.csv,
 claim,D1,archive_mean_peak_overlap_admitted[peak window <= 10% hidden],0.006931028639213692,fraction,real archive under rule: peak window <= 10% hidden,sample_fact,results/v18_closure/e2_archive_deployment/archive_consequence.csv,
-claim,TRANSPORT,transport_status,not_scored,text,,sample_fact,results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md,"no transport verdict artifact at results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json; the protocol is sealed for design and the panel is still being recruited, so this dataset carries no transport number"
+claim,TRANSPORT,contrast_points,-5.203912160915299,percentage_points,sealed multi-agency transport panel,sample_fact,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,TRANSPORT,contrast_ci_low,-6.686439856181544,percentage_points,sealed multi-agency transport panel,sample_fact,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,TRANSPORT,contrast_ci_high,-4.093734468948134,percentage_points,sealed multi-agency transport panel,sample_fact,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
+claim,TRANSPORT,transport_status,scored,text,,sealed_confirmation,results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json,
 provider,uk_ea,transport_networks_in_manifest,2,networks,sealed multi-agency transport recruitment,sample_fact,results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv,row count of the ingested network manifest
 provider,uk_ea,transport_complete_station_years,42,station_years,sealed multi-agency transport recruitment,sample_fact,results/wrr_submission_ready/multi_agency_ingest/uk_ea/complete_station_years.csv,row count of the ingested complete station-year table
 provider,nve_hydapi,transport_stations_with_ge4_complete_years,130,stations,sealed multi-agency transport recruitment,sample_fact,results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json,

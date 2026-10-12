@@ -125,6 +125,41 @@
       ],
       "path": "results/wrr_submission_ready/prior_access_audit_multi_agency.csv",
       "population": "multi_agency"
+    },
+    "sealed_usgs": {
+      "clean_networks": [
+        "usgs_confirm_1002",
+        "usgs_confirm_1010",
+        "usgs_confirm_1501",
+        "usgs_confirm_1801",
+        "usgs_confirm_1804",
+        "usgs_confirm_1809",
+        "usgs_confirm_1902",
+        "usgs_confirm_1903",
+        "usgs_confirm_3090",
+        "usgs_confirm_3110",
+        "usgs_confirm_4130",
+        "usgs_confirm_6010",
+        "usgs_confirm_7050",
+        "usgs_confirm_7070",
+        "usgs_confirm_9030"
+      ],
+      "n_clean_of_outcome_use": 45,
+      "n_networks": 39,
+      "n_networks_clean_of_outcome_use": 15,
+      "n_networks_never_used_repo_wide": 4,
+      "n_networks_with_any_outcome_use": 24,
+      "n_never_used_repo_wide": 21,
+      "n_stations": 91,
+      "n_with_outcome_use": 46,
+      "never_used_networks": [
+        "usgs_confirm_1501",
+        "usgs_confirm_1804",
+        "usgs_confirm_3090",
+        "usgs_confirm_3110"
+      ],
+      "path": "results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv",
+      "population": "sealed_usgs"
     }
   },
   "scope_note": "Repo-wide scan of every CSV carrying a station_id column, provider-aware by network/provider prefix. 'descriptive' artifacts are catalogues and metadata; 'outcome_bearing' artifacts contain losses, predictions, scores or metrics. Provider station catalogues keyed by site_id (e.g. results/framework/public_catalog/ehyd_surface_temperature_stations.csv) carry no series values and are outside this scan by construction; they are metadata, not series use. Nested files under the excluded confirmation/transport directories belong to the panels under audit."

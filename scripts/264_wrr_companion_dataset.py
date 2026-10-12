@@ -115,6 +115,7 @@ EVIDENCE_CLASS_MAP = {
     "retrospective_network_holdout": "retrospective_holdout",
     "mislabelled_baseline": "retrospective_holdout",
     "sealed_confirmation_single_provider_usgs": "sealed_confirmation",
+    "sealed_multi_agency_transport_single_score": "sealed_confirmation",
     "supplementary_multi_agency_probe_below_floor": "exploratory_post_open",
     "proxy_not_truth": "proxy",
     "exploratory_post_open": "exploratory_post_open",
@@ -176,6 +177,7 @@ A = {
     "step18_summary": f"{V17}/step18_cluster_conformal/summary.json",
     "step21_verdict": f"{V17}/step21_hydrology/verdict.json",
     "p0_07_verdict": f"{READY}/p0_07_sealed_confirmation/verdict.json",
+    "transport_verdict": f"{READY}/p0_07b_multi_agency_transport/verdict.json",
     "nve_probe_verdict": f"{READY}/p0_07_nve_probe/verdict.json",
     "e2_summary": f"{V18}/e2_archive_deployment/summary.json",
     "e2_threshold_disagreement": f"{V18}/e2_archive_deployment/threshold_disagreement.csv",
@@ -1435,6 +1437,72 @@ def claim_P0_07_POOL(b: Builder, cid: str, cls: str) -> None:
     b.jtext("claim", cid, "post_seal_diagnostic_status", diag_rel, ("status",), cls)
 
 
+def claim_P0_07_TRANSPORT(b: Builder, cid: str, cls: str) -> None:
+    rel = A["transport_verdict"]
+    denom = "sealed multi-agency transport cases at 70% retention (0.5 C)"
+    b.jtext("claim", cid, "panel", rel, ("panel",), cls)
+    b.jnum("claim", cid, "n_networks", rel, ("n_networks",), "networks", denom, cls)
+    b.jnum("claim", cid, "n_stations", rel, ("n_stations",), "stations", denom, cls)
+    b.jnum("claim", cid, "n_cases", rel, ("n_cases",), "cases", denom, cls)
+    for i, provider in enumerate(b.get(rel, ("providers",), f"claim {cid}")):
+        b.add("claim", cid, f"provider_{i + 1}", provider, "text", "", cls, rel)
+    for i, context in enumerate(b.get(rel, ("contexts",), f"claim {cid}")):
+        b.add("claim", cid, f"context_{i + 1}", context, "text", "", cls, rel)
+    pooled = b.jnum("claim", cid, "contrast_points", rel, ("contrast_points",),
+                    "percentage_points", denom, cls)
+    low = b.jnum("claim", cid, "contrast_ci_low", rel, ("ci_low_points",),
+                 "percentage_points", denom, cls)
+    high = b.jnum("claim", cid, "contrast_ci_high", rel, ("ci_high_points",),
+                  "percentage_points", denom, cls)
+    _contrast(b, "Multi-agency transport, pooled", pooled, low, high,
+              "percentage_points", denom, cls, rel,
+              "scored once; designed after the USGS score was known (disclosed)")
+    for key, label in (
+        ("primary_panel", "primary panel (new agencies)"),
+        ("secondary_panel", "secondary stratum (development provider)"),
+    ):
+        pt = b.jnum("claim", cid, f"{key}_contrast_points", rel,
+                    (key, "contrast_points"), "percentage_points", label, cls)
+        lo = b.jnum("claim", cid, f"{key}_ci_low", rel, (key, "ci_low_points"),
+                    "percentage_points", label, cls)
+        hi = b.jnum("claim", cid, f"{key}_ci_high", rel, (key, "ci_high_points"),
+                    "percentage_points", label, cls)
+        _contrast(b, f"Multi-agency transport, {label}", pt, lo, hi,
+                  "percentage_points", label, cls, rel,
+                  "primary panel carries the pre-declared rule; secondary is labelled")
+    for stratum in ("quality_checked", "provider_published_unqualified"):
+        base = ("by_assurance_points", stratum)
+        pt = b.jnum("claim", cid, f"assurance_{stratum}_contrast_points", rel,
+                    base + ("contrast_points",), "percentage_points",
+                    f"{stratum} stratum", cls)
+        lo = b.jnum("claim", cid, f"assurance_{stratum}_ci_low", rel,
+                    base + ("ci_low_points",), "percentage_points",
+                    f"{stratum} stratum", cls)
+        hi = b.jnum("claim", cid, f"assurance_{stratum}_ci_high", rel,
+                    base + ("ci_high_points",), "percentage_points",
+                    f"{stratum} stratum", cls)
+        _contrast(b, f"Multi-agency transport, {stratum} stratum", pt, lo, hi,
+                  "percentage_points", f"{stratum} stratum", cls, rel,
+                  "assurance-stratum decomposition (Amendment 2)")
+    for arm in ("empirical", "stratified"):
+        base = ("by_arm_points", arm)
+        a_pt = b.jnum("claim", cid, f"arm_{arm}_contrast_points", rel,
+                      base + ("contrast_points",), "percentage_points",
+                      f"transport {arm} arm", cls)
+        a_lo = b.jnum("claim", cid, f"arm_{arm}_ci_low", rel,
+                      base + ("ci_low_points",), "percentage_points",
+                      f"transport {arm} arm", cls)
+        a_hi = b.jnum("claim", cid, f"arm_{arm}_ci_high", rel,
+                      base + ("ci_high_points",), "percentage_points",
+                      f"transport {arm} arm", cls)
+        _contrast(b, f"Multi-agency transport, {arm} arm", a_pt, a_lo, a_hi,
+                  "percentage_points", f"transport {arm} arm at 70% retention",
+                  cls, rel, "arm decomposition of the transport score")
+    rule = ("predeclared_rule", "transport_supported")
+    b.jtext("claim", cid, "transport_supported", rel, rule, cls, unit="bool")
+    b.jtext("claim", cid, "ordering_disclosure", rel, ("ordering_disclosure",), cls)
+
+
 def claim_NVE_PROBE(b: Builder, cid: str, cls: str) -> None:
     rel = A["nve_probe_verdict"]
     denom = "NVE probe cases"
@@ -1627,6 +1695,7 @@ CLAIM_NUMERIC_BUILDERS = {
     "DEPLOY-CERT": claim_DEPLOY_CERT,
     "P0-07": claim_P0_07,
     "P0-07-POOL": claim_P0_07_POOL,
+    "P0-07-TRANSPORT": claim_P0_07_TRANSPORT,
     "NVE-PROBE": claim_NVE_PROBE,
     "L3": claim_L3,
     "L7": claim_L7,
@@ -2891,7 +2960,10 @@ def verify_dashboard(b: Builder, text: str) -> int:
             bad.append(f"tooltip missing class/artifact: {attrs}")
     check(not bad, f"dashboard number spans without full labelling: {bad[:5]}")
     # visible adjacent labels
-    check(text.count('class="prov"') >= len(spans) // 2,
+    # A contrast row shows three numbers (point, interval low, interval high)
+    # under one visible provenance label, so the floor is one label per three
+    # displayed numbers rather than one per two.
+    check(text.count('class="prov"') >= max(1, len(spans) // 3),
           "too few adjacent provenance labels for the displayed numbers")
     return len(spans)
 

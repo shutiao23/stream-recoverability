@@ -231,10 +231,14 @@ def main() -> int:
             writer.writerows(rows)
         summaries[population] = summary | {"path": str(path.relative_to(ROOT))}
         print(json.dumps(summary, indent=2, sort_keys=True))
+    summary_path = READY / "prior_access_audit_summary.json"
+    previous = json.loads(summary_path.read_text()) if summary_path.is_file() else {}
+    merged = dict(previous.get("populations", {}))
+    merged.update(summaries)
     payload = {
         "n_artifact_rows_scanned": len(artifacts),
         "n_artifacts_scanned": len({row['artifact'] for row in artifacts}),
-        "populations": summaries,
+        "populations": merged,
         "scope_note": (
             "Repo-wide scan of every CSV carrying a station_id column, provider-aware by "
             "network/provider prefix. 'descriptive' artifacts are catalogues and metadata; "
@@ -245,7 +249,7 @@ def main() -> int:
             "excluded confirmation/transport directories belong to the panels under audit."
         ),
     }
-    (READY / "prior_access_audit_summary.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    summary_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     return 0
 
 

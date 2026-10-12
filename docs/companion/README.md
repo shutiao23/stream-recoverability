@@ -4,9 +4,9 @@ This directory is a **companion release**, not a manuscript artifact. It carries
 
 ## Contents
 
-- `companion_dataset.csv` — the tidy dataset (2756 rows; long format, one row per fact).
+- `companion_dataset.csv` — the tidy dataset (3191 rows; long format, one row per fact).
 - `README.md` — this file.
-- `../../dist/companion/index.html` — a single self-contained dashboard (data embedded, 77 labelled numbers); open it from disk, no server and no network.
+- `../../dist/companion/index.html` — a single self-contained dashboard (data embedded, 101 labelled numbers); open it from disk, no server and no network.
 - `../../dist/companion/dashboard_data.json` — the payload embedded in the dashboard, for reuse.
 - `../../dist/companion/companion_dataset.csv` — byte copy of the tidy dataset.
 
@@ -65,6 +65,7 @@ The class of a claim is derived from its registry `evidence_type` through this m
 | `retrospective_network_holdout` | `retrospective_holdout` |
 | `sample_fact` | `sample_fact` |
 | `sealed_confirmation_single_provider_usgs` | `sealed_confirmation` |
+| `sealed_multi_agency_transport_single_score` | `sealed_confirmation` |
 | `supplementary_multi_agency_probe_below_floor` | `exploratory_post_open` |
 
 One override exists, because the registry status and the closure audit withdraw a headline that the evidence type alone would not flag:
@@ -138,16 +139,16 @@ These are places where the registry prose and the artifact disagree in rounding 
 | `results/v18_closure/e2_archive_deployment/threshold_disagreement.csv` | csv | 2 | 421 | `40635b078a1a5131448fb0d8b359916a0e755bf8d977cbf053bcc650d023201b` | 12 |
 | `results/v18_closure/e4_representativeness/elevation_retention.csv` | csv | 6 | 952 | `683b45a99e1fedc0a9e3c5f065a0bc510f365e740ebc6222db86fffafc08e2b0` | 6 |
 | `results/v18_closure/e4_representativeness/summary.json` | json | — | 716 | `880ccdbd00bbac7656cf9bf83d29fd6c9f27f061dc11678c6c318483b70fab05` | 8 |
-| `results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv` | csv | 22 | 3594 | `0067eb88b532bc4d661ebf8c014426ff64020ee3291ceafd56710de71860a545` | 69 |
-| `results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md` | text | — | 8309 | `8e638814d881349ed0cced5eaeaa91bd1ac06229f4dadb5a89f60442a0857708` | 1 |
+| `results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv` | csv | 22 | 8728 | `fb5e14a73ef74aae82230b7209a262bf72d6d18cb9413f7c21950b2705926b77` | 78 |
+| `results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md` | text | — | 9924 | `510923161b3ff91588d6b7e977796f5785227c88d208a2604c270f3df82b479b` | 0 (read for a cross-check or a finding id) |
 | `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md` | text | — | 43645 | `e8f670d1072d0a264415c0fffb49db406d562de4237e290024e5863320377e88` | 0 (read for a cross-check or a finding id) |
 | `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json` | json | — | 160880 | `12a6bfcae48a7c4c4833e73cccce179420142b82a01d3d78a0968560c485a75b` | 22 |
 | `results/wrr_submission_ready/amendments/e6_support_width_uncertainty/curve_with_ci.csv` | csv | 684 | 176668 | `d671dc99601fb196e6fd0f2d1a9c49ee00b8eab4ff25dbf6404328f936d3443f` | 21 |
 | `results/wrr_submission_ready/amendments/faithful_baseline/contrasts.csv` | csv | 48 | 9332 | `f7ed8911de8b9372b9456fcb115b7df91958a26f6b669ef1c357f56afc50e91d` | 8 |
 | `results/wrr_submission_ready/amendments/faithful_baseline/summary.json` | json | — | 12808 | `c7767863b1c83eeca09ef1ff0af7668bd76f2ec7d58625ffc0093f7822dde880` | 12 |
 | `results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json` | json | — | 7535 | `b1266080d7e07e0415bf1437982a871e6db510a1dbfc273d38e4e42702c9d6db` | 42 |
-| `results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv` | csv | 16 | 1053 | `b48aa2ebda714d67586d78929836b7ebf01fe703303d26a8ef0e2f4ce9f21b80` | 3 |
-| `results/wrr_submission_ready/amendments/outage_causes/summary.json` | json | — | 1414 | `163b5ab191b887101da654c9d445cc9ef84381167eeeba2e478a589afa5c50f4` | 12 |
+| `results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv` | csv | 36 | 2558 | `5b9fee4777e86e4adca55497ca8841a5e65b263c170b9d0ebf8734067e546c56` | 3 |
+| `results/wrr_submission_ready/amendments/outage_causes/summary.json` | json | — | 11307 | `ebd28e2cd14fca6d3124b786c28e6bc008cbb69d9fceba51902ce5b9d527d57f` | 12 |
 | `results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json` | json | — | 2781 | `de60794deeefb1c57cbeffbb49cb1ffc3136b64f2ca869185779650c0f0e9191` | 24 |
 | `results/wrr_submission_ready/amendments/provider_contract_sensitivity/provider_contract_contrasts.csv` | csv | 9 | 1320 | `f0a7c5641cb16329b102ea87b44ce268bcbb81ee8f042b3568b3398eacca81a4` | 44 |
 | `results/wrr_submission_ready/amendments/provider_contract_sensitivity/summary.json` | json | — | 3381 | `eb1906c0e5a7d7fae1c0a15084ca5441640d9fa6804d34dead6986086afe95fc` | 14 |
@@ -159,25 +160,26 @@ These are places where the registry prose and the artifact disagree in rounding 
 | `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv` | csv | 7 | 1410 | `e068750b83e0332f99473872a9f1522c7bbc979dd5a97cdab291d3596094be2e` | 29 |
 | `results/wrr_submission_ready/amendments/step5_mechanism_equal_k/summary.json` | json | — | 23063 | `85b131414ca02de7388d95ba6d4f480a665a0ea48758b17430277c744a164f5e` | 10 |
 | `results/wrr_submission_ready/amendments/step5_mechanism_pre_fix/donor_control_contrasts.csv` | csv | 2 | 306 | `a5b99c803caf5198a8708bfa69c5e51bfad00efd0e718b8f0959c3b4bc3a872f` | 9 |
-| `results/wrr_submission_ready/amendments/winter_regulatory/REPORT.md` | text | — | 10658 | `faf4be4d00863c0a5bfef28f10c20022aa48d26d0f8ef375e1e6b2f31d163727` | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/amendments/winter_regulatory/REPORT.md` | text | — | 18586 | `92a4240de9a7cec5eaa5e0e4428454390b06dbd4e47ec4d75bf5e6f2b0cb5e56` | 0 (read for a cross-check or a finding id) |
 | `results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv` | csv | 4 | 2620 | `74a4d8366989b108bf8d7abcfacfc743b0b1f7bd265c5442540adeb56006a8da` | 2 |
-| `results/wrr_submission_ready/amendments/winter_regulatory/summary.json` | json | — | 46393 | `986f7b26b58d155167460232cd794749e739d1f7a8385909bb9aac3ba6522077` | 10 |
-| `results/wrr_submission_ready/claim_binding_check.json` | json | — | 3375 | `0f9a8796e2c13548e947e93939325f4adda25adab0a3c4c7aa368a7de8d370b5` | 0 (read for a cross-check or a finding id) |
-| `results/wrr_submission_ready/claim_registry.csv` | csv | 24 | 12894 | `ec16ed218baa81fe962461e998e67d1ebee78e7f831d71f05277ed334198473b` | 289 |
+| `results/wrr_submission_ready/amendments/winter_regulatory/summary.json` | json | — | 61427 | `ac5ebfd9945e9404854b7cb2f04c1eda689f68f491435e3a357ad28aaf6b378a` | 10 |
+| `results/wrr_submission_ready/claim_binding_check.json` | json | — | 3522 | `3c6d9558a031c6b2c35a05ce4a1cd612d43e142a39f35ad8cb7a3549b42fe832` | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/claim_registry.csv` | csv | 25 | 13715 | `a07d7633b5d7e3c32302dc14cb925e98046743e43225764991e79920161a53d2` | 301 |
 | `results/wrr_submission_ready/current_data_manifest.csv` | csv | 146 | 33072 | `67a085cc9ddb033c3cbeaa361f6ff0ae99c0bf253b43404e82eb22f5d8bee317` | 1216 |
 | `results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json` | json | — | 1393 | `bc832fd4a63502a92235872097566a6700d4164c3099b8d17e5c50fb327e18b2` | 14 |
 | `results/wrr_submission_ready/e2_certificate_predict/summary.json` | json | — | 447 | `8791537cb498ebdb38a3df60ce182c559a9dff366f767d5032e415fca270ff1a` | 6 |
 | `results/wrr_submission_ready/measurement_provenance_dictionary.csv` | csv | 12 | 26044 | `7797ba46cfaacfa7594e4326989a0c0696f3d3ed98b2e2c44d6b021495d30525` | 181 |
 | `results/wrr_submission_ready/multi_agency_ingest/ehyd/ingest.json` | json | — | 18656 | `8ed23127e64a1df3c18b3be1ec9b7c4f73c2070c3e1af668d10f88fae49da5e3` | 1 |
-| `results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json` | json | — | 28337 | `134400ab3e19ea8f17d3bbf46cb519a72472f333da8414f28a4f4260febb810d` | 2 |
+| `results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json` | json | — | 450579 | `dfe913fc9f22e2814f25ef18fcc323051cd98bf2412a915e76458176fb82dc50` | 2 |
 | `results/wrr_submission_ready/multi_agency_ingest/smhi/INGEST_STATUS.json` | json | — | 3008 | `4d421fdafcac1ee998d98fb4eed8531d698fa7ecfb149298f38c235bfd7b0613` | 7 |
 | `results/wrr_submission_ready/multi_agency_ingest/uk_ea/complete_station_years.csv` | csv | 42 | 1780 | `deb19003909d05feaf5288dbf7b537b8a38df8e301acd13f1446ad016bd4dddf` | 1 |
 | `results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv` | csv | 2 | 1221 | `6274a4a055d495fdfff09d0f35b0260a7f3476e3a59ab3e64c78f0dcedeed89c` | 1 |
 | `results/wrr_submission_ready/p0_07_nve_probe/verdict.json` | json | — | 466 | `e83b757a1327e0158f4c86865d3866590afa70f649658c5adfd4391cc903bdd2` | 8 |
 | `results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json` | json | — | 1003 | `798cb96ea11fff74bae77e9ff64f5c214788288ec225d4608ec65e09df711552` | 28 |
-| `results/wrr_submission_ready/prior_access_audit_multi_agency.csv` | csv | 6 | 691 | `18871c8f9d13441b1be47ff83ae8312954e9074c6b9980da29f98991321092e2` | 24 |
+| `results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json` | json | — | 5141 | `ea9eb7088ac5bd3c5fdfed202ff1c3c0836490a9d11d23b3384372a02cf469c8` | 39 |
+| `results/wrr_submission_ready/prior_access_audit_multi_agency.csv` | csv | 291 | 17766 | `6870b6a484a31d8bd0f0c56f85ad8d5e16471a240ef7bba6968202828c97eb94` | 400 |
 | `results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv` | csv | 91 | 24100 | `8ba7ac3b006db9514b91452a749eaf954013031df12053082c7b42c4d6611724` | 283 |
-| `results/wrr_submission_ready/prior_access_audit_summary.json` | json | — | 1721 | `30770715bfb28f1ad7d78171954d3c0600816b3aa7d190e94843e5ee34a0c27e` | 0 (read for a cross-check or a finding id) |
+| `results/wrr_submission_ready/prior_access_audit_summary.json` | json | — | 5172 | `b03248bca0266a3afc7e26d3893ebbaae49de0d0f3ba889feae135a8228cd087` | 0 (read for a cross-check or a finding id) |
 | `results/wrr_submission_ready/provider_roles_from_split.csv` | csv | 9 | 526 | `56b71d890042a1e83d265e159a7ffdfc25a59a6cd74f4fbee5f3f2b9b2065563` | 45 |
 
 ### Amendment directories deliberately not covered
