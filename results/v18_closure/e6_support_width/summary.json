@@ -1,0 +1,100 @@
+{
+  "n_development_cases": 40704,
+  "widths": [
+    1,
+    3,
+    7,
+    15,
+    30,
+    60,
+    90,
+    182,
+    365
+  ],
+  "P1_monotone_decay": {
+    "prediction": "the support-restricted advantage decays monotonically in k",
+    "outcome": false,
+    "advantage_by_width": {
+      "1": 0.009125382819104133,
+      "3": 0.020024084492161864,
+      "7": 0.03239400608627219,
+      "15": 0.0588513174446359,
+      "30": 0.08291501846636284,
+      "60": 0.08931095532770195,
+      "90": 0.06544346327287731,
+      "182": 0.028226131133407106,
+      "365": -0.0006440921654089493
+    },
+    "advantage_at_365": -0.0006440921654089493
+  },
+  "P2_crossover": {
+    "prediction": "the fixed 30-day peak window loses its advantage as the support widens",
+    "crossover_width_days": 91.04832050492402,
+    "advantage_by_width": {
+      "1": 0.07362219453603314,
+      "3": 0.07796863449048974,
+      "7": 0.07667204731016408,
+      "15": 0.07754332326011915,
+      "30": 0.07468427878658634,
+      "60": 0.05019419882667442,
+      "90": 0.001581163836111954,
+      "182": -0.09456603238723094,
+      "365": -0.17274298158045565
+    }
+  },
+  "P3_support_axis_dominates": {
+    "prediction": "the support-restricted axis is at least as good as the best hand-chosen axis at every k",
+    "minimum_margin": -0.064496811716929,
+    "outcome": false,
+    "margin_by_width": {
+      "1": -0.064496811716929,
+      "3": -0.05794454999832788,
+      "7": -0.044278041223891895,
+      "15": -0.018692005815483248,
+      "30": 0.0082307396797765,
+      "60": 0.03911675650102753,
+      "90": 0.060830635854881576,
+      "182": 0.024536332752609136,
+      "365": -0.001271919735557181
+    }
+  },
+  "P1_and_P3_diagnosis": {
+    "observation": "the support-restricted advantage is a hump peaking near a 60-day support rather than a monotone decay, and below a 30-day support the fixed 30-day window beats the estimand's own support",
+    "explanation": "the axis conditions on the CLIMATOLOGICAL hottest-k window, which is an estimate of where this year's window will fall. For a narrow estimand that estimate is poor, so the right conditioning set is the support dilated by the year-to-year wander of its own location",
+    "best_conditioning_width_by_endpoint": {
+      "1": 90,
+      "3": 60,
+      "7": 90,
+      "15": 60,
+      "30": 90,
+      "60": 90,
+      "90": 90,
+      "182": 182,
+      "365": 365
+    },
+    "support_location_sd_days": {
+      "1": 16.65683140401892,
+      "3": 16.335605263840574,
+      "7": 16.498111866458576,
+      "15": 15.246939354572232,
+      "30": 13.659295541698866,
+      "60": 9.366405487315083,
+      "90": 7.430309432627253,
+      "182": 6.872741063376723,
+      "365": null
+    },
+    "gain_from_widening_auc": {
+      "1": 0.10153996200263049,
+      "3": 0.09191277540469,
+      "7": 0.07674647079386276,
+      "15": 0.050593145860988065,
+      "30": 0.024561992394277032,
+      "60": 0.005228659896074683,
+      "90": 0.0,
+      "182": 0.0,
+      "365": 0.0
+    }
+  },
+  "reserved_crossover_width_days": 118.8928178995783,
+  "note": "the reserved panel is reported alongside for completeness but was unblinded by the v17 confirmation and is not a confirmation of this claim"
+}

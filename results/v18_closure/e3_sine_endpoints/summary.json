@@ -1,0 +1,44 @@
+{
+  "n_cases": 40704,
+  "verdicts": {
+    "P1_mean_is_length_governed": {
+      "prediction": "for the fitted mean, outage size beats peak-window overlap",
+      "outcome": true,
+      "auc_missing_fraction": 0.8447112411409406,
+      "auc_peak_overlap": 0.6719641258230334
+    },
+    "P2_phase_is_transition_governed": {
+      "prediction": "for the phase, the transition windows beat both peak-window overlap and outage length",
+      "outcome": false,
+      "auc_transition_overlap": 0.8313968422941572,
+      "auc_peak_overlap": 0.5829087062657615,
+      "auc_longest_run": 0.8356872314042069
+    },
+    "P3_amplitude_is_intermediate": {
+      "prediction": "the amplitude's peak-overlap advantage lies between the other two",
+      "peak_minus_length_by_endpoint": {
+        "sine_mean": -0.1727471153179072,
+        "sine_amplitude": -0.08864141122870839,
+        "sine_phase": -0.25170330095077753
+      }
+    },
+    "P4_influence_weighting_is_at_least_as_good": {
+      "prediction": "the influence-weighted hidden mass is the best or joint-best axis",
+      "best_axis_by_endpoint": {
+        "sine_mean": "longest_run",
+        "sine_amplitude": "influence_hidden",
+        "sine_phase": "influence_hidden"
+      },
+      "influence_auc_by_endpoint": {
+        "sine_mean": 0.8447112411409406,
+        "sine_amplitude": 0.8308126553738895,
+        "sine_phase": 0.8473616615593051
+      }
+    }
+  },
+  "best_axis_unique_across_tolerances": {
+    "sine_amplitude": 1,
+    "sine_mean": 2,
+    "sine_phase": 1
+  }
+}

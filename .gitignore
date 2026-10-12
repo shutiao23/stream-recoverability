@@ -171,3 +171,5 @@ results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet
 results/wrr_revision/**/placement_scores.csv
 results/wrr_revision/**/placement_predictions_*.csv
 results/wrr_revision/forcing/nasa_power_t2m.parquet
+# LaTeX/PDF scratch directories
+**/.build/

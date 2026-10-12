@@ -1,0 +1,15 @@
+{
+  "prediction": "the calibrated screen retains high-elevation and donor-poor station-years less often than the incumbent length rule, because it is selecting on difficulty and difficulty tracks catchment type",
+  "development_global_screen_elevation_rho": -0.25867090980182916,
+  "development_global_screen_elevation_p": 0.010518977752686873,
+  "development_global_screen_donor_spread_points": 15.398152990766512,
+  "reserved_high_minus_low_elevation_retention": {
+    "point": -0.10811688311688317,
+    "low": -0.15368729232407322,
+    "high": -0.0028642620493745073,
+    "se": 0.03895195918420787,
+    "n_clusters": 36
+  },
+  "price_of_balancing_points": 0.31224348796314416,
+  "n_stations_with_attributes": 43
+}

@@ -196,3 +196,69 @@ apply-catalog-clusters:
 
 reservoir-operations-check:
 	$(PYTHON) scripts/50_check_reservoir_operations.py
+
+# Architecture and system-design figures.  The .drawio sources under
+# figures/v17/drawio/ are the editable originals; the PDFs in the article are
+# derived from them and must never be edited directly.  Where the draw.io
+# desktop application is installed, prefer `make figures-drawio-native`.
+figures-drawio:
+	$(PYTHON) scripts/205_v17_drawio_export.py
+
+figures-drawio-native:
+	@command -v drawio >/dev/null || { echo "draw.io desktop not installed; use 'make figures-drawio'"; exit 1; }
+	@for f in figures/v17/drawio/*.drawio; do \
+		drawio -x -f pdf --crop -o "figures/v17/$$(basename $$f .drawio).pdf" "$$f"; \
+	done
+
+# The v18 closure programme. See paper_archived/v18/PROTOCOL.md; the two steps that reach
+# the network (station coordinates and NASA POWER) are separate targets so the
+# rest can be rebuilt offline.
+v18-closure:
+	$(PYTHON) scripts/210_v18_outage_seasonality.py
+	$(PYTHON) scripts/211_v18_archive_deployment.py
+	$(PYTHON) scripts/212_v18_endpoint_cases.py --workers 96
+	$(PYTHON) scripts/213_v18_representativeness.py
+	$(PYTHON) scripts/214_v18_sine_endpoints.py
+	$(PYTHON) scripts/215_v18_support_width.py
+	$(PYTHON) scripts/216_v18_informative_missingness.py
+	$(PYTHON) scripts/220_v18_figures.py
+	$(PYTHON) scripts/221_v18_audit_manuscript.py
+
+v18-air-forcing:
+	$(PYTHON) scripts/217_v18_station_coordinates.py
+	$(PYTHON) scripts/218_v18_air_forcing.py
+	STREAM_AIR_FORCING=$(CURDIR)/data/interim/v18_air_forcing.parquet \
+		$(PYTHON) scripts/181_v17_cases.py --workers 40 --out cases_air.parquet
+	$(PYTHON) scripts/219_v18_air_sensitivity.py
+
+v18-audit:
+	$(PYTHON) scripts/221_v18_audit_manuscript.py
+	$(PYTHON) -m pytest tests/test_v18_closure.py -q
+
+# Reading copies. The Markdown is the source; these are build products.
+v18-pdf:
+	$(PYTHON) scripts/222_v18_build_pdf.py
+	$(PYTHON) scripts/222_v18_build_pdf.py --source paper_archived/v18/SUPPLEMENT.md --output paper_archived/v18/supplement.pdf
+	$(PYTHON) scripts/222_v18_build_pdf.py --source paper_archived/v18/RESPONSE.md --output paper_archived/v18/response_to_referee.pdf
+
+# Water Resources Research submission. AGU's class is vendored under
+# paper/wrr/template/; the build resolves it through TEXINPUTS.
+wrr:
+	$(PYTHON) scripts/223_wrr_build.py
+
+# Re-render the figures at journal page size. Only needed after a figure
+# changes; the built PDFs are committed alongside the manuscript.
+wrr-figures:
+	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
+		$(PYTHON) scripts/188_v17_figures.py
+	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
+		$(PYTHON) scripts/204_v17_figures_q1.py
+	WRR_JOURNAL_FIGURES=1 WRR_FIGURE_DIR=$(CURDIR)/paper/wrr/figures \
+		$(PYTHON) scripts/220_v18_figures.py
+	$(PYTHON) scripts/205_v17_drawio_export.py
+	cp figures/v17/f0_problem_frame.pdf figures/v17/f1_system_architecture.pdf \
+	   figures/v17/f2_experiment_design.pdf figures/v17/f3_evidence_chain.pdf \
+	   figures/v17/f4_deployment_workflow.pdf paper/wrr/figures/
+
+wrr-check:
+	$(PYTHON) scripts/223_wrr_build.py --skip-build

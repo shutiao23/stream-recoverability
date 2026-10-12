@@ -1,0 +1,18 @@
+{
+  "n_stations": 457,
+  "n_with_coordinates": 457,
+  "coverage_pct": 100.0,
+  "by_source": {
+    "USGS NWIS site service": 195,
+    "repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv": 73,
+    "repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv": 53,
+    "ARSO hidro_podatki_zadnji.xml": 47,
+    "repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv": 41,
+    "repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv": 20,
+    "repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv": 11,
+    "repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv": 9,
+    "repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv": 5,
+    "repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv": 3
+  },
+  "still_missing": []
+}

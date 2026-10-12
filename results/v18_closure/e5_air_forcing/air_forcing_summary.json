@@ -1,0 +1,8 @@
+{
+  "n_stations_requested": 457,
+  "n_stations_with_forcing": 457,
+  "n_daily_values": 7622303,
+  "median_days_per_station": 16679.0,
+  "source": "NASA POWER daily T2M (MERRA-2), 1981-2026",
+  "output": "data/interim/v18_air_forcing.parquet"
+}

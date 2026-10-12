@@ -1,0 +1,65 @@
+{
+  "n_gaps": 6472,
+  "1-7 d_n": 5246,
+  "8-29 d_n": 760,
+  "30-89 d_n": 282,
+  "90 d and longer_n": 184,
+  "long_gap_protected_share": {
+    "point": 0.5579399141630901,
+    "low": 0.5085959571303943,
+    "high": 0.6086011208920472,
+    "se": 0.025389848416182567,
+    "n_clusters": 99
+  },
+  "median_gap_days": 2.0,
+  "p95_gap_days": 43.0,
+  "n_long_gaps": 466,
+  "maintenance_counterfactual": {
+    "n_outage_lengths": 806,
+    "n_peak_windows": 66,
+    "table": [
+      {
+        "calendar": "observed",
+        "n_placements": 32240,
+        "mean_peak_overlap": 0.1644127377998346,
+        "share_hitting_peak_window": 0.234863523573201,
+        "share_hiding_half_the_window": 0.15911910669975185,
+        "consequential_rate": 0.08749166156671088,
+        "points_vs_observed": 0.0
+      },
+      {
+        "calendar": "uniform",
+        "n_placements": 32240,
+        "mean_peak_overlap": 0.17478598014888339,
+        "share_hitting_peak_window": 0.2487593052109181,
+        "share_hiding_half_the_window": 0.1686104218362283,
+        "consequential_rate": 0.09084089780756846,
+        "points_vs_observed": 0.33492362408575754
+      },
+      {
+        "calendar": "spring_mar_to_jul",
+        "n_placements": 32240,
+        "mean_peak_overlap": 0.30140095119933835,
+        "share_hitting_peak_window": 0.4065136476426799,
+        "share_hiding_half_the_window": 0.29509925558312655,
+        "consequential_rate": 0.13183430416257436,
+        "points_vs_observed": 4.434264259586347
+      },
+      {
+        "calendar": "autumn_sep_to_jan",
+        "n_placements": 32240,
+        "mean_peak_overlap": 0.04595326716294458,
+        "share_hitting_peak_window": 0.07258064516129033,
+        "share_hiding_half_the_window": 0.04323821339950372,
+        "consequential_rate": 0.04869271462250863,
+        "points_vs_observed": -3.879894694420225
+      }
+    ]
+  },
+  "verdict": {
+    "prediction": "long outages start disproportionately in autumn and winter, so the warm season is protected by the maintenance calendar and the empirical arm is null because little is at risk",
+    "outcome_90d_and_longer": "supported",
+    "outcome_30_to_89d": "not supported",
+    "reading": "the protective seasonality is a property of outages of about three months and longer, which are seasonal shutdowns; outages between one and three months are uniform in start month and are not protected"
+  }
+}

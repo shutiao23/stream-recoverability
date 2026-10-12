@@ -1,0 +1,22 @@
+{
+  "n_gaps": 6472,
+  "n_gaps_30d_plus": 466,
+  "median_gap_days": 2.0,
+  "p95_gap_days": 43.0,
+  "start_month_uniformity_chi2": 44.2832618025751,
+  "start_month_uniformity_p": 6.482677981353118e-06,
+  "share_starting_sep_to_jan_pct": 55.793991416309005,
+  "share_starting_mar_to_jul_pct": 30.686695278969957,
+  "pre_anomaly_1-7d_c": 0.017683727837011838,
+  "pre_anomaly_1-7d_p": 0.4421670680437386,
+  "post_anomaly_1-7d_c": 0.023378559413687484,
+  "pre_anomaly_8-29d_c": 0.03783910134765504,
+  "pre_anomaly_8-29d_p": 0.5638060622403391,
+  "post_anomaly_8-29d_c": 0.06772446797145422,
+  "pre_anomaly_30-89d_c": -0.0024320920680864005,
+  "pre_anomaly_30-89d_p": 0.9825321323672058,
+  "post_anomaly_30-89d_c": 0.05740586045291586,
+  "pre_anomaly_90d+_c": -0.21540601869818124,
+  "pre_anomaly_90d+_p": 0.0813193936248453,
+  "post_anomaly_90d+_c": 0.1282314793674171
+}

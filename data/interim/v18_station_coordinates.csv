@@ -1,0 +1,458 @@
+network_id,station_id,provider,latitude,longitude,coordinate_source
+arso_bistrica,2432,arso,46.61217,15.16373,ARSO hidro_podatki_zadnji.xml
+arso_bistrica,3320,arso,46.27359,13.95005,ARSO hidro_podatki_zadnji.xml
+arso_bistrica,4791,arso,46.04827,15.65143,ARSO hidro_podatki_zadnji.xml
+arso_bistrica,7440,arso,45.76299,14.63768,ARSO hidro_podatki_zadnji.xml
+arso_drava,2005,arso,46.59786,14.9839,ARSO hidro_podatki_zadnji.xml
+arso_drava,2150,arso,46.37097,15.99615,ARSO hidro_podatki_zadnji.xml
+arso_drava,2160,arso,46.38831,16.03676,ARSO hidro_podatki_zadnji.xml
+arso_dravinja,2600,arso,46.37985,15.38334,ARSO hidro_podatki_zadnji.xml
+arso_dravinja,2620,arso,46.30155,15.49369,ARSO hidro_podatki_zadnji.xml
+arso_dravinja,2640,arso,46.31929,15.67044,ARSO hidro_podatki_zadnji.xml
+arso_dravinja,2652,arso,46.36833,15.90298,ARSO hidro_podatki_zadnji.xml
+arso_kamniska_bistrica,4400,arso,46.22404,14.61314,ARSO hidro_podatki_zadnji.xml
+arso_kamniska_bistrica,4430,arso,46.14768,14.60428,ARSO hidro_podatki_zadnji.xml
+arso_kamniska_bistrica,4445,arso,46.10388,14.61585,ARSO hidro_podatki_zadnji.xml
+arso_kolpa,4820,arso,45.4639,14.85173,ARSO hidro_podatki_zadnji.xml
+arso_kolpa,4828,arso,45.4847,15.07553,ARSO hidro_podatki_zadnji.xml
+arso_kolpa,4860,arso,45.63473,15.32297,ARSO hidro_podatki_zadnji.xml
+arso_krka,7029,arso,45.87674,14.78503,ARSO hidro_podatki_zadnji.xml
+arso_krka,7060,arso,45.77936,15.01915,ARSO hidro_podatki_zadnji.xml
+arso_krka,7110,arso,45.86758,15.28558,ARSO hidro_podatki_zadnji.xml
+arso_krka,7160,arso,45.86477,15.45535,ARSO hidro_podatki_zadnji.xml
+arso_ljubljanica,5030,arso,45.96621,14.30012,ARSO hidro_podatki_zadnji.xml
+arso_ljubljanica,5040,arso,45.96544,14.35879,ARSO hidro_podatki_zadnji.xml
+arso_ljubljanica,5078,arso,46.05542,14.54443,ARSO hidro_podatki_zadnji.xml
+arso_paka,6280,arso,46.36179,15.11838,ARSO hidro_podatki_zadnji.xml
+arso_paka,6300,arso,46.37575,15.04844,ARSO hidro_podatki_zadnji.xml
+arso_paka,6340,arso,46.32113,15.03832,ARSO hidro_podatki_zadnji.xml
+arso_sava,3420,arso,46.33993,14.16535,ARSO hidro_podatki_zadnji.xml
+arso_sava,3465,arso,46.25588,14.3196,ARSO hidro_podatki_zadnji.xml
+arso_sava,3530,arso,46.12252,14.44047,ARSO hidro_podatki_zadnji.xml
+arso_sava,3570,arso,46.08396,14.58251,ARSO hidro_podatki_zadnji.xml
+arso_sava,3660,arso,46.05684,14.82877,ARSO hidro_podatki_zadnji.xml
+arso_sava,3725,arso,46.12181,15.09063,ARSO hidro_podatki_zadnji.xml
+arso_sava,3850,arso,45.89313,15.60992,ARSO hidro_podatki_zadnji.xml
+arso_sava,3900,arso,45.86031,15.69253,ARSO hidro_podatki_zadnji.xml
+arso_savinja,6020,arso,46.41961,14.69315,ARSO hidro_podatki_zadnji.xml
+arso_savinja,6060,arso,46.32152,14.95282,ARSO hidro_podatki_zadnji.xml
+arso_savinja,6120,arso,46.23332,15.22048,ARSO hidro_podatki_zadnji.xml
+arso_savinja,6140,arso,46.22771,15.26066,ARSO hidro_podatki_zadnji.xml
+arso_savinja,6200,arso,46.15392,15.23374,ARSO hidro_podatki_zadnji.xml
+arso_soca,8031,arso,46.33698,13.59864,ARSO hidro_podatki_zadnji.xml
+arso_soca,8060,arso,46.31484,13.49454,ARSO hidro_podatki_zadnji.xml
+arso_soca,8080,arso,46.24748,13.58641,ARSO hidro_podatki_zadnji.xml
+arso_vipava,8561,arso,45.84218,13.96108,ARSO hidro_podatki_zadnji.xml
+arso_vipava,8565,arso,45.86621,13.90138,ARSO hidro_podatki_zadnji.xml
+arso_vipava,8591,arso,45.88817,13.74373,ARSO hidro_podatki_zadnji.xml
+arso_vipava,8601,arso,45.89408,13.6079,ARSO hidro_podatki_zadnji.xml
+chmi_bela,0-203-1-097000,chmi,50.4975493,14.8935858,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_bela,0-203-1-161600,chmi,49.4544964,15.2365415,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_berounka,0-203-1-186000,chmi,49.7665067,13.4009389,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_berounka,0-203-1-187200,chmi,49.7649614,13.4193474,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_berounka,0-203-1-194500,chmi,50.0403004,13.9202376,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_berounka,0-203-1-198000,chmi,49.9585833,14.0874159,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_berounka,0-203-1-198600,chmi,49.9371117,14.1330758,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_blanice,0-203-1-147000,chmi,49.0363261,13.9529502,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_blanice,0-203-1-148000,chmi,49.0399529,13.9942007,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_blanice,0-203-1-165600,chmi,49.6205843,14.8393459,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_blanice,0-203-1-166200,chmi,49.7889263,14.9329332,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_botic,0-203-1-200480,chmi,49.9698039,14.5413433,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_botic,0-203-1-200550,chmi,50.0014288,14.5558998,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_botic,0-203-1-200580,chmi,50.0307747,14.55701,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_botic,0-203-1-200590,chmi,50.043822,14.5285023,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_botic,0-203-1-200600,chmi,50.0665445,14.4297834,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_dyje,0-203-1-430000,chmi,48.903297,15.6913609,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_dyje,0-203-1-434000,chmi,48.8946782,15.8190913,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_dyje,0-203-1-437000,chmi,48.7908914,16.4375418,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_dyje,0-203-1-480500,chmi,48.8040396,16.8543602,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_jizera,0-203-1-084500,chmi,50.6950287,15.4384112,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_jizera,0-203-1-091000,chmi,50.639942,15.2744079,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_jizera,0-203-1-098000,chmi,50.4836822,14.927934,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_jizera,0-203-1-099900,chmi,50.4242016,14.8986347,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_jizera,0-203-1-101800,chmi,50.2487023,14.7754191,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_kamenice,0-203-1-087930,chmi,50.809381,15.1843908,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_kamenice,0-203-1-088000,chmi,50.7912289,15.2100519,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_kamenice,0-203-1-090000,chmi,50.6546569,15.3257254,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-004200,chmi,50.5143585,15.7416403,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-042000,chmi,50.0945145,15.806681,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-104400,chmi,50.2379456,14.5926054,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-204000,chmi,50.3523568,14.4694012,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-240000,chmi,50.7821579,14.2096165,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_labe,0-203-1-245000,chmi,50.8804075,14.2376258,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_luznice,0-203-1-119000,chmi,48.9497127,14.8804979,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_luznice,0-203-1-131000,chmi,49.2808832,14.7006926,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_luznice,0-203-1-133000,chmi,49.2883966,14.4709655,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-345000,chmi,50.0409636,16.9113794,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-355000,chmi,49.7558167,16.9754854,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-367000,chmi,49.5771975,17.2609864,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-403000,chmi,49.302303,17.3985784,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-413000,chmi,49.1331994,17.5011,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_morava,0-203-1-421500,chmi,48.9330292,17.2974638,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_odra,0-203-1-247800,chmi,49.6645987,17.8324519,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_odra,0-203-1-257000,chmi,49.8197645,18.2168255,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_odra,0-203-1-294000,chmi,49.9210744,18.3282505,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_ohre,0-203-1-214000,chmi,50.236781,12.8815593,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_ohre,0-203-1-219500,chmi,50.5097331,14.1574097,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_otava,0-203-1-137000,chmi,49.139431,13.5082978,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_otava,0-203-1-138000,chmi,49.2365979,13.5249178,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_otava,0-203-1-141000,chmi,49.2704581,13.8303307,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-154900,chmi,49.5612975,15.9312135,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-155000,chmi,49.5551553,15.8492538,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-155800,chmi,49.6090926,15.6141241,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-158000,chmi,49.6185758,15.5272107,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-159000,chmi,49.6646916,15.4034376,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-161000,chmi,49.7408575,15.1011313,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-165000,chmi,49.7854539,15.0248521,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_sazava,0-203-1-167200,chmi,49.8596095,14.6499499,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_smeda,0-203-1-321610,chmi,50.8450779,15.273393,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_smeda,0-203-1-322000,chmi,50.876218,15.2109293,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_smeda,0-203-1-324000,chmi,50.9498579,15.0303845,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-108100,chmi,48.633512,14.2373726,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-109000,chmi,48.6255036,14.3059113,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-111000,chmi,48.9174391,14.4310671,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-115100,chmi,48.9813206,14.4623112,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-200100,chmi,50.027491,14.3967373,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_vltava,0-203-1-203000,chmi,50.3131814,14.3626326,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_zelivka,0-203-1-161400,chmi,49.4600477,15.1742493,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_zelivka,0-203-1-161700,chmi,49.4822243,15.2499257,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_zelivka,0-203-1-162000,chmi,49.5284672,15.2417077,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_zelivka,0-203-1-162520,chmi,49.5507248,15.2162301,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+chmi_zelivka,0-203-1-163300,chmi,49.7263619,15.0846592,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv
+foen_aare_aaregebiet,2016,foen,47.482477851737606,8.194335161172075,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2019,foen,46.74568778351095,8.092187496929057,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2029,foen,47.12204390079624,7.283365080213258,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2030,foen,46.764560998486296,7.611890487851701,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2085,foen,47.0555914218374,7.184279466916117,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2113,foen,47.594548847152446,8.22495557147766,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2135,foen,46.933056102989326,7.448153230607084,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2205,foen,47.51593590661833,8.23474618375009,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_aare_aaregebiet,2457,foen,46.69393775537055,7.879621634644,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_murg_multi,2126,foen,47.49640337322751,8.952902191139538,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+foen_murg_multi,2386,foen,47.568685014886405,8.894381831665147,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv
+gkd_bayern_alz,18403002,gkd_bayern,47.9345,12.4807,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_alz,18405008,gkd_bayern,48.0039,12.532,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_alz,18408200,gkd_bayern,48.1716,12.7311,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10026293,gkd_bayern,48.3891,9.9866,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10039802,gkd_bayern,48.7107,10.8015,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10046105,gkd_bayern,48.7566,11.4253,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10051105,gkd_bayern,48.8184,11.7457,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10053009,gkd_bayern,48.9166,11.8643,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10056302,gkd_bayern,48.9469,12.015,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10062000,gkd_bayern,49.0236,12.1387,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10074009,gkd_bayern,48.8856,12.5737,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10081004,gkd_bayern,48.8258,12.9606,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10089006,gkd_bayern,48.6352,13.1866,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10091008,gkd_bayern,48.5763,13.4587,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_donau,10098007,gkd_bayern,48.5144,13.7272,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_fraenkische_saale,24403007,gkd_bayern,50.3102,10.193,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_fraenkische_saale,24405002,gkd_bayern,50.1975,10.0745,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_fraenkische_saale,24409003,gkd_bayern,50.0877,9.7356,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_iller,11401009,gkd_bayern,47.5242,10.2603,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_iller,11402001,gkd_bayern,47.7304,10.3168,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_iller,11405000,gkd_bayern,48.3708,9.9875,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_inn,18000403,gkd_bayern,47.644,12.1964,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_inn,18001508,gkd_bayern,47.8545,12.1433,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_inn,18003004,gkd_bayern,48.0593,12.2342,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_inn,18008008,gkd_bayern,48.5615,13.4442,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16000708,gkd_bayern,47.4433,11.2709,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16003003,gkd_bayern,47.684,11.5721,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16003207,gkd_bayern,47.7541,11.556,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16005701,gkd_bayern,48.1455,11.597,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16007004,gkd_bayern,48.5275,12.1332,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_isar,16008007,gkd_bayern,48.6753,12.6926,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24006007,gkd_bayern,50.1649,11.1513,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24010004,gkd_bayern,49.951,10.8741,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24012203,gkd_bayern,49.9295,10.7551,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24022003,gkd_bayern,50.0312,10.2208,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24028000,gkd_bayern,49.8584,10.2177,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24042000,gkd_bayern,49.7961,9.9258,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24043800,gkd_bayern,49.8551,9.8537,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24050009,gkd_bayern,50.0099,9.6038,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24056005,gkd_bayern,49.7609,9.5183,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24060002,gkd_bayern,49.7849,9.4386,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24064003,gkd_bayern,49.7164,9.2246,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24070006,gkd_bayern,49.9338,9.1291,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24075000,gkd_bayern,50.0154,9.0337,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24078008,gkd_bayern,50.0639,8.9903,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_main,24080000,gkd_bayern,50.0798,8.9528,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_mangfall,18204006,gkd_bayern,47.8926,11.8526,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_mangfall,18205985,gkd_bayern,47.8579,11.9941,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_mangfall,18209000,gkd_bayern,47.8448,12.1254,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_vils,14604002,gkd_bayern,49.4482,11.8549,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_vils,14606008,gkd_bayern,49.2652,11.9258,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_vils,17204204,gkd_bayern,48.6063,12.694,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+gkd_bayern_vils,17207508,gkd_bayern,48.6108,13.1453,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv
+huc8_02040101,01425000,usgs,42.07491667,-75.3958056,USGS NWIS site service
+huc8_02040101,01426500,usgs,42.00302778,-75.38352778,USGS NWIS site service
+huc8_02040101,01427000,usgs,41.95216667,-75.2909444,USGS NWIS site service
+huc8_02040101,01427207,usgs,41.86727778,-75.21375,USGS NWIS site service
+huc8_02040101,01427510,usgs,41.75675,-75.0574166666667,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+huc8_02040101,01428500,usgs,41.50875,-74.9860556,USGS NWIS site service
+huc8_02040102,01417500,usgs,42.0245833,-75.11927778,USGS NWIS site service
+huc8_02040102,01420500,usgs,41.94641667,-74.9796667,USGS NWIS site service
+huc8_02040102,01421000,usgs,41.973278,-75.174722,USGS NWIS site service
+huc8_02040104,01432110,usgs,41.4759228,-75.036281,USGS NWIS site service
+huc8_02040104,01432160,usgs,41.47483333,-74.91325,USGS NWIS site service
+huc8_02040104,01432805,usgs,41.43875,-74.81913889,USGS NWIS site service
+huc8_02040104,01433500,usgs,41.4612222,-74.75877778,USGS NWIS site service
+huc8_02040104,01435000,usgs,41.88994444,-74.5898056,USGS NWIS site service
+huc8_02040104,01436690,usgs,41.63780556,-74.61738889,USGS NWIS site service
+huc8_02040202,01466500,usgs,39.885,-74.50527778,USGS NWIS site service
+huc8_03010107,0208062765,usgs,36.3311111,-77.58027778,USGS NWIS site service
+huc8_03010107,02081094,usgs,35.81305556,-76.89277778,USGS NWIS site service
+huc8_03010107,0208114150,usgs,35.915,-76.72277778,USGS NWIS site service
+huc8_03110205,02323592,usgs,29.3394055384844,-83.0865150816135,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+huc8_03110206,02321958,usgs,29.8735723,-82.59122849,USGS NWIS site service
+huc8_03110206,02322500,usgs,29.84884769,-82.7151204,USGS NWIS site service
+huc8_03150202,02423130,usgs,33.62232504,-86.599431,USGS NWIS site service
+huc8_03150202,02423160,usgs,33.60371416,-86.5491517,USGS NWIS site service
+huc8_03150202,02423397,usgs,33.53454886,-86.5624847,USGS NWIS site service
+huc8_03150202,02423496,usgs,33.3692767,-86.7841551,USGS NWIS site service
+huc8_05030103,03086500,usgs,40.93283615,-81.0945413,USGS NWIS site service
+huc8_05030103,03090500,usgs,41.0483912,-81.0012032,USGS NWIS site service
+huc8_05030103,03091500,usgs,41.1314461,-80.9712018,USGS NWIS site service
+huc8_05030103,03092090,usgs,41.16144549,-81.1970453,USGS NWIS site service
+huc8_05030103,03092460,usgs,41.15700127,-81.0717621,USGS NWIS site service
+huc8_05030103,03094000,usgs,41.23922335,-80.880642,USGS NWIS site service
+huc8_05030103,03095500,usgs,41.29977898,-80.7584141,USGS NWIS site service
+huc8_05030103,03098600,usgs,41.10527778,-80.6655556,USGS NWIS site service
+huc8_05030103,03099500,usgs,41.03672598,-80.5361815,USGS NWIS site service
+huc8_10020007,06036805,usgs,44.459333,-110.822272,USGS NWIS site service
+huc8_10020007,06036905,usgs,44.620183,-110.863503,USGS NWIS site service
+huc8_10020007,06036940,usgs,44.732725,-110.713253,USGS NWIS site service
+huc8_10020007,06037100,usgs,44.6408,-110.8610639,USGS NWIS site service
+huc8_10020007,06037500,usgs,44.6570722,-111.0679639,USGS NWIS site service
+huc8_10020007,06038500,usgs,44.86639167,-111.3387806,USGS NWIS site service
+huc8_10020007,06038800,usgs,44.88865556,-111.580886,USGS NWIS site service
+huc8_10020007,06041000,usgs,45.490231,-111.634506,USGS NWIS site service
+huc8_17060306,13340000,usgs,46.4783333,-116.2575,USGS NWIS site service
+huc8_17060306,13341050,usgs,46.50027778,-116.3925,USGS NWIS site service
+huc8_17060306,13342500,usgs,46.4483333,-116.8275,USGS NWIS site service
+huc8_17090001,14144800,usgs,43.60178867,-122.4575474,USGS NWIS site service
+huc8_17090001,14144900,usgs,43.6804006,-122.3705999,USGS NWIS site service
+huc8_17090001,14145500,usgs,43.72095655,-122.4378256,USGS NWIS site service
+huc8_17090001,14147500,usgs,43.7567902,-122.5053292,USGS NWIS site service
+huc8_17090001,14148000,usgs,43.80123517,-122.5608879,USGS NWIS site service
+huc8_17090001,14150000,usgs,43.9456815,-122.8372967,USGS NWIS site service
+huc8_17090001,14150290,usgs,43.9672222,-122.6297222,USGS NWIS site service
+huc8_17090001,14150800,usgs,43.9142924,-122.6886762,USGS NWIS site service
+huc8_17090001,14151000,usgs,43.94429299,-122.774794,USGS NWIS site service
+huc8_17090001,14152000,usgs,43.9981816559059,-122.905912564085,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+huc8_17090002,14153500,usgs,43.72067785,-123.0497994,USGS NWIS site service
+huc8_17090002,14154500,usgs,43.73527778,-122.8744444,USGS NWIS site service
+huc8_17090002,14155500,usgs,43.7929012,-122.9914655,USGS NWIS site service
+huc8_17090003,14158100,usgs,44.09166667,-123.116111,USGS NWIS site service
+huc8_17090003,14166000,usgs,44.27040126,-123.1737036,USGS NWIS site service
+huc8_17090003,14169000,usgs,44.1226111,-123.3003056,USGS NWIS site service
+huc8_17090003,14174000,usgs,44.6387328328399,-123.10676155507,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+huc8_17090004,14158500,usgs,44.3609545,-121.9956172,USGS NWIS site service
+huc8_17090004,14158740,usgs,44.28638889,-122.0368056,USGS NWIS site service
+huc8_17090004,14158798,usgs,44.28988889,-122.0485833,USGS NWIS site service
+huc8_17090004,14158850,usgs,44.2679001,-122.0497826,USGS NWIS site service
+huc8_17090004,14159200,usgs,44.047067,-122.2178245,USGS NWIS site service
+huc8_17090004,14159500,usgs,44.13595817,-122.248391,USGS NWIS site service
+huc8_17090004,14161100,usgs,44.2179043,-122.2650676,USGS NWIS site service
+huc8_17090004,14161500,usgs,44.2095708,-122.256733,USGS NWIS site service
+huc8_17090004,14162200,usgs,44.16234819,-122.3331192,USGS NWIS site service
+huc8_17090004,14162500,usgs,44.1248487,-122.47062,USGS NWIS site service
+huc8_17090004,14163150,usgs,44.123738,-122.6275715,USGS NWIS site service
+huc8_17090004,14163900,usgs,44.0698492,-122.7711874,USGS NWIS site service
+huc8_17090004,14164700,usgs,44.059348,-122.9196644,USGS NWIS site service
+huc8_17090004,14164900,usgs,44.0712365,-122.9645273,USGS NWIS site service
+huc8_17090012,14211400,usgs,45.4863333,-122.4218333,USGS NWIS site service
+huc8_17090012,14211499,usgs,45.4767869,-122.4984239,USGS NWIS site service
+huc8_17090012,14211500,usgs,45.47745556,-122.5080194,USGS NWIS site service
+huc8_17090012,14211542,usgs,45.47402778,-122.6417222,USGS NWIS site service
+huc8_17090012,14211546,usgs,45.4606747,-122.642872,USGS NWIS site service
+huc8_17090012,14211550,usgs,45.452897,-122.6431496,USGS NWIS site service
+huc8_17090012,14211720,usgs,45.5175,-122.669166666667,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+lubw_donau,CQQ105,lubw,47.93811819064117,8.74544365299104,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_donau,CQQ803,lubw,48.37389398714206,9.964269488124897,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_enz,CEN901,lubw,48.99928775605336,9.139656865746693,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_fils,CFI129,lubw,48.702157909093394,9.44379795501427,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_jagst,CJA901,lubw,49.2684875749968,9.220035460380696,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_kocher,CKO907,lubw,49.25827279421664,9.287450394355858,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY003,lubw,49.4942924207727,8.468707408684407,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY031,lubw,49.409968053727646,8.77801030035728,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY061,lubw,49.43177499455823,9.006080416299476,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY072,lubw,49.38411921713499,9.075223199683313,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY088,lubw,49.30705240944001,9.149480322165743,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY094,lubw,49.27999181336815,9.155480605279784,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY125,lubw,49.07187437876994,9.160631002329785,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY137,lubw,49.002319615235095,9.147202488328375,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY165,lubw,48.91270612705224,9.247959091252657,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY172,lubw,48.86617748053768,9.258256385341408,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY176,lubw,48.83767300189015,9.223332147637208,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_neckar,CYY208,lubw,48.6773222623353,9.3710505015841,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_rhein,CXX334,lubw,48.83160881661565,8.111314200844266,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+lubw_rhein,CXX359,lubw,49.01098880792335,8.298285371099677,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv
+nve_basin_103,103.46.0,nve_hydapi,62.23429,8.32228,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_103,103.48.0,nve_hydapi,62.31002,8.10102,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_112,112.35.0,nve_hydapi,63.00607,9.01519,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_112,112.40.0,nve_hydapi,62.98835,8.92053,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_121,121.59.0,nve_hydapi,63.20256,9.76976,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_124,124.22.0,nve_hydapi,63.4582,11.29431,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_124,124.27.0,nve_hydapi,63.4614,11.11595,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_151,151.29.0,nve_hydapi,65.51651,14.13033,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.207.0,nve_hydapi,59.20728,9.53348,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.212.0,nve_hydapi,59.76922,7.32926,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.217.0,nve_hydapi,59.31332,9.04174,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.222.0,nve_hydapi,59.41993,8.899,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.228.0,nve_hydapi,59.62175,8.90105,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.453.0,nve_hydapi,59.52155,8.70465,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.454.0,nve_hydapi,59.5159,8.65429,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_16,16.455.0,nve_hydapi,60.00111,8.74946,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_2,2.653.0,nve_hydapi,61.76966,9.54516,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_2,2.700.0,nve_hydapi,61.85003,10.23534,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_212,212.68.0,nve_hydapi,69.8317,23.48494,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_212,212.74.0,nve_hydapi,69.19322,23.57475,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_234,234.10.0,nve_hydapi,69.46924,25.51074,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_26,26.47.0,nve_hydapi,58.42675,6.66372,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_26,26.49.0,nve_hydapi,58.29598,6.45049,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_26,26.53.0,nve_hydapi,58.34516,6.31311,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_27,27.28.0,nve_hydapi,58.53362,6.14924,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_27,27.29.0,nve_hydapi,58.5836,6.07469,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_311,311.18.0,nve_hydapi,61.52563,12.08385,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_311,311.21.0,nve_hydapi,61.06555,12.58236,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_74,74.29.0,nve_hydapi,61.30635,7.79626,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_74,74.33.0,nve_hydapi,61.23792,7.70268,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_78,78.10.0,nve_hydapi,61.33756,6.56087,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_78,78.17.0,nve_hydapi,61.32837,6.56822,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_78,78.9.0,nve_hydapi,61.33439,6.56332,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_79,79.17.0,nve_hydapi,61.24268,6.14687,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_79,79.19.0,nve_hydapi,61.21971,6.07492,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_84,84.22.0,nve_hydapi,61.49053,6.10736,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_84,84.23.0,nve_hydapi,61.53282,5.7518,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_88,88.20.0,nve_hydapi,61.82755,6.80564,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_88,88.32.0,nve_hydapi,61.91867,6.80553,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_88,88.33.0,nve_hydapi,61.91585,7.11524,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+nve_basin_88,88.35.0,nve_hydapi,61.89186,7.10149,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv
+rws_maas,belfeld.boven,rws_waterwebservices,51.3189,6.1123,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv
+rws_maas,hank.bergschemaas,rws_waterwebservices,51.7191,4.894,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv
+rws_rijn_lek_nederrijn,amerongen.boven,rws_waterwebservices,51.9753,5.4125,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv
+rws_rijn_lek_nederrijn,driel.boven,rws_waterwebservices,51.96584,5.810635,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv
+rws_rijn_lek_nederrijn,hagestein.boven,rws_waterwebservices,51.9895,5.1352,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv
+syke_basin_kokemaeenjoki,1690,syke,61.6675,23.1925,repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv
+syke_basin_kymijoki,1670,syke,62.59805555555556,25.73888888888889,repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv
+syke_basin_kymijoki,1676,syke,60.90694444444444,26.651666666666664,repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv
+usgs2_huc2_08,07374000,usgs,30.44566667,-91.1915556,USGS NWIS site service
+usgs2_huc2_08,08017044,usgs,30.23714987,-93.2473764,USGS NWIS site service
+usgs2_huc2_12,08070200,usgs,30.14523056,-95.1246139,USGS NWIS site service
+usgs2_huc2_14,09196500,usgs,43.02705556,-109.7735278,USGS NWIS site service
+usgs2_huc2_14,09380000,usgs,36.864333333333335,-111.58787222222222,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+usgs2_huc2_15,09402300,usgs,36.1952642,-111.7771024,USGS NWIS site service
+usgs2_huc2_15,09429490,usgs,32.8849361,-114.468111,USGS NWIS site service
+usgs2_huc2_15,09505800,usgs,34.53863606,-111.6940356,USGS NWIS site service
+usgs2_huc2_18,11126000,usgs,34.58914745,-119.9887195,USGS NWIS site service
+usgs2_huc2_18,11475560,usgs,39.72956555,-123.643883,USGS NWIS site service
+usgs2_huc2_19,15056030,usgs,59.00514251,-135.18580253,USGS NWIS site service
+usgs2_huc2_90,05058000,usgs,47.033889,-98.083333,USGS NWIS site service
+usgs2_huc4_0306,02176930,usgs,34.97452778,-83.1161667,USGS NWIS site service
+usgs2_huc4_0306,02181350,usgs,34.75027778,-83.405,USGS NWIS site service
+usgs2_huc4_0306,022035975,usgs,31.45333333,-81.3627778,USGS NWIS site service
+usgs2_huc4_0401,04024000,usgs,46.703511,-92.418378,USGS NWIS site service
+usgs2_huc4_0401,04026561,usgs,46.3947222,-90.59,USGS NWIS site service
+usgs2_huc4_0410,04176500,usgs,41.9605671,-83.5309896,USGS NWIS site service
+usgs2_huc4_0601,03446000,usgs,35.39805556,-82.595,USGS NWIS site service
+usgs2_huc4_0601,03451500,usgs,35.60888889,-82.5780556,USGS NWIS site service
+usgs2_huc4_1704,13056500,usgs,43.8258333,-111.905,USGS NWIS site service
+usgs2_huc4_1704,13068500,usgs,43.13055556,-112.4766667,USGS NWIS site service
+usgs2_huc4_1705,13176400,usgs,42.26136944,-116.8684417,USGS NWIS site service
+usgs2_huc4_1705,13211210,usgs,43.67776944,-116.7054944,USGS NWIS site service
+usgs2_huc4_1707,14034470,usgs,45.34068289,-119.5158544,USGS NWIS site service
+usgs2_huc4_1707,14034500,usgs,45.3504062,-119.5500218,USGS NWIS site service
+usgs2_huc4_1707,14046778,usgs,44.7268722,-120.3019167,USGS NWIS site service
+usgs2_huc4_1707,14046890,usgs,44.91002778,-120.4410278,USGS NWIS site service
+usgs2_huc4_1802,11447650,usgs,38.4556638888889,-121.501616666667,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+usgs2_huc4_1901,15129500,usgs,59.58622987,-139.49437433,USGS NWIS site service
+usgs2_huc4_1902,15215900,usgs,60.533333,-145.378611,USGS NWIS site service
+usgs2_huc4_1902,15295700,usgs,57.69404358,-153.1637244,USGS NWIS site service
+usgs2_huc4_1903,15297610,usgs,55.17691508,-162.6895463,USGS NWIS site service
+usgs2_huc4_1903,15300100,usgs,59.8237617,-154.8844049,USGS NWIS site service
+usgs2_huc4_1903,15300250,usgs,59.7859761,-155.2552406,USGS NWIS site service
+usgs2_huc6_010802,01157000,usgs,43.03924586,-72.2700858,USGS NWIS site service
+usgs2_huc6_010802,01168250,usgs,42.66669444,-73.0301667,USGS NWIS site service
+usgs2_huc6_020502,01542500,usgs,41.11755906,-78.108896,USGS NWIS site service
+usgs2_huc6_020502,01544500,usgs,41.47583829,-77.82580078,USGS NWIS site service
+usgs2_huc6_030502,02172300,usgs,33.75347736,-81.6017714,USGS NWIS site service
+usgs2_huc6_031300,02357150,usgs,30.903,-84.7495,USGS NWIS site service
+usgs2_huc6_040301,04063700,usgs,45.7636111,-88.4636111,USGS NWIS site service
+usgs2_huc6_040301,04069500,usgs,45.0475,-87.7444444,USGS NWIS site service
+usgs2_huc6_040500,04101500,usgs,41.8292138,-86.2597325,USGS NWIS site service
+usgs2_huc6_040500,04108660,usgs,42.65085976,-86.106703,USGS NWIS site service
+usgs2_huc6_050500,03183500,usgs,37.7242874,-80.641468,USGS NWIS site service
+usgs2_huc6_060102,03497300,usgs,35.66453328,-83.7112821,USGS NWIS site service
+usgs2_huc6_060102,0351706800,usgs,35.4383333,-83.91888889,USGS NWIS site service
+usgs2_huc6_070300,05331833,usgs,46.1713687,-91.3293778,USGS NWIS site service
+usgs2_huc6_070300,05333500,usgs,46.0761111,-92.2466667,USGS NWIS site service
+usgs2_huc6_070300,05340500,usgs,45.4069444,-92.6469444,USGS NWIS site service
+usgs2_huc6_070900,05435943,usgs,42.97694444,-89.5394444,USGS NWIS site service
+usgs2_huc6_070900,05435950,usgs,42.94916667,-89.5441667,USGS NWIS site service
+usgs2_huc6_071300,05578100,usgs,40.22788889,-88.66056389,USGS NWIS site service
+usgs2_huc6_071401,07014000,usgs,37.97477778,-91.2040278,USGS NWIS site service
+usgs2_huc6_080302,07288847,usgs,33.03151289,-90.9981598,USGS NWIS site service
+usgs2_huc6_100301,06085800,usgs,47.50162778,-111.9319139,USGS NWIS site service
+usgs2_huc6_100700,06188000,usgs,44.92817778,-110.3942694,USGS NWIS site service
+usgs2_huc6_100700,06204070,usgs,45.25438735,-109.6998945,USGS NWIS site service
+usgs2_huc6_110702,071912213,usgs,36.32256869,-94.6852334,USGS NWIS site service
+usgs2_huc6_120301,08052700,usgs,33.28344977,-96.8927805,USGS NWIS site service
+usgs2_huc6_120800,08123800,usgs,32.1992913,-101.0140029,USGS NWIS site service
+usgs2_huc6_121003,08181500,usgs,29.2641276,-98.4908493,USGS NWIS site service
+usgs2_huc6_140300,09171100,usgs,38.35692324,-108.83345163,USGS NWIS site service
+usgs2_huc6_140300,09180000,usgs,38.79720805,-109.1951142,USGS NWIS site service
+usgs2_huc6_140300,09180500,usgs,38.81054095,-109.2934493,USGS NWIS site service
+usgs2_huc6_140300,09183600,usgs,38.48571796,-109.4111044,USGS NWIS site service
+usgs2_huc6_140600,09302000,usgs,40.21027778,-109.7813889,USGS NWIS site service
+usgs2_huc6_170102,12340000,usgs,46.8994111,-113.7563194,USGS NWIS site service
+usgs2_huc6_170102,12362500,usgs,48.35657778,-114.0378583,USGS NWIS site service
+usgs2_huc6_170602,13296000,usgs,44.27888889,-114.7338889,USGS NWIS site service
+usgs2_huc6_170602,13307000,usgs,45.3225,-114.44,USGS NWIS site service
+usgs2_huc6_170703,14087400,usgs,44.4923407,-121.298377,USGS NWIS site service
+usgs2_huc6_170703,14092500,usgs,44.7259522504172,-121.246993886344,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+usgs2_huc6_170703,14103000,usgs,45.6220678,-120.9056203,USGS NWIS site service
+usgs2_huc6_171003,14335072,usgs,42.6658333,-122.6863889,USGS NWIS site service
+usgs2_huc6_171003,14359000,usgs,42.43734597,-122.9872678,USGS NWIS site service
+usgs2_huc6_171003,14361500,usgs,42.43039607,-123.3178365,USGS NWIS site service
+usgs2_huc6_171003,14372300,usgs,42.59277778,-124.062,USGS NWIS site service
+usgs2_huc6_171100,12058800,usgs,47.3906475,-123.209602,USGS NWIS site service
+usgs2_huc6_180102,11501000,usgs,42.58430556,-121.8483333,USGS NWIS site service
+usgs2_huc6_180102,11502500,usgs,42.564375,-121.8797139,USGS NWIS site service
+usgs2_huc6_180102,11509500,usgs,42.13319946,-121.9622313,USGS NWIS site service
+usgs2_huc6_180102,11530000,usgs,41.0498236,-123.6736278,USGS NWIS site service
+usgs2_huc6_180102,11530500,usgs,41.51092575,-123.9794772,USGS NWIS site service
+usgs2_huc6_180102,421401121480900,usgs,42.2336111,-121.8025,USGS NWIS site service
+usgs2_huc6_180201,11381500,usgs,40.0546022,-122.0241541,USGS NWIS site service
+usgs2_huc6_180201,11383500,usgs,40.0140214,-121.9482872,USGS NWIS site service
+usgs2_huc6_180201,11390000,usgs,39.72599524,-121.7088643,USGS NWIS site service
+usgs2_huc6_180400,11278300,usgs,37.89435266,-119.9626483,USGS NWIS site service
+usgs2_huc6_190101,15086225,usgs,55.9086111,-132.9308333,USGS NWIS site service
+usgs2_huc6_190204,15276000,usgs,61.225556,-149.635,USGS NWIS site service
+usgs2_huc6_190204,15283700,usgs,61.68438889,-149.0524167,USGS NWIS site service
+usgs2_huc6_190205,15290000,usgs,61.7097358,-149.2319635,USGS NWIS site service
+usgs2_huc6_190205,15292700,usgs,62.3464039,-150.01925,USGS NWIS site service
+usgs2_huc6_190803,15484000,usgs,64.471528,-146.928056,USGS NWIS site service
+usgs2_huc6_190803,15519100,usgs,65.4648407,-148.6311143,USGS NWIS site service
+usgs_arkansas_river_huc11,07119700,usgs,38.12583934,-103.9119006,USGS NWIS site service
+usgs_arkansas_river_huc11,07164500,usgs,36.14064807,-96.0063866,USGS NWIS site service
+usgs_flathead_river_huc4_1701,12363000,usgs,48.3618111,-114.18495,USGS NWIS site service
+usgs_fox_river_huc4_0403,04084445,usgs,44.24805556,-88.4230556,USGS NWIS site service
+usgs_fox_river_huc4_0403,040851385,usgs,44.5286111,-88.01,USGS NWIS site service
+usgs_missouri_river_huc10,06054500,usgs,46.1465722,-111.4202778,USGS NWIS site service
+usgs_missouri_river_huc10,06066500,usgs,46.99473889,-112.0106667,USGS NWIS site service
+usgs_missouri_river_huc10,06330000,usgs,48.108056,-103.714167,USGS NWIS site service
+usgs_missouri_river_huc10,06342500,usgs,46.814167,-100.821389,USGS NWIS site service
+usgs_platte_river_huc4_1020,06796550,usgs,41.197978,-96.339486,USGS NWIS site service
+usgs_red_river_of_the_north_huc4_0902,05054000,usgs,46.861111,-96.783333,USGS NWIS site service
+usgs_san_juan_river_huc4_1408,09379500,usgs,37.1506777777778,-109.866688888889,repository catalogue: results/framework/public_catalog/usgs_station_catalog.csv
+usgs_snake_river_huc4_1704,13032500,usgs,43.3508333,-111.2188889,USGS NWIS site service
+usgs_snake_river_huc4_1704,13057000,usgs,43.75277778,-111.9791667,USGS NWIS site service
+usgs_snake_river_huc4_1704,13069500,usgs,43.12527778,-112.5188889,USGS NWIS site service
+usgs_snake_river_huc4_1705,13154500,usgs,43.0022222,-115.2025,USGS NWIS site service
+usgs_snake_river_huc4_1705,13213100,usgs,43.8761111,-116.9825,USGS NWIS site service
+usgs_snake_river_huc4_1705,13269000,usgs,44.24555556,-116.9808333,USGS NWIS site service
+usgs_snake_river_huc4_1706,13317660,usgs,46.00305556,-116.9169444,USGS NWIS site service
+usgs_snake_river_huc4_1706,13334300,usgs,46.09706985,-116.9776916,USGS NWIS site service
+usgs_snake_river_huc4_1706,13343860,usgs,46.5830522,-118.0430329,USGS NWIS site service
+usgs_snake_river_huc4_1706,13353010,usgs,46.2421853,-118.9401224,USGS NWIS site service
+usgs_walker_rv_huc4_1605,10301500,usgs,39.1524611,-119.0988889,USGS NWIS site service

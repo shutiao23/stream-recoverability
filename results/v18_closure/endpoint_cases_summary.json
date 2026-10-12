@@ -1,0 +1,13 @@
+{
+  "n_cases": 51524,
+  "n_stations": 457,
+  "n_networks": 146,
+  "by_split": {
+    "development": 40704,
+    "reserved": 10820
+  },
+  "by_arm": {
+    "stratified": 32488,
+    "empirical": 19036
+  }
+}

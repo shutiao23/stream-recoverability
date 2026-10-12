@@ -1,0 +1,32 @@
+{
+  "n_station_years": 7536,
+  "n_complete": 5114,
+  "n_incomplete": 2422,
+  "n_incomplete_decidable": 2422,
+  "disagreement": {
+    "disagreement_interval": {
+      "point": 0.15070189925681254,
+      "low": 0.13398637430084115,
+      "high": 0.16779177521881522,
+      "se": 0.008727065028121556,
+      "n_clusters": 136
+    },
+    "dangerous_cell_interval": {
+      "point": 0.08546655656482247,
+      "low": 0.0665344078545659,
+      "high": 0.10192515100587474,
+      "se": 0.00915788775083082,
+      "n_clusters": 136
+    },
+    "any_peak_day_hidden_pct": 28.736581337737405,
+    "half_the_peak_window_hidden_n": 261,
+    "median_missing_days": 9.0,
+    "p90_missing_days": 127.90000000000009
+  },
+  "risk_model_max_decile_miscalibration_points": 6.1863760737175255,
+  "verdict": {
+    "prediction": "the two rules disagree on a material share of real incomplete years",
+    "threshold": "a disagreement rate below 3% would make the axis substitution immaterial in practice",
+    "outcome": "supported"
+  }
+}

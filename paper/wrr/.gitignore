@@ -1,0 +1,14 @@
+build_report.json
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.spl
+*.fls
+*.fdb_latexmk
+agu-logo-*.pdf
+wrr_manuscript_published.tex
+
+# editor backup of an earlier title draft, not part of the submission
+*.bak

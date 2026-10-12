@@ -1,0 +1,30 @@
+{
+  "air_available_development_pct": {
+    "v17 forcing": 2.2626768867924527,
+    "v18 forcing": 98.63649764150944
+  },
+  "policy_mae_c": {
+    "v17 forcing": 0.24157744533035794,
+    "v18 forcing": 0.22464119762244766
+  },
+  "policy_mae_c_donorless": {
+    "v17 forcing": 0.340356282828283,
+    "v18 forcing": 0.3635134382430937
+  },
+  "timing_minus_length_auc": {
+    "v17 forcing": 0.07022953995458492,
+    "v18 forcing": 0.08087749535252331
+  },
+  "estimator_share_pct": {
+    "donor_ridge": 53.11517295597484,
+    "air_ridge": 20.005404874213838,
+    "linear_interp": 14.499803459119498,
+    "doy_climatology": 7.9156839622641515,
+    "smooth_climatology": 4.463934748427674
+  },
+  "verdict": {
+    "problem_size": "air forcing reduces the deployable reconstruction error, most at donor-less sites",
+    "axis_conclusion": "unchanged: the axis claim is about which cases are hard, not about how well they are repaired",
+    "protocol": "the pre-registered confirmation is not re-scored; this is a development-panel sensitivity analysis"
+  }
+}

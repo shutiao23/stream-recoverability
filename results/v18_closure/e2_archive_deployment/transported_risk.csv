@@ -1,0 +1,8 @@
+rule,retention_pct,predicted_consequential_rate_pct,predicted_rate_among_excluded_pct
+admit everything,100.0,4.215391178796268,
+Johnson unfilled (<= 49 d),83.23699421965318,0.977380133369289,20.293790852640573
+Johnson with imputation (<= 140 d),91.70107349298101,1.8487829175231543,30.36582375734146
+peak window <= 10% hidden,81.21387283236994,0.2566400003347755,21.32937704260672
+risk-ranked screen at the retention of Johnson unfilled (<= 49 d),83.23699421965318,0.1349328575535312,24.476977325656748
+risk-ranked screen at the retention of Johnson with imputation (<= 140 d),91.70107349298101,0.8895384656078231,40.965236332983004
+risk-ranked screen at the retention of peak window <= 10% hidden,81.21387283236994,0.10305678285224658,21.993329105877343

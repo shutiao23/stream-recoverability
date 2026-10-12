@@ -1,0 +1,15 @@
+{
+  "n_station_years": 7536,
+  "n_complete": 5114,
+  "n_incomplete": 2422,
+  "incomplete_median_missing_days": 9.0,
+  "incomplete_over_49d_run_pct": 16.76300578034682,
+  "incomplete_over_140d_run_n": 201,
+  "incomplete_any_peak_day_missing_pct": 28.736581337737405,
+  "incomplete_half_peak_window_missing_n": 261,
+  "length_admits_pct": 83.23699421965318,
+  "timing_admits_pct": 81.21387283236994,
+  "disagreement_pct": 15.070189925681255,
+  "admitted_by_length_rejected_by_timing": 207,
+  "rejected_by_length_admitted_by_timing": 158
+}

@@ -1,0 +1,7 @@
+screen,reconstruction,rate_above_0.5_pct,mean_abs_error_c
+outage-length rule,information-conditioned policy,8.998701435440283,0.1504810101865819
+outage-length rule,"always air regression (Beaufort-style), else climatology",15.161618643175517,0.23141074698839895
+outage-length rule,"always donor ridge, else climatology",9.570771768504544,0.15972570818466944
+outage-length rule,always smooth climatology,19.787316182922122,0.28804616831477703
+outage-length rule,oracle over methods (NOT deployable),3.6219422314252627,0.07586391524114351
+calibrated screen,deployable estimators it selects itself,2.867370933211666,0.06495534207572802

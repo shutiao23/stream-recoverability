@@ -1,0 +1,16 @@
+{
+  "n_gaps": 6472,
+  "prediction": "if missingness is uninformative, the days flanking a gap and the donors recording through it should look ordinary for their date",
+  "largest_flank_anomaly_c": -0.21540601869818124,
+  "largest_flank_anomaly_class": "90 d and longer",
+  "short_and_medium_gaps_exchangeable": true,
+  "onset_paired_test": {
+    "n_gaps": 5420,
+    "median_difference_c": 0.03824967675449651,
+    "mean_difference_c": 0.04501057331978435,
+    "wilcoxon_p": 0.015023867089399227
+  },
+  "largest_effect_as_share_of_tolerance": 0.4308120373963625,
+  "largest_effect_as_share_of_anomaly_sd": 0.1186545684131988,
+  "verdict": "missingness is weakly informative and the effect is detectable at this sample size -- donors run 0.063 C warm through gaps of a week or less (p = 0.017) -- but every effect is under half a tenth of the 0.5 C tolerance and under a seventh of the within-station anomaly scale. The transplant design is defensible on magnitude, not on a null result. The one class worth a limitation is outages of 90 days and longer, whose flanking days run 0.215 C cold (p = 0.081)"
+}
