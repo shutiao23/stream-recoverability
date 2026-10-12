@@ -1,0 +1,18 @@
+{
+  "certificate_minus_length_rule_with_oracle_reconstruction": {
+    "development": {
+      "point": -0.01782894044151195,
+      "low": -0.022097895397123025,
+      "high": -0.010733673589320484,
+      "se": 0.0028723816943927167,
+      "n_clusters": 110
+    },
+    "reserved": {
+      "point": -0.01650382888830209,
+      "low": -0.021291830357236724,
+      "high": -0.007230585480486948,
+      "se": 0.0035485836937395637,
+      "n_clusters": 36
+    }
+  }
+}

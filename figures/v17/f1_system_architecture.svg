@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1163" height="690" viewBox="0 0 1163 690">
+<title>Screening system architecture</title>
+<rect width="1163" height="690" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#37474f"/></marker><marker id="arrowdim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#90a4ae"/></marker></defs>
+<g transform="translate(-16.0,-36.0)">
+<rect x="40.0" y="60.0" width="410.0" height="318.0" rx="10" ry="10" fill="none" stroke="#90A4AE" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="245.0" y="78.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#455A64" text-anchor="middle" font-weight="600" xml:space="preserve">Visible at decision time</text>
+<rect x="500.0" y="360.0" width="440.0" height="104.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="720.0" y="388.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Split-conformal calibration</text>
+<text x="720.0" y="402.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">selection-conditional — calibrated after the estimator is chosen, because</text>
+<text x="720.0" y="416.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">taking the smallest of several bounds is a winner’s curse that per-estimator</text>
+<text x="720.0" y="430.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">calibration cannot see</text>
+<text x="720.0" y="444.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">multiplicative — the error scale spans an order of magnitude</text>
+<rect x="180.0" y="606.0" width="450.0" height="96.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="405.0" y="637.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Action space 1 — admission</text>
+<text x="405.0" y="651.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">retain or exclude the station-year at a tolerance τ stated in °C.</text>
+<text x="405.0" y="665.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Decides what enters the archive.</text>
+<text x="405.0" y="679.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Reserved panel at 70% retention: 2.5% against 9.7% for the length rule.</text>
+<rect x="680.0" y="606.0" width="450.0" height="96.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="905.0" y="637.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Action space 2 — abstention</text>
+<text x="905.0" y="651.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">keep every year and decline only the judgement the interval cannot support.</text>
+<text x="905.0" y="665.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Decides what one judgement may say.</text>
+<text x="905.0" y="679.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Judges 92.7% of years at 0.42% misclassification against 67.5% at 0.36%.</text>
+<rect x="500.0" y="60.0" width="440.0" height="92.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="720.0" y="89.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Estimator library — support declared per case</text>
+<text x="720.0" y="103.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">observed days (current practice)  ·  day-of-year climatology</text>
+<text x="720.0" y="117.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">smoothed climatology  ·  linear interpolation (both flanks required)</text>
+<text x="720.0" y="131.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">donor ridge (refit on visible donors)  ·  air ridge (where forcing exists)</text>
+<rect x="40.0" y="410.0" width="410.0" height="72.0" rx="10" ry="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.4"/>
+<text x="245.0" y="436.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Information barrier</text>
+<text x="245.0" y="450.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">No feature may read a day the outage hides.</text>
+<text x="245.0" y="465.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Enforced in feature_frame; pinned by a test in the suite.</text>
+<rect x="500.0" y="188.0" width="440.0" height="60.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="720.0" y="215.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" xml:space="preserve">Risk model</text>
+<text x="720.0" y="230.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" xml:space="preserve">predicted upper bound on | q(ŷ) − q(y) | for each supported estimator</text>
+<rect x="500.0" y="496.0" width="440.0" height="60.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="720.0" y="523.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">Calibrated certificate for this station-year</text>
+<text x="720.0" y="538.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">an interval on the completed-year statistic, in °C, and a risk score</text>
+<rect x="500.0" y="284.0" width="440.0" height="44.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="720.0" y="310.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" xml:space="preserve">Estimator selection — take the smallest bound</text>
+<rect x="975.0" y="60.0" width="180.0" height="92.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
+<text x="987.0" y="83.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Fitted leave-one-year-out</text>
+<text x="987.0" y="96.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">within the station.</text>
+<text x="987.0" y="110.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">§5.10 repeats the study</text>
+<text x="987.0" y="123.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">under strictly-prior-years</text>
+<text x="987.0" y="137.2" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">fitting.</text>
+<rect x="58.0" y="96.0" width="374.0" height="44.0" rx="0" ry="0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="115.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Outage geometry</text>
+<text x="245.0" y="129.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">longest run, total missing, number of runs</text>
+<rect x="58.0" y="150.0" width="374.0" height="44.0" rx="0" ry="0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="169.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">Support of the estimand</text>
+<text x="245.0" y="183.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" font-weight="600" xml:space="preserve">peak-window overlap, warm-season observed fraction</text>
+<rect x="58.0" y="204.0" width="374.0" height="44.0" rx="0" ry="0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="223.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Constraint already imposed by the observed days</text>
+<text x="245.0" y="237.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">observed-peak margin, which flanks survived</text>
+<rect x="58.0" y="258.0" width="374.0" height="44.0" rx="0" ry="0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="277.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Donor information</text>
+<text x="245.0" y="291.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">count, coverage, training-period deseasonalised correlation</text>
+<rect x="58.0" y="312.0" width="374.0" height="44.0" rx="0" ry="0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="245.0" y="331.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Station history</text>
+<text x="245.0" y="345.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">record length, training residual scale, seasonal amplitude</text>
+<rect x="975.0" y="368.0" width="180.0" height="76.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
+<text x="987.0" y="390.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Fitting, calibration and</text>
+<text x="987.0" y="403.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">test networks are always</text>
+<text x="987.0" y="417.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">disjoint. Every interval</text>
+<text x="987.0" y="430.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">resamples whole networks.</text>
+<rect x="975.0" y="188.0" width="180.0" height="60.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
+<text x="987.0" y="208.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Absent donor columns are</text>
+<text x="987.0" y="222.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">never imputed; the model is</text>
+<text x="987.0" y="235.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">refit on the visible subset.</text>
+<polyline points="451.0,115.5 470.0,106.0 499.0,106.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="451.0,218.1 470.0,218.0 499.0,218.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="245.0,409.0 245.0,379.0" fill="none" stroke="#C62828" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="174.5" y="386.1" width="141.0" height="15.8" fill="#ffffff" stroke="none"/>
+<text x="245.0" y="395.8" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">enforced on every feature</text>
+<polyline points="720.0,153.0 720.0,187.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="609.3" y="161.8" width="221.5" height="16.4" fill="#ffffff" stroke="none"/>
+<text x="720.0" y="171.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#455a64" text-anchor="middle" xml:space="preserve">completed-year statistic per estimator</text>
+<polyline points="720.0,249.0 720.0,283.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="720.0,329.0 720.0,359.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="720.0,465.0 720.0,495.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="720.0,557.0 720.0,580.0 405.0,580.0 405.0,605.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="720.0,557.0 720.0,580.0 905.0,580.0 905.0,605.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="974.0,106.0 941.0,106.0" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
+<polyline points="974.0,188.5 864.8,153.0" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
+<polyline points="974.0,407.6 941.0,408.2" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
+</g></svg>

@@ -1,0 +1,20 @@
+{
+  "resolvable_margin_bq_c": 0.04540527948252249,
+  "resolvable_margin_rate": 0.026934087996805512,
+  "gate_multiple": 3.0,
+  "adopt_reject": {
+    "ceiling_c": 0.03762903266329676,
+    "required_c": 0.13621583844756746,
+    "passes": false
+  },
+  "method_selection": {
+    "ceiling_c": 0.07979524247768749,
+    "required_c": 0.13621583844756746,
+    "passes": false
+  },
+  "retain_exclude": {
+    "ceiling_rate": 0.14868317610062892,
+    "required_rate": 0.08080226399041654,
+    "passes": true
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "variants": {
+    "pooled": {
+      "marginal_coverage": 0.9085027726432532,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9035332414215907,
+        "median": 0.9132716049382716,
+        "q10": 0.8396892795491974,
+        "min": 0.7777777777777778,
+        "share_below_0.80": 0.027777777777777776,
+        "share_below_0.85": 0.1388888888888889
+      },
+      "median_interval_width_c": 0.5351740631727304,
+      "mean_interval_width_c": 0.8848095517907003,
+      "bound_coverage": 0.9062846580406654,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    },
+    "cluster_0.5": {
+      "marginal_coverage": 0.9088724584103512,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9037393029181414,
+        "median": 0.9132716049382716,
+        "q10": 0.8406912835572133,
+        "min": 0.7777777777777778,
+        "share_below_0.80": 0.027777777777777776,
+        "share_below_0.85": 0.1388888888888889
+      },
+      "median_interval_width_c": 0.5360586629597883,
+      "mean_interval_width_c": 0.8862771369833577,
+      "bound_coverage": 0.9076709796672828,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    },
+    "cluster_0.6": {
+      "marginal_coverage": 0.916543438077634,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9119745561880919,
+        "median": 0.9218272702027215,
+        "q10": 0.8509015256588072,
+        "min": 0.7777777777777778,
+        "share_below_0.80": 0.027777777777777776,
+        "share_below_0.85": 0.1111111111111111
+      },
+      "median_interval_width_c": 0.5518078040972416,
+      "mean_interval_width_c": 0.91240557005394,
+      "bound_coverage": 0.9224584103512015,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    },
+    "cluster_0.7": {
+      "marginal_coverage": 0.9320702402957486,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9290365254303458,
+        "median": 0.931760158216469,
+        "q10": 0.870832140471419,
+        "min": 0.8415841584158416,
+        "share_below_0.80": 0.0,
+        "share_below_0.85": 0.05555555555555555
+      },
+      "median_interval_width_c": 0.6047780720250773,
+      "mean_interval_width_c": 1.000285289221094,
+      "bound_coverage": 0.9285582255083179,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    },
+    "cluster_0.8": {
+      "marginal_coverage": 0.9484288354898336,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9448075529644411,
+        "median": 0.9513042005420054,
+        "q10": 0.9,
+        "min": 0.8415841584158416,
+        "share_below_0.80": 0.0,
+        "share_below_0.85": 0.027777777777777776
+      },
+      "median_interval_width_c": 0.6845246889573079,
+      "mean_interval_width_c": 1.1325880049650008,
+      "bound_coverage": 0.9408502772643254,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    },
+    "cluster_0.9": {
+      "marginal_coverage": 0.9634935304990758,
+      "per_network": {
+        "n_networks": 36,
+        "mean": 0.9584058155955932,
+        "median": 0.9613517550410755,
+        "q10": 0.9260773292454437,
+        "min": 0.8514851485148515,
+        "share_below_0.80": 0.0,
+        "share_below_0.85": 0.0
+      },
+      "median_interval_width_c": 0.79547690217993,
+      "mean_interval_width_c": 1.3166620095039583,
+      "bound_coverage": 0.9551756007393716,
+      "rate_above_tolerance_at_70": 0.025349881172432004,
+      "contrast_points_vs_length_rule": -7.129654079746501,
+      "contrast_ci_points": [
+        -8.989990772455952,
+        -5.400301192067243
+      ]
+    }
+  },
+  "verdict": {
+    "question": "can the interval be made honest at a single new site, and what does it cost?",
+    "pooled": {
+      "n_networks": 36,
+      "mean": 0.9035332414215907,
+      "median": 0.9132716049382716,
+      "q10": 0.8396892795491974,
+      "min": 0.7777777777777778,
+      "share_below_0.80": 0.027777777777777776,
+      "share_below_0.85": 0.1388888888888889
+    },
+    "cheapest_setting_with_no_network_below_0.85": "cluster_0.9",
+    "cheapest": {
+      "n_networks": 36,
+      "mean": 0.9584058155955932,
+      "median": 0.9613517550410755,
+      "q10": 0.9260773292454437,
+      "min": 0.8514851485148515,
+      "share_below_0.80": 0.0,
+      "share_below_0.85": 0.0
+    },
+    "width_cost_ratio": 1.4863891150927944,
+    "screening_unaffected": true,
+    "note": "The ranking the screen uses is a monotone transform of the bound, so a change of calibration scale cannot move the retention-error frontier at all. Only the interval and the self-selected operating point change."
+  }
+}

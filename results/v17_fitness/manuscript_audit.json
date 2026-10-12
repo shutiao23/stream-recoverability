@@ -1,0 +1,851 @@
+{
+  "n_checked": 141,
+  "findings": [
+    {
+      "item": "metric/hottest7 peak overlap",
+      "status": "ok",
+      "quoted": 0.823,
+      "expected": 0.8227
+    },
+    {
+      "item": "metric/hottest7 warm coverage",
+      "status": "ok",
+      "quoted": 0.824,
+      "expected": 0.8244
+    },
+    {
+      "item": "metric/hottest7 length",
+      "status": "ok",
+      "quoted": 0.752,
+      "expected": 0.752
+    },
+    {
+      "item": "metric/hottest7 winner",
+      "status": "ok",
+      "quoted": "timing",
+      "expected": "timing"
+    },
+    {
+      "item": "metric/hottest30 peak overlap",
+      "status": "ok",
+      "quoted": 0.819,
+      "expected": 0.8188
+    },
+    {
+      "item": "metric/hottest30 warm coverage",
+      "status": "ok",
+      "quoted": 0.82,
+      "expected": 0.8204
+    },
+    {
+      "item": "metric/hottest30 length",
+      "status": "ok",
+      "quoted": 0.75,
+      "expected": 0.7501
+    },
+    {
+      "item": "metric/hottest30 winner",
+      "status": "ok",
+      "quoted": "timing",
+      "expected": "timing"
+    },
+    {
+      "item": "metric/amplitude30 peak overlap",
+      "status": "ok",
+      "quoted": 0.758,
+      "expected": 0.7583
+    },
+    {
+      "item": "metric/amplitude30 warm coverage",
+      "status": "ok",
+      "quoted": 0.792,
+      "expected": 0.7923
+    },
+    {
+      "item": "metric/amplitude30 length",
+      "status": "ok",
+      "quoted": 0.768,
+      "expected": 0.7678
+    },
+    {
+      "item": "metric/amplitude30 winner",
+      "status": "ok",
+      "quoted": "timing",
+      "expected": "timing"
+    },
+    {
+      "item": "metric/annual_mean peak overlap",
+      "status": "ok",
+      "quoted": 0.672,
+      "expected": 0.672
+    },
+    {
+      "item": "metric/annual_mean warm coverage",
+      "status": "ok",
+      "quoted": 0.818,
+      "expected": 0.8181
+    },
+    {
+      "item": "metric/annual_mean length",
+      "status": "ok",
+      "quoted": 0.845,
+      "expected": 0.8453
+    },
+    {
+      "item": "metric/annual_mean winner",
+      "status": "ok",
+      "quoted": "length",
+      "expected": "length"
+    },
+    {
+      "item": "metric/coldest30 peak overlap",
+      "status": "ok",
+      "quoted": 0.447,
+      "expected": 0.4473
+    },
+    {
+      "item": "metric/coldest30 warm coverage",
+      "status": "ok",
+      "quoted": 0.619,
+      "expected": 0.6187
+    },
+    {
+      "item": "metric/coldest30 length",
+      "status": "ok",
+      "quoted": 0.803,
+      "expected": 0.8034
+    },
+    {
+      "item": "metric/coldest30 winner",
+      "status": "ok",
+      "quoted": "length",
+      "expected": "length"
+    },
+    {
+      "item": "auc_ci/hottest7 point",
+      "status": "ok",
+      "quoted": 0.072,
+      "expected": 0.0723
+    },
+    {
+      "item": "auc_ci/hottest7 low",
+      "status": "ok",
+      "quoted": 0.063,
+      "expected": 0.0632
+    },
+    {
+      "item": "auc_ci/hottest7 high",
+      "status": "ok",
+      "quoted": 0.096,
+      "expected": 0.096
+    },
+    {
+      "item": "auc_ci/hottest30 point",
+      "status": "ok",
+      "quoted": 0.07,
+      "expected": 0.0702
+    },
+    {
+      "item": "auc_ci/hottest30 low",
+      "status": "ok",
+      "quoted": 0.061,
+      "expected": 0.0607
+    },
+    {
+      "item": "auc_ci/hottest30 high",
+      "status": "ok",
+      "quoted": 0.098,
+      "expected": 0.0977
+    },
+    {
+      "item": "auc_ci/amplitude30 point",
+      "status": "ok",
+      "quoted": 0.024,
+      "expected": 0.0244
+    },
+    {
+      "item": "auc_ci/amplitude30 low",
+      "status": "ok",
+      "quoted": 0.015,
+      "expected": 0.0145
+    },
+    {
+      "item": "auc_ci/amplitude30 high",
+      "status": "ok",
+      "quoted": 0.037,
+      "expected": 0.037
+    },
+    {
+      "item": "auc_ci/annual_mean point",
+      "status": "ok",
+      "quoted": -0.027,
+      "expected": -0.027
+    },
+    {
+      "item": "auc_ci/annual_mean low",
+      "status": "ok",
+      "quoted": -0.036,
+      "expected": -0.0362
+    },
+    {
+      "item": "auc_ci/annual_mean high",
+      "status": "ok",
+      "quoted": -0.018,
+      "expected": -0.0179
+    },
+    {
+      "item": "auc_ci/coldest30 point",
+      "status": "ok",
+      "quoted": -0.184,
+      "expected": -0.1844
+    },
+    {
+      "item": "auc_ci/coldest30 low",
+      "status": "ok",
+      "quoted": -0.228,
+      "expected": -0.2275
+    },
+    {
+      "item": "auc_ci/coldest30 high",
+      "status": "ok",
+      "quoted": -0.156,
+      "expected": -0.1563
+    },
+    {
+      "item": "tolerance/length_rule >0.25",
+      "status": "ok",
+      "quoted": 17.2,
+      "expected": 17.2168
+    },
+    {
+      "item": "tolerance/length_rule >0.5",
+      "status": "ok",
+      "quoted": 9.7,
+      "expected": 9.6646
+    },
+    {
+      "item": "tolerance/length_rule >1.0",
+      "status": "ok",
+      "quoted": 3.4,
+      "expected": 3.4328
+    },
+    {
+      "item": "tolerance/length_rule severe",
+      "status": "ok",
+      "quoted": 2.0,
+      "expected": 2.0201
+    },
+    {
+      "item": "tolerance/peak_overlap_rule >0.25",
+      "status": "ok",
+      "quoted": 9.2,
+      "expected": 9.2157
+    },
+    {
+      "item": "tolerance/peak_overlap_rule >0.5",
+      "status": "ok",
+      "quoted": 4.2,
+      "expected": 4.1986
+    },
+    {
+      "item": "tolerance/peak_overlap_rule >1.0",
+      "status": "ok",
+      "quoted": 1.2,
+      "expected": 1.1883
+    },
+    {
+      "item": "tolerance/peak_overlap_rule severe",
+      "status": "ok",
+      "quoted": 0.7,
+      "expected": 0.6602
+    },
+    {
+      "item": "tolerance/random >0.25",
+      "status": "ok",
+      "quoted": 23.9,
+      "expected": 23.8711
+    },
+    {
+      "item": "tolerance/random >0.5",
+      "status": "ok",
+      "quoted": 14.4,
+      "expected": 14.3913
+    },
+    {
+      "item": "tolerance/random >1.0",
+      "status": "ok",
+      "quoted": 5.6,
+      "expected": 5.5849
+    },
+    {
+      "item": "tolerance/random severe",
+      "status": "ok",
+      "quoted": 3.7,
+      "expected": 3.6572
+    },
+    {
+      "item": "arm/('development', 'empirical') cases",
+      "status": "ok",
+      "quoted": 14995.0,
+      "expected": 14995.0
+    },
+    {
+      "item": "arm/('development', 'empirical') base rate",
+      "status": "ok",
+      "quoted": 7.4,
+      "expected": 7.3491
+    },
+    {
+      "item": "arm/('development', 'empirical') length@70",
+      "status": "ok",
+      "quoted": 2.52,
+      "expected": 2.5152
+    },
+    {
+      "item": "arm/('development', 'empirical') certificate@70",
+      "status": "ok",
+      "quoted": 0.38,
+      "expected": 0.3811
+    },
+    {
+      "item": "arm/('development', 'empirical') contrast",
+      "status": "ok",
+      "quoted": -2.13,
+      "expected": -2.1341
+    },
+    {
+      "item": "arm/('development', 'stratified') cases",
+      "status": "ok",
+      "quoted": 25709.0,
+      "expected": 25709.0
+    },
+    {
+      "item": "arm/('development', 'stratified') base rate",
+      "status": "ok",
+      "quoted": 19.3,
+      "expected": 19.254
+    },
+    {
+      "item": "arm/('development', 'stratified') length@70",
+      "status": "ok",
+      "quoted": 14.58,
+      "expected": 14.5755
+    },
+    {
+      "item": "arm/('development', 'stratified') certificate@70",
+      "status": "ok",
+      "quoted": 6.17,
+      "expected": 6.168
+    },
+    {
+      "item": "arm/('development', 'stratified') contrast",
+      "status": "ok",
+      "quoted": -8.39,
+      "expected": -8.3908
+    },
+    {
+      "item": "arm/('reserved', 'empirical') cases",
+      "status": "ok",
+      "quoted": 4041.0,
+      "expected": 4041.0
+    },
+    {
+      "item": "arm/('reserved', 'empirical') base rate",
+      "status": "ok",
+      "quoted": 4.2,
+      "expected": 4.2316
+    },
+    {
+      "item": "arm/('reserved', 'empirical') length@70",
+      "status": "ok",
+      "quoted": 0.74,
+      "expected": 0.7423
+    },
+    {
+      "item": "arm/('reserved', 'empirical') certificate@70",
+      "status": "ok",
+      "quoted": 0.11,
+      "expected": 0.106
+    },
+    {
+      "item": "arm/('reserved', 'empirical') contrast",
+      "status": "ok",
+      "quoted": -0.71,
+      "expected": -0.707
+    },
+    {
+      "item": "arm/('reserved', 'stratified') cases",
+      "status": "ok",
+      "quoted": 6779.0,
+      "expected": 6779.0
+    },
+    {
+      "item": "arm/('reserved', 'stratified') base rate",
+      "status": "ok",
+      "quoted": 20.8,
+      "expected": 20.7995
+    },
+    {
+      "item": "arm/('reserved', 'stratified') length@70",
+      "status": "ok",
+      "quoted": 16.59,
+      "expected": 16.5859
+    },
+    {
+      "item": "arm/('reserved', 'stratified') certificate@70",
+      "status": "ok",
+      "quoted": 7.78,
+      "expected": 7.7766
+    },
+    {
+      "item": "arm/('reserved', 'stratified') contrast",
+      "status": "ok",
+      "quoted": -8.68,
+      "expected": -8.6828
+    },
+    {
+      "item": "ablation/outage-length rule (incumbent) rate",
+      "status": "ok",
+      "quoted": 9.24,
+      "expected": 9.2409
+    },
+    {
+      "item": "ablation/three-variable logistic screen rate",
+      "status": "ok",
+      "quoted": 5.53,
+      "expected": 5.5277
+    },
+    {
+      "item": "ablation/three-variable logistic screen points",
+      "status": "ok",
+      "quoted": -3.71,
+      "expected": -3.7132
+    },
+    {
+      "item": "ablation/peak-overlap rule rate",
+      "status": "ok",
+      "quoted": 5.62,
+      "expected": 5.6189
+    },
+    {
+      "item": "ablation/peak-overlap rule points",
+      "status": "ok",
+      "quoted": -3.62,
+      "expected": -3.6219
+    },
+    {
+      "item": "ablation/three_features rate",
+      "status": "ok",
+      "quoted": 4.89,
+      "expected": 4.8924
+    },
+    {
+      "item": "ablation/three_features points",
+      "status": "ok",
+      "quoted": -4.35,
+      "expected": -4.3484
+    },
+    {
+      "item": "ablation/geometry_and_timing_only rate",
+      "status": "ok",
+      "quoted": 4.86,
+      "expected": 4.8644
+    },
+    {
+      "item": "ablation/geometry_and_timing_only points",
+      "status": "ok",
+      "quoted": -4.38,
+      "expected": -4.3765
+    },
+    {
+      "item": "ablation/drop_donor_features rate",
+      "status": "ok",
+      "quoted": 3.78,
+      "expected": 3.7764
+    },
+    {
+      "item": "ablation/drop_donor_features points",
+      "status": "ok",
+      "quoted": -5.46,
+      "expected": -5.4645
+    },
+    {
+      "item": "ablation/drop_observed_peak_margin rate",
+      "status": "ok",
+      "quoted": 3.13,
+      "expected": 3.1306
+    },
+    {
+      "item": "ablation/drop_observed_peak_margin points",
+      "status": "ok",
+      "quoted": -6.11,
+      "expected": -6.1103
+    },
+    {
+      "item": "baseline/information-conditioned poli",
+      "status": "ok",
+      "quoted": 9.36,
+      "expected": 9.361
+    },
+    {
+      "item": "baseline/always donor ridge, else cli",
+      "status": "ok",
+      "quoted": 9.56,
+      "expected": 9.559
+    },
+    {
+      "item": "baseline/always smooth climatology",
+      "status": "ok",
+      "quoted": 15.39,
+      "expected": 15.3948
+    },
+    {
+      "item": "baseline/oracle over methods, not dep",
+      "status": "ok",
+      "quoted": 4.19,
+      "expected": 4.1854
+    },
+    {
+      "item": "baseline/deployable estimators it sel",
+      "status": "ok",
+      "quoted": 2.53,
+      "expected": 2.535
+    },
+    {
+      "item": "calibration/pooled marginal",
+      "status": "ok",
+      "quoted": 0.909,
+      "expected": 0.9085
+    },
+    {
+      "item": "calibration/pooled minimum",
+      "status": "ok",
+      "quoted": 0.778,
+      "expected": 0.7778
+    },
+    {
+      "item": "calibration/pooled below 0.85",
+      "status": "ok",
+      "quoted": 13.9,
+      "expected": 13.8889
+    },
+    {
+      "item": "calibration/pooled width",
+      "status": "ok",
+      "quoted": 0.54,
+      "expected": 0.5352
+    },
+    {
+      "item": "calibration/pooled rate",
+      "status": "ok",
+      "quoted": 2.53,
+      "expected": 2.535
+    },
+    {
+      "item": "calibration/cluster_0.7 marginal",
+      "status": "ok",
+      "quoted": 0.932,
+      "expected": 0.9321
+    },
+    {
+      "item": "calibration/cluster_0.7 minimum",
+      "status": "ok",
+      "quoted": 0.842,
+      "expected": 0.8416
+    },
+    {
+      "item": "calibration/cluster_0.7 below 0.85",
+      "status": "ok",
+      "quoted": 5.6,
+      "expected": 5.5556
+    },
+    {
+      "item": "calibration/cluster_0.7 width",
+      "status": "ok",
+      "quoted": 0.6,
+      "expected": 0.6048
+    },
+    {
+      "item": "calibration/cluster_0.7 rate",
+      "status": "ok",
+      "quoted": 2.53,
+      "expected": 2.535
+    },
+    {
+      "item": "calibration/cluster_0.9 marginal",
+      "status": "ok",
+      "quoted": 0.964,
+      "expected": 0.9635
+    },
+    {
+      "item": "calibration/cluster_0.9 minimum",
+      "status": "ok",
+      "quoted": 0.852,
+      "expected": 0.8515
+    },
+    {
+      "item": "calibration/cluster_0.9 below 0.85",
+      "status": "ok",
+      "quoted": 0.0,
+      "expected": 0.0
+    },
+    {
+      "item": "calibration/cluster_0.9 width",
+      "status": "ok",
+      "quoted": 0.8,
+      "expected": 0.7955
+    },
+    {
+      "item": "calibration/cluster_0.9 rate",
+      "status": "ok",
+      "quoted": 2.53,
+      "expected": 2.535
+    },
+    {
+      "item": "inline/LOPO best",
+      "status": "ok",
+      "quoted": 11.6,
+      "expected": 11.5619
+    },
+    {
+      "item": "inline/LOPO worst",
+      "status": "ok",
+      "quoted": 1.2,
+      "expected": 1.1512
+    },
+    {
+      "item": "inline/LOPO all intervals exclude zero",
+      "status": "ok",
+      "quoted": "all nine agencies",
+      "expected": 9
+    },
+    {
+      "item": "inline/width at zero overlap",
+      "status": "ok",
+      "quoted": 0.06,
+      "expected": 0.0565
+    },
+    {
+      "item": "inline/width at full overlap",
+      "status": "ok",
+      "quoted": 1.87,
+      "expected": 1.8684
+    },
+    {
+      "item": "gradient/hottest30 missing axis",
+      "status": "ok",
+      "quoted": 3.5,
+      "expected": 3.5424
+    },
+    {
+      "item": "gradient/hottest30 overlap axis",
+      "status": "ok",
+      "quoted": 9.6,
+      "expected": 9.6121
+    },
+    {
+      "item": "gradient/annual_mean missing axis",
+      "status": "ok",
+      "quoted": 10.2,
+      "expected": 10.1779
+    },
+    {
+      "item": "gradient/annual_mean overlap axis",
+      "status": "ok",
+      "quoted": 1.5,
+      "expected": 1.4501
+    },
+    {
+      "item": "near-threshold/all retained/observed_days_all",
+      "status": "ok",
+      "quoted": 6.86,
+      "expected": 6.8577
+    },
+    {
+      "item": "near-threshold/all retained/reconstruct_all",
+      "status": "ok",
+      "quoted": 1.97,
+      "expected": 1.9686
+    },
+    {
+      "item": "near-threshold/all retained/length_screened",
+      "status": "ok",
+      "quoted": 1.53,
+      "expected": 1.5281
+    },
+    {
+      "item": "near-threshold/all retained/certificate_screened",
+      "status": "ok",
+      "quoted": 0.36,
+      "expected": 0.3559
+    },
+    {
+      "item": "abstain/screen at the 0.5 \u00b0C tolerance judged",
+      "status": "ok",
+      "quoted": 67.5,
+      "expected": 67.5139
+    },
+    {
+      "item": "abstain/screen at the 0.5 \u00b0C tolerance misclassification",
+      "status": "ok",
+      "quoted": 0.36,
+      "expected": 0.3559
+    },
+    {
+      "item": "abstain/screen at the 0.5 \u00b0C tolerance missed",
+      "status": "ok",
+      "quoted": 0.39,
+      "expected": 0.3923
+    },
+    {
+      "item": "abstain/both judged",
+      "status": "ok",
+      "quoted": 65.7,
+      "expected": 65.7209
+    },
+    {
+      "item": "abstain/both misclassification",
+      "status": "ok",
+      "quoted": 0.08,
+      "expected": 0.0844
+    },
+    {
+      "item": "abstain/both missed",
+      "status": "ok",
+      "quoted": 0.12,
+      "expected": 0.1246
+    },
+    {
+      "item": "inline/observed-days error",
+      "status": "ok",
+      "quoted": 1.305,
+      "expected": 1.3052
+    },
+    {
+      "item": "inline/observed-days in SD",
+      "status": "ok",
+      "quoted": 1.23,
+      "expected": 1.2314
+    },
+    {
+      "item": "inline/confirmation point",
+      "status": "ok",
+      "quoted": -7.13,
+      "expected": -7.1297
+    },
+    {
+      "item": "inline/confirmation ci low",
+      "status": "ok",
+      "quoted": -8.97,
+      "expected": -8.9657
+    },
+    {
+      "item": "inline/confirmation ci high",
+      "status": "ok",
+      "quoted": -5.36,
+      "expected": -5.3574
+    },
+    {
+      "item": "inline/simple rule point",
+      "status": "ok",
+      "quoted": -5.44,
+      "expected": -5.4397
+    },
+    {
+      "item": "inline/simple rule ci low",
+      "status": "ok",
+      "quoted": -6.85,
+      "expected": -6.8475
+    },
+    {
+      "item": "inline/simple rule ci high",
+      "status": "ok",
+      "quoted": -3.96,
+      "expected": -3.9587
+    },
+    {
+      "item": "inline/noise dev clean",
+      "status": "ok",
+      "quoted": 6.32,
+      "expected": 6.3209
+    },
+    {
+      "item": "inline/noise dev noisy",
+      "status": "ok",
+      "quoted": 6.21,
+      "expected": 6.205
+    },
+    {
+      "item": "inline/noise res clean",
+      "status": "ok",
+      "quoted": 7.06,
+      "expected": 7.0636
+    },
+    {
+      "item": "inline/noise res noisy",
+      "status": "ok",
+      "quoted": 6.67,
+      "expected": 6.6675
+    },
+    {
+      "item": "inline/prior-years point",
+      "status": "ok",
+      "quoted": -5.92,
+      "expected": -5.9211
+    },
+    {
+      "item": "inline/prior-years coverage",
+      "status": "ok",
+      "quoted": 0.906,
+      "expected": 0.9055
+    },
+    {
+      "item": "inline/sweep cert min",
+      "status": "ok",
+      "quoted": 0.18,
+      "expected": 0.178
+    },
+    {
+      "item": "inline/sweep cert max",
+      "status": "ok",
+      "quoted": 0.37,
+      "expected": 0.3696
+    },
+    {
+      "item": "inline/sweep length min",
+      "status": "ok",
+      "quoted": 0.84,
+      "expected": 0.8392
+    },
+    {
+      "item": "inline/sweep length max",
+      "status": "ok",
+      "quoted": 1.53,
+      "expected": 1.5281
+    },
+    {
+      "item": "inline/elevation rho",
+      "status": "ok",
+      "quoted": -0.29,
+      "expected": -0.2883
+    },
+    {
+      "item": "inline/slope rho",
+      "status": "ok",
+      "quoted": -0.31,
+      "expected": -0.3087
+    },
+    {
+      "item": "inline/bfi error difference",
+      "status": "ok",
+      "quoted": -0.043,
+      "expected": -0.043
+    },
+    {
+      "item": "inline/bfi peak magnitude rho",
+      "status": "ok",
+      "quoted": -0.47,
+      "expected": -0.4671
+    }
+  ]
+}

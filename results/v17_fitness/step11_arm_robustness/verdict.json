@@ -1,0 +1,22 @@
+{
+  "pre_registered_test": "pooled cases, as declared in step9_freeze",
+  "finding": "The relative reduction in consequential-error rate is stable across outage regimes; the absolute reduction is not, because the base rate differs by an order of magnitude between the empirical and stratified arms.",
+  "declared_effect_points": 5.0,
+  "meets_declared_effect": {
+    "development_empirical": false,
+    "development_stratified": true,
+    "development_pooled": true,
+    "reserved_empirical": false,
+    "reserved_stratified": true,
+    "reserved_pooled": true
+  },
+  "interval_excludes_zero": {
+    "development_empirical": true,
+    "development_stratified": true,
+    "development_pooled": true,
+    "reserved_empirical": false,
+    "reserved_stratified": true,
+    "reserved_pooled": true
+  },
+  "lesson": "The freeze should have weighted the arms explicitly. Reporting the pooled number alone would overstate what an archive with ordinary outage geometry stands to gain."
+}

@@ -1,0 +1,13 @@
+subset,treatment,n_scored,misclassification_rate
+all retained,observed_days_all,10820,0.06857670979667282
+all retained,reconstruct_all,10820,0.01968576709796673
+all retained,length_screened,7984,0.015280561122244489
+all retained,certificate_screened,7305,0.003559206023271732
+truth within 1.0 °C of 20,observed_days_all,1894,0.16842661034846884
+truth within 1.0 °C of 20,reconstruct_all,1894,0.09503695881731784
+truth within 1.0 °C of 20,length_screened,1418,0.07263751763046544
+truth within 1.0 °C of 20,certificate_screened,1299,0.01924557351809084
+truth within 0.5 °C of 20,observed_days_all,953,0.19097586568730326
+truth within 0.5 °C of 20,reconstruct_all,953,0.1311647429171039
+truth within 0.5 °C of 20,length_screened,713,0.10238429172510519
+truth within 0.5 °C of 20,certificate_screened,650,0.033846153846153845

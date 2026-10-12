@@ -1,0 +1,77 @@
+<mxfile host="app.diagrams.net" agent="stream-recoverability" version="24.7.17">
+  <diagram id="f0" name="Problem frame">
+    <mxGraphModel dx="1120" dy="760" grid="1" gridSize="10" page="1" pageWidth="1120" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="rec" value="A station-year  y = (y&#8321; … y_T),  T &#8712; {365, 366}&#10;with an outage mask  m &#8712; {0,1}^T ;  the analyst sees only the days where m&#8348; = 0" style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=13;fontStyle=1;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="520" height="62" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="qa" value="Estimand A — annual mean&#10;q(y) = (1/T) &#931;&#8348; y&#8348;" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=12.5;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="140" width="290" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="qb" value="Estimand B — hottest 30-day mean&#10;q(y) = max&#8348; (1/30) &#931;&#7522;&#8330;&#8348; y&#7522;" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=12.5;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="730" y="140" width="290" height="62" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sa" value="Support: all T days,&#10;each carrying weight 1/T" style="rounded=0;fillColor=#FFFFFF;strokeColor=#78909C;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="100" y="238" width="290" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="sb" value="Support: one 30-day window W_q,&#10;located by the station's own climatology" style="rounded=0;fillColor=#FFFFFF;strokeColor=#78909C;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="730" y="238" width="290" height="56" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="inc" value="Incumbent completeness rule&#10;s(m) = 1{ max run(m) &#8804; &#952; }&#10;&#10;Conditioning set: the size of the outage.&#10;Applied to every estimand alike." style="rounded=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=12.5;fontColor=#B71C1C" vertex="1" parent="1">
+          <mxGeometry x="420" y="140" width="280" height="154" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="aa" value="Governing axis&#10;how many days are missing" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=12.5;fontStyle=1;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="100" y="352" width="290" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="ab" value="Governing axis&#10;how much of W_q is hidden" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=12.5;fontStyle=1;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="730" y="352" width="290" height="56" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ma" value="Measured on 40,704 development cases&#10;error grows 10.2&#215; along missing days&#10;and 1.5&#215; along peak-window overlap" style="rounded=0;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11.5;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="100" y="446" width="290" height="66" as="geometry"/>
+        </mxCell>
+        <mxCell id="mb" value="Measured on the same cases&#10;error grows 3.5&#215; along missing days&#10;and 9.6&#215; along peak-window overlap" style="rounded=0;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11.5;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="730" y="446" width="290" height="66" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="law" value="One law, not two regimes:  measure missingness on the support of the estimand.&#10;&#8216;Timing versus length&#8217; is that law at the two ends of a scale; the crossover is at a support width of 91 days.&#10;A support must be located before it can be conditioned on, so the conditioning set is the support dilated by the&#10;year-to-year wander of its own location &#8212; one window of 60 to 90 days serves every warm-season endpoint." style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=13;fontStyle=1;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="140" y="560" width="840" height="86" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="rec" target="qa">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="560" y="112"/><mxPoint x="245" y="112"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="rec" target="qb">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="560" y="112"/><mxPoint x="875" y="112"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="qa" target="sa"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="qb" target="sb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="sa" target="aa"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="sb" target="ab"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="aa" target="ma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="ab" target="mb"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e9" value="conditioning set&#10;matches the support" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32;fontColor=#1B5E20;fontSize=10.5;dashed=1" edge="1" parent="1" source="inc" target="aa">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="560" y="326"/><mxPoint x="245" y="326"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e10" value="conditioning set&#10;ignores the support" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#C62828;fontColor=#B71C1C;fontSize=10.5" edge="1" parent="1" source="inc" target="ab">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="560" y="326"/><mxPoint x="875" y="326"/></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#90A4AE" edge="1" parent="1" source="ma" target="law">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="245" y="536"/><mxPoint x="420" y="536"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#90A4AE" edge="1" parent="1" source="mb" target="law">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="875" y="536"/><mxPoint x="700" y="536"/></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

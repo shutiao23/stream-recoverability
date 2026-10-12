@@ -1,0 +1,42 @@
+{
+  "question": "does the timing-over-length finding hold for metrics other than the annual peak?",
+  "tolerance_rule": "0.472 of each metric's own interannual standard deviation",
+  "timing_beats_length_marginally": {
+    "hottest7": true,
+    "hottest30": true,
+    "annual_mean": false,
+    "coldest30": false,
+    "amplitude30": true
+  },
+  "three_variable_rule_beats_length_rule": {
+    "hottest7": true,
+    "hottest30": true,
+    "annual_mean": false,
+    "coldest30": true,
+    "amplitude30": true
+  },
+  "points_saved": {
+    "hottest7": 4.07,
+    "hottest30": 3.61,
+    "annual_mean": -0.1,
+    "coldest30": 0.8,
+    "amplitude30": 1.5
+  },
+  "winning_axis_is_stable_across_tolerances": {
+    "amplitude30": [
+      "timing"
+    ],
+    "annual_mean": [
+      "length"
+    ],
+    "coldest30": [
+      "length"
+    ],
+    "hottest30": [
+      "timing"
+    ],
+    "hottest7": [
+      "timing"
+    ]
+  }
+}

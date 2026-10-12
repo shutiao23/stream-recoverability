@@ -1,0 +1,16 @@
+{
+  "form": "risk score = 1 / (1 + exp(-(b0 + b1*peak_overlap + b2*warm_observed_fraction + b3*longest_run_days)))",
+  "intercept_b0": -1.30211,
+  "coefficients": {
+    "peak_overlap": 2.070406,
+    "warm_observed_fraction": -2.411588,
+    "longest_run": -0.00187
+  },
+  "definitions": {
+    "peak_overlap": "share of the station's climatological hottest-30 window that the outage hides, from training years only, 0-1",
+    "warm_observed_fraction": "share of May-September days that remain observed, 0-1",
+    "longest_run_days": "length in days of the longest consecutive outage"
+  },
+  "use": "rank station-years by the score and retain the lowest; or pick a cut-off from the retention your archive can afford",
+  "fitted_on": "110 development networks; scored unchanged on 36 reserved networks"
+}

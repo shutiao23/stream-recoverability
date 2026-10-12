@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" agent="stream-recoverability" version="24.7.17">
+  <diagram id="f2" name="Study design and data flow">
+    <mxGraphModel dx="1180" dy="1000" grid="1" gridSize="10" page="1" pageWidth="1180" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="prov" value="Nine national providers&#10;ARSO (SI) &#183; CHMI (CZ) &#183; FOEN (CH) &#183; GKD Bayern (DE) &#183; LUBW (DE) &#183; NVE (NO) &#183; Rijkswaterstaat (NL) &#183; SYKE (FI) &#183; USGS (US)" style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=11.5;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="140" y="20" width="900" height="56" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="qc" value="Quality control&#10;waterbody class assigned per network; seas, lakes, canals, estuaries and deltas excluded rather than averaged in&#10;reference series never imputed &#8212; a year with any missing day supplies no truth&#10;stations with fewer than four fully observed calendar years excluded (the estimator protocol requires them)" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="250" y="112" width="680" height="82" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pop" value="Evaluation population &#8212; 146 networks &#183; 457 stations &#183; 5,114 fully observed station-years" style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontStyle=1;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="250" y="230" width="680" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="gages" value="GAGES-II basin attributes&#10;joined for 140 of 204 US stations.&#10;Used in &#167;5.3 to ask which rivers&#10;are hard; never an input to the&#10;screen, because eight agencies&#10;do not have them." style="shape=note;fillColor=#FFFDE7;strokeColor=#F9A825;fontSize=10.5;fontColor=#795548;align=left" vertex="1" parent="1">
+          <mxGeometry x="20" y="216" width="200" height="104" as="geometry"/>
+        </mxCell>
+        <mxCell id="drop" value="2,422 incomplete station-years&#10;carry no truth. In this design they&#10;enter only as a source of realistic&#10;outage geometry and are never&#10;scored." style="shape=note;fillColor=#FFFDE7;strokeColor=#F9A825;fontSize=10.5;fontColor=#795548;align=left" vertex="1" parent="1">
+          <mxGeometry x="960" y="216" width="200" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="split" value="Split declared at the network level &#8212; never at the station-year level&#10;stratified on provider &#215; donor regime (none / one to two / three or more), seed recorded before any scoring" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11.5;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="250" y="316" width="680" height="58" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="dev" value="110 development networks" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="90" y="412" width="450" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="res" value="36 reserved networks &#8212; sealed" style="rounded=1;fillColor=#ECEFF1;strokeColor=#546E7A;fontSize=12;fontStyle=1;fontColor=#37474F" vertex="1" parent="1">
+          <mxGeometry x="660" y="412" width="450" height="42" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cases" value="Outage design &#8212; 51,524 cases on two arms, reported apart&#10;empirical arm (19,036): real outage runs &#8212; length and start month &#8212;&#10;drawn from the same network&#8217;s own records&#10;stratified arm (32,488): length {14, 30, 60, 90, 120, 180, 270 d}&#10;crossed with peak-window overlap" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="480" width="450" height="96" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="score" value="Estimator library applied to every case; five endpoints scored&#10;against fully observed complete-year truth" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="590" width="450" height="52" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="gate" value="Gate before rule (&#167;4.7)&#10;oracle ceiling of each action space measured first, against the margin&#10;the reserved panel can resolve (0.136 &#176;C)&#10;adopt / reject a fixed reconstruction: +0.038 &#176;C &#8212; not pursued&#10;choose among reconstruction methods: +0.080 &#176;C &#8212; not pursued&#10;retain / exclude: clears the gate by a factor of five &#8212; studied here" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="90" y="670" width="450" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="fit" value="Mechanism (H1) &#183; screen fitting &#183; conformal calibration &#183; retention&#8211;error frontier&#10;fitting, calibration and test networks always disjoint" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="808" width="450" height="52" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="freeze" value="FREEZE &#8212; pre-registration written before the reserved panel was opened&#10;at the retention of the matched length rule the screen must cut the consequential-error rate by&#10;at least five percentage points, with a network-clustered interval excluding zero&#10;precision computed in advance: the reserved panel resolves 1.44 points" style="rounded=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=11;fontStyle=1;fontColor=#B71C1C" vertex="1" parent="1">
+          <mxGeometry x="620" y="670" width="500" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="conf" value="Reserved panel opened once, model applied without retuning&#10;&#8722;7.13 points (95% network-clustered interval &#8722;8.97 to &#8722;5.36) &#183; marginal coverage 0.909&#10;negative with an interval excluding zero in all nine agencies under leave-one-provider-out" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontStyle=1;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="620" y="808" width="500" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ga1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="prov" target="qc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="qc" target="pop"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#B0BEC5;dashed=1;endArrow=none" edge="1" parent="1" source="gages" target="pop"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#B0BEC5;dashed=1;endArrow=none" edge="1" parent="1" source="drop" target="pop"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="pop" target="split"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="split" target="dev">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="390"/><mxPoint x="315" y="390"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ga7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#546E7A" edge="1" parent="1" source="split" target="res">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="390"/><mxPoint x="885" y="390"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ga8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="dev" target="cases"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="cases" target="score"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="score" target="gate"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="gate" target="fit"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ga12" value="the frozen rule, unchanged" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#C62828;fontSize=10;fontColor=#B71C1C" edge="1" parent="1" source="fit" target="freeze">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="580" y="834"/><mxPoint x="580" y="715"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ga13" value="sealed until the freeze exists" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#546E7A;dashed=1;fontSize=10;fontColor=#37474F" edge="1" parent="1" source="res" target="conf">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1150" y="433"/><mxPoint x="1150" y="846"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ga14" value="scored once" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#C62828;fontSize=10;fontColor=#B71C1C" edge="1" parent="1" source="freeze" target="conf"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

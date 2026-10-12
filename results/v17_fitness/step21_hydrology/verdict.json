@@ -1,0 +1,30 @@
+{
+  "n_stations": 140,
+  "n_networks": 57,
+  "johnson_groundwater_test": {
+    "statement": "Johnson et al. (2021) report that filling can harm groundwater-influenced sites. Directional prediction: high baseflow index implies larger completed-year error.",
+    "difference_high_minus_low_bfi_c": -0.042952340007241435,
+    "ci": [
+      -0.08109309687487858,
+      -0.003653660391846295
+    ],
+    "supported": false
+  },
+  "reference_versus_disturbed": {
+    "statement": "Directional prediction: reference basins are easier than disturbed ones.",
+    "difference_ref_minus_nonref_c": 0.004334722474154451,
+    "ci": [
+      -0.0508418632023575,
+      0.09336408470388062
+    ],
+    "supported": false
+  },
+  "expected_signs": {
+    "BFI_AVE": "negative: groundwater damps the shared atmospheric signal donors carry",
+    "CONTACT": "negative: longer subsurface contact time decouples the stream from weather",
+    "STOR_NID_2009": "negative: upstream storage imposes a release regime donors do not share",
+    "DRAIN_SQKM": "positive: thermal inertia makes large rivers track regional rather than local forcing",
+    "ELEV_SITE_M": "none declared",
+    "SLOPE_PCT": "none declared"
+  }
+}

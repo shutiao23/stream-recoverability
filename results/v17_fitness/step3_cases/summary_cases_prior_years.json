@@ -1,0 +1,22 @@
+{
+  "output": "cases_prior_years.parquet",
+  "fit_protocol": "strictly_prior_years",
+  "n_cases": 42373,
+  "n_networks": 146,
+  "n_stations": 457,
+  "n_station_years": 4200,
+  "n_failures": 0,
+  "by_split": {
+    "development": 33633,
+    "reserved": 8740
+  },
+  "by_arm": {
+    "empirical": 15708,
+    "stratified": 26665
+  },
+  "by_donor_regime": {
+    "none": 2697,
+    "rich": 26332,
+    "sparse": 13344
+  }
+}

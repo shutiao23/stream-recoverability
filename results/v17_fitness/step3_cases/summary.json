@@ -1,0 +1,22 @@
+{
+  "output": "cases.parquet",
+  "fit_protocol": "leave_one_year_out",
+  "n_cases": 51524,
+  "n_networks": 146,
+  "n_stations": 457,
+  "n_station_years": 5114,
+  "n_failures": 0,
+  "by_split": {
+    "development": 40704,
+    "reserved": 10820
+  },
+  "by_arm": {
+    "empirical": 19036,
+    "stratified": 32488
+  },
+  "by_donor_regime": {
+    "none": 3437,
+    "rich": 31047,
+    "sparse": 17040
+  }
+}

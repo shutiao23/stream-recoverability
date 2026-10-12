@@ -1,0 +1,23 @@
+{
+  "as_of": "2026-09-23",
+  "population": "river waterbodies, fully observed calendar years, reference never imputed",
+  "min_complete_years_per_station": 4,
+  "split_seed": 20260923,
+  "reserved_network_fraction": 0.3,
+  "n_networks_total": 161,
+  "n_stations_total": 547,
+  "n_station_years_total": 5307,
+  "n_eligible_stations": 457,
+  "n_eligible_networks": 146,
+  "n_eligible_station_years": 5114,
+  "n_development_networks": 110,
+  "n_reserved_networks": 36,
+  "natural_scale_interannual_sd": {
+    "n_stations": 457,
+    "mean_sd_c": 1.0620491558240261,
+    "median_sd_c": 1.019357095864296,
+    "q25_sd_c": 0.7213253894466194,
+    "q75_sd_c": 1.3360546371552533
+  },
+  "donor_regime_networks": "{('development', 'none'): 36, ('development', 'rich'): 22, ('development', 'sparse'): 52, ('reserved', 'none'): 13, ('reserved', 'rich'): 6, ('reserved', 'sparse'): 17}"
+}

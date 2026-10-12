@@ -1,0 +1,15 @@
+{
+  "tolerance_c": 0.6421505999903545,
+  "development": {
+    "n_cases": 40704,
+    "length_rule_at_70": 0.07370231284876988,
+    "certificate_at_70": 0.027340048432948443,
+    "points_saved": 4.636226441582143
+  },
+  "reserved": {
+    "n_cases": 10820,
+    "length_rule_at_70": 0.07499339846844467,
+    "certificate_at_70": 0.03538420913651967,
+    "points_saved": 3.9609189331925005
+  }
+}

@@ -1,0 +1,25 @@
+claim,statement,produced_by,artifact,sha256_16,bytes,manuscript_section
+P1,Recorded-days metrics cost more than one interannual SD,scripts/182_v17_ceiling.py,results/v17_fitness/step4_ceiling/estimator_tolerances.csv,0afe444a1dc20941,587,3.1
+M1,Which axis wins depends on the endpoint,scripts/196_v17_metric_generality.py,results/v17_fitness/step17_metric_generality/metric_generality.csv,13c481a506630c05,1737,3.2
+M2,The axis ordering is stable across tolerances,scripts/196_v17_metric_generality.py,results/v17_fitness/step17_metric_generality/tolerance_sweep.csv,45870b6f3268b6da,1965,3.2
+M3,"The axis contrast is a separation, not an ordering",scripts/202_v17_robustness.py,results/v17_fitness/step22_robustness/auc_contrasts.csv,1f7fcacae0a86a94,734,3.2
+M4,The mechanism is measurable: error scales with the covariate the story names,scripts/200_v17_round4_gaps.py,results/v17_fitness/step20_round4/mechanism_gradients.csv,32acf2ece46baa23,1256,3.2
+M5,The timing side is confirmed on both of its members,scripts/200_v17_round4_gaps.py,results/v17_fitness/step20_round4/amplitude_screen.json,c6754f6c03dc71d5,390,3.2
+G1-G3,Action-space ceilings against the reserved panel's resolution,scripts/182_v17_ceiling.py,results/v17_fitness/step4_ceiling/gate.json,040b46d645a576bc,502,2.4
+H1,Peak-window overlap dominates outage length for the peak,scripts/183_v17_mechanism.py,results/v17_fitness/step5_mechanism/permutation_importance.csv,bb1fcd515faccc4b,547,3.2
+H1d-e,"Donor quality, and synchronous anomaly information",scripts/183_v17_mechanism.py,results/v17_fitness/step5_mechanism/donor_control_contrasts.csv,a5b99c803caf5198,306,3.2
+H2,The screen beats fixed-length screening on reserved networks,scripts/187_v17_confirm.py,results/v17_fitness/step10_confirmation/verdict.json,08bca0d4693c0bc0,1382,3.3
+H2b,The absolute advantage is regime-dependent,scripts/189_v17_arm_robustness.py,results/v17_fitness/step11_arm_robustness/arm_contrasts.csv,1c476ef636ddfe3a,2237,3.4
+H2d,The incumbent was not handicapped,scripts/194_v17_baseline_strength.py,results/v17_fitness/step15_baseline_strength/baseline_strength.csv,79bb743b983ac19f,1372,3.6
+H2e,The result is not carried by the largest agencies,scripts/198_v17_weighting.py,results/v17_fitness/step19_weighting/weighting.csv,9eb3fbd6430321eb,735,3.3
+H3,"Conformal coverage, marginal and by stratum",scripts/187_v17_confirm.py,results/v17_fitness/step10_confirmation/coverage.csv,d2c4d45edaba0a96,1077,3.7
+H3c,Site-level validity is reachable at a stated price,scripts/197_v17_cluster_conformal.py,results/v17_fitness/step18_cluster_conformal/summary.json,a022fa588fb97928,5337,3.7
+H4a,"Per-year judgements, including the hard subset",scripts/200_v17_round4_gaps.py,results/v17_fitness/step20_round4/near_threshold.csv,f6d810345c422a90,830,3.8
+H4c,Abstention beats screening for a threshold call,scripts/200_v17_round4_gaps.py,results/v17_fitness/step20_round4/abstain_versus_screen.csv,68d2d8f7454fad7c,368,3.8
+H5,Transfer across agencies,scripts/187_v17_confirm.py,results/v17_fitness/step10_confirmation/leave_one_provider_out.csv,427085a0363f0ef1,911,3.9
+H6-H7,The axis carries most of the benefit; the simple rule is deployable,"scripts/190_v17_ablations, 195_v17_simple_rule.py",results/v17_fitness/step12_ablations/ablations.csv,9824963678862ab3,1367,3.5
+H8,No dependence on estimators seeing future years,scripts/191_v17_prior_years.py,results/v17_fitness/step13_prior_years/protocol_comparison.csv,95d12e9e058a3257,486,3.10
+R1,Reference-series measurement error does not move the result,scripts/202_v17_robustness.py,results/v17_fitness/step22_robustness/noise_sensitivity.json,3673b396b41ccbf6,914,3.11
+R2,The exceedance result is not an artefact of the threshold,scripts/202_v17_robustness.py,results/v17_fitness/step22_robustness/threshold_sweep.csv,910c00a1d7b73c0d,2705,3.8
+HY1,Catchment attribution: which rivers are hard,scripts/201_v17_hydrology.py,results/v17_fitness/step21_hydrology/correlations.csv,ad256af45476a783,4651,3.12
+HY2,"Directional tests from the literature, including the groundwater claim",scripts/201_v17_hydrology.py,results/v17_fitness/step21_hydrology/verdict.json,baa8b943b081d1de,1189,3.12

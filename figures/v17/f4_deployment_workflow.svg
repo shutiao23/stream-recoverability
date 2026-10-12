@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1168" height="798" viewBox="0 0 1168 798">
+<title>Agency deployment workflow</title>
+<rect width="1168" height="798" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#37474f"/></marker><marker id="arrowdim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#90a4ae"/></marker></defs>
+<g transform="translate(-6.0,4.0)">
+<rect x="340.0" y="584.0" width="500.0" height="84.0" rx="10" ry="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.4"/>
+<text x="590.0" y="609.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">Before adopting it, check what the rule keeps</text>
+<text x="590.0" y="623.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">report retention by site elevation, basin slope and donor availability.</text>
+<text x="590.0" y="637.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">If the retained archive is not representative, apply the threshold within</text>
+<text x="590.0" y="651.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#B71C1C" text-anchor="middle" xml:space="preserve">stratum rather than globally — on our panel that costs 0.2 points or less.</text>
+<rect x="880.0" y="332.0" width="270.0" height="136.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
+<text x="892.0" y="357.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">If an uncertainty statement in °C</text>
+<text x="892.0" y="370.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">is needed, run the calibrated</text>
+<text x="892.0" y="384.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">screen instead of the three-variable</text>
+<text x="892.0" y="397.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">rule and report its interval.</text>
+<text x="892.0" y="411.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Where validity is needed at one</text>
+<text x="892.0" y="424.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">site, use the cluster calibration:</text>
+<text x="892.0" y="437.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">about 1.5× wider intervals, and the</text>
+<text x="892.0" y="451.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">admission decision is unchanged.</text>
+<rect x="340.0" y="700.0" width="500.0" height="70.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="590.0" y="725.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">What it buys, on 36 networks never used for fitting, at 70% retention</text>
+<text x="590.0" y="739.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">4.2% of retained years wrong by more than 0.5 °C with the three-variable rule,</text>
+<text x="590.0" y="753.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" font-weight="600" xml:space="preserve">2.5% with the calibrated screen, against 9.7% for the length rule</text>
+<rect x="880.0" y="500.0" width="270.0" height="104.0" rx="10" ry="10" fill="#FFFDE7" stroke="#F9A825" stroke-width="1.4"/>
+<text x="892.0" y="522.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">If the question is a single threshold</text>
+<text x="892.0" y="536.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">judgement — was this year above a</text>
+<text x="892.0" y="549.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">criterion — do not discard the year.</text>
+<text x="892.0" y="563.0" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">Decline only the judgement the</text>
+<text x="892.0" y="576.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">interval cannot support: 93% of years</text>
+<text x="892.0" y="589.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#795548" text-anchor="start" xml:space="preserve">judged at the same error rate.</text>
+<rect x="340.0" y="248.0" width="500.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="590.0" y="271.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">Locate the station’s climatological peak window from its own complete years</text>
+<text x="590.0" y="286.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">no data beyond the station’s own record is needed</text>
+<rect x="340.0" y="332.0" width="500.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="590.0" y="355.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">Compute three numbers from the outage mask alone</text>
+<text x="590.0" y="370.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">peak_overlap · warm_observed_fraction · longest_run_days</text>
+<rect x="340.0" y="416.0" width="500.0" height="52.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="590.0" y="439.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">risk = logistic( −1.302 + 2.070 · peak_overlap</text>
+<text x="590.0" y="454.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">− 2.412 · warm_observed_fraction − 0.00187 · longest_run_days )</text>
+<rect x="340.0" y="500.0" width="500.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="590.0" y="523.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">Rank station-years by risk and admit down to the retention</text>
+<text x="590.0" y="538.1" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">the monitoring programme can afford</text>
+<rect x="30.0" y="256.0" width="270.0" height="96.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="165.0" y="280.3" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Keep the completeness rule you have.</text>
+<text x="165.0" y="294.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Threshold the number of missing days.</text>
+<text x="165.0" y="308.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">On our panel length is the better axis</text>
+<text x="165.0" y="322.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">for these endpoints (AUC 0.845 against</text>
+<text x="165.0" y="336.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">0.672 for peak-window overlap).</text>
+<rect x="340.0" y="20.0" width="500.0" height="44.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="590.0" y="46.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#0D47A1" text-anchor="middle" font-weight="600" xml:space="preserve">A station-year with an outage arrives at the archive</text>
+<rect x="340.0" y="96.0" width="500.0" height="44.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="590.0" y="122.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="12.0" fill="#E65100" text-anchor="middle" font-weight="600" xml:space="preserve">Which statistic will be computed from this year?</text>
+<rect x="340.0" y="172.0" width="500.0" height="44.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="590.0" y="198.7" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.5" fill="#102027" text-anchor="middle" xml:space="preserve">A warm-season extreme — hottest 7-day or 30-day mean</text>
+<rect x="30.0" y="172.0" width="270.0" height="50.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="165.0" y="194.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">An average over the year</text>
+<text x="165.0" y="208.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">annual mean, coldest 30-day mean</text>
+<polyline points="590.0,65.0 590.0,95.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,141.0 590.0,156.0 165.0,156.0 165.0,171.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,141.0 590.0,171.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="165.0,223.0 165.0,255.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,217.0 590.0,247.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,301.0 590.0,331.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,385.0 590.0,415.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,469.0 590.0,499.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,553.0 590.0,583.0" fill="none" stroke="#C62828" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="590.0,669.0 590.0,699.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="879.0,413.4 841.0,417.2" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
+<polyline points="879.0,543.7 841.0,541.4" fill="none" stroke="#B0BEC5" stroke-width="1.4" stroke-dasharray="6 4"/>
+</g></svg>

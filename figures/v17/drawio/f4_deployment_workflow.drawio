@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net" agent="stream-recoverability" version="24.7.17">
+  <diagram id="f4" name="Agency deployment workflow">
+    <mxGraphModel dx="1180" dy="820" grid="1" gridSize="10" page="1" pageWidth="1180" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="n0" value="A station-year with an outage arrives at the archive" style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;fontStyle=1;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="340" y="20" width="500" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="q1" value="Which statistic will be computed from this year?" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=12;fontStyle=1;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="340" y="96" width="500" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ba" value="An average over the year&#10;annual mean, coldest 30-day mean" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="30" y="172" width="270" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ba2" value="Keep the completeness rule you have.&#10;Threshold the number of missing days.&#10;On our panel length is the better axis&#10;for these endpoints (AUC 0.845 against&#10;0.672 for peak-window overlap)." style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="30" y="256" width="270" height="96" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="n2" value="A warm-season extreme &#8212; hottest 7-day or 30-day mean" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11.5" vertex="1" parent="1">
+          <mxGeometry x="340" y="172" width="500" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="Locate the station&#8217;s climatological peak window from its own complete years&#10;no data beyond the station&#8217;s own record is needed" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11.5" vertex="1" parent="1">
+          <mxGeometry x="340" y="248" width="500" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="n4" value="Compute three numbers from the outage mask alone&#10;peak_overlap &#183; warm_observed_fraction &#183; longest_run_days" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11.5" vertex="1" parent="1">
+          <mxGeometry x="340" y="332" width="500" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="n5" value="risk = logistic( &#8722;1.302 + 2.070 &#183; peak_overlap&#10;&#8722; 2.412 &#183; warm_observed_fraction &#8722; 0.00187 &#183; longest_run_days )" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11.5;fontStyle=1;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="340" y="416" width="500" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="n6" value="Rank station-years by risk and admit down to the retention&#10;the monitoring programme can afford" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11.5" vertex="1" parent="1">
+          <mxGeometry x="340" y="500" width="500" height="52" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="n7" value="Before adopting it, check what the rule keeps&#10;report retention by site elevation, basin slope and donor availability.&#10;If the retained archive is not representative, apply the threshold within&#10;stratum rather than globally &#8212; on our panel that costs 0.2 points or less." style="rounded=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=11;fontColor=#B71C1C" vertex="1" parent="1">
+          <mxGeometry x="340" y="584" width="500" height="84" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="n8" value="What it buys, on 36 networks never used for fitting, at 70% retention&#10;4.2% of retained years wrong by more than 0.5 &#176;C with the three-variable rule,&#10;2.5% with the calibrated screen, against 9.7% for the length rule" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontStyle=1;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="340" y="700" width="500" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="s1" value="If an uncertainty statement in &#176;C&#10;is needed, run the calibrated&#10;screen instead of the three-variable&#10;rule and report its interval.&#10;Where validity is needed at one&#10;site, use the cluster calibration:&#10;about 1.5&#215; wider intervals, and the&#10;admission decision is unchanged." style="shape=note;fillColor=#FFFDE7;strokeColor=#F9A825;fontSize=10.5;fontColor=#795548;align=left" vertex="1" parent="1">
+          <mxGeometry x="880" y="332" width="270" height="136" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="If the question is a single threshold&#10;judgement &#8212; was this year above a&#10;criterion &#8212; do not discard the year.&#10;Decline only the judgement the&#10;interval cannot support: 93% of years&#10;judged at the same error rate." style="shape=note;fillColor=#FFFDE7;strokeColor=#F9A825;fontSize=10.5;fontColor=#795548;align=left" vertex="1" parent="1">
+          <mxGeometry x="880" y="500" width="270" height="104" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="y1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="n0" target="q1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="q1" target="ba">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="156"/><mxPoint x="165" y="156"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="y3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="q1" target="n2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="ba" target="ba2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="n2" target="n3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="n3" target="n4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="n5" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#C62828" edge="1" parent="1" source="n6" target="n7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32" edge="1" parent="1" source="n7" target="n8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#B0BEC5;dashed=1;endArrow=none" edge="1" parent="1" source="s1" target="n5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="y12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#B0BEC5;dashed=1;endArrow=none" edge="1" parent="1" source="s2" target="n6"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

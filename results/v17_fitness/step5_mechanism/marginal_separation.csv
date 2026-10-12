@@ -1,0 +1,15 @@
+feature,auc,direction,n
+warm_observed_fraction,0.8194288610449024,lower is worse,40704
+peak_overlap,0.8190228936847219,higher is worse,40704
+observed_peak_margin,0.7678109159572767,lower is worse,40691
+longest_run,0.748793353730137,higher is worse,40704
+missing_fraction,0.7426587628639063,higher is worse,40704
+total_missing,0.7420231230829597,higher is worse,40704
+train_metric_sd,0.5873265298613677,higher is worse,40704
+donor_corr_max,0.5839889319730525,lower is worse,38192
+donor_coverage_mean,0.5757042457795704,lower is worse,39517
+n_runs,0.574506705096673,lower is worse,40704
+train_resid_sd,0.5724108473990356,higher is worse,40704
+donor_corr_mean,0.5574096931341008,lower is worse,38192
+seasonal_amplitude,0.5309906585879017,higher is worse,40704
+n_visible_donors,0.5210480727114783,lower is worse,40704

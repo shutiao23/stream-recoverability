@@ -1,0 +1,422 @@
+"""Step 6 — the design: a calibrated usability certificate.
+
+For one station-year with a known outage pattern the certificate does three
+things, using only information visible at decision time:
+
+1. predicts, for every *supported* estimator, an upper bound on the absolute
+   error the completed year's thermal metric would carry;
+2. selects the estimator with the smallest bound, so method selection and
+   screening are one object rather than two;
+3. emits a conformal prediction interval on the metric and a use/exclude
+   decision at a tolerance the analyst names.
+
+Calibration is split-conformal with network-level grouping, so the calibration
+set and the test set never share a river network. The Mondrian variant
+calibrates within pre-declared strata to obtain conditional coverage.
+"""
+
+from __future__ import annotations
+
+from collections.abc import Sequence
+from dataclasses import dataclass, field
+
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import HistGradientBoostingRegressor
+
+from stream_recoverability.experiments.v17_fitness.paths import NOMINAL_COVERAGE, PRIMARY_TOLERANCE_C
+
+SCREEN_FEATURES = (
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "peak_overlap",
+    "warm_observed_fraction",
+    "observed_peak_margin",
+    "observed_peak",
+    "clim_peak",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "month_sin",
+    "month_cos",
+    "left_flank",
+    "right_flank",
+    "has_complete_window",
+    "air_available",
+)
+
+SCREENED_ESTIMATORS = ("doy_climatology", "smooth_climatology", "linear_interp", "donor_ridge", "air_ridge")
+
+
+def feature_frame(cases: pd.DataFrame, features: Sequence[str] | None = None) -> pd.DataFrame:
+    """Only decision-time-visible quantities. Enforced here, not by convention."""
+
+    names = tuple(SCREEN_FEATURES if features is None else features)
+    frame = pd.DataFrame(index=cases.index)
+    month = pd.to_numeric(cases["longest_run_month"], errors="coerce").fillna(6)
+    frame["month_sin"] = np.sin(2 * np.pi * month / 12.0)
+    frame["month_cos"] = np.cos(2 * np.pi * month / 12.0)
+    for name in names:
+        if name in ("month_sin", "month_cos"):
+            continue
+        if name not in cases.columns:
+            frame[name] = np.nan
+            continue
+        column = cases[name]
+        if column.dtype == bool:
+            frame[name] = column.astype(float)
+        else:
+            frame[name] = pd.to_numeric(column, errors="coerce")
+    return frame[list(names)]
+
+
+def supported(cases: pd.DataFrame, estimator: str) -> np.ndarray:
+    """An estimator is supported when its inputs exist, judged without the truth."""
+
+    if estimator == "donor_ridge":
+        return (pd.to_numeric(cases["n_visible_donors"], errors="coerce").fillna(0) > 0).to_numpy()
+    if estimator == "air_ridge":
+        return cases["air_available"].astype(bool).to_numpy()
+    if estimator == "linear_interp":
+        return (cases["left_flank"].astype(bool) & cases["right_flank"].astype(bool)).to_numpy()
+    return np.ones(len(cases), dtype=bool)
+
+
+@dataclass
+class EstimatorHead:
+    """Quantile models for one estimator. Calibration lives on the Certificate."""
+
+    estimator: str
+    upper: object | None = None
+    lo: object | None = None
+    hi: object | None = None
+    trained: bool = False
+
+
+def _quantile_model(alpha: float, seed: int) -> HistGradientBoostingRegressor:
+    return HistGradientBoostingRegressor(
+        loss="quantile",
+        quantile=float(alpha),
+        random_state=int(seed),
+        max_depth=4,
+        max_iter=350,
+        learning_rate=0.06,
+        min_samples_leaf=40,
+    )
+
+
+EPSILON_C = 0.02
+
+
+@dataclass
+class Certificate:
+    """The frozen object: heads per estimator plus selection-conditional calibration.
+
+    Two properties of the calibration matter and were both wrong in the first
+    implementation. First, the bound is calibrated *after* the estimator is
+    selected, because selecting the smallest of several bounds is a winner's
+    curse that a per-estimator calibration cannot see. Second, the conformity
+    score is multiplicative rather than additive, because the error scale of
+    this problem spans an order of magnitude between an outage that misses the
+    peak window and one that covers it; a single additive offset cannot cover
+    both.
+    """
+
+    heads: dict = field(default_factory=dict)
+    coverage: float = NOMINAL_COVERAGE
+    stratum_column: str | None = None
+    features: tuple = SCREEN_FEATURES
+    scale_abs: float = 1.0
+    scale_interval: float = 1.0
+    strata_scale_abs: dict = field(default_factory=dict)
+    cluster_scale_abs: float = 1.0
+    cluster_scale_interval: float = 1.0
+    cluster_level: float = 0.90
+    cluster_quantiles_abs: tuple = ()
+    cluster_quantiles_interval: tuple = ()
+
+    # -- training ---------------------------------------------------------
+    def fit(
+        self,
+        fit_cases: pd.DataFrame,
+        calibration_cases: pd.DataFrame,
+        *,
+        estimators: Sequence[str] = SCREENED_ESTIMATORS,
+        seed: int = 0,
+        stratum_column: str | None = "donor_regime",
+    ) -> "Certificate":
+        self.stratum_column = stratum_column
+        alpha = 1.0 - float(self.coverage)
+        for estimator in estimators:
+            head = EstimatorHead(estimator=estimator)
+            mask = supported(fit_cases, estimator) & fit_cases[f"abserr_{estimator}"].notna().to_numpy()
+            if int(mask.sum()) < 400:
+                self.heads[estimator] = head
+                continue
+            X = feature_frame(fit_cases, self.features).loc[mask]
+            abs_error = pd.to_numeric(fit_cases.loc[mask, f"abserr_{estimator}"], errors="coerce")
+            signed = pd.to_numeric(fit_cases.loc[mask, f"err_{estimator}"], errors="coerce")
+            head.upper = _quantile_model(self.coverage, seed).fit(X, abs_error)
+            head.lo = _quantile_model(alpha / 2.0, seed).fit(X, signed)
+            head.hi = _quantile_model(1.0 - alpha / 2.0, seed).fit(X, signed)
+            head.trained = True
+            self.heads[estimator] = head
+
+        raw = self._raw(calibration_cases)
+        if raw is not None:
+            abs_scores = raw["abs_error"].to_numpy() / np.maximum(raw["raw_bound"].to_numpy(), EPSILON_C)
+            self.scale_abs = _conformal_quantile(abs_scores, self.coverage)
+            width = np.maximum(raw["raw_high"].to_numpy() - raw["raw_low"].to_numpy(), EPSILON_C)
+            interval_scores = (
+                np.maximum(raw["raw_low"].to_numpy() - raw["signed_error"].to_numpy(),
+                           raw["signed_error"].to_numpy() - raw["raw_high"].to_numpy())
+                / width
+            )
+            self.scale_interval = _conformal_quantile(interval_scores, self.coverage)
+            # Cluster-aware calibration. Conformal validity assumes
+            # exchangeability, which fails between river networks: a pooled
+            # quantile gives the right coverage on average over networks and
+            # too little inside the hardest ones. Taking a high quantile of the
+            # per-network quantiles targets "most networks are covered" instead
+            # of "cases are covered on average".
+            clusters = calibration_cases.loc[raw.index, "network_id"].astype(str).to_numpy()
+            self.cluster_quantiles_abs = _per_cluster_quantiles(abs_scores, clusters, self.coverage)
+            self.cluster_quantiles_interval = _per_cluster_quantiles(interval_scores, clusters, self.coverage)
+            self.cluster_scale_abs = _cluster_quantile(abs_scores, clusters, self.coverage, self.cluster_level)
+            self.cluster_scale_interval = _cluster_quantile(
+                interval_scores, clusters, self.coverage, self.cluster_level
+            )
+            if stratum_column is not None and stratum_column in calibration_cases.columns:
+                strata = calibration_cases.loc[raw.index, stratum_column].astype(str).to_numpy()
+                for value in np.unique(strata):
+                    block = abs_scores[strata == value]
+                    if len(block) >= 80:
+                        self.strata_scale_abs[str(value)] = _conformal_quantile(block, self.coverage)
+        return self
+
+    # -- internals --------------------------------------------------------
+    def _raw(self, cases: pd.DataFrame) -> pd.DataFrame | None:
+        """Uncalibrated bounds, the selection they imply, and the realised error."""
+
+        X = feature_frame(cases, self.features)
+        n = len(cases)
+        bounds = pd.DataFrame(index=cases.index)
+        lows = pd.DataFrame(index=cases.index)
+        highs = pd.DataFrame(index=cases.index)
+        any_trained = False
+        for estimator, head in self.heads.items():
+            column = np.full(n, np.inf, dtype=float)
+            low = np.full(n, np.nan, dtype=float)
+            high = np.full(n, np.nan, dtype=float)
+            if head.trained:
+                any_trained = True
+                mask = supported(cases, estimator) & cases[f"abserr_{estimator}"].notna().to_numpy()
+                if mask.any():
+                    block = X.loc[mask]
+                    column[mask] = np.maximum(head.upper.predict(block), 0.0)
+                    low[mask] = head.lo.predict(block)
+                    high[mask] = head.hi.predict(block)
+            bounds[estimator] = column
+            lows[estimator] = low
+            highs[estimator] = high
+        if not any_trained:
+            return None
+        chosen = bounds.idxmin(axis=1)
+        raw_bound = bounds.min(axis=1)
+        valid = np.isfinite(raw_bound.to_numpy())
+        frame = pd.DataFrame(index=cases.index)
+        frame["chosen"] = chosen
+        frame["raw_bound"] = raw_bound
+        picked_low = np.full(n, np.nan, dtype=float)
+        picked_high = np.full(n, np.nan, dtype=float)
+        abs_error = np.full(n, np.nan, dtype=float)
+        signed_error = np.full(n, np.nan, dtype=float)
+        metric = np.full(n, np.nan, dtype=float)
+        for estimator in bounds.columns:
+            mask = (chosen == estimator).to_numpy() & valid
+            if not mask.any():
+                continue
+            picked_low[mask] = lows[estimator].to_numpy()[mask]
+            picked_high[mask] = highs[estimator].to_numpy()[mask]
+            abs_error[mask] = pd.to_numeric(cases[f"abserr_{estimator}"], errors="coerce").to_numpy()[mask]
+            signed_error[mask] = pd.to_numeric(cases[f"err_{estimator}"], errors="coerce").to_numpy()[mask]
+            metric[mask] = pd.to_numeric(cases[f"metric_{estimator}"], errors="coerce").to_numpy()[mask]
+        frame["raw_low"] = picked_low
+        frame["raw_high"] = picked_high
+        frame["abs_error"] = abs_error
+        frame["signed_error"] = signed_error
+        frame["metric"] = metric
+        for estimator in bounds.columns:
+            frame[f"bound_{estimator}"] = bounds[estimator]
+        keep = frame["raw_bound"].notna() & np.isfinite(frame["raw_bound"]) & frame["abs_error"].notna()
+        return frame.loc[keep]
+
+    # -- application ------------------------------------------------------
+    def cluster_scales(self, level: float) -> tuple[float, float]:
+        """Calibration scales targeting coverage inside ``level`` of networks."""
+
+        def pick(stored: tuple, fallback: float) -> float:
+            values = np.asarray(stored, dtype=float)
+            if values.size < 3:
+                return float(fallback)
+            return float(np.quantile(values, float(level)))
+
+        return pick(self.cluster_quantiles_abs, self.scale_abs), pick(
+            self.cluster_quantiles_interval, self.scale_interval
+        )
+
+    def apply(
+        self,
+        cases: pd.DataFrame,
+        *,
+        mondrian: bool = False,
+        cluster_aware: bool = False,
+        cluster_level: float | None = None,
+    ) -> pd.DataFrame:
+        raw = self._raw(cases)
+        out = pd.DataFrame(index=cases.index)
+        if raw is None or raw.empty:
+            for column in ("certificate_choice", "certificate_bound", "certificate_abs_error"):
+                out[column] = np.nan
+            return out
+        if cluster_aware:
+            scale, interval_scale = self.cluster_scales(
+                self.cluster_level if cluster_level is None else float(cluster_level)
+            )
+        else:
+            scale, interval_scale = self.scale_abs, self.scale_interval
+        if mondrian and self.strata_scale_abs and self.stratum_column in cases.columns:
+            strata = cases.loc[raw.index, self.stratum_column].astype(str)
+            scale = strata.map(lambda value: self.strata_scale_abs.get(value, self.scale_abs)).to_numpy()
+        bound = np.maximum(raw["raw_bound"].to_numpy(), EPSILON_C) * scale
+        width = np.maximum(raw["raw_high"].to_numpy() - raw["raw_low"].to_numpy(), EPSILON_C)
+        low = raw["raw_low"].to_numpy() - interval_scale * width
+        high = raw["raw_high"].to_numpy() + interval_scale * width
+
+        frame = pd.DataFrame(index=raw.index)
+        frame["certificate_choice"] = raw["chosen"]
+        frame["certificate_bound"] = bound
+        frame["certificate_raw_bound"] = raw["raw_bound"]
+        frame["certificate_abs_error"] = raw["abs_error"]
+        frame["certificate_signed_error"] = raw["signed_error"]
+        frame["certificate_metric"] = raw["metric"]
+        frame["interval_low"] = low
+        frame["interval_high"] = high
+        frame["interval_width"] = high - low
+        frame["covered"] = (raw["signed_error"].to_numpy() >= low) & (raw["signed_error"].to_numpy() <= high)
+        frame["bound_covered"] = raw["abs_error"].to_numpy() <= bound
+        for estimator in self.heads:
+            column = f"bound_{estimator}"
+            if column in raw.columns:
+                frame[column] = raw[column]
+        return frame.reindex(cases.index)
+
+
+def _per_cluster_quantiles(scores: np.ndarray, clusters: np.ndarray, coverage: float) -> tuple:
+    finite = np.isfinite(scores)
+    scores, clusters = np.asarray(scores, dtype=float)[finite], np.asarray(clusters)[finite]
+    out = []
+    for value in np.unique(clusters):
+        block = scores[clusters == value]
+        if block.size >= 30:
+            out.append(_conformal_quantile(block, coverage))
+    return tuple(out)
+
+
+def _cluster_quantile(
+    scores: np.ndarray, clusters: np.ndarray, coverage: float, cluster_level: float
+) -> float:
+    """Quantile of the per-cluster conformal quantiles.
+
+    Returns the value that covers ``coverage`` of cases inside at least
+    ``cluster_level`` of clusters, rather than ``coverage`` of cases pooled.
+    """
+
+    finite = np.isfinite(scores)
+    scores, clusters = np.asarray(scores, dtype=float)[finite], np.asarray(clusters)[finite]
+    if scores.size == 0:
+        return 1.0
+    per_cluster = []
+    for value in np.unique(clusters):
+        block = scores[clusters == value]
+        if block.size >= 30:
+            per_cluster.append(_conformal_quantile(block, coverage))
+    if len(per_cluster) < 3:
+        return _conformal_quantile(scores, coverage)
+    return float(np.quantile(np.asarray(per_cluster, dtype=float), float(cluster_level)))
+
+
+def _conformal_quantile(scores: np.ndarray, coverage: float) -> float:
+    finite = np.asarray(scores, dtype=float)
+    finite = finite[np.isfinite(finite)]
+    if finite.size == 0:
+        return 1.0
+    n = finite.size
+    level = min(1.0, np.ceil((n + 1) * float(coverage)) / n)
+    return float(np.quantile(finite, level))
+
+
+def split_networks(networks: Sequence[str], *, fraction: float, seed: int) -> tuple[set[str], set[str]]:
+    unique = sorted({str(value) for value in networks})
+    rng = np.random.default_rng(int(seed))
+    order = rng.permutation(len(unique))
+    cut = max(1, int(round(len(unique) * float(fraction))))
+    calibration = {unique[int(i)] for i in order[:cut]}
+    fitting = {value for value in unique if value not in calibration}
+    return fitting, calibration
+
+
+def out_of_fold_certificates(
+    cases: pd.DataFrame,
+    *,
+    n_splits: int = 5,
+    calibration_fraction: float = 0.3,
+    seed: int = 0,
+    coverage: float = NOMINAL_COVERAGE,
+    mondrian: bool = False,
+    cluster_aware: bool = False,
+    features: Sequence[str] | None = None,
+) -> pd.DataFrame:
+    """Grouped cross-validated certificates: no network is ever in its own fit."""
+
+    networks = sorted(cases["network_id"].astype(str).unique())
+    rng = np.random.default_rng(int(seed))
+    order = rng.permutation(len(networks))
+    folds = {networks[int(idx)]: int(position % n_splits) for position, idx in enumerate(order)}
+    cases = cases.copy()
+    cases["_fold"] = cases["network_id"].astype(str).map(folds)
+    pieces = []
+    for fold in range(int(n_splits)):
+        test = cases.loc[cases["_fold"].eq(fold)]
+        train = cases.loc[~cases["_fold"].eq(fold)]
+        if test.empty or train.empty:
+            continue
+        fit_ids, cal_ids = split_networks(
+            train["network_id"].astype(str).unique(), fraction=calibration_fraction, seed=seed + fold
+        )
+        fit_cases = train.loc[train["network_id"].astype(str).isin(fit_ids)]
+        cal_cases = train.loc[train["network_id"].astype(str).isin(cal_ids)]
+        if fit_cases.empty or cal_cases.empty:
+            continue
+        model = Certificate(
+            coverage=coverage, features=tuple(SCREEN_FEATURES if features is None else features)
+        ).fit(fit_cases, cal_cases, seed=seed + fold)
+        applied = model.apply(test, mondrian=mondrian, cluster_aware=cluster_aware)
+        applied["_fold"] = fold
+        pieces.append(applied)
+    if not pieces:
+        return pd.DataFrame(index=cases.index)
+    return pd.concat(pieces).reindex(cases.index)
+
+
+def usable(bound: pd.Series, tolerance: float = PRIMARY_TOLERANCE_C) -> pd.Series:
+    return pd.to_numeric(bound, errors="coerce") <= float(tolerance)

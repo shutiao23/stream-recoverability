@@ -1,0 +1,11 @@
+panel,screen,reconstruction,rate_above_0.5_at_70,mean_abs_error_at_70,retain_all_rate
+development,outage-length rule,information-conditioned policy (used in the paper),0.09233846909767311,0.1535900960098669,0.14868317610062892
+development,outage-length rule,"always donor ridge, else climatology",0.09570771768504545,0.15972570818466944,0.1498378537735849
+development,outage-length rule,always smooth climatology,0.1978731618292212,0.28804616831477703,0.26891705974842767
+development,outage-length rule,oracle over methods (NOT deployable),0.04716948022321272,0.09029832786807772,0.09460986635220126
+development,certificate,"deployable estimators, chosen by the certificate",0.02934053978170077,0.06582251658199491,0.1455876572327044
+reserved,outage-length rule,information-conditioned policy (used in the paper),0.09360971745444943,0.14783423425616837,0.14611829944547136
+reserved,outage-length rule,"always donor ridge, else climatology",0.09559017692104568,0.1506468896257008,0.1466728280961183
+reserved,outage-length rule,always smooth climatology,0.15394771587008185,0.22534541324004964,0.22033271719038816
+reserved,outage-length rule,oracle over methods (NOT deployable),0.041853710060734094,0.07722655637318356,0.08456561922365989
+reserved,certificate,"deployable estimators, chosen by the certificate",0.025349881172432004,0.056287873914929946,0.13835489833641404

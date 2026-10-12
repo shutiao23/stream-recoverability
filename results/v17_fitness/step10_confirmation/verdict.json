@@ -1,0 +1,55 @@
+{
+  "reserved_networks_opened": true,
+  "opened_on": "2026-09-23",
+  "n_cases": 10820,
+  "n_networks": 36,
+  "n_station_years": 1069,
+  "primary": {
+    "retention": 0.7,
+    "contrast_points": -7.129654079746501,
+    "ci_points": [
+      -8.965660197802626,
+      -5.3573631548047524
+    ],
+    "declared_effect_points": 5.0,
+    "passes_effect_size": true,
+    "passes_interval_excludes_zero": true,
+    "passes": true
+  },
+  "coverage": {
+    "marginal": 0.9085027726432532,
+    "passes_marginal_band": true,
+    "conditional_min": 0.8634190077704722,
+    "conditional_max": 0.949389523434423,
+    "passes_conditional_band": true
+  },
+  "by_donor_regime": {
+    "none": {
+      "point": -0.06635802469135803,
+      "low": -0.09578979449669105,
+      "high": -0.04653941879207358,
+      "se": 0.012361365797016594,
+      "n_clusters": 24.0,
+      "retention": 0.7,
+      "tolerance_c": 0.5
+    },
+    "rich": {
+      "point": -0.07154046997389034,
+      "low": -0.10408404710845094,
+      "high": -0.04151051107522227,
+      "se": 0.015358102553685372,
+      "n_clusters": 11.0,
+      "retention": 0.7,
+      "tolerance_c": 0.5
+    },
+    "sparse": {
+      "point": -0.06686046511627906,
+      "low": -0.08673068684103281,
+      "high": -0.046766476833742514,
+      "se": 0.010345172016226657,
+      "n_clusters": 30.0,
+      "retention": 0.7,
+      "tolerance_c": 0.5
+    }
+  }
+}

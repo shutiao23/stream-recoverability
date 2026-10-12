@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1168" height="558" viewBox="0 0 1168 558">
+<title>Evidence chain and closure</title>
+<rect width="1168" height="558" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#37474f"/></marker><marker id="arrowdim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#90a4ae"/></marker></defs>
+<g transform="translate(4.0,-46.0)">
+<text x="132.0" y="572.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="start" font-weight="600" xml:space="preserve">The loop is closed: a decision taken on records that really have holes changes which station-years enter the archive. What it does not change much is the regional mean, and that is reported too.</text>
+<rect x="40.0" y="70.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.4"/>
+<text x="155.0" y="98.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">Real archive</text>
+<text x="155.0" y="112.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">nine agencies, 146 networks,</text>
+<text x="155.0" y="126.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#0D47A1" text-anchor="middle" xml:space="preserve">457 stations</text>
+<rect x="330.0" y="70.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="445.0" y="98.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Complete-year truth</text>
+<text x="445.0" y="112.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">5,114 fully observed station-years,</text>
+<text x="445.0" y="126.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">never imputed</text>
+<rect x="620.0" y="70.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="735.0" y="98.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Outage placed</text>
+<text x="735.0" y="112.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">51,524 cases on an empirical</text>
+<text x="735.0" y="126.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">and a stratified arm</text>
+<rect x="910.0" y="70.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFFFFF" stroke="#37474F" stroke-width="1.4"/>
+<text x="1025.0" y="98.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">Reconstruction</text>
+<text x="1025.0" y="112.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">six estimators, support</text>
+<text x="1025.0" y="126.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#102027" text-anchor="middle" xml:space="preserve">declared per case</text>
+<rect x="910.0" y="250.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="1025.0" y="278.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">RQ0 — does the problem exist</text>
+<text x="1025.0" y="292.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">1.305 °C on recorded days,</text>
+<text x="1025.0" y="306.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">1.23 interannual SD</text>
+<rect x="620.0" y="250.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="735.0" y="278.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">RQ1, RQ2 — which axis governs</text>
+<text x="735.0" y="292.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">the reversal, its mechanism,</text>
+<text x="735.0" y="306.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">and which rivers are hard</text>
+<rect x="330.0" y="250.0" width="230.0" height="76.0" rx="10" ry="10" fill="#FFF3E0" stroke="#EF6C00" stroke-width="1.4"/>
+<text x="445.0" y="278.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">RQ3, RQ3b, RQ4 — act on it</text>
+<text x="445.0" y="292.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">frontier, an incumbent armed with</text>
+<text x="445.0" y="306.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#E65100" text-anchor="middle" xml:space="preserve">an oracle, and the ablation</text>
+<rect x="40.0" y="250.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="155.0" y="278.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">RQ5, RQ6 — held out and honest</text>
+<text x="155.0" y="292.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">36 reserved networks opened once;</text>
+<text x="155.0" y="306.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">coverage checked</text>
+<rect x="40.0" y="430.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="155.0" y="458.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">RQ7 — downstream judgement</text>
+<text x="155.0" y="472.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">exceedance counts and trends,</text>
+<text x="155.0" y="486.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">on the simulated cases</text>
+<rect x="330.0" y="430.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="445.0" y="458.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">RQ8 — survives its assumptions</text>
+<text x="445.0" y="472.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">reference noise, prior-years fitting,</text>
+<text x="445.0" y="486.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">transfer across nine agencies</text>
+<rect x="620.0" y="430.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="735.0" y="458.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Deployment — closed</text>
+<text x="735.0" y="472.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">2,422 real incomplete station-years</text>
+<text x="735.0" y="486.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">decided; the two rules disagree on 15.1%</text>
+<rect x="910.0" y="430.0" width="230.0" height="76.0" rx="10" ry="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.4"/>
+<text x="1025.0" y="458.4" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">Consequence — closed, and small</text>
+<text x="1025.0" y="472.5" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">17 station-years with an unobserved peak</text>
+<text x="1025.0" y="486.6" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="11.0" fill="#1B5E20" text-anchor="middle" xml:space="preserve">removed; the regional mean moves &lt; 0.1 °C</text>
+<polyline points="271.0,108.0 329.0,108.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="561.0,108.0 619.0,108.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="851.0,108.0 909.0,108.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="1025.0,147.0 1025.0,249.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="909.0,288.0 851.0,288.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="619.0,288.0 561.0,288.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="329.0,288.0 271.0,288.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="155.0,327.0 155.0,429.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="271.0,468.0 329.0,468.0" fill="none" stroke="#37474F" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="561.0,468.0 619.0,468.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="851.0,468.0 909.0,468.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<polyline points="1025.0,507.0 1025.0,530.0 620.0,530.0 20.0,530.0 20.0,108.0 39.0,108.0" fill="none" stroke="#2E7D32" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="266.0" y="521.8" width="108.1" height="16.4" fill="#ffffff" stroke="none"/>
+<text x="320.0" y="531.9" font-family="Helvetica, Arial, 'Liberation Sans', sans-serif" font-size="10.5" fill="#1B5E20" text-anchor="middle" xml:space="preserve">the loop is closed</text>
+</g></svg>

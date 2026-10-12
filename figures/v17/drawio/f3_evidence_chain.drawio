@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" agent="stream-recoverability" version="24.7.17">
+  <diagram id="f3" name="Evidence chain and closure">
+    <mxGraphModel dx="1180" dy="640" grid="1" gridSize="10" page="1" pageWidth="1180" pageHeight="620" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="a1" value="Real archive&#10;nine agencies, 146 networks,&#10;457 stations" style="rounded=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=11;fontColor=#0D47A1" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="Complete-year truth&#10;5,114 fully observed station-years,&#10;never imputed" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="330" y="70" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="Outage placed&#10;51,524 cases on an empirical&#10;and a stratified arm" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="620" y="70" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="Reconstruction&#10;six estimators, support&#10;declared per case" style="rounded=1;fillColor=#FFFFFF;strokeColor=#37474F;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="910" y="70" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="b1" value="RQ0 &#8212; does the problem exist&#10;1.305 &#176;C on recorded days,&#10;1.23 interannual SD" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="910" y="250" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="RQ1, RQ2 &#8212; which axis governs&#10;the reversal, its mechanism,&#10;and which rivers are hard" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="620" y="250" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" value="RQ3, RQ3b, RQ4 &#8212; act on it&#10;frontier, an incumbent armed with&#10;an oracle, and the ablation" style="rounded=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontSize=11;fontColor=#E65100" vertex="1" parent="1">
+          <mxGeometry x="330" y="250" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="b4" value="RQ5, RQ6 &#8212; held out and honest&#10;36 reserved networks opened once;&#10;coverage checked" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="c1" value="RQ7 &#8212; downstream judgement&#10;exceedance counts and trends,&#10;on the simulated cases" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2" value="RQ8 &#8212; survives its assumptions&#10;reference noise, prior-years fitting,&#10;transfer across nine agencies" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="330" y="430" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d1" value="Deployment &#8212; closed&#10;2,422 real incomplete station-years&#10;decided; the two rules disagree on 15.1%" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="620" y="430" width="230" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="d2" value="Consequence &#8212; closed, and small&#10;17 station-years with an unobserved peak&#10;removed; the regional mean moves &lt; 0.1 &#176;C" style="rounded=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;fontColor=#1B5E20" vertex="1" parent="1">
+          <mxGeometry x="910" y="430" width="230" height="76" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cap" value="The loop is closed: a decision taken on records that really have holes changes which station-years enter the archive. What it does not change much is the regional mean, and that is reported too." style="shape=label;fontSize=11;fontStyle=1;fontColor=#1B5E20;align=left" vertex="1" parent="1">
+          <mxGeometry x="120" y="556" width="1000" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="x1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="a4" target="b1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="b1" target="b2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="b2" target="b3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="b3" target="b4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="b4" target="c1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#37474F" edge="1" parent="1" source="c1" target="c2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32" edge="1" parent="1" source="c2" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" value="the loop is closed" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E7D32;fontSize=10.5;fontColor=#1B5E20" edge="1" parent="1" source="d2" target="a1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1025" y="530"/><mxPoint x="620" y="530"/><mxPoint x="20" y="530"/><mxPoint x="20" y="108"/></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

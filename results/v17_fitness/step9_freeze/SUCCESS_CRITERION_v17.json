@@ -1,0 +1,92 @@
+{
+  "frozen_on": "2026-09-23",
+  "programme": "v17 fitness-for-use certification",
+  "population": "river waterbodies with fully observed calendar years; reference never imputed",
+  "unit_of_analysis": "station-year with a simulated outage realization",
+  "clustering_unit": "river network",
+  "primary_endpoint": "share of retained station-years whose completed-year hottest-30 absolute error exceeds 0.5 \u00b0C, at matched retention",
+  "natural_scale_c": 1.06,
+  "tolerance_justification": "0.5 \u00b0C is 0.47 of the interannual standard deviation of the endpoint at these stations, so a year carrying that error can move a warm year into the normal range. It is not a probe-precision number; probe precision is the wrong scale for a screening decision.",
+  "incumbent": "fixed outage-length threshold, the axis used by published guidance and agency completeness standards",
+  "primary_claim": {
+    "statement": "On reserved networks, at the retention of the matched fixed-length rule, the certificate reduces the consequential-error rate by at least 5.0 percentage points, with a network-clustered bootstrap interval excluding zero.",
+    "retention": 0.7,
+    "declared_effect_points": 5.0
+  },
+  "secondary_claims": {
+    "coverage": {
+      "statement": "marginal conformal coverage of the nominal 0.90 interval lies in [0.87, 0.93]",
+      "conditional_band": [
+        0.85,
+        0.95
+      ],
+      "strata": [
+        "donor_regime",
+        "longest_run bucket",
+        "peak_overlap bucket"
+      ]
+    },
+    "mechanism": "peak-window overlap outranks outage length in permutation importance on reserved networks",
+    "per_year_use": "misclassification of the 20 \u00b0C exceedance among retained years is lower than the matched length rule"
+  },
+  "precision": {
+    "development_contrast_points": -6.3454181728845676,
+    "development_bootstrap_se_points": 0.4187581182324614,
+    "n_development_networks": 110,
+    "between_network_sd_points": 4.39197219645288,
+    "n_reserved_networks": 36,
+    "resolvable_margin_points": 1.4347109175079409,
+    "declared_effect_over_resolvable_margin": 3.4850226195287357,
+    "note": "The reserved panel must resolve the declared effect by a comfortable multiple. v16 declared a 0.05 \u00b0C margin against a resolvable margin several times larger, so its confirmation could neither accept nor reject."
+  },
+  "failure_conditions": {
+    "primary_fails": "report that the certificate does not beat fixed-length screening out of sample, keep the mechanism result (H1) and the calibrated-interval result (H3), and do not claim a screening advantage",
+    "coverage_fails": "report the interval as uncalibrated out of sample and restrict the certificate to ranking only",
+    "both_fail": "the paper reduces to the mechanism finding plus the v16 training-mismatch diagnosis"
+  },
+  "model": {
+    "features": [
+      "longest_run",
+      "total_missing",
+      "missing_fraction",
+      "n_runs",
+      "peak_overlap",
+      "warm_observed_fraction",
+      "observed_peak_margin",
+      "observed_peak",
+      "clim_peak",
+      "n_visible_donors",
+      "donor_corr_mean",
+      "donor_corr_max",
+      "donor_corr_min",
+      "donor_coverage_mean",
+      "train_resid_sd",
+      "seasonal_amplitude",
+      "train_metric_sd",
+      "n_complete_years",
+      "record_years",
+      "month_sin",
+      "month_cos",
+      "left_flank",
+      "right_flank",
+      "has_complete_window",
+      "air_available"
+    ],
+    "estimators": [
+      "doy_climatology",
+      "smooth_climatology",
+      "linear_interp",
+      "donor_ridge",
+      "air_ridge"
+    ],
+    "calibration": "selection-conditional multiplicative split conformal, networks disjoint between fit, calibration and test",
+    "n_fit_networks": 77,
+    "n_calibration_networks": 33,
+    "tolerances_c": [
+      0.25,
+      0.5,
+      1.0
+    ]
+  },
+  "reserved_networks_opened": false
+}

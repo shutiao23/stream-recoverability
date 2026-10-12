@@ -1,0 +1,29 @@
+metric,missing_quartile,peak_overlap,mean_abs_error_c
+hottest30,Q1,none,0.008679830193946324
+hottest30,Q1,<half,0.1114203174482943
+hottest30,Q1,most/all,0.20734701598797287
+hottest30,Q2,none,0.028432656118963794
+hottest30,Q2,<half,0.20707262798684767
+hottest30,Q2,most/all,0.37171309152606397
+hottest30,Q3,none,0.03363034476271408
+hottest30,Q3,<half,0.2691367266548116
+hottest30,Q3,most/all,0.5474760467475747
+hottest30,Q4,none,0.12198848071586327
+hottest30,Q4,<half,0.31193878258718105
+hottest30,Q4,most/all,0.7260153807250512
+hottest30,RATIO Q4/Q1,averaged,3.5423811010255695
+hottest30,averaged,RATIO most-or-all / none,9.612094255815085
+annual_mean,Q1,none,0.011718449179166882
+annual_mean,Q1,<half,0.017510147008170007
+annual_mean,Q1,most/all,0.034247399735758965
+annual_mean,Q2,none,0.046043778506958
+annual_mean,Q2,<half,0.05457448071107257
+annual_mean,Q2,most/all,0.06498261189590104
+annual_mean,Q3,none,0.1043849370361016
+annual_mean,Q3,<half,0.12121969291308335
+annual_mean,Q3,most/all,0.13591603347503037
+annual_mean,Q4,none,0.18190852440769492
+annual_mean,Q4,<half,0.20038428533059663
+annual_mean,Q4,most/all,0.2637621098229003
+annual_mean,RATIO Q4/Q1,averaged,10.177940655612835
+annual_mean,averaged,RATIO most-or-all / none,1.4500796548119115
