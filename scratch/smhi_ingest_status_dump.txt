@@ -1,0 +1,45 @@
+{
+  "provider": "smhi",
+  "status": "FAILED_QC_NO_ELIGIBLE_STATIONS",
+  "retrieval_utc": "2026-10-12T09:55:14Z",
+  "n_catalog_stations": 176,
+  "n_downloaded": 176,
+  "n_download_failures": 0,
+  "n_stations_with_accepted_G_or_Y_days": 0,
+  "n_stations_with_ge_4_complete_years": 0,
+  "n_networks": 0,
+  "n_station_years_complete": 0,
+  "quality_code_rows": {
+    "O": 1063746
+  },
+  "accepted_quality_codes_requested": [
+    "G",
+    "Y"
+  ],
+  "loss_fraction": 1.0,
+  "cause": "The entire SMHI parameter-4 corrected-archive is flagged with quality code 'O'. Orange (O) = Okontrollerade värden.",
+  "not_substituted": "No proxy rule was applied (i.e. the table was NOT relaxed to accept 'O'). Doing so would be a rule change on never-scored data and is left to the coordinator as an explicit, separately recorded decision.",
+  "diagnostic_only_if_O_were_accepted": {
+    "note": "DIAGNOSTIC ONLY - not the ingest result, not an eligible panel",
+    "n_stations_with_ge_4_complete_years": 118,
+    "n_networks_with_ge_2_such_stations": 16,
+    "n_complete_station_years": 1601,
+    "evidence_paths": [
+      "scratch/smhi_verify_counterfactual_station_years.csv",
+      "scratch/smhi_verify_counterfactual_networks.csv"
+    ],
+    "requires": "explicit coordinator decision to change the QC rule; the ingest script has no flag for it and the frozen protocol/minimum-year rules are untouched"
+  },
+  "independent_verification": {
+    "script": "scratch/smhi_verify_smhi_ingest.py",
+    "report": "scratch/smhi_verify_report.json",
+    "cross_check_mismatches": [],
+    "n_stations_with_bad_sha256": 0,
+    "rescan_quality_codes": {
+      "O": 1063746
+    },
+    "rescan_rows": 1063746,
+    "rescan_earliest": "1946-04-01",
+    "rescan_latest": "2003-05-05"
+  }
+}

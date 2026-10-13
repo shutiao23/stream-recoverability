@@ -1,0 +1,6 @@
+uk_ea/uk_ea_s50_001: n_stations=4 n_ge4=2 stat=['provider_daily_mean_86400s_degc'] -> seal_eligible=True
+    da031053-d267-49da-857a-b8e28a7205eb complete_years=[2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    f8ae6b4c-56c4-45a1-b83f-4697843b937f complete_years=[2018, 2019, 2020, 2021, 2022, 2023]
+uk_ea/uk_ea_s50_002: n_stations=2 n_ge4=2 stat=['provider_daily_mean_86400s_degc'] -> seal_eligible=True
+    a473e348-c00a-46c6-a93b-921f9747f96f complete_years=[2010, 2015, 2016, 2017, 2019, 2020, 2023]
+    bbaa85be-3a06-4d2b-b5ad-7f1f55b6554d complete_years=[2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2021, 2022]

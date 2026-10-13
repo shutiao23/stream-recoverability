@@ -1,0 +1,23 @@
+[09:52:32] start retrieval_utc=2026-10-12T09:52:32Z
+[09:52:32] catalog: 176 stations, unit='°C'
+[09:52:34] [20/176] last=80044 accepted_days=0 complete_years=0 dropped_qc=13480
+[09:52:35] [40/176] last=80084 accepted_days=0 complete_years=0 dropped_qc=15780
+[09:52:36] [60/176] last=80128 accepted_days=0 complete_years=0 dropped_qc=1825
+[09:52:37] [80/176] last=80156 accepted_days=0 complete_years=0 dropped_qc=3354
+[09:52:37] [100/176] last=80203 accepted_days=0 complete_years=0 dropped_qc=3788
+[09:52:38] [120/176] last=80246 accepted_days=0 complete_years=0 dropped_qc=3737
+[09:52:38] [140/176] last=80270 accepted_days=0 complete_years=0 dropped_qc=4537
+[09:52:39] [160/176] last=80291 accepted_days=0 complete_years=0 dropped_qc=2561
+[09:52:40] [176/176] last=81609 accepted_days=0 complete_years=0 dropped_qc=7162
+[09:52:40] DONE downloaded=176 accepted_days=0 stations_ge4y=0 networks=0 complete_station_years=0 failures=0
+{
+  "n_downloaded": 176,
+  "n_stations_ge_4_complete_years": 0,
+  "n_networks": 0,
+  "n_complete_station_years": 0,
+  "quality_code_rows": {
+    "O": 1063746
+  },
+  "n_rows_accepted": 0,
+  "n_rows_dropped": 1063746
+}

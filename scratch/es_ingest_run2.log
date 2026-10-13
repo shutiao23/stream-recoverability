@@ -1,0 +1,11 @@
+== provider B: roea_es (CEDEX Anuario de Aforos) feasibility probe
+  probe None None http://ceh-flumen64.cedex.es/anuarioaforos/
+  probe None None https://ceh.cedex.es/anuarioaforos/default.asp
+  probe None None https://ceh.cedex.es/anuarioaforos/demarcaciones.asp
+  probe None None https://ceh.cedex.es/anuarioaforos/afo/estaf-codigo.asp
+  probe None None https://ceh.cedex.es/anuarioaforos/Repositorio_Anuarios.asp
+  probe None None https://ceh.cedex.es/anuarioaforos/api/estaciones
+  probe None None https://ceh.cedex.es/anuarioaforos/api/datos
+  probe None None https://ceh.cedex.es/anuarioaforos/datos/temperatura
+  probe None None https://ceh.cedex.es/roea/
+  probe None None https://ceh.cedex.es/roea/api/estaciones

@@ -1,0 +1,7 @@
+{
+  "n_good_clean": 40704,
+  "n_good_broken": 40703,
+  "retained_sets_equal": false,
+  "assertion_would_fire": true,
+  "note": "one NaN injected into the perturbed error column of a case with a finite clean error"
+}

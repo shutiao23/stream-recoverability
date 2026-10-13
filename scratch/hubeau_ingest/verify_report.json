@@ -1,0 +1,101 @@
+{
+  "station_catalog_complete": {
+    "ok": true,
+    "detail": "872 rows, count field 872"
+  },
+  "global_counts_sum_matches_total": {
+    "ok": true,
+    "detail": {
+      "all_codes": 53398772,
+      "code_1": 5499909,
+      "code_2": 0,
+      "code_3": 0,
+      "code_4": 47898863
+    }
+  },
+  "span_screen_complete": {
+    "ok": true,
+    "detail": "872 stations with asc+desc of 872 catalogued"
+  },
+  "qualification_audit_present": {
+    "ok": true,
+    "detail": "80 stations audited per code"
+  },
+  "network_dirs_match_csv": {
+    "ok": true,
+    "detail": "14 dirs vs 14 rows in networks.csv"
+  },
+  "stations_csv_rows_match_ingest": {
+    "ok": true,
+    "detail": "47 vs 47"
+  },
+  "complete_years_recomputed_from_raw": {
+    "ok": true,
+    "detail": "all stations agree"
+  },
+  "station_years_match_ingest": {
+    "ok": true,
+    "detail": "363 vs 363"
+  },
+  "all_stations_ge4_complete_years": {
+    "ok": true,
+    "detail": "min complete years = 4"
+  },
+  "n_days_recomputed_from_raw": {
+    "ok": true,
+    "detail": "all n_days agree"
+  },
+  "quality_labels_match_audit": {
+    "ok": true,
+    "detail": "47 station labels checked"
+  },
+  "no_station_mixes_codes": {
+    "ok": true,
+    "detail": {
+      "4": 47
+    }
+  },
+  "wide_panels_verified_against_raw": {
+    "ok": true,
+    "detail": "14 panels OK"
+  },
+  "audited_code_totals_match_ingest": {
+    "ok": true,
+    "detail": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 5587671
+    }
+  },
+  "no_prior_programme_station": {
+    "ok": true,
+    "detail": "no overlap with prior v17/v18 station rosters"
+  },
+  "request_manifest_kinds": {
+    "spans": 1744,
+    "chronique": 813,
+    "qualification_station": 320,
+    "qualification_global": 5,
+    "catalog": 1
+  },
+  "retrieved_utc_cached_range": [
+    "2026-10-12T09:47:51Z",
+    "2026-10-12T11:23:01Z"
+  ],
+  "manifest_rows_all_envelopes": {
+    "ok": true,
+    "detail": "0 non-envelope rows ignored"
+  },
+  "url_manifest_nonempty": {
+    "ok": true,
+    "detail": {
+      "spans": 1744,
+      "chronique": 813,
+      "qualification_station": 320,
+      "qualification_global": 5,
+      "catalog": 1
+    }
+  },
+  "problems": []
+}

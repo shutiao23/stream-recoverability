@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "n_networks": 14,
+    "n_stations": 47,
+    "n_station_years": 363,
+    "n_candidate_stations_screened": 67,
+    "n_river_stations_screened": 866
+  },
+  "assurance": {
+    "statement": "ALL stations are Sandre code 4 'Non qualifie' (unqualified) - this panel is a lower-assurance subset and must be reported as such",
+    "codes_used_by_final_stations": [
+      "4"
+    ],
+    "n_final_stations": 47,
+    "unqualified_stations": 47,
+    "qualified_stations": 0,
+    "measurement_statistic": "daily mean water temperature (degC) from sub-daily in-situ observations",
+    "measurement_statistic_quality": "unqualified (Sandre code 4)"
+  },
+  "global_counts": {
+    "all_codes": {
+      "count": 53398772,
+      "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?size=1&page=1"
+    },
+    "code_1": {
+      "count": 5499909,
+      "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=1&size=1&page=1"
+    },
+    "code_2": {
+      "count": 0,
+      "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=2&size=1&page=1"
+    },
+    "code_3": {
+      "count": 0,
+      "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=3&size=1&page=1"
+    },
+    "code_4": {
+      "count": 47898863,
+      "url": "https://hubeau.eaufrance.fr/api/v1/temperature/chronique?code_qualification=4&size=1&page=1"
+    }
+  },
+  "audited": {
+    "n_stations": 80,
+    "totals": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 5587671
+    },
+    "station_counts": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 80
+    }
+  },
+  "obs_downloaded": 4274446,
+  "obs_dropped_qc": 340,
+  "daily_values": 177962,
+  "days_zero_obs": 48763,
+  "days_below_floor": 0,
+  "n_requests": 2883,
+  "failures": 0
+}

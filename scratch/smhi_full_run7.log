@@ -1,0 +1,19 @@
+[09:54:54] start retrieval_utc=2026-10-12T09:54:54Z
+[09:54:54] catalog: 176 stations, unit='°C'
+[09:54:56] [20/176] last=80044 accepted_days=0 complete_years=0 dropped_qc=13480
+[09:54:57] [40/176] last=80084 accepted_days=0 complete_years=0 dropped_qc=15780
+[09:54:58] [60/176] last=80128 accepted_days=0 complete_years=0 dropped_qc=1825
+[09:54:59] [80/176] last=80156 accepted_days=0 complete_years=0 dropped_qc=3354
+[09:55:00] [100/176] last=80203 accepted_days=0 complete_years=0 dropped_qc=3788
+[09:55:00] [120/176] last=80246 accepted_days=0 complete_years=0 dropped_qc=3737
+[09:55:01] [140/176] last=80270 accepted_days=0 complete_years=0 dropped_qc=4537
+[09:55:02] [160/176] last=80291 accepted_days=0 complete_years=0 dropped_qc=2561
+[09:55:02] [176/176] last=81609 accepted_days=0 complete_years=0 dropped_qc=7162
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 1032, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 1007, in main
+    + (mismatch_note if ingest["failure"] else "")
+       ^^^^^^^^^^^^^
+NameError: name 'mismatch_note' is not defined

@@ -1,0 +1,50 @@
+v17 roster stations excluded: 547
+[stage] catalog
+  cache hit results/wrr_submission_ready/multi_agency_ingest/nve/raw_cache/series_parameter_1003.json
+  parameter 1003 daily series in catalog: 1216
+[stage] station metadata
+[stage] observations
+  DEV smoke test: only 120 stations
+  observations batch 1/30 stations=6 bytes=1305015
+  observations batch 2/30 stations=5 bytes=1566582
+  observations batch 3/30 stations=8 bytes=1133483
+  observations batch 4/30 stations=4 bytes=1521553
+  observations batch 5/30 stations=7 bytes=1526986
+  observations batch 6/30 stations=3 bytes=666606
+  observations batch 7/30 stations=2 bytes=1313811
+  observations batch 8/30 stations=1 bytes=1274274
+  observations batch 9/30 stations=1 bytes=641178
+  observations batch 10/30 stations=2 bytes=1331861
+  observations batch 11/30 stations=1 bytes=1208954
+  observations batch 12/30 stations=3 bytes=1392974
+  observations batch 13/30 stations=2 bytes=1294384
+  observations batch 14/30 stations=8 bytes=1200151
+  observations batch 15/30 stations=3 bytes=1182391
+  observations batch 16/30 stations=4 bytes=1616591
+  observations batch 17/30 stations=4 bytes=1546254
+  observations batch 18/30 stations=6 bytes=1070113
+  observations batch 19/30 stations=8 bytes=1244986
+  observations batch 20/30 stations=4 bytes=1613657
+  observations batch 21/30 stations=4 bytes=1441843
+  observations batch 22/30 stations=3 bytes=1506928
+  observations batch 23/30 stations=2 bytes=1285973
+  observations batch 24/30 stations=4 bytes=1021922
+  observations batch 25/30 stations=3 bytes=1375539
+  observations batch 26/30 stations=4 bytes=1453159
+  observations batch 27/30 stations=4 bytes=1424160
+  observations batch 28/30 stations=5 bytes=1480060
+  observations batch 29/30 stations=8 bytes=1161854
+  observations batch 30/30 stations=1 bytes=56051
+  raw observation rows: 457177
+[stage] assemble
+[stage] writing networks
+  network nve_basin_012: 43 stations, 142 complete station-years
+  network nve_basin_112: 16 stations, 18 complete station-years
+{
+ "candidate_basins_scanned": 135,
+ "networks_kept": 2,
+ "stations_in_kept_networks": 59,
+ "stations_ge4_complete_years_in_kept_networks": 14,
+ "complete_station_years_in_kept_networks": 160,
+ "basins_dropped_below_minimum_stations_or_years": 133
+}

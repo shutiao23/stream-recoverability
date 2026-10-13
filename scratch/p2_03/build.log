@@ -1,0 +1,83 @@
+==============================================================================
+companion dataset build: OK
+==============================================================================
+rows: 2756
+  entity_type=network    1481
+  entity_type=claim      788
+  entity_type=amendment  162
+  entity_type=provider   325
+evidence classes:
+  sample_fact            2045
+  retrospective_holdout  119
+  sealed_confirmation    118
+  exploratory_post_open  353
+  proxy                  39
+  withdrawn              82
+
+artifacts read: 55
+  results/v17_fitness/step10_confirmation/verdict.json  [json, sha256=08bca0d4693c..., dataset_rows=27]
+  results/v17_fitness/step11_arm_robustness/arm_contrasts.csv  [csv, rows=6, sha256=1c476ef636dd..., dataset_rows=16]
+  results/v17_fitness/step11_arm_robustness/verdict.json  [json, sha256=a1c81f3a6cfd..., dataset_rows=4]
+  results/v17_fitness/step18_cluster_conformal/summary.json  [json, sha256=a022fa588fb9..., dataset_rows=9]
+  results/v17_fitness/step1_panel/network_split.csv  [csv, rows=146, sha256=a24ceccea683..., dataset_rows=3]
+  results/v17_fitness/step21_hydrology/verdict.json  [json, sha256=baa8b943b081..., dataset_rows=8]
+  results/v17_fitness/step3_cases/summary.json  [json, sha256=8a10005c1559..., dataset_rows=13]
+  results/v18_closure/e2_archive_deployment/archive_consequence.csv  [csv, rows=5, sha256=0c444c5ccdd8..., dataset_rows=30]
+  results/v18_closure/e2_archive_deployment/disagreement_by_provider.csv  [csv, rows=7, sha256=04e15d730590..., dataset_rows=28]
+  results/v18_closure/e2_archive_deployment/matched_retention_disagreement.csv  [csv, rows=6, sha256=1e69b0132312..., dataset_rows=24]
+  results/v18_closure/e2_archive_deployment/summary.json  [json, sha256=0d8d1dca19c8..., dataset_rows=15]
+  results/v18_closure/e2_archive_deployment/threshold_disagreement.csv  [csv, rows=2, sha256=40635b078a1a..., dataset_rows=12]
+  results/v18_closure/e4_representativeness/elevation_retention.csv  [csv, rows=6, sha256=683b45a99e1f..., dataset_rows=6]
+  results/v18_closure/e4_representativeness/summary.json  [json, sha256=880ccdbd00bb..., dataset_rows=8]
+  results/wrr_submission_ready/F_FINDINGS_CLOSURE_AUDIT.csv  [csv, rows=22, sha256=0067eb88b532..., dataset_rows=69]
+  results/wrr_submission_ready/MULTI_AGENCY_TRANSPORT_PROTOCOL.md  [text, sha256=8e638814d881..., dataset_rows=1]
+  results/wrr_submission_ready/amendments/e6_support_width_uncertainty/REPORT.md  [text, sha256=e8f670d1072d..., dataset_rows=0]
+  results/wrr_submission_ready/amendments/e6_support_width_uncertainty/crossover.json  [json, sha256=12a6bfcae48a..., dataset_rows=22]
+  results/wrr_submission_ready/amendments/e6_support_width_uncertainty/curve_with_ci.csv  [csv, rows=684, sha256=d671dc99601f..., dataset_rows=21]
+  results/wrr_submission_ready/amendments/faithful_baseline/contrasts.csv  [csv, rows=48, sha256=f7ed8911de8b..., dataset_rows=8]
+  results/wrr_submission_ready/amendments/faithful_baseline/summary.json  [json, sha256=c7767863b1c8..., dataset_rows=12]
+  results/wrr_submission_ready/amendments/mnar_pattern_mixture/summary.json  [json, sha256=b1266080d7e0..., dataset_rows=42]
+  results/wrr_submission_ready/amendments/outage_causes/cause_mix.csv  [csv, rows=16, sha256=b48aa2ebda71..., dataset_rows=3]
+  results/wrr_submission_ready/amendments/outage_causes/summary.json  [json, sha256=163b5ab191b8..., dataset_rows=12]
+  results/wrr_submission_ready/amendments/peak_proxy_bridge/summary.json  [json, sha256=de60794deeef..., dataset_rows=24]
+  results/wrr_submission_ready/amendments/provider_contract_sensitivity/provider_contract_contrasts.csv  [csv, rows=9, sha256=f0a7c5641cb1..., dataset_rows=44]
+  results/wrr_submission_ready/amendments/provider_contract_sensitivity/summary.json  [json, sha256=eb1906c0e5a7..., dataset_rows=14]
+  results/wrr_submission_ready/amendments/regulatory_daily_max/daily_max_availability_summary.json  [json, sha256=f46a68a1642d..., dataset_rows=8]
+  results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json  [json, sha256=ac166827ee27..., dataset_rows=49]
+  results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv  [csv, rows=22, sha256=a73c09d5d598..., dataset_rows=18]
+  results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json  [json, sha256=73c4eb3758ae..., dataset_rows=19]
+  results/wrr_submission_ready/amendments/step22_noise_pre_fix/noise_sensitivity.json  [json, sha256=3673b396b41c..., dataset_rows=21]
+  results/wrr_submission_ready/amendments/step5_mechanism_equal_k/contrast_by_k.csv  [csv, rows=7, sha256=e068750b83e0..., dataset_rows=29]
+  results/wrr_submission_ready/amendments/step5_mechanism_equal_k/summary.json  [json, sha256=85b131414ca0..., dataset_rows=10]
+  results/wrr_submission_ready/amendments/step5_mechanism_pre_fix/donor_control_contrasts.csv  [csv, rows=2, sha256=a5b99c803caf..., dataset_rows=9]
+  results/wrr_submission_ready/amendments/winter_regulatory/REPORT.md  [text, sha256=faf4be4d0086..., dataset_rows=0]
+  results/wrr_submission_ready/amendments/winter_regulatory/cold_support_contrast.csv  [csv, rows=4, sha256=74a4d8366989..., dataset_rows=2]
+  results/wrr_submission_ready/amendments/winter_regulatory/summary.json  [json, sha256=986f7b26b58d..., dataset_rows=10]
+  results/wrr_submission_ready/claim_binding_check.json  [json, sha256=0f9a8796e2c1..., dataset_rows=0]
+  results/wrr_submission_ready/claim_registry.csv  [csv, rows=24, sha256=ec16ed218baa..., dataset_rows=289]
+  results/wrr_submission_ready/current_data_manifest.csv  [csv, rows=146, sha256=67a085cc9ddb..., dataset_rows=1216]
+  results/wrr_submission_ready/e1_maintenance_recompute/maintenance_counterfactual.json  [json, sha256=bc832fd4a635..., dataset_rows=14]
+  results/wrr_submission_ready/e2_certificate_predict/summary.json  [json, sha256=8791537cb498..., dataset_rows=6]
+  results/wrr_submission_ready/measurement_provenance_dictionary.csv  [csv, rows=12, sha256=7797ba46cfaa..., dataset_rows=181]
+  results/wrr_submission_ready/multi_agency_ingest/ehyd/ingest.json  [json, sha256=8ed23127e64a..., dataset_rows=1]
+  results/wrr_submission_ready/multi_agency_ingest/nve/ingest.json  [json, sha256=134400ab3e19..., dataset_rows=2]
+  results/wrr_submission_ready/multi_agency_ingest/smhi/INGEST_STATUS.json  [json, sha256=4d421fdafcac..., dataset_rows=7]
+  results/wrr_submission_ready/multi_agency_ingest/uk_ea/complete_station_years.csv  [csv, rows=42, sha256=deb19003909d..., dataset_rows=1]
+  results/wrr_submission_ready/multi_agency_ingest/uk_ea/networks_manifest.csv  [csv, rows=2, sha256=6274a4a055d4..., dataset_rows=1]
+  results/wrr_submission_ready/p0_07_nve_probe/verdict.json  [json, sha256=e83b757a1327..., dataset_rows=8]
+  results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json  [json, sha256=798cb96ea11f..., dataset_rows=28]
+  results/wrr_submission_ready/prior_access_audit_multi_agency.csv  [csv, rows=6, sha256=18871c8f9d13..., dataset_rows=24]
+  results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv  [csv, rows=91, sha256=8ba7ac3b006d..., dataset_rows=283]
+  results/wrr_submission_ready/prior_access_audit_summary.json  [json, sha256=30770715bfb2..., dataset_rows=0]
+  results/wrr_submission_ready/provider_roles_from_split.csv  [csv, rows=9, sha256=56b71d890042..., dataset_rows=45]
+
+claims with no numeric extraction (text rows only): ['S3']
+claims/entities in the not-established list: 16
+
+outputs:
+  docs/companion/companion_dataset.csv
+  docs/companion/README.md
+  dist/companion/index.html
+  dist/companion/dashboard_data.json
+  dist/companion/companion_dataset.csv
+dashboard labelled numbers: 77

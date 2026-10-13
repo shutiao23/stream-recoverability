@@ -1,0 +1,28 @@
+== provider B: roea_es (CEDEX Anuario de Aforos) feasibility probe
+  probe 500 1202 http://ceh-flumen64.cedex.es/anuarioaforos/
+  probe 200 18271 https://ceh.cedex.es/anuarioaforos/default.asp
+  probe 0 0 https://ceh.cedex.es/anuarioaforos/demarcaciones.asp
+  probe 200 4924 https://ceh.cedex.es/anuarioaforos/afo/estaf-codigo.asp
+  probe 200 9856 https://ceh.cedex.es/anuarioaforos/Repositorio_Anuarios.asp
+  probe 403 0 https://ceh.cedex.es/anuarioaforos/api/estaciones
+  probe 403 0 https://ceh.cedex.es/anuarioaforos/api/datos
+  probe 403 0 https://ceh.cedex.es/anuarioaforos/datos/temperatura
+  probe 200 4580 https://ceh.cedex.es/roea/
+  probe 200 4580 https://ceh.cedex.es/roea/api/estaciones
+  probe 200 10803 https://ceh.cedex.es/anuarioaforos/CANTABRICO_csv.asp
+  probe 200 10607 https://ceh.cedex.es/anuarioaforos/DUERO_csv.asp
+  probe 200 10560 https://ceh.cedex.es/anuarioaforos/EBRO_csv.asp
+  probe 200 10914 https://ceh.cedex.es/anuarioaforos/GALICIA%20COSTA_csv.asp
+  probe 200 10844 https://ceh.cedex.es/anuarioaforos/GUADALQUIVIR_csv.asp
+  probe 200 11160 https://ceh.cedex.es/anuarioaforos/GUADIANA_csv.asp
+  probe 200 10601 https://ceh.cedex.es/anuarioaforos/JUCAR_csv.asp
+  probe 200 10708 https://ceh.cedex.es/anuarioaforos/MINO_SIL.asp
+  probe 200 10639 https://ceh.cedex.es/anuarioaforos/SEGURA_csv.asp
+  probe 200 10565 https://ceh.cedex.es/anuarioaforos/TAJO_csv.asp
+  probe 200 78257 https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/estaf.csv
+  head-probe 206 https://ceh-flumen64.cedex.es/anuarioaforos/anuario-2021-2022/EBRO/afliq.csv -> indroea;fecha;altura;caudal
+== provider B2: saih_ebro (Spain) daily water temperature
+  A017 Cinca: 4890 daily rows
+  A027 Ebro: 5136 daily rows
+  A263 Ebro: 4850 daily rows
+  ES stations=2 networks=1

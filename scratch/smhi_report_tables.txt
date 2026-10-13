@@ -1,0 +1,51 @@
+=== downloaded stations per catchment (all ineligible: 0 accepted days) ===
+           network_id catchment_name  n_stations  n_rows      first       last  lat_median
+ smhi_catchment_38000  ÅNGERMANÄLVEN          22  158633 1946-04-01 2001-12-11    63.80265
+smhi_catchment_108000       GÖTA ÄLV          19  148260 1951-01-09 2003-05-05    59.55690
+ smhi_catchment_40000    INDALSÄLVEN          13   68481 1961-01-01 2001-04-24    63.23950
+ smhi_catchment_42000        LJUNGAN          12   71560 1949-11-30 1997-11-28    62.49700
+ smhi_catchment_28000       UMEÄLVEN          11   68187 1947-10-31 2002-04-30    65.09550
+ smhi_catchment_53000       DALÄLVEN          11   62441 1954-02-22 2003-05-05    60.53530
+ smhi_catchment_48000        LJUSNAN           9   51878 1953-04-14 2001-09-19    61.94400
+  smhi_catchment_9000      LULEÄLVEN           8   47483 1959-10-01 2002-04-24    66.46650
+ smhi_catchment_20000 SKELLEFTEÄLVEN           7   42327 1954-01-01 1997-11-25    65.12680
+ smhi_catchment_98000          LAGAN           7   42273 1955-02-03 1997-11-26    56.75890
+ smhi_catchment_86000      MÖRRUMSÅN           6   30675 1954-09-20 2000-10-31    56.36530
+ smhi_catchment_67000   MOTALA STRÖM           6   34698 1961-01-01 2002-12-12    58.53110
+ smhi_catchment_61000      NORRSTRÖM           5   28451 1957-10-15 2003-03-03    59.67320
+  smhi_catchment_1000     TORNEÄLVEN           3   21517 1959-04-01 2002-04-27    67.19260
+smhi_catchment_103000          ÄTRAN           3   20986 1954-10-01 2002-10-23    57.09670
+smhi_catchment_105000         VISKAN           3   13947 1976-12-01 1997-11-26    57.48480
+ smhi_catchment_96000        RÖNNE Å           2    7934 1976-12-01 1995-12-29    56.19895
+smhi_catchment_110000   ÖREKILSÄLVEN           2   17977 1954-10-01 1997-06-30    58.63095
+ smhi_catchment_88000        HELGE Å           2    7045 1976-12-01 2002-11-20    56.14095
+ smhi_catchment_65000    NYKÖPINGSÅN           2    3524 1976-12-01 1984-03-28    58.97010
+ smhi_catchment_36000        MOÄLVEN           2   12528 1955-04-06 1997-11-30    63.34650
+smhi_catchment_110111            NaN           1    4327 1990-05-28 2002-10-14    58.62580
+smhi_catchment_101000         NISSAN           1   10971 1954-09-20 1985-11-29    56.84130
+smhi_catchment_109000         BÄVEÅN           1    1825 1976-12-01 1985-01-09    58.34700
+smhi_catchment_108109            NaN           1    3762 1988-06-09 1999-08-20    58.24440
+smhi_catchment_106000        ROLFSÅN           1    5474 1987-09-21 2003-05-05    57.78840
+ smhi_catchment_47000      NORRALAÅN           1    4223 1989-09-11 2002-11-20    61.36430
+  smhi_catchment_4000     KALIXÄLVEN           1    5893 1976-07-05 1997-11-28    65.84000
+ smhi_catchment_13000      PITEÄLVEN           1   12711 1960-07-01 1997-03-28    65.53280
+smhi_catchment_117000      GOTHEMSÅN           1    2561 1990-05-29 1997-09-07    57.55860
+ smhi_catchment_24000       RICKLEÅN           1    4502 1976-09-01 1992-03-30    64.19340
+ smhi_catchment_25000     DALKARLSÅN           1     715 1991-04-20 1997-07-03    64.03720
+ smhi_catchment_32000     LÖGDEÄLVEN           1   13237 1962-12-03 2002-04-30    63.55260
+ smhi_catchment_34000      GIDEÄLVEN           1    3623 1976-07-01 1986-12-31    63.47260
+ smhi_catchment_77000      LJUNGBYÅN           1    2642 1989-07-17 1997-11-28    56.69630
+ smhi_catchment_75000       ALSTERÅN           1     381 1987-12-31 1989-04-08    57.09830
+ smhi_catchment_74000           EMÅN           1    4518 1989-07-17 2002-10-28    57.61810
+ smhi_catchment_68000 SÖDERKÖPINGSÅN           1    3649 1986-01-29 1997-11-20    58.48830
+ smhi_catchment_62063            NaN           1    3978 1991-04-22 2002-11-12    59.11610
+ smhi_catchment_82000      RONNEBYÅN           1    3032 1974-06-07 1984-03-30    56.21280
+ smhi_catchment_89090            NaN           1    5344 1987-06-01 2002-05-30    55.44970
+ smhi_catchment_92000     KÄVLINGEÅN           1    5573 1986-10-28 2002-11-07    55.80960
+
+catalog stations: 176 | downloaded: 176 | failures: 0
+catalog catchmentNumber groups: 42 | groups with >=2 catalog stations: 21
+quality codes: {'O': 1063746} | accepted rows: 0
+stations with >=4 complete years after QC: 0
+networks: 0 | complete station-years: 0
+grid: the corrected-archive series are historical (see station_catalog.csv and stations_all.csv for the observed per-station spans)

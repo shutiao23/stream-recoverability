@@ -1,0 +1,79 @@
+Hub'Eau ingest -> results/wrr_submission_ready/multi_agency_ingest/hubeau
+retrieved_utc 2026-10-12T11:04:21Z
+  catalog: 872 stations, 866 river stations (0.69% dropped on waterbody evidence)
+    dropped reason no_river_name_evidence: 4
+    dropped reason no_waterbody_class_and_no_river_name: 1
+    dropped reason not_a_river_station: 1
+    dropped reason standing_waterbody_label: 1
+    spans: 1744/1744 cached, 0 to fetch
+  spans: 872 stations with >=1 observation, 620 with >=4 years of span
+  preliminary screen: 67 stations on 15 rivers can still reach 4 complete years; 80 stations on those rivers enter the Sandre-code audit
+    global qualification counts: 5/5 cached, 0 to fetch
+    per-station qualification counts: 320/320 cached, 0 to fetch
+  qualification over 80 audited stations:
+    code 1 (Correcte): 0 obs on 0 stations
+    code 2 (Incorrecte): 0 obs on 0 stations
+    code 3 (Incertaine): 0 obs on 0 stations
+    code 4 (Non qualifie): 5587671 obs on 80 stations
+    stations where sum(codes) != unfiltered total: 0
+  selection: 67 candidate stations on 15 rivers (>= 2 stations with span >= 4.0 y and >= 1461 observations)
+    download codes: code 1 on 0 stations, code 4 on 67 stations
+  download: 15 networks, 56 stations, 6 concurrent station downloads
+    [1/56] hubeau_besbre 04023000 code 4: 58095 obs, 2422 days with data, 8/8 years fetched
+    [2/56] hubeau_cher 04064000 code 4: 73579 obs, 3068 days with data, 10/10 years fetched
+    [3/56] hubeau_cher 04060500 code 4: 76461 obs, 3187 days with data, 10/10 years fetched
+    [4/56] hubeau_besbre 04022210 code 4: 104011 obs, 4335 days with data, 13/13 years fetched
+    [5/56] hubeau_cher 04065000 code 4: 111494 obs, 4649 days with data, 18/18 years fetched
+    [6/56] hubeau_durance 03241170 code 4: 53496 obs, 2231 days with data, 9/9 years fetched
+    [7/56] hubeau_cher 04070300 code 4: 76858 obs, 3207 days with data, 19/19 years fetched
+    [8/56] hubeau_durance 06151000 code 4: 69351 obs, 2891 days with data, 14/14 years fetched
+    [9/56] hubeau_besbre 04022150 code 4: 145821 obs, 6078 days with data, 19/19 years fetched
+    [10/56] hubeau_durance 06159000 code 4: 52023 obs, 2169 days with data, 8/8 years fetched
+    [11/56] hubeau_durance 06166000 code 4: 38701 obs, 1616 days with data, 6/6 years fetched
+    [12/56] hubeau_l_aisne 03149630 code 4: 17956 obs, 1497 days with data, 5/5 years fetched
+    [13/56] hubeau_garonne 05154250 code 4: 79154 obs, 3299 days with data, 10/10 years fetched
+    [14/56] hubeau_l_aisne 03149081 code 4: 67139 obs, 2802 days with data, 11/11 years fetched
+    [15/56] hubeau_garonne 05152000 code 4: 122396 obs, 5102 days with data, 17/17 years fetched
+    [16/56] hubeau_l_aisne 03152000 code 4: 70883 obs, 2958 days with data, 14/14 years fetched
+    [17/56] hubeau_garonne 05181000 code 4: 106774 obs, 4452 days with data, 16/16 years fetched
+    [18/56] hubeau_garonne 05174000 code 4: 113572 obs, 4735 days with data, 17/17 years fetched
+    [19/56] hubeau_l_ariege 05165850 code 4: 77744 obs, 3242 days with data, 18/18 years fetched
+    [20/56] hubeau_l_aisne 03156000 code 4: 107210 obs, 4474 days with data, 18/18 years fetched
+    [21/56] hubeau_l_ariege 05173400 code 4: 54950 obs, 2242 days with data, 17/17 years fetched
+    [22/56] hubeau_l_aveyron 05121000 code 4: 84769 obs, 3533 days with data, 10/10 years fetched
+    [23/56] hubeau_l_ariege 05170900 code 4: 99718 obs, 4157 days with data, 18/18 years fetched
+    [24/56] hubeau_l_ariege 05165900 code 4: 119351 obs, 4975 days with data, 17/17 years fetched
+    [25/56] hubeau_l_aveyron 05127000 code 4: 102179 obs, 4261 days with data, 17/17 years fetched
+    [26/56] hubeau_l_aveyron 05126000 code 4: 100831 obs, 4206 days with data, 17/17 years fetched
+    [27/56] hubeau_l_aveyron 05128000 code 4: 129521 obs, 5400 days with data, 17/17 years fetched
+    [28/56] hubeau_lot 05092200 code 4: 81472 obs, 3397 days with data, 13/13 years fetched
+    [29/56] hubeau_l_huisne 04115580 code 4: 114109 obs, 4757 days with data, 18/18 years fetched
+    [30/56] hubeau_lot 05094810 code 4: 114978 obs, 4793 days with data, 14/14 years fetched
+    [31/56] hubeau_rhone 06065700 code 4: 58101 obs, 2422 days with data, 8/8 years fetched
+    [32/56] hubeau_rhone 06104000 code 4: 47447 obs, 1947 days with data, 6/6 years fetched
+    [33/56] hubeau_rhone 06113500 code 4: 51423 obs, 2144 days with data, 9/9 years fetched
+    [34/56] hubeau_l_huisne 04118000 code 4: 54883 obs, 2290 days with data, 17/17 years fetched
+    [35/56] hubeau_sarthe 04111000 code 4: 121328 obs, 5059 days with data, 18/18 years fetched
+    [36/56] hubeau_lot 05099000 code 4: 99022 obs, 4129 days with data, 17/17 years fetched
+    [37/56] hubeau_l_huisne 04116800 code 4: 96960 obs, 3805 days with data, 17/17 years fetched
+    [38/56] hubeau_seine 03048000 code 4: 43782 obs, 1827 days with data, 8/8 years fetched
+    [39/56] hubeau_seine 03125000 code 4: 45688 obs, 1904 days with data, 6/6 years fetched
+    [40/56] hubeau_sarthe 04113250 code 4: 117783 obs, 4911 days with data, 19/19 years fetched
+    [41/56] hubeau_sarthe 04119170 code 4: 116631 obs, 4863 days with data, 18/18 years fetched
+    [42/56] hubeau_sarthe 04110700 code 4: 121414 obs, 5062 days with data, 18/18 years fetched
+    [43/56] hubeau_sioule 04041780 code 4: 60218 obs, 2510 days with data, 8/8 years fetched
+    [44/56] hubeau_sioule 04043100 code 4: 67607 obs, 2818 days with data, 9/9 years fetched
+    [45/56] hubeau_sioule 04041675 code 4: 119940 obs, 5001 days with data, 18/18 years fetched
+    [46/56] hubeau_tarn 05119000 code 4: 76223 obs, 3178 days with data, 11/11 years fetched
+    [47/56] hubeau_rhone 06121500 code 4: 80563 obs, 3361 days with data, 19/19 years fetched
+    [48/56] hubeau_sioule 04433002 code 4: 94512 obs, 3941 days with data, 13/13 years fetched
+    [49/56] hubeau_seine 03174000 code 4: 76795 obs, 3210 days with data, 17/17 years fetched
+    [50/56] hubeau_tarn 05144000 code 4: 115098 obs, 4799 days with data, 17/17 years fetched
+    [51/56] hubeau_tarn 05141000 code 4: 52989 obs, 2211 days with data, 11/11 years fetched
+    [52/56] hubeau_seine 03127370 code 4: 37156 obs, 1549 days with data, 5/5 years fetched
+    [53/56] hubeau_vilaine 04216000 code 4: 17598 obs, 734 days with data, 19/19 years fetched
+    [54/56] hubeau_vilaine 04204300 code 4: 74149 obs, 3091 days with data, 16/16 years fetched
+    [55/56] hubeau_tarn 05147000 code 4: 139821 obs, 5828 days with data, 17/17 years fetched
+    [56/56] hubeau_vilaine 04209990 code 4: 234996 obs, 894 days with data, 8/8 years fetched
+  outputs: 14 networks, 47 stations, 363 complete station-years
+  assurance: ALL stations are Sandre code 4 'Non qualifie' (unqualified) - this panel is a lower-assurance subset and must be reported as such

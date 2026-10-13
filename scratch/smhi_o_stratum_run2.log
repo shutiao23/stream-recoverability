@@ -1,0 +1,41 @@
+[09:59:55] start retrieval_utc=2026-10-12T09:59:55Z qc_stratum=provider_published_unqualified accepted=('O',)
+[09:59:55] catalog: 176 stations, unit='°C'
+[09:59:57] [20/176] last=80044 accepted_days=13480 complete_years=27 dropped_qc=0
+[09:59:59] [40/176] last=80084 accepted_days=15780 complete_years=34 dropped_qc=0
+[10:00:00] [60/176] last=80128 accepted_days=1825 complete_years=0 dropped_qc=0
+[10:00:01] [80/176] last=80156 accepted_days=3354 complete_years=8 dropped_qc=0
+[10:00:02] [100/176] last=80203 accepted_days=3788 complete_years=8 dropped_qc=0
+[10:00:03] [120/176] last=80246 accepted_days=3737 complete_years=5 dropped_qc=0
+[10:00:04] [140/176] last=80270 accepted_days=4537 complete_years=7 dropped_qc=0
+[10:00:04] [160/176] last=80291 accepted_days=2561 complete_years=4 dropped_qc=0
+[10:00:05] [176/176] last=81609 accepted_days=7162 complete_years=2 dropped_qc=0
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 1273, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 695, in main
+    group.loc[:, ordered].to_csv(network_dir / "stations.csv", index=False)
+    ~~~~~~~~~^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 1147, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 1339, in _getitem_tuple
+    return self._getitem_tuple_same_dim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 994, in _getitem_tuple_same_dim
+    retval = getattr(retval, self.name)._getitem_axis(key, axis=i)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 1382, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 1322, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexing.py", line 1520, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 6115, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 6179, in _raise_if_missing
+    raise KeyError(f"{not_found} not in index")
+KeyError: "['_year_ledger'] not in index"

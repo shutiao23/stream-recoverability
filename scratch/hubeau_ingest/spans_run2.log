@@ -1,0 +1,12 @@
+Hub'Eau ingest -> results/wrr_submission_ready/multi_agency_ingest/hubeau
+retrieved_utc 2026-10-12T09:58:18Z
+  catalog: 872 stations, 870 river stations (0.23% dropped on waterbody evidence)
+    dropped reason no_waterbody_class_and_no_river_name: 1
+    dropped reason not_a_river_station: 1
+    dropped reason standing_waterbody_label: 1
+    spans: 581/1744 cached, 1163 to fetch
+    spans: 600/1744
+    spans: 650/1744
+    spans: 700/1744
+    spans: 750/1744
+    spans: 800/1744

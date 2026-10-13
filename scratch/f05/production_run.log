@@ -1,0 +1,9 @@
+[validate] stored table reproduces the frozen sweep, max abs diff 0.00e+00
+[validate] regenerated masks identical to stored: True
+[boot] 2000 draws, 7 grids, 531 statistics per draw on 32 workers
+[boot] bootstrap done at 288.7s
+[done] wrote results/wrr_submission_ready/amendments/e6_support_width_uncertainty at 291.0s
+
+real	4m53.703s
+user	151m20.961s
+sys	0m16.028s

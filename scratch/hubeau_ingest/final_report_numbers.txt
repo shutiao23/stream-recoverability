@@ -1,0 +1,62 @@
+PANEL (final emission)
+ networks: 14 | stations: 47 | station-years: 363
+ complete years/station: min 4 median 8.0 max 15
+ obs downloaded: 4274446 | dropped QC: 340
+ daily values: 177962 | days in span: 226725
+ days with zero obs: 48763 | days below floor: 0
+ median obs/day across stations: min 24.0 median 24.0
+ codes used: {'4': 47}
+ assurance labels: {'provider_published_unqualified': 47}
+ code1 obs on panel stations: 0 | code4 obs: 4274446
+
+TRANCHE-1 SUBSET (the 6 stations emitted earlier)
+ stations: 6 | station-years: 47
+ obs downloaded: 482797 | dropped QC: 1
+ daily values: 20126 | days in span: 23113
+ days with zero obs: 2987 | days below floor: 0
+ per network: {'hubeau_besbre': {'stations': 3, 'station_years': 32}, 'hubeau_durance': {'stations': 3, 'station_years': 15}}
+
+REQUESTS: 2883 failures: 0
+resolved vs emitted: {
+ "resolved_river_stations_in_catalog": 866,
+ "resolved_stations_with_span_ge_4y": 620,
+ "resolved_candidate_stations_before_cap": 175,
+ "resolved_candidate_networks_before_cap": 66,
+ "resolved_candidate_networks_before_cap_note": "resolved_* counts come from the uncapped preliminary screen; the cap then keeps the largest --max-networks river groups for the Sandre-code audit and download",
+ "cap_applied": {
+  "max_networks": 15,
+  "max_stations_per_network": 4,
+  "networks_beyond_cap": 51,
+  "network_ids_beyond_cap": [
+   "hubeau_l_adour",
+   "hubeau_dore",
+   "hubeau_vienne",
+   "hubeau_dord
+
+NETWORK INPUT MANIFEST (for the seal): True
+      network_id  n_stations  n_station_years                     quality
+  hubeau_durance           3               15 unqualified (Sandre code 4)
+    hubeau_rhone           4               20 unqualified (Sandre code 4)
+  hubeau_garonne           4               37 unqualified (Sandre code 4)
+ hubeau_l_ariege           3               27 unqualified (Sandre code 4)
+     hubeau_tarn           3               30 unqualified (Sandre code 4)
+hubeau_l_aveyron           4               34 unqualified (Sandre code 4)
+      hubeau_lot           3               25 unqualified (Sandre code 4)
+   hubeau_sioule           4               32 unqualified (Sandre code 4)
+   hubeau_sarthe           4               39 unqualified (Sandre code 4)
+ hubeau_l_huisne           3               21 unqualified (Sandre code 4)
+     hubeau_cher           4               29 unqualified (Sandre code 4)
+   hubeau_besbre           3               32 unqualified (Sandre code 4)
+    hubeau_seine           2                9 unqualified (Sandre code 4)
+  hubeau_l_aisne           3               13 unqualified (Sandre code 4)
+
+FILE TREE (top level)
+  ingest.json 35619 bytes
+  networks (dir)
+  networks.csv 3876 bytes
+  networks_beyond_cap.csv 4350 bytes
+  networks_excluded_after_download.csv 153 bytes
+  raw_cache (dir)
+  stations.csv 34573 bytes
+  stations_below_year_floor.csv 1581 bytes
+  stations_dropped_waterbody_filter.csv 582 bytes

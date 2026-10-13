@@ -1,0 +1,48 @@
+[10:03:43] start retrieval_utc=2026-10-12T10:03:43Z qc_stratum=provider_published_unqualified accepted=('O',)
+[10:03:43] catalog: 176 stations, unit='°C'
+[10:03:45] [20/176] last=80044 accepted_days=13480 complete_years=27 dropped_qc=0
+[10:03:46] [40/176] last=80084 accepted_days=15780 complete_years=34 dropped_qc=0
+[10:03:48] [60/176] last=80128 accepted_days=1825 complete_years=0 dropped_qc=0
+[10:03:49] [80/176] last=80156 accepted_days=3354 complete_years=8 dropped_qc=0
+[10:03:50] [100/176] last=80203 accepted_days=3788 complete_years=8 dropped_qc=0
+[10:03:51] [120/176] last=80246 accepted_days=3737 complete_years=5 dropped_qc=0
+[10:03:52] [140/176] last=80270 accepted_days=4537 complete_years=7 dropped_qc=0
+[10:03:52] [160/176] last=80291 accepted_days=2561 complete_years=4 dropped_qc=0
+[10:03:53] [176/176] last=81609 accepted_days=7162 complete_years=2 dropped_qc=0
+[10:03:53] network smhi_catchment_103000: 2 eligible stations, wide rows=17555
+[10:03:54] network smhi_catchment_108000: 15 eligible stations, wide rows=19110
+[10:03:54] network smhi_catchment_110000: 2 eligible stations, wide rows=15614
+[10:03:54] network smhi_catchment_20000: 6 eligible stations, wide rows=16035
+[10:03:54] network smhi_catchment_28000: 7 eligible stations, wide rows=19906
+[10:03:54] network smhi_catchment_38000: 16 eligible stations, wide rows=20344
+[10:03:55] network smhi_catchment_40000: 10 eligible stations, wide rows=14724
+[10:03:55] network smhi_catchment_42000: 8 eligible stations, wide rows=17531
+[10:03:55] network smhi_catchment_48000: 6 eligible stations, wide rows=17691
+[10:03:55] network smhi_catchment_53000: 7 eligible stations, wide rows=17970
+[10:03:55] network smhi_catchment_61000: 2 eligible stations, wide rows=16576
+[10:03:55] network smhi_catchment_67000: 5 eligible stations, wide rows=15321
+[10:03:55] network smhi_catchment_86000: 5 eligible stations, wide rows=16844
+[10:03:56] network smhi_catchment_88000: 2 eligible stations, wide rows=9486
+[10:03:56] network smhi_catchment_9000: 4 eligible stations, wide rows=15547
+[10:03:56] network smhi_catchment_98000: 4 eligible stations, wide rows=15638
+[10:03:56] DONE downloaded=176 accepted_days=1063746 stations_ge4y=118 networks=16 complete_station_years=1601 failures=0
+{
+  "qc_stratum": "provider_published_unqualified",
+  "n_downloaded": 176,
+  "n_stations_ge_4_complete_years": 118,
+  "n_networks": 16,
+  "n_stations_emitted": 143,
+  "n_stations_emitted_ge_4_complete_years": 101,
+  "n_complete_station_years": 1601,
+  "complete_station_year_definitions": {
+    "n_complete_station_years": "sum of complete calendar years over ALL downloaded stations (includes stations below the 4-year bar)",
+    "n_complete_station_years_stations_ge_4_years": "sum over the stations that individually meet the 4-complete-year rule",
+    "n_complete_station_years_in_emitted_networks": "sum over eligible stations of emitted networks only"
+  },
+  "n_complete_station_years_emitted": 1372,
+  "quality_code_rows": {
+    "O": 1063746
+  },
+  "n_rows_accepted": 1063746,
+  "n_rows_dropped": 0
+}

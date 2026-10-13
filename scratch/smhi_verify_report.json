@@ -1,0 +1,151 @@
+{
+  "independent_rescan": {
+    "n_station_files": 176,
+    "quality_code_counts": {
+      "O": 1063746
+    },
+    "n_rows_total": 1063746,
+    "n_rows_with_comma_decimal_value": 0,
+    "n_stations_with_any_G": 0,
+    "n_stations_with_any_Y": 0,
+    "earliest_date_seen": "1946-04-01",
+    "latest_date_seen": "2003-05-05",
+    "codes_seen_across_files": [
+      "O"
+    ]
+  },
+  "stratum_check": {
+    "qc_stratum": "provider_published_unqualified",
+    "accepted_quality_codes": [
+      "O"
+    ],
+    "rescan_rows_with_accepted_codes": 1063746,
+    "rescan_stations_with_accepted_codes": 176,
+    "ingest_n_rows_accepted": 1063746,
+    "ingest_n_stations_with_accepted_days": 176
+  },
+  "cross_check_mismatches": [],
+  "n_stations_with_bad_sha256": 0,
+  "bad_sha256_station_ids": [],
+  "coverage": {
+    "min_first_date": "1946-04-01",
+    "max_last_date": "2003-05-05",
+    "median_first_date": "1976-09-03",
+    "median_last_date": "1990-10-14",
+    "n_stations_ending_before_1990": 87,
+    "n_stations_ending_2000_or_later": 26,
+    "date_column_header": [
+      "Vattendragstemperatur;°C",
+      "",
+      "Datum (svensk sommartid);Vattendragstemperatur;Kvalitet;;"
+    ]
+  },
+  "counterfactual_if_uncontrolled_O_were_accepted": {
+    "label": "DIAGNOSTIC ONLY - not the ingest result, not an eligible panel",
+    "n_stations_with_ge_4_complete_years": 118,
+    "n_networks_with_ge_2_such_stations": 16,
+    "n_complete_station_years": 1601,
+    "networks": [
+      {
+        "network_id": "smhi_catchment_103000",
+        "n_stations_ge4": 2
+      },
+      {
+        "network_id": "smhi_catchment_108000",
+        "n_stations_ge4": 15
+      },
+      {
+        "network_id": "smhi_catchment_110000",
+        "n_stations_ge4": 2
+      },
+      {
+        "network_id": "smhi_catchment_20000",
+        "n_stations_ge4": 6
+      },
+      {
+        "network_id": "smhi_catchment_28000",
+        "n_stations_ge4": 7
+      },
+      {
+        "network_id": "smhi_catchment_38000",
+        "n_stations_ge4": 16
+      },
+      {
+        "network_id": "smhi_catchment_40000",
+        "n_stations_ge4": 10
+      },
+      {
+        "network_id": "smhi_catchment_42000",
+        "n_stations_ge4": 8
+      },
+      {
+        "network_id": "smhi_catchment_48000",
+        "n_stations_ge4": 6
+      },
+      {
+        "network_id": "smhi_catchment_53000",
+        "n_stations_ge4": 7
+      },
+      {
+        "network_id": "smhi_catchment_61000",
+        "n_stations_ge4": 2
+      },
+      {
+        "network_id": "smhi_catchment_67000",
+        "n_stations_ge4": 5
+      },
+      {
+        "network_id": "smhi_catchment_86000",
+        "n_stations_ge4": 5
+      },
+      {
+        "network_id": "smhi_catchment_88000",
+        "n_stations_ge4": 2
+      },
+      {
+        "network_id": "smhi_catchment_9000",
+        "n_stations_ge4": 4
+      },
+      {
+        "network_id": "smhi_catchment_98000",
+        "n_stations_ge4": 4
+      }
+    ]
+  },
+  "hydropower_name_evidence": {
+    "n_stations_with_name_token": 125,
+    "tokens": [
+      "FORS",
+      "FORSEN",
+      "KRV"
+    ],
+    "examples": [
+      "ALBY KRV TEMP",
+      "ANUNDSJÖ KRV TEMP",
+      "BERGEFORSENS KRV TEMP",
+      "BERGSBRON-HAVETS KRV TEMP",
+      "BERGVIKS KRV TEMP",
+      "BJURFORS ÖVRE KRV TEMP",
+      "BLÅSJÖN  KRV TEMP",
+      "BLÅSJÖNS KRV UTLOPP TEMP",
+      "BODENS KRV TEMP",
+      "BORGFORSENS KRV TEMP",
+      "BRUSAFORS TEMP",
+      "BÅLFORSENS KRV TEMP",
+      "DEJEFORS KRV TEMP",
+      "DÖNJE KRV TEMP",
+      "EDSELE KRV TEMP"
+    ]
+  },
+  "latitude": {
+    "min": 55.4497,
+    "max": 68.3617,
+    "n_north_of_60N": 109,
+    "boreal_nordic_declared_by_seal_context_map": "boreal_nordic"
+  },
+  "panel_available_for_seal": {
+    "stations_csv_rows": 143,
+    "networks_dir_exists": true,
+    "station_daily_files": 176
+  }
+}

@@ -1,0 +1,15 @@
+[09:46:13] start retrieval_utc=2026-10-12T09:46:13Z
+[09:46:13] catalog: 176 stations, unit='°C'
+[09:46:14] [4/4] last=80006 accepted_days=0 complete_years=0 dropped_qc=3595
+[09:46:14] DONE downloaded=4 accepted_days=0 stations_ge4y=0 networks=0 complete_station_years=0 failures=0
+{
+  "n_downloaded": 4,
+  "n_stations_ge_4_complete_years": 0,
+  "n_networks": 0,
+  "n_complete_station_years": 0,
+  "quality_code_rows": {
+    "O": 19510
+  },
+  "n_rows_accepted": 0,
+  "n_rows_dropped": 19510
+}

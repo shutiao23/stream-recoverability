@@ -1,0 +1,19 @@
+matched top_of_half within-pair difference:
+  n: 11616
+  mean: 0.08399894112836283
+  median: 0.0
+  share_positive: 0.41227617079889806
+  share_zero: 0.36742424242424243
+  share_negative: 0.2202995867768595
+  p10: -0.0852814017160517
+  p90: 0.3821053989792462
+  p99: 1.35166943169488
+  max: 3.8047129415155734
+  min: -1.632198637780327
+  share of total positive mass from top 10% pairs: 0.6727602134968872
+  mean contribution of top 10%: 0.7751600681191726 of overall mean 0.08399894112836283
+  bootstrapped median: {'point': 0.0, 'low': 0.0, 'high': 0.0, 'se': 0.0, 'n_clusters': 24.0}
+  network-equal mean: 0.08743821999754386
+pairwise-finite sets: {'n_orig_finite': 11404, 'n_matched_finite': 11616, 'in_both': 11404, 'orig_only': 0, 'matched_only': 212}
+matched_only cases: share where n_visible_strong>k_matched: 0.5283018867924528 mean n_visible_strong 3.1367924528301887 mean K 2.089622641509434
+matched_only: share where original arm had >=3 visible donors: 0.7830188679245284

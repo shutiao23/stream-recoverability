@@ -1,0 +1,33 @@
+panel a — endpoint ordering (AUC(timing) − AUC(length), clustered 95% CI)
+  1. hottest 7-day mean     +0.0723 [+0.0632, +0.0960]  tol 0.544 °C  n 40,704/110
+  2. hottest 30-day mean    +0.0702 [+0.0607, +0.0977]  tol 0.509 °C  n 40,704/110
+  3. amplitude              +0.0244 [+0.0145, +0.0370]  tol 0.642 °C  n 40,704/110
+  4. annual mean            -0.0270 [-0.0362, -0.0179]  tol 0.257 °C  n 40,704/110
+  5. coldest 30-day mean    -0.1844 [-0.2275, -0.1563]  tol 0.376 °C  n 40,704/110
+
+panel b — pooled contrast, pre-declared Δ = -1.00 pt
+  v17 development, pooled      retrospective    -6.35 [  -7.12,   -5.52]  n 40,704/110
+  v17 reserved, pooled         retrospective    -7.13 [  -8.97,   -5.36]  n 10,820/36
+  Sealed USGS, pooled          sealed           -7.94 [ -10.15,   -5.75]  n 8,973/39
+  Sealed USGS, empirical arm   sealed           -1.74 [  -2.98,   -0.68]  n 3,397/39
+  Sealed USGS, clean subset    sealed           -9.42 [ -12.44,   -6.03]  n 1,923/15
+  Transport, primary panel     transport        -4.61 [  -6.53,   -3.30]  n 17,826/32
+     SMHI                      transport        -4.35 [  -6.28,   -3.15]  n 14,115/16
+     UK EA                     transport        -6.40 [  -7.97,   +1.29]  n 307/2
+     Hub'Eau                   transport        -4.89 [  -8.51,   -1.47]  n 3,404/14
+  Transport, NVE secondary     transport        -6.14 [  -8.70,   -4.59]  n 10,075/21
+
+not plotted: real-archive empirical arm — The real archive is the 2422 real incomplete station-years of e2_archive_deployment. Those years carry no truth by construction, so no certificate-minus-length error-rate contrast (or interval) exists for them; the requested row cannot be sourced and is not drawn.
+
+f2a_endpoint_ordering: 1 page, 5.432 × 2.291 in, fonts embedded True, Type 42 True, words 67, outside page 0, overlapping pairs 0, min word box 6.99 pt = 6.00 pt type (6.08 pt at 5.5 in width)
+
+f2b_panel_heterogeneity: 1 page, 5.286 × 4.052 in, fonts embedded True, Type 42 True, words 108, outside page 0, overlapping pairs 0, min word box 6.99 pt = 6.00 pt type (6.25 pt at 5.5 in width)
+
+wrote figures/wrr/f2a_endpoint_ordering.pdf
+wrote figures/wrr/f2b_panel_heterogeneity.pdf
+
+wrote figures/wrr/f2a_endpoint_ordering.png
+wrote figures/wrr/f2b_panel_heterogeneity.png
+wrote figures/wrr/f2_heterogeneity_data.json
+wrote figures/wrr/f2_caption_material.md
+wrote scratch/heterogeneity/render_checks.json

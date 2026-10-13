@@ -1,0 +1,357 @@
+{
+  "note": "read-only preview; scripts/249.build_manifest() called, seal() not called",
+  "n_network_rows": 18,
+  "n_providers": 2,
+  "n_contexts": 2,
+  "n_station_years_complete": 1405,
+  "assurance_strata": [
+    "provider_published_unqualified",
+    "quality_checked"
+  ],
+  "per_provider": {
+    "smhi": {
+      "n_networks": 16,
+      "n_stations_ge4": 101,
+      "station_years": 1372,
+      "contexts": [
+        "boreal_nordic"
+      ],
+      "strata": [
+        "provider_published_unqualified"
+      ],
+      "networks": [
+        {
+          "network_id": "smhi_catchment_103000",
+          "n_stations_ge4": 2,
+          "station_years": 34,
+          "sha256": "f00bbde3f4ab3675"
+        },
+        {
+          "network_id": "smhi_catchment_108000",
+          "n_stations_ge4": 15,
+          "station_years": 260,
+          "sha256": "ddb59d4044c4aea6"
+        },
+        {
+          "network_id": "smhi_catchment_110000",
+          "n_stations_ge4": 2,
+          "station_years": 21,
+          "sha256": "62c6013940046c0d"
+        },
+        {
+          "network_id": "smhi_catchment_20000",
+          "n_stations_ge4": 6,
+          "station_years": 58,
+          "sha256": "b165f7253f544e38"
+        },
+        {
+          "network_id": "smhi_catchment_28000",
+          "n_stations_ge4": 7,
+          "station_years": 94,
+          "sha256": "fc8d54d3e760ad36"
+        },
+        {
+          "network_id": "smhi_catchment_38000",
+          "n_stations_ge4": 16,
+          "station_years": 236,
+          "sha256": "ed245b094ec3848d"
+        },
+        {
+          "network_id": "smhi_catchment_40000",
+          "n_stations_ge4": 10,
+          "station_years": 89,
+          "sha256": "75499163a2ce7d07"
+        },
+        {
+          "network_id": "smhi_catchment_42000",
+          "n_stations_ge4": 8,
+          "station_years": 114,
+          "sha256": "7be5cbdba1081cdc"
+        },
+        {
+          "network_id": "smhi_catchment_48000",
+          "n_stations_ge4": 6,
+          "station_years": 103,
+          "sha256": "b263329b988de975"
+        },
+        {
+          "network_id": "smhi_catchment_53000",
+          "n_stations_ge4": 7,
+          "station_years": 101,
+          "sha256": "c5f335431a31a372"
+        },
+        {
+          "network_id": "smhi_catchment_61000",
+          "n_stations_ge4": 2,
+          "station_years": 19,
+          "sha256": "81830f89654be973"
+        },
+        {
+          "network_id": "smhi_catchment_67000",
+          "n_stations_ge4": 5,
+          "station_years": 59,
+          "sha256": "246ed19bcd0dbf6a"
+        },
+        {
+          "network_id": "smhi_catchment_86000",
+          "n_stations_ge4": 5,
+          "station_years": 56,
+          "sha256": "cee7d33562dd4891"
+        },
+        {
+          "network_id": "smhi_catchment_88000",
+          "n_stations_ge4": 2,
+          "station_years": 13,
+          "sha256": "b9b024fc0229a7d1"
+        },
+        {
+          "network_id": "smhi_catchment_9000",
+          "n_stations_ge4": 4,
+          "station_years": 46,
+          "sha256": "a2e4980ce3d14f7f"
+        },
+        {
+          "network_id": "smhi_catchment_98000",
+          "n_stations_ge4": 4,
+          "station_years": 69,
+          "sha256": "e16e7e870b039381"
+        }
+      ]
+    },
+    "uk_ea": {
+      "n_networks": 2,
+      "n_stations_ge4": 4,
+      "station_years": 33,
+      "contexts": [
+        "temperate_oceanic"
+      ],
+      "strata": [
+        "quality_checked"
+      ],
+      "networks": [
+        {
+          "network_id": "uk_ea_s50_001",
+          "n_stations_ge4": 2,
+          "station_years": 13,
+          "sha256": "15bfe5746b3ce396"
+        },
+        {
+          "network_id": "uk_ea_s50_002",
+          "n_stations_ge4": 2,
+          "station_years": 20,
+          "sha256": "4d6de5ec25e63212"
+        }
+      ]
+    }
+  },
+  "smhi_networks": [
+    {
+      "network_id": "smhi_catchment_103000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 2,
+      "station_ids_ge4": "80126;80281",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_103000/daily_wide_temperature.csv",
+      "bytes": 380561,
+      "sha256": "f00bbde3f4ab3675",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_108000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 15,
+      "station_ids_ge4": "80066;80084;80119;80125;80130;80131;80132;80143;80151;80152;80156;80178;80204;80282;80284",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_108000/daily_wide_temperature.csv",
+      "bytes": 1516254,
+      "sha256": "ddb59d4044c4aea6",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_110000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 2,
+      "station_ids_ge4": "80129;80286",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_110000/daily_wide_temperature.csv",
+      "bytes": 317779,
+      "sha256": "62c6013940046c0d",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_20000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 6,
+      "station_ids_ge4": "80081;80097;80222;80233;80234;80258",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_20000/daily_wide_temperature.csv",
+      "bytes": 553945,
+      "sha256": "b165f7253f544e38",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_28000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 7,
+      "station_ids_ge4": "80017;80019;80060;80063;80183;80232;80637",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_28000/daily_wide_temperature.csv",
+      "bytes": 865993,
+      "sha256": "fc8d54d3e760ad36",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_38000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 16,
+      "station_ids_ge4": "80015;80016;80025;80027;80033;80034;80044;80045;80099;80166;80189;80224;80246;80249;80259;80264",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_38000/daily_wide_temperature.csv",
+      "bytes": 1667350,
+      "sha256": "ed245b094ec3848d",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_40000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 10,
+      "station_ids_ge4": "80001;80004;80006;80008;80020;80023;80054;80085;80157;80203",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_40000/daily_wide_temperature.csv",
+      "bytes": 782866,
+      "sha256": "75499163a2ce7d07",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_42000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 8,
+      "station_ids_ge4": "80011;80012;80013;80042;80058;80064;80219;80255",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_42000/daily_wide_temperature.csv",
+      "bytes": 854761,
+      "sha256": "7be5cbdba1081cdc",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_48000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 6,
+      "station_ids_ge4": "80093;80094;80096;80221;80230;80241",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_48000/daily_wide_temperature.csv",
+      "bytes": 682397,
+      "sha256": "b263329b988de975",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_53000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 7,
+      "station_ids_ge4": "80047;80049;80051;80052;80053;80109;80260",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_53000/daily_wide_temperature.csv",
+      "bytes": 790062,
+      "sha256": "c5f335431a31a372",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_61000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 2,
+      "station_ids_ge4": "80268;80275",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_61000/daily_wide_temperature.csv",
+      "bytes": 446322,
+      "sha256": "81830f89654be973",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_67000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 5,
+      "station_ids_ge4": "80115;80117;80134;80270;80297",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_67000/daily_wide_temperature.csv",
+      "bytes": 482300,
+      "sha256": "246ed19bcd0dbf6a",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_86000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 5,
+      "station_ids_ge4": "80120;80123;80265;80271;80289",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_86000/daily_wide_temperature.csv",
+      "bytes": 490077,
+      "sha256": "cee7d33562dd4891",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_88000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 2,
+      "station_ids_ge4": "80145;80277",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_88000/daily_wide_temperature.csv",
+      "bytes": 168632,
+      "sha256": "b9b024fc0229a7d1",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_9000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 4,
+      "station_ids_ge4": "80202;80235;80261;80507",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_9000/daily_wide_temperature.csv",
+      "bytes": 591326,
+      "sha256": "a2e4980ce3d14f7f",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    },
+    {
+      "network_id": "smhi_catchment_98000",
+      "provider": "smhi",
+      "context": "boreal_nordic",
+      "n_stations_ge4": 4,
+      "station_ids_ge4": "80144;80146;80148;80190",
+      "input_path": "results/wrr_submission_ready/multi_agency_ingest/smhi/networks/smhi_catchment_98000/daily_wide_temperature.csv",
+      "bytes": 553161,
+      "sha256": "e16e7e870b039381",
+      "source_root": "multi_agency_transport",
+      "measurement_statistic": "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record",
+      "quality_assurance": "provider_published_unqualified"
+    }
+  ]
+}

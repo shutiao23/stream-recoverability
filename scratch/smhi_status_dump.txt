@@ -1,0 +1,23 @@
+{
+  "name": "provider_published_unqualified",
+  "accepted_quality_codes": [
+    "O"
+  ],
+  "amendment": "MULTI_AGENCY_TRANSPORT_PROTOCOL.md Amendment 2 (assurance strata), made after ingest attempts and before sealing or any transport scoring",
+  "n_catalog_stations": 176,
+  "n_downloaded": 176,
+  "n_download_failures": 0,
+  "n_networks": 16,
+  "n_stations_emitted": 143,
+  "n_stations_emitted_ge_4_complete_years": 101,
+  "n_stations_ge_4_complete_years_provider_wide": 118,
+  "n_complete_station_years": 1601,
+  "n_complete_station_years_stations_ge_4_years": 1549,
+  "n_complete_station_years_in_emitted_networks": 1372,
+  "n_stations_ge_4_years_not_in_emitted_networks": 17,
+  "n_complete_station_years_not_in_emitted_networks": 177,
+  "n_rows_parsed": 1063746,
+  "n_rows_accepted": 1063746,
+  "n_rows_dropped": 0
+}
+stations.csv sha256: 7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9

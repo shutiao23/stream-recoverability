@@ -1,0 +1,106 @@
+[261] USGS stations: 200; gaps in scope: 3100
+[261] fetched 25/200 stations
+[261] fetched 50/200 stations
+[261] fetched 75/200 stations
+[261] fetched 100/200 stations
+[261] fetched 125/200 stations
+[261] fetched 150/200 stations
+[261] fetched 175/200 stations
+[261] fetched 200/200 stations
+{
+  "stations_requested": 200,
+  "stations_with_response": 200,
+  "stations_with_series_metadata": 109,
+  "stations_without_declared_coverage": 0,
+  "metadata_cross_check": {
+    "stations_compared": 109,
+    "stations_agreeing_within_one_day": 104,
+    "max_span_difference_days": 9837,
+    "note": "modern API metadata exists for a subset of stations only, because bulk unauthenticated access to it is rate-limited"
+  },
+  "series_metadata_errors": [],
+  "n_gaps": 2921,
+  "n_missing_days": 68180,
+  "n_gaps_with_no_day_in_population": 179,
+  "n_gap_days_outside_population": 2416,
+  "provider_code_counts": {
+    "(blank)": 9652,
+    "A": 822418,
+    "A:R": 398,
+    "A:e": 13,
+    "P": 502
+  },
+  "provider_code_token_counts": {
+    "A": 822829,
+    "P": 502,
+    "R": 398,
+    "e": 13
+  },
+  "provider_grade_counts": {
+    "4": 1004
+  },
+  "qualification_definitions": {
+    "A": "Approved for publication -- Processing and review completed.",
+    "P": "Provisional data subject to revision.",
+    "R": "Records for these data have been revised.",
+    "e": "Value has been estimated."
+  },
+  "grade_definitions": {
+    "4": "Incomplete or Partial Aggregated Record"
+  },
+  "n_series_metadata_rows": 199,
+  "n_series_descriptions_rows": 589,
+  "series_descriptions_observed": [
+    "Temperature, water, degrees Celsius (Maximum)",
+    "Temperature, water, degrees Celsius (Maximum), BOTTOM",
+    "Temperature, water, degrees Celsius (Maximum), BOTTOM, [Bottom]",
+    "Temperature, water, degrees Celsius (Maximum), Channel WQ",
+    "Temperature, water, degrees Celsius (Maximum), Elevation:      1.000",
+    "Temperature, water, degrees Celsius (Maximum), Instream",
+    "Temperature, water, degrees Celsius (Maximum), TOP",
+    "Temperature, water, degrees Celsius (Maximum), TOP, [Top]",
+    "Temperature, water, degrees Celsius (Maximum), [(2)]",
+    "Temperature, water, degrees Celsius (Maximum), [Right Bank Pump Stand]",
+    "Temperature, water, degrees Celsius (Maximum), [WQM]",
+    "Temperature, water, degrees Celsius (Mean)",
+    "Temperature, water, degrees Celsius (Mean), BOTTOM",
+    "Temperature, water, degrees Celsius (Mean), BOTTOM, [Bottom]",
+    "Temperature, water, degrees Celsius (Mean), Channel WQ",
+    "Temperature, water, degrees Celsius (Mean), Elevation:      1.000",
+    "Temperature, water, degrees Celsius (Mean), Hobo",
+    "Temperature, water, degrees Celsius (Mean), Instream",
+    "Temperature, water, degrees Celsius (Mean), TOP",
+    "Temperature, water, degrees Celsius (Mean), TOP, [Top]",
+    "Temperature, water, degrees Celsius (Mean), [(2)]",
+    "Temperature, water, degrees Celsius (Mean), [Mean Water Temperature]",
+    "Temperature, water, degrees Celsius (Mean), [Right Bank Pump Stand]",
+    "Temperature, water, degrees Celsius (Mean), [WQM]",
+    "Temperature, water, degrees Celsius (Minimum)",
+    "Temperature, water, degrees Celsius (Minimum), BOTTOM",
+    "Temperature, water, degrees Celsius (Minimum), BOTTOM, [Bottom]",
+    "Temperature, water, degrees Celsius (Minimum), Channel WQ",
+    "Temperature, water, degrees Celsius (Minimum), Elevation:      1.000",
+    "Temperature, water, degrees Celsius (Minimum), Instream",
+    "Temperature, water, degrees Celsius (Minimum), TOP",
+    "Temperature, water, degrees Celsius (Minimum), TOP, [Top]",
+    "Temperature, water, degrees Celsius (Minimum), [(2)]",
+    "Temperature, water, degrees Celsius (Minimum), [Right Bank Pump Stand]",
+    "Temperature, water, degrees Celsius (Minimum), [WQM]"
+  ],
+  "catalog_statistic_codes": [
+    "00001",
+    "00002",
+    "00003",
+    "00004",
+    "00005",
+    "00008",
+    "00011"
+  ],
+  "subsampled": false,
+  "subsample_note": "all USGS stations in the incomplete-year population",
+  "partial_aggregate_evidence": {
+    "n_provider_records_all_retrieved": 832983,
+    "n_records_graded_incomplete_or_partial_all": 1004,
+    "n_provider_records_in_population": 445442,
+    "n_records_graded_incomplete_or_partial_in_population": 815,
+    "share

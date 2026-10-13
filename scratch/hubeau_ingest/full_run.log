@@ -1,0 +1,31 @@
+Hub'Eau ingest -> results/wrr_submission_ready/multi_agency_ingest/hubeau
+retrieved_utc 2026-10-12T10:29:55Z
+  catalog: 872 stations, 866 river stations (0.69% dropped on waterbody evidence)
+    dropped reason no_river_name_evidence: 4
+    dropped reason no_waterbody_class_and_no_river_name: 1
+    dropped reason not_a_river_station: 1
+    dropped reason standing_waterbody_label: 1
+    spans: 1744/1744 cached, 0 to fetch
+  spans: 872 stations with >=1 observation, 620 with >=4 years of span
+  preliminary screen: 67 stations on 15 rivers can still reach 4 complete years; 80 stations on those rivers enter the Sandre-code audit
+    global qualification counts: 0/5 cached, 5 to fetch
+    per-station qualification counts: 0/320 cached, 320 to fetch
+    per-station qualification counts: 50/320
+    per-station qualification counts: 100/320
+    per-station qualification counts: 150/320
+    per-station qualification counts: 200/320
+    per-station qualification counts: 250/320
+    per-station qualification counts: 300/320
+  qualification over 80 audited stations:
+    code 1 (Correcte): 0 obs on 0 stations
+    code 2 (Incorrecte): 0 obs on 0 stations
+    code 3 (Incertaine): 0 obs on 0 stations
+    code 4 (Non qualifie): 5587671 obs on 80 stations
+    stations where sum(codes) != unfiltered total: 0
+  selection: 67 candidate stations on 15 rivers (>= 2 stations with span >= 4.0 y and >= 1461 observations)
+    download codes: code 1 on 0 stations, code 4 on 67 stations
+  download: 15 networks, 56 stations, 2 concurrent station downloads
+    [1/56] hubeau_besbre 04022150 code 4: 145821 obs, 6078 days with data, 19/19 years fetched
+    [2/56] hubeau_besbre 04023000 code 4: 58095 obs, 2422 days with data, 8/8 years fetched
+    [3/56] hubeau_besbre 04022210 code 4: 104011 obs, 4335 days with data, 13/13 years fetched
+    [4/56] hubeau_cher 04064000 code 4: 73579 obs, 3068 days with data, 10/10 years fetched

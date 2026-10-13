@@ -1,0 +1,91 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 19%]
+........................................................................ [ 25%]
+........................................................................ [ 32%]
+........................................................................ [ 38%]
+........................................................................ [ 45%]
+........................................................................ [ 51%]
+.........................................../home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f63187b1c60>
+
+Traceback (most recent call last):
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+             ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'split'
+
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+............................. [ 58%]
+........................................................................ [ 64%]
+........................................................................ [ 71%]
+........................................................................ [ 77%]
+.................F...................................................... [ 84%]
+........................................................................ [ 90%]
+..........F............................................................. [ 97%]
+...............................                                          [100%]
+=================================== FAILURES ===================================
+_______ test_model_audit_preserves_every_obligation_and_honest_run_state _______
+
+    def test_model_audit_preserves_every_obligation_and_honest_run_state() -> None:
+        manifest = build_tier2_deep_readiness_manifest(
+            ROOT, run_constructor_smoke=False
+        )
+        readiness = manifest["model_readiness"]
+        assert readiness["required_obligations"] == list(ALL_DEEP_OBLIGATIONS)
+        assert readiness["n_end_to_end_ready"] == 0
+        assert readiness["deep_models_run"] is False
+        models = readiness["models"]
+        assert models["saits"]["repository_implementation"].endswith("adapter_present")
+        assert models["csdi"]["repository_implementation"].endswith("adapter_present")
+        for name in ("air2stream", "grin", "pgdl_or_graph_wavenet"):
+            assert models[name]["t2_end_to_end_status"].startswith("not_ready")
+        mentions = readiness["source_evidence"]["model_name_mentions"]
+        roster_only_path = {
+            "src/stream_recoverability/experiments/t2_recovery_benchmark.py"
+        }
+>       assert {row["path"] for row in mentions["air2stream"]} == roster_only_path | {
+            "src/stream_recoverability/experiments/air2stream_equivalent.py",
+            "src/stream_recoverability/experiments/process_hybrid_sensitivity.py"
+        }
+E       AssertionError: assert {'src/stream_...aths.py', ...} == {'src/stream_...benchmark.py'}
+E         Extra items in the left set:
+E         'src/stream_recoverability/experiments/wrr_revision/information.py'
+E         'src/stream_recoverability/experiments/wrr_revision/recoverers.py'
+E         'src/stream_recoverability/experiments/wrr_revision/paths.py'
+E         'src/stream_recoverability/experiments/v17_fitness/paths.py'
+E         Use -v to get more diff
+
+tests/test_t2_tier2_readiness.py:118: AssertionError
+________________ test_manuscript_pdf_is_built_from_the_markdown ________________
+
+    def test_manuscript_pdf_is_built_from_the_markdown():
+        """The Markdown is the source; the PDF is a build product and must not lag."""
+    
+        pdf = ROOT / "paper_archived" / "v18" / "manuscript.pdf"
+        if not pdf.exists():
+            pytest.skip("reading copy not built; run make v18-pdf")
+>       assert pdf.stat().st_mtime >= MANUSCRIPT.stat().st_mtime - 1, (
+            "manuscript.pdf is older than manuscript.md; run make v18-pdf"
+        )
+E       AssertionError: manuscript.pdf is older than manuscript.md; run make v18-pdf
+E       assert 1790248896.7862852 >= (1791767178.248102 - 1)
+E        +  where 1790248896.7862852 = os.stat_result(st_mode=33204, st_ino=33462169, st_dev=64768, st_nlink=1, st_uid=1009, st_gid=1010, st_size=499441, st_atime=1791762910, st_mtime=1790248896, st_ctime=1790248896).st_mtime
+E        +    where os.stat_result(st_mode=33204, st_ino=33462169, st_dev=64768, st_nlink=1, st_uid=1009, st_gid=1010, st_size=499441, st_atime=1791762910, st_mtime=1790248896, st_ctime=1790248896) = <bound method Path.stat of PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.pdf')>()
+E        +      where <bound method Path.stat of PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.pdf')> = PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.pdf').stat
+E        +  and   1791767178.248102 = os.stat_result(st_mode=33204, st_ino=33462156, st_dev=64768, st_nlink=1, st_uid=1009, st_gid=1010, st_size=78972, st_atime=1791767178, st_mtime=1791767178, st_ctime=1791767178).st_mtime
+E        +    where os.stat_result(st_mode=33204, st_ino=33462156, st_dev=64768, st_nlink=1, st_uid=1009, st_gid=1010, st_size=78972, st_atime=1791767178, st_mtime=1791767178, st_ctime=1791767178) = <bound method Path.stat of PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.md')>()
+E        +      where <bound method Path.stat of PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.md')> = PosixPath('/home/lzq/workspace/parttime/stream-recoverability/paper_archived/v18/manuscript.md').stat
+
+tests/test_v18_closure.py:170: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_t2_tier2_readiness.py::test_model_audit_preserves_every_obligation_and_honest_run_state
+FAILED tests/test_v18_closure.py::test_manuscript_pdf_is_built_from_the_markdown
+EXIT=1

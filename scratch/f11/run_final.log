@@ -1,0 +1,38 @@
+[preserve] 2 files -> results/wrr_submission_ready/amendments/step22_noise_pre_fix
+           noise_sensitivity.json sha256=3673b396b41ccbf6… bytes=914
+           REPORT.md sha256=e7f37a6ba93b90b2… bytes=3000
+[refix] development: old noisy 6.2050 -> new noisy 6.0331 points
+[refix] reserved:    old noisy 6.6675 -> new noisy 6.2186 points
+[refix] pre-fix artifact reproduced exactly: worst gap dev 0.00e+00, reserved 0.00e+00
+  [scenarios] 100/457 stations (16s)
+  [scenarios] 200/457 stations (42s)
+  [scenarios] 300/457 stations (55s)
+  [scenarios] 400/457 stations (63s)
+/home/lzq/anaconda3/lib/python3.11/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+[scenarios] 51,524 cases rebuilt over 457 stations in 70.3s; replica exact=True
+[contrasts] 42 clustered bootstraps (1000 draws) in 27s
+      panel           scenario  contrast_points  contrast_ci_low  contrast_ci_high  n_evaluated
+development              clean           5.9839           5.2246            6.6340        40704
+development           iid_0.15           6.0331           5.3118            6.6939        40704
+development         bias_p0.15           5.9278           5.2039            6.5826        40704
+development         bias_p0.30           6.0611           5.3286            6.7853        40704
+development         bias_p0.50           6.0120           5.2327            6.7219        40704
+development         bias_m0.15           6.0752           5.3210            6.7369        40704
+development         bias_m0.30           5.9769           5.2439            6.6747        40704
+development         bias_m0.50           6.0015           5.2170            6.7769        40704
+development   ar1_r0.70_sd0.15           5.9523           5.2213            6.5817        40704
+development step_p0.30_midyear           6.2121           5.5051            6.9757        40704
+development   drift_0_to_p0.30           5.9208           5.1958            6.6458        40704
+   reserved              clean           6.2054           4.7464            7.4246        10820
+   reserved           iid_0.15           6.2186           4.7978            7.3304        10820
+   reserved         bias_p0.15           6.1526           4.7502            7.3734        10820
+   reserved         bias_p0.30           6.2054           5.0800            7.3023        10820
+   reserved         bias_p0.50           6.0074           4.7405            7.1347        10820
+   reserved         bias_m0.15           6.4959           5.1583            7.7120        10820
+   reserved         bias_m0.30           6.6940           5.4545            7.8705        10820
+   reserved         bias_m0.50           7.2353           6.1980            8.2156        10820
+   reserved   ar1_r0.70_sd0.15           6.1922           4.7177            7.4761        10820
+   reserved step_p0.30_midyear           6.4299           5.1702            7.7193        10820
+   reserved   drift_0_to_p0.30           6.1394           4.7030            7.4483        10820
+[report] wrote results/wrr_submission_ready/amendments/step22_noise_post_fix/summary.json, results/wrr_submission_ready/amendments/step22_noise_post_fix/REPORT.md, results/wrr_submission_ready/amendments/step22_noise_post_fix/scenario_contrasts.csv

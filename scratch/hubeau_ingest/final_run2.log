@@ -1,0 +1,25 @@
+Hub'Eau ingest -> results/wrr_submission_ready/multi_agency_ingest/hubeau
+retrieved_utc 2026-10-12T11:33:06Z
+  catalog: 872 stations, 866 river stations (0.69% dropped on waterbody evidence)
+    dropped reason no_river_name_evidence: 4
+    dropped reason no_waterbody_class_and_no_river_name: 1
+    dropped reason not_a_river_station: 1
+    dropped reason standing_waterbody_label: 1
+    spans: 1744/1744 cached, 0 to fetch
+  spans: 872 stations with >=1 observation, 620 with >=4 years of span
+  preliminary screen (uncapped): 175 stations on 66 rivers can still reach 4 complete years; --max-networks 15 keeps 67 stations on 15 rivers (51 rivers beyond the cap); 80 stations enter the Sandre-code audit
+    global qualification counts: 5/5 cached, 0 to fetch
+    per-station qualification counts: 320/320 cached, 0 to fetch
+  qualification over 80 audited stations:
+    code 1 (Correcte): 0 obs on 0 stations
+    code 2 (Incorrecte): 0 obs on 0 stations
+    code 3 (Incertaine): 0 obs on 0 stations
+    code 4 (Non qualifie): 5587671 obs on 80 stations
+    stations where sum(codes) != unfiltered total: 0
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/242_multi_agency_hubeau_ingest.py", line 2230, in <module>
+    main()
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/242_multi_agency_hubeau_ingest.py", line 2129, in main
+    if pre_cap_networks_dropped:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'pre_cap_networks_dropped' is not defined

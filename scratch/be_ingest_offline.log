@@ -1,0 +1,11 @@
+== provider A: waterinfo_be (KiWIS)
+  station catalogue: 1999 stations
+  timeseries catalogue: 3365 WT series, 408 daily-mean series
+  [50/408] series fetched
+  [100/408] series fetched
+  [150/408] series fetched
+/home/lzq/workspace/parttime/stream-recoverability/scripts/260_multi_agency_be_es_ingest.py:454: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  long = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=["ts_id", "station_no", "timestamp", "value"])
+/home/lzq/workspace/parttime/stream-recoverability/scripts/260_multi_agency_be_es_ingest.py:858: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  all_stations = pd.concat([stations_table, pd.DataFrame(empty_rows)], ignore_index=True) if empty_rows else stations_table
+  BE networks=0 stations=0

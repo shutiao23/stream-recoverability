@@ -1,0 +1,263 @@
+{
+  "validation": {
+    "frozen_case_table": "results/v17_fitness/step3_cases/cases.parquet",
+    "frozen_cases": 51524,
+    "rebuilt_cases": 51524,
+    "keys_missing_from_rebuild": 0,
+    "keys_not_in_frozen_table": 0,
+    "keys_compared": 51524,
+    "values_compared": 392214,
+    "max_abs_difference_frozen_vs_rebuild": {
+      "abserr_hottest30_doy_climatology_vs_clean__doy_climatology": 0.0,
+      "abserr_noisy_doy_climatology_vs_iid_0.15__doy_climatology": 0.0,
+      "abserr_hottest30_smooth_climatology_vs_clean__smooth_climatology": 0.0,
+      "abserr_noisy_smooth_climatology_vs_iid_0.15__smooth_climatology": 0.0,
+      "abserr_hottest30_linear_interp_vs_clean__linear_interp": 0.0,
+      "abserr_noisy_linear_interp_vs_iid_0.15__linear_interp": 0.0,
+      "abserr_hottest30_donor_ridge_vs_clean__donor_ridge": 0.0,
+      "abserr_noisy_donor_ridge_vs_iid_0.15__donor_ridge": 0.0,
+      "abserr_hottest30_air_ridge_vs_clean__air_ridge": 0.0,
+      "abserr_noisy_air_ridge_vs_iid_0.15__air_ridge": 0.0,
+      "truth_hottest30_vs_scenario": 0.0,
+      "longest_run_vs_scenario": 0.0,
+      "peak_overlap_vs_scenario": 0.0,
+      "warm_observed_fraction_vs_scenario": 0.0,
+      "missing_fraction_vs_scenario": 0.0,
+      "n_visible_donors_vs_scenario": 0.0
+    },
+    "nan_position_mismatches": {
+      "abserr_hottest30_doy_climatology_vs_clean__doy_climatology": 0,
+      "abserr_noisy_doy_climatology_vs_iid_0.15__doy_climatology": 0,
+      "abserr_hottest30_smooth_climatology_vs_clean__smooth_climatology": 0,
+      "abserr_noisy_smooth_climatology_vs_iid_0.15__smooth_climatology": 0,
+      "abserr_hottest30_linear_interp_vs_clean__linear_interp": 0,
+      "abserr_noisy_linear_interp_vs_iid_0.15__linear_interp": 0,
+      "abserr_hottest30_donor_ridge_vs_clean__donor_ridge": 0,
+      "abserr_noisy_donor_ridge_vs_iid_0.15__donor_ridge": 0,
+      "abserr_hottest30_air_ridge_vs_clean__air_ridge": 0,
+      "abserr_noisy_air_ridge_vs_iid_0.15__air_ridge": 0,
+      "truth_hottest30_vs_scenario": 0,
+      "longest_run_vs_scenario": 0,
+      "peak_overlap_vs_scenario": 0,
+      "warm_observed_fraction_vs_scenario": 0,
+      "missing_fraction_vs_scenario": 0,
+      "n_visible_donors_vs_scenario": 0
+    },
+    "categorical_mismatches": {
+      "provider": 0,
+      "split_role": 0,
+      "arm": 0,
+      "overlap_class": 0
+    },
+    "replica_is_exact": true,
+    "failures": [],
+    "seconds": 74.4
+  },
+  "process_checks": {
+    "iid_0.15": {
+      "kind": "iid",
+      "spec": "replica of the frozen 0.15 C iid Gaussian process (validation anchor)",
+      "seed_tag": "sensor",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.15039016288252036,
+      "mean_within_series_abs_offset_c": 0.006793745082815995,
+      "mean_within_series_lag1_autocorr": 0.0024175866790050325,
+      "constant_series": 0
+    },
+    "bias_p0.15": {
+      "kind": "bias",
+      "spec": "+0.15 C all year",
+      "seed_tag": "bias_p0.15",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 2.779364222503138e-17,
+      "mean_within_series_abs_offset_c": 0.14999999999999997,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "bias_p0.30": {
+      "kind": "bias",
+      "spec": "+0.30 C all year",
+      "seed_tag": "bias_p0.30",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 5.558728445006276e-17,
+      "mean_within_series_abs_offset_c": 0.29999999999999993,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "bias_p0.50": {
+      "kind": "bias",
+      "spec": "+0.50 C all year",
+      "seed_tag": "bias_p0.50",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.0,
+      "mean_within_series_abs_offset_c": 0.5,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "bias_m0.15": {
+      "kind": "bias",
+      "spec": "-0.15 C all year",
+      "seed_tag": "bias_m0.15",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 2.779364222503138e-17,
+      "mean_within_series_abs_offset_c": 0.14999999999999997,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "bias_m0.30": {
+      "kind": "bias",
+      "spec": "-0.30 C all year",
+      "seed_tag": "bias_m0.30",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 5.558728445006276e-17,
+      "mean_within_series_abs_offset_c": 0.29999999999999993,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "bias_m0.50": {
+      "kind": "bias",
+      "spec": "-0.50 C all year",
+      "seed_tag": "bias_m0.50",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.0,
+      "mean_within_series_abs_offset_c": 0.5,
+      "mean_within_series_lag1_autocorr": null,
+      "constant_series": 60
+    },
+    "ar1_r0.70_sd0.15": {
+      "kind": "ar1",
+      "spec": "stationary AR(1) daily error, rho 0.7, marginal sd 0.15 C",
+      "seed_tag": "ar1_r0.70_sd0.15",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.14960126473011492,
+      "mean_within_series_abs_offset_c": 0.014663685758198488,
+      "mean_within_series_lag1_autocorr": 0.6987287180083563,
+      "constant_series": 0
+    },
+    "step_p0.30_midyear": {
+      "kind": "step",
+      "spec": "+0.30 C from day-of-year 183 (device replaced mid-year)",
+      "seed_tag": "step_p0.30_midyear",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.15020462874094906,
+      "mean_within_series_abs_offset_c": 0.1505403847593382,
+      "mean_within_series_lag1_autocorr": 0.9945252088216002,
+      "constant_series": 0
+    },
+    "drift_0_to_p0.30": {
+      "kind": "drift",
+      "spec": "monotone drift 0 to +0.30 C across the calendar year",
+      "seed_tag": "drift_0_to_p0.30",
+      "n_series": 60,
+      "n_days_per_series": "365 or 366, the real calendar of the sampled station-year",
+      "mean_within_series_sd_c": 0.08695902813119735,
+      "mean_within_series_abs_offset_c": 0.15,
+      "mean_within_series_lag1_autocorr": 1.0,
+      "constant_series": 0
+    },
+    "_comment": {
+      "why": "documents that each named process is the process it claims to be; the series are drawn on the real calendar of sampled station-years, so 366-day leap years are included",
+      "constant_series_means": "the whole-year bias is a constant, so its within-series sd is zero and its lag-1 autocorrelation is undefined; its size is the mean absolute offset",
+      "frozen_reference": {
+        "model": "iid_0.15",
+        "seed_tag": "sensor",
+        "sd_c": 0.15
+      }
+    }
+  },
+  "endpoint_level_perturbation": {
+    "iid_0.15": {
+      "spec": "replica of the frozen 0.15 C iid Gaussian process (validation anchor)",
+      "n_cases": 51524,
+      "mean_delta_c": 0.0011628005674993783,
+      "sd_delta_c": 0.027479003979643053,
+      "mean_abs_delta_c": 0.022019884794666336,
+      "sd_ratio_to_iid_0.15": 1.0
+    },
+    "bias_p0.15": {
+      "spec": "+0.15 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": 0.14999999999999902,
+      "sd_delta_c": 1.3601952498441106e-13,
+      "mean_abs_delta_c": 0.14999999999999902,
+      "sd_ratio_to_iid_0.15": 4.949943785632725e-12
+    },
+    "bias_p0.30": {
+      "spec": "+0.30 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": 0.30000000000000077,
+      "sd_delta_c": 2.7470154106963827e-13,
+      "mean_abs_delta_c": 0.30000000000000077,
+      "sd_ratio_to_iid_0.15": 9.996779405583338e-12
+    },
+    "bias_p0.50": {
+      "spec": "+0.50 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": 0.5,
+      "sd_delta_c": 1.930697998267717e-15,
+      "mean_abs_delta_c": 0.5,
+      "sd_ratio_to_iid_0.15": 7.026084350429925e-14
+    },
+    "bias_m0.15": {
+      "spec": "-0.15 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": -0.14999999999999888,
+      "sd_delta_c": 1.3592678296028956e-13,
+      "mean_abs_delta_c": 0.14999999999999888,
+      "sd_ratio_to_iid_0.15": 4.946568771596911e-12
+    },
+    "bias_m0.30": {
+      "spec": "-0.30 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": -0.3000000000000007,
+      "sd_delta_c": 2.7458378150102477e-13,
+      "mean_abs_delta_c": 0.3000000000000007,
+      "sd_ratio_to_iid_0.15": 9.99249396755579e-12
+    },
+    "bias_m0.50": {
+      "spec": "-0.50 C all year",
+      "n_cases": 51524,
+      "mean_delta_c": -0.5,
+      "sd_delta_c": 1.9021402410303333e-15,
+      "mean_abs_delta_c": 0.5,
+      "sd_ratio_to_iid_0.15": 6.92215861404392e-14
+    },
+    "ar1_r0.70_sd0.15": {
+      "spec": "stationary AR(1) daily error, rho 0.7, marginal sd 0.15 C",
+      "n_cases": 51524,
+      "mean_delta_c": 0.004054454246654016,
+      "sd_delta_c": 0.06190827447176746,
+      "mean_abs_delta_c": 0.04958172133889818,
+      "sd_ratio_to_iid_0.15": 2.2529300740896665
+    },
+    "step_p0.30_midyear": {
+      "spec": "+0.30 C from day-of-year 183 (device replaced mid-year)",
+      "n_cases": 51524,
+      "mean_delta_c": 0.2742111681848153,
+      "sd_delta_c": 0.05830557006473895,
+      "mean_abs_delta_c": 0.2742111681848153,
+      "sd_ratio_to_iid_0.15": 2.12182254160059
+    },
+    "drift_0_to_p0.30": {
+      "spec": "monotone drift 0 to +0.30 C across the calendar year",
+      "n_cases": 51524,
+      "mean_delta_c": 0.17292080446496846,
+      "sd_delta_c": 0.016647660762381694,
+      "mean_abs_delta_c": 0.17292080446496846,
+      "sd_ratio_to_iid_0.15": 0.6058320299642077
+    },
+    "_comment": {
+      "quantity": "H(truth + eps) - H(truth) for the hottest-30-day mean H, over every case in the panel",
+      "why": "the daily sd alone does not say how hard a process hits a thirty-day mean; an autocorrelated error survives averaging, so the AR(1) scenario perturbs the endpoint more than the iid scenario does at the same marginal sd"
+    }
+  }
+}

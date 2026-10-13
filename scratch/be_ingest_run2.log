@@ -1,0 +1,9 @@
+== provider A: waterinfo_be (KiWIS)
+  station catalogue: 1999 stations
+  timeseries catalogue: 3365 WT series, 408 daily-mean series
+  [50/408] series fetched
+  [100/408] series fetched
+  [150/408] series fetched
+  rate limited (429); sleeping 20s (attempt 1)
+  rate limited (429); sleeping 40s (attempt 2)
+  rate limited (429); sleeping 60s (attempt 3)

@@ -1,0 +1,9 @@
+[247] 354 development station jobs
+[247] 16080 cases from 165 jobs
+[247] WARNING: the pre-fix specification does not reproduce the frozen generation (0.080034 vs 0.082410 C; n 5764 vs 5712)
+[247] generation c69062fcf2cc7c99 verified: {'generation_id': 'c69062fcf2cc7c9967006b854638956fbc74205f9196aed8b61471e0e728e593', 'n_files': 6, 'ok': True}
+               contrast               spec    arm                selection_rule                                                                                                                                    note  n_paired  n_networks  point_c  ci_low_c  ci_high_c     se_c  n_clusters  n_strata
+weak_half - strong_half unmatched_original pooled original_visible_intersection pre-fix specification on the two-arm paired sample: each correlation half intersected with the visibility filter, counts free to differ     11404          24 0.083247  0.062986   0.109656 0.012080          24       NaN
+weak_half - strong_half    matched_exact_k pooled                   top_of_half                                                        strong = top-K visible of the strong half, weak = top-K visible of the weak half     11616          24 0.083999  0.063738   0.109966 0.011836          24       NaN
+weak_half - strong_half    matched_exact_k pooled                gap_minimising                                                     strong = bottom-K visible of the strong half, weak = top-K visible of the weak half     11590          24 0.074486  0.052579   0.103936 0.013054          24       NaN
+weak_half - strong_half    matched_exact_k pooled                gap_maximising                                                     strong = top-K visible of the strong half, weak = bottom-K visible of the weak half     11593          24 0.087498  0.065594   0.114932 0.012555          24       NaN

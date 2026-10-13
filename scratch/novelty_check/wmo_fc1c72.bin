@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="en-gb">
+
+  <head>
+
+      <!-- google analytics -->
+      <script async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-138062654-1">
+      </script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'UA-138062654-1');
+      </script>
+
+      <!-- metadata -->
+      <title>Indices | Climdex</title>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <meta name="robots" content="index, follow" />
+      <meta name="keywords" content="climdex,climate,climate change,data,extremes,temperature,precipitation,rainfall,drought,heat,cold" />
+      <meta name="description" content="Explore, download and analyse indices of observed and modelled climate extremes." />
+      <!-- TODO - social network metadata -->
+      <!-- TODO - google database search metadata -->
+
+      <!-- javascript libraries -->
+      <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js" 
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+      </script>
+      <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous">
+      </script>
+      <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+      crossorigin="anonymous">
+      </script>
+      <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
+      <!-- stylesheet (including bootstrap) -->
+      <link href="/css/bootstrap-custom.css" rel="stylesheet">  
+      <!-- Flavicon-->
+      <!-- Flavicon-->
+      <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+      <link rel="manifest" href="/images/favicon/site.webmanifest">
+
+
+      <!-- mathjax (for index descriptions -->
+      <script
+        src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_CHTML'
+        async>
+      </script>
+
+  </head>
+  <body>
+
+    <!-- header bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top page-nav">
+      <!-- header: climdex brand -->
+      <a class="navbar-brand" href="/">Climdex</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- collapsible link collection -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Learn
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/learn">What is Climdex?</a>
+              <a class="dropdown-item" href="/learn/datasets">Datasets</a>
+              <a class="dropdown-item" href="/learn/indices">Indices</a>
+              <a class="dropdown-item" href="/learn/plots">Plots</a>
+              <a class="dropdown-item" href="/learn/which_dataset">Which Dataset to use?</a>
+              <a class="dropdown-item" href="/learn/tools">Tools</a>
+              <a class="dropdown-item" href="/learn/issues">Known issues</a>
+
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Access
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/access">Gridded and station data</a>
+              <a class="dropdown-item" href="/access/countries">Country code list</a>
+<!--              <a class="dropdown-item" href="/access/gridded">Gridded data (legacy)</a>
+		  <a class="dropdown-item" href="/access/stations">Station data (legacy)</a>-->
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              About
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/about/project">Climdex</a>
+              <a class="dropdown-item" href="/about/partners">Project partners</a>
+              <a class="dropdown-item" href="/about/team">Team profiles</a>
+              <a class="dropdown-item" href="/about/termsofuse">Terms of use</a>
+            </div>
+          </li>
+
+        </ul>
+        <span class="nav-item navbar-nav"><a class="nav-link" href="/dashboard">Dashboard  </a></span> 
+        <span class="nav-item navbar-nav"><a class="nav-link" href="/contact">Contact us</a></span>
+
+      </div>
+    </nav>
+ 
+
+    <!-- climdex basics -->
+    <section class="page">
+      
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Climdex</a></li>
+          <li class="breadcrumb-item"><a href="/learn">Learn</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Indices</li>
+        </ol>
+      </nav>
+
+      <section class="main lead">
+        <p>The Climdex project offers a range of climate extremes indices. These indices are annual or monthly statistics of modelled or observed climate data. Here you can find descriptions and formulae for each of the indices.</p>
+      </section>
+
+      <section class="main">
+        <p>Find out more about <a href="/learn/indices/sector">useful indices per sector</a></p>
+      </section>
+
+      <!-- quick links to index definitions -->
+      <section id="index-links" class="boxout-light">
+        <h4>Quick links to indices</h2>
+        <div class="row">
+          <div class="col-lg-6">
+            <h5>Heat and cold</h5>
+            <ul class="nav index-buttons">
+              <li class="nav-item">
+                <a href="#index-FD">FD</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-SU">SU</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-ID">ID</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TR">TR</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-GSL">GSL</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXx">TXx</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNx">TNx</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXn">TXn</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNn">TNn</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TN10p">TN10p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TX10p">TX10p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TN90p">TN90p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TX90p">TX90p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-WSDI">WSDI</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CSDI">CSDI</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-DTR">DTR</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-ETR">ETR</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CDDcoldn">CDDcoldn</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-GDDgrown">GDDgrown</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-HDDheatn">HDDheatn</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TMge5">TMge5</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TMlt5">TMlt5</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TMge10">TMge10</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TMlt10">TMlt10</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TMm">TMm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXm">TXm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNm">TNm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXge30">TXge30</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXge35">TXge35</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXgt50p">TXgt50p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNlt2">TNlt2</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNltm2">TNltm2</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TNltm20">TNltm20</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-TXbdTNbd">TXbdTNbd</a>
+              </li>
+            </ul>
+          </div>
+            
+
+          <div class="col-lg-6">
+            <h5>Precipitation</h5>
+            <ul class="nav index-buttons">
+              <li class="nav-item">
+                  <a href="#index-Rx1day">Rx1day</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-Rx5day">Rx5day</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-SPI">SPI</a>
+              </li>              
+              <li class="nav-item">
+                <a href="#index-SPEI">SPEI</a>
+              </li>                
+              <li class="nav-item">
+                <a href="#index-SDII">SDII</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R10mm">R10mm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R20mm">R20mm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-Rnnmm">Rnnmm</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CDD">CDD</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWD">CWD</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R95p">R95p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R99p">R99p</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R95pTOT">R95pTOT</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-R99pTOT">R99pTOT</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-PRCPTOT">PRCPTOT</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6">
+            <h5>Heat and cold waves</h5>
+            <ul class="nav index-buttons">
+              <li class="nav-item">
+                <a href="#index-HWN">HWN</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-HWF">HWF</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-HWD">HWD</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-HWM">HWM</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-HWA">HWA</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWN_ECF">CWN_ECF</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWF_ECF">CWF_ECF</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWD_ECF">CWD_ECF</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWM_ECF">CWM_ECF</a>
+              </li>
+              <li class="nav-item">
+                <a href="#index-CWA_ECF">CWA_ECF</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        
+      </section>
+    <div id="index-card-container">
+    
+      <div class="index-card-deck">
+        <div id="index-FD" class="card index-card">
+          <h5 class="card-header">FD</h5>
+          <div class="card-body">
+            <h5 class="card-title">Number of frost days</h5>
+            <p class="card-text">Annual count of days when <var>T</var><var>N</var> (daily minimum temperature) &lt; 0&deg;C. Let <var>T</var><var>N</var><var><sub>i</sub></var><var><sub>j</sub></var> be daily minimum temperature on day <var>i</var> in year <var>j</var>. Count the number of days where <var>T</var><var>N</var><var><sub>i</sub></var><var><sub>j</sub></var> &lt; 0 &deg;C. 
+            </p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-SU" class="card index-card">
+          <h5 class="card-header">SU</h5>
+          <div class="card-body">
+            <h5 class="card-title">Number of summer days</h5>
+            <p class="card-text">Annual count of days when <var>T</var><var>X</var> (daily maximum temperature) &gt; 25&deg;C. Let <var>T</var><var>X</var><var><sub>i</sub></var><var><sub>j</sub></var> be daily minimum temperature on day <var>i</var> in year <var>j</var>. Count the number of days where <var>T</var><var>X</var><var><sub>i</sub></var><var><sub>j</sub></var> &gt; 25 &deg;C. 
+            </p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="index-card-deck">
+
+        <div id="index-ID" class="card index-card">
+          <h5 class="card-header">ID</h5>
+          <div class="card-body">
+            <h5 class="card-title">Number of icing days</h5>
+            <p class="card-text">Annual count of days when TX (daily maximum temperature) &lt; 0 &deg;C. Let <var>T</var><var>X</var><var><sub>i</sub></var><var><sub>j</sub></var>be daily maximum temperature on day <var>i</var> in year <var>j</var>. Count the number of days where <var>T</var><var>X</var><var><sub>i</sub></var><var><sub>j</sub></var> &lt; 0 &deg;C.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TR" class="card index-card">
+          <h5 class="card-header">TR</h5>
+          <div class="card-body">
+            <h5 class="card-title">Number of tropical nights</h5>
+            <p class="card-text">Annual count of days when TN (daily minimum temperature) &gt; 20 &deg;C. Let <var>T</var><var>N</var><var><sub>i</sub></var><var><sub>j</sub></var> be daily minimum temperature on day <var>i</var> in year <var>j</var>. Count the number of days where <var>T</var><var>N</var><var><sub>i</sub></var><var><sub>j</sub></var> &gt; 20 &deg;C.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+        
+        <div id="index-GSL" class="card index-card">
+          <h5 class="card-header">GSL</h5>
+          <div class="card-body">
+            <h5 class="card-title">Growing season length</h5>
+            <p class="card-text">Annual* count between the first span of at least 6 days with daily mean temperature TG &gt;5 &deg;C and the first span after July 1<sup>st</sup> (Jan 1<sup>st</sup> in SH) of 6 days with TG &lt;5 &deg;C.</p>
+            <p class="card-text">Let <var>T</var><var>G</var><var><sub>i</sub></var><var><sub>j</sub></var> be daily mean temperature on day <var>i</var> in year <var>j</var>. Count the number of days between the first occurrence of at least 6 consecutive days with <var>T</var><var>G</var><var><sub>i</sub></var><var><sub>j</sub></var> &gt; 5 &deg;C and the first occurrence after 1<sup>st</sup> July (Jan 1<sup>st</sup> in SH) of at least 6 consecutive days with <var>T</var><var>G</var><var><sub>i</sub></var><var><sub>j</sub></var> &lt; 5 &deg;C.</p>
+            <p class="small">* Annual means Jan 1<sup>st</sup> to Dec 31<sup>st</sup> in the Northern Hemisphere (NH); July 1<sup>st</sup> to June 30<sup>th</sup> in the Southern Hemisphere (SH).</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TXx" class="card index-card">
+          <h5 class="card-header">TXx</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum value of daily maximum temperature</h5>
+            <p class="card-text">Let <var>T</var><var>X</var><var><sub>x</sub></var> be the daily maximum temperatures in month <var>k</var>, period <var>j</var>. The maximum daily maximum temperature each month is then <i>TX<sub>x<sub>kj</sub></sub></i> = max(<i>TX<sub>x<sub>kj</sub></sub></i>).</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TNx" class="card index-card">
+          <h5 class="card-header">TNx</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum value of daily minimum temperature</h5>
+            <p class="card-text">Let <var>T</var><var>N</var><var><sub>x</sub></var> be the daily minimum temperatures in month <var>k</var>, period <var>j</var>. The maximum daily minimum temperature each month is then <i>TN<sub>x<sub>kj</sub></sub></i> = max(<i>TN<sub>x<sub>kj</sub></sub></i>).</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TXn" class="card index-card">
+          <h5 class="card-header">TXn</h5>
+          <div class="card-body">
+            <h5 class="card-title">Minimum value of daily maximum temperature</h5>
+            <p class="card-text">Let <i>TX<sub>n</sub> </i> be the daily maximum temperatures in month <var>k</var>, period <var>j</var>. The minimum daily maximum temperature each month is then <i>TX<sub>n<sub>kj</sub></sub></i> = min(<i>TX<sub>n<sub>kj</sub></sub></i>)</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TNn" class="card index-card">
+          <h5 class="card-header">TNn</h5>
+          <div class="card-body">
+            <h5 class="card-title">Minimum value of daily minimum temperature</h5>
+            <p class="card-text">Let <i>TN<sub>n</sub> </i> be the daily minimum temperatures in month <var>k</var>, period <var>j</var>. The minimum daily minimum temperature each month is then <i>TN<sub>n<sub>kj</sub></sub></i>=min(<i>TN<sub>n<sub>kj</sub></sub></i>)</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TN10p" class="card index-card">
+          <h5 class="card-header">TN10p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Percentage of days when TN < 10th percentile</h5>
+            <p class="card-text">Let <var>TN<sub>ij</sub></var> be the daily minimum temperature on day <var>i</var> in period <var>j</var> and let <var>TN<sub>in</sub>10</var> be the calendar day 10<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. The percentage of time for the base period is determined where: <var>TN<sub>ij</sub></var> &lt; TN<sub>in</sub>10. To avoid possible inhomogeneity across the in-base and out-base periods, the calculation for the base period (1961-1990) requires the use of a bootstrap procedure. Details are described in <a href="#references">Zhang <i>et al.</i> (2005)</a>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TX10p" class="card index-card">
+          <h5 class="card-header">TX10p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Percentage of days when TX < 10th percentile</h5>
+            <p class="card-text">Let <var>TX<sub>ij</sub></var> be the daily maximum temperature on day <var>i</var> in period <var>j</var> and let <var>TX<sub>in</sub>10</var> be the calendar day 10<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. The percentage of time for the base period is determined where <var>TX<sub>ij</sub></var> &lt; TX<sub>in</sub>10. To avoid possible inhomogeneity across the in-base and out-base periods, the calculation for the base period (1961-1990) requires the use of a bootstrap processure. Details are described in <a href="#references">Zhang <i>et al.</i> (2005)</a>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TN90p" class="card index-card">
+          <h5 class="card-header">TN90p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Percentage of days when TN > 90th percentile</h5>
+            <p class="card-text">Let <var>TN<sub>ij</sub></var> be the daily minimum temperature on day <var>i</var> in period <var>j</var> and let <var>TN<sub>in</sub>90</var> be the calendar day 90<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. The percentage of time for the base period is determined where <var>TN<sub>ij</sub></var> &gt; TN<sub>in</sub>90. To avoid possible inhomogeneity across the in-base and out-base periods, the calculation for the base period (1961-1990) requires the use of a bootstrap processure. Details are described in <a href="#references">Zhang <i>et al.</i> (2005)</a></p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TX90p" class="card index-card">
+          <h5 class="card-header">TX90p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Percentage of days when TX > 90th percentile</h5>
+            <p class="card-text">Let <var>TX<sub>ij</sub></var> be the daily maximum temperature on day <var>i</var> in period <var>j</var> and let <var>TX<sub>in</sub>90</var> be the calendar day 90<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. The percentage of time for the base period is determined where <var>TX<sub>ij</sub></var> &gt; TX<sub>in</sub>90. To avoid possible inhomogeneity across the in-base and out-base periods, the calculation for the base period (1961-1990) requires the use of a bootstrap processure. Details are described in <a href=#references>Zhang <i>et al.</i> (2005)</a>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-WSDI" class="card index-card">
+          <h5 class="card-header">WSDI</h5>
+          <div class="card-body">
+            <h5 class="card-title">Warm spell duration index: annual count of days with at least 6 consecutive days when TX &gt; 90th percentile</h5>
+            <p class="card-text">Let <var>TX<sub>ij</sub></var> be the daily maximum temperature on day <var>i</var> in period <var>j</var> and let <var>TX<sub>in</sub>90</var> be the calendar day 90<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. Then the number of days per period is summed where, in intervals of at least 6 consecutive days, <var>TX<sub>ij</sub></var> &gt; <var>TX<sub>in</sub>90</var>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-CSDI" class="card index-card">
+          <h5 class="card-header">CSDI</h5>
+          <div class="card-body">
+            <h5 class="card-title">Cold spell duration index: annual count of days with at least 6 consecutive days when <var>TN</var> &lt; 10th percentile</h5>
+            <p class="card-text">Let <var>TN<sub>ij</sub></var> be the daily maximum temperature on day <var>i</var> in period <var>j</var> and let <var>TN<sub>in</sub>10</var> be the calendar day 10<sup>th</sup> percentile centred on a 5-day window for the base period 1961-1990. Then the number of days per period is summed where, in intervals of at least 6 consecutive days, <var>TN<sub>ij</sub></var> &lt; <var>TN<sub>in</sub>10</var>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-DTR" class="card index-card">
+          <h5 class="card-header">DTR</h5>
+          <div class="card-body">
+            <h5 class="card-title">Daily temperature range</h5>
+            <p class="card-text">Let <var>TX<sub>ij</sub></var> and <var>TN<sub>ij</sub></var> be the daily maximum and minimum temperature respectively on day <var>i</var> in period <var>j</var>. If <var>I</var> represents the number of days in <var>j</var>, then:</p>
+            <math display="block">
+              <msub>
+                <mi>DTR</mi>
+                <mi>j</mi>
+              </msub>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                  <munderover>
+                    <mo>&#x2211;<!-- ∑ --></mo>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>i</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>I</mi>
+                  </munderover>
+                  <mo stretchy="false">(</mo>
+                  <msub>
+                    <mi>TX</mi>
+                    <mrow>
+                      <mi>i</mi>
+                      <mi>j</mi>
+                    </mrow>
+                  </msub>
+                  <mo>-</mo>
+                  <msub>
+                    <mi>TN</mi>
+                    <mrow>
+                      <mi>i</mi>
+                      <mi>j</mi>
+                    </mrow>
+                  </msub>
+                  <mo stretchy="false">)</mo>
+                </mrow>
+                <mrow><mi>I</mi></mrow>
+              </mfrac>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-ETR" class="card index-card">
+          <h5 class="card-header">ETR</h5>
+          <div class="card-body">
+            <h5 class="card-title">Extreme temperature range</h5>
+            <p class="card-text">Let <var>T</var><var>X</var><var><sub>x</sub></var> be the daily maximum temperature in month <var>k</var> and <var>T</var><var>N</var><var><sub>n</sub></var> the daily minimum temperature in month <var>k</var>. The extreme temperature range each month is then:
+            <math display="block">
+              <msub>
+                <mi>ETR</mi>
+                <mi>k</mi>
+              </msub>
+              <mo>=</mo>
+        <msub>
+          <mi>TXx</mi>
+          <mi>k</mi>
+        </msub>
+        <mo>-</mo>
+        <msub>
+        <mi>TNn</mi>
+        <mi>k</mi>
+        </msub>
+            </math>
+      <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+        <div id="index-CDDcoldn" class="card index-card">
+          <h5 class="card-header">CDDcoldn</h5>
+          <div class="card-body">
+          <h5 class="card-title">Cooling degree days</h5>
+          <p class="card-text">Annual sum of <var>TM</var> - <var>n</var>, where <var>n</var> is a user-defined, location-specific base temperature and <var>TM</var> &gt; <var>n</var>. A measure of the energy demand needed to cool a building.</p>
+          <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-GDDgrown" class="card index-card">
+            <h5 class="card-header">GDDgrown</h5>
+            <div class="card-body">
+            <h5 class="card-title">Growing degree days</h5>
+            <p class="card-text">Annual sum of <var>TM</var> - <var>n</var>, where <var>n</var> is a user-defined, location-specific base temperature and <var>TM</var> &gt; <var>n</var>. A measure of the energy demand needed to cool a building.</p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+        <div id="index-HDDheatn" class="card index-card">
+            <h5 class="card-header">HDDheatn</h5>
+            <div class="card-body">
+              <h5 class="card-title">Heating degree days</h5>
+              <p class="card-text">Annual sum of <var>n</var> - <var>TM</var>, where <var>n</var> is a user-defined, location-specific base temperature and <var>TM</var> &lt; <var>n</var>. A measure of the energy demand needed to heat a building.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+        <div id="index-TMge5" class="card index-card">
+            <h5 class="card-header">TMge5</h5>
+            <div class="card-body">
+              <h5 class="card-title"><var>TM</var> of greater than or equal to 5 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TM</var> (daily mean temperature) &ge; 5 &deg;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TMlt5" class="card index-card">
+            <h5 class="card-header">TMlt5</h5>
+            <div class="card-body">
+              <h5 class="card-title"><var>TM</var> of at least 5 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TM</var> (daily mean temperature) &lt; 5 &deg;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TMge10" class="card index-card">
+            <h5 class="card-header">TMge10</h5>
+            <div class="card-body">
+              <h5 class="card-title"><var>TM</var> of greater than or equal to 10 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TM</var> (daily mean temperature) &ge; 10 &deg;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+
+        <div id="index-TMlt10" class="card index-card">
+            <h5 class="card-header">TMlt10</h5>
+            <div class="card-body">
+              <h5 class="card-title">TM of at least 10 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TM</var> (daily mean temperature) &lt; 10 &deg;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="index-card-deck">
+        <div id="index-TMm" class="card index-card">
+            <h5 class="card-header">TMm</h5>
+            <div class="card-body">
+              <h5 class="card-title">Mean TM</h5>
+              <p class="card-text">The mean daily mean temperature.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TXm" class="card index-card">
+            <h5 class="card-header">TXm</h5>
+            <div class="card-body">
+              <h5 class="card-title">Mean TX</h5>
+              <p class="card-text">The mean daily maximum temperature.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TNm" class="card index-card">
+            <h5 class="card-header">TNm</h5>
+            <div class="card-body">
+              <h5 class="card-title">Mean TN</h5>
+              <p class="card-text">The mean daily minimum temperature.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TXge30" class="card index-card">
+            <h5 class="card-header">TXge30</h5>
+            <div class="card-body">
+              <h5 class="card-title"><var>TX</var> of greater than or equal to 30 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TX</var> &ge; 30 &ge;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TXge35" class="card index-card">
+            <h5 class="card-header">TXge35</h5>
+            <div class="card-body">
+              <h5 class="card-title"><var>TX</var> of greater than or equal to 35 &deg;C</h5>
+              <p class="card-text">Number of days when <var>TX</var> &ge; 35 &ge;C.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TXgt50p" class="card index-card">
+            <h5 class="card-header">TXgt50p</h5>
+            <div class="card-body">
+              <h5 class="card-title">Percentage of days with above average temperature</h5>
+              <p class="card-text">Percentage of days when <var>TX</var> &gt; 50th percentile.</p>
+              <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>     
+      </div>
+      <div class="index-card-deck"> 
+        <div id="index-TNlt2" class="card index-card">
+            <h5 class="card-header">TNlt2</h5>
+            <div class="card-body">
+            <h5 class="card-title">TN below 2 &deg;C</h5>
+            <p class="card-text">The number of days when <var>TN</var> &lt; 2 &deg;C.
+            </p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TNltm2" class="card index-card">
+            <h5 class="card-header">TNltm2</h5>
+            <div class="card-body">
+            <h5 class="card-title">TN below -2 &deg;C</h5>
+            <p class="card-text">The number of days when <var>TN</var> &lt; -2 &deg;C.
+            </p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-TNltm20" class="card index-card">
+            <h5 class="card-header">TNltm20</h5>
+            <div class="card-body">
+            <h5 class="card-title">TN below -20 &deg;C</h5>
+            <p class="card-text">The number of days when <var>TN</var> &lt; -20 &deg;C.
+            </p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-Rx1day" class="card index-card">
+          <h5 class="card-header">Rx1day</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum 1-day precipitation</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. The maximum 1-day value for period <var>j</var> are <i>Rx1day<sub>j</sub></i> = max (<i>RR<sub>ij</sub></i>)</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-Rx5day" class="card index-card">
+          <h5 class="card-header">Rx5day</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum consecutive 5-day precipitation</h5>
+            <p class="card-text">Let <i> RR<sub>kj</sub></i> be the precipitation amount for the 5-day interval ending <sub>k</sub>, period <var>j</var>. Then maximum 5-day values for period <var>j</var> are <i>Rx5day<sub>j</sub></i> = max (<i>RR<sub>kj</sub></i>)</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-SPI" class="card index-card">
+          <h5 class="card-header">SPI</h5>
+          <div class="card-body">
+            <h5 class="card-title">Standardised Precipitation Index</h5>
+            <p class="card-text">Measure of "drought" using the Standardised Precipitation Index on time scales of 3, 6 and 12 months. A drought measure specified as a precipitation deficit. See <a href="#references">McKee et al. (1993)</a> and the <a href="#references">SPI User Guide (World Meteorological Organization 2012)</a> for details.</p>
+            <p class="card-text">Calculated using the <code><a href="https://cran.r-project.org/web/packages/SPEI/index.html">SPEI</a></code> package in <a href="https://www.r-project.org">R</a>.</p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-SPEI" class="card index-card">
+          <h5 class="card-header">SPEI</h5>
+          <div class="card-body">
+            <h5 class="card-title">Standardised Precipitation Evapotranspiration Index</h5>
+            <p class="card-text">Measure of "drought" using the Standardised Precipitation Evapotranspiration Index on time scales of 3, 6 and 12 months. A drought measure specified using precipitation and evaporation. See <a href="#references">Vicente-Serrano et al. (2010)</a> for details.</p>
+            <p class="card-text">Calculated using the <code><a href="https://cran.r-project.org/web/packages/SPEI/index.html">SPEI</a></code> package in <a href="https://www.r-project.org">R</a>.</p>
+            <div class="action-buttons-end">
+                <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-SDII" class="card index-card">
+          <h5 class="card-header">SDII</h5>
+          <div class="card-body">
+            <h5 class="card-title">Simple precipitation intensity index</h5>
+            <p class="card-text">Let <i>RR<sub>wj</sub></i> be the daily precipitation amount on wet days, <i>w (RR &#8805; 1mm)</i> in period <var>j</var>. If <i>W</i> represents number of wet days in <var>j</var>, then:</p>
+            <math display="block">
+              <msub>
+                <mi>SDII</mi>
+                <mi>j</mi>
+              </msub>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                  <munderover>
+                    <mo>&#x2211;<!-- ∑ --></mo>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>w</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>W</mi>
+                  </munderover>
+                  <msub>
+                    <mi>RR</mi>
+                    <mrow>
+                      <mi>w</mi>
+                      <mi>j</mi>
+                    </mrow>
+                  </msub>
+                </mrow>
+                <mrow><mi>W</mi></mrow>
+              </mfrac>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R10mm" class="card index-card">
+          <h5 class="card-header">R10mm</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual count of days when PRCP &#8805; 10mm</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. Count the number of days where <i>RR<sub>ij</sub> &#8805; 10mm</i></p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R20mm" class="card index-card">
+          <h5 class="card-header">R20mm</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual count of days when PRCP &#8805; 20mm</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. Count the number of days where <i>RR<sub>ij</sub> &#8805; 20mm</i></p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-Rnnmm" class="card index-card">
+          <h5 class="card-header">Rnnmm</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual count of days when PRCP &#8805; nn mm, where nn is a user-defined threshold</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. Count the number of days where <i>RR<sub>ij</sub> &#8805; nnmm</i>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CDD" class="card index-card">
+          <h5 class="card-header">CDD</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum length of dry spell: maximum number of consecutive days with RR < 1mm</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. Count the largest number of consecutive days where <i>RR<sub>ij</sub> &lt; 1mm</i>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CWD" class="card index-card">
+          <h5 class="card-header">CWD</h5>
+          <div class="card-body">
+            <h5 class="card-title">Maximum length of wet spell: maximum number of consecutive days with RR &#8805; 1mm</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily precipitation amount on day <var>i</var> in period <var>j</var>. Count the largest number of consecutive days where <i>RR<sub>ij</sub> &#8805; 1mm</i>.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R95p" class="card index-card">
+          <h5 class="card-header">R95p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual total PRCP when RR > 95th percentile</h5>
+            <p class="card-text">Let <i>RR<sub>wj</sub></i> be the daily precipitation amount on a wet day <i>w (RR &#8805; 1.0mm)</i> in period <var>i</var> and let <i>RR<sub>wn</sub>95 </i> be the 95<sup>th</sup> percentile of precipitation on wet days in the 1961-1990 period. If <i>W</i> represents the number of wet days in the period, then:</p>
+            <math display="block">
+              <msub>
+                <mi>R95</mi>
+                <mi>p</mi>
+              </msub>
+              <mo>=</mo>
+              <munderover>
+                <mo>&#x2211;<!-- ∑ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>w</mi>
+                  <mo>=</mo>
+                  <mn>1</mn>
+                </mrow>
+                <mi>W</mi>
+              </munderover>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+              <mpadded><mi>where</mi></mpadded>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+              <mo>&gt;</mo>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>n</mi>
+                </mrow>
+              </msub>
+              <mn>95</mn>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R99p" class="card index-card">
+          <h5 class="card-header">R99p</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual total PRCP when RR > 99th percentile</h5>
+            <p class="card-text">Let <i>RR<sub>wj</sub></i> be the daily precipitation amount on a wet day <i>w (RR &#8805; 1.0mm)</i> in period <var>i</var> and let <i>RR<sub>wn</sub>99 </i> be the 99<sup>th</sup> percentile of precipitation on wet days in the 1961-1990 period. If <i>W</i> represents the number of wet days in the period, then:</p>
+            <math display="block">
+              <msub>
+                <mi>R99</mi>
+                <mi>p</mi>
+              </msub>
+              <mo>=</mo>
+              <munderover>
+                <mo>&#x2211;<!-- ∑ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>w</mi>
+                  <mo>=</mo>
+                  <mn>1</mn>
+                </mrow>
+                <mi>W</mi>
+              </munderover>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+              <mpadded><mi>where</mi></mpadded>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+              <mo>&gt;</mo>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>w</mi>
+                  <mi>n</mi>
+                </mrow>
+              </msub>
+              <mn>99</mn>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-PRCPTOT" class="card index-card">
+          <h5 class="card-header">PRCPTOT</h5>
+          <div class="card-body">
+            <h5 class="card-title">Annual total precipitation on wet days</h5>
+            <p class="card-text">Let <i>RR<sub>ij</sub></i> be the daily wet day (>= 1mm) precipitation amount on day <var>i</var> in period <i>j</i>, then:</p>
+            <math display="block">
+              <msub>
+                <mi>PRCPTOT</mi>
+                <mi>j</mi>
+              </msub>
+              <mo>=</mo>
+              <munderover>
+                <mo>&#x2211;<!-- ∑ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>i</mi>
+                  <mo>=</mo>
+                  <mn>1</mn>
+                </mrow>
+                <mi>I</mi>
+              </munderover>
+              <msub>
+                <mi>RR</mi>
+                <mrow>
+                  <mi>i</mi>
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R95pTOT" class="card index-card">
+          <h5 class="card-header">R95pTOT</h5>
+          <div class="card-body">
+            <h5 class="card-title">Contribution to total precipitation from very wet days</h5>
+            <math display="block">
+              <msub>
+                <mi>R95pTOT</mi>
+              </msub>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+          <mi>100 x R95p</mi>
+                </mrow>
+                <mrow><mi>PRCPTOT</mi></mrow>
+              </mfrac>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-R99pTOT" class="card index-card">
+          <h5 class="card-header">R99pTOT</h5>
+          <div class="card-body">
+            <h5 class="card-title">Contribution to total precipitation from extremely wet days</h5>
+            <math display="block">
+              <msub>
+                <mi>R99pTOT</mi>
+              </msub>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                <mi>100 x R99p</mi>
+                </mrow>
+                <mrow><mi>PRCPTOT</mi></mrow>
+              </mfrac>
+            </math>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="index-card-deck">
+        <div id="index-TXbdTNbd" class="card index-card">
+          <h5 class="card-header">TXbdTNbd</h5>
+          <div class="card-body">
+            <h5 class="card-title">User-defined consecutive number of cold days and nights</h5>
+            <p class="card-text">Annual count of <var>d</var> consecutive days where both <var>TX</var> &lt; 5th percentile and <var>TN</var> &lt; 5th percentile, where 10 &ge; d &ge; 2.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- heatweave indices -->
+      <div class="index-card-deck">
+        <div id="index-HWN" class="card index-card">
+          <h5 class="card-header">HWN (EHF/Tx90/Tn90)</h5>
+          <div class="card-body">
+            <h5 class="card-title">Heatwave number (HWN) as defined by either the Excess Heat Factor (EHF), 90th percentile of <var>TX</var> or the 90th percentile of <var>TN</var></h5>
+            <p class="card-text">The number of individual heatwaves that occur each summer (Nov&ndash;Mar in southern hemisphere and May&ndash;Sep in northern hemisphere). A heatwave is defined as 3 or more days where either the EHF is positive, <var>TX</var> &gt; 90th percentile of <var>TX</var> or where <var>TN</var> &lt; 90th percentile of <var>TN</var>, where percentiles are calculated from base period specified by user.</p>
+            <p class="card-text">See <a href="#references">Perkins & Alexander (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-HWF" class="card index-card">
+          <h5 class="card-header">HWF (EHF/Tx90/Tn90)</h5>
+          <div class="card-body">
+            <h5 class="card-title">Heatwave frequency (HWF) as defined by either the Excess Heat Factor (EHF), 90th percentile of <var>TX</var> or the 90th percentile of <var>TN</var></h5>
+            <p class="card-text">The number of days that contribute to heatwaves, as defined by <a href="#index-HWN">HWN</a>.</p>
+            <p class="card-text">See <a href="#references">Perkins & Alexander (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-HWD" class="card index-card">
+          <h5 class="card-header">HWD (EHF/Tx90/Tn90)</h5>
+          <div class="card-body">
+            <h5 class="card-title">Heatwave duration (HWD) as defined by either the Excess Heat Factor (EHF), 90th percentile of <var>TX</var> or the 90th percentile of <var>TN</var></h5>
+            <p class="card-text">The length of the longest heatwave identified by <a href="#index-HWN">HWN</a>.</p>
+            <p class="card-text">See <a href="#references">Perkins & Alexander (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-HWM" class="card index-card">
+          <h5 class="card-header">HWM (EHF/Tx90/Tn90)</h5>
+          <div class="card-body">
+            <h5 class="card-title">Heatwave magnitude (HWM) as defined by either the Excess Heat Factor (EHF), 90th percentile of <var>TX</var> or the 90th percentile of <var>TN</var></h5>
+            <p class="card-text">The mean temperature of all heatwaves identified by <a href="#index-HWN">HWN</a>.</p>
+            <p class="card-text">See <a href="#references">Perkins & Alexander (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-HWA" class="card index-card">
+          <h5 class="card-header">HWA (EHF/Tx90/Tn90)</h5>
+          <div class="card-body">
+            <h5 class="card-title">Heatwave amplitude (HWA) as defined by either the Excess Heat Factor (EHF), 90th percentile of <var>TX</var> or the 90th percentile of <var>TN</var></h5>
+            <p class="card-text">The peak daily value in the hottest heatwave (defined as the heatwave with the highest <a href="#index-HWM">HWM</a>.</p>
+            <p class="card-text">See <a href="#references">Perkins & Alexander (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- coldwave indices -->
+      
+      <div class="index-card-deck">
+        <div id="index-CWN_ECF" class="card index-card">
+          <h5 class="card-header">CWN_ECF_ECF</h5>
+          <div class="card-body">
+            <h5 class="card-title">Coldwave number (CWN) as defined by Excess Cold Factor (ECF)</h5>
+            <p class="card-text">The number of individual 'coldwaves' that occur each year.</p>
+            <p class="card-text">See <a href="#references">Nairn & Fawcett (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CWF_ECF" class="card index-card">
+          <h5 class="card-header">CWF_ECF</h5>
+          <div class="card-body">
+            <h5 class="card-title">Coldwave frequency (HWF) as defined by Excess Cold Factor (ECF)</h5>
+            <p class="card-text">The number of days that contribute to 'coldwaves', as defined by <a href="#index-CWN_ECF">CWN_ECF</a>.</p>
+            <p class="card-text">See <a href="#references">Nairn & Fawcett (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CWD_ECF" class="card index-card">
+          <h5 class="card-header">CWD_ECF</h5>
+          <div class="card-body">
+            <h5 class="card-title">Coldwave duration (CWD) as defined by Excess Cold Factor (ECF)</h5>
+            <p class="card-text">The length of the longest 'coldwave' identified by <a href="#index-CWN_ECF">CWN_ECF</a>.</p>
+            <p class="card-text">See <a href="#references">Nairn & Fawcett (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CWM_ECF" class="card index-card">
+          <h5 class="card-header">CWM_ECF</h5>
+          <div class="card-body">
+            <h5 class="card-title">Coldwave magnitude (CWM) as defined by Excess Cold Factor (ECF)</h5>
+            <p class="card-text">The mean temperature of all 'coldwaves' identified by <a href="#index-CWN_ECF">CWN_ECF</a>.</p>
+            <p class="card-text">See <a href="#references">Nairn & Fawcett (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="index-card-deck">
+        <div id="index-CWA_ECF" class="card index-card">
+          <h5 class="card-header">CWA_ECF</h5>
+          <div class="card-body">
+            <h5 class="card-title">Coldwave amplitude (CWA) as defined by Excess Cold Factor (ECF)</h5>
+            <p class="card-text">The minimum daily value in the coldest heatwave (defined as the coldwave with the lowest <a href="#index-EWM_ECF">EWM_ECF</a>.</p>
+            <p class="card-text">See <a href="#references">Nairn & Fawcett (2013)</a> for more details.</p>
+            <div class="action-buttons-end">
+              <a href="/access" class="btn btn-primary">Get data</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+      <section id="references" class="main">
+        <h3>References</h3>
+        <ul>
+          <li>Karl, T.R., N. Nicholls, and A. Ghazi. 1999. <em><strong>CLIVAR/GCOS/WMO workshop on indices and indicators for climate extremes: Workshop summary</strong></em>, Weather and Climate Extremes, 42, 3-7. doi: <a href="https://doi.org/10.1007/978-94-015-9265-9_2" target="_blank">10.1007/978-94-015-9265-9_2</a></li>
+          <li>Peterson, T.C., <em>et al.</em> 2001. <em><strong>Report on the Activities of the Working Group on Climate Change Detection and Related Rapporteurs 1998-2001</strong></em>, WMO, Rep. WCDMP-47, WMO-TD 1071, Geneve, Switzerland, 143pp. Download (PDF from clivar.org): <a href="http://www.clivar.org/sites/default/files/documents/048_wgccd.pdf" target="_blank">Peterson et al. 2001 (PDF)</a></li>
+          <li>Zhang, X., <em>et al.</em> 2005. <em><strong>Avoiding Inhomogeneity in Percentile-Based Indices of Temperature Extremes</strong></em>, J. Climate, 18, 1641-1651. doi: <a href="https://doi.org/10.1175/JCLI3366.1" target="_blank">10.1175/JCLI3366.1</a></li>
+        </ul>
+      </section>
+
+    </section>
+
+    <footer class="wide">
+      <div id="footer-content">
+        <div id="sitemap">
+          <h3>Climdex Sitemap</h3>
+          <ul>
+            <li>Learn</li>
+            <ul>
+              <li><a href="/learn">What is Climdex?</a></li>
+              <li><a href="/learn/datasets">Datasets</a></li>
+              <li><a href="/learn/indices">Indices</a></li>
+              <li><a href="/learn/tools">Tools</a></li>
+            </ul>
+            <li>Access</li>
+            <ul>
+              <li><a href="/access/gridded">Gridded data</a></li>
+              <li><a href="/access/stations">Station data</a></li>
+            </ul>
+            <li>About</li>
+            <ul>
+              <li><a href="/about/partners">Project partners</a></li>
+              <li><a href="/about/team">Team profiles</a></li>
+            </ul>
+            <li>Contact</li>
+            <ul>
+              <li><a href="/contact">Contact Us</a></li>
+            </ul>
+          </ul>
+          <p>Copyright &copy; 2012–2024 Climdex. All Rights Reserved. Homepage map tiles are copyright: © 2013 ESRI, i-cubed, GeoEye</p>
+        </div>
+        <div id="logos">
+          <a href="https://www.unsw.edu.au">
+            <img src="/images/logo-unsw-small.png" alt="UNSW Sydney">
+          </a>
+          <a href="https://www.climateextremes.org.au">
+            <img src="/images/logo-clex-small.png" alt="ARC Centre of Excellence for Climate Extremes">
+          </a>
+        </div>
+      </div>
+    </footer> 
+
+  </body>
+
+</html>

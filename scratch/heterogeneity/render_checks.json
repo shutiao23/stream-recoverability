@@ -1,0 +1,82 @@
+{
+  "f2a_endpoint_ordering": {
+    "pdf": "figures/wrr/f2a_endpoint_ordering.pdf",
+    "png": "figures/wrr/f2a_endpoint_ordering.png",
+    "pages": 1,
+    "page_size_pt": [
+      391.11,
+      180.98
+    ],
+    "page_size_in": [
+      5.432,
+      2.514
+    ],
+    "fits_column_inches": 5.5,
+    "fonts": [
+      {
+        "name": "BMQQDV+DejaVuSans",
+        "type": "CID TrueType",
+        "encoding": "Identity-H",
+        "embedded": true,
+        "subset": true,
+        "unicode": true
+      }
+    ],
+    "fonts_all_embedded": true,
+    "fonts_all_type42": true,
+    "font_embedding_note": "pdf.fonttype = 42 (TrueType outlines). Matplotlib 3.9 writes these as a CID-keyed TrueType font with Identity-H encoding, which pdffonts reports as 'CID TrueType': outlines embedded, subset, with a Unicode map.",
+    "n_words": 67,
+    "words_outside_page": [],
+    "n_overlapping_word_pairs": 0,
+    "overlapping_word_pairs": [],
+    "min_word_box_height_pt": 6.99,
+    "min_word_box_height_pt_at_column_width": 7.077,
+    "min_cap_or_digit_word_height_pt": 6.99,
+    "min_cap_or_digit_word_height_pt_at_column_width": 7.077,
+    "font_box_ratio_em": 1.1641,
+    "min_implied_type_size_pt": 6.005,
+    "min_implied_type_size_pt_at_column_width": 6.08,
+    "scale_to_column_width": 1.0125,
+    "words_dump": "scratch/heterogeneity/f2a_endpoint_ordering_words.tsv"
+  },
+  "f2b_panel_heterogeneity": {
+    "pdf": "figures/wrr/f2b_panel_heterogeneity.pdf",
+    "png": "figures/wrr/f2b_panel_heterogeneity.png",
+    "pages": 1,
+    "page_size_pt": [
+      380.62,
+      291.75
+    ],
+    "page_size_in": [
+      5.286,
+      4.052
+    ],
+    "fits_column_inches": 5.5,
+    "fonts": [
+      {
+        "name": "BMQQDV+DejaVuSans",
+        "type": "CID TrueType",
+        "encoding": "Identity-H",
+        "embedded": true,
+        "subset": true,
+        "unicode": true
+      }
+    ],
+    "fonts_all_embedded": true,
+    "fonts_all_type42": true,
+    "font_embedding_note": "pdf.fonttype = 42 (TrueType outlines). Matplotlib 3.9 writes these as a CID-keyed TrueType font with Identity-H encoding, which pdffonts reports as 'CID TrueType': outlines embedded, subset, with a Unicode map.",
+    "n_words": 108,
+    "words_outside_page": [],
+    "n_overlapping_word_pairs": 0,
+    "overlapping_word_pairs": [],
+    "min_word_box_height_pt": 6.99,
+    "min_word_box_height_pt_at_column_width": 7.272,
+    "min_cap_or_digit_word_height_pt": 6.99,
+    "min_cap_or_digit_word_height_pt_at_column_width": 7.272,
+    "font_box_ratio_em": 1.1641,
+    "min_implied_type_size_pt": 6.005,
+    "min_implied_type_size_pt_at_column_width": 6.248,
+    "scale_to_column_width": 1.0404,
+    "words_dump": "scratch/heterogeneity/f2b_panel_heterogeneity_words.tsv"
+  }
+}

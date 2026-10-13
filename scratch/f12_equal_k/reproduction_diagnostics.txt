@@ -1,0 +1,9 @@
+station-year cells: frozen 2209 mine 2209 identical counts 1173
+  mean |count diff| where both present: 0.479402444545043
+frozen realization ids: ['e0', 's120_full', 's120_none', 's120_partial', 's14_none', 's14_partial', 's180_full', 's180_none', 's180_partial', 's270_full', 's270_partial', 's30_full', 's30_none', 's30_partial', 's60_full', 's60_none', 's60_partial', 's90_full', 's90_none', 's90_partial']
+mine   realization ids: ['e0', 's120_full', 's120_none', 's120_partial', 's14_none', 's14_partial', 's180_full', 's180_none', 's180_partial', 's270_full', 's270_none', 's270_partial', 's30_full', 's30_none', 's30_partial', 's60_full', 's60_none', 's60_partial', 's90_full', 's90_none', 's90_partial']
+joined: longest_run identical share = 0.7656798091763716
+joined: donor counts identical share = 0.8737196576399607
+joined: counts AND longest_run identical share = 0.6962256208783499
+strong: within 1e-9 all=0.519 counts_agree=0.517 counts+run_agree=0.519 maxdiff_counts_agree=4.295292689982267
+weak: within 1e-9 all=0.511 counts_agree=0.509 counts+run_agree=0.508 maxdiff_counts_agree=4.500696685749073

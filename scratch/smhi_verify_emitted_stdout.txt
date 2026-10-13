@@ -1,0 +1,193 @@
+{
+  "n_series_reparsed": 176,
+  "recomputed": {
+    "n_stations": 176,
+    "n_stations_ge_4_complete_years": 118,
+    "n_complete_station_years_all_stations": 1601,
+    "n_complete_station_years_stations_ge_4_years": 1549,
+    "n_networks": 16,
+    "n_complete_station_years_in_recomputed_networks": 1372
+  },
+  "emitted_network_dirs": [
+    "smhi_catchment_103000",
+    "smhi_catchment_108000",
+    "smhi_catchment_110000",
+    "smhi_catchment_20000",
+    "smhi_catchment_28000",
+    "smhi_catchment_38000",
+    "smhi_catchment_40000",
+    "smhi_catchment_42000",
+    "smhi_catchment_48000",
+    "smhi_catchment_53000",
+    "smhi_catchment_61000",
+    "smhi_catchment_67000",
+    "smhi_catchment_86000",
+    "smhi_catchment_88000",
+    "smhi_catchment_9000",
+    "smhi_catchment_98000"
+  ],
+  "panel_stats": {
+    "smhi_catchment_103000": {
+      "n_rows": 17555,
+      "n_columns": 3,
+      "n_eligible_stations": 2,
+      "n_complete_station_years": 34,
+      "first_date": "1954-10-01",
+      "last_date": "2002-10-23"
+    },
+    "smhi_catchment_108000": {
+      "n_rows": 19110,
+      "n_columns": 19,
+      "n_eligible_stations": 15,
+      "n_complete_station_years": 260,
+      "first_date": "1951-01-09",
+      "last_date": "2003-05-05"
+    },
+    "smhi_catchment_110000": {
+      "n_rows": 15614,
+      "n_columns": 2,
+      "n_eligible_stations": 2,
+      "n_complete_station_years": 21,
+      "first_date": "1954-10-01",
+      "last_date": "1997-06-30"
+    },
+    "smhi_catchment_20000": {
+      "n_rows": 16035,
+      "n_columns": 7,
+      "n_eligible_stations": 6,
+      "n_complete_station_years": 58,
+      "first_date": "1954-01-01",
+      "last_date": "1997-11-25"
+    },
+    "smhi_catchment_28000": {
+      "n_rows": 19906,
+      "n_columns": 11,
+      "n_eligible_stations": 7,
+      "n_complete_station_years": 94,
+      "first_date": "1947-10-31",
+      "last_date": "2002-04-30"
+    },
+    "smhi_catchment_38000": {
+      "n_rows": 20344,
+      "n_columns": 22,
+      "n_eligible_stations": 16,
+      "n_complete_station_years": 236,
+      "first_date": "1946-04-01",
+      "last_date": "2001-12-11"
+    },
+    "smhi_catchment_40000": {
+      "n_rows": 14724,
+      "n_columns": 13,
+      "n_eligible_stations": 10,
+      "n_complete_station_years": 89,
+      "first_date": "1961-01-01",
+      "last_date": "2001-04-24"
+    },
+    "smhi_catchment_42000": {
+      "n_rows": 17531,
+      "n_columns": 12,
+      "n_eligible_stations": 8,
+      "n_complete_station_years": 114,
+      "first_date": "1949-11-30",
+      "last_date": "1997-11-28"
+    },
+    "smhi_catchment_48000": {
+      "n_rows": 17691,
+      "n_columns": 9,
+      "n_eligible_stations": 6,
+      "n_complete_station_years": 103,
+      "first_date": "1953-04-14",
+      "last_date": "2001-09-19"
+    },
+    "smhi_catchment_53000": {
+      "n_rows": 17970,
+      "n_columns": 11,
+      "n_eligible_stations": 7,
+      "n_complete_station_years": 101,
+      "first_date": "1954-02-22",
+      "last_date": "2003-05-05"
+    },
+    "smhi_catchment_61000": {
+      "n_rows": 16576,
+      "n_columns": 5,
+      "n_eligible_stations": 2,
+      "n_complete_station_years": 19,
+      "first_date": "1957-10-15",
+      "last_date": "2003-03-03"
+    },
+    "smhi_catchment_67000": {
+      "n_rows": 15321,
+      "n_columns": 6,
+      "n_eligible_stations": 5,
+      "n_complete_station_years": 59,
+      "first_date": "1961-01-01",
+      "last_date": "2002-12-12"
+    },
+    "smhi_catchment_86000": {
+      "n_rows": 16844,
+      "n_columns": 6,
+      "n_eligible_stations": 5,
+      "n_complete_station_years": 56,
+      "first_date": "1954-09-20",
+      "last_date": "2000-10-31"
+    },
+    "smhi_catchment_88000": {
+      "n_rows": 9486,
+      "n_columns": 2,
+      "n_eligible_stations": 2,
+      "n_complete_station_years": 13,
+      "first_date": "1976-12-01",
+      "last_date": "2002-11-20"
+    },
+    "smhi_catchment_9000": {
+      "n_rows": 15547,
+      "n_columns": 8,
+      "n_eligible_stations": 4,
+      "n_complete_station_years": 46,
+      "first_date": "1959-10-01",
+      "last_date": "2002-04-24"
+    },
+    "smhi_catchment_98000": {
+      "n_rows": 15638,
+      "n_columns": 7,
+      "n_eligible_stations": 4,
+      "n_complete_station_years": 69,
+      "first_date": "1955-02-03",
+      "last_date": "1997-11-26"
+    }
+  },
+  "stations_csv": {
+    "n_rows": 143,
+    "n_eligible_ge_4_years": 101,
+    "n_complete_station_years_eligible": 1372,
+    "sha256": "7ee0e9ad8ecf62e2b1dc6c2bea643ae0a5839bd112efb82613f4368bac8595f9",
+    "measurement_statistic_unique": [
+      "daily provider statistic, degrees C; SMHI documents 'Daglig uppgift om vattendragstemperaturer i vattendrag i Sverige.' (Enhet: Grader Celsius) for parameter 4 'Vattendragstemperatur' - the daily aggregation operator (mean vs. instantaneous reading) is NOT documented by the provider in the API metadata or the catalog record"
+    ]
+  },
+  "claim_vs_recomputed": {
+    "claims": {
+      "n_networks": 16,
+      "n_stations_emitted": 143,
+      "n_stations_emitted_ge_4_complete_years": 101,
+      "n_complete_station_years_in_emitted_networks": 1372,
+      "n_complete_station_years": 1601,
+      "n_complete_station_years_stations_ge_4_years": 1549,
+      "n_stations": 118,
+      "qc_stratum": "provider_published_unqualified"
+    },
+    "recomputed": {
+      "n_networks": 16,
+      "n_stations_emitted": 143,
+      "n_stations_emitted_ge_4_complete_years": 101,
+      "n_complete_station_years_in_emitted_networks": 1372,
+      "n_complete_station_years": 1601,
+      "n_complete_station_years_stations_ge_4_years": 1549,
+      "n_stations": 118,
+      "qc_stratum": "provider_published_unqualified"
+    },
+    "mismatches": {}
+  },
+  "problems": [],
+  "ok": true
+}

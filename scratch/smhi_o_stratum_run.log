@@ -1,0 +1,19 @@
+[09:59:36] start retrieval_utc=2026-10-12T09:59:36Z qc_stratum=provider_published_unqualified accepted=('O',)
+[09:59:36] catalog: 176 stations, unit='°C'
+[09:59:39] [20/176] last=80044 accepted_days=13480 complete_years=27 dropped_qc=0
+[09:59:40] [40/176] last=80084 accepted_days=15780 complete_years=34 dropped_qc=0
+[09:59:41] [60/176] last=80128 accepted_days=1825 complete_years=0 dropped_qc=0
+[09:59:42] [80/176] last=80156 accepted_days=3354 complete_years=8 dropped_qc=0
+[09:59:43] [100/176] last=80203 accepted_days=3788 complete_years=8 dropped_qc=0
+[09:59:44] [120/176] last=80246 accepted_days=3737 complete_years=5 dropped_qc=0
+[09:59:45] [140/176] last=80270 accepted_days=4537 complete_years=7 dropped_qc=0
+[09:59:46] [160/176] last=80291 accepted_days=2561 complete_years=4 dropped_qc=0
+[09:59:47] [176/176] last=81609 accepted_days=7162 complete_years=2 dropped_qc=0
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 1271, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/240_multi_agency_smhi_ingest.py", line 673, in main
+    group.loc[:, ordered].to_csv(network_dir / "stations.csv", index=False)
+                 ^^^^^^^
+UnboundLocalError: cannot access local variable 'ordered' where it is not associated with a value

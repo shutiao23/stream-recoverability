@@ -1,0 +1,57 @@
+[261] USGS stations: 200; gaps in scope: 3100
+[261] fetched 25/200 stations
+[261] fetched 50/200 stations
+[261] fetched 75/200 stations
+[261] fetched 100/200 stations
+[261] fetched 125/200 stations
+[261] fetched 150/200 stations
+[261] fetched 175/200 stations
+[261] fetched 200/200 stations
+{
+  "stations_requested": 200,
+  "stations_with_response": 200,
+  "stations_with_series_metadata": 109,
+  "n_gaps": 2921,
+  "n_missing_days": 68180,
+  "n_gaps_with_no_day_in_population": 179,
+  "n_gap_days_outside_population": 2416,
+  "provider_code_counts": {
+    "(blank)": 9652,
+    "A": 822418,
+    "A:R": 398,
+    "A:e": 13,
+    "P": 502
+  },
+  "provider_grade_counts": {
+    "4": 1004
+  },
+  "qualification_definitions": {
+    "A": "Approved for publication -- Processing and review completed.",
+    "P": "Provisional data subject to revision.",
+    "R": "Records for these data have been revised.",
+    "e": "Value has been estimated."
+  },
+  "grade_definitions": {
+    "4": "Incomplete or Partial Aggregated Record"
+  },
+  "n_series_metadata_rows": 199,
+  "subsampled": false,
+  "subsample_note": "all USGS stations in the incomplete-year population",
+  "partial_aggregate_evidence": {
+    "n_provider_records_all_retrieved": 832983,
+    "n_records_graded_incomplete_or_partial_all": 1004,
+    "n_provider_records_in_population": 445442,
+    "n_records_graded_incomplete_or_partial_in_population": 815,
+    "share_graded_all_pct": 0.1205,
+    "share_graded_in_population_pct": 0.183,
+    "peak_window_validation": {
+      "station_years_checked": 1361,
+      "max_abs_difference": 0.0,
+      "worst_station_year": null,
+      "verdict": "consistent"
+    }
+  },
+  "raw_cache_files": 309,
+  "raw_cache_manifest": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/amendments/outage_causes/raw_cache/manifest.csv",
+  "offline": false
+}

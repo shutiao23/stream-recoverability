@@ -1,0 +1,43 @@
+v17 roster stations excluded: 547
+[stage] catalog
+  cache hit results/wrr_submission_ready/multi_agency_ingest/nve/raw_cache/series_parameter_1003.json
+  parameter 1003 daily series rows: 1216
+[stage] station metadata
+[stage] observations for 866 candidate stations
+  raw observation rows: 3238298
+[stage] assemble
+[stage] writing networks
+  network nve_basin_002: 30 stations, 331 complete station-years
+  network nve_basin_012: 11 stations, 139 complete station-years
+  network nve_basin_015: 3 stations, 26 complete station-years
+  network nve_basin_021: 4 stations, 50 complete station-years
+  network nve_basin_022: 3 stations, 35 complete station-years
+  network nve_basin_023: 2 stations, 24 complete station-years
+  network nve_basin_062: 4 stations, 58 complete station-years
+  network nve_basin_072: 2 stations, 36 complete station-years
+  network nve_basin_073: 2 stations, 22 complete station-years
+  network nve_basin_075: 2 stations, 18 complete station-years
+  network nve_basin_083: 2 stations, 31 complete station-years
+  network nve_basin_087: 2 stations, 27 complete station-years
+  network nve_basin_112: 3 stations, 18 complete station-years
+  network nve_basin_124: 4 stations, 32 complete station-years
+  network nve_basin_139: 2 stations, 14 complete station-years
+  network nve_basin_156: 2 stations, 18 complete station-years
+  network nve_basin_163: 2 stations, 10 complete station-years
+  network nve_basin_166: 2 stations, 12 complete station-years
+  network nve_basin_196: 2 stations, 12 complete station-years
+  network nve_basin_212: 4 stations, 45 complete station-years
+  network nve_basin_234: 5 stations, 35 complete station-years
+{
+ "candidate_basins_scanned": 135,
+ "candidate_stations": 866,
+ "networks_kept": 21,
+ "stations_in_kept_networks": 93,
+ "stations_ge4_complete_years_in_kept_networks": 93,
+ "complete_station_years_in_kept_networks": 993,
+ "basins_dropped_below_minimum_stations_or_years": 114,
+ "kept_networks_with_no_v17_station": 16,
+ "kept_networks_sharing_a_v17_basin": 5,
+ "stations_in_kept_networks_with_no_v17_station": 47,
+ "complete_station_years_in_kept_networks_with_no_v17_station": 532
+}

@@ -1,0 +1,31 @@
+  [scenarios] 100/457 stations (18s)
+  [scenarios] 200/457 stations (44s)
+  [scenarios] 300/457 stations (58s)
+  [scenarios] 400/457 stations (66s)
+/home/lzq/anaconda3/lib/python3.11/site-packages/numpy/lib/function_base.py:2897: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+[scenarios] 51,524 cases rebuilt over 457 stations in 72.0s; replica exact=True
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/246_wrr_noise_recompute.py", line 1091, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/246_wrr_noise_recompute.py", line 1082, in main
+    extra["contrasts"] = stage_contrasts(args.workers)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/246_wrr_noise_recompute.py", line 654, in stage_contrasts
+    merged = _merge_scenarios(cases, scenarios)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/246_wrr_noise_recompute.py", line 637, in _merge_scenarios
+    merged = frozen.merge(scenarios, on=CASE_KEY, how="left", suffixes=("", "_scenario"), validate="one_to_one")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/frame.py", line 10487, in merge
+    return merge(
+           ^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/reshape/merge.py", line 169, in merge
+    op = _MergeOperation(
+         ^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/reshape/merge.py", line 804, in __init__
+    self._maybe_coerce_merge_keys()
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/reshape/merge.py", line 1479, in _maybe_coerce_merge_keys
+    raise ValueError(msg)
+ValueError: You are trying to merge on int64 and object columns for key 'year'. If you wish to proceed you should use pd.concat

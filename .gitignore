@@ -173,3 +173,10 @@ results/wrr_revision/**/placement_predictions_*.csv
 results/wrr_revision/forcing/nasa_power_t2m.parquet
 # LaTeX/PDF scratch directories
 **/.build/
+
+# Working trail under scratch/: the verification harnesses, logs and derived
+# tables are kept, but raw third-party downloads are not redistributed.
+scratch/prov/raw/
+scratch/ehyd/
+scratch/**/*.html
+scratch/**/*.pdf
