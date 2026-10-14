@@ -1,0 +1,92 @@
+{
+  "generic_plus_support__minus__peak_overlap_rule": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": -0.025971291194328436,
+    "point_pp": -2.5971291194328434,
+    "ci_low_pp": -3.1144148816915127,
+    "ci_high_pp": -2.189722374758509,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "generic_plus_support__minus__generic": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": 0.00045625241287333695,
+    "point_pp": 0.045625241287333695,
+    "ci_low_pp": -0.17286150322548977,
+    "ci_high_pp": 0.234336275393659,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "generic_plus_support_plus_peakmargin__minus__generic_plus_support": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": 7.019267890359324e-05,
+    "point_pp": 0.007019267890359324,
+    "ci_low_pp": -0.1940665920291899,
+    "ci_high_pp": 0.18027800257789112,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "generic_plus_support_plus_peakmargin__minus__peak_overlap_rule": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": -0.025901098515424843,
+    "point_pp": -2.590109851542484,
+    "ci_low_pp": -3.161666524794841,
+    "ci_high_pp": -2.1444930684213888,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "generic__minus__peak_overlap_rule": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": -0.026427543607201773,
+    "point_pp": -2.6427543607201773,
+    "ci_low_pp": -3.1160233872121275,
+    "ci_high_pp": -2.2035555975832524,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "generic_plus_support__minus__length_rule": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "point_rate_diff": -0.06201523181132208,
+    "point_pp": -6.201523181132209,
+    "ci_low_pp": -7.163048731930035,
+    "ci_high_pp": -5.362168626442139,
+    "n_clusters": 110,
+    "panel": "development_oof"
+  },
+  "retention_at_risk5__generic_plus_support__minus__peak_overlap_rule": {
+    "risk_cap": 0.05,
+    "point_retention_diff": 0.09999999999999998,
+    "point_pp": 9.999999999999998,
+    "ci_low_pp": 7.000000000000006,
+    "ci_high_pp": 12.0,
+    "n_clusters": 110,
+    "panel": "development_oof",
+    "predeclared_success_plus5pp": true
+  },
+  "retention_at_risk5__generic_plus_support__minus__generic": {
+    "risk_cap": 0.05,
+    "point_retention_diff": 0.0,
+    "point_pp": 0.0,
+    "ci_low_pp": -1.0000000000000009,
+    "ci_high_pp": 1.0000000000000009,
+    "n_clusters": 110,
+    "panel": "development_oof",
+    "predeclared_success_plus5pp": false
+  },
+  "retention_at_risk5__generic_plus_support_plus_peakmargin__minus__peak_overlap_rule": {
+    "risk_cap": 0.05,
+    "point_retention_diff": 0.09999999999999998,
+    "point_pp": 9.999999999999998,
+    "ci_low_pp": 7.000000000000006,
+    "ci_high_pp": 12.0,
+    "n_clusters": 110,
+    "panel": "development_oof",
+    "predeclared_success_plus5pp": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "sealed_pooled_case_weighted_pp": -5.89332748024583,
+  "sealed_ci": [
+    -6.918885026814831,
+    -4.912740812979251
+  ],
+  "network_equal_pp": {
+    "point_pp": -5.464420568413786,
+    "ci_low_pp": -6.774108375380024,
+    "ci_high_pp": -4.233903983286117,
+    "n_networks": 49
+  },
+  "usgs_case_share": 0.9419221018667896,
+  "providers": [
+    {
+      "provider": "usgs",
+      "n_cases": 12261,
+      "share_of_cases": 0.9419221018667896,
+      "n_networks": 44,
+      "sealed_contrast_points": -5.872072701852499,
+      "sealed_ci_low_points": -6.8950292041996795,
+      "sealed_ci_high_points": -4.933528616286729,
+      "network_equal_contrast_points": -5.439245528531283
+    },
+    {
+      "provider": "hubeau",
+      "n_cases": 735,
+      "share_of_cases": 0.056464623185065684,
+      "n_networks": 4,
+      "sealed_contrast_points": -10.700389105058365,
+      "sealed_ci_low_points": -15.020576131687244,
+      "sealed_ci_high_points": -2.1834061135371177,
+      "network_equal_contrast_points": -3.774117815891456
+    },
+    {
+      "provider": "uk_ea",
+      "n_cases": 21,
+      "share_of_cases": 0.0016132749481447338,
+      "n_networks": 1,
+      "sealed_contrast_points": NaN,
+      "sealed_ci_low_points": NaN,
+      "sealed_ci_high_points": NaN,
+      "network_equal_contrast_points": -13.333333333333334
+    }
+  ],
+  "donor_regime_strata": [
+    {
+      "stratum": "donor_regime=none",
+      "n_cases": 442,
+      "n_networks": 29,
+      "contrast_points": -8.737864077669903,
+      "ci_low_points": -12.842781646184148,
+      "ci_high_points": -4.956402293358818,
+      "skipped": false
+    },
+    {
+      "stratum": "donor_regime=rich",
+      "n_cases": 8087,
+      "n_networks": 41,
+      "contrast_points": -5.847023494082318,
+      "ci_low_points": -7.064469407452945,
+      "ci_high_points": -4.855054745877969,
+      "skipped": false
+    },
+    {
+      "stratum": "donor_regime=sparse",
+      "n_cases": 4488,
+      "n_networks": 47,
+      "contrast_points": -5.919796308084023,
+      "ci_low_points": -7.375079882142028,
+      "ci_high_points": -3.924886229430998,
+      "skipped": false
+    }
+  ],
+  "non_usgs_pooled": {
+    "n_cases": 756,
+    "n_networks": 5,
+    "share_of_cases": 0.05807789813321042,
+    "contrast_points": -9.829867674858223,
+    "ci_low_points": -14.22964739434794,
+    "ci_high_points": -1.4925373134328352
+  },
+  "scope_sentence": "Wave-2 is a USGS-majority designed-missingness confirmation (94.2% of cases); network-equal and non-USGS pooled results are reported separately and must not be replaced by the case-weighted pooled headline alone.",
+  "may_enter_abstract_or_conclusions": true,
+  "label_required": "USGS-majority designed confirmation with smaller Hub'Eau / UK EA support"
+}

@@ -1,0 +1,61 @@
+{
+  "n_cases": 531,
+  "n_networks": 14,
+  "n_stations": 22,
+  "cofail_fractions": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "max_networks_cap": 16,
+  "claim_status": "exploratory_probe_not_sealed_confirmation",
+  "may_enter_abstract_or_conclusions": false,
+  "strata": [
+    {
+      "cofail_fraction": 0.0,
+      "n_cases": 177,
+      "n_networks": 14,
+      "base_rate_above_0.5": 0.04519774011299435,
+      "length_rule_rate_at_70": 0.008064516129032258,
+      "peak_overlap_rate_at_70": 0.0,
+      "delta_peak_minus_length_pp": -0.8064516129032258,
+      "mean_abserr_donor_ridge": 0.08784803835542902,
+      "mean_abserr_doy_climatology": 0.10996115183298304,
+      "mean_n_visible_donors": 2.2768361581920904,
+      "peak_minus_length_points": -0.8064516129032258,
+      "ci_low_points": -3.077319587628866,
+      "ci_high_points": 0.0
+    },
+    {
+      "cofail_fraction": 0.5,
+      "n_cases": 177,
+      "n_networks": 14,
+      "base_rate_above_0.5": 0.03954802259887006,
+      "length_rule_rate_at_70": 0.0,
+      "peak_overlap_rate_at_70": 0.0,
+      "delta_peak_minus_length_pp": 0.0,
+      "mean_abserr_donor_ridge": 0.1635401054582979,
+      "mean_abserr_doy_climatology": 0.10996115183298304,
+      "mean_n_visible_donors": 1.0564971751412429,
+      "peak_minus_length_points": 0.0,
+      "ci_low_points": -1.8700489541611034,
+      "ci_high_points": 0.0
+    },
+    {
+      "cofail_fraction": 1.0,
+      "n_cases": 177,
+      "n_networks": 14,
+      "base_rate_above_0.5": 0.07344632768361582,
+      "length_rule_rate_at_70": 0.0,
+      "peak_overlap_rate_at_70": 0.0,
+      "delta_peak_minus_length_pp": 0.0,
+      "mean_abserr_donor_ridge": 0.3912135692007799,
+      "mean_abserr_doy_climatology": 0.10996115183298304,
+      "mean_n_visible_donors": 0.0,
+      "peak_minus_length_points": 0.0,
+      "ci_low_points": -3.2800546448087435,
+      "ci_high_points": 0.0
+    }
+  ],
+  "interpretation": "Compare cofail_fraction=0 (target-only calendar replay) to >0 (donors share the same missing DOYs). If donor errors rise toward climatology and peak-vs-length contrast collapses, donor resilience is conditional on neighbour availability."
+}

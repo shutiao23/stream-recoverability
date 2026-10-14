@@ -1,0 +1,13 @@
+length,point_C,ci_low_C,ci_high_C,n_networks,n_station_years,ci_excludes_zero,reconstructor,contrast
+30,0.6422112902175275,0.5461853536608635,0.742566499056542,12,211,True,doy_climatology,full_minus_none_at_fixed_length
+60,0.867283942171304,0.7070709295968256,1.0374412528354837,12,211,True,doy_climatology,full_minus_none_at_fixed_length
+90,0.8945552336608578,0.7581388844180154,1.0402682731481723,12,211,True,doy_climatology,full_minus_none_at_fixed_length
+30,0.5945276035874775,0.5083105775760398,0.6848448260738439,12,211,True,smooth_climatology,full_minus_none_at_fixed_length
+60,0.8492041208001,0.6900380473851953,1.0211887854146335,12,211,True,smooth_climatology,full_minus_none_at_fixed_length
+90,0.882313416092461,0.7511528719277971,1.0219061445904212,12,211,True,smooth_climatology,full_minus_none_at_fixed_length
+30,0.24028305347244674,0.19927846614671957,0.2819563929927639,12,208,True,donor_ridge,full_minus_none_at_fixed_length
+60,0.3642084815452163,0.29173410217650636,0.43951012348245616,12,204,True,donor_ridge,full_minus_none_at_fixed_length
+90,0.39376417685393955,0.31245296112099014,0.4748546335488468,12,203,True,donor_ridge,full_minus_none_at_fixed_length
+30,0.3405887549840431,0.27992977339139974,0.3973528346372812,12,211,True,linear_interp,full_minus_none_at_fixed_length
+60,0.7463452402921175,0.6249651774070615,0.8718239213822162,12,211,True,linear_interp,full_minus_none_at_fixed_length
+90,1.309867486532291,1.106803105714672,1.5101022531864063,12,211,True,linear_interp,full_minus_none_at_fixed_length

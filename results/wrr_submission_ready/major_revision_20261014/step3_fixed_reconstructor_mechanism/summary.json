@@ -1,0 +1,357 @@
+{
+  "source_cases": "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
+  "n_networks": 12,
+  "n_stations": 24,
+  "n_cases_crossed_classes": 1899,
+  "reconstructors": [
+    "doy_climatology",
+    "smooth_climatology",
+    "donor_ridge",
+    "linear_interp"
+  ],
+  "air_ridge_note": "air_available==0 on this panel; air_ridge omitted",
+  "position_contrasts": [
+    {
+      "length": 30,
+      "point_C": 0.6422112902175275,
+      "ci_low_C": 0.5461853536608635,
+      "ci_high_C": 0.742566499056542,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "doy_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 60,
+      "point_C": 0.867283942171304,
+      "ci_low_C": 0.7070709295968256,
+      "ci_high_C": 1.0374412528354837,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "doy_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 90,
+      "point_C": 0.8945552336608578,
+      "ci_low_C": 0.7581388844180154,
+      "ci_high_C": 1.0402682731481723,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "doy_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 30,
+      "point_C": 0.5945276035874775,
+      "ci_low_C": 0.5083105775760398,
+      "ci_high_C": 0.6848448260738439,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "smooth_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 60,
+      "point_C": 0.8492041208001,
+      "ci_low_C": 0.6900380473851953,
+      "ci_high_C": 1.0211887854146335,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "smooth_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 90,
+      "point_C": 0.882313416092461,
+      "ci_low_C": 0.7511528719277971,
+      "ci_high_C": 1.0219061445904212,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "smooth_climatology",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 30,
+      "point_C": 0.24028305347244674,
+      "ci_low_C": 0.19927846614671957,
+      "ci_high_C": 0.2819563929927639,
+      "n_networks": 12,
+      "n_station_years": 208,
+      "ci_excludes_zero": true,
+      "reconstructor": "donor_ridge",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 60,
+      "point_C": 0.3642084815452163,
+      "ci_low_C": 0.29173410217650636,
+      "ci_high_C": 0.43951012348245616,
+      "n_networks": 12,
+      "n_station_years": 204,
+      "ci_excludes_zero": true,
+      "reconstructor": "donor_ridge",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 90,
+      "point_C": 0.39376417685393955,
+      "ci_low_C": 0.31245296112099014,
+      "ci_high_C": 0.4748546335488468,
+      "n_networks": 12,
+      "n_station_years": 203,
+      "ci_excludes_zero": true,
+      "reconstructor": "donor_ridge",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 30,
+      "point_C": 0.3405887549840431,
+      "ci_low_C": 0.27992977339139974,
+      "ci_high_C": 0.3973528346372812,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 60,
+      "point_C": 0.7463452402921175,
+      "ci_low_C": 0.6249651774070615,
+      "ci_high_C": 0.8718239213822162,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "full_minus_none_at_fixed_length"
+    },
+    {
+      "length": 90,
+      "point_C": 1.309867486532291,
+      "ci_low_C": 1.106803105714672,
+      "ci_high_C": 1.5101022531864063,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "full_minus_none_at_fixed_length"
+    }
+  ],
+  "length_contrasts": [
+    {
+      "overlap_class": "full",
+      "point_C": 0.2532647049310592,
+      "ci_low_C": 0.21069642810965544,
+      "ci_high_C": 0.29219943863234055,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "doy_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "none",
+      "point_C": 0.0009207614877288911,
+      "ci_low_C": -0.012952033746110599,
+      "ci_high_C": 0.018246288143759525,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": false,
+      "reconstructor": "doy_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "partial",
+      "point_C": 0.024166631807312655,
+      "ci_low_C": -0.04209281618899938,
+      "ci_high_C": 0.08309913821020415,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": false,
+      "reconstructor": "doy_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "full",
+      "point_C": 0.2875559919438818,
+      "ci_low_C": 0.2349193885469893,
+      "ci_high_C": 0.3313679325463671,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "smooth_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "none",
+      "point_C": -0.00022982056110154234,
+      "ci_low_C": -0.014052167751601613,
+      "ci_high_C": 0.01618680919854471,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": false,
+      "reconstructor": "smooth_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "partial",
+      "point_C": 0.03860966420660309,
+      "ci_low_C": -0.02628846120473965,
+      "ci_high_C": 0.09899286463666168,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": false,
+      "reconstructor": "smooth_climatology",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "full",
+      "point_C": 0.1533723334578942,
+      "ci_low_C": 0.1091519433766486,
+      "ci_high_C": 0.19552741220450381,
+      "n_networks": 12,
+      "n_station_years": 207,
+      "ci_excludes_zero": true,
+      "reconstructor": "donor_ridge",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "none",
+      "point_C": 0.007098915547652527,
+      "ci_low_C": -0.005316665095785879,
+      "ci_high_C": 0.019789749797262907,
+      "n_networks": 12,
+      "n_station_years": 204,
+      "ci_excludes_zero": false,
+      "reconstructor": "donor_ridge",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "partial",
+      "point_C": 0.014228427181769497,
+      "ci_low_C": 0.0010439508042564298,
+      "ci_high_C": 0.027615201378978358,
+      "n_networks": 12,
+      "n_station_years": 204,
+      "ci_excludes_zero": true,
+      "reconstructor": "donor_ridge",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "full",
+      "point_C": 0.9825812522953745,
+      "ci_low_C": 0.8243465019536693,
+      "ci_high_C": 1.1302494874241367,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "none",
+      "point_C": 0.01330252074712653,
+      "ci_low_C": 0.0055480985770672625,
+      "ci_high_C": 0.021569508138103387,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    },
+    {
+      "overlap_class": "partial",
+      "point_C": 0.15898941850058015,
+      "ci_low_C": 0.04868392596923299,
+      "ci_high_C": 0.24963657664703437,
+      "n_networks": 12,
+      "n_station_years": 211,
+      "ci_excludes_zero": true,
+      "reconstructor": "linear_interp",
+      "contrast": "long_minus_short_at_fixed_overlap"
+    }
+  ],
+  "failure_mode_rates": [
+    {
+      "reconstructor": "doy_climatology",
+      "n_cases": 1899,
+      "rate_false_peak": 0.023696682464454975,
+      "rate_climate_mismatch": 0.05897840968931016,
+      "rate_competing_peaks_proxy": 0.021590310689836755,
+      "rate_any_labelled": 0.0889942074776198,
+      "mean_abserr_when_false_peak": 1.202123755364563
+    },
+    {
+      "reconstructor": "smooth_climatology",
+      "n_cases": 1899,
+      "rate_false_peak": 0.021590310689836755,
+      "rate_climate_mismatch": 0.05897840968931016,
+      "rate_competing_peaks_proxy": 0.021590310689836755,
+      "rate_any_labelled": 0.08952080042127436,
+      "mean_abserr_when_false_peak": 1.1865745660927565
+    },
+    {
+      "reconstructor": "donor_ridge",
+      "n_cases": 1856,
+      "rate_false_peak": 0.005926724137931034,
+      "rate_climate_mismatch": 0.05980603448275862,
+      "rate_competing_peaks_proxy": 0.008081896551724138,
+      "rate_any_labelled": 0.07112068965517242,
+      "mean_abserr_when_false_peak": 0.914044893489173
+    },
+    {
+      "reconstructor": "linear_interp",
+      "n_cases": 1899,
+      "rate_false_peak": 0.010531858873091101,
+      "rate_climate_mismatch": 0.05897840968931016,
+      "rate_competing_peaks_proxy": 0.019483938915218536,
+      "rate_any_labelled": 0.0784623486045287,
+      "mean_abserr_when_false_peak": 0.8380859216478965
+    }
+  ],
+  "cross_reconstructor_position_stability": {
+    "length_30": {
+      "n_reconstructors": 4,
+      "all_positive_full_worse": true,
+      "all_ci_exclude_zero": true,
+      "points_C": {
+        "doy_climatology": 0.6422112902175275,
+        "smooth_climatology": 0.5945276035874775,
+        "donor_ridge": 0.24028305347244674,
+        "linear_interp": 0.3405887549840431
+      }
+    },
+    "length_60": {
+      "n_reconstructors": 4,
+      "all_positive_full_worse": true,
+      "all_ci_exclude_zero": true,
+      "points_C": {
+        "doy_climatology": 0.867283942171304,
+        "smooth_climatology": 0.8492041208001,
+        "donor_ridge": 0.3642084815452163,
+        "linear_interp": 0.7463452402921175
+      }
+    },
+    "length_90": {
+      "n_reconstructors": 4,
+      "all_positive_full_worse": true,
+      "all_ci_exclude_zero": true,
+      "points_C": {
+        "doy_climatology": 0.8945552336608578,
+        "smooth_climatology": 0.882313416092461,
+        "donor_ridge": 0.39376417685393955,
+        "linear_interp": 1.309867486532291
+      }
+    }
+  },
+  "claim_status": "conditional_mechanism_with_network_intervals; not a universal position-dominates-length law",
+  "may_enter_abstract_or_conclusions": false,
+  "interpretation_gate": "Enter discussion as conditional evidence if position CIs exclude 0 for climatology and donor; length effects reported separately in \u00b0C; failure modes must be discussed when rates are non-trivial."
+}

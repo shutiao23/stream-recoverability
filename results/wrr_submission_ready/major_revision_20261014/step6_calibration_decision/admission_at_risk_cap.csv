@@ -1,0 +1,13 @@
+panel,rule,task,risk_cap,retention_at_risk_cap,false_admit_rate_at_risk_cap,n_admitted_at_risk_cap,false_admit_rate_at_70,n_candidates,n_networks,tolerance_c
+reserved_retrospective,length_rule,archive_admission_ranked_risk_cap,0.05,0.52,0.04763597582651973,5626,0.08674412463691576,10820,36,
+reserved_retrospective,peak_overlap_rule,archive_admission_ranked_risk_cap,0.05,0.73,0.046841372325610836,7899,0.03762872986532876,10820,36,
+reserved_retrospective,uncalibrated_bound,archive_admission_ranked_risk_cap,0.05,0.78,0.04656398104265403,8440,0.025349881172432004,10820,36,
+reserved_retrospective,calibrated_bound,archive_admission_ranked_risk_cap,0.05,0.78,0.04656398104265403,8440,0.025349881172432004,10820,36,
+reserved_retrospective,uncalibrated_bound_le_tol,archive_admission_absolute_bound,,0.6621996303142329,0.017725052337752966,7165,,10820,36,0.5
+reserved_retrospective,calibrated_bound_le_tol,archive_admission_absolute_bound,,0.6751386321626618,0.02026009582477755,7305,,10820,36,0.5
+wave2_designed,length_rule,archive_admission_ranked_risk_cap,0.05,0.55,0.04819108814080179,7159,0.08713784021071115,13017,49,
+wave2_designed,peak_overlap_rule,archive_admission_ranked_risk_cap,0.05,0.74,0.04671441918405481,9633,0.033911325724319576,13017,49,
+wave2_designed,uncalibrated_bound,archive_admission_ranked_risk_cap,0.05,0.79,0.04881843819896917,10283,0.023485513608428446,13017,49,
+wave2_designed,calibrated_bound,archive_admission_ranked_risk_cap,0.05,0.79,0.04881843819896917,10283,0.023485513608428446,13017,49,
+wave2_designed,uncalibrated_bound_le_tol,archive_admission_absolute_bound,,0.620726741952831,0.012004950495049505,8080,,13017,49,0.5
+wave2_designed,calibrated_bound_le_tol,archive_admission_absolute_bound,,0.6362449105016517,0.013523303549867182,8282,,13017,49,0.5

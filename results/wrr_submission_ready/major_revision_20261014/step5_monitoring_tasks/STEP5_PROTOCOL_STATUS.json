@@ -1,0 +1,29 @@
+{
+  "step": 5,
+  "completed_here": [
+    "wave2 and reserved arm-wise certificate-vs-length contrasts",
+    "anomalous-warm year stratum (truth_hottest30 - clim_peak >= 1C)"
+  ],
+  "still_required": [
+    {
+      "task": "full_year_real_mask_replay",
+      "description": "Extract intact annual missingness calendars from real incomplete station-years (not resampled gap segments) and transplant onto independent complete years; evaluate both years for multi-year faults.",
+      "status": "not_executed"
+    },
+    {
+      "task": "network_co_failure",
+      "description": "Simultaneously mask target and a controlled fraction of donors under the same event; report when donor-using methods lose benefit and whether the screen abstains.",
+      "status": "not_executed"
+    },
+    {
+      "task": "anomalous_thermal_years_held_out_train",
+      "description": "Train only on ordinary years; test on warm / peak-shifted years. Current stratum uses labels for evaluation only but same LOYO train.",
+      "status": "partial_stratum_only"
+    }
+  ],
+  "interpretation_rules": [
+    "Pooled wave-2 \u0394 is a designed-missingness result, not a real-fault expectation.",
+    "Empirical-arm CI including zero means archive-repair benefit is unresolved on that arm.",
+    "Do not average empirical and stratified into one application claim."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "panel": "reserved_retrospective_complete_reference",
+  "n_candidates": 10820,
+  "n_networks": 36,
+  "share_elevation_matched": 0.37726432532347504,
+  "threshold_c_headline": 18.0,
+  "methods_at_18C": [
+    {
+      "method": "reconstruct_all",
+      "share_judged": 1.0,
+      "n_incorrect": 172,
+      "misclassification_among_judged": 0.01589648798521257,
+      "hot_share_bias_pp": 0.0,
+      "high_elev_exclusion_rate": 0.0,
+      "sparse_donor_exclusion_rate": 0.0
+    },
+    {
+      "method": "length_screen_70",
+      "share_judged": 0.7,
+      "n_incorrect": 84,
+      "misclassification_among_judged": 0.011090573012939002,
+      "hot_share_bias_pp": 0.7829416424610436,
+      "high_elev_exclusion_rate": 0.3136363636363636,
+      "sparse_donor_exclusion_rate": 0.3081618810761926
+    },
+    {
+      "method": "peak_overlap_screen_70",
+      "share_judged": 0.7,
+      "n_incorrect": 32,
+      "misclassification_among_judged": 0.004224980195405334,
+      "hot_share_bias_pp": 1.4034856086612035,
+      "high_elev_exclusion_rate": 0.2606060606060606,
+      "sparse_donor_exclusion_rate": 0.3106488808501018
+    },
+    {
+      "method": "calibrated_screen_70",
+      "share_judged": 0.7,
+      "n_incorrect": 25,
+      "misclassification_among_judged": 0.003300765777660417,
+      "hot_share_bias_pp": 0.36044362292051435,
+      "high_elev_exclusion_rate": 0.33106060606060606,
+      "sparse_donor_exclusion_rate": 0.2945964277639611
+    },
+    {
+      "method": "interval_abstention",
+      "share_judged": 0.9312384473197782,
+      "n_incorrect": 19,
+      "misclassification_among_judged": 0.0018856689162366018,
+      "hot_share_bias_pp": 1.196089021037161,
+      "high_elev_exclusion_rate": 0.0901515151515152,
+      "sparse_donor_exclusion_rate": 0.06986208455799237
+    },
+    {
+      "method": "screen70_and_abstention",
+      "share_judged": 0.6833641404805915,
+      "n_incorrect": 2,
+      "misclassification_among_judged": 0.0002704895861509332,
+      "hot_share_bias_pp": 0.7184048414136002,
+      "high_elev_exclusion_rate": 0.3590909090909091,
+      "sparse_donor_exclusion_rate": 0.31924033461451506
+    },
+    {
+      "method": "elev_balanced_screen_70",
+      "share_judged": 0.7,
+      "n_incorrect": 24,
+      "misclassification_among_judged": 0.0031687351465540005,
+      "hot_share_bias_pp": -0.12806971217322882,
+      "high_elev_exclusion_rate": 0.30000000000000004,
+      "sparse_donor_exclusion_rate": 0.292109427990052
+    },
+    {
+      "method": "elev_balanced_and_abstention",
+      "share_judged": 0.6828096118299446,
+      "n_incorrect": 3,
+      "misclassification_among_judged": 0.0004060638873849486,
+      "hot_share_bias_pp": 0.2799063676221736,
+      "high_elev_exclusion_rate": 0.3303030303030303,
+      "sparse_donor_exclusion_rate": 0.31788378928329186
+    }
+  ],
+  "primary_finding": "Interval abstention retains more judgments than 70% screening at lower misclassification; elevation-balanced screening reduces high-elevation exclusion relative to global calibrated screening, with a small hot-share and error trade-off that must be shown rather than claimed cost-free.",
+  "may_enter_abstract_or_conclusions": true,
+  "label": "retrospective complete-reference closed loop (not wave-2 sealed)"
+}

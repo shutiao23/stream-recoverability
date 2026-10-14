@@ -79,9 +79,9 @@ extremes in incomplete river-temperature records}
 \titlerunninghead{Ignored.}
 
 \keypoints
- {Hidden support share predicts hottest-30 error risk; paired controls do not yet show that position dominates length}
- {On a retrospective holdout, support screening cuts consequential errors from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points)}
- {Wave-2 confirmation (49 nets; USGS+Hub'Eau+UK EA) cuts errors by $-5.9$ points at 70\% retention; real gaps disagree 15.1\%}
+ {Indicator-conditioned risk ranking beats length and peak-overlap rules for hottest-30 admission; engineered support share is not uniquely necessary once seasonal visibility and uncertainty proxies are available to the same learner}
+ {On a retrospective holdout, the frozen screen cuts consequential errors from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points)}
+ {Wave-2 confirmation (49 nets; USGS-majority with Hub'Eau and UK EA) cuts errors by $-5.9$ points on designed missingness; empirical-arm gains are smaller}
 
 \maketitle
 
@@ -93,20 +93,25 @@ gap's length and its position cannot be varied independently in a record that
 failed on its own. Here we combine 5114 complete river station-years from
 146 networks with 51524 designed outages, vary the two properties of a gap
 separately, and score admission rules on a retrospective network holdout.
-Peak-window hide share is a useful conditional risk predictor for a hottest
-30-day mean, but position does not yet have a paired demonstration that it
-dominates length; binned contrasts of $9.6\times$ versus $3.5\times$ (and the
-reverse for annual means) remain exploratory. Screening by hidden support cuts
+Annual hottest-30 availability should be decided by indicator-conditioned risk,
+not by uniform completeness. Peak-window hide share is a useful conditional risk
+predictor and a strong transparent rule, but a same-capacity risk model that
+already sees warm-season visibility, gap geometry, donors and reconstructor
+disagreement gains essentially nothing from adding engineered peak overlap on
+the development panel; the fitted ranker still beats the peak-overlap rule by
+about $2.6$ points at 70\% retention. Fixed-reconstructor crossed controls show
+full-window hide raises error across climatology and donor methods, with larger
+effects under weak reconstructors --- a conditional mechanism, not a
+reconstructor-independent law. Screening with the frozen certificate cuts
 consequential errors on the retrospective holdout from 9.7\% to 2.5\% at 70\%
 retention ($-7.1$ points, $[-9.0,-5.4]$). First sealed USGS and multi-agency
 transport scores fail the 2026-10-13 audits and remain withdrawn. Under a
-pre-declared wave-2 protocol with repaired QA (49 networks; USGS, Hub'Eau and
-UK EA; 0 reconstruction failures), the same frozen certificate cuts
-consequential errors by $-5.9$ points ($[-6.9,-4.9]$) at 70\% retention, with
-multi-provider agreement. Gains under the gaps these networks actually
-experience remain smaller (about $-0.7$ to $-1.9$ points) and are not a bankable
-operational guarantee. Completeness thresholds are the wrong default axis for
-extremes and often the right one for means.
+pre-declared wave-2 protocol with repaired QA (49 networks; USGS-majority with
+Hub'Eau and UK EA; 0 reconstruction failures), the same frozen certificate cuts
+consequential errors by $-5.9$ points ($[-6.9,-4.9]$) at 70\% retention on
+designed missingness; the empirical arm is smaller (about $-0.8$ points) and
+must not be pooled into an operational guarantee. Completeness thresholds are
+the wrong default axis for extremes and often the right one for means.
 
 \begin{plainlanguagesummary}
 Rivers are getting warmer, and managers ask how hot a river got last summer. The
@@ -876,12 +881,14 @@ estimand $k$ (days) & best window (days) & AUC there & AUC on own support & gain
 \tablenotetext{a}{The diagonal is the estimand's own support; the last column is the median year-to-year circular standard deviation of the realised window's centre.}
 \end{table}
 
-One consequence is practical. AUC at the best conditioning window is between 0.85
-and 0.86 for every estimand from the annual maximum to the half-year mean, so an
-agency needs one climatological window of 60 to 90 days rather than one per
-metric. A second is uncomfortable: the screen deployed below conditions on a
-30-day window and is therefore leaving 0.025 AUC on the table for its own
-endpoint.
+One consequence is interpretive rather than deployed. AUC at the best
+conditioning window is between 0.85 and 0.86 for every estimand from the annual
+maximum to the half-year mean on this opened panel, so a 60-to-90-day window can
+help \emph{discrimination} analyses. The screen scored below still conditions on
+a fixed 30-day climatological window; we do not treat the wider-window AUC
+advantage as a verified method innovation, because it was never wired into the
+frozen admission rule or shown to improve retention or false-admit risk at the
+operating point.
 
 \subsubsection{Error grows along hidden support rather than along length, and donors supply anomaly information}
 
@@ -1450,14 +1457,18 @@ daily maxima, which the archive publishes for 90 of the 91 sealed stations.
 
 For a judgement of this kind, screening is not the best use of the calibrated
 object. Discarding a station-year is a blunt response to uncertainty about a
-single call: screening at the 0.5\,$^{\circ}$C tolerance judges 67.5\% of years
-at 0.36\% misclassification, whereas abstaining only where the interval straddles
-the threshold judges 92.7\% at 0.42\%, and doing both judges 65.7\% at 0.08\%.
-Keeping 93\% of station-years rather than 68\% at essentially the same error rate
-matters to anyone assembling a regional archive. The two actions answer different
-questions --- screening decides what enters an archive, abstention decides what
-one judgement may say --- and the same calibrated object serves both, which is an
-argument for calibrating rather than for screening.
+single call. On the reserved retrospective panel, absolute admission at a
+0.5\,$^{\circ}$C calibrated bound retains 67.5\% of years with a 2.0\%
+consequential false-admit rate (uncalibrated 66.2\% / 1.8\%); the multiplicative
+scale barely moves ranking-based risk-cap retention, which is why calibration
+must be judged on absolute admit sets, not on risk--retention frontiers alone.
+For threshold calls, abstaining only where the conformal metric interval
+straddles 18\,$^{\circ}$C judges 93.1\% of reserved years at 0.19\%
+misclassification among judged calls, versus judging 70\% under calibrated
+screening at 0.33\% --- and combining screen with abstention judges 68.3\% at
+0.03\%. The two actions answer different questions --- screening decides what
+enters an archive, abstention decides what one judgement may say --- and the same
+calibrated object serves both.
 
 \subsection{What an agency should change, and in what order}
 
@@ -1578,20 +1589,28 @@ outages, with a retrospective network holdout and an independent wave-2
 confirmation panel, we quantified what an incomplete year can still support.
 Three answers follow.
 
-First, hidden support share is a strong conditional risk predictor for the
-hottest 30-day mean: a frozen screen conditioned on it cuts consequential errors
+First, indicator-conditioned risk ranking is worth adopting for hottest-30
+admission under a stated tolerance: the frozen screen cuts consequential errors
 on the retrospective holdout from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points,
-$[-9.0,-5.4]$), and on the wave-2 multi-provider confirmation by $-5.9$ points
-($[-6.9,-4.9]$). We do not claim that position dominates error independently of
-length; that stronger statement still needs paired controls. The withdrawn
-first seals and the failed transport quality-checked gate remain labelled and
-are not re-used.
+$[-9.0,-5.4]$), and on the wave-2 designed confirmation by $-5.9$ points
+($[-6.9,-4.9]$). Peak-window overlap remains a strong transparent rule and
+explanation, but on the development panel a same-capacity generic risk model
+already matches a model that adds engineered support share; the claim is
+admission by fitted indicator risk, not that support share is an irreplaceable
+feature. Fixed-reconstructor crossed controls show that fully hiding the peak
+window raises error under climatology and donor methods alike, with network
+intervals excluding zero, while length effects at fixed overlap are weaker and
+method-dependent --- conditional mechanism evidence, not a universal geometry
+law. The withdrawn first seals and the failed transport quality-checked gate
+remain labelled and are not re-used.
 
-Second, the gain is conditional in ways a pooled number hides: it depends on the
-support width of the estimand and collapses towards $-0.7$ to $-1.9$ points under
-the gap calendar these networks actually keep. Completeness thresholds remain the
-correct axis for annual means and the sine-fit parameters, which is where the
-standing guidance was derived.
+Second, the gain is conditional in ways a pooled number hides: it is larger on
+stratified pressure outages than on empirical transplants (wave-2 empirical
+about $-0.8$ points; reserved empirical interval includes zero), and it depends
+on the estimand. Completeness thresholds remain the correct axis for annual
+means and the sine-fit parameters, which is where the standing guidance was
+derived. Wider conditioning windows that raise AUC are an applicability boundary
+for discrimination, not a deployed component of the scored screen.
 
 Third, the practical consequence is an estimand-specific admission decision
 rather than a new universal threshold, and admission is meaningful only when the

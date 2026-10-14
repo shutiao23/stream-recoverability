@@ -1,0 +1,13 @@
+overlap_class,point_C,ci_low_C,ci_high_C,n_networks,n_station_years,ci_excludes_zero,reconstructor,contrast
+full,0.2532647049310592,0.21069642810965544,0.29219943863234055,12,211,True,doy_climatology,long_minus_short_at_fixed_overlap
+none,0.0009207614877288911,-0.012952033746110599,0.018246288143759525,12,211,False,doy_climatology,long_minus_short_at_fixed_overlap
+partial,0.024166631807312655,-0.04209281618899938,0.08309913821020415,12,211,False,doy_climatology,long_minus_short_at_fixed_overlap
+full,0.2875559919438818,0.2349193885469893,0.3313679325463671,12,211,True,smooth_climatology,long_minus_short_at_fixed_overlap
+none,-0.00022982056110154234,-0.014052167751601613,0.01618680919854471,12,211,False,smooth_climatology,long_minus_short_at_fixed_overlap
+partial,0.03860966420660309,-0.02628846120473965,0.09899286463666168,12,211,False,smooth_climatology,long_minus_short_at_fixed_overlap
+full,0.1533723334578942,0.1091519433766486,0.19552741220450381,12,207,True,donor_ridge,long_minus_short_at_fixed_overlap
+none,0.007098915547652527,-0.005316665095785879,0.019789749797262907,12,204,False,donor_ridge,long_minus_short_at_fixed_overlap
+partial,0.014228427181769497,0.0010439508042564298,0.027615201378978358,12,204,True,donor_ridge,long_minus_short_at_fixed_overlap
+full,0.9825812522953745,0.8243465019536693,1.1302494874241367,12,211,True,linear_interp,long_minus_short_at_fixed_overlap
+none,0.01330252074712653,0.0055480985770672625,0.021569508138103387,12,211,True,linear_interp,long_minus_short_at_fixed_overlap
+partial,0.15898941850058015,0.04868392596923299,0.24963657664703437,12,211,True,linear_interp,long_minus_short_at_fixed_overlap

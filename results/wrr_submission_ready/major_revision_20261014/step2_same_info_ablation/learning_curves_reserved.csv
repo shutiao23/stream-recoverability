@@ -1,0 +1,13 @@
+screen,kind,rate_above_0.5_at_70,mean_abs_error_c_at_70,retention_at_risk_cap_5pct,rate_above_0.5_at_risk_cap,n_retained_at_risk_cap,feature_set,n_train_networks,panel
+n_train_nets=10,learning_curve,0.03578030102983892,0.06627515146672898,0.74,0.04658423879105782,8007,generic,10,reserved_retrospective
+n_train_nets=25,learning_curve,0.028914708212305254,0.06047600679434044,0.78,0.04774881516587678,8440,generic,25,reserved_retrospective
+n_train_nets=50,learning_curve,0.03657248481647742,0.06792445910750182,0.74,0.04808292743849132,8007,generic,50,reserved_retrospective
+n_train_nets=110,learning_curve,0.023633482968048587,0.055522274484575126,0.78,0.04774881516587678,8440,generic,110,reserved_retrospective
+n_train_nets=10,learning_curve,0.035252178505413255,0.06710551332737678,0.75,0.049414664202094886,8115,generic_plus_support,10,reserved_retrospective
+n_train_nets=25,learning_curve,0.024161605492474255,0.056542365710423814,0.79,0.0485493682732803,8548,generic_plus_support,25,reserved_retrospective
+n_train_nets=50,learning_curve,0.035252178505413255,0.066740658531039,0.75,0.048552064078866294,8115,generic_plus_support,50,reserved_retrospective
+n_train_nets=110,learning_curve,0.023633482968048587,0.05513338539466322,0.79,0.048198408984557795,8548,generic_plus_support,110,reserved_retrospective
+n_train_nets=10,learning_curve,0.03261156588328492,0.06472726672891853,0.75,0.0474430067775724,8115,generic_plus_support_plus_peakmargin,10,reserved_retrospective
+n_train_nets=25,learning_curve,0.024953789279112754,0.056554605123217895,0.78,0.04691943127962085,8440,generic_plus_support_plus_peakmargin,25,reserved_retrospective
+n_train_nets=50,learning_curve,0.026802218114602587,0.05843725040645002,0.77,0.04885367903012844,8331,generic_plus_support_plus_peakmargin,50,reserved_retrospective
+n_train_nets=110,learning_curve,0.02165302350145234,0.05308713519736663,0.79,0.048900327562002806,8548,generic_plus_support_plus_peakmargin,110,reserved_retrospective

@@ -1,0 +1,58 @@
+{
+  "predeclared": {
+    "admission": "At false-admit \u22645%, calibrated bound retains \u22655 pp more than peak-overlap rule on held-out panels",
+    "threshold": "Interval abstention judges more candidates than calibrated screen@70% at misclassification \u22640.5%"
+  },
+  "observed": {
+    "reserved_retrospective": {
+      "calibrated_retention": 0.78,
+      "peak_overlap_retention": 0.73,
+      "uncalibrated_retention": 0.78,
+      "cal_minus_peak_pp": 5.000000000000004,
+      "meets_plus5_vs_peak": true,
+      "cal_minus_raw_pp": 0.0
+    },
+    "wave2_designed": {
+      "calibrated_retention": 0.79,
+      "peak_overlap_retention": 0.74,
+      "uncalibrated_retention": 0.79,
+      "cal_minus_peak_pp": 5.000000000000004,
+      "meets_plus5_vs_peak": true,
+      "cal_minus_raw_pp": 0.0
+    },
+    "threshold": {
+      "reserved_retrospective|thr=18.0": {
+        "abstention_share_judged": 0.9312384473197782,
+        "abstention_misclf": 0.0018856689162366018,
+        "screen70_share_judged": 0.7,
+        "screen70_misclf": 0.003300765777660417,
+        "abstention_judges_more": true,
+        "abstention_misclf_le_0.5pct": true
+      },
+      "reserved_retrospective|thr=20.0": {
+        "abstention_share_judged": 0.9242144177449169,
+        "abstention_misclf": 0.0035,
+        "screen70_share_judged": 0.7,
+        "screen70_misclf": 0.004224980195405334,
+        "abstention_judges_more": true,
+        "abstention_misclf_le_0.5pct": true
+      },
+      "wave2_designed|thr=18.0": {
+        "abstention_share_judged": 0.9746485365291542,
+        "abstention_misclf": 0.0007882084023015686,
+        "screen70_share_judged": 0.7000076822616579,
+        "screen70_misclf": 0.0007682177348551361,
+        "abstention_judges_more": true,
+        "abstention_misclf_le_0.5pct": true
+      },
+      "wave2_designed|thr=20.0": {
+        "abstention_share_judged": 0.9433817315817776,
+        "abstention_misclf": 0.0013843648208469055,
+        "screen70_share_judged": 0.7000076822616579,
+        "screen70_misclf": 0.0038410886742756803,
+        "abstention_judges_more": true,
+        "abstention_misclf_le_0.5pct": true
+      }
+    }
+  }
+}
