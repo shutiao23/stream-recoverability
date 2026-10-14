@@ -24,7 +24,7 @@
 
 \journalname{Water Resources Research}
 
-\title{Supporting Information for ``Gap position, not gap length, governs the error of
+\title{Supporting Information for ``Gap position dominates gap length for the error of
 annual thermal extremes in incomplete river-temperature records''}
 
 \authors{AUTHOR ONE\affil{1}}
@@ -176,21 +176,28 @@ unchanged between 0.25 and 1.0 standard deviations.
 
 \section{Confirmation, transport and the amendment register}
 
-\textbf{The sealed confirmation.} Thirty-nine USGS HUC4 networks outside the
-v17/v18 development panel (91 stations, 18 HUC2 contexts, 8973 designed outage
-cases) were ingested, hashed and scored once with the frozen certificate at the
-pre-registered operating point. The pooled contrast is $-7.9$ points
-($[-10.2,-5.8]$) and the empirical arm $-1.7$ ($[-3.0,-0.7]$). The panel is
-outside the development programme but is not untouched by the wider programme: a
-repo-wide, provider-aware audit of every artifact carrying a station identifier
-finds 24 of the 39 networks in earlier programme iterations, so the earlier
-``never used'' label was wrong and is corrected in
-\texttt{AMENDMENT\_prior\_access\_sealed\_panel.md}. The result does not rest
-on the touched networks: on the 15 networks with no outcome-bearing prior use the
-pooled contrast is $-9.4$ points ($[-12.4,-6.0]$) with an empirical-arm gain of
-$-3.7$ ($[-5.8,-1.6]$), and on the 45 outcome-clean stations it is $-8.3$
-($[-10.4,-6.4]$). Those subsets are read from the already-sealed score and are a
-transparency diagnostic, not new confirmation.
+\textbf{The first sealed confirmation (executed; audit-failed; withdrawn).}
+Thirty-nine USGS HUC4 networks outside the v17/v18 development panel were
+ingested, hashed and scored once. The historical pooled contrast of about
+$-7.9$ points is retained only as an executed artifact. The 2026-10-13 audit
+finds USGS no-data sentinels in truth years and silent deletion of
+non-reconstructable selected cases before the 70\% cut
+(\texttt{AMENDMENT\_claim\_status\_freeze\_20261013.md};
+\texttt{amendments/p0\_02\_qc\_ledger/};
+\texttt{amendments/p0\_03\_retention\_denominator/}). That seal is withdrawn.
+Prior-access diagnostics in
+\texttt{AMENDMENT\_prior\_access\_sealed\_panel.md} remain relevant for any
+future reanalysis of this opened panel.
+
+\textbf{Wave-2 independent confirmation (scored once; success rule met).}
+Under \texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}, 49 networks /
+143 stations / 13\,017 cases across USGS, Hub'Eau and UK EA were assembled
+with programme-used stations excluded, hashed, and scored once with repaired
+QA and reconstructability. At 70\% retention and 0.5\,$^{\circ}$C the contrast
+is $\Delta=-5.89$ points ($[-6.92,-4.91]$), with zero reconstruction failures,
+USGS and Hub'Eau both negative, and the USGS quality-checked subset agreeing
+(\texttt{AMENDMENT\_p0\_07\_wave2\_confirmation\_20261013.md};
+\texttt{p0\_07\_wave2\_ingest/p0\_07\_wave2\_confirmation/verdict.json}).
 
 \textbf{The transport test.} The confirmation is single-agency, so the
 pre-registered transport protocol
@@ -211,19 +218,16 @@ pristine first confirmation.
 
 The sealed transport panel holds 53 networks: 32 primary networks from Sweden
 (SMHI, 16), England (UK Environment Agency, 2) and France (Hub'Eau, 14) across
-three climate contexts and four assurance strata combinations, plus 21 Norwegian
-(NVE) basins as the secondary stratum. All 291 candidate stations are unused
-anywhere in the repository, the 47 Hub'Eau and 143 SMHI stations sit in the
-provider-published-unqualified stratum, and one structural quality-control pass
-(June--September runs of three or more days at exactly $0.0\,^{\circ}$C blanked
-as stuck sensors) was applied identically to every provider before the seal. The
-primary panel is 17\,826 cases: pooled contrast $-4.6$ points ($[-6.5,-3.3]$),
-with SMHI $-4.3$, Hub'Eau $-4.9$ and the UK EA $-6.4$ (2 networks, wide
-interval); the quality-checked stratum alone is $-6.2$ ($[-8.4,-4.5]$) and the
-empirical arm $-1.9$ ($[-3.3,-1.0]$). The pre-declared rule is met on both the
-pooled primary panel and the quality-checked stratum, and the two agree. The
-secondary NVE stratum is $-6.1$ ($[-8.7,-4.6]$) and the extended pooled estimate
-$-5.2$ ($[-6.7,-4.1]$).
+three climate contexts, plus 21 Norwegian (NVE) basins as the secondary stratum
+only (152 primary stations; 245 including secondary). Historical contrasts that
+reported a primary pooled $-4.6$ points and a quality-checked $-6.2$ points are
+executed artifacts only. The 2026-10-13 audit finds SMHI unit/coding failures,
+reconstructability dropouts that shrank the 70\% denominator, and a
+quality-checked gate that mixed NVE secondary cases ($\approx 97\%$ of that
+stratum). On the primary quality-checked subset alone (2 networks, 307 cases)
+the corrected diagnostic fails the pre-registered CI rule
+(\texttt{amendments/f03\_primary\_qc\_diagnostic/}). That transport seal remains
+withdrawn; it is not the wave-2 confirmation above.
 
 \textbf{The amendment register.} Each adversarial finding closed after the
 freeze has an amendment directory holding the recomputation, the preserved

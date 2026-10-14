@@ -1,0 +1,10 @@
+{
+  "provider": "uk_ea",
+  "scored": false,
+  "n_ready_networks": 1,
+  "ready_network_ids": [
+    "uk_ea_wave2_s50_004"
+  ],
+  "source": "uk_ea_spatial_clusters.csv excluding prior-emitted s50_001/002",
+  "note": "Wave-2 UK EA primary derived-daily panels; not scored."
+}

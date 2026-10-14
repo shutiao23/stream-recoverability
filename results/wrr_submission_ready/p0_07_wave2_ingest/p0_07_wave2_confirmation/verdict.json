@@ -1,0 +1,58 @@
+{
+  "panel": "p0_07_wave2_independent_confirmation",
+  "evidence_type": "sealed_wave2_multi_provider_confirmation",
+  "n_networks": 49,
+  "n_stations": 143,
+  "n_cases": 13017,
+  "n_providers": 3,
+  "providers": [
+    "hubeau",
+    "uk_ea",
+    "usgs"
+  ],
+  "n_contexts_manifest": 13,
+  "retention": 0.7,
+  "tolerance_C": 0.5,
+  "contrast_points": -5.89332748024583,
+  "ci_low_points": -6.918885026814831,
+  "ci_high_points": -4.912740812979251,
+  "n_candidate_cases": 13017,
+  "n_cert_reconstruction_failures": 0,
+  "selected_reconstruction_failure_rate": 0.0,
+  "by_provider_points": {
+    "hubeau": {
+      "contrast_points": -10.700389105058365,
+      "ci_low_points": -15.020576131687244,
+      "ci_high_points": -2.1834061135371177
+    },
+    "usgs": {
+      "contrast_points": -5.872072701852499,
+      "ci_low_points": -6.8950292041996795,
+      "ci_high_points": -4.933528616286729
+    },
+    "uk_ea": {
+      "contrast_points": null,
+      "note": "n_cases<100; counted in pooled panel only"
+    }
+  },
+  "providers_same_direction_negative": 2,
+  "predeclared_success_rule_met": true,
+  "freeze_certificate": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "manifest_sha256": "d4d9227f3b6361da148428049b6a5a731a8a0be8486ec031aab06c64c9da318d",
+  "scored_once": true,
+  "n_primary_manifest_networks": 49,
+  "limitations": [
+    "Wave-2 independent confirmation under repaired QA/reconstructability",
+    "Do not retune thresholds after this score",
+    "Leftover opened-wave ingest was not scored"
+  ],
+  "qc_subset_gate": {
+    "subset": "usgs_wave2_as_quality_checked_primary",
+    "n_cases": 12261,
+    "contrast_points": -5.872072701852499,
+    "ci_low_points": -6.8950292041996795,
+    "ci_high_points": -4.933528616286729,
+    "agrees_with_pooled_gate": true
+  },
+  "quality_checked_subset_agrees": true
+}

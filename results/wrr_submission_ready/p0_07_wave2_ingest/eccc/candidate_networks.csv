@@ -1,0 +1,4 @@
+network_id,provider,domain,river_group,n_catalog_stations,site_ids,latitude,longitude,prior_temperature_values_seen,candidate_status
+eccc_automated_great_lakes,eccc_automated,canada,GREAT LAKES,5,ON02GG0004|ON02GG0005|ON02HA0019|ON02HA0045|ON02MA0030,43.210576,-79.82668,False,metadata_candidate_pending_daily_qc
+eccc_automated_maritime_coastal,eccc_automated,canada,MARITIME COASTAL,3,NS01DC0001|NS01EJ0157|PE01CB0143,45.368880333333344,-64.12502,False,metadata_candidate_pending_daily_qc
+eccc_automated_saint_john_st_croix,eccc_automated,canada,SAINT JOHN–ST. CROIX,5,NB01AJ0008|NB01AJ0126|NB01AJ0127|NB01AR0021|NB01AR0151,45.9387344,-67.63859119999998,False,metadata_candidate_pending_daily_qc

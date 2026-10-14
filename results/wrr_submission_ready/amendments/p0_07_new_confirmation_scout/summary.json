@@ -1,0 +1,15 @@
+{
+  "status": "worksheet_written",
+  "n_used_networks_seen": 234,
+  "n_candidate_rows": 132,
+  "n_not_already_used": 126,
+  "protocol": "results/wrr_submission_ready/P0_07_NEW_CONFIRMATION_PROTOCOL_DRAFT.md",
+  "floors": {
+    "min_networks": 30,
+    "min_providers": 3,
+    "min_contexts": 3,
+    "min_stations_per_network": 2,
+    "min_complete_years": 4
+  },
+  "note": "Opened USGS/transport panels are exhausted for first confirmation. New downloads required; do not unseal-score until QA+prior-access freeze."
+}

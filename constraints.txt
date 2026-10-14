@@ -196,6 +196,7 @@ ruff==0.16.2
 safetensors==0.8.0
     # via transformers
 scikit-learn==1.7.2
+# NOTE(P0-04): Certificate.joblib requires scikit-learn==1.2.2; see constraints-freeze-certificate.txt
     # via
     #   benchpots
     #   pygrinder

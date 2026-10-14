@@ -43,10 +43,16 @@ manifest before it is written.
 
 **Route 3 — reproduce the numbers without the raw panels.** The case tables
 (the 51 524 designed cases with every feature and estimator error), the frozen
-certificate, the sealed confirmation cases and the amendment inputs are all
-tracked in the repository. Every reported number can be recomputed from them, and
-`scripts/254_wrr_claim_binding_check.py` recomputes the headline set. The raw
-panels are needed only to rebuild cases from scratch.
+certificate, the wave-2 confirmation cases
+(`results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/`),
+the withdrawn first-seal artifacts (preserved for audit transparency), and the
+amendment inputs are all tracked in the repository. Every reported number can
+be recomputed from them, and `scripts/254_wrr_claim_binding_check.py` recomputes
+the headline set. The raw panels are needed only to rebuild cases from scratch.
+Wave-2 panel paths and SHA-256 digests are in
+`results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv`.
+Load the certificate with `constraints-freeze-certificate.txt`
+(scikit-learn==1.2.2), not `constraints.txt`'s 1.7.2 pin.
 
 ## Licensing summary (evidence quoted in `metadata/data_rights.csv`)
 

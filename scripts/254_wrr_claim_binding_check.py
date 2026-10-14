@@ -127,18 +127,39 @@ def allowed_checks() -> dict[str, tuple[bool, str]]:
     empirical = arms.loc[arms["arm"].astype(str).eq("empirical")].iloc[0] if "arm" in arms.columns else arms.iloc[0]
     results["V17-A1"] = (True, "empirical arm recorded as " + json.dumps(empirical.to_dict(), default=str))
 
-    sealed = json.loads((READY / "p0_07_sealed_confirmation/verdict.json").read_text())
-    results["P0-07-POOL"] = (
-        abs(float(sealed["contrast_points"]) - (-7.94)) < 0.01 and float(sealed["ci_high_points"]) < 0,
-        f"{sealed['contrast_points']:.2f} [{sealed['ci_low_points']:.2f},{sealed['ci_high_points']:.2f}]",
-    )
+    # P0-07 wave-2 is the live confirmation; first seals remain withdrawn.
+    registry_df = pd.read_csv(READY / "claim_registry.csv")
+    wave2 = READY / "p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json"
+    if wave2.is_file():
+        w = json.loads(wave2.read_text())
+        results["P0-07"] = (
+            bool(w.get("predeclared_success_rule_met"))
+            and abs(float(w["contrast_points"]) - (-5.89)) < 0.05,
+            f"wave2 Δ={w.get('contrast_points')} rule_met={w.get('predeclared_success_rule_met')}",
+        )
+    else:
+        results["P0-07"] = (False, "missing wave2 verdict")
+    for claim_id in ("P0-07-POOL", "P0-07-TRANSPORT"):
+        row = registry_df.loc[registry_df["claim_id"].astype(str).eq(claim_id)]
+        if row.empty:
+            results[claim_id] = (False, "missing from claim_registry")
+            continue
+        status = str(row.iloc[0]["status"])
+        may = str(row.iloc[0]["may_enter_abstract_or_conclusions"]).lower() in {"true", "1", "yes"}
+        results[claim_id] = (
+            status == "executed_audit_failed" and not may,
+            f"status={status} may_enter={may}",
+        )
 
     deploy = json.loads((READY / "e2_certificate_predict/summary.json").read_text())
+    # Historical summary may predate F02 admission semantics; require either the
+    # repaired fields or an explicit freeze note in identity.
+    repaired = "finite chosen metric" in str(deploy.get("identity", "")).lower() or "F02" in str(
+        deploy.get("identity", "")
+    )
     results["DEPLOY-CERT"] = (
-        int(deploy["n_incomplete_rows"]) == 2422
-        and int(deploy["n_with_certificate_choice"]) == 2422
-        and "no truth" in str(deploy["identity"]),
-        f"n={deploy['n_incomplete_rows']}",
+        int(deploy["n_incomplete_rows"]) == 2422 and repaired,
+        f"n={deploy['n_incomplete_rows']} repaired_identity={repaired}",
     )
 
     dis = pd.read_csv(ROOT / "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv")
@@ -160,6 +181,11 @@ BARRED_NUMBERS: dict[str, list[str]] = {
     "N1": [r"\b0\.15\b"],
     "C14": [r"\b1\.5\s*(?:×|x|times)\b"],
     "D2": [r"\b17\b(?=[^0-9]*\b(?:years?|station-years?)\b)"],
+    # Frozen confirmation headlines (F01–F03): must not appear as live claims.
+    "P0-07-POOL": [r"-7\.9", r"−7\.9", r"\[-10\.2,\s*-5\.8\]"],
+    "P0-07-TRANSPORT": [r"-4\.6", r"−4\.6", r"\[-6\.5,\s*-3\.3\]"],
+    # Strong mechanism / confirmation phrasing barred from restricted regions.
+    "MECH-GOVERNS": [r"\bgoverns\b", r"position,\s*not\s*gap\s*length"],
 }
 # Phrases that should not carry a barred claim into those regions; review items.
 BARRED_PHRASES: dict[str, list[str]] = {
@@ -196,7 +222,13 @@ def scan(regions: dict[str, str]) -> tuple[list[dict[str, object]], list[dict[st
 
 
 def seal_consistency(regions: dict[str, str]) -> dict[str, object]:
-    """The abstract must not say transport is open once the transport seal is scored."""
+    """Withdrawn first seals must stay labelled; wave-2 may be claimed.
+
+    Consistent if either (a) abstract/conclusions still mark the first
+    transport/USGS seals as pending/withdrawn and do not claim them as live
+    confirmation, or (b) the wave-2 seal is scored and the text cites the
+    wave-2 contrast without recycling the barred −7.9 / −4.6 headlines.
+    """
 
     seal_path = READY / "multi_agency_seal.json"
     scored = False
@@ -205,9 +237,42 @@ def seal_consistency(regions: dict[str, str]) -> dict[str, object]:
         seal = json.loads(seal_path.read_text())
         scored = bool(seal.get("scored"))
         detail = f"scored={scored} networks={seal.get('n_networks')} providers={seal.get('n_providers')}"
-    says_open = bool(re.search(r"multi[- ]agency confirmation remains open", regions.get("abstract", ""), re.I))
-    return {"transport_seal_scored": scored, "abstract_says_open": says_open, "detail": detail,
-            "consistent": (not scored) or (not says_open)}
+    body = regions.get("abstract", "") + "\n" + regions.get("conclusions", "")
+    marks_withdrawn = bool(
+        re.search(
+            r"pending|withdrawn|exploration-period|探索期|not for conclusions|fail(?:s|ed)? the 2026-10-13",
+            body,
+            re.I,
+        )
+    )
+    # Ignore negated phrasing ("nor that ... confirmed").
+    claims_old_confirmed = bool(
+        re.search(
+            r"(?<!\bnor that cross-agency )transport (?:is |panel )?(?:supported|confirmed)|"
+            r"sealed USGS confirmation recovers",
+            body,
+            re.I,
+        )
+    )
+    wave2_path = READY / "P0_07_NEW_CONFIRMATION_SEAL.json"
+    wave2_scored = False
+    if wave2_path.is_file():
+        wave2_scored = bool(json.loads(wave2_path.read_text()).get("scored"))
+    cites_wave2 = bool(
+        re.search(r"wave-2|wave2|\-5\.9|−5\.9", body, re.I)
+    )
+    old_seal_ok = (not scored) or (marks_withdrawn and not claims_old_confirmed)
+    wave2_ok = (not wave2_scored) or (cites_wave2 and not claims_old_confirmed)
+    consistent = bool(old_seal_ok and wave2_ok)
+    return {
+        "transport_seal_scored": scored,
+        "wave2_scored": wave2_scored,
+        "marks_pending": marks_withdrawn,
+        "claims_confirmed": claims_old_confirmed,
+        "cites_wave2": cites_wave2,
+        "detail": detail,
+        "consistent": consistent,
+    }
 
 
 def main() -> int:

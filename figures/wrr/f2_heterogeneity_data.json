@@ -12,8 +12,8 @@
     "interval": "95% network-clustered confidence interval; the resampling unit is the network",
     "threshold_points": -1.0,
     "threshold_source": {
-      "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-      "filter": "predeclared_rule.delta_points"
+      "artifact": "P0_07_NEW_CONFIRMATION_PROTOCOL_DRAFT.md / MULTI_AGENCY_TRANSPORT_PROTOCOL.md",
+      "filter": "predeclared \u0394 = -1.0 percentage point (not a passing transport verdict)"
     },
     "note_on_threshold": "The v17 retrospective panels were declared against a 5.0-point effect (results/v17_fitness/step10_confirmation/verdict.json, primary.declared_effect_points); the -1.0-point threshold drawn here is the transport protocol's pre-declared rule and is the same line for every row.",
     "case_masks": "Retrospective, sealed and transport cases are designed masks punched into complete station-years, except where a row is labelled empirical (the panel's own real outage geometry)."
@@ -308,113 +308,17 @@
         }
       },
       {
-        "label": "Sealed USGS, pooled",
-        "identity": "sealed",
+        "label": "Wave-2 confirmation (USGS+Hub'Eau+UK EA)",
+        "identity": "wave2",
         "marker": "primary",
-        "estimate_points": -7.943603851444292,
-        "ci_low_points": -10.15398785117217,
-        "ci_high_points": -5.753458605902341,
-        "n_cases": 8973,
-        "n_networks": 39,
+        "estimate_points": -5.89332748024583,
+        "ci_low_points": -6.918885026814831,
+        "ci_high_points": -4.912740812979251,
+        "n_cases": 13017,
+        "n_networks": 49,
         "source": {
-          "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
-          "filter": "whole file (pooled panel, 70% retention, scored once)",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        }
-      },
-      {
-        "label": "Sealed USGS, empirical arm",
-        "identity": "sealed",
-        "marker": "empirical",
-        "estimate_points": -1.7444395987788925,
-        "ci_low_points": -2.9819492323217274,
-        "ci_high_points": -0.6821456270556999,
-        "n_cases": 3397,
-        "n_networks": 39,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
-          "filter": "by_arm_points.empirical",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points"
-          ]
-        },
-        "n_source": {
-          "n_cases": {
-            "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
-            "filter": "arm == 'empirical'",
-            "field": "row count"
-          },
-          "n_networks": {
-            "artifact": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
-            "filter": "arm == 'empirical'",
-            "field": "network_id.nunique()"
-          }
-        }
-      },
-      {
-        "label": "Sealed USGS, clean subset",
-        "identity": "sealed",
-        "marker": "diagnostic",
-        "estimate_points": -9.42084942084942,
-        "ci_low_points": -12.435193024908124,
-        "ci_high_points": -6.031415343915346,
-        "n_cases": 1923,
-        "n_networks": 15,
-        "source": {
-          "artifact": "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json",
-          "filter": "rows[subset == 'networks_clean_of_outcome_use']",
-          "fields": [
-            "pooled_contrast_points",
-            "pooled_ci_low_points",
-            "pooled_ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        },
-        "note": "Post-seal robustness diagnostic on the networks with no outcome-bearing prior use; it does not revise the primary verdict."
-      },
-      {
-        "label": "Transport, primary panel",
-        "identity": "transport",
-        "marker": "primary",
-        "estimate_points": -4.607779125081615,
-        "ci_low_points": -6.531224999396276,
-        "ci_high_points": -3.304640766719575,
-        "n_cases": 17826,
-        "n_networks": 32,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-          "filter": "primary_panel (agencies absent from the v17/v18 development programme)",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        }
-      },
-      {
-        "label": "   SMHI",
-        "identity": "transport",
-        "marker": "primary",
-        "provider": "smhi",
-        "estimate_points": -4.34729365662503,
-        "ci_low_points": -6.280553595852381,
-        "ci_high_points": -3.153504237465754,
-        "n_cases": 14115,
-        "n_networks": 16,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-          "filter": "by_provider_points.smhi",
+          "artifact": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json",
+          "filter": "whole file (wave-2 independent confirmation, scored once)",
           "fields": [
             "contrast_points",
             "ci_low_points",
@@ -423,75 +327,7 @@
             "n_networks"
           ]
         },
-        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
-      },
-      {
-        "label": "   UK EA",
-        "identity": "transport",
-        "marker": "primary",
-        "provider": "uk_ea",
-        "estimate_points": -6.403940886699508,
-        "ci_low_points": -7.968127490039841,
-        "ci_high_points": 1.2903225806451615,
-        "n_cases": 307,
-        "n_networks": 2,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-          "filter": "by_provider_points.uk_ea",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        },
-        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
-      },
-      {
-        "label": "   Hub'Eau",
-        "identity": "transport",
-        "marker": "primary",
-        "provider": "hubeau",
-        "estimate_points": -4.889455782312925,
-        "ci_low_points": -8.509200412247177,
-        "ci_high_points": -1.4710290272568665,
-        "n_cases": 3404,
-        "n_networks": 14,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-          "filter": "by_provider_points.hubeau",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        },
-        "note": "n_cases and n_networks were filled from the stored transport cases after the score (verdict.post_score_metadata_correction); no contrast value was recomputed."
-      },
-      {
-        "label": "Transport, NVE secondary",
-        "identity": "transport",
-        "marker": "secondary",
-        "estimate_points": -6.141618497109826,
-        "ci_low_points": -8.699288727627307,
-        "ci_high_points": -4.591379203676586,
-        "n_cases": 10075,
-        "n_networks": 21,
-        "source": {
-          "artifact": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-          "filter": "secondary_panel (development provider, individually never-used stations)",
-          "fields": [
-            "contrast_points",
-            "ci_low_points",
-            "ci_high_points",
-            "n_cases",
-            "n_networks"
-          ]
-        },
-        "note": "Secondary stratum: the provider took part in v17 development, so this row is reported separately from the primary transport panel."
+        "note": "Pre-declared wave-2 protocol under repaired QA; leftover opened-wave ingest and withdrawn first seals are not included."
       }
     ]
   },
@@ -538,26 +374,6 @@
       "bytes": 2237
     },
     {
-      "path": "results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json",
-      "sha256": "798cb96ea11fff74bae77e9ff64f5c214788288ec225d4608ec65e09df711552",
-      "bytes": 1003
-    },
-    {
-      "path": "results/wrr_submission_ready/p0_07_sealed_confirmation/sealed_cases.parquet",
-      "sha256": "8dac65de359eb88cc59b3fca4ea386c0a7b97b81cb843ad2f136539434920445",
-      "bytes": 3649020
-    },
-    {
-      "path": "results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json",
-      "sha256": "ac166827ee277cc5ba804a396b1c9ffc2656101744e21f1aacce24e627f42300",
-      "bytes": 2454
-    },
-    {
-      "path": "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json",
-      "sha256": "ea9eb7088ac5bd3c5fdfed202ff1c3c0836490a9d11d23b3384372a02cf469c8",
-      "bytes": 5141
-    },
-    {
       "path": "results/v18_closure/e2_archive_deployment/summary.json",
       "sha256": "0d8d1dca19c883ca03327adc8a4aa6f50865f5f38621dde3d3dfbee8b45c5717",
       "bytes": 1014
@@ -566,6 +382,11 @@
       "path": "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv",
       "sha256": "40635b078a1a5131448fb0d8b359916a0e755bf8d977cbf053bcc650d023201b",
       "bytes": 421
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json",
+      "sha256": "f0d83c1abb9a24ac2b7c2aec491c99a63f97de612fb11b885eaeeac43e05a25b",
+      "bytes": 1831
     }
   ],
   "render_checks": {
@@ -614,12 +435,12 @@
       "png": "figures/wrr/f2b_panel_heterogeneity.png",
       "pages": 1,
       "page_size_pt": [
-        380.62,
-        291.75
+        438.57,
+        169.45
       ],
       "page_size_in": [
-        5.286,
-        4.052
+        6.091,
+        2.354
       ],
       "fits_column_inches": 5.5,
       "fonts": [
@@ -635,18 +456,18 @@
       "fonts_all_embedded": true,
       "fonts_all_type42": true,
       "font_embedding_note": "pdf.fonttype = 42 (TrueType outlines). Matplotlib 3.9 writes these as a CID-keyed TrueType font with Identity-H encoding, which pdffonts reports as 'CID TrueType': outlines embedded, subset, with a Unicode map.",
-      "n_words": 108,
+      "n_words": 65,
       "words_outside_page": [],
       "n_overlapping_word_pairs": 0,
       "overlapping_word_pairs": [],
       "min_word_box_height_pt": 6.99,
-      "min_word_box_height_pt_at_column_width": 7.272,
+      "min_word_box_height_pt_at_column_width": 6.99,
       "min_cap_or_digit_word_height_pt": 6.99,
-      "min_cap_or_digit_word_height_pt_at_column_width": 7.272,
+      "min_cap_or_digit_word_height_pt_at_column_width": 6.99,
       "font_box_ratio_em": 1.1641,
       "min_implied_type_size_pt": 6.005,
-      "min_implied_type_size_pt_at_column_width": 6.248,
-      "scale_to_column_width": 1.0404,
+      "min_implied_type_size_pt_at_column_width": 6.005,
+      "scale_to_column_width": 1.0,
       "words_dump": "scratch/heterogeneity/f2b_panel_heterogeneity_words.tsv"
     }
   },

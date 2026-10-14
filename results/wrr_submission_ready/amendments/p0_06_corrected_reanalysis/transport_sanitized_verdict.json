@@ -1,0 +1,74 @@
+{
+  "panel": "transport_primary_sanitized_corrected_reanalysis",
+  "evidence_type": "corrected_reanalysis_opened_panel",
+  "may_enter_abstract_or_conclusions": false,
+  "label": "[pending \u2014 \u63a2\u7d22\u671f\u6570\u636e\uff0c\u4e0d\u53ef\u5199\u5165\u7ed3\u8bba]",
+  "primary_only": true,
+  "n_networks": 32,
+  "n_stations": 151,
+  "n_cases": 17785,
+  "retention": 0.7,
+  "tolerance_C": 0.5,
+  "pooled_primary": {
+    "n_cases": 17785,
+    "n_networks": 32,
+    "n_stations": 151,
+    "contrast_points": -1.5020080321285143,
+    "ci_low_points": -3.318410510230364,
+    "ci_high_points": -0.22123440778052617,
+    "n_cert_reconstruction_failures": 0,
+    "selected_reconstruction_failure_rate": 0.0,
+    "below_floor": false
+  },
+  "quality_checked_primary_only": {
+    "n_cases": 307,
+    "n_networks": 2,
+    "n_stations": 4,
+    "contrast_points": -0.9302325581395349,
+    "ci_low_points": -7.6923076923076925,
+    "ci_high_points": 5.91715976331361,
+    "n_cert_reconstruction_failures": 0,
+    "selected_reconstruction_failure_rate": 0.0,
+    "below_floor": false
+  },
+  "by_provider": {
+    "hubeau": {
+      "n_cases": 3404,
+      "n_networks": 14,
+      "n_stations": 47,
+      "contrast_points": -2.895509861519094,
+      "ci_low_points": -7.225098311094948,
+      "ci_high_points": -0.16855817302578244,
+      "n_cert_reconstruction_failures": 0,
+      "selected_reconstruction_failure_rate": 0.0,
+      "below_floor": false
+    },
+    "smhi": {
+      "n_cases": 14074,
+      "n_networks": 16,
+      "n_stations": 100,
+      "contrast_points": -1.370280146163215,
+      "ci_low_points": -3.094248878399777,
+      "ci_high_points": -0.13967370927517134,
+      "n_cert_reconstruction_failures": 0,
+      "selected_reconstruction_failure_rate": 0.0,
+      "below_floor": false
+    },
+    "uk_ea": {
+      "n_cases": 307,
+      "n_networks": 2,
+      "n_stations": 4,
+      "contrast_points": -0.9302325581395349,
+      "ci_low_points": -7.6923076923076925,
+      "ci_high_points": 5.91715976331361,
+      "n_cert_reconstruction_failures": 0,
+      "selected_reconstruction_failure_rate": 0.0,
+      "below_floor": false
+    }
+  },
+  "providers_same_direction": 3,
+  "predeclared_transport_supported": false,
+  "historical_seal_untouched": true,
+  "freeze_certificate": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "note": "Secondary NVE excluded. Quality-checked stratum is primary-panel only. Not a first confirmation."
+}

@@ -1,0 +1,35 @@
+{
+  "providers": {
+    "hubeau": {
+      "n_stations_total": 47,
+      "n_stations_ge4_complete_years": 47,
+      "n_networks_with_ge2_eligible_stations": 14,
+      "n_complete_station_years": 363
+    },
+    "nve": {
+      "n_stations_total": 93,
+      "n_stations_ge4_complete_years": 93,
+      "n_networks_with_ge2_eligible_stations": 21,
+      "n_complete_station_years": 993
+    },
+    "smhi": {
+      "n_stations_total": 143,
+      "n_stations_ge4_complete_years": 100,
+      "n_networks_with_ge2_eligible_stations": 16,
+      "n_complete_station_years": 1368
+    },
+    "uk_ea": {
+      "n_stations_total": 6,
+      "n_stations_ge4_complete_years": 4,
+      "n_networks_with_ge2_eligible_stations": 2,
+      "n_complete_station_years": 33
+    },
+    "usgs_confirmation": {
+      "n_stations_total": 111,
+      "n_stations_ge4_complete_years": 110,
+      "n_networks_with_ge2_eligible_stations": 31,
+      "n_complete_station_years": 1037
+    }
+  },
+  "policy": "Eligibility after sentinel/implausible quarantine; SMHI coding failures remove most complete years until source units are verified."
+}

@@ -1,0 +1,7 @@
+{
+  "n_wave2_stations": 143,
+  "n_hit_files": 0,
+  "n_overlapping_station_mentions": 0,
+  "clean": true,
+  "note": "clean=true means wave-2 ge4 station ids were not found in programme station tables outside the wave-2 tree. Textual false positives possible."
+}

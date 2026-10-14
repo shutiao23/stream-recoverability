@@ -1,0 +1,58 @@
+{
+  "finding": "F03",
+  "historical_quality_checked_mixed_panels": {
+    "n_cases": 10382,
+    "n_networks": 23,
+    "n_stations": 97,
+    "contrast_points": 8.146415302050364,
+    "ci_low_points": -4.898355386117109,
+    "ci_high_points": 17.07885962921147,
+    "n_candidate_cases": 10382,
+    "n_cert_reconstruction_failures": 2184,
+    "selected_reconstruction_failure_rate": 0.1737993670015137,
+    "below_floor": false
+  },
+  "nve_share_of_historical_quality_checked": 0.9704295896744365,
+  "primary_panel_all": {
+    "n_cases": 17826,
+    "n_networks": 32,
+    "n_stations": 152,
+    "contrast_points": 5.377464337233532,
+    "ci_low_points": 0.2236418353173839,
+    "ci_high_points": 8.806966795146753,
+    "n_candidate_cases": 17826,
+    "n_cert_reconstruction_failures": 2510,
+    "selected_reconstruction_failure_rate": 0.1197307260778971,
+    "below_floor": false
+  },
+  "primary_quality_checked_only": {
+    "n_cases": 307,
+    "n_networks": 2,
+    "n_stations": 4,
+    "contrast_points": -4.651162790697675,
+    "ci_low_points": -7.6923076923076925,
+    "ci_high_points": 2.366863905325444,
+    "n_candidate_cases": 307,
+    "n_cert_reconstruction_failures": 17,
+    "selected_reconstruction_failure_rate": 0.03255813953488372,
+    "below_floor": false
+  },
+  "secondary_nve": {
+    "n_cases": 10075,
+    "n_networks": 21,
+    "n_stations": 93,
+    "contrast_points": 8.437322745320476,
+    "ci_low_points": -4.8965672642975955,
+    "ci_high_points": 16.61454868096263,
+    "n_candidate_cases": 10075,
+    "n_cert_reconstruction_failures": 2167,
+    "selected_reconstruction_failure_rate": 0.17768009075439592,
+    "below_floor": false
+  },
+  "predeclared_rule": "delta <= -1.0 pp and 95% network-clustered CI upper < 0; pooled primary and primary quality-checked-only must agree",
+  "primary_pooled_supported": false,
+  "primary_qc_supported": false,
+  "transport_supported_under_corrected_gate": false,
+  "verdict": "fail_corrected_gate",
+  "note": "Diagnostic on archived certificates; sealed verdict.json left intact. Formal confirmation remains pending after F01/F02 repairs."
+}

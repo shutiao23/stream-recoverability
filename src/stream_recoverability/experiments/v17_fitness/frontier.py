@@ -174,7 +174,13 @@ def operating_point_contrast(
     seed: int = 0,
     draws: int = 2000,
 ) -> dict:
-    """Network-clustered interval on the headline contrast at matched retention."""
+    """Network-clustered interval on the headline contrast at matched retention.
+
+    The denominator is the full candidate case set. Reconstruction failures
+    (non-finite selected errors) stay in the ledger and count as consequential
+    failures when selected into the retention slice — they are never dropped
+    before choosing the 70% operating point.
+    """
 
     frame = cases[["network_id"]].copy()
     frame["cert_score"] = pd.to_numeric(certificates["certificate_bound"], errors="coerce")
@@ -182,17 +188,40 @@ def operating_point_contrast(
     rng = np.random.default_rng(int(seed) + 991)
     frame["length"] = pd.to_numeric(cases["longest_run"], errors="coerce") + rng.random(len(cases))
     frame["policy_error"] = pd.to_numeric(cases["abserr_policy"], errors="coerce")
-    frame = frame.dropna(subset=["cert_error", "policy_error"])
+    # Missing scores sort last so they are not silently preferred; they remain
+    # in the population denominator.
+    frame["cert_score"] = frame["cert_score"].fillna(np.inf)
+    n_full = int(len(frame))
+    n_cert_finite = int(np.isfinite(frame["cert_error"].to_numpy(dtype=float)).sum())
+    n_policy_finite = int(np.isfinite(frame["policy_error"].to_numpy(dtype=float)).sum())
+
+    def _failure_rate(errors: np.ndarray, tol: float) -> float:
+        bad = (~np.isfinite(errors)) | (errors > tol)
+        return float(bad.mean()) if len(errors) else float("nan")
 
     def contrast(block: pd.DataFrame) -> float:
         k = max(1, int(round(float(retention) * len(block))))
-        cert = block.nsmallest(k, "cert_score")["cert_error"].to_numpy()
-        length = block.nsmallest(k, "length")["policy_error"].to_numpy()
-        return float((cert > tolerance).mean() - (length > tolerance).mean())
+        if k > len(block):
+            # Target retention unreachable on this bootstrap draw.
+            return float("nan")
+        cert = block.nsmallest(k, "cert_score")["cert_error"].to_numpy(dtype=float)
+        length = block.nsmallest(k, "length")["policy_error"].to_numpy(dtype=float)
+        return _failure_rate(cert, tolerance) - _failure_rate(length, tolerance)
 
     stat = cluster_bootstrap(frame, contrast, draws=draws, seed=seed)
     stat["retention"] = float(retention)
     stat["tolerance_c"] = float(tolerance)
+    stat["n_candidate_cases"] = n_full
+    stat["n_cert_error_finite"] = n_cert_finite
+    stat["n_policy_error_finite"] = n_policy_finite
+    stat["n_cert_reconstruction_failures"] = n_full - n_cert_finite
+    target_k = max(1, int(round(float(retention) * n_full)))
+    selected = frame.nsmallest(target_k, "cert_score")
+    sel_err = selected["cert_error"].to_numpy(dtype=float)
+    stat["retention_of_full_denominator"] = float(target_k / n_full) if n_full else float("nan")
+    stat["selected_reconstruction_failure_rate"] = (
+        float((~np.isfinite(sel_err)).mean()) if target_k else float("nan")
+    )
     return stat
 
 

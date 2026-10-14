@@ -240,7 +240,7 @@ def figure_deployment() -> None:
     ax.set_ylim(0, max(half) * 1.24)
     ax.legend(fontsize=7.5, loc="upper right")
     ax.grid(axis="x", visible=False)
-    panel_label(ax, "c", "Years admitted with an unobserved peak")
+    panel_label(ax, "c", "Admitted years with >½ peak window hidden (not the 261-year population)")
 
     fig.tight_layout(h_pad=1.6 if journal_mode() else 1.08)
     save(fig, "figv2_archive_deployment")

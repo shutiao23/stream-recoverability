@@ -37,12 +37,25 @@ INGEST = ROOT / "results" / "wrr_submission_ready" / "multi_agency_ingest"
 WARM_MONTHS = (6, 7, 8, 9)
 MIN_RUN = 3
 FROZEN_VALUE = 0.0
+# Do not guess unit conversions for out-of-range values (F01). Quarantine only.
+TEMP_C_MIN = -5.0
+TEMP_C_MAX = 50.0  # hot arid rivers can exceed 45 C; still far below coding failures
+USGS_NODATA = -999999.0
 
 
-def qc_series(series: pd.Series) -> tuple[pd.Series, int]:
+def qc_series(series: pd.Series) -> tuple[pd.Series, int, dict[str, int]]:
     values = pd.to_numeric(series, errors="coerce").to_numpy(dtype=float)
     out = values.copy()
     dropped = 0
+    reasons = {"frozen_warm_zero_run": 0, "nodata_sentinel": 0, "implausible_celsius": 0}
+    nodata = np.isfinite(out) & (out == USGS_NODATA)
+    reasons["nodata_sentinel"] = int(nodata.sum())
+    out[nodata] = np.nan
+    dropped += int(nodata.sum())
+    implausible = np.isfinite(out) & ((out < TEMP_C_MIN) | (out > TEMP_C_MAX))
+    reasons["implausible_celsius"] = int(implausible.sum())
+    out[implausible] = np.nan
+    dropped += int(implausible.sum())
     warm = pd.Series(series.index.month).isin(WARM_MONTHS).to_numpy()
     run_start = None
     for i in range(len(out)):
@@ -53,9 +66,11 @@ def qc_series(series: pd.Series) -> tuple[pd.Series, int]:
             end = i if not is_frozen else i + 1
             if end - run_start >= MIN_RUN:
                 out[run_start:end] = np.nan
-                dropped += end - run_start
+                n = end - run_start
+                dropped += n
+                reasons["frozen_warm_zero_run"] += n
             run_start = None
-    return pd.Series(out, index=series.index), dropped
+    return pd.Series(out, index=series.index), dropped, reasons
 
 
 def main() -> int:
@@ -70,9 +85,8 @@ def main() -> int:
             panel = pd.read_csv(panel_path, parse_dates=["date"]).set_index("date")
             panel = panel.apply(pd.to_numeric, errors="coerce").sort_index()
             panel.columns = [str(c) for c in panel.columns]
-            dropped_total = 0
             for station in panel.columns:
-                cleaned, dropped = qc_series(panel[station])
+                cleaned, dropped, reasons = qc_series(panel[station])
                 panel[station] = cleaned
                 if dropped:
                     report_rows.append(
@@ -80,11 +94,16 @@ def main() -> int:
                             "provider": provider,
                             "network_id": network_dir.name,
                             "station_id": station,
-                            "rule": f"core_warm_season_run_ge{MIN_RUN}_at_{FROZEN_VALUE}C",
+                            "rule": (
+                                f"nodata_or_implausible_celsius_or_"
+                                f"core_warm_season_run_ge{MIN_RUN}_at_{FROZEN_VALUE}C"
+                            ),
                             "n_values_blanked": int(dropped),
+                            "n_nodata_sentinel": int(reasons["nodata_sentinel"]),
+                            "n_implausible_celsius": int(reasons["implausible_celsius"]),
+                            "n_frozen_warm_zero_run": int(reasons["frozen_warm_zero_run"]),
                         }
                     )
-                    dropped_total += dropped
             target = out_root / network_dir.name
             target.mkdir(parents=True, exist_ok=True)
             panel.reset_index().to_csv(target / "daily_wide_temperature.csv", index=False)
@@ -92,7 +111,16 @@ def main() -> int:
     report = pd.DataFrame(report_rows)
     if report.empty:
         report = pd.DataFrame(
-            columns=["provider", "network_id", "station_id", "rule", "n_values_blanked"]
+            columns=[
+                "provider",
+                "network_id",
+                "station_id",
+                "rule",
+                "n_values_blanked",
+                "n_nodata_sentinel",
+                "n_implausible_celsius",
+                "n_frozen_warm_zero_run",
+            ]
         )
     for provider_dir in sorted(p for p in INGEST.glob("*") if (p / "networks_qc").is_dir()):
         block = report.loc[report["provider"].eq(provider_dir.name)]
@@ -102,12 +130,17 @@ def main() -> int:
         json.dumps(
             {
                 "rule": (
+                    "blank USGS-style -999999 sentinels; quarantine values outside "
+                    f"[{TEMP_C_MIN}, {TEMP_C_MAX}] C without unit conversion; "
                     "core-warm-season (Jun-Sep) runs of >=3 consecutive days at exactly 0.0 C "
                     "are blanked as stuck-sensor values"
                 ),
                 "providers": sorted({row["provider"] for row in report_rows}),
                 "n_stations_affected": int(report["station_id"].nunique()) if len(report) else 0,
                 "n_values_blanked": int(report["n_values_blanked"].sum()) if len(report) else 0,
+                "n_implausible_celsius": int(report.get("n_implausible_celsius", pd.Series(dtype=int)).sum())
+                if len(report)
+                else 0,
                 "detail": report_rows,
             },
             indent=2,

@@ -1,0 +1,15 @@
+{
+  "n_issue_rows": 11,
+  "by_finding": {
+    "F01": 9,
+    "F08": 2
+  },
+  "by_provider": {
+    "usgs": 8,
+    "hubeau": 2,
+    "smhi": 1
+  },
+  "n_usgs_nodata_cells": 836,
+  "n_smhi_implausible_cells": 1878,
+  "policy": "No guessed unit rescales. Sentinels -> NA. Implausible \u00b0C quarantined. HubEau homonyms split by official code or spatial cell. All downstream eligibility/donor/cases must be rebuilt after repair."
+}

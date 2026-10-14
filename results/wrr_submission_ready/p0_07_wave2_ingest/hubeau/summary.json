@@ -1,0 +1,28 @@
+{
+  "provider": "hubeau",
+  "scored": false,
+  "n_ready_networks": 17,
+  "ready_network_ids": [
+    "hubeau_loir",
+    "hubeau_truyere",
+    "hubeau_vire",
+    "hubeau_l_adour",
+    "hubeau_dore",
+    "hubeau_verdon",
+    "hubeau_dourbie",
+    "hubeau_vienne",
+    "hubeau_cere",
+    "hubeau_charente",
+    "hubeau_l_allier",
+    "hubeau_l_oise",
+    "hubeau_l_arc",
+    "hubeau_l_aumance",
+    "hubeau_vie",
+    "hubeau_bourbre",
+    "hubeau_l_ain"
+  ],
+  "quality_code": "4",
+  "min_obs_per_day": 4,
+  "source": "networks_beyond_cap.csv",
+  "note": "Daily series newly downloaded for wave-2; not scored."
+}

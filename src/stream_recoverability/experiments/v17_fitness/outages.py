@@ -214,31 +214,43 @@ def design_for_year(
     lengths: Sequence[int] = OUTAGE_LENGTHS,
     overlap_classes: Sequence[str] = OVERLAP_CLASSES,
     n_empirical: int = 5,
+    cross_overlap: bool = False,
 ) -> list[Realization]:
-    """The realizations scored for one station-year: stratified plus empirical."""
+    """The realizations scored for one station-year: stratified plus empirical.
+
+    When ``cross_overlap`` is True (P0-05 / F04), every length is paired with
+    every feasible overlap class on the same station-year so position and length
+    effects can be separated. The historical default draws one overlap class per
+    length.
+    """
 
     out: list[Realization] = []
     for length in lengths:
-        overlap_class = str(overlap_classes[int(rng.integers(0, len(overlap_classes)))])
-        item = stratified_realization(
-            year_index,
-            peak_doys,
-            length=int(length),
-            overlap_class=overlap_class,
-            rng=rng,
-            realization_id=f"s{int(length)}_{overlap_class}",
+        classes = (
+            list(overlap_classes)
+            if cross_overlap
+            else [str(overlap_classes[int(rng.integers(0, len(overlap_classes)))])]
         )
-        if item is None and overlap_class != "partial":
+        for overlap_class in classes:
             item = stratified_realization(
                 year_index,
                 peak_doys,
                 length=int(length),
-                overlap_class="partial",
+                overlap_class=str(overlap_class),
                 rng=rng,
-                realization_id=f"s{int(length)}_partial",
+                realization_id=f"s{int(length)}_{overlap_class}",
             )
-        if item is not None:
-            out.append(item)
+            if item is None and str(overlap_class) != "partial" and not cross_overlap:
+                item = stratified_realization(
+                    year_index,
+                    peak_doys,
+                    length=int(length),
+                    overlap_class="partial",
+                    rng=rng,
+                    realization_id=f"s{int(length)}_partial",
+                )
+            if item is not None:
+                out.append(item)
     for k in range(int(n_empirical)):
         item = empirical_realization(year_index, pool, rng=rng, realization_id=f"e{k}")
         if item is not None:

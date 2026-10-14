@@ -88,9 +88,9 @@ SCRATCH = ROOT / "scratch" / "heterogeneity"
 
 # Categorical slots and surface from scripts/188_v17_figures.py and
 # scripts/204_v17_figures_q1.py. One meaning per colour: grey = retrospective
-# panel, blue = sealed confirmation, orange = transport.
+# panel, green = wave-2 confirmation, blue = withdrawn first seal, orange = transport.
 SURFACE, INK, INK_2, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#8a8985", "#e4e3df"
-BLUE, ORANGE = "#2a78d6", "#eb6834"
+BLUE, ORANGE, GREEN = "#2a78d6", "#eb6834", "#1a7f5a"
 BLUE_TINT, ORANGE_TINT = "#eef4fd", "#fdeee6"
 
 # Type scale (pt). The minimum is asserted below and re-measured from the PDF.
@@ -144,21 +144,32 @@ A_SEALED_DIAGNOSTIC = (
 A_TRANSPORT_VERDICT = (
     "results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json"
 )
+A_WAVE2_VERDICT = (
+    "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json"
+)
 A_ARCHIVE_SUMMARY = "results/v18_closure/e2_archive_deployment/summary.json"
 A_ARCHIVE_DISAGREEMENT = "results/v18_closure/e2_archive_deployment/threshold_disagreement.csv"
+
+# 2026-10-13 freeze: first sealed USGS / transport scores are withdrawn and must
+# not be plotted as confirmation. Wave-2 is the live confirmation row.
+INCLUDE_PENDING_CONFIRMATION = False
+INCLUDE_WAVE2_CONFIRMATION = True
+PREDECLARED_THRESHOLD_POINTS = -1.0
 
 ARTIFACTS = [
     A_AUC_CONTRASTS,
     A_DEVELOPMENT_CASES,
     A_STEP10_VERDICT,
     A_ARM_CONTRASTS,
-    A_SEALED_VERDICT,
-    A_SEALED_CASES,
-    A_SEALED_DIAGNOSTIC,
-    A_TRANSPORT_VERDICT,
     A_ARCHIVE_SUMMARY,
     A_ARCHIVE_DISAGREEMENT,
 ]
+if INCLUDE_WAVE2_CONFIRMATION:
+    ARTIFACTS.append(A_WAVE2_VERDICT)
+if INCLUDE_PENDING_CONFIRMATION:
+    ARTIFACTS.extend(
+        [A_SEALED_VERDICT, A_SEALED_CASES, A_SEALED_DIAGNOSTIC, A_TRANSPORT_VERDICT]
+    )
 
 # The endpoint order the panel draws, most positive to most negative.
 ENDPOINT_ORDER = ["hottest7", "hottest30", "amplitude30", "annual_mean", "coldest30"]
@@ -172,6 +183,7 @@ ENDPOINT_LABELS = {
 
 IDENTITY_COLOURS = {
     "retrospective": MUTED,
+    "wave2": GREEN,
     "sealed": BLUE,
     "transport": ORANGE,
 }
@@ -511,6 +523,40 @@ def panel_b_rows() -> list[dict]:
         }
     )
 
+    if INCLUDE_WAVE2_CONFIRMATION and (ROOT / A_WAVE2_VERDICT).is_file():
+        wave2 = read_json(A_WAVE2_VERDICT)
+        if bool(wave2.get("predeclared_success_rule_met")):
+            rows.append(
+                {
+                    "label": "Wave-2 confirmation (USGS+Hub'Eau+UK EA)",
+                    "identity": "wave2",
+                    "marker": "primary",
+                    "estimate_points": float(wave2["contrast_points"]),
+                    "ci_low_points": float(wave2["ci_low_points"]),
+                    "ci_high_points": float(wave2["ci_high_points"]),
+                    "n_cases": int(wave2["n_cases"]),
+                    "n_networks": int(wave2["n_networks"]),
+                    "source": {
+                        "artifact": A_WAVE2_VERDICT,
+                        "filter": "whole file (wave-2 independent confirmation, scored once)",
+                        "fields": [
+                            "contrast_points",
+                            "ci_low_points",
+                            "ci_high_points",
+                            "n_cases",
+                            "n_networks",
+                        ],
+                    },
+                    "note": (
+                        "Pre-declared wave-2 protocol under repaired QA; leftover "
+                        "opened-wave ingest and withdrawn first seals are not included."
+                    ),
+                }
+            )
+
+    if not INCLUDE_PENDING_CONFIRMATION:
+        return rows
+
     # 3-5. Sealed USGS confirmation: pooled, empirical arm, clean-subset diagnostic.
     sealed = read_json(A_SEALED_VERDICT)
     rows.append(
@@ -671,7 +717,8 @@ def panel_b_rows() -> list[dict]:
 
 
 def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
-    figure = plt.figure(figsize=(COLUMN_INCHES, 4.30))
+    height = 4.30 if INCLUDE_PENDING_CONFIRMATION else 2.15
+    figure = plt.figure(figsize=(COLUMN_INCHES, height))
     grid = figure.add_gridspec(
         1,
         2,
@@ -694,7 +741,7 @@ def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
     ax.set_xlim(x_left, x_right)
     ax.set_ylim(n_rows + 1.35, -2.05)  # row 0 at the top; legend band at the bottom
 
-    for boundary in (1.5, 4.5, 8.5):
+    for boundary in (1.5, 4.5, 8.5) if INCLUDE_PENDING_CONFIRMATION else (1.5,):
         ax.axhline(boundary, color=GRID, lw=0.8, zorder=0.6)
         axn.axhline(boundary, color=GRID, lw=0.8, zorder=0.6)
 
@@ -780,20 +827,29 @@ def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
 
     handles = [
         plt.Line2D([], [], color=MUTED, marker="o", ms=3.6, ls="none", label="retrospective"),
-        plt.Line2D([], [], color=BLUE, marker="o", ms=3.6, ls="none", label="sealed confirmation"),
-        plt.Line2D([], [], color=ORANGE, marker="o", ms=3.6, ls="none", label="transport"),
-        plt.Line2D(
-            [],
-            [],
-            color=INK_2,
-            marker="o",
-            ms=3.6,
-            ls="none",
-            mfc=SURFACE,
-            mec=INK_2,
-            label="diagnostic or secondary stratum",
-        ),
     ]
+    if INCLUDE_WAVE2_CONFIRMATION:
+        handles.append(
+            plt.Line2D([], [], color=GREEN, marker="o", ms=3.6, ls="none", label="wave-2 confirmation")
+        )
+    if INCLUDE_PENDING_CONFIRMATION:
+        handles.extend(
+            [
+                plt.Line2D([], [], color=BLUE, marker="o", ms=3.6, ls="none", label="withdrawn first seal"),
+                plt.Line2D([], [], color=ORANGE, marker="o", ms=3.6, ls="none", label="transport"),
+                plt.Line2D(
+                    [],
+                    [],
+                    color=INK_2,
+                    marker="o",
+                    ms=3.6,
+                    ls="none",
+                    mfc=SURFACE,
+                    mec=INK_2,
+                    label="diagnostic or secondary stratum",
+                ),
+            ]
+        )
     ax.legend(
         handles=handles,
         loc="lower left",
@@ -986,8 +1042,9 @@ def caption_material(
 ) -> str:
     a = panel_a
     b = panel_b
-    dev, res, sealed_pooled, sealed_emp, sealed_clean = b[0], b[1], b[2], b[3], b[4]
-    transport, smhi, uk_ea, hubeau, nve = b[5], b[6], b[7], b[8], b[9]
+    by_label = {row["label"].strip(): row for row in b}
+    dev = by_label.get("v17 development, pooled", b[0])
+    res = by_label.get("v17 reserved, pooled", b[1] if len(b) > 1 else b[0])
 
     def _pt(row: dict, key: str = "estimate_points") -> str:
         return f"{row[key]:+.2f}"
@@ -1025,56 +1082,29 @@ def caption_material(
             for row in a
         )
         + ". The two warm extremes keep the gain, the amplitude is weakly positive, and the "
-        "ordering reverses at the annual mean: the annual mean and the cold extreme are the "
-        "two endpoints where the outage-length rule is the better axis. Each endpoint is "
+        "ordering reverses at the annual mean. The cold-extreme negative contrast uses a "
+        "warm-season support axis and is not evidence that length governs winter extrema. Each endpoint is "
         "scored at its own natural-scale tolerance (0.5 °C divided by 1.062 times the "
         "endpoint's interannual standard deviation): "
         + "; ".join(f"{row['label']} {row['tolerance_c']:.2f} °C" for row in a)
         + ". The interval excludes zero on both sides of the reversal, so the sign of the "
         "endpoint contrast is resolved, not marginal.",
         "",
-        "**(b)** Where the gain holds, and where it collapses. Forest plot of the pooled "
+        "**(b)** Where the gain holds across evidence panels. Forest plot of the pooled "
         "contrast between the certificate screen and the published-style outage-length rule, "
         "certificate rate minus length-rule rate in percentage points of 'consequential "
         "error' (hottest 30-day mean daily water temperature wrong by more than 0.5 °C), at "
         "70% retention, so negative values favour the screen. Bars are network-clustered 95% "
         "intervals; the solid line is zero and the dashed line is the pre-declared threshold "
-        f"Δ = {threshold_points:.1f} percentage point, below which transport of the screen is "
-        "declared supported. Panels are shown oldest to newest and are three kinds of "
-        "evidence, distinguished by colour and by the legend inside the panel: grey, "
-        "retrospective (v17 development and the v17 reserved holdout, both scored on designed "
-        "masks over complete years); blue, sealed confirmation (the never-used USGS panel, "
-        "scored once, with its empirical arm and a post-seal clean-subset diagnostic); "
-        "orange, transport (a pre-registered multi-agency panel designed after the USGS score "
-        "was known). The pooled retrospective panels give "
+        f"Δ = {threshold_points:.1f} percentage point. Archival retrospective panels give "
         f"{_pt(dev)} points [{_pt(dev, 'ci_low_points')}, {_pt(dev, 'ci_high_points')}] on "
         f"development and {_pt(res)} points [{_pt(res, 'ci_low_points')}, "
-        f"{_pt(res, 'ci_high_points')}] on the reserved holdout; sealed confirmation gives "
-        f"{_pt(sealed_pooled)} points [{_pt(sealed_pooled, 'ci_low_points')}, "
-        f"{_pt(sealed_pooled, 'ci_high_points')}] on the pooled panel, its empirical arm "
-        f"{_pt(sealed_emp)} points [{_pt(sealed_emp, 'ci_low_points')}, "
-        f"{_pt(sealed_emp, 'ci_high_points')}] (the weakest cell of the figure: it is the one "
-        "estimate that does not clear the threshold) and the clean subsets "
-        f"{_pt(sealed_clean)} points [{_pt(sealed_clean, 'ci_low_points')}, "
-        f"{_pt(sealed_clean, 'ci_high_points')}] on the networks with no outcome-bearing "
-        f"prior use; transport gives {_pt(transport)} points "
-        f"[{_pt(transport, 'ci_low_points')}, {_pt(transport, 'ci_high_points')}] on the "
-        f"primary panel ({transport['n_networks']} networks across three agencies), "
-        f"{_pt(smhi)} [{_pt(smhi, 'ci_low_points')}, {_pt(smhi, 'ci_high_points')}] for SMHI, "
-        f"{_pt(uk_ea)} [{_pt(uk_ea, 'ci_low_points')}, {_pt(uk_ea, 'ci_high_points')}] for "
-        f"UK EA ({uk_ea['n_networks']} networks; the only interval of the ten that reaches "
-        f"above zero, and it does not reach the threshold either), {_pt(hubeau)} "
-        f"[{_pt(hubeau, 'ci_low_points')}, {_pt(hubeau, 'ci_high_points')}] for Hub'Eau, and "
-        f"{_pt(nve)} [{_pt(nve, 'ci_low_points')}, {_pt(nve, 'ci_high_points')}] on the NVE "
-        "secondary stratum, whose provider appears in development and which is therefore "
-        "never part of the primary panel. Nine of ten estimates lie below the pre-declared "
-        f"threshold; the exception is the sealed empirical arm ({_pt(sealed_emp)} points, "
-        f"interval [{_pt(sealed_emp, 'ci_low_points')}, {_pt(sealed_emp, 'ci_high_points')}]), "
-        "which is the arm where real outage geometry replaces the designed masks. Every "
-        "interval is a 95% network-clustered confidence interval for the difference in "
-        "consequential-error rates, in percentage points; intervals that exclude zero are the "
-        "ones that resolve the direction of the contrast. The right-hand column gives the "
-        "cases and networks behind each row.",
+        f"{_pt(res, 'ci_high_points')}] on the reserved holdout. The wave-2 independent "
+        "confirmation (USGS, Hub'Eau, UK EA; repaired QA) is plotted when its pre-declared "
+        "success rule is met. The first sealed USGS and multi-agency transport scores remain "
+        "omitted as withdrawn after the 2026-10-13 audit. Every interval is a 95% "
+        "network-clustered confidence interval. The right-hand column gives the cases and "
+        "networks behind each row.",
         "",
         "## Plotted values, panel a",
         "",
@@ -1116,17 +1146,11 @@ def caption_material(
         "(certificate rate − length-rule rate). The intervals are network-clustered 95% "
         "confidence intervals: the resampling unit is the network, not the case, so the "
         "interval reflects the number of independent river systems rather than the number of "
-        "station-years. Panels are not independent of one another — the empirical arm and "
-        "the clean subsets are subsets of the same sealed score, and the provider rows are "
-        "strata of the transport panel — so the intervals must not be combined or compared "
-        "as if they came from separate experiments.",
+        "station-years.",
         "",
-        "Panel b identity, row by row: retrospective (v17 development; v17 reserved "
-        "holdout, scored once retrospectively); sealed confirmation (USGS HUC4 networks "
-        "never used in development, scored once, plus a post-seal robustness diagnostic on "
-        "the outcome-clean networks); transport (multi-agency panel sealed and scored once "
-        "after the USGS score was known, with a development provider reported separately as "
-        "a secondary stratum).",
+        "Panel b identity: archival retrospective (v17 development; v17 reserved holdout) "
+        "plus wave-2 confirmation when `INCLUDE_WAVE2_CONFIRMATION` and the success rule "
+        "are met. Withdrawn first seals stay omitted (`INCLUDE_PENDING_CONFIRMATION = False`).",
         "",
         "## What is not in the panel",
         "",
@@ -1194,9 +1218,11 @@ def main() -> int:
     if missing:
         raise SystemExit(f"missing artifacts: {missing}")
 
-    threshold_points = float(
-        read_json(A_TRANSPORT_VERDICT)["predeclared_rule"]["delta_points"]
-    )
+    threshold_points = PREDECLARED_THRESHOLD_POINTS
+    if INCLUDE_PENDING_CONFIRMATION:
+        threshold_points = float(
+            read_json(A_TRANSPORT_VERDICT)["predeclared_rule"]["delta_points"]
+        )
 
     rows_a = panel_a_rows()
     rows_b = panel_b_rows()
@@ -1244,8 +1270,12 @@ def main() -> int:
             ),
             "threshold_points": threshold_points,
             "threshold_source": {
-                "artifact": A_TRANSPORT_VERDICT,
-                "filter": "predeclared_rule.delta_points",
+                "artifact": (
+                    A_TRANSPORT_VERDICT
+                    if INCLUDE_PENDING_CONFIRMATION
+                    else "P0_07_NEW_CONFIRMATION_PROTOCOL_DRAFT.md / MULTI_AGENCY_TRANSPORT_PROTOCOL.md"
+                ),
+                "filter": "predeclared Δ = -1.0 percentage point (not a passing transport verdict)",
             },
             "note_on_threshold": (
                 "The v17 retrospective panels were declared against a 5.0-point effect "

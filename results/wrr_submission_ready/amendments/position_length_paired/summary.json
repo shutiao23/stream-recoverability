@@ -1,0 +1,11 @@
+{
+  "n_cases_in_length_subset": 12552,
+  "n_station_year_length_with_ge2_overlap": 353,
+  "share_with_ge2_overlap": 0.029089410795220438,
+  "n_station_year_overlap_with_ge2_lengths": 3138,
+  "mean_position_range_abserr_C": 0.18915631652185455,
+  "mean_length_range_abserr_C": 0.21226406101277193,
+  "n_false_peak_counterexamples_dev": 65,
+  "title_claim": "withdraw_governs_until_paired_region_rebuilt",
+  "note": "Current design draws one overlap class per station-year-length, so the paired position cell is nearly empty by construction. A new case build must cross length \u00d7 overlap on a common feasible region before any dominance claim."
+}

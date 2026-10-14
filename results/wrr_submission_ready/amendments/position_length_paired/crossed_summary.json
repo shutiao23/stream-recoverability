@@ -1,0 +1,24 @@
+{
+  "n_cases": 1918,
+  "n_networks": 12,
+  "n_stations": 24,
+  "share_station_year_length_with_ge2_overlap": 1.0,
+  "mean_position_range_abserr_C": 0.371782747250961,
+  "mean_length_range_abserr_C": 0.1678254421964291,
+  "full_minus_none_by_length": {
+    "30": {
+      "n_networks": 12,
+      "mean_delta_abserr_C": 0.23995157335280656
+    },
+    "60": {
+      "n_networks": 12,
+      "mean_delta_abserr_C": 0.36142954702615837
+    },
+    "90": {
+      "n_networks": 12,
+      "mean_delta_abserr_C": 0.39242696518863224
+    }
+  },
+  "title_claim": "conditional_risk_predictor_only_until_intervals_exclude_zero_for_both_axes",
+  "may_enter_abstract_or_conclusions": false
+}

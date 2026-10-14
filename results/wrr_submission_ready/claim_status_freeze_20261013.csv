@@ -1,0 +1,26 @@
+claim_id,previous_status,frozen_status,evidence_class,may_enter_abstract_or_conclusions,finding_ids,required_label,notes
+S1,confirmed,confirmed,sample_fact,True,—,,Panel counts unchanged
+S2,confirmed,confirmed,sample_fact,True,F01,mixed prior-access on reserved,Split sizes unchanged
+S3,confirmed,confirmed,sample_fact,True,F14,,SI provider roles; recount after ingest repair
+V17-H2,retrospective_only,valid_retrospective,valid_retrospective,True,F01,"retrospective holdout","9.7%→2.5% Δ=-7.13 pp; finite selected errors; NOT cross-agency confirmation"
+V17-A1,retrospective_only,valid_retrospective,valid_retrospective,True,F05/F06,"retrospective holdout","Empirical arm contrast; design alters real-outage joint structure"
+L1,pending_new_confirmation,pending_confirmation,pending_confirmation,False,F04,conditional risk predictor only,Withdraw governs / not gap length until paired controls pass
+L3,exploratory_interval_reported,exploratory,exploratory,False,F09,,Support-width interval; opened panel
+L7,exploratory_range_only,exploratory,exploratory,False,F09,,Width range only
+D1,confirmed_as_rule_disagreement,confirmed_as_rule_disagreement,deployment_description,True,F02/F03,,Rule disagreement only; not accuracy
+D2,proxy_quantified_labelled,exploratory_withdraw_headcount,exploratory,False,F10,proxy PPV only,"Report 17 proxy-condition cases; delete 12–13 realised-peak headcount"
+A4,recomputed_exploratory_not_for_headline,exploratory,exploratory,False,F05,,Maintenance counterfactual stays exploratory
+R1,pending_new_confirmation,pending_confirmation,pending_confirmation,False,—,,Elevation association
+M1,exploratory_with_bias_sensitivity,executed_audit_failed,executed_audit_failed,False,F06,,Day-level MNAR not implemented; pending recompute
+HY,closed_by_rewrite,closed_by_rewrite,exploratory,False,F10/F13,,Attribute associations only
+N1,recomputed_exploratory_locked_method,exploratory,exploratory,False,F11,,Noise sensitivity exploratory
+C14,pending_new_confirmation,pending_confirmation,pending_confirmation,False,F14,,Cluster conformal
+REG,rewrite_required,rewrite_required,endpoint_mismatch,False,F10/F17,,Daily mean ≠ daily max compliance
+BASE,closed_by_faithful_baseline,closed_by_faithful_baseline,development_comparison,False,F15,,Faithful Beaufort on development
+MEAS,closed_with_strata_and_sensitivity,needs_refresh_after_ingest,sample_fact,False,F08/F14,,Refresh after SMHI/HubEau/USGS repair
+FAIR,narrow_statement,narrow_statement,overstated_reproducibility,False,F11/F12,,Live TeX not fully bound
+DEPLOY-CERT,confirmed_interface,executed_audit_failed,executed_audit_failed,False,F02,,198 admit-with-NaN; interface exists but admission semantics fail
+P0-07,sealed_confirmation_usgs_only,executed_audit_failed,executed_audit_failed,False,F01/F02,"[pending — 探索期数据，不可写入结论]",Seal preserved; −999999 truth + NaN drop invalidate confirmation claim
+P0-07-POOL,confirmed_with_scope_limits,executed_audit_failed,executed_audit_failed,False,F01/F02,"[pending — 探索期数据，不可写入结论]",Same as P0-07
+NVE-PROBE,failed_transfer_or_underpowered,exploratory_secondary_only,exploratory,False,F03,,Must not enter primary transport gate
+P0-07-TRANSPORT,transport_supported,executed_audit_failed,executed_audit_failed,False,F01/F02/F03,"[pending — 探索期数据，不可写入结论]",Primary QC gate contaminated by NVE secondary; SMHI units; NaN drop

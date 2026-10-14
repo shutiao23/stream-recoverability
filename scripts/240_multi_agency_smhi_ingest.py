@@ -546,15 +546,29 @@ def main() -> int:
         accepted_mask = raw_frame["quality_code"].isin(ACCEPTED_QUALITY_CODES)
         accepted = raw_frame.loc[accepted_mask & raw_frame["temperature_c_raw"].notna(), ["date", "temperature_c_raw", "quality_code"]].copy()
         accepted = accepted.rename(columns={"temperature_c_raw": "temperature_c"})
+        # F01: never guess unit rescales. Values outside a liquid-river °C band are
+        # quarantined (station 80289 ships ~28 000 under a °C header).
+        TEMP_C_MIN, TEMP_C_MAX = -5.0, 50.0
+        temps = pd.to_numeric(accepted["temperature_c"], errors="coerce")
+        plausible = temps.notna() & (temps >= TEMP_C_MIN) & (temps <= TEMP_C_MAX)
+        n_implausible_unit = int((~plausible).sum())
+        accepted = accepted.loc[plausible].copy()
         accepted = accepted.set_index("date")["temperature_c"]
 
-        n_dropped_qc = int((~accepted_mask).sum() + (accepted_mask & raw_frame["temperature_c_raw"].isna()).sum())
+        n_dropped_qc = int(
+            (~accepted_mask).sum()
+            + (accepted_mask & raw_frame["temperature_c_raw"].isna()).sum()
+            + n_implausible_unit
+        )
         n_accepted = int(accepted.notna().sum())
         years, year_ledger = complete_years(accepted)
 
         if n_accepted:
             series_out = accepted.rename("temperature_c").reset_index()
-            series_out["quality_code"] = raw_frame.loc[accepted_mask & raw_frame["temperature_c_raw"].notna(), "quality_code"].to_numpy()
+            # quality codes align to surviving dates only
+            qmap = raw_frame.loc[accepted_mask & raw_frame["temperature_c_raw"].notna(), ["date", "quality_code"]]
+            qmap["date"] = pd.to_datetime(qmap["date"])
+            series_out = series_out.merge(qmap, on="date", how="left")
             series_out["station_id"] = station_id
             series_out.to_csv(STATION_DAILY_DIR / f"{station_id}.csv", index=False)
 

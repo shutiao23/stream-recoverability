@@ -1,0 +1,8 @@
+# Environment pin for loading results/v17_fitness/step9_freeze/certificate.joblib
+# without silent retraining. Reviewer reproduction of Certificate.predict must use
+# this file (or an equivalent lock) rather than constraints.txt's scikit-learn 1.7.2.
+scikit-learn==1.2.2
+joblib>=1.2
+numpy>=1.23,<2.0
+pandas>=1.5,<3
+scipy>=1.9

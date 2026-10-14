@@ -1,0 +1,88 @@
+{
+  "protocol_id": "P0-07-new-independent-confirmation",
+  "sealed_at_utc": "2026-10-13T02:11:03Z",
+  "scored": true,
+  "score_forbidden_until": [
+    "P0-02/P0-03 method freeze remains the hashed files below",
+    "new primary-panel networks meet \u226530 nets / \u22653 providers / \u22653 contexts",
+    "prior-access ledger covers CSV/Parquet/JSON and station_id/site_id",
+    "QA complete years have no \u2212999999 / unconfirmed units",
+    "reconstructability contract: admitted \u21d2 finite hottest-30"
+  ],
+  "predeclared_success_rule": {
+    "retention": 0.7,
+    "denominator": "full candidate station-year \u00d7 scenario set",
+    "tolerance_C": 0.5,
+    "delta_points_max": -1.0,
+    "ci_upper_bound_must_be_below_zero": true,
+    "min_providers_same_direction": 2,
+    "quality_checked_subset_must_agree_on_same_panel_role": true,
+    "reconstruction_failure_counts_as_failure": true
+  },
+  "design_floors": {
+    "min_networks": 30,
+    "min_providers": 3,
+    "min_contexts": 3,
+    "min_stations_per_network": 2,
+    "min_complete_years_per_station": 4
+  },
+  "floors_currently_met": true,
+  "recruitment": {
+    "opened_usgs_ingest_networks_not_in_sealed_score": "leftover of the same recruitment wave; not a first confirmation",
+    "opened_nve_secondary": "secondary stratum; cannot rescue a primary quality gate",
+    "scout_unused_rows": 126,
+    "floors_met": false,
+    "reason_floors_unmet": "Scout unused rows are mostly metadata/no_temperature. Leftover USGS/NVE ingest belong to already-opened recruitment. New independent downloads required before score."
+  },
+  "method_hashes": [
+    {
+      "path": "src/stream_recoverability/experiments/v17_fitness/screen.py",
+      "sha256": "deea75cf46725e8b9a501f219672f8579b7c2e16415fb2d40401d879482f29fe",
+      "bytes": 22736
+    },
+    {
+      "path": "src/stream_recoverability/experiments/v17_fitness/frontier.py",
+      "sha256": "79ecacc5944d1ce26699e78af9e6b80471d3a15e2bb895888b3cc5c38eebea8c",
+      "bytes": 12843
+    },
+    {
+      "path": "src/stream_recoverability/experiments/v17_fitness/estimators.py",
+      "sha256": "5ef010e3abfe6f4250ac3623b085f8ca1970ff2db2eecef07dc3ed218c50da45",
+      "bytes": 10202
+    },
+    {
+      "path": "src/stream_recoverability/experiments/v17_fitness/cases.py",
+      "sha256": "df479da72ac0a22d579bf740b32ffda28811f9619082152905db4c6cbffd085d",
+      "bytes": 17208
+    },
+    {
+      "path": "results/v17_fitness/step9_freeze/certificate.joblib",
+      "sha256": "97736b74f9988a6158de6c1bb9884922d4b6ddd18c7270af9b53c6ba852f9d7e",
+      "bytes": 6560015
+    },
+    {
+      "path": "results/wrr_submission_ready/P0_06_method_freeze.json",
+      "sha256": "6cd346c0f5d2120b6e89217867d1c2813a1bbfba1089d17b5fa476170d238bb8",
+      "bytes": 1215
+    },
+    {
+      "path": "constraints-freeze-certificate.txt",
+      "sha256": "a2504064a5a5cb8d20eb52fb3745f74f9eca470a887092d001afcb8d8ad4ba79",
+      "bytes": 326
+    },
+    {
+      "path": "results/wrr_submission_ready/P0_07_NEW_CONFIRMATION_PROTOCOL_DRAFT.md",
+      "sha256": "da49d7d7340e3d3f2d2dcf913429fa29c725243ccbac41448672b364a67cebd5",
+      "bytes": 1886
+    }
+  ],
+  "missing_hash_targets": [],
+  "draft": "results/wrr_submission_ready/P0_07_NEW_CONFIRMATION_PROTOCOL_DRAFT.md",
+  "claim_status_if_unscored": "[pending \u2014 \u63a2\u7d22\u671f\u6570\u636e\uff0c\u4e0d\u53ef\u5199\u5165\u7ed3\u8bba]",
+  "do_not_overwrite": [
+    "results/wrr_submission_ready/p0_07_sealed_confirmation/",
+    "results/wrr_submission_ready/p0_07b_multi_agency_transport/"
+  ],
+  "score_artifact": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json",
+  "wave2_manifest_sha256": "d4d9227f3b6361da148428049b6a5a731a8a0be8486ec031aab06c64c9da318d"
+}

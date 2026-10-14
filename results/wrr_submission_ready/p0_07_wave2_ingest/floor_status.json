@@ -1,0 +1,48 @@
+{
+  "min_networks": 30,
+  "min_providers": 3,
+  "min_contexts": 3,
+  "n_networks": 49,
+  "n_providers_with_ready_nets": 3,
+  "n_contexts_proxy": 9,
+  "contexts_proxy": [
+    "france",
+    "uk",
+    "usgs_huc2_21",
+    "usgs_huc2_22",
+    "usgs_huc2_23",
+    "usgs_huc2_24",
+    "usgs_huc2_25",
+    "usgs_huc2_26",
+    "usgs_huc2_28"
+  ],
+  "providers": {
+    "usgs": {
+      "n_ready": 44,
+      "n_ids": 44
+    },
+    "smhi": {
+      "n_ready": 0,
+      "n_ids": 0
+    },
+    "hubeau": {
+      "n_ready": 4,
+      "n_ids": 4
+    },
+    "uk_ea": {
+      "n_ready": 1,
+      "n_ids": 1
+    },
+    "nve": {
+      "n_ready": 0,
+      "n_ids": 0
+    },
+    "eccc_automated": {
+      "n_ready": 0,
+      "n_ids": 0
+    }
+  },
+  "floors_met": true,
+  "scored": false,
+  "score_forbidden_until_floors_met": true
+}

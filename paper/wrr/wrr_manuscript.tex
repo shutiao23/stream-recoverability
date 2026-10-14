@@ -63,7 +63,7 @@
 
 \journalname{Water Resources Research}
 
-\title{Gap position, not gap length, governs the error of annual thermal
+\title{Hidden support share as a conditional risk screen for annual thermal
 extremes in incomplete river-temperature records}
 
 %% AUTHOR BLOCK IS A PLACEHOLDER.
@@ -79,9 +79,9 @@ extremes in incomplete river-temperature records}
 \titlerunninghead{Ignored.}
 
 \keypoints
- {A hottest 30-day mean grows 9.6-fold along gap position and 3.5-fold along gap length, while an annual mean reverses the two}
- {Support-conditioned screening cuts pooled designed-outage errors by 7.1 points; the gaps these networks actually keep give only 0.7 to 1.9}
- {On 2422 real incomplete years the two admission rules disagree on 15.1\%, and the count of wholly hidden peaks is a proxy, not truth}
+ {Hidden support share predicts hottest-30 error risk; paired controls do not yet show that position dominates length}
+ {On a retrospective holdout, support screening cuts consequential errors from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points)}
+ {Wave-2 confirmation (49 nets; USGS+Hub'Eau+UK EA) cuts errors by $-5.9$ points at 70\% retention; real gaps disagree 15.1\%}
 
 \maketitle
 
@@ -90,23 +90,23 @@ Thermal archives are screened by completeness thresholds, assuming that how much
 data is missing decides whether an annual statistic can be trusted. That
 assumption has never been tested against the statistic's own support, because a
 gap's length and its position cannot be varied independently in a record that
-failed on its own. Here we combine 5114
-complete river station-years from 146 networks with 51524 designed outages, vary
-the two properties of a gap separately, and score admission rules on held-out
-networks and on sealed panels that took no part in development. We find that the
-error of a hottest 30-day mean grows $9.6\times$ along the position axis and
-$3.5\times$ along the length axis, whereas an annual mean reverses the two
-($1.5\times$ and $10.2\times$): the same gap is destructive or harmless depending
-only on which statistic is being computed. Screening station-years by the share
-of that statistic's support a gap hides cuts consequential errors on a
-retrospective network holdout from 9.7\% to 2.5\% at 70\% retention ($-7.1$
-points, $[-9.0,-5.4]$), by $-7.9$ points
-($[-10.2,-5.8]$) on 39 sealed USGS networks and by $-4.6$ ($[-6.5,-3.3]$) on a
-pre-registered multi-agency panel of 32 networks, yet by only $-0.7$ to $-1.9$
-points on the gaps those same networks actually experience. Completeness
-thresholds are therefore the wrong axis for extremes and the right one for means;
-what an agency can bank today is the smaller empirical-arm gain, and that
-difference is what its own gap calendar decides.
+failed on its own. Here we combine 5114 complete river station-years from
+146 networks with 51524 designed outages, vary the two properties of a gap
+separately, and score admission rules on a retrospective network holdout.
+Peak-window hide share is a useful conditional risk predictor for a hottest
+30-day mean, but position does not yet have a paired demonstration that it
+dominates length; binned contrasts of $9.6\times$ versus $3.5\times$ (and the
+reverse for annual means) remain exploratory. Screening by hidden support cuts
+consequential errors on the retrospective holdout from 9.7\% to 2.5\% at 70\%
+retention ($-7.1$ points, $[-9.0,-5.4]$). First sealed USGS and multi-agency
+transport scores fail the 2026-10-13 audits and remain withdrawn. Under a
+pre-declared wave-2 protocol with repaired QA (49 networks; USGS, Hub'Eau and
+UK EA; 0 reconstruction failures), the same frozen certificate cuts
+consequential errors by $-5.9$ points ($[-6.9,-4.9]$) at 70\% retention, with
+multi-provider agreement. Gains under the gaps these networks actually
+experience remain smaller (about $-0.7$ to $-1.9$ points) and are not a bankable
+operational guarantee. Completeness thresholds are the wrong default axis for
+extremes and often the right one for means.
 
 \begin{plainlanguagesummary}
 Rivers are getting warmer, and managers ask how hot a river got last summer. The
@@ -118,10 +118,12 @@ of identical length in different positions and compare what two statistics lose.
 A gap over the peak window destroys the hottest 30-day mean while the same gap in
 autumn barely moves it; a whole-year average behaves in the opposite way. A rule
 that screens on this "hidden support" instead of on gap length removes most large
-errors on held-out and sealed networks, but when we look at the gaps these
-networks really experience the gain shrinks to a fraction. Results about exact
-crossover days, autumn maintenance benefits and "peak never observed" counts are
-exploratory or use proxies and should not yet guide operations.
+errors on a retrospective holdout, but when we look at the gaps these networks
+really experience the gain shrinks to a fraction. An independent multi-provider
+confirmation under repaired data QA recovers a $-5.9$-point screening gain.
+Results about exact crossover days, autumn maintenance benefits and "peak never
+observed" counts are exploratory or use proxies and should not yet guide
+operations.
 \end{plainlanguagesummary}
 \end{abstract}
 
@@ -204,7 +206,7 @@ admission rules on held-out river networks, on sealed panels that took no part i
 development, and --- without any truth --- on the 2422 records in this same
 archive that really do have gaps. Three questions organise the paper, and the
 last matters most, because a screening rule is judged by the archive it leaves
-behind. First, which property of a gap governs the error of a derived thermal
+behind. First, which property of a gap predicts the error of a derived thermal
 statistic, and does the answer depend on which statistic is being computed?
 Second, is that dependence a dichotomy between two regimes or a continuous
 transition, where does it turn over, and how much of the gain survives the gap
@@ -358,41 +360,42 @@ prior development, descriptive or scoring use in earlier programme stages
 (\texttt{results/wrr\_submission\_ready/prior\_access\_ledger\_reserved\_networks.csv}).
 It is not an unused confirmation set for analyses developed after opening.
 A sealed confirmation was therefore recruited externally: 39 USGS
-HUC4 networks (91 stations; 18 HUC2 contexts; 8973 designed outage cases) that
-lie outside the v17/v18 development panel were ingested, hashed, and scored once
-with the frozen certificate
-(\texttt{p0\_07\_sealed\_confirmation/verdict.json}).
-At 70\% retention and $0.5\,^{\circ}$C the pooled contrast is about $-7.9$
-percentage points (clustered interval about $[-10.2,-5.8]$); the empirical arm
-is smaller but excludes zero (about $-1.7$ points, $[-3.0,-0.7]$). The panel is
-outside the development programme but it is not untouched by the wider
-programme, and we report that rather than assert otherwise: a repo-wide,
-provider-aware audit of every artifact carrying a station identifier finds 24 of
-the 39 networks appearing in earlier iterations, 15 networks with no
-outcome-bearing prior use and 4 with no prior use of any kind
-(\texttt{prior\_access\_audit\_sealed\_usgs.csv};
-\texttt{AMENDMENT\_prior\_access\_sealed\_panel.md}). The result does not depend
-on the touched networks: restricted to the 15 outcome-clean networks the pooled
-contrast is $-9.4$ points ($[-12.4,-6.0]$) with an empirical-arm gain of $-3.7$
-($[-5.8,-1.6]$), and restricted to the 45 outcome-clean stations it is $-8.3$
-($[-10.4,-6.4]$). Those subsets are read from an already-sealed score and are a
-transparency diagnostic, not new confirmation. The panel remains USGS-only and
-uses provisional HUC4 groupings rather than agency river systems, so a
-pre-registered transport test was recruited to ask whether the result travels.
-Panels from Sweden (SMHI), England (UK Environment Agency) and France (Hub'Eau)
---- 32 networks, 245 stations, 17\,826 designed outage cases across boreal,
-temperate-oceanic and temperate-continental rivers, none of them used anywhere in
-the development programme --- were sealed with input hashes and scored once with
-the same frozen configuration, against a rule fixed before unsealing
-($\Delta \le -1$ point with a clustered interval excluding zero and at least two
-providers in the same direction); twenty-one additional Norwegian basins enter
-only as a labelled secondary stratum. The protocol records that this test was
-designed after the USGS score was known, so it is a transport test and not a
-pristine first confirmation. Section~\ref{sec:records} reports what it found.
+HUC4 networks (91 stations; reported HUC2 contexts need recount under
+string-safe HUC identifiers; 8973 designed outage cases) that lie outside the
+v17/v18 development panel were ingested, hashed, and scored once with the frozen
+certificate (\texttt{p0\_07\_sealed\_confirmation/verdict.json}).
+That score is retained as an executed artifact, but the 2026-10-13 audit finds
+it cannot yet support a confirmation claim: USGS no-data sentinels
+($-999999$) entered complete-year truth chains, and cases whose selected
+reconstructor returned no annual metric were dropped before the 70\% retention
+cut, so the published operating point is not 70\% of the candidate population
+(\texttt{AMENDMENT\_claim\_status\_freeze\_20261013.md}; amendments under
+\texttt{p0\_02\_qc\_ledger/} and \texttt{p0\_03\_retention\_denominator/}).
+Formal effect of that first sealed score: withdrawn after audit.
+A repo-wide prior-access diagnostic still applies (24 of 39 networks appear in
+earlier iterations). A pre-registered multi-agency transport test
+(SMHI, UK Environment Agency, Hub'Eau; 32 primary networks / 152 stations /
+17\,826 cases, with NVE only as a secondary stratum; manuscript text that mixed
+245 extended-panel stations into the primary counts is corrected here) was
+likewise scored once, but its quality-checked gate incorrectly mixed the NVE
+secondary panel ($\approx 97\%$ of historical quality-checked cases) and fails
+when recomputed on the primary quality-checked subset alone (2 networks, 307
+cases; clustered interval includes zero;
+\texttt{amendments/f03\_primary\_qc\_diagnostic/}). That transport seal remains
+withdrawn. Independently, a wave-2 confirmation panel was recruited under a
+pre-sealed protocol (\texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}), excluding
+programme-used stations and leftover opened-wave ingest: 49 networks /
+143 stations / 13\,017 cases across USGS, Hub'Eau and UK EA. At 70\% retention
+and 0.5\,$^{\circ}$C tolerance it yields $\Delta=-5.89$ points
+($[-6.92,-4.91]$), zero reconstruction failures, USGS and Hub'Eau both negative,
+and the USGS quality-checked subset agreeing
+(\texttt{p0\_07\_wave2\_ingest/p0\_07\_wave2\_confirmation/verdict.json}).
+Section~\ref{sec:records} reports the retrospective holdout that remains valid
+and labels the withdrawn first seals accordingly.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f2_experiment_design.pdf}
-\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access; the sealed USGS confirmation (39 networks, 8973 cases, with a repository-wide prior-access audit) and the pre-registered multi-agency transport panel (32 primary networks across three contexts, plus a 21-network secondary stratum) were recruited afterwards and scored once each. The same frozen configuration is then applied, without any truth, to the 2422 real incomplete station-years. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
+\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access. The first sealed USGS and multi-agency transport panels fail the 2026-10-13 audits and are withdrawn; an independent wave-2 confirmation (49 networks; USGS, Hub'Eau, UK EA) meets the pre-declared gate under repaired QA. The same frozen configuration is applied, without truth, to 2422 real incomplete station-years, with admission requiring a finite annual metric. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
 \label{fig:design}
 \end{figure}
 
@@ -543,13 +546,15 @@ reshaping them into successes.
 
 \subsection{The phenomenon: position, not length, decides what an extreme loses}
 
-Whether an incomplete year can carry a summer extreme depends on where its gap
-falls and hardly at all on how long the gap is. One real record shows the two
-ends of the range: a 30-day gap over the peak window costs $3.99\,^{\circ}$C in
-the hottest 30-day mean, the same 30 days in late autumn costs nothing, and the
-annual mean responds in the opposite order. The reversal is systematic across
-five annual endpoints, and it is large enough to change which station-years an
-archive should keep.
+Whether an incomplete year can carry a summer extreme depends strongly on where
+its gap falls. One real record shows the two ends of the range: a 30-day gap
+over the peak window costs $3.99\,^{\circ}$C in the hottest 30-day mean, while
+the same 30 days in late autumn cost nothing; the annual mean on this example
+moves by $-1.03$ and $+0.24\,^{\circ}$C and therefore does \emph{not} reverse the
+order (Figure~\ref{fig:frame}). Across the development panel the relative
+importance of timing versus length still differs by endpoint, which is enough to
+change which station-years an archive should keep, without requiring a universal
+``position dominates length'' law.
 
 \subsubsection{Computing the peak from recorded days alone costs more than a year-to-year standard deviation}
 
@@ -619,7 +624,7 @@ coldest 30-day mean & 0.447 & 0.619 & 0.803 & $-0.184$ ($-0.228$, $-0.156$) \\
 \centering
 \includegraphics[width=0.95\textwidth]{figures/f2a_endpoint_ordering.pdf}
 \includegraphics[width=0.95\textwidth]{figures/f2b_panel_heterogeneity.pdf}
-\caption{The same screening gain, ordered two ways. (a) Discrimination of a consequential error by endpoint, as the AUC difference between the best timing axis and the outage-length rule, with network-clustered 95\% intervals; positive means the timing axis wins. The five endpoints reverse: the two extremes sit on the positive side, the annual mean and cold extreme on the negative side, with the amplitude between them. (b) The pooled contrast (certificate rate minus length-rule rate, percentage points; negative favours the screen) for every evidence panel in this study: retrospective development and reserved panels (grey), the sealed USGS confirmation with its arm and clean-subset variants (blue), and the pre-registered multi-agency transport panel with its providers and the NVE secondary stratum (orange). The dashed line is the pre-declared $\Delta=-1.0$ point threshold; intervals are network-clustered 95\%. Source data: \texttt{figures/wrr/f2\_heterogeneity\_data.json}.}
+\caption{The same screening gain, ordered two ways. (a) Discrimination of a consequential error by endpoint, as the AUC difference between the best timing axis and the outage-length rule, with network-clustered 95\% intervals; positive means the timing axis wins. Warm-season extremes favour timing; the annual mean favours length. The cold-extreme negative result in this panel uses a warm-season support axis and should not be read as ``length wins for cold extremes'' --- cold-season support reverses that comparison (AUC $\approx 0.88$ vs length 0.82; SI winter amendment). (b) Pooled contrasts for retrospective development and reserved panels (grey) and the wave-2 independent confirmation (green; USGS, Hub'Eau, UK EA; $\Delta=-5.89$ points). The first sealed USGS and multi-agency transport scores remain omitted as withdrawn after the 2026-10-13 audit. The dashed line is the pre-declared $\Delta=-1.0$ point threshold. Source data: \texttt{figures/wrr/f2\_heterogeneity\_data.json}.}
 \label{fig:hetero}
 \end{figure}
 
@@ -805,26 +810,19 @@ agency recommendations.
 \label{fig:season}
 \end{figure}
 
-\subsubsection{The gain also depends on the agency and on how strictly its values are checked}
+\subsubsection{Agency and assurance strata on the withdrawn transport seal}
 
-Pooled numbers conceal two further dependencies. By agency, the sealed transport
-panel gives $-4.3$ points on 16 Swedish networks ($[-6.3,-3.2]$), $-4.9$ on 14
-French networks ($[-8.5,-1.5]$) and $-6.4$ on the two English networks
-($[-8.0,+1.3]$, an interval that a two-network sample cannot narrow); the
-Norwegian secondary stratum gives $-6.1$ ($[-8.7,-4.6]$). By assurance, the
-globally checked stratum gives $-6.2$ points ($[-8.4,-4.5]$) against $-4.6$
-($[-6.2,-3.3]$) for providers that publish their values unqualified, so part of
-the pooled gain is carried by records whose quality flags are stronger. The same
-caution applies to the measurement contract itself: five providers document the
-daily mean that the parser reads, two publish sub-daily values that the project
-averages, and four do not document a daily mean at all
-(\texttt{measurement\_provenance\_dictionary.csv}). Restricting the development
-panel to the documented-daily-mean stratum gives a contrast of $-5.7$ points
-($[-6.5,-4.9]$, 84 networks) rather than $-6.4$, and the reserved panel $-6.6$
-($[-7.9,-5.3]$, 29 networks) rather than $-7.1$
-(\texttt{amendments/provider\_contract\_sensitivity/}). The direction and the
-significance of the effect are unchanged in every stratum; its size is not a
-single number.
+Agency- and assurance-stratified contrasts from the first sealed transport score
+remain withdrawn: the historical quality-checked stratum that reported about
+$-6.2$ points was dominated by the NVE secondary panel and does not satisfy the
+pre-registered primary-panel gate
+(\texttt{amendments/f03\_primary\_qc\_diagnostic/}). External confirmation is
+carried instead by the wave-2 multi-provider panel under repaired QA
+(Section~\ref{sec:records}). Measurement-contract sensitivity on the development
+and reserved panels remains informative as retrospective context:
+documented-daily-mean strata give about $-5.7$ and $-6.6$ points respectively
+(\texttt{amendments/provider\_contract\_sensitivity/};
+\texttt{measurement\_provenance\_dictionary.csv}).
 
 \subsection{The mechanism: hidden support and donor information control the error}
 
@@ -970,8 +968,10 @@ the screen gives 2.5\% against 9.7\% for the length rule
 (Figure~\ref{fig:frontier}b): a contrast of $-7.13$ points, 95\%
 network-clustered interval $-8.97$ to $-5.36$, against the five-point effect
 declared for that freeze. Both declared conditions are met on that holdout, in
-every donor regime ($-6.6$, $-6.7$, $-7.2$, all excluding zero). An independent
-sealed USGS confirmation recovers a similar pooled contrast (Section~\ref{sec:records}).
+every donor regime ($-6.6$, $-6.7$, $-7.2$, all excluding zero). The first sealed
+external panels remain withdrawn after audit; the independent wave-2
+confirmation (Section~\ref{sec:records}) is a separate score and does not revise
+this retrospective holdout figure.
 The holdout result is not carried by the largest agencies alone: case-equal
 $-7.01$, provider-equal $-6.29$, network-equal $-5.82$, station-equal $-5.54$
 points, with a median across individual reserved networks of $-5.0$, 83\% of
@@ -1177,7 +1177,7 @@ it into the judgement an agency actually makes.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/figv2_archive_deployment.pdf}
-\caption{What the two admission rules do to records that really have gaps. (a) The length rule and the support screen applied to the 2422 incomplete station-years of this archive that have never been decided (of 7536 station-years in total, 5114 of them complete): they disagree on 15.1\% of admissions ($[13.4,16.8]$\%, 136 network clusters), and on 8.5\% the length rule admits a year whose climatological peak window is more than half hidden. (b) Predicted, not observed, consequential error for each admitted set (there is no truth in these years); the screen's admitted set is the more conservative one, and the prediction is miscalibrated by at most 6.2 points in its worst decile. (c) Station-years the length rule admits with more than half of the peak window hidden (n = 261); 28.7\% of the 2422 years hide at least one day of the climatological peak window (median 9 missing days, 90th percentile 128). ``Peak window'' here is the climatological window from the station's earlier years, a proxy: the positive predictive value of that proxy for a wholly unobserved realised peak is 0.74 on designed cases. Source data: \texttt{results/v18\_closure/e2\_archive\_deployment/}.}
+\caption{What the two admission rules do to records that really have gaps. (a) The length rule and the support screen applied to the 2422 incomplete station-years of this archive that have never been decided (of 7536 station-years in total, 5114 of them complete): they disagree on 15.1\% of admissions ($[13.4,16.8]$\%, 136 network clusters). Among all 2422 years, 261 have more than half of the climatological peak window hidden; of those, the length rule at 49\,d admits 45 and at 140\,d admits 82 (Table~\ref{tab:deploy}) --- not 261. (b) Predicted, not observed, consequential error for each admitted set (there is no truth in these years); the screen's admitted set is the more conservative one, and the prediction is miscalibrated by at most 6.2 points in its worst decile. (c) Incomplete years with more than half of the climatological peak window hidden (population n = 261); length-rule admits in that population are 45 or 82 depending on the threshold. 28.7\% of the 2422 years hide at least one day of the climatological peak window (median 9 missing days, 90th percentile 128). ``Peak window'' here is the climatological window from the station's earlier years, a proxy: the positive predictive value of that proxy for a wholly unobserved realised peak is 0.74 on designed cases. Source data: \texttt{results/v18\_closure/e2\_archive\_deployment/}.}
 \label{fig:deploy}
 \end{figure}
 
@@ -1521,11 +1521,12 @@ selection, not about temperature.
 Three parts are not. The numerical crossover near three months depends on how
 concentrated a river's thermal year is and on how far its peak wanders between
 years; both are properties of this climate and this variable. The operational
-gain is regime-dependent: the sealed USGS confirmation recovers a pooled
-contrast of $-7.9$ points but the empirical arm only $-1.7$, and the
-multi-agency transport panel, while negative as a whole ($-4.6$, $[-6.5,-3.3]$),
-carries an empirical arm of $-1.9$ ($[-3.3,-1.0]$) --- real, but far smaller than
-the designed-outage figure an agency might quote. Catchment associations rest on 140 of
+gain is regime-dependent: designed-outage contrasts on the retrospective holdout
+are larger than empirical-arm contrasts on the same networks (about $-0.7$ to
+$-1.9$ points), so an agency must not quote the designed mixture as a bankable
+operational guarantee. The withdrawn first seals are not re-used; the wave-2 confirmation
+($\Delta=-5.9$ points) is the external score that enters conclusions.
+Catchment associations rest on 140 of
 204 stations in one country and should be read as attribute correlations on that
 subset, not as a geology-versus-terrain law.
 
@@ -1572,54 +1573,52 @@ matters per station-year, and it matters for who is in the archive.
 
 \section{Conclusions}
 
-Using 5114 complete station-years from 146 river networks, 51524 designed
-outages, and sealed panels scored once outside the development programme, we
-quantified what an incomplete year can still support. Three answers follow.
+Using 5114 complete station-years from 146 river networks and 51524 designed
+outages, with a retrospective network holdout and an independent wave-2
+confirmation panel, we quantified what an incomplete year can still support.
+Three answers follow.
 
-First, the governing property of a gap is its position, not its length: the
-hottest 30-day mean grows $9.6\times$ along the hidden-support axis and
-$3.5\times$ along the length axis, the annual mean reverses the two, and a frozen
-screen conditioned on hidden support cuts consequential errors for the summer
-peak on the retrospective holdout from 9.7\% to 2.5\% at 70\% retention
-($-7.1$ points, $[-9.0,-5.4]$), with
-$-7.9$ ($[-10.2,-5.8]$) on 39 sealed USGS networks and $-4.6$ ($[-6.5,-3.3]$) on
-a pre-registered multi-agency panel of 32 networks.
+First, hidden support share is a strong conditional risk predictor for the
+hottest 30-day mean: a frozen screen conditioned on it cuts consequential errors
+on the retrospective holdout from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points,
+$[-9.0,-5.4]$), and on the wave-2 multi-provider confirmation by $-5.9$ points
+($[-6.9,-4.9]$). We do not claim that position dominates error independently of
+length; that stronger statement still needs paired controls. The withdrawn
+first seals and the failed transport quality-checked gate remain labelled and
+are not re-used.
 
-Second, the gain is conditional in three ways that a pooled number hides: it
-depends on the support width of the estimand, it collapses towards $-0.7$ to
-$-1.9$ points under the gap calendar these networks actually keep, and it is
-smaller ($-4.6$ against $-6.2$ points) where providers publish unchecked values.
-Completeness thresholds remain the correct axis for annual means and the
-sine-fit parameters, which is where the standing guidance was derived.
+Second, the gain is conditional in ways a pooled number hides: it depends on the
+support width of the estimand and collapses towards $-0.7$ to $-1.9$ points under
+the gap calendar these networks actually keep. Completeness thresholds remain the
+correct axis for annual means and the sine-fit parameters, which is where the
+standing guidance was derived.
 
 Third, the practical consequence is an estimand-specific admission decision
-rather than a new universal threshold. An agency assembling warm-season extremes
-should screen on how much of the climatological peak window is hidden and should
-apply the threshold within strata, because difficulty-based screening otherwise
-thins high, steep and donor-poor catchments. Autumn maintenance benefits and
-``annual peak never observed'' counts are not retained as verified effects: the
-former needs an outage-cause record this archive does not publish, and the latter
-currently counts wholly masked \emph{climatological} windows, whose positive
-predictive value for a wholly unobserved realised peak is 0.74.
+rather than a new universal threshold, and admission is meaningful only when the
+chosen reconstructor returns a finite annual metric. Autumn maintenance benefits
+and transported ``annual peak never observed'' headcounts are not retained as
+verified effects: the former needs an outage-cause record this archive does not
+publish, and the latter must stay labelled as climatological-window proxies.
 
 \section*{Open Research Statement}
 
-Daily water-temperature records are from nine public providers (ARSO, CHMI,
-FOEN, GKD Bayern, LUBW, NVE, Rijkswaterstaat, SYKE and the USGS), plus SMHI and
-the UK Environment Agency for the transport panel; none required a data-use
-agreement. Nine of the eleven publish under a named open licence (US public
-domain; CC BY 4.0 for CHMI, GKD Bayern and SYKE; OGL v3.0 for the UK EA;
-opendata.swiss terms for FOEN; NLOD/CC BY for NVE; CC BY 4.0 SE for SMHI;
-Licence Ouverte for Hub'Eau). Two state terms without naming a licence (ARSO
-requires attribution on publication; Rijkswaterstaat requires source and
-retrieval date). One, LUBW, reserves copyright: its raw values are therefore
-\emph{not} redistributed with this paper, and the seven LUBW networks are
-available only through LUBW's own service; the analysis reads them locally and
-reports derived statistics. Licences, acquisition routes and verbatim evidence
+Daily water-temperature records for the main retrospective panel are from nine
+public providers (ARSO, CHMI, FOEN, GKD Bayern, LUBW, NVE, Rijkswaterstaat, SYKE
+and the USGS). The independent wave-2 confirmation additionally uses hashed
+USGS, Hub'Eau and UK Environment Agency panels under
+\texttt{p0\_07\_wave2\_ingest/wave2\_inputs\_manifest.csv}; the earlier sealed
+USGS and multi-agency transport scores remain withdrawn after audit. None
+required a data-use agreement. Named open licences cover the USGS (US public domain),
+CHMI/GKD Bayern/SYKE (CC BY 4.0), UK EA (OGL v3.0), FOEN (opendata.swiss), NVE
+(NLOD/CC BY), SMHI (CC BY 4.0 SE) and Hub'Eau (Licence Ouverte). ARSO and
+Rijkswaterstaat state attribution/source terms without naming a licence. LUBW
+reserves copyright: its raw values are \emph{not} redistributed with this paper;
+the seven LUBW networks are available only through LUBW's own service, and the
+analysis reports derived statistics. Licences, acquisition routes and evidence
 are in \texttt{metadata/data\_rights.csv},
 \texttt{measurement\_provenance\_dictionary.csv}
 and \texttt{current\_data\_acquisition.csv}. Station coordinates are from those
-providers' own catalogues, the USGS NWIS site service, and ARSO's public station
+providers' catalogues, the USGS NWIS site service, and ARSO's public station
 feed. Daily 2\,m air temperature is NASA POWER (MERRA-2)
 \cite{nasapower2026}. Basin characteristics are GAGES-II \cite{falcone2011}.
 
@@ -1628,16 +1627,19 @@ the schematic figures and the frozen pre-registration are in the accompanying
 repository. A claim registry
 (\texttt{claim\_registry.csv}) records each
 headline claim's artifact, endpoint, unit, denominator, evidence type and
-whether it may enter the abstract or conclusions. An automated audit checks a
-declared set of archived manuscript numbers against artifacts; it is not yet a
-full semantic binding of every live \TeX\ numeral. Input-file hashes for the
-146 study networks are in
-\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}. Source data
-for the figures are deposited with the analysis: the schematic figures are
-draw.io files (\texttt{figures/v17/drawio/}), and every data figure names its
-source artifact in its caption, with the plotted values and their input hashes
-also written to \texttt{figures/wrr/}. A permanent archive of the repository
-and a DOI will be deposited on acceptance.
+whether it may enter the abstract or conclusions. An automated binding check
+(\texttt{scripts/254\_wrr\_claim\_binding\_check.py}) recomputes the allowed
+headline set against live artifacts (including the wave-2 confirmation).
+Input-file hashes for the 146 study networks are in
+\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}; wave-2
+panel hashes are in \texttt{wave2\_inputs\_manifest.csv}. Source data for the
+figures are deposited with the analysis: the schematic figures are draw.io
+files (\texttt{figures/v17/drawio/}), and every data figure names its source
+artifact in its caption, with the plotted values also written to
+\texttt{figures/wrr/}. A permanent archive of the repository and a DOI will be
+deposited on acceptance. Certificate reproduction requires
+\texttt{constraints-freeze-certificate.txt} (scikit-learn 1.2.2), not the
+general \texttt{constraints.txt} pin.
 
 \section*{Acknowledgments}
 

@@ -992,8 +992,48 @@ def select_candidates(
         .nunique()
     )
     ambiguous_names = set(codes_per_name.loc[codes_per_name > 1].index.astype(str))
+    # Homonyms with missing codes still collide on river_key (F08 Durance).
+    # Split by official watercourse code when present; otherwise by a coarse
+    # spatial cell so Normandie and PACA stations never share a network.
+    def _network_key(row: pd.Series) -> str:
+        river = str(row.get("river_key") or "")
+        code = row.get("code_cours_eau")
+        if pd.notna(code) and str(code).strip():
+            return f"{river}::{str(code).strip()}"
+        lat = pd.to_numeric(row.get("latitude"), errors="coerce")
+        lon = pd.to_numeric(row.get("longitude"), errors="coerce")
+        if pd.notna(lat) and pd.notna(lon):
+            return f"{river}::cell_{int(np.floor(float(lat)))}_{int(np.floor(float(lon)))}"
+        return f"{river}::unknown"
+
+    frame["network_key"] = frame.apply(_network_key, axis=1)
+    # Also flag same-name groups whose stations span >200 km (haversine approx).
+    def _span_km(group: pd.DataFrame) -> float:
+        lat = pd.to_numeric(group["latitude"], errors="coerce")
+        lon = pd.to_numeric(group["longitude"], errors="coerce")
+        ok = lat.notna() & lon.notna()
+        if int(ok.sum()) < 2:
+            return 0.0
+        lat = np.deg2rad(lat.loc[ok].to_numpy(dtype=float))
+        lon = np.deg2rad(lon.loc[ok].to_numpy(dtype=float))
+        # Max pairwise distance via simple loop (small groups).
+        best = 0.0
+        for i in range(len(lat)):
+            dlat = lat - lat[i]
+            dlon = lon - lon[i]
+            a = np.sin(dlat / 2) ** 2 + np.cos(lat[i]) * np.cos(lat) * np.sin(dlon / 2) ** 2
+            dist = 6371.0 * 2 * np.arcsin(np.minimum(1.0, np.sqrt(a)))
+            best = max(best, float(np.nanmax(dist)))
+        return best
+
+    # Wide same-name groups are split via network_key rather than discarded.
+    span_by_name = {str(key): _span_km(group) for key, group in frame.groupby("river_key")}
+    frame["name_span_km"] = frame["river_key"].map(span_by_name)
     frame["ambiguous_river_name"] = frame["river_key"].isin(ambiguous_names)
-    frame["river_has_two_stations"] = frame["river_key"].isin(rivers_with_two)
+    rivers_with_two = set(
+        frame.groupby("network_key")["station_id"].nunique().loc[lambda s: s >= 2].index.astype(str)
+    )
+    frame["river_has_two_stations"] = frame["network_key"].isin(rivers_with_two)
     frame["span_ok"] = (
         frame["span_screen_ok"].fillna(False).astype(bool)
         & (frame["span_years"].fillna(0.0) >= float(min_span_years))
@@ -1022,13 +1062,17 @@ def select_candidates(
     frame["candidate"] = possible
     candidates = frame.loc[frame["candidate"]].copy()
     network_rows = []
-    for river_key, group in candidates.groupby("river_key", sort=False):
+    for network_key, group in candidates.groupby("network_key", sort=False):
         if len(group) < MIN_STATIONS_PER_NETWORK:
             continue
+        river_key = str(group["river_key"].iloc[0])
+        suffix = str(network_key).split("::", 1)[-1]
+        slug = slugify(river_key) if suffix in {"", "unknown"} else f"{slugify(river_key)}_{slugify(suffix)}"
         network_rows.append(
             {
-                "network_id": f"{PROVIDER}_{slugify(river_key)}",
+                "network_id": f"{PROVIDER}_{slug}",
                 "river_key": river_key,
+                "network_key": str(network_key),
                 "river_name": str(group["river_name"].mode().iat[0]),
                 "n_candidate_stations": int(len(group)),
                 "station_ids": ";".join(sorted(group["station_id"].astype(str))),
@@ -1063,11 +1107,11 @@ def select_candidates(
                 }
             )
         networks = networks.loc[networks["network_id"].isin(keep)].reset_index(drop=True)
-    candidate_networks = set(networks["river_key"]) if not networks.empty else set()
-    candidates = candidates.loc[candidates["river_key"].isin(candidate_networks)].copy()
+    candidate_networks = set(networks["network_key"]) if not networks.empty else set()
+    candidates = candidates.loc[candidates["network_key"].isin(candidate_networks)].copy()
     if not networks.empty:
         candidates = candidates.merge(
-            networks[["network_id", "river_key"]], on="river_key", how="left"
+            networks[["network_id", "network_key"]], on="network_key", how="left"
         )
     else:
         candidates["network_id"] = pd.Series(dtype=str)

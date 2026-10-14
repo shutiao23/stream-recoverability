@@ -7,13 +7,12 @@ not testable on the real records, so this script asks the decision-relevant
 question instead: how large a bias in the *hidden* days would be needed to erase
 the screening advantage?
 
-Model. A hidden-bias scenario adds δ °C to every filled day, so the completed
-year's hottest-30 mean moves by approximately δ times the share of the realised
-peak window that was hidden (the case table stores that share as
-``true_peak_hidden_fraction``; window switching is a second-order term that the
-scenario grid absorbs). Both rules are evaluated with the same reconstruction
-choice, as in the corrected instrument-error check, so only the bias moves
-between scenarios. δ = 0 reproduces the published contrast.
+AUDIT NOTE (F06 / 2026-10-13). The historical implementation below applies
+``abs(signed_error + δ × true_peak_hidden_fraction)`` and does **not** modify
+daily completions or re-seek the rolling peak. Outputs are retained only as an
+exploratory approximation under
+``amendments/mnar_pattern_mixture/`` and must not be written into conclusions.
+Day-level recomputation lives in ``scripts/271_wrr_mnar_day_level.py``.
 
 Writes results/wrr_submission_ready/amendments/mnar_pattern_mixture/.
 """
@@ -135,9 +134,12 @@ def main() -> int:
     rows = []
     payload: dict[str, object] = {
         "model": (
-            "completion bias: the filled days are shifted by delta C; the hottest-30 mean moves by "
-            "delta x share of the realised peak window that was hidden"
+            "APPROXIMATION ONLY (F06): abs(signed_error + delta * true_peak_hidden_fraction); "
+            "does not perturb daily fills or re-seek the hottest window. "
+            "Not an MNAR identification bound. Use scripts/271_wrr_mnar_day_level.py."
         ),
+        "claim_status": "executed_audit_failed",
+        "may_enter_abstract_or_conclusions": False,
         "retention": RETENTION,
         "tolerance_c": TOLERANCE_C,
         "populations": {},

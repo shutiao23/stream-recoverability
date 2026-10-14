@@ -1,0 +1,4 @@
+panel,n_candidate_cases,n_cert_error_finite,n_cert_reconstruction_failures,n_donor_ridge_choices,n_donor_ridge_nan_error,target_retention,k_selected_full_denominator,selected_success_recon,selected_recon_failure,selected_consequential_error,selected_ok_within_tolerance,failure_rate_full_denom_selected,actual_retention_if_dropna_first,old_dropna_n,policy_selected_failure_rate
+sealed_usgs,8973,8309,664,4802,664,0.7,6281,5916,365,243,5673,0.09679987263174654,0.6482001560236264,8309,0.05906702754338481
+transport_extended,27901,23224,4677,20471,4677,0.7,19531,16821,2710,483,16338,0.16348369259126516,0.582660119708971,23224,0.05099585274691516
+transport_primary,17826,15316,2510,13339,2510,0.7,12478,10984,1494,303,10681,0.14401346369610515,0.6014361045663636,15316,0.047523641609232246

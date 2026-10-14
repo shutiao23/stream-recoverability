@@ -15,10 +15,11 @@
 - [x] F02/F03/F11/F12 code fixes recomputed with pre-fix bytes preserved
 - [x] Certificate.predict on real incomplete years, invariance-tested
 - [x] Method freeze (`P0_06_method_freeze.json`)
-- [x] Sealed single-provider confirmation (USGS 39 networks) scored once
-- [x] Pre-registered multi-agency transport panel sealed and scored once:
-      32 primary networks / 3 contexts, −4.61 pp [−6.53, −3.30], rule met; NVE
-      21-network secondary stratum −6.14 pp
+- [x] Wave-2 independent confirmation scored once (49 networks; USGS+Hub'Eau+UK EA;
+      Δ=−5.89 pp [−6.92, −4.91]; 0 recon failures; seal scored)
+- [x] First sealed USGS / multi-agency transport scores preserved as withdrawn
+      audit artifacts (not live claims)
+- [x] Fig2b includes wave-2 confirmation row; binding check `hard_ok`
 - [x] Headline narrowing in title/abstract/key points/conclusions, enforced by
       `scripts/254_wrr_claim_binding_check.py`
 - [x] Desk checks green except author block

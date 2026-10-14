@@ -122,7 +122,11 @@ def run_fail_closed(
 
 
 def preflight_current_study() -> dict[str, Any]:
-    """Cheap checks before a rebuild: manifest presence, claim registry, code entrypoints."""
+    """Cheap checks before a rebuild: manifest presence, claim registry, code entrypoints.
+
+    Input rows marked ``present`` must also exist on disk with matching size and
+    sha256. A status string alone is not sufficient (F11).
+    """
 
     root = REPO_ROOT / "results" / "wrr_submission_ready"
     required = [
@@ -133,17 +137,56 @@ def preflight_current_study() -> dict[str, Any]:
         root / "P0_06_method_freeze.json",
         root / "CONFIRMATION_PROTOCOL_SEALED.md",
     ]
-    report = {"ok": True, "checks": []}
+    report: dict[str, Any] = {"ok": True, "checks": []}
     for path in required:
         exists = path.is_file()
         report["checks"].append({"path": str(path.relative_to(REPO_ROOT)), "exists": exists})
         report["ok"] = report["ok"] and exists
     manifest = pd_safe_read(root / "current_data_manifest.csv")
     if manifest is not None:
-        missing = int((manifest["status"] != "present").sum()) if "status" in manifest.columns else -1
-        report["checks"].append({"path": "current_data_manifest.csv", "n_missing_inputs": missing})
-        report["ok"] = report["ok"] and missing == 0
+        status_missing = int((manifest["status"] != "present").sum()) if "status" in manifest.columns else -1
+        absent = 0
+        size_mismatch = 0
+        hash_mismatch = 0
+        checked = 0
+        for row in manifest.itertuples(index=False):
+            rel = getattr(row, "input_path", None)
+            if rel is None or (isinstance(rel, float) and pd_isna(rel)):
+                continue
+            path = REPO_ROOT / str(rel)
+            checked += 1
+            if not path.is_file():
+                absent += 1
+                continue
+            expected_bytes = getattr(row, "bytes", None)
+            if expected_bytes is not None and not pd_isna(expected_bytes):
+                if int(path.stat().st_size) != int(expected_bytes):
+                    size_mismatch += 1
+            expected_hash = getattr(row, "sha256", None)
+            if expected_hash is not None and not pd_isna(expected_hash) and str(expected_hash):
+                if sha256_file(path) != str(expected_hash):
+                    hash_mismatch += 1
+        report["checks"].append(
+            {
+                "path": "current_data_manifest.csv",
+                "n_status_not_present": status_missing,
+                "n_input_rows_checked": checked,
+                "n_files_absent": absent,
+                "n_size_mismatch": size_mismatch,
+                "n_hash_mismatch": hash_mismatch,
+            }
+        )
+        report["ok"] = report["ok"] and status_missing == 0 and absent == 0 and size_mismatch == 0 and hash_mismatch == 0
     return report
+
+
+def pd_isna(value: Any) -> bool:
+    try:
+        import pandas as pd
+
+        return bool(pd.isna(value))
+    except Exception:  # noqa: BLE001
+        return value is None
 
 
 def pd_safe_read(path: Path):

@@ -187,8 +187,17 @@ def nwis_daily_temperature(
     )
     document = get_json(url, timeout=120, retries=4, base_pause_s=1.0)
     series = ((document.get("value") or {}).get("timeSeries") or [])
+    # USGS DV noDataValue is typically -999999; never treat it as °C.
+    no_data_values = {-999999.0, -999999}
     rows: list[dict[str, Any]] = []
     for item in series:
+        variable = (item.get("variable") or {}) if isinstance(item, dict) else {}
+        declared = variable.get("noDataValue")
+        if declared is not None:
+            try:
+                no_data_values.add(float(declared))
+            except (TypeError, ValueError):
+                pass
         for point in ((item.get("values") or [{}])[0].get("value") or []):
             rows.append(
                 {
@@ -204,6 +213,7 @@ def nwis_daily_temperature(
             None
         ).dt.normalize()
         frame["temperature_c"] = pd.to_numeric(frame["temperature_c"], errors="coerce")
+        frame.loc[frame["temperature_c"].isin(no_data_values), "temperature_c"] = pd.NA
         frame = frame.dropna(subset=["date"]).sort_values("date")
     else:
         frame = pd.DataFrame(columns=["site_id", "date", "temperature_c", "qualifier"])

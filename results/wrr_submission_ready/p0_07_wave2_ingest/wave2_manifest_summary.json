@@ -1,0 +1,29 @@
+{
+  "n_networks": 49,
+  "n_providers": 3,
+  "providers": [
+    "hubeau",
+    "uk_ea",
+    "usgs"
+  ],
+  "n_contexts": 13,
+  "contexts": [
+    "france",
+    "uk",
+    "usgs_huc2_01",
+    "usgs_huc2_02",
+    "usgs_huc2_03",
+    "usgs_huc2_05",
+    "usgs_huc2_07",
+    "usgs_huc2_21",
+    "usgs_huc2_22",
+    "usgs_huc2_23",
+    "usgs_huc2_24",
+    "usgs_huc2_25",
+    "usgs_huc2_28"
+  ],
+  "floors_met": true,
+  "manifest_sha256": "d4d9227f3b6361da148428049b6a5a731a8a0be8486ec031aab06c64c9da318d",
+  "scored": false,
+  "note": "Wave-2 assembled manifest only; not scored."
+}

@@ -160,7 +160,12 @@ def build_station_cases(job: dict) -> pd.DataFrame:
 
         rng = np.random.default_rng(stable_seed(network_id, station_id, int(year), protocol))
         realizations = design_for_year(
-            year_index, peak_doys, pool, rng=rng, n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3)
+            year_index,
+            peak_doys,
+            pool,
+            rng=rng,
+            n_empirical=max(1, REALIZATIONS_PER_STATION_YEAR // 3),
+            cross_overlap=bool(job.get("cross_overlap", False)),
         )
 
         for realization in realizations:

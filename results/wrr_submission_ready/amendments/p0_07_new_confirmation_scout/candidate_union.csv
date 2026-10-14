@@ -1,0 +1,133 @@
+network_id,programme_access,n_sy,n_stations,stations_ge4,year_min,year_max,access_detail,provider,source_root,waterbody_family,in_river_main,source_file,domain,river_group,n_catalog_stations,site_ids,latitude,longitude,catalog_common_start,catalog_common_end,catalog_common_years,prior_temperature_values_seen,candidate_status,v16_role,n_eligible_annual_station_years,already_used
+nve_basin_109,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 109,5.0,109.20.0|109.21.0|109.44.0|109.6.0|109.9.0,62.527484,9.139046,2018-01-17,2026-05-27,8.355920602327172,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_15,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 15,5.0,15.104.0|15.112.0|15.113.0|15.114.0|15.115.0,59.450804000000005,9.849196,2002-10-10,2010-11-08,8.07939767282683,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_12,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 12,4.0,12.188.0|12.228.0|12.534.0|12.607.0,60.229285,9.798265,2018-07-04,2026-10-11,8.271047227926077,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_123,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 123,4.0,123.50.0|123.51.0|123.52.0|123.56.0,63.281705,10.8726625,1987-08-12,1996-07-10,8.91170431211499,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_196,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 196,4.0,196.21.0|196.26.0|196.36.0|196.43.0,68.89958,19.05127,2009-10-27,2018-10-02,8.930869267624914,False,new_metadata_candidate_pending_daily_qc,,,True
+nve_basin_76,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 76,4.0,76.37.0|76.39.0|76.40.0|76.42.0,61.63086499999999,7.287145000000001,2007-11-27,2019-11-27,12.0,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_161,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 161,3.0,161.29.0|161.30.0|161.31.0,66.94621666666667,14.761690000000002,1991-10-22,2003-10-22,12.0,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_166,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 166,3.0,166.15.0|166.16.0|166.26.0,67.44837,15.772923333333331,2017-08-31,2026-09-14,9.037645448323069,False,new_metadata_candidate_pending_daily_qc,,,True
+nve_basin_167,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 167,3.0,167.36.0|167.37.0|167.38.0,67.67058999999999,16.071939999999998,1982-05-25,1992-10-17,10.39835728952772,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_36,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 36,3.0,36.60.0|36.65.0|36.68.0,59.52274333333333,6.552356666666667,1992-01-05,2004-01-05,12.0,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_400,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 400,3.0,400.1.0|400.4.0|400.7.0,78.70078,13.237593333333336,2014-08-04,2026-08-04,12.0,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_55,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 55,3.0,55.18.0|55.4.0|55.7.0,60.24680666666666,5.548460000000001,2016-04-26,2025-12-15,9.637234770704996,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_70,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 70,3.0,70.22.0|70.23.0|70.24.0,61.103993333333335,6.125109999999999,1983-01-26,1993-04-30,10.258726899383984,False,new_metadata_candidate_pending_daily_qc,,,False
+nve_basin_86,,,,,,,,nve_hydapi,,,,results/wrr_submission_ready/nve_confirmation_candidates.csv,norway,NVE drainage basin 86,3.0,86.32.0|86.33.0|86.38.0,61.69280333333333,5.963933333333333,1988-06-27,2000-06-27,12.0,False,new_metadata_candidate_pending_daily_qc,,,False
+usgs2_huc4_1111,,,4.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,second_panel_descriptive,8.0,False
+usgs2_huc6_031700,,,4.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,second_panel_descriptive,8.0,False
+nve_basin_76,,,3.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,second_panel_descriptive,5.0,False
+usgs2_huc6_180300,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,5.0,False
+usgs2_huc6_204030,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,5.0,False
+nve_basin_36,,,2.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,4.0,False
+usgs2_huc2_20,,,1.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,3.0,False
+usgs2_huc6_051201,,,1.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,3.0,False
+usgs2_huc6_060400,,,1.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,3.0,False
+usgs2_huc6_041100,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,2.0,False
+usgs2_huc6_010500,,,1.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,1.0,False
+usgs2_huc4_1804,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,0.0,False
+usgs2_huc6_070700,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,0.0,False
+usgs2_huc6_111302,,,2.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,unscored_available,0.0,False
+chmi_olse,,,0.0,,,,,chmi,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+chmi_ostravice,,,0.0,,,,,chmi,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+eccc_automated_saint_john_st_croix,,,0.0,,,,,eccc_automated,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_ager,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_alm,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_bregenzerach,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_donau,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_drau,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_enns,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_gail,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_gurk,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_inn,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_isel,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_krems,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_lieser,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_march,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_moll,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_pram,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_saalach,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_salzach,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_sill,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_steyr,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_trattnach,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_traun,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+ehyd_ziller,,,0.0,,,,,ehyd,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_adour,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_aire,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_aisne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,True
+hubeau_l_allier,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_ance,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_ard_che,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_ari_ge,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_arroux,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_aube,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_aude,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_aveyron,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,True
+hubeau_l_huisne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,True
+hubeau_l_ill,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_oise,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_l_orne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_besbre,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_creuse,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_cure,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_dordogne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_dore,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_durance,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_garonne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_marne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_meuse,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_moselle,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_sa_ne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_sarthe,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_seille,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_seine,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_sioule,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_vienne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_la_vilaine,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_cher,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_doubs,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_drac,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_golo,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_lot,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_rh_ne,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_taravo,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+hubeau_le_tarn,,,0.0,,,,,hubeau,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+lubw_lauter,,,0.0,,,,,lubw,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+lubw_murg,,,0.0,,,,,lubw,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_109,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_12,,,0.0,,,,,,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_123,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_15,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_161,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_167,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_196,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,True
+nve_basin_400,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_55,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_70,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+nve_basin_86,,,0.0,,,,,nve_hydapi,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc2_41,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_0313,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_1809,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_1905,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_1906,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_1909,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc4_2040,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_010100,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_041000,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_070102,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_071000,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_071200,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_100902,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_111401,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_120901,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_140200,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_140500,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_150100,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_160502,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_170200,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_170300,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_170402,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_170501,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_171002,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs2_huc6_190303,,,0.0,,,,,usgs,second,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False
+usgs_niobrara_river_huc4_1015,,,0.0,,,,,usgs,first,river,,results/wrr_submission_ready/confirmation_external_worksheet.csv,,,,,,,,,,,,no_temperature,0.0,False

@@ -1,0 +1,15 @@
+finding_id,severity,status,evidence,repair_track,notes
+F01,Blocker,closed_wave2_and_sanitize,amendments/p0_02_qc_ledger/; SMHI_80289_UNIT_DECISION.md; wave2 assemble plausible-C; USGS -999999 sanitized rebuilds,P0-02,Wave-2 confirmation uses cleaned panels; 80289 quarantined
+F02,Blocker,closed_wave2,screen.supported; frontier full denominator; wave2 n_cert_reconstruction_failures=0; n_candidate_cases=n_cases=13017,P0-03,Admit requires finite metric; wave-2 scored under repaired contract
+F03,Major,closed_wave2_transport_withdrawn,amendments/f03_primary_qc_diagnostic/; transport_sanitized QC gate fails; wave2 providers usgs/hubeau/uk_ea (no NVE); QC subset agrees,P0-06/P0-07,First transport seal withdrawn; wave-2 is live primary confirmation
+F04,Major,narrowed,amendments/position_length_paired/; governs withdrawn; abstract/keypoints hedged,P0-05,Paired dominate claim not asserted
+F05,Major,narrowed_empirical_caveat,manuscript empirical-arm caveats; no bankable operational guarantee in abstract,P0-05,Empirical arm remains smaller effect; labelled
+F06,Major,closed_exploratory_subset,amendments/mnar_day_level/summary.json; 240 cases / 6 nets day-level re-peak; claim exploratory_sensitivity_not_identification_bound,P0-05,Not an MNAR identification bound; masks stored for subset
+F07,Major,closed_wave2_prior_access,amendments/f07_prior_access_formats/; wave2_prior_access_summary.json clean=true; programme-used stations excluded at assemble,P0-07,"Parquet/JSON/site_id coverage expanded; wave-2 prior-access clean"
+F08,Major,closed_documented,HubEau network_key; HUC string recount amendments/f08_huc_string_recount/; wave2 USGS uses string-safe ids,P0-02,Wide HubEau nets not used as river confirmation networks
+F09,Major,narrowed_exploratory,e6 amendments remain exploratory_post_open; SNR caveats retained,P0-05/P1-02,Crossover interval not headline
+F10,Major,closed_wording,claim freeze D2/HY/REG; proxy headcounts withdrawn from conclusions,P0-08,No transported realised-peak headcount claim
+F11,Major,closed_env_lock,amendments/p0_04_env_lock/; constraints-freeze-certificate.txt; preflight existence+hash,P0-04,Certificate loads under freeze sklearn
+F12,Major,closed_binding,scripts/254_wrr_claim_binding_check.py hard_ok; wave-2 numbers bound; barred -7.9/-4.6,P0-08,Live TeX binding green after wave-2 rewrite
+F13,Major,closed_fig2b_wave2,figures/wrr/f2b includes wave-2 row; caption updated; PDFs rebuilt,P0-08,Withdrawn seals omitted; wave-2 plotted
+F14,Minor,open_human,metadata/submission_author_metadata.json complete=false; AUTHOR placeholders,P0-08,Human gate only; cannot invent names

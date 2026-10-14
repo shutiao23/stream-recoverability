@@ -56,10 +56,24 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+TEMP_C_MIN = -5.0
+TEMP_C_MAX = 50.0
+USGS_NODATA = -999999.0
+
+
 def complete_years(series: pd.Series) -> list[int]:
-    values = pd.to_numeric(series, errors="coerce")
+    import numpy as np
+
+    values = pd.to_numeric(series, errors="coerce").to_numpy(dtype=float)
+    values = np.where(np.isfinite(values) & (values == USGS_NODATA), np.nan, values)
+    values = np.where(
+        np.isfinite(values) & ((values < TEMP_C_MIN) | (values > TEMP_C_MAX)),
+        np.nan,
+        values,
+    )
+    series = pd.Series(values, index=series.index)
     years: list[int] = []
-    for year, block in values.groupby(values.index.year):
+    for year, block in series.groupby(series.index.year):
         need = 366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365
         if int(np.isfinite(block.to_numpy(dtype=float)).sum()) >= need:
             years.append(int(year))

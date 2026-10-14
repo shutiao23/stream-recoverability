@@ -1,0 +1,19 @@
+{
+  "provider": "smhi",
+  "scored": false,
+  "n_ready_networks": 0,
+  "min_stations": 2,
+  "min_complete_years": 4,
+  "accept_quality": [
+    "G",
+    "O"
+  ],
+  "temp_bounds_C": [
+    -5.0,
+    45.0
+  ],
+  "excluded_prior_stations": 723,
+  "n_fresh_catalog_stations": 0,
+  "ready_network_ids": [],
+  "note": "Wave-2 SMHI primary-candidate panels; not scored; unit bounds enforced. If n_fresh_catalog_stations=0, the HydroObs catalog is exhausted relative to multi_agency_ingest/smhi/stations_all.csv \u2014 need another primary provider."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "interim_filter_reanalysis",
+  "may_enter_abstract_or_conclusions": false,
+  "label": "[pending \u2014 \u63a2\u7d22\u671f\u6570\u636e\uff0c\u4e0d\u53ef\u5199\u5165\u7ed3\u8bba] / corrected reanalysis only",
+  "n_usgs_cases_dropped_implausible_truth": 11,
+  "n_transport_primary_dropped_implausible_truth": 41,
+  "panels": {
+    "usgs_historical_full_denom": {
+      "panel": "usgs_historical_full_denom",
+      "n_cases": 8973,
+      "n_networks": 39,
+      "n_stations": 91,
+      "contrast_points": -2.9931539563763723,
+      "ci_low_points": -6.21091577977722,
+      "ci_high_points": -0.036830241713994585,
+      "n_cert_reconstruction_failures": 664,
+      "selected_reconstruction_failure_rate": 0.058111765642413625,
+      "below_floor": false,
+      "evidence_type": "corrected_reanalysis_opened_panel"
+    },
+    "usgs_truth_plausible_only": {
+      "panel": "usgs_truth_plausible_only",
+      "n_cases": 8962,
+      "n_networks": 39,
+      "n_stations": 91,
+      "contrast_points": -2.901323130878368,
+      "ci_low_points": -6.149027632340371,
+      "ci_high_points": 0.18297614188163336,
+      "n_cert_reconstruction_failures": 664,
+      "selected_reconstruction_failure_rate": 0.05818587597640682,
+      "below_floor": false,
+      "evidence_type": "corrected_reanalysis_opened_panel"
+    },
+    "transport_primary_full_denom": {
+      "panel": "transport_primary_full_denom",
+      "n_cases": 17826,
+      "n_networks": 32,
+      "n_stations": 152,
+      "contrast_points": 5.377464337233532,
+      "ci_low_points": 0.2236418353173839,
+      "ci_high_points": 8.806966795146753,
+      "n_cert_reconstruction_failures": 2510,
+      "selected_reconstruction_failure_rate": 0.1197307260778971,
+      "below_floor": false,
+      "evidence_type": "corrected_reanalysis_opened_panel"
+    },
+    "transport_primary_truth_plausible": {
+      "panel": "transport_primary_truth_plausible",
+      "n_cases": 17785,
+      "n_networks": 32,
+      "n_stations": 151,
+      "contrast_points": 5.453815261044176,
+      "ci_low_points": 0.43844101913280653,
+      "ci_high_points": 8.841584654339432,
+      "n_cert_reconstruction_failures": 2510,
+      "selected_reconstruction_failure_rate": 0.1197590361445783,
+      "below_floor": false,
+      "evidence_type": "corrected_reanalysis_opened_panel"
+    }
+  },
+  "note": "Filtering impossible truths is necessary but not sufficient: donor training may still be contaminated. Full rebuild from sanitized daily panels remains required (rebuild_plan.json)."
+}

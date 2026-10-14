@@ -1,0 +1,18 @@
+{
+  "status": "ready_for_case_rebuild",
+  "claim_status": "corrected_reanalysis_not_first_confirmation",
+  "n_networks_ge2_stations": 31,
+  "n_stations": 110,
+  "n_complete_station_years": 1037,
+  "historical_scored_networks": 39,
+  "historical_scored_cases": 8973,
+  "steps": [
+    "Point case builder at sanitized daily panels (amendments/p0_02_sanitized_panels/panels/confirmation_ingest)",
+    "Rebuild cases with crossed length\u00d7overlap for mechanism cells (P0-05)",
+    "Apply Certificate with reconstructability-aware supported()",
+    "Score operating_point_contrast with full denominator (frontier.py)",
+    "Write amendment verdict; do not overwrite p0_07_sealed_confirmation/verdict.json",
+    "Label result corrected reanalysis of an opened panel"
+  ],
+  "note": "Below historical 39-network seal after QA; new confirmation still required for first-pass claims (P0-07)."
+}

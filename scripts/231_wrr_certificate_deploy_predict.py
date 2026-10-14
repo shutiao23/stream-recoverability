@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import joblib  # noqa: E402
+import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
@@ -78,7 +79,28 @@ def work(directory: Path, manifest) -> list[Path]:
     result["certificate_bound"] = pred["certificate_bound"].to_numpy()
     result["interval_low"] = pred["interval_low"].to_numpy()
     result["interval_high"] = pred["interval_high"].to_numpy()
-    result["would_admit_at_0.5C"] = result["certificate_bound"] <= PRIMARY_TOLERANCE_C
+    # Admission requires a finite reconstructed annual metric (F02). When the
+    # archive row already carries metric_<choice>, enforce reconstructability.
+    chosen_metric = np.full(len(result), np.nan, dtype=float)
+    choices = result["certificate_choice"].astype(str).to_numpy()
+    for estimator in sorted(set(choices)):
+        if estimator in {"", "nan", "None"}:
+            continue
+        col = f"metric_{estimator}"
+        if col not in incomplete.columns:
+            continue
+        mask = choices == estimator
+        chosen_metric[mask] = pd.to_numeric(incomplete[col], errors="coerce").to_numpy()[mask]
+    result["certificate_metric"] = chosen_metric
+    result["reconstruction_ok"] = np.isfinite(chosen_metric)
+    result["would_admit_at_0.5C"] = (
+        (result["certificate_bound"] <= PRIMARY_TOLERANCE_C) & result["reconstruction_ok"]
+    )
+    result["abstain_reason"] = np.where(
+        result["certificate_choice"].isna(),
+        "no_supported_estimator",
+        np.where(~result["reconstruction_ok"], "chosen_estimator_no_metric", ""),
+    )
     result["rule_family"] = "frozen_v17_certificate_predict"
     result["truth_required"] = False
 
@@ -94,9 +116,15 @@ def work(directory: Path, manifest) -> list[Path]:
     summary = {
         "n_incomplete_rows": n,
         "n_with_certificate_choice": n_decided,
+        "n_reconstruction_ok": int(result["reconstruction_ok"].sum()),
+        "n_admit_with_finite_metric": int(result["would_admit_at_0.5C"].sum()),
+        "n_abstain_no_metric": int((result["abstain_reason"] == "chosen_estimator_no_metric").sum()),
         "share_would_admit_at_0.5C": float(result["would_admit_at_0.5C"].mean()) if n else None,
         "certificate_path": str(CERT_PATH.relative_to(ROOT)),
-        "identity": "frozen Certificate.predict; no truth/err/abserr used",
+        "identity": (
+            "frozen Certificate.predict; no truth/err/abserr used for scoring; "
+            "admission requires finite chosen metric (F02)"
+        ),
         "vs_e2_overlap_rules": (
             "Historical E2 artifacts use peak-overlap / length thresholds and a separate "
             "risk classifier. This amendment is the verified-model deployment interface."

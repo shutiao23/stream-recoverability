@@ -8,9 +8,10 @@ P0-04 instrument-error recompute under a locked method,True,done,amendments/step
 P0-04 exact-donor-count control with generation guard,True,done,amendments/step5_mechanism_equal_k/; equal_k_mechanism.py
 P0-05 predict without truth columns,True,done,e2_certificate_predict n=2422; invariance test in amendments notes
 P0-06 method freeze,True,done,P0_06_method_freeze.json
-P0-07 sealed single-provider confirmation scored once,True,done,"39 networks, 8973 cases, pooled -7.94 pp"
-P0-07 prior-access audit corrected and reported,True,done,AMENDMENT_prior_access_sealed_panel.md; clean-subset diagnostic
-P0-07 multi-agency transport scored once (or under-delivery recorded),True,done,p0_07b_multi_agency_transport/verdict.json
+P0-07 wave-2 independent confirmation scored once,True,done,"49 networks, 13017 cases, Δ=-5.89 pp; providers=['hubeau', 'uk_ea', 'usgs']"
+P0-07 wave-2 prior-access clean + floors met,True,done,wave2_prior_access_summary.json; wave2_manifest_summary.json
+P0-07 first sealed USGS preserved (withdrawn after audit),True,done,"preserved artifact: 39 networks, pooled -7.94 pp (not live claim)"
+P0-07 first transport seal preserved (QC gate failed; withdrawn),True,done,p0_07b_multi_agency_transport/verdict.json (withdrawn; not live claim)
 P0-08 submission PDFs built from the live source,True,done,paper/wrr/wrr_manuscript.pdf; paper/wrr/wrr_supporting_information.pdf
 P0-08 author metadata,False,human_gate,metadata/submission_author_metadata.json; AUTHOR_METADATA_FAILURE_SHOUKOU.md
 P1-01 hidden-bias (pattern-mixture) sensitivity,True,done,"amendments/mnar_pattern_mixture/ (delta in [-1,+1] C, no flip)"

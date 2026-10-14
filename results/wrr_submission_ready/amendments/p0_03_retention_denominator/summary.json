@@ -1,0 +1,61 @@
+{
+  "tolerance_C": 0.5,
+  "retention_target": 0.7,
+  "rule": "k = round(0.7 * n_full). Non-finite selected certificate errors count as failures, not silent drops. Actual retention after historical dropna is reported for diagnosis only.",
+  "panels": [
+    {
+      "panel": "sealed_usgs",
+      "n_candidate_cases": 8973,
+      "n_cert_error_finite": 8309,
+      "n_cert_reconstruction_failures": 664,
+      "n_donor_ridge_choices": 4802,
+      "n_donor_ridge_nan_error": 664,
+      "target_retention": 0.7,
+      "k_selected_full_denominator": 6281,
+      "selected_success_recon": 5916,
+      "selected_recon_failure": 365,
+      "selected_consequential_error": 243,
+      "selected_ok_within_tolerance": 5673,
+      "failure_rate_full_denom_selected": 0.09679987263174654,
+      "actual_retention_if_dropna_first": 0.6482001560236264,
+      "old_dropna_n": 8309,
+      "policy_selected_failure_rate": 0.05906702754338481
+    },
+    {
+      "panel": "transport_extended",
+      "n_candidate_cases": 27901,
+      "n_cert_error_finite": 23224,
+      "n_cert_reconstruction_failures": 4677,
+      "n_donor_ridge_choices": 20471,
+      "n_donor_ridge_nan_error": 4677,
+      "target_retention": 0.7,
+      "k_selected_full_denominator": 19531,
+      "selected_success_recon": 16821,
+      "selected_recon_failure": 2710,
+      "selected_consequential_error": 483,
+      "selected_ok_within_tolerance": 16338,
+      "failure_rate_full_denom_selected": 0.16348369259126516,
+      "actual_retention_if_dropna_first": 0.582660119708971,
+      "old_dropna_n": 23224,
+      "policy_selected_failure_rate": 0.05099585274691516
+    },
+    {
+      "panel": "transport_primary",
+      "n_candidate_cases": 17826,
+      "n_cert_error_finite": 15316,
+      "n_cert_reconstruction_failures": 2510,
+      "n_donor_ridge_choices": 13339,
+      "n_donor_ridge_nan_error": 2510,
+      "target_retention": 0.7,
+      "k_selected_full_denominator": 12478,
+      "selected_success_recon": 10984,
+      "selected_recon_failure": 1494,
+      "selected_consequential_error": 303,
+      "selected_ok_within_tolerance": 10681,
+      "failure_rate_full_denom_selected": 0.14401346369610515,
+      "actual_retention_if_dropna_first": 0.6014361045663636,
+      "old_dropna_n": 15316,
+      "policy_selected_failure_rate": 0.047523641609232246
+    }
+  ]
+}

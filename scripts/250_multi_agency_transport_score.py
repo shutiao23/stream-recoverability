@@ -58,10 +58,22 @@ def _load_sealed_panel(network_id: str, _source_root: str) -> pd.DataFrame:
     return panel
 
 
+TEMP_C_MIN = -5.0
+TEMP_C_MAX = 50.0
+USGS_NODATA = -999999.0
+
+
 def _complete_years_from_series(series: pd.Series) -> list[int]:
-    values = pd.to_numeric(series, errors="coerce")
+    values = pd.to_numeric(series, errors="coerce").to_numpy(dtype=float)
+    values = np.where(np.isfinite(values) & (values == USGS_NODATA), np.nan, values)
+    values = np.where(
+        np.isfinite(values) & ((values < TEMP_C_MIN) | (values > TEMP_C_MAX)),
+        np.nan,
+        values,
+    )
+    series = pd.Series(values, index=series.index)
     years: list[int] = []
-    for year, block in values.groupby(values.index.year):
+    for year, block in series.groupby(series.index.year):
         need = 366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365
         if int(np.isfinite(block.to_numpy(dtype=float)).sum()) >= need:
             years.append(int(year))
@@ -173,34 +185,37 @@ def score(directory: Path, _manifest) -> list[Path]:
             block.reset_index(drop=True), sub.reset_index(drop=True), retention=PRIMARY_RETENTION, seed=0, draws=800
         )
 
-    # Assurance strata (Amendment 2): station-level assurance joined onto cases.
-    assurance = (
-        manifest["quality_assurance"].astype(str).str.split(";").explode().rename("quality_assurance").reset_index()
-    )
-    assurance = assurance.drop_duplicates("network_id")
-    cases_assurance = cases.merge(assurance, on="network_id", how="left")
-    by_assurance = {}
-    for stratum, block in cases_assurance.groupby("quality_assurance"):
-        value = _contrast(block)
-        if value is not None:
-            by_assurance[str(stratum)] = value
-
-    quality_checked = cases_assurance.loc[
-        cases_assurance["quality_assurance"].astype(str).eq("quality_checked")
-    ]
-    qc_contrast = _contrast(quality_checked)
-
+    # Panel role first (Amendment 2026-10-13 / F03): quality strata are defined
+    # inside a single panel. Mixing NVE secondary into quality_checked before
+    # splitting primary/secondary invalidates the pre-registered gate.
     roles = manifest["panel_role"].astype(str).rename("panel_role").reset_index()
     cases_role = cases.merge(roles, on="network_id", how="left")
     primary_cases = cases_role.loc[
         cases_role["panel_role"].astype(str).eq("primary_new_agency")
-    ]
+    ].copy()
     secondary_cases = cases_role.loc[
         cases_role["panel_role"].astype(str).eq("secondary_development_provider")
-    ]
+    ].copy()
     primary_contrast = _contrast(primary_cases)
     secondary_contrast = _contrast(secondary_cases)
     extended_contrast = _contrast(cases_role)
+
+    assurance = (
+        manifest["quality_assurance"].astype(str).str.split(";").explode().rename("quality_assurance").reset_index()
+    )
+    assurance = assurance.drop_duplicates("network_id")
+    # Assurance contrasts on the primary panel only (protocol gate).
+    primary_assurance = primary_cases.merge(assurance, on="network_id", how="left")
+    by_assurance = {}
+    for stratum, block in primary_assurance.groupby("quality_assurance"):
+        value = _contrast(block)
+        if value is not None:
+            by_assurance[str(stratum)] = value
+
+    quality_checked = primary_assurance.loc[
+        primary_assurance["quality_assurance"].astype(str).eq("quality_checked")
+    ]
+    qc_contrast = _contrast(quality_checked)
 
     point = float(pooled["point"] * 100)
     low = float(pooled["low"] * 100)

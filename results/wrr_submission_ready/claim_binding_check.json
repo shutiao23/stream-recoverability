@@ -5,15 +5,23 @@
       "ok": true
     },
     "DEPLOY-CERT": {
-      "detail": "n=2422",
+      "detail": "n=2422 repaired_identity=True",
       "ok": true
     },
     "NVE-PROBE": {
       "detail": "{\"panel\": \"nve_never_used_probe_not_full_floor\", \"n_networks\": 2, \"n_stations\": 2, \"n_cases\": 62, \"contrast_points\": 2.3",
       "ok": true
     },
+    "P0-07": {
+      "detail": "wave2 \u0394=-5.89332748024583 rule_met=True",
+      "ok": true
+    },
     "P0-07-POOL": {
-      "detail": "-7.94 [-10.15,-5.75]",
+      "detail": "status=executed_audit_failed may_enter=False",
+      "ok": true
+    },
+    "P0-07-TRANSPORT": {
+      "detail": "status=executed_audit_failed may_enter=False",
       "ok": true
     },
     "S1": {
@@ -42,6 +50,8 @@
     "A4",
     "BASE",
     "C14",
+    "D2",
+    "DEPLOY-CERT",
     "FAIR",
     "HY",
     "L1",
@@ -51,6 +61,10 @@
     "MEAS",
     "N1",
     "NVE-PROBE",
+    "P0-06-TRANSPORT-SAN",
+    "P0-06-USGS-SAN",
+    "P0-07-POOL",
+    "P0-07-TRANSPORT",
     "R1",
     "REG"
   ],
@@ -96,9 +110,12 @@
   "hard_ok": true,
   "label_violations": [],
   "seal_consistency": {
-    "abstract_says_open": false,
+    "cites_wave2": true,
+    "claims_confirmed": false,
     "consistent": true,
     "detail": "scored=True networks=53 providers=4",
-    "transport_seal_scored": true
+    "marks_pending": true,
+    "transport_seal_scored": true,
+    "wave2_scored": true
   }
 }

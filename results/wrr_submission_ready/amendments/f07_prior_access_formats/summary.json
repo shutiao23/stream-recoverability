@@ -1,0 +1,15 @@
+{
+  "n_artifacts": 375236,
+  "by_format": {
+    "parquet": 236316,
+    "json": 138920
+  },
+  "by_class": {
+    "outcome_bearing": 236777,
+    "metadata": 137788,
+    "temperature_or_summary": 671
+  },
+  "note": "Coverage expansion only. Presence of a station_id/site_id in an artifact is prior contact of some class; it does not prove outcome-based tuning. New confirmation must classify each hit against freeze time.",
+  "audit_was_csv_station_id_only": true,
+  "csv_audit_script": "scripts/245_multi_agency_prior_access_audit.py"
+}

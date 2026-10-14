@@ -57,8 +57,23 @@ def _load_sealed_panel(network_id: str, source_root: str) -> pd.DataFrame:
     return panel
 
 
+# Plausible liquid river daily means (°C). Values outside this band are treated
+# as missing encodings / unit failures, not measurements (F01).
+TEMP_C_MIN = -5.0
+TEMP_C_MAX = 50.0
+USGS_NODATA = -999999.0
+
+
 def _complete_years_from_series(series: pd.Series) -> list[int]:
     s = pd.to_numeric(series, errors="coerce")
+    values = s.to_numpy(dtype=float)
+    values = np.where(np.isfinite(values) & (values == USGS_NODATA), np.nan, values)
+    values = np.where(
+        np.isfinite(values) & ((values < TEMP_C_MIN) | (values > TEMP_C_MAX)),
+        np.nan,
+        values,
+    )
+    s = pd.Series(values, index=s.index)
     years = []
     for year, block in s.groupby(s.index.year):
         need = 366 if ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)) else 365

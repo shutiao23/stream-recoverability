@@ -176,7 +176,15 @@ def figure1_mechanism() -> None:
         color=ORANGE,
     )
     ax.set_xlabel("drop in out-of-fold R² when permuted")
-    ax.set_title(("c  Length adds almost nothing" if journal_mode() else "c  For the peak, outage length adds almost nothing"), loc="left", pad=8)
+    ax.set_title(
+        (
+            "c  One-at-a-time length features"
+            if journal_mode()
+            else "c  Length features permuted one at a time (not a grouped test)"
+        ),
+        loc="left",
+        pad=8,
+    )
     ax.grid(axis="y", visible=False)
 
     ax = axes[3]
@@ -199,7 +207,7 @@ def figure1_mechanism() -> None:
     for xi, metric in zip(x, order):
         timing = max(block.loc[metric, "auc_peak_overlap"], block.loc[metric, "auc_warm_coverage"])
         length = block.loc[metric, "auc_longest_run"]
-        winner = "timing" if timing > length else "length"
+        winner = "timing" if timing > length else ("length*" if metric == "coldest30" else "length")
         ax.text(
             xi,
             0.905 if journal_mode() else max(timing, length) + 0.018,
@@ -466,7 +474,7 @@ def main() -> int:
     figure3_calibration()
     figure4_consequence()
     captions = {
-        "fig1_mechanism": "For warm-season extremes, outage length is a weak axis and peak-window overlap and donor quality govern the error; panel d shows the ordering reverses for the annual mean and the cold extreme.",
+        "fig1_mechanism": "For warm-season extremes, peak-window overlap and donor quality predict error risk; panel d's cold-extreme 'length' label uses a warm-season axis and is not a winter-support result. Length variables were permuted one at a time, not as a group.",
         "fig2_frontier": "Retention-error frontier against the incumbent fixed-length screening rule.",
         "fig3_calibration": "Conformal coverage on reserved networks, marginal and within pre-declared strata, and what site-level validity costs in interval width.",
         "fig4_consequence": "What changes for a per-year judgement, and the controlled donor experiments.",

@@ -123,27 +123,50 @@ def main() -> int:
     # P0-06 freeze
     add("P0-06 method freeze", exists("results/wrr_submission_ready/P0_06_method_freeze.json"), "done", "P0_06_method_freeze.json")
 
-    # P0-07 confirmation + transport
-    sealed = load("results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json")
+    # P0-07: wave-2 is the live confirmation; first seals preserved as withdrawn.
+    wave2_path = "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json"
+    wave2 = load(wave2_path) if exists(wave2_path) else {}
+    seal_new = load("results/wrr_submission_ready/P0_07_NEW_CONFIRMATION_SEAL.json") if exists(
+        "results/wrr_submission_ready/P0_07_NEW_CONFIRMATION_SEAL.json"
+    ) else {}
     add(
-        "P0-07 sealed single-provider confirmation scored once",
-        bool(sealed.get("scored_once")) and int(sealed["n_networks"]) >= 30,
+        "P0-07 wave-2 independent confirmation scored once",
+        bool(wave2.get("predeclared_success_rule_met"))
+        and bool(wave2.get("scored_once"))
+        and bool(seal_new.get("scored"))
+        and int(wave2.get("n_networks") or 0) >= 30
+        and int(wave2.get("n_cert_reconstruction_failures") or 0) == 0,
         "done",
-        f"39 networks, {sealed['n_cases']} cases, pooled {sealed['contrast_points']:.2f} pp",
+        (
+            f"{wave2.get('n_networks')} networks, {wave2.get('n_cases')} cases, "
+            f"Δ={float(wave2.get('contrast_points', 0)):.2f} pp; "
+            f"providers={wave2.get('providers')}"
+            if wave2
+            else "missing wave2 verdict"
+        ),
     )
     add(
-        "P0-07 prior-access audit corrected and reported",
-        exists("results/wrr_submission_ready/AMENDMENT_prior_access_sealed_panel.md")
-        and exists("results/wrr_submission_ready/amendments/sealed_usgs_prior_access_diagnostic/summary.json"),
+        "P0-07 wave-2 prior-access clean + floors met",
+        exists("results/wrr_submission_ready/p0_07_wave2_ingest/wave2_prior_access_summary.json")
+        and exists("results/wrr_submission_ready/p0_07_wave2_ingest/wave2_manifest_summary.json")
+        and bool(load("results/wrr_submission_ready/p0_07_wave2_ingest/wave2_prior_access_summary.json").get("clean"))
+        and bool(load("results/wrr_submission_ready/p0_07_wave2_ingest/wave2_manifest_summary.json").get("floors_met")),
         "done",
-        "AMENDMENT_prior_access_sealed_panel.md; clean-subset diagnostic",
+        "wave2_prior_access_summary.json; wave2_manifest_summary.json",
+    )
+    sealed = load("results/wrr_submission_ready/p0_07_sealed_confirmation/verdict.json")
+    add(
+        "P0-07 first sealed USGS preserved (withdrawn after audit)",
+        bool(sealed.get("scored_once")) and int(sealed["n_networks"]) >= 30,
+        "done",
+        f"preserved artifact: 39 networks, pooled {sealed['contrast_points']:.2f} pp (not live claim)",
     )
     transport_scored = exists("results/wrr_submission_ready/p0_07b_multi_agency_transport/verdict.json")
     add(
-        "P0-07 multi-agency transport scored once (or under-delivery recorded)",
+        "P0-07 first transport seal preserved (QC gate failed; withdrawn)",
         transport_scored or exists("results/wrr_submission_ready/multi_agency_seal.json"),
         "done" if transport_scored else "failure_shoukou",
-        "p0_07b_multi_agency_transport/verdict.json" if transport_scored else "multi_agency_seal.json",
+        "p0_07b_multi_agency_transport/verdict.json (withdrawn; not live claim)",
     )
 
     # P0-08 package

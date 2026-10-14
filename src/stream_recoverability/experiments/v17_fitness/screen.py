@@ -80,15 +80,36 @@ def feature_frame(cases: pd.DataFrame, features: Sequence[str] | None = None) ->
 
 
 def supported(cases: pd.DataFrame, estimator: str) -> np.ndarray:
-    """An estimator is supported when its inputs exist, judged without the truth."""
+    """An estimator is supported when its reconstruction contract can be met.
+
+    Decision-time features gate candidates. When a finite ``metric_<estimator>``
+    column is already present (designed cases or archive deployment rows), it is
+    required as well: selecting a method that cannot return the annual metric is
+    not support. Missing metric columns leave the feature gate alone (live
+    reconstruction must still verify finiteness before admission).
+    """
 
     if estimator == "donor_ridge":
-        return (pd.to_numeric(cases["n_visible_donors"], errors="coerce").fillna(0) > 0).to_numpy()
-    if estimator == "air_ridge":
-        return cases["air_available"].astype(bool).to_numpy()
-    if estimator == "linear_interp":
-        return (cases["left_flank"].astype(bool) & cases["right_flank"].astype(bool)).to_numpy()
-    return np.ones(len(cases), dtype=bool)
+        visible = pd.to_numeric(cases["n_visible_donors"], errors="coerce").fillna(0) > 0
+        if "donor_coverage_mean" in cases.columns:
+            coverage = pd.to_numeric(cases["donor_coverage_mean"], errors="coerce")
+            # Match usable_donors threshold: at least one donor covering 90% of
+            # hidden days on average is necessary but not sufficient; metric
+            # finiteness below closes the remaining train/predict failures.
+            visible = visible & coverage.fillna(0).ge(0.90)
+        mask = visible.to_numpy()
+    elif estimator == "air_ridge":
+        mask = cases["air_available"].astype(bool).to_numpy()
+    elif estimator == "linear_interp":
+        mask = (cases["left_flank"].astype(bool) & cases["right_flank"].astype(bool)).to_numpy()
+    else:
+        mask = np.ones(len(cases), dtype=bool)
+
+    metric_col = f"metric_{estimator}"
+    if metric_col in cases.columns:
+        finite = pd.to_numeric(cases[metric_col], errors="coerce").to_numpy(dtype=float)
+        mask = mask & np.isfinite(finite)
+    return mask
 
 
 @dataclass
@@ -234,9 +255,15 @@ class Certificate:
             highs[estimator] = high
         if not any_trained:
             return None
+        # Prefer the lowest bound among estimators that are actually supported
+        # (including reconstructability when metric_* is present). Unsupported
+        # estimators stay at +inf from the loop above.
         chosen = bounds.idxmin(axis=1)
         raw_bound = bounds.min(axis=1)
         valid = np.isfinite(raw_bound.to_numpy())
+        # Abstain when no supported estimator remains (all +inf).
+        chosen = chosen.where(valid, other=pd.NA)
+        raw_bound = raw_bound.where(valid, other=np.nan)
         frame = pd.DataFrame(index=cases.index)
         frame["chosen"] = chosen
         frame["raw_bound"] = raw_bound

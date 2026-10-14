@@ -1,0 +1,40 @@
+{
+  "panel": "usgs_sanitized_corrected_reanalysis",
+  "evidence_type": "corrected_reanalysis_opened_panel",
+  "may_enter_abstract_or_conclusions": false,
+  "label": "[pending \u2014 \u63a2\u7d22\u671f\u6570\u636e\uff0c\u4e0d\u53ef\u5199\u5165\u7ed3\u8bba]",
+  "n_networks": 28,
+  "n_stations": 80,
+  "n_cases": 8286,
+  "retention": 0.7,
+  "tolerance_C": 0.5,
+  "contrast_points": -6.879310344827585,
+  "ci_low_points": -8.05128902978574,
+  "ci_high_points": -5.473299555638293,
+  "n_candidate_cases": 8286,
+  "n_cert_reconstruction_failures": 0,
+  "selected_reconstruction_failure_rate": 0.0,
+  "n_implausible_truth_remaining": 0,
+  "n_cert_error_finite": 8286,
+  "by_arm_points": {
+    "empirical": {
+      "contrast_points": -1.3199817933545743,
+      "ci_low_points": -1.8834244159023523,
+      "ci_high_points": -0.7177510599748498
+    },
+    "stratified": {
+      "contrast_points": -9.325562031640299,
+      "ci_low_points": -11.039015820352823,
+      "ci_high_points": -7.418379902962549
+    }
+  },
+  "freeze_certificate": "results/v17_fitness/step9_freeze/certificate.joblib",
+  "input_panels": "results/wrr_submission_ready/amendments/p0_02_sanitized_panels/panels",
+  "historical_seal_untouched": true,
+  "predeclared_gate_delta_le_minus_1_and_ci_high_lt_0": true,
+  "limitations": [
+    "Corrected reanalysis of an opened panel; not a first confirmation",
+    "USGS-only; full rebuild from sanitized panels required donor retrain",
+    "Do not retune thresholds after this score"
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "sklearn_runtime": "1.2.2",
+  "required_for_certificate": "1.2.2",
+  "constraints_txt_scikit_learn": "1.7.2",
+  "freeze_lock_file": "constraints-freeze-certificate.txt",
+  "freeze_lock_exists": true,
+  "freeze_lock_mentions_1_2_2": true,
+  "certificate_load": {
+    "ok": true,
+    "type": "stream_recoverability.experiments.v17_fitness.screen.Certificate",
+    "n_features": 25,
+    "heads": [
+      "doy_climatology",
+      "smooth_climatology",
+      "linear_interp",
+      "donor_ridge",
+      "air_ridge"
+    ],
+    "certificate_sha256": "97736b74f9988a6158de6c1bb9884922d4b6ddd18c7270af9b53c6ba852f9d7e",
+    "certificate_bytes": 6560015,
+    "predict_smoke_n": 8,
+    "predict_smoke_ok": true,
+    "predict_columns": [
+      "certificate_choice",
+      "certificate_bound",
+      "certificate_raw_bound",
+      "interval_low",
+      "interval_high",
+      "interval_width",
+      "bound_doy_climatology",
+      "bound_smooth_climatology",
+      "bound_linear_interp",
+      "bound_donor_ridge",
+      "bound_air_ridge"
+    ]
+  },
+  "preflight": {
+    "ok": true,
+    "n_checks": 7,
+    "absent": 0,
+    "hash_mismatch": 0,
+    "size_mismatch": 0,
+    "checked_inputs": 146,
+    "required_files": [
+      {
+        "path": "results/wrr_submission_ready/claim_registry.csv",
+        "exists": true
+      },
+      {
+        "path": "results/wrr_submission_ready/current_data_manifest.csv",
+        "exists": true
+      },
+      {
+        "path": "results/wrr_submission_ready/measurement_provenance.csv",
+        "exists": true
+      },
+      {
+        "path": "results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv",
+        "exists": true
+      },
+      {
+        "path": "results/wrr_submission_ready/P0_06_method_freeze.json",
+        "exists": true
+      },
+      {
+        "path": "results/wrr_submission_ready/CONFIRMATION_PROTOCOL_SEALED.md",
+        "exists": true
+      },
+      {
+        "path": "current_data_manifest.csv",
+        "n_status_not_present": 0,
+        "n_input_rows_checked": 146,
+        "n_files_absent": 0,
+        "n_size_mismatch": 0,
+        "n_hash_mismatch": 0
+      }
+    ]
+  },
+  "manifest_on_disk": {
+    "n": 146,
+    "absent": [],
+    "n_absent": 0,
+    "hash_mismatch": [],
+    "n_hash_mismatch": 0
+  },
+  "load_compatible_with_runtime": true,
+  "constraints_txt_would_break_load": true,
+  "two_environment_contract": "Reviewer reconstruction of Certificate.predict must install constraints-freeze-certificate.txt (scikit-learn==1.2.2). Installing constraints.txt (1.7.2) is expected to fail pickle load. Cache redraw of figures does not require the joblib.",
+  "reviewer_input_bundle": {
+    "path": "dist/wrr_study_inputs_v1.tar.gz",
+    "exists": true,
+    "builder": "scripts/262_wrr_reviewer_input_bundle.py",
+    "lubw_note": "bundle is confidential review-only because LUBW reserves redistribution"
+  },
+  "ok": true
+}
