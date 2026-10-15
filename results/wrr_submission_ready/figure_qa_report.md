@@ -1,6 +1,6 @@
 # WRR figure and PDF quality assurance
 
-Generated 2026-10-15T11:15:13Z by `python3 scripts/266_wrr_figure_qa.py`.
+Generated 2026-10-15T11:29:58Z by `python3 scripts/266_wrr_figure_qa.py`.
 
 * JSON: `results/wrr_submission_ready/figure_qa.json`
 * Markdown: `results/wrr_submission_ready/figure_qa_report.md`
@@ -77,7 +77,7 @@ No warning-level finding is classified as a real defect.
 | document | pages | page size (pt) | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | same baseline | min raster ppi |
 |---|---|---|---|---|---|---|---|---|---|---|
 | `paper/wrr/wrr_manuscript.pdf` | 61 | 612.00 x 792.00 | 8.50 x 11.00 | 39 | 0 | 0 | 3.98 | 70 | 2 | 324 |
-| `paper/wrr/wrr_supporting_information.pdf` | 18 | 612.00 x 792.00 | 8.50 x 11.00 | 38 | 0 | 0 | 4.70 | 16 | 0 | - |
+| `paper/wrr/wrr_supporting_information.pdf` | 20 | 612.00 x 792.00 | 8.50 x 11.00 | 39 | 0 | 0 | 4.70 | 16 | 0 | - |
 
 ## 1. Fonts (check a)
 
@@ -103,7 +103,7 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/wrr_manuscript.pdf` | 39 | CID TrueType x4, Type 1 x27, Type 3 x8 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `EVICAO+DejaVuSans-Bold`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
-| `paper/wrr/wrr_supporting_information.pdf` | 38 | CID TrueType x1, CID Type 0C x6, Type 1 x18, Type 1C x10, Type 3 x3 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
+| `paper/wrr/wrr_supporting_information.pdf` | 39 | CID TrueType x1, CID Type 0C x6, Type 1 x19, Type 1C x10, Type 3 x3 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
 
 `[none]` is the name Poppler reports for a producer-embedded Type 3 subset with no BaseFont entry (matplotlib's default pdf.fonttype=3); the font is embedded even though it is unnamed.
 
@@ -131,7 +131,7 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 395.58 x 360.14 | 5.49 x 5.00 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | 394.78 x 351.30 | 5.48 x 4.88 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/wrr_manuscript.pdf` | 61 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
-| `paper/wrr/wrr_supporting_information.pdf` | 18 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
+| `paper/wrr/wrr_supporting_information.pdf` | 20 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
 
 ## 3. Text outside the page box (check c)
 
@@ -160,8 +160,8 @@ No word box extends more than 1.0 pt outside its page in any target PDF.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 10.97 | 10.97 | 12.10 | 0 | 0 | 57 | 0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 4.29 | 10.59 | 12.10 | 1 | 0 | 74 | 0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 12.10 | 12.10 | 14.18 | 0 | 0 | 42 | 0 |
-| `paper/wrr/wrr_manuscript.pdf` | 20958 | 3.98 | 7.08 | 8.85 | 3 | 0 | 307 | 0 |
-| `paper/wrr/wrr_supporting_information.pdf` | 5315 | 4.70 | 5.61 | 8.85 | 0 | 0 | 74 | 0 |
+| `paper/wrr/wrr_manuscript.pdf` | 21266 | 3.98 | 7.08 | 8.85 | 3 | 0 | 307 | 0 |
+| `paper/wrr/wrr_supporting_information.pdf` | 5704 | 4.70 | 5.61 | 8.85 | 0 | 0 | 74 | 0 |
 
 No word box is below 4.5 pt in any target PDF.
 
@@ -190,8 +190,8 @@ Rule: pairs of word boxes whose intersection area exceeds 25% of the smaller box
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 12 | 0 | 12 | 0 | 0/0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 2 | 0 | 2 | 0 | 0/0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 5 | 0 | 5 | 0 | 0/0 |
-| `paper/wrr/wrr_manuscript.pdf` | 20958 | 70 | 2 | 3 | 65 | 0/0 |
-| `paper/wrr/wrr_supporting_information.pdf` | 5315 | 16 | 0 | 16 | 0 | 0/0 |
+| `paper/wrr/wrr_manuscript.pdf` | 21266 | 70 | 2 | 3 | 65 | 0/0 |
+| `paper/wrr/wrr_supporting_information.pdf` | 5704 | 16 | 0 | 16 | 0 | 0/0 |
 
 ### Flagged pairs
 
@@ -365,22 +365,22 @@ Pair classification: `adjacent_line_padding` x3; `atypical_box_geometry` x65; `s
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 15 | adjacent_line_padding | 69.5 | `+` | (409.08, 192.1, 414.97, 205.41) | `6.2` | (409.14, 196.06, 420.95, 210.1) | 3.96 | 11.82 |
-| 15 | adjacent_line_padding | 56.5 | `6.2` | (429.94, 195.86, 441.74, 209.9) | `°C` | (435.11, 192.1, 443.53, 205.41) | 3.76 | 11.82 |
-| 15 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `length` | (389.72, 454.43, 412.14, 467.73) | 6.81 | 11.82 |
-| 15 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `rule` | (414.38, 454.43, 428.01, 467.73) | 6.81 | 11.82 |
-| 15 | adjacent_line_padding | 48.0 | `reference` | (373.26, 192.1, 406.84, 205.41) | `6.0` | (375.21, 198.67, 387.01, 212.71) | 6.57 | 11.82 |
-| 14 | adjacent_line_padding | 44.4 | `days` | (187.64, 347.4, 202.79, 359.54) | `on` | (190.49, 340.66, 198.49, 352.79) | 6.74 | 12.14 |
-| 14 | adjacent_line_padding | 44.4 | `length-rule` | (338.57, 340.66, 373.78, 352.79) | `screening` | (340.53, 347.4, 371.79, 359.54) | 6.74 | 12.14 |
-| 14 | adjacent_line_padding | 44.4 | `anomalies` | (428.11, 516.27, 461.08, 528.41) | `shuffled` | (431.67, 523.02, 457.48, 535.15) | 6.74 | 12.14 |
-| 14 | adjacent_line_padding | 44.4 | `certificate` | (428.42, 340.66, 460.8, 352.79) | `screening` | (428.96, 347.4, 460.22, 359.54) | 6.74 | 12.14 |
-| 14 | adjacent_line_padding | 42.5 | `reconstruct,` | (248.42, 340.66, 287.04, 352.79) | `screening` | (257.13, 347.4, 288.39, 359.54) | 6.74 | 12.14 |
-| 14 | adjacent_line_padding | 40.0 | `observed` | (155.85, 347.4, 185.6, 359.54) | `compute` | (160.13, 340.66, 188.45, 352.79) | 6.74 | 12.14 |
-| 15 | adjacent_line_padding | 37.6 | `(primary)` | (144.28, 214.85, 179.13, 228.89) | `30` | (162.58, 206.09, 172.03, 220.13) | 8.76 | 11.82 |
-| 15 | adjacent_line_padding | 37.6 | `(primary)` | (144.28, 214.85, 179.13, 228.89) | `d` | (174.39, 206.09, 179.1, 220.13) | 8.76 | 11.82 |
-| 15 | adjacent_line_padding | 37.6 | `window)` | (147.9, 190.64, 178.97, 204.68) | `7` | (167.33, 181.88, 172.05, 195.92) | 8.76 | 11.82 |
-| 14 | adjacent_line_padding | 37.0 | `no` | (247.09, 347.4, 255.09, 359.54) | `reconstruct,` | (248.42, 340.66, 287.04, 352.79) | 6.74 | 12.14 |
-| 15 | adjacent_line_padding | 36.4 | `window)` | (147.9, 190.64, 178.97, 204.68) | `d` | (174.41, 181.88, 179.13, 195.92) | 8.76 | 11.82 |
+| 17 | adjacent_line_padding | 69.5 | `+` | (409.08, 192.1, 414.97, 205.41) | `6.2` | (409.14, 196.06, 420.95, 210.1) | 3.96 | 11.82 |
+| 17 | adjacent_line_padding | 56.5 | `6.2` | (429.94, 195.86, 441.74, 209.9) | `°C` | (435.11, 192.1, 443.53, 205.41) | 3.76 | 11.82 |
+| 17 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `length` | (389.72, 454.43, 412.14, 467.73) | 6.81 | 11.82 |
+| 17 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `rule` | (414.38, 454.43, 428.01, 467.73) | 6.81 | 11.82 |
+| 17 | adjacent_line_padding | 48.0 | `reference` | (373.26, 192.1, 406.84, 205.41) | `6.0` | (375.21, 198.67, 387.01, 212.71) | 6.57 | 11.82 |
+| 16 | adjacent_line_padding | 44.4 | `days` | (187.64, 347.4, 202.79, 359.54) | `on` | (190.49, 340.66, 198.49, 352.79) | 6.74 | 12.14 |
+| 16 | adjacent_line_padding | 44.4 | `length-rule` | (338.57, 340.66, 373.78, 352.79) | `screening` | (340.53, 347.4, 371.79, 359.54) | 6.74 | 12.14 |
+| 16 | adjacent_line_padding | 44.4 | `anomalies` | (428.11, 516.27, 461.08, 528.41) | `shuffled` | (431.67, 523.02, 457.48, 535.15) | 6.74 | 12.14 |
+| 16 | adjacent_line_padding | 44.4 | `certificate` | (428.42, 340.66, 460.8, 352.79) | `screening` | (428.96, 347.4, 460.22, 359.54) | 6.74 | 12.14 |
+| 16 | adjacent_line_padding | 42.5 | `reconstruct,` | (248.42, 340.66, 287.04, 352.79) | `screening` | (257.13, 347.4, 288.39, 359.54) | 6.74 | 12.14 |
+| 16 | adjacent_line_padding | 40.0 | `observed` | (155.85, 347.4, 185.6, 359.54) | `compute` | (160.13, 340.66, 188.45, 352.79) | 6.74 | 12.14 |
+| 17 | adjacent_line_padding | 37.6 | `(primary)` | (144.28, 214.85, 179.13, 228.89) | `30` | (162.58, 206.09, 172.03, 220.13) | 8.76 | 11.82 |
+| 17 | adjacent_line_padding | 37.6 | `(primary)` | (144.28, 214.85, 179.13, 228.89) | `d` | (174.39, 206.09, 179.1, 220.13) | 8.76 | 11.82 |
+| 17 | adjacent_line_padding | 37.6 | `window)` | (147.9, 190.64, 178.97, 204.68) | `7` | (167.33, 181.88, 172.05, 195.92) | 8.76 | 11.82 |
+| 16 | adjacent_line_padding | 37.0 | `no` | (247.09, 347.4, 255.09, 359.54) | `reconstruct,` | (248.42, 340.66, 287.04, 352.79) | 6.74 | 12.14 |
+| 17 | adjacent_line_padding | 36.4 | `window)` | (147.9, 190.64, 178.97, 204.68) | `d` | (174.41, 181.88, 179.13, 195.92) | 8.76 | 11.82 |
 
 Pair classification: `adjacent_line_padding` x16.
 

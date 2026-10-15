@@ -40,7 +40,7 @@ screen for annual thermal extremes in incomplete river-temperature records''}
 \begin{enumerate}
   \item Text S1 to S8
   \item Figures S1 to S8
-  \item Tables S1 to S2
+  \item Tables S1 to S3
 \end{enumerate}
 
 \section*{Introduction}
@@ -320,6 +320,49 @@ deterministic parse of
 \texttt{measurement\_provenance\_dictionary.csv}, and the matched wording is stored
 per row in the coverage table.}
 \end{table}
+
+\section{Parameters, their roles, and the archive}
+
+Every quantity that enters a result has one of four roles, and mixing them is a
+common source of confusion, so they are listed with the role stated
+(Table~\ref{tab:si-params}).
+
+\begin{table}
+\caption{Model and decision parameters by role. "Fitted" means estimated from
+data at run time; "fixed" means a constant chosen before any result was seen;
+"calibrated" means chosen on networks disjoint from the cases it is applied to;
+"declared" means a study tolerance rather than a model quantity.}
+\label{tab:si-params}
+\small
+\centering
+\begin{tabular}{p{0.30\textwidth}p{0.14\textwidth}p{0.50\textwidth}}
+\hline
+quantity & role & value or source \\
+\hline
+ridge penalty of the donor and air estimators & fixed & $\alpha = 1.0$, seven air lags, whole-year fit \\
+gradient-boosted risk score & fitted & quantile 0.9, on the decision-time feature set; refit per fold \\
+admission threshold & calibrated & largest retention in $0.10$--$0.95$ whose calibration false-admit rate plus its one-sided clustered 95\,\% bound stays under the cap; 0.42--0.72\,$^{\circ}$C on the replay folds, 31--61 days of gap length for the simple rules \\
+conformal multiplier & calibrated & scale factor turning the predicted bound into a valid interval, fitted on calibration networks \\
+absolute admission rule & declared & admit when the predicted bound is at most $0.5\,^{\circ}$C \\
+consequential-error tolerance $\tau$ & declared & $0.5\,^{\circ}$C, i.e.\ 0.47 of each endpoint's interannual SD \\
+retention operating point & declared & 70\,\% for ranking comparisons; the risk cap (5\,\%) for admission comparisons \\
+network folds & fixed & 5 outer folds by network, 3 fold seeds (101/202/303), 4 inner folds for the risk score \\
+bootstrap draws & fixed & 1000 for threshold selection, 2000 for evaluation intervals \\
+\hline
+\end{tabular}
+\end{table}
+
+Software and data are archived as follows. The analysis code, the frozen
+configuration, the derived tables and the editable draw.io sources of the
+schematic figures are in the accompanying repository; the study inputs for the
+146 study networks are packaged for confidential review
+(\texttt{dist/wrr\_study\_inputs\_v1.tar.gz}) and a permanent archive with a DOI
+is deposited on acceptance. Restricted material is listed rather than shipped:
+LUBW raw values are read locally and not redistributed, and the two providers
+whose terms name no licence are used under attribution only
+(\texttt{metadata/data\_rights.csv}). Input-file hashes for every network are in
+\texttt{current\_data\_manifest.csv}, and each major-revision analysis writes a
+protocol fingerprint holding the script hash, the input hashes and the git head.
 
 \section{Predictions that failed}
 
