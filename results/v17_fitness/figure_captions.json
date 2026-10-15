@@ -1,6 +1,8 @@
 {
-  "fig1_mechanism": "For warm-season extremes, outage length is a weak axis and peak-window overlap and donor quality govern the error; panel d shows the ordering reverses for the annual mean and the cold extreme.",
+  "fig1_mechanism": "For warm-season extremes, peak-window overlap and donor quality predict error risk; panel d's cold-extreme 'length' label uses a warm-season axis and is not a winter-support result. Length variables were permuted one at a time, not as a group.",
   "fig2_frontier": "Retention-error frontier against the incumbent fixed-length screening rule.",
   "fig3_calibration": "Conformal coverage on reserved networks, marginal and within pre-declared strata, and what site-level validity costs in interval width.",
-  "fig4_consequence": "What changes for a per-year judgement, and the controlled donor experiments."
+  "fig4_consequence": "What changes for a per-year judgement, and the controlled donor experiments.",
+  "fig5_robustness": "Robustness of the central claim: clustered intervals on the axis contrast for five endpoints, the effect of instrument-scale error in the reference series, and the exceedance result across ecological thresholds.",
+  "fig6_hydrology": "Which rivers are hard: catchment attributes against donor synchrony, outcomes by baseflow-index tertile, and the thermal damping that makes groundwater-influenced basins an easier target despite less informative donors."
 }

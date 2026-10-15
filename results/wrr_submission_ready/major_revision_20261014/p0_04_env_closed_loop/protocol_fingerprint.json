@@ -1,0 +1,469 @@
+{
+  "script": "scripts/313_wrr_p0_04_env_closed_loop.py",
+  "script_sha256": "0b5135294d15e2a92cd312f4a490b62644c98d80559b7b57787ecef5756f66b1",
+  "generated_utc": "2026-10-15T09:58:47Z",
+  "runtime_seconds": 2.69,
+  "review_items_addressed": {
+    "F05": "three-term decomposition; every rule carries its own predicted share",
+    "F03": "abstention compared with judge-everything at equal error budget and equal decision coverage"
+  },
+  "repo": {
+    "git_head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
+    "git_head_short": "8eade30bbf",
+    "git_status_porcelain": [
+      "M paper/wrr/wrr_manuscript.pdf",
+      " M paper/wrr/wrr_manuscript.tex",
+      " M paper/wrr/wrr_manuscript_published.pdf",
+      " M paper/wrr/wrr_supporting_information.pdf",
+      " M paper/wrr/wrr_supporting_information.tex",
+      "?? results/wrr_submission_ready/major_revision_20261014/p0_01_final_method/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p0_04_env_closed_loop/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p0_06_coverage_recompute/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p1_learning_curve_repeats/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p1_mechanism_boundary/",
+      "?? results/wrr_submission_ready/major_revision_20261014/p1_transfer_measurement/",
+      "?? results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/raw_cache/",
+      "?? results/wrr_submission_ready/p0_07_wave2_ingest/uk_ea/raw_cache/",
+      "?? scratch/p0_02/",
+      "?? scratch/p0_03/",
+      "?? scratch/p0_04/",
+      "?? scratch/p0_05/",
+      "?? scratch/p0_06/",
+      "?? scratch/p1_learning_curves/",
+      "?? scratch/p1_mechanism/",
+      "?? scratch/p1_transfer/",
+      "?? scripts/310_wrr_p0_01_final_method_plan.py",
+      "?? scripts/311_wrr_p0_02_frozen_risk_thresholds.py",
+      "?? scripts/312_wrr_p0_03_final_method_replay.py",
+      "?? scripts/313_wrr_p0_04_env_closed_loop.py",
+      "?? scripts/314_wrr_p0_05_power_and_independence.py",
+      "?? scripts/315_wrr_p0_06_coverage_and_recompute.py",
+      "?? scripts/316_wrr_p1_learning_curve_repeats.py",
+      "?? scripts/317_wrr_p1_mechanism_boundary.py",
+      "?? scripts/318_wrr_p1_transfer_measurement.py"
+    ]
+  },
+  "environment": {
+    "python": "3.11.7",
+    "numpy": "1.26.4",
+    "pandas": "2.1.4"
+  },
+  "protocol_constants": {
+    "retention": 0.7,
+    "thresholds_c": [
+      18.0,
+      20.0
+    ],
+    "hot_year_definition": "truth_hottest30 > threshold_c",
+    "hot_year_metric_units": "degrees C (hottest 30-day mean of the complete reference)",
+    "judgement_error_rate_budget": 0.005,
+    "coverage_interp_max_bracket": 0.02,
+    "seed_reserved": 71,
+    "seed_wave2": 53,
+    "seed_extra_rules": 71,
+    "sensitivity_seeds": [
+      101,
+      131,
+      163,
+      197,
+      233,
+      271,
+      311,
+      353,
+      397,
+      443,
+      491,
+      541
+    ],
+    "primary_tolerance_c_from_protocol": 0.5,
+    "primary_tolerance_c_note": "recorded for completeness only: PRIMARY_TOLERANCE_C = 0.5 C is the step-6 metric tolerance for archive admission and is NOT the 0.5% judgement-error rate budget used here",
+    "weighting_definitions": {
+      "per_case": "each candidate station-year realization counts once",
+      "per_station_year": "each (network, station, year) unit carries total weight 1, split evenly across its realizations; shares are case-count-weighted unit means",
+      "network_weighted": "each network carries total weight 1, split evenly across its candidates"
+    },
+    "admitted_equals_decided": "in this closed loop every admitted record receives a threshold call, so n_admitted = n_decided; the complement is abstained-or-screened-out",
+    "interval_abstention_sweep": "conformal interval dilated by scale s: judge when [metric - s*high, metric - s*low] excludes the threshold"
+  },
+  "inputs": {
+    "reserved_cases": {
+      "path": "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
+      "sha256": "51b5771520fc599f7319f9b017e5e954c6bf7d4a4bd74d7ae146f526d5610730"
+    },
+    "reserved_certificates": {
+      "path": "results/v17_fitness/step10_confirmation/reserved_certificates.parquet",
+      "sha256": "f4172b33ed35cf1dd658ac1eb05c49046815a245e79e0da6cb1fe4041d240ed6"
+    },
+    "wave2_cases": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+      "sha256": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9"
+    },
+    "wave2_certificates": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_certificates.parquet",
+      "sha256": "1dd65145a296ec79757f87bc51642da29fd88ef0e2b08312f004606b892e1a17"
+    },
+    "station_panel": {
+      "path": "results/v17_fitness/step21_hydrology/station_panel.csv",
+      "sha256": "63a90db5a894c62b0ef10b5b4e4d1d1062385f22c30509c2ecfc9307c7956be4"
+    },
+    "step8_closed_loop_decisions": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step8_decision_closed_loop/closed_loop_decisions.csv",
+      "sha256": "ad7dfa8b39f35cd66e1407d3cc2430667ba869706b8bf5f583e81acea8f0184d"
+    },
+    "step6_threshold_judgment": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step6_calibration_decision/threshold_judgment.csv",
+      "sha256": "5c9d1954bbe78bb7dea5cedf02b456082b611fc728e4ebf4b2976a86ac323517"
+    },
+    "step5_arm_contrasts": {
+      "path": "results/wrr_submission_ready/major_revision_20261014/step5_monitoring_tasks/arm_and_thermal_contrasts.json",
+      "sha256": "e4b1f0a7dfbc55c2e44e3bee01202c2949a38e9d3f2cc3bf040990f9f0995165"
+    }
+  },
+  "panels": {
+    "reserved_retrospective": {
+      "n_candidates": 10820,
+      "n_networks": 36,
+      "n_stations": 103,
+      "n_unique_station_years": 1069,
+      "station_years_in_multiple_networks": 0,
+      "station_ids_in_multiple_networks": 0,
+      "station_id_provider_collisions": 0,
+      "cases_per_station_year_mean": 10.121608980355472,
+      "arm_counts": {
+        "stratified": 6779,
+        "empirical": 4041
+      },
+      "provider_counts": {
+        "usgs": 5071,
+        "chmi": 2171,
+        "gkd_bayern": 2160,
+        "arso": 664,
+        "nve_hydapi": 580,
+        "lubw": 174
+      },
+      "hot_share_by_threshold": {
+        "18.0": 0.5934380776340111,
+        "20.0": 0.4466728280961183
+      },
+      "n_stations_with_elevation": 43,
+      "n_cases_with_elevation": 4082,
+      "all_truth_finite": true,
+      "all_metric_finite": true,
+      "all_bound_finite": true,
+      "station_years_with_varying_truth": 0,
+      "longest_run_distinct_values": 81,
+      "longest_run_max_tie_multiplicity": 1217,
+      "interval_empirical_coverage": 0.9085027726432532,
+      "screen_protocol": "step8_307",
+      "screen_seed": 71,
+      "provenance": "scripts/307_wrr_mr_step8_decision_closed_loop.py (reserved panel)"
+    },
+    "wave2_designed": {
+      "n_candidates": 13017,
+      "n_networks": 49,
+      "n_stations": 143,
+      "n_unique_station_years": 1103,
+      "station_years_in_multiple_networks": 164,
+      "station_ids_in_multiple_networks": 21,
+      "station_id_provider_collisions": 0,
+      "cases_per_station_year_mean": 11.801450589301904,
+      "arm_counts": {
+        "stratified": 8040,
+        "empirical": 4977
+      },
+      "provider_counts": {
+        "usgs": 12261,
+        "hubeau": 735,
+        "uk_ea": 21
+      },
+      "hot_share_by_threshold": {
+        "18.0": 0.9174156871783052,
+        "20.0": 0.8570331105477452
+      },
+      "n_stations_with_elevation": 0,
+      "n_cases_with_elevation": 0,
+      "all_truth_finite": true,
+      "all_metric_finite": true,
+      "all_bound_finite": true,
+      "station_years_with_varying_truth": 0,
+      "longest_run_distinct_values": 137,
+      "longest_run_max_tie_multiplicity": 1376,
+      "interval_empirical_coverage": 0.9245601905200891,
+      "screen_protocol": "step6_305",
+      "screen_seed": 53,
+      "provenance": "scripts/305_wrr_mr_step6_calibration_decision.py (wave-2 panel)"
+    }
+  },
+  "cross_check": {
+    "step8_reserved": [
+      {
+        "threshold_c": 18.0,
+        "rule": "reconstruct_all",
+        "published_n_incorrect": 172,
+        "recomputed_n_incorrect": 172,
+        "published_share_judged": 1.0,
+        "recomputed_share_judged": 1.0,
+        "published_hot_share_bias_pp": 0.0,
+        "recomputed_selection_shift_pp": 0.0
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "length_screen_70",
+        "published_n_incorrect": 84,
+        "recomputed_n_incorrect": 84,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 0.7829416424610436,
+        "recomputed_selection_shift_pp": 0.7829416424610436
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "peak_overlap_screen_70",
+        "published_n_incorrect": 32,
+        "recomputed_n_incorrect": 32,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 1.4034856086612035,
+        "recomputed_selection_shift_pp": 1.4034856086612035
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "calibrated_screen_70",
+        "published_n_incorrect": 25,
+        "recomputed_n_incorrect": 25,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 0.3604436229205143,
+        "recomputed_selection_shift_pp": 0.36044362292051435
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "interval_abstention",
+        "published_n_incorrect": 19,
+        "recomputed_n_incorrect": 19,
+        "published_share_judged": 0.9312384473197782,
+        "recomputed_share_judged": 0.9312384473197782,
+        "published_hot_share_bias_pp": 1.196089021037161,
+        "recomputed_selection_shift_pp": 1.196089021037161
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "screen70_and_abstention",
+        "published_n_incorrect": 2,
+        "recomputed_n_incorrect": 2,
+        "published_share_judged": 0.6833641404805915,
+        "recomputed_share_judged": 0.6833641404805915,
+        "published_hot_share_bias_pp": 0.7184048414136002,
+        "recomputed_selection_shift_pp": 0.7184048414136002
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "elev_balanced_screen_70",
+        "published_n_incorrect": 24,
+        "recomputed_n_incorrect": 24,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": -0.1280697121732288,
+        "recomputed_selection_shift_pp": -0.12806971217322882
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "elev_balanced_and_abstention",
+        "published_n_incorrect": 3,
+        "recomputed_n_incorrect": 3,
+        "published_share_judged": 0.6828096118299446,
+        "recomputed_share_judged": 0.6828096118299446,
+        "published_hot_share_bias_pp": 0.2799063676221736,
+        "recomputed_selection_shift_pp": 0.2799063676221736
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "reconstruct_all",
+        "published_n_incorrect": 200,
+        "recomputed_n_incorrect": 200,
+        "published_share_judged": 1.0,
+        "recomputed_share_judged": 1.0,
+        "published_hot_share_bias_pp": 0.0,
+        "recomputed_selection_shift_pp": 0.0
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "length_screen_70",
+        "published_n_incorrect": 100,
+        "recomputed_n_incorrect": 100,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 0.4079746501188253,
+        "recomputed_selection_shift_pp": 0.4079746501188253
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "peak_overlap_screen_70",
+        "published_n_incorrect": 45,
+        "recomputed_n_incorrect": 45,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 1.3585951940850272,
+        "recomputed_selection_shift_pp": 1.3585951940850272
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "calibrated_screen_70",
+        "published_n_incorrect": 32,
+        "recomputed_n_incorrect": 32,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": 0.3947715870081858,
+        "recomputed_selection_shift_pp": 0.3947715870081858
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "interval_abstention",
+        "published_n_incorrect": 35,
+        "recomputed_n_incorrect": 35,
+        "published_share_judged": 0.9242144177449167,
+        "recomputed_share_judged": 0.9242144177449169,
+        "published_hot_share_bias_pp": -0.4372828096118275,
+        "recomputed_selection_shift_pp": -0.4372828096118275
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "screen70_and_abstention",
+        "published_n_incorrect": 6,
+        "recomputed_n_incorrect": 6,
+        "published_share_judged": 0.6773567467652495,
+        "recomputed_share_judged": 0.6773567467652495,
+        "published_hot_share_bias_pp": 0.3593238215793271,
+        "recomputed_selection_shift_pp": 0.3593238215793271
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "elev_balanced_screen_70",
+        "published_n_incorrect": 33,
+        "recomputed_n_incorrect": 33,
+        "published_share_judged": 0.7,
+        "recomputed_share_judged": 0.7,
+        "published_hot_share_bias_pp": -0.0145233694217039,
+        "recomputed_selection_shift_pp": -0.014523369421703958
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "elev_balanced_and_abstention",
+        "published_n_incorrect": 6,
+        "recomputed_n_incorrect": 6,
+        "published_share_judged": 0.6777264325323475,
+        "recomputed_share_judged": 0.6777264325323475,
+        "published_hot_share_bias_pp": -0.0607097835651937,
+        "recomputed_selection_shift_pp": -0.06070978356519374
+      }
+    ],
+    "step6_wave2": [
+      {
+        "threshold_c": 18.0,
+        "rule": "reconstruct_all",
+        "published_n_incorrect": 52,
+        "recomputed_n_incorrect": 52,
+        "published_share_judged": 1.0,
+        "recomputed_share_judged": 1.0
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "length_screen_70",
+        "published_n_incorrect": 24,
+        "recomputed_n_incorrect": 24,
+        "published_share_judged": 0.7000076822616579,
+        "recomputed_share_judged": 0.7000076822616579
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "calibrated_screen_70",
+        "published_n_incorrect": 7,
+        "recomputed_n_incorrect": 7,
+        "published_share_judged": 0.7000076822616579,
+        "recomputed_share_judged": 0.7000076822616579
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "interval_abstention",
+        "published_n_incorrect": 10,
+        "recomputed_n_incorrect": 10,
+        "published_share_judged": 0.9746485365291542,
+        "recomputed_share_judged": 0.9746485365291542
+      },
+      {
+        "threshold_c": 18.0,
+        "rule": "screen70_and_abstention",
+        "published_n_incorrect": 4,
+        "recomputed_n_incorrect": 4,
+        "published_share_judged": 0.6949373895674886,
+        "recomputed_share_judged": 0.6949373895674886
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "reconstruct_all",
+        "published_n_incorrect": 202,
+        "recomputed_n_incorrect": 202,
+        "published_share_judged": 1.0,
+        "recomputed_share_judged": 1.0
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "length_screen_70",
+        "published_n_incorrect": 79,
+        "recomputed_n_incorrect": 79,
+        "published_share_judged": 0.7000076822616579,
+        "recomputed_share_judged": 0.7000076822616579
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "calibrated_screen_70",
+        "published_n_incorrect": 35,
+        "recomputed_n_incorrect": 35,
+        "published_share_judged": 0.7000076822616579,
+        "recomputed_share_judged": 0.7000076822616579
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "interval_abstention",
+        "published_n_incorrect": 17,
+        "recomputed_n_incorrect": 17,
+        "published_share_judged": 0.9433817315817776,
+        "recomputed_share_judged": 0.9433817315817776
+      },
+      {
+        "threshold_c": 20.0,
+        "rule": "screen70_and_abstention",
+        "published_n_incorrect": 2,
+        "recomputed_n_incorrect": 2,
+        "published_share_judged": 0.689022048090958,
+        "recomputed_share_judged": 0.689022048090958
+      }
+    ],
+    "selection_shift_vs_step8": {
+      "n_compared_rows": 16,
+      "max_abs_diff_pp": 5.724587470723463e-17,
+      "interpretation": "the published hot_share_bias_pp equals this script's selection_shift_pp (per-case, pooled, reserved panel): the old label named only one of two terms"
+    },
+    "all_step8_rows_reproduced": true,
+    "all_step6_rows_reproduced": true
+  },
+  "gaps": [
+    {
+      "item": "elevation-balanced rules for the wave-2 panel",
+      "reason": "0 of 143 wave-2 stations match results/v17_fitness/step21_hydrology/station_panel.csv, so elevation tertiles are undefined; those rows are emitted with NaN and an explicit reason instead of an imputed stratum"
+    },
+    {
+      "item": "wave-2 peak-overlap screen",
+      "reason": "step 6/305 does not define a peak screen for wave 2; built here with 307's keep_global construction and seed 71, so it has no published counterpart to cross-check"
+    },
+    {
+      "item": "uncertainty intervals",
+      "reason": "all numbers are point estimates on fixed pools; no bootstrap CI computed"
+    },
+    {
+      "item": "wave-2 sealed operational claim",
+      "reason": "the wave-2 panel is a designed-outage confirmation panel whose hot-year prevalence is 91.7% at 18 C (vs 59.3% on the reserved panel); shares are not population prevalences"
+    }
+  ]
+}

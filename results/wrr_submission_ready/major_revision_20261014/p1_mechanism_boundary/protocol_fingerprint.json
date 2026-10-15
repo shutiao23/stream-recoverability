@@ -1,0 +1,234 @@
+{
+  "script": "scripts/317_wrr_p1_mechanism_boundary.py",
+  "script_sha256": "a9385c752caf0ac7a110a48d21ce464e5e033e6a20e89f73916dbe4ecf0d10fd",
+  "git_head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
+  "generated_utc": "2026-10-15T10:10:03Z",
+  "wall_seconds": 78.1,
+  "inputs": {
+    "station_roster": {
+      "path": "results/v17_fitness/step1_panel/station_roster.csv",
+      "sha256": "c96e8838b3cc06934c25208fc71a5b37d49b0d96671f2e679694419fb92aedc8"
+    },
+    "network_split": {
+      "path": "results/v17_fitness/step1_panel/network_split.csv",
+      "sha256": "a24ceccea68316c543f7bbf87ac0d00bbf19b2595eb56caf3b2e752402d8e631"
+    },
+    "archived_crossed_cases": {
+      "path": "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
+      "sha256": "0959232dc76cd0bf5c1ea67f2b66c3d6ce162f581e18c2205131f0c022fe5adc"
+    },
+    "air_forcing_primary_v18": {
+      "path": "data/interim/v18_air_forcing.parquet",
+      "sha256": "e3b62969fbc59e6509d1bfcffdac06d4fbab8c46e6330bc40fef2e7daf1c7552"
+    },
+    "air_forcing_v17_shipped": {
+      "path": "results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet",
+      "sha256": "d109dfe2a4ba04e2ed07f1a20337b70cbdab8c9b017c896e40e226eacc0a2519"
+    },
+    "manuscript_sine_summary": {
+      "path": "results/wrr_submission_ready/amendments/winter_regulatory/summary_sine.json",
+      "sha256": "986f7b26b58d155167460232cd794749e739d1f7a8385909bb9aac3ba6522077"
+    }
+  },
+  "air_forcing_env": "/home/lzq/workspace/parttime/stream-recoverability/data/interim/v18_air_forcing.parquet",
+  "air_availability": [
+    {
+      "forcing_table": "v17_daily_forcing",
+      "path": "results/development_v11/independent_air2stream_equivalent/daily_forcing.parquet",
+      "stations_covered": 0,
+      "stations_total": 24,
+      "networks_covered": 0,
+      "networks_total": 12
+    },
+    {
+      "forcing_table": "v18_nasa_power",
+      "path": "data/interim/v18_air_forcing.parquet",
+      "stations_covered": 24,
+      "stations_total": 24,
+      "networks_covered": 12,
+      "networks_total": 12
+    }
+  ],
+  "config": {
+    "reconstructors": [
+      "doy_climatology",
+      "smooth_climatology",
+      "linear_interp",
+      "donor_ridge",
+      "air_ridge"
+    ],
+    "lengths": [
+      30,
+      60,
+      90
+    ],
+    "window_days": 30,
+    "bootstrap_draws": 2000,
+    "seed": 23,
+    "tolerance_fraction": 0.4717,
+    "hidden_share_full": 0.999,
+    "competing_peak_bins": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      Infinity
+    ],
+    "resid_ac_bins": [
+      -1.01,
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.01
+    ],
+    "hac_lag_days": 30,
+    "stations_built": 24,
+    "networks_built": 12,
+    "n_cases_all": 21700,
+    "n_cases_crossed_design": 9495,
+    "phase_n_cases": 4340,
+    "phase_tolerance_days_panel": 2.47754303119034,
+    "phase_interannual_sd_days_panel": 5.252370216642654,
+    "closed_form_k_panel": 3.994657991177217,
+    "manuscript_sine_rule": {
+      "phase_tolerance_days": 2.121786228253233,
+      "phase_interannual_sd_days": 4.498186803896854,
+      "n_observed_days_median": 305.0,
+      "k_theory": 4.43714686684229,
+      "k_used": 4.5,
+      "n_cases": 40704.0
+    }
+  },
+  "validation": {
+    "n_cases": 21700,
+    "n_phase_rows": 4340,
+    "air_available_share_cases": 1.0,
+    "air_reconstructor_finite_share": 0.9944700460829493,
+    "air_reconstructor_missing_cases": 24,
+    "truth_peak_tie_share": 0.1184331797235023,
+    "truth_peak_tie_days_median": 1.0,
+    "competing_peak_gap_C_median_C": 0.913333333333334,
+    "competing_peak_gap_C2_median_C": 0.02000000000000135,
+    "reproduction": {
+      "archived_crossed_cases": 1918,
+      "regenerated_designed_cases": 1899,
+      "matched": 1899,
+      "only_in_archive": 19,
+      "only_in_regenerated": 0,
+      "max_abs_dev_peak_overlap": 0.0,
+      "max_abs_dev_hidden_fraction": 0.0,
+      "max_abs_dev_abserr_doy_climatology": 0.0,
+      "n_compared_doy_climatology": 1899,
+      "max_abs_dev_abserr_smooth_climatology": 0.0,
+      "n_compared_smooth_climatology": 1899,
+      "max_abs_dev_abserr_linear_interp": 0.0,
+      "n_compared_linear_interp": 1899,
+      "max_abs_dev_abserr_donor_ridge": 1.5276668818842154e-13,
+      "n_compared_donor_ridge": 1899
+    },
+    "phase_bootstrap_validation": [
+      {
+        "panel": "all_realizations",
+        "n_cases": 328,
+        "median_simulated_sd_days": 3.77050010487672,
+        "median_analytic_ar1_se_days": 4.584907846956822,
+        "median_analytic_iid_se_days": 1.1399197973375528,
+        "median_ratio_simulated_over_ar1": 0.7696418422353049,
+        "median_ratio_simulated_over_iid": 3.237029185364456,
+        "share_simulated_within_factor_2_of_ar1": 0.9634146341463414
+      },
+      {
+        "panel": "crossed_design",
+        "n_cases": 328,
+        "median_simulated_sd_days": 3.77050010487672,
+        "median_analytic_ar1_se_days": 4.584907846956822,
+        "median_analytic_iid_se_days": 1.1399197973375528,
+        "median_ratio_simulated_over_ar1": 0.7696418422353049,
+        "median_ratio_simulated_over_iid": 3.237029185364456,
+        "share_simulated_within_factor_2_of_ar1": 0.9634146341463414
+      }
+    ],
+    "phase_design_vs_manuscript": [
+      {
+        "panel": "all_realizations",
+        "scenario": "design_iid",
+        "n_cases": 4340,
+        "median_95pct_half_width_days": 2.616216184067728,
+        "median_design_k_crit": 4.000105387358725,
+        "design_k_crit_over_manuscript_k": 0.8889123083019389,
+        "share_of_retained_with_half_width_above_tolerance": 0.31581352833638027
+      },
+      {
+        "panel": "all_realizations",
+        "scenario": "design_ar1",
+        "n_cases": 4340,
+        "median_95pct_half_width_days": 10.372525224163422,
+        "median_design_k_crit": 18.20087499195989,
+        "design_k_crit_over_manuscript_k": 4.044638887102198,
+        "share_of_retained_with_half_width_above_tolerance": 1.0
+      },
+      {
+        "panel": "all_realizations",
+        "scenario": "design_hac_bartlett_30d",
+        "n_cases": 4340,
+        "median_95pct_half_width_days": 7.31810634454459,
+        "median_design_k_crit": 12.794377863315026,
+        "design_k_crit_over_manuscript_k": 2.843195080736672,
+        "share_of_retained_with_half_width_above_tolerance": 0.9908592321755028
+      },
+      {
+        "panel": "all_realizations",
+        "scenario": "closed_form_uniform_sampling",
+        "n_cases": 4340,
+        "median_95pct_half_width_days": 11.624471787915141,
+        "median_design_k_crit": 3.9946579911772173,
+        "design_k_crit_over_manuscript_k": 0.8877017758171594,
+        "share_of_retained_with_half_width_above_tolerance": NaN
+      },
+      {
+        "panel": "crossed_design",
+        "scenario": "design_iid",
+        "n_cases": 1899,
+        "median_95pct_half_width_days": 2.2429101712507693,
+        "median_design_k_crit": 3.732734159984798,
+        "design_k_crit_over_manuscript_k": 0.8294964799966218,
+        "share_of_retained_with_half_width_above_tolerance": 0.01853997682502897
+      },
+      {
+        "panel": "crossed_design",
+        "scenario": "design_ar1",
+        "n_cases": 1899,
+        "median_95pct_half_width_days": 8.930056596314778,
+        "median_design_k_crit": 16.244269407540532,
+        "design_k_crit_over_manuscript_k": 3.609837646120118,
+        "share_of_retained_with_half_width_above_tolerance": 1.0
+      },
+      {
+        "panel": "crossed_design",
+        "scenario": "design_hac_bartlett_30d",
+        "n_cases": 1899,
+        "median_95pct_half_width_days": 6.648919946388591,
+        "median_design_k_crit": 11.701334296430035,
+        "design_k_crit_over_manuscript_k": 2.6002965103177855,
+        "share_of_retained_with_half_width_above_tolerance": 0.9907300115874855
+      },
+      {
+        "panel": "crossed_design",
+        "scenario": "closed_form_uniform_sampling",
+        "n_cases": 1899,
+        "median_95pct_half_width_days": 11.110613842140976,
+        "median_design_k_crit": 3.800005487807675,
+        "design_k_crit_over_manuscript_k": 0.8444456639572612,
+        "share_of_retained_with_half_width_above_tolerance": NaN
+      }
+    ],
+    "air_forcing_missing_days_total": 0,
+    "air_design_missing_days_total_across_cases": 4270,
+    "air_excluded_cases_with_missing_air_design": 24,
+    "air_excluded_cases_other_reason": 0,
+    "phase_rows_with_too_few_observed_days": 0
+  },
+  "claim_status": "descriptive conditional mechanism evidence on the paired crossed development panel; cluster-bootstrapped but not pre-registered; not a reconstruction-independent geometry law"
+}

@@ -48,7 +48,7 @@ Panel b identity: archival retrospective (v17 development; v17 reserved holdout)
 | panel a figure | `figures/wrr/f2a_endpoint_ordering.pdf` |
 | panel b figure | `figures/wrr/f2b_panel_heterogeneity.pdf` |
 | page size, panel a | 5.432 × 2.514 in (1 page) |
-| page size, panel b | 6.091 × 2.354 in (1 page) |
+| page size, panel b | 6.091 × 2.946 in (1 page) |
 | column width | 5.5 in (AGU double column); both pages are narrower, so the figures are never scaled down |
 | type scale | 6.0–7.6 pt nominal; minimum 6.0 pt, asserted in the script and re-measured from the PDF |
 | measured minimum type size | panel a 6.00 pt (6.08 pt if the page is scaled up to 5.5 in); panel b 6.00 pt (6.00 pt at 5.5 in) |

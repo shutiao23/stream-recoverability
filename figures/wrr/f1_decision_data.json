@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "figure": "f1_decision",
+  "script_sha256": "0c565d0a206cff05606b4f111ddb4002ffac08bf8e80991d0691dadca28af44e",
+  "inputs": {
+    "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/crossfit_risk_cap_table.csv": "b73e72f990402a2fe1748a133e131b8c70ffa0e2c057eb13958066f59437b572",
+    "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/posthoc_vs_honest.csv": "4358bf3d4bfbc51b7a46e5b0a73d95cf3384604e765cc6030b12cca4144549a3"
+  },
+  "panel_a_retention_at_risk_cap_pct": {
+    "calibrated_bound": {
+      "mean": 76.654,
+      "min": 76.362,
+      "max": 76.807
+    },
+    "fitted_risk": {
+      "mean": 75.504,
+      "min": 74.38,
+      "max": 76.154
+    },
+    "peak_overlap_rule": {
+      "mean": 71.824,
+      "min": 71.668,
+      "max": 71.96
+    },
+    "length_rule": {
+      "mean": 48.913,
+      "min": 48.805,
+      "max": 49.059
+    }
+  },
+  "panel_c_false_admit_at_70_pct": {
+    "calibrated_bound": 2.415,
+    "fitted_risk": 2.151,
+    "peak_overlap_rule": 3.457,
+    "length_rule": 8.989
+  }
+}

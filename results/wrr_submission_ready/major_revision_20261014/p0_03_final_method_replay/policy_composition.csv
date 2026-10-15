@@ -1,0 +1,10 @@
+cofail_level,cofail_fraction,policy_choice,n,share
+target_only,0.0,donor_ridge,368,0.8803827751196173
+target_only,0.0,smooth_climatology,34,0.08133971291866028
+target_only,0.0,linear_interp,16,0.03827751196172249
+partial_donor_failure,0.5,donor_ridge,320,0.7655502392344498
+partial_donor_failure,0.5,linear_interp,62,0.14832535885167464
+partial_donor_failure,0.5,smooth_climatology,36,0.0861244019138756
+all_donor_failure,1.0,linear_interp,280,0.6698564593301436
+all_donor_failure,1.0,smooth_climatology,126,0.3014354066985646
+all_donor_failure,1.0,air_ridge,12,0.028708133971291867

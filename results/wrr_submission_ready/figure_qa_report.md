@@ -1,6 +1,6 @@
 # WRR figure and PDF quality assurance
 
-Generated 2026-10-12T14:20:57Z by `python3 scripts/266_wrr_figure_qa.py`.
+Generated 2026-10-15T11:12:31Z by `python3 scripts/266_wrr_figure_qa.py`.
 
 * JSON: `results/wrr_submission_ready/figure_qa.json`
 * Markdown: `results/wrr_submission_ready/figure_qa_report.md`
@@ -8,7 +8,7 @@ Generated 2026-10-12T14:20:57Z by `python3 scripts/266_wrr_figure_qa.py`.
 
 ## Verdict
 
-**PASS (with warnings)** — 0 hard failure(s) in 0 file/check/page group(s), 24 warning(s).
+**PASS (with warnings)** — 0 hard failure(s) in 0 file/check/page group(s), 28 warning(s).
 
 Exit status is 0 for the strict run (`--report-only` always exits 0 so the regression test is not turned red by a real finding).
 
@@ -18,8 +18,8 @@ Exit status is 0 for the strict run (`--report-only` always exits 0 so the regre
 | FIGURE_NOT_SINGLE_PAGE — figure page count != 1 (check b) | 0 | 0 |
 | TEXT_OUTSIDE_PAGE — text > 1 pt outside the page and ink clipped or unverified (check c) | 0 | 0 |
 | TEXT_HEIGHT_BELOW_MINIMUM — line-estimated type size < 4.5 pt (check d) | 0 | 0 |
-| OVERLAPPING_TEXT_SAME_BASELINE — overlapping boxes, same baseline (check e) | 0 | 0 |
-| OVERLAPPING_WORD_BOXES — overlapping boxes, other geometry (check e) | 0 | 10 |
+| OVERLAPPING_TEXT_SAME_BASELINE — overlapping boxes, same baseline (check e) | 0 | 2 |
+| OVERLAPPING_WORD_BOXES — overlapping boxes, other geometry (check e) | 0 | 11 |
 | MERGED_LABEL_RUN_SUSPECT — labels drawn with no word gap (check e) | 0 | 0 |
 | FOOTER_TEXT_COLLISION — page number overprinted by body text (check e) | 0 | 0 |
 | SCHEMATIC_WITHOUT_DRAWIO_SOURCE — schematic with no draw.io source (check f) | 0 | 0 |
@@ -29,7 +29,7 @@ Exit status is 0 for the strict run (`--report-only` always exits 0 so the regre
 | INK_CLIPPED_AT_PAGE_EDGE — derived: rendered ink clipped/flush at the page edge | 0 | 0 |
 | TEXT_BOX_PADDING_ONLY — derived: box crosses the edge, ink does not | 0 | 0 |
 | INK_CHECK_UNAVAILABLE — derived: the flagged page could not be rendered | 0 | 0 |
-| SMALL_RELATIVE_WORD_BOXES — word far smaller than its own line (check d) | 0 | 13 |
+| SMALL_RELATIVE_WORD_BOXES — word far smaller than its own line (check d) | 0 | 14 |
 | FONT_UNNAMED — embedded font with no BaseFont name | 0 | 0 |
 | DEGENERATE_WORD_BOXES — word boxes with non-positive height | 0 | 0 |
 | FIGURE_NOT_REFERENCED — figure PDF not referenced by any .tex | 0 | 0 |
@@ -51,18 +51,19 @@ No warning-level finding is classified as a real defect.
 | figure | pages | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | of which same baseline | min raster ppi | source | effective print p05 (pt) | verdict |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | `f0_problem_frame` | 1 | 5.50x3.54 | 4 | 0 | 0 | 5.16 | 0 | 0 | - | drawio | 5.56 | ok |
+| `f1_decision` | 1 | 5.37x6.48 | 1 | 0 | 0 | 6.99 | 3 | 2 | - | python | 7.16 | warn |
 | `f1_example` | 1 | 5.34x5.06 | 1 | 0 | 0 | 6.38 | 0 | 0 | - | python | 7.20 | warn |
 | `f1_system_architecture` | 1 | 5.50x4.50 | 3 | 0 | 0 | 5.61 | 0 | 0 | - | drawio | 5.61 | ok |
 | `f2_experiment_design` | 1 | 5.50x5.23 | 3 | 0 | 0 | 5.93 | 0 | 0 | - | drawio | 5.93 | ok |
 | `f2a_endpoint_ordering` | 1 | 5.43x2.51 | 1 | 0 | 0 | 6.99 | 0 | 0 | - | python | 6.72 | ok |
-| `f2b_panel_heterogeneity` | 1 | 5.29x4.05 | 1 | 0 | 0 | 6.99 | 0 | 0 | - | python | 6.91 | ok |
+| `f2b_panel_heterogeneity` | 1 | 6.09x2.95 | 1 | 0 | 0 | 6.99 | 0 | 0 | - | python | 6.00 | ok |
 | `f3_evidence_chain` | 1 | 5.50x5.72 | 3 | 0 | 0 | 6.17 | 0 | 0 | - | drawio | 6.17 | ok |
 | `f4_deployment_workflow` | 1 | 5.50x4.85 | 4 | 0 | 0 | 5.61 | 0 | 0 | - | drawio | 5.61 | ok |
 | `fig1_mechanism` | 1 | 5.93x4.79 | 2 | 0 | 0 | 4.29 | 42 | 0 | 300 | python | 9.47 | warn |
 | `fig2_frontier` | 1 | 5.48x4.88 | 1 | 0 | 0 | 5.87 | 5 | 0 | - | python | 11.00 | warn |
 | `fig3_calibration` | 1 | 5.48x5.00 | 1 | 0 | 0 | 12.10 | 1 | 0 | - | python | 12.14 | warn |
 | `fig4_consequence` | 1 | 5.49x4.87 | 1 | 0 | 0 | 8.39 | 7 | 0 | - | python | 12.14 | warn |
-| `fig5_robustness` | 1 | 5.63x5.00 | 1 | 0 | 0 | 12.10 | 7 | 0 | - | python | 11.83 | warn |
+| `fig5_robustness` | 1 | 5.63x5.00 | 1 | 0 | 0 | 12.10 | 9 | 0 | - | python | 11.83 | warn |
 | `fig6_hydrology` | 1 | 5.47x5.00 | 1 | 0 | 0 | 6.75 | 0 | 0 | - | python | 11.03 | warn |
 | `figv1_outage_seasonality` | 1 | 5.48x4.88 | 1 | 0 | 0 | 6.38 | 0 | 0 | - | python | 11.38 | warn |
 | `figv2_archive_deployment` | 1 | 6.18x5.00 | 1 | 0 | 0 | 10.97 | 12 | 0 | - | python | 9.77 | warn |
@@ -75,14 +76,15 @@ No warning-level finding is classified as a real defect.
 
 | document | pages | page size (pt) | page size (in) | fonts | non-embedded | text outside page | min word height (pt) | overlap pairs | same baseline | min raster ppi |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `paper/wrr/wrr_manuscript.pdf` | 54 | 612.00 x 792.00 | 8.50 x 11.00 | 41 | 0 | 0 | 3.98 | 67 | 0 | 324 |
-| `paper/wrr/wrr_supporting_information.pdf` | 15 | 612.00 x 792.00 | 8.50 x 11.00 | 34 | 0 | 0 | 4.70 | 14 | 0 | - |
+| `paper/wrr/wrr_manuscript.pdf` | 61 | 612.00 x 792.00 | 8.50 x 11.00 | 39 | 0 | 0 | 3.98 | 70 | 2 | 324 |
+| `paper/wrr/wrr_supporting_information.pdf` | 16 | 612.00 x 792.00 | 8.50 x 11.00 | 38 | 0 | 0 | 4.70 | 16 | 0 | - |
 
 ## 1. Fonts (check a)
 
 | file | fonts | types | non-embedded | names of non-embedded | unnamed/Type 3 | all embedded |
 |---|---|---|---|---|---|---|
 | `paper/wrr/figures/f0_problem_frame.pdf` | 4 | CID TrueType x1, CID Type 0C x1, Type 1C x2 | 0 | none | none | yes |
+| `paper/wrr/figures/f1_decision.pdf` | 1 | CID TrueType x1 | 0 | none | none | yes |
 | `paper/wrr/figures/f1_example.pdf` | 1 | CID TrueType x1 | 0 | none | none | yes |
 | `paper/wrr/figures/f1_system_architecture.pdf` | 3 | CID Type 0C x1, Type 1C x2 | 0 | none | none | yes |
 | `paper/wrr/figures/f2_experiment_design.pdf` | 3 | CID Type 0C x1, Type 1C x2 | 0 | none | none | yes |
@@ -100,8 +102,8 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | Type 3 x1 | 0 | none | `BMQQDV+DejaVuSans` | yes |
-| `paper/wrr/wrr_manuscript.pdf` | 41 | CID TrueType x3, CID Type 0C x1, Type 1 x27, Type 1C x2, Type 3 x8 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `EVICAO+DejaVuSans-Bold`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
-| `paper/wrr/wrr_supporting_information.pdf` | 34 | CID TrueType x1, CID Type 0C x5, Type 1 x17, Type 1C x8, Type 3 x3 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
+| `paper/wrr/wrr_manuscript.pdf` | 39 | CID TrueType x4, Type 1 x27, Type 3 x8 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `EVICAO+DejaVuSans-Bold`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
+| `paper/wrr/wrr_supporting_information.pdf` | 38 | CID TrueType x1, CID Type 0C x6, Type 1 x18, Type 1C x10, Type 3 x3 | 0 | none | `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans`, `BMQQDV+DejaVuSans` | yes |
 
 `[none]` is the name Poppler reports for a producer-embedded Type 3 subset with no BaseFont entry (matplotlib's default pdf.fonttype=3); the font is embedded even though it is unnamed.
 
@@ -110,11 +112,12 @@ No warning-level finding is classified as a real defect.
 | file | pages | page size (pt) | page size (in) | distinct page sizes | single page | text outside page | max overflow (pt) |
 |---|---|---|---|---|---|---|---|
 | `paper/wrr/figures/f0_problem_frame.pdf` | 1 | 396.00 x 254.74 | 5.50 x 3.54 | 1 | yes | 0 | 0.00 |
+| `paper/wrr/figures/f1_decision.pdf` | 1 | 386.65 x 466.50 | 5.37 x 6.48 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f1_example.pdf` | 1 | 384.29 x 364.41 | 5.34 x 5.06 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f1_system_architecture.pdf` | 1 | 396.00 x 323.86 | 5.50 x 4.50 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f2_experiment_design.pdf` | 1 | 396.00 x 376.34 | 5.50 x 5.23 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f2a_endpoint_ordering.pdf` | 1 | 391.11 x 180.98 | 5.43 x 2.51 | 1 | yes | 0 | 0.00 |
-| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 1 | 380.62 x 291.75 | 5.29 x 4.05 | 1 | yes | 0 | 0.00 |
+| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 1 | 438.57 x 212.11 | 6.09 x 2.95 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f3_evidence_chain.pdf` | 1 | 396.00 x 412.06 | 5.50 x 5.72 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/f4_deployment_workflow.pdf` | 1 | 396.00 x 349.49 | 5.50 x 4.85 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/fig1_mechanism.pdf` | 1 | 427.25 x 344.65 | 5.93 x 4.79 | 1 | yes | 0 | 0.00 |
@@ -127,8 +130,8 @@ No warning-level finding is classified as a real defect.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 1 | 444.75 x 359.79 | 6.18 x 5.00 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 395.58 x 360.14 | 5.49 x 5.00 | 1 | yes | 0 | 0.00 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 1 | 394.78 x 351.30 | 5.48 x 4.88 | 1 | yes | 0 | 0.00 |
-| `paper/wrr/wrr_manuscript.pdf` | 54 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
-| `paper/wrr/wrr_supporting_information.pdf` | 15 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
+| `paper/wrr/wrr_manuscript.pdf` | 61 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
+| `paper/wrr/wrr_supporting_information.pdf` | 16 | 612.00 x 792.00 | 8.50 x 11.00 | 1 | no | 0 | 0.00 |
 
 ## 3. Text outside the page box (check c)
 
@@ -139,25 +142,26 @@ No word box extends more than 1.0 pt outside its page in any target PDF.
 | file | words measured | min box (pt) | 5th pct (pt) | median (pt) | raw boxes < 4.5 pt (literal rule) | lines below threshold (gate) | smaller than their line | degenerate boxes |
 |---|---|---|---|---|---|---|---|---|
 | `paper/wrr/figures/f0_problem_frame.pdf` | 207 | 5.16 | 5.55 | 5.95 | 0 | 0 | 0 | 0 |
+| `paper/wrr/figures/f1_decision.pdf` | 99 | 6.99 | 6.99 | 7.92 | 0 | 0 | 10 | 0 |
 | `paper/wrr/figures/f1_example.pdf` | 160 | 6.38 | 6.99 | 7.46 | 0 | 0 | 30 | 0 |
 | `paper/wrr/figures/f1_system_architecture.pdf` | 298 | 5.61 | 5.61 | 5.61 | 0 | 0 | 0 | 0 |
 | `paper/wrr/figures/f2_experiment_design.pdf` | 291 | 5.93 | 5.93 | 6.14 | 0 | 0 | 0 | 0 |
 | `paper/wrr/figures/f2a_endpoint_ordering.pdf` | 67 | 6.99 | 6.99 | 7.22 | 0 | 0 | 0 | 0 |
-| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 108 | 6.99 | 6.99 | 7.46 | 0 | 0 | 0 | 0 |
+| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 65 | 6.99 | 6.99 | 7.46 | 0 | 0 | 0 | 0 |
 | `paper/wrr/figures/f3_evidence_chain.pdf` | 267 | 6.17 | 6.17 | 6.17 | 0 | 0 | 0 | 0 |
 | `paper/wrr/figures/f4_deployment_workflow.pdf` | 239 | 5.61 | 5.61 | 5.61 | 0 | 0 | 0 | 0 |
-| `paper/wrr/figures/fig1_mechanism.pdf` | 177 | 4.29 | 10.21 | 13.24 | 1 | 0 | 68 | 0 |
+| `paper/wrr/figures/fig1_mechanism.pdf` | 176 | 4.29 | 10.21 | 13.24 | 1 | 0 | 67 | 0 |
 | `paper/wrr/figures/fig2_frontier.pdf` | 89 | 5.87 | 10.97 | 12.11 | 0 | 0 | 2 | 0 |
 | `paper/wrr/figures/fig3_calibration.pdf` | 143 | 12.10 | 12.10 | 12.86 | 0 | 0 | 20 | 0 |
 | `paper/wrr/figures/fig4_consequence.pdf` | 66 | 8.39 | 12.10 | 12.11 | 0 | 0 | 4 | 0 |
-| `paper/wrr/figures/fig5_robustness.pdf` | 91 | 12.10 | 12.10 | 13.62 | 0 | 0 | 26 | 0 |
+| `paper/wrr/figures/fig5_robustness.pdf` | 95 | 12.10 | 12.10 | 13.62 | 0 | 0 | 31 | 0 |
 | `paper/wrr/figures/fig6_hydrology.pdf` | 105 | 6.75 | 10.97 | 13.24 | 0 | 0 | 39 | 0 |
 | `paper/wrr/figures/figv1_outage_seasonality.pdf` | 91 | 6.38 | 11.35 | 12.10 | 0 | 0 | 3 | 0 |
-| `paper/wrr/figures/figv2_archive_deployment.pdf` | 130 | 10.97 | 10.97 | 12.10 | 0 | 0 | 57 | 0 |
+| `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 10.97 | 10.97 | 12.10 | 0 | 0 | 57 | 0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 4.29 | 10.59 | 12.10 | 1 | 0 | 74 | 0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 12.10 | 12.10 | 14.18 | 0 | 0 | 42 | 0 |
-| `paper/wrr/wrr_manuscript.pdf` | 18411 | 3.98 | 7.08 | 8.85 | 3 | 0 | 298 | 0 |
-| `paper/wrr/wrr_supporting_information.pdf` | 4258 | 4.70 | 5.61 | 8.85 | 0 | 0 | 69 | 0 |
+| `paper/wrr/wrr_manuscript.pdf` | 20958 | 3.98 | 7.08 | 8.85 | 3 | 0 | 307 | 0 |
+| `paper/wrr/wrr_supporting_information.pdf` | 4653 | 4.70 | 5.61 | 8.85 | 0 | 0 | 74 | 0 |
 
 No word box is below 4.5 pt in any target PDF.
 
@@ -168,27 +172,38 @@ Rule: pairs of word boxes whose intersection area exceeds 25% of the smaller box
 | file | word boxes | candidate pairs | same baseline (real) | adjacent-line padding | atypical box geometry | duplicates ignored (exact/shadow) |
 |---|---|---|---|---|---|---|
 | `paper/wrr/figures/f0_problem_frame.pdf` | 207 | 0 | 0 | 0 | 0 | 0/0 |
+| `paper/wrr/figures/f1_decision.pdf` | 99 | 3 | 2 | 1 | 0 | 0/0 |
 | `paper/wrr/figures/f1_example.pdf` | 160 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/f1_system_architecture.pdf` | 298 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/f2_experiment_design.pdf` | 291 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/f2a_endpoint_ordering.pdf` | 67 | 0 | 0 | 0 | 0 | 0/0 |
-| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 108 | 0 | 0 | 0 | 0 | 0/0 |
+| `paper/wrr/figures/f2b_panel_heterogeneity.pdf` | 65 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/f3_evidence_chain.pdf` | 267 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/f4_deployment_workflow.pdf` | 239 | 0 | 0 | 0 | 0 | 0/0 |
-| `paper/wrr/figures/fig1_mechanism.pdf` | 177 | 42 | 0 | 38 | 4 | 0/0 |
+| `paper/wrr/figures/fig1_mechanism.pdf` | 176 | 42 | 0 | 38 | 4 | 0/0 |
 | `paper/wrr/figures/fig2_frontier.pdf` | 89 | 5 | 0 | 5 | 0 | 0/0 |
 | `paper/wrr/figures/fig3_calibration.pdf` | 143 | 1 | 0 | 1 | 0 | 0/0 |
 | `paper/wrr/figures/fig4_consequence.pdf` | 66 | 7 | 0 | 7 | 0 | 0/0 |
-| `paper/wrr/figures/fig5_robustness.pdf` | 91 | 7 | 0 | 7 | 0 | 0/0 |
+| `paper/wrr/figures/fig5_robustness.pdf` | 95 | 9 | 0 | 9 | 0 | 0/0 |
 | `paper/wrr/figures/fig6_hydrology.pdf` | 105 | 0 | 0 | 0 | 0 | 0/0 |
 | `paper/wrr/figures/figv1_outage_seasonality.pdf` | 91 | 0 | 0 | 0 | 0 | 0/0 |
-| `paper/wrr/figures/figv2_archive_deployment.pdf` | 130 | 12 | 0 | 12 | 0 | 0/0 |
+| `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 12 | 0 | 12 | 0 | 0/0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 2 | 0 | 2 | 0 | 0/0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 5 | 0 | 5 | 0 | 0/0 |
-| `paper/wrr/wrr_manuscript.pdf` | 18411 | 67 | 0 | 2 | 65 | 0/0 |
-| `paper/wrr/wrr_supporting_information.pdf` | 4258 | 14 | 0 | 14 | 0 | 0/0 |
+| `paper/wrr/wrr_manuscript.pdf` | 20958 | 70 | 2 | 3 | 65 | 0/0 |
+| `paper/wrr/wrr_supporting_information.pdf` | 4653 | 16 | 0 | 16 | 0 | 0/0 |
 
 ### Flagged pairs
+
+#### `paper/wrr/figures/f1_decision.pdf` — 3 pair(s)
+
+| page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
+|---|---|---|---|---|---|---|---|---|
+| 1 | same_baseline_horizontal | 95.3 | `peak-window` | (305.08, 235.34, 344.66, 242.33) | `fitted` | (315.12, 235.0, 331.1, 241.99) | 0.33 | 7.92 |
+| 1 | same_baseline_horizontal | 85.4 | `peak-window` | (305.08, 235.34, 344.66, 242.33) | `calibrated` | (318.25, 235.52, 348.37, 242.51) | 0.19 | 7.92 |
+| 1 | adjacent_line_padding | 74.4 | `fitted` | (315.12, 235.0, 331.1, 241.99) | `calibrated` | (318.25, 235.52, 348.37, 242.51) | 0.52 | 7.92 |
+
+Pair classification: `adjacent_line_padding` x1; `same_baseline_horizontal` x2.
 
 #### `paper/wrr/figures/fig1_mechanism.pdf` — 42 pair(s)
 
@@ -257,34 +272,36 @@ Pair classification: `adjacent_line_padding` x1.
 
 Pair classification: `adjacent_line_padding` x7.
 
-#### `paper/wrr/figures/fig5_robustness.pdf` — 7 pair(s)
+#### `paper/wrr/figures/fig5_robustness.pdf` — 9 pair(s)
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 1 | adjacent_line_padding | 69.0 | `+` | (319.22, 32.58, 325.26, 46.19) | `7.1` | (319.29, 36.7, 331.37, 51.07) | 4.12 | 13.62 |
+| 1 | adjacent_line_padding | 69.5 | `+` | (319.22, 32.58, 325.26, 46.19) | `6.2` | (319.29, 36.63, 331.37, 51.0) | 4.05 | 13.62 |
+| 1 | adjacent_line_padding | 56.5 | `6.2` | (340.57, 36.42, 352.66, 50.8) | `°C` | (345.86, 32.58, 354.49, 46.19) | 3.85 | 13.62 |
 | 1 | adjacent_line_padding | 48.8 | `reconstruct,` | (299.41, 294.11, 342.74, 307.73) | `length` | (299.41, 301.08, 322.36, 314.7) | 6.97 | 13.62 |
 | 1 | adjacent_line_padding | 48.8 | `reconstruct,` | (299.41, 294.11, 342.74, 307.73) | `rule` | (324.65, 301.08, 338.6, 314.7) | 6.97 | 13.62 |
+| 1 | adjacent_line_padding | 48.0 | `reference` | (282.56, 32.58, 316.93, 46.19) | `6.0` | (284.56, 39.3, 296.64, 53.67) | 6.72 | 13.62 |
 | 1 | adjacent_line_padding | 37.6 | `(primary)` | (48.18, 55.86, 83.86, 70.23) | `30` | (66.92, 46.89, 76.59, 61.26) | 8.97 | 13.62 |
 | 1 | adjacent_line_padding | 37.6 | `(primary)` | (48.18, 55.86, 83.86, 70.23) | `d` | (79.01, 46.89, 83.83, 61.26) | 8.97 | 13.62 |
 | 1 | adjacent_line_padding | 37.6 | `window)` | (51.89, 31.08, 83.7, 45.45) | `7` | (71.78, 22.11, 76.62, 36.49) | 8.97 | 13.62 |
 | 1 | adjacent_line_padding | 36.4 | `window)` | (51.89, 31.08, 83.7, 45.45) | `d` | (79.03, 22.11, 83.86, 36.49) | 8.97 | 13.62 |
 
-Pair classification: `adjacent_line_padding` x7.
+Pair classification: `adjacent_line_padding` x9.
 
 #### `paper/wrr/figures/figv2_archive_deployment.pdf` — 12 pair(s)
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 1 | adjacent_line_padding | 44.4 | `unfilled` | (79.6, 127.17, 103.3, 139.27) | `(49` | (81.81, 133.89, 92.45, 146.0) | 6.72 | 12.10 |
-| 1 | adjacent_line_padding | 44.4 | `unfilled` | (79.6, 127.17, 103.3, 139.27) | `d)` | (94.49, 133.89, 101.05, 146.0) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 44.4 | `unfilled` | (79.6, 127.13, 103.3, 139.24) | `(49` | (81.81, 133.86, 92.45, 145.96) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 44.4 | `unfilled` | (79.6, 127.13, 103.3, 139.24) | `d)` | (94.49, 133.86, 101.05, 145.96) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 44.4 | `everything` | (98.49, 341.69, 133.04, 353.79) | `repair` | (106.33, 334.96, 125.15, 347.06) | 6.72 | 12.10 |
-| 1 | adjacent_line_padding | 44.4 | `imputation` | (128.01, 127.17, 162.84, 139.27) | `d)` | (142.66, 133.89, 149.22, 146.0) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 44.4 | `imputation` | (128.01, 127.13, 162.84, 139.24) | `d)` | (142.66, 133.86, 149.22, 145.96) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 44.4 | `length` | (178.38, 334.96, 198.78, 347.06) | `140` | (183.1, 341.69, 195.31, 353.79) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 44.4 | `length` | (251.21, 334.96, 271.61, 347.06) | `49` | (257.96, 341.69, 266.1, 353.79) | 6.72 | 12.10 |
-| 1 | adjacent_line_padding | 42.6 | `disagree` | (77.96, 31.65, 104.63, 43.38) | `15.1%` | (81.46, 24.93, 101.15, 36.65) | 6.72 | 12.10 |
-| 1 | adjacent_line_padding | 42.6 | `disagree` | (124.09, 31.65, 150.76, 43.38) | `11.6%` | (127.59, 24.93, 147.29, 36.65) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 42.6 | `disagree` | (77.96, 31.64, 104.63, 43.37) | `15.1%` | (81.46, 24.92, 101.15, 36.64) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 42.6 | `disagree` | (124.09, 31.64, 150.76, 43.37) | `11.6%` | (127.59, 24.92, 147.29, 36.64) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 40.8 | `window` | (330.97, 334.96, 355.26, 347.06) | `hidden` | (335.11, 341.69, 357.06, 353.79) | 6.72 | 12.10 |
-| 1 | adjacent_line_padding | 38.1 | `(140` | (125.91, 133.89, 140.62, 146.0) | `imputation` | (128.01, 127.17, 162.84, 139.27) | 6.72 | 12.10 |
+| 1 | adjacent_line_padding | 38.1 | `(140` | (125.91, 133.86, 140.62, 145.96) | `imputation` | (128.01, 127.13, 162.84, 139.24) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 38.0 | `length` | (251.21, 334.96, 271.61, 347.06) | `d` | (268.14, 341.69, 272.2, 353.79) | 6.72 | 12.10 |
 | 1 | adjacent_line_padding | 31.5 | `peak` | (313.31, 334.96, 328.94, 347.06) | `10%` | (318.85, 341.69, 333.07, 353.79) | 6.72 | 12.10 |
 
@@ -311,46 +328,48 @@ Pair classification: `adjacent_line_padding` x2.
 
 Pair classification: `adjacent_line_padding` x5.
 
-#### `paper/wrr/wrr_manuscript.pdf` — 67 pair(s)
+#### `paper/wrr/wrr_manuscript.pdf` — 70 pair(s)
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 50 | atypical_box_geometry | 80.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `0` | (394.14, 389.14, 396.94, 398.96) | 1.92 | 9.46 |
-| 50 | atypical_box_geometry | 53.7 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `d` | (398.34, 386.52, 401.13, 396.33) | 4.54 | 9.46 |
-| 50 | atypical_box_geometry | 51.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `ann` | (400.98, 399.43, 409.26, 412.67) | 8.36 | 9.46 |
-| 52 | atypical_box_geometry | 50.7 | `certificate` | (218.3, 419.82, 257.77, 434.62) | `oracle` | (232.1, 427.12, 256.18, 441.91) | 7.30 | 7.96 |
-| 50 | atypical_box_geometry | 48.7 | `seasonal` | (117.67, 343.45, 146.27, 355.72) | `donor` | (127.04, 337.16, 145.89, 349.43) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `observed` | (124.11, 299.37, 154.18, 311.64) | `donor` | (131.32, 305.67, 150.16, 317.94) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `donor` | (127.04, 337.16, 145.89, 349.43) | `n` | (129.96, 330.86, 134.07, 343.13) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `missing` | (129.23, 356.05, 154.15, 368.32) | `total` | (139.31, 362.34, 154.15, 374.61) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `train` | (133.52, 318.27, 148.62, 330.54) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `visible` | (136.13, 330.86, 156.87, 343.13) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `amplitude` | (148.33, 343.45, 181.12, 355.72) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `metric` | (150.69, 318.27, 171.58, 330.54) | `resid` | (155.74, 311.97, 171.57, 324.24) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `fraction` | (156.25, 299.37, 181.17, 311.64) | `overlap` | (156.75, 293.08, 181.12, 305.35) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.76, 324.56, 181.16, 336.83) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `mean` | (162.76, 324.56, 181.16, 336.83) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `max` | (167.06, 305.67, 181.19, 317.94) | `sd` | (173.63, 311.97, 181.13, 324.24) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.7 | `missing` | (156.21, 362.34, 181.13, 374.61) | `fraction` | (156.22, 356.05, 181.14, 368.32) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `runs` | (166.88, 349.75, 181.15, 362.02) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `missing` | (156.21, 362.34, 181.13, 374.61) | `run` | (170.25, 368.64, 181.14, 380.91) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `sd` | (173.63, 311.97, 181.13, 324.24) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.78, 337.16, 181.18, 349.43) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `fraction` | (156.25, 299.37, 181.17, 311.64) | `max` | (167.06, 305.67, 181.19, 317.94) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `overlap` | (156.75, 293.08, 181.12, 305.35) | `margin` | (158.27, 286.78, 181.17, 299.05) | 6.30 | 9.46 |
-| 50 | atypical_box_geometry | 48.6 | `amplitude` | (148.33, 343.45, 181.12, 355.72) | `runs` | (166.88, 349.75, 181.15, 362.02) | 6.30 | 9.46 |
-| ... | | | 42 more pairs in the JSON | | | | | |
+| 6 | same_baseline_horizontal | 95.3 | `peak-window` | (409.66, 308.97, 450.2, 316.13) | `fitted` | (419.94, 308.63, 436.31, 315.79) | 0.34 | 7.96 |
+| 6 | same_baseline_horizontal | 85.4 | `peak-window` | (409.66, 308.97, 450.2, 316.13) | `calibrated` | (423.15, 309.16, 454.0, 316.32) | 0.19 | 7.96 |
+| 57 | atypical_box_geometry | 80.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `0` | (394.14, 389.14, 396.94, 398.96) | 1.92 | 9.46 |
+| 6 | adjacent_line_padding | 74.4 | `fitted` | (419.94, 308.63, 436.31, 315.79) | `calibrated` | (423.15, 309.16, 454.0, 316.32) | 0.53 | 7.96 |
+| 57 | atypical_box_geometry | 53.7 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `d` | (398.34, 386.52, 401.13, 396.33) | 4.54 | 9.46 |
+| 57 | atypical_box_geometry | 51.4 | `amplit` | (393.23, 391.06, 407.18, 408.52) | `ann` | (400.98, 399.43, 409.26, 412.67) | 8.36 | 9.46 |
+| 59 | atypical_box_geometry | 50.7 | `certificate` | (218.3, 419.82, 257.77, 434.62) | `oracle` | (232.1, 427.12, 256.18, 441.91) | 7.30 | 7.96 |
+| 57 | atypical_box_geometry | 48.7 | `seasonal` | (117.67, 343.45, 146.27, 355.72) | `donor` | (127.04, 337.16, 145.89, 349.43) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `observed` | (124.11, 299.37, 154.18, 311.64) | `donor` | (131.32, 305.67, 150.16, 317.94) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `donor` | (127.04, 337.16, 145.89, 349.43) | `n` | (129.96, 330.86, 134.07, 343.13) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `missing` | (129.23, 356.05, 154.15, 368.32) | `total` | (139.31, 362.34, 154.15, 374.61) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `train` | (133.52, 318.27, 148.62, 330.54) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `coverage` | (130.57, 324.56, 160.69, 336.83) | `visible` | (136.13, 330.86, 156.87, 343.13) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `amplitude` | (148.33, 343.45, 181.12, 355.72) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `metric` | (150.69, 318.27, 171.58, 330.54) | `resid` | (155.74, 311.97, 171.57, 324.24) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `n` | (160.7, 349.75, 164.81, 362.02) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `fraction` | (156.25, 299.37, 181.17, 311.64) | `overlap` | (156.75, 293.08, 181.12, 305.35) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.76, 324.56, 181.16, 336.83) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `mean` | (162.76, 324.56, 181.16, 336.83) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `max` | (167.06, 305.67, 181.19, 317.94) | `sd` | (173.63, 311.97, 181.13, 324.24) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.7 | `missing` | (156.21, 362.34, 181.13, 374.61) | `fraction` | (156.22, 356.05, 181.14, 368.32) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.6 | `fraction` | (156.22, 356.05, 181.14, 368.32) | `runs` | (166.88, 349.75, 181.15, 362.02) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.6 | `missing` | (156.21, 362.34, 181.13, 374.61) | `run` | (170.25, 368.64, 181.14, 380.91) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.6 | `sd` | (173.63, 311.97, 181.13, 324.24) | `sd` | (173.64, 318.27, 181.14, 330.54) | 6.30 | 9.46 |
+| 57 | atypical_box_geometry | 48.6 | `donors` | (158.94, 330.86, 181.16, 343.13) | `mean` | (162.78, 337.16, 181.18, 349.43) | 6.30 | 9.46 |
+| ... | | | 45 more pairs in the JSON | | | | | |
 
-Pair classification: `adjacent_line_padding` x2; `atypical_box_geometry` x65.
+Pair classification: `adjacent_line_padding` x3; `atypical_box_geometry` x65; `same_baseline_horizontal` x2.
 
-#### `paper/wrr/wrr_supporting_information.pdf` — 14 pair(s)
+#### `paper/wrr/wrr_supporting_information.pdf` — 16 pair(s)
 
 | page | kind | overlap % of smaller | word A | box A | word B | box B | baseline delta (pt) | page median height (pt) |
 |---|---|---|---|---|---|---|---|---|
-| 13 | adjacent_line_padding | 69.0 | `+` | (409.08, 192.1, 414.97, 205.41) | `7.1` | (409.14, 196.13, 420.95, 210.17) | 4.03 | 11.82 |
+| 13 | adjacent_line_padding | 69.5 | `+` | (409.08, 192.1, 414.97, 205.41) | `6.2` | (409.14, 196.06, 420.95, 210.1) | 3.96 | 11.82 |
+| 13 | adjacent_line_padding | 56.5 | `6.2` | (429.94, 195.86, 441.74, 209.9) | `°C` | (435.11, 192.1, 443.53, 205.41) | 3.76 | 11.82 |
 | 13 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `length` | (389.72, 454.43, 412.14, 467.73) | 6.81 | 11.82 |
 | 13 | adjacent_line_padding | 48.8 | `reconstruct,` | (389.72, 447.62, 432.05, 460.92) | `rule` | (414.38, 454.43, 428.01, 467.73) | 6.81 | 11.82 |
+| 13 | adjacent_line_padding | 48.0 | `reference` | (373.26, 192.1, 406.84, 205.41) | `6.0` | (375.21, 198.67, 387.01, 212.71) | 6.57 | 11.82 |
 | 12 | adjacent_line_padding | 44.4 | `days` | (187.64, 347.4, 202.79, 359.54) | `on` | (190.49, 340.66, 198.49, 352.79) | 6.74 | 12.14 |
 | 12 | adjacent_line_padding | 44.4 | `length-rule` | (338.57, 340.66, 373.78, 352.79) | `screening` | (340.53, 347.4, 371.79, 359.54) | 6.74 | 12.14 |
 | 12 | adjacent_line_padding | 44.4 | `anomalies` | (428.11, 516.27, 461.08, 528.41) | `shuffled` | (431.67, 523.02, 457.48, 535.15) | 6.74 | 12.14 |
@@ -363,7 +382,7 @@ Pair classification: `adjacent_line_padding` x2; `atypical_box_geometry` x65.
 | 12 | adjacent_line_padding | 37.0 | `no` | (247.09, 347.4, 255.09, 359.54) | `reconstruct,` | (248.42, 340.66, 287.04, 352.79) | 6.74 | 12.14 |
 | 13 | adjacent_line_padding | 36.4 | `window)` | (147.9, 190.64, 178.97, 204.68) | `d` | (174.41, 181.88, 179.13, 195.92) | 8.76 | 11.82 |
 
-Pair classification: `adjacent_line_padding` x14.
+Pair classification: `adjacent_line_padding` x16.
 
 ### Page number printed over body text
 
@@ -378,6 +397,7 @@ No word box repeats a substring, so no row of labels was found drawn edge to edg
 | figure | draw.io source at figures/v17/drawio | schematic | python generator(s) under scripts/ | classification | verdict |
 |---|---|---|---|---|---|
 | `f0_problem_frame` | yes | yes — problem frame (drawio README) | none | drawio | ok |
+| `f1_decision` | NO | no | `scripts/319_wrr_figure1_decision.py` | python | ok |
 | `f1_example` | NO | no | `scripts/265_wrr_figure1_example.py` | python | ok |
 | `f1_system_architecture` | yes | yes — system architecture (drawio README) | none | drawio | ok |
 | `f2_experiment_design` | yes | yes — study design and data flow (drawio README) | none | drawio | ok |
@@ -401,23 +421,24 @@ The schematic list is explicit (see `SCHEMATIC_FIGURES` in the script, taken fro
 | figure | figure built elsewhere in `figures/` | identical to the paper copy |
 |---|---|---|
 | `f0_problem_frame` | `figures/v17/f0_problem_frame.pdf` | yes |
+| `f1_decision` | `figures/wrr/f1_decision.pdf` | yes |
 | `f1_example` | `figures/wrr/f1_example.pdf` | yes |
 | `f1_system_architecture` | `figures/v17/f1_system_architecture.pdf` | yes |
 | `f2_experiment_design` | `figures/v17/f2_experiment_design.pdf` | yes |
 | `f2a_endpoint_ordering` | `figures/wrr/f2a_endpoint_ordering.pdf` | yes |
-| `f2b_panel_heterogeneity` | `figures/wrr/f2b_panel_heterogeneity.pdf` | no |
+| `f2b_panel_heterogeneity` | `figures/wrr/f2b_panel_heterogeneity.pdf` | yes |
 | `f3_evidence_chain` | `figures/v17/f3_evidence_chain.pdf` | yes |
 | `f4_deployment_workflow` | `figures/v17/f4_deployment_workflow.pdf` | yes |
 | `fig1_mechanism` | `figures/v17/fig1_mechanism.pdf` | yes |
-| `fig2_frontier` | `figures/v17/fig2_frontier.pdf` | no |
-| `fig3_calibration` | `figures/v17/fig3_calibration.pdf` | no |
-| `fig4_consequence` | `figures/v17/fig4_consequence.pdf` | no |
-| `fig5_robustness` | `figures/v17/fig5_robustness.pdf` | no |
-| `fig6_hydrology` | `figures/v17/fig6_hydrology.pdf` | no |
-| `figv1_outage_seasonality` | `figures/v18/figv1_outage_seasonality.pdf` | no |
-| `figv2_archive_deployment` | `figures/v18/figv2_archive_deployment.pdf` | no |
+| `fig2_frontier` | `figures/v17/fig2_frontier.pdf` | yes |
+| `fig3_calibration` | `figures/v17/fig3_calibration.pdf` | yes |
+| `fig4_consequence` | `figures/v17/fig4_consequence.pdf` | yes |
+| `fig5_robustness` | `figures/v17/fig5_robustness.pdf` | yes |
+| `fig6_hydrology` | `figures/v17/fig6_hydrology.pdf` | yes |
+| `figv1_outage_seasonality` | `figures/v18/figv1_outage_seasonality.pdf` | yes |
+| `figv2_archive_deployment` | `figures/v18/figv2_archive_deployment.pdf` | yes |
 | `figv3_support_law` | `figures/v18/figv3_support_law.pdf` | yes |
-| `figv4_representativeness` | `figures/v18/figv4_representativeness.pdf` | no |
+| `figv4_representativeness` | `figures/v18/figv4_representativeness.pdf` | yes |
 
 ## 7. Raster image resolution (check g)
 
@@ -427,10 +448,10 @@ The schematic list is explicit (see `SCHEMATIC_FIGURES` in the script, taken fro
 | `paper/wrr/figures/fig1_mechanism.pdf` | 1 | 1 | 16x308 | index | 300, 300 | ok |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 0 | 650x673 | index | 400, 400 | ok |
 | `paper/wrr/figures/figv3_support_law.pdf` | 1 | 1 | 31x625 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 48 | 0 | 650x673 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 48 | 1 | 31x625 | index | 400, 400 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 50 | 2 | 317x427 | index | 324, 324 | ok |
-| `paper/wrr/wrr_manuscript.pdf` | 50 | 3 | 16x308 | index | 324, 324 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 55 | 0 | 650x673 | index | 400, 400 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 55 | 1 | 31x625 | index | 400, 400 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 57 | 2 | 317x427 | index | 324, 324 | ok |
+| `paper/wrr/wrr_manuscript.pdf` | 57 | 3 | 16x308 | index | 324, 324 | ok |
 
 ## 8. Printed size and effective text size (derived)
 
@@ -439,11 +460,12 @@ Method: the scale at which each figure is placed in the built PDFs is measured b
 | figure | width (pt) | measured scale | printed width (pt) | printed width (in) | raw min (pt) | raw p05 (pt) | effective min (pt) | effective p05 (pt) | confidence |
 |---|---|---|---|---|---|---|---|---|---|
 | `f0_problem_frame` | 396.00 | 1.0000 | 396.01 | 5.500 | 5.16 | 5.55 | 5.16 | 5.56 | measured |
+| `f1_decision` | 386.65 | 1.0242 | 396.00 | 5.500 | 6.99 | 6.99 | 7.16 | 7.16 | measured |
 | `f1_example` | 384.29 | 1.0305 | 396.01 | 5.500 | 6.38 | 6.99 | 6.58 | 7.20 | measured |
 | `f1_system_architecture` | 396.00 | 1.0000 | 396.01 | 5.500 | 5.61 | 5.61 | 5.61 | 5.61 | measured |
 | `f2_experiment_design` | 396.00 | 1.0000 | 396.01 | 5.500 | 5.93 | 5.93 | 5.93 | 5.93 | measured |
 | `f2a_endpoint_ordering` | 391.11 | 0.9619 | 376.21 | 5.225 | 6.99 | 6.99 | 6.72 | 6.72 | measured |
-| `f2b_panel_heterogeneity` | 380.62 | 0.9884 | 376.21 | 5.225 | 6.99 | 6.99 | 6.91 | 6.91 | measured |
+| `f2b_panel_heterogeneity` | 438.57 | 0.8578 | 376.22 | 5.225 | 6.99 | 6.99 | 6.00 | 6.00 | measured |
 | `f3_evidence_chain` | 396.00 | 1.0000 | 396.01 | 5.500 | 6.17 | 6.17 | 6.17 | 6.17 | measured |
 | `f4_deployment_workflow` | 396.00 | 1.0000 | 396.01 | 5.500 | 5.61 | 5.61 | 5.61 | 5.61 | measured |
 | `fig1_mechanism` | 427.25 | 0.9269 | 396.00 | 5.500 | 4.29 | 10.21 | 3.98 | 9.47 | measured |
@@ -457,40 +479,44 @@ Method: the scale at which each figure is placed in the built PDFs is measured b
 | `figv3_support_law` | 395.58 | 1.0010 | 396.00 | 5.500 | 4.29 | 10.59 | 4.30 | 10.60 | measured |
 | `figv4_representativeness` | 394.78 | 1.0031 | 396.01 | 5.500 | 12.10 | 12.10 | 12.14 | 12.14 | measured |
 
-Implied printed width across the 18 figures with a measured scale: median 396.01 pt (5.500 in), range 376.21-396.03 pt. Corroboration: the AGU class file sets `\textwidth 5.5in` = 396 pt (`paper/wrr/template/agujournal2025.cls:958`), consistent with a full-width placement.
+Implied printed width across the 19 figures with a measured scale: median 396.01 pt (5.500 in), range 376.21-396.03 pt. Corroboration: the AGU class file sets `\textwidth 5.5in` = 396 pt (`paper/wrr/template/agujournal2025.cls:958`), consistent with a full-width placement.
 
 AGU/WRR ask for figure text that stays legible in print; a text height below 4.5 pt at printed size is the practical red line used here.
 
-Advisory (not a failure): the following figures pass the 4.5 pt rule but their 5th percentile word box prints below 6 pt, which is small even for a journal figure: `f0_problem_frame` 5.55 pt, `f1_system_architecture` 5.61 pt, `f4_deployment_workflow` 5.61 pt, `f2_experiment_design` 5.93 pt.
+Advisory (not a failure): the following figures pass the 4.5 pt rule but their 5th percentile word box prints below 6 pt, which is small even for a journal figure: `f0_problem_frame` 5.55 pt, `f1_system_architecture` 5.61 pt, `f4_deployment_workflow` 5.61 pt, `f2_experiment_design` 5.93 pt, `f2b_panel_heterogeneity` 6.00 pt.
 
 ## 9. Prioritised fix list
 
 | priority | file | finding |
 |---|---|---|
+| P1 | `paper/wrr/figures/f1_decision.pdf` | OVERLAPPING_TEXT_SAME_BASELINE: 2 word-box pair(s) share a baseline and overlap horizontally (real text collision candidates) |
+| P1 | `paper/wrr/wrr_manuscript.pdf` | OVERLAPPING_TEXT_SAME_BASELINE: 2 word-box pair(s) share a baseline and overlap horizontally (real text collision candidates) |
+| P2 | `paper/wrr/figures/f1_decision.pdf` | OVERLAPPING_WORD_BOXES: 1 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/fig1_mechanism.pdf` | OVERLAPPING_WORD_BOXES: 42 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/fig2_frontier.pdf` | OVERLAPPING_WORD_BOXES: 5 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/fig3_calibration.pdf` | OVERLAPPING_WORD_BOXES: 1 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/fig4_consequence.pdf` | OVERLAPPING_WORD_BOXES: 7 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
-| P2 | `paper/wrr/figures/fig5_robustness.pdf` | OVERLAPPING_WORD_BOXES: 7 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
+| P2 | `paper/wrr/figures/fig5_robustness.pdf` | OVERLAPPING_WORD_BOXES: 9 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/figv2_archive_deployment.pdf` | OVERLAPPING_WORD_BOXES: 12 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/figv3_support_law.pdf` | OVERLAPPING_WORD_BOXES: 2 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P2 | `paper/wrr/figures/figv4_representativeness.pdf` | OVERLAPPING_WORD_BOXES: 5 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
-| P2 | `paper/wrr/wrr_manuscript.pdf` | OVERLAPPING_WORD_BOXES: 67 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
-| P2 | `paper/wrr/wrr_supporting_information.pdf` | OVERLAPPING_WORD_BOXES: 14 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
+| P2 | `paper/wrr/wrr_manuscript.pdf` | OVERLAPPING_WORD_BOXES: 68 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
+| P2 | `paper/wrr/wrr_supporting_information.pdf` | OVERLAPPING_WORD_BOXES: 16 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render |
 | P3 | `(environment)` | TOOL_MISSING: drawio is not installed in this environment |
+| P3 | `paper/wrr/figures/f1_decision.pdf` | SMALL_RELATIVE_WORD_BOXES: 10 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/f1_example.pdf` | SMALL_RELATIVE_WORD_BOXES: 30 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
-| P3 | `paper/wrr/figures/fig1_mechanism.pdf` | SMALL_RELATIVE_WORD_BOXES: 68 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
+| P3 | `paper/wrr/figures/fig1_mechanism.pdf` | SMALL_RELATIVE_WORD_BOXES: 67 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/fig2_frontier.pdf` | SMALL_RELATIVE_WORD_BOXES: 2 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/fig3_calibration.pdf` | SMALL_RELATIVE_WORD_BOXES: 20 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/fig4_consequence.pdf` | SMALL_RELATIVE_WORD_BOXES: 4 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
-| P3 | `paper/wrr/figures/fig5_robustness.pdf` | SMALL_RELATIVE_WORD_BOXES: 26 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
+| P3 | `paper/wrr/figures/fig5_robustness.pdf` | SMALL_RELATIVE_WORD_BOXES: 31 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/fig6_hydrology.pdf` | SMALL_RELATIVE_WORD_BOXES: 39 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/figv1_outage_seasonality.pdf` | SMALL_RELATIVE_WORD_BOXES: 3 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/figv2_archive_deployment.pdf` | SMALL_RELATIVE_WORD_BOXES: 57 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/figv3_support_law.pdf` | SMALL_RELATIVE_WORD_BOXES: 74 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 | P3 | `paper/wrr/figures/figv4_representativeness.pdf` | SMALL_RELATIVE_WORD_BOXES: 42 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
-| P3 | `paper/wrr/wrr_manuscript.pdf` | SMALL_RELATIVE_WORD_BOXES: 298 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
-| P3 | `paper/wrr/wrr_supporting_information.pdf` | SMALL_RELATIVE_WORD_BOXES: 69 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
+| P3 | `paper/wrr/wrr_manuscript.pdf` | SMALL_RELATIVE_WORD_BOXES: 307 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
+| P3 | `paper/wrr/wrr_supporting_information.pdf` | SMALL_RELATIVE_WORD_BOXES: 74 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt |
 
 ## 10. Method, reproducibility and caveats
 

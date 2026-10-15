@@ -1,0 +1,215 @@
+{
+  "script": "scripts/318_wrr_p1_transfer_measurement.py",
+  "script_sha256": "7da3a42cae479a9f73b4f4445b448ad7f70e7a25409ce80a0f7f280998e2f341",
+  "git_head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
+  "generated_utc": "2026-10-15T10:12:54Z",
+  "wall_seconds": 66.89037208259106,
+  "reused_module": {
+    "path": "scripts/301_wrr_mr_step2_same_info_ablation.py",
+    "sha256": "abf191bed6bb2e8ddbcbd8087642a0ab85e23b86d086b93307ba8c8f4da68f2f",
+    "what_was_reused": [
+      "FEATURE_SETS / GENERIC / SUPPORT feature tuples",
+      "_prepare (estimator_disagreement + month harmonics)",
+      "_risk_model (HistGradientBoostingRegressor quantile=0.9, depth 4, 350 iters, lr 0.06, leaf 40)",
+      "oof_risk_scores (5-fold network-clustered OOF)",
+      "rule_scores (jittered longest_run length rule)",
+      "retention_at_risk_cap (validation reference only)",
+      "contrast_at_retention (validation reference only)"
+    ]
+  },
+  "inputs": {
+    "results/v17_fitness/step4_ceiling/development_cases.parquet": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8",
+    "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9",
+    "results/wrr_submission_ready/measurement_provenance_dictionary.csv": "7797ba46cfaacfa7594e4326989a0c0696f3d3ed98b2e2c44d6b021495d30525"
+  },
+  "measurement_contract_source": "explicit provider mapping of measurement_provenance_dictionary.csv, cross-checked against the P0-06 coverage table",
+  "coverage_table": {
+    "path": "results/wrr_submission_ready/major_revision_20261014/p0_06_coverage_recompute/final_coverage_table.csv",
+    "sha256_of_bytes_read_this_run": "2002b545891087ec089224d0c1db04a51a048c7cfd22eb71a8de8f4aeda10f98",
+    "file": "measurement_contract_crosscheck.csv",
+    "keyword_class_disagreements": [],
+    "station_class_disagreements": [
+      "chmi",
+      "foen",
+      "gkd_bayern",
+      "lubw"
+    ],
+    "station_class_unavailable": [
+      "hubeau",
+      "uk_ea",
+      "usgs"
+    ],
+    "notes": [
+      "the P0-06 coverage table is being rebuilt by a parallel workstream; the sha256 above is of the exact bytes read by this run, and the classes scored here come from the explicit mapping, not from that table",
+      "this run's four-class mapping agrees with P0-06's dictionary-derived statistic_class for every provider present in the two panels",
+      "P0-06's station-level cross-check column disagrees with the class used here for chmi, foen, gkd_bayern, lubw: that column carries them as undocumented/unverified while the dictionary documents either a daily mean or a project-derived daily mean. This is an internal P0-06 conservatism difference, not a difference in the classes scored here",
+      "no station-level cross-check row exists in P0-06 for hubeau, uk_ea, usgs, so that column could not be checked for them"
+    ]
+  },
+  "measurement_mapping": {
+    "usgs": {
+      "class": "documented_daily_mean",
+      "basis": "statistic code 00003 is documented as MEAN VALUES (dictionary)"
+    },
+    "foen": {
+      "class": "documented_daily_mean",
+      "basis": "provider field data_1day_mean, documented daily mean (dictionary)"
+    },
+    "gkd_bayern": {
+      "class": "documented_daily_mean",
+      "basis": "Tageswerte/tmw; CSV column read by the parser is 'Mittelwert' (dictionary)"
+    },
+    "lubw": {
+      "class": "documented_daily_mean",
+      "basis": "workbook attribute printed name 'Tagesmittelwert' (dictionary)"
+    },
+    "nve_hydapi": {
+      "class": "documented_daily_mean",
+      "basis": "HydAPI aggregation type 'mean', ResolutionTime=1440 (dictionary)"
+    },
+    "uk_ea": {
+      "class": "documented_daily_mean",
+      "basis": "measure labelled 'Daily mean Temperature (C) time series', valueType mean (dictionary)"
+    },
+    "chmi": {
+      "class": "project_aggregated_subdaily",
+      "basis": "source series TO = instantaneous 10-min; parser averages to a project calendar day (dictionary)"
+    },
+    "rws_waterwebservices": {
+      "class": "project_aggregated_subdaily",
+      "basis": "raw 'meting' values averaged per calendar date; provider GEM24H mean not used (dictionary)"
+    },
+    "hubeau": {
+      "class": "project_aggregated_subdaily",
+      "basis": "continuous chronicle, per-measurement timestamps, resampled to a calendar-day mean (dictionary)"
+    },
+    "syke": {
+      "class": "non_daily_reference_reading",
+      "basis": "morning ~08:00 near-shore reading, not a provider daily mean (dictionary)"
+    },
+    "arso": {
+      "class": "undocumented",
+      "basis": "no fetched page states whether the daily value is a mean or a fixed-hour reading (dictionary)"
+    },
+    "smhi": {
+      "class": "undocumented",
+      "basis": "daily cadence documented, aggregation statistic explicitly unverified (dictionary)"
+    }
+  },
+  "parameters": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "risk_cap": 0.05,
+    "seed": 17,
+    "boot_draws_strata": 1200,
+    "boot_draws_main": 2000,
+    "min_networks_for_ci": 5,
+    "early_fraction": 0.6,
+    "global_calendar_cut_year": 2018,
+    "threads": "OMP/OPENBLAS/MKL/NUMEXPR_NUM_THREADS=1 per process",
+    "max_workers": 48,
+    "n_bootstraps": 69
+  },
+  "endpoint": {
+    "error_column": "abserr_policy",
+    "failure_definition": "non-finite or abserr_policy > 0.5 C",
+    "contrast_sign": "risk minus length; negative = fitted risk score has the lower failure rate"
+  },
+  "protocol_checks": {
+    "step2_reproduction": {
+      "point_pp": -6.201523181132209,
+      "ci_low_pp": -7.087334034100561,
+      "ci_high_pp": -5.353421416678376,
+      "published_point_pp": -6.202,
+      "draws": 400
+    },
+    "retention_helper_exact_vs_step2_grid": {
+      "grid_retention": 0.77,
+      "exact_retention": 0.7748624213836478,
+      "abs_diff_retention": 0.004862421383647786,
+      "n_cases": 40704,
+      "note": "Step 2 searches RETENTION_GRID then a 0.01 grid; the exact helper takes any k, so it can only be equal or finer."
+    }
+  },
+  "panel_composition": {
+    "development": {
+      "n_cases": 40704,
+      "n_networks": 110,
+      "n_stations": 354,
+      "n_station_years": 4045,
+      "year_min": 1935,
+      "year_max": 2025,
+      "per_station_train_cases": 24299,
+      "per_station_train_networks": 110,
+      "per_station_eval_cases": 16405,
+      "per_station_eval_networks": 110,
+      "global_split_train_cases": 25460,
+      "global_split_eval_cases": 15244
+    },
+    "wave2": {
+      "n_cases": 13017,
+      "n_networks": 49
+    }
+  },
+  "event_label_audit": {
+    "wrr_panel_event_labels_found": false,
+    "sources_checked": [
+      {
+        "path": "private/gems_reviewer_bundle/data/processed/event_labels.parquet",
+        "what_it_is": "labelled daily panel with high_temperature and heatwave_min_3d columns",
+        "station_ids": [
+          "B1",
+          "P3",
+          "S2"
+        ],
+        "n_stations": 3,
+        "n_rows": 16437,
+        "belongs_to_this_panel": false,
+        "why_not": "station ids are the anonymised GEMS benchmark ids, not river-temperature station ids, and the labelled variables are air temperature T and flow F; it cannot label a station-year of the WRR panel"
+      },
+      {
+        "path": "results/wrr_revision/step5_failures/fault_scores.csv",
+        "what_it_is": "gap-segment diagnostic with a derived 'heatwave_fraction' column (share of gap days above the station's training 90th percentile of daily temperature)",
+        "columns_present": true,
+        "belongs_to_this_panel": "different unit of analysis (gap segments, not station-years)",
+        "why_not": "it is a derived warm-day overlap computed by the project, not a provider or third-party event label, and it does not identify heatwave episodes"
+      }
+    ],
+    "conclusion": "No true heatwave/event label exists for the river-temperature panel. The only labelled event file in the repository is the anonymised GEMS benchmark panel. The thermal strata below are therefore warm-year strata and must not be read as an event-scale heatwave analysis."
+  },
+  "existing_strictly_prior_years_sensitivity": {
+    "available": true,
+    "rows": [
+      {
+        "protocol": "leave_one_year_out (main)",
+        "cases": 40704,
+        "station_years": 4045,
+        "policy_mean_abs_error_c": 0.2415774453303579,
+        "length_rule_at_70": 0.0924086617765767,
+        "certificate_at_70": 0.0293405397817007,
+        "contrast_points": -6.345418172884568,
+        "ci_low": -7.12031069874207,
+        "ci_high": -5.524692276175337,
+        "coverage": 0.8973319575471698
+      },
+      {
+        "protocol": "strictly_prior_years (sensitivity)",
+        "cases": 33633,
+        "station_years": 3337,
+        "policy_mean_abs_error_c": 0.2699807724003619,
+        "length_rule_at_70": 0.0946778235568959,
+        "certificate_at_70": 0.0354670177972221,
+        "contrast_points": -5.92108057596738,
+        "ci_low": -6.7173101910190285,
+        "ci_high": -4.989113915658897,
+        "coverage": 0.9054500044599054
+      }
+    ]
+  },
+  "known_limitations": [
+    "the case table's reconstructor features were built under fit_protocol=leave_one_year_out, so the time-transfer rows are honest for the risk score's training block but remain an upper bound on a strictly prior-years deployment",
+    "wave-2 rows are exploratory and do not retune or replace the wave-2 seal, which belongs to the frozen multi-method certificate screen",
+    "no true heatwave event labels exist for this panel, so thermal strata are warm-year strata",
+    "threshold-transfer intervals resample networks inside the calibration block as well as the evaluation block, so they carry threshold uncertainty as well as evaluation uncertainty"
+  ]
+}

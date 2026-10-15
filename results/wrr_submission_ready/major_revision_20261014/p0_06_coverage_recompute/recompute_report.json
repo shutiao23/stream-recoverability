@@ -1,0 +1,1097 @@
+{
+  "part_a": {
+    "coverage_table_rows": 711,
+    "coverage_table_stations": 711,
+    "panels": {
+      "v17": 547,
+      "wave2_confirmation": 143
+    },
+    "providers": 11,
+    "networks": 210,
+    "n_stations_undocumented_statistic": 47,
+    "n_stations_non_daily_reference": 3,
+    "n_stations_project_aggregated": 87,
+    "n_stations_daily_mean": 553,
+    "n_stations_without_split_role": 26,
+    "n_wave2_station_rows_below_4_complete_years": 17,
+    "n_cross_check_disagreements": 161,
+    "n_stations_missing_data_rights_row": 11,
+    "manuscript_panel_crosscheck": {
+      "manuscript_claim": "146 networks, 457 stations and 5114 fully observed station-years (paper/wrr/wrr_manuscript.tex:331)",
+      "recomputed_from_artifacts": {
+        "n_networks": 146,
+        "n_stations": 457,
+        "n_complete_station_years": 5114
+      },
+      "matches": true,
+      "full_roster_station_years": 5307,
+      "note": "the 90 ineligible roster rows carry 193 further complete station-years that are outside the 5114 used by the manuscript",
+      "wave2_panel": {
+        "n_networks": 49,
+        "n_station_network_rows": 164,
+        "n_distinct_station_ids": 143,
+        "n_scored_cases": 13017
+      }
+    },
+    "measurement_class_shares_by_panel": {
+      "development": {
+        "n_cases": 40704,
+        "n_networks": 110,
+        "n_stations": 354,
+        "by_measurement_class": {
+          "daily_mean": {
+            "n_cases": 30289,
+            "share_of_cases": 0.7441283411949685,
+            "n_networks": 84,
+            "n_stations": 254,
+            "providers": [
+              "foen",
+              "gkd_bayern",
+              "lubw",
+              "nve_hydapi",
+              "usgs"
+            ]
+          },
+          "non_daily_reference_reading": {
+            "n_cases": 705,
+            "share_of_cases": 0.01732016509433962,
+            "n_networks": 2,
+            "n_stations": 3,
+            "providers": [
+              "syke"
+            ]
+          },
+          "project_aggregated_from_subdaily": {
+            "n_cases": 6321,
+            "share_of_cases": 0.15529186320754718,
+            "n_networks": 14,
+            "n_stations": 57,
+            "providers": [
+              "chmi",
+              "rws_waterwebservices"
+            ]
+          },
+          "undocumented": {
+            "n_cases": 3389,
+            "share_of_cases": 0.08325963050314465,
+            "n_networks": 10,
+            "n_stations": 40,
+            "providers": [
+              "arso"
+            ]
+          }
+        }
+      },
+      "reserved_retrospective": {
+        "n_cases": 10820,
+        "n_networks": 36,
+        "n_stations": 103,
+        "by_measurement_class": {
+          "daily_mean": {
+            "n_cases": 7985,
+            "share_of_cases": 0.737985212569316,
+            "n_networks": 29,
+            "n_stations": 75,
+            "providers": [
+              "gkd_bayern",
+              "lubw",
+              "nve_hydapi",
+              "usgs"
+            ]
+          },
+          "project_aggregated_from_subdaily": {
+            "n_cases": 2171,
+            "share_of_cases": 0.20064695009242145,
+            "n_networks": 5,
+            "n_stations": 21,
+            "providers": [
+              "chmi"
+            ]
+          },
+          "undocumented": {
+            "n_cases": 664,
+            "share_of_cases": 0.061367837338262475,
+            "n_networks": 2,
+            "n_stations": 7,
+            "providers": [
+              "arso"
+            ]
+          }
+        }
+      },
+      "wave2_confirmation": {
+        "n_cases": 13017,
+        "n_networks": 49,
+        "n_stations": 164,
+        "by_measurement_class": {
+          "daily_mean": {
+            "n_cases": 12282,
+            "share_of_cases": 0.9435353768149343,
+            "n_networks": 45,
+            "n_stations": 155,
+            "providers": [
+              "uk_ea",
+              "usgs"
+            ]
+          },
+          "project_aggregated_from_subdaily": {
+            "n_cases": 735,
+            "share_of_cases": 0.056464623185065684,
+            "n_networks": 4,
+            "n_stations": 9,
+            "providers": [
+              "hubeau"
+            ]
+          }
+        }
+      }
+    },
+    "columns_used": [
+      {
+        "input_key": "station_roster",
+        "file": "results/v17_fitness/step1_panel/station_roster.csv",
+        "role": "station identity, record span, complete-year count, split role, PART A",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "n_complete_years",
+          "first_year",
+          "last_year",
+          "provider",
+          "source_root",
+          "regulation_status",
+          "donor_regime",
+          "eligible_station",
+          "split_role"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "network_split",
+        "file": "results/v17_fitness/step1_panel/network_split.csv",
+        "role": "quality stratum (provider|donor_regime), network sizes, split role, PART A",
+        "columns_used": [
+          "network_id",
+          "provider",
+          "source_root",
+          "n_stations",
+          "n_station_years",
+          "median_donors",
+          "donor_regime",
+          "stratum",
+          "split_role"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "trusted_complete_years",
+        "file": "results/wrr_revision/step1_universe/trusted_river_complete_years.csv",
+        "role": "independent recount of record span and complete calendar years, PART A",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "year",
+          "expected_days",
+          "observed_days",
+          "missing_days",
+          "full_calendar_year",
+          "source_root",
+          "legacy_qc_status",
+          "regulation_status"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "current_data_manifest",
+        "file": "results/wrr_submission_ready/current_data_manifest.csv",
+        "role": "per-network data presence, artifact path and sha256, PART A",
+        "columns_used": [
+          "network_id",
+          "provider",
+          "source_root",
+          "split_role",
+          "input_path",
+          "bytes",
+          "sha256",
+          "status"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "current_data_acquisition",
+        "file": "results/wrr_submission_ready/current_data_acquisition.csv",
+        "role": "acquisition route / product per network, PART A",
+        "columns_used": [
+          "network_id",
+          "provider",
+          "country",
+          "product",
+          "acquisition_route",
+          "manifest_path",
+          "source_root",
+          "split_role"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "measurement_provenance_dictionary",
+        "file": "results/wrr_submission_ready/measurement_provenance_dictionary.csv",
+        "role": "provider -> documented daily statistic + licence, PART A",
+        "columns_used": [
+          "provider",
+          "country",
+          "product",
+          "statistic_documented",
+          "statistic_as_parsed",
+          "aggregation_interval",
+          "day_boundary_tz",
+          "quality_codes_kept",
+          "quality_codes_dropped",
+          "license",
+          "redistribution_allowed",
+          "derived_output_allowed",
+          "required_citation",
+          "acquisition_route",
+          "evidence_url",
+          "evidence_quote",
+          "verification_status"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "data_rights",
+        "file": "metadata/data_rights.csv",
+        "role": "repository-level licence register (artifact-keyed), PART A",
+        "columns_used": [
+          "artifact",
+          "upstream_source",
+          "copyright_holder",
+          "license",
+          "redistribution_allowed",
+          "derived_output_allowed",
+          "reviewer_access_route",
+          "required_citation"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "measurement_provenance_stations",
+        "file": "results/wrr_submission_ready/measurement_provenance_stations.csv",
+        "role": "independent cross-check of the per-station statistic class, PART A",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "provider",
+          "split_role",
+          "statistic_class",
+          "statistic_proven_for_panel",
+          "include_in_unified_daily_mean_main",
+          "day_boundary",
+          "qa_retained"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "wave2_station_roster",
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_station_roster.csv",
+        "role": "wave-2 confirmation panel station membership, PART A",
+        "columns_used": [
+          "network_id",
+          "provider",
+          "station_id"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "wave2_inputs_manifest",
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv",
+        "role": "wave-2 network -> artifact path, context and panel role, PART A",
+        "columns_used": [
+          "network_id",
+          "provider",
+          "context",
+          "panel_role",
+          "n_stations_ge4",
+          "station_ids_ge4",
+          "input_path",
+          "bytes",
+          "sha256"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "wave2_cases",
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+        "role": "wave-2 case panel: modal donor_regime + regulation_status per station (PART A) and the step 5/7 contrast inputs (PART B)",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "provider",
+          "donor_regime",
+          "regulation_status",
+          "longest_run",
+          "abserr_policy"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "development_cases",
+        "file": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+        "role": "development case panel (step 2 / step 3 headline numbers), PART B",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "provider",
+          "abserr_policy",
+          "longest_run"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "reserved_cases",
+        "file": "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
+        "role": "reserved retrospective case panel, PART B",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "provider",
+          "abserr_policy",
+          "longest_run"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "wave2_certificates",
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_certificates.parquet",
+        "role": "wave-2 certificate bounds and realised errors, PART B",
+        "columns_used": [
+          "certificate_bound",
+          "certificate_abs_error"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "reserved_certificates",
+        "file": "results/v17_fitness/step10_confirmation/reserved_certificates.parquet",
+        "role": "reserved-panel certificate bounds and realised errors, PART B",
+        "columns_used": [
+          "certificate_bound",
+          "certificate_abs_error"
+        ],
+        "file_present": true
+      },
+      {
+        "input_key": "crossed_development_cases",
+        "file": "results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
+        "role": "crossed position x length panel for step 3, PART B",
+        "columns_used": [
+          "network_id",
+          "station_id",
+          "year",
+          "longest_run",
+          "overlap_class",
+          "abserr_doy_climatology",
+          "abserr_smooth_climatology",
+          "abserr_donor_ridge",
+          "abserr_linear_interp"
+        ],
+        "file_present": true
+      }
+    ],
+    "missing_columns": [
+      {
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv",
+        "missing": [
+          "first_year",
+          "last_year",
+          "n_complete_years",
+          "regulation_status",
+          "donor_regime"
+        ],
+        "handling": "first/last year recomputed from daily_wide_temperature.csv; n_complete_years taken from the sibling station_eligibility.csv; regulation_status and donor_regime read from wave2_cases.parquet"
+      },
+      {
+        "file": "metadata/data_rights.csv",
+        "missing": [
+          "row for provider=hubeau",
+          "row for provider=uk_ea"
+        ],
+        "handling": "data_rights_* columns left as MISSING; licence_route from measurement_provenance_dictionary.csv:license"
+      },
+      {
+        "file": "results/wrr_submission_ready/p0_07_wave2_ingest/**",
+        "missing": [
+          "any provider-level measurement_provenance_dictionary equivalent",
+          "any water-temperature record-span artifact"
+        ],
+        "handling": "wave-2 provider statistics are read from the shared measurement_provenance_dictionary.csv, which does cover usgs/hubeau/uk_ea"
+      }
+    ]
+  },
+  "part_b": {
+    "verdict_counts": {
+      "AGREE": 30
+    },
+    "ci_verdict_counts": {
+      "AGREE": 30
+    },
+    "rows": [
+      {
+        "quantity": "wave2_pooled_case_weighted_contrast_pp",
+        "panel": "wave2_confirmation (13017 cases / 49 networks)",
+        "stored_value": -5.89332748024583,
+        "stored_value_source": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/verdict.json:contrast_points",
+        "recomputed_value": -5.89332748024583,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -6.918885026814831,
+        "stored_ci_high": -4.912740812979251,
+        "recomputed_ci_low": -6.918885026814831,
+        "recomputed_ci_high": -4.912740812979251,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent numpy re-implementation of operating_point_contrast (scripts/315 independent_contrast)",
+        "notes": "shared-definition cross-check: point -5.893327480246; independent resampler with an unrelated bootstrap seed gives [-6.9320, -4.8631] (Monte-Carlo sensitivity only)."
+      },
+      {
+        "quantity": "wave2_network_equal_contrast_pp",
+        "panel": "wave2_confirmation (49 networks, equal weight)",
+        "stored_value": -5.464420568413786,
+        "stored_value_source": "\u2026/step7_transfer_reporting/transfer_report.json:network_equal_pp.point_pp",
+        "recomputed_value": -5.464420568413786,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -6.774108375380024,
+        "stored_ci_high": -4.233903983286117,
+        "recomputed_ci_low": -6.774108375380024,
+        "recomputed_ci_high": -4.233903983286117,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "per-network contrasts recomputed with the scripts/315 independent engine (step-7 jitter seed 61), then a numpy resampler over the same 1500 network draws",
+        "notes": "network ids in the mean: 49; mean of per-network contrasts recomputed on the same per-network table."
+      },
+      {
+        "quantity": "reserved_panel_contrast_at_70pct_pp",
+        "panel": "reserved_retrospective (10820 cases / 36 networks), step-5 seed 131",
+        "stored_value": -6.944811196197517,
+        "stored_value_source": "\u2026/step5_monitoring_tasks/arm_and_thermal_contrasts.csv:label=reserved_retrospective|pooled,contrast_points",
+        "recomputed_value": -6.944811196197517,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -8.719560577526678,
+        "stored_ci_high": -5.427673005365858,
+        "recomputed_ci_low": -8.719560577526678,
+        "recomputed_ci_high": -5.427673005365858,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent numpy re-implementation with the step-5 tie-break seed (31+100=131)",
+        "notes": "same inputs, seed 0 instead of 131, reproduces the v17 verdict value -7.1296540797 pp. The two stored numbers differ by 0.1848 pp purely through the tie-break jitter on `longest_run`, because the length arm's 70% slice is decided inside a very large tied block."
+      },
+      {
+        "quantity": "reserved_panel_contrast_at_70pct_pp (v17 verdict, seed 0)",
+        "panel": "reserved_retrospective (10820 cases / 36 networks), v17 step-10 seed 0",
+        "stored_value": -7.129654079746501,
+        "stored_value_source": "results/v17_fitness/step10_confirmation/verdict.json:primary.contrast_points",
+        "recomputed_value": -7.129654079746501,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -8.965660197802626,
+        "stored_ci_high": -5.3573631548047524,
+        "recomputed_ci_low": -8.965660197802626,
+        "recomputed_ci_high": -5.3573631548047524,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent numpy re-implementation with the v17 tie-break seed (0)",
+        "notes": ""
+      },
+      {
+        "quantity": "step2_generic_plus_support__minus__generic_pp",
+        "panel": "development_oof (40704 cases / 110 networks), retention 0.70, tol 0.5 C",
+        "stored_value": 0.045625241287333695,
+        "stored_value_source": "\u2026/step2_same_info_ablation/contrasts_network_ci.json",
+        "recomputed_value": 0.045625241287333695,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.17286150322548977,
+        "stored_ci_high": 0.234336275393659,
+        "recomputed_ci_low": -0.17286150322548977,
+        "recomputed_ci_high": 0.234336275393659,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent pipeline: own feature frame, own network K-fold, own HistGradientBoostingRegressor, own rule jitter, own resampler",
+        "notes": "shared cluster_bootstrap cross-check point 0.045625241287; n_clusters=110 vs stored 110."
+      },
+      {
+        "quantity": "step2_generic_plus_support__minus__peak_overlap_rule_pp",
+        "panel": "development_oof (40704 cases / 110 networks), retention 0.70, tol 0.5 C",
+        "stored_value": -2.5971291194328434,
+        "stored_value_source": "\u2026/step2_same_info_ablation/contrasts_network_ci.json",
+        "recomputed_value": -2.5971291194328434,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -3.1144148816915127,
+        "stored_ci_high": -2.189722374758509,
+        "recomputed_ci_low": -3.1144148816915127,
+        "recomputed_ci_high": -2.189722374758509,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent pipeline: own feature frame, own network K-fold, own HistGradientBoostingRegressor, own rule jitter, own resampler",
+        "notes": "shared cluster_bootstrap cross-check point -2.597129119433; n_clusters=110 vs stored 110."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:doy_climatology|30",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.6422112902175275,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.6422112902175275,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.5461853536608635,
+        "stored_ci_high": 0.742566499056542,
+        "recomputed_ci_low": 0.5461853536608635,
+        "recomputed_ci_high": 0.742566499056542,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:doy_climatology|60",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.867283942171304,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.867283942171304,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.7070709295968256,
+        "stored_ci_high": 1.0374412528354835,
+        "recomputed_ci_low": 0.7070709295968256,
+        "recomputed_ci_high": 1.0374412528354837,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 2.220446049250313e-16,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:doy_climatology|90",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.8945552336608578,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.8945552336608578,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.7581388844180154,
+        "stored_ci_high": 1.0402682731481725,
+        "recomputed_ci_low": 0.7581388844180154,
+        "recomputed_ci_high": 1.0402682731481723,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 2.220446049250313e-16,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:smooth_climatology|30",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.5945276035874775,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.5945276035874775,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.5083105775760398,
+        "stored_ci_high": 0.6848448260738439,
+        "recomputed_ci_low": 0.5083105775760398,
+        "recomputed_ci_high": 0.6848448260738439,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:smooth_climatology|60",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.8492041208001,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.8492041208001,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.6900380473851953,
+        "stored_ci_high": 1.0211887854146335,
+        "recomputed_ci_low": 0.6900380473851953,
+        "recomputed_ci_high": 1.0211887854146333,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 2.220446049250313e-16,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:smooth_climatology|90",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.882313416092461,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.882313416092461,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.7511528719277971,
+        "stored_ci_high": 1.0219061445904212,
+        "recomputed_ci_low": 0.751152871927797,
+        "recomputed_ci_high": 1.0219061445904212,
+        "abs_diff_ci_low": 1.1102230246251565e-16,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:donor_ridge|30",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.2402830534724467,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.24028305347244674,
+        "abs_diff": 5.551115123125783e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.1992784661467195,
+        "stored_ci_high": 0.2819563929927639,
+        "recomputed_ci_low": 0.1992784661467196,
+        "recomputed_ci_high": 0.281956392992764,
+        "abs_diff_ci_low": 8.326672684688674e-17,
+        "abs_diff_ci_high": 5.551115123125783e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 208 / recomputed 208; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:donor_ridge|60",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.3642084815452163,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.3642084815452163,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.2917341021765063,
+        "stored_ci_high": 0.4395101234824561,
+        "recomputed_ci_low": 0.2917341021765063,
+        "recomputed_ci_high": 0.43951012348245616,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 5.551115123125783e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 204 / recomputed 204; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:donor_ridge|90",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.3937641768539395,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.39376417685393955,
+        "abs_diff": 5.551115123125783e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.3124529611209901,
+        "stored_ci_high": 0.4748546335488468,
+        "recomputed_ci_low": 0.3124529611209901,
+        "recomputed_ci_high": 0.4748546335488468,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 203 / recomputed 203; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:linear_interp|30",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.3405887549840431,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.3405887549840431,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.2799297733913997,
+        "stored_ci_high": 0.3973528346372812,
+        "recomputed_ci_low": 0.27992977339139974,
+        "recomputed_ci_high": 0.39735283463728116,
+        "abs_diff_ci_low": 5.551115123125783e-17,
+        "abs_diff_ci_high": 5.551115123125783e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:linear_interp|60",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 0.7463452402921175,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 0.7463452402921175,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.6249651774070615,
+        "stored_ci_high": 0.8718239213822162,
+        "recomputed_ci_low": 0.6249651774070615,
+        "recomputed_ci_high": 0.8718239213822162,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_position_full_minus_none:linear_interp|90",
+        "panel": "crossed development panel, position (full - none at fixed length, C)",
+        "stored_value": 1.309867486532291,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/position_contrasts_network_ci.csv",
+        "recomputed_value": 1.309867486532291,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 1.106803105714672,
+        "stored_ci_high": 1.5101022531864063,
+        "recomputed_ci_low": 1.106803105714672,
+        "recomputed_ci_high": 1.5101022531864066,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 2.220446049250313e-16,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:doy_climatology|full",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.2532647049310592,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.2532647049310592,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.2106964281096554,
+        "stored_ci_high": 0.2921994386323405,
+        "recomputed_ci_low": 0.21069642810965541,
+        "recomputed_ci_high": 0.29219943863234055,
+        "abs_diff_ci_low": 2.7755575615628914e-17,
+        "abs_diff_ci_high": 5.551115123125783e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:doy_climatology|none",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.0009207614877288,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.0009207614877288911,
+        "abs_diff": 9.107298248878237e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.0129520337461105,
+        "stored_ci_high": 0.0182462881437595,
+        "recomputed_ci_low": -0.012952033746110595,
+        "recomputed_ci_high": 0.018246288143759525,
+        "abs_diff_ci_low": 9.540979117872439e-17,
+        "abs_diff_ci_high": 2.42861286636753e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:doy_climatology|partial",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.0241666318073126,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.024166631807312655,
+        "abs_diff": 5.551115123125783e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.0420928161889993,
+        "stored_ci_high": 0.0830991382102041,
+        "recomputed_ci_low": -0.042092816188999384,
+        "recomputed_ci_high": 0.08309913821020415,
+        "abs_diff_ci_low": 8.326672684688674e-17,
+        "abs_diff_ci_high": 5.551115123125783e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:smooth_climatology|full",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.2875559919438818,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.2875559919438818,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.2349193885469893,
+        "stored_ci_high": 0.3313679325463671,
+        "recomputed_ci_low": 0.23491938854698924,
+        "recomputed_ci_high": 0.3313679325463671,
+        "abs_diff_ci_low": 5.551115123125783e-17,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:smooth_climatology|none",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": -0.0002298205611015,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": -0.00022982056110154234,
+        "abs_diff": 4.233809483555895e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.0140521677516016,
+        "stored_ci_high": 0.0161868091985447,
+        "recomputed_ci_low": -0.014052167751601612,
+        "recomputed_ci_high": 0.01618680919854471,
+        "abs_diff_ci_low": 1.214306433183765e-17,
+        "abs_diff_ci_high": 6.938893903907228e-18,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:smooth_climatology|partial",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.038609664206603,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.03860966420660309,
+        "abs_diff": 9.020562075079397e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.0262884612047396,
+        "stored_ci_high": 0.0989928646366616,
+        "recomputed_ci_low": -0.02628846120473965,
+        "recomputed_ci_high": 0.09899286463666168,
+        "abs_diff_ci_low": 5.204170427930421e-17,
+        "abs_diff_ci_high": 8.326672684688674e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:donor_ridge|full",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.1533723334578942,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.1533723334578942,
+        "abs_diff": 0.0,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.1091519433766486,
+        "stored_ci_high": 0.1955274122045038,
+        "recomputed_ci_low": 0.1091519433766486,
+        "recomputed_ci_high": 0.19552741220450381,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 2.7755575615628914e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 207 / recomputed 207; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:donor_ridge|none",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.0070989155476525,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.007098915547652527,
+        "abs_diff": 2.7755575615628914e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": -0.0053166650957858,
+        "stored_ci_high": 0.0197897497972629,
+        "recomputed_ci_low": -0.005316665095785879,
+        "recomputed_ci_high": 0.019789749797262907,
+        "abs_diff_ci_low": 7.892991815694472e-17,
+        "abs_diff_ci_high": 6.938893903907228e-18,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 204 / recomputed 204; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:donor_ridge|partial",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.0142284271817694,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.014228427181769497,
+        "abs_diff": 9.71445146547012e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.0010439508042564,
+        "stored_ci_high": 0.0276152013789783,
+        "recomputed_ci_low": 0.0010439508042564298,
+        "recomputed_ci_high": 0.027615201378978358,
+        "abs_diff_ci_low": 2.970713952610282e-17,
+        "abs_diff_ci_high": 5.898059818321144e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 204 / recomputed 204; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:linear_interp|full",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.9825812522953744,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.9825812522953745,
+        "abs_diff": 1.1102230246251565e-16,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.8243465019536693,
+        "stored_ci_high": 1.130249487424137,
+        "recomputed_ci_low": 0.8243465019536693,
+        "recomputed_ci_high": 1.130249487424137,
+        "abs_diff_ci_low": 0.0,
+        "abs_diff_ci_high": 0.0,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:linear_interp|none",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.0133025207471265,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.01330252074712653,
+        "abs_diff": 3.122502256758253e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.0055480985770672,
+        "stored_ci_high": 0.0215695081381033,
+        "recomputed_ci_low": 0.005548098577067263,
+        "recomputed_ci_high": 0.021569508138103394,
+        "abs_diff_ci_low": 6.331740687315346e-17,
+        "abs_diff_ci_high": 9.367506770274758e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      },
+      {
+        "quantity": "step3_length_long_minus_short:linear_interp|partial",
+        "panel": "crossed development panel, length (long - short at fixed overlap, C)",
+        "stored_value": 0.1589894185005801,
+        "stored_value_source": "\u2026/step3_fixed_reconstructor_mechanism/length_contrasts_network_ci.csv",
+        "recomputed_value": 0.15898941850058015,
+        "abs_diff": 5.551115123125783e-17,
+        "tolerance": 1e-09,
+        "verdict": "AGREE",
+        "stored_ci_low": 0.0486839259692329,
+        "stored_ci_high": 0.2496365766470343,
+        "recomputed_ci_low": 0.04868392596923298,
+        "recomputed_ci_high": 0.24963657664703437,
+        "abs_diff_ci_low": 8.326672684688674e-17,
+        "abs_diff_ci_high": 8.326672684688674e-17,
+        "tolerance_ci": 1e-09,
+        "verdict_ci": "AGREE",
+        "method": "independent station-year aggregation + own cluster resampler (step 3 seeds 23 / 30)",
+        "notes": "n_station_years stored 211 / recomputed 211; n_networks stored 12 / recomputed 12."
+      }
+    ],
+    "unrecomputable": [],
+    "shared_components_used": [
+      "stream_recoverability.experiments.v17_fitness.stats.cluster_bootstrap -- used ONLY as an interval-definition cross-check for the step-2 contrasts; the primary recomputed intervals come from this script's own resampler",
+      "stream_recoverability.experiments.v17_fitness.frontier.operating_point_contrast -- used ONLY inside the shared_contrast_interval cross-check for the wave-2 pooled number"
+    ],
+    "independent_components": [
+      "tie-break jitter, k-selection, failure definition and cluster resampler re-implemented on numpy arrays in this script",
+      "step-2 feature frame, network K-fold, HistGradientBoostingRegressor configuration, rule jitter and paired contrast re-implemented in this script",
+      "step-3 station-year aggregation, pivot and network-equal bootstrap re-implemented in this script"
+    ]
+  },
+  "seed_sensitivity_reserved_panel": [
+    {
+      "seed": 0,
+      "point_pp": -7.129654079746501
+    },
+    {
+      "seed": 5,
+      "point_pp": -7.010826511750726
+    },
+    {
+      "seed": 17,
+      "point_pp": -7.010826511750726
+    },
+    {
+      "seed": 31,
+      "point_pp": -7.0900448904145765
+    },
+    {
+      "seed": 61,
+      "point_pp": -7.156060205967785
+    },
+    {
+      "seed": 131,
+      "point_pp": -6.944811196197517
+    }
+  ],
+  "step2_score_reproduction_check": [
+    {
+      "screen": "generic",
+      "stored_rate_above_0.5_at_70": 0.0299020812129294,
+      "recomputed_rate_above_0.5_at_70": 0.02990208121292949,
+      "abs_diff": 9.020562075079397e-17
+    },
+    {
+      "screen": "generic_plus_support",
+      "stored_rate_above_0.5_at_70": 0.0303583336258028,
+      "recomputed_rate_above_0.5_at_70": 0.030358333625802827,
+      "abs_diff": 2.7755575615628914e-17
+    },
+    {
+      "screen": "peak_overlap_rule",
+      "stored_rate_above_0.5_at_70": 0.0563296248201312,
+      "recomputed_rate_above_0.5_at_70": 0.05632962482013126,
+      "abs_diff": 6.245004513516506e-17
+    }
+  ]
+}

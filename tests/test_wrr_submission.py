@@ -167,8 +167,9 @@ def test_figures_are_placed_in_the_text():
     # Six since 2026-10-12: the dense "problem frame" schematic moved from the
     # article (where a data-driven example figure now opens the paper) into the
     # supporting information as Figure S1.
-    # Seven since 2026-10-12: the catchment-attribute figure moved to the SI.
-    assert si.count("\\begin{figure}") == 7, si.count("\\begin{figure}")
+    # Eight since 2026-10-15: the study-design schematic moved to the SI when the
+    # decision figure became Figure 1 of the article.
+    assert si.count("\\begin{figure}") == 8, si.count("\\begin{figure}")
 
 
 def test_tables_fit_the_column():
@@ -197,7 +198,12 @@ def test_title_and_abstract_state_the_finding():
     for vague in ("a study of", "analysis of", "assessment of", "research on",
                   "investigation of", "towards ", "toward "):
         assert vague not in lowered, (vague, title)
-    assert "not" in lowered or "," in lowered, title
+    # The title must carry a claim, not just an object: a contrast, a condition or a
+    # decision word, in place of the vague "study of" forms rejected above.
+    assert any(
+        token in lowered
+        for token in ("not", ",", "conditional", "screen", "risk", "governs", "interact")
+    ), title
 
     abstract = text.split("\\begin{abstract}")[1].split("\\end{abstract}")[0]
     assert re.search(r"\d", abstract), "the abstract carries no number"

@@ -1,0 +1,278 @@
+{
+  "estimator_equivalence": {
+    "development": {
+      "project_point_pp": -6.3454181728845676,
+      "fast_point_pp": -6.3454181728845676,
+      "abs_diff_point_pp": 0.0,
+      "project_ci_pp": [
+        -7.120668285097914,
+        -5.4861453171403545
+      ],
+      "fast_ci_pp": [
+        -7.120668285097914,
+        -5.4861453171403545
+      ],
+      "project_se_pp": 0.4187581182324614,
+      "fast_se_pp": 0.4187466830732542,
+      "pandas_statistic_abs_diff_pp": 0.0,
+      "max_resample_statistic_abs_diff_pp": 0.0,
+      "pandas_reference_se_pp": 0.37836592160319577,
+      "draws": 2000
+    },
+    "wave2_external": {
+      "project_point_pp": -5.89332748024583,
+      "fast_point_pp": -5.89332748024583,
+      "abs_diff_point_pp": 0.0,
+      "project_ci_pp": [
+        -6.918885026814831,
+        -4.912740812979251
+      ],
+      "fast_ci_pp": [
+        -6.918885026814831,
+        -4.912740812979251
+      ],
+      "project_se_pp": 0.5138254527158089,
+      "fast_se_pp": 0.513832284691307,
+      "pandas_statistic_abs_diff_pp": 0.0,
+      "max_resample_statistic_abs_diff_pp": 0.0,
+      "pandas_reference_se_pp": 0.5782926492280803,
+      "draws": 2000
+    }
+  },
+  "jitter_seed_sensitivity": {
+    "development": {
+      "sd_within_alt_seed_pp": 4.08555315537623,
+      "sd_within_primary_seed_pp": 3.915368086949028,
+      "mean_contrast_alt_seed_pp": -5.0340285477083295,
+      "mean_contrast_primary_seed_pp": -5.065315177392216
+    },
+    "wave2_external": {
+      "sd_within_alt_seed_pp": 4.691847035281947,
+      "sd_within_primary_seed_pp": 4.569894055503581,
+      "mean_contrast_alt_seed_pp": -5.464420568413786,
+      "mean_contrast_primary_seed_pp": -5.1386170897897205
+    }
+  },
+  "calibration": {
+    "probe_draws_per_n": 96,
+    "probe_wall_seconds_by_n": {
+      "20": 4.769801616668701,
+      "80": 9.676313161849976
+    },
+    "raw_measured_per_draw_single_core_seconds": {
+      "20": 4.769801616668701,
+      "80": 9.676313161849976
+    },
+    "monotone_in_n": true,
+    "per_draw_single_core_seconds_by_n": {
+      "20": 4.769801616668701,
+      "40": 6.405305465062459,
+      "60": 8.040809313456217,
+      "80": 9.676313161849976
+    },
+    "panel_scale_vs_development": {
+      "development": 1.0,
+      "wave2_external": 0.7179106902194841,
+      "pooled_dev_wave2": 0.913066816482734
+    },
+    "projected_seconds_by_panel": {
+      "development": 300.9607245524724,
+      "wave2_external": 216.06292149242148,
+      "pooled_dev_wave2": 274.797250653463
+    },
+    "projected_total_seconds": 791.8208966983568,
+    "budget_seconds": 1500.0,
+    "requested_outer_draws": 2000,
+    "outer_draws_reduced_to": 1000,
+    "reduction_note": "outer draws reduced from the pre-declared 2000 to 1000 (CPU contention with co-running agents; 1000 draws keeps the Monte Carlo SE of a 0.8 power estimate near 0.013)",
+    "outer_draws_used": 1000
+  },
+  "icc_detail": {
+    "development": {
+      "contrast": {
+        "icc": 0.01848982443237139,
+        "mean_square_between": 0.9299393247754767,
+        "mean_square_within": 0.11874800863116963,
+        "n0": 362.62603093805893,
+        "n_obs": 40704,
+        "n_groups": 110,
+        "mean_cluster_size": 370.03636363636366,
+        "design_effect": 7.82341757279713,
+        "effective_networks": 14.060351371564508,
+        "sigma_between": 0.047296843549080946
+      },
+      "screen_failure": {
+        "icc": 0.014715815004378206,
+        "mean_square_between": 0.127227365610227,
+        "mean_square_within": 0.019829581040202236,
+        "n0": 362.62603093805893,
+        "n_obs": 40704,
+        "n_groups": 110,
+        "mean_cluster_size": 370.03636363636366,
+        "design_effect": 6.430670857161172,
+        "effective_networks": 17.105524826776726,
+        "sigma_between": 0.017209496848337967
+      },
+      "length_failure": {
+        "icc": 0.020676275938503273,
+        "mean_square_between": 0.5151962257191463,
+        "mean_square_within": 0.05951859721377504,
+        "n0": 362.62603093805893,
+        "n_obs": 40704,
+        "n_groups": 110,
+        "mean_cluster_size": 370.03636363636366,
+        "design_effect": 8.630297685887289,
+        "effective_networks": 12.745794409835678,
+        "sigma_between": 0.03544862265375847
+      }
+    },
+    "wave2_external": {
+      "contrast": {
+        "icc": 0.013115623369624761,
+        "mean_square_between": 0.54678558556365,
+        "mean_square_within": 0.12149000080377904,
+        "n0": 263.4072206857699,
+        "n_obs": 13017,
+        "n_groups": 49,
+        "mean_cluster_size": 265.6530612244898,
+        "design_effect": 4.471089874638651,
+        "effective_networks": 10.959296586262456,
+        "sigma_between": 0.04018200460253984
+      },
+      "screen_failure": {
+        "icc": 0.005567796104149685,
+        "mean_square_between": 0.03980367420724918,
+        "mean_square_within": 0.01608353293408631,
+        "n0": 263.4072206857699,
+        "n_obs": 13017,
+        "n_groups": 49,
+        "mean_cluster_size": 265.6530612244898,
+        "design_effect": 2.4735342832370026,
+        "effective_networks": 19.809711283191074,
+        "sigma_between": 0.009489532066270828
+      },
+      "length_failure": {
+        "icc": 0.019810188451231534,
+        "mean_square_between": 0.33719091123537126,
+        "mean_square_within": 0.05332254809437946,
+        "n0": 263.4072206857699,
+        "n_obs": 13017,
+        "n_groups": 49,
+        "mean_cluster_size": 265.6530612244898,
+        "design_effect": 6.24282701705246,
+        "effective_networks": 7.849008128233427,
+        "sigma_between": 0.03282801769049585
+      }
+    },
+    "pooled_dev_wave2": {
+      "contrast": {
+        "icc": 0.01732838681074685,
+        "mean_square_between": 0.828991020727761,
+        "mean_square_within": 0.12038858230648047,
+        "n0": 333.78561715605645,
+        "n_obs": 53721,
+        "n_groups": 159,
+        "mean_cluster_size": 337.8679245283019,
+        "design_effect": 6.837377700359892,
+        "effective_networks": 23.254529290027502,
+        "sigma_between": 0.046075229992836836
+      },
+      "screen_failure": {
+        "icc": 0.014850119019710282,
+        "mean_square_between": 0.11368755266134475,
+        "mean_square_within": 0.018849049201252896,
+        "n0": 333.78561715605645,
+        "n_obs": 53721,
+        "n_groups": 159,
+        "mean_cluster_size": 337.8679245283019,
+        "design_effect": 6.002528773168064,
+        "effective_networks": 26.48883595706309,
+        "sigma_between": 0.016856155795099036
+      },
+      "length_failure": {
+        "icc": 0.020162053642208445,
+        "mean_square_between": 0.46037124080692193,
+        "mean_square_within": 0.05850975213751793,
+        "n0": 333.78561715605645,
+        "n_obs": 53721,
+        "n_groups": 159,
+        "mean_cluster_size": 337.8679245283019,
+        "design_effect": 7.791949164679049,
+        "effective_networks": 20.405677275302043,
+        "sigma_between": 0.0346979953813524
+      }
+    }
+  },
+  "residual_unused_pool": {
+    "audit_never_used_count": 54,
+    "residual_count": 1,
+    "residual_networks": [
+      "saih_ebro_ebro_basin"
+    ],
+    "reused_since_audit": {
+      "development": [
+        "nve_basin_112",
+        "nve_basin_212",
+        "nve_basin_234"
+      ],
+      "reserved_v17_opened": [
+        "nve_basin_124"
+      ],
+      "transport_p0_07b": [
+        "hubeau_besbre",
+        "hubeau_cher",
+        "hubeau_durance",
+        "hubeau_garonne",
+        "hubeau_l_aisne",
+        "hubeau_l_ariege",
+        "hubeau_l_aveyron",
+        "hubeau_l_huisne",
+        "hubeau_lot",
+        "hubeau_rhone",
+        "hubeau_sarthe",
+        "hubeau_seine",
+        "hubeau_sioule",
+        "hubeau_tarn",
+        "nve_basin_002",
+        "nve_basin_012",
+        "nve_basin_015",
+        "nve_basin_021",
+        "nve_basin_022",
+        "nve_basin_023",
+        "nve_basin_062",
+        "nve_basin_072",
+        "nve_basin_073",
+        "nve_basin_075",
+        "nve_basin_083",
+        "nve_basin_087",
+        "nve_basin_112",
+        "nve_basin_124",
+        "nve_basin_139",
+        "nve_basin_156",
+        "nve_basin_163",
+        "nve_basin_166",
+        "nve_basin_196",
+        "nve_basin_212",
+        "nve_basin_234",
+        "smhi_catchment_103000",
+        "smhi_catchment_108000",
+        "smhi_catchment_110000",
+        "smhi_catchment_20000",
+        "smhi_catchment_28000",
+        "smhi_catchment_38000",
+        "smhi_catchment_40000",
+        "smhi_catchment_42000",
+        "smhi_catchment_48000",
+        "smhi_catchment_53000",
+        "smhi_catchment_61000",
+        "smhi_catchment_67000",
+        "smhi_catchment_86000",
+        "smhi_catchment_88000",
+        "smhi_catchment_9000",
+        "smhi_catchment_98000",
+        "uk_ea_s50_001",
+        "uk_ea_s50_002"
+      ]
+    }
+  }
+}

@@ -717,7 +717,9 @@ def panel_b_rows() -> list[dict]:
 
 
 def draw_panel_b(rows: list[dict], threshold_points: float) -> plt.Figure:
-    height = 4.30 if INCLUDE_PENDING_CONFIRMATION else 2.15
+    # 2.90 in keeps the saved panel inside the journal's 2.2:1 page-aspect rule
+    # once bbox_inches='tight' adds the legend and the outer labels.
+    height = 4.30 if INCLUDE_PENDING_CONFIRMATION else 2.90
     figure = plt.figure(figsize=(COLUMN_INCHES, height))
     grid = figure.add_gridspec(
         1,

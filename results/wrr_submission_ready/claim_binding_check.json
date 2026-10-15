@@ -59,6 +59,8 @@
     "L7",
     "M1",
     "MEAS",
+    "MR-M5",
+    "MR-M7",
     "N1",
     "NVE-PROBE",
     "P0-06-TRANSPORT-SAN",
@@ -93,6 +95,12 @@
       "match": "autumn",
       "pattern": "autumn",
       "region": "abstract"
+    },
+    {
+      "claim_id": "L7",
+      "match": "conditioning window",
+      "pattern": "conditioning window",
+      "region": "conclusions"
     },
     {
       "claim_id": "A4",

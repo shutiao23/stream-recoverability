@@ -99,13 +99,18 @@ def figure5_robustness() -> None:
     ax.text(-0.02, len(order) - 0.55, "← length", fontsize=7.4, color=ORANGE, ha="right")
 
     ax = axes[1]
-    dev, res = noise["development"], noise["reserved"]
+    def _unwrap(block: dict) -> dict:
+        # The amendment nests the pre-fix reproduction under old_published and the
+        # method-locked numbers under new_fixed; older artifacts are already flat.
+        return block.get("new_fixed", block)
+
+    dev, res = _unwrap(noise["development"]), _unwrap(noise["reserved"])
     labels = ["development", "reserved"]
     clean = [dev["contrast_clean_points"], res["contrast_clean_points"]]
     noisy = [dev["contrast_noisy_points"], res["contrast_noisy_points"]]
     x = np.arange(len(labels))
     ax.bar(x - 0.19, clean, 0.36, color=BLUE, label="exact reference")
-    ax.bar(x + 0.19, noisy, 0.36, color=AQUA, label=f"reference + {noise['development']['sensor_noise_c']} °C")
+    ax.bar(x + 0.19, noisy, 0.36, color=AQUA, label=f"reference + {dev['sensor_noise_c']} °C")
     for xi, (a, b) in enumerate(zip(clean, noisy)):
         ax.text(xi - 0.19, a + 0.15, f"{a:.1f}", ha="center", fontsize=7.6, color=INK)
         ax.text(xi + 0.19, b + 0.15, f"{b:.1f}", ha="center", fontsize=7.6, color=INK)

@@ -1,0 +1,4 @@
+cofail_level,cofail_fraction,n_candidate_level_rows,n_donor_available,n_donor_unavailable,share_donor_unavailable,n_no_donor_model_formed,n_old_probe_would_report_a_number,share_of_degenerate_where_old_probe_reported_a_number,mean_abserr_old_probe_reported_as_donor_ridge,mean_abserr_labelled_observed_days_on_degenerate,mean_abserr_donor_when_available,n_rows_where_chosen_estimator_was_donor_ridge_but_unavailable,n_rows_where_strict_rule_abstained,n_rows_where_labelled_fallback_was_used
+target_only,0.0,418,368,50,0.11961722488038277,8,46,0.92,0.7165983065217391,0.6098946663895526,0.039618553364034186,18,10,12
+partial_donor_failure,0.5,418,320,98,0.23444976076555024,78,95,0.9693877551020408,0.2447918115789476,0.19533481640717218,0.05695892057109362,0,23,0
+all_donor_failure,1.0,418,0,418,1.0,418,412,0.9856459330143541,0.23865794943365717,0.183025733106181,,0,23,0

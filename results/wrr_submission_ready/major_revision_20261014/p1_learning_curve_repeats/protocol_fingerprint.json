@@ -1,0 +1,209 @@
+{
+  "script": "scripts/316_wrr_p1_learning_curve_repeats.py",
+  "script_sha256": "b2a07ff4e5578ad9a8fd566d19398a25995bbc56f79185764a063ce5d523a460",
+  "reused_script": "scripts/301_wrr_mr_step2_same_info_ablation.py",
+  "reused_script_sha256": "abf191bed6bb2e8ddbcbd8087642a0ab85e23b86d086b93307ba8c8f4da68f2f",
+  "reused_helpers": [
+    "FEATURE_SETS/GENERIC/SUPPORT/PEAK_MARGIN (public constants)",
+    "_prepare (module-private helper, imported verbatim)",
+    "_fit_predict_risk (module-private helper, imported verbatim)",
+    "oof_risk_scores (public)",
+    "retention_at_risk_cap (public)"
+  ],
+  "inputs": {
+    "development_cases": {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8",
+      "n_cases": 40704,
+      "n_networks": 110
+    },
+    "reserved_cases": {
+      "path": "results/v17_fitness/step10_confirmation/reserved_cases.parquet",
+      "sha256": "51b5771520fc599f7319f9b017e5e954c6bf7d4a4bd74d7ae146f526d5610730",
+      "n_cases": 10820,
+      "n_networks": 36
+    }
+  },
+  "evaluation_panel": {
+    "name": "reserved_wave2 (external panel, opened retrospective)",
+    "n_networks": 36,
+    "n_cases": 10820,
+    "networks": [
+      "arso_krka",
+      "arso_ljubljanica",
+      "chmi_berounka",
+      "chmi_blanice",
+      "chmi_kamenice",
+      "chmi_labe",
+      "chmi_smeda",
+      "gkd_bayern_fraenkische_saale",
+      "gkd_bayern_isar",
+      "huc8_05030103",
+      "huc8_10020007",
+      "huc8_17060306",
+      "huc8_17090003",
+      "lubw_jagst",
+      "nve_basin_124",
+      "nve_basin_151",
+      "nve_basin_78",
+      "nve_basin_84",
+      "usgs2_huc2_14",
+      "usgs2_huc2_18",
+      "usgs2_huc2_19",
+      "usgs2_huc2_90",
+      "usgs2_huc6_040301",
+      "usgs2_huc6_040500",
+      "usgs2_huc6_060102",
+      "usgs2_huc6_070300",
+      "usgs2_huc6_071401",
+      "usgs2_huc6_100700",
+      "usgs2_huc6_190204",
+      "usgs2_huc6_190205",
+      "usgs_fox_river_huc4_0403",
+      "usgs_platte_river_huc4_1020",
+      "usgs_red_river_of_the_north_huc4_0902",
+      "usgs_san_juan_river_huc4_1408",
+      "usgs_snake_river_huc4_1704",
+      "usgs_snake_river_huc4_1705"
+    ],
+    "network_overlap_with_training_pool": 0,
+    "station_overlap_with_training_pool": 0,
+    "used_for_selection": false
+  },
+  "training_pool": {
+    "name": "development (step4_ceiling) 110 networks",
+    "n_networks": 110
+  },
+  "protocol": {
+    "retention_op70": 0.7,
+    "risk_cap_op_risk5": 0.05,
+    "tolerance_c": 0.5,
+    "train_sizes": [
+      10,
+      25,
+      50,
+      75,
+      "all"
+    ],
+    "n_draws_network_subset": 20,
+    "n_draws_model_seed_repeat": 10,
+    "seed_repeat_sizes": [
+      10,
+      75
+    ],
+    "subset_seed_base": 20261014,
+    "subset_seed_rule": "SUBSET_SEED_BASE + 1000*size_index + draw_index (size_index over TRAIN_SIZES)",
+    "model_seed_rule": "MODEL_SEED_BASE(=17, identical to scripts/301 SEED) for network-subset draws; +draw_index for learner-seed repeats",
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20261014,
+    "bootstrap_level": 0.95,
+    "n_jobs": 64,
+    "calibration": "OP-RISK5 retention calibrated on network-held-out OOF scores inside the drawn training networks only (scripts/301 oof_risk_scores + retention_at_risk_cap); the evaluation panel's errors are never used to choose retention/threshold",
+    "deviation_from_step2_protocol": "STEP2_PROTOCOL.md left the risk-cap uncalibrated for ranking; script 301 selected OP-RISK5 retention on the evaluation panel itself. Here the cap is calibrated inside the training draws, which is strictly stricter; OP-70 is unchanged."
+  },
+  "feature_sets": {
+    "generic": [
+      "longest_run",
+      "total_missing",
+      "missing_fraction",
+      "n_runs",
+      "warm_observed_fraction",
+      "month_sin",
+      "month_cos",
+      "n_visible_donors",
+      "donor_corr_mean",
+      "donor_corr_max",
+      "donor_corr_min",
+      "donor_coverage_mean",
+      "train_resid_sd",
+      "seasonal_amplitude",
+      "train_metric_sd",
+      "n_complete_years",
+      "record_years",
+      "left_flank",
+      "right_flank",
+      "air_available",
+      "estimator_disagreement"
+    ],
+    "generic_plus_support": [
+      "longest_run",
+      "total_missing",
+      "missing_fraction",
+      "n_runs",
+      "warm_observed_fraction",
+      "month_sin",
+      "month_cos",
+      "n_visible_donors",
+      "donor_corr_mean",
+      "donor_corr_max",
+      "donor_corr_min",
+      "donor_coverage_mean",
+      "train_resid_sd",
+      "seasonal_amplitude",
+      "train_metric_sd",
+      "n_complete_years",
+      "record_years",
+      "left_flank",
+      "right_flank",
+      "air_available",
+      "estimator_disagreement",
+      "peak_overlap"
+    ],
+    "generic_plus_support_plus_peakmargin": [
+      "longest_run",
+      "total_missing",
+      "missing_fraction",
+      "n_runs",
+      "warm_observed_fraction",
+      "month_sin",
+      "month_cos",
+      "n_visible_donors",
+      "donor_corr_mean",
+      "donor_corr_max",
+      "donor_corr_min",
+      "donor_coverage_mean",
+      "train_resid_sd",
+      "seasonal_amplitude",
+      "train_metric_sd",
+      "n_complete_years",
+      "record_years",
+      "left_flank",
+      "right_flank",
+      "air_available",
+      "estimator_disagreement",
+      "peak_overlap",
+      "observed_peak_margin",
+      "observed_peak",
+      "has_complete_window"
+    ]
+  },
+  "draw_kinds": {
+    "network_subset": "20 independent network subsets, model seed fixed at 17",
+    "full_pool_single": "all 110 development networks, single draw (reproduces the published curve point)",
+    "full_pool_model_seed": "all 110 networks, 10 learner seeds (no network variation)",
+    "fixed_subset_model_seed": "one fixed network subset, 10 learner seeds"
+  },
+  "runtime": {
+    "grid_seconds": 73.7165615875274,
+    "wall_seconds": 74.04863818362355,
+    "n_jobs": 64,
+    "n_draw_jobs": 333
+  },
+  "environment": {
+    "python": "3.11.7",
+    "platform": "Linux-6.6.20-x86_64-with-glibc2.35",
+    "numpy": "1.26.4",
+    "pandas": "2.1.4",
+    "sklearn": "1.2.2",
+    "threads_per_worker": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "git": {
+    "head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
+    "status_porcelain": "M paper/wrr/wrr_manuscript.pdf\n M paper/wrr/wrr_manuscript.tex\n M paper/wrr/wrr_manuscript_published.pdf\n M paper/wrr/wrr_supporting_information.pdf\n M paper/wrr/wrr_supporting_information.tex\n?? results/wrr_submission_ready/major_revision_20261014/p0_01_final_method/\n?? results/wrr_submission_ready/major_revision_20261014/p0_04_env_closed_loop/\n?? results/wrr_submission_ready/major_revision_20261014/p0_05_power_independence/\n?? results/wrr_submission_ready/major_revision_20261014/p0_06_coverage_recompute/\n?? results/wrr_submission_ready/major_revision_20261014/p1_learning_curve_repeats/\n?? results/wrr_submission_ready/major_revision_20261014/p1_mechanism_boundary/\n?? results/wrr_submission_ready/major_revision_20261014/p1_transfer_measurement/\n?? results/wrr_submission_ready/p0_07_wave2_ingest/hubeau/raw_cache/\n?? results/wrr_submission_ready/p0_07_wave2_ingest/uk_ea/raw_cache/\n?? scratch/p0_02/\n?? scratch/p0_03/\n?? scratch/p0_04/\n?? scratch/p0_05/\n?? scratch/p0_06/\n?? scratch/p1_learning_curves/\n?? scratch/p1_mechanism/\n?? scratch/p1_transfer/\n?? scripts/310_wrr_p0_01_final_method_plan.py\n?? scripts/311_wrr_p0_02_frozen_risk_thresholds.py\n?? scripts/312_wrr_p0_03_final_method_replay.py\n?? scripts/313_wrr_p0_04_env_closed_loop.py\n?? scripts/314_wrr_p0_05_power_and_independence.py\n?? scripts/315_wrr_p0_06_coverage_and_recompute.py\n?? scripts/316_wrr_p1_learning_curve_repeats.py\n?? scripts/317_wrr_p1_mechanism_boundary.py\n?? scripts/318_wrr_p1_transfer_measurement.py"
+  },
+  "generated_utc": "2026-10-15T10:00:17Z"
+}
