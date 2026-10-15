@@ -1771,15 +1771,21 @@ answered from the panels in hand. The contrast between the screen and the length
 rule has a small intra-network correlation but networks hold hundreds of cases
 each, so the design effect is large: the current development panel behaves like
 14.1 independent networks and the external panel like 11.0. Simulating the study
-by resampling whole networks, twenty networks reach 53\% power for a two-point
-effect and full power for the five-point effect the freeze declared; eighty
-networks reach 98\% for two points, with a minimum detectable effect at 80\%
-power of 1.33 points (\texttt{p0\_05\_power\_independence/}). The same
-simulation exposes a caveat that should travel with any power statement here: at
-twenty networks the interval excludes zero in 18\% of draws when the true effect
-is exactly zero, so the clustered interval under-covers at small network counts
-and the detectable-effect figures should be read with that in mind. Network
-counts, not case counts, are the currency of this design.
+by resampling whole networks with the project's own clustered interval, twenty
+networks reach 50\% power for a two-point effect and full power for the
+five-point effect the freeze declared, forty reach 80\% for two points, and
+eighty reach 98\% with a minimum detectable effect at 80\% power of 1.40 points;
+the analytic requirement is 38 networks for two points and 7 for five
+(\texttt{p0\_05\_power\_independence/}). Two caveats travel with those
+numbers. At twenty networks the interval excludes zero in 10.7\% of draws when
+the true effect is exactly zero, so small-network power is optimistic and a
+confirmation aiming at a two-point effect should not be planned below roughly
+forty networks. And the panels are not provider-independent: on the external
+panel one agency contributes 94.2\% of the cases, and the network-equal
+leave-that-agency-out estimate is $-4.1$ points with an interval crossing zero
+($[-9.8,+1.8]$), so the transfer claim is directional rather than a statement
+about agencies in general. Network counts, not case counts, are the currency of
+this design.
 
 Three parts of the result are portable. The governing quantity of
 Equation~\eqref{eq:hidden} is defined wherever a derived statistic is computed

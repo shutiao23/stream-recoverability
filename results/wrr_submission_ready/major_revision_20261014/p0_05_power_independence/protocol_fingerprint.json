@@ -1,10 +1,10 @@
 {
   "script": "scripts/314_wrr_p0_05_power_and_independence.py",
-  "script_sha256": "d60942ceeab23921f86046c905e71d47117b537c0b580dc9d766ff63b332235a",
-  "generated_utc": "2026-10-15T11:19:54Z",
+  "script_sha256": "aeb82d5f5d21d908c344f0bb43a804d4ce4363a6b43af4a1c454efac616959ae",
+  "generated_utc": "2026-10-15T11:50:13Z",
   "git": {
-    "commit": "046c3e9234a84130669e30c3ef4ab29ae5f1e007",
-    "describe": "046c3e9234-dirty",
+    "commit": "0544f3b760cdeecdce11c273cb03bac01573e486",
+    "describe": "0544f3b760-dirty",
     "branch": "main"
   },
   "config": {
@@ -35,6 +35,7 @@
     "jitter_seed": 991,
     "budget_seconds": 1500.0,
     "quick": false,
+    "draw_reduction_reason": "outer draws reduced from the pre-declared 2000 to 1000 (CPU contention with co-running agents; 1000 draws keeps the Monte Carlo SE of a 0.8 power estimate near 0.013)",
     "panel_point_pp": {
       "development": -6.3454181728845676,
       "wave2_external": -5.89332748024583,
@@ -142,12 +143,12 @@
     "weighting_scenarios.csv"
   ],
   "timing_seconds": {
-    "section0_estimator_equivalence_seconds": 50.62803554534912,
-    "section1_variance_icc_seconds": 9.940537929534912,
-    "section2_design_simulation_seconds": 723.2357604503632,
-    "section3_provider_leverage_seconds": 12.35919189453125,
-    "section4_requirements_seconds": 0.05686187744140625,
-    "total_seconds": 796.5316863059998
+    "section0_estimator_equivalence_seconds": 49.69343018531799,
+    "section1_variance_icc_seconds": 9.745232820510864,
+    "section2_design_simulation_seconds": 719.0394985675812,
+    "section3_provider_leverage_seconds": 12.387222528457642,
+    "section4_requirements_seconds": 0.05705690383911133,
+    "total_seconds": 791.2659893035889
   },
   "environment": {
     "python": "3.11.7",
@@ -159,5 +160,5 @@
     "max_statistic_abs_diff_pp": 0.0,
     "max_point_abs_diff_pp": 0.0
   },
-  "fingerprint_sha256": "d11d340f47bdebb6bb4b85acab65994ca694cb0a63274e8b8f7fd27a8eaf3bc2"
+  "fingerprint_sha256": "1dbc2c99be0dd69f4f9c4c78628125e8b98668a4356a90750e90c65ee4efece3"
 }

@@ -56,19 +56,19 @@
   "calibration": {
     "probe_draws_per_n": 96,
     "probe_wall_seconds_by_n": {
-      "20": 4.7392542362213135,
-      "80": 9.11154556274414
+      "20": 4.70534348487854,
+      "80": 9.416006565093994
     },
     "raw_measured_per_draw_single_core_seconds": {
-      "20": 4.7392542362213135,
-      "80": 9.11154556274414
+      "20": 4.70534348487854,
+      "80": 9.416006565093994
     },
     "monotone_in_n": true,
     "per_draw_single_core_seconds_by_n": {
-      "20": 4.7392542362213135,
-      "40": 6.196684678395589,
-      "60": 7.654115120569864,
-      "80": 9.11154556274414
+      "20": 4.70534348487854,
+      "40": 6.275564511617025,
+      "60": 7.84578553835551,
+      "80": 9.416006565093994
     },
     "panel_scale_vs_development": {
       "development": 1.0,
@@ -76,11 +76,11 @@
       "pooled_dev_wave2": 0.913066816482734
     },
     "projected_seconds_by_panel": {
-      "development": 288.55832914511365,
-      "wave2_external": 207.15910924514958,
-      "pooled_dev_wave2": 263.4730349621058
+      "development": 294.19479270776117,
+      "wave2_external": 211.20558669180684,
+      "pooled_dev_wave2": 268.6195028034733
     },
-    "projected_total_seconds": 759.190473352369,
+    "projected_total_seconds": 774.0198822030413,
     "budget_seconds": 1500.0,
     "requested_outer_draws": 2000,
     "outer_draws_reduced_to": 1000,
@@ -206,6 +206,7 @@
   "residual_unused_pool": {
     "audit_never_used_count": 54,
     "residual_count": 1,
+    "n_reused_since_audit_distinct": 53,
     "residual_networks": [
       "saih_ebro_ebro_basin"
     ],

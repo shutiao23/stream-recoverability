@@ -1817,6 +1817,11 @@ def main() -> int:
         "residual_unused_pool": {
             "audit_never_used_count": len(residual["audit_never_used_networks"]),
             "residual_count": len(residual["residual_never_used"]),
+            "n_reused_since_audit_distinct": int(
+                residual["now_used_by_scored_panels"]["network_id"].nunique()
+            )
+            if len(residual["now_used_by_scored_panels"])
+            else 0,
             "residual_networks": residual["residual_never_used"],
             "reused_since_audit": (
                 residual["now_used_by_scored_panels"]
@@ -1856,6 +1861,7 @@ def main() -> int:
             "jitter_seed": JITTER_SEED,
             "budget_seconds": float(args.budget_seconds),
             "quick": bool(args.quick),
+            "draw_reduction_reason": reduction_note or None,
             "panel_point_pp": {k: float(pooled_stats[k]["point"]) * 100.0 for k in PANEL_ORDER},
         },
         "estimator": (
@@ -2068,9 +2074,14 @@ def write_summary(
         + ", ".join(
             f"{k} = {v}" for k, v in fingerprint["config"]["outer_draws_by_panel"].items()
         )
-        + "; the development and wave-2 rows carry the full 2000 draws, the pooled mixture is a "
-        "pre-declared sensitivity with a smaller budget (also recorded per row in the "
-        "`outer_draws` column of `power_table.csv`)."
+        + "; the pooled mixture is a pre-declared sensitivity with a smaller budget, and any "
+        "reduction below the pre-declared 2000 draws is recorded here and in the `note` and "
+        "`outer_draws` columns of `power_table.csv`."
+        + (
+            " This run recorded: " + str(fingerprint["config"].get("draw_reduction_reason"))
+            if fingerprint["config"].get("draw_reduction_reason")
+            else ""
+        )
     )
     lines.append("")
     lines.append(
@@ -2194,7 +2205,8 @@ def write_summary(
     lines.append("")
     lines.append(
         "The direction and rough size survive re-weighting on this panel, but the intervals widen "
-        "sharply once USGS is removed and the non-USGS stratum rests on 5 networks. "
+        "sharply once USGS is removed and the non-USGS stratum rests on "
+        f"{sum(v['n_networks'] for k, v in wave2.items() if k != 'usgs')} networks. "
         "'Three providers' is therefore three *sampling frames* on one dominant agency's measurement "
         "practice, not three independent validated populations; a provider-level claim needs new "
         "networks from providers that are not in any opened panel."
@@ -2234,8 +2246,8 @@ def write_summary(
     lines.append(
         f"Residual untouched pool in the repository: the multi-agency prior-access audit flagged "
         f"{residual['audit_never_used_count']} never-used networks, but "
-        f"{sum(len(v) for v in residual['reused_since_audit'].values())} of them are now used by "
-        f"scored/opened panels (the p0_07b transport score); the derived residual is "
+        f"{residual['n_reused_since_audit_distinct']} of them are now used by scored/opened panels "
+        f"(the p0_07b transport score); the derived residual is "
         f"{residual['residual_count']} network(s) (`residual_unused_networks.csv`). Any new "
         "confirmation therefore needs newly recruited networks from providers not yet in the panel, "
         "and a fresh repo-wide prior-access audit before sealing."

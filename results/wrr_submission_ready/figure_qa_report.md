@@ -1,6 +1,6 @@
 # WRR figure and PDF quality assurance
 
-Generated 2026-10-15T11:29:58Z by `python3 scripts/266_wrr_figure_qa.py`.
+Generated 2026-10-15T11:53:52Z by `python3 scripts/266_wrr_figure_qa.py`.
 
 * JSON: `results/wrr_submission_ready/figure_qa.json`
 * Markdown: `results/wrr_submission_ready/figure_qa_report.md`
@@ -160,7 +160,7 @@ No word box extends more than 1.0 pt outside its page in any target PDF.
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 10.97 | 10.97 | 12.10 | 0 | 0 | 57 | 0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 4.29 | 10.59 | 12.10 | 1 | 0 | 74 | 0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 12.10 | 12.10 | 14.18 | 0 | 0 | 42 | 0 |
-| `paper/wrr/wrr_manuscript.pdf` | 21266 | 3.98 | 7.08 | 8.85 | 3 | 0 | 307 | 0 |
+| `paper/wrr/wrr_manuscript.pdf` | 21327 | 3.98 | 7.08 | 8.85 | 3 | 0 | 307 | 0 |
 | `paper/wrr/wrr_supporting_information.pdf` | 5704 | 4.70 | 5.61 | 8.85 | 0 | 0 | 74 | 0 |
 
 No word box is below 4.5 pt in any target PDF.
@@ -190,7 +190,7 @@ Rule: pairs of word boxes whose intersection area exceeds 25% of the smaller box
 | `paper/wrr/figures/figv2_archive_deployment.pdf` | 135 | 12 | 0 | 12 | 0 | 0/0 |
 | `paper/wrr/figures/figv3_support_law.pdf` | 128 | 2 | 0 | 2 | 0 | 0/0 |
 | `paper/wrr/figures/figv4_representativeness.pdf` | 85 | 5 | 0 | 5 | 0 | 0/0 |
-| `paper/wrr/wrr_manuscript.pdf` | 21266 | 70 | 2 | 3 | 65 | 0/0 |
+| `paper/wrr/wrr_manuscript.pdf` | 21327 | 70 | 2 | 3 | 65 | 0/0 |
 | `paper/wrr/wrr_supporting_information.pdf` | 5704 | 16 | 0 | 16 | 0 | 0/0 |
 
 ### Flagged pairs

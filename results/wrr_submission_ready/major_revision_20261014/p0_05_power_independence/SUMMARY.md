@@ -1,6 +1,6 @@
 # P0-05 — independence and power design for the final configuration
 
-Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `046c3e9234a8`; script sha256 `d60942ceeab23921…`; wall time 797 s.
+Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `0544f3b760cd`; script sha256 `aeb82d5f5d21d908…`; wall time 791 s.
 
 ## Estimator
 
@@ -31,22 +31,22 @@ ICC is the intra-network correlation of that case-level contrast (one-way random
 * The pre-declared 5 pp effect of `scripts/186_v17_freeze.py` is detected with practical certainty from N=20 upward; the binding requirement is the 2 pp MUE.
 * The **effective independent network count is far below the network count**: at the current development panel size the contrast behaves like 14.1 independent networks (wave-2: 11.0), because the intra-network correlation of the contrast is small but the networks hold hundreds of cases each.
 
-Each draw samples N networks with replacement from the panel's empirical network distribution (all cases of a drawn network; duplicated draws are independent clusters), recomputes the contrast and its network-clustered bootstrap interval (200 inner draws per study, joblib n_jobs=96). Outer draws per panel: development = 1000, wave2_external = 1000, pooled_dev_wave2 = 800; the development and wave-2 rows carry the full 2000 draws, the pooled mixture is a pre-declared sensitivity with a smaller budget (also recorded per row in the `outer_draws` column of `power_table.csv`).
+Each draw samples N networks with replacement from the panel's empirical network distribution (all cases of a drawn network; duplicated draws are independent clusters), recomputes the contrast and its network-clustered bootstrap interval (200 inner draws per study, joblib n_jobs=96). Outer draws per panel: development = 1000, wave2_external = 1000, pooled_dev_wave2 = 800; the pooled mixture is a pre-declared sensitivity with a smaller budget, and any reduction below the pre-declared 2000 draws is recorded here and in the `note` and `outer_draws` columns of `power_table.csv`. This run recorded: outer draws reduced from the pre-declared 2000 to 1000 (CPU contention with co-running agents; 1000 draws keeps the Monte Carlo SE of a 0.8 power estimate near 0.013)
 
 | panel | N | mean point pp | SD of points | mean bootstrap SE | power @panel effect | empirical alpha at 0 | power 2 pp | power 3 pp | power 5 pp | MDE80 pp | analytic MDE80 pp | wall s |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| development | 20 | -6.20 | 1.05 | 0.94 | 1.000 | 0.107 | 0.502 | 0.850 | 1.000 | 2.77 | 2.69 | 61 |
+| development | 20 | -6.20 | 1.05 | 0.94 | 1.000 | 0.107 | 0.502 | 0.850 | 1.000 | 2.77 | 2.69 | 60 |
 | development | 40 | -6.25 | 0.69 | 0.69 | 1.000 | 0.071 | 0.800 | 0.995 | 1.000 | 2.00 | 1.96 | 62 |
-| development | 60 | -6.27 | 0.57 | 0.56 | 1.000 | 0.079 | 0.938 | 1.000 | 1.000 | 1.59 | 1.59 | 63 |
-| development | 80 | -6.28 | 0.50 | 0.49 | 1.000 | 0.071 | 0.984 | 1.000 | 1.000 | 1.40 | 1.37 | 65 |
-| wave2_external | 20 | -5.83 | 0.81 | 0.81 | 1.000 | 0.100 | 0.726 | 0.987 | 1.000 | 2.18 | 2.29 | 61 |
-| wave2_external | 40 | -5.86 | 0.58 | 0.57 | 1.000 | 0.074 | 0.957 | 1.000 | 1.000 | 1.56 | 1.60 | 64 |
-| wave2_external | 60 | -5.88 | 0.46 | 0.46 | 1.000 | 0.057 | 0.995 | 1.000 | 1.000 | 1.25 | 1.31 | 63 |
-| wave2_external | 80 | -5.89 | 0.40 | 0.40 | 1.000 | 0.065 | 1.000 | 1.000 | 1.000 | 1.10 | 1.13 | 66 |
-| pooled_dev_wave2 | 20 | -6.14 | 0.96 | 0.92 | 1.000 | 0.107 | 0.520 | 0.885 | 1.000 | 2.66 | 2.65 | 49 |
-| pooled_dev_wave2 | 40 | -6.19 | 0.67 | 0.68 | 1.000 | 0.098 | 0.835 | 1.000 | 1.000 | 1.93 | 1.91 | 50 |
+| development | 60 | -6.27 | 0.57 | 0.56 | 1.000 | 0.079 | 0.938 | 1.000 | 1.000 | 1.59 | 1.59 | 64 |
+| development | 80 | -6.28 | 0.50 | 0.49 | 1.000 | 0.071 | 0.984 | 1.000 | 1.000 | 1.40 | 1.37 | 66 |
+| wave2_external | 20 | -5.83 | 0.81 | 0.81 | 1.000 | 0.100 | 0.726 | 0.987 | 1.000 | 2.18 | 2.29 | 59 |
+| wave2_external | 40 | -5.86 | 0.58 | 0.57 | 1.000 | 0.074 | 0.957 | 1.000 | 1.000 | 1.56 | 1.60 | 62 |
+| wave2_external | 60 | -5.88 | 0.46 | 0.46 | 1.000 | 0.057 | 0.995 | 1.000 | 1.000 | 1.25 | 1.31 | 64 |
+| wave2_external | 80 | -5.89 | 0.40 | 0.40 | 1.000 | 0.065 | 1.000 | 1.000 | 1.000 | 1.10 | 1.13 | 65 |
+| pooled_dev_wave2 | 20 | -6.14 | 0.96 | 0.92 | 1.000 | 0.107 | 0.520 | 0.885 | 1.000 | 2.66 | 2.65 | 48 |
+| pooled_dev_wave2 | 40 | -6.19 | 0.67 | 0.68 | 1.000 | 0.098 | 0.835 | 1.000 | 1.000 | 1.93 | 1.91 | 49 |
 | pooled_dev_wave2 | 60 | -6.24 | 0.55 | 0.55 | 1.000 | 0.079 | 0.960 | 1.000 | 1.000 | 1.60 | 1.56 | 51 |
-| pooled_dev_wave2 | 80 | -6.26 | 0.47 | 0.48 | 1.000 | 0.065 | 0.991 | 1.000 | 1.000 | 1.35 | 1.34 | 54 |
+| pooled_dev_wave2 | 80 | -6.26 | 0.47 | 0.48 | 1.000 | 0.065 | 0.991 | 1.000 | 1.000 | 1.35 | 1.34 | 53 |
 
 *Power* is the share of simulated studies whose network-clustered 95 % interval excludes zero after the study is re-centred on a true effect equal to the MUE (shift model: the same shift is applied to every draw, so the empirical shape and width of the sampling distribution are preserved). *Empirical alpha at 0* is the same calculation with a true effect of exactly 0 pp; it should sit near 0.05 and is the coverage check of the whole machinery. *MDE80* solves the same simulated power function for 80 %; the analytic column is `2.802 x SD_implied / sqrt(N)` and is reported as a cross-check, not as the headline.
 
@@ -179,7 +179,7 @@ Design requirements from the analytic relation `N = (2.802 x SD / MUE)^2` (panel
 | wave2_external | 26 networks | 12 networks | 5 networks |
 | pooled_dev_wave2 | 36 networks | 16 networks | 6 networks |
 
-Residual untouched pool in the repository: the multi-agency prior-access audit flagged 54 never-used networks, but 57 of them are now used by scored/opened panels (the p0_07b transport score); the derived residual is 1 network(s) (`residual_unused_networks.csv`). Any new confirmation therefore needs newly recruited networks from providers not yet in the panel, and a fresh repo-wide prior-access audit before sealing.
+Residual untouched pool in the repository: the multi-agency prior-access audit flagged 54 never-used networks, but 53 of them are now used by scored/opened panels (the p0_07b transport score); the derived residual is 1 network(s) (`residual_unused_networks.csv`). Any new confirmation therefore needs newly recruited networks from providers not yet in the panel, and a fresh repo-wide prior-access audit before sealing.
 
 ## What this does not prove
 
@@ -205,4 +205,4 @@ Residual untouched pool in the repository: the multi-agency prior-access audit f
 * `residual_unused_networks.csv` (supporting)
 * `simulation_diagnostics.json` (supporting)
 
-Wall time by section (s): section0_estimator_equivalence_seconds=51, section1_variance_icc_seconds=10, section2_design_simulation_seconds=723, section3_provider_leverage_seconds=12, section4_requirements_seconds=0; total=797.
+Wall time by section (s): section0_estimator_equivalence_seconds=50, section1_variance_icc_seconds=10, section2_design_simulation_seconds=719, section3_provider_leverage_seconds=12, section4_requirements_seconds=0; total=791.

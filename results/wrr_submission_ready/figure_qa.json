@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-10-15T11:29:58Z",
+  "generated_utc": "2026-10-15T11:53:52Z",
   "script": "scripts/266_wrr_figure_qa.py",
   "command": "python3 scripts/266_wrr_figure_qa.py",
   "thresholds": {
@@ -1282,10 +1282,10 @@
             "n_pairs": 10,
             "n_pairs_in_cluster": 2,
             "cluster_fraction": 0.2,
-            "scale": 1.232514,
+            "scale": 1.232512,
             "scale_x": -8.42689,
-            "scale_y": -0.951255,
-            "cluster_rel_spread_pct": 0.1895
+            "scale_y": -0.951251,
+            "cluster_rel_spread_pct": 0.1898
           },
           {
             "document": "manuscript",
@@ -2366,14 +2366,14 @@
           },
           {
             "document": "manuscript",
-            "page": 46,
+            "page": 61,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.307448,
-            "scale_x": -3.52936,
-            "scale_y": 0.163209,
+            "scale": 0.526902,
+            "scale_x": 2.665119,
+            "scale_y": 0.423889,
             "cluster_rel_spread_pct": 0.0
           }
         ],
@@ -3039,26 +3039,26 @@
           },
           {
             "document": "manuscript",
-            "page": 46,
+            "page": 47,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.173354,
-            "scale_x": -0.189154,
-            "scale_y": -0.12931,
+            "scale": 1.072108,
+            "scale_x": 0.732976,
+            "scale_y": 1.158345,
             "cluster_rel_spread_pct": 0.0
           },
           {
             "document": "manuscript",
-            "page": 48,
+            "page": 59,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.685303,
-            "scale_x": -0.247164,
-            "scale_y": null,
+            "scale": 0.352572,
+            "scale_x": -1.987864,
+            "scale_y": -0.098517,
             "cluster_rel_spread_pct": 0.0
           }
         ],
@@ -7254,6 +7254,18 @@
         "confident": true,
         "other_candidates": [
           {
+            "document": "manuscript",
+            "page": 48,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 10,
+            "n_pairs_in_cluster": 2,
+            "cluster_fraction": 0.2,
+            "scale": 1.445396,
+            "scale_x": 2.889035,
+            "scale_y": 0.647945,
+            "cluster_rel_spread_pct": 0.3232
+          },
+          {
             "document": "supporting_information",
             "page": 20,
             "n_distinctive_words_matched": 5,
@@ -7275,18 +7287,6 @@
             "scale": 1.01828,
             "scale_x": 0.696258,
             "scale_y": -2.305962,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 15,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.429667,
-            "scale_x": 0.711846,
-            "scale_y": 0.414371,
             "cluster_rel_spread_pct": 0.0
           }
         ],
@@ -7667,6 +7667,18 @@
         "other_candidates": [
           {
             "document": "manuscript",
+            "page": 47,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1667,
+            "scale": 0.393529,
+            "scale_x": -1.523068,
+            "scale_y": 0.155394,
+            "cluster_rel_spread_pct": 0.0
+          },
+          {
+            "document": "manuscript",
             "page": 12,
             "n_distinctive_words_matched": 6,
             "n_pairs": 15,
@@ -7676,18 +7688,6 @@
             "scale_x": 0.288301,
             "scale_y": -0.673395,
             "cluster_rel_spread_pct": 0.2998
-          },
-          {
-            "document": "manuscript",
-            "page": 47,
-            "n_distinctive_words_matched": 5,
-            "n_pairs": 10,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1,
-            "scale": 0.393529,
-            "scale_x": -1.523068,
-            "scale_y": 0.155394,
-            "cluster_rel_spread_pct": 0.0
           },
           {
             "document": "manuscript",
@@ -9864,8 +9864,8 @@
       "path": "paper/wrr/wrr_manuscript.pdf",
       "kind": "manuscript",
       "name": "wrr_manuscript",
-      "size_bytes": 706876,
-      "sha256": "b4860b4cbb27275a754c8005efcb5e871d6cd722691e7f71383d86ce5912f94d",
+      "size_bytes": 707134,
+      "sha256": "d0b0e874a6e0821697979fc67c6a9e731388cb14c4d1180c3ccb8c2e70d6f100",
       "hard_failures": [],
       "warnings": [
         {
@@ -10691,7 +10691,7 @@
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 21266,
+        "n_words": 21327,
         "n_pages_with_words": 61,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -10708,7 +10708,7 @@
         "min_line_height_pt": 5.883,
         "p05_height_pt": 7.077,
         "median_height_pt": 8.847,
-        "n_words_measured": 21266,
+        "n_words_measured": 21327,
         "n_below_threshold": 0,
         "n_small_relative_words": 307,
         "n_degenerate_boxes": 0,
@@ -10874,7 +10874,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 21266,
+        "n_word_boxes": 21327,
         "n_candidate_pairs": 70,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -13327,7 +13327,7 @@
       "kind": "supporting_information",
       "name": "wrr_supporting_information",
       "size_bytes": 456594,
-      "sha256": "72c5775da2789b6299e1501f22a0e1ebbe4b75c86e7af73d5d939902ac75cce7",
+      "sha256": "384b7a41f63eb975bfc9876ee0b8a21b260b0d2d356eabf7e71ce47125f244f9",
       "hard_failures": [],
       "warnings": [
         {
