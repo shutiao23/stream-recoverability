@@ -43,3 +43,15 @@ PYTHONPATH=src python3 scripts/254_wrr_claim_binding_check.py
 PYTHONPATH=src python3 scripts/263_wrr_objective_completion_audit.py
 python3 scripts/223_wrr_build.py
 ```
+
+## Major-revision round (2026-10-15)
+
+Ten analyses under `major_revision_20261014/` close the 2026-10-14 review's
+structural gaps: the method and claim set are converged (P0-01), admission
+thresholds are chosen without evaluation labels (P0-02), the final rule runs on
+the real calendar with explicit unavailable and fallback states (P0-03), the
+hot-year metric is decomposed (P0-04), the design's power and effective network
+count are quantified (P0-05), the coverage and measurement contract exists with
+an independent recompute of thirty headline values (P0-06), and the manuscript,
+SI, figures and PDFs carry one version of the claims (P0-07). Finding-by-finding
+closure: `docs/reviews/wrr_major_revision_finding_closure.md`.

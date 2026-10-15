@@ -1691,6 +1691,34 @@ calibrated object serves both.
 
 \subsection{What an agency should change, and in what order}
 
+A recipe that an agency can follow without reading any truth follows from the
+results above, and it is deliberately short. First, assemble the station's
+complete years and compute, for the year in question, only quantities visible at
+decision time: the share of the station's climatological hottest-30 window the
+gap hides, the share of the warm season still observed, the longest run, the
+number and agreement of neighbouring stations that record through the gap, and
+the spread of the reconstruction ensemble. Second, fit the risk score on
+networks that are disjoint from the ones the rule will be judged on, and choose
+the admission threshold on those calibration networks alone, as the largest
+retention whose calibration false-admit rate plus its one-sided clustered bound
+stays inside the agency's cap. Third, apply the threshold once and report three
+states rather than two: admitted, not admitted, and unavailable, the last for
+records where the reconstruction the rule assumed cannot be formed at all. On the
+external panel this recipe keeps three-quarters of the candidate pool at a
+realised error rate near four per cent; on the real-calendar replay it decides
+95 per cent of candidates and does not lose to the simple rules when neighbours
+fail.
+
+Three caveats belong in the same paragraph as the recipe. The cap is met as a
+point estimate and not as a guarantee, so an agency with a hard regulatory limit
+should treat the realised rate as evidence and not as a certificate. The
+threshold is fold-specific, so a change of networks or of the measurement
+contract is a reason to recalibrate rather than to reuse the number. And the
+rules should be re-derived when the archive's own gap calendar changes, because
+the empirical-arm gain, 0.8 points on these networks, is what an agency with
+their calendar should expect rather than the designed-outage figure.
+
+
 The first recommendation is to treat screening as estimand-specific. An agency
 assembling warm-season extremes from maximum gap length should trial conditioning
 on how much of a station's climatological warm window the gap hides, and should

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-10-15T11:12:31Z",
+  "generated_utc": "2026-10-15T11:15:13Z",
   "script": "scripts/266_wrr_figure_qa.py",
   "command": "python3 scripts/266_wrr_figure_qa.py",
   "thresholds": {
@@ -1005,49 +1005,49 @@
       "locator": {
         "examples": [
           {
-            "page": 12,
+            "page": 14,
             "text": "1.5",
             "height_pt": 12.136,
             "line_height_pt": 45.79
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "1.0",
             "height_pt": 12.136,
             "line_height_pt": 45.79
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "0.3",
             "height_pt": 12.136,
             "line_height_pt": 30.182
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "0.2",
             "height_pt": 12.136,
             "line_height_pt": 30.182
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "annual",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "mean",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "coldest",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "30",
             "height_pt": 14.042,
             "line_height_pt": 36.534
@@ -1264,7 +1264,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 10,
+        "page": 12,
         "n_distinctive_words_matched": 50,
         "n_pairs": 1181,
         "n_pairs_in_cluster": 1181,
@@ -2329,7 +2329,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 11,
+        "page": 13,
         "n_distinctive_words_matched": 123,
         "n_pairs": 7283,
         "n_pairs_in_cluster": 7283,
@@ -2340,6 +2340,18 @@
         "cluster_rel_spread_pct": 0.0,
         "confident": true,
         "other_candidates": [
+          {
+            "document": "supporting_information",
+            "page": 10,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 9,
+            "n_pairs_in_cluster": 2,
+            "cluster_fraction": 0.2222,
+            "scale": 1.095137,
+            "scale_x": 0.675495,
+            "scale_y": -1.429584,
+            "cluster_rel_spread_pct": 0.0319
+          },
           {
             "document": "manuscript",
             "page": 55,
@@ -2362,18 +2374,6 @@
             "scale": 0.35904,
             "scale_x": -0.716925,
             "scale_y": -0.114808,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 61,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.526902,
-            "scale_x": 2.665119,
-            "scale_y": 0.423889,
             "cluster_rel_spread_pct": 0.0
           }
         ],
@@ -2564,7 +2564,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 16,
+        "page": 18,
         "n_distinctive_words_matched": 111,
         "n_pairs": 5938,
         "n_pairs_in_cluster": 5938,
@@ -2826,7 +2826,7 @@
           },
           {
             "document": "supporting_information",
-            "page": 13,
+            "page": 15,
             "n_distinctive_words_matched": 5,
             "n_pairs": 10,
             "n_pairs_in_cluster": 1,
@@ -3051,7 +3051,7 @@
           },
           {
             "document": "supporting_information",
-            "page": 9,
+            "page": 11,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
@@ -3249,7 +3249,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 9,
+        "page": 11,
         "n_distinctive_words_matched": 99,
         "n_pairs": 4764,
         "n_pairs_in_cluster": 4764,
@@ -3285,16 +3285,16 @@
             "cluster_rel_spread_pct": 0.0466
           },
           {
-            "document": "supporting_information",
-            "page": 7,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 2,
-            "cluster_fraction": 0.3333,
-            "scale": 1.87591,
-            "scale_x": -12.316936,
-            "scale_y": -0.503564,
-            "cluster_rel_spread_pct": 0.1078
+            "document": "manuscript",
+            "page": 35,
+            "n_distinctive_words_matched": 6,
+            "n_pairs": 13,
+            "n_pairs_in_cluster": 3,
+            "cluster_fraction": 0.2308,
+            "scale": 2.225953,
+            "scale_x": 8.333204,
+            "scale_y": 1.086836,
+            "cluster_rel_spread_pct": 0.3646
           }
         ],
         "printed_width_pt": 396.012,
@@ -3494,7 +3494,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 14,
+        "page": 16,
         "n_distinctive_words_matched": 99,
         "n_pairs": 4699,
         "n_pairs_in_cluster": 4699,
@@ -5656,7 +5656,7 @@
         "other_candidates": [
           {
             "document": "supporting_information",
-            "page": 9,
+            "page": 11,
             "n_distinctive_words_matched": 5,
             "n_pairs": 10,
             "n_pairs_in_cluster": 2,
@@ -6568,7 +6568,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 12,
+        "page": 14,
         "n_distinctive_words_matched": 26,
         "n_pairs": 321,
         "n_pairs_in_cluster": 321,
@@ -6581,7 +6581,7 @@
         "other_candidates": [
           {
             "document": "supporting_information",
-            "page": 11,
+            "page": 13,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
@@ -6593,7 +6593,7 @@
           },
           {
             "document": "supporting_information",
-            "page": 13,
+            "page": 15,
             "n_distinctive_words_matched": 5,
             "n_pairs": 9,
             "n_pairs_in_cluster": 1,
@@ -7242,7 +7242,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 13,
+        "page": 15,
         "n_distinctive_words_matched": 23,
         "n_pairs": 250,
         "n_pairs_in_cluster": 250,
@@ -7255,7 +7255,7 @@
         "other_candidates": [
           {
             "document": "supporting_information",
-            "page": 16,
+            "page": 18,
             "n_distinctive_words_matched": 5,
             "n_pairs": 10,
             "n_pairs_in_cluster": 2,
@@ -7654,7 +7654,7 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "supporting_information",
-        "page": 15,
+        "page": 17,
         "n_distinctive_words_matched": 25,
         "n_pairs": 298,
         "n_pairs_in_cluster": 298,
@@ -8730,7 +8730,7 @@
           },
           {
             "document": "supporting_information",
-            "page": 9,
+            "page": 11,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
@@ -9274,7 +9274,7 @@
           },
           {
             "document": "supporting_information",
-            "page": 14,
+            "page": 16,
             "n_distinctive_words_matched": 5,
             "n_pairs": 10,
             "n_pairs_in_cluster": 2,
@@ -9865,7 +9865,7 @@
       "kind": "manuscript",
       "name": "wrr_manuscript",
       "size_bytes": 705363,
-      "sha256": "a9e24eca339af5db94f41b4d9e2be51f83acba7df578e84f60543f921b9400a4",
+      "sha256": "03c919a31ac8064443ef906af3ef1f15805745990b06e042f7e2bb896227abc2",
       "hard_failures": [],
       "warnings": [
         {
@@ -13326,8 +13326,8 @@
       "path": "paper/wrr/wrr_supporting_information.pdf",
       "kind": "supporting_information",
       "name": "wrr_supporting_information",
-      "size_bytes": 436896,
-      "sha256": "17b41144b054bb1688442cb249407601d3507a6afd8ad6e01203a8d4351bbb6d",
+      "size_bytes": 444280,
+      "sha256": "c1f46e7551c3f6dcb78970a28db5cdb189be738e1ca83e301074a0a810995c71",
       "hard_failures": [],
       "warnings": [
         {
@@ -13337,49 +13337,49 @@
           "locator": {
             "examples": [
               {
-                "page": 12,
+                "page": 14,
                 "text": "1.5",
                 "height_pt": 12.136,
                 "line_height_pt": 45.79
               },
               {
-                "page": 12,
+                "page": 14,
                 "text": "1.0",
                 "height_pt": 12.136,
                 "line_height_pt": 45.79
               },
               {
-                "page": 12,
+                "page": 14,
                 "text": "0.3",
                 "height_pt": 12.136,
                 "line_height_pt": 30.182
               },
               {
-                "page": 12,
+                "page": 14,
                 "text": "0.2",
                 "height_pt": 12.136,
                 "line_height_pt": 30.182
               },
               {
-                "page": 13,
+                "page": 15,
                 "text": "annual",
                 "height_pt": 14.042,
                 "line_height_pt": 36.534
               },
               {
-                "page": 13,
+                "page": 15,
                 "text": "mean",
                 "height_pt": 14.042,
                 "line_height_pt": 36.534
               },
               {
-                "page": 13,
+                "page": 15,
                 "text": "coldest",
                 "height_pt": 14.042,
                 "line_height_pt": 36.534
               },
               {
-                "page": 13,
+                "page": 15,
                 "text": "30",
                 "height_pt": 14.042,
                 "line_height_pt": 36.534
@@ -13402,7 +13402,7 @@
         "n_fonts": 38,
         "records": [
           {
-            "name": "NTDPGH+CMR9",
+            "name": "EKMPDV+CMR9",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -13432,7 +13432,7 @@
             "unnamed": false
           },
           {
-            "name": "QVEOBP+CMBX10",
+            "name": "GBETRV+CMBX10",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -13549,6 +13549,16 @@
             "subset": true,
             "unicode": true,
             "base_name": "CMSY",
+            "unnamed": false
+          },
+          {
+            "name": "XWOYAY+CMTT9",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMTT",
             "unnamed": false
           },
           {
@@ -13742,16 +13752,6 @@
             "unnamed": false
           },
           {
-            "name": "LFHKWU+CMTT9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTT",
-            "unnamed": false
-          },
-          {
             "name": "KLJRVZ+NimbusSans-Bold",
             "type": "Type 1C",
             "encoding": "WinAnsi",
@@ -13830,7 +13830,7 @@
       },
       "geometry": {
         "info_available": true,
-        "pages": 16,
+        "pages": 18,
         "page_size_pt": [
           612.0,
           792.0
@@ -13915,6 +13915,14 @@
           "16": [
             612.0,
             792.0
+          ],
+          "17": [
+            612.0,
+            792.0
+          ],
+          "18": [
+            612.0,
+            792.0
           ]
         },
         "is_single_page": false,
@@ -13925,8 +13933,8 @@
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 4653,
-        "n_pages_with_words": 16,
+        "n_words": 5315,
+        "n_pages_with_words": 18,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
         "violations": [],
@@ -13942,7 +13950,7 @@
         "min_line_height_pt": 5.158,
         "p05_height_pt": 5.611,
         "median_height_pt": 8.847,
-        "n_words_measured": 4653,
+        "n_words_measured": 5315,
         "n_below_threshold": 0,
         "n_small_relative_words": 74,
         "n_degenerate_boxes": 0,
@@ -13952,121 +13960,121 @@
         "raw_boxes_below_threshold_truncated": 0,
         "small_relative_words": [
           {
-            "page": 12,
+            "page": 14,
             "text": "1.5",
             "height_pt": 12.136,
             "line_height_pt": 45.79
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "1.0",
             "height_pt": 12.136,
             "line_height_pt": 45.79
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "0.3",
             "height_pt": 12.136,
             "line_height_pt": 30.182
           },
           {
-            "page": 12,
+            "page": 14,
             "text": "0.2",
             "height_pt": 12.136,
             "line_height_pt": 30.182
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "annual",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "mean",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "coldest",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "30",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "d",
             "height_pt": 14.042,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "length",
             "height_pt": 13.673,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "timing",
             "height_pt": 13.673,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "7",
             "height_pt": 11.825,
             "line_height_pt": 26.344
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "6",
             "height_pt": 11.825,
             "line_height_pt": 26.344
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "5",
             "height_pt": 11.825,
             "line_height_pt": 26.344
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "4",
             "height_pt": 11.825,
             "line_height_pt": 26.344
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "2",
             "height_pt": 11.825,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "1",
             "height_pt": 11.825,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "0",
             "height_pt": 11.825,
             "line_height_pt": 36.534
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "6",
             "height_pt": 11.825,
             "line_height_pt": 56.373
           },
           {
-            "page": 13,
+            "page": 15,
             "text": "5",
             "height_pt": 11.825,
             "line_height_pt": 56.373
@@ -14077,7 +14085,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 4653,
+        "n_word_boxes": 5315,
         "n_candidate_pairs": 16,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -14166,11 +14174,21 @@
             "page": 16,
             "width_pt": 612.0,
             "height_pt": 792.0
+          },
+          "17": {
+            "page": 17,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "18": {
+            "page": 18,
+            "width_pt": 612.0,
+            "height_pt": 792.0
           }
         },
         "pairs": [
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.6953,
@@ -14199,7 +14217,7 @@
             "baseline_delta_pt": 3.957
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.5651,
@@ -14228,7 +14246,7 @@
             "baseline_delta_pt": 3.757
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4881,
@@ -14257,7 +14275,7 @@
             "baseline_delta_pt": 6.81
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4881,
@@ -14286,7 +14304,7 @@
             "baseline_delta_pt": 6.81
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4796,
@@ -14315,7 +14333,7 @@
             "baseline_delta_pt": 6.569
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4444,
@@ -14344,7 +14362,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4444,
@@ -14373,7 +14391,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4444,
@@ -14402,7 +14420,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4444,
@@ -14431,7 +14449,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.4253,
@@ -14460,7 +14478,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3997,
@@ -14489,7 +14507,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3762,
@@ -14518,7 +14536,7 @@
             "baseline_delta_pt": 8.759
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3762,
@@ -14547,7 +14565,7 @@
             "baseline_delta_pt": 8.759
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3762,
@@ -14576,7 +14594,7 @@
             "baseline_delta_pt": 8.759
           },
           {
-            "page": 12,
+            "page": 14,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3704,
@@ -14605,7 +14623,7 @@
             "baseline_delta_pt": 6.743
           },
           {
-            "page": 13,
+            "page": 15,
             "kind": "adjacent_line_padding",
             "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
             "overlap_fraction": 0.3636,

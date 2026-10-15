@@ -1,6 +1,6 @@
 # P0-05 — independence and power design for the final configuration
 
-Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `8eade30bbf5f`; script sha256 `41228f65357b7f39…`; wall time 855 s.
+Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `046c3e9234a8`; script sha256 `d60942ceeab23921…`; wall time 797 s.
 
 ## Estimator
 
@@ -19,6 +19,8 @@ Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=sr
 
 SD within-net contrasts is the SD (ddof=1) of the per-network within-network contrast (each network does its own 70 % selection; the step-7 convention) — this is the variance component of the network-equal estimand. SD implied by bootstrap is `SE x sqrt(n_networks)` (the project's own convention in `scripts/186_v17_freeze.py`) and is the operative between-network SD for the pooled case-weighted estimand. SD ANOVA is `sqrt((MSB-MSW)/n0)` from the one-way random-effects decomposition of the exact case-level contrast `d_i = (x_i - y_i)/0.70`. The fixed-selection influence SDs are also in `network_variance_table.csv`; they overstate the bootstrap and are **not** used for power.
 
+The network-equal mean is mildly jitter-seed sensitive because the length rule breaks ties in `longest_run` at random: seed 991 (the primary estimator's seed) gives -5.12 pp on wave-2 where the step-7 seed 61 gives -5.46 pp; the pooled case-weighted headline is unaffected (its point estimate and interval are identical to `operating_point_contrast`, verified in `simulation_diagnostics.json`).
+
 ICC is the intra-network correlation of that case-level contrast (one-way random-effects ICC(1), unbalanced). Large ICC x large networks is why the design effect is high: the contrast is mostly a within-network case-level quantity, so cases are not independent evidence about networks.
 
 ## 2. Design simulation (N x MUE)
@@ -33,18 +35,18 @@ Each draw samples N networks with replacement from the panel's empirical network
 
 | panel | N | mean point pp | SD of points | mean bootstrap SE | power @panel effect | empirical alpha at 0 | power 2 pp | power 3 pp | power 5 pp | MDE80 pp | analytic MDE80 pp | wall s |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| development | 20 | -6.20 | 1.05 | 0.94 | 1.000 | 0.107 | 0.502 | 0.850 | 1.000 | 2.77 | 2.69 | 60 |
-| development | 40 | -6.25 | 0.69 | 0.69 | 1.000 | 0.071 | 0.800 | 0.995 | 1.000 | 2.00 | 1.96 | 63 |
-| development | 60 | -6.27 | 0.57 | 0.56 | 1.000 | 0.079 | 0.938 | 1.000 | 1.000 | 1.59 | 1.59 | 65 |
-| development | 80 | -6.28 | 0.50 | 0.49 | 1.000 | 0.071 | 0.984 | 1.000 | 1.000 | 1.40 | 1.37 | 76 |
-| wave2_external | 20 | -5.83 | 0.81 | 0.81 | 1.000 | 0.100 | 0.726 | 0.987 | 1.000 | 2.18 | 2.29 | 69 |
-| wave2_external | 40 | -5.86 | 0.58 | 0.57 | 1.000 | 0.074 | 0.957 | 1.000 | 1.000 | 1.56 | 1.60 | 66 |
-| wave2_external | 60 | -5.88 | 0.46 | 0.46 | 1.000 | 0.057 | 0.995 | 1.000 | 1.000 | 1.25 | 1.31 | 68 |
-| wave2_external | 80 | -5.89 | 0.40 | 0.40 | 1.000 | 0.065 | 1.000 | 1.000 | 1.000 | 1.10 | 1.13 | 73 |
-| pooled_dev_wave2 | 20 | -6.14 | 0.96 | 0.92 | 1.000 | 0.107 | 0.520 | 0.885 | 1.000 | 2.66 | 2.65 | 51 |
-| pooled_dev_wave2 | 40 | -6.19 | 0.67 | 0.68 | 1.000 | 0.098 | 0.835 | 1.000 | 1.000 | 1.93 | 1.91 | 53 |
-| pooled_dev_wave2 | 60 | -6.24 | 0.55 | 0.55 | 1.000 | 0.079 | 0.960 | 1.000 | 1.000 | 1.60 | 1.56 | 59 |
-| pooled_dev_wave2 | 80 | -6.26 | 0.47 | 0.48 | 1.000 | 0.065 | 0.991 | 1.000 | 1.000 | 1.35 | 1.34 | 60 |
+| development | 20 | -6.20 | 1.05 | 0.94 | 1.000 | 0.107 | 0.502 | 0.850 | 1.000 | 2.77 | 2.69 | 61 |
+| development | 40 | -6.25 | 0.69 | 0.69 | 1.000 | 0.071 | 0.800 | 0.995 | 1.000 | 2.00 | 1.96 | 62 |
+| development | 60 | -6.27 | 0.57 | 0.56 | 1.000 | 0.079 | 0.938 | 1.000 | 1.000 | 1.59 | 1.59 | 63 |
+| development | 80 | -6.28 | 0.50 | 0.49 | 1.000 | 0.071 | 0.984 | 1.000 | 1.000 | 1.40 | 1.37 | 65 |
+| wave2_external | 20 | -5.83 | 0.81 | 0.81 | 1.000 | 0.100 | 0.726 | 0.987 | 1.000 | 2.18 | 2.29 | 61 |
+| wave2_external | 40 | -5.86 | 0.58 | 0.57 | 1.000 | 0.074 | 0.957 | 1.000 | 1.000 | 1.56 | 1.60 | 64 |
+| wave2_external | 60 | -5.88 | 0.46 | 0.46 | 1.000 | 0.057 | 0.995 | 1.000 | 1.000 | 1.25 | 1.31 | 63 |
+| wave2_external | 80 | -5.89 | 0.40 | 0.40 | 1.000 | 0.065 | 1.000 | 1.000 | 1.000 | 1.10 | 1.13 | 66 |
+| pooled_dev_wave2 | 20 | -6.14 | 0.96 | 0.92 | 1.000 | 0.107 | 0.520 | 0.885 | 1.000 | 2.66 | 2.65 | 49 |
+| pooled_dev_wave2 | 40 | -6.19 | 0.67 | 0.68 | 1.000 | 0.098 | 0.835 | 1.000 | 1.000 | 1.93 | 1.91 | 50 |
+| pooled_dev_wave2 | 60 | -6.24 | 0.55 | 0.55 | 1.000 | 0.079 | 0.960 | 1.000 | 1.000 | 1.60 | 1.56 | 51 |
+| pooled_dev_wave2 | 80 | -6.26 | 0.47 | 0.48 | 1.000 | 0.065 | 0.991 | 1.000 | 1.000 | 1.35 | 1.34 | 54 |
 
 *Power* is the share of simulated studies whose network-clustered 95 % interval excludes zero after the study is re-centred on a true effect equal to the MUE (shift model: the same shift is applied to every draw, so the empirical shape and width of the sampling distribution are preserved). *Empirical alpha at 0* is the same calculation with a true effect of exactly 0 pp; it should sit near 0.05 and is the coverage check of the whole machinery. *MDE80* solves the same simulated power function for 80 %; the analytic column is `2.802 x SD_implied / sqrt(N)` and is reported as a cross-check, not as the headline.
 
@@ -167,7 +169,7 @@ The direction and rough size survive re-weighting on this panel, but the interva
 
 ## 4. What is missing: claims that need networks used nowhere yet
 
-Machine-readable in `independent_evidence_requirements.csv`. Claims whose current wording needs networks outside every opened panel (development, reserved-36 opened, wave-2, sealed USGS, transport, NVE probe): C14, DEPLOY-CERT, F07, L1, M1, MR-M1, MR-M5, MR-M7, P0-05, P0-06-TRANSPORT-SAN, P0-07-POOL, P0-07-TRANSPORT, R1, REG. The 36-network reserved panel is opened and is **not** proposed as new confirmation, and neither is any other opened panel.
+Machine-readable in `independent_evidence_requirements.csv`. Claims whose current wording needs networks outside every opened panel (development, reserved-36 opened, wave-2, sealed USGS, transport, NVE probe): C14, DEPLOY-CERT, F07, L1, M1, P0-05, P0-06-TRANSPORT-SAN, P0-07-POOL, P0-07-TRANSPORT, R1, REG. The 36-network reserved panel is opened and is **not** proposed as new confirmation, and neither is any other opened panel.
 
 Design requirements from the analytic relation `N = (2.802 x SD / MUE)^2` (panel-specific SD):
 
@@ -203,4 +205,4 @@ Residual untouched pool in the repository: the multi-agency prior-access audit f
 * `residual_unused_networks.csv` (supporting)
 * `simulation_diagnostics.json` (supporting)
 
-Wall time by section (s): section0_estimator_equivalence_seconds=54, section1_variance_icc_seconds=10, section2_design_simulation_seconds=777, section3_provider_leverage_seconds=14, section4_requirements_seconds=0; total=855.
+Wall time by section (s): section0_estimator_equivalence_seconds=51, section1_variance_icc_seconds=10, section2_design_simulation_seconds=723, section3_provider_leverage_seconds=12, section4_requirements_seconds=0; total=797.

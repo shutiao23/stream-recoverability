@@ -1,10 +1,10 @@
 {
   "script": "scripts/314_wrr_p0_05_power_and_independence.py",
-  "script_sha256": "41228f65357b7f39f6d3a7b28d827abe801fcc5b89526738492497dd088f6669",
-  "generated_utc": "2026-10-15T11:03:54Z",
+  "script_sha256": "d60942ceeab23921f86046c905e71d47117b537c0b580dc9d766ff63b332235a",
+  "generated_utc": "2026-10-15T11:19:54Z",
   "git": {
-    "commit": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
-    "describe": "8eade30bbf-dirty",
+    "commit": "046c3e9234a84130669e30c3ef4ab29ae5f1e007",
+    "describe": "046c3e9234-dirty",
     "branch": "main"
   },
   "config": {
@@ -142,12 +142,12 @@
     "weighting_scenarios.csv"
   ],
   "timing_seconds": {
-    "section0_estimator_equivalence_seconds": 53.65866184234619,
-    "section1_variance_icc_seconds": 9.66475772857666,
-    "section2_design_simulation_seconds": 777.2881262302399,
-    "section3_provider_leverage_seconds": 13.8521888256073,
-    "section4_requirements_seconds": 0.05992484092712402,
-    "total_seconds": 855.2678806781769
+    "section0_estimator_equivalence_seconds": 50.62803554534912,
+    "section1_variance_icc_seconds": 9.940537929534912,
+    "section2_design_simulation_seconds": 723.2357604503632,
+    "section3_provider_leverage_seconds": 12.35919189453125,
+    "section4_requirements_seconds": 0.05686187744140625,
+    "total_seconds": 796.5316863059998
   },
   "environment": {
     "python": "3.11.7",
@@ -159,5 +159,5 @@
     "max_statistic_abs_diff_pp": 0.0,
     "max_point_abs_diff_pp": 0.0
   },
-  "fingerprint_sha256": "f034974b5bf23dea483427994905f2e7b1c1daad9fa4d96e6a91a5b2b5fb7961"
+  "fingerprint_sha256": "d11d340f47bdebb6bb4b85acab65994ca694cb0a63274e8b8f7fd27a8eaf3bc2"
 }

@@ -40,7 +40,7 @@ screen for annual thermal extremes in incomplete river-temperature records''}
 \begin{enumerate}
   \item Text S1 to S8
   \item Figures S1 to S8
-  \item Table S1
+  \item Tables S1 to S2
 \end{enumerate}
 
 \section*{Introduction}
@@ -244,6 +244,82 @@ sensitivity (\texttt{mnar\_pattern\_mixture}), cold-season support axes
 (\texttt{sealed\_usgs\_prior\_access\_diagnostic}). The maintenance
 counterfactual was recomputed under multi-year outage placement
 (\texttt{e1\_maintenance\_recompute}) and remains exploratory.
+
+The major-revision round is registered under
+\texttt{major\_revision\_20261014/} and holds ten further analyses, each with
+its own \texttt{SUMMARY.md}, protocol fingerprint (script and input hashes plus
+the git head) and machine-readable tables: the converged method and claim set
+(\texttt{p0\_01\_final\_method}), admission thresholds chosen on calibration
+networks only (\texttt{p0\_02\_frozen\_risk\_thresholds}), the final rule on the
+monitoring-calendar replay with explicit unavailable and fallback states
+(\texttt{p0\_03\_final\_method\_replay}), the hot-year decomposition
+(\texttt{p0\_04\_env\_closed\_loop}), the power and independence design
+(\texttt{p0\_05\_power\_independence}), the coverage and measurement contract with
+an independent recompute of thirty headline values
+(\texttt{p0\_06\_coverage\_recompute}), repeated learning curves
+(\texttt{p1\_learning\_curve\_repeats}), the mechanism boundary with the air
+reconstructor and a design-based phase interval
+(\texttt{p1\_mechanism\_boundary}), and the transfer and measurement strata
+(\texttt{p1\_transfer\_measurement}). Two of these record a corrected number
+rather than a new one: the admission-threshold analysis replaces an operating
+point that had been chosen with the evaluation labels, and the replay replaces a
+donor-reconstruction column that had silently contained observed-window values.
+
+\section{Measurement contract and coverage}
+
+Every result in the article is reported against the daily-value statistic its
+providers actually publish (Table~\ref{tab:si-contract}). Of the 40704 development
+cases, 74.4\,\% come from the five providers that document a daily mean
+(84 networks), 15.5\,\% are project aggregates of sub-daily or instantaneous
+values (14 networks; CHMI ten-minute and Rijkswaterstaat raw readings), 8.3\,\%
+come from ten networks whose provider never states whether the published daily
+value is a mean (ARSO, 47 stations), and 1.7\,\% are the three Finnish morning
+reference readings, which the project already excludes from the unified
+daily-mean analysis. The retrospective reserved panel is 73.8\,\% documented
+daily means and 20.1\,\% project aggregates; the external wave-2 panel is
+94.4\,\% documented daily means. A station-level coverage table with first and
+last year, complete years, statistic class, quality class and licence route for
+every station is in
+\texttt{major\_revision\_20261014/p0\_06\_coverage\_recompute/final\_coverage\_table.csv},
+and the results by measurement class are in the transfer table of
+Section~4.4.2 of the article.
+
+Two further notes belong with that table. The reserved-panel headline contrast is
+sensitive to how ties at the retention cut are broken: across six tie-break seeds
+it runs from $-7.16$ to $-6.94$ points, so the point estimate is quoted with that
+range and the interval, not to two decimals. And the wave-2 complete-year count
+depends on the convention used by the ingest (51 of 164 stations under the rule
+as written, 162 under the strict all-days-present rule), so no single wave-2
+station-year denominator is quoted.
+
+\begin{table}
+\caption{Daily-value statistic by provider, as documented by the provider, with the
+class assigned to each panel case.}
+\label{tab:si-contract}
+\small
+\centering
+\begin{tabular}{p{0.16\textwidth}p{0.20\textwidth}rp{0.27\textwidth}p{0.28\textwidth}}
+\hline
+provider & statistic documented & stations & class used in the analysis & evidence \\
+\hline
+USGS & daily mean & 427 & documented daily mean & NWIS daily-values service; parameter 00010 \\
+GKD Bayern & daily mean & 55 & documented daily mean & provider daily series documentation \\
+LUBW & daily mean & 22 & documented daily mean & provider daily series documentation \\
+NVE & daily mean & 57 & documented daily mean & HydAPI daily values \\
+FOEN & daily mean & 11 & documented daily mean & opendata.swiss daily series \\
+CHMI & sub-daily (10-minute) & 73 & project aggregate & provider sub-daily series \\
+Rijkswaterstaat & raw measurements & 5 & project aggregate & WaterWebServices raw readings \\
+Hub'Eau & continuous & 9 & project aggregate & Hub'Eau chronique \\
+ARSO & daily values, statistic unstated & 47 & undocumented & provider page only \\
+SYKE & 08:00 near-shore reading & 3 & non-daily reference reading & provider documentation \\
+\hline
+\end{tabular}
+\tablenotetext{a}{Counts are station-network rows from the coverage table; a station
+appearing in two networks is counted once per network. The class assignment is a
+deterministic parse of
+\texttt{measurement\_provenance\_dictionary.csv}, and the matched wording is stored
+per row in the coverage table.}
+\end{table}
 
 \section{Predictions that failed}
 
