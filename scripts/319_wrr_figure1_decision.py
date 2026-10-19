@@ -31,7 +31,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261014" / "p0_02_frozen_risk_thresholds"
+SRC = ROOT / "results" / "wrr_submission_ready" / "major_revision_20261019" / "p0_02_isolated_risk_thresholds"
 OUT_DIRS = [ROOT / "figures" / "wrr", ROOT / "paper" / "wrr" / "figures"]
 NAME = "f1_decision"
 

@@ -1,37 +1,37 @@
 {
   "schema_version": 1,
   "figure": "f1_decision",
-  "script_sha256": "0c565d0a206cff05606b4f111ddb4002ffac08bf8e80991d0691dadca28af44e",
+  "script_sha256": "577dc836ad94df7e06c921d2e8230eeccc6bdb9a826ef9f5624a8c8fb7c4f179",
   "inputs": {
-    "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/crossfit_risk_cap_table.csv": "b73e72f990402a2fe1748a133e131b8c70ffa0e2c057eb13958066f59437b572",
-    "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/posthoc_vs_honest.csv": "4358bf3d4bfbc51b7a46e5b0a73d95cf3384604e765cc6030b12cca4144549a3"
+    "results/wrr_submission_ready/major_revision_20261019/p0_02_isolated_risk_thresholds/crossfit_risk_cap_table.csv": "8adf4c5e49e68186af12cb5291e200069311779614b62873cd5e2ac01d5cb765",
+    "results/wrr_submission_ready/major_revision_20261019/p0_02_isolated_risk_thresholds/posthoc_vs_honest.csv": "b942c594276f07cb08d564faa3402e7b26dc65a286b527de66e2d5d87e007ac6"
   },
   "panel_a_retention_at_risk_cap_pct": {
     "calibrated_bound": {
-      "mean": 76.654,
-      "min": 76.362,
-      "max": 76.807
+      "mean": 74.856,
+      "min": 74.633,
+      "max": 74.979
     },
     "fitted_risk": {
-      "mean": 75.504,
-      "min": 74.38,
-      "max": 76.154
+      "mean": 72.631,
+      "min": 72.498,
+      "max": 72.836
     },
     "peak_overlap_rule": {
-      "mean": 71.824,
-      "min": 71.668,
-      "max": 71.96
+      "mean": 69.74,
+      "min": 69.563,
+      "max": 69.916
     },
     "length_rule": {
-      "mean": 48.913,
-      "min": 48.805,
-      "max": 49.059
+      "mean": 44.129,
+      "min": 43.474,
+      "max": 44.995
     }
   },
   "panel_c_false_admit_at_70_pct": {
-    "calibrated_bound": 2.415,
-    "fitted_risk": 2.151,
-    "peak_overlap_rule": 3.457,
-    "length_rule": 8.989
+    "calibrated_bound": 2.579,
+    "fitted_risk": 2.239,
+    "peak_overlap_rule": 3.49,
+    "length_rule": 8.988
   }
 }

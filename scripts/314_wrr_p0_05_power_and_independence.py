@@ -300,8 +300,8 @@ def icc_oneway(frame: pd.DataFrame, column: str, cluster: str = "network_id") ->
     """One-way random-effects ICC(1) for an unbalanced design.
 
     ICC = (MSB - MSW) / (MSB + (n0 - 1) MSW) with
-    n0 = (N - sum(n_g^2)/N) / (G - 1).  Design effect and effective number of
-    independent networks use the average cluster size.
+    n0 = (N - sum(n_g^2)/N) / (G - 1).  The design effect rescales the case
+    count. It is not applied a second time to the number of groups.
     """
 
     values = pd.to_numeric(frame[column], errors="coerce").to_numpy(dtype=float)
@@ -336,7 +336,8 @@ def icc_oneway(frame: pd.DataFrame, column: str, cluster: str = "network_id") ->
         "n_groups": n_groups,
         "mean_cluster_size": mean_size,
         "design_effect": design_effect,
-        "effective_networks": (n_groups / design_effect) if design_effect > 0 else float("nan"),
+        "effective_cases": (n_obs / design_effect) if design_effect > 0 else float("nan"),
+        "independent_groups": n_groups,
         "sigma_between": sigma_b,
     }
 
@@ -550,8 +551,10 @@ def variance_rows(panel_key: str, frame: pd.DataFrame, pooled: dict) -> tuple[li
         "one-way random-effects ICC(1), unbalanced")
     add("design_effect_case_level_contrast", icc_contrast["design_effect"], "ratio",
         "1 + (mean cluster size - 1) * ICC")
-    add("effective_independent_networks", icc_contrast["effective_networks"], "networks",
-        "n_networks / design effect")
+    add("effective_cases", icc_contrast["effective_cases"], "cases",
+        "n_cases / design effect; not a second reduction of the group count")
+    add("independent_groups", icc_contrast["independent_groups"], "groups",
+        "number of clusters supplied to the ICC; not divided by the design effect")
     add("mean_cases_per_network", float(sizes.mean()), "cases", "descriptive")
     add("median_cases_per_network", float(sizes.median()), "cases", "descriptive")
     add("share_networks_contrast_negative", float((contrasts < 0).mean()), "share",
@@ -1600,7 +1603,8 @@ def main() -> int:
             f"  {key}: pooled {float(pooled['point'])*100:.2f} pp "
             f"[{float(pooled['low'])*100:.2f}, {float(pooled['high'])*100:.2f}], "
             f"sd_within={detail['sd_within']:.2f} pp, ICC={detail['icc_contrast']['icc']:.4f}, "
-            f"N_eff={detail['icc_contrast']['effective_networks']:.1f}"
+            f"effective_cases={detail['icc_contrast']['effective_cases']:.1f}, "
+            f"groups={detail['icc_contrast']['independent_groups']}"
         )
     # jitter sensitivity: the project used two different jitter seeds
     jitter_check = {}
@@ -1989,7 +1993,7 @@ def write_summary(
     lines.append("## 1. Network-level variance of the primary contrast")
     lines.append("")
     lines.append(
-        "| panel | cases | nets | pooled pp [95 % CI] | SD within-net contrasts | SD implied by bootstrap | SD ANOVA | ICC(contrast) | DEFF | N_eff |"
+        "| panel | cases | nets | pooled pp [95 % CI] | SD within-net contrasts | SD implied by bootstrap | SD ANOVA | ICC(contrast) | DEFF | effective cases |"
     )
     lines.append("|---|---|---|---|---|---|---|---|---|---|")
     for key in PANEL_ORDER:
@@ -2002,7 +2006,7 @@ def write_summary(
             f"{_fmt(detail['sd_implied'])} | {_fmt(detail['anova_sd'])} | "
             f"{_fmt(detail['icc_contrast']['icc'], 4)} | "
             f"{_fmt(detail['icc_contrast']['design_effect'], 2)} | "
-            f"{_fmt(detail['icc_contrast']['effective_networks'], 1)} |"
+            f"{_fmt(detail['icc_contrast']['effective_cases'], 1)} |"
         )
     lines.append("")
     lines.append(
@@ -2057,12 +2061,13 @@ def write_summary(
         "certainty from N=20 upward; the binding requirement is the 2 pp MUE."
     )
     lines.append(
-        "* The **effective independent network count is far below the network count**: at the current "
-        f"development panel size the contrast behaves like "
-        f"{_fmt(details['development']['icc_contrast']['effective_networks'], 1)} independent networks "
-        f"(wave-2: {_fmt(details['wave2_external']['icc_contrast']['effective_networks'], 1)}), because "
-        "the intra-network correlation of the contrast is small but the networks hold hundreds of "
-        "cases each."
+        "* A case-level design effect does **not** divide the network count again. "
+        f"Development has {details['development']['icc_contrast']['independent_groups']} groups and "
+        f"about {_fmt(details['development']['icc_contrast']['effective_cases'], 0)} effective cases; "
+        f"wave-2 has {details['wave2_external']['icc_contrast']['independent_groups']} groups and "
+        f"about {_fmt(details['wave2_external']['icc_contrast']['effective_cases'], 0)} effective cases. "
+        "Shared stations can reduce the group count further; that reduction is the independence-group "
+        "table, not G divided by the design effect."
     )
     lines.append("")
     lines.append(

@@ -1,0 +1,3 @@
+panel,n_cases,n_network_labels,n_unique_stations,n_station_years,n_station_network_rows,n_independence_groups,n_groups_with_multiple_labels,n_station_years_under_multiple_labels,donor_rule
+wave2_confirmation,13017,49,143,1103,164,41,8,164,donors are other stations in the same network; shared-station components therefore also keep shared donor supervision inside one validation group
+development,40704,110,354,4045,354,110,0,0,donors are other stations in the same network; shared-station components therefore also keep shared donor supervision inside one validation group

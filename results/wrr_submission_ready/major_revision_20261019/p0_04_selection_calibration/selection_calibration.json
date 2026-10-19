@@ -1,0 +1,16 @@
+{
+  "reps": 2000,
+  "risk_cap": 0.05,
+  "grid_points": 86,
+  "calibration_groups": 32,
+  "test_groups": 16,
+  "cases_per_group": 40,
+  "pointwise_exceedance_rate": 0.1915,
+  "pointwise_exceedance_mc_se": 0.00879851549978745,
+  "bonferroni_exceedance_rate": 0.0845,
+  "bonferroni_exceedance_mc_se": 0.006219314672855845,
+  "mean_pointwise_retention": 0.35864765624999995,
+  "mean_bonferroni_retention": 0.20480859375,
+  "sample_size_recommendation": "none; exceedance of the cap on a fresh sample is not a calibrated 5% test of a pre-fixed contrast, so this simulation is not converted into a network count",
+  "reading": "The pointwise 95% upper bound, followed by a max over the grid, exceeds the 5% cap on the fresh test groups more often than the simultaneous Bonferroni bound. Neither rate is a distribution-free guarantee for a new river archive."
+}

@@ -14,9 +14,15 @@ This script replaces that with a genuinely pre-registered rule:
 * for every fold the score model is fitted on the other folds and the admission
   threshold is chosen on the other folds only;
 * the threshold is the largest calibration retention (0.10..0.95 step 0.01)
-  whose calibration false-admit rate plus a one-sided 95% upper confidence
-  bound, network-clustered bootstrap over calibration networks, is <= 5%;
-  if no grid point satisfies that, the fold admits nothing and says so;
+  whose calibration false-admit rate has a simultaneous one-sided upper bound
+  <= 5%. The bound is the network-clustered bootstrap percentile at
+  1 - 0.05/86, Bonferroni over the 86 grid points. A pointwise 95% bound is
+  recorded and is not used to admit. If no grid point satisfies the simultaneous
+  bound, the fold admits nothing and says so;
+* folds are assigned on independence groups (shared-station components), and
+  each outer fold keeps its own inner out-of-fold calibration scores. A single
+  shared calibration-score array is not used, because later outer folds would
+  overwrite it with models that have seen the earlier test labels;
 * the chosen threshold is applied to the held-out fold exactly once.
 
 The pooled held-out folds give the headline number, labelled
@@ -28,7 +34,8 @@ It also answers defect F03: comparisons are made at a common risk target and at
 a fixed 70% retention, never as a bare screening gain.
 
 Outputs land in
-``results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/``.
+``results/wrr_submission_ready/major_revision_20261019/p0_02_isolated_risk_thresholds/``.
+The 20261014 directory is the previous run and is not overwritten.
 Read-only elsewhere; the only other writes are the score cache in
 ``scratch/p0_02/``.
 
@@ -64,6 +71,14 @@ import pandas as pd  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from stream_recoverability.experiments.v17_fitness.independence import (  # noqa: E402
+    eligibility_row,
+    group_fold_map,
+    independence_table,
+    overlap_pairs,
+    shared_station_years_across_folds,
+    shared_stations_across_folds,
+)
 from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
     PRIMARY_TOLERANCE_C,
     STEP4_CEILING,
@@ -72,7 +87,7 @@ from stream_recoverability.experiments.v17_fitness.paths import (  # noqa: E402
 )
 
 READY = ROOT / "results" / "wrr_submission_ready"
-OUT = READY / "major_revision_20261014" / "p0_02_frozen_risk_thresholds"
+OUT = READY / "major_revision_20261019" / "p0_02_isolated_risk_thresholds"
 SCRATCH = ROOT / "scratch" / "p0_02"
 
 # ---------------------------------------------------------------------------
@@ -88,7 +103,7 @@ FIXED_RETENTION = 0.70
 SELECT_DRAWS = 1000
 EVAL_DRAWS = 2000
 ALPHA = 0.05  # one-sided for selection, two-sided for reported CIs
-SELECT_BOUND_METHOD = "network_clustered_bootstrap_onesided95_percentile"
+SELECT_BOUND_METHOD = "independence_group_clustered_bootstrap_bonferroni_over_86_grid_points"
 
 FITTED_SCORES = ("fitted_risk", "fitted_risk_certtarget")
 FITTED_TARGETS = {
@@ -166,17 +181,17 @@ INTERPRETATION_NOTES = [
         "nothing depends on that mismatch."
     ),
     (
-        "Nested cross-fitting for fitted_risk: a threshold read off in-sample calibration scores "
-        "would be optimistic, so the calibration folds are split again into 4 inner network folds, "
-        "the threshold is read off the inner out-of-fold scores, and the held-out fold is scored by a "
-        "model refit on all calibration cases."
+        "Nested cross-fitting for fitted_risk: each outer fold stores its own inner out-of-fold "
+        "calibration scores. Those scores are produced by models whose training rows exclude that "
+        "outer test fold. A later outer fold does not overwrite them. Inner folds are independence "
+        "groups, not network-label strings."
     ),
     (
-        "Selection bound: the pre-registered bound is the one-sided 95% percentile of a "
-        "network-clustered bootstrap (1000 draws) over calibration networks, because cases are "
-        "clustered in networks (13,017 cases in 49 networks; median 232 cases per network) and a "
-        "case-level exact binomial bound would treat them as independent. The exact binomial "
-        "(Clopper-Pearson) bound is reported alongside; the frozen rule uses the clustered bound."
+        "Selection bound: the deployed bound is the Bonferroni percentile 1 - 0.05/86 of an "
+        "independence-group clustered bootstrap (1000 draws). The rule maximises over 86 grid "
+        "points, so a pointwise 95% bound is not the admission rule. The pointwise percentile and "
+        "the Clopper-Pearson binomial bound are reported beside it. This is a simultaneous bound "
+        "for the grid that was searched, not a distribution-free guarantee for a new archive."
     ),
     (
         "Known mild feature sharing: the stored certificate scores were cross-fitted under their own "
@@ -392,9 +407,9 @@ def build_target(cases: pd.DataFrame, certs: pd.DataFrame) -> dict:
 # score construction
 # ---------------------------------------------------------------------------
 def assign_folds(networks, n_splits: int, seed: int) -> dict:
-    """Network-level fold assignment.  Never by case."""
+    """One fold per distinct unit. Repeated case rows do not change the assignment."""
 
-    ordered = sorted(str(n) for n in networks)
+    ordered = sorted(set(str(n) for n in networks))
     rng = np.random.default_rng(int(seed))
     order = rng.permutation(len(ordered))
     return {ordered[int(idx)]: int(pos % int(n_splits)) for pos, idx in enumerate(order)}
@@ -486,11 +501,16 @@ def crossfit_task(payload: dict) -> dict:
     n_splits = int(payload["n_splits"])
     n_inner = int(payload["n_inner_splits"])
 
-    nets = frame["network_id"].astype(str).to_numpy()
-    outer = assign_folds(nets, n_splits, fold_seed)
-    outer_ids = np.array([outer[n] for n in nets], dtype=int)
+    if "independence_group" not in frame.columns:
+        raise KeyError("crossfit_task requires independence_group; network labels are not the fold unit")
+    units = frame["independence_group"].astype(str).to_numpy()
+    outer = assign_folds(units, n_splits, fold_seed)
+    outer_ids = np.array([outer[unit] for unit in units], dtype=int)
     test_score = np.full(len(frame), np.nan)
-    cal_score = np.full(len(frame), np.nan)
+    # One calibration-score vector per outer fold. Writing these into one shared
+    # array lets a later outer fold overwrite scores with a model that trained
+    # on the earlier test fold's labels.
+    cal_score_by_fold = np.full((n_splits, len(frame)), np.nan)
     models = {}
 
     for fold in range(n_splits):
@@ -499,9 +519,9 @@ def crossfit_task(payload: dict) -> dict:
         if not test_mask.any() or not cal_mask.any():
             continue
         cal = frame.loc[cal_mask]
-        cal_nets = cal["network_id"].astype(str).to_numpy()
-        inner = assign_folds(cal_nets, n_inner, stable_seed("inner", panel, fold_seed, fold))
-        inner_ids = np.array([inner[n] for n in cal_nets], dtype=int)
+        cal_units = cal["independence_group"].astype(str).to_numpy()
+        inner = assign_folds(cal_units, n_inner, stable_seed("inner", panel, fold_seed, fold))
+        inner_ids = np.array([inner[unit] for unit in cal_units], dtype=int)
         cal_positions = np.where(cal_mask)[0]
         for inner_fold in range(n_inner):
             inner_test = inner_ids == inner_fold
@@ -515,7 +535,12 @@ def crossfit_task(payload: dict) -> dict:
                 target,
                 seed=stable_seed("innerfit", panel, fold_seed, fold, inner_fold) % (2**31),
             )
-            cal_score[cal_positions[inner_test]] = pred
+            cal_score_by_fold[fold, cal_positions[inner_test]] = pred
+        if not np.isfinite(cal_score_by_fold[fold, cal_mask]).all():
+            raise RuntimeError(
+                f"[{panel}/{target}/seed{fold_seed}] outer fold {fold} has calibration cases "
+                "without an inner out-of-fold score"
+            )
         model = fit_risk_model(
             cal, features, target, seed=stable_seed("outerfit", panel, fold_seed, fold) % (2**31)
         )
@@ -523,16 +548,14 @@ def crossfit_task(payload: dict) -> dict:
         test_score[test_positions] = predict_risk(model, frame.loc[test_mask], features)
         models[fold] = model
 
-    if not np.isfinite(cal_score).all():
-        raise RuntimeError(
-            f"[{panel}/{target}/seed{fold_seed}] calibration cases without an inner out-of-fold score"
-        )
+    if not np.isfinite(test_score).all():
+        raise RuntimeError(f"[{panel}/{target}/seed{fold_seed}] held-out cases without a test score")
     return {
         "panel": panel,
         "fold_seed": fold_seed,
         "target": target,
         "test_score": test_score,
-        "cal_score": cal_score,
+        "cal_score_by_fold": cal_score_by_fold,
         "models": models,
     }
 
@@ -555,7 +578,14 @@ def crossfit_fitted_scores(
         frame = data["prepared"]
         # `longest_run_month` is not a feature but feature_frame() needs it for the month harmonics.
         slim = frame[
-            ["network_id", "longest_run_month", "abserr_policy", "certificate_abs_error", *features]
+            [
+                "network_id",
+                "independence_group",
+                "longest_run_month",
+                "abserr_policy",
+                "certificate_abs_error",
+                *features,
+            ]
         ].copy()
         for fold_seed in fold_seeds:
             for score_name in FITTED_SCORES:
@@ -573,7 +603,10 @@ def crossfit_fitted_scores(
                                 "HistGradientBoostingRegressor quantile=0.9 depth4 iter350 lr0.06 leaf40"
                             ),
                             "cases_sha256": data["cases_sha256"],
-                            "cache_version": 2,
+                            "group_sha256": data["group_sha256"],
+                            "fold_unit": "independence_group",
+                            "calibration_scores": "per_outer_fold",
+                            "cache_version": 3,
                         },
                         sort_keys=True,
                     )
@@ -589,7 +622,7 @@ def crossfit_fitted_scores(
                         "fold_seed": int(fold_seed),
                         "target": target,
                         "test_score": payload["test_score"],
-                        "cal_score": payload["cal_score"],
+                        "cal_score_by_fold": payload["cal_score_by_fold"],
                         "models": joblib.load(cache_models),
                     }
                     continue
@@ -619,7 +652,9 @@ def crossfit_fitted_scores(
         print(f"[crossfit] done in {time.time() - started:.1f}s", flush=True)
         for task, out in zip(tasks, outputs):
             np.savez_compressed(
-                task["cache_npz"], test_score=out["test_score"], cal_score=out["cal_score"]
+                task["cache_npz"],
+                test_score=out["test_score"],
+                cal_score_by_fold=out["cal_score_by_fold"],
             )
             joblib.dump(out["models"], task["cache_models"])
             results[(task["panel"], task["fold_seed"], task["score_name"])] = out
@@ -645,13 +680,13 @@ def select_frozen_threshold(
     draws: int = SELECT_DRAWS,
     seed: int = 0,
 ) -> dict:
-    """Largest calibration retention whose one-sided 95% clustered upper bound <= cap.
+    """Largest calibration retention whose simultaneous clustered upper bound <= cap.
 
-    The bound is the 95th percentile of a network-clustered bootstrap of the
-    calibration false-admit rate, evaluated at every grid threshold.  The
-    threshold for retention r is the r-quantile of the calibration scores, so in
-    a bootstrap draw the admitted set is a reweighting of the same prefix of the
-    score-sorted calibration cases.
+    The deployed bound is the Bonferroni percentile, 1 - 0.05/n_grid, of a
+    clustered bootstrap of the calibration false-admit rate. A pointwise 95%
+    percentile is stored as a sensitivity and is not the admission rule: the
+    rule maximises over the grid, so a per-point 95% bound is not a 95% bound
+    on the selected point. ``network_cal`` must be the independence-group id.
     """
 
     score_cal = np.asarray(score_cal, dtype=float)
@@ -689,10 +724,11 @@ def select_frozen_threshold(
             rates[draw] = np.where(denom > 0, numer / np.maximum(denom, 1e-12), np.nan)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", RuntimeWarning)
-        upper = np.nanquantile(rates, 1.0 - ALPHA, axis=0)
-        # transparency only: a simultaneous (Bonferroni over the grid) band, which a
-        # hostile reader could demand because the rule maxes over 86 grid points
+        upper_pointwise = np.nanquantile(rates, 1.0 - ALPHA, axis=0)
+        # Deployed bound. The rule maximises over the grid, so the percentile is
+        # tightened by the number of grid points.
         upper_bonferroni = np.nanquantile(rates, 1.0 - ALPHA / grid.size, axis=0)
+        upper = upper_bonferroni
 
     # --- exact binomial (Clopper-Pearson) bound, reported for transparency -
     from scipy.stats import beta as _beta
@@ -704,12 +740,13 @@ def select_frozen_threshold(
         _beta.ppf(1.0 - ALPHA, bad_at_k + 1.0, np.maximum(k - bad_at_k, 1.0)),
     )
 
-    ok = np.where(upper <= risk_cap)[0]
+    ok_pointwise = np.where(upper_pointwise <= risk_cap)[0]
     ok_binom = np.where(upper_binom <= risk_cap)[0]
-    ok_bonf = np.where(upper_bonferroni <= risk_cap)[0]
-    chosen = int(ok.max()) if ok.size else None
+    ok = np.where(upper_bonferroni <= risk_cap)[0]
+    chosen_pointwise = int(ok_pointwise.max()) if ok_pointwise.size else None
     chosen_binom = int(ok_binom.max()) if ok_binom.size else None
-    chosen_bonf = int(ok_bonf.max()) if ok_bonf.size else None
+    chosen = int(ok.max()) if ok.size else None
+    chosen_bonf = chosen
 
     return {
         "n_cal_cases": int(n),
@@ -718,10 +755,19 @@ def select_frozen_threshold(
         "calibration_retention": calibration_retention,
         "calibration_rate": calibration_rate,
         "upper_clustered": upper,
+        "upper_pointwise": upper_pointwise,
         "upper_binomial": upper_binom,
         "upper_bonferroni": upper_bonferroni,
         "n_admissible_grid_points": int(ok.size),
+        "n_admissible_grid_points_pointwise": int(ok_pointwise.size),
         "chosen_index": chosen,
+        "chosen_index_pointwise": chosen_pointwise,
+        "chosen_retention_pointwise": (
+            float(calibration_retention[chosen_pointwise]) if chosen_pointwise is not None else 0.0
+        ),
+        "chosen_threshold_pointwise": (
+            float(thresholds[chosen_pointwise]) if chosen_pointwise is not None else -float("inf")
+        ),
         "chosen_threshold": float(thresholds[chosen]) if chosen is not None else -float("inf"),
         "chosen_retention": float(calibration_retention[chosen]) if chosen is not None else 0.0,
         "chosen_calibration_rate": (
@@ -961,11 +1007,27 @@ def main() -> int:
         prepared["certificate_abs_error"] = pd.to_numeric(
             certs["certificate_abs_error"], errors="coerce"
         ).to_numpy()
+        group_table = independence_table(cases)
+        group_of = dict(
+            zip(group_table["network_id"].astype(str), group_table["independence_group"].astype(str))
+        )
+        cases = cases.copy()
+        cases["independence_group"] = cases["network_id"].astype(str).map(group_of)
+        if cases["independence_group"].isna().any():
+            raise RuntimeError(f"[{panel}] network labels without an independence group")
+        prepared["independence_group"] = cases["independence_group"].astype(str).to_numpy()
+        data["cases"] = cases
+        data["group_table"] = group_table
+        data["group_of"] = group_of
+        data["group_sha256"] = sha256_text(
+            group_table.sort_values("network_id").to_csv(index=False)
+        )
         data["prepared"] = prepared
         data["cases_sha256"] = sha256_file(spec["cases"])
         data["certs_sha256"] = sha256_file(spec["certificates"])
         data["spec"] = spec
-        data["net_index"], data["n_net"] = factorize_networks(cases["network_id"])
+        data["net_index"], data["n_net"] = factorize_networks(cases["independence_group"])
+        data["n_network_labels"] = int(cases["network_id"].astype(str).nunique())
         raw_bound_series = pd.to_numeric(certs["certificate_raw_bound"], errors="coerce")
         cal_bound_series = pd.to_numeric(certs["certificate_bound"], errors="coerce")
         both_finite = np.isfinite(raw_bound_series) & np.isfinite(cal_bound_series)
@@ -1031,10 +1093,22 @@ def main() -> int:
         net_index = data["net_index"]
         n_net = data["n_net"]
         nets = cases["network_id"].astype(str).to_numpy()
+        groups = cases["independence_group"].astype(str).to_numpy()
 
         for fold_seed in fold_seeds:
-            folds = assign_folds(nets, N_SPLITS, fold_seed)
-            fold_ids = np.array([folds[n] for n in nets], dtype=int)
+            folds = assign_folds(groups, N_SPLITS, fold_seed)
+            fold_ids = np.array([folds[group] for group in groups], dtype=int)
+            n_shared_stations = shared_stations_across_folds(cases, data["group_table"], {
+                network: folds[group] for network, group in data["group_of"].items()
+            })
+            n_shared_years = shared_station_years_across_folds(cases, {
+                network: folds[group] for network, group in data["group_of"].items()
+            })
+            if n_shared_stations or n_shared_years:
+                raise RuntimeError(
+                    f"[{panel}/seed{fold_seed}] shared target stations across folds: "
+                    f"{n_shared_stations} stations, {n_shared_years} station-years"
+                )
             raw_scores = build_scores(cases, certs, panel=panel, fold_seed=fold_seed)
             score_arrays = {name: np.asarray(raw_scores[name]) for name in RULE_AND_BOUND_SCORES}
             # Fitted scores get the same negligible relative tie-break noise so that a case
@@ -1067,16 +1141,18 @@ def main() -> int:
                     if not test_mask.any() or not cal_mask.any():
                         continue
                     if score_name in FITTED_SCORES:
-                        cal_score = np.asarray(
-                            crossfit[(panel, fold_seed, score_name)]["cal_score"], dtype=float
-                        ) + fitted_noise[score_name]
+                        cal_by_fold = np.asarray(
+                            crossfit[(panel, fold_seed, score_name)]["cal_score_by_fold"],
+                            dtype=float,
+                        )
+                        cal_score = cal_by_fold[fold] + fitted_noise[score_name]
                         cal_score = cal_score[cal_mask]
                     else:
                         cal_score = test_score[cal_mask]
                     selection = select_frozen_threshold(
                         cal_score,
                         bad[cal_mask],
-                        net_index[cal_mask],
+                        groups[cal_mask],
                         risk_cap=RISK_CAP,
                         draws=int(args.draws_select),
                         seed=stable_seed("select", panel, fold_seed, fold, score_name),
@@ -1088,7 +1164,7 @@ def main() -> int:
                     )
 
                     test_bad = bad[test_mask]
-                    test_net, test_n_net = factorize_networks(nets[test_mask])
+                    test_net, test_n_net = factorize_networks(groups[test_mask])
                     fold_summary = clustered_summary(
                         {"s": admit[test_mask]},
                         test_bad,
@@ -1345,7 +1421,7 @@ def main() -> int:
                         "decision_rule_in_words": (
                             f"For each fold: fit on the other folds, then pick the largest calibration "
                             f"retention in 0.10..0.95 (step 0.01) whose calibration false-admit rate "
-                            f"plus a one-sided 95% network-clustered bootstrap upper bound is <= "
+                            f"plus a simultaneous Bonferroni independence-group clustered bootstrap upper bound is <= "
                             f"{RISK_CAP:.0%}. Admit a held-out case iff its {score_name} score is <= "
                             f"that fold's frozen threshold. If no grid point qualifies, the fold admits "
                             f"nothing."
@@ -1373,8 +1449,7 @@ def main() -> int:
                         },
                         "pooled_eval_bonferroni_sensitivity": {
                             "label": (
-                                "cross-fitted, selection honest, simultaneous (Bonferroni over the 86 "
-                                "grid points) clustered band; SENSITIVITY ONLY, not the frozen rule"
+                                "same deployed simultaneous band, repeated under the bonferroni column name"
                             ),
                             "retention": pooled_bonf[score_name]["retention"],
                             "retention_ci95_low": pooled_bonf[score_name]["retention_ci_low"],
@@ -1406,9 +1481,13 @@ def main() -> int:
                 )
 
         unique_nets = sorted(cases["network_id"].astype(str).unique())
-        columns = {"panel": panel, "network_id": unique_nets}
+        columns = {
+            "panel": panel,
+            "network_id": unique_nets,
+            "independence_group": [data["group_of"][n] for n in unique_nets],
+        }
         for fold_seed in fold_seeds:
-            mapping = assign_folds(unique_nets, N_SPLITS, fold_seed)
+            mapping = group_fold_map(data["group_table"], N_SPLITS, fold_seed, assign_folds)
             columns[f"fold_seed_{fold_seed}"] = [mapping[n] for n in unique_nets]
         fold_assignment_rows.append(pd.DataFrame(columns))
 
@@ -1803,6 +1882,33 @@ def main() -> int:
     pd.concat(fold_assignment_rows, ignore_index=True).to_csv(
         OUT / "fold_assignments.csv", index=False
     )
+    group_frames = []
+    eligibility_rows = []
+    pair_frames = []
+    for panel, data in panels_data.items():
+        table = data["group_table"].copy()
+        table.insert(0, "panel", panel)
+        group_frames.append(table)
+        eligibility_rows.append(eligibility_row(panel, data["cases"], data["group_table"]))
+        pairs = overlap_pairs(data["group_table"])
+        if not pairs.empty:
+            pairs.insert(0, "panel", panel)
+            pair_frames.append(pairs)
+    pd.concat(group_frames, ignore_index=True).to_csv(OUT / "independence_groups.csv", index=False)
+    pd.DataFrame(eligibility_rows).to_csv(OUT / "eligibility_counts.csv", index=False)
+    if pair_frames:
+        pd.concat(pair_frames, ignore_index=True).to_csv(OUT / "station_overlap_pairs.csv", index=False)
+    else:
+        pd.DataFrame(
+            columns=[
+                "panel",
+                "independence_group",
+                "network_a",
+                "network_b",
+                "n_shared_stations",
+                "shared_station_ids",
+            ]
+        ).to_csv(OUT / "station_overlap_pairs.csv", index=False)
 
     # per-case admissions for downstream workstreams
     for panel, data in panels_data.items():
@@ -2272,15 +2378,13 @@ def write_summary(
     ]
     lines.append("")
     lines.append(
-        "Clustered vs exact-binomial selection disagreed on whether *any* grid point qualifies in "
-        f"{len(disagreement)} of {total_folds} cells; the frozen rule uses the clustered bound. "
-        "Clustered-vs-binomial retained fractions per cell are in `crossfit_risk_cap_table.csv`."
+        "The deployed rule uses the simultaneous Bonferroni clustered bound. It disagreed with the "
+        f"exact binomial bound on whether any grid point qualifies in {len(disagreement)} of "
+        f"{total_folds} cells. The pointwise 95% clustered bound is not used for admission."
     )
     lines.append(
-        f"A simultaneous (Bonferroni over the 86 grid points) clustered bound would have reached the "
-        f"same admit-nothing verdict in {len(bonferroni_agree)} of {total_folds} cells; the "
-        f"Bonferroni retention for every cell is in `crossfit_risk_cap_table.csv` "
-        f"(`bonferroni_retention`)."
+        f"Because admission already uses the simultaneous bound, the admit-nothing verdict matches "
+        f"the Bonferroni column in {len(bonferroni_agree)} of {total_folds} cells."
     )
     lines.append("")
 
@@ -2508,17 +2612,17 @@ def write_summary(
             f"{'CI excludes 0 in every fold seed' if decisive else 'CI includes 0 in at least one fold seed'}"
         )
 
-    lines.append("## Sensitivity: simultaneous (Bonferroni) band instead of the frozen per-cell band")
+    lines.append("## Deployed bound: simultaneous Bonferroni band")
     lines.append("")
     lines.append(
-        "The frozen rule is the pre-registered per-cell clustered band: for each grid point, the "
-        "one-sided 95% percentile of the network-clustered bootstrap FPR. Because the rule then takes "
-        "the maximum over 86 grid points, a hostile reader can ask for a simultaneous band. The same "
-        "computation is therefore repeated with the 1 - 0.05/86 percentile "
-        "(`bonferroni_sensitivity_pooled` rows in `crossfit_risk_cap_table.csv`, "
-        "`risk_cap_5pct_bonferroni_sensitivity` rows in `risk_cap_contrasts.csv`, and "
-        "`pooled_eval_bonferroni_sensitivity` in the JSON). This is a robustness check, not the "
-        "protocol; it was not used to choose any number above."
+        "The deployed rule is the simultaneous band: for each grid point, the "
+        "1 - 0.05/86 percentile of the independence-group clustered bootstrap false-admit rate, "
+        "then the largest grid point whose bound is still at most 5%. A pointwise 95% percentile "
+        "would not be a 95% statement after maximising over 86 points, so it is not the admission "
+        "rule. The simultaneous bound is still an empirical clustered bound for this grid, not a "
+        "distribution-free guarantee for an unseen archive. "
+        "`bonferroni_sensitivity_pooled` matches the deployed rows because that column now records "
+        "the same rule."
     )
     lines.append("")
     for panel in panels_data:

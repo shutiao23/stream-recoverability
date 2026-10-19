@@ -190,7 +190,7 @@ Prior-access diagnostics in
 future reanalysis of this opened panel.
 
 \textbf{Wave-2 independent confirmation (scored once; success rule met).}
-Under \texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}, 49 networks /
+Under \texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}, 49 network labels (41 validation groups once stations shared by two labels are kept together) /
 143 stations / 13\,017 cases across USGS, Hub'Eau and UK EA were assembled
 with programme-used stations excluded, hashed, and scored once with repaired
 QA and reconstructability. At 70\% retention and 0.5\,$^{\circ}$C the contrast
@@ -341,7 +341,7 @@ quantity & role & value or source \\
 \hline
 ridge penalty of the donor and air estimators & fixed & $\alpha = 1.0$, seven air lags, whole-year fit \\
 gradient-boosted risk score & fitted & quantile 0.9, on the decision-time feature set; refit per fold \\
-admission threshold & calibrated & largest retention in $0.10$--$0.95$ whose calibration false-admit rate plus its one-sided clustered 95\,\% bound stays under the cap; 0.42--0.72\,$^{\circ}$C on the replay folds, 31--61 days of gap length for the simple rules \\
+admission threshold & simultaneous bound & largest retention in $0.10$--$0.95$ whose independence-group clustered bootstrap bound at $1-0.05/86$ stays under the cap; a pointwise 95\,\% bound is not the rule \\
 conformal multiplier & calibrated & scale factor turning the predicted bound into a valid interval, fitted on calibration networks \\
 absolute admission rule & declared & admit when the predicted bound is at most $0.5\,^{\circ}$C \\
 consequential-error tolerance $\tau$ & declared & $0.5\,^{\circ}$C, i.e.\ 0.47 of each endpoint's interannual SD \\
@@ -495,7 +495,7 @@ versions of this work left open and this one closes.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f2_experiment_design.pdf}
-\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access. The first sealed USGS and multi-agency transport panels fail the 2026-10-13 audits and are withdrawn; an independent wave-2 confirmation (49 networks; USGS, Hub'Eau, UK EA) meets the pre-declared gate under repaired QA. The same frozen configuration is applied, without truth, to 2422 real incomplete station-years, with admission requiring a finite annual metric. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
+\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access. The first sealed USGS and multi-agency transport panels fail the 2026-10-13 audits and are withdrawn; a wave-2 panel (49 network labels, 143 stations, 41 validation groups; USGS, Hub'Eau, UK EA). The fitted-risk cross-fit on that panel is not a new sealed confirmation of a frozen model. The frozen certificate screen's 70\% retention contrast remains $-5.9$ points after clustering on the 41 groups. The same frozen configuration is applied, without truth, to 2422 real incomplete station-years, with admission requiring a finite annual metric. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
 \label{fig:design}
 \end{figure}
 

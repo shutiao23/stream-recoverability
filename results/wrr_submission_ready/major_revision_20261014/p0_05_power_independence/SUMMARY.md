@@ -1,5 +1,17 @@
 # P0-05 — independence and power design for the final configuration
 
+> Correction, 2026-10-19. The sentence that 110 networks "behave like 14.1
+> independent networks" (and 49 like 11.0) divides a group count by a case-level
+> design effect. That reading is withdrawn. `effective_cases = n_cases / design_effect`
+> is the case-level quantity; the group count is not divided again. The external
+> panel's independent units are the 41 shared-station groups in
+> `major_revision_20261019/p0_02_isolated_risk_thresholds/independence_groups.csv`.
+> The power table below was not recomputed, and it is not a sample-size recommendation
+> for the fitted-risk rule. The 10.7% zero-effect exclusion rate at 20 networks
+> stands, which is why no new sample size is taken from this file.
+
+
+
 Script `scripts/314_wrr_p0_05_power_and_independence.py`; command `PYTHONPATH=src python3 scripts/314_wrr_p0_05_power_and_independence.py`; HEAD `0544f3b760cd`; script sha256 `aeb82d5f5d21d908…`; wall time 791 s.
 
 ## Estimator

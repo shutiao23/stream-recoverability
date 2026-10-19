@@ -1,0 +1,68 @@
+{
+  "config_id": "hottest30_fitted_risk_simultaneous_cap_v1",
+  "status": "scored_margin_not_met",
+  "verdict": {
+    "external_panel_groups": 41,
+    "external_panel_labels": 49,
+    "fitted_minus_peak_window_pp": [3.27, 2.64, 2.76],
+    "five_point_margin_met": false,
+    "fitted_minus_calibrated_bound_pp": [-1.80, -2.40, -2.48],
+    "evidence_class": "cross-fit on the external panel, not a new sealed confirmation"
+  },
+  "estimand": {
+    "name": "annual_hottest_30day_mean",
+    "k_days": 30,
+    "error": "absolute error in degrees Celsius",
+    "consequential_tolerance_c": 0.5
+  },
+  "reconstruction": {
+    "role": "the stored policy reconstruction whose absolute error is abserr_policy",
+    "note": "The risk score does not choose a new reconstructor. Neighbour regression remains the donor path already inside that policy. Air-temperature regression is not the primary reconstructor."
+  },
+  "risk_score": {
+    "name": "fitted_risk",
+    "learner": "HistGradientBoostingRegressor",
+    "loss": "quantile",
+    "quantile": 0.9,
+    "max_depth": 4,
+    "max_iter": 350,
+    "learning_rate": 0.06,
+    "min_samples_leaf": 40,
+    "features": "generic_plus_support, the 22 decision-time features used by scripts/301",
+    "training_target": "abserr_policy",
+    "not_the_primary_method": [
+      "fitted_risk_certtarget",
+      "frozen multi-method certificate",
+      "uncalibrated certificate bound",
+      "length_rule",
+      "peak_overlap_rule"
+    ]
+  },
+  "threshold": {
+    "grid": "retention 0.10 to 0.95 step 0.01",
+    "rule": "largest grid point whose independence-group clustered bootstrap upper bound at 1 - 0.05/86 is <= 0.05",
+    "label_rule": "for each outer test fold, calibration scores and the threshold are computed without that fold's labels",
+    "fold_unit": "connected component of networks that share a station_id",
+    "what_this_is_not": "not a distribution-free post-selection guarantee for an unseen archive"
+  },
+  "action": "admit the repaired hottest-30 value if score <= threshold; otherwise abstain",
+  "primary_benefit": {
+    "contrast": "retention of fitted_risk minus retention of peak_overlap_rule",
+    "same_risk_rule": true,
+    "population": "case-weighted designed-outage cases",
+    "pre_specified_margin_pp": 5.0,
+    "not_the_primary_contrast": [
+      "error-rate drop at a fixed 70% retention",
+      "retention gain versus the gap-length rule",
+      "coverage of a threshold judgement"
+    ]
+  },
+  "baselines": ["peak_overlap_rule", "length_rule", "calibrated_bound"],
+  "evidence_identity": {
+    "fitted_risk_on_wave2": "cross-fit on the external panel after this repair; not the sealed confirmation of a frozen model",
+    "frozen_certificate_wave2_fixed70": "historical confirmation of a different object, the frozen certificate screen",
+    "development_crossfit": "retrospective development validation",
+    "real_calendar_replay": "development-period probe until it is rerun with this config",
+    "previous_27pp_sentence": "pending — exploratory data, not a conclusion, until replaced by the isolated table"
+  }
+}

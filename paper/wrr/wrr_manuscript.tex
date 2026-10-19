@@ -79,35 +79,33 @@ extremes in incomplete river-temperature records}
 \titlerunninghead{Ignored.}
 
 \keypoints
- {Under a 5\% false-admit cap set on calibration data only, risk ranking keeps 27 points more records than a gap-length rule}
- {Engineered peak-overlap adds nothing measurable to a same-capacity learner, so hidden support is conditional, not necessary}
- {A sealed 49-network panel cuts designed-outage errors by 5.9 points; on the gaps networks actually keep the gain is smaller}
+ {Fitted risk keeps about 3 points more than a peak-window rule, short of a 5-point margin}
+ {It keeps fewer records than the certificate bound; the gap versus length is not the confirmatory contrast}
+ {Forty-nine network labels collapse to 41 groups once shared stations stay together}
 \maketitle
 
 \begin{abstract}
-Thermal archives are screened by completeness thresholds, assuming that how much
-data is missing decides whether an annual statistic can be trusted. That
-assumption has not been tested against the statistic's own support, because a
-gap's length and position cannot be varied independently in a record that failed
-on its own. Here we combine 5114 complete river station-years from
-146 networks with 51524 designed outages, vary a gap's length and position
-separately, and score admission rules on a retrospective holdout and on an
-external panel of 49 networks. An annual hottest 30-day mean should be admitted
-on indicator-conditioned risk rather than uniform completeness: a fitted risk
-score reading only decision-time information beats the gap-length rule by
-6.2 points at 70\% retention ($[-7.2,-5.4]$), and under a five-per-cent
-false-admit cap whose thresholds are chosen on calibration networks alone it
-admits 27 points more of the candidate pool than the gap-length rule
-($[23.9,30.3]$). Engineered
+Thermal archives are screened by how much data is missing. That test has not been
+checked against the statistic's own support, because a gap's length and position
+cannot be varied independently in a record that failed on its own. We combine
+5114 complete river station-years from 146 networks with 51524 designed outages
+and score admission of the annual hottest 30-day mean on a retrospective holdout
+and on an external panel. The external panel has 49 network labels and 41
+validation groups, because labels that share a station stay in one fold.
+Thresholds are chosen without the test fold's labels, under a five-per-cent
+false-admit cap with a simultaneous bound over the retention grid. The
+confirmatory contrast is against a peak-window rule. A fitted risk score keeps
+72.5--72.8\% of external candidates and the peak-window rule 69.6--69.9\%. The
+difference is 2.6 to 3.3 points. Each interval excludes zero, and none meets a
+pre-specified five-point margin. The calibrated certificate bound keeps more
+(74.6--75.0\%). The gap versus a length rule is larger and is not that contrast. Engineered
 peak-overlap features add nothing measurable to a same-capacity learner
-($+0.05$ points, $[-0.17,+0.23]$), so hidden support is a useful conditional
-predictor but not a necessary mechanism. Crossed controls show that
-hiding the peak window and lengthening the gap both raise the error, by amounts
-the reconstructor sets. On the external panel the frozen
-certificate screen cuts designed-outage errors by 5.9 points ($[-6.9,-4.9]$); on
-the gaps these networks actually keep, the gain is about 0.8 points and must not
-be pooled into an operational guarantee. Completeness thresholds remain the right
-axis for annual means and the wrong default for extremes.
+($+0.05$ points, $[-0.17,+0.23]$). Hiding the peak and lengthening the gap both
+raise error, by amounts the reconstructor sets. The frozen certificate screen
+still cuts errors by 5.9 points ($[-7.0,-4.8]$) at 70\% retention; that number
+is not the fitted score. On real-calendar groups the fitted score does not
+separate from the peak-window rule, and the cap is not a guarantee for a new
+archive.
 \begin{plainlanguagesummary}
 Rivers are getting warmer, and managers ask how hot a river got last summer. The
 answer needs a year of daily temperatures, but records have holes, and the usual
@@ -116,11 +114,9 @@ for a summer peak: what matters is whether the missing days include the few week
 the peak depends on. Using complete years from 146 river networks, we place gaps
 of identical length in different positions and compare what two statistics lose.
 A gap over the peak window destroys the hottest 30-day mean while the same gap in
-autumn barely moves it; a whole-year average behaves in the opposite way. A rule
-that screens on this "hidden support" instead of on gap length removes most large
-errors on a retrospective holdout, but when we look at the gaps these networks
-really experience the gain shrinks to a fraction. An independent multi-provider
-confirmation under repaired data QA recovers a $-5.9$-point screening gain.
+autumn barely moves it; a whole-year average behaves in the opposite way. A rule that screens on this hidden support instead of on gap length removes most
+large errors on a retrospective holdout. On the gaps these networks actually
+keep, a fitted risk score does not separate from a simple peak-window rule.
 Results about exact crossover days, autumn maintenance benefits and "peak never
 observed" counts are exploratory or use proxies and should not yet guide
 operations.
@@ -216,18 +212,20 @@ archive, and for the undecided records?
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{figures/f1_decision.pdf}
-\caption{What the admission rule changes, on the 49-network external panel
-(13\,017 designed-outage cases; every threshold chosen on calibration networks
-only, so no panel label is read). (a) Retention at an honest 5\% false-admit cap:
-the calibrated certificate bound admits 77\% of candidates, the fitted risk score
-76\%, the transparent peak-window rule 72\% and the gap-length rule 49\%; bars are
-the mean over three network-fold seeds and the black line spans the seeds'
-range. (b) The same rules on the risk--retention plane, filled markers for the
-honest operating points and open red markers for the point the earlier draft
-quoted, which was chosen with the evaluation labels and is not deployable; the
-dashed line is the 5\% cap. (c) The false-admit rate each rule leaves at a
-matched 70\% retention, with network-clustered 95\% intervals: 2.4\% for the
-calibrated bound against 9.0\% for the gap-length rule. Source data:
+\caption{What the admission rule changes, on the external panel
+(13\,017 designed-outage cases; 49 network labels; 41 validation groups).
+Thresholds for panel (a) use only the other groups, and each outer fold keeps its
+own calibration scores. (a) Retention at the simultaneous 5\% false-admit rule:
+the calibrated certificate bound admits 75\% of candidates, the fitted risk score
+73\%, the peak-window rule 70\% and the gap-length rule 44\%; bars are the mean
+over three group-fold seeds and the black line spans the seeds' range. That range
+is not a confidence interval for a new archive. (b) The same rules on the
+risk--retention plane, filled markers for those operating points and open red
+markers for the point an earlier draft quoted, which was chosen with the
+evaluation labels and is not deployable; the dashed line is the 5\% cap.
+(c) The false-admit rate at a matched 70\% retention for the stored seed, with
+its group-clustered 95\% interval: 2.2\% for the fitted score, 2.6\% for the
+calibrated bound and 9.0\% for the gap-length rule. Source data:
 \texttt{figures/wrr/f1\_decision\_data.json}.}
 \label{fig:decision}
 \end{figure}
@@ -1132,32 +1130,41 @@ full screen, screening only (no method choice) & 3.11\% & $-6.13$ \\
 The operating point quoted in the previous version of this analysis --- the
 largest retention whose realised false-admit rate stayed under five per cent ---
 was chosen by looking at the errors of the records being admitted. No agency can
-do that. The honest version fixes the protocol first: five folds by network,
-three fold seeds, a retention grid from 10 to 95 per cent, and, for each fold, a
-threshold chosen on the calibration networks alone as the largest grid point whose
-calibration false-admit rate plus a one-sided network-clustered 95\% bound stays
-under five per cent. The held-out fold is then scored once
-(\texttt{p0\_02\_frozen\_risk\_thresholds/}; every fold found an admissible point,
-180 of 180). On the 49-network external panel the calibrated certificate admits
-76.7\% of candidates at a realised 3.9 to 4.1\% false-admit rate, the fitted risk
-score 75.5\%, the transparent peak-window rule 71.8\% and the length rule 48.9\%.
-At the same risk target the fitted risk score admits $27.1$ points more of the
-pool than the length rule ($[23.9,30.3]$) and the certificate $27.9$ points more;
-against the peak-window rule the fitted score leads by 2.7 to 4.2 points
-depending on the fold seed, one of which has an interval touching zero.
+do that. Two further defects in the first honest attempt are corrected in
+\texttt{major\_revision\_20261019/p0\_02\_isolated\_risk\_thresholds/}. Calibration
+scores are stored separately for each outer fold, so a later fold cannot
+overwrite them with a model that has seen the earlier test labels. Folds are
+assigned on 41 validation groups rather than on 49 network labels, because eight
+pairs of labels share stations, including 01610400 and 01649500 under both
+\texttt{usgs\_wave2\_2070} and \texttt{usgs\_wave2\_huc6\_020700}. The threshold
+is the largest grid point from 10 to 95 per cent whose false-admit rate has a
+simultaneous independence-group bootstrap bound, at $1-0.05/86$, of at most five
+per cent. A pointwise 95\% bound is not used: in 2000 synthetic repetitions that
+pointwise rule exceeded five per cent on fresh groups 19.2\% of the time, and the
+simultaneous rule 8.5\% of the time
+(\texttt{p0\_04\_selection\_calibration/}).
 
-Two honest qualifications belong with those numbers. The point false-admit rate
-is under five per cent in all 36 pooled cells, but in six of them the interval's
-upper end exceeds it (worst 5.9\%), so the cap is met as a point estimate rather
-than as a guarantee for every archive. And the multiplicative conformal
-calibration turns out to be a scale change rather than a ranking change: on the
-external panel the calibrated and uncalibrated certificate bounds admit an
-identical set of cases, so no claim is made here that calibration improves
-screening at fixed retention. Its role is the absolute-scale decision rule
-(admit when the bound is at most $0.5\,^{\circ}$C), which is a different
-comparison. The label-chosen frontier of the earlier draft was
-optimistic by 1.5 to 3.2 points for these scores and 6.1 points for the length
-rule --- the gap between describing a frontier and deploying one.
+On the external panel the fitted risk score keeps 72.5--72.8\% of candidates, the
+peak-window rule 69.6--69.9\%, the calibrated certificate bound 74.6--75.0\% and
+the length rule 43.5--45.0\%. Realised false-admit rates for these pooled cells
+are 2.6--2.9\% for the fitted score, and every pooled interval on this panel
+ends below five per cent. Against the peak-window rule the fitted score leads by
+2.6 to 3.3 points, with each seed's interval excluding zero and none of them
+clearing a five-point margin (the highest upper end is 5.7 points). Against the
+calibrated bound the fitted score keeps 1.8 to 2.5 points \emph{fewer} records.
+The length-rule gap is 27.6 to 29.0 points. It is reported because readers will
+look for it. It is not the contrast that decides whether the fitted score is
+worth its complexity. This external-panel cross-fit trains on other groups of
+the same panel. It is not the sealed confirmation of a frozen model. The sealed
+70\% retention contrast belongs to the frozen certificate screen and, with the
+41 groups as the bootstrap clusters, is still $-5.9$ points ($[-7.0,-4.8]$).
+
+The five-per-cent cap on this panel is a point estimate under a simultaneous
+bound, not a guarantee for a new archive. The synthetic exceedance rate above is
+why that sentence stays qualified. Multiplicative conformal calibration remains
+a scale change rather than a ranking change where the calibrated and uncalibrated
+bounds admit the same cases. The label-chosen frontier is still the
+non-deployable comparison, drawn in open red on Figure~\ref{fig:decision}.
 
 \subsubsection{The incumbent is not handicapped, including by the absence of the field’s own reconstruction}
 \label{sec:fair}
@@ -1550,15 +1557,17 @@ with conformal coverage between 0.82 and 0.96.
 
 \section{Discussion}
 
-Using 5114 complete river station-years, 51524 designed outages and two sealed
-panels, we have shown that the error of an annual thermal extreme is governed by
-where a gap falls rather than by how long it is, that an annual mean reverses
-that ordering, and that screening on the hidden share of the statistic's support
-leaves a materially better archive than a completeness threshold at equal
-retention. The result agrees with the standing guidance on the estimands that
-guidance was derived for, and disagrees with its transfer to extremes; the
-disagreement is one of conditioning axis, not of arithmetic. Two mechanisms
-account for it, one of which the data can measure and one of which they cannot.
+Using 5114 complete river station-years and 51524 designed outages, the error of
+an annual thermal extreme depends on where a gap falls and on how long it is.
+Which of those dominates depends on the reconstructor. An annual mean does not
+follow the same pattern. Screening on indicator-conditioned risk beats a
+completeness threshold at equal retention. It does not, on the external panel,
+clear a five-point retention margin over a transparent peak-window rule, and it
+does not keep more records than the calibrated certificate bound. The result
+agrees with the standing guidance on the estimands that guidance was derived for,
+and disagrees with its transfer to extremes; the disagreement is one of
+conditioning axis, not of arithmetic. Two mechanisms account for it, one of which
+the data can measure and one of which they cannot.
 
 \subsection{Two mechanisms explain the reversal, and one of them is not in the data}
 
@@ -1699,24 +1708,31 @@ gap hides, the share of the warm season still observed, the longest run, the
 number and agreement of neighbouring stations that record through the gap, and
 the spread of the reconstruction ensemble. Second, fit the risk score on
 networks that are disjoint from the ones the rule will be judged on, and choose
-the admission threshold on those calibration networks alone, as the largest
-retention whose calibration false-admit rate plus its one-sided clustered bound
-stays inside the agency's cap. Third, apply the threshold once and report three
-states rather than two: admitted, not admitted, and unavailable, the last for
-records where the reconstruction the rule assumed cannot be formed at all. On the
-external panel this recipe keeps three-quarters of the candidate pool at a
-realised error rate near four per cent; on the real-calendar replay it decides
-95 per cent of candidates and does not lose to the simple rules when neighbours
-fail.
+the admission threshold on those calibration groups alone, as the largest
+retention whose simultaneous clustered bound stays inside the agency's cap.
+Networks that share a station stay in one group. Third, apply the threshold once
+and report three states rather than two: admitted, not admitted, and unavailable,
+the last for records where the reconstruction the rule assumed cannot be formed
+at all. On the external cross-fit the fitted score keeps about 73\% of candidates
+at a realised false-admit rate near 2.7\%. That is a few points more than the
+peak-window rule and a few points less than the certificate bound. On the 418
+real-calendar groups, scored with the same development-fold models and the same
+thresholds, the fitted score and the peak-window rule admit 93.5--95.5\% of
+candidates. Their difference is at most 1.9 points and the interval includes zero
+except for one seed under target-only failure. When every donor fails, the two
+rules still match. The length rule admits 77.8\%. Error among the records the
+fitted score keeps is 0.5--1.3\%, against 2.6--4.1\% if every available
+reconstruction is kept.
 
 Three caveats belong in the same paragraph as the recipe. The cap is met as a
 point estimate and not as a guarantee, so an agency with a hard regulatory limit
 should treat the realised rate as evidence and not as a certificate. The
 threshold is fold-specific, so a change of networks or of the measurement
 contract is a reason to recalibrate rather than to reuse the number. And the
-rules should be re-derived when the archive's own gap calendar changes, because
-the empirical-arm gain, 0.8 points on these networks, is what an agency with
-their calendar should expect rather than the designed-outage figure.
+rules should be re-derived when the archive's own gap calendar changes. On these
+418 groups the fitted score does not separate from the peak-window rule, so the
+designed-outage gap versus gap length is not the gain an agency should expect
+from its own calendar.
 
 
 The first recommendation is to treat screening as estimand-specific. An agency
@@ -1767,25 +1783,25 @@ coverage.
 \subsection{What generalises, and what does not}
 
 How much evidence a confirmation would need is a design question that can be
-answered from the panels in hand. The contrast between the screen and the length
-rule has a small intra-network correlation but networks hold hundreds of cases
-each, so the design effect is large: the current development panel behaves like
-14.1 independent networks and the external panel like 11.0. Simulating the study
-by resampling whole networks with the project's own clustered interval, twenty
-networks reach 50\% power for a two-point effect and full power for the
-five-point effect the freeze declared, forty reach 80\% for two points, and
-eighty reach 98\% with a minimum detectable effect at 80\% power of 1.40 points;
-the analytic requirement is 38 networks for two points and 7 for five
-(\texttt{p0\_05\_power\_independence/}). Two caveats travel with those
-numbers. At twenty networks the interval excludes zero in 10.7\% of draws when
-the true effect is exactly zero, so small-network power is optimistic and a
-confirmation aiming at a two-point effect should not be planned below roughly
-forty networks. And the panels are not provider-independent: on the external
-panel one agency contributes 94.2\% of the cases, and the network-equal
-leave-that-agency-out estimate is $-4.1$ points with an interval crossing zero
-($[-9.8,+1.8]$), so the transfer claim is directional rather than a statement
-about agencies in general. Network counts, not case counts, are the currency of
-this design.
+answered from the panels in hand, after the unit of evidence is fixed. A
+case-level design effect does not get applied a second time to the network count.
+The development panel has 110 networks and no shared stations across those
+labels. The external panel's 49 labels are 41 groups. Dividing 110 by a design
+effect and calling the result 14.1 independent networks, or 49 by a design effect
+and calling it 11, mixed a case-level calculation with a group-level count and is
+withdrawn (\texttt{p0\_05\_power\_independence/} records the old arithmetic; the
+corrected reading is in the script). The power simulation that remains was built
+for the frozen certificate-versus-length contrast at 70\% retention, not for the
+fitted-score rule above. At twenty resampled networks that interval excludes zero
+in 10.7\% of draws when the true effect is exactly zero, so it is not used here
+to recommend a sample size. A separate 2000-repetition check of the threshold
+selector itself is reported above and also issues no network-count recommendation.
+The panels are not provider-independent: on the external panel one agency
+contributes 94.2\% of the cases, and the network-equal leave-that-agency-out
+estimate is $-4.1$ points with an interval crossing zero ($[-9.8,+1.8]$), so the
+transfer claim is directional rather than a statement about agencies in general.
+Validation groups, not case counts and not network-label strings, are the
+currency of this design.
 
 Three parts of the result are portable. The governing quantity of
 Equation~\eqref{eq:hidden} is defined wherever a derived statistic is computed
@@ -1857,24 +1873,34 @@ outages, with a retrospective network holdout and an independent wave-2
 confirmation panel, we quantified what an incomplete year can still support.
 Three answers follow.
 
-First, indicator-conditioned risk ranking is worth adopting for hottest-30
-admission under a stated tolerance: the frozen screen cuts consequential errors
-on the retrospective holdout from 9.7\% to 2.5\% at 70\% retention ($-7.1$ points,
-$[-9.0,-5.4]$), and on the wave-2 designed confirmation by $-5.9$ points
-($[-6.9,-4.9]$). The same rule can be deployed under a risk cap rather than a
-retention target: with the threshold chosen on calibration networks only, it
-admits 76.7\% of external-panel candidates at a realised false-admit rate below
-five per cent, against 48.9\% for the gap-length rule, a retention difference of
-27.9 points ($[24.8,30.4]$) at the same risk. That comparison is the one an
-agency can reproduce, because no evaluation label enters the choice. Peak-window overlap remains a strong transparent rule and
-explanation, but on the development panel a same-capacity generic risk model
-already matches a model that adds engineered support share; the claim is
-admission by fitted indicator risk, not that support share is an irreplaceable
-feature. Fixed-reconstructor crossed controls show that fully hiding the peak
-window raises error under climatology and donor methods alike, with network
-intervals excluding zero, while length effects at fixed overlap are weaker and
+First, indicator-conditioned screening is worth reporting for hottest-30
+admission, with the object of each number named. The frozen certificate screen
+cuts consequential errors on the retrospective holdout from 9.7\% to 2.5\% at
+70\% retention ($-7.1$ points, $[-9.0,-5.4]$), and on the external designed
+panel by $-5.9$ points ($[-7.0,-4.8]$) when the 41 validation groups, rather than
+the 49 labels, are the bootstrap clusters. The fitted risk score is a different
+object. Under the simultaneous five-per-cent rule, with test-fold labels excluded
+from its calibration scores, it keeps 72.5--72.8\% of external-panel candidates.
+That is 2.6 to 3.3 points more than the peak-window rule and 1.8 to 2.5 points
+fewer than the calibrated certificate bound. The 27-point gap versus the length
+rule is real on this cross-fit and is not the confirmatory contrast. No unused
+panel remains, so this fitted-score result is not a new sealed confirmation.
+Peak-window overlap remains a strong transparent rule. On the development panel a
+same-capacity generic risk model already matches a model that adds engineered
+support share; the claim is not that support share is an irreplaceable feature.
+Fixed-reconstructor crossed controls show that fully hiding the peak window
+raises error under climatology and donor methods alike, with network intervals
+excluding zero, while length effects at fixed overlap are weaker and
 method-dependent --- conditional mechanism evidence, not a universal geometry
-law. The withdrawn first seals and the failed transport quality-checked gate
+law. The same fitted score, applied to 418 real-calendar groups with models that
+did not train on the scored network, does not beat the peak-window rule: the
+admitted-share difference is within about two points and usually includes zero,
+including when every neighbouring station fails. On the external designed panel
+at 20\,$^{\circ}$C, admitting by the fitted score moves the predicted hot-year
+share by $+0.9$ points relative to the full candidate pool (prediction error
+$-0.3$, selection shift $+1.2$). Keeping every reconstruction moves it by $-0.6$
+points. A lower error among admitted years is not a more accurate regional
+share. The withdrawn first seals and the failed transport quality-checked gate
 remain labelled and are not re-used.
 
 Second, the gain is conditional in ways a pooled number hides: it is larger on

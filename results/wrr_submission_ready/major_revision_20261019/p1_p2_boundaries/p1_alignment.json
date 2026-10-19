@@ -1,0 +1,31 @@
+{
+  "development": {
+    "panel": "development",
+    "n_cases": 40704,
+    "n_network_labels": 110,
+    "n_unique_stations": 354,
+    "n_station_years": 4045,
+    "n_station_network_rows": 354,
+    "n_independence_groups": 110,
+    "n_groups_with_multiple_labels": 0,
+    "n_station_years_under_multiple_labels": 0,
+    "donor_rule": "donors are other stations in the same network; shared-station components therefore also keep shared donor supervision inside one validation group"
+  },
+  "reserved": {
+    "panel": "reserved",
+    "n_cases": 10820,
+    "n_network_labels": 36,
+    "n_unique_stations": 103,
+    "n_station_years": 1069,
+    "n_station_network_rows": 103,
+    "n_independence_groups": 36,
+    "n_groups_with_multiple_labels": 0,
+    "n_station_years_under_multiple_labels": 0,
+    "donor_rule": "donors are other stations in the same network; shared-station components therefore also keep shared donor supervision inside one validation group"
+  },
+  "stations_shared_by_development_and_reserved": [],
+  "n_development_overlap_pairs": 0,
+  "n_reserved_overlap_pairs": 0,
+  "learning_curves": "scripts/316 repeats training-network draws on development network labels. Those draws are not independence groups, and the interval across draws is training-sample variation on a fixed test panel, not a new-basin interval.",
+  "phase_residuals": "scripts/317 scores the phase and air-temperature boundary on development networks. It remains a mechanism check for the hottest-30 endpoint. It is not evidence that the fitted risk score is necessary, and it is not recomputed here."
+}
