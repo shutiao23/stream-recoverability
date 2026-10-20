@@ -1,0 +1,33 @@
+{
+  "created_at_utc": "2026-10-20T12:01:41.864618+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/case_information.parquet",
+      "sha256": "ec9fdfe28400764365f99a41d0cd984f88ff7ee0332cec0c853503b68dd07dac"
+    },
+    "deployment_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/deployment_lock.json",
+      "sha256": "c6e436889cfbf2fa9d860c7592932282ade83ad9d0bcc643a2ee6776a4c81278"
+    },
+    "erratum": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/docs/reviews/wrr_major_revision_20261020c/NONPREDICTIVE_ERRATUM.md",
+      "sha256": "91031e1199cf08c4cf3f7ff3641add697ff24106f404bc850463470d84fe5157"
+    },
+    "label_function": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/scripts/wrr_r3_hydrology.py",
+      "sha256": "706c2fb0ba954c98f89b6637a861c6e69edba1fdfa5bd7122cf44161cac20939"
+    },
+    "method_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/method_lock.json",
+      "sha256": "1b7ea785a6b8c2b84277adb0b7b2472358e782c7cdba727a7b1dee5d204e51b1"
+    }
+  },
+  "predictive_decisions_changed": false,
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/373_wrr_hydrological_strata.py",
+    "sha256": "6fffc595addd9b67d07acdf2e713606524a3a87cc39bc0d3353d2ce61e619a2e"
+  },
+  "snow_units": "percent; majority threshold 50"
+}

@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    0.0,
+    0.00546875,
+    0.02682291666666667,
+    0.07604166666666667,
+    0.1372395833333333,
+    0.2190104166666667,
+    0.29999999999999993,
+    0.35911458333333324,
+    0.42734374999999997,
+    0.4828125,
+    0.5513020833333333,
+    0.6231770833333332,
+    0.7109375,
+    0.7984374999999999,
+    0.9080729166666668,
+    0.9786458333333332,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "probabilistic_support_rule__strictly_prior_years__documented_daily_mean__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 5783,
+  "n_training_groups": 11,
+  "name": "probabilistic_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
+      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "candidates": [
+    0.00510901270102869,
+    0.0140021255772112,
+    0.023160965844799857,
+    0.03005040931829754,
+    0.03517670083886644,
+    0.042601222684770325,
+    0.05284848184580428,
+    0.06297818503722503,
+    0.07703195441684102,
+    0.0908413598565606,
+    0.10574769411092541,
+    0.12679100723936274,
+    0.1622801161760969,
+    0.19629884089712682,
+    0.22849535647658323,
+    0.2842471247199911,
+    0.36115826907676585,
+    0.44907712257988974,
+    0.5956877094812651,
+    0.7862821033361647,
+    0.9749644866349729
+  ],
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement",
+    "peak_overlap"
+  ],
+  "identity": "admission__small_logit_plus_support__strictly_prior_years__documented_daily_mean__local_fit__foen",
+  "kind": "logit",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__small_logit_plus_support__strictly_prior_years__documented_daily_mean__local_fit__foen.joblib",
+  "model_sha256": "b77967c57b6be8bcec76a639f72fb1c0b7f818d0a0c72372aa5a99812b82d067",
+  "n_training_cases": 551,
+  "n_training_groups": 11,
+  "name": "small_logit_plus_support",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

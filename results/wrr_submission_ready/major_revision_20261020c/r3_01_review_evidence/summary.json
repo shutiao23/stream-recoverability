@@ -1,0 +1,54 @@
+{
+  "available_old_evidence": [
+    {
+      "exists": true,
+      "path": "major_revision_20261014/p1_transfer_measurement/SUMMARY.md",
+      "sha256": "e10db87cee9d880579d97818fa7920f68b3f6f52a6a222866063706a67465207"
+    },
+    {
+      "exists": true,
+      "path": "major_revision_20261014/p1_learning_curve_repeats/SUMMARY.md",
+      "sha256": "53921e77dd205c619b2c005f6e7ae84efcbdb0f2237e24fd7316f56a8ae4ce30"
+    },
+    {
+      "exists": true,
+      "path": "amendments/mnar_day_level/summary.json",
+      "sha256": "9074645412b3a498146a4d7ddc2296e6c8ae54e2012224f536860321f7c2d203"
+    },
+    {
+      "exists": true,
+      "path": "major_revision_20261020/p0_03_real_calendar_adoption/SUMMARY.md",
+      "sha256": "3b5efe0fc1f27b9ef1f4d2184a198649c81791cc46252d0008ff81c181dbe966"
+    }
+  ],
+  "controlled_panel_providers": [
+    {
+      "cases": 1593,
+      "networks": 10,
+      "provider": "arso",
+      "stations": 20
+    },
+    {
+      "cases": 306,
+      "networks": 2,
+      "provider": "chmi",
+      "stations": 4
+    }
+  ],
+  "counterexample": {
+    "bootstrap_upper": 0.0,
+    "exact_one_sided_group_binomial_upper": 0.22092219194555585,
+    "illustrative_population_group_failure_probability": 0.06,
+    "interpretation": "constructed independent-group counterexample, not measured river failure rate",
+    "n_cases_per_group": 20,
+    "n_independent_groups": 12,
+    "observed_failures": 0,
+    "probability_all_calibration_groups_successful": 0.47592031481425306,
+    "selected_retention": 1.0
+  },
+  "new_independent_validation": false,
+  "real_replay_targets_also_in_development_design": 67,
+  "real_replay_unique_target_station_years": 67,
+  "status": "retrospective_review_findings_recomputed",
+  "warm_2018_2022_unique_station_years": 453
+}

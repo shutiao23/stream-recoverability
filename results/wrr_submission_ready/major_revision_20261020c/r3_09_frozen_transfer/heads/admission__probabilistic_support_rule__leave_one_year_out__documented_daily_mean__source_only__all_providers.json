@@ -1,0 +1,53 @@
+{
+  "candidates": [
+    0.0,
+    0.00390625,
+    0.05416666666666667,
+    0.128125,
+    0.20703125000000003,
+    0.3270833333333333,
+    0.4531250000000001,
+    0.5963541666666665,
+    0.7895833333333332,
+    0.9502604166666668,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "admission__probabilistic_support_rule__leave_one_year_out__documented_daily_mean__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 42465,
+  "n_training_groups": 115,
+  "name": "probabilistic_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.4531250000000001,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.03609753066679704,
+    "formal_minimum_bounded_loss_upper": 0.2441288611985321,
+    "n_calibration_cases": 12372,
+    "n_calibration_groups": 29
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

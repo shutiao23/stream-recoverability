@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T11:47:45.883716+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33"
+    },
+    "model": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/csdi_reference.pypots",
+      "sha256": "f9a9f4fc68f84a4393d514fa1123250f9770fcd0961eafc7493d06d6c27370dc"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/361_wrr_probabilistic_reference.py",
+    "sha256": "5001a22514a04e2bf4c980fb9adc8effa264050ddedeaa91ff3a6a7097e112a6"
+  }
+}

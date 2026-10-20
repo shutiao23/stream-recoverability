@@ -1,0 +1,45 @@
+{
+  "candidates": [
+    0.0,
+    7.105427357601002e-15,
+    1.7763568394002505e-14,
+    0.02937337709326293,
+    0.17269580999689715,
+    0.23741388592191726,
+    0.34817589162312146,
+    0.4548884632616659,
+    0.6157058599108716,
+    0.8180896306842129,
+    1.2500605200488213,
+    1.4652334015893071,
+    1.918677491639695,
+    3.890656849376306,
+    6.191525275705832,
+    11.329823690018479
+  ],
+  "features": [],
+  "identity": "admission__target_disagreement_rule__strictly_prior_years__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 165,
+  "n_training_groups": 9,
+  "name": "target_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "hubeau"
+  ]
+}

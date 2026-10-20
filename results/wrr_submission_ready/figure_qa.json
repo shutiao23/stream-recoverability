@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_utc": "2026-10-19T19:12:52Z",
+  "generated_utc": "2026-10-20T13:16:16Z",
   "script": "scripts/266_wrr_figure_qa.py",
   "command": "python3 scripts/266_wrr_figure_qa.py",
   "thresholds": {
@@ -145,7 +145,7 @@
     "pdfimages": "pdfimages version 22.02.0",
     "pdftoppm": "pdftoppm version 22.02.0",
     "rsvg-convert": "rsvg-convert version 2.52.5",
-    "drawio": "[2363159:1019/191250.693879:ERROR:ui/ozone/platform/x11/ozone_platform_x11.cc:257] Missing X server or $DISPLAY"
+    "drawio": null
   },
   "tool_availability": {
     "pdffonts": true,
@@ -154,7 +154,7 @@
     "pdfimages": true,
     "pdftoppm": true,
     "rsvg-convert": true,
-    "drawio": true
+    "drawio": false
   },
   "environment": {
     "python": "3.11.7",
@@ -162,16 +162,19 @@
     "rendered_pages_dir": "scratch/figure_qa/render"
   },
   "summary": {
-    "n_pdfs": 8,
-    "n_figure_pdfs": 6,
+    "n_pdfs": 15,
+    "n_figure_pdfs": 13,
     "n_built_pdfs": 2,
     "n_hard_failures": 0,
     "n_hard_failure_groups": 0,
-    "n_warnings": 7,
+    "n_warnings": 21,
     "hard_failures_by_check": {},
     "warnings_by_check": {
+      "FIGURE_NOT_REFERENCED": 6,
+      "OVERLAPPING_TEXT_SAME_BASELINE": 1,
       "OVERLAPPING_WORD_BOXES": 2,
-      "SMALL_RELATIVE_WORD_BOXES": 5
+      "SMALL_RELATIVE_WORD_BOXES": 11,
+      "TOOL_MISSING": 1
     },
     "hard_failure_groups": [],
     "tiny_text_by_page": [],
@@ -196,16 +199,30 @@
         "f1_support",
         "f3_reconstructor",
         "f4_mechanism",
-        "f5_decision"
+        "f5_decision",
+        "r3_f1_recovery",
+        "r3_f2_channels",
+        "r3_f3_information",
+        "r3_f4_transfer",
+        "r3_f5_utility",
+        "r3_s1_learning",
+        "r3_s2_cofailure"
       ],
       "unknown": []
     },
-    "figures_not_referenced_in_tex": [],
+    "figures_not_referenced_in_tex": [
+      "f1_support",
+      "f2_system_design",
+      "f3_reconstructor",
+      "f4_mechanism",
+      "f5_decision",
+      "s1_study_design"
+    ],
     "implied_printed_width_pt": {
-      "median": 396.014,
-      "min": 396.01,
-      "max": 396.02,
-      "n_figures": 6,
+      "median": 396.013,
+      "min": 122.887,
+      "max": 1700.125,
+      "n_figures": 10,
       "corroboration": "AGU class file sets \\textwidth 5.5in = 396 pt (paper/wrr/template/agujournal2025.cls:958)"
     },
     "ink_verification_pages": 0,
@@ -282,9 +299,19 @@
       }
     },
     {
+      "file": "paper/wrr/figures/f1_support.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
+      "file": "paper/wrr/figures/f2_system_design.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
       "file": "paper/wrr/figures/f3_reconstructor.pdf",
       "check": "SMALL_RELATIVE_WORD_BOXES",
-      "detail": "14 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "detail": "23 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
       "locator": {
         "examples": [
           {
@@ -331,193 +358,533 @@
           },
           {
             "page": 1,
-            "text": "air",
-            "height_pt": 6.99,
+            "text": "filled:",
+            "height_pt": 6.058,
             "line_height_pt": 19.505
           }
         ]
       }
     },
     {
+      "file": "paper/wrr/figures/f3_reconstructor.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
       "file": "paper/wrr/figures/f4_mechanism.pdf",
       "check": "SMALL_RELATIVE_WORD_BOXES",
-      "detail": "18 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "detail": "25 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
       "locator": {
         "examples": [
           {
             "page": 1,
-            "text": "61%",
-            "height_pt": 6.757,
-            "line_height_pt": 18.922
+            "text": "hiding",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "58%",
-            "height_pt": 6.757,
-            "line_height_pt": 18.922
+            "text": "(\u00b0C)",
+            "height_pt": 14.724,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "smooth",
-            "height_pt": 6.99,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "0.6",
+            "text": "1.0",
             "height_pt": 7.689,
-            "line_height_pt": 18.922
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "51%",
-            "height_pt": 6.757,
-            "line_height_pt": 27.014
+            "text": "false",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "interp.",
-            "height_pt": 6.99,
-            "line_height_pt": 27.014
+            "text": "peak",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "0.4",
-            "height_pt": 7.689,
-            "line_height_pt": 27.014
+            "text": "\u2212",
+            "height_pt": 6.034,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "donor",
-            "height_pt": 6.99,
-            "line_height_pt": 39.838
+            "text": "(\u00b0C)",
+            "height_pt": 14.724,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "mean",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/f4_mechanism.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
+      "file": "paper/wrr/figures/f5_decision.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "30 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 1,
+            "text": "nve_basin_88",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
+          },
+          {
+            "page": 1,
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
+          },
+          {
+            "page": 1,
+            "text": "huc2_08",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
+          },
+          {
+            "page": 1,
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
+          },
+          {
+            "page": 1,
+            "text": "huc6_071300",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "(4)",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "huc4_0601",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
           }
         ]
       }
     },
     {
       "file": "paper/wrr/figures/f5_decision.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
+      "file": "paper/wrr/figures/r3_f2_channels.pdf",
       "check": "SMALL_RELATIVE_WORD_BOXES",
-      "detail": "55 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "detail": "12 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
       "locator": {
         "examples": [
           {
             "page": 1,
-            "text": "solid:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "external",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "panel",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "hatched:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "development",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "bars:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "H30",
+            "height_pt": 18.216,
+            "line_height_pt": 67.492
           },
           {
             "page": 1,
             "text": "mean",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "height_pt": 25.524,
+            "line_height_pt": 67.492
           },
           {
             "page": 1,
-            "text": "of",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "error",
+            "height_pt": 21.796,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.50",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.25",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.00",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.75",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.50",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/r3_f4_transfer.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "8 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "40",
+            "height_pt": 9.903,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "30",
+            "height_pt": 9.902,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "20",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "10",
+            "height_pt": 9.902,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "8",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "6",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "4",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/r3_f5_utility.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "11 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 1,
+            "text": "80",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "60",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "40",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "20",
+            "height_pt": 9.902,
+            "line_height_pt": 45.326
+          },
+          {
+            "page": 1,
+            "text": "pool",
+            "height_pt": 19.233,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "0.0",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "\u22120.2",
+            "height_pt": 9.902,
+            "line_height_pt": 65.234
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/r3_s1_learning.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "2 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 1,
+            "text": "72.5",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "70.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/r3_s2_cofailure.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "9 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "80.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "77.5",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "75.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "72.5",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "70.0",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "8",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "6",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          }
+        ]
+      }
+    },
+    {
+      "file": "paper/wrr/figures/s1_study_design.pdf",
+      "check": "FIGURE_NOT_REFERENCED",
+      "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+    },
+    {
+      "file": "paper/wrr/wrr_manuscript.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "31 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 12,
+            "text": "H30",
+            "height_pt": 13.883,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "mean",
+            "height_pt": 19.453,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "error",
+            "height_pt": 16.612,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.50",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.25",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.00",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.75",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.50",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
           }
         ]
       }
     },
     {
       "file": "paper/wrr/wrr_manuscript.pdf",
-      "check": "SMALL_RELATIVE_WORD_BOXES",
-      "detail": "127 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "check": "OVERLAPPING_TEXT_SAME_BASELINE",
+      "detail": "2 word-box pair(s) share a baseline and overlap horizontally (real text collision candidates)",
       "locator": {
-        "examples": [
-          {
-            "page": 6,
-            "text": "0.8",
-            "height_pt": 7.583,
-            "line_height_pt": 18.661
-          },
-          {
-            "page": 6,
-            "text": "0.6",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.4",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.2",
-            "height_pt": 7.583,
-            "line_height_pt": 19.741
-          },
-          {
-            "page": 6,
-            "text": "peak",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
-          },
-          {
-            "page": 6,
-            "text": "fully",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
-          },
-          {
-            "page": 6,
-            "text": "hidden",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
-          },
-          {
-            "page": 6,
-            "text": "(share",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
-          }
-        ]
+        "n_pairs": 2
       }
     },
     {
       "file": "paper/wrr/wrr_manuscript.pdf",
       "check": "OVERLAPPING_WORD_BOXES",
-      "detail": "2 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render",
+      "detail": "6 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render",
       "locator": {
         "counts_by_kind": {
-          "atypical_box_geometry": 2
+          "adjacent_line_padding": 6,
+          "same_baseline_horizontal": 2
         }
       }
+    },
+    {
+      "file": "paper/wrr/wrr_supporting_information.pdf",
+      "check": "SMALL_RELATIVE_WORD_BOXES",
+      "detail": "11 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+      "locator": {
+        "examples": [
+          {
+            "page": 41,
+            "text": "72.5",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "70.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "(%)",
+            "height_pt": 11.867,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "80.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "77.5",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "75.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 41,
+            "text": "72.5",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
+          },
+          {
+            "page": 41,
+            "text": "70.0",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
+          }
+        ]
+      }
+    },
+    {
+      "file": "-",
+      "check": "TOOL_MISSING",
+      "detail": "drawio is not installed in this environment"
     }
   ],
   "files": [
@@ -526,7 +893,7 @@
       "kind": "figure",
       "name": "f1_support",
       "size_bytes": 22492,
-      "sha256": "2c6084d8415c5076da4eda576c90f665aa738211a673ca10315e9e6d9116a751",
+      "sha256": "9cae08cff98006be1ea60d9bdec8b75d342e579944ec2fbfc4c3124c54b71ac2",
       "hard_failures": [],
       "warnings": [
         {
@@ -595,6 +962,11 @@
               "atypical_box_geometry": 2
             }
           }
+        },
+        {
+          "file": "paper/wrr/figures/f1_support.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
         }
       ],
       "fonts": {
@@ -917,7 +1289,7 @@
             "n_mentions": 2,
             "first_lines": [
               354,
-              846
+              869
             ],
             "sample": "save(fig, \"f1_support\")"
           }
@@ -933,74 +1305,28 @@
           }
         ],
         "kind": "python",
-        "referenced_in_tex": true
+        "referenced_in_tex": false
       },
       "print_placement": {
-        "measured": true,
+        "measured": false,
         "method": "unique-word pairwise distance ratio",
-        "document": "manuscript",
-        "page": 6,
-        "n_distinctive_words_matched": 5,
-        "n_pairs": 9,
-        "n_pairs_in_cluster": 9,
-        "cluster_fraction": 1.0,
-        "scale": 0.98624,
-        "scale_x": 0.98624,
-        "scale_y": 0.98624,
-        "cluster_rel_spread_pct": 0.0,
-        "confident": true,
-        "other_candidates": [
-          {
-            "document": "manuscript",
-            "page": 8,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.405208,
-            "scale_x": -1.181074,
-            "scale_y": -0.135918,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 13,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.878412,
-            "scale_x": 2.124616,
-            "scale_y": -0.493035,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 24,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.743795,
-            "scale_x": -0.049331,
-            "scale_y": 0.937846,
-            "cluster_rel_spread_pct": 0.0
-          }
-        ],
-        "printed_width_pt": 396.01,
-        "printed_width_in": 5.5001,
-        "effective_min_height_pt": 6.204,
-        "effective_p05_height_pt": 6.204
+        "reason": "no built-PDF page carried enough unique figure words"
       }
     },
     {
       "path": "paper/wrr/figures/f2_system_design.pdf",
       "kind": "figure",
       "name": "f2_system_design",
-      "size_bytes": 24369,
-      "sha256": "097f629af5b088402a08d5fb80cd1b28d6565738eb97c1b80b9a7255102e5328",
+      "size_bytes": 24416,
+      "sha256": "1daa3ff825fbb522362694bb04f79a16a6581d203d7f94d7e2a56675f13c7d01",
       "hard_failures": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/f2_system_design.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+        }
+      ],
       "fonts": {
         "n_fonts": 2,
         "records": [
@@ -1073,7 +1399,7 @@
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 86,
+        "n_words": 91,
         "n_pages_with_words": 1,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -1090,7 +1416,7 @@
         "min_line_height_pt": 7.183,
         "p05_height_pt": 7.183,
         "median_height_pt": 7.183,
-        "n_words_measured": 86,
+        "n_words_measured": 91,
         "n_below_threshold": 0,
         "n_small_relative_words": 0,
         "n_degenerate_boxes": 0,
@@ -1104,7 +1430,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 86,
+        "n_word_boxes": 91,
         "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -1150,7 +1476,7 @@
             "script": "scripts/335_wrr_figures_v2.py",
             "n_mentions": 1,
             "first_lines": [
-              846
+              869
             ],
             "sample": "\"figures\": [\"f1_support\", \"f2_system_design\", \"f3_reconstructor\", \"f4_mechanism\", \"f5_decision\", \"s1_study_design\"],"
           },
@@ -1170,83 +1496,83 @@
         "upstream_pdf_candidates": [
           {
             "path": "figures/wrr/f2_system_design.pdf",
-            "size_bytes": 24369,
+            "size_bytes": 24416,
             "identical_to_paper_copy": false
           }
         ],
         "kind": "drawio+python",
-        "referenced_in_tex": true
+        "referenced_in_tex": false
       },
       "print_placement": {
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "manuscript",
-        "page": 12,
-        "n_distinctive_words_matched": 38,
-        "n_pairs": 679,
-        "n_pairs_in_cluster": 679,
-        "cluster_fraction": 1.0,
-        "scale": 1.03908,
-        "scale_x": 1.03908,
-        "scale_y": 1.03908,
+        "page": 10,
+        "n_distinctive_words_matched": 4,
+        "n_pairs": 6,
+        "n_pairs_in_cluster": 1,
+        "cluster_fraction": 0.1667,
+        "scale": 0.322437,
+        "scale_x": -0.460218,
+        "scale_y": 0.216207,
         "cluster_rel_spread_pct": 0.0,
-        "confident": true,
+        "confident": false,
         "other_candidates": [
           {
             "document": "manuscript",
-            "page": 1,
+            "page": 11,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.270625,
-            "scale_x": 0.166864,
-            "scale_y": 0.635301,
+            "scale": 0.480963,
+            "scale_x": 1.027155,
+            "scale_y": 0.145272,
             "cluster_rel_spread_pct": 0.0
           },
           {
             "document": "manuscript",
-            "page": 7,
+            "page": 14,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.417188,
-            "scale_x": 0.030921,
-            "scale_y": null,
+            "scale": 0.306307,
+            "scale_x": -0.055453,
+            "scale_y": 1.614764,
             "cluster_rel_spread_pct": 0.0
           },
           {
-            "document": "manuscript",
-            "page": 10,
+            "document": "supporting_information",
+            "page": 33,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.219768,
-            "scale_x": 2.7e-05,
-            "scale_y": null,
+            "scale": 1.483675,
+            "scale_x": 0.52372,
+            "scale_y": 1.932177,
             "cluster_rel_spread_pct": 0.0
           }
         ],
-        "printed_width_pt": 396.014,
-        "printed_width_in": 5.5002,
-        "effective_min_height_pt": 7.464,
-        "effective_p05_height_pt": 7.464
+        "printed_width_pt": 122.887,
+        "printed_width_in": 1.7068,
+        "effective_min_height_pt": 2.316,
+        "effective_p05_height_pt": 2.316
       }
     },
     {
       "path": "paper/wrr/figures/f3_reconstructor.pdf",
       "kind": "figure",
       "name": "f3_reconstructor",
-      "size_bytes": 21381,
-      "sha256": "8acd9f97e6756302eb02a64d16e8b09036dad462415d43dd0153c5ff68c94427",
+      "size_bytes": 21964,
+      "sha256": "6b843287d26129a7316d111c2ef48b6d72c72669374a4cd8ce21544166cc4548",
       "hard_failures": [],
       "warnings": [
         {
           "file": "paper/wrr/figures/f3_reconstructor.pdf",
           "check": "SMALL_RELATIVE_WORD_BOXES",
-          "detail": "14 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "detail": "23 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
           "locator": {
             "examples": [
               {
@@ -1293,12 +1619,17 @@
               },
               {
                 "page": 1,
-                "text": "air",
-                "height_pt": 6.99,
+                "text": "filled:",
+                "height_pt": 6.058,
                 "line_height_pt": 19.505
               }
             ]
           }
+        },
+        {
+          "file": "paper/wrr/figures/f3_reconstructor.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
         }
       ],
       "fonts": {
@@ -1330,11 +1661,11 @@
         "info_available": true,
         "pages": 1,
         "page_size_pt": [
-          360.755,
+          387.487,
           292.945
         ],
         "page_size_in": [
-          5.0105,
+          5.3818,
           4.0687
         ],
         "page_rot": "0",
@@ -1344,26 +1675,26 @@
         "pdf_version": "1.4",
         "distinct_page_sizes": [
           [
-            360.755,
+            387.487,
             292.945
           ]
         ],
         "uniform_page_size": true,
         "per_page_size_pt": {
           "1": [
-            360.755,
+            387.487,
             292.945
           ]
         },
         "is_single_page": true,
         "media_box_pt": [
-          360.755,
+          387.487,
           292.945
         ]
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 78,
+        "n_words": 90,
         "n_pages_with_words": 1,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -1378,11 +1709,11 @@
         "threshold_pt": 4.5,
         "min_height_pt": 5.382,
         "min_line_height_pt": 6.291,
-        "p05_height_pt": 6.291,
-        "median_height_pt": 8.038,
-        "n_words_measured": 78,
+        "p05_height_pt": 6.058,
+        "median_height_pt": 7.689,
+        "n_words_measured": 90,
         "n_below_threshold": 0,
-        "n_small_relative_words": 14,
+        "n_small_relative_words": 23,
         "n_degenerate_boxes": 0,
         "violations": [],
         "n_raw_boxes_below_threshold": 0,
@@ -1433,6 +1764,54 @@
           },
           {
             "page": 1,
+            "text": "filled:",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "share",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "\u2265",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "0.9",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "hollow:",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "share",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "\u2265",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
+            "text": "0.999",
+            "height_pt": 6.058,
+            "line_height_pt": 19.505
+          },
+          {
+            "page": 1,
             "text": "air",
             "height_pt": 6.99,
             "line_height_pt": 19.505
@@ -1451,27 +1830,15 @@
           },
           {
             "page": 1,
-            "text": "donor",
-            "height_pt": 6.291,
-            "line_height_pt": 21.391
-          },
-          {
-            "page": 1,
-            "text": "regression",
-            "height_pt": 6.291,
-            "line_height_pt": 21.391
-          },
-          {
-            "page": 1,
             "text": "10",
             "height_pt": 7.689,
-            "line_height_pt": 18.922
+            "line_height_pt": 21.391
           },
           {
             "page": 1,
-            "text": "\u22121",
+            "text": "0",
             "height_pt": 5.382,
-            "line_height_pt": 18.922
+            "line_height_pt": 21.391
           }
         ],
         "ok": true,
@@ -1479,7 +1846,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 78,
+        "n_word_boxes": 90,
         "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -1489,7 +1856,7 @@
         "page_sizes": {
           "1": {
             "page": 1,
-            "width_pt": 360.755,
+            "width_pt": 387.48722,
             "height_pt": 292.945375
           }
         },
@@ -1523,8 +1890,8 @@
             "script": "scripts/335_wrr_figures_v2.py",
             "n_mentions": 2,
             "first_lines": [
-              492,
-              846
+              515,
+              869
             ],
             "sample": "save(fig, \"f3_reconstructor\")"
           }
@@ -1535,135 +1902,88 @@
         "upstream_pdf_candidates": [
           {
             "path": "figures/wrr/f3_reconstructor.pdf",
-            "size_bytes": 21381,
+            "size_bytes": 21964,
             "identical_to_paper_copy": false
           }
         ],
         "kind": "python",
-        "referenced_in_tex": true
+        "referenced_in_tex": false
       },
       "print_placement": {
-        "measured": true,
+        "measured": false,
         "method": "unique-word pairwise distance ratio",
-        "document": "manuscript",
-        "page": 16,
-        "n_distinctive_words_matched": 19,
-        "n_pairs": 166,
-        "n_pairs_in_cluster": 166,
-        "cluster_fraction": 1.0,
-        "scale": 1.09773,
-        "scale_x": 1.09773,
-        "scale_y": 1.09773,
-        "cluster_rel_spread_pct": 0.0,
-        "confident": true,
-        "other_candidates": [
-          {
-            "document": "manuscript",
-            "page": 1,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.250366,
-            "scale_x": 1.400758,
-            "scale_y": -0.223783,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 7,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.103884,
-            "scale_x": 0.0,
-            "scale_y": -0.141803,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 8,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.440288,
-            "scale_x": 0.440128,
-            "scale_y": -0.440441,
-            "cluster_rel_spread_pct": 0.0
-          }
-        ],
-        "printed_width_pt": 396.012,
-        "printed_width_in": 5.5002,
-        "effective_min_height_pt": 5.908,
-        "effective_p05_height_pt": 6.906
+        "reason": "no built-PDF page carried enough unique figure words"
       }
     },
     {
       "path": "paper/wrr/figures/f4_mechanism.pdf",
       "kind": "figure",
       "name": "f4_mechanism",
-      "size_bytes": 20603,
-      "sha256": "bd31036dafc6b328dd5745fa82435fc211ba0458251a136990bd4c2a7f9cb055",
+      "size_bytes": 23115,
+      "sha256": "429a7e5aeb8cf822c4cead81f9f88c95421007a3cf23958f1180c240d67890ad",
       "hard_failures": [],
       "warnings": [
         {
           "file": "paper/wrr/figures/f4_mechanism.pdf",
           "check": "SMALL_RELATIVE_WORD_BOXES",
-          "detail": "18 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "detail": "25 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
           "locator": {
             "examples": [
               {
                 "page": 1,
-                "text": "61%",
-                "height_pt": 6.757,
-                "line_height_pt": 18.922
+                "text": "hiding",
+                "height_pt": 6.291,
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "58%",
-                "height_pt": 6.757,
-                "line_height_pt": 18.922
+                "text": "(\u00b0C)",
+                "height_pt": 14.724,
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "smooth",
-                "height_pt": 6.99,
-                "line_height_pt": 18.922
-              },
-              {
-                "page": 1,
-                "text": "0.6",
+                "text": "1.0",
                 "height_pt": 7.689,
-                "line_height_pt": 18.922
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "51%",
-                "height_pt": 6.757,
-                "line_height_pt": 27.014
+                "text": "false",
+                "height_pt": 6.291,
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "interp.",
-                "height_pt": 6.99,
-                "line_height_pt": 27.014
+                "text": "peak",
+                "height_pt": 6.291,
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "0.4",
-                "height_pt": 7.689,
-                "line_height_pt": 27.014
+                "text": "\u2212",
+                "height_pt": 6.034,
+                "line_height_pt": 45.058
               },
               {
                 "page": 1,
-                "text": "donor",
-                "height_pt": 6.99,
-                "line_height_pt": 39.838
+                "text": "(\u00b0C)",
+                "height_pt": 14.724,
+                "line_height_pt": 45.058
+              },
+              {
+                "page": 1,
+                "text": "mean",
+                "height_pt": 6.291,
+                "line_height_pt": 45.058
               }
             ]
           }
+        },
+        {
+          "file": "paper/wrr/figures/f4_mechanism.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
         }
       ],
       "fonts": {
@@ -1695,12 +2015,12 @@
         "info_available": true,
         "pages": 1,
         "page_size_pt": [
-          404.84,
-          323.524
+          446.866,
+          337.922
         ],
         "page_size_in": [
-          5.6228,
-          4.4934
+          6.2065,
+          4.6934
         ],
         "page_rot": "0",
         "encrypted": "no",
@@ -1709,26 +2029,26 @@
         "pdf_version": "1.4",
         "distinct_page_sizes": [
           [
-            404.84,
-            323.524
+            446.866,
+            337.922
           ]
         ],
         "uniform_page_size": true,
         "per_page_size_pt": {
           "1": [
-            404.84,
-            323.524
+            446.866,
+            337.922
           ]
         },
         "is_single_page": true,
         "media_box_pt": [
-          404.84,
-          323.524
+          446.866,
+          337.922
         ]
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 125,
+        "n_words": 146,
         "n_pages_with_words": 1,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -1742,12 +2062,12 @@
       "min_text_height": {
         "threshold_pt": 4.5,
         "min_height_pt": 6.034,
-        "min_line_height_pt": 6.757,
-        "p05_height_pt": 6.757,
-        "median_height_pt": 7.689,
-        "n_words_measured": 125,
+        "min_line_height_pt": 6.058,
+        "p05_height_pt": 6.058,
+        "median_height_pt": 7.223,
+        "n_words_measured": 146,
         "n_below_threshold": 0,
-        "n_small_relative_words": 18,
+        "n_small_relative_words": 25,
         "n_degenerate_boxes": 0,
         "violations": [],
         "n_raw_boxes_below_threshold": 0,
@@ -1756,111 +2076,123 @@
         "small_relative_words": [
           {
             "page": 1,
-            "text": "61%",
-            "height_pt": 6.757,
-            "line_height_pt": 18.922
+            "text": "hiding",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "58%",
-            "height_pt": 6.757,
-            "line_height_pt": 18.922
+            "text": "(\u00b0C)",
+            "height_pt": 14.724,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
-            "text": "smooth",
-            "height_pt": 6.99,
-            "line_height_pt": 18.922
+            "text": "1.0",
+            "height_pt": 7.689,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "false",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "peak",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "\u2212",
+            "height_pt": 6.034,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "(\u00b0C)",
+            "height_pt": 14.724,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "mean",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "|error|",
+            "height_pt": 6.291,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "0.5",
+            "height_pt": 7.689,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "0.0",
+            "height_pt": 7.689,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "-0.5",
+            "height_pt": 7.689,
+            "line_height_pt": 39.838
+          },
+          {
+            "page": 1,
+            "text": "-1.0",
+            "height_pt": 7.689,
+            "line_height_pt": 39.838
+          },
+          {
+            "page": 1,
+            "text": "0.8",
+            "height_pt": 7.689,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "pooled",
+            "height_pt": 6.757,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "within",
+            "height_pt": 6.757,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "strata",
+            "height_pt": 6.757,
+            "line_height_pt": 45.058
+          },
+          {
+            "page": 1,
+            "text": "0.7",
+            "height_pt": 7.689,
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
             "text": "0.6",
             "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "51%",
-            "height_pt": 6.757,
-            "line_height_pt": 27.014
-          },
-          {
-            "page": 1,
-            "text": "interp.",
-            "height_pt": 6.99,
-            "line_height_pt": 27.014
-          },
-          {
-            "page": 1,
-            "text": "0.4",
-            "height_pt": 7.689,
-            "line_height_pt": 27.014
-          },
-          {
-            "page": 1,
-            "text": "donor",
-            "height_pt": 6.99,
-            "line_height_pt": 39.838
-          },
-          {
-            "page": 1,
-            "text": "0.2",
-            "height_pt": 7.689,
-            "line_height_pt": 39.838
-          },
-          {
-            "page": 1,
-            "text": "air",
-            "height_pt": 6.99,
-            "line_height_pt": 39.838
+            "line_height_pt": 45.058
           },
           {
             "page": 1,
             "text": "0.5",
             "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "0.4",
-            "height_pt": 7.689,
-            "line_height_pt": 31.025
-          },
-          {
-            "page": 1,
-            "text": "0.3",
-            "height_pt": 7.689,
-            "line_height_pt": 20.326
-          },
-          {
-            "page": 1,
-            "text": "0.5",
-            "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "0.4",
-            "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "0.3",
-            "height_pt": 7.689,
-            "line_height_pt": 31.025
-          },
-          {
-            "page": 1,
-            "text": "0.2",
-            "height_pt": 7.689,
-            "line_height_pt": 20.326
-          },
-          {
-            "page": 1,
-            "text": "0.1",
-            "height_pt": 7.689,
-            "line_height_pt": 20.326
+            "line_height_pt": 45.058
           }
         ],
         "ok": true,
@@ -1868,7 +2200,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 125,
+        "n_word_boxes": 146,
         "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -1878,8 +2210,8 @@
         "page_sizes": {
           "1": {
             "page": 1,
-            "width_pt": 404.839885,
-            "height_pt": 323.523625
+            "width_pt": 446.866301,
+            "height_pt": 337.92175
           }
         },
         "pairs": [],
@@ -1912,8 +2244,16 @@
             "script": "scripts/335_wrr_figures_v2.py",
             "n_mentions": 2,
             "first_lines": [
-              667,
-              846
+              690,
+              869
+            ],
+            "sample": "save(fig, \"f4_mechanism\")"
+          },
+          {
+            "script": "scripts/345_wrr_figures_r2.py",
+            "n_mentions": 1,
+            "first_lines": [
+              197
             ],
             "sample": "save(fig, \"f4_mechanism\")"
           }
@@ -1924,135 +2264,140 @@
         "upstream_pdf_candidates": [
           {
             "path": "figures/wrr/f4_mechanism.pdf",
-            "size_bytes": 20603,
+            "size_bytes": 23115,
             "identical_to_paper_copy": true
           }
         ],
         "kind": "python",
-        "referenced_in_tex": true
+        "referenced_in_tex": false
       },
       "print_placement": {
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "manuscript",
-        "page": 18,
-        "n_distinctive_words_matched": 23,
-        "n_pairs": 246,
-        "n_pairs_in_cluster": 246,
-        "cluster_fraction": 1.0,
-        "scale": 0.9782,
-        "scale_x": 0.9782,
-        "scale_y": 0.9782,
-        "cluster_rel_spread_pct": 0.0,
-        "confident": true,
+        "page": 13,
+        "n_distinctive_words_matched": 5,
+        "n_pairs": 10,
+        "n_pairs_in_cluster": 2,
+        "cluster_fraction": 0.2,
+        "scale": 3.804553,
+        "scale_x": 1.021631,
+        "scale_y": -0.273144,
+        "cluster_rel_spread_pct": 0.3078,
+        "confident": false,
         "other_candidates": [
           {
             "document": "manuscript",
-            "page": 12,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
+            "page": 14,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 9,
             "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.295956,
-            "scale_x": 1.883262,
-            "scale_y": -0.028227,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "supporting_information",
-            "page": 8,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.246329,
-            "scale_x": -2.232332,
-            "scale_y": -0.0,
+            "cluster_fraction": 0.1111,
+            "scale": 0.305144,
+            "scale_x": 0.061545,
+            "scale_y": -0.383019,
             "cluster_rel_spread_pct": 0.0
           },
           {
             "document": "manuscript",
-            "page": 15,
-            "n_distinctive_words_matched": 6,
-            "n_pairs": 15,
-            "n_pairs_in_cluster": 2,
-            "cluster_fraction": 0.1333,
-            "scale": 1.449226,
-            "scale_x": -0.140774,
-            "scale_y": 1.433771,
-            "cluster_rel_spread_pct": 0.4001
+            "page": 3,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 10,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1,
+            "scale": 0.451579,
+            "scale_x": 0.448699,
+            "scale_y": -0.452831,
+            "cluster_rel_spread_pct": 0.0
+          },
+          {
+            "document": "manuscript",
+            "page": 18,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 10,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1,
+            "scale": 0.180937,
+            "scale_x": -0.663168,
+            "scale_y": -0.0,
+            "cluster_rel_spread_pct": 0.0
           }
         ],
-        "printed_width_pt": 396.014,
-        "printed_width_in": 5.5002,
-        "effective_min_height_pt": 5.902,
-        "effective_p05_height_pt": 6.61
+        "printed_width_pt": 1700.125,
+        "printed_width_in": 23.6128,
+        "effective_min_height_pt": 22.957,
+        "effective_p05_height_pt": 23.048
       }
     },
     {
       "path": "paper/wrr/figures/f5_decision.pdf",
       "kind": "figure",
       "name": "f5_decision",
-      "size_bytes": 23702,
-      "sha256": "32f9d8cb6b3f3d30f3e83550a7d630d02c78af86c3238d0104167271041f2bf3",
+      "size_bytes": 25516,
+      "sha256": "8bd02f57f1540dffb82aacf150a0636e295f15cdee068c5e2d3851a203977d78",
       "hard_failures": [],
       "warnings": [
         {
           "file": "paper/wrr/figures/f5_decision.pdf",
           "check": "SMALL_RELATIVE_WORD_BOXES",
-          "detail": "55 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "detail": "30 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
           "locator": {
             "examples": [
               {
                 "page": 1,
-                "text": "solid:",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "nve_basin_88",
+                "height_pt": 5.709,
+                "line_height_pt": 12.931
               },
               {
                 "page": 1,
-                "text": "external",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "(6)",
+                "height_pt": 5.709,
+                "line_height_pt": 12.931
               },
               {
                 "page": 1,
-                "text": "panel",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "huc2_08",
+                "height_pt": 5.709,
+                "line_height_pt": 12.931
               },
               {
                 "page": 1,
-                "text": "hatched:",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "(6)",
+                "height_pt": 5.709,
+                "line_height_pt": 12.931
               },
               {
                 "page": 1,
-                "text": "development",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "huc6_071300",
+                "height_pt": 5.709,
+                "line_height_pt": 33.667
               },
               {
                 "page": 1,
-                "text": "bars:",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "(4)",
+                "height_pt": 5.709,
+                "line_height_pt": 33.667
               },
               {
                 "page": 1,
-                "text": "mean",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "huc4_0601",
+                "height_pt": 5.709,
+                "line_height_pt": 33.667
               },
               {
                 "page": 1,
-                "text": "of",
-                "height_pt": 6.058,
-                "line_height_pt": 18.922
+                "text": "(6)",
+                "height_pt": 5.709,
+                "line_height_pt": 33.667
               }
             ]
           }
+        },
+        {
+          "file": "paper/wrr/figures/f5_decision.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
         }
       ],
       "fonts": {
@@ -2084,12 +2429,12 @@
         "info_available": true,
         "pages": 1,
         "page_size_pt": [
-          422.75,
-          337.699
+          435.521,
+          351.888
         ],
         "page_size_in": [
-          5.8715,
-          4.6903
+          6.0489,
+          4.8873
         ],
         "page_rot": "0",
         "encrypted": "no",
@@ -2098,26 +2443,26 @@
         "pdf_version": "1.4",
         "distinct_page_sizes": [
           [
-            422.75,
-            337.699
+            435.521,
+            351.888
           ]
         ],
         "uniform_page_size": true,
         "per_page_size_pt": {
           "1": [
-            422.75,
-            337.699
+            435.521,
+            351.888
           ]
         },
         "is_single_page": true,
         "media_box_pt": [
-          422.75,
-          337.699
+          435.521,
+          351.888
         ]
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 191,
+        "n_words": 206,
         "n_pages_with_words": 1,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -2130,13 +2475,13 @@
       "ink_checks": [],
       "min_text_height": {
         "threshold_pt": 4.5,
-        "min_height_pt": 6.058,
-        "min_line_height_pt": 6.524,
-        "p05_height_pt": 6.058,
+        "min_height_pt": 5.708,
+        "min_line_height_pt": 5.709,
+        "p05_height_pt": 5.709,
         "median_height_pt": 7.689,
-        "n_words_measured": 191,
+        "n_words_measured": 206,
         "n_below_threshold": 0,
-        "n_small_relative_words": 55,
+        "n_small_relative_words": 30,
         "n_degenerate_boxes": 0,
         "violations": [],
         "n_raw_boxes_below_threshold": 0,
@@ -2145,92 +2490,50 @@
         "small_relative_words": [
           {
             "page": 1,
-            "text": "solid:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "nve_basin_88",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
           },
           {
             "page": 1,
-            "text": "external",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
           },
           {
             "page": 1,
-            "text": "panel",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "huc2_08",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
           },
           {
             "page": 1,
-            "text": "hatched:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 12.931
           },
           {
             "page": 1,
-            "text": "development",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "huc6_071300",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
           },
           {
             "page": 1,
-            "text": "bars:",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "(4)",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
           },
           {
             "page": 1,
-            "text": "mean",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
+            "text": "huc4_0601",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
           },
           {
             "page": 1,
-            "text": "of",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "3",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "fold",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "seeds",
-            "height_pt": 6.058,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "100",
-            "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "80",
-            "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "60",
-            "height_pt": 7.689,
-            "line_height_pt": 18.922
-          },
-          {
-            "page": 1,
-            "text": "40",
-            "height_pt": 7.689,
+            "text": "(6)",
+            "height_pt": 5.709,
             "line_height_pt": 33.667
           },
           {
@@ -2241,27 +2544,69 @@
           },
           {
             "page": 1,
-            "text": "4",
+            "text": "huc2_15",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "(3)",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "huc8_03110206",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "(6)",
+            "height_pt": 5.709,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "predicted",
+            "height_pt": 6.058,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "from",
+            "height_pt": 6.058,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "gap",
+            "height_pt": 6.058,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "calendar",
+            "height_pt": 6.058,
+            "line_height_pt": 33.667
+          },
+          {
+            "page": 1,
+            "text": "40",
             "height_pt": 7.689,
-            "line_height_pt": 18.922
+            "line_height_pt": 27.569
           },
           {
             "page": 1,
-            "text": "true",
-            "height_pt": 15.235,
-            "line_height_pt": 34.294
+            "text": "fitted",
+            "height_pt": 6.058,
+            "line_height_pt": 27.569
           },
           {
             "page": 1,
-            "text": "hot",
-            "height_pt": 11.866,
-            "line_height_pt": 34.294
-          },
-          {
-            "page": 1,
-            "text": "kept",
-            "height_pt": 6.524,
-            "line_height_pt": 18.855
+            "text": "score",
+            "height_pt": 6.058,
+            "line_height_pt": 27.569
           }
         ],
         "ok": true,
@@ -2269,7 +2614,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 191,
+        "n_word_boxes": 206,
         "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -2279,8 +2624,8 @@
         "page_sizes": {
           "1": {
             "page": 1,
-            "width_pt": 422.750049,
-            "height_pt": 337.698945
+            "width_pt": 435.521154,
+            "height_pt": 351.888252
           }
         },
         "pairs": [],
@@ -2313,8 +2658,16 @@
             "script": "scripts/335_wrr_figures_v2.py",
             "n_mentions": 2,
             "first_lines": [
-              833,
-              846
+              856,
+              869
+            ],
+            "sample": "save(fig, \"f5_decision\")"
+          },
+          {
+            "script": "scripts/345_wrr_figures_r2.py",
+            "n_mentions": 1,
+            "first_lines": [
+              327
             ],
             "sample": "save(fig, \"f5_decision\")"
           }
@@ -2325,8 +2678,200 @@
         "upstream_pdf_candidates": [
           {
             "path": "figures/wrr/f5_decision.pdf",
-            "size_bytes": 23702,
+            "size_bytes": 25516,
             "identical_to_paper_copy": false
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": false
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "manuscript",
+        "page": 16,
+        "n_distinctive_words_matched": 5,
+        "n_pairs": 10,
+        "n_pairs_in_cluster": 1,
+        "cluster_fraction": 0.1,
+        "scale": 0.778475,
+        "scale_x": -0.778475,
+        "scale_y": null,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": false,
+        "other_candidates": [],
+        "printed_width_pt": 339.042,
+        "printed_width_in": 4.7089,
+        "effective_min_height_pt": 4.444,
+        "effective_p05_height_pt": 4.444
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_f1_recovery.pdf",
+      "kind": "figure",
+      "name": "r3_f1_recovery",
+      "size_bytes": 16749,
+      "sha256": "11ca45246688b25e1ff91f4cf85cb13015e9156c7598fd2a6f38f695c98a9ae0",
+      "hard_failures": [],
+      "warnings": [],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.647,
+          242.4
+        ],
+        "page_size_in": [
+          7.2173,
+          3.3667
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.647,
+            242.4
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.647,
+            242.4
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.647,
+          242.4
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 62,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 10.194,
+        "n_words_measured": 62,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 0,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 62,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.64655,
+            "height_pt": 242.39952
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_f1_recovery.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              60
+            ],
+            "sample": "save(figure, \"r3_f1_recovery\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_f1_recovery.pdf",
+            "size_bytes": 16749,
+            "identical_to_paper_copy": true
           }
         ],
         "kind": "python",
@@ -2336,41 +2881,1274 @@
         "measured": true,
         "method": "unique-word pairwise distance ratio",
         "document": "manuscript",
-        "page": 20,
-        "n_distinctive_words_matched": 21,
-        "n_pairs": 200,
-        "n_pairs_in_cluster": 200,
+        "page": 11,
+        "n_distinctive_words_matched": 11,
+        "n_pairs": 54,
+        "n_pairs_in_cluster": 54,
         "cluster_fraction": 1.0,
-        "scale": 0.93677,
-        "scale_x": 0.93677,
-        "scale_y": 0.93677,
+        "scale": 0.76205,
+        "scale_x": 0.76205,
+        "scale_y": 0.76205,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [
+          {
+            "document": "supporting_information",
+            "page": 35,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1667,
+            "scale": 0.789371,
+            "scale_x": -0.0,
+            "scale_y": 0.990293,
+            "cluster_rel_spread_pct": 0.0
+          }
+        ],
+        "printed_width_pt": 395.997,
+        "printed_width_in": 5.5,
+        "effective_min_height_pt": 7.102,
+        "effective_p05_height_pt": 7.102
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_f2_channels.pdf",
+      "kind": "figure",
+      "name": "r3_f2_channels",
+      "size_bytes": 218567,
+      "sha256": "f2bce8bb7dcac2242ec9cc87e28fb04f9a203c4c344708bfeed75ccf38db3b64",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/r3_f2_channels.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "12 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 1,
+                "text": "H30",
+                "height_pt": 18.216,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "mean",
+                "height_pt": 25.524,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "error",
+                "height_pt": 21.796,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "1.50",
+                "height_pt": 9.903,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "1.25",
+                "height_pt": 9.903,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "1.00",
+                "height_pt": 9.903,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "0.75",
+                "height_pt": 9.903,
+                "line_height_pt": 67.492
+              },
+              {
+                "page": 1,
+                "text": "0.50",
+                "height_pt": 9.903,
+                "line_height_pt": 67.492
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.6,
+          242.4
+        ],
+        "page_size_in": [
+          7.2167,
+          3.3667
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.6,
+            242.4
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.6,
+            242.4
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.6,
+          242.4
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 60,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 9.903,
+        "n_words_measured": 60,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 12,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 1,
+            "text": "H30",
+            "height_pt": 18.216,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "mean",
+            "height_pt": 25.524,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "error",
+            "height_pt": 21.796,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.50",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.25",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "1.00",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.75",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.50",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.4",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.3",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.2",
+            "height_pt": 9.903,
+            "line_height_pt": 67.492
+          },
+          {
+            "page": 1,
+            "text": "0.1",
+            "height_pt": 9.902,
+            "line_height_pt": 67.492
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 60,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.59952,
+            "height_pt": 242.39952
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 2,
+        "images": [
+          {
+            "page": 1,
+            "num": 0,
+            "type": "image",
+            "width_px": 1187,
+            "height_px": 1042,
+            "color": "rgb",
+            "components": 3,
+            "bits_per_component": 8,
+            "encoding": "image",
+            "interpolate": "no",
+            "object_id": "13",
+            "x_ppi": 400.0,
+            "y_ppi": 400.0,
+            "min_ppi": 400.0,
+            "bytes": "107K",
+            "ratio": "3.0%",
+            "below_300_dpi": false
+          },
+          {
+            "page": 1,
+            "num": 1,
+            "type": "smask",
+            "width_px": 1187,
+            "height_px": 1042,
+            "color": "gray",
+            "components": 1,
+            "bits_per_component": 8,
+            "encoding": "image",
+            "interpolate": "no",
+            "object_id": "13",
+            "x_ppi": 400.0,
+            "y_ppi": 400.0,
+            "min_ppi": 400.0,
+            "bytes": "90.4K",
+            "ratio": "7.5%",
+            "below_300_dpi": false
+          }
+        ],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": 400.0
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_f2_channels.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              87
+            ],
+            "sample": "save(figure, \"r3_f2_channels\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_f2_channels.pdf",
+            "size_bytes": 218567,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "manuscript",
+        "page": 12,
+        "n_distinctive_words_matched": 16,
+        "n_pairs": 118,
+        "n_pairs_in_cluster": 118,
+        "cluster_fraction": 1.0,
+        "scale": 0.76215,
+        "scale_x": 0.76215,
+        "scale_y": 0.76215,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [],
+        "printed_width_pt": 396.013,
+        "printed_width_in": 5.5002,
+        "effective_min_height_pt": 7.103,
+        "effective_p05_height_pt": 7.103
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_f3_information.pdf",
+      "kind": "figure",
+      "name": "r3_f3_information",
+      "size_bytes": 17783,
+      "sha256": "e65089a53a9524fa59049856d94a7e02a294a4dc2afc20b05780b5ac0a7cd5a9",
+      "hard_failures": [],
+      "warnings": [],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          554.318,
+          310.8
+        ],
+        "page_size_in": [
+          7.6989,
+          4.3167
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            554.318,
+            310.8
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            554.318,
+            310.8
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          554.318,
+          310.8
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 65,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 9.903,
+        "n_words_measured": 65,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 0,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 65,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 554.31831,
+            "height_pt": 310.79952
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_f3_information.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              118
+            ],
+            "sample": "save(figure, \"r3_f3_information\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_f3_information.pdf",
+            "size_bytes": 17783,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "manuscript",
+        "page": 13,
+        "n_distinctive_words_matched": 19,
+        "n_pairs": 170,
+        "n_pairs_in_cluster": 170,
+        "cluster_fraction": 1.0,
+        "scale": 0.71442,
+        "scale_x": 0.71442,
+        "scale_y": 0.71442,
         "cluster_rel_spread_pct": 0.0,
         "confident": true,
         "other_candidates": [
           {
             "document": "manuscript",
-            "page": 2,
+            "page": 12,
             "n_distinctive_words_matched": 5,
             "n_pairs": 10,
             "n_pairs_in_cluster": 2,
             "cluster_fraction": 0.2,
-            "scale": 0.636728,
-            "scale_x": 0.777687,
-            "scale_y": -0.914511,
-            "cluster_rel_spread_pct": 0.3908
+            "scale": 0.363332,
+            "scale_x": 0.168547,
+            "scale_y": -1.54855,
+            "cluster_rel_spread_pct": 0.2413
           },
           {
             "document": "manuscript",
-            "page": 8,
+            "page": 9,
             "n_distinctive_words_matched": 4,
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.460128,
-            "scale_x": 0.413125,
-            "scale_y": 0.681802,
+            "scale": 0.056169,
+            "scale_x": -0.020735,
+            "scale_y": -0.861344,
             "cluster_rel_spread_pct": 0.0
           },
+          {
+            "document": "supporting_information",
+            "page": 14,
+            "n_distinctive_words_matched": 8,
+            "n_pairs": 28,
+            "n_pairs_in_cluster": 2,
+            "cluster_fraction": 0.0714,
+            "scale": 2.187545,
+            "scale_x": 0.934342,
+            "scale_y": 2.42302,
+            "cluster_rel_spread_pct": 0.4101
+          }
+        ],
+        "printed_width_pt": 396.016,
+        "printed_width_in": 5.5002,
+        "effective_min_height_pt": 6.658,
+        "effective_p05_height_pt": 6.658
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_f4_transfer.pdf",
+      "kind": "figure",
+      "name": "r3_f4_transfer",
+      "size_bytes": 16018,
+      "sha256": "2e74e7c66981fed1479a44a1eb91160c87bf3a0dacd49cf43e93646c7cab8317",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/r3_f4_transfer.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "8 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 1,
+                "text": "(%)",
+                "height_pt": 15.57,
+                "line_height_pt": 40.806
+              },
+              {
+                "page": 1,
+                "text": "40",
+                "height_pt": 9.903,
+                "line_height_pt": 40.806
+              },
+              {
+                "page": 1,
+                "text": "30",
+                "height_pt": 9.902,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "20",
+                "height_pt": 9.903,
+                "line_height_pt": 34.325
+              },
+              {
+                "page": 1,
+                "text": "10",
+                "height_pt": 9.902,
+                "line_height_pt": 40.806
+              },
+              {
+                "page": 1,
+                "text": "8",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "6",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "4",
+                "height_pt": 9.903,
+                "line_height_pt": 34.325
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.6,
+          281.576
+        ],
+        "page_size_in": [
+          7.2167,
+          3.9108
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.6,
+            281.576
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.6,
+            281.576
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.6,
+          281.576
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 68,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 10.485,
+        "n_words_measured": 68,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 8,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "40",
+            "height_pt": 9.903,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "30",
+            "height_pt": 9.902,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "20",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "10",
+            "height_pt": 9.902,
+            "line_height_pt": 40.806
+          },
+          {
+            "page": 1,
+            "text": "8",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "6",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "4",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 68,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.59952,
+            "height_pt": 281.57576
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_f4_transfer.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              142
+            ],
+            "sample": "save(figure, \"r3_f4_transfer\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_f4_transfer.pdf",
+            "size_bytes": 16018,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "manuscript",
+        "page": 15,
+        "n_distinctive_words_matched": 11,
+        "n_pairs": 55,
+        "n_pairs_in_cluster": 55,
+        "cluster_fraction": 1.0,
+        "scale": 0.76215,
+        "scale_x": 0.76215,
+        "scale_y": 0.76215,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [
+          {
+            "document": "supporting_information",
+            "page": 41,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 3,
+            "cluster_fraction": 0.5,
+            "scale": 0.76215,
+            "scale_x": null,
+            "scale_y": 0.76215,
+            "cluster_rel_spread_pct": 0.0
+          },
+          {
+            "document": "manuscript",
+            "page": 2,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 2,
+            "cluster_fraction": 0.3333,
+            "scale": 1.085925,
+            "scale_x": -1.695967,
+            "scale_y": -0.98698,
+            "cluster_rel_spread_pct": 0.1514
+          },
+          {
+            "document": "manuscript",
+            "page": 19,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1667,
+            "scale": 0.365106,
+            "scale_x": -0.200272,
+            "scale_y": -0.432284,
+            "cluster_rel_spread_pct": 0.0
+          }
+        ],
+        "printed_width_pt": 396.013,
+        "printed_width_in": 5.5002,
+        "effective_min_height_pt": 7.103,
+        "effective_p05_height_pt": 7.103
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_f5_utility.pdf",
+      "kind": "figure",
+      "name": "r3_f5_utility",
+      "size_bytes": 17207,
+      "sha256": "0d0e9124ca0c157464f3571df6ad53b5473b858ca6ac8a0997270e83fe94b14d",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/r3_f5_utility.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "11 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 1,
+                "text": "80",
+                "height_pt": 9.903,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "60",
+                "height_pt": 9.903,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "40",
+                "height_pt": 9.903,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "20",
+                "height_pt": 9.902,
+                "line_height_pt": 45.326
+              },
+              {
+                "page": 1,
+                "text": "pool",
+                "height_pt": 19.233,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "(%)",
+                "height_pt": 15.57,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "0.0",
+                "height_pt": 9.903,
+                "line_height_pt": 65.234
+              },
+              {
+                "page": 1,
+                "text": "\u22120.2",
+                "height_pt": 9.902,
+                "line_height_pt": 65.234
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.438,
+          269.231
+        ],
+        "page_size_in": [
+          7.2144,
+          3.7393
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.438,
+            269.231
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.438,
+            269.231
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.438,
+          269.231
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 71,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 9.902,
+        "n_words_measured": 71,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 11,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 1,
+            "text": "80",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "60",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "40",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "20",
+            "height_pt": 9.902,
+            "line_height_pt": 45.326
+          },
+          {
+            "page": 1,
+            "text": "pool",
+            "height_pt": 19.233,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "0.0",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "\u22120.2",
+            "height_pt": 9.902,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "\u22120.4",
+            "height_pt": 9.903,
+            "line_height_pt": 65.234
+          },
+          {
+            "page": 1,
+            "text": "\u22120.6",
+            "height_pt": 9.903,
+            "line_height_pt": 45.326
+          },
+          {
+            "page": 1,
+            "text": "\u22120.8",
+            "height_pt": 9.903,
+            "line_height_pt": 45.326
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 71,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.43757,
+            "height_pt": 269.231321
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_f5_utility.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              174
+            ],
+            "sample": "save(figure, \"r3_f5_utility\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_f5_utility.pdf",
+            "size_bytes": 17207,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "manuscript",
+        "page": 16,
+        "n_distinctive_words_matched": 20,
+        "n_pairs": 186,
+        "n_pairs_in_cluster": 186,
+        "cluster_fraction": 1.0,
+        "scale": 0.76237,
+        "scale_x": 0.76237,
+        "scale_y": 0.76237,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [
           {
             "document": "manuscript",
             "page": 10,
@@ -2378,26 +4156,614 @@
             "n_pairs": 6,
             "n_pairs_in_cluster": 1,
             "cluster_fraction": 0.1667,
-            "scale": 0.722225,
-            "scale_x": 1.080259,
-            "scale_y": -0.267006,
+            "scale": 0.135947,
+            "scale_x": -0.0849,
+            "scale_y": -0.200719,
+            "cluster_rel_spread_pct": 0.0
+          },
+          {
+            "document": "manuscript",
+            "page": 19,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1667,
+            "scale": 0.703198,
+            "scale_x": 0.708308,
+            "scale_y": 0.0,
+            "cluster_rel_spread_pct": 0.0
+          },
+          {
+            "document": "supporting_information",
+            "page": 5,
+            "n_distinctive_words_matched": 4,
+            "n_pairs": 6,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.1667,
+            "scale": 0.197751,
+            "scale_x": -0.147225,
+            "scale_y": null,
             "cluster_rel_spread_pct": 0.0
           }
         ],
-        "printed_width_pt": 396.02,
-        "printed_width_in": 5.5003,
-        "effective_min_height_pt": 5.675,
-        "effective_p05_height_pt": 5.675
+        "printed_width_pt": 396.004,
+        "printed_width_in": 5.5001,
+        "effective_min_height_pt": 7.105,
+        "effective_p05_height_pt": 7.105
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_s1_learning.pdf",
+      "kind": "figure",
+      "name": "r3_s1_learning",
+      "size_bytes": 16380,
+      "sha256": "bd88ca8c5e1465a205ed81e6d395d3be8d6cea185fd0cc5d2555992ae830bf4b",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/r3_s1_learning.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "2 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 1,
+                "text": "72.5",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "70.0",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.6,
+          253.2
+        ],
+        "page_size_in": [
+          7.2167,
+          3.5167
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.6,
+            253.2
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.6,
+            253.2
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.6,
+          253.2
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 41,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 9.32,
+        "n_words_measured": 41,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 2,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 1,
+            "text": "72.5",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "70.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 41,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.59952,
+            "height_pt": 253.19952
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_s1_learning.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              190
+            ],
+            "sample": "save(figure, \"r3_s1_learning\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_s1_learning.pdf",
+            "size_bytes": 16380,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "supporting_information",
+        "page": 41,
+        "n_distinctive_words_matched": 8,
+        "n_pairs": 26,
+        "n_pairs_in_cluster": 26,
+        "cluster_fraction": 1.0,
+        "scale": 0.76215,
+        "scale_x": 0.76215,
+        "scale_y": 0.76215,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [
+          {
+            "document": "manuscript",
+            "page": 13,
+            "n_distinctive_words_matched": 6,
+            "n_pairs": 15,
+            "n_pairs_in_cluster": 1,
+            "cluster_fraction": 0.0667,
+            "scale": 0.036467,
+            "scale_x": -0.0,
+            "scale_y": null,
+            "cluster_rel_spread_pct": 0.0
+          }
+        ],
+        "printed_width_pt": 396.013,
+        "printed_width_in": 5.5002,
+        "effective_min_height_pt": 7.103,
+        "effective_p05_height_pt": 7.103
+      }
+    },
+    {
+      "path": "paper/wrr/figures/r3_s2_cofailure.pdf",
+      "kind": "figure",
+      "name": "r3_s2_cofailure",
+      "size_bytes": 16355,
+      "sha256": "503dee0269e64b6f32b432999454b457554d53b8251c9ac36ca5737e0e60b457",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/r3_s2_cofailure.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "9 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 1,
+                "text": "(%)",
+                "height_pt": 15.57,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "80.0",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "77.5",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "75.0",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "72.5",
+                "height_pt": 9.903,
+                "line_height_pt": 34.325
+              },
+              {
+                "page": 1,
+                "text": "70.0",
+                "height_pt": 9.903,
+                "line_height_pt": 34.325
+              },
+              {
+                "page": 1,
+                "text": "8",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              },
+              {
+                "page": 1,
+                "text": "6",
+                "height_pt": 9.903,
+                "line_height_pt": 43.412
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 1,
+        "records": [
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 1
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 1,
+        "page_size_pt": [
+          519.6,
+          253.2
+        ],
+        "page_size_in": [
+          7.2167,
+          3.5167
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "Matplotlib pdf backend v3.9.2",
+        "creator": "Matplotlib v3.9.2, https://matplotlib.org",
+        "pdf_version": "1.4",
+        "distinct_page_sizes": [
+          [
+            519.6,
+            253.2
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            519.6,
+            253.2
+          ]
+        },
+        "is_single_page": true,
+        "media_box_pt": [
+          519.6,
+          253.2
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 49,
+        "n_pages_with_words": 1,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 9.32,
+        "min_line_height_pt": 9.32,
+        "p05_height_pt": 9.32,
+        "median_height_pt": 10.485,
+        "n_words_measured": 49,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 9,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 0,
+        "raw_boxes_below_threshold": [],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 1,
+            "text": "(%)",
+            "height_pt": 15.57,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "80.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "77.5",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "75.0",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "72.5",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "70.0",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          },
+          {
+            "page": 1,
+            "text": "8",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "6",
+            "height_pt": 9.903,
+            "line_height_pt": 43.412
+          },
+          {
+            "page": 1,
+            "text": "4",
+            "height_pt": 9.903,
+            "line_height_pt": 34.325
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 49,
+        "n_candidate_pairs": 0,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {},
+        "n_same_baseline_pairs": 0,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 519.59952,
+            "height_pt": 253.19952
+          }
+        },
+        "pairs": [],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 0,
+        "images": [],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": null
+      },
+      "provenance": {
+        "drawio_source_expected": "figures/v17/drawio/r3_s2_cofailure.drawio",
+        "drawio_source_exists": false,
+        "drawio_sources_in_repo": [],
+        "python_generators": [
+          {
+            "script": "scripts/368_wrr_revision_figures.py",
+            "n_mentions": 1,
+            "first_lines": [
+              215
+            ],
+            "sample": "save(figure, \"r3_s2_cofailure\")"
+          },
+          {
+            "script": "scripts/370_wrr_revision_completion.py",
+            "n_mentions": 1,
+            "first_lines": [
+              146
+            ],
+            "sample": "for name in (\"r3_f1_recovery\", \"r3_f2_channels\", \"r3_f3_information\", \"r3_f4_transfer\", \"r3_f5_utility\", \"r3_s1_learning\", \"r3_s2_cofailure\"):"
+          }
+        ],
+        "schematic": false,
+        "schematic_reason": null,
+        "schematic_list_is_explicit": true,
+        "upstream_pdf_candidates": [
+          {
+            "path": "figures/wrr/r3_s2_cofailure.pdf",
+            "size_bytes": 16355,
+            "identical_to_paper_copy": true
+          }
+        ],
+        "kind": "python",
+        "referenced_in_tex": true
+      },
+      "print_placement": {
+        "measured": true,
+        "method": "unique-word pairwise distance ratio",
+        "document": "supporting_information",
+        "page": 41,
+        "n_distinctive_words_matched": 12,
+        "n_pairs": 63,
+        "n_pairs_in_cluster": 63,
+        "cluster_fraction": 1.0,
+        "scale": 0.76215,
+        "scale_x": 0.76215,
+        "scale_y": 0.76215,
+        "cluster_rel_spread_pct": 0.0,
+        "confident": true,
+        "other_candidates": [
+          {
+            "document": "manuscript",
+            "page": 15,
+            "n_distinctive_words_matched": 5,
+            "n_pairs": 10,
+            "n_pairs_in_cluster": 3,
+            "cluster_fraction": 0.3,
+            "scale": 0.750455,
+            "scale_x": 0.750249,
+            "scale_y": 0.76215,
+            "cluster_rel_spread_pct": 0.0413
+          }
+        ],
+        "printed_width_pt": 396.013,
+        "printed_width_in": 5.5002,
+        "effective_min_height_pt": 7.103,
+        "effective_p05_height_pt": 7.103
       }
     },
     {
       "path": "paper/wrr/figures/s1_study_design.pdf",
       "kind": "figure",
       "name": "s1_study_design",
-      "size_bytes": 22317,
-      "sha256": "e8f58c7508554ae364db67e42417be06c13998c96f628456081c723759fab653",
+      "size_bytes": 22630,
+      "sha256": "364af0268ffa56c9398902b8b1f14f654fec4b10a693a6ea62730d1d9c7f1e0a",
       "hard_failures": [],
-      "warnings": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/figures/s1_study_design.pdf",
+          "check": "FIGURE_NOT_REFERENCED",
+          "detail": "no \\includegraphics in paper/wrr/*.tex refers to this figure PDF"
+        }
+      ],
       "fonts": {
         "n_fonts": 2,
         "records": [
@@ -2470,7 +4836,7 @@
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 58,
+        "n_words": 62,
         "n_pages_with_words": 1,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
@@ -2487,7 +4853,7 @@
         "min_line_height_pt": 7.157,
         "p05_height_pt": 7.157,
         "median_height_pt": 7.157,
-        "n_words_measured": 58,
+        "n_words_measured": 62,
         "n_below_threshold": 0,
         "n_small_relative_words": 0,
         "n_degenerate_boxes": 0,
@@ -2501,7 +4867,7 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 58,
+        "n_word_boxes": 62,
         "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
@@ -2547,7 +4913,7 @@
             "script": "scripts/335_wrr_figures_v2.py",
             "n_mentions": 1,
             "first_lines": [
-              846
+              869
             ],
             "sample": "\"figures\": [\"f1_support\", \"f2_system_design\", \"f3_reconstructor\", \"f4_mechanism\", \"f5_decision\", \"s1_study_design\"],"
           },
@@ -2567,152 +4933,109 @@
         "upstream_pdf_candidates": [
           {
             "path": "figures/wrr/s1_study_design.pdf",
-            "size_bytes": 22317,
+            "size_bytes": 22630,
             "identical_to_paper_copy": false
           }
         ],
         "kind": "drawio+python",
-        "referenced_in_tex": true
+        "referenced_in_tex": false
       },
       "print_placement": {
-        "measured": true,
+        "measured": false,
         "method": "unique-word pairwise distance ratio",
-        "document": "supporting_information",
-        "page": 13,
-        "n_distinctive_words_matched": 19,
-        "n_pairs": 160,
-        "n_pairs_in_cluster": 160,
-        "cluster_fraction": 1.0,
-        "scale": 1.03908,
-        "scale_x": 1.03908,
-        "scale_y": 1.03908,
-        "cluster_rel_spread_pct": 0.0,
-        "confident": true,
-        "other_candidates": [
-          {
-            "document": "manuscript",
-            "page": 19,
-            "n_distinctive_words_matched": 4,
-            "n_pairs": 6,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1667,
-            "scale": 0.85923,
-            "scale_x": -0.495205,
-            "scale_y": 29.391054,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 5,
-            "n_distinctive_words_matched": 5,
-            "n_pairs": 9,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1111,
-            "scale": 0.341914,
-            "scale_x": 0.270508,
-            "scale_y": 4.665426,
-            "cluster_rel_spread_pct": 0.0
-          },
-          {
-            "document": "manuscript",
-            "page": 24,
-            "n_distinctive_words_matched": 5,
-            "n_pairs": 9,
-            "n_pairs_in_cluster": 1,
-            "cluster_fraction": 0.1111,
-            "scale": 0.550457,
-            "scale_x": -0.645179,
-            "scale_y": -0.0,
-            "cluster_rel_spread_pct": 0.0
-          }
-        ],
-        "printed_width_pt": 396.014,
-        "printed_width_in": 5.5002,
-        "effective_min_height_pt": 7.437,
-        "effective_p05_height_pt": 7.437
+        "reason": "no built-PDF page carried enough unique figure words"
       }
     },
     {
       "path": "paper/wrr/wrr_manuscript.pdf",
       "kind": "manuscript",
       "name": "wrr_manuscript",
-      "size_bytes": 447115,
-      "sha256": "bb5e29a04d3c776ad895b3930b4cf573cf8cc4898c5a02cd89d534dbe167f12d",
+      "size_bytes": 575190,
+      "sha256": "d57bc9a6798f8b8e9c0de099567dc8db307b7ad1f6e9df1e3c1f566b9fa75843",
       "hard_failures": [],
       "warnings": [
         {
           "file": "paper/wrr/wrr_manuscript.pdf",
           "check": "SMALL_RELATIVE_WORD_BOXES",
-          "detail": "127 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "detail": "31 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
           "locator": {
             "examples": [
               {
-                "page": 6,
-                "text": "0.8",
-                "height_pt": 7.583,
-                "line_height_pt": 18.661
+                "page": 12,
+                "text": "H30",
+                "height_pt": 13.883,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "0.6",
-                "height_pt": 7.583,
-                "line_height_pt": 30.598
+                "page": 12,
+                "text": "mean",
+                "height_pt": 19.453,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "0.4",
-                "height_pt": 7.583,
-                "line_height_pt": 30.598
+                "page": 12,
+                "text": "error",
+                "height_pt": 16.612,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "0.2",
-                "height_pt": 7.583,
-                "line_height_pt": 19.741
+                "page": 12,
+                "text": "1.50",
+                "height_pt": 7.547,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "peak",
-                "height_pt": 6.894,
-                "line_height_pt": 18.661
+                "page": 12,
+                "text": "1.25",
+                "height_pt": 7.547,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "fully",
-                "height_pt": 6.894,
-                "line_height_pt": 18.661
+                "page": 12,
+                "text": "1.00",
+                "height_pt": 7.547,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "hidden",
-                "height_pt": 6.894,
-                "line_height_pt": 18.661
+                "page": 12,
+                "text": "0.75",
+                "height_pt": 7.547,
+                "line_height_pt": 51.439
               },
               {
-                "page": 6,
-                "text": "(share",
-                "height_pt": 6.894,
-                "line_height_pt": 18.661
+                "page": 12,
+                "text": "0.50",
+                "height_pt": 7.547,
+                "line_height_pt": 51.439
               }
             ]
           }
         },
         {
           "file": "paper/wrr/wrr_manuscript.pdf",
+          "check": "OVERLAPPING_TEXT_SAME_BASELINE",
+          "detail": "2 word-box pair(s) share a baseline and overlap horizontally (real text collision candidates)",
+          "locator": {
+            "n_pairs": 2
+          }
+        },
+        {
+          "file": "paper/wrr/wrr_manuscript.pdf",
           "check": "OVERLAPPING_WORD_BOXES",
-          "detail": "2 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render",
+          "detail": "6 further word-box pair(s) overlap above 25% of the smaller box; box padding/rotated-text artifacts, verify against the render",
           "locator": {
             "counts_by_kind": {
-              "atypical_box_geometry": 2
+              "adjacent_line_padding": 6,
+              "same_baseline_horizontal": 2
             }
           }
         }
       ],
       "fonts": {
-        "n_fonts": 27,
+        "n_fonts": 25,
         "records": [
           {
-            "name": "SYBUCA+CMR9",
+            "name": "VZRDQI+CMR9",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2732,7 +5055,7 @@
             "unnamed": false
           },
           {
-            "name": "QOKLOD+CMBX12",
+            "name": "BBLXWI+CMBX12",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2742,7 +5065,7 @@
             "unnamed": false
           },
           {
-            "name": "AQPWGA+CMBX10",
+            "name": "HRAQMR+CMBX10",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2752,7 +5075,7 @@
             "unnamed": false
           },
           {
-            "name": "NEOSVS+CMR7",
+            "name": "LIJRAX+CMR7",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2772,7 +5095,7 @@
             "unnamed": false
           },
           {
-            "name": "LFXWYP+CMR8",
+            "name": "CTJEQY+CMR8",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2792,7 +5115,7 @@
             "unnamed": false
           },
           {
-            "name": "FYBGPS+CMR10",
+            "name": "WEANPU+CMR10",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2802,53 +5125,13 @@
             "unnamed": false
           },
           {
-            "name": "EBDJTW+CMSY7",
+            "name": "ADYCIT+CMSY7",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
             "subset": true,
             "unicode": true,
             "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "ZBOEON+CMMI10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "MKAKBF+CMSY10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "PSEEVR+CMMI7",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "YQJSDJ+CMEX10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMEX",
             "unnamed": false
           },
           {
@@ -2862,46 +5145,6 @@
             "unnamed": false
           },
           {
-            "name": "OFIAAI+CMTT9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTT",
-            "unnamed": false
-          },
-          {
-            "name": "BXGEVL+DejaVuSerif",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "DejaVuSerif",
-            "unnamed": false
-          },
-          {
-            "name": "WXMJIW+CMBX8",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMBX",
-            "unnamed": false
-          },
-          {
-            "name": "WVKXCV+CMTI10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTI",
-            "unnamed": false
-          },
-          {
             "name": "EWZFDL+CMSY6",
             "type": "Type 1",
             "encoding": "Builtin",
@@ -2912,67 +5155,127 @@
             "unnamed": false
           },
           {
-            "name": "AAAAAA+LiberationSans-Bold",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "LiberationSansBold",
-            "unnamed": false
-          },
-          {
-            "name": "BAAAAA+LiberationSans",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "LiberationSans",
-            "unnamed": false
-          },
-          {
-            "name": "ESPQBB+CMBXTI10",
+            "name": "SKGVPC+CMTI10",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
             "subset": true,
             "unicode": true,
-            "base_name": "CMBXTI",
+            "base_name": "CMTI",
             "unnamed": false
           },
           {
-            "name": "BXGEVL+DejaVuSerif",
+            "name": "GULVMD+CMMI10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMMI",
+            "unnamed": false
+          },
+          {
+            "name": "UFGIGW+CMMI7",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMMI",
+            "unnamed": false
+          },
+          {
+            "name": "GAPCCW+CMR5",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "MRINOC+CMEX10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMEX",
+            "unnamed": false
+          },
+          {
+            "name": "PUTVJX+CMSY10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMSY",
+            "unnamed": false
+          },
+          {
+            "name": "RUJQGK+CMEX7",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMEX",
+            "unnamed": false
+          },
+          {
+            "name": "BMQQDV+DejaVuSans",
             "type": "CID TrueType",
             "encoding": "Identity-H",
             "embedded": true,
             "subset": true,
             "unicode": true,
-            "base_name": "DejaVuSerif",
+            "base_name": "DejaVuSans",
             "unnamed": false
           },
           {
-            "name": "BXGEVL+DejaVuSerif",
+            "name": "BMQQDV+DejaVuSans",
             "type": "CID TrueType",
             "encoding": "Identity-H",
             "embedded": true,
             "subset": true,
             "unicode": true,
-            "base_name": "DejaVuSerif",
+            "base_name": "DejaVuSans",
             "unnamed": false
           },
           {
-            "name": "BXGEVL+DejaVuSerif",
+            "name": "BMQQDV+DejaVuSans",
             "type": "CID TrueType",
             "encoding": "Identity-H",
             "embedded": true,
             "subset": true,
             "unicode": true,
-            "base_name": "DejaVuSerif",
+            "base_name": "DejaVuSans",
             "unnamed": false
           },
           {
-            "name": "WLDJPY+CMTT10",
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          },
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          },
+          {
+            "name": "GGVRKO+CMTT10",
             "type": "Type 1",
             "encoding": "Builtin",
             "embedded": true,
@@ -2983,8 +5286,8 @@
           }
         ],
         "types": {
-          "CID TrueType": 6,
-          "Type 1": 21
+          "CID TrueType": 5,
+          "Type 1": 20
         },
         "non_embedded": [],
         "non_embedded_core_fonts": [],
@@ -2996,7 +5299,920 @@
       },
       "geometry": {
         "info_available": true,
-        "pages": 28,
+        "pages": 21,
+        "page_size_pt": [
+          612.0,
+          792.0
+        ],
+        "page_size_in": [
+          8.5,
+          11.0
+        ],
+        "page_rot": "0",
+        "encrypted": "no",
+        "producer": "pdfTeX-1.40.22",
+        "creator": "TeX",
+        "pdf_version": "1.5",
+        "distinct_page_sizes": [
+          [
+            612.0,
+            792.0
+          ]
+        ],
+        "uniform_page_size": true,
+        "per_page_size_pt": {
+          "1": [
+            612.0,
+            792.0
+          ],
+          "2": [
+            612.0,
+            792.0
+          ],
+          "3": [
+            612.0,
+            792.0
+          ],
+          "4": [
+            612.0,
+            792.0
+          ],
+          "5": [
+            612.0,
+            792.0
+          ],
+          "6": [
+            612.0,
+            792.0
+          ],
+          "7": [
+            612.0,
+            792.0
+          ],
+          "8": [
+            612.0,
+            792.0
+          ],
+          "9": [
+            612.0,
+            792.0
+          ],
+          "10": [
+            612.0,
+            792.0
+          ],
+          "11": [
+            612.0,
+            792.0
+          ],
+          "12": [
+            612.0,
+            792.0
+          ],
+          "13": [
+            612.0,
+            792.0
+          ],
+          "14": [
+            612.0,
+            792.0
+          ],
+          "15": [
+            612.0,
+            792.0
+          ],
+          "16": [
+            612.0,
+            792.0
+          ],
+          "17": [
+            612.0,
+            792.0
+          ],
+          "18": [
+            612.0,
+            792.0
+          ],
+          "19": [
+            612.0,
+            792.0
+          ],
+          "20": [
+            612.0,
+            792.0
+          ],
+          "21": [
+            612.0,
+            792.0
+          ]
+        },
+        "is_single_page": false,
+        "media_box_pt": [
+          612.0,
+          792.0
+        ]
+      },
+      "text_bounds": {
+        "tolerance_pt": 1.0,
+        "n_words": 5889,
+        "n_pages_with_words": 21,
+        "n_violations": 0,
+        "max_overflow_pt": 0.0,
+        "violations": [],
+        "violating_pages": [],
+        "ok": true,
+        "ink_verdict_by_page": {},
+        "n_hard_violations": 0
+      },
+      "ink_checks": [],
+      "min_text_height": {
+        "threshold_pt": 4.5,
+        "min_height_pt": 4.423,
+        "min_line_height_pt": 6.193,
+        "p05_height_pt": 7.491,
+        "median_height_pt": 8.847,
+        "n_words_measured": 5889,
+        "n_below_threshold": 0,
+        "n_small_relative_words": 31,
+        "n_degenerate_boxes": 0,
+        "violations": [],
+        "n_raw_boxes_below_threshold": 1,
+        "raw_boxes_below_threshold": [
+          {
+            "page": 7,
+            "text": "30",
+            "height_pt": 4.423,
+            "line_estimated_height_pt": 8.847,
+            "x0": 301.24,
+            "y0": 241.57,
+            "x1": 308.02,
+            "y1": 245.99
+          }
+        ],
+        "raw_boxes_below_threshold_truncated": 0,
+        "small_relative_words": [
+          {
+            "page": 12,
+            "text": "H30",
+            "height_pt": 13.883,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "mean",
+            "height_pt": 19.453,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "error",
+            "height_pt": 16.612,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.50",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.25",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "1.00",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.75",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.50",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.4",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.3",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.2",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 12,
+            "text": "0.1",
+            "height_pt": 7.547,
+            "line_height_pt": 51.439
+          },
+          {
+            "page": 15,
+            "text": "(%)",
+            "height_pt": 11.867,
+            "line_height_pt": 31.1
+          },
+          {
+            "page": 15,
+            "text": "40",
+            "height_pt": 7.547,
+            "line_height_pt": 31.1
+          },
+          {
+            "page": 15,
+            "text": "30",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 15,
+            "text": "20",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
+          },
+          {
+            "page": 15,
+            "text": "10",
+            "height_pt": 7.547,
+            "line_height_pt": 31.1
+          },
+          {
+            "page": 15,
+            "text": "8",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 15,
+            "text": "6",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
+          },
+          {
+            "page": 15,
+            "text": "4",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
+          }
+        ],
+        "ok": true,
+        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
+      },
+      "overlaps": {
+        "threshold_fraction_of_smaller_box": 0.25,
+        "n_word_boxes": 5889,
+        "n_candidate_pairs": 8,
+        "n_duplicate_pairs_ignored_exact": 0,
+        "n_duplicate_pairs_ignored_shadow": 0,
+        "n_degenerate_boxes": 0,
+        "counts_by_kind": {
+          "adjacent_line_padding": 6,
+          "same_baseline_horizontal": 2
+        },
+        "n_same_baseline_pairs": 2,
+        "page_sizes": {
+          "1": {
+            "page": 1,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "2": {
+            "page": 2,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "3": {
+            "page": 3,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "4": {
+            "page": 4,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "5": {
+            "page": 5,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "6": {
+            "page": 6,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "7": {
+            "page": 7,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "8": {
+            "page": 8,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "9": {
+            "page": 9,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "10": {
+            "page": 10,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "11": {
+            "page": 11,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "12": {
+            "page": 12,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "13": {
+            "page": 13,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "14": {
+            "page": 14,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "15": {
+            "page": 15,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "16": {
+            "page": 16,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "17": {
+            "page": 17,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "18": {
+            "page": 18,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "19": {
+            "page": 19,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "20": {
+            "page": 20,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          },
+          "21": {
+            "page": 21,
+            "width_pt": 612.0,
+            "height_pt": 792.0
+          }
+        },
+        "pairs": [
+          {
+            "page": 7,
+            "kind": "same_baseline_horizontal",
+            "note": "words share a baseline and overlap horizontally: a real text collision",
+            "overlap_fraction": 1.0,
+            "overlap_area_pt2": 43.214,
+            "overlap_x_pt": 4.885,
+            "overlap_y_pt": 8.847,
+            "same_baseline": true,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "(e",
+              "x0": 235.54,
+              "y0": 519.42,
+              "x1": 245.36,
+              "y1": 528.27,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "y",
+              "x0": 239.41,
+              "y0": 519.42,
+              "x1": 244.3,
+              "y1": 528.27,
+              "height_pt": 8.85
+            },
+            "baseline_delta_pt": 0.0
+          },
+          {
+            "page": 7,
+            "kind": "same_baseline_horizontal",
+            "note": "words share a baseline and overlap horizontally: a real text collision",
+            "overlap_fraction": 1.0,
+            "overlap_area_pt2": 43.214,
+            "overlap_x_pt": 4.885,
+            "overlap_y_pt": 8.847,
+            "same_baseline": true,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "(e",
+              "x0": 332.11,
+              "y0": 542.34,
+              "x1": 341.92,
+              "y1": 551.18,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "y",
+              "x0": 335.98,
+              "y0": 542.34,
+              "x1": 340.87,
+              "y1": 551.18,
+              "height_pt": 8.85
+            },
+            "baseline_delta_pt": 0.0
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.6548,
+            "overlap_area_pt2": 13.367,
+            "overlap_x_pt": 3.867,
+            "overlap_y_pt": 3.457,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "S",
+              "x0": 308.94,
+              "y0": 578.15,
+              "x1": 313.84,
+              "y1": 584.34,
+              "height_pt": 6.19
+            },
+            "word_b": {
+              "text": "b",
+              "x0": 309.97,
+              "y0": 580.88,
+              "x1": 314.48,
+              "y1": 585.41,
+              "height_pt": 4.53
+            },
+            "baseline_delta_pt": 2.736
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.6463,
+            "overlap_area_pt2": 22.811,
+            "overlap_x_pt": 4.704,
+            "overlap_y_pt": 4.849,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "S",
+              "x0": 278.37,
+              "y0": 492.61,
+              "x1": 284.48,
+              "y1": 501.46,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "b",
+              "x0": 279.77,
+              "y0": 496.61,
+              "x1": 285.31,
+              "y1": 502.99,
+              "height_pt": 6.38
+            },
+            "baseline_delta_pt": 3.998
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.2994,
+            "overlap_area_pt2": 5.581,
+            "overlap_x_pt": 1.057,
+            "overlap_y_pt": 5.279,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "(e",
+              "x0": 332.11,
+              "y0": 542.34,
+              "x1": 341.92,
+              "y1": 551.18,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "t",
+              "x0": 340.87,
+              "y0": 545.91,
+              "x1": 343.88,
+              "y1": 552.1,
+              "height_pt": 6.19
+            },
+            "baseline_delta_pt": 3.568
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.2958,
+            "overlap_area_pt2": 10.439,
+            "overlap_x_pt": 4.478,
+            "overlap_y_pt": 2.331,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "y",
+              "x0": 157.67,
+              "y0": 492.61,
+              "x1": 162.55,
+              "y1": 501.46,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "e",
+              "x0": 158.07,
+              "y0": 499.13,
+              "x1": 163.61,
+              "y1": 505.51,
+              "height_pt": 6.38
+            },
+            "baseline_delta_pt": 6.516
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.2958,
+            "overlap_area_pt2": 10.439,
+            "overlap_x_pt": 4.478,
+            "overlap_y_pt": 2.331,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "y",
+              "x0": 303.7,
+              "y0": 572.7,
+              "x1": 308.59,
+              "y1": 581.55,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "e",
+              "x0": 304.11,
+              "y0": 579.22,
+              "x1": 309.64,
+              "y1": 585.59,
+              "height_pt": 6.38
+            },
+            "baseline_delta_pt": 6.516
+          },
+          {
+            "page": 7,
+            "kind": "adjacent_line_padding",
+            "note": "boxes of vertically adjacent lines overlap because Poppler boxes carry font ascent/descent padding; ink may still be clear",
+            "overlap_fraction": 0.2958,
+            "overlap_area_pt2": 10.439,
+            "overlap_x_pt": 4.478,
+            "overlap_y_pt": 2.331,
+            "same_baseline": false,
+            "box_geometry_atypical": false,
+            "page_median_word_height_pt": 8.847,
+            "word_a": {
+              "text": "y",
+              "x0": 326.89,
+              "y0": 572.7,
+              "x1": 331.78,
+              "y1": 581.55,
+              "height_pt": 8.85
+            },
+            "word_b": {
+              "text": "e",
+              "x0": 327.3,
+              "y0": 579.22,
+              "x1": 332.83,
+              "y1": 585.59,
+              "height_pt": 6.38
+            },
+            "baseline_delta_pt": 6.516
+          }
+        ],
+        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
+      },
+      "merged_label_runs": {
+        "n_findings": 0,
+        "findings": [],
+        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
+      },
+      "footer_collisions": {
+        "n_findings": 0,
+        "min_overlap_pt": 2.0,
+        "findings": []
+      },
+      "raster": {
+        "tool_available": true,
+        "n_images": 2,
+        "images": [
+          {
+            "page": 12,
+            "num": 0,
+            "type": "image",
+            "width_px": 1187,
+            "height_px": 1042,
+            "color": "rgb",
+            "components": 3,
+            "bits_per_component": 8,
+            "encoding": "image",
+            "interpolate": "no",
+            "object_id": "75",
+            "x_ppi": 525.0,
+            "y_ppi": 525.0,
+            "min_ppi": 525.0,
+            "bytes": "107K",
+            "ratio": "3.0%",
+            "below_300_dpi": false
+          },
+          {
+            "page": 12,
+            "num": 1,
+            "type": "smask",
+            "width_px": 1187,
+            "height_px": 1042,
+            "color": "gray",
+            "components": 1,
+            "bits_per_component": 8,
+            "encoding": "image",
+            "interpolate": "no",
+            "object_id": "75",
+            "x_ppi": 525.0,
+            "y_ppi": 525.0,
+            "min_ppi": 525.0,
+            "bytes": "90.4K",
+            "ratio": "7.5%",
+            "below_300_dpi": false
+          }
+        ],
+        "below_300dpi": [],
+        "ok": true,
+        "min_ppi": 525.0
+      }
+    },
+    {
+      "path": "paper/wrr/wrr_supporting_information.pdf",
+      "kind": "supporting_information",
+      "name": "wrr_supporting_information",
+      "size_bytes": 255227,
+      "sha256": "784639d13c85811b9144af662eddd9c114b957c8b08027d74d075035eb426bb4",
+      "hard_failures": [],
+      "warnings": [
+        {
+          "file": "paper/wrr/wrr_supporting_information.pdf",
+          "check": "SMALL_RELATIVE_WORD_BOXES",
+          "detail": "11 word box(es) are below 0.45 of their own line height (superscripts, subscripts or fragmented runs); the line itself is at or above 4.5 pt",
+          "locator": {
+            "examples": [
+              {
+                "page": 41,
+                "text": "72.5",
+                "height_pt": 7.547,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "70.0",
+                "height_pt": 7.547,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "(%)",
+                "height_pt": 11.867,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "80.0",
+                "height_pt": 7.547,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "77.5",
+                "height_pt": 7.547,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "75.0",
+                "height_pt": 7.547,
+                "line_height_pt": 33.087
+              },
+              {
+                "page": 41,
+                "text": "72.5",
+                "height_pt": 7.547,
+                "line_height_pt": 26.161
+              },
+              {
+                "page": 41,
+                "text": "70.0",
+                "height_pt": 7.547,
+                "line_height_pt": 26.161
+              }
+            ]
+          }
+        }
+      ],
+      "fonts": {
+        "n_fonts": 14,
+        "records": [
+          {
+            "name": "MFXYBQ+CMR9",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "EDPIBG+CMTI9",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMTI",
+            "unnamed": false
+          },
+          {
+            "name": "BRAKFD+CMBX12",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMBX",
+            "unnamed": false
+          },
+          {
+            "name": "JDLIVN+CMBX10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMBX",
+            "unnamed": false
+          },
+          {
+            "name": "EJASTL+CMR7",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "WIRDCL+CMR6",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "RHNZLI+CMR8",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "PCVCIB+CMR10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMR",
+            "unnamed": false
+          },
+          {
+            "name": "SRIBHP+CMMI10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMMI",
+            "unnamed": false
+          },
+          {
+            "name": "DJSFAR+CMMI7",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMMI",
+            "unnamed": false
+          },
+          {
+            "name": "AFXPCY+CMSY10",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMSY",
+            "unnamed": false
+          },
+          {
+            "name": "OGECPG+CMBX9",
+            "type": "Type 1",
+            "encoding": "Builtin",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "CMBX",
+            "unnamed": false
+          },
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          },
+          {
+            "name": "BMQQDV+DejaVuSans",
+            "type": "CID TrueType",
+            "encoding": "Identity-H",
+            "embedded": true,
+            "subset": true,
+            "unicode": true,
+            "base_name": "DejaVuSans",
+            "unnamed": false
+          }
+        ],
+        "types": {
+          "CID TrueType": 2,
+          "Type 1": 12
+        },
+        "non_embedded": [],
+        "non_embedded_core_fonts": [],
+        "n_non_embedded": 0,
+        "all_embedded": true,
+        "unnamed_or_type3": [],
+        "n_unnamed": 0,
+        "n_type3": 0
+      },
+      "geometry": {
+        "info_available": true,
+        "pages": 41,
         "page_size_pt": [
           612.0,
           792.0
@@ -3129,6 +6345,58 @@
           "28": [
             612.0,
             792.0
+          ],
+          "29": [
+            612.0,
+            792.0
+          ],
+          "30": [
+            612.0,
+            792.0
+          ],
+          "31": [
+            612.0,
+            792.0
+          ],
+          "32": [
+            612.0,
+            792.0
+          ],
+          "33": [
+            612.0,
+            792.0
+          ],
+          "34": [
+            612.0,
+            792.0
+          ],
+          "35": [
+            612.0,
+            792.0
+          ],
+          "36": [
+            612.0,
+            792.0
+          ],
+          "37": [
+            612.0,
+            792.0
+          ],
+          "38": [
+            612.0,
+            792.0
+          ],
+          "39": [
+            612.0,
+            792.0
+          ],
+          "40": [
+            612.0,
+            792.0
+          ],
+          "41": [
+            612.0,
+            792.0
           ]
         },
         "is_single_page": false,
@@ -3139,8 +6407,8 @@
       },
       "text_bounds": {
         "tolerance_pt": 1.0,
-        "n_words": 9507,
-        "n_pages_with_words": 28,
+        "n_words": 9083,
+        "n_pages_with_words": 41,
         "n_violations": 0,
         "max_overflow_pt": 0.0,
         "violations": [],
@@ -3152,13 +6420,13 @@
       "ink_checks": [],
       "min_text_height": {
         "threshold_pt": 4.5,
-        "min_height_pt": 4.702,
-        "min_line_height_pt": 6.111,
-        "p05_height_pt": 7.203,
-        "median_height_pt": 8.847,
-        "n_words_measured": 9507,
+        "min_height_pt": 5.308,
+        "min_line_height_pt": 7.077,
+        "p05_height_pt": 7.077,
+        "median_height_pt": 7.077,
+        "n_words_measured": 9083,
         "n_below_threshold": 0,
-        "n_small_relative_words": 127,
+        "n_small_relative_words": 11,
         "n_degenerate_boxes": 0,
         "violations": [],
         "n_raw_boxes_below_threshold": 0,
@@ -3166,124 +6434,70 @@
         "raw_boxes_below_threshold_truncated": 0,
         "small_relative_words": [
           {
-            "page": 6,
-            "text": "0.8",
-            "height_pt": 7.583,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "72.5",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "0.6",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
+            "page": 41,
+            "text": "70.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "0.4",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
+            "page": 41,
+            "text": "(%)",
+            "height_pt": 11.867,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "0.2",
-            "height_pt": 7.583,
-            "line_height_pt": 19.741
+            "page": 41,
+            "text": "80.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "peak",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "77.5",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "fully",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "75.0",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "hidden",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "72.5",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
           },
           {
-            "page": 6,
-            "text": "(share",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "70.0",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
           },
           {
-            "page": 6,
-            "text": "=",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "8",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "1)",
-            "height_pt": 6.894,
-            "line_height_pt": 18.661
+            "page": 41,
+            "text": "6",
+            "height_pt": 7.547,
+            "line_height_pt": 33.087
           },
           {
-            "page": 6,
-            "text": "0.3",
-            "height_pt": 7.583,
-            "line_height_pt": 18.661
-          },
-          {
-            "page": 6,
-            "text": "0.2",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.1",
-            "height_pt": 7.583,
-            "line_height_pt": 19.741
-          },
-          {
-            "page": 6,
-            "text": "1.0",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.8",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.6",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "0.4",
-            "height_pt": 7.583,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "real",
-            "height_pt": 7.353,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "calendars",
-            "height_pt": 7.353,
-            "line_height_pt": 30.598
-          },
-          {
-            "page": 6,
-            "text": "(n=418)",
-            "height_pt": 7.353,
-            "line_height_pt": 30.598
+            "page": 41,
+            "text": "4",
+            "height_pt": 7.547,
+            "line_height_pt": 26.161
           }
         ],
         "ok": true,
@@ -3291,14 +6505,12 @@
       },
       "overlaps": {
         "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 9507,
-        "n_candidate_pairs": 2,
+        "n_word_boxes": 9083,
+        "n_candidate_pairs": 0,
         "n_duplicate_pairs_ignored_exact": 0,
         "n_duplicate_pairs_ignored_shadow": 0,
         "n_degenerate_boxes": 0,
-        "counts_by_kind": {
-          "atypical_box_geometry": 2
-        },
+        "counts_by_kind": {},
         "n_same_baseline_pairs": 0,
         "page_sizes": {
           "1": {
@@ -3440,539 +6652,69 @@
             "page": 28,
             "width_pt": 612.0,
             "height_pt": 792.0
-          }
-        },
-        "pairs": [
-          {
-            "page": 6,
-            "kind": "atypical_box_geometry",
-            "note": "at least one box is taller than the page median word box: rotated text runs and fragmented glyph runs produce overlapping boxes without overlapping ink",
-            "overlap_fraction": 0.3269,
-            "overlap_area_pt2": 16.28,
-            "overlap_x_pt": 5.671,
-            "overlap_y_pt": 2.871,
-            "same_baseline": false,
-            "box_geometry_atypical": true,
-            "page_median_word_height_pt": 7.962,
-            "word_a": {
-              "text": "30-da",
-              "x0": 158.99,
-              "y0": 412.89,
-              "x1": 176.61,
-              "y1": 425.0,
-              "height_pt": 12.11
-            },
-            "word_b": {
-              "text": "al",
-              "x0": 170.83,
-              "y0": 422.13,
-              "x1": 176.5,
-              "y1": 430.91,
-              "height_pt": 8.78
-            },
-            "baseline_delta_pt": 9.238
           },
-          {
-            "page": 6,
-            "kind": "atypical_box_geometry",
-            "note": "at least one box is taller than the page median word box: rotated text runs and fragmented glyph runs produce overlapping boxes without overlapping ink",
-            "overlap_fraction": 0.2539,
-            "overlap_area_pt2": 7.055,
-            "overlap_x_pt": 3.665,
-            "overlap_y_pt": 1.925,
-            "same_baseline": false,
-            "box_geometry_atypical": true,
-            "page_median_word_height_pt": 7.962,
-            "word_a": {
-              "text": "nnual",
-              "x0": 203.33,
-              "y0": 417.43,
-              "x1": 220.96,
-              "y1": 430.1,
-              "height_pt": 12.67
-            },
-            "word_b": {
-              "text": "e",
-              "x0": 206.39,
-              "y0": 411.77,
-              "x1": 210.06,
-              "y1": 419.35,
-              "height_pt": 7.58
-            },
-            "baseline_delta_pt": 5.658
-          }
-        ],
-        "method_note": "conservative approximation of visual overlap: derived from poppler word boxes, which carry font ascent/descent padding and are axis-aligned even for rotated text; it also cannot see text drawn over graphics. Overlaps are reported as warnings, never as hard failures."
-      },
-      "merged_label_runs": {
-        "n_findings": 0,
-        "findings": [],
-        "method_note": "a repeated substring inside one word box means adjacent labels were drawn with no space glyph between them, so Poppler cannot split them into separate words; the pairwise overlap test is blind to this and the row reads as one continuous string"
-      },
-      "footer_collisions": {
-        "n_findings": 0,
-        "min_overlap_pt": 2.0,
-        "findings": []
-      },
-      "raster": {
-        "tool_available": true,
-        "n_images": 0,
-        "images": [],
-        "below_300dpi": [],
-        "ok": true,
-        "min_ppi": null
-      }
-    },
-    {
-      "path": "paper/wrr/wrr_supporting_information.pdf",
-      "kind": "supporting_information",
-      "name": "wrr_supporting_information",
-      "size_bytes": 313873,
-      "sha256": "f7402bffecda66c22ae5bd44389d11c998e3deb8b328704a262829b784e805f4",
-      "hard_failures": [],
-      "warnings": [],
-      "fonts": {
-        "n_fonts": 24,
-        "records": [
-          {
-            "name": "LVNNQQ+CMR9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMR",
-            "unnamed": false
-          },
-          {
-            "name": "EDPIBG+CMTI9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTI",
-            "unnamed": false
-          },
-          {
-            "name": "VYGYLY+CMBX12",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMBX",
-            "unnamed": false
-          },
-          {
-            "name": "KKMTYN+CMBX10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMBX",
-            "unnamed": false
-          },
-          {
-            "name": "WCMEDH+CMR7",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMR",
-            "unnamed": false
-          },
-          {
-            "name": "XKZRDL+CMR6",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMR",
-            "unnamed": false
-          },
-          {
-            "name": "QLQUIJ+CMR8",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMR",
-            "unnamed": false
-          },
-          {
-            "name": "IPIPMG+CMR10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMR",
-            "unnamed": false
-          },
-          {
-            "name": "STXYZK+CMTT10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTT",
-            "unnamed": false
-          },
-          {
-            "name": "AFNVMJ+CMBX9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMBX",
-            "unnamed": false
-          },
-          {
-            "name": "PQNIEE+CMTI10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTI",
-            "unnamed": false
-          },
-          {
-            "name": "VNHPZN+CMSY7",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "KUCLEQ+CMSY10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "TMCDBM+CMSY8",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "ANLDQN+CMMI8",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "IROJBN+CMMI10",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "RRRMOJ+CMTT9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMTT",
-            "unnamed": false
-          },
-          {
-            "name": "VRQVCT+CMMI9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "QLBNSL+CMSY9",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "EWZFDL+CMSY6",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "TIPWKR+CMSY5",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMSY",
-            "unnamed": false
-          },
-          {
-            "name": "PPCNLP+CMMI6",
-            "type": "Type 1",
-            "encoding": "Builtin",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "CMMI",
-            "unnamed": false
-          },
-          {
-            "name": "AAAAAA+LiberationSans-Bold",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "LiberationSansBold",
-            "unnamed": false
-          },
-          {
-            "name": "BAAAAA+LiberationSans",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "embedded": true,
-            "subset": true,
-            "unicode": true,
-            "base_name": "LiberationSans",
-            "unnamed": false
-          }
-        ],
-        "types": {
-          "CID TrueType": 2,
-          "Type 1": 22
-        },
-        "non_embedded": [],
-        "non_embedded_core_fonts": [],
-        "n_non_embedded": 0,
-        "all_embedded": true,
-        "unnamed_or_type3": [],
-        "n_unnamed": 0,
-        "n_type3": 0
-      },
-      "geometry": {
-        "info_available": true,
-        "pages": 13,
-        "page_size_pt": [
-          612.0,
-          792.0
-        ],
-        "page_size_in": [
-          8.5,
-          11.0
-        ],
-        "page_rot": "0",
-        "encrypted": "no",
-        "producer": "pdfTeX-1.40.22",
-        "creator": "TeX",
-        "pdf_version": "1.5",
-        "distinct_page_sizes": [
-          [
-            612.0,
-            792.0
-          ]
-        ],
-        "uniform_page_size": true,
-        "per_page_size_pt": {
-          "1": [
-            612.0,
-            792.0
-          ],
-          "2": [
-            612.0,
-            792.0
-          ],
-          "3": [
-            612.0,
-            792.0
-          ],
-          "4": [
-            612.0,
-            792.0
-          ],
-          "5": [
-            612.0,
-            792.0
-          ],
-          "6": [
-            612.0,
-            792.0
-          ],
-          "7": [
-            612.0,
-            792.0
-          ],
-          "8": [
-            612.0,
-            792.0
-          ],
-          "9": [
-            612.0,
-            792.0
-          ],
-          "10": [
-            612.0,
-            792.0
-          ],
-          "11": [
-            612.0,
-            792.0
-          ],
-          "12": [
-            612.0,
-            792.0
-          ],
-          "13": [
-            612.0,
-            792.0
-          ]
-        },
-        "is_single_page": false,
-        "media_box_pt": [
-          612.0,
-          792.0
-        ]
-      },
-      "text_bounds": {
-        "tolerance_pt": 1.0,
-        "n_words": 3587,
-        "n_pages_with_words": 13,
-        "n_violations": 0,
-        "max_overflow_pt": 0.0,
-        "violations": [],
-        "violating_pages": [],
-        "ok": true,
-        "ink_verdict_by_page": {},
-        "n_hard_violations": 0
-      },
-      "ink_checks": [],
-      "min_text_height": {
-        "threshold_pt": 4.5,
-        "min_height_pt": 4.702,
-        "min_line_height_pt": 7.077,
-        "p05_height_pt": 7.077,
-        "median_height_pt": 8.847,
-        "n_words_measured": 3587,
-        "n_below_threshold": 0,
-        "n_small_relative_words": 0,
-        "n_degenerate_boxes": 0,
-        "violations": [],
-        "n_raw_boxes_below_threshold": 0,
-        "raw_boxes_below_threshold": [],
-        "raw_boxes_below_threshold_truncated": 0,
-        "small_relative_words": [],
-        "ok": true,
-        "method_note": "typeset size is estimated per text line from the tallest Poppler word box on that line; the raw box height of an x-height-only word (``a``) is about half the typeset size, so raw boxes are not used as the size criterion"
-      },
-      "overlaps": {
-        "threshold_fraction_of_smaller_box": 0.25,
-        "n_word_boxes": 3587,
-        "n_candidate_pairs": 0,
-        "n_duplicate_pairs_ignored_exact": 0,
-        "n_duplicate_pairs_ignored_shadow": 0,
-        "n_degenerate_boxes": 0,
-        "counts_by_kind": {},
-        "n_same_baseline_pairs": 0,
-        "page_sizes": {
-          "1": {
-            "page": 1,
+          "29": {
+            "page": 29,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "2": {
-            "page": 2,
+          "30": {
+            "page": 30,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "3": {
-            "page": 3,
+          "31": {
+            "page": 31,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "4": {
-            "page": 4,
+          "32": {
+            "page": 32,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "5": {
-            "page": 5,
+          "33": {
+            "page": 33,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "6": {
-            "page": 6,
+          "34": {
+            "page": 34,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "7": {
-            "page": 7,
+          "35": {
+            "page": 35,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "8": {
-            "page": 8,
+          "36": {
+            "page": 36,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "9": {
-            "page": 9,
+          "37": {
+            "page": 37,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "10": {
-            "page": 10,
+          "38": {
+            "page": 38,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "11": {
-            "page": 11,
+          "39": {
+            "page": 39,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "12": {
-            "page": 12,
+          "40": {
+            "page": 40,
             "width_pt": 612.0,
             "height_pt": 792.0
           },
-          "13": {
-            "page": 13,
+          "41": {
+            "page": 41,
             "width_pt": 612.0,
             "height_pt": 792.0
           }

@@ -1,0 +1,15 @@
+{
+  "created_at_utc": "2026-10-20T13:13:58.938045+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "claims": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json",
+      "sha256": "d83ba64f7aaeb3cb1546f2f69eb6692719cbab82a1cd8d7cc8a027475dffb413"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/368_wrr_revision_figures.py",
+    "sha256": "e43d1653cd259c0a7c1530b221abc5af3a7bc1b7ac92e1b9604a95fadb64456a"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    -0.04194940137129564,
+    0.012250304457660574,
+    0.05357618343338252,
+    0.10556362626634587,
+    0.15035424029132766,
+    0.19884272748226658,
+    0.23415009872659684,
+    0.2736499267147526,
+    0.3232194752764621,
+    0.3619209211653428,
+    0.40712660249543586,
+    0.4530430923825518,
+    0.5008813162267627,
+    0.5621323249988596,
+    0.6158883224337883,
+    0.6873911902270621,
+    0.7856058071562543,
+    0.9416552091005541,
+    1.1471996630915382,
+    1.6099638110509056,
+    4.1117087030173085
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "daily_estimator_disagreement"
+  ],
+  "identity": "generic_daily_disagreement__strictly_prior_years__all__local_fit__foen",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_daily_disagreement__strictly_prior_years__all__local_fit__foen.joblib",
+  "model_sha256": "2ede99da700e4cd4f16532f235259a618545817ac10b55e92229dbcd8382040d",
+  "n_training_cases": 5783,
+  "n_training_groups": 11,
+  "name": "generic_daily_disagreement",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
+      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

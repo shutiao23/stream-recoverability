@@ -1,0 +1,27 @@
+{
+  "created_at_utc": "2026-10-20T11:48:12.406538+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/real_calendars/cofailure_0/cases.parquet",
+      "sha256": "88cccabc7b1dff273a660a618215b560315909e21a85403f42f7a5e26f5d76d0"
+    },
+    "deployment_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/deployment_lock.json",
+      "sha256": "c6e436889cfbf2fa9d860c7592932282ade83ad9d0bcc643a2ee6776a4c81278"
+    },
+    "method_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/method_lock.json",
+      "sha256": "1b7ea785a6b8c2b84277adb0b7b2472358e782c7cdba727a7b1dee5d204e51b1"
+    },
+    "plans": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/deployment_plans.json",
+      "sha256": "ce8c302c3703ce1158231cf4e53b298b27d2626177cfc539df3da646076af327"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/360_wrr_external_decisions.py",
+    "sha256": "c9ac80c1d4acd6139218500b09d837d905a8b949b7e1fe95c9f2f3d0a67c4c38"
+  }
+}

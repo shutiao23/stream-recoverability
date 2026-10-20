@@ -1,0 +1,5 @@
+left,right,mean_refitted_procedure_difference,whole_procedure_ci_low,whole_procedure_ci_high,n_fully_refitted_procedures,n_evaluation_groups
+uncertain_support,generic_target_disagreement,0.029158018867924528,-0.05749562665466048,0.11268862892044142,1000,24
+generic_direct_h30_uncertainty,generic_target_disagreement,0.02689445754716981,-0.06952214755777814,0.109550606737503,1000,24
+uncertain_support,generic_direct_h30_uncertainty,0.0022635613207547174,-0.05553869117656246,0.05898206787036728,1000,24
+generic_direct_h30_uncertainty,generic_both_diagnostics,-0.01465625,-0.0911636450599007,0.05050134453024066,1000,24

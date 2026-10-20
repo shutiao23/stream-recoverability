@@ -1,0 +1,507 @@
+{
+  "created_at_utc": "2026-10-20T13:13:48.627015+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "claim_source_0": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_1": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_10": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    },
+    "claim_source_100": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_101": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_102": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_103": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_104": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_105": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_106": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_107": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85"
+    },
+    "claim_source_108": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85"
+    },
+    "claim_source_109": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85"
+    },
+    "claim_source_11": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_110": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea"
+    },
+    "claim_source_111": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea"
+    },
+    "claim_source_112": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea"
+    },
+    "claim_source_113": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea"
+    },
+    "claim_source_114": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/wrr_revision_20261020c.json",
+      "sha256": "0afdffa46a89a99e310fc62aa1f7e601997c3c45ede5ba076116f884a74e74c2"
+    },
+    "claim_source_115": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/wrr_revision_20261020c.json",
+      "sha256": "0afdffa46a89a99e310fc62aa1f7e601997c3c45ede5ba076116f884a74e74c2"
+    },
+    "claim_source_116": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "c8d1d224aed22d0bdf6d982dd3ccedab43bcf5daf1c5cdfa5d27635d2df282d1"
+    },
+    "claim_source_117": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "2cd6cb748b9fb546798ea4432e9acf2c45234071faf70fd5430fb0570cda29fe"
+    },
+    "claim_source_118": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e"
+    },
+    "claim_source_119": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e"
+    },
+    "claim_source_12": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_120": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33"
+    },
+    "claim_source_121": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e"
+    },
+    "claim_source_122": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e"
+    },
+    "claim_source_123": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33"
+    },
+    "claim_source_13": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_14": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_15": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_16": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe"
+    },
+    "claim_source_17": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc"
+    },
+    "claim_source_18": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc"
+    },
+    "claim_source_19": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc"
+    },
+    "claim_source_2": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_20": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_21": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_22": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_23": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_24": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_25": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    "claim_source_26": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/identity_and_switch_signs.csv",
+      "sha256": "964a064cad128aa8dfce9ddebe0086da57b9829d69484efaeb17664c8ecdbd2a"
+    },
+    "claim_source_27": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    "claim_source_28": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    "claim_source_29": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    "claim_source_3": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_30": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    "claim_source_31": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    "claim_source_32": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_33": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_34": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_35": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_36": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_37": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_38": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_39": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    "claim_source_4": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_40": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "1f4d198305bb13cab41a727550880af369d0a5e1a441d5ba774763debf20af1a"
+    },
+    "claim_source_41": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "1f4d198305bb13cab41a727550880af369d0a5e1a441d5ba774763debf20af1a"
+    },
+    "claim_source_42": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    },
+    "claim_source_43": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    },
+    "claim_source_44": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    },
+    "claim_source_45": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    },
+    "claim_source_46": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    "claim_source_47": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    "claim_source_48": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    "claim_source_49": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    "claim_source_5": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_50": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_51": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_52": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_53": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_54": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_55": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca"
+    },
+    "claim_source_56": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_57": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_58": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_59": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_6": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_60": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_61": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_62": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    "claim_source_63": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_64": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_65": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_66": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_67": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_68": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_69": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_7": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    "claim_source_70": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_71": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_72": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_73": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_74": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_75": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_76": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_77": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_78": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_79": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    "claim_source_8": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/summary.json",
+      "sha256": "39d5e1afb8895e94c09d8ad5a16cae3161b50e7fafc598e8d69e5c6cc09dd10a"
+    },
+    "claim_source_80": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de"
+    },
+    "claim_source_81": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de"
+    },
+    "claim_source_82": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de"
+    },
+    "claim_source_83": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_84": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_85": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_86": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_87": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_88": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_89": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    "claim_source_9": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/summary.json",
+      "sha256": "cc8a12ce449e182802aca14868748eb4ba66b3fc45eda16271e2756a21e6c6ac"
+    },
+    "claim_source_90": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_91": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_92": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_93": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_94": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_95": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_96": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_97": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_98": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    "claim_source_99": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/367_wrr_revision_evidence.py",
+    "sha256": "2b1cb081c0fd554a1d6777f214cad4c21b515be75c312777fc0d35c7eb2e8473"
+  }
+}

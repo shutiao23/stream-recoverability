@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T10:13:18.799919+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "contract": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/training_contract.json",
+      "sha256": "dc2f6d9204fe6355a011be3b82df74a9d40f162d0ce0edd76baf50dc87790f68"
+    },
+    "training_membership": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/old_record_training_membership.csv",
+      "sha256": "3aa0633a1beb684b4d51289217b8f9cf81f1d7333c02def643871857fbb576bc"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/361_wrr_probabilistic_reference.py",
+    "sha256": "e73562b03b88e0ec9f9b140bc073acd07285b5809c4b572418a777c9352737b9"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "independent_new_groups_by_role": {
+    "calibration": 29,
+    "development": 51,
+    "test": 37
+  },
+  "n_independent_groups_including_donors": 183,
+  "n_network_labels": 195,
+  "n_new_stations_after_all_input_audit": 162,
+  "new_stations_by_provider": {
+    "ehyd": 98,
+    "foen": 27,
+    "hubeau": 29,
+    "nve": 8
+  },
+  "new_test_performance_outcomes_inspected": false,
+  "risk_bound_scope": "uniform independent deployment group and its within-group case sampling distribution; not every subgroup"
+}

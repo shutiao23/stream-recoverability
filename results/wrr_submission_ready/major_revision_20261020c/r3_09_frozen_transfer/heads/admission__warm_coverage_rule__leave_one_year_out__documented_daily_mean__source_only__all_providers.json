@@ -1,0 +1,60 @@
+{
+  "candidates": [
+    -1.0,
+    -0.9803921568627451,
+    -0.9673202614379085,
+    -0.9477124183006536,
+    -0.9150326797385621,
+    -0.9084967320261438,
+    -0.8888888888888888,
+    -0.8235294117647058,
+    -0.803921568627451,
+    -0.7647058823529411,
+    -0.6666666666666666,
+    -0.6078431372549019,
+    -0.5816993464052288,
+    -0.49019607843137253,
+    -0.4117647058823529,
+    -0.33986928104575165,
+    -0.11764705882352941,
+    -0.0
+  ],
+  "features": [],
+  "identity": "admission__warm_coverage_rule__leave_one_year_out__documented_daily_mean__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 42465,
+  "n_training_groups": 115,
+  "name": "warm_coverage_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": -0.7647058823529411,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.04660763363370734,
+    "formal_minimum_bounded_loss_upper": 0.26758239728931366,
+    "n_calibration_cases": 12372,
+    "n_calibration_groups": 29
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

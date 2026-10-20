@@ -1,0 +1,6 @@
+reconstructor,n_valid,maximum_identity_residual_C,minimum_switch_increment_C,n_positive_increment,share_positive_increment_still_underestimates,method
+doy_climatology,312825,2.307043445171076e-13,0.0,188204,0.6044929969607448,Daily climate
+smooth_climatology,312825,2.1882495815361838e-13,0.0,188373,0.6321075738030397,Smooth climate
+linear_interp,312825,3.730349362740526e-13,0.0,169266,0.7097704205215459,Interpolation
+donor_ridge,225103,2.5357493882438575e-13,0.0,86886,0.5500425845360587,Neighbour ridge
+air_ridge,239231,1.8449131111708541e-13,0.0,125468,0.7072480632511876,Air ridge

@@ -1,0 +1,51 @@
+{
+  "cohort": "admission",
+  "formal_and_empirical_risk_are_distinct": true,
+  "measurement_scope": "all",
+  "n_candidates": 70011,
+  "n_groups": 181,
+  "new_external_validation": false,
+  "primary_h2_contrasts": [
+    {
+      "ci_high": 0.05505858775736188,
+      "ci_low": 0.025310718099703634,
+      "difference": 0.03979374669694762,
+      "exceeds_five_point_estimate": false,
+      "five_point_margin_supported_by_interval": false,
+      "fold_seed": 101,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    },
+    {
+      "ci_high": 0.028442822535692986,
+      "ci_low": -0.001270504907251186,
+      "difference": 0.013783548299552927,
+      "exceeds_five_point_estimate": false,
+      "five_point_margin_supported_by_interval": false,
+      "fold_seed": 202,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    },
+    {
+      "ci_high": 0.04498883581351292,
+      "ci_low": 0.013908080034698503,
+      "difference": 0.028681207238862465,
+      "exceeds_five_point_estimate": false,
+      "five_point_margin_supported_by_interval": false,
+      "fold_seed": 303,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    }
+  ],
+  "protocol": "leave_one_year_out",
+  "reported_confidence_intervals_include_training_variability": false
+}

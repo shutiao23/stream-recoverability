@@ -22,7 +22,7 @@
         <mxCell id="truth" value="Complete reference&#10;5,114 station-years&#10;146 networks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="16" y="24" width="112" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="designed" value="Designed outages&#10;53,721 cases" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="designed" value="Designed outages&#10;53,721 cases&#10;2 designs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="144" y="24" width="100" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="dev" value="Development&#10;40,704 / 110 groups" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
@@ -37,8 +37,8 @@
         <mxCell id="archive" value="Real archive&#10;2,422 incomplete years" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="16" y="112" width="112" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="calendar" value="Real calendars&#10;418 / 14 networks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
-          <mxGeometry x="144" y="112" width="100" height="40" as="geometry"/>
+        <mxCell id="calendar" value="Real calendars&#10;418 groups, 59 gaps&#10;14 networks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="144" y="108" width="100" height="50" as="geometry"/>
         </mxCell>
         <mxCell id="probe" value="Deployment probe&#10;what screening does&#10;on real calendars" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="392" y="108" width="118" height="44" as="geometry"/>

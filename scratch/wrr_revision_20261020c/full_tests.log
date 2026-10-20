@@ -1,0 +1,91 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 18%]
+........................................................................ [ 24%]
+........................................................................ [ 30%]
+........................................................................ [ 36%]
+........................................................................ [ 43%]
+........................................................................ [ 49%]
+........................................................................ [ 55%]
+........................................................................ [ 61%]
+........................................................................ [ 67%]
+........................................................................ [ 73%]
+........................................................................ [ 79%]
+........................................................................ [ 86%]
+........................................................................ [ 92%]
+........................................................................ [ 98%]
+....................                                                     [100%]
+=============================== warnings summary ===============================
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+  /home/lzq/workspace/parttime/stream-recoverability/src/stream_recoverability/experiments/runner.py:4192: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    pd.concat(daily_frames, ignore_index=True).drop_duplicates(DAILY_KEY)
+
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+tests/test_experiment_runner.py::test_smoke_runner_scores_only_masked_cells_and_resume_deduplicates
+  /home/lzq/workspace/parttime/stream-recoverability/src/stream_recoverability/experiments/runner.py:4197: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    pd.concat(event_frames, ignore_index=True).drop_duplicates(EVENT_KEY)
+
+tests/test_formal_results_aggregation.py::test_model_children_layout_uses_only_explicit_dynamic_roster
+  /home/lzq/workspace/parttime/stream-recoverability/scripts/13_aggregate_formal_results.py:1455: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    daily = pd.concat(daily_parts, ignore_index=True, sort=False)
+
+tests/test_formal_results_aggregation.py::test_model_children_layout_uses_only_explicit_dynamic_roster
+  /home/lzq/workspace/parttime/stream-recoverability/scripts/13_aggregate_formal_results.py:1456: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+    events = pd.concat(event_parts, ignore_index=True, sort=False)
+
+tests/test_recovery_roster.py: 192 warnings
+tests/test_wrr_revision.py: 1256 warnings
+tests/test_wrr_submission_ready_p0.py: 900 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/algorithms.py:1814: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    return lib.map_infer(values, mapper, convert=convert)
+
+tests/test_recovery_roster.py: 198 warnings
+tests/test_regulation_panel.py: 406 warnings
+tests/test_regulation_panel_auc_diagnosis.py: 208 warnings
+tests/test_t6_seplains_bfi.py: 125 warnings
+tests/test_wrr_revision.py: 1261 warnings
+tests/test_wrr_submission_ready_p0.py: 909 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:605: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    if is_sparse(pd_dtype):
+
+tests/test_recovery_roster.py: 198 warnings
+tests/test_regulation_panel.py: 406 warnings
+tests/test_regulation_panel_auc_diagnosis.py: 208 warnings
+tests/test_t6_seplains_bfi.py: 125 warnings
+tests/test_wrr_revision.py: 1261 warnings
+tests/test_wrr_submission_ready_p0.py: 909 warnings
+tests/test_wrr_universe.py: 32 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/sklearn/utils/validation.py:614: DeprecationWarning: is_sparse is deprecated and will be removed in a future version. Check `isinstance(dtype, pd.SparseDtype)` instead.
+    if is_sparse(pd_dtype) or not is_extension_array_dtype(pd_dtype):
+
+tests/test_reference_baselines.py::test_reference_extra_pins_exact_pypots_version
+  /home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f33c893c540>
+  
+  Traceback (most recent call last):
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 400, in match_module_callback
+      self._make_module_from_path(filepath)
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+      module = module_class(filepath, prefix, user_api, internal_api)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 606, in __init__
+      self.version = self.get_version()
+                     ^^^^^^^^^^^^^^^^^^
+    File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 646, in get_version
+      config = get_config().split()
+               ^^^^^^^^^^^^^^^^^^
+  AttributeError: 'NoneType' object has no attribute 'split'
+  
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+tests/test_reference_baselines.py::test_official_cpu_tiny_smoke_and_diagnostics[brits]
+tests/test_reference_baselines.py::test_reference_checkpoint_round_trip_is_strict[csdi]
+  /home/lzq/anaconda3/lib/python3.11/site-packages/pypots/nn/modules/csdi/layers.py:17: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+    return nn.TransformerEncoder(encoder_layer, num_layers=layers)
+
+tests/test_wrr_submission_ready_p0.py::test_outage_simulation_preserves_declared_length_across_year_end
+  <frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

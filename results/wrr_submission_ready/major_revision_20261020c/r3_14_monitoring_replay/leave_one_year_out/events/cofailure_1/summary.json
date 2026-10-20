@@ -1,0 +1,15 @@
+{
+  "case_families": {
+    "event_relative": 28462
+  },
+  "cofailure": 1.0,
+  "family": "events",
+  "n_cases": 28462,
+  "n_cases_with_visible_donors": 0,
+  "n_independent_groups": 180,
+  "n_networks": 192,
+  "n_station_years": 3835,
+  "n_uncertainty_available": 28462,
+  "protocol": "leave_one_year_out",
+  "role": "opened-source admission benchmark or held-group information-loss assay, not independent confirmation"
+}

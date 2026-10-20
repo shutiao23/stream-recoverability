@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T09:23:26.057426+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "coverage": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261014/p0_06_coverage_recompute/final_coverage_table.csv",
+      "sha256": "2002b545891087ec089224d0c1db04a51a048c7cfd22eb71a8de8f4aeda10f98"
+    },
+    "external_manifest": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/p0_07_wave2_ingest/wave2_inputs_manifest.csv",
+      "sha256": "d4d9227f3b6361da148428049b6a5a731a8a0be8486ec031aab06c64c9da318d"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/351_wrr_representative_recovery.py",
+    "sha256": "61aa2f564df5dbc132eed248cfe221f3fd0bff0aeb0d17b62b3e8cf6ae6472ab"
+  }
+}

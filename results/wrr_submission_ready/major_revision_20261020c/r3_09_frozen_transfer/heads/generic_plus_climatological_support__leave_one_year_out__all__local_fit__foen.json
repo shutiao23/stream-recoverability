@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    -0.014983400823447386,
+    6.202176255085602e-05,
+    0.0015971704738221109,
+    0.007124524066620584,
+    0.023613457968137016,
+    0.07967940479365251,
+    0.16648916975223768,
+    0.22867928702279003,
+    0.289314004348049,
+    0.34391589474561174,
+    0.40474252608830147,
+    0.45871207284943044,
+    0.5126967857958684,
+    0.5809954091725074,
+    0.645875066579599,
+    0.7294619849344673,
+    0.8212982460920264,
+    0.9556733205798231,
+    1.185340829390642,
+    1.5584564066993352,
+    3.733714946150828
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement",
+    "peak_overlap"
+  ],
+  "identity": "generic_plus_climatological_support__leave_one_year_out__all__local_fit__foen",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_plus_climatological_support__leave_one_year_out__all__local_fit__foen.joblib",
+  "model_sha256": "2b76294a06f7fed695626737f627a5c26fc63c54b600de282bd69468765a2853",
+  "n_training_cases": 10678,
+  "n_training_groups": 11,
+  "name": "generic_plus_climatological_support",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "foen"
+  ]
+}

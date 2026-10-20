@@ -1,0 +1,67 @@
+{
+  "candidates": [
+    5.551115123125783e-17,
+    0.9361968872670023,
+    1.1597123030501588,
+    1.3274369086191986,
+    1.4656371306864666,
+    1.5819875763907256,
+    1.6954377632338726,
+    1.7985260185287202,
+    1.8988265619656266,
+    1.9998634061411837,
+    2.100248629458838,
+    2.205014896445541,
+    2.3171214268181353,
+    2.437692890373653,
+    2.568213050108108,
+    2.7165258291203913,
+    2.8933725480185197,
+    3.1161261602594927,
+    3.4148999243893177,
+    3.903325141494067,
+    23.645209531209524
+  ],
+  "features": [],
+  "identity": "daily_disagreement_rule__strictly_prior_years__all__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 132448,
+  "n_training_groups": 105,
+  "name": "daily_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
+      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": null,
+    "empirical_status": "no_empirical_threshold",
+    "empirical_upper": null,
+    "formal_minimum_bounded_loss_upper": 0.31909435480675263,
+    "n_calibration_cases": 19999,
+    "n_calibration_groups": 27
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "syke",
+    "usgs"
+  ]
+}

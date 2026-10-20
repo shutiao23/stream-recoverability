@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    -0.044824069218816834,
+    2.291252270505681e-10,
+    2.2912594631208926e-10,
+    0.00043505294553203354,
+    0.0096210008955453,
+    0.04843215216618489,
+    0.08500786202301323,
+    0.1345114440635907,
+    0.19773740437735646,
+    0.2550649190129584,
+    0.2986529942540057,
+    0.3361719506168101,
+    0.3713651019167457,
+    0.40730415063702735,
+    0.4529063439901449,
+    0.5009202635769129,
+    0.5792049554043377,
+    0.665140853487391,
+    0.7618647193087872,
+    1.026557594024052,
+    1.9807610857934665
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement",
+    "peak_overlap"
+  ],
+  "identity": "generic_plus_climatological_support__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_plus_climatological_support__leave_one_year_out__all__local_fit__hubeau.joblib",
+  "model_sha256": "5c44107c9dc0dbeb2fcef86355cd29044b2f7c90e18a87b55307a742b1f23315",
+  "n_training_cases": 4928,
+  "n_training_groups": 10,
+  "name": "generic_plus_climatological_support",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "files": [
+    {
+      "bytes": 10140022,
+      "cached": false,
+      "file_name": "CALC_Qb",
+      "sha256": "d730896a318721f0858fdc4d9bc42369d6a48b215ddb1f28743bd44bcbf6bfbc"
+    },
+    {
+      "bytes": 18447743,
+      "cached": false,
+      "file_name": "CERRA_Et",
+      "sha256": "4bade823fe9e21f94e2c705516132a1dd88605331d028e0570fe552a7436076b"
+    },
+    {
+      "bytes": 13673420,
+      "cached": false,
+      "file_name": "CERRA_Ms",
+      "sha256": "04b383b9a5c79c0905f5cd34757e238fd348bb35ee8ec335f59a9e9ee8831bd6"
+    },
+    {
+      "bytes": 15774780,
+      "cached": false,
+      "file_name": "CERRA_Pt",
+      "sha256": "8bbbbf954a3d382d34b72c60588d6bbac978558051659c756a429b83ab52e4c0"
+    },
+    {
+      "bytes": 30908954,
+      "cached": false,
+      "file_name": "CERRA_Ra",
+      "sha256": "09a772944e4623d8f399b507cf6c20667cc20a301a9c834b0d580db8aef5a625"
+    },
+    {
+      "bytes": 16193649,
+      "cached": false,
+      "file_name": "CERRA_Sm",
+      "sha256": "e2ce6c0bfc4d96b8215e2412cb236aece1463f0ea9bdcdb328ff9afcfaf9023b"
+    },
+    {
+      "bytes": 14801636,
+      "cached": false,
+      "file_name": "CERRA_Swe",
+      "sha256": "baff5530eda2f72b1a33c5b22d1d663ee58b0bf3fa52b0f977daa08d0f48785a"
+    },
+    {
+      "bytes": 17909011,
+      "cached": false,
+      "file_name": "CERRA_Ta",
+      "sha256": "c70d24d9709a178301bfb1a80f61792913924006184b96f19d6206d6d9312668"
+    },
+    {
+      "bytes": 16194206,
+      "cached": false,
+      "file_name": "CERRA_Ws",
+      "sha256": "89e10f27671a666c2882f6e0a24ccb97493195fcf00311ebbd3921729974d84f"
+    },
+    {
+      "bytes": 9975208,
+      "cached": false,
+      "file_name": "MEAS_Qt",
+      "sha256": "af8592e69c8adcd98bb8401971acfc59d40e8c10b7c4675c6a615e0d72982faa"
+    },
+    {
+      "bytes": 5015,
+      "cached": false,
+      "file_name": "ReadME.txt",
+      "sha256": "77868880ec12c71a7ffab263455d3af32c4b796cac6c64dacf7d333b03576245"
+    },
+    {
+      "bytes": 5,
+      "cached": false,
+      "file_name": "Selected_catchments.cpg",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "bytes": 11852313,
+      "cached": false,
+      "file_name": "Selected_catchments.csv",
+      "sha256": "5482be5592dfe07adbf050a5cb1a7792ff091fb5300a82ff34295ce02882b17a"
+    },
+    {
+      "bytes": 107761,
+      "cached": false,
+      "file_name": "Selected_catchments.dbf",
+      "sha256": "2a394a1a4259e71e174f74986717813c9870023d18b3bac3f414bcdd582fc678"
+    },
+    {
+      "bytes": 415,
+      "cached": false,
+      "file_name": "Selected_catchments.prj",
+      "sha256": "f8f74e3a6e4ddbb4c7776ee6115f5954f158cfe9ae71eb237829bd885a67c093"
+    },
+    {
+      "bytes": 2838,
+      "cached": false,
+      "file_name": "Selected_catchments.qmd",
+      "sha256": "03cbb7e5375a2697a30b633986b66db3ed07494ef657d6904e650afb0c656f9e"
+    },
+    {
+      "bytes": 6811364,
+      "cached": false,
+      "file_name": "Selected_catchments.shp",
+      "sha256": "7936e201c37d07e3774430415e111d76a8e6091c8ac317ddc5c3ceeb7fe49596"
+    },
+    {
+      "bytes": 1516,
+      "cached": false,
+      "file_name": "Selected_catchments.shx",
+      "sha256": "b55c2522c746cdb8740e6f775029c327fd7564218085b1b32b93e470a0cbf144"
+    },
+    {
+      "bytes": 5,
+      "cached": false,
+      "file_name": "Selected_stations.cpg",
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "bytes": 17745,
+      "cached": false,
+      "file_name": "Selected_stations.csv",
+      "sha256": "94deaf74dab83e5e9decf463035e98fb02ca64fd97e56e83970228116e5d1794"
+    },
+    {
+      "bytes": 197741,
+      "cached": false,
+      "file_name": "Selected_stations.dbf",
+      "sha256": "0e49ef237fa3c26793b843e3637fb967c414672385ce67a1947e9a6310a40979"
+    },
+    {
+      "bytes": 145,
+      "cached": false,
+      "file_name": "Selected_stations.prj",
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "bytes": 666,
+      "cached": false,
+      "file_name": "Selected_stations.qmd",
+      "sha256": "1b516fc599d3b9f358cdd25c6fbd62763fa203cc89f9ae1d134ad54c73e44a79"
+    },
+    {
+      "bytes": 5056,
+      "cached": false,
+      "file_name": "Selected_stations.shp",
+      "sha256": "75c12c5cb12333814a61e94536ea640359116967ae9c523a79c97ea462dc6e30"
+    },
+    {
+      "bytes": 1516,
+      "cached": false,
+      "file_name": "Selected_stations.shx",
+      "sha256": "02a36c06d89b69e5ae56a8620ca5d45f65ba4aa3858ae5f7330b9f3e24c0676e"
+    },
+    {
+      "bytes": 239152,
+      "cached": false,
+      "file_name": "WaterTemp_ExtremeEvents_perCatchment.csv",
+      "sha256": "5e91caba0e9df18efecbcaf940dc06f43a39912dba2064382d911f52dc846145"
+    },
+    {
+      "bytes": 3170292,
+      "cached": false,
+      "file_name": "WaterTemp_ExtremeValues_perCatchment.csv",
+      "sha256": "b3647cfc553b6cf69c6995496f201839519494dcf36146fac92620dea6c8bf3a"
+    }
+  ],
+  "performance_outcomes_inspected": false,
+  "resource": "7a45ee06851e41d99e4affb7110d5f97"
+}

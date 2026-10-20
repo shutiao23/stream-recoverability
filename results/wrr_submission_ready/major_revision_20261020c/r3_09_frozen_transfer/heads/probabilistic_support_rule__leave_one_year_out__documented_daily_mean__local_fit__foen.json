@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    0.0,
+    0.008854166666666666,
+    0.052083333333333336,
+    0.121875,
+    0.20260416666666664,
+    0.28124999999999994,
+    0.3427083333333333,
+    0.4236979166666668,
+    0.4953125,
+    0.5585937499999999,
+    0.6158854166666665,
+    0.6890624999999999,
+    0.7617187499999999,
+    0.85390625,
+    0.9348958333333334,
+    0.98515625,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "probabilistic_support_rule__leave_one_year_out__documented_daily_mean__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 10678,
+  "n_training_groups": 11,
+  "name": "probabilistic_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "foen"
+  ]
+}

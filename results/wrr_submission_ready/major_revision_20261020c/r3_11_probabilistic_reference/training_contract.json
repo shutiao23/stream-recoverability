@@ -1,0 +1,28 @@
+{
+  "evaluation_cases": "all eligible external station-years, replicate-zero 3x3 crossed cells",
+  "hyperparameter_selection_on_new_external_outcomes": false,
+  "model_arguments": {
+    "batch_size": 32,
+    "d_diffusion_embedding": 64,
+    "d_feature_embedding": 16,
+    "d_time_embedding": 64,
+    "device": "cpu",
+    "epochs": 30,
+    "n_channels": 32,
+    "n_diffusion_steps": 50,
+    "n_features": 1,
+    "n_heads": 2,
+    "n_layers": 2,
+    "n_steps": 366,
+    "num_workers": 0,
+    "patience": 5,
+    "target_strategy": "mix",
+    "verbose": false
+  },
+  "normalization": "station history excluding evaluation year; observed values preserved",
+  "primary_reference_point": "H30 of pointwise sample-median completed series",
+  "prospective_claim": false,
+  "sampling_draws_for_reference_evaluation": 8,
+  "secondary_reference_point": "sample median of H30 values",
+  "validation": "one metadata-determined station-year per held-out old independent group"
+}

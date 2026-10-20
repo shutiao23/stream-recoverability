@@ -105,17 +105,24 @@ HEADLINE_NUMBERS = (
     # design
     "146", "457", "5{,}114", "53{,}721", "40{,}704", "13{,}017", "2{,}422",
     "418", "41", "1{,}899", "12",
+    # what the designs contain (2026-10-20b audit)
+    "33{,}749", "19{,}972", "211", "59", "67", "+0.52", "+0.71", "0.00",
     # the error a completeness test leaves
     "1.31", "24.9",
     # the phenomenon
-    "0.64", "0.02", "0.68", "0.89", "0.41", "0.24", "1.16",
-    # mechanism
-    "0.66", "0.28", "0.70", "0.84", "0.88", "35", "55",
+    "0.64", "0.02", "0.68", "0.89", "0.41", "0.24", "0.82", "1.12",
+    # mechanism: the two channels, the three windows, the interventions
+    "0.84", "0.88", "0.75", "0.43", "0.92", "0.19", "0.66", "44", "94", "12 days",
+    "0.24", "49", "59",
     # decision
-    "39.6", "66.7", "72.9", "74.0", "60.4", "70.4", "9.7", "10.3",
+    "39.6", "66.6", "72.9", "74.0", "60.4", "70.4", "9.7", "10.3",
     "2.2", "3.7", "8.3", "2.8", "2.6", "4.1", "93", "96",
-    # hot years
-    "86", "25", "26", "33", "60",
+    # where the fitted score's gain comes from
+    "63.2", "68.7", "73.4", "73.9", "6.7", "7.0", "2.4", "5.0", "16.3",
+    # hot years, refusal against the null, abstention cost
+    "86", "25", "26", "33", "60", "0.046", "0.043",
+    # the screening-need rule
+    "3.5", "49", "99.8", "0.35", "0.61",
     # risk rule
     "0.4", "7.8", "12.2", "18.5", "35.9", "42", "150", "3.9",
     # repair
@@ -124,7 +131,43 @@ HEADLINE_NUMBERS = (
 
 
 def missing_numbers(text: str) -> list[str]:
+    if "\\bibliography{references_r3}" in text:
+        import hashlib
+
+        registry = ROOT / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
+        if not registry.exists():
+            return ["missing final-protocol claim registry"]
+        definitions = (PAPER / "r3_claims.tex").read_text()
+        errors = []
+        for item in json.loads(registry.read_text())["claims"]:
+            if f"\\newcommand{{\\{item['macro']}}}{{{item['rendered']}}}" not in definitions:
+                errors.append(item["macro"])
+            path = ROOT / item["source"]
+            if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != item["source_sha256"]:
+                errors.append(item["source"])
+        return errors
     return [value for value in HEADLINE_NUMBERS if value not in text]
+
+
+def manuscript_text(source: Path) -> str:
+    def expand(path: Path, ancestors: tuple[Path, ...] = ()) -> str:
+        path = path.resolve()
+        if path in ancestors or not path.is_relative_to(PAPER.resolve()):
+            raise ValueError("Cyclic or out-of-paper TeX input")
+        text = path.read_text(encoding="utf-8")
+        def include(match):
+            target = path.parent / match.group(1)
+            if not target.suffix:
+                target = target.with_suffix(".tex")
+            return "" if target.name == "r3_claims.tex" else expand(target, (*ancestors, path))
+        return re.sub(r"\\input\{([^}]+)\}", include, text)
+
+    text = expand(source)
+    definitions = PAPER / "r3_claims.tex"
+    if "\\bibliography{references_r3}" in text and definitions.exists():
+        macros = dict(re.findall(r"\\newcommand\{\\(R[A-Za-z]+)\}\{([^\n]*)\}\s*$", definitions.read_text(), re.M))
+        text = re.sub(r"\\(R[A-Za-z]+)(?:\{\})?", lambda match: macros.get(match.group(1), match.group(0)), text)
+    return text
 
 
 def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
@@ -155,13 +198,17 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
     (passes if "\\section*{Open Research Statement}" in text else failures).append(record)
 
     absent = missing_numbers(text)
-    record = {"check": "headline numbers present", "checked": len(HEADLINE_NUMBERS), "missing": absent}
+    registry = ROOT / "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json"
+    number_count = len(json.loads(registry.read_text())["claims"]) if "\\bibliography{references_r3}" in text and registry.exists() else len(HEADLINE_NUMBERS)
+    record = {"check": "headline numbers present", "checked": number_count, "missing": absent}
     (passes if not absent else failures).append(record)
 
     cited = set(re.findall(r"\\cite[A-Za-z]*\{([^}]*)\}", text))
     cited = {key.strip() for group in cited for key in group.split(",") if key.strip()}
     declared: set[str] = set()
-    for name in ("references.bib", "references_additions.bib"):
+    bibliography = re.findall(r"\\bibliography\{([^}]+)\}", text)
+    names = [name.strip() + ".bib" for group in bibliography for name in group.split(",")]
+    for name in names or ("references.bib", "references_additions.bib"):
         path = PAPER / name
         if path.exists():
             declared |= set(re.findall(r"^@\w+\{([^,]+),", path.read_text(), re.M))
@@ -186,7 +233,7 @@ def main() -> int:
     args = parser.parse_args()
 
     source = PAPER / f"{MAIN}.tex"
-    text = source.read_text(encoding="utf-8")
+    text = manuscript_text(source)
     env = environment()
 
     # The class draws its marks with an explicit relative path, which kpathsea
@@ -236,7 +283,7 @@ def main() -> int:
         # graphics option, and leaving it in place makes graphicx replace every
         # figure with a box showing its filename.
         wrapper = PAPER / f"{PUBLISHED}.tex"
-        published_source = text.replace(
+        published_source = source.read_text(encoding="utf-8").replace(
             "\\documentclass[draft]{agujournal2025}",
             "%% Generated by scripts/223_wrr_build.py from wrr_manuscript.tex.\n"
             "%% Do not edit; edit the manuscript.\n"

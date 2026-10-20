@@ -1,0 +1,16 @@
+reconstructor,total_missing,contrast,mean_true_hidden_share_difference,mean,ci_low,ci_high,n_groups,n_station_years
+doy_climatology,30,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.24449251891476667,-0.22792963997749643,-0.2455162447696487,-0.2107830762504336,144,3378
+doy_climatology,60,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.27136915589950683,-0.2454554847709683,-0.27017685859757823,-0.2182341862825454,144,3375
+doy_climatology,90,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2584006920762745,-0.24451824299992939,-0.2793493286409488,-0.20816967269976278,144,3376
+smooth_climatology,30,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.24449251891476667,-0.2279283268242646,-0.2445390819429543,-0.21109862012675962,144,3378
+smooth_climatology,60,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.27136915589950683,-0.2507558258079437,-0.27383303001432,-0.22426736047082071,144,3375
+smooth_climatology,90,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2584006920762745,-0.25382646643215745,-0.2903874401490606,-0.21655200356601473,144,3376
+linear_interp,30,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.24449251891476667,-0.2265452900724369,-0.2409736310244787,-0.2119002734583083,144,3378
+linear_interp,60,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.27136915589950683,-0.5900695314518914,-0.6327248810917706,-0.5470073559860739,144,3375
+linear_interp,90,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2584006920762745,-1.3736844561560217,-1.4730301999544089,-1.269762545912735,144,3376
+donor_ridge,30,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2425213473417262,-0.10435623694224029,-0.1266529460869276,-0.0863579125979568,126,2974
+donor_ridge,60,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2692814222607596,-0.10521907203281021,-0.12489223925665544,-0.08769172181177892,122,2620
+donor_ridge,90,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2506657154609492,-0.10422939120143314,-0.12423083996218602,-0.08781192339754366,117,2108
+air_ridge,30,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.23614422000677923,-0.19802678006004326,-0.22897227193307126,-0.17224199453263503,113,2743
+air_ridge,60,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2672222726553507,-0.23098815900705616,-0.26055454283170043,-0.20394764365701576,113,2742
+air_ridge,90,fragmented_minus_contiguous_with_equal_total_warm_missing_days,-0.2545336903749226,-0.22493410048957785,-0.257635674903848,-0.19301444794600017,113,2743

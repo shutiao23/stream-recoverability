@@ -1,0 +1,16 @@
+scope,group,provider,n_cases,n_station_years,predicted_risk,source_only_prediction_ci_low,source_only_prediction_ci_high,observed_risk,rule_says_no_screen,observed_above_cap,independent_groups,unseen_group_risk_upper,risk_certification,time
+all,external_05987568be9b240d,hubeau,30,6,0.2859294380560339,0.2267577330951566,0.3451395647811688,0.1333333333333333,False,True,1,0.979890738990925,insufficient_component_level_evidence,Retro
+all,external_23920287a08e1d16,hubeau,18,9,0.0792385932239811,0.0603397704133847,0.1210679834389828,0.0,False,False,1,0.95,insufficient_component_level_evidence,Retro
+all,external_532dbe5907561a81,hubeau,24,8,0.4146714212939379,0.3269786317408185,0.5004269098267442,0.3333333333333333,False,True,1,0.9956873757592316,insufficient_component_level_evidence,Retro
+all,external_7d32d6204897376e,hubeau,8,4,0.2757047386535587,0.2233658280865726,0.3340307566751297,0.0,False,False,1,0.95,insufficient_component_level_evidence,Retro
+all,external_9c4bbb8c94b72fa2,hubeau,20,5,0.4146714212939378,0.3269786317408185,0.5004269098267442,0.7,False,True,1,0.9999939893313584,insufficient_component_level_evidence,Retro
+all,external_e2ef71f685704435,hubeau,8,4,0.4146714212939378,0.3269786317408185,0.5004269098267442,0.125,False,True,1,0.978746198573926,insufficient_component_level_evidence,Retro
+all,external_e3d145690e8a064e,hubeau,16,8,0.2182052758643602,0.1708172257703639,0.2645801212814473,0.5,False,True,1,0.9993746088859544,insufficient_component_level_evidence,Retro
+all,external_ed65c2242ac535c3,hubeau,22,11,0.0148162845069818,0.0080380834928581,0.0275779135060319,0.0,True,False,1,0.95,insufficient_component_level_evidence,Retro
+all,external_f80499d88ac9bced,hubeau,12,6,0.4146714212939378,0.3269786317408185,0.5004269098267442,0.0,False,False,1,0.95,insufficient_component_level_evidence,Retro
+all,external_f9dc2e50bdc51aa2,hubeau,10,5,0.2154361374932399,0.1697082719561366,0.2606072134281425,0.1,False,True,1,0.9749523733733728,insufficient_component_level_evidence,Retro
+all,external_05987568be9b240d,hubeau,3,1,0.2574863743342004,0.200018332023134,0.3018368197212215,0.0,False,False,1,0.95,insufficient_component_level_evidence,Prospective
+all,external_23920287a08e1d16,hubeau,2,1,0.1487713675213675,0.0582854672858967,0.2010737742432998,0.0,False,False,1,0.95,insufficient_component_level_evidence,Prospective
+all,external_532dbe5907561a81,hubeau,3,1,0.4749163879598662,0.4134822619793927,0.567879294608297,0.6666666666666666,False,True,1,0.999981480795112,insufficient_component_level_evidence,Prospective
+all,external_9c4bbb8c94b72fa2,hubeau,8,2,0.4749163879598662,0.4134822619793927,0.567879294608297,0.5,False,True,1,0.9993746088859544,insufficient_component_level_evidence,Prospective
+all,external_ed65c2242ac535c3,hubeau,2,1,0.0395470909940363,0.0102492429841903,0.0765644231265649,0.0,True,False,1,0.95,insufficient_component_level_evidence,Prospective

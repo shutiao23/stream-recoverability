@@ -1,0 +1,50 @@
+{
+  "candidates": [
+    0.3897644042663297,
+    0.6600353276719537,
+    0.7647167084922533,
+    0.826730459112896,
+    0.9029242351560169,
+    0.9795692201532771,
+    1.0591413440847757,
+    1.1512326564715003,
+    1.2506640790573613,
+    1.3523990929878262,
+    1.4855196001787894,
+    1.6015643103176194,
+    1.7132647256005598,
+    1.8187536250658147,
+    1.9518343083662482,
+    2.0852782095895055,
+    2.2455080617716274,
+    2.4387948932920693,
+    2.6874072977882717,
+    3.178044240576243,
+    6.263631356958931
+  ],
+  "features": [],
+  "identity": "daily_disagreement_rule__strictly_prior_years__documented_daily_mean__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 5783,
+  "n_training_groups": 11,
+  "name": "daily_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
+      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

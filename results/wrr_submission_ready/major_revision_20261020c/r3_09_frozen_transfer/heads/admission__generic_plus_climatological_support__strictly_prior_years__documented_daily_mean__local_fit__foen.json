@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    -0.0031585460000849133,
+    0.00012074275352476285,
+    0.0015317839608909745,
+    0.006775743514641174,
+    0.012156770861145028,
+    0.024459998989478305,
+    0.05051421218220946,
+    0.08756302780256746,
+    0.15774929030488888,
+    0.2224277688569531,
+    0.2839036233652983,
+    0.4206732885948711,
+    0.4947180326273045,
+    0.5861962024633123,
+    0.6707401438620287,
+    0.8053258700277586,
+    0.9647559723012676,
+    1.0773306343837477,
+    1.2688335874452341,
+    1.8456915219815366,
+    2.884324412657919
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement",
+    "peak_overlap"
+  ],
+  "identity": "admission__generic_plus_climatological_support__strictly_prior_years__documented_daily_mean__local_fit__foen",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_plus_climatological_support__strictly_prior_years__documented_daily_mean__local_fit__foen.joblib",
+  "model_sha256": "3ea409ddd02e3e5737bc77324dd7ee3fd14c0859bd025c748b1518365cfa6eaf",
+  "n_training_cases": 551,
+  "n_training_groups": 11,
+  "name": "generic_plus_climatological_support",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

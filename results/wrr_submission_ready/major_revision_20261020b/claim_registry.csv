@@ -1,0 +1,36 @@
+claim_id,claim,value,printed_as,artifact,selector,printed_in_manuscript
+R01,"stratified outages in the 53,721",33749,"33{,}749",r2_01_design_audit/arm_inventory.csv,arm=stratified; development+external,True
+R02,"empirical outages in the 53,721",19972,"19{,}972",r2_01_design_audit/arm_inventory.csv,arm=empirical; development+external,True
+R03,"length vs true hidden share, external pooled",0.52,+0.52,r2_01_design_audit/length_support_correlation.csv,"panel=external, arm=all",True
+R04,"length vs climatological overlap, real replay",0.71,+0.71,r2_01_design_audit/length_support_correlation.csv,panel=real_calendar_replay,True
+R05,"length vs climatological overlap, crossed panel",0.0,0.00,r2_01_design_audit/length_support_correlation.csv,panel=crossed_mechanism,True
+R06,source station-years behind the 418 groups,59,59,r2_01_design_audit/real_calendar_independence.csv,n_source_incomplete_station_years,True
+R07,target station-years behind the 418 groups,67,67,r2_01_design_audit/real_calendar_independence.csv,n_target_station_years,True
+R08,crossed panel station-years,211,211,r2_01_design_audit/arm_inventory.csv,"panel=crossed_mechanism, arm=stratified",True
+R09,max identity residual (degC),1.63e-13,2\times10^{-13},r2_03_three_windows/identity_check.csv,max_abs_identity_residual_C,True
+R10,"climatology mean |error|, true window observed",0.06,0.06,r2_03_three_windows/channels_by_hidden_class.csv,"doy_climatology, none",True
+R11,"climatology hiding channel, window hidden",-0.75,$-0.75$,same,"doy_climatology, all",True
+R12,"climatology false-peak channel, window hidden",0.43,$+0.43$,same,"doy_climatology, all",True
+R13,"climatology mean |error|, window hidden",0.92,0.92,same,"doy_climatology, all",True
+R14,"climatology misaligned minus aligned, pooled",0.66,0.66,r2_03_three_windows/misalignment_within_strata.csv,"doy_climatology, pooled",True
+R15,"climatology misaligned minus aligned, within strata",0.19,0.19,same,"doy_climatology, clim_class_x_true_class_weighted",True
+R16,median days between climatological and true window,12,12,r2_03_three_windows/window_distances.csv,climatological_vs_true,True
+R17,share of cases with the two windows 30+ days apart,9.5,9.5,same,climatological_vs_true,True
+R18,permutation lowers climatology mean |error| (degC),0.08,0.08,r2_03_three_windows/residual_interventions.csv,"doy_climatology, pooled",True
+R19,mean removal lowers climatology mean |error| (degC),0.24,0.24,same,"doy_climatology, pooled",True
+R20,"external retention at the cap, gap_season",63.2,63.2,r2_02_same_capacity_ablation/ablation_operating_points.csv,"panel=wave2_confirmation, score=gap_season, mean of 3 seeds",True
+R21,"external retention at the cap, gap_season+donors",68.7,68.7,r2_02_same_capacity_ablation/ablation_operating_points.csv,"panel=wave2_confirmation, score=gap_season+donors, mean of 3 seeds",True
+R22,"external retention at the cap, gap_season+donors+residual",74.0,74.0,r2_02_same_capacity_ablation/ablation_operating_points.csv,"panel=wave2_confirmation, score=gap_season+donors+residual, mean of 3 seeds",True
+R23,"external retention at the cap, generic",73.4,73.4,r2_02_same_capacity_ablation/ablation_operating_points.csv,"panel=wave2_confirmation, score=generic, mean of 3 seeds",True
+R24,"external retention at the cap, generic+support",73.9,73.9,r2_02_same_capacity_ablation/ablation_operating_points.csv,"panel=wave2_confirmation, score=generic+support, mean of 3 seeds",True
+R25,"support share added to the generic model, external, seeds","[0.4, 0.8, 0.3]",+0.4,r2_02_same_capacity_ablation/ablation_contrasts.csv,"left=generic+support, right=generic",True
+R26,"generic model minus peak-window rule, external, range","[6.7, 7.0]",6.7 to 7.0,same,"left=generic, right=peak_overlap_rule",True
+R27,"true-share rule minus climatological rule, external, range","[5.0, 5.9]",5.0 to 5.9,same,left=oracle_support_rule,True
+R28,"fitted score: hot-year refusal minus all-record refusal, pp, seed 101",-1.0,"1.0 point [0.3, 1.6]",r2_04_hot_year_null/hot_year_selection_null.csv,"external, 20C, fitted_risk, seed 101 (sign: negative = hot years refused less)",True
+R29,"fitted score break-even abstention cost, rho=1, seed 101",0.046,0.046,same,same,True
+R30,fitted score wrong-judgement rate,0.45,0.45,same,same,True
+R31,composition rule pooled prediction (%),3.5,3.5,r2_05_screening_need/real_calendar_pooled.csv,pooled_predicted,True
+R32,"networks needing a screen, all-donor scenario",4,four,r2_05_screening_need/real_calendar_rule_confusion.csv,level=all_donor_failure,True
+R33,"Spearman, composition vs observed, development",0.35,0.35,r2_05_screening_need/designed_archive_prediction.csv,panel=development,True
+R34,"Spearman, composition vs observed, external",0.61,0.61,same,panel=wave2_confirmation,True
+R35,"length effect, climatology, share >= 0.9 (degC)",0.12,0.12,../major_revision_20261020/p0_06_figures/fig3_source.csv,"length_effect_at_high_hidden_share, doy_climatology, >=0.9",True

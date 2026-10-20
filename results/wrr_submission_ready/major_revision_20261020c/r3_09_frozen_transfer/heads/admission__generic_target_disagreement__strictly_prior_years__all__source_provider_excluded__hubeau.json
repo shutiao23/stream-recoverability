@@ -1,0 +1,82 @@
+{
+  "candidates": [
+    -0.04380961986864779,
+    2.930541177936441e-10,
+    2.957618737344206e-10,
+    0.017256471399929037,
+    0.08771696502918254,
+    0.18860100002976216,
+    0.29028529163994654,
+    0.4103564269758606,
+    0.5246582137862428,
+    0.6661077046637508,
+    0.8226621638749062,
+    0.9942053338656113,
+    1.188426681253084,
+    1.4325689122447243,
+    1.843933666951391,
+    5.5272518496287955
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement"
+  ],
+  "identity": "admission__generic_target_disagreement__strictly_prior_years__all__source_provider_excluded__hubeau",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_target_disagreement__strictly_prior_years__all__source_provider_excluded__hubeau.joblib",
+  "model_sha256": "f76c23807a4a33042b94d3da531da3baa005453b470b9cce9cf59eee74f1b89d",
+  "n_training_cases": 20445,
+  "n_training_groups": 102,
+  "name": "generic_target_disagreement",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_provider_excluded",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.6661077046637508,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.044972911023768845,
+    "formal_minimum_bounded_loss_upper": 0.27170389380399934,
+    "n_calibration_cases": 3248,
+    "n_calibration_groups": 26
+  },
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-10-20T11:40:49.662029+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "decision": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/docs/reviews/wrr_major_revision_20261020c/POWER_DECISION.md",
+      "sha256": "f0b869f827b803e0730130dd51a7e4b6316f1b382fc600681a1a801386802e1a"
+    },
+    "prospective": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    "retrospective": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/363_wrr_learning_and_power.py",
+    "sha256": "b0150ce987e845400b6fbde0fec7df2804315301e01e74c42017804a6da44b73"
+  },
+  "test_outcomes_opened": false
+}

@@ -28,7 +28,7 @@
         <mxCell id="truth" value="Reference truth&#10;5,114 station-years" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="16" y="24" width="108" height="48" as="geometry"/>
         </mxCell>
-        <mxCell id="outage" value="Designed outages&#10;53,721 cases" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="outage" value="Designed outages&#10;33,749 single-run&#10;19,972 transplanted" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="142" y="24" width="108" height="48" as="geometry"/>
         </mxCell>
         <mxCell id="recon" value="Reconstruction policy&#10;5 methods, leave-one-&#10;year-out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
@@ -55,7 +55,7 @@
         <mxCell id="hot" value="Hot-year composition&#10;admitted, refused, missed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="184" y="192" width="150" height="52" as="geometry"/>
         </mxCell>
-        <mxCell id="regime" value="Regime boundary&#10;peak observed? then&#10;admit everything" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+        <mxCell id="regime" value="Regime check&#10;share of peak hidden?&#10;screen only if large" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
           <mxGeometry x="352" y="192" width="154" height="52" as="geometry"/>
         </mxCell>
         <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="truth" target="outage">

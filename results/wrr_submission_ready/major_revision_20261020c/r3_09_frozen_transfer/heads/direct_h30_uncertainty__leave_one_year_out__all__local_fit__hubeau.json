@@ -1,0 +1,46 @@
+{
+  "candidates": [
+    0.0,
+    7.105427357601002e-15,
+    1.5987211554602254e-14,
+    0.07071387213865385,
+    0.14966919905498607,
+    0.20950571971677934,
+    0.256831796228235,
+    0.30200679887513104,
+    0.34177791015184444,
+    0.37876584083420184,
+    0.417957132748959,
+    0.46218288058278834,
+    0.5177039464139692,
+    0.5941826730125896,
+    0.7087809900123342,
+    0.9098015910237531,
+    2.3981943349257437
+  ],
+  "features": [],
+  "identity": "direct_h30_uncertainty__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 4928,
+  "n_training_groups": 10,
+  "name": "direct_h30_uncertainty",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

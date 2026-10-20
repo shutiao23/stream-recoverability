@@ -1,0 +1,50 @@
+{
+  "formal_and_empirical_risk_are_distinct": true,
+  "measurement_scope": "all",
+  "n_candidates": 290322,
+  "n_groups": 181,
+  "new_external_validation": false,
+  "primary_h2_contrasts": [
+    {
+      "ci_high": 0.10775632712424744,
+      "ci_low": 0.06399099939183914,
+      "difference": 0.08733061910568266,
+      "exceeds_five_point_estimate": true,
+      "five_point_margin_supported_by_interval": true,
+      "fold_seed": 101,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    },
+    {
+      "ci_high": 0.09655148277892098,
+      "ci_low": 0.07059291383222845,
+      "difference": 0.08441316882633765,
+      "exceeds_five_point_estimate": true,
+      "five_point_margin_supported_by_interval": true,
+      "fold_seed": 202,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    },
+    {
+      "ci_high": 0.11157733328898119,
+      "ci_low": 0.07403802110581084,
+      "difference": 0.09375107639104167,
+      "exceeds_five_point_estimate": true,
+      "five_point_margin_supported_by_interval": true,
+      "fold_seed": 303,
+      "interval_inside_two_point_equivalence_margin": false,
+      "left": "uncertain_support",
+      "n_independent_groups": 181,
+      "right": "generic_target_disagreement",
+      "uncertainty_scope": "conditional on fitted models and calibrated thresholds"
+    }
+  ],
+  "protocol": "strictly_prior_years",
+  "reported_confidence_intervals_include_training_variability": false
+}

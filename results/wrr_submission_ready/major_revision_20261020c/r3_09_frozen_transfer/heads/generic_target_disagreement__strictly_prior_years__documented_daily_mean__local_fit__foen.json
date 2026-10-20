@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    -0.011402655818338754,
+    3.5039297669994294e-10,
+    0.001420048146728113,
+    0.006132657849559333,
+    0.025456187135496553,
+    0.05860076512098151,
+    0.10479709357824021,
+    0.1642847828178365,
+    0.22532781917803424,
+    0.2879560803613384,
+    0.35452687760195745,
+    0.4142698434830019,
+    0.4715944772303786,
+    0.5241233559439104,
+    0.5834696308384805,
+    0.6447083649011044,
+    0.7296487385973456,
+    0.8804172316954089,
+    1.0998945315882513,
+    1.660006045999645,
+    4.267968758229485
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement"
+  ],
+  "identity": "generic_target_disagreement__strictly_prior_years__documented_daily_mean__local_fit__foen",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_target_disagreement__strictly_prior_years__documented_daily_mean__local_fit__foen.joblib",
+  "model_sha256": "76c95a427ee91cbc507e9824e09f8616736b06509e78964a95069f18650c3569",
+  "n_training_cases": 5783,
+  "n_training_groups": 11,
+  "name": "generic_target_disagreement",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
+      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T11:35:46.510491+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "core": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/scripts/351_wrr_representative_recovery.py",
+      "sha256": "01b25b29ada09825c882eb00176a12af9578b874a3863ba15976e70c5fedd1d6"
+    },
+    "groups": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/complete_network_independence.csv",
+      "sha256": "47fc5bec532bfdfc68135e948bec18674d22c75c76f5c68fa7f525da82d72993"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/364_wrr_monitoring_replay.py",
+    "sha256": "a26a889101520699132a72a116c7b151adfaa78ce5bc836a5c19bba0917bd584"
+  }
+}

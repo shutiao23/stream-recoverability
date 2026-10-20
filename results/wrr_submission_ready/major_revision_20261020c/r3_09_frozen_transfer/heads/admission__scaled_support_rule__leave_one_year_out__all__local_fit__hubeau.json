@@ -1,0 +1,44 @@
+{
+  "candidates": [
+    0.0,
+    0.1760388905620955,
+    0.23895629173295585,
+    0.3100131740415841,
+    0.38645928322063955,
+    0.46636455769496754,
+    0.543495180229834,
+    0.6461992177095349,
+    0.6896042704420001,
+    0.7126733160458549,
+    0.8045374508106369,
+    0.9014632296183533,
+    1.00437951153674,
+    1.353653460927065,
+    1.926543215132618
+  ],
+  "features": [],
+  "identity": "admission__scaled_support_rule__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 497,
+  "n_training_groups": 10,
+  "name": "scaled_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

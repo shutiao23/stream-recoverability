@@ -406,46 +406,62 @@ def fig2() -> None:
     ax_a.set_ylabel("hides peak − leaves peak (°C)")
     title(ax_a, "a", "position always costs")
 
-    # (b) length effect at fixed hidden share
+    # (b) length effect at fixed hidden share.  Two pre-declared cut-offs of the
+    # *true* hidden share are shown, both with the station-year-paired estimator
+    # (a station-year enters only when it holds both a 30- and a 90-day outage
+    # above the cut-off): >= 0.9 (48 station-years, 12 networks) and the stricter
+    # >= 0.999 (11 station-years, 6 networks).  The network-paired subset
+    # estimator of script 317 is a sensitivity in the SI, not the plotted one.
     style(ax_b)
-    table = crossed[
-        crossed.contrast.eq("long_minus_short_at_fixed_hidden_share")
-        & crossed.level.eq("true_peak_hidden_fraction>=0.999")
-        & crossed.design_detail.isna()
-    ]
+    levels = (
+        ("true_peak_hidden_fraction>=0.9", "o", "share ≥ 0.9", -0.16),
+        ("true_peak_hidden_fraction>=0.999", "D", "share ≥ 0.999", 0.16),
+    )
     ys = np.arange(len(reconstructors))[::-1]
-    for y, reconstructor in zip(ys, reconstructors):
-        row = table[table.reconstructor.eq(reconstructor)]
-        if row.empty:
-            continue
-        row = row.iloc[0]
-        ax_b.errorbar(
-            [row.point_C],
-            [y],
-            xerr=[[row.point_C - row.ci_low_C], [row.ci_high_C - row.point_C]],
-            fmt="o",
-            color=METHOD_COLOURS[reconstructor],
-            markersize=2.8,
-            capsize=1.3,
-            elinewidth=0.8,
-        )
-        rows.append(
-            {
-                "figure": "fig3",
-                "panel": "length_effect_at_full_support",
-                "reconstructor": reconstructor,
-                "length": "90 minus 30",
-                "point_c": row.point_C,
-                "ci_low_c": row.ci_low_C,
-                "ci_high_c": row.ci_high_C,
-                "n_cases": row.n_cases,
-            }
-        )
+    for level, marker, level_label, offset in levels:
+        table = crossed[
+            crossed.contrast.eq("long_minus_short_at_fixed_hidden_share")
+            & crossed.level.eq(level)
+            & crossed.design_detail.isna()
+        ]
+        for y, reconstructor in zip(ys, reconstructors):
+            row = table[table.reconstructor.eq(reconstructor)]
+            if row.empty:
+                continue
+            row = row.iloc[0]
+            hollow = marker == "D"
+            ax_b.errorbar(
+                [row.point_C],
+                [y + offset],
+                xerr=[[row.point_C - row.ci_low_C], [row.ci_high_C - row.point_C]],
+                fmt=marker,
+                color=METHOD_COLOURS[reconstructor],
+                markerfacecolor=SURFACE if hollow else METHOD_COLOURS[reconstructor],
+                markersize=2.6,
+                capsize=1.2,
+                elinewidth=0.8,
+            )
+            rows.append(
+                {
+                    "figure": "fig3",
+                    "panel": "length_effect_at_high_hidden_share",
+                    "reconstructor": reconstructor,
+                    "length": f"90 minus 30, {level_label}",
+                    "point_c": row.point_C,
+                    "ci_low_c": row.ci_low_C,
+                    "ci_high_c": row.ci_high_C,
+                    "n_cases": row.n_cases,
+                    "n_station_years": row.n_station_years,
+                    "n_networks": row.n_networks,
+                }
+            )
     ax_b.axvline(0, color=INK_2, linewidth=0.7, linestyle=(0, (3, 2)))
     ax_b.set_xlim(-0.3, 1.65)
     ax_b.set_yticks(ys, ["clim.", "smooth", "interp.", "donor", "air"], fontsize=6.0)
-    ax_b.set_xlabel("90 − 30 d at full support (°C)")
-    title(ax_b, "b", "length sometimes matters")
+    ax_b.set_xlabel("90 − 30 d at high hidden share (°C)")
+    ax_b.text(0.98, 0.04, "filled: share ≥ 0.9\nhollow: share ≥ 0.999", transform=ax_b.transAxes,
+              fontsize=5.2, color=INK_2, ha="right", va="bottom")
+    title(ax_b, "b", "length: small, but not for interpolation")
 
     # (c) the curve across hidden share, wave-2 panel
     style(ax_c)
@@ -457,12 +473,15 @@ def fig2() -> None:
     for reconstructor in reconstructors:
         xs, ys_values = [], []
         for index, (low, high) in enumerate(share_bins):
-            mask = (share > low) & (share <= high)
+            # the first bin is the exact-zero class (peak window fully observed)
+            mask = (share <= high) if index == 0 else (share > low) & (share <= high)
             if mask.sum() < 40:
                 continue
             error = pd.to_numeric(
                 cases[f"abserr_hottest30_{reconstructor}"], errors="coerce"
             ).to_numpy(dtype=float)
+            if not np.isfinite(error[mask]).any():
+                continue  # no series for this reconstructor on this panel (air, external)
             point, lo, hi = cluster_mean_ci(error[mask], groups[mask], seed=71 + index)
             xs.append(index)
             ys_values.append(point)
@@ -478,14 +497,18 @@ def fig2() -> None:
                     "n_cases": int(mask.sum()),
                 }
             )
+        if not xs:  # e.g. the air regression has no series on the external panel
+            continue
+        if not xs:
+            continue
         ax_c.plot(xs, ys_values, marker="o", markersize=2.6, linewidth=1.1,
                   color=METHOD_COLOURS[reconstructor], label=METHOD_LABELS[reconstructor])
     ax_c.set_xticks(range(len(share_labels)), share_labels)
     ax_c.set_xlabel("hidden share of the peak window")
     ax_c.set_ylabel("error (°C, log scale)")
     ax_c.set_yscale("log")
-    ax_c.set_ylim(0.06, 7.0)
-    title(ax_c, "c", "one axis, five heights")
+    ax_c.set_ylim(0.0025, 7.0)
+    title(ax_c, "c", "one axis, four heights")
     ax_c.legend(frameon=False, fontsize=5.4, handlelength=1.2, ncol=3, loc="upper left",
                 columnspacing=0.8, labelspacing=0.2)
 

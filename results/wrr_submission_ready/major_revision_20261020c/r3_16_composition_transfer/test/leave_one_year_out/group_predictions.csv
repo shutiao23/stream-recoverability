@@ -1,0 +1,11 @@
+scope,group,provider,n_cases,n_station_years,predicted_risk,source_only_prediction_ci_low,source_only_prediction_ci_high,observed_risk,rule_says_no_screen,observed_above_cap,independent_groups,unseen_group_risk_upper,risk_certification
+all,external_05987568be9b240d,hubeau,30,6,0.2859294380560339,0.22675773309515665,0.3451395647811688,0.13333333333333333,False,True,1,0.979890738990925,insufficient_component_level_evidence
+all,external_23920287a08e1d16,hubeau,18,9,0.0792385932239811,0.06033977041338478,0.12106798343898284,0.0,False,False,1,0.95,insufficient_component_level_evidence
+all,external_532dbe5907561a81,hubeau,24,8,0.4146714212939379,0.32697863174081854,0.5004269098267442,0.3333333333333333,False,True,1,0.9956873757592316,insufficient_component_level_evidence
+all,external_7d32d6204897376e,hubeau,8,4,0.2757047386535587,0.2233658280865726,0.3340307566751297,0.0,False,False,1,0.95,insufficient_component_level_evidence
+all,external_9c4bbb8c94b72fa2,hubeau,20,5,0.41467142129393786,0.32697863174081854,0.5004269098267442,0.7,False,True,1,0.9999939893313584,insufficient_component_level_evidence
+all,external_e2ef71f685704435,hubeau,8,4,0.41467142129393786,0.32697863174081854,0.5004269098267442,0.125,False,True,1,0.9787461985739259,insufficient_component_level_evidence
+all,external_e3d145690e8a064e,hubeau,16,8,0.21820527586436023,0.1708172257703639,0.26458012128144737,0.5,False,True,1,0.9993746088859544,insufficient_component_level_evidence
+all,external_ed65c2242ac535c3,hubeau,22,11,0.014816284506981832,0.008038083492858186,0.027577913506031927,0.0,True,False,1,0.95,insufficient_component_level_evidence
+all,external_f80499d88ac9bced,hubeau,12,6,0.4146714212939378,0.3269786317408185,0.5004269098267442,0.0,False,False,1,0.95,insufficient_component_level_evidence
+all,external_f9dc2e50bdc51aa2,hubeau,10,5,0.21543613749323992,0.16970827195613664,0.2606072134281425,0.1,False,True,1,0.9749523733733727,insufficient_component_level_evidence

@@ -1,0 +1,56 @@
+{
+  "candidates": [
+    0.0,
+    0.16666666666666666,
+    0.3,
+    0.36666666666666664,
+    0.4666666666666667,
+    0.5666666666666667,
+    0.6333333333333333,
+    0.7333333333333333,
+    1.0
+  ],
+  "features": [],
+  "identity": "peak_overlap_rule__leave_one_year_out__all__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 321826,
+  "n_training_groups": 145,
+  "name": "peak_overlap_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.16666666666666666,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.03571860487079812,
+    "formal_minimum_bounded_loss_upper": 0.23538539728336702,
+    "n_calibration_cases": 84189,
+    "n_calibration_groups": 36
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "syke",
+    "usgs"
+  ]
+}

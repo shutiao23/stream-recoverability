@@ -1,0 +1,43 @@
+{
+  "candidates": [
+    -1.0,
+    -0.9738562091503268,
+    -0.9084967320261438,
+    -0.8888888888888888,
+    -0.803921568627451,
+    -0.6535947712418301,
+    -0.6078431372549019,
+    -0.6013071895424836,
+    -0.5294117647058824,
+    -0.4444444444444444,
+    -0.4117647058823529,
+    -0.3333333333333333,
+    -0.21568627450980393,
+    -0.0
+  ],
+  "features": [],
+  "identity": "admission__warm_coverage_rule__leave_one_year_out__documented_daily_mean__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 1040,
+  "n_training_groups": 11,
+  "name": "warm_coverage_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "foen"
+  ]
+}

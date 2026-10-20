@@ -1,0 +1,10 @@
+{
+  "identity": "admission__policy_certificate__strictly_prior_years__all__local_fit__foen",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__policy_certificate__strictly_prior_years__all__local_fit__foen.joblib",
+  "name": "policy_certificate",
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "status": "no_supported_training_score",
+  "target_provider": "foen"
+}

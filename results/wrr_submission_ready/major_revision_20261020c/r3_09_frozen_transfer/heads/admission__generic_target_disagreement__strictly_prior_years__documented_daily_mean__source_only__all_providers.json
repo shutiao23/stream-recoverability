@@ -1,0 +1,81 @@
+{
+  "candidates": [
+    -0.06346883965133196,
+    3.033192262577263e-10,
+    3.0331946218011905e-10,
+    3.0332035209334236e-10,
+    0.01469113888815624,
+    0.060080019174513714,
+    0.15627351530052214,
+    0.2718124083629403,
+    0.39214395554655024,
+    0.5220183908071035,
+    0.665571683550446,
+    0.8134956689329766,
+    0.9956095026792884,
+    1.2288064671867758,
+    1.4902715871171073,
+    1.9077216635293308,
+    5.4344431337802215
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement"
+  ],
+  "identity": "admission__generic_target_disagreement__strictly_prior_years__documented_daily_mean__source_only__all_providers",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__generic_target_disagreement__strictly_prior_years__documented_daily_mean__source_only__all_providers.joblib",
+  "model_sha256": "2ed1bb18f8372a03f2f6960b035a417dc9cdaa0ba54c93986c0612465012ffbf",
+  "n_training_cases": 17722,
+  "n_training_groups": 81,
+  "name": "generic_target_disagreement",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.665571683550446,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.028000602103456496,
+    "formal_minimum_bounded_loss_upper": 0.30141008277582476,
+    "n_calibration_cases": 3208,
+    "n_calibration_groups": 21
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

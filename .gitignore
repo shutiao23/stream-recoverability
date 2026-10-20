@@ -184,4 +184,26 @@ scratch/**/*.pdf
 # 2026-10-20 aligned-policy round: regenerable cross-fit caches (joblib models
 # and npz score arrays, ~100 MB). The scripts rebuild them on demand.
 scratch/p0_01_aligned/
+scratch/r2_02_ablation/
 scratch/p0_02/crossfit_cache/
+
+# Scientific revision: provider bytes and regenerable working caches stay local.
+# Frozen deployment heads, compact numerical evidence and validation logs remain.
+/data/external/wrr_revision_20261020c/
+/scratch/wrr_revision_20261020c/*
+!/scratch/wrr_revision_20261020c/full_tests.log
+!/scratch/wrr_revision_20261020c/full_tests.exitcode
+!/scratch/wrr_revision_20261020c/final_document_tests.log
+!/scratch/wrr_revision_20261020c/final_targeted_tests.log
+!/scratch/wrr_revision_20261020c/final_figure_qa.log
+!/scratch/wrr_revision_20261020c/final_paper_build.log
+/results/wrr_submission_ready/major_revision_20261020c/**/jobs.json
+/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/**/*.parquet
+/results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/**/*.joblib
+/results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/**/*.npz
+/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/source_bundles/
+/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/training/
+/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/training_arrays.npz
+/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/**/*.parquet
+/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/**/source_roster.csv
+/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/independent_decisions.csv

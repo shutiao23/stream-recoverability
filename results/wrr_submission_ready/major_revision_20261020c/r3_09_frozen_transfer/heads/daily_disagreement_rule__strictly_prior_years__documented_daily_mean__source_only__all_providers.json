@@ -1,0 +1,63 @@
+{
+  "candidates": [
+    0.19377768817204297,
+    0.9462119953095609,
+    1.1601377103322907,
+    1.318139132477441,
+    1.4512433862433864,
+    1.562235864007672,
+    1.6681587183490165,
+    1.765776808688734,
+    1.865107777072665,
+    1.9568605516516222,
+    2.0541870934069686,
+    2.157019637632885,
+    2.2604023272790057,
+    2.3762668402325695,
+    2.5064156033370653,
+    2.6491515120040714,
+    2.8212563854072332,
+    3.036728565883971,
+    3.3314254721406646,
+    3.8116995751064406,
+    23.645209531209524
+  ],
+  "features": [],
+  "identity": "daily_disagreement_rule__strictly_prior_years__documented_daily_mean__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 113185,
+  "n_training_groups": 81,
+  "name": "daily_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
+      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": null,
+    "empirical_status": "no_empirical_threshold",
+    "empirical_upper": null,
+    "formal_minimum_bounded_loss_upper": 0.36808844405856483,
+    "n_calibration_cases": 19864,
+    "n_calibration_groups": 21
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "admissions_330_development": {
+      "path": "results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/case_level_admissions_development.parquet",
+      "sha256": "897c50014d6001d2370d364f64804249ac873da216a82b762dcb9b22362bd82e"
+    },
+    "admissions_330_external": {
+      "path": "results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/case_level_admissions_wave2_confirmation.parquet",
+      "sha256": "612cf5be4500f5f4e21ae17dda046c7d76a8f9ccfb765d95489d801f3ef6da21"
+    },
+    "admissions_341_development": {
+      "path": "results/wrr_submission_ready/major_revision_20261020b/r2_02_same_capacity_ablation/case_admissions_development.parquet",
+      "sha256": "28c0d1b1715610a2574cc5c65af986c9a2f84e024e7f856c86aa720badeb41eb"
+    },
+    "admissions_341_external": {
+      "path": "results/wrr_submission_ready/major_revision_20261020b/r2_02_same_capacity_ablation/case_admissions_wave2_confirmation.parquet",
+      "sha256": "915701f41bf4052d55acde69ef755260926b5741ee26c17a93960779c83de803"
+    },
+    "replay_decisions": {
+      "path": "results/wrr_submission_ready/major_revision_20261020/p0_03_real_calendar_adoption/replay_case_decisions.parquet",
+      "sha256": "f8d4fa4b6734fd5aaea5176be2fe69f24f2b722236addb1afd82c6a8299ac985"
+    }
+  },
+  "numpy": "1.26.4",
+  "pandas": "2.1.4",
+  "python": "3.11.7",
+  "script": "scripts/343_wrr_hot_year_selection_null.py"
+}

@@ -1,0 +1,22 @@
+{
+  "continuous_temperature_acquisition_still_required": true,
+  "eligible_components_by_role": {
+    "calibration": 29,
+    "development": 53,
+    "test": 38
+  },
+  "eligible_stations_by_provider": {
+    "ehyd": 98,
+    "foen": 27,
+    "hubeau": 35,
+    "nve": 8
+  },
+  "n_catalog_stations": 177,
+  "n_eligible_new_stations": 168,
+  "n_independent_components": 124,
+  "nested_catchments_threshold": "intersection area exceeds 1% of smaller catchment",
+  "partition_sha256": "903bbd98fe02c6e8dc8b0d4dbf57318397f3c809d57353c07e7f22b950743096",
+  "prior_coordinate_coverage_note": "457 base stations have coordinates; additional previously used stations also excluded by provider-normalized identity",
+  "prior_foen_reserved_networks_opened": false,
+  "temperature_performance_outcomes_inspected": false
+}

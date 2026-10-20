@@ -1,0 +1,269 @@
+{
+  "determinism_check": {
+    "development|101": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    },
+    "development|202": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    },
+    "development|303": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    },
+    "wave2_confirmation|101": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    },
+    "wave2_confirmation|202": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    },
+    "wave2_confirmation|303": {
+      "identical": true,
+      "max_abs_diff": 0.0
+    }
+  },
+  "elapsed_seconds": 27.5,
+  "fold_seeds": [
+    101,
+    202,
+    303
+  ],
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "development": {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8"
+    },
+    "wave2_confirmation": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+      "sha256": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9"
+    }
+  },
+  "numpy": "1.26.4",
+  "pandas": "2.1.4",
+  "python": "3.11.7",
+  "script": "scripts/341_wrr_same_capacity_ablation.py",
+  "specs": {
+    "gap_season": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "left_flank",
+        "right_flank"
+      ],
+      "model": "gbr"
+    },
+    "gap_season+donors": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "left_flank",
+        "right_flank",
+        "air_available"
+      ],
+      "model": "gbr"
+    },
+    "gap_season+donors+residual": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "train_resid_sd",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "estimator_disagreement"
+      ],
+      "model": "gbr"
+    },
+    "gap_season+donors+residual+support": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "train_resid_sd",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "estimator_disagreement",
+        "peak_overlap"
+      ],
+      "model": "gbr"
+    },
+    "gap_season+donors+support": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "peak_overlap"
+      ],
+      "model": "gbr"
+    },
+    "gap_season+support": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "left_flank",
+        "right_flank",
+        "peak_overlap"
+      ],
+      "model": "gbr"
+    },
+    "generic": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "train_resid_sd",
+        "seasonal_amplitude",
+        "train_metric_sd",
+        "n_complete_years",
+        "record_years",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "estimator_disagreement"
+      ],
+      "model": "gbr"
+    },
+    "generic+oracle_support": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "train_resid_sd",
+        "seasonal_amplitude",
+        "train_metric_sd",
+        "n_complete_years",
+        "record_years",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "estimator_disagreement",
+        "true_peak_hidden_fraction"
+      ],
+      "model": "gbr"
+    },
+    "generic+support": {
+      "features": [
+        "longest_run",
+        "total_missing",
+        "missing_fraction",
+        "n_runs",
+        "warm_observed_fraction",
+        "month_sin",
+        "month_cos",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "donor_corr_max",
+        "donor_corr_min",
+        "donor_coverage_mean",
+        "train_resid_sd",
+        "seasonal_amplitude",
+        "train_metric_sd",
+        "n_complete_years",
+        "record_years",
+        "left_flank",
+        "right_flank",
+        "air_available",
+        "estimator_disagreement",
+        "peak_overlap"
+      ],
+      "model": "gbr"
+    },
+    "logit_small": {
+      "features": [
+        "longest_run",
+        "warm_observed_fraction",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "train_resid_sd",
+        "estimator_disagreement"
+      ],
+      "model": "logit"
+    },
+    "logit_small+support": {
+      "features": [
+        "longest_run",
+        "warm_observed_fraction",
+        "n_visible_donors",
+        "donor_corr_mean",
+        "train_resid_sd",
+        "estimator_disagreement",
+        "peak_overlap"
+      ],
+      "model": "logit"
+    }
+  }
+}

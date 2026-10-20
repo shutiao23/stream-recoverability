@@ -1,0 +1,83 @@
+{
+  "calibration_protocol": "five outer folds; independent 60/20/20 fitting/calibration/testing; training-fixed candidate thresholds",
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement",
+    "month_sin",
+    "month_cos",
+    "peak_overlap"
+  ],
+  "fold_seed": 101,
+  "folds": [
+    {
+      "empirical_status": "empirical_threshold_selected",
+      "empirical_threshold": 0.08437877863345844,
+      "fold": 0,
+      "formal_status": "insufficient_independent_calibration_evidence",
+      "formal_threshold": null,
+      "minimum_formal_loss_upper": 0.2789968101224049,
+      "n_calibration_groups": 29,
+      "n_fixed_candidates": 21,
+      "n_test_groups": 29,
+      "n_train_groups": 86
+    },
+    {
+      "empirical_status": "empirical_threshold_selected",
+      "empirical_threshold": 0.0966497203101954,
+      "fold": 1,
+      "formal_status": "insufficient_independent_calibration_evidence",
+      "formal_threshold": null,
+      "minimum_formal_loss_upper": 0.2824020597008288,
+      "n_calibration_groups": 29,
+      "n_fixed_candidates": 21,
+      "n_test_groups": 29,
+      "n_train_groups": 86
+    },
+    {
+      "empirical_status": "empirical_threshold_selected",
+      "empirical_threshold": 0.07672473499039574,
+      "fold": 2,
+      "formal_status": "insufficient_independent_calibration_evidence",
+      "formal_threshold": null,
+      "minimum_formal_loss_upper": 0.2804514681298367,
+      "n_calibration_groups": 29,
+      "n_fixed_candidates": 21,
+      "n_test_groups": 29,
+      "n_train_groups": 86
+    },
+    {
+      "empirical_status": "empirical_threshold_selected",
+      "empirical_threshold": 0.07970264271018723,
+      "fold": 3,
+      "formal_status": "insufficient_independent_calibration_evidence",
+      "formal_threshold": null,
+      "minimum_formal_loss_upper": 0.28565468023914176,
+      "n_calibration_groups": 29,
+      "n_fixed_candidates": 21,
+      "n_test_groups": 29,
+      "n_train_groups": 86
+    },
+    {
+      "empirical_status": "empirical_threshold_selected",
+      "empirical_threshold": 0.12081969333207174,
+      "fold": 4,
+      "formal_status": "insufficient_independent_calibration_evidence",
+      "formal_threshold": null,
+      "minimum_formal_loss_upper": 0.2806087756449436,
+      "n_calibration_groups": 29,
+      "n_fixed_candidates": 21,
+      "n_test_groups": 28,
+      "n_train_groups": 87
+    }
+  ],
+  "implementation_hash": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd004e280fb182fac193272cfd671af0832ea25278253dc69cbba14c91b0c3f8288ccc69e7c867b6ff861b405f9ea23da3d29acee86763efe5439395713ea44d37d2",
+  "input_sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337",
+  "kind": "spline",
+  "measurement_scope": "documented_daily_mean",
+  "name": "season_spline_plus_support",
+  "script_sha256": "524d0417de5fdaa8b2b79ccc332ce2d38700c56ffb8cc071576f89fd23c0bd00"
+}

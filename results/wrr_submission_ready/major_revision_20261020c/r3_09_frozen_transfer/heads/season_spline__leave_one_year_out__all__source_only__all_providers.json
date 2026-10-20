@@ -1,0 +1,77 @@
+{
+  "candidates": [
+    5.450567538827733e-06,
+    0.0013811068729110575,
+    0.005536427072878504,
+    0.010838237382090454,
+    0.015897517326338886,
+    0.022147570496177167,
+    0.029708316622554444,
+    0.03923194982279165,
+    0.051494437240579435,
+    0.0665311147553386,
+    0.08535157716061062,
+    0.1084850582439582,
+    0.13638566984062095,
+    0.1701082600586112,
+    0.2093551320376277,
+    0.25318428716242897,
+    0.3053877118679888,
+    0.3676152833857848,
+    0.44839366969457767,
+    0.5710725455407242,
+    0.9999449516320391
+  ],
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement",
+    "month_sin",
+    "month_cos"
+  ],
+  "identity": "season_spline__leave_one_year_out__all__source_only__all_providers",
+  "kind": "spline",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/season_spline__leave_one_year_out__all__source_only__all_providers.joblib",
+  "model_sha256": "cf75ea5b3d862e05fb5264924fceebd1a8d6d1d8bade7531b0112f2c2003cb5e",
+  "n_training_cases": 321826,
+  "n_training_groups": 145,
+  "name": "season_spline",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.1084850582439582,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.04074844186633228,
+    "formal_minimum_bounded_loss_upper": 0.24873650269904046,
+    "n_calibration_cases": 84189,
+    "n_calibration_groups": 36
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "syke",
+    "usgs"
+  ]
+}

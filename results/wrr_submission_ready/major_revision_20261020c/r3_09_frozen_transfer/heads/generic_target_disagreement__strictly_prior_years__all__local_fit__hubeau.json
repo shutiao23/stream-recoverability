@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    -0.005457409869758205,
+    1.4552719558132846e-05,
+    0.00021914251683722959,
+    0.0010200019805899514,
+    0.007326992677831873,
+    0.023096134529746862,
+    0.05347374995170491,
+    0.09501411487574371,
+    0.12158287723688227,
+    0.1437163501784599,
+    0.16810634525749665,
+    0.1869753992240712,
+    0.20011183540281816,
+    0.21795099680470104,
+    0.24401004985781627,
+    0.2842091830705791,
+    0.32600148129861223,
+    0.4362731211430422,
+    0.5295803794753422,
+    0.6312591318962986,
+    1.251737699987982
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement"
+  ],
+  "identity": "generic_target_disagreement__strictly_prior_years__all__local_fit__hubeau",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_target_disagreement__strictly_prior_years__all__local_fit__hubeau.joblib",
+  "model_sha256": "c42442640e63f68b027de8c9f9c6c4e83e4388edc594ac6e947974de1a4fa22e",
+  "n_training_cases": 1680,
+  "n_training_groups": 9,
+  "name": "generic_target_disagreement",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/crossed/cofailure_0/cases.parquet",
+      "sha256": "505387ad5763d8eb4629ae28cde1c196720537e19fc11b71aa40def7979ce820"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "hubeau"
+  ]
+}

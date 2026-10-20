@@ -1,0 +1,70 @@
+\section{Reference records and experiments}
+
+\subsection{Opened sources and a new-station test}
+
+The opened-source cohort comprises \RSourceStations{} provider-station identities, \RSourceYears{} distinct complete station-years and \RSourceNetworks{} network labels from \RSourceProviders{} providers. Shared target or donor records connect labels into \RSourceGroups{} record-overlap components: labels are not independent replications. The primary measurement scope requires provider-documented daily means; uncertain daily statistics and project aggregation are sensitivities. The documented-mean controlled experiment contains \RDocumentedControlledCases{} masks on \RDocumentedYears{} station-years in \RDocumentedGroups{} components. Completeness means every calendar-day reference value is finite, not that sensors are physically error-free or providers never estimated daily values.
+
+For new histories, we began with the mountain-river resource accompanying \citeA{vanhamel2024,vanhameldata2024}. Its extreme-value subset is not a continuous H30 reference. We reacquired continuous temperatures from Swiss FOEN and French Hub'Eau. All previously used target \emph{and donor} identities were audited, including aliases, coordinates and available catchment connections. Candidate components received salted development, calibration and test roles before daily values were acquired. Completeness and the full prior-input audit subsequently reduced eligibility, without reshuffling roles or selecting on performance.
+
+The cohort contains \RNewStations{} stations: \RNewDevelopment{} development, \RNewCalibration{} calibration and \RNewTest{} test. The latter include \RNewSwissTest{} Swiss documented-mean and \RNewFrenchTest{} French project-aggregated records. French daily values require at least four observations spanning eighteen hours in local time; source qualification includes explicitly unqualified observations, so they do not replace the primary measurement scope. Four complete reference years are required, with at least three permitted complete training years for an evaluated year. Acquisition and exclusions are in supporting information (SI).
+
+These are new histories, not necessarily new institutions. European source and target records are station-disjoint after audit, but old catchment polygons are incomplete. USGS-only source models provide a further frozen transfer without shared source-target river-flow connections. They do not remove climatic dependence or shift. Glacier and snow attributes support descriptive strata, not verified groundwater or regulation classes. Snow share is a percent: the corrected majority-snow threshold is 50\%, assigning glacier influence first. That descriptive correction changes no predictor, threshold, record or frozen role.
+
+\subsection{Mechanism and admission are different populations}
+
+For mechanisms, 30-, 60- and 90-day gaps have feasible zero, partial or full overlap with the training-only climatological peak window. Four start realizations are attempted per station-year cell. Warm-season controls hold missing warm-season days fixed; fragmented and contiguous masks have equal total warm missing-day budgets. Infeasible cells remain empty. All measurement classes yield \RControlledCases{} retrospective and \RPriorControlledCases{} earlier-years-only cases. More masks improve placement resolution, not independent river replication.
+
+This long-gap population is unsuitable as primary admission evidence: omitting short outages can make a length rule reject everything. Admission instead regenerates target lengths 14, 30, 60, 90, 120, 180 and 270 days, one feasible climatological-overlap class per length, and up to five transplanted empirical geometries. The retrospective cohort contains \RAdmissionCases{} cases, comprising \RStratifiedCases{} single-run and \REmpiricalCases{} empirical geometries; earlier-years-only reconstruction gives \RPriorAdmissionCases{}. This is a constructed assay, not natural outage prevalence. Earlier controlled-panel classifier fits remain diagnostics, not the admission headline.
+
+Recorded-calendar replay transfers genuinely incomplete historical shapes onto complete reference years. It does not observe the original incomplete years' unknown values and excludes calendars with no missing or no observed days. Equal-duration event masks fall before, during and after the same longest thermal episode. Project episodes exceed a training-only seasonal 95th percentile for at least three days; published events use a separate two-day definition. Compound heat/low-flow labels use training-month discharge quantiles. Discharge missing on required gap-event days remains unknown.
+
+We cross timing with removal of none, half or all initially usable neighbours, recomputing local reconstruction inputs but leaving admission heads and thresholds unchanged. Fractional removal rounds upward, so a one-neighbour case loses it at both nonzero levels. The new European bundles are single-station: their cofailure contrast would be degenerate. The nondegenerate test uses held-out opened-source multi-station components. Event-dependent masking is informative-missingness stress, not identification of real instrument-failure causes.
+
+\section{Decision-time methods and validation}
+
+\subsection{Estimand, reconstruction and error channels}
+
+For a complete recorded year $y$,
+\begin{equation}
+H_{30}(y)=\max_{w\in\mathcal W_{30}}\frac{1}{30}\sum_{t\in w}y_t,
+\end{equation}
+where $\mathcal W_{30}$ contains consecutive windows within that calendar year. Let $M$ denote missing days and $S$ a maximizing true window. A climatological window $S_c$ uses only permitted history. Its overlap $|M\cap S_c|/30$ is available at decision time; true overlap $|M\cap S|/30$ is an evaluation diagnostic, never a screening feature.
+
+We fit day-of-year and smooth climatologies, interpolation, neighbour ridge and air-temperature ridge. The common point follows a fixed information priority: usable neighbour prediction, available air prediction, interpolation if the actual longest run is at most 30 days, then smooth and day-of-year climatology. Every hidden day must receive a finite value; observations stay unchanged. This is an information-priority policy, not selection on hidden error. Individual reconstructors and a certificate choosing its own method are separate comparisons.
+
+Writing $\widetilde y$ for a completed year and $\widehat S$ for its maximizing window gives
+\begin{align}
+H_{30}(\widetilde y)-H_{30}(y)&=B+F,\\
+B&=\frac{1}{30}\sum_{t\in S}(\widetilde y_t-y_t),\\
+F&=\overline{\widetilde y}_{\widehat S}-\overline{\widetilde y}_{S}\geq0.
+\end{align}
+$B$ is error carried by the true window, with zero contribution from observed days. $F$ is a \emph{window-switch increment}. Another observed window can replace an underestimated true peak, making $F$ positive while final error stays negative. It is not generally a false-hot-peak channel. A stratified absolute-error association between aligned and misaligned windows is not identified with $F$.
+
+We cross hidden-residual permutation with removal of their hidden mean, including the interaction. Both require truth. A separate deployable correction uses visible flanks and historical residual information with shrinkage. Oracle centering benefits are not operational improvements or evidence of unconditional physical cold bias: conditioning on a true maximum can favor negative error there.
+
+\subsection{Conditional trajectories and matched comparators}
+
+Leave-training-year-out prediction residuals supply contiguous blocks for 128 conditional completed trajectories around the policy reconstruction. Blocks are nominally fourteen days and never bridge missing residual runs. If none exists for a shorter interpolation gap, a complete block as long as its longest run is permitted; long gaps never fall back to independent singletons. Observations stay fixed. Trajectories yield H30 spread/error-scale summaries, probabilistic hidden support, peak-location dispersion, competition and interactions. Bands are raw scenarios, not confidence or risk guarantees.
+
+The uncertain-window score adds window summaries to a generic model containing gap, season, history, donor and reconstructed-H30 disagreement features, plus direct H30 uncertainty. Primary comparisons share quantile boosting, capacity, labels, point and calibration resources. Alternatives include direct H30 uncertainty; actual out-of-fold daily reconstruction scale; complete historical/observed diagnostics; mask-matched historical H30 error; seasonal splines; and small logistic models with and without overlap. Replacing H30 disagreement with daily prediction disagreement tests target awareness, not just explicit overlap. Removing competition, window spread and donor features tests the components.
+
+A common-point certificate proxy differs from an aligned head for the current policy. A whole-system certificate chooses its own reconstruction and calibrates that point's error; it is not a feature-only comparison. Unsupported scores do not remove candidates. Air2stream-3/8 \cite{piccolroaz2016} and an old-source-trained univariate CSDI reference \cite{tashiro2021} test reconstruction sensitivity on identical masks, with availability and matched-subset policy errors. CSDI has no fully prospective claim. Air2stream forcing calibration and normalization exclude the target year and use earlier years prospectively. Extra meteorology, discharge or neighbours are information increments, not architectural gains.
+
+\subsection{Calibration, transfer and the independent unit}
+
+Source comparisons use five outer folds with disjoint fitting, calibration and testing components in approximately 60/20/20 proportions, repeated for three seeds. Candidate thresholds are fixed from training scores. The empirical selector uses a calibration component bootstrap and is heuristic. A zero-failure bootstrap can return zero uncertainty without assigning probability to an unseen failure type; more repetitions do not solve that problem.
+
+For a formal alternative, let $A_g$ be within-component mean admission and $B_g$ mean admission times failure. Test $X_g=B_g+0.05(1-A_g)$. A Chernoff--KL upper bound on $E[X_g]$ at most 0.05 implies $E[B_g]/E[A_g]\leq0.05$, with positive denominator. Bonferroni adjustment permits searching training-fixed candidates without monotonic-risk assumptions. This requires independent, deployment-representative components and a predictor independent of calibration. It concerns a group-expectation ratio, not every subgroup, arbitrary archive case risk or unconditional transfer. Even with zero failures and full admission, one threshold needs \RSingleThresholdGroups{} independent groups; 21 candidates need \RGridThresholdGroups{}. Our target calibration cohorts cannot establish this guarantee.
+
+Deployment separates F0, unchanged source model and threshold; F1, the same model with target calibration; and F2, new-development fitting with target calibration. Provider-excluded and USGS-only transfers are further checks. Local historical reconstruction fitting is allowed; hidden target-year labels never select a method. Predictive choices are hashed before target calibration errors; thresholds are locked before test errors.
+
+Earlier-years-only local reconstruction is not a complete forward-in-calendar-time pipeline. Our forward experiment also fits and calibrates the global head through 2018, evaluates 2019--2022, and computes local climatology, donor relationships and residual diagnostics from earlier calendar years. This is a retrospective forward hindcast using current-vintage observations and reanalysis, not a real-time-vintage or prospective field trial; historical publication and revision vintages are unavailable. Its smaller pool is separate. Whole-procedure uncertainty refits learning and calibration in \RWholeRetRefits{} component resamples per protocol, unlike intervals conditional on fitted procedures. Learning curves use repeated subsets. Power projections retain training/calibration variability and do not establish common-risk feasibility under shift.
+
+\subsection{Downstream loss and refused records}
+
+The primary label asks whether H30 exceeds the 90th percentile of permitted training-year H30. This finite-history local anomaly proxy is not a verified ecological or regulatory standard. Fixed 18 and 20\,$^{\circ}$C labels are sensitivities. False-hot, missed-hot, correct and unknown outcomes share the original pool, with separate hot/cool refusal, threshold proximity, coverage and regional-frequency distortion.
+
+With false-hot cost one, loss is $(c_{FN}FN+FP+c_AU)/N$. Declared missed-hot costs are 1, 5 and 10; unknown-answer costs are 0, 0.01, 0.025, 0.05, 0.1 and 0.25. Refused records remain unknown or interval-valued, not automatically repaired. These are not measured agency preferences; intervals across the grid are descriptive, not simultaneous guarantees.
+
+A refused magnitude can retain an identified hot label. Let $L$ be the largest mean of a \emph{fully observed} 30-day window, or minus infinity if none exists. Since $L\leq H_{30}(y)$, $L$ above threshold establishes hot conditions against the complete recorded reference. An 80\%-observed mean is not a bound. This secondary rescue leaves magnitude admission unchanged. Observation margins of 0.1 and 0.2\,$^{\circ}$C are scenarios, not certified sensor bounds; $L$ below threshold never establishes cool conditions.
+

@@ -1,0 +1,57 @@
+{
+  "candidates": [
+    0.015320696258732466,
+    0.028410618605932712,
+    0.034921125694290546,
+    0.04058672524607721,
+    0.04832887027259211,
+    0.05591904320405142,
+    0.06296453845884531,
+    0.07055849545058922,
+    0.08045174369680948,
+    0.09344526219715484,
+    0.10751651325560443,
+    0.12181400692923647,
+    0.1372966169415622,
+    0.15895675399917134,
+    0.1834332891871204,
+    0.21991188271686155,
+    0.26145194496128005,
+    0.3282853186719712,
+    0.42868949635622683,
+    0.6160852214583071,
+    0.9980468338117657
+  ],
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement"
+  ],
+  "identity": "small_logit__leave_one_year_out__all__local_fit__foen",
+  "kind": "logit",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/small_logit__leave_one_year_out__all__local_fit__foen.joblib",
+  "model_sha256": "38563a3de905e6d18cc9a91ace6a3d3ad5183d9ecf39466979aab15cbea395ce",
+  "n_training_cases": 10678,
+  "n_training_groups": 11,
+  "name": "small_logit",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "foen"
+  ]
+}

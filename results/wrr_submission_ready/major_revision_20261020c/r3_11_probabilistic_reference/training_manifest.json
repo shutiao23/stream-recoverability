@@ -1,0 +1,8 @@
+{
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/csdi_reference.pypots",
+  "model_sha256": "f9a9f4fc68f84a4393d514fa1123250f9770fcd0961eafc7493d06d6c27370dc",
+  "n_training_years": 3469,
+  "n_validation_groups": 30,
+  "new_external_temperature_used_for_training": false,
+  "reference_scope": "retrospective univariate imputation, eight posterior draws, 50 diffusion steps"
+}

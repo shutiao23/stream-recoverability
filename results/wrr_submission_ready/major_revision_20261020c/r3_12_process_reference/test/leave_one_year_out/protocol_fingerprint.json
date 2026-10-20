@@ -1,0 +1,29 @@
+{
+  "anchor": "last visible target observation preceding each interior outage",
+  "created_at_utc": "2026-10-20T11:48:09.513754+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "air": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/CERRA_Ta",
+      "sha256": "c70d24d9709a178301bfb1a80f61792913924006184b96f19d6206d6d9312668"
+    },
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33"
+    },
+    "flow": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/MEAS_Qt",
+      "sha256": "af8592e69c8adcd98bb8401971acfc59d40e8c10b7c4675c6a615e0d72982faa"
+    },
+    "published_equation_implementation": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/src/stream_recoverability/experiments/air2stream_equivalent.py",
+      "sha256": "96827478d9bfe5389171b2c28f326feca8c5d2876ead43936985dc6e89cbdcc3"
+    }
+  },
+  "normalization": "training forcing only; target year excluded; strictly earlier segment prospectively",
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/362_wrr_process_reference.py",
+    "sha256": "643567540b00d64a7d6799442cf4c0f4cdb3a719a0c2a278ac994ac91cf494ba"
+  }
+}

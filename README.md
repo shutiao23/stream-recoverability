@@ -1,16 +1,23 @@
-# A Case-Study Covariance Heuristic for Stream-Temperature Recoverability
+# Stream-Temperature Recoverability
 
-A reproducible study of how reservoir regulation reshapes the information
-available to recover daily stream temperature under monitoring outages.
+Assessing whether incomplete river-temperature records support thermal estimates
+and downstream decisions.
 
 The current manuscript for *Water Resources Research* is
 [`paper/wrr/wrr_manuscript.tex`](paper/wrr/wrr_manuscript.tex); its submission PDF,
 supporting information and the point-by-point answer to the last review are in
 [`paper/wrr/`](paper/wrr/README.md). Every number in that manuscript comes from
-the aligned-policy round under
-[`results/wrr_submission_ready/major_revision_20261020/`](results/wrr_submission_ready/major_revision_20261020/README.md);
-`make wrr-round-20261020` re-runs it end to end, and `make wrr` rebuilds the
-documents.
+the final scientific revision under
+[`results/wrr_submission_ready/major_revision_20261020c/`](results/wrr_submission_ready/major_revision_20261020c/).
+The proposed uncertain-window representation does not establish its practical
+superiority, and unchanged transfer misses its risk target. These negative
+results are retained, not repaired by changing the endpoint. See the
+[detailed Chinese assessment](docs/reviews/wrr_major_revision_20261020c/EXECUTION_REPORT_ZH.md).
+`make wrr-round-20261020c` rebuilds the final evidence products and validates the
+paper; `make wrr-r3-frozen-replay` replays sealed inference without refitting.
+Earlier rounds and manuscripts are superseded history, not current headline
+evidence. `make wrr` rebuilds the current documents. Verified authors and a
+permanent analysis archive are still required before submission.
 
 The completed v11 reviewer-response study is implemented under
 [`paper_archived/development_v11/`](paper_archived/development_v11/README.md). Run

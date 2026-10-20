@@ -1,0 +1,58 @@
+{
+  "candidates": [
+    0.005434158294002641,
+    0.011440375607281944,
+    0.015389531541927877,
+    0.022024961061202407,
+    0.029423887455489853,
+    0.035138033064091356,
+    0.04344847481374428,
+    0.04808232701032008,
+    0.05474920064816322,
+    0.06544046508188099,
+    0.0838162572301149,
+    0.09809089913106973,
+    0.12112983746144895,
+    0.14107488102560192,
+    0.16977008267383356,
+    0.20825145168692616,
+    0.24576682265779914,
+    0.31776032950678207,
+    0.37935221065483016,
+    0.49701645931952393,
+    0.6934221988884591
+  ],
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement",
+    "peak_overlap"
+  ],
+  "identity": "admission__small_logit_plus_support__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "logit",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__small_logit_plus_support__leave_one_year_out__all__local_fit__hubeau.joblib",
+  "model_sha256": "85f8c2d303868e722ba7e539e8361480743b8fc2e0811635b7265de07b37f6c8",
+  "n_training_cases": 497,
+  "n_training_groups": 10,
+  "name": "small_logit_plus_support",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

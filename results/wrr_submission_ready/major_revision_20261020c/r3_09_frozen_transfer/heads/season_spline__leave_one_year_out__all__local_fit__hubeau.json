@@ -1,0 +1,59 @@
+{
+  "candidates": [
+    9.46870282634436e-07,
+    5.3427099221103354e-05,
+    0.00019221985142207202,
+    0.0007160895657330119,
+    0.0021951393609276467,
+    0.004291169952556907,
+    0.009263298257335443,
+    0.013569416126404398,
+    0.017814953320176873,
+    0.027413442333692476,
+    0.04210943770131497,
+    0.06623047300833829,
+    0.08528753844074359,
+    0.10577773435733505,
+    0.12716084400703925,
+    0.15265005127303033,
+    0.20483904542956644,
+    0.25958458997687356,
+    0.32506020217571474,
+    0.4274361049733641,
+    0.8121464641706254
+  ],
+  "features": [
+    "longest_run",
+    "warm_observed_fraction",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "train_resid_sd",
+    "estimator_disagreement",
+    "month_sin",
+    "month_cos"
+  ],
+  "identity": "season_spline__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "spline",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/season_spline__leave_one_year_out__all__local_fit__hubeau.joblib",
+  "model_sha256": "f8d27db4932a048ee6bb737ec144ec30079c01c264839d7541114afece20263e",
+  "n_training_cases": 4928,
+  "n_training_groups": 10,
+  "name": "season_spline",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

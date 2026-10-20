@@ -1,0 +1,14 @@
+{
+  "eligibility_checks_only_before_method_freeze": true,
+  "end_exclusive": "2023-01-01",
+  "foen_query": "query DailyWaterTemperature($station: String!, $from: AWSDateTime!, $to: AWSDateTime!) {\n  water { observations { data_1day_mean(where: {\n    station: {no: {_eq: $station}}, parameterName: {_eq: \"WT\"},\n    timestamp: {_gte: $from, _lt: $to}\n  }, limit: 10000) {timestamp parameterName value unitSymbol releaseState station {no}}}}\n}",
+  "hubeau_minimum_daily_observations": 4,
+  "hubeau_minimum_daily_span_hours": 18,
+  "physical_qc_temperature_range_C": [
+    -5,
+    45
+  ],
+  "start": "2008-01-01",
+  "station_partition_sha256": "903bbd98fe02c6e8dc8b0d4dbf57318397f3c809d57353c07e7f22b950743096",
+  "strict_complete_years_required": 4
+}

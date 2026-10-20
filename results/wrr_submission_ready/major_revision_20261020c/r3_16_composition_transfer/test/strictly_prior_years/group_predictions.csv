@@ -1,0 +1,6 @@
+scope,group,provider,n_cases,n_station_years,predicted_risk,source_only_prediction_ci_low,source_only_prediction_ci_high,observed_risk,rule_says_no_screen,observed_above_cap,independent_groups,unseen_group_risk_upper,risk_certification
+all,external_05987568be9b240d,hubeau,3,1,0.2574863743342004,0.20001833202313407,0.3018368197212215,0.0,False,False,1,0.95,insufficient_component_level_evidence
+all,external_23920287a08e1d16,hubeau,2,1,0.14877136752136752,0.05828546728589678,0.20107377424329984,0.0,False,False,1,0.95,insufficient_component_level_evidence
+all,external_532dbe5907561a81,hubeau,3,1,0.4749163879598662,0.4134822619793927,0.567879294608297,0.6666666666666666,False,True,1,0.999981480795112,insufficient_component_level_evidence
+all,external_9c4bbb8c94b72fa2,hubeau,8,2,0.47491638795986624,0.4134822619793927,0.567879294608297,0.5,False,True,1,0.9993746088859544,insufficient_component_level_evidence
+all,external_ed65c2242ac535c3,hubeau,2,1,0.03954709099403633,0.010249242984190308,0.07656442312656499,0.0,True,False,1,0.95,insufficient_component_level_evidence

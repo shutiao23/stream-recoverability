@@ -1,0 +1,17 @@
+  ok   {'check': 'three key points', 'found': 3}
+  ok   {'check': 'key point 1 length', 'chars': 129, 'limit': 140}
+  ok   {'check': 'key point 2 length', 'chars': 115, 'limit': 140}
+  ok   {'check': 'key point 3 length', 'chars': 127, 'limit': 140}
+  ok   {'check': 'abstract length', 'words': 207, 'limit': 250}
+  ok   {'check': 'plain language summary length', 'words': 144, 'limit': 200}
+  ok   {'check': 'open research statement present'}
+  ok   {'check': 'headline numbers present', 'checked': 124, 'missing': []}
+  ok   {'check': 'every citation resolves', 'missing': []}
+  ok   {'check': 'no uncited bibliography entries', 'unused': []}
+  ok   {'check': 'bibliography rendered', 'entries': 10}
+
+paper/wrr/wrr_manuscript.pdf — 21 pages
+paper/wrr/wrr_supporting_information.pdf — 41 pages
+paper/wrr/wrr_manuscript_published.pdf — 12 pages (published layout)
+
+NOT submission-ready: the author block is a placeholder. See paper_archived/author_information_required.md.

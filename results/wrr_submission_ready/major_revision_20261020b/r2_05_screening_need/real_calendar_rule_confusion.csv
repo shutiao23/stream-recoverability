@@ -1,0 +1,4 @@
+level,n_networks,screen_needed_and_advised,screen_needed_but_not_advised,no_screen_needed_but_screen_advised,no_screen_needed_and_not_advised,accuracy,accuracy_ci_low_exact,accuracy_ci_high_exact,n_networks_needing_screen
+all_donor_failure,14,4,0,1,9,0.9285714285714286,0.6613155100681788,0.9981932193408746,4
+partial_donor_failure,14,2,0,3,9,0.7857142857142857,0.4920243229515281,0.9534207121101327,2
+target_only,14,2,0,3,9,0.7857142857142857,0.4920243229515281,0.9534207121101327,2

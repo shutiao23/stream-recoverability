@@ -1,0 +1,44 @@
+{
+  "candidates": [
+    0.0,
+    7.105427357601002e-15,
+    2.4868995751603507e-14,
+    0.09692485835888007,
+    0.20178131366200114,
+    0.2571405857978799,
+    0.32079330994087196,
+    0.40027984102287684,
+    0.4646876090061706,
+    0.5147504563350377,
+    0.5874923384852522,
+    0.6563714584265277,
+    0.7112116914014139,
+    0.8096813478322641,
+    1.3293595127315878
+  ],
+  "features": [],
+  "identity": "admission__direct_h30_uncertainty__strictly_prior_years__all__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 551,
+  "n_training_groups": 11,
+  "name": "direct_h30_uncertainty",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

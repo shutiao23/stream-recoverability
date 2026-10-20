@@ -1,0 +1,15 @@
+provider,n_original_candidates,n_finite_bands,nominal_scenario_mass,complete_candidate_coverage,finite_band_coverage,mean_width_C,claim,time,family
+foen,669,669,0.9,0.7159940209267563,0.7159940209267563,0.7983087915762516,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,admission
+hubeau,700,700,0.9,0.8128571428571428,0.8128571428571428,0.5462783878232332,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,admission
+foen,6718,6718,0.9,0.7302768681155105,0.7302768681155105,0.7704621686022672,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,crossed
+hubeau,5631,5631,0.9,0.8309358906055763,0.8309358906055763,0.5349872424038521,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,crossed
+foen,582,582,0.9,0.7525773195876289,0.7525773195876289,0.3740242500663343,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,events
+hubeau,492,492,0.9,0.9044715447154472,0.9044715447154472,0.3255903064436284,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,events
+hubeau,168,168,0.9,0.8035714285714286,0.8035714285714286,0.737809225859376,uncalibrated fixed-policy scenario band; not selected-risk control,Retro,real_calendars
+foen,173,173,0.9,0.6069364161849711,0.6069364161849711,0.9429684110912928,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,admission
+hubeau,85,85,0.9,0.6823529411764706,0.6823529411764706,0.7803234026444159,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,admission
+foen,1790,1790,0.9,0.6843575418994413,0.6843575418994413,0.894598037827446,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,crossed
+hubeau,655,655,0.9,0.7938931297709924,0.7938931297709924,0.7101474326701922,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,crossed
+foen,182,182,0.9,0.7802197802197802,0.7802197802197802,0.3489467356598321,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,events
+hubeau,67,67,0.9,0.8059701492537313,0.8059701492537313,0.3846833716750222,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,events
+hubeau,18,18,0.9,0.6666666666666666,0.6666666666666666,1.000534809695773,uncalibrated fixed-policy scenario band; not selected-risk control,Prospective,real_calendars

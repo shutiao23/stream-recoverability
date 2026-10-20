@@ -243,7 +243,7 @@ def system_design() -> Diagram:
     ]
     boxes = [
         Box("truth", 16, 24, 108, 48, "Reference truth\n5,114 station-years", size=SMALL),
-        Box("outage", 142, 24, 108, 48, "Designed outages\n53,721 cases", size=SMALL),
+        Box("outage", 142, 24, 108, 48, "Designed outages\n33,749 single-run\n19,972 transplanted", size=SMALL),
         Box("recon", 268, 24, 124, 48, "Reconstruction policy\n5 methods, leave-one-\nyear-out", size=SMALL),
         Box("object", 410, 24, 96, 48, "Admitted object\nerror e; fail if\ne > 0.5 °C", size=SMALL),
         Box("features", 16, 106, 108, 52, "Decision-time features\n22; no hidden day", size=SMALL),
@@ -252,7 +252,7 @@ def system_design() -> Diagram:
         Box("decide", 410, 106, 96, 52, "Decision\ns ≤ τ: admit\nelse abstain", fill=ACCENT_FILL, stroke=ACCENT_STROKE, size=SMALL),
         Box("error", 16, 192, 150, 52, "Error and retention\namong admitted years", size=SMALL),
         Box("hot", 184, 192, 150, 52, "Hot-year composition\nadmitted, refused, missed", size=SMALL),
-        Box("regime", 352, 192, 154, 52, "Regime boundary\npeak observed? then\nadmit everything", size=SMALL),
+        Box("regime", 352, 192, 154, 52, "Regime check\nshare of peak hidden?\nscreen only if large", size=SMALL),
     ]
     edges = [
         Edge("e1", "truth", "outage"),
@@ -285,12 +285,12 @@ def study_design() -> Diagram:
     ]
     boxes = [
         Box("truth", 16, 24, 112, 50, "Complete reference\n5,114 station-years\n146 networks", size=SMALL),
-        Box("designed", 144, 24, 100, 50, "Designed outages\n53,721 cases", size=SMALL),
+        Box("designed", 144, 24, 100, 50, "Designed outages\n53,721 cases\n2 designs", size=SMALL),
         Box("dev", 260, 20, 116, 24, "Development\n40,704 / 110 groups", size=SMALL),
         Box("ext", 260, 50, 116, 24, "External\n13,017 / 41 groups", size=SMALL),
         Box("compare", 392, 20, 118, 54, "Admission comparison\n5% cap, group cross-fit", size=SMALL),
         Box("archive", 16, 112, 112, 40, "Real archive\n2,422 incomplete years", size=SMALL),
-        Box("calendar", 144, 112, 100, 40, "Real calendars\n418 / 14 networks", size=SMALL),
+        Box("calendar", 144, 108, 100, 50, "Real calendars\n418 groups, 59 gaps\n14 networks", size=SMALL),
         Box("probe", 392, 108, 118, 44, "Deployment probe\nwhat screening does\non real calendars", size=SMALL),
     ]
     edges = [

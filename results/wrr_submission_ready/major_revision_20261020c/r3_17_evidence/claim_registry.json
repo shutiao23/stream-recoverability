@@ -1,0 +1,998 @@
+{
+  "claims": [
+    {
+      "macro": "RAdmissionCases",
+      "rendered": "70{,}011",
+      "selector": "all rows",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 70011
+    },
+    {
+      "macro": "RSourceNetworks",
+      "rendered": "193",
+      "selector": "nunique(network_id)",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 193
+    },
+    {
+      "macro": "RSourceGroups",
+      "rendered": "181",
+      "selector": "nunique(independence_group)",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 181
+    },
+    {
+      "macro": "RSourceStations",
+      "rendered": "581",
+      "selector": "unique provider/station_id",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 581
+    },
+    {
+      "macro": "RSourceYears",
+      "rendered": "6{,}170",
+      "selector": "unique provider/station_id/year",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 6170
+    },
+    {
+      "macro": "RSourceProviders",
+      "rendered": "10",
+      "selector": "nunique(provider)",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 10
+    },
+    {
+      "macro": "RStratifiedCases",
+      "rendered": "40{,}232",
+      "selector": "design_family=stratified",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 40232
+    },
+    {
+      "macro": "REmpiricalCases",
+      "rendered": "29{,}779",
+      "selector": "design_family=empirical",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "source_sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b",
+      "value": 29779
+    },
+    {
+      "macro": "RControlledCases",
+      "rendered": "406{,}015",
+      "selector": "n_cases",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/summary.json",
+      "source_sha256": "39d5e1afb8895e94c09d8ad5a16cae3161b50e7fafc598e8d69e5c6cc09dd10a",
+      "value": 406015
+    },
+    {
+      "macro": "RPriorControlledCases",
+      "rendered": "290{,}322",
+      "selector": "n_cases",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/summary.json",
+      "source_sha256": "cc8a12ce449e182802aca14868748eb4ba66b3fc45eda16271e2756a21e6c6ac",
+      "value": 290322
+    },
+    {
+      "macro": "RPriorAdmissionCases",
+      "rendered": "46{,}510",
+      "selector": "all rows",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "source_sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4",
+      "value": 46510
+    },
+    {
+      "macro": "RDocumentedControlledCases",
+      "rendered": "312{,}825",
+      "selector": "n_cases",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 312825
+    },
+    {
+      "macro": "RDocumentedGroups",
+      "rendered": "144",
+      "selector": "n_groups",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 144
+    },
+    {
+      "macro": "RDocumentedYears",
+      "rendered": "4{,}720",
+      "selector": "deployable_adjustment_minus_original_mae_C.n_station_years",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 4720
+    },
+    {
+      "macro": "RDeployableImprovement",
+      "rendered": "0.014",
+      "selector": "negative deployable_adjustment_minus_original_mae_C.mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 0.013574100989107081
+    },
+    {
+      "macro": "RDeployableLow",
+      "rendered": "0.008",
+      "selector": "negative deployable_adjustment_minus_original_mae_C.ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 0.00825196622460894
+    },
+    {
+      "macro": "RDeployableHigh",
+      "rendered": "0.019",
+      "selector": "negative deployable_adjustment_minus_original_mae_C.ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/summary.json",
+      "source_sha256": "36c37aea623b6aeb17a2551e4f5d59b175e55ea9aefc01fb1dea2fb128f425fe",
+      "value": 0.018716940147035885
+    },
+    {
+      "macro": "RPosition",
+      "rendered": "0.62",
+      "selector": "crossed_contiguous/doy_climatology/30/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "source_sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc",
+      "value": 0.6215553983147902
+    },
+    {
+      "macro": "RPositionLow",
+      "rendered": "0.58",
+      "selector": "crossed_contiguous/doy_climatology/30/ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "source_sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc",
+      "value": 0.5839179495760088
+    },
+    {
+      "macro": "RPositionHigh",
+      "rendered": "0.66",
+      "selector": "crossed_contiguous/doy_climatology/30/ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "source_sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc",
+      "value": 0.6559417146790428
+    },
+    {
+      "macro": "RLength",
+      "rendered": "0.13",
+      "selector": "doy_climatology/true_hidden_share>=0.999/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 0.1332694753779769
+    },
+    {
+      "macro": "RLengthLow",
+      "rendered": "0.10",
+      "selector": "doy_climatology/true_hidden_share>=0.999/ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 0.0969783590750104
+    },
+    {
+      "macro": "RLengthHigh",
+      "rendered": "0.17",
+      "selector": "doy_climatology/true_hidden_share>=0.999/ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 0.1655872383987439
+    },
+    {
+      "macro": "RInterpLength",
+      "rendered": "1.24",
+      "selector": "linear_interp/true_hidden_share>=0.999/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 1.2350764174275988
+    },
+    {
+      "macro": "RInterpLengthLow",
+      "rendered": "1.12",
+      "selector": "linear_interp/true_hidden_share>=0.999/ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 1.119765806348156
+    },
+    {
+      "macro": "RInterpLengthHigh",
+      "rendered": "1.35",
+      "selector": "linear_interp/true_hidden_share>=0.999/ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "source_sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c",
+      "value": 1.3470453198250352
+    },
+    {
+      "macro": "RCompensatingSwitchShare",
+      "rendered": "60.4",
+      "selector": "doy_climatology/share_positive_increment_still_underestimates*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/identity_and_switch_signs.csv",
+      "source_sha256": "964a064cad128aa8dfce9ddebe0086da57b9829d69484efaeb17664c8ecdbd2a",
+      "value": 60.449299696074476
+    },
+    {
+      "macro": "ROracleRaw",
+      "rendered": "0.450",
+      "selector": "doy_climatology/raw/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "source_sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3",
+      "value": 0.4504582152389366
+    },
+    {
+      "macro": "ROraclePermuted",
+      "rendered": "0.398",
+      "selector": "doy_climatology/permuted/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "source_sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3",
+      "value": 0.3976740405154869
+    },
+    {
+      "macro": "ROracleDemeaned",
+      "rendered": "0.215",
+      "selector": "doy_climatology/demeaned/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "source_sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3",
+      "value": 0.2147720670601356
+    },
+    {
+      "macro": "ROracleBoth",
+      "rendered": "0.071",
+      "selector": "doy_climatology/demeaned_permuted/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "source_sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3",
+      "value": 0.0711435211303776
+    },
+    {
+      "macro": "ROracleInteraction",
+      "rendered": "-0.091",
+      "selector": "doy_climatology/interaction/mean",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "source_sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3",
+      "value": -0.0908443712063082
+    },
+    {
+      "macro": "RRetGainMin",
+      "rendered": "1.7",
+      "selector": "uncertain_support minus generic_target_disagreement; minimum over three fold seeds",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 1.6977588124806198
+    },
+    {
+      "macro": "RRetGainMax",
+      "rendered": "3.8",
+      "selector": "uncertain_support minus generic_target_disagreement; maximum over three fold seeds",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 3.8277075697065803
+    },
+    {
+      "macro": "RTargetDailyMin",
+      "rendered": "3.8",
+      "selector": "generic_target_disagreement minus generic_daily_disagreement; minimum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 3.83864908729507
+    },
+    {
+      "macro": "RTargetDailyMax",
+      "rendered": "6.2",
+      "selector": "generic_target_disagreement minus generic_daily_disagreement; maximum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 6.1764866787023305
+    },
+    {
+      "macro": "RSmallSupportMin",
+      "rendered": "3.4",
+      "selector": "small_logit_plus_support minus small_logit; minimum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 3.3663402447252704
+    },
+    {
+      "macro": "RSmallSupportMax",
+      "rendered": "9.5",
+      "selector": "small_logit_plus_support minus small_logit; maximum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 9.54100333716286
+    },
+    {
+      "macro": "RSplineSupportMin",
+      "rendered": "-1.2",
+      "selector": "season_spline_plus_support minus season_spline; minimum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": -1.2473330050878
+    },
+    {
+      "macro": "RSplineSupportMax",
+      "rendered": "1.1",
+      "selector": "season_spline_plus_support minus season_spline; maximum over three split seeds*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d",
+      "value": 1.1105640352316801
+    },
+    {
+      "macro": "RPriorLocalGainMin",
+      "rendered": "4.1",
+      "selector": "uncertain_support minus generic_target_disagreement; minimum over three fold seeds",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "1f4d198305bb13cab41a727550880af369d0a5e1a441d5ba774763debf20af1a",
+      "value": 4.14850154917605
+    },
+    {
+      "macro": "RPriorLocalGainMax",
+      "rendered": "7.6",
+      "selector": "uncertain_support minus generic_target_disagreement; maximum over three fold seeds",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/paired_contrasts.csv",
+      "source_sha256": "1f4d198305bb13cab41a727550880af369d0a5e1a441d5ba774763debf20af1a",
+      "value": 7.6224945847385595
+    },
+    {
+      "macro": "RWholeRetGain",
+      "rendered": "2.6",
+      "selector": "uncertain_support minus generic_target_disagreement/mean_refitted_procedure_difference*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "source_sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002",
+      "value": 2.59451176677204
+    },
+    {
+      "macro": "RWholeRetLow",
+      "rendered": "-1.9",
+      "selector": "uncertain_support minus generic_target_disagreement/whole_procedure_ci_low*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "source_sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002",
+      "value": -1.90000376948928
+    },
+    {
+      "macro": "RWholeRetHigh",
+      "rendered": "8.0",
+      "selector": "uncertain_support minus generic_target_disagreement/whole_procedure_ci_high*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "source_sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002",
+      "value": 7.97033267204227
+    },
+    {
+      "macro": "RWholeRetRefits",
+      "rendered": "1{,}000",
+      "selector": "n_fully_refitted_procedures",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "source_sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002",
+      "value": 1000
+    },
+    {
+      "macro": "RWholePriorGain",
+      "rendered": "2.9",
+      "selector": "uncertain_support minus generic_target_disagreement/mean_refitted_procedure_difference*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "source_sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47",
+      "value": 2.9158018867924502
+    },
+    {
+      "macro": "RWholePriorLow",
+      "rendered": "-5.7",
+      "selector": "uncertain_support minus generic_target_disagreement/whole_procedure_ci_low*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "source_sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47",
+      "value": -5.749562665466041
+    },
+    {
+      "macro": "RWholePriorHigh",
+      "rendered": "11.3",
+      "selector": "uncertain_support minus generic_target_disagreement/whole_procedure_ci_high*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "source_sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47",
+      "value": 11.26886289204414
+    },
+    {
+      "macro": "RWholePriorRefits",
+      "rendered": "1{,}000",
+      "selector": "n_fully_refitted_procedures",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "source_sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47",
+      "value": 1000
+    },
+    {
+      "macro": "RNewDevelopment",
+      "rendered": "21",
+      "selector": "external_role=development",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 21
+    },
+    {
+      "macro": "RNewCalibration",
+      "rendered": "13",
+      "selector": "external_role=calibration",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 13
+    },
+    {
+      "macro": "RNewTest",
+      "rendered": "19",
+      "selector": "external_role=test",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 19
+    },
+    {
+      "macro": "RNewStations",
+      "rendered": "53",
+      "selector": "all eligible rows",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 53
+    },
+    {
+      "macro": "RNewSwissTest",
+      "rendered": "7",
+      "selector": "external_role=test/provider=foen",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 7
+    },
+    {
+      "macro": "RNewFrenchTest",
+      "rendered": "12",
+      "selector": "external_role=test/provider=hubeau",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/new_cohort.csv",
+      "source_sha256": "0da34f3810d34335a0f719425c1f33fd6255b767be7c874dc195889bc8b062ca",
+      "value": 12
+    },
+    {
+      "macro": "RTestRetFrozenRetention",
+      "rendered": "56.1",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_source/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 56.05381165919282
+    },
+    {
+      "macro": "RTestRetFrozenRisk",
+      "rendered": "8.8",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_source/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 8.799999999999999
+    },
+    {
+      "macro": "RTestRetRecalibratedRetention",
+      "rendered": "47.5",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_model_local_calibration/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 47.533632286995505
+    },
+    {
+      "macro": "RTestRetRecalibratedRisk",
+      "rendered": "4.1",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_model_local_calibration/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 4.0880503144654
+    },
+    {
+      "macro": "RTestRetLocalRetention",
+      "rendered": "44.4",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/local_fit_and_calibration/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 44.39461883408072
+    },
+    {
+      "macro": "RTestRetLocalRisk",
+      "rendered": "3.0",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/local_fit_and_calibration/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 3.03030303030303
+    },
+    {
+      "macro": "RTestRetCases",
+      "rendered": "669",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/n_candidates",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159",
+      "value": 669
+    },
+    {
+      "macro": "RTestRetMagnitudeAbsoluteLoss",
+      "rendered": "0.1191",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/magnitude_screen; (5*FN+FP+0.05*unknown)/n",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 0.11913303437967115
+    },
+    {
+      "macro": "RTestRetMagnitudeVsAllUnknown",
+      "rendered": "0.0691",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/magnitude_screen; absolute loss minus always-unknown cost 0.05",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 0.06913303437967115
+    },
+    {
+      "macro": "RTestRetMagnitudeLossDifference",
+      "rendered": "-0.3368",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_vs_reconstruct_all",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.3367713004484305
+    },
+    {
+      "macro": "RTestRetMagnitudeLossLow",
+      "rendered": "-0.4059",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.4058898944193062
+    },
+    {
+      "macro": "RTestRetMagnitudeLossHigh",
+      "rendered": "-0.2720",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.2720485926004904
+    },
+    {
+      "macro": "RTestRetMagnitudeAbstentions",
+      "rendered": "294",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/abstained",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 294
+    },
+    {
+      "macro": "RTestRetMagnitudeRescued",
+      "rendered": "0",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/observationally_rescued_labels",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 0
+    },
+    {
+      "macro": "RTestRetHotRefusal",
+      "rendered": "46.4",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/hot_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 46.42857142857143
+    },
+    {
+      "macro": "RTestRetCoolRefusal",
+      "rendered": "43.4",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/cool_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 43.447037701974864
+    },
+    {
+      "macro": "RTestRetOverallRefusal",
+      "rendered": "43.9",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/overall_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 43.94618834080717
+    },
+    {
+      "macro": "RTestRetJudgementAbsoluteLoss",
+      "rendered": "0.1190",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/screen_plus_observed_hot; (5*FN+FP+0.05*unknown)/n",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 0.11898355754857996
+    },
+    {
+      "macro": "RTestRetJudgementVsAllUnknown",
+      "rendered": "0.0690",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/screen_plus_observed_hot; absolute loss minus always-unknown cost 0.05",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 0.06898355754857996
+    },
+    {
+      "macro": "RTestRetJudgementLossDifference",
+      "rendered": "-0.3369",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_vs_reconstruct_all",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.3369207772795217
+    },
+    {
+      "macro": "RTestRetJudgementLossLow",
+      "rendered": "-0.4060",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.406038838612368
+    },
+    {
+      "macro": "RTestRetJudgementLossHigh",
+      "rendered": "-0.2723",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": -0.2722699481554537
+    },
+    {
+      "macro": "RTestRetJudgementAbstentions",
+      "rendered": "292",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/abstained",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 292
+    },
+    {
+      "macro": "RTestRetJudgementRescued",
+      "rendered": "2",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/observationally_rescued_labels",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8",
+      "value": 2
+    },
+    {
+      "macro": "RTestRetTargetDailyGain",
+      "rendered": "9.4",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/difference*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de",
+      "value": 9.41704035874439
+    },
+    {
+      "macro": "RTestRetTargetDailyLow",
+      "rendered": "6.1",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/ci_low*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de",
+      "value": 6.06508875739644
+    },
+    {
+      "macro": "RTestRetTargetDailyHigh",
+      "rendered": "13.1",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/ci_high*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de",
+      "value": 13.12217194570135
+    },
+    {
+      "macro": "RTestPriorFrozenRetention",
+      "rendered": "47.4",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_source/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 47.398843930635834
+    },
+    {
+      "macro": "RTestPriorFrozenRisk",
+      "rendered": "9.8",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_source/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 9.75609756097561
+    },
+    {
+      "macro": "RTestPriorRecalibratedRetention",
+      "rendered": "37.0",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_model_local_calibration/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 36.99421965317919
+    },
+    {
+      "macro": "RTestPriorRecalibratedRisk",
+      "rendered": "1.6",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/frozen_model_local_calibration/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 1.5625
+    },
+    {
+      "macro": "RTestPriorLocalRetention",
+      "rendered": "13.9",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/local_fit_and_calibration/retention*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 13.87283236994219
+    },
+    {
+      "macro": "RTestPriorLocalRisk",
+      "rendered": "0.0",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/local_fit_and_calibration/risk_among_admitted*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 0.0
+    },
+    {
+      "macro": "RTestPriorCases",
+      "rendered": "173",
+      "selector": "foen/documented_daily_mean/uncertain_support/empirical/n_candidates",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "source_sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d",
+      "value": 173
+    },
+    {
+      "macro": "RTestPriorMagnitudeAbsoluteLoss",
+      "rendered": "0.0841",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/magnitude_screen; (5*FN+FP+0.05*unknown)/n",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 0.08410404624277457
+    },
+    {
+      "macro": "RTestPriorMagnitudeVsAllUnknown",
+      "rendered": "0.0341",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/magnitude_screen; absolute loss minus always-unknown cost 0.05",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 0.03410404624277456
+    },
+    {
+      "macro": "RTestPriorMagnitudeLossDifference",
+      "rendered": "-0.4650",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_vs_reconstruct_all",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.465028901734104
+    },
+    {
+      "macro": "RTestPriorMagnitudeLossLow",
+      "rendered": "-0.6078",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.6078034682080924
+    },
+    {
+      "macro": "RTestPriorMagnitudeLossHigh",
+      "rendered": "-0.2935",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/loss_difference_ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.2935094532755322
+    },
+    {
+      "macro": "RTestPriorMagnitudeAbstentions",
+      "rendered": "91",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/abstained",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 91
+    },
+    {
+      "macro": "RTestPriorMagnitudeRescued",
+      "rendered": "0",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/magnitude_screen/observationally_rescued_labels",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 0
+    },
+    {
+      "macro": "RTestPriorHotRefusal",
+      "rendered": "48.8",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/hot_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 48.837209302325576
+    },
+    {
+      "macro": "RTestPriorCoolRefusal",
+      "rendered": "53.8",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/cool_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 53.84615384615385
+    },
+    {
+      "macro": "RTestPriorOverallRefusal",
+      "rendered": "52.6",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/overall_refusal_rate*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 52.601156069364166
+    },
+    {
+      "macro": "RTestPriorJudgementAbsoluteLoss",
+      "rendered": "0.0838",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/screen_plus_observed_hot; (5*FN+FP+0.05*unknown)/n",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 0.0838150289017341
+    },
+    {
+      "macro": "RTestPriorJudgementVsAllUnknown",
+      "rendered": "0.0338",
+      "selector": "foen/documented/F0/localq90/FN5/A0.05/screen_plus_observed_hot; absolute loss minus always-unknown cost 0.05",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 0.0338150289017341
+    },
+    {
+      "macro": "RTestPriorJudgementLossDifference",
+      "rendered": "-0.4653",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_vs_reconstruct_all",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.4653179190751445
+    },
+    {
+      "macro": "RTestPriorJudgementLossLow",
+      "rendered": "-0.6081",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_ci_low",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.6080924855491329
+    },
+    {
+      "macro": "RTestPriorJudgementLossHigh",
+      "rendered": "-0.2935",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/loss_difference_ci_high",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": -0.2935094532755322
+    },
+    {
+      "macro": "RTestPriorJudgementAbstentions",
+      "rendered": "90",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/abstained",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 90
+    },
+    {
+      "macro": "RTestPriorJudgementRescued",
+      "rendered": "1",
+      "selector": "foen/documented/frozen_source/uncertain_support/localq90/FN5/A0.05/margin0/screen_plus_observed_hot/observationally_rescued_labels",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "source_sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8",
+      "value": 1
+    },
+    {
+      "macro": "RTestPriorTargetDailyGain",
+      "rendered": "12.7",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/difference*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85",
+      "value": 12.71676300578034
+    },
+    {
+      "macro": "RTestPriorTargetDailyLow",
+      "rendered": "7.6",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/ci_low*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85",
+      "value": 7.602339181286539
+    },
+    {
+      "macro": "RTestPriorTargetDailyHigh",
+      "rendered": "17.1",
+      "selector": "foen/documented/F1/generic_H30 minus generic_daily/ci_high*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "source_sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85",
+      "value": 17.14532019704432
+    },
+    {
+      "macro": "RNaturalCases",
+      "rendered": "168",
+      "selector": "all/n_cases*1",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "source_sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea",
+      "value": 168
+    },
+    {
+      "macro": "RNaturalGroups",
+      "rendered": "10",
+      "selector": "all/n_groups*1",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "source_sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea",
+      "value": 10
+    },
+    {
+      "macro": "RNaturalPredictedRisk",
+      "rendered": "26.6",
+      "selector": "all/predicted_case_weighted_risk*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "source_sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea",
+      "value": 26.61928020218388
+    },
+    {
+      "macro": "RNaturalObservedRisk",
+      "rendered": "21.4",
+      "selector": "all/observed_case_weighted_risk*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/pooled.csv",
+      "source_sha256": "3de825c9154626026fa34af91130580df84b97e71b83e95b62944aebd66224ea",
+      "value": 21.42857142857142
+    },
+    {
+      "macro": "RSingleThresholdGroups",
+      "rendered": "59",
+      "selector": "ceil(log(alpha)/log(1-risk_cap)); zero failures, one all-admit threshold",
+      "source": "configs/wrr_revision_20261020c.json",
+      "source_sha256": "0afdffa46a89a99e310fc62aa1f7e601997c3c45ede5ba076116f884a74e74c2",
+      "value": 59
+    },
+    {
+      "macro": "RGridThresholdGroups",
+      "rendered": "118",
+      "selector": "ceil(log(alpha/21)/log(1-risk_cap)); zero failures, 21 fixed thresholds",
+      "source": "configs/wrr_revision_20261020c.json",
+      "source_sha256": "0afdffa46a89a99e310fc62aa1f7e601997c3c45ede5ba076116f884a74e74c2",
+      "value": 118
+    },
+    {
+      "macro": "RBandSwissRet",
+      "rendered": "71.6",
+      "selector": "foen/finite_band_coverage*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "source_sha256": "c8d1d224aed22d0bdf6d982dd3ccedab43bcf5daf1c5cdfa5d27635d2df282d1",
+      "value": 71.59940209267563
+    },
+    {
+      "macro": "RBandSwissPrior",
+      "rendered": "60.7",
+      "selector": "foen/finite_band_coverage*100",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "source_sha256": "2cd6cb748b9fb546798ea4432e9acf2c45234071faf70fd5430fb0570cda29fe",
+      "value": 60.69364161849711
+    },
+    {
+      "macro": "RPhysicalThreeMAE",
+      "rendered": "0.254",
+      "selector": "air2stream3/available/mean absolute_error_C",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "source_sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e",
+      "value": 0.25362338915927096
+    },
+    {
+      "macro": "RPhysicalThreeCases",
+      "rendered": "1{,}544",
+      "selector": "air2stream3/available/count",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "source_sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e",
+      "value": 1544
+    },
+    {
+      "macro": "RPhysicalThreePolicyMAE",
+      "rendered": "0.280",
+      "selector": "replicate0/crossed_contiguous; inner join available air2stream3 keys from r3_12_process_reference/test; mean abserr_policy",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "source_sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33",
+      "value": 0.27982058104378027
+    },
+    {
+      "macro": "RPhysicalEightMAE",
+      "rendered": "0.203",
+      "selector": "air2stream8/available/mean absolute_error_C",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "source_sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e",
+      "value": 0.20270242749837497
+    },
+    {
+      "macro": "RPhysicalEightCases",
+      "rendered": "821",
+      "selector": "air2stream8/available/count",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "source_sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e",
+      "value": 821
+    },
+    {
+      "macro": "RPhysicalEightPolicyMAE",
+      "rendered": "0.342",
+      "selector": "replicate0/crossed_contiguous; inner join available air2stream8 keys from r3_12_process_reference/test; mean abserr_policy",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/test/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "source_sha256": "6634f774cddbee6cf6dbcaf1159840643106e6b6ec5140b36cc9ce2ff96f4e33",
+      "value": 0.3424951190404211
+    }
+  ],
+  "test_protocol": "frozen before new calibration and test; no outcome-driven retuning",
+  "units": "degrees C, percent or percentage points as specified in selector"
+}

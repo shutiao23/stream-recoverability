@@ -1,0 +1,36 @@
+{
+  "candidates": [
+    0.0,
+    0.19999999999999998,
+    0.39999999999999997,
+    0.4666666666666667,
+    0.6666666666666666,
+    0.8766666666666665,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "admission__upper_support_rule__strictly_prior_years__all__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 551,
+  "n_training_groups": 11,
+  "name": "upper_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

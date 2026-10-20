@@ -1,0 +1,7 @@
+figure_panel,source_panel,n_cases,n_station_years,n_networks,arms,support_variable,within_station_year_control,identification
+Fig. 1a-c,external,13017,1103,49,stratified + empirical,true hidden share of the true window (outcome-defined),False,conditional grouping of a mixed archive
+Fig. 1d,external + real_calendar_replay,13435,1170,49,stratified + empirical; real replay,climatological overlap,False,descriptive distribution
+Fig. 3a-b,crossed_mechanism (stratified arm),1899,211,12,stratified only,design class on the climatological window; true share reported,True,"same station-year, all 9 length x class cells"
+Fig. 3c,external,13017,1103,49,stratified + empirical,true hidden share,False,conditional grouping of a mixed archive
+Fig. 4a-c,crossed_mechanism (stratified arm),1899,211,12,stratified only,reconstruction diagnostics (post-treatment),False,grouping on an outcome-side variable; not an intervention
+"Fig. 4d, Fig. 5",external + development,13017,1103,49,stratified + empirical,cross-fitted score,False,prediction / admission evaluation

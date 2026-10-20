@@ -1,0 +1,61 @@
+{
+  "candidates": [
+    0.0,
+    7.105427357601002e-15,
+    1.4210854715202004e-14,
+    0.005944878776762863,
+    0.1150000000000091,
+    0.23212542087543042,
+    0.3732238815279594,
+    0.533568627451011,
+    0.7304406131356558,
+    0.9738122224904728,
+    1.3283870967742288,
+    1.894808743169408,
+    2.9425682287572883,
+    6.239320811173185,
+    21.741912669126673
+  ],
+  "features": [],
+  "identity": "admission__target_disagreement_rule__strictly_prior_years__all__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 20608,
+  "n_training_groups": 105,
+  "name": "target_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.3732238815279594,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.041135353909326516,
+    "formal_minimum_bounded_loss_upper": 0.26212778097706657,
+    "n_calibration_cases": 3283,
+    "n_calibration_groups": 27
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "syke",
+    "usgs"
+  ]
+}

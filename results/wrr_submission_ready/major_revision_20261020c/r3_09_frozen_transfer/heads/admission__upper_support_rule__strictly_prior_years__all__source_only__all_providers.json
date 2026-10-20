@@ -1,0 +1,55 @@
+{
+  "candidates": [
+    0.0,
+    0.06666666666666667,
+    0.19999999999999998,
+    0.3099999999999999,
+    0.4666666666666666,
+    0.5666666666666667,
+    0.7666666666666666,
+    0.9666666666666666,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "admission__upper_support_rule__strictly_prior_years__all__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 20608,
+  "n_training_groups": 105,
+  "name": "upper_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.4666666666666666,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.04328905441793593,
+    "formal_minimum_bounded_loss_upper": 0.2501351245045551,
+    "n_calibration_cases": 3283,
+    "n_calibration_groups": 27
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "syke",
+    "usgs"
+  ]
+}

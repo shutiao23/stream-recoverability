@@ -1,0 +1,39 @@
+# R2-04 hot-year selection null and abstention cost
+
+`excess_hot_refusal` = retention(all records) - retention(true hot years); positive means hot years are refused more often than records in general.
+
+## designed, hot threshold 20 C, fold seed 101
+
+             panel               arm  retention  retention_hot  retention_cool  refused_hot_share  excess_hot_refusal  excess_ci_low  excess_ci_high  wrong_judgement_rate  abstention_rate  breakeven_abstention_cost_rho1  breakeven_abstention_cost_rho5
+wave2_confirmation       fitted_risk     0.7451         0.7549          0.6862             0.2451             -0.0098        -0.0164         -0.0031                0.0045           0.2549                          0.0464                          0.1585
+wave2_confirmation  calibrated_bound     0.7287         0.7383          0.6711             0.2617             -0.0096        -0.0167         -0.0030                0.0044           0.2713                          0.0439                          0.1515
+wave2_confirmation peak_overlap_rule     0.6651         0.6683          0.6459             0.3317             -0.0032        -0.0091          0.0015                0.0049           0.3349                          0.0340                          0.1294
+wave2_confirmation       length_rule     0.3970         0.4053          0.3477             0.5947             -0.0082        -0.0217          0.0003                0.0019           0.6030                          0.0238                          0.0880
+wave2_confirmation   reconstruct_all     1.0000         1.0000          1.0000             0.0000              0.0000         0.0000          0.0000                0.0163           0.0000                             NaN                             NaN
+wave2_confirmation           generic     0.7352         0.7478          0.6593             0.2522             -0.0127        -0.0210         -0.0042                0.0038           0.2648                          0.0470                          0.1607
+       development       fitted_risk     0.7026         0.7037          0.7016             0.2963             -0.0011        -0.0223          0.0135                0.0042           0.2974                          0.0619                          0.2321
+       development  calibrated_bound     0.7282         0.7463          0.7117             0.2537             -0.0181        -0.0344         -0.0022                0.0061           0.2718                          0.0607                          0.2332
+       development peak_overlap_rule     0.5997         0.6067          0.5934             0.3933             -0.0070        -0.0188          0.0029                0.0035           0.4003                          0.0478                          0.1762
+       development       length_rule     0.3097         0.3289          0.2921             0.6711             -0.0192        -0.0343         -0.0029                0.0014           0.6903                          0.0308                          0.1143
+       development   reconstruct_all     1.0000         1.0000          1.0000             0.0000              0.0000         0.0000          0.0000                0.0226           0.0000                             NaN                             NaN
+       development           generic     0.7068         0.7079          0.7057             0.2921             -0.0011        -0.0203          0.0124                0.0046           0.2932                          0.0613                          0.2292
+
+## real_calendar, hot threshold 20 C, fold seed 101
+
+                              panel               arm  retention  retention_hot  retention_cool  refused_hot_share  excess_hot_refusal  excess_ci_low  excess_ci_high  wrong_judgement_rate  abstention_rate  breakeven_abstention_cost_rho1  breakeven_abstention_cost_rho5
+    real_calendar:all_donor_failure       fitted_risk     0.9402         0.9627          0.8862             0.0373             -0.0225        -0.0760          0.0125                0.0000           0.0598                          0.0400                          0.2000
+    real_calendar:all_donor_failure  calibrated_bound     0.9450         0.9695          0.8862             0.0305             -0.0245        -0.0787          0.0107                0.0000           0.0550                          0.0435                          0.2174
+    real_calendar:all_donor_failure peak_overlap_rule     0.9354         0.9559          0.8862             0.0441             -0.0205        -0.0746          0.0138                0.0000           0.0646                          0.0370                          0.1852
+    real_calendar:all_donor_failure       length_rule     0.7608         0.8068          0.6504             0.1932             -0.0460        -0.1620          0.0313                0.0000           0.2392                          0.0100                          0.0500
+    real_calendar:all_donor_failure   reconstruct_all     1.0000         1.0000          1.0000             0.0000              0.0000         0.0000          0.0000                0.0024           0.0000                             NaN                             NaN
+real_calendar:partial_donor_failure       fitted_risk     0.9378         0.9593          0.8862             0.0407             -0.0215        -0.0750          0.0149                0.0000           0.0622                          0.0385                          0.1923
+real_calendar:partial_donor_failure  calibrated_bound     0.9450         0.9695          0.8862             0.0305             -0.0245        -0.0787          0.0107                0.0000           0.0550                          0.0435                          0.2174
+real_calendar:partial_donor_failure peak_overlap_rule     0.9354         0.9559          0.8862             0.0441             -0.0205        -0.0746          0.0138                0.0000           0.0646                          0.0370                          0.1852
+real_calendar:partial_donor_failure       length_rule     0.7608         0.8068          0.6504             0.1932             -0.0460        -0.1620          0.0313                0.0000           0.2392                          0.0100                          0.0500
+real_calendar:partial_donor_failure   reconstruct_all     1.0000         1.0000          1.0000             0.0000              0.0000         0.0000          0.0000                0.0024           0.0000                             NaN                             NaN
+          real_calendar:target_only       fitted_risk     0.9474         0.9627          0.9106             0.0373             -0.0153        -0.0673          0.0198                0.0024           0.0526                          0.0000                          0.0000
+          real_calendar:target_only  calibrated_bound     0.9641         0.9797          0.9268             0.0203             -0.0155        -0.0594          0.0145                0.0024           0.0359                          0.0000                          0.0000
+          real_calendar:target_only peak_overlap_rule     0.9354         0.9559          0.8862             0.0441             -0.0205        -0.0746          0.0138                0.0000           0.0646                          0.0370                          0.1852
+          real_calendar:target_only       length_rule     0.7608         0.8068          0.6504             0.1932             -0.0460        -0.1620          0.0313                0.0000           0.2392                          0.0100                          0.0500
+          real_calendar:target_only   reconstruct_all     1.0000         1.0000          1.0000             0.0000              0.0000         0.0000          0.0000                0.0024           0.0000                             NaN                             NaN
+

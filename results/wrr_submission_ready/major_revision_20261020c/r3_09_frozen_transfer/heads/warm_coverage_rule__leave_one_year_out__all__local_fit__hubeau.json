@@ -1,0 +1,36 @@
+{
+  "candidates": [
+    -1.0,
+    -0.8888888888888888,
+    -0.803921568627451,
+    -0.7777777777777778,
+    -0.6339869281045751,
+    -0.6078431372549019,
+    -0.4117647058823529
+  ],
+  "features": [],
+  "identity": "warm_coverage_rule__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 4928,
+  "n_training_groups": 10,
+  "name": "warm_coverage_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

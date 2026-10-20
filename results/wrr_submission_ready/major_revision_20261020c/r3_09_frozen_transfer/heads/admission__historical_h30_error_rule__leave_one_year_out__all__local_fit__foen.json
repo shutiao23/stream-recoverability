@@ -1,0 +1,49 @@
+{
+  "candidates": [
+    0.0,
+    2.8421709430404033e-15,
+    7.105427357601002e-15,
+    0.04650000000000338,
+    0.17221960281748017,
+    0.2528553773029574,
+    0.3070892473118325,
+    0.358835827085132,
+    0.418214204375162,
+    0.47610789620223753,
+    0.5340945666179472,
+    0.6079310924016033,
+    0.7013333333333271,
+    0.785314230349864,
+    0.8559748169178321,
+    0.9869491924224845,
+    1.136114621444752,
+    1.4450261179806732,
+    1.9677995132606896,
+    3.85230632478631
+  ],
+  "features": [],
+  "identity": "admission__historical_h30_error_rule__leave_one_year_out__all__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 1040,
+  "n_training_groups": 11,
+  "name": "historical_h30_error_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "foen"
+  ]
+}

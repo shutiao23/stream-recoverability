@@ -1,0 +1,50 @@
+{
+  "candidates": [
+    0.3453683318969447,
+    0.4817414766667403,
+    0.5094256518527264,
+    0.6461992177095349,
+    0.6599228702597709,
+    0.6750822953212201,
+    0.6986743538663716,
+    0.7077614388681714,
+    0.7169029763429274,
+    0.785356430468708,
+    0.8109872010711642,
+    0.8641533929560133,
+    0.9014632296183533,
+    0.9578848273487851,
+    0.9751210118674146,
+    1.007477585762423,
+    1.0240983931412393,
+    1.3064234806159765,
+    1.690096406476951,
+    1.8125767816566005,
+    2.1282968369456596
+  ],
+  "features": [],
+  "identity": "admission__oof_daily_sd_rule__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 497,
+  "n_training_groups": 10,
+  "name": "oof_daily_sd_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "9b28968f5b56d54db4505b1c9cdc349afe11cc648060ab9aef45a4710486d5a9"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

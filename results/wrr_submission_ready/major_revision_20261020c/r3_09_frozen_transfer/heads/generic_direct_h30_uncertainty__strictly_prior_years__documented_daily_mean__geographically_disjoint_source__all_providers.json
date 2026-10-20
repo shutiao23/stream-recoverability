@@ -1,0 +1,81 @@
+{
+  "candidates": [
+    -0.03901054222260575,
+    3.5666795433348967e-10,
+    0.005643526433674601,
+    0.06971565240821848,
+    0.12746006781306476,
+    0.18598974640565957,
+    0.2517782463009361,
+    0.32549324518639133,
+    0.40333310127782296,
+    0.4815803715802115,
+    0.5737214912630814,
+    0.6808953897703687,
+    0.8161023866027922,
+    0.9797132088257892,
+    1.1811044243934359,
+    1.4413035240035756,
+    1.811940339756895,
+    20.957193304959468
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "warm_observed_fraction",
+    "month_sin",
+    "month_cos",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "left_flank",
+    "right_flank",
+    "air_available",
+    "estimator_disagreement",
+    "h30_draw_sd_C",
+    "h30_interval_width_C",
+    "direct_h30_uncertainty"
+  ],
+  "identity": "generic_direct_h30_uncertainty__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers",
+  "kind": "gbr",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/generic_direct_h30_uncertainty__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers.joblib",
+  "model_sha256": "f2603b560d44f971929c8ca38b5d681688a9e8f0225d487717ad284701377302",
+  "n_training_cases": 50355,
+  "n_training_groups": 54,
+  "name": "generic_direct_h30_uncertainty",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "geographically_disjoint_source",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
+      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.32549324518639133,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.03500335381395724,
+    "formal_minimum_bounded_loss_upper": 0.4318383409780885,
+    "n_calibration_cases": 11174,
+    "n_calibration_groups": 14
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "usgs"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "created_at_utc": "2026-10-20T09:56:26.271941+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    },
+    "group_map": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/complete_network_independence.csv",
+      "sha256": "47fc5bec532bfdfc68135e948bec18674d22c75c76f5c68fa7f525da82d72993"
+    },
+    "scores": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/leave_one_year_out/documented_daily_mean/completed_scores.json",
+      "sha256": "29fa28612cf081d6788ea30d6196932a738b50911d7c7626cafd2acbcde873e8"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/357_wrr_decision_report.py",
+    "sha256": "5333178c266e1f483b3f2bff73d724d30d79c694d773d4df9c3cbe5b8bb1370f"
+  }
+}

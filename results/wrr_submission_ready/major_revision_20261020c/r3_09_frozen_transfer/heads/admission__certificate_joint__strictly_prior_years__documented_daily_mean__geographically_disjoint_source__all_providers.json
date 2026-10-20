@@ -1,0 +1,79 @@
+{
+  "candidates": [
+    0.024041093113658988,
+    0.03508112162650165,
+    0.06214774146477943,
+    0.10584667081651256,
+    0.16559768925056162,
+    0.23881557304956536,
+    0.3396515407365745,
+    0.46326539731398775,
+    0.6249475903888949,
+    0.7907022090826401,
+    0.9624185680264162,
+    1.1779716218606697,
+    1.5496695554011954,
+    2.0858902610779544,
+    4.9267714598263
+  ],
+  "features": [
+    "longest_run",
+    "total_missing",
+    "missing_fraction",
+    "n_runs",
+    "peak_overlap",
+    "warm_observed_fraction",
+    "observed_peak_margin",
+    "observed_peak",
+    "clim_peak",
+    "n_visible_donors",
+    "donor_corr_mean",
+    "donor_corr_max",
+    "donor_corr_min",
+    "donor_coverage_mean",
+    "train_resid_sd",
+    "seasonal_amplitude",
+    "train_metric_sd",
+    "n_complete_years",
+    "record_years",
+    "month_sin",
+    "month_cos",
+    "left_flank",
+    "right_flank",
+    "has_complete_window",
+    "air_available"
+  ],
+  "identity": "admission__certificate_joint__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers",
+  "kind": "certificate_joint",
+  "model_path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_09_frozen_transfer/heads/admission__certificate_joint__strictly_prior_years__documented_daily_mean__geographically_disjoint_source__all_providers.joblib",
+  "model_sha256": "c171f1957a4a960dc4b32c220e1ed3e03d664a75f5d064902b24b984acf38f73",
+  "n_training_cases": 8768,
+  "n_training_groups": 54,
+  "name": "certificate_joint",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "geographically_disjoint_source",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.3396515407365745,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.04978447024673445,
+    "formal_minimum_bounded_loss_upper": 0.414629517251163,
+    "n_calibration_cases": 1948,
+    "n_calibration_groups": 14
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "usgs"
+  ]
+}

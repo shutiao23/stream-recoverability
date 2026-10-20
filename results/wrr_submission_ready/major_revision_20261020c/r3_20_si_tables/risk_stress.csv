@@ -1,0 +1,5 @@
+scenario,n_repetitions,empirical_violation_probability,rigorous_violation_probability,empirical_admission_probability,rigorous_admission_probability
+forty_perfectly_correlated,1000,0.085,0.0,0.085,0.0
+hundred_perfectly_correlated,1000,0.047,0.002,0.047,0.002
+rare_bad_group,1000,0.0,0.0,0.45,0.0
+twelve_perfectly_correlated,1000,0.454,0.0,0.454,0.0

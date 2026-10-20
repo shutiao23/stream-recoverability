@@ -25,6 +25,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8"]
 reference = ["pypots==1.5"]
+revision = ["shapely>=2,<3", "pyproj>=3.7,<4", "numba>=0.59,<1"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,0 +1,2 @@
+scope,n_cases,n_groups,predicted_case_weighted_risk,observed_case_weighted_risk,observed_equal_group_risk,equal_group_risk_upper,formal_assumption
+all,18,5,0.3540653504217743,0.3333333333333333,0.2333333333333333,0.7544779092608042,independent deployment-representative groups; not valid under arbitrary domain shift

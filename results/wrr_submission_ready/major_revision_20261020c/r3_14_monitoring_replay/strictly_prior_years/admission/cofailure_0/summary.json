@@ -1,0 +1,16 @@
+{
+  "case_families": {
+    "empirical": 17759,
+    "stratified": 28751
+  },
+  "cofailure": 0,
+  "family": "admission",
+  "n_cases": 46510,
+  "n_cases_with_visible_donors": 44162,
+  "n_independent_groups": 181,
+  "n_networks": 193,
+  "n_station_years": 4427,
+  "n_uncertainty_available": 45660,
+  "protocol": "strictly_prior_years",
+  "role": "opened-source admission benchmark or held-group information-loss assay, not independent confirmation"
+}

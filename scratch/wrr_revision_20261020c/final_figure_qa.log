@@ -1,0 +1,19 @@
+{
+  "pdfs": 15,
+  "figure_pdfs": 13,
+  "built_pdfs": 2,
+  "hard_failures": 0,
+  "hard_failures_by_check": {},
+  "warnings": 21,
+  "warnings_by_check": {
+    "FIGURE_NOT_REFERENCED": 6,
+    "OVERLAPPING_TEXT_SAME_BASELINE": 1,
+    "OVERLAPPING_WORD_BOXES": 2,
+    "SMALL_RELATIVE_WORD_BOXES": 11,
+    "TOOL_MISSING": 1
+  },
+  "schematic_figures_without_drawio": [],
+  "exit_code": 0,
+  "json": "results/wrr_submission_ready/figure_qa.json",
+  "markdown": "results/wrr_submission_ready/figure_qa_report.md"
+}

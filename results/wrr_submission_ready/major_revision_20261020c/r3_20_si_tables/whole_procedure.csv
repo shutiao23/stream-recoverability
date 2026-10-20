@@ -1,0 +1,9 @@
+left,right,mean_refitted_procedure_difference,whole_procedure_ci_low,whole_procedure_ci_high,n_fully_refitted_procedures,n_evaluation_groups,protocol,comparison
+uncertain_support,generic_target_disagreement,2.59451176677204,-1.90000376948928,7.97033267204227,1000,29,Retro,Window - Generic H30
+generic_direct_h30_uncertainty,generic_target_disagreement,2.5350280997541197,-2.34433527026346,8.17579823934068,1000,29,Retro,Direct H30 - Generic H30
+uncertain_support,generic_direct_h30_uncertainty,0.05948366701791,-3.78696033964083,4.4364805783236,1000,29,Retro,Window - Direct H30
+generic_direct_h30_uncertainty,generic_both_diagnostics,1.7998243765367,-3.23870336553427,7.688936645054829,1000,29,Retro,Direct H30 - Generic + OOF
+uncertain_support,generic_target_disagreement,2.9158018867924502,-5.749562665466041,11.26886289204414,1000,24,Prospective,Window - Generic H30
+generic_direct_h30_uncertainty,generic_target_disagreement,2.68944575471698,-6.95221475577781,10.9550606737503,1000,24,Prospective,Direct H30 - Generic H30
+uncertain_support,generic_direct_h30_uncertainty,0.22635613207547,-5.55386911765624,5.89820678703672,1000,24,Prospective,Window - Direct H30
+generic_direct_h30_uncertainty,generic_both_diagnostics,-1.465625,-9.11636450599007,5.05013445302406,1000,24,Prospective,Direct H30 - Generic + OOF

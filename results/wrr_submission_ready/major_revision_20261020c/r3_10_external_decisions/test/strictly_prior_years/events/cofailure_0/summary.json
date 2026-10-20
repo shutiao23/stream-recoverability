@@ -1,0 +1,13 @@
+{
+  "cofailure": 0,
+  "external_role": "test",
+  "family": "events",
+  "guarantee_target": "complete recorded daily-mean reference, with separate measurement-margin sensitivities",
+  "n_frozen_plan_operating_points": 578,
+  "n_original_candidates": 249,
+  "n_original_pool_cost_scenarios": 62424,
+  "n_original_station_years": 35,
+  "new_test_models_or_thresholds_refitted": false,
+  "observed_hot_rescue_changes_magnitude_admission": false,
+  "protocol": "strictly_prior_years"
+}

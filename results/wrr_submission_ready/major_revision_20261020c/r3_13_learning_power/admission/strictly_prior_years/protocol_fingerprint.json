@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T11:34:06.898688+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    },
+    "contract": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/power_contract.json",
+      "sha256": "19224dbee57c8c6fb3534fd75e36cd0d4e92f4049201d540ba111e66f105251f"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/363_wrr_learning_and_power.py",
+    "sha256": "b0150ce987e845400b6fbde0fec7df2804315301e01e74c42017804a6da44b73"
+  }
+}

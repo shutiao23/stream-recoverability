@@ -1,0 +1,21 @@
+{
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "development": {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8"
+    },
+    "external": {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+      "sha256": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9"
+    },
+    "replay": {
+      "path": "results/wrr_submission_ready/major_revision_20261020/p0_03_real_calendar_adoption/replay_case_decisions.parquet",
+      "sha256": "f8d4fa4b6734fd5aaea5176be2fe69f24f2b722236addb1afd82c6a8299ac985"
+    }
+  },
+  "numpy": "1.26.4",
+  "pandas": "2.1.4",
+  "python": "3.11.7",
+  "script": "scripts/344_wrr_screening_need_rule.py"
+}

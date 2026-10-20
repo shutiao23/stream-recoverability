@@ -1,0 +1,40 @@
+{
+  "candidates": [
+    0.0,
+    0.13333333333333333,
+    0.3,
+    0.39999999999999997,
+    0.5,
+    0.6,
+    0.6666666666666666,
+    0.7333333333333333,
+    0.8333333333333333,
+    0.9433333333333331,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "upper_support_rule__leave_one_year_out__all__local_fit__hubeau",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 4928,
+  "n_training_groups": 10,
+  "name": "upper_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/leave_one_year_out/crossed/cofailure_0/cases.parquet",
+      "sha256": "49e3e607fc1e71cb99196f46bc95cb0b7cecf1072a1992cb024cbc2e102c1ffe"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "hubeau",
+  "training_maximum_evaluation_year": 2022,
+  "training_providers": [
+    "hubeau"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-10-20T10:59:57.319756+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    },
+    "contract": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/leave_one_year_out/power_contract.json",
+      "sha256": "4a9156e58041a06785752a68bb8c03d29025af21eb1d4bc14649c034d312bbf8"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/363_wrr_learning_and_power.py",
+    "sha256": "3d560c104f6f561055e3dc1ffa39ac3164b1067f5631fd562e7fb92c4c66fcc2"
+  }
+}

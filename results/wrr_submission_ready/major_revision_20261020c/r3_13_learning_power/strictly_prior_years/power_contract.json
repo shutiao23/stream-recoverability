@@ -1,0 +1,26 @@
+{
+  "assumed_retention_gains": [
+    0.05,
+    0.08,
+    0.1
+  ],
+  "bootstrap_units": "whole independent components, including every local station history and outage",
+  "local_reconstruction_cache_justification": "resampling a whole component leaves all local reconstruction inputs and deterministic fits unchanged; global risk learners and thresholds are refitted",
+  "local_reconstruction_recomputed": false,
+  "model_names": [
+    "generic_target_disagreement",
+    "generic_direct_h30_uncertainty",
+    "uncertain_support",
+    "generic_both_diagnostics"
+  ],
+  "n_complete_admission_procedure_refits": 1000,
+  "new_external_outcomes_used": false,
+  "power_assumptions": "source-like independent groups; location-shift retention alternatives conditional on common-risk feasibility",
+  "prospective_global_fit_and_calibration_years": "through 2018",
+  "prospective_old_source_evaluation_years": "2019-2022",
+  "split": "disjoint old-source 60/20/20 independent groups",
+  "tested_null_margins": [
+    0.0,
+    0.05
+  ]
+}

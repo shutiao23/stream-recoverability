@@ -1,0 +1,35 @@
+{
+  "created_at_utc": "2026-10-20T08:49:04.107423+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "ablation": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020b/r2_02_same_capacity_ablation/ablation_contrasts.csv",
+      "sha256": "8851f46846e29bd99869fcd8c02dac5ad059e4c42b46f0c9bec2d695bc19c7e8"
+    },
+    "admissions": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/case_level_admissions_wave2_confirmation.parquet",
+      "sha256": "612cf5be4500f5f4e21ae17dda046c7d76a8f9ccfb765d95489d801f3ef6da21"
+    },
+    "crossed": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/amendments/position_length_paired/crossed_development_cases.parquet",
+      "sha256": "0959232dc76cd0bf5c1ea67f2b66c3d6ce162f581e18c2205131f0c022fe5adc"
+    },
+    "development": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8"
+    },
+    "replay": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020/p0_03_real_calendar_adoption/replay_case_decisions.parquet",
+      "sha256": "f8d4fa4b6734fd5aaea5176be2fe69f24f2b722236addb1afd82c6a8299ac985"
+    },
+    "windows": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020b/r2_03_three_windows/cases_three_windows.parquet",
+      "sha256": "f10e3c55db5e23403b4b42513d21c0619b64cfef6610e6ac83f31baa38c564d9"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/349_wrr_review_evidence.py",
+    "sha256": "f0469822ed0ebfd7e6d7a3827ad47a2787f99b4e9ae9fdd08a94e501b4530f25"
+  }
+}

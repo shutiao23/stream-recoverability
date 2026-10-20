@@ -1,0 +1,15 @@
+{
+  "case_families": {
+    "real_calendar": 47540
+  },
+  "cofailure": 1.0,
+  "family": "real_calendars",
+  "n_cases": 47540,
+  "n_cases_with_visible_donors": 0,
+  "n_independent_groups": 175,
+  "n_networks": 187,
+  "n_station_years": 5049,
+  "n_uncertainty_available": 47540,
+  "protocol": "leave_one_year_out",
+  "role": "opened-source admission benchmark or held-group information-loss assay, not independent confirmation"
+}

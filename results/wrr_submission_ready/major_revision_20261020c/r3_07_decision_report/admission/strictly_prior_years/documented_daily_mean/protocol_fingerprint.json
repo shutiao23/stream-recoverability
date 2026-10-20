@@ -1,0 +1,23 @@
+{
+  "created_at_utc": "2026-10-20T11:34:33.090667+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "cases": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    },
+    "group_map": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/complete_network_independence.csv",
+      "sha256": "47fc5bec532bfdfc68135e948bec18674d22c75c76f5c68fa7f525da82d72993"
+    },
+    "scores": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/completed_scores.json",
+      "sha256": "0fb686674e6bfcec03d73817412503f15cf051ebc1089cf0a7ca258f0f25a7bf"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/357_wrr_decision_report.py",
+    "sha256": "7c38278028a8dde7e8007453973d09c3d639592e0043aaac6921ef7fab742c7d"
+  }
+}

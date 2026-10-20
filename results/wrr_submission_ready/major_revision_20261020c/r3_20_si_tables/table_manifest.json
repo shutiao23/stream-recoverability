@@ -1,0 +1,149 @@
+{
+  "all_generated_from_actual_results": true,
+  "tables": [
+    {
+      "rows": 10,
+      "sha256": "7dfdf2242726ce8de35539fb9373ddaf03245b2d65c8f5d1fb2dc5a57fa6e3d5",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/providers.csv",
+      "table": "providers"
+    },
+    {
+      "rows": 6,
+      "sha256": "93b31ae1213c14cfd19a5494d946a0edfa7cae5fa0864e9ceecf7d680297073d",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/new_cohort.csv",
+      "table": "new_cohort"
+    },
+    {
+      "rows": 9,
+      "sha256": "40ab65e8a3b663cc9daa8d5ad2d7da74f059e3500e3c95af074e148cff0664c2",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/controlled_cells.csv",
+      "table": "controlled_cells"
+    },
+    {
+      "rows": 30,
+      "sha256": "15e21dbf844c37582184e4a24aa4ae382f0266026d43872b259c63162075793f",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/position.csv",
+      "table": "position"
+    },
+    {
+      "rows": 10,
+      "sha256": "38d81d6a6d762792ce079ce3d3c8bea15c64bd6a489bcd95a6ba2b83e4ae5b91",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/length.csv",
+      "table": "length"
+    },
+    {
+      "rows": 15,
+      "sha256": "26f508cdb895827f5cdf7560fb40f27ca9dbcd02eff5ad40a225f9c1a326de51",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/fragmentation.csv",
+      "table": "fragmentation"
+    },
+    {
+      "rows": 5,
+      "sha256": "c217ba2ece148095c464c49ba34d42d4421663fd5ae0fdb0a1761272ed7630bf",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/identity.csv",
+      "table": "identity"
+    },
+    {
+      "rows": 25,
+      "sha256": "bd1e84c8f2c18417c593725af635ba0d4c02be5a0ab1762f355afbe3a164d29f",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/oracle.csv",
+      "table": "oracle"
+    },
+    {
+      "rows": 54,
+      "sha256": "e52affa91b38db7e29a6f32e86b95af3cc78045305a328d2e9ed7f1e155cfd94",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/ablation.csv",
+      "table": "ablation"
+    },
+    {
+      "rows": 48,
+      "sha256": "91970e5c18d027306f672665d0faf98734c1265b62384e9acc61480ccd1850b1",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/conditional_contrasts.csv",
+      "table": "conditional_contrasts"
+    },
+    {
+      "rows": 8,
+      "sha256": "0b59f7b8917865a5786f4b668b831e08711a06382f6a6ad45f065733bb5e6611",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/whole_procedure.csv",
+      "table": "whole_procedure"
+    },
+    {
+      "rows": 20,
+      "sha256": "4ea4a2a118293571f296b256c3b8eb9c2e34846a3aad499fc101afdfadfe7b5c",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/power.csv",
+      "table": "power"
+    },
+    {
+      "rows": 36,
+      "sha256": "c8e61973508ec8cb62898e38825ae1966d84a982cd18bfadb3c4bcb019925a22",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/learning.csv",
+      "table": "learning"
+    },
+    {
+      "rows": 100,
+      "sha256": "7dbbdbc808a5e15f46de217174531ae31dc7adeb9c6903034ac6025000710693",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/transfer.csv",
+      "table": "transfer"
+    },
+    {
+      "rows": 18,
+      "sha256": "e09fabc71147010ca710f404adbd514ddaca79125c62e785d9fd1f55e82662b9",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/hydrology.csv",
+      "table": "hydrology"
+    },
+    {
+      "rows": 48,
+      "sha256": "849fe848667376cda39ee0abecfa43015f6fd90c19b8d0156fdafe9c2a3529e8",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/anomalies.csv",
+      "table": "anomalies"
+    },
+    {
+      "rows": 64,
+      "sha256": "14bee711a94594cf252d45d21916fe29963dfd591a99cc62fa549d8ccd8c1ab9",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/networks.csv",
+      "table": "networks"
+    },
+    {
+      "rows": 4,
+      "sha256": "3eb3d4dc61a9195775b1607b27804f6d906bf2e250edc25e99b42042c217ca3a",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/risk_stress.csv",
+      "table": "risk_stress"
+    },
+    {
+      "rows": 18,
+      "sha256": "c10d2853355ddeef29159fe029eaa18904e1f04b1b294e8581a0ad381c390b59",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/event_cofailure.csv",
+      "table": "event_cofailure"
+    },
+    {
+      "rows": 15,
+      "sha256": "e5d639ebf7bf560ae3015afb4127c15afbfc8cbc393dffc7f094f78b751833be",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/composition.csv",
+      "table": "composition"
+    },
+    {
+      "rows": 11,
+      "sha256": "17d1594cb90f2349eadf54852ba587d18b65c60b8de0202c4f4e46431c859af3",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/reconstruction_references.csv",
+      "table": "reconstruction_references"
+    },
+    {
+      "rows": 14,
+      "sha256": "895c07cc17c54f4f3cb9be6dd31217f8be2c43786067a28281617ce965fb1e3d",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/scenario_bands.csv",
+      "table": "scenario_bands"
+    },
+    {
+      "rows": 72,
+      "sha256": "fa74beb3a645c07042aca56ca980a16ab604023098b598ac4e30ddf12d566180",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/decision_costs.csv",
+      "table": "decision_costs"
+    },
+    {
+      "rows": 8,
+      "sha256": "afd1698e07b57ab49c4c6ba11cd58549cf493b670cbbba59e37e534db518c6ff",
+      "source": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/representation.csv",
+      "table": "representation"
+    }
+  ]
+}

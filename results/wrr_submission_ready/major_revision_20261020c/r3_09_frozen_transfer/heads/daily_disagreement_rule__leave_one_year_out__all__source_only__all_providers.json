@@ -1,0 +1,68 @@
+{
+  "candidates": [
+    5.551115123125783e-17,
+    0.9274831319089062,
+    1.1608269035933534,
+    1.3271229438963588,
+    1.462495374307668,
+    1.5799708274720217,
+    1.6874915834123787,
+    1.7905499558406524,
+    1.8886530940878772,
+    1.9862517693225201,
+    2.0857269644413523,
+    2.1916920694211237,
+    2.301755340093713,
+    2.4218554301660418,
+    2.5554332851267376,
+    2.7060100421404507,
+    2.887091553543857,
+    3.115151583755743,
+    3.4331681568664374,
+    3.96935341231662,
+    27.074416426821646
+  ],
+  "features": [],
+  "identity": "daily_disagreement_rule__leave_one_year_out__all__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 321826,
+  "n_training_groups": 145,
+  "name": "daily_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": null,
+    "empirical_status": "no_empirical_threshold",
+    "empirical_upper": null,
+    "formal_minimum_bounded_loss_upper": 0.27166174527548254,
+    "n_calibration_cases": 84189,
+    "n_calibration_groups": 36
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "arso",
+    "chmi",
+    "foen",
+    "gkd_bayern",
+    "hubeau",
+    "lubw",
+    "nve_hydapi",
+    "rws_waterwebservices",
+    "syke",
+    "usgs"
+  ]
+}

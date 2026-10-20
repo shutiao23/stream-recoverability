@@ -1,0 +1,48 @@
+{
+  "abstract": "This dataset contains the data related to the research paper 'Trends and drivers of water temperature extremes in mountain rivers' by van Hamel and Brunner (2024), which is published in the journal Water Resources Research: https://doi.org/10.1029/2024WR037518. It contains water temperature data for 177 stations in the European Alps, the Pyrenees, the Central Massif and the Scandinavian mountains. All catchments have at least 5 entire years of water temperature observations available for the period 2008-2022. For each catchment, we have extracted extreme water temperature values and extreme events. Extreme values are the days on which the daily mean water temperature exceeds the locally defined, seasonally varying 95th percentile threshold. Extreme events refer to a continuous period of multiple days (minimum 2 days) for which the locally defined, seasonally varying 95th percentile threshold is exceeded. An extreme event is composed of multiple extreme values.",
+  "authors": [
+    "van Hamel, Amber",
+    "Brunner, Manuela"
+  ],
+  "bag_last_downloaded": "2026-10-15T16:51:52.147041Z",
+  "bag_url": "http://www.hydroshare.org/django_irods/download/bags/7a45ee06851e41d99e4affb7110d5f97.zip",
+  "content_types": [
+    "Geographic Feature Content"
+  ],
+  "coverages": [
+    {
+      "type": "box",
+      "value": {
+        "eastlimit": 17.2266,
+        "name": "European mountain regions",
+        "northlimit": 63.7825,
+        "projection": "WGS 84 EPSG:4326",
+        "southlimit": 40.4469,
+        "units": "Decimal degrees",
+        "westlimit": -3.5156
+      }
+    },
+    {
+      "type": "period",
+      "value": {
+        "end": "2023-01-01",
+        "start": "2009-01-01"
+      }
+    }
+  ],
+  "creator": "van Hamel, Amber",
+  "date_created": "2024-06-24T09:20:41.894380Z",
+  "date_last_updated": "2024-12-16T08:22:58.473205Z",
+  "discoverable": true,
+  "doi": "10.4211/hs.7a45ee06851e41d99e4affb7110d5f97",
+  "immutable": true,
+  "public": true,
+  "published": true,
+  "resource_id": "7a45ee06851e41d99e4affb7110d5f97",
+  "resource_map_url": "http://www.hydroshare.org/hsapi/resource/7a45ee06851e41d99e4affb7110d5f97/map/",
+  "resource_title": "Water temperature extremes in European mountain rivers",
+  "resource_type": "CompositeResource",
+  "resource_url": "http://www.hydroshare.org/resource/7a45ee06851e41d99e4affb7110d5f97/",
+  "science_metadata_url": "http://www.hydroshare.org/hsapi/resource/7a45ee06851e41d99e4affb7110d5f97/scimeta/",
+  "shareable": true
+}

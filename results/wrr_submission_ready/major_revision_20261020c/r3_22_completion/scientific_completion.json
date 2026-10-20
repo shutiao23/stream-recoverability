@@ -1,0 +1,2486 @@
+{
+  "checks": [
+    {
+      "check": "predictive locks unchanged",
+      "passed": true
+    },
+    {
+      "check": "method < deployment < test outcomes",
+      "passed": true
+    },
+    {
+      "check": "324 final-admission score tasks",
+      "passed": true
+    },
+    {
+      "check": "2000 complete four-model procedure refits",
+      "passed": true
+    },
+    {
+      "check": "new snow labels do not change decisions",
+      "passed": true
+    },
+    {
+      "check": "negative results retained in current paper",
+      "passed": true
+    },
+    {
+      "check": "all original-candidate denominators retained",
+      "passed": true
+    },
+    {
+      "check": "full test suite exit zero",
+      "passed": true
+    }
+  ],
+  "distribution_free_target_risk_certified": false,
+  "files": [
+    {
+      "meaning": "separate short/long/empirical admission cohort",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    },
+    {
+      "meaning": "broadened paired mechanism cohort",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/leave_one_year_out/cases.parquet",
+      "sha256": "ef57b20c41f76bf04f65a47c4848b4973455464ed3ff08ae9ebddebd1faa1379"
+    },
+    {
+      "meaning": "all final-cohort source score specifications",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/completed_scores.json",
+      "sha256": "b482e37c9cd288ea67f65e210c895ddff79dffef8685df30cfb4f23b9977b3bf"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/certificate_101.npz",
+      "sha256": "c9dd05dda856db74976caa56ec27039f2fd9224287d24bffdf01fda3b81845e2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/certificate_202.npz",
+      "sha256": "70100d2beacd7800638e38691ea8ee15bde5485ea8ae58ded1c8fd1070026a02"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/certificate_303.npz",
+      "sha256": "022f25aa3c88be9275afa9304dbae44dddca602a337c98530687348c24010dde"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/policy_certificate_101.npz",
+      "sha256": "0819fbccbfded36a0ec3188663d78be35bf9b2e276600faf48e0ea52fce49f66"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/policy_certificate_202.npz",
+      "sha256": "8a3acbe1df028dea8cc0b1ee3ba7ca291e7712579b6755208b58e8e96a01811c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/policy_certificate_303.npz",
+      "sha256": "e6a4d857d0908a75009c75af850487dfe6ed0077abf937c6e808079e74bb0994"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_target_disagreement_101.npz",
+      "sha256": "ce8492e169106de3e200d67a013fb8b20e0209abe2b557e56657a03793522c66"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_target_disagreement_202.npz",
+      "sha256": "686a40210af6f64fcddfd7b44523f61446232d889b3de6d3d479b7adcfa95301"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_target_disagreement_303.npz",
+      "sha256": "b7e2f2784b8d5026816ccf9f3ffd56b92e2648f7913634ed59163b34ae497335"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_daily_disagreement_101.npz",
+      "sha256": "91b4860eb5fcadeb381719bcee57dab6a86cd4ffd0860ac0ddf5b6afed3fd72c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_daily_disagreement_202.npz",
+      "sha256": "1dc5adc7b9f2e87e102e5004d39b9559cbc382af90b16f8e28f4f8f4ad4893b9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_daily_disagreement_303.npz",
+      "sha256": "11e657430decd40decf9072be13c62dccb594a18ba5e0d4496c2733195a41ae1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_both_diagnostics_101.npz",
+      "sha256": "584fa4be5a9d1c76115c71de04fa696ca78e3a798ac691269cd54bbf099f8282"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_both_diagnostics_202.npz",
+      "sha256": "6ef746f09c855adaac7b73125e5815bd1f82f430c6089c8a3dbc2ea9ee0e055a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_both_diagnostics_303.npz",
+      "sha256": "14f510705a3246d0319096d49ff0e5a6744b12637ba584aaf8a8c44301423634"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/complete_diagnostic_model_101.npz",
+      "sha256": "466d62ee54bfbab3194bc83a3d43cdd15aca88be45c6bc92fe9f372fda4142d0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/complete_diagnostic_model_202.npz",
+      "sha256": "a4b4cce5bd0226ad60a524ed46abf580d42ccfd6195f1a81b750bafb706967fe"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/complete_diagnostic_model_303.npz",
+      "sha256": "80c52eb7cc70a579270371ffcc6ba066e8e7a1b429845a1e74451cf3e0bd03ff"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_plus_climatological_support_101.npz",
+      "sha256": "e55a0ae24b3a5f7f910ba87c240dabc3c141bcaadb554fbef0910fc1cc348ac6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_plus_climatological_support_202.npz",
+      "sha256": "41744b96c484779b638a615741e804fc44944d3074191fc5c62d11273e4350d6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_plus_climatological_support_303.npz",
+      "sha256": "45a3a607bfb133c6acbcd7960d2b715f5edc058131ac02ba7ad70d61488b7107"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_direct_h30_uncertainty_101.npz",
+      "sha256": "911281cd65ddbe4ef7d8b4f582d474288c1de9154a445aaf3cf162d7f5e1548a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_direct_h30_uncertainty_202.npz",
+      "sha256": "531ac0a11c6093d764874426ba7ce63e53d8e274851134258b3df3cff572ca33"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/generic_direct_h30_uncertainty_303.npz",
+      "sha256": "dcdcedb480f022417a7abb0e9c12b7b3197db47876dc930fa7aba22dc381ba1d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_101.npz",
+      "sha256": "419a5a01e52650f4e99f4f744e1e9c9ab2f82cacc21bc93a513fc2e6546a7056"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_202.npz",
+      "sha256": "4261e82f248fd54132ec1eb554482fa8b4bdcd2ce3e0afb44a31576dc77df3b6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_303.npz",
+      "sha256": "d197df51faf4a75d00c16ad14b648485c3b1238cda61b47813fdd8a26d3d13d5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_competition_101.npz",
+      "sha256": "cb2475f1dacf2144c5d9b9884fbdc1f66e5bf0ec5ab130efe765a4b2f0565493"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_competition_202.npz",
+      "sha256": "d98b1d09a7c330545b2bb4b45f7554b60beadf9e1ab9c6d2b4c9250c8a54cfe5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_competition_303.npz",
+      "sha256": "e6a7098994be93ccddb1f95ab3196717a4a5dea73cd8b2b73ffbfe6f61ca9c03"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_window_uncertainty_101.npz",
+      "sha256": "4b58a9b0677430c6a8f19dd0d4caa99b6e7c821908ff437a40c24363fc26c8c5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_window_uncertainty_202.npz",
+      "sha256": "d3e4defdd92d344928b8072a848aa3e296695ee1ae6a5620708993e905ba6f87"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_window_uncertainty_303.npz",
+      "sha256": "6d1503ba4d85ca46a62a05cc6a05a666b13c31dac7ebdca6338577afca55d2ae"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_donor_features_101.npz",
+      "sha256": "208dd957f00829da467a76d8ce6b98589a5c64ee4cb51edcc4473098fc041467"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_donor_features_202.npz",
+      "sha256": "f036984560ffb09a1c3158f61acafc0e48595eb81cf8706d350b83da22954f62"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/uncertain_support_no_donor_features_303.npz",
+      "sha256": "cac988fa76215eff6c4c1265881721a1f8cb9b70f82406307e468303f40fd357"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_101.npz",
+      "sha256": "301a842a03413e3f48edbaab68f3a505cdf0b81fec45f0a5d677772975379706"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_202.npz",
+      "sha256": "c291ae287679dc7706d042db018e81e8ab1f136169d5e8f1268d656dface610c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_303.npz",
+      "sha256": "07016a14686ba5309cf73b48a2772abc783226cf552a676d477f13cd9abf6ece"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_plus_support_101.npz",
+      "sha256": "4bfa0202d246857543f7af095048b564a8b405faba235444e4b275e892da8caa"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_plus_support_202.npz",
+      "sha256": "bfdce4233fee4807e67f66cd4c530cb1a6e46d85e2a7b199745fdf6eabdcbcee"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/small_logit_plus_support_303.npz",
+      "sha256": "25eefbfe083988dc8a95d953990afdb79faa691878c550e5a2492366251dbcd0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_101.npz",
+      "sha256": "8b6e90f613126271390c477c50152ae242eeb772b6cc42daae187b6663299d8e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_202.npz",
+      "sha256": "ffb7946ba9c97bb3069ebcd5f6f7b374d651c4355eec38062e3827d7e9f44c3d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_303.npz",
+      "sha256": "090856d4175bca95c4706d5b3402ea991a1146ff3f56c248e05e652d8d80fc77"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_plus_support_101.npz",
+      "sha256": "bc5b7d90288bb6dae434ec4141d6a31977be113bbed3b0552bc84293b5e221d0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_plus_support_202.npz",
+      "sha256": "37a267caf1f91858b71b9c2511f104ee457ccf4d042efa704ff4cf6ad0bb4168"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/season_spline_plus_support_303.npz",
+      "sha256": "f79f61ce6a180a90b9888c1d83efe1ff16d00d9d207c0028425948f1f2004b57"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/length_rule_101.npz",
+      "sha256": "d7565f2b1c560a0228543ed0b794e9781804999e769dee37121e54b7040b6896"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/length_rule_202.npz",
+      "sha256": "2c648e473591dcf2b5d8f30248d231c82cdba6825ce5e587305fb014152eb468"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/length_rule_303.npz",
+      "sha256": "1a40d28be08c87953ea696966db929fd920132432944580fe57812fec4fd08b5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/peak_overlap_rule_101.npz",
+      "sha256": "7ef8f6b8e336e7bc78610286bbd12f45d9fedc9f253aa26bb51dc5a489357d2a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/peak_overlap_rule_202.npz",
+      "sha256": "635e27640799476f79e91d3d9e218090f78fb2c2b918d6ceafee7211ecd6a6f2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/peak_overlap_rule_303.npz",
+      "sha256": "bc174ac94419cfaa3009a792bbca9a3268299f742eec4a6654d74c04fd35d37f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/warm_coverage_rule_101.npz",
+      "sha256": "ac13a553c6ab2a28156394d7ccc80a54b089d774353753c101c19183c4a3e809"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/warm_coverage_rule_202.npz",
+      "sha256": "f10883cf90b4d14354e0fa2ae2206865255430db8a69303f5382465dda81ccc4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/warm_coverage_rule_303.npz",
+      "sha256": "03b780fe5d393403362399301c8ede0d43600be605dcec16402f358cf00f1d86"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/probabilistic_support_rule_101.npz",
+      "sha256": "ec3de6a44d31d8437ae4e8d1f664ffb512263621fdd69b99a99142a03b31b558"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/probabilistic_support_rule_202.npz",
+      "sha256": "d8f3b2a1f6ab3753a248d08bd86e676ee7c29db8f705d56560210d1df74d18ac"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/probabilistic_support_rule_303.npz",
+      "sha256": "1fdbbdd4d1ce31c488836974e1040afc24fc05b631f69a2eedc9bc9988939e95"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/upper_support_rule_101.npz",
+      "sha256": "967287ba82d7196dac8a8c520294c40454294a210bb67fefeb002ee2dfd47141"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/upper_support_rule_202.npz",
+      "sha256": "d80bd94fe374057c3b6ad3105dff371d5c8b29d17fb2e2917211ce3a766bc368"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/upper_support_rule_303.npz",
+      "sha256": "6ed075ec182d6057851fba247f2d798a598ad5d7988999bb7c7079c9f1c03f5d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/direct_h30_uncertainty_101.npz",
+      "sha256": "2103c286d0d10f3439ec5f1946b69c16d47925fc243f64042b8b42733570f9a5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/direct_h30_uncertainty_202.npz",
+      "sha256": "c9eaab9ee71982cac99525749fafa2cb85fbcbe951b9028ca9e5303856e317e1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/direct_h30_uncertainty_303.npz",
+      "sha256": "01cf77f48c371e7fe06cdeff0220301f0528501bf54d5450d2abb093e19250f9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/daily_disagreement_rule_101.npz",
+      "sha256": "c0414c725f3f373f1524b2f4519e8e104a03248985223ae329ec506da5ec0199"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/daily_disagreement_rule_202.npz",
+      "sha256": "ebc66c20ee219b6625af31facee5c8696dd97ff23624277ebe94a19aa162881a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/daily_disagreement_rule_303.npz",
+      "sha256": "84efd78990040788add3db938e936d861632d35c0d1a692d540f4ccbfcb497d8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/target_disagreement_rule_101.npz",
+      "sha256": "03904d13890064755f7db1a204ab6d5ac43c8e197bb7f5203d514f031ef3a155"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/target_disagreement_rule_202.npz",
+      "sha256": "b44aa44cb9cc8bfd71c155833f126f0a3ca3a394b40d7eccdf5aa55fa02153dd"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/target_disagreement_rule_303.npz",
+      "sha256": "0f711ab52700399d40de5b735a813d8e49862a30c12abd5b30ed224c66488030"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/historical_h30_error_rule_101.npz",
+      "sha256": "c3f5966598487cbcb642b6a24acdf9a107b30a04db5bd61282a37144efd5811f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/historical_h30_error_rule_202.npz",
+      "sha256": "b61a2dfb10c0386eed14dd69232bd29dc33381b018e43aacc5891efbe5607b5f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/historical_h30_error_rule_303.npz",
+      "sha256": "6b824ca6319a35ccaba3003c2ef676835327b4acfe58d78d97fab71c42441b33"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/scaled_support_rule_101.npz",
+      "sha256": "4d94ab2ae70619cac84feec47ad4378912bb08da43d972b8bc97f4f78e54c040"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/scaled_support_rule_202.npz",
+      "sha256": "8c10c142d08e1ca0f4fb5016d26ea3323223b425241ae4c2f8c2079595818e47"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/scaled_support_rule_303.npz",
+      "sha256": "f1ed9e72b1da0e398fa3ae2817bfc3f6206729dcc4bc4121f2611aaa49ff6b4f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/oof_daily_sd_rule_101.npz",
+      "sha256": "2ffd1e50752136dd140fbce268319a0c6953af6ef67706bf9f7ce0c01d2524c3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/oof_daily_sd_rule_202.npz",
+      "sha256": "917265b5fab4d0dde26dfb85d23d593767c9a83f6ef08da5555f5349cd8cc87d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/documented_daily_mean/oof_daily_sd_rule_303.npz",
+      "sha256": "54daa9367488a46d9a5f3f399c977b67d451a294c5e7945f58436a1afa79c130"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/operating_points.csv",
+      "sha256": "ef1c575f9a3e5188c9a617152d6f0708ed98ce4d3a36ba7d71b2547f2e0288e8"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "e6152d6c339452f8b5c0be374748c2ab981c36f3f1fe0e4c70f0042a34c4c05d"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/decision_costs.csv",
+      "sha256": "1411b723d6e9408775c497a73a6edc8ee2444ffd2b3ae15275838181bd1e2e12"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/stratum_results.csv",
+      "sha256": "e41abeaf85f6cc72ae65422aa4c14c985a32a5b311db4bd7edbdc69db0fa6eac"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/documented_daily_mean/group_results.csv",
+      "sha256": "7e5752e081f72cc2b1e8d47d805380d9dd0011016821a591440172ea0a0d0318"
+    },
+    {
+      "meaning": "all final-cohort source score specifications",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/completed_scores.json",
+      "sha256": "65e276e93630862a5fb5f6996317b8f76fea168ad1f4b416878ab0ff75c5f1c3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/certificate_101.npz",
+      "sha256": "a73b6fb7eb485b848a518b988f6e688f6a46e93e5b1dd84abf3ae2248e2685ac"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/certificate_202.npz",
+      "sha256": "bd65ce52a6d542a91cb265b33425b81882ae01f6e19384bc7b81650be0e46ea8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/certificate_303.npz",
+      "sha256": "0bf769ab2e78e0a4cde7a68bb3e03865c32b26995cd24a3fa013867e09efb625"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/policy_certificate_101.npz",
+      "sha256": "56ddf7985655c272b55743d94981dc573ac34bd66fa1c6ae4e259bd31818981f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/policy_certificate_202.npz",
+      "sha256": "9d1f250db1b3b3230ed25f44dfec1cec784c2b757e9edb1ee6e4126ca7d3cb9b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/policy_certificate_303.npz",
+      "sha256": "a18dfd618fb3858072786d7100ba18de747460252430b2f9460484fe57265143"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_target_disagreement_101.npz",
+      "sha256": "ec2349027d4594b679b2e8d59011cdbfb0edb683045eb12286c4ff80dcb3d513"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_target_disagreement_202.npz",
+      "sha256": "adfb95b43e9e66c920c6564706c756bc648d24a68c392ddfd213b941a7add089"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_target_disagreement_303.npz",
+      "sha256": "9d26ed7f566b7c6b121b3bfecd71355e8332c270017331a731d5f2593ca4cb81"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_daily_disagreement_101.npz",
+      "sha256": "296eae16c8248550ff8f1cf2e7407df6427ba9fe9f3d010d3c86d3d473ba2c56"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_daily_disagreement_202.npz",
+      "sha256": "360c9375b3254c068eb01f60dd251cad715c0e4b2d695680486d3b2a15c6acbb"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_daily_disagreement_303.npz",
+      "sha256": "ba80157275adaba1e5d9e4f46eeb5c3b2d0367def5e309264f58ecaf9b6d068d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_both_diagnostics_101.npz",
+      "sha256": "528551a26eb06b360c2c77034309586a8858eacf0ddaab8bb26d20aafb5538e6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_both_diagnostics_202.npz",
+      "sha256": "0910ac7b266cb82581cbc8c4531f704d671d04f073968f9bbd297fe08fd53856"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_both_diagnostics_303.npz",
+      "sha256": "7de7c789b0687b8cd8ce612a4af5f6068880d6ac92dba7e00cc29a8195af4849"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/complete_diagnostic_model_101.npz",
+      "sha256": "b49b67927cbd1216ad00d8e19181d752dfe50bbfc03dea19833fdbbac6fba65c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/complete_diagnostic_model_202.npz",
+      "sha256": "ad35e606d6a2fdfdcdeca56e6c9b5a5f3a5907de7adf35c7799097fce9dbc8b9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/complete_diagnostic_model_303.npz",
+      "sha256": "d9751b723a85e9a319c68e832118f6a7187453ecc67c4747a7c067651c7ecb10"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_plus_climatological_support_101.npz",
+      "sha256": "ed6c88a45f1e44ab7b34069ee7a016345332f9e60efa84219d89e64f24761d61"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_plus_climatological_support_202.npz",
+      "sha256": "eff508f3e4023c69f548eb8d26dd204ce965f82010ff0e4b13173dfa2e0e2e57"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_plus_climatological_support_303.npz",
+      "sha256": "30424eebb10e4c09e6afabbc915d2eaa1deef9dd4a9356c7b83136f76a034df0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_direct_h30_uncertainty_101.npz",
+      "sha256": "57f365bbfc0284bd9631772c65794ccbf592ddf2bccfc2e97e4c8f8bc7315d72"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_direct_h30_uncertainty_202.npz",
+      "sha256": "1321aca25c39395124d98bad6b337d7af16b4d184f4a71e8b66ca81ef7318e08"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/generic_direct_h30_uncertainty_303.npz",
+      "sha256": "f86f68c814e12504b34c2c5f601baa28e7b34b3acb99b1bda56029f3389c74de"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_101.npz",
+      "sha256": "18064974e6af4733a83a16750b832a3b4d551d6258b109ba2f3dde46515262b3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_202.npz",
+      "sha256": "38b2204a967e2026ec2819d786bdd4dc1472ab4ed7dcb8e4e5121eaae715d2e1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_303.npz",
+      "sha256": "0253a406dbbeb44fdad5c352bb7d005c6b4c8f4a82694297f90e9f6bef049c04"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_competition_101.npz",
+      "sha256": "38dd582057f2af6da4239d827108324b5206ca662319b659a768e9d89f48793f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_competition_202.npz",
+      "sha256": "8c392f7217c52b267b52dd94db113dae3e83d59c4050c1c3c2c8776e65393051"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_competition_303.npz",
+      "sha256": "6d72aa47b44ebb3bd83fc6c1e8c5b29389b207dbd9b80a5ab9de0a81b6fdad3e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_window_uncertainty_101.npz",
+      "sha256": "a9982d72fd0c9c4bab4fde88dd36a0dd6630074f78da7ce7e1b25560bb0d200b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_window_uncertainty_202.npz",
+      "sha256": "e520deb6e907c2a1792a1161d587bb083d2245eacf9204e8515b6fc5b6ebbc73"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_window_uncertainty_303.npz",
+      "sha256": "28be847d868db699f63baea064b117df03412a788c4ed801d4918932c2903993"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_donor_features_101.npz",
+      "sha256": "a9372b763266e289222762250d538541ce5a677f3a77647ac4019ceeff024c3e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_donor_features_202.npz",
+      "sha256": "68921a472286aa443df52b38d1b51bededdf74baa7382053252c0f3683551037"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/uncertain_support_no_donor_features_303.npz",
+      "sha256": "f48846dd07af30dd50bd9987fb1332dd70141746f54eed145f7cb367666db525"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_101.npz",
+      "sha256": "5ce674a1104347d41ebdab7175724caf2818c6a6bd1c4759ba64be06e8421d8c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_202.npz",
+      "sha256": "79d7461c7d66528f7e92b0a42f2f97e248d59a055361a5b1fb83c316df7d044a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_303.npz",
+      "sha256": "32a6fa09f61039a7ec93bc921cc81cb9ec95b5d085fddb196ce0b183826f3913"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_plus_support_101.npz",
+      "sha256": "9c08c88fa5e2a11298ea61b3342d582de3d9e988b21013c0eb0ab5516e43316c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_plus_support_202.npz",
+      "sha256": "05ac915189f0188e86da9160afcd16fa8e1cf8afe550809216e709b3fdc5844e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/small_logit_plus_support_303.npz",
+      "sha256": "da9b8dc7ecb19fd7768fe0aedd167eb1b58043fc80687ff17204acd375e23f57"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_101.npz",
+      "sha256": "98a4fa1f3ecaf6492aee5eef320c841cba97d90b5e6e0bd456254f7c88b968d4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_202.npz",
+      "sha256": "2bbf2795eaf7d84afb69654ed6d3feb8af50e7e280b45b53e9412eaaf4e4dd57"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_303.npz",
+      "sha256": "a268f2eedd9d1412a836b179512aa5c50399f770a9e3a466607c82e682dc5390"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_plus_support_101.npz",
+      "sha256": "bbfd16f59b47913cdb9dad7f1c727e56d3617bd8a26d8de5e113ff844f3907b2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_plus_support_202.npz",
+      "sha256": "7f753f64c578ef5cbc99c8ffb84ef5a80214b2dc9e62d5bd65271db25c47e71b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/season_spline_plus_support_303.npz",
+      "sha256": "bec4c20a1656b1e6d772f3ad3aaa2d0569c93f13c5507629ba52df09272d691b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/length_rule_101.npz",
+      "sha256": "e5f96a31afc9000c32f2893a0ef7696b6c6105249015b4571eb8a30a7e41e61c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/length_rule_202.npz",
+      "sha256": "c9c82515db68cd6a1187a1deb646e72a13a5c79c464e11a92814352bc0347383"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/length_rule_303.npz",
+      "sha256": "9eb35cf816b2b2758146d6f84ffc7bbcd1311fa237486d4e62c1df671bca8f30"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/peak_overlap_rule_101.npz",
+      "sha256": "782a1ff12b876bac4410ec41596691e0636173045cc970375c53232cfde79b90"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/peak_overlap_rule_202.npz",
+      "sha256": "67e864397728b74f868459edf85749d21f07eeefa3208ae66d82b51f3c5ec8ee"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/peak_overlap_rule_303.npz",
+      "sha256": "83822f22da87eb2719ac7761b0a49940e6ea3876b4f8450429368c1170810b78"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/warm_coverage_rule_101.npz",
+      "sha256": "030685c34b764d6bb8d9bbc47a52c5ff89766a4fcf5fd015e7a0030af36a216c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/warm_coverage_rule_202.npz",
+      "sha256": "6b557ffa09778432db3d788d069a9bef8d2dac61b1b803231fe65e90df70fa1f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/warm_coverage_rule_303.npz",
+      "sha256": "b4276fdd0fe15a91f3232992b0c2601787cced629ee68cdf7ed7972e379a6dad"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/probabilistic_support_rule_101.npz",
+      "sha256": "983696c26ad94aeba7d4928ade760eab9ff2bc02823c6dc013c0a58a29e97e76"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/probabilistic_support_rule_202.npz",
+      "sha256": "12bd9351e5eb8f47957000e1295b35c86f8f2f2f5801af346d2fefa69254963b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/probabilistic_support_rule_303.npz",
+      "sha256": "704a0d4c76e3e543f08b0e99b6b51b69c3be9c4e7147224ff1b2e62e46f942f2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/upper_support_rule_101.npz",
+      "sha256": "427a68b4e21f89563d5c71423faf58ed84022dcc773532fccf930c5183b9e662"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/upper_support_rule_202.npz",
+      "sha256": "103f88c7dc4b96b32ba34e70a7392ccb603ebc0531dabc7f352f713f73895a85"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/upper_support_rule_303.npz",
+      "sha256": "0cbbee8e5620f409bb89790a411aa1f7dba4d1c3dfa6c227b0f4fbd2c905285e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/direct_h30_uncertainty_101.npz",
+      "sha256": "82648e3fa030ed9084c7faac8d8c1c92c616e9c601e0440b50b0f2925d461b43"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/direct_h30_uncertainty_202.npz",
+      "sha256": "67d332d94d8ba2a59a5b188165b22b128c0e70bc865cfcfb1b5bcfdfa2a10e3a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/direct_h30_uncertainty_303.npz",
+      "sha256": "072437ef929147e00ccce5424c5aef7b739bed64e4abf8c27eba472192e5adcb"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/daily_disagreement_rule_101.npz",
+      "sha256": "a85ec2f4d16c90bf5c75b745e04e8bc3152d9e9ad0898e0b656034219adaa05f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/daily_disagreement_rule_202.npz",
+      "sha256": "59ff6702c3a7198e383a971c18f700d462a0acb3b81299eef2b52da4e9b036b4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/daily_disagreement_rule_303.npz",
+      "sha256": "05c447f2f09e0cc9ba3e141dc40787fa3f64aee402e6faf68d90a38b659fba57"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/target_disagreement_rule_101.npz",
+      "sha256": "aeb89ae422238e0325b6064620335eb8be542c21a158796ac548ab608fc28d47"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/target_disagreement_rule_202.npz",
+      "sha256": "48a4d96b816fb9de6794ffaff6f837ce142d02f37a82d534ee4e4401c6ae24d3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/target_disagreement_rule_303.npz",
+      "sha256": "67967597c8a5270a4f0a6b5eb158d243d4551b92b5532299218f78afaf064a04"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/historical_h30_error_rule_101.npz",
+      "sha256": "b157ecf939a3bb9b52acf1723c464c4699da626fee5af0bf7fdbeaed36fad471"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/historical_h30_error_rule_202.npz",
+      "sha256": "417d198f88cb1af42f77f251b0709a7d78c1ed84c555464c81dab1934b1b8228"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/historical_h30_error_rule_303.npz",
+      "sha256": "342a16a90451f4fe9495be25e586a697d5e3bb5f5f25d9e90119198f4c3c8715"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/scaled_support_rule_101.npz",
+      "sha256": "1df566102ddbb90ae66e46c9f49b30a744186079f7942692ffe504a02fb59f03"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/scaled_support_rule_202.npz",
+      "sha256": "9ba8c46be69b0c94c255d890c1a2315d94770ae417f9e5e88e96bd492a8ee9f8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/scaled_support_rule_303.npz",
+      "sha256": "f8930ee7c57ad6bc41f8d1c28a0e566bc7ea3213a2ca0decea742d4d81717827"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/oof_daily_sd_rule_101.npz",
+      "sha256": "6d8d9fb63f7344a95325b067b05b88400b8f6805506e606d5e7ddf8b22af4344"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/oof_daily_sd_rule_202.npz",
+      "sha256": "5f076fbe51cce7c3f55db5f9735e8f4c55b226b095e4b421a7c6780601224671"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/leave_one_year_out/all/oof_daily_sd_rule_303.npz",
+      "sha256": "7b9c7d9c81b78af85192947bc30f08b82d7f20b7af69d38a13318a8c19c2a214"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/all/operating_points.csv",
+      "sha256": "63ed351a8832e79feddb2ed147713701fa47ee88fd81027eaef55bb4eb799e5f"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/all/paired_contrasts.csv",
+      "sha256": "459ae5c4445e95f2b83ca2b95fb96bfb6097eb110ee3f481a7e291e8966ecfcb"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/all/decision_costs.csv",
+      "sha256": "c1ec0febd2a33dfd485cab9890ae3d381cc67971a9ae3d684b45884e1ab03114"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/all/stratum_results.csv",
+      "sha256": "53fbe0d9057f3e590fc2d8170f4612033b45e77de801086a6a16fb6b0498a527"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/leave_one_year_out/all/group_results.csv",
+      "sha256": "488adcfc1470c5de15a2b843206e1d8c7390b2420dd83ed1451e078518aae069"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_position_contrasts.csv",
+      "sha256": "51f5f0ed6c953c492d8914c3ce657804c491c9d58438a5dcac3dc2f6534927cc"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "bd46e5741530815fdcaf26e83a20be72cbdf791fff9f1e70132363a93168734c"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/equal_budget_fragmentation.csv",
+      "sha256": "d3fe66b4e382287a70c4b1eb9568a31c3f87c4fca20a50ed8c0600988e9a7c35"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/identity_and_switch_signs.csv",
+      "sha256": "964a064cad128aa8dfce9ddebe0086da57b9829d69484efaeb17664c8ecdbd2a"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "1b7a80c9fd86edc74c3d1c79dda39009c25335ce74cae332bdc0e35f8a918bd3"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/leave_one_year_out/documented_daily_mean/deployable_bias_correction.csv",
+      "sha256": "40944d30ffe3e1c307c205bd25545cb67283c9caa2d39fc140fdcef1eaab3c26"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_0/operating_points.csv",
+      "sha256": "d092f4ac9aa2f1bda86d6ee2d07c8208dc28a07da08f01ce4c47b430e393b5d7"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_0/stratum_results.csv",
+      "sha256": "4ecb3932c37a345e1ed4f81c3ea808febf309142a3dc5187495cb909a0185c8e"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_0.5/operating_points.csv",
+      "sha256": "04be71c43e31654a28e228e951a41970c14b43cea295b4ef3907712e2102759d"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_0.5/stratum_results.csv",
+      "sha256": "a80793dbb593e9d98e37099e42af78a8bc0a4da853cb83e3cca1031bfb028139"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_1/operating_points.csv",
+      "sha256": "85e7f913bcf0182816e55c1235d530b3dab0971dd59dd6d917aa0901f86835be"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/events/cofailure_1/stratum_results.csv",
+      "sha256": "a1f7117208ccfb6749a8b707f4c3b8b0d82b9897bc3350ca6d549432063adb18"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_0/operating_points.csv",
+      "sha256": "7eecfd522d20f959fc5e017c6b78164ad14fbe61c7201dd2e1e71e9bd959dc0b"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_0/stratum_results.csv",
+      "sha256": "fde2572735d450c773529dfb243748591136e5b806abeef3fe2b104bc3183dae"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_0.5/operating_points.csv",
+      "sha256": "dea0fd08826faf01c3e056b7433f103256d28aaf0d531fa12ead32230ad8b49e"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_0.5/stratum_results.csv",
+      "sha256": "d06af4c06677e32ade61c2ca576c7232a183afe4f41c4a83c91a9fdb42ca6fbd"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_1/operating_points.csv",
+      "sha256": "65c5c276318d74e512123402b9622343d12036d1f01476ec61306b00d3b311df"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/leave_one_year_out/real_calendars/cofailure_1/stratum_results.csv",
+      "sha256": "16ec2fbb742f4a35059c7de633d69abbe5ef9ee0634a89f473de6cd3de92b52c"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/operating_points.csv",
+      "sha256": "e8557fbf2c502a4118b441c1ed9a3fc3c3da6b9589122981fcaa976f1d84b159"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "1b679999768fab77f59ee90f0bbaa1bc215359a373b74d07a2d6416ee354f0de"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/decision_costs.csv",
+      "sha256": "34f85f523b64cffe0ae836a46929d87ace4664d5dcf7336b1c2933069cf869e8"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/stratum_results.csv",
+      "sha256": "9ea5122a39ea8029f0034311e7b41d4e0385c0567c02769c93debc6fe1cc9db5"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/group_results.csv",
+      "sha256": "f7f206bb0b2809531708ae933325fd5716a174867d17d8f3219fc98d06f386a9"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "c8d1d224aed22d0bdf6d982dd3ccedab43bcf5daf1c5cdfa5d27635d2df282d1"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/admission/cofailure_0/case_information.parquet",
+      "sha256": "d12783fee139b7c7eef1b81735a0de0cb34030265b7f3f8008572e0edd0fa573"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/leave_one_year_out/admission/corrected_hydrological_strata.csv",
+      "sha256": "69a50504b297ee3856e807dcc23ab9679a184c112b940721d9d04e04d4c6fbbd"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/operating_points.csv",
+      "sha256": "64578dd52c9f4bc8305f7c8a9078aaab08c1e95f366f41764a724b5c9fd2cc49"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/paired_contrasts.csv",
+      "sha256": "6faa6cddbbe5364801da74616bdd7b5175d55260d477588ee138d2943c4975e8"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/decision_costs.csv",
+      "sha256": "37442a7559de2cbcb24f803a9b071733c47854be591924e35b4f60e6a4c10273"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/stratum_results.csv",
+      "sha256": "c4a6ac8c409fb7a3ec8c3621440a975a0c11a1b7a1c7485777a53b913b9b9c20"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/group_results.csv",
+      "sha256": "88935ef8cad725b452d610daa9777fd8e536f00c8d804b6d2cb6ac49d80965c4"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "6d3294e63be517cc975175fc5c2357b8636bbb1e2380cbe68cedb1c39406f69c"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/crossed/cofailure_0/case_information.parquet",
+      "sha256": "c6c6bb6e7c0f27b6c92d1268f0fae13af58d243adaf59d8541177c95a5778bbd"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/leave_one_year_out/crossed/corrected_hydrological_strata.csv",
+      "sha256": "cddba2911b9223f60441c1ea050b63b6e9ee135b1b1ae7c0c4470c351f0b0904"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/operating_points.csv",
+      "sha256": "2d198a4084e4b17b4d6ff707b77e8480afad5e06a9443e005fc61b78c62c8682"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/paired_contrasts.csv",
+      "sha256": "ce36136865ece94f755de781c7fb809425a39330343b66de6477420655dfb1ae"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/decision_costs.csv",
+      "sha256": "fecbfc10323b04d944d4aa4a5e23bfe9fba86b99ff501f709167bc2d5a607cbd"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/stratum_results.csv",
+      "sha256": "e3177cbdf3a514dc010a5e049d1eaab9079778233f625231c34e3efe4f309155"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/group_results.csv",
+      "sha256": "328cede195f827c3c9991e3d2c568cf17b9d1071f5c5fdf924857452d2c18d47"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "59fcec7f027173dacf24f0344c25a01ddc57bd6aeefeef3456fcac079d6e3506"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/events/cofailure_0/case_information.parquet",
+      "sha256": "10dffcc94790fbae5d10d69a34320936c318c8cbc3c7d9c17aff132fe1cb33e3"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/leave_one_year_out/events/corrected_hydrological_strata.csv",
+      "sha256": "940715970efd92ec6e173ab74ef731524e4a89fca220910fa2302a3c0c6da2ba"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/operating_points.csv",
+      "sha256": "0476fb5e413c3218bd243cca4a56a014a0a6af93207804c9603a9d74daba9324"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/paired_contrasts.csv",
+      "sha256": "344a2e7144cb00db4e5b6c2590163a09f60e1d3acbe9e94f7940e703e0dd02de"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/decision_costs.csv",
+      "sha256": "9bbdd178229dbd57dd1afe4d5fe749d906deeda4e06ae03bfd7f57d965c5deb4"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/stratum_results.csv",
+      "sha256": "87d0e21f4255c8c0889161d3dcdd57c1b0d27a84b604042ee6eb2b9432e85385"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/group_results.csv",
+      "sha256": "f0dba1720b5596edae4a9ff922a9c1782d142e5927c5e51f21f5a9fd77c5882d"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "f5a8373fa82caea0f47048f6786e5acfd97e00ba95c302ffe3af4f9518c99a2d"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/leave_one_year_out/real_calendars/cofailure_0/case_information.parquet",
+      "sha256": "0ba2ce80978d257bda3e04c488c1ac9668032d3da1bdf421d1e465792a4b41b8"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/leave_one_year_out/real_calendars/corrected_hydrological_strata.csv",
+      "sha256": "0ea9c791f4465551237b8fff9e9d77e7182fe0fb2593e7107ac6f171c480a89c"
+    },
+    {
+      "meaning": "independent no-screen composition audit",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/leave_one_year_out/group_predictions.csv",
+      "sha256": "ce511d4658e70a16f308cbe9237c7deb00c8ac0784fc841fa2d211c6c9e96753"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/whole_procedure_intervals.csv",
+      "sha256": "c2951d798fd95bbadd9402920a8c8849a1e3eed24466f8ef6c52c5ee4cfb2002"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/power_projections.csv",
+      "sha256": "bae64ed516f6a9ba244a0dc83178b8db8bd69be9d4a4b2383a7a6d97e6e7e537"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/leave_one_year_out/learning_curves.csv",
+      "sha256": "ce1d9979d2e757441715a90451282e17bbb94ebe9509f6520e7bebdbf43c00fe"
+    },
+    {
+      "meaning": "training-only Air2stream forcing reference and availability",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/development/leave_one_year_out/cases.parquet",
+      "sha256": "68b26a4f06dbbbb7862cbafaf88584de2a283dc29980db870325fd9d1843646d"
+    },
+    {
+      "meaning": "training-only Air2stream forcing reference and availability",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/leave_one_year_out/cases.parquet",
+      "sha256": "f7f46e2bce168856d3e653d822fc23ef805b520af552177e9dd66d5d5107d25e"
+    },
+    {
+      "meaning": "separate short/long/empirical admission cohort",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    },
+    {
+      "meaning": "broadened paired mechanism cohort",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_03_representative_recovery/strictly_prior_years/cases.parquet",
+      "sha256": "4ef2acb4d2b4a0875efde7920748afac61592c6056dec495c81ecebc571af337"
+    },
+    {
+      "meaning": "all final-cohort source score specifications",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/completed_scores.json",
+      "sha256": "0fb686674e6bfcec03d73817412503f15cf051ebc1089cf0a7ca258f0f25a7bf"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/certificate_101.npz",
+      "sha256": "b7bbbf6711917b19c40aac9a9e4e796be58860259359ab9a6abf87ae7a5657fa"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/certificate_202.npz",
+      "sha256": "c0160da994ee0c3eee213568a103a952ea92ecc63eed02e126ac69c608699df2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/certificate_303.npz",
+      "sha256": "a174ddcb0caf92a5a231d183a36cffc49f82b6047e63a1af23a8cb6d0733e282"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/policy_certificate_101.npz",
+      "sha256": "2ab997d80b59481a42f8e037d442246ea0d7446c105e1cd9d91328d3354f4a07"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/policy_certificate_202.npz",
+      "sha256": "12ab339f6af86de5de57a8c9fad30f8258fe1f4b565a25fecb148a9115d8efba"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/policy_certificate_303.npz",
+      "sha256": "bba10cdf7e830d506aa222e73a126874e0c4449bdedd5fefa50d8c2720acf98b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_target_disagreement_101.npz",
+      "sha256": "f4c6a44c244d58d83c0322b639a32c2834e256b723e33f51f5677089ccf26bda"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_target_disagreement_202.npz",
+      "sha256": "b54ea69b6606e25a25fb3ffa073e68c6ce8df4d19bc2979cee28a9e5ab33d2b1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_target_disagreement_303.npz",
+      "sha256": "2451d8a874e2dcb7dc08c7e120667fe623c00b8af144df5c655fda28e6e587ef"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_daily_disagreement_101.npz",
+      "sha256": "6b343e4e356ba2006ad40524f8b16f8b8c8ed9f3e052f5d38c2f50ab04c6ecfd"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_daily_disagreement_202.npz",
+      "sha256": "70b54c76625f2d463c51bb36a2582b28007e5470411a9237cac47e55e2cf5c37"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_daily_disagreement_303.npz",
+      "sha256": "642653b63242d31de97f204dba2c6090a10fb299d0bc978d63afc94ae967e323"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_both_diagnostics_101.npz",
+      "sha256": "feceade45aff297c9017b6ddc7c8f6924a8863268807e8c53d5068da9463c049"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_both_diagnostics_202.npz",
+      "sha256": "e209ad26a799260a9c1904623ae3b2db55919fa937e00e15c2acf80326df19e8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_both_diagnostics_303.npz",
+      "sha256": "a975f6722c1b2a65a678567298ffb1db080b4de0d3ff8f0ec3bd4de077b0c1f1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/complete_diagnostic_model_101.npz",
+      "sha256": "4b65c5ba4420a723873d292e57eea78ca8fd6ccefff3cc2f79a27ac52e0097a3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/complete_diagnostic_model_202.npz",
+      "sha256": "576106cddea2c9c7f9732c3d20d4b60dc5f19ad2a3e3326fec4d94751b243f33"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/complete_diagnostic_model_303.npz",
+      "sha256": "2108d56dea377e11affc98f26fcae6fed5595bc2f0cf3d4bc85da4a62a143099"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_plus_climatological_support_101.npz",
+      "sha256": "17efdcc35d5245471c00a346a755432d6bcbb9df9aa926237a80bdd34a7e0fa0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_plus_climatological_support_202.npz",
+      "sha256": "be937ba2d1bb8c6140aa62d06bc5a3119a8f56c8f93f00fd9c2ae2419b0ae9d4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_plus_climatological_support_303.npz",
+      "sha256": "7183cb4916f45d73a846dd28f18295e37b1f7dcc7b756487e7fc80a0d406d59a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_direct_h30_uncertainty_101.npz",
+      "sha256": "82271e8492458d16d21adfcaa16efa4f278cc585673d98b12b9ed1c5d7a6207b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_direct_h30_uncertainty_202.npz",
+      "sha256": "64aa3703ecfa2c4c8aec51eb24d0e9311453c7754f0490721a6586bc11964a2e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/generic_direct_h30_uncertainty_303.npz",
+      "sha256": "41ab92ad95b260032c98ef1c13bfb1477320a450af5aaf6b2e97c57afa80c2e7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_101.npz",
+      "sha256": "ebe58cd713bfdad83fb4b6e585dd491eecc37b0f519ff7d6bdc1e195b1d927f7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_202.npz",
+      "sha256": "fb1705a23d8f18269545c7cc25a7c3379f2a02002ca3985151da330ed9faae7c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_303.npz",
+      "sha256": "7d5962e9ef2cdbe299075b8021f90c984f9c05ec768d46880f4a003179a7d652"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_competition_101.npz",
+      "sha256": "07efa4be22ec45be0f613e03a064f102770e4f64c6b73f4fc46abb2717a32fe5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_competition_202.npz",
+      "sha256": "637b03f8f8edb1c935062c8955c9add893633e71bcec832d5cddc7dc572d4c6b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_competition_303.npz",
+      "sha256": "415f904e819a2e080b6e525e92efd8cd34cb9a92f940591fe6d23bad6f6fc433"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_window_uncertainty_101.npz",
+      "sha256": "89fa01984f3f26c45d82921ef2061d4997d8d037dc5df43751156eda12d1393f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_window_uncertainty_202.npz",
+      "sha256": "58077ce7dcd47266595b89fd0429ea5c2c8cb42e267dee8fb7a8bc8298779fc2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_window_uncertainty_303.npz",
+      "sha256": "2e7bb52b0a59a3b20a2baddcb8386c6513e7493b0813515f8adf267ba7629763"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_donor_features_101.npz",
+      "sha256": "0ddfa368aec0eb9324792182f7446f10bc7c2218e9803b734033e18cd646a469"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_donor_features_202.npz",
+      "sha256": "51346f71cf4afacda2d02a882ec7e0921c7ef0e7444c070ef6ce1d9b8b9460c7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/uncertain_support_no_donor_features_303.npz",
+      "sha256": "51a90c6276f951f7d4d310ab382ce94fcc558976536952aaa8058245ee53cdbe"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_101.npz",
+      "sha256": "577e56691c52d62711d4673d637cf4c93482927843cb45e082280f0e6b863c08"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_202.npz",
+      "sha256": "b62ea054506a9ae65eb0bb156b6139f3a06f9ac4a8d99d512fec37d518a64287"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_303.npz",
+      "sha256": "5ee2b632c664d0b0dba40a7e452245503be8ad4af717f4d7c69cb3a9ae56bbe3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_plus_support_101.npz",
+      "sha256": "5d7e1d7c67b2dad5aeb489fcdaf3e4097d4560999a6f880cd339eb9a9022dbdd"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_plus_support_202.npz",
+      "sha256": "4358f1fd97524f8b51d70a6315d59bd9f30d9ba1d05aa49fce61d8422371e98a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/small_logit_plus_support_303.npz",
+      "sha256": "3bf1c3850869d7738089345965738c88ac8f50642d626f3f93489f323911f5a1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_101.npz",
+      "sha256": "5a109b9a9130efdf77f1fc8f5febbaa7d8a5354a12c6eeb87f0e4ec34a38ced2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_202.npz",
+      "sha256": "1e20d620c1bfa42c189f9fd7e4ef5183606a10fde21ed47308685a5517d28336"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_303.npz",
+      "sha256": "6e85b05bc809b2871c67726218a585d749366a466d98c9a3daedf1e4f4c322d8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_plus_support_101.npz",
+      "sha256": "1f892d393112b9a46b31a71924d4267aa884ff1f6828d61b41d6eef08dd41f48"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_plus_support_202.npz",
+      "sha256": "0cae02503980eb7fff6c30bdd367f0aff78d73a831760bcd5cb22b2f9ce6767e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/season_spline_plus_support_303.npz",
+      "sha256": "dbca71ce087295c16bb369d1c799a30964ecaa96057ae0225521f6b41e1c6dab"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/length_rule_101.npz",
+      "sha256": "81d46fefeedf476d46903e9b3228de0d89e5650a4e98ba7b7ceca0d09f98a629"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/length_rule_202.npz",
+      "sha256": "ca4cff7c012611aab46f3809084498b97603213710663f405919f32523f885e1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/length_rule_303.npz",
+      "sha256": "0ac94ec4cf6722d92636b900ac2dd3f863fd696e5bf6709eb7afa0bb90d443ac"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/peak_overlap_rule_101.npz",
+      "sha256": "87477c8f7f4c0c8ef6f25b80c42ddc537d828eeea871686ed27a69ab282505a9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/peak_overlap_rule_202.npz",
+      "sha256": "c5239becee183f2b4f7160debf40389e43289f015d3b8c28ebfd77cc791104e2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/peak_overlap_rule_303.npz",
+      "sha256": "5be4aa2fee86ba0d51442f45d5ce8ebb670bcfdba257c0c4108c287218e9d5be"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/warm_coverage_rule_101.npz",
+      "sha256": "c45a03c125050b84e1f09eb7b89dd50d44900c5832ee5c45dcd8a0cfb89ddca7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/warm_coverage_rule_202.npz",
+      "sha256": "55c6279d7146e6123dca79dc22b924e454fd83c44cb9c3fb35063099b5edd30b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/warm_coverage_rule_303.npz",
+      "sha256": "d7fb666a172c8f6722a0cd0354e6cd1cc429a727125bfb48a93fe7426d628ac6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/probabilistic_support_rule_101.npz",
+      "sha256": "b5125021560ff48942675664b76c834131537e82d58bd9965174f3e594c21f4f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/probabilistic_support_rule_202.npz",
+      "sha256": "e92d387f149ed119d926259debb11ebd026d6183523ba3e001a2c4481cc93746"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/probabilistic_support_rule_303.npz",
+      "sha256": "f8d01271943b075b4b86eb0269b692dffade6f3beb447395adfbfe641a78e531"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/upper_support_rule_101.npz",
+      "sha256": "9c6c7eb3fc017ab458a582071bafc19eccc2fec4e0097e9b4cba6cdb5e5e33d8"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/upper_support_rule_202.npz",
+      "sha256": "6e71a3d6d0c44f069993a9fa48fc4d5a61988c6b85fb70c63c9e683e69a68beb"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/upper_support_rule_303.npz",
+      "sha256": "0e78cdbbbd3a6347b48eaa4fcb2c72d126b40b75a8c3b56e2f0359e58fb1a887"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/direct_h30_uncertainty_101.npz",
+      "sha256": "721d06607dad7aed41766f45e7fb8cd371e13f04f1784d782567596abb5d12b9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/direct_h30_uncertainty_202.npz",
+      "sha256": "09ead14a896aacdfb2571a09a62fbee36f762fcaa06f9e1bacf2c24a9a5177a5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/direct_h30_uncertainty_303.npz",
+      "sha256": "ccd7352a9c540252babd43b6f45a672db494871b1bae9584641dabe5aaea5791"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/daily_disagreement_rule_101.npz",
+      "sha256": "8e9b2d706ed5264648ae39abfef761c2a2d6e601df17c90a78b3108854d038b0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/daily_disagreement_rule_202.npz",
+      "sha256": "d0637389e757d3430e94327c4cea41c06a6ddfc7b26dd94d30e3a40f1e5cdd63"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/daily_disagreement_rule_303.npz",
+      "sha256": "79d846e000bd047acbed68c9b18585fecbc67516259a2b9fed9f309607358c3c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/target_disagreement_rule_101.npz",
+      "sha256": "3e4f076e9695c798058170d9a2b47b02ed82c2d3be6966c92ed995b5c2bc4204"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/target_disagreement_rule_202.npz",
+      "sha256": "84945605f78e241c86852f1b151a0d045e884d3781e656f9cd26e0bae886b3a5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/target_disagreement_rule_303.npz",
+      "sha256": "85f0afe364da511849eaf4164ddb0af4e951f1a7d235d44c0d749bd914a25b83"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/historical_h30_error_rule_101.npz",
+      "sha256": "15146c35314c6a35bff94df655b07ce96265027ee44ab459a368d701d6755480"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/historical_h30_error_rule_202.npz",
+      "sha256": "d4f3c6a3bf8213c92b44e4cab851c2fb8c65fc5dae7b726ceeb83538aa5c49a4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/historical_h30_error_rule_303.npz",
+      "sha256": "b49ef3f12d4327a8d384505ecf3303813d3fda078af3744494465bcda1e9f026"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/scaled_support_rule_101.npz",
+      "sha256": "8ee72a627e65a24b32695a920e4ea0d75bc4b8f68b10b270763e63ffac93d7ab"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/scaled_support_rule_202.npz",
+      "sha256": "51011c1d1862e61964d265ffb3db64cf7e7ea5c15ff446aa11b0fce1054e8fe1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/scaled_support_rule_303.npz",
+      "sha256": "b0880b0d1983a56bbb9a2436c697ec0e1087ae7affc42484d0de87468577a3ab"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/oof_daily_sd_rule_101.npz",
+      "sha256": "fb3058e388127dadf0f39267f014c6d4667cf3aa61844983013992e819563a75"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/oof_daily_sd_rule_202.npz",
+      "sha256": "735bac8ff64416c8d90f77933de980113569684db020e2bc05617aba775e85df"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/documented_daily_mean/oof_daily_sd_rule_303.npz",
+      "sha256": "219a73558896dab28e209962a3a9e96e292527b786e2c16f92328de0756b0abb"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/operating_points.csv",
+      "sha256": "96b43f22853f376b3d5617a3156d034944ae38ce543044d09917f13b78be1a16"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/paired_contrasts.csv",
+      "sha256": "1f4d198305bb13cab41a727550880af369d0a5e1a441d5ba774763debf20af1a"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/decision_costs.csv",
+      "sha256": "cdc33089225f2d8cf5b733f918cbaeb106a7ded303350d5e103f0909f2189d5f"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/stratum_results.csv",
+      "sha256": "b018504e79b3cc5829df240ac304eaa5341a6e8ec82859acf08b60d6df9f0208"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/documented_daily_mean/group_results.csv",
+      "sha256": "b60628e2070aa76f43bad5c34aeb8e7ac86ca089aa7435436b3ae0345c146865"
+    },
+    {
+      "meaning": "all final-cohort source score specifications",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/completed_scores.json",
+      "sha256": "aea83cc10fffb2841cde908f3ba5b09353fc7cb61b9cff88a03295b629cca09c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/certificate_101.npz",
+      "sha256": "ab6ec3f05f7e4f5fa8b1811e2f7d2b090440fa82cbd1a6505a250f87072b77a9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/certificate_202.npz",
+      "sha256": "ff89c3912a6e727617aa130b008d5fdc35ce8db510c7bb45a72cc47175d2680a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/certificate_303.npz",
+      "sha256": "e75fd662e69aa695997c6f2f523d8ba15124a308dd8138b03ee27bbfded2b218"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/policy_certificate_101.npz",
+      "sha256": "4d1777fcebcfdd8e4f3da6ef39d2b97b158486457bfee1688d2776e9074e8f34"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/policy_certificate_202.npz",
+      "sha256": "2b6d85bdffbaa0409d6934d62bf8b1632de6460952524dffc010c4070a298812"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/policy_certificate_303.npz",
+      "sha256": "c180317baab671fa7e203d42f262a40ead3fdd45ac338934c45fd1f89dfd0b29"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_target_disagreement_101.npz",
+      "sha256": "59f99eff5c83604c494fffc8c1edfbcfd64188e1f6c0476b38dd22d0b84926b5"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_target_disagreement_202.npz",
+      "sha256": "6a00835d30608d18a1bd109a3fa28c233954822677c68fef56e0eb24b4716f84"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_target_disagreement_303.npz",
+      "sha256": "91d8e5550fdfc0f972b2d2089e3773cf5d80ae75f1b823eead73faf0491024b9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_daily_disagreement_101.npz",
+      "sha256": "1e4cb904f8330048eece9f6b12529c7952213ebe9ea62692a384ccd2404b729d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_daily_disagreement_202.npz",
+      "sha256": "faee66bbcffc3a193dee9720bcfd981b1adc86605b13e95d1561018b4255f22f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_daily_disagreement_303.npz",
+      "sha256": "1d42961e486aa34ca43a05c9f7d0f05fef962145f45064de5543a1d8756d8836"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_both_diagnostics_101.npz",
+      "sha256": "50f042d1fd761fdfbed119c877b2bdb12d419e235c325a92809d3f10112fd993"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_both_diagnostics_202.npz",
+      "sha256": "fd65296df0255d730ebf9ad1293e7b38456489937fc2daf90b1d8de3b3e82137"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_both_diagnostics_303.npz",
+      "sha256": "6609c78456c4905b54d814cb8c36e6fd28bd974274dd1c8183db66c0007621a7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/complete_diagnostic_model_101.npz",
+      "sha256": "c4a1943097f2b423400c3f91d31876d7438a0278d7755b579ab2f52d6ebc16bb"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/complete_diagnostic_model_202.npz",
+      "sha256": "3512188544da27d86511b063fc7be08bf331e2490d066ec5b81edc3c97d4a27e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/complete_diagnostic_model_303.npz",
+      "sha256": "3a13e417fb8cebfdbc404ec47c6b78b7ff121a6df762dc59a71e0f79e3c39a58"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_plus_climatological_support_101.npz",
+      "sha256": "3619ce11399f2c41262269846d1a902cd9845600707ad753550e50745c95e571"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_plus_climatological_support_202.npz",
+      "sha256": "f88acd4c467d5ec02a11d1d0ecb09fbec19a9a90df354899100afa1ea06aa1fa"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_plus_climatological_support_303.npz",
+      "sha256": "cca467c799d89c8ba38262b9591b17e0c6246db2b37428fa7cc34ef450cdf286"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_direct_h30_uncertainty_101.npz",
+      "sha256": "e1a4b8f59ada2b04057b79f4a061dfaf2f68e03ee5f08a4ef750fd6b92a0d1b2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_direct_h30_uncertainty_202.npz",
+      "sha256": "a8d971caf72e829c8010fc96a91c304a99cc3d0af0d44aa85b06fa012c0f007f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/generic_direct_h30_uncertainty_303.npz",
+      "sha256": "a1e56c7ffd5cf29d81929405d3b9fac9c6b7ba7f5c89e0d7889740c16bc11735"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_101.npz",
+      "sha256": "ca2b406abc1009dd9e228284e5e3a985d29c1eb626c4ad0895b1db279ebbe938"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_202.npz",
+      "sha256": "b1463784e8bef05f5516c319b92a0545a76425c5eaa42c05fa37d61d88ef9ea2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_303.npz",
+      "sha256": "65b8a54b2f5e1e00f5f68a4e3bc8459dee1754a5397478c6d20827aff95473ef"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_competition_101.npz",
+      "sha256": "ca392609e1e4be05c6ea3b3977eee483d813e15e027b349cbde71afead645c6c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_competition_202.npz",
+      "sha256": "b9a8a86802005e2f2a31959cfdd9b522c27ca208221dd65b175eb5ddb44236f3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_competition_303.npz",
+      "sha256": "438d5574c68016e66260ac09321b95ccee227ca8bb3f94a72cd629e5fc47572c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_window_uncertainty_101.npz",
+      "sha256": "f51479a16783a10234c7873421d44e0c81520df252411e28594adbad727c6d2d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_window_uncertainty_202.npz",
+      "sha256": "3bc0488aa6f2f6689237c24db89b89c63037e5177c2893421b486bd3a1762cc7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_window_uncertainty_303.npz",
+      "sha256": "cc1b30de613b1232c96aa44d1abe69968e37e39e69ae7ee584e6ddc1694e4017"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_donor_features_101.npz",
+      "sha256": "845a21eaf0d9bbb89b9d1acff82968df19b55769fb4d10360cf5d823ec0d4cf9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_donor_features_202.npz",
+      "sha256": "caf8d97568a022ec0e20965a91cbde340ce75710f5b7a504aec30586648d31b3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/uncertain_support_no_donor_features_303.npz",
+      "sha256": "76c69841331d837acb65081d483522e5d64ffc128596416fbda45fb047044d20"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_101.npz",
+      "sha256": "d07b1661b1c95061e311f869dd74ab089951fc0fa3e8a921fe8bc6db8f656968"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_202.npz",
+      "sha256": "a42ddae9f80bbd1bb75be82396b30043b2663f902e502c519a9ac6f6571cc0a9"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_303.npz",
+      "sha256": "c510fa180931d59aaab8b6212b724ba4381e321962215f71c15e0c556c06e2d4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_plus_support_101.npz",
+      "sha256": "2561a24a206f8cf91cc404d500939fc74f9f1733467c491312a25498f4521a56"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_plus_support_202.npz",
+      "sha256": "29ac029b560f009eb735d321e5303814aa70d552ec85c1fce25a2fc722869edd"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/small_logit_plus_support_303.npz",
+      "sha256": "909c32d88f3a6f4846e289071c2df0088556f431476cc0c003d7508313ca37c2"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_101.npz",
+      "sha256": "b864efaee9372225f1bdc0524c756b343f956ef8a7d85f6bb4dc673b9bf5cde1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_202.npz",
+      "sha256": "f1d98b6bfe89f9cc59952812ac4a1aac30c114cf4693e1bec38f7a11c45e210e"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_303.npz",
+      "sha256": "45876eaebcb32e77f6da6be1ea6da22932d8e71ebf9f001e3459adaaa65d8793"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_plus_support_101.npz",
+      "sha256": "88adc42e92dc8799892df29f6c2615b6f5e02b160b86d82b8e0131e760a6df19"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_plus_support_202.npz",
+      "sha256": "03486bcabdd969bc4d322165d68eb14da8eaa98ff479133861b6e3561a09037d"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/season_spline_plus_support_303.npz",
+      "sha256": "7ade8d3c09c34567df0c5022399a861ed4fea3a7aa831c936766ca2af43e4855"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/length_rule_101.npz",
+      "sha256": "c1c4a8235ed82070223db3fb75f9598e60508bb0f2788c691db3db9df8bf1b9a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/length_rule_202.npz",
+      "sha256": "9b0b4f14d001e31500c6eb02035f0567f353cf89b14d83781dc7990e2498fa6b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/length_rule_303.npz",
+      "sha256": "0f62f67e674835812390f8d1f5749a40b5c74ddeee05a45a75178c7ce9a8271b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/peak_overlap_rule_101.npz",
+      "sha256": "d7fce97a4dbbf0a856b715cb7a5426edbf290d96153a65e42f43372f5d0be5a3"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/peak_overlap_rule_202.npz",
+      "sha256": "05fce6317c631c31fb072877a1b71d4baa4166bdad96452ddb130fab0489af1f"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/peak_overlap_rule_303.npz",
+      "sha256": "e986fe3a987c860bc85a8d0bf843f27683b91a43de2ec6904e8373c38b3d3ade"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/warm_coverage_rule_101.npz",
+      "sha256": "9f3fcf81f67ef90fa1db6932a4ef8e6cee2066359cbb3893f5791a0e1452b026"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/warm_coverage_rule_202.npz",
+      "sha256": "5e6ed2e85c8390d1a45a056d6862576fbda5e3eed906c5b27047b888a2988860"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/warm_coverage_rule_303.npz",
+      "sha256": "51c138cba28472c261296c60dd183811721f88168b96d7575c58b868316e4651"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/probabilistic_support_rule_101.npz",
+      "sha256": "9809644dbb1b081dd6ce7b535ff3c1bf4c6a9af74252b780352b53070ae9c570"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/probabilistic_support_rule_202.npz",
+      "sha256": "d80bdb46eda47407af6278dbab1ad82a8216f5437e5f456e40be7c5a1e5e9fe4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/probabilistic_support_rule_303.npz",
+      "sha256": "bf0923259fe8e029332145cad0efa59b48431ab2a8516c4e48ab73611a586627"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/upper_support_rule_101.npz",
+      "sha256": "98f0143bcb8572fc0254bc649498c3e80ea56a0b0fe2aedd6a392419e973ef1b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/upper_support_rule_202.npz",
+      "sha256": "4d2071dcd82565bba1b5a9cbb5e53010cd65f06f5c148dd6c963bc60731b1f61"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/upper_support_rule_303.npz",
+      "sha256": "ce19800868ea5addf9cf532fcd4c28779e627af31aaa36febc0e06e45bc09576"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/direct_h30_uncertainty_101.npz",
+      "sha256": "c49da27407b1f08aeb99eaf5b5b17a66e0a7c3ca555da9ad51b18896290359c6"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/direct_h30_uncertainty_202.npz",
+      "sha256": "d25be37d3d2742635b7c895108d4b273ae9b3faa0f3f993f06e9e5b44e79d804"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/direct_h30_uncertainty_303.npz",
+      "sha256": "c94d03909ed6c14d3c5fcae0b812756f21f80f2feef4ae0882d8dc4201a04c9c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/daily_disagreement_rule_101.npz",
+      "sha256": "f0559e1a5b7be37a01dfcdca660bf5511a540501bf2ae1671d1424027541b010"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/daily_disagreement_rule_202.npz",
+      "sha256": "23cfcd19cdd8a0c91d7871dce68a9a0e6eaabd157c60939e1a19526d47726e5a"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/daily_disagreement_rule_303.npz",
+      "sha256": "c5a9b2008b7df23911e64f06c372495f878e4298f9f0608247cb554d722945d1"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/target_disagreement_rule_101.npz",
+      "sha256": "0cd2c73df776dfd032f5a0e68646f61d0c9bc12c77e88ed3225e7db682fd8e5c"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/target_disagreement_rule_202.npz",
+      "sha256": "e44cca0d2825c74d532017677509b818966d4053194dfc80a41686750a52d2f4"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/target_disagreement_rule_303.npz",
+      "sha256": "aa2c5eff522d57efa22adbfda3dc1ef7e44a06e96ac020094d3f2a477bdc333b"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/historical_h30_error_rule_101.npz",
+      "sha256": "3ff4805deb69590231d634160b4b63235dd44a9f4874ec3ed9a154b657a489f7"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/historical_h30_error_rule_202.npz",
+      "sha256": "d1a61a684191ba619f124ff2c96f512ce50ba77825181478fe077b3cb15e4cb0"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/historical_h30_error_rule_303.npz",
+      "sha256": "a20760df6666e254e565ef1c83304709eb2db8ffba5d00850944e45069715e10"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/scaled_support_rule_101.npz",
+      "sha256": "31ddc4d6ef9c527cc24b9d3489d19df80f2324c56aa8295251aba0ebf5b2b460"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/scaled_support_rule_202.npz",
+      "sha256": "0cca6c9a89f06e4506b99ba5e52adf3211189b0d70fe9eda44bcf89b8ad1f010"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/scaled_support_rule_303.npz",
+      "sha256": "f0c91d4832d3ebb1a3a4e85542fcc4fbc47c05401cd0c17e69b2dc62bd7e9d28"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/oof_daily_sd_rule_101.npz",
+      "sha256": "4b39d289c7583888c167c9fe3ccdde43868005dfeb9dddaa738d8d8cf2295246"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/oof_daily_sd_rule_202.npz",
+      "sha256": "94c81d228390128bc9160109d08d6d748f3f82f1f726cb566a4a82b04698d126"
+    },
+    {
+      "meaning": "source out-of-group predictions and admission decisions",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_04_uncertainty_ablation/admission/strictly_prior_years/all/oof_daily_sd_rule_303.npz",
+      "sha256": "2edcc87e062754820df4eee1614de000fc7dd19ce5205a09666dadcdb89cdc67"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/all/operating_points.csv",
+      "sha256": "387673117a3a014016d330e1e6ab3f4c3ee55e13bbe50329ccd680f20c73aa5e"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/all/paired_contrasts.csv",
+      "sha256": "a569696dacc845c0ec97c66cc188d569fc577f5dc1b17e1549fbe403f57bfbd1"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/all/decision_costs.csv",
+      "sha256": "422364afbf934471ebd19e5193350fb96d865c3075066f6166f97bdd609f1e05"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/all/stratum_results.csv",
+      "sha256": "3ffa6ad456757ca135464013dbba208d816385f49b8415d73050e2278b4d193e"
+    },
+    {
+      "meaning": "source admission, contribution and original-pool utility",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_07_decision_report/admission/strictly_prior_years/all/group_results.csv",
+      "sha256": "c9d7a99fb20b14aa78bab767f71e94bf5a3a39e8e928fdce951de6f143464958"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/paired_position_contrasts.csv",
+      "sha256": "7a722e9ac8376af56b3428d0473c332aa77a9dca20a3debc2ed363ac48989c97"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/paired_length_contrasts.csv",
+      "sha256": "42c5d6b5fdae7082a7892f604997a77e811a901d31a9bde9efbcd6c76c750a48"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/equal_budget_fragmentation.csv",
+      "sha256": "5716b57fd8301b63fffd8bdf3efad5c0ba62ba5a7c604deec927f1195f9d16bc"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/identity_and_switch_signs.csv",
+      "sha256": "223cac52c115f3080fc3785ceace3db4c121cb42304a5023fc077ac4238e4328"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/oracle_factorial_interventions.csv",
+      "sha256": "7d73e8ed03b12575ae57e89bb26f68f4282549cd7f9dcb879ee11c6b6d1bcc16"
+    },
+    {
+      "meaning": "primary measurement-scope mechanism inference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_05_mechanism/strictly_prior_years/documented_daily_mean/deployable_bias_correction.csv",
+      "sha256": "dfad62d6c04def76e62b5643e290af800ac92252bc07cd57bcf30fe43d9ce746"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_0/operating_points.csv",
+      "sha256": "36225df8ed861c001d44ccd4088316792befd2705145fd4a6a899094b242971a"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_0/stratum_results.csv",
+      "sha256": "229999399bb5c0db46a1e0eee25d48851b26a4dda86f58df7a8fa41fde67ba12"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_0.5/operating_points.csv",
+      "sha256": "034a6c78b76029db9e41ef0949fef362be6a838c61508a36d4c2326cbe3dc1cd"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_0.5/stratum_results.csv",
+      "sha256": "56f9041adea01b37c77e4a07e70253a92a4a50cef5f45e88534967bdf5cbe25d"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_1/operating_points.csv",
+      "sha256": "8fd2ad33ab98e8a418de3636ce98394d22f4af31a05755515802ebd30f0f109f"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/events/cofailure_1/stratum_results.csv",
+      "sha256": "69db4d1543af75a2433934fe5744a61c09cf5a011d4a6ee4a5f1129c1cdd91bd"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_0/operating_points.csv",
+      "sha256": "eba4bab4d48f02a7acd0cac1609999433fd4a29ad6f8b37357ac896c66dec81b"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_0/stratum_results.csv",
+      "sha256": "eaea1eb8f3ce1ae7d2e7180d342abec3c4af0ae303b62deb80a9cd770424fe1d"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_0.5/operating_points.csv",
+      "sha256": "07bff65091e516f9683b8a4be335290ac680bc717cbe4157e7b7c7b22fec3ce6"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_0.5/stratum_results.csv",
+      "sha256": "07a0b52be67cad7f12a837390ccec4fd62530e2e65bba3ee5e4f25f87efeba7d"
+    },
+    {
+      "meaning": "nondegenerate held-source cofailure/calendar/event assay",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_1/operating_points.csv",
+      "sha256": "2a0725ad5ac4e6989de15ba66a7af3a6c55bcd7fe2467c29f71e676e75ddef17"
+    },
+    {
+      "meaning": "event phase and donor-availability strata",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_15_held_group_replay/strictly_prior_years/real_calendars/cofailure_1/stratum_results.csv",
+      "sha256": "adac559addfe9382f88e8b1880f8693c4a7611fef4327368924e294c354696e9"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/operating_points.csv",
+      "sha256": "0534ae4d70bccbdbaeb46cd4e331c7c875cc3f96535b5a6abbfdd8509d55b05d"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/paired_contrasts.csv",
+      "sha256": "66c28fdb0a8f0a2db566e4f13422a2d37cb5c25175f6e3880622cc2b3c14fd85"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/decision_costs.csv",
+      "sha256": "b178ae76c684fd6bfa8e4edd8a6a230ad336f2a41e9948d938b8a44a2e982af8"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/stratum_results.csv",
+      "sha256": "73ed3372b950e6098ca8228504b19758e8fe9cf8c9fea8469c89361a5ada992b"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/group_results.csv",
+      "sha256": "bc5db78ed66238dee1bebd9a2410f64e5c03fbf7b0817327a7d9ee95189181b6"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "2cd6cb748b9fb546798ea4432e9acf2c45234071faf70fd5430fb0570cda29fe"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/admission/cofailure_0/case_information.parquet",
+      "sha256": "89d6d981c292ed8625458f9712fdc473eeed295561ad817caff3bd7033406be1"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/strictly_prior_years/admission/corrected_hydrological_strata.csv",
+      "sha256": "6edd3282a2203896d3a61913789137cae16e4cfbd5e4876a173e347d8b09a287"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/operating_points.csv",
+      "sha256": "9802f063df31348315a133dd90c221e5942ae4d9ff85ee062911e13386f31670"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/paired_contrasts.csv",
+      "sha256": "986c3cfb32414581d658d44e3dd9c28aa624652375fd64d3a90dbd35addbef10"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/decision_costs.csv",
+      "sha256": "7199b590652f4e79a0923da5c3a1452683a44ab512e4a5b8c080fdf66d080488"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/stratum_results.csv",
+      "sha256": "b480a6adcc332a8fb2c9b9c5544715eef048dca0dfb1d26e3697aba88d4b5bc4"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/group_results.csv",
+      "sha256": "07625ded0072732dfb51ae03a26ee69bcf2e3c01b357efaa456f2638c9d1741f"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "d47b650274be6a2d20b414f26091f24462b296459ea10308a656104591b95aa2"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/crossed/cofailure_0/case_information.parquet",
+      "sha256": "ec9fdfe28400764365f99a41d0cd984f88ff7ee0332cec0c853503b68dd07dac"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/strictly_prior_years/crossed/corrected_hydrological_strata.csv",
+      "sha256": "032cff666f886447236a76587326a391b7f834086689d3f269c3629398511bcd"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/operating_points.csv",
+      "sha256": "60d462aea4c06b7ee52f5f0fc384aa9238bbd5f001c0712bd53a52db095a5bfa"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/paired_contrasts.csv",
+      "sha256": "7dd99a04b5d4484a5f9452e65171861b5d081100a124ea074ea96a324d53ae76"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/decision_costs.csv",
+      "sha256": "23190660369399c9728d469e23cc5fcfcf2faa41de647404d1f923d3cbe46acd"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/stratum_results.csv",
+      "sha256": "f5e7d5cf1e56738b847c403b3c81293d48cabaa431576a1eb5ad96b387fbb869"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/group_results.csv",
+      "sha256": "5cd6381ed647b256454816e5910afc0fb113ae3a87179308994532d7ac2086cb"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "af548e4cf18ed1d84d10e9a4ea6d0f473bc793053aa849373fdbc2b087f5ecdb"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/events/cofailure_0/case_information.parquet",
+      "sha256": "9cefec4e644ec5bed66a1283e286d3b854197484cf8e68baf2753c70420fd2b4"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/strictly_prior_years/events/corrected_hydrological_strata.csv",
+      "sha256": "2d47d1629dfeb900f09510263492db07d1d76ee16ca10b5a5ee7d253b89aa437"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/operating_points.csv",
+      "sha256": "bd42dd97263b6f3493265775fef91273bafb2a52c04a9b5f821ae78c5355e23c"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/paired_contrasts.csv",
+      "sha256": "4ffd848caf6aa25f659ad86d99acfb7993a359f9bd0279da93d8145828a5c042"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/decision_costs.csv",
+      "sha256": "64e77d580e2ae9d358f1f047d29b0430de7a3e1c130e5beb65441d9ace31d043"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/stratum_results.csv",
+      "sha256": "31e70aed948b33f2ea4eb001961d32f21396f3910b5946b2fe7eaa24a6a92e1f"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/group_results.csv",
+      "sha256": "79d5fc1754a34b1d5c37322811ba8fa802039f030d672fc73987deda3352f974"
+    },
+    {
+      "meaning": "frozen independent outcome evaluation",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/scenario_interval_diagnostics.csv",
+      "sha256": "9d9478200dc8f396428716b13c7231bec99c64505c0898405639c9b0417f0c84"
+    },
+    {
+      "meaning": "full candidate pool and observed-window/flow/event information",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_10_external_decisions/test/strictly_prior_years/real_calendars/cofailure_0/case_information.parquet",
+      "sha256": "b014fca4ffdd53167b7b5c7e5dc7f797ebaede5ea31a214f942da40e3ee04385"
+    },
+    {
+      "meaning": "percent-unit-corrected hydrological evaluation without predictive changes",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_19_hydrological_correction/strictly_prior_years/real_calendars/corrected_hydrological_strata.csv",
+      "sha256": "14cd879fbed993f26c4c1d828262f36ecb6163593c2aa3e84d2cf0a11dccb28d"
+    },
+    {
+      "meaning": "independent no-screen composition audit",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_16_composition_transfer/test/strictly_prior_years/group_predictions.csv",
+      "sha256": "06fb199d69c2464c0e1d1b7b6fadda42b191b5a65bae6c54acf868b8007187d9"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/whole_procedure_intervals.csv",
+      "sha256": "e387420c74341d90187ceab834ccea71b67f1a67cd49db68ee654d2c1dd34b47"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/power_projections.csv",
+      "sha256": "c2bea7af52cad814058a1ba5c86c9fd0e9afab100a7e51cce52cb9083a0344b2"
+    },
+    {
+      "meaning": "independent-unit training/calibration/evaluation uncertainty",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_13_learning_power/admission/strictly_prior_years/learning_curves.csv",
+      "sha256": "01b59eefb8d8914d29aa6c9ebcf0bf75f1e8dd94f21d5d2d287fd6c0fc6bdae7"
+    },
+    {
+      "meaning": "training-only Air2stream forcing reference and availability",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/development/strictly_prior_years/cases.parquet",
+      "sha256": "e8083e58e9927649c6463bc4df1a1ac684b90dd95ddd2d08e2660df299354310"
+    },
+    {
+      "meaning": "training-only Air2stream forcing reference and availability",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_12_process_reference/test/strictly_prior_years/cases.parquet",
+      "sha256": "26b67d57a62499fba4c054a1879cf6e1f7d62270b8fd4ee9441518f4f836cb3b"
+    },
+    {
+      "meaning": "frozen CSDI reconstruction reference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/external_development_cases.parquet",
+      "sha256": "de8d8734ee07335564c6786998d83d4d06e351db5a43c1cd5a03d073739a215e"
+    },
+    {
+      "meaning": "frozen CSDI reconstruction reference",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_11_probabilistic_reference/external_test_cases.parquet",
+      "sha256": "d1fe99cda6e97e79c00037222ae7057ed4faa45af68211ff90c967e1324c238f"
+    },
+    {
+      "meaning": "rare-group/zero-failure/dependence risk stress",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/cluster_risk_stress_summary.csv",
+      "sha256": "3eb3d4dc61a9195775b1607b27804f6d906bf2e250edc25e99b42042c217ca3a"
+    },
+    {
+      "meaning": "all-old-input identity audit, not target-only audit",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/all_target_and_donor_membership.csv",
+      "sha256": "a393aef7dde07f32f227ccba550aff91da9f02b78be844129819e8e238e7fa7b"
+    },
+    {
+      "meaning": "documented source-only stopping decision",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/pretest_power_decision_fingerprint.json",
+      "sha256": "ef36a6867005fcec48d3c4b5d7b9b1a33e88a355d890291dab4884f71eeb0ef9"
+    },
+    {
+      "meaning": "numbers bound to their producing row and file hash",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json",
+      "sha256": "d83ba64f7aaeb3cb1546f2f69eb6692719cbab82a1cd8d7cc8a027475dffb413"
+    },
+    {
+      "meaning": "post-test dummy baseline audit without changing any policy",
+      "path": "docs/reviews/wrr_major_revision_20261020c/DECISION_BASELINE_AUDIT.md",
+      "sha256": "1cb0fb8d2a3bd2bc6e8e538a147bd39fff2c7af185bd94a3af710a215ba9f45f"
+    },
+    {
+      "meaning": "calendar-time hindcast is not an operational-vintage trial",
+      "path": "docs/reviews/wrr_major_revision_20261020c/CALENDAR_TIME_QUALIFICATION.md",
+      "sha256": "ad972ca8b339d42f42c61c3bf2d8659f5ee4e0f6abe1b4553ea187b997fc4d7a"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/wrr_manuscript.pdf",
+      "sha256": "d57bc9a6798f8b8e9c0de099567dc8db307b7ad1f6e9df1e3c1f566b9fa75843"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/wrr_manuscript_published.pdf",
+      "sha256": "eb82d588da2f1f612db1e3efae353d8362af053305ba8c7095b95a322e6b7e8d"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/wrr_supporting_information.pdf",
+      "sha256": "784639d13c85811b9144af662eddd9c114b957c8b08027d74d075035eb426bb4"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/RESPONSE_TO_REVIEW.md",
+      "sha256": "41c83019f7f9d29b82a7f67a746285f42fa30ea985a9062ef7ace970de456dda"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/RESPONSE_TO_REVIEW.pdf",
+      "sha256": "99bfc388a4801fbdbe203371726cf49b7bc17b6f25da741f43e762db51ac0ea6"
+    },
+    {
+      "meaning": "final scientific article, SI or point-by-point response",
+      "path": "paper/wrr/si_r3_tables.tex",
+      "sha256": "a7717911152c81cad0e62a286c14e93b31ad4e27d334ce6fdd000c961c31f67a"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_f1_recovery.pdf",
+      "sha256": "11ca45246688b25e1ff91f4cf85cb13015e9156c7598fd2a6f38f695c98a9ae0"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_f2_channels.pdf",
+      "sha256": "f2bce8bb7dcac2242ec9cc87e28fb04f9a203c4c344708bfeed75ccf38db3b64"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_f3_information.pdf",
+      "sha256": "e65089a53a9524fa59049856d94a7e02a294a4dc2afc20b05780b5ac0a7cd5a9"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_f4_transfer.pdf",
+      "sha256": "2e74e7c66981fed1479a44a1eb91160c87bf3a0dacd49cf43e93646c7cab8317"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_f5_utility.pdf",
+      "sha256": "0d0e9124ca0c157464f3571df6ad53b5473b858ca6ac8a0997270e83fe94b14d"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_s1_learning.pdf",
+      "sha256": "bd88ca8c5e1465a205ed81e6d395d3be8d6cea185fd0cc5d2555992ae830bf4b"
+    },
+    {
+      "meaning": "figure generated from final-protocol evidence",
+      "path": "paper/wrr/figures/r3_s2_cofailure.pdf",
+      "sha256": "503dee0269e64b6f32b432999454b457554d53b8251c9ac36ca5737e0e60b457"
+    },
+    {
+      "meaning": "generated source-backed SI tables",
+      "path": "results/wrr_submission_ready/major_revision_20261020c/r3_20_si_tables/table_manifest.json",
+      "sha256": "f11d9e7ba4186b07f38693c5625e9a8e2f9baf12ece32a858532216f5461d19f"
+    },
+    {
+      "meaning": "detailed scientific assessment and next-study guidance",
+      "path": "docs/reviews/wrr_major_revision_20261020c/EXECUTION_REPORT_ZH.md",
+      "sha256": "0e5637626eda0525d5bf13046149a390371057ae9c471cc1a182ab782f109b3f"
+    }
+  ],
+  "h3_scope": "declared comparisons only; always-unknown may dominate; no universal management or best-physical-workflow benefit",
+  "n_claim_bindings": 124,
+  "original_uncertain_window_practical_superiority_established": false,
+  "remaining_submission_metadata": [
+    "verified authors/affiliations/funding",
+    "permanent analysis archive and redistribution rights"
+  ],
+  "status": "scientific_revision_complete",
+  "submission_ready": false,
+  "test_validation_complete": true,
+  "time_scope": "calendar-time forward hindcast using current-vintage data; not operational-vintage or prospective field trial",
+  "unchanged_transfer_risk_target_met": false
+}

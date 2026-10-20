@@ -1,0 +1,51 @@
+{
+  "candidates": [
+    0.0,
+    0.03333333333333333,
+    0.16666666666666666,
+    0.3,
+    0.43333333333333335,
+    0.5,
+    0.7333333333333333,
+    0.9333333333333332,
+    0.9999999999999999
+  ],
+  "features": [],
+  "identity": "admission__upper_support_rule__strictly_prior_years__documented_daily_mean__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 17722,
+  "n_training_groups": 81,
+  "name": "upper_support_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "e4eea0dda843de98d8c21850d2c557a9cc0b173deaeee7df06a4b1fa43fd4af4"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": 0.43333333333333335,
+    "empirical_status": "empirical_threshold_selected",
+    "empirical_upper": 0.0370622109763546,
+    "formal_minimum_bounded_loss_upper": 0.28637831738642255,
+    "n_calibration_cases": 3208,
+    "n_calibration_groups": 21
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

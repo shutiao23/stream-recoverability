@@ -287,8 +287,42 @@ wrr-round-20261020:
 	PYTHONPATH=src $(PYTHON) scripts/335_wrr_figures_v2.py
 	$(PYTHON) scripts/223_wrr_build.py
 
+# 2026-10-20b attribution round: what each design identifies, where the fitted
+# score's gain comes from, how the error splits, what refusal costs, and whether
+# a gap calendar says to screen.  Runs after wrr-round-20261020 (it reads 330's
+# admissions and 331's replay).  343 reads 341's case admissions, and 345 and
+# 346 read everything before them.
+wrr-round-20261020b:
+	PYTHONPATH=src $(PYTHON) scripts/340_wrr_design_audit.py
+	PYTHONPATH=src $(PYTHON) scripts/341_wrr_same_capacity_ablation.py
+	PYTHONPATH=src $(PYTHON) scripts/342_wrr_three_window_decomposition.py
+	PYTHONPATH=src $(PYTHON) scripts/343_wrr_hot_year_selection_null.py
+	PYTHONPATH=src $(PYTHON) scripts/344_wrr_screening_need_rule.py
+	PYTHONPATH=src $(PYTHON) scripts/335_wrr_figures_v2.py
+	PYTHONPATH=src $(PYTHON) scripts/345_wrr_figures_r2.py
+	PYTHONPATH=src $(PYTHON) scripts/346_wrr_si_tables_r2.py
+	PYTHONPATH=src $(PYTHON) scripts/347_wrr_claim_registry_r2.py
+	$(PYTHON) scripts/223_wrr_build.py
+
 wrr-figures-20261020:
 	PYTHONPATH=src $(PYTHON) scripts/335_wrr_figures_v2.py
+	PYTHONPATH=src $(PYTHON) scripts/345_wrr_figures_r2.py
+
+.PHONY: wrr-round-20261020c wrr-r3-frozen-replay
+wrr-round-20261020c:
+	$(PYTHON) scripts/371_wrr_frozen_replay.py --check-only
+	@for protocol in leave_one_year_out strictly_prior_years; do for family in admission crossed events real_calendars; do $(PYTHON) scripts/373_wrr_hydrological_strata.py --protocol $$protocol --family $$family || exit $$?; done; done
+	$(PYTHON) scripts/367_wrr_revision_evidence.py
+	$(PYTHON) scripts/369_wrr_revision_si.py
+	$(PYTHON) scripts/368_wrr_revision_figures.py
+	$(PYTHON) scripts/223_wrr_build.py
+	pandoc paper/wrr/RESPONSE_TO_REVIEW.md --pdf-engine=xelatex -V geometry:margin=25mm -V fontsize=10pt -o paper/wrr/RESPONSE_TO_REVIEW.pdf
+	$(PYTHON) scripts/266_wrr_figure_qa.py
+	@PYTHONPATH=src $(PYTHON) -m pytest -q > scratch/wrr_revision_20261020c/full_tests.log 2>&1; status=$$?; printf '%s\n' "$$status" > scratch/wrr_revision_20261020c/full_tests.exitcode; cat scratch/wrr_revision_20261020c/full_tests.log; exit $$status
+	$(PYTHON) scripts/370_wrr_revision_completion.py
+
+wrr-r3-frozen-replay:
+	$(PYTHON) scripts/371_wrr_frozen_replay.py
 
 # Architecture and system-design figures are draw.io sources.  Point DRAWIO_BIN
 # at the draw.io desktop executable; without it the script falls back to the

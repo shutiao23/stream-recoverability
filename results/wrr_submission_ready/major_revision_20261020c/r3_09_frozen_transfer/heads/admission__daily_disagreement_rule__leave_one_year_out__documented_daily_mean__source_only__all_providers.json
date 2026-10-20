@@ -1,0 +1,63 @@
+{
+  "candidates": [
+    0.14130309201906455,
+    0.8836854196459213,
+    1.0930982516286556,
+    1.2613658013338187,
+    1.3995729670917214,
+    1.5259959474035354,
+    1.6462048826580236,
+    1.7657842155574095,
+    1.8785284904911257,
+    1.9918794204186636,
+    2.1081888012638497,
+    2.235614578262606,
+    2.369701990581059,
+    2.517847261586241,
+    2.6868090749540023,
+    2.889814603560962,
+    3.1476233378396707,
+    3.4774459069239487,
+    4.008164506893917,
+    5.16227556262332,
+    30.426914399092972
+  ],
+  "features": [],
+  "identity": "admission__daily_disagreement_rule__leave_one_year_out__documented_daily_mean__source_only__all_providers",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 42465,
+  "n_training_groups": 115,
+  "name": "daily_disagreement_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "leave_one_year_out",
+  "regime": "source_only",
+  "scope": "documented_daily_mean",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/leave_one_year_out/admission/cofailure_0/cases.parquet",
+      "sha256": "2b887e71c7d1052c2a87d77ad0952ad3c793d6467ef0674783feb8f0250bab9b"
+    }
+  ],
+  "source_thresholds": {
+    "certified": null,
+    "certified_status": "insufficient_independent_calibration_evidence",
+    "empirical": null,
+    "empirical_status": "no_empirical_threshold",
+    "empirical_upper": null,
+    "formal_minimum_bounded_loss_upper": 0.3064507867404349,
+    "n_calibration_cases": 12372,
+    "n_calibration_groups": 29
+  },
+  "status": "fitted",
+  "target_provider": null,
+  "training_maximum_evaluation_year": 2025,
+  "training_providers": [
+    "foen",
+    "gkd_bayern",
+    "lubw",
+    "nve_hydapi",
+    "usgs"
+  ]
+}

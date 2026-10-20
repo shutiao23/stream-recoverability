@@ -1,0 +1,7 @@
+panel,fold_seed,metric,left,right,point,ci_low,ci_high,ci_excludes_zero,n_groups,n_cases,equivalence_margin,interval_within_declared_margin,evidence_role
+wave2_confirmation,101,retention,generic+support,generic,0.003610662979181,-0.0056581056142367,0.0132860242420751,False,41,13017,0.02,True,retrospective margin chosen after these outcomes were opened
+wave2_confirmation,202,retention,generic+support,generic,0.0077590842744104,-0.0013986178694743,0.0177984645523534,False,41,13017,0.02,True,retrospective margin chosen after these outcomes were opened
+wave2_confirmation,303,retention,generic+support,generic,0.0027656141968195,-0.0041609273718171,0.0094050060266477,False,41,13017,0.02,True,retrospective margin chosen after these outcomes were opened
+development,101,retention,generic+support,generic,-0.0053803066037735,-0.0107411520066996,-8.640252200716658e-05,True,110,40704,0.02,True,retrospective margin chosen after these outcomes were opened
+development,202,retention,generic+support,generic,0.0042747641509434,-0.0006060128016803,0.0086348265985957,False,110,40704,0.02,True,retrospective margin chosen after these outcomes were opened
+development,303,retention,generic+support,generic,0.0049380896226415,0.0010638268957705,0.0094661940273945,True,110,40704,0.02,True,retrospective margin chosen after these outcomes were opened

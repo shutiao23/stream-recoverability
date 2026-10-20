@@ -1,0 +1,15 @@
+{
+  "coarse_stratum_association_identified_with_switch_increment": false,
+  "deployable_adjustment_minus_original_mae_C": {
+    "ci_high": -0.009529924328805912,
+    "ci_low": -0.020905642123665885,
+    "mean": -0.015265072676902726,
+    "n_groups": 181,
+    "n_station_years": 6170
+  },
+  "event_definition": "training-only seasonally varying 95th percentile, at least three consecutive days",
+  "n_cases": 406015,
+  "n_groups": 181,
+  "oracle_interventions_are_not_deployable": true,
+  "protocol": "leave_one_year_out"
+}

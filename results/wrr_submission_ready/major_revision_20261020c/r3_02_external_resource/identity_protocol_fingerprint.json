@@ -1,0 +1,31 @@
+{
+  "created_at_utc": "2026-10-20T09:04:53.187614+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "catchments": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/Selected_catchments.csv",
+      "sha256": "5482be5592dfe07adbf050a5cb1a7792ff091fb5300a82ff34295ce02882b17a"
+    },
+    "coordinates": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/interim/v18_station_coordinates.csv",
+      "sha256": "494ad5747da361a35d1d13fd0f03c3c55d150bd9a1d8e5f8354c61a6174f696e"
+    },
+    "existing_coverage": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261014/p0_06_coverage_recompute/final_coverage_table.csv",
+      "sha256": "2002b545891087ec089224d0c1db04a51a048c7cfd22eb71a8de8f4aeda10f98"
+    },
+    "prior_reserved_roles": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/foen_prospective_split_v2.yaml",
+      "sha256": "f864396b6b656b0cfafdf663799703641d3f40bea28a27f311ad73eda06d3e81"
+    },
+    "station_metadata": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/data/external/wrr_revision_20261020c/hydroshare/Selected_stations.csv",
+      "sha256": "94deaf74dab83e5e9decf463035e98fb02ca64fd97e56e83970228116e5d1794"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/352_wrr_external_identity_audit.py",
+    "sha256": "95db0393edd3e4ac8607878e0019e2865153e75e4dd1ba51496ef13aaa7d235a"
+  }
+}

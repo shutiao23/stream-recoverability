@@ -1,0 +1,23 @@
+{
+  "created_at_utc": "2026-10-20T11:26:55.986654+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "eligibility": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_06_independence_risk/external_eligibility_addendum.csv",
+      "sha256": "7aa383b8dc67cd76d847adfbb544fdfd2aa10d2170b9f5f64981572bcc108453"
+    },
+    "forcing": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/source_bundles/development/air_forcing.parquet",
+      "sha256": "83e0da45897a68468560fe711f60090a67fd5958da434b5d353670e12293a644"
+    },
+    "recovery_core": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/scripts/351_wrr_representative_recovery.py",
+      "sha256": "6c8f9efaa36995a1dbf2a55d405988304d0069e010eb5e0fb7fc6b9dda2f4071"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/358_wrr_external_recovery.py",
+    "sha256": "3cc319822c713df9f2f31b4f3e4a27d4e455e553684ac35d1d124b266ff344eb"
+  }
+}

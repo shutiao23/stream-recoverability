@@ -1,0 +1,39 @@
+{
+  "created_at_utc": "2026-10-20T13:16:27.604346+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "claim_registry": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/claim_registry.json",
+      "sha256": "d83ba64f7aaeb3cb1546f2f69eb6692719cbab82a1cd8d7cc8a027475dffb413"
+    },
+    "deployment_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/deployment_lock.json",
+      "sha256": "c6e436889cfbf2fa9d860c7592932282ade83ad9d0bcc643a2ee6776a4c81278"
+    },
+    "discussion": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/wrr/r3_discussion.tex",
+      "sha256": "65ad290b5178b67abadc76419c0e8789a9f62b110d4ab3189e9fd581abbbe338"
+    },
+    "manuscript": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/wrr/wrr_manuscript.tex",
+      "sha256": "d031d7b74461989d1175dbbae6642c650abc156f733018cc8b8556cf9971382e"
+    },
+    "method_lock": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/method_lock.json",
+      "sha256": "1b7ea785a6b8c2b84277adb0b7b2472358e782c7cdba727a7b1dee5d204e51b1"
+    },
+    "methods": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/wrr/r3_methods.tex",
+      "sha256": "ad41d4874126d576831edcdfcaa67a2556b77aab258ab39cca4f2474715d70fc"
+    },
+    "results": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/paper/wrr/r3_results.tex",
+      "sha256": "611e10f73456920fd7a3b994b5e23828080b652ee14eb036bc66725a58efc482"
+    }
+  },
+  "protocol_lock_sha256": "55c12b8fef0fa6af9a928055836bb23393e9e1420368a183f546098bf9107c8b",
+  "script": {
+    "path": "scripts/370_wrr_revision_completion.py",
+    "sha256": "813cd087b35fb7d75679cc449ef0e8e7d4722151b262b659dbfddd4e9d888206"
+  }
+}

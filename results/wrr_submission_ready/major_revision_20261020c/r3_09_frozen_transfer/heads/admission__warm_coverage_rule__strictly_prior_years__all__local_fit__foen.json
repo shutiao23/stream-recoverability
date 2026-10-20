@@ -1,0 +1,43 @@
+{
+  "candidates": [
+    -1.0,
+    -0.9084967320261438,
+    -0.803921568627451,
+    -0.7254901960784313,
+    -0.6601307189542484,
+    -0.6078431372549019,
+    -0.5424836601307189,
+    -0.47058823529411764,
+    -0.41830065359477125,
+    -0.4117647058823529,
+    -0.3464052287581699,
+    -0.2549019607843137,
+    -0.032679738562091505,
+    -0.0
+  ],
+  "features": [],
+  "identity": "admission__warm_coverage_rule__strictly_prior_years__all__local_fit__foen",
+  "kind": "rule",
+  "model_path": null,
+  "model_sha256": null,
+  "n_training_cases": 551,
+  "n_training_groups": 11,
+  "name": "warm_coverage_rule",
+  "new_test_outcomes_used": false,
+  "protocol": "strictly_prior_years",
+  "regime": "local_fit",
+  "scope": "all",
+  "source_inputs": [
+    {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261020c/r3_08_external_recovery/development/strictly_prior_years/admission/cofailure_0/cases.parquet",
+      "sha256": "73eae74c112811facecfd2f031ba20f9d51fdad7919cf1fda9712772bc0ce0c5"
+    }
+  ],
+  "source_thresholds": null,
+  "status": "fitted",
+  "target_provider": "foen",
+  "training_maximum_evaluation_year": 2018,
+  "training_providers": [
+    "foen"
+  ]
+}

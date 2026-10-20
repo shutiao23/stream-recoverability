@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-10-20T08:49:01.515557+00:00",
+  "git_head": "e7fc9050df3d215afa7aa60d0c1410bbadc4c83f",
+  "inputs": {
+    "config": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/configs/wrr_revision_20261020c.json",
+      "sha256": "0afdffa46a89a99e310fc62aa1f7e601997c3c45ede5ba076116f884a74e74c2"
+    },
+    "protocol": {
+      "path": "/home/lzq/workspace/parttime/stream-recoverability/docs/reviews/wrr_major_revision_20261020c/PROTOCOL.md",
+      "sha256": "69a19c42d0254f6322aef6c9f7ad40bde778a7365a785b68db18fafd040d5631"
+    },
+    "user_review": {
+      "path": "/home/lzq/.codex/attachments/fdae9de4-eb48-48d2-97a6-3ac57db73bdb/pasted-text-1.txt",
+      "sha256": "6787288f30c171fdda3e3f22d8307b6c7308b126b9636fff0eda43761e85b373"
+    }
+  },
+  "protocol_lock_sha256": null,
+  "script": {
+    "path": "scripts/348_wrr_revision_protocol.py",
+    "sha256": "46880547ba5e4012157465a6b563eb2f068872954733e514e8d1982abaf27153"
+  },
+  "status": "protocol_locked_before_new_experiments"
+}
