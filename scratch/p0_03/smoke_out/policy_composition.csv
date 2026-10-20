@@ -1,0 +1,7 @@
+cofail_level,cofail_fraction,policy_choice,n,share
+target_only,0.0,donor_ridge,78,0.9512195121951219
+target_only,0.0,smooth_climatology,4,0.04878048780487805
+partial_donor_failure,0.5,linear_interp,42,0.5121951219512195
+partial_donor_failure,0.5,smooth_climatology,40,0.4878048780487805
+all_donor_failure,1.0,linear_interp,42,0.5121951219512195
+all_donor_failure,1.0,smooth_climatology,40,0.4878048780487805

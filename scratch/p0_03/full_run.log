@@ -1,0 +1,79 @@
+== phase 1: network selection
+{
+  "n_loadable_multi_station_development_networks": 91,
+  "n_selected": 16,
+  "selected": [
+    "chmi_morava",
+    "chmi_vltava",
+    "gkd_bayern_iller",
+    "huc8_02040202",
+    "huc8_03110206",
+    "nve_basin_26",
+    "nve_basin_88",
+    "usgs2_huc2_08",
+    "usgs2_huc2_15",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1901",
+    "usgs2_huc6_020502",
+    "usgs2_huc6_070900",
+    "usgs2_huc6_071300",
+    "usgs2_huc6_120301",
+    "usgs2_huc6_180400"
+  ]
+}
+== phase 2: case construction
+27 station jobs
+[Parallel(n_jobs=27)]: Using backend LokyBackend with 27 concurrent workers.
+[Parallel(n_jobs=27)]: Done   4 out of  27 | elapsed:    3.4s remaining:   19.5s
+[Parallel(n_jobs=27)]: Done  10 out of  27 | elapsed:    3.9s remaining:    6.6s
+[Parallel(n_jobs=27)]: Done  16 out of  27 | elapsed:    4.4s remaining:    3.0s
+[Parallel(n_jobs=27)]: Done  22 out of  27 | elapsed:    5.0s remaining:    1.1s
+[Parallel(n_jobs=27)]: Done  27 out of  27 | elapsed:    6.7s finished
+418 candidate groups from 14 networks
+== phase 3: assertions + policy backend
+{
+  "status": "pass",
+  "n_groups_checked": 418,
+  "n_cross_year_groups_checked": 22,
+  "n_cross_year_pairs_checked": 18,
+  "checks": [
+    "masked_days == declared_gap_days for every case",
+    "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+    "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+  ]
+}
+== phase 4: nested cross-fitted certificate + thresholds
+{
+  "path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json",
+  "exists": false,
+  "used": false
+}
+[Parallel(n_jobs=14)]: Using backend LokyBackend with 14 concurrent workers.
+[Parallel(n_jobs=14)]: Done   2 out of  14 | elapsed:   14.8s remaining:  1.5min
+[Parallel(n_jobs=14)]: Done   5 out of  14 | elapsed:   14.8s remaining:   26.7s
+[Parallel(n_jobs=14)]: Done   8 out of  14 | elapsed:   14.8s remaining:   11.1s
+[Parallel(n_jobs=14)]: Done  11 out of  14 | elapsed:   14.8s remaining:    4.0s
+[Parallel(n_jobs=14)]: Done  14 out of  14 | elapsed:   14.8s remaining:    0.0s
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 2076, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 1831, in main
+    fold_results = Parallel(n_jobs=min(n_jobs, len(fold_jobs)), backend="loky", verbose=5)(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/joblib/parallel.py", line 1098, in __call__
+    self.retrieve()
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/joblib/parallel.py", line 975, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/joblib/_parallel_backends.py", line 567, in wrap_future_result
+    return future.result(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+joblib.externals.loky.process_executor.TerminatedWorkerError: A worker process managed by the executor was unexpectedly terminated. This could be caused by a segmentation fault while calling the function or by an excessive memory usage causing the Operating System to kill the worker.
+
+The exit codes of the workers are {SIGTERM(-15)}

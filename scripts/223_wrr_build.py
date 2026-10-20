@@ -102,17 +102,24 @@ def key_points(text: str) -> list[str]:
 #: a number goes missing without anyone noticing: an earlier rewrite of this
 #: manuscript silently dropped ten of them.
 HEADLINE_NUMBERS = (
-    "146", "457", "5114", "2422", "51524", "40704", "10820",
-    "1.305", "0.402", "0.225", "0.130",
-    "0.074", "0.173", "[77,107]",
-    "0.102", "16.7", "7.4",
-    "0.672", "0.845", "0.583", "0.847",
-    "9.7", "2.5", "7.13", "1.44",
-    "72.3", "17.9", "86.1",
-    "15.1", "207", "158",
-    "0.31", "77.7", "66.9",
-    "98.6", "15.16", "12.76", "2.87",
-    "0.063", "0.215",
+    # design
+    "146", "457", "5{,}114", "53{,}721", "40{,}704", "13{,}017", "2{,}422",
+    "418", "41", "1{,}899", "12",
+    # the error a completeness test leaves
+    "1.31", "24.9",
+    # the phenomenon
+    "0.64", "0.02", "0.68", "0.89", "0.41", "0.24", "1.16",
+    # mechanism
+    "0.66", "0.28", "0.70", "0.84", "0.88", "35", "55",
+    # decision
+    "39.6", "66.7", "72.9", "74.0", "60.4", "70.4", "9.7", "10.3",
+    "2.2", "3.7", "8.3", "2.8", "2.6", "4.1", "93", "96",
+    # hot years
+    "86", "25", "26", "33", "60",
+    # risk rule
+    "0.4", "7.8", "12.2", "18.5", "35.9", "42", "150", "3.9",
+    # repair
+    "898", "6.9", "2.7", "7.2", "4.5",
 )
 
 
@@ -153,7 +160,11 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
 
     cited = set(re.findall(r"\\cite[A-Za-z]*\{([^}]*)\}", text))
     cited = {key.strip() for group in cited for key in group.split(",") if key.strip()}
-    declared = set(re.findall(r"^@\w+\{([^,]+),", (PAPER / "references.bib").read_text(), re.M))
+    declared: set[str] = set()
+    for name in ("references.bib", "references_additions.bib"):
+        path = PAPER / name
+        if path.exists():
+            declared |= set(re.findall(r"^@\w+\{([^,]+),", path.read_text(), re.M))
     missing = sorted(cited - declared)
     unused = sorted(declared - cited)
     record = {"check": "every citation resolves", "missing": missing}
@@ -164,7 +175,7 @@ def checks(text: str, bbl: Path) -> tuple[list[dict], list[dict]]:
     if bbl.exists():
         rendered = len(re.findall(r"\\bibitem", bbl.read_text(errors="replace")))
         record = {"check": "bibliography rendered", "entries": rendered}
-        (passes if rendered >= len(declared) else failures).append(record)
+        (passes if rendered >= len(cited) else failures).append(record)
 
     return passes, failures
 

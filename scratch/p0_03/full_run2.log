@@ -1,0 +1,84 @@
+== phase 1: network selection
+{
+  "n_loadable_multi_station_development_networks": 91,
+  "n_selected": 16,
+  "selected": [
+    "chmi_morava",
+    "chmi_vltava",
+    "gkd_bayern_iller",
+    "huc8_02040202",
+    "huc8_03110206",
+    "nve_basin_26",
+    "nve_basin_88",
+    "usgs2_huc2_08",
+    "usgs2_huc2_15",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1901",
+    "usgs2_huc6_020502",
+    "usgs2_huc6_070900",
+    "usgs2_huc6_071300",
+    "usgs2_huc6_120301",
+    "usgs2_huc6_180400"
+  ]
+}
+== phase 2: case construction
+27 station jobs
+[Parallel(n_jobs=24)]: Using backend LokyBackend with 24 concurrent workers.
+[Parallel(n_jobs=24)]: Done   4 out of  27 | elapsed:    3.0s remaining:   17.4s
+[Parallel(n_jobs=24)]: Done  10 out of  27 | elapsed:    3.4s remaining:    5.7s
+[Parallel(n_jobs=24)]: Done  16 out of  27 | elapsed:    3.6s remaining:    2.5s
+[Parallel(n_jobs=24)]: Done  22 out of  27 | elapsed:    3.8s remaining:    0.9s
+[Parallel(n_jobs=24)]: Done  27 out of  27 | elapsed:    4.0s finished
+418 candidate groups from 14 networks
+== phase 3: assertions + policy backend
+{
+  "status": "pass",
+  "n_groups_checked": 418,
+  "n_cross_year_groups_checked": 22,
+  "n_cross_year_pairs_checked": 18,
+  "checks": [
+    "masked_days == declared_gap_days for every case",
+    "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+    "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+  ]
+}
+== phase 4: nested cross-fitted certificate + thresholds
+{
+  "path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json",
+  "exists": true,
+  "used": false,
+  "error": "no per-fold thresholds recognised",
+  "top_level_keys": [
+    "generated_by",
+    "generated_utc",
+    "protocol",
+    "records",
+    "retrospective_not_deployable",
+    "schema_note",
+    "schema_version"
+  ]
+}
+fitting 14 nested folds on up to 8 workers
+[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Done   2 out of  14 | elapsed:    2.0s remaining:   11.7s
+[Parallel(n_jobs=8)]: Done   5 out of  14 | elapsed:    2.0s remaining:    3.7s
+[Parallel(n_jobs=8)]: Done   8 out of  14 | elapsed:    2.0s remaining:    1.5s
+[Parallel(n_jobs=8)]: Done  11 out of  14 | elapsed:    2.1s remaining:    0.6s
+[Parallel(n_jobs=8)]: Done  14 out of  14 | elapsed:    2.1s remaining:    0.0s
+[warn] parallel run with 8 workers failed (TypeError); retrying
+[Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+[warn] parallel run with 4 workers failed (TypeError); retrying
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+[warn] parallel run with 2 workers failed (TypeError); retrying
+[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[warn] parallel run with 1 workers failed (TypeError); retrying
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 2123, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 1875, in main
+    fold_results = parallel_with_fallback(
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 275, in parallel_with_fallback
+    raise RuntimeError(f"all parallel attempts failed: {last_exc}")
+RuntimeError: all parallel attempts failed: cross_fit_fold() missing 3 required positional arguments: 'corpus_path', 'keep_columns', and 'fold_seed'

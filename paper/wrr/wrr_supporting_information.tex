@@ -1,13 +1,12 @@
 %% Supporting Information for the Water Resources Research submission.
-%% Built by scripts/223_wrr_build.py alongside the article. AGU numbers
-%% supporting items S1, S2, ...; that renumbering is set below.
+%% Rewritten 2026-10-20 to match the aligned-policy evidence chain
+%% (results/wrr_submission_ready/major_revision_20261020/). Built by
+%% scripts/223_wrr_build.py alongside the article.
 
 \documentclass[draft]{agujournal2025}
 
 \usepackage{booktabs}
 \usepackage{microtype}
-%% seqsplit breaks an unbreakable \texttt path under pdfLaTeX; its scanner fails
-%% under XeLaTeX, so the guard keeps any XeLaTeX rendering errors-free.
 \ifdefined\XeTeXversion\else
   \usepackage{seqsplit}
   \let\wrrtexttt\texttt
@@ -20,12 +19,20 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thesection}{S\arabic{section}}
 
+%% Table bodies inherit the article's double spacing; switch it off as in the
+%% main text so a wrapped cell does not become a staircase.
+\newcommand{\tabletext}{%
+  \footnotesize
+  \setlength{\baselineskip}{10pt}%
+  \setlength{\parindent}{0pt}%
+}
+
 \begin{document}
 
 \journalname{Water Resources Research}
 
-\title{Supporting Information for ``Hidden support share as a conditional risk
-screen for annual thermal extremes in incomplete river-temperature records''}
+\title{Supporting Information for ``Hiding the peak, not missing the days:
+support-based screening of incomplete river-temperature archives''}
 
 \authors{AUTHOR ONE\affil{1}}
 \affiliation{1}{AFFILIATION PENDING AUTHOR CONFIRMATION}
@@ -38,25 +45,25 @@ screen for annual thermal extremes in incomplete river-temperature records''}
 \section*{Contents of this file}
 
 \begin{enumerate}
-  \item Text S1 to S8
-  \item Figures S1 to S8
-  \item Tables S1 to S3
+  \item Text S1 to S11
+  \item Figure S1
+  \item Tables S1 to S8
 \end{enumerate}
 
 \section*{Introduction}
 
-This supporting information records what belongs to the record rather than to
-the argument: data provenance, protocol history, the predictions declared for
-this round that were not met, the runs that were discarded and why, and the
-reproduction path. Nothing here is required to follow the article.
+This supporting information records what belongs to the record rather than to the
+argument: data provenance, protocol history, the predictions that were written
+down and not met, the runs that were discarded and why, and the reproduction path.
+Nothing here is required to follow the article.
 
 \section{Data sources}
 
 Daily water-temperature series were assembled from nine public providers
-(Table~\ref{tab:si-providers}); two further agencies (SMHI, UK Environment
-Agency) supply the never-developed transport panel. Each provider's product,
-documented statistic, quality codes, licence and acquisition route were
-re-verified against the provider's own documentation on 2026-10-12
+(Table~\ref{tab:si-providers}); the external panel adds France's Hub'Eau and the
+UK Environment Agency. Each provider's product, documented statistic, quality
+codes, licence and acquisition route were re-verified against the provider's own
+documentation on 2026-10-12
 (\texttt{results/wrr\_submission\_ready/measurement\_provenance\_dictionary.csv}).
 Eight of the eleven publish under a named open licence and none required a
 data-use agreement, but LUBW reserves copyright on its raw values: those seven
@@ -71,15 +78,17 @@ service.
 \hline
 provider & country & role \\
 \hline
-ARSO & Slovenia & development and reserved \\
-CHMI & Czechia & development and reserved \\
+ARSO & Slovenia & development \\
+CHMI & Czechia & development \\
 FOEN & Switzerland & development \\
-GKD Bayern & Germany (Bavaria) & development and reserved \\
-LUBW & Germany (Baden-W\"urttemberg) & development and reserved \\
-NVE & Norway & development and reserved \\
+GKD Bayern & Germany (Bavaria) & development \\
+LUBW & Germany (Baden-W\"urttemberg) & development \\
+NVE & Norway & development \\
 Rijkswaterstaat & Netherlands & development \\
 SYKE & Finland & development \\
-USGS & United States & development and reserved \\
+USGS & United States & development and external \\
+Hub'Eau & France & external \\
+UK Environment Agency & United Kingdom & external \\
 \hline
 \end{tabular}
 \end{table}
@@ -87,214 +96,173 @@ USGS & United States & development and reserved \\
 Station coordinates were assembled for all 457 stations: from the providers'
 own catalogues already held in the repository for FOEN, CHMI, SYKE, LUBW, GKD
 Bayern, NVE and Rijkswaterstaat and for nine USGS gauges; from the USGS NWIS
-site service for the remaining 195 United States gauges; and from ARSO's public
-station feed for all 47 Slovenian stations. Every row of the coordinate table in
-the repository records its source.
+site service for the remaining United States gauges; and from ARSO's public
+station feed. Every row of the coordinate table in the repository records its
+source.
 
 Daily 2\,m air temperature is NASA POWER (MERRA-2), 1 January 1981 to 31 August
-2026, one point per station at the product's native resolution: 16{,}679 days
-for each of the 457 stations. An earlier version of this study used a much
-smaller forcing table covering 2.3\% of development cases; both are retained and
-Section 4.4.2 of the article compares them.
-
-Basin characteristics for the United States subset are GAGES-II, joined on the
-eight-digit gauge identifier and matching 140 of 204 eligible stations.
+2026, one point per station at the product's native resolution. Basin
+characteristics for the United States subset are GAGES-II, joined on the
+eight-digit gauge identifier.
 
 \section{Quality control and the definition of a network}
 
 A \emph{network} is a provider's group of stations on a common river system,
 which is the unit at which donor stations are available to one another. Networks
 are the clustering unit for every interval in the article, because station-years
-within a network share weather, regulation and instrumentation.
+within a network share weather, regulation and instrumentation. Two labels that
+share a station are merged into one \emph{independence group} before any fold is
+drawn, which is why 49 external labels form 41 validation groups.
 
 Waterbody class was assigned per network from the provider's own naming and an
 explicit map; seas, lakes, canals, estuaries and deltas are listed and excluded
 rather than averaged into a river result. Reference series are never imputed: a
 calendar year with any missing day contributes no truth. Stations with fewer
 than four fully observed calendar years are excluded, because the
-leave-one-year-out estimator protocol requires them. The resulting denominator,
-with every exclusion and its count, is in the repository. The same stations
-contribute 2422 station-years with at least 360 daily slots and at least one
-missing day; those form the deployment panel of Section 4.4.3 of the article.
-
-Three measurement strata are reported rather than merged. In the study panel,
-five providers document a daily mean that the parser reads directly (USGS, FOEN,
-GKD Bayern, NVE, LUBW); two are project-derived daily means of the provider's own
-sub-daily values (CHMI's $T_O$ instantaneous series, Rijkswaterstaat's raw
-\texttt{NVT} readings); and two are not a documented daily mean at all (SYKE's
-08:00 nearshore reference reading, ARSO's undocumented statistic). The transport
-panel adds the UK Environment Agency, which documents a daily mean, and SMHI and
-Hub'Eau, whose daily statistics are undocumented and continuous respectively;
-those sit in the assurance strata recorded by the transport seal. Restricting the development panel to the documented-daily-mean
-stratum gives a contrast of $-5.7$ points ($[-6.5,-4.9]$, 84 networks) against
-$-6.4$ for the full panel, and the reserved panel $-6.6$ ($[-7.9,-5.3]$, 29
-networks) against $-7.1$; the sealed confirmation is USGS-only and lies entirely
-inside the documented stratum
-(\texttt{amendments/provider\_contract\_sensitivity/}). Each provider's
-product, documented statistic, quality codes, licence and acquisition route are
-tabulated with verbatim evidence in
-\texttt{measurement\_provenance\_dictionary.csv} and
-\texttt{current\_data\_acquisition.csv}.
-
-Transport-panel panels receive one additional structural quality-control pass
-before sealing, applied identically to every provider and recorded before any
-score: warm-season (May--September) runs of three or more consecutive days at
-exactly $0.0\,^{\circ}$C are blanked as stuck-sensor values. Two such runs were
-found in the UK Environment Agency ingest, one of them inside a hottest-30
-window; the rule and its counts are in
-\texttt{multi\_agency\_ingest/QC\_SUMMARY.json} and the per-provider copies in
-\texttt{multi\_agency\_ingest/uk\_ea/qc\_report.csv} and
-\texttt{multi\_agency\_ingest/smhi/qc\_report.csv}.
+leave-one-year-out estimator protocol requires them. The same stations
+contribute 2{,}422 station-years with at least 360 daily slots and at least one
+missing day; those form the real-calendar population of Section 4.4 of the
+article.
 
 \section{Protocol history}
 
 The study was pre-registered before the reserved networks were opened on
-2026-09-23. Three aspects of that freeze were incomplete or wrong and are
-recorded here rather than silently repaired.
+2026-09-23, and several rounds of repair followed. Three early repairs are
+recorded here rather than silently applied.
 
 \textbf{The incumbent's imputed limit was mis-stated.} An earlier version placed
 the comparison at a thirteen-week (91-day) limit attributed to Johnson et al.
-(2021). The source says twenty weeks. The analysis code now uses 140 days and
-every artifact that used the old value was re-run; Section 4.4.1 of the article
-reports the corrected operating point. The direction of the error flattered the
-incumbent at that point, so correcting it reduces the screen's advantage there
-from 6.2 to 4.4 percentage points.
+(2021). The source says twenty weeks. The analysis code now uses 140 days.
 
 \textbf{The weighting between outage arms was not declared.} The case set mixes
 an empirical arm, drawn from the outage geometry the same networks experience,
 with a stratified arm built to span the decision space. Their base rates differ
 by an order of magnitude. The pre-registered test was run on the pooled set, as
-declared; Section 4.2.3 reports the decomposition and states that the declared
-effect is not met on the empirical arm alone.
+declared, and the decomposition is reported in the earlier development round.
 
 \textbf{The natural scale of the peak has two values.} Computed over the full
 eligible roster it is 1.06\,$^{\circ}$C; recomputed inside the development case
 table it is 1.08\,$^{\circ}$C. The primary tolerance is 0.50\,$^{\circ}$C
-throughout except in cross-metric comparisons, where each endpoint's scale is
-recomputed on the same footing. The tolerance sweep shows the axis ordering is
-unchanged between 0.25 and 1.0 standard deviations.
+throughout; the tolerance sweep shows the axis ordering is unchanged between
+0.25 and 1.0 standard deviations.
 
-\section{Confirmation, transport and the amendment register}
+The 2026-10-19 round repaired two label-isolation defects: outer folds now keep
+their own calibration scores, and networks that share a station are kept in one
+folding unit. The 2026-10-20 round repaired the object mismatch and the tie rule
+that this supporting information documents below. The round's analyses are
+registered under \texttt{major\_revision\_20261020/}: the aligned admission
+(\texttt{p0\_01\_aligned\_policy\_admission}), the selector calibration
+(\texttt{p0\_02\_selection\_calibration}), the real-calendar adoption comparison
+(\texttt{p0\_03\_real\_calendar\_adoption}), the hot-year closure
+(\texttt{p0\_04\_hot\_year\_closure}), the repair attribution
+(\texttt{p0\_05\_repair\_attribution}) and the figure sources
+(\texttt{p0\_06\_figures}). Each holds a \texttt{SUMMARY.md}, a
+\texttt{protocol\_fingerprint.json} with script and input hashes and the git
+head, and the machine-readable tables the article cites.
 
-\textbf{The first sealed confirmation (executed; audit-failed; withdrawn).}
-Thirty-nine USGS HUC4 networks outside the v17/v18 development panel were
-ingested, hashed and scored once. The historical pooled contrast of about
-$-7.9$ points is retained only as an executed artifact. The 2026-10-13 audit
-finds USGS no-data sentinels in truth years and silent deletion of
-non-reconstructable selected cases before the 70\% cut
-(\texttt{AMENDMENT\_claim\_status\_freeze\_20261013.md};
-\texttt{amendments/p0\_02\_qc\_ledger/};
-\texttt{amendments/p0\_03\_retention\_denominator/}). That seal is withdrawn.
-Prior-access diagnostics in
-\texttt{AMENDMENT\_prior\_access\_sealed\_panel.md} remain relevant for any
-future reanalysis of this opened panel.
+\section{The object mismatch, and what it changed}
 
-\textbf{Wave-2 independent confirmation (scored once; success rule met).}
-Under \texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}, 49 network labels (41 validation groups once stations shared by two labels are kept together) /
-143 stations / 13\,017 cases across USGS, Hub'Eau and UK EA were assembled
-with programme-used stations excluded, hashed, and scored once with repaired
-QA and reconstructability. At 70\% retention and 0.5\,$^{\circ}$C the contrast
-is $\Delta=-5.89$ points ($[-6.92,-4.91]$), with zero reconstruction failures,
-USGS and Hub'Eau both negative, and the USGS quality-checked subset agreeing
-(\texttt{AMENDMENT\_p0\_07\_wave2\_confirmation\_20261013.md};
-\texttt{p0\_07\_wave2\_ingest/p0\_07\_wave2\_confirmation/verdict.json}).
+The 2026-10-19 run declared the stored policy reconstruction as the admitted
+object, but built the failure event from the certificate's absolute error. The
+two are different reconstructions of the same station-year. On the external
+panel the policy error exceeds the tolerance in 1{,}996 of 13{,}017 cases and the
+certificate error in 2{,}078; 408 cases fail only under the policy and 490 only
+under the certificate, so the two events disagree on 898 cases, or 6.90\% of the
+panel. On the development panel they disagree on 830 of 40{,}704 cases
+(2.04\%; 478 policy-only, 352 certificate-only).
 
-\textbf{The transport test.} The confirmation is single-agency, so the
-pre-registered transport protocol
-(\texttt{MULTI\_AGENCY\_TRANSPORT\_PROTOCOL.md}) recruits agencies absent from
-the v17 roster and scores the same frozen configuration once on them. Three
-amendments were recorded before sealing: prior access is judged per station
-against every artifact in the repository (metadata catalogues keyed by
-\texttt{site\_id} carry no series values and are not series use), providers
-whose published values are labelled uncontrolled form a separate assurance
-stratum reported alongside the pooled verdict, and networks from a provider that
-took part in development may enter only as a labelled secondary stratum. The
-protocol fixes the primary endpoint, tolerance, retention, the pooled decision
-rule ($\Delta \le -1.0$ percentage points with a clustered interval excluding
-zero and at least two providers in the same direction) and the requirement that
-the pooled and quality-checked-only verdicts agree. It also discloses that it was
-designed after the USGS score was known, so it is a transport test and never a
-pristine first confirmation.
+The aligned protocol recomputes everything---threshold selection, evaluation,
+intervals and contrasts---on \texttt{abserr\_policy}, after checking in-script
+that $\texttt{abserr\_policy}=|\texttt{hottest30}_{\text{policy choice}} -
+\texttt{truth\_hottest30}|$ on every finite row. The certificate bounds survive
+only as ranking scores.
 
-The sealed transport panel holds 53 networks: 32 primary networks from Sweden
-(SMHI, 16), England (UK Environment Agency, 2) and France (Hub'Eau, 14) across
-three climate contexts, plus 21 Norwegian (NVE) basins as the secondary stratum
-only (152 primary stations; 245 including secondary). Historical contrasts that
-reported a primary pooled $-4.6$ points and a quality-checked $-6.2$ points are
-executed artifacts only. The 2026-10-13 audit finds SMHI unit/coding failures,
-reconstructability dropouts that shrank the 70\% denominator, and a
-quality-checked gate that mixed NVE secondary cases ($\approx 97\%$ of that
-stratum). On the primary quality-checked subset alone (2 networks, 307 cases)
-the corrected diagnostic fails the pre-registered CI rule
-(\texttt{amendments/f03\_primary\_qc\_diagnostic/}). That transport seal remains
-withdrawn; it is not the wave-2 confirmation above.
+Table~\ref{tab:si-repair} reports the 2$\times$2 consequence of the two repairs.
+On the external panel the fitted-score advantage over the peak-window rule is
+2.7 points when the event is the certificate and the tie rule admits whole blocks
+(2.8 with jitter), and 7.2 points when the event is the policy reconstruction and
+ties are admitted whole.
+Most of the change (about 4.5 points) comes from measuring the right object; the
+tie rule contributes about 1.3 points. On the development panel the two repairs
+move the same contrast by less than one point, which is why the defect was easy
+to miss without an external comparison.
 
-\textbf{The amendment register.} Each adversarial finding closed after the
-freeze has an amendment directory holding the recomputation, the preserved
-pre-fix bytes and a report: instrument error under a locked method
-(\texttt{step22\_noise\_post\_fix}), support-width uncertainty and the
-fixed-centre dilation test (\texttt{e6\_support\_width\_uncertainty}),
-exact-donor-count mechanism control (\texttt{step5\_mechanism\_equal\_k}), the
-climatological-peak proxy's misclassification rate
-(\texttt{peak\_proxy\_bridge}), provider-contract sensitivity
-(\texttt{provider\_contract\_sensitivity}), a faithful reimplementation of the
-cited air-regression baseline (\texttt{faithful\_baseline}), hidden-bias
-sensitivity (\texttt{mnar\_pattern\_mixture}), cold-season support axes
-(\texttt{winter\_regulatory}), and the sealed panel's prior-access diagnostic
-(\texttt{sealed\_usgs\_prior\_access\_diagnostic}). The maintenance
-counterfactual was recomputed under multi-year outage placement
-(\texttt{e1\_maintenance\_recompute}) and remains exploratory.
-
-The major-revision round is registered under
-\texttt{major\_revision\_20261014/} and holds ten further analyses, each with
-its own \texttt{SUMMARY.md}, protocol fingerprint (script and input hashes plus
-the git head) and machine-readable tables: the converged method and claim set
-(\texttt{p0\_01\_final\_method}), admission thresholds chosen on calibration
-networks only (\texttt{p0\_02\_frozen\_risk\_thresholds}), the final rule on the
-monitoring-calendar replay with explicit unavailable and fallback states
-(\texttt{p0\_03\_final\_method\_replay}), the hot-year decomposition
-(\texttt{p0\_04\_env\_closed\_loop}), the power and independence design
-(\texttt{p0\_05\_power\_independence}), the coverage and measurement contract with
-an independent recompute of thirty headline values
-(\texttt{p0\_06\_coverage\_recompute}), repeated learning curves
-(\texttt{p1\_learning\_curve\_repeats}), the mechanism boundary with the air
-reconstructor and a design-based phase interval
-(\texttt{p1\_mechanism\_boundary}), and the transfer and measurement strata
-(\texttt{p1\_transfer\_measurement}). Two of these record a corrected number
-rather than a new one: the admission-threshold analysis replaces an operating
-point that had been chosen with the evaluation labels, and the replay replaces a
-donor-reconstruction column that had silently contained observed-window values.
+\begin{table}
+\caption{Retention at the 5\% cap under the two failure events and the two tie
+rules. Same scores, same folds, same selection rule; entries are the mean of
+three fold seeds. ``Jitter'' reproduces the 2026-10-19 construction and applies
+it to calibration and evaluation alike.}
+\label{tab:si-repair}
+\tabletext
+\centering
+\begin{tabular}{llrrrr}
+\hline
+panel & event / tie & fitted & peak-window & length & fitted $-$ peak (pp) \\
+\hline
+external & policy / whole block & 0.739 & 0.667 & 0.396 & $+7.2$ \\
+external & policy / jitter & 0.741 & 0.656 & 0.445 & $+8.5$ \\
+external & certificate / whole block & 0.728 & 0.701 & 0.406 & $+2.7$ \\
+external & certificate / jitter & 0.728 & 0.699 & 0.445 & $+2.8$ \\
+development & policy / whole block & 0.704 & 0.607 & 0.305 & $+9.7$ \\
+development & policy / jitter & 0.704 & 0.602 & 0.324 & $+10.2$ \\
+development & certificate / whole block & 0.706 & 0.616 & 0.305 & $+9.0$ \\
+development & certificate / jitter & 0.708 & 0.622 & 0.342 & $+8.6$ \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Measurement contract and coverage}
 
-Every result in the article is reported against the daily-value statistic its
-providers actually publish (Table~\ref{tab:si-contract}). Of the 40704 development
-cases, 74.4\,\% come from the five providers that document a daily mean
-(84 networks), 15.5\,\% are project aggregates of sub-daily or instantaneous
-values (14 networks; CHMI ten-minute and Rijkswaterstaat raw readings), 8.3\,\%
-come from ten networks whose provider never states whether the published daily
-value is a mean (ARSO, 47 stations), and 1.7\,\% are the three Finnish morning
-reference readings, which the project already excludes from the unified
-daily-mean analysis. The retrospective reserved panel is 73.8\,\% documented
-daily means and 20.1\,\% project aggregates; the external wave-2 panel is
-94.4\,\% documented daily means. A station-level coverage table with first and
-last year, complete years, statistic class, quality class and licence route for
-every station is in
-\texttt{major\_revision\_20261014/p0\_06\_coverage\_recompute/final\_coverage\_table.csv},
-and the results by measurement class are in the transfer table of
-Section~4.4.2 of the article.
+Every result is reported against the daily-value statistic its providers actually
+publish (Table~\ref{tab:si-contract}). Of the 40{,}704 development cases,
+74.4\,\% come from the five providers that document a daily mean (84 networks),
+15.5\,\% are project aggregates of sub-daily or instantaneous values (14
+networks), 8.3\,\% come from ten networks whose provider never states whether the
+published daily value is a mean, and 1.7\,\% are Finnish morning reference
+readings. The external wave-2 panel is 94.4\,\% documented daily means. A
+station-level coverage table with first and last year, complete years, statistic
+class, quality class and licence route for every station is in
+\texttt{major\_revision\_20261014/p0\_06\_coverage\_recompute/final\_coverage\_table.csv}.
 
-Two further notes belong with that table. The reserved-panel headline contrast is
-sensitive to how ties at the retention cut are broken: across six tie-break seeds
-it runs from $-7.16$ to $-6.94$ points, so the point estimate is quoted with that
-range and the interval, not to two decimals. And the wave-2 complete-year count
-depends on the convention used by the ingest (51 of 164 stations under the rule
-as written, 162 under the strict all-days-present rule), so no single wave-2
-station-year denominator is quoted.
+The aligned rules were re-selected and re-evaluated inside the
+documented-daily-mean subset (Table~\ref{tab:si-subset}). Thresholds were chosen
+on the subset's calibration rows only and the stored per-fold calibration arrays
+were restricted the same way; nothing was refitted. The fitted score's advantage
+over the peak-window rule is $+8.0$, $+7.3$ and $+7.3$ points on the external
+subset and $+8.8$, $+8.7$ and $+10.4$ on the development subset, with every
+interval excluding zero, so the ranking reported in the article does not depend
+on the project-aggregate or undocumented providers. Its comparison with the
+certificate bound stays interval-crossing on development ($-2.3$ to $-4.2$
+points) and is positive but mostly small on the external subset
+($+0.1$ to $+1.9$).
 
 \begin{table}
-\caption{Daily-value statistic by provider, as documented by the provider, with the
-class assigned to each panel case.}
+\caption{The aligned rules re-selected inside the documented-daily-mean subset
+(30{,}289 development cases, 12{,}282 external cases; shares of the full panel
+0.744 and 0.944). Retention is relative to the subset. Contrasts are paired,
+group-clustered and reported as fitted minus the named rule in points.}
+\label{tab:si-subset}
+\tabletext
+\centering
+\begin{tabular}{llrrrr}
+\hline
+panel & rule & retention & failure rate & vs peak (pp) & vs bound (pp) \\
+\hline
+external & fitted risk & 0.749 & 0.031 & $+7.5$ & $+1.0$ \\
+external & peak-window & 0.674 & 0.032 & --- & --- \\
+external & certificate bound & 0.739 & 0.032 & --- & --- \\
+external & gap-length & 0.411 & 0.018 & --- & --- \\
+development & fitted risk & 0.733 & 0.030 & $+9.3$ & $-3.0$ \\
+development & peak-window & 0.640 & 0.037 & --- & --- \\
+development & certificate bound & 0.764 & 0.036 & --- & --- \\
+development & gap-length & 0.347 & 0.019 & --- & --- \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Daily-value statistic by provider, as documented by the provider, with
+the class assigned to each panel case.}
 \label{tab:si-contract}
 \small
 \centering
@@ -314,24 +282,22 @@ ARSO & daily values, statistic unstated & 47 & undocumented & provider page only
 SYKE & 08:00 near-shore reading & 3 & non-daily reference reading & provider documentation \\
 \hline
 \end{tabular}
-\tablenotetext{a}{Counts are station-network rows from the coverage table; a station
-appearing in two networks is counted once per network. The class assignment is a
-deterministic parse of
-\texttt{measurement\_provenance\_dictionary.csv}, and the matched wording is stored
-per row in the coverage table.}
+\tablenotetext{a}{Counts are station-network rows from the coverage table; a
+station appearing in two networks is counted once per network. The class
+assignment is a deterministic parse of
+\texttt{measurement\_provenance\_dictionary.csv}.}
 \end{table}
 
-\section{Parameters, their roles, and the archive}
+\section{Parameters and their roles}
 
 Every quantity that enters a result has one of four roles, and mixing them is a
-common source of confusion, so they are listed with the role stated
-(Table~\ref{tab:si-params}).
+common source of confusion (Table~\ref{tab:si-params}).
 
 \begin{table}
-\caption{Model and decision parameters by role. "Fitted" means estimated from
-data at run time; "fixed" means a constant chosen before any result was seen;
-"calibrated" means chosen on networks disjoint from the cases it is applied to;
-"declared" means a study tolerance rather than a model quantity.}
+\caption{Model and decision parameters by role. ``Fitted'' means estimated from
+data at run time; ``fixed'' means a constant chosen before any result was seen;
+``calibrated'' means chosen on groups disjoint from the cases it is applied to;
+``declared'' means a study tolerance rather than a model quantity.}
 \label{tab:si-params}
 \small
 \centering
@@ -340,163 +306,224 @@ data at run time; "fixed" means a constant chosen before any result was seen;
 quantity & role & value or source \\
 \hline
 ridge penalty of the donor and air estimators & fixed & $\alpha = 1.0$, seven air lags, whole-year fit \\
-gradient-boosted risk score & fitted & quantile 0.9, on the decision-time feature set; refit per fold \\
-admission threshold & simultaneous bound & largest retention in $0.10$--$0.95$ whose independence-group clustered bootstrap bound at $1-0.05/86$ stays under the cap; a pointwise 95\,\% bound is not the rule \\
-conformal multiplier & calibrated & scale factor turning the predicted bound into a valid interval, fitted on calibration networks \\
-absolute admission rule & declared & admit when the predicted bound is at most $0.5\,^{\circ}$C \\
-consequential-error tolerance $\tau$ & declared & $0.5\,^{\circ}$C, i.e.\ 0.47 of each endpoint's interannual SD \\
-retention operating point & declared & 70\,\% for ranking comparisons; the risk cap (5\,\%) for admission comparisons \\
-network folds & fixed & 5 outer folds by network, 3 fold seeds (101/202/303), 4 inner folds for the risk score \\
-bootstrap draws & fixed & 1000 for threshold selection, 2000 for evaluation intervals \\
+gradient-boosted risk score & fitted & quantile 0.9, depth 4, 350 iterations, learning rate 0.06, leaf 40; refit per outer fold \\
+risk-score target & declared & absolute error of the admitted policy reconstruction \\
+admission threshold & calibrated & largest candidate whose independence-group clustered bootstrap percentile at $1-0.05/n_{\mathrm{cand}}$ stays under 5\,\% \\
+tie rule & declared & no jitter; a threshold is an observed score and $s\le\tau$ admits whole tie blocks \\
+consequential-error tolerance $\tau$ & declared & $0.5\,^{\circ}$C \\
+fold unit & fixed & connected component of networks that share a station id \\
+folds & fixed & 5 outer folds, 3 fold seeds (101/202/303), 4 inner folds for the risk score \\
+bootstrap draws & fixed & 1{,}000 for threshold selection, 2{,}000 for evaluation intervals, 10{,}000 for the stability check \\
 \hline
 \end{tabular}
 \end{table}
 
 Software and data are archived as follows. The analysis code, the frozen
-configuration, the derived tables and the editable draw.io sources of the
-schematic figures are in the accompanying repository; the study inputs for the
-146 study networks are packaged for confidential review
+configuration, the derived tables and the figure sources are in the accompanying
+repository; the study inputs are packaged for confidential review
 (\texttt{dist/wrr\_study\_inputs\_v1.tar.gz}) and a permanent archive with a DOI
 is deposited on acceptance. Restricted material is listed rather than shipped:
-LUBW raw values are read locally and not redistributed, and the two providers
-whose terms name no licence are used under attribution only
+LUBW raw values are read locally and not redistributed, and providers whose terms
+name no licence are used under attribution only
 (\texttt{metadata/data\_rights.csv}). Input-file hashes for every network are in
-\texttt{current\_data\_manifest.csv}, and each major-revision analysis writes a
-protocol fingerprint holding the script hash, the input hashes and the git head.
+\texttt{current\_data\_manifest.csv}, and each analysis writes a protocol
+fingerprint holding the script hash, the input hashes and the git head.
 
-\section{Predictions that failed}
+\section{Retention and hot-year composition in one place}
 
-Three predictions were written down before the analyses that tested them and
-were not met. All three are in the article; they are gathered here because a
-reader looking for them should not have to hunt.
+Table~\ref{tab:si-cap} collects the retention and realised risk of every rule on
+both designed panels, at the same 5\% cap, for readers who want the decision
+table without the figure. The reference arm is included for scale: on the
+designed panels it admits everything and therefore fails the cap by a wide
+margin, which is why it does not appear in the article's panel (a).
 
-\begin{enumerate}
-  \item \emph{The support-restricted advantage will decay monotonically in the
-    support width.} It does not: it is a hump peaking at a 60-day support.
-  \item \emph{The estimand's own support is the best conditioning set at every
-    support width.} It is not: below 30 days a fixed 30-day window beats it.
-  \item \emph{For the sine-fit phase, two hand-chosen transition windows will
-    beat both peak-window overlap and outage length.} They beat peak overlap
-    decisively and tie outage length.
-\end{enumerate}
+Table~\ref{tab:si-hot} gives the hot-year composition behind Figure~5c. Under
+the pre-declared unique-station-year weighting the fitted score's total
+deviation is $+0.9$ points ($[0.0,1.8]$) rather than $+0.7$, the ordering of the
+rules is unchanged, and the gap-length rule's refusal of true hot years remains
+the largest single effect in the table. The case-weighted estimate is primary
+because it is the archive an agency holds under this monitoring design.
 
-Failures 1 and 2 have one cause, which we then measured: the support's location
-is itself uncertain, so the conditioning set has to be the support dilated by
-that uncertainty. Failure 3 has a related cause: a hand-drawn window is a crude
-approximation to an influence function that is spread over half the year.
+\section{The selector's risk control, read correctly}
 
-Three further numbers changed under a corrected comparison rather than under new
-data, and the corrected values are the ones reported. The instrument-error check
-had evaluated its two arms with two different reconstruction choices; with one
-method on both arms the perturbation moves the reserved contrast from 6.21 to
-6.22 points instead of from 7.06 to 6.67, and the apparent reduction disappears.
-The donor-count control had not actually held the donor count fixed (the paired
-cases differ by up to seven donors in a third of cases); an exact-match
-recomputation gives $+0.084\,^{\circ}$C (0.064 to 0.110), so the claim survives
-and the interval is restated. The support-width crossover is an interval, not a
-day: the bootstrap gives 77 to 107 days and the curve is a hump peaking near 60
-days, not a monotone decay.
+The deployed threshold reads the percentile $1-0.05/n_{\mathrm{cand}}$ of an
+independence-group clustered bootstrap of the calibration false-admit rate, with
+$n_{\mathrm{cand}}$ the number of distinct snapped thresholds. Two properties
+were separated in simulation on 2{,}000 synthetic clustered archives per
+scenario, with the deployed rule imported from the analysis code so the procedure
+cannot drift:
+\begin{itemize}
+\item the \emph{population} risk of the selected threshold, measured on an
+independent two-million-case reference draw from the same generator; and
+\item the error rate observed in a finite fresh test batch of 16 groups.
+\end{itemize}
+Table~\ref{tab:si-selector} reports both. With the deployed simultaneous bound,
+the selected threshold's population risk exceeds the 5\% cap in 0.4\% of
+repetitions in the baseline scenario, 0.6\% near the cap, 0.4\% with unequal
+group sizes and 2.4\% with twelve calibration groups. The finite test batch
+exceeds the cap far more often (7.8\%, 7.5\%, 4.6\% and 12.2\%) because the batch
+adds noise the rule cannot control. The 8.5\% quoted in the previous version of
+this work was the second quantity; reading it as the selector's error rate was a
+misinterpretation. A pointwise bound keeps about twice as many records (35.9\%
+against 18.5\% in the baseline scenario) and violates the cap about six times as
+often (7.4\% against 0.4\% on the population measure).
 
-A fourth statement was \emph{withdrawn} rather than falsified. An earlier version
-framed the standing guidance as getting an ordering backwards. On the guidance's
-own estimands it does not; Section 4.2.2 of the article reports that a completeness
-threshold is the correct axis for the sine-fit mean and within 0.02 AUC of the
-best for the phase.
+\begin{table}
+\caption{Selector calibration per scenario, 2{,}000 repetitions each. ``True
+risk'' is the population failure rate of the selected threshold on an independent
+two-million-case reference draw; ``batch'' is the rate observed in a finite
+fresh test sample.}
+\label{tab:si-selector}
+\tabletext
+\centering
+\begin{tabular}{llrrrrr}
+\hline
+scenario & procedure & retention & true risk & P(true $>5\%$) & P(batch $>5\%$) & batch rate \\
+\hline
+baseline & deployed & 0.185 & 0.0199 & 0.004 & 0.078 & 0.0204 \\
+baseline & pointwise & 0.359 & 0.0352 & 0.074 & 0.191 & 0.0356 \\
+low error & deployed & 0.761 & 0.0313 & 0.000 & 0.051 & 0.0320 \\
+low error & pointwise & 0.881 & 0.0386 & 0.000 & 0.153 & 0.0394 \\
+near cap & deployed & 0.288 & 0.0222 & 0.006 & 0.075 & 0.0224 \\
+near cap & pointwise & 0.543 & 0.0365 & 0.066 & 0.200 & 0.0369 \\
+unequal groups & deployed & 0.296 & 0.0306 & 0.004 & 0.046 & 0.0308 \\
+unequal groups & pointwise & 0.425 & 0.0406 & 0.064 & 0.181 & 0.0408 \\
+few groups & deployed & 0.153 & 0.0171 & 0.024 & 0.122 & 0.0173 \\
+few groups & pointwise & 0.309 & 0.0311 & 0.119 & 0.254 & 0.0322 \\
+\hline
+\end{tabular}
+\end{table}
+
+The extreme percentile is numerically delicate at 1{,}000 draws. Re-running the
+selection with 10{,}000 draws changes the chosen threshold in 42 of 150
+fold-by-score cells. The fitted score's retention moves by at most 1.0 point and
+the discrete rules by at most 3.9 points. The article therefore describes the
+selected threshold as a calibration decision at this granularity, not as a stable
+optimum.
+
+\section{Predictions that failed, and one that was withdrawn}
+
+\textbf{The prediction that failed this round.} Before the aligned rerun we
+predicted, on the basis of the 2026-10-19 numbers, that the fitted score would
+not clear the pre-specified five-point margin against the peak-window rule even
+after the object was repaired. It clears it on the external panel at all three
+fold seeds (8.0, 7.3 and 7.0 points) and on the development panel (9.7 to 10.3
+points). The earlier reading was an artefact of the object mismatch, and we
+report the corrected result rather than the prediction.
+
+\textbf{A claim withdrawn rather than falsified.} An earlier version framed the
+result as ``position, not length, governs''. The crossed design does not support
+a law: the support effect is universal in sign but its size ranges from 0.24 to
+0.64\,$^{\circ}$C at 30 days across reconstructors, and linear interpolation
+retains a large length effect even at full hidden support (1.16\,$^{\circ}$C
+between 90 and 30 days). The article now states the conditional version.
+
+\textbf{Three earlier predictions that were not met} remain in the record from
+the development round: the support-restricted advantage does not decay
+monotonically in support width; the estimand's own support is not the best
+conditioning set at every width; and two hand-chosen phase windows do not beat
+both peak overlap and outage length.
 
 \section{Runs that were discarded}
 
-Two defects made specific artifacts unusable and both were repaired before the
-reserved panel was opened: outage realizations were seeded from a process-salted
-hash, so the case table could not be regenerated, and worker results were
-concatenated in completion order, so the row order was not reproducible even
-though the content was. A third defect affected the calibration rather than the
-data: an additive, per-estimator conformal scheme under-covered, because
-selecting the smallest of several bounds is a winner's curse that per-estimator
-calibration cannot see. In all three cases the affected numbers were discarded
-rather than reported alongside the repaired ones, and the pipeline was re-run in
-full.
+Five defects made specific artifacts unusable, and each was repaired before the
+numbers reported here:
+\begin{enumerate}
+\item outage realisations were once seeded from a process-salted hash, so the case
+  table could not be regenerated;
+\item worker results were once concatenated in completion order, so row order was
+  not reproducible;
+\item an additive per-estimator conformal scheme under-covered, because selecting
+  the smallest of several bounds is a winner's curse that per-estimator
+  calibration cannot see;
+\item a shared calibration-score array let a later outer fold overwrite earlier
+  folds' scores with models that had seen those folds' labels
+  (repaired 2026-10-19);
+\item the failure event was read from the certificate reconstruction while the
+  admitted object was the policy reconstruction, and the two tie rules differed
+  between calibration and deployment (repaired 2026-10-20).
+\end{enumerate}
+In each case the affected numbers were discarded rather than reported alongside
+the repaired ones.
 
 \section{Verification and reproduction}
 
 \begin{itemize}
-  \item The case table is byte-reproducible including row order, pinned by a
+  \item The case tables are byte-reproducible including row order, pinned by a
     test.
-  \item The extended endpoint table regenerates the same 51{,}524 realizations
-    from the same deterministic seeds, which is how its rows line up with the
-    main case table; a test checks the alignment.
   \item No feature may read a day the outage hides; enforced in the feature
     constructor and pinned by a test.
+  \item The aligned admission script asserts that \texttt{abserr\_policy} equals
+    the absolute difference between the stored policy prediction and the
+    reference value before it uses it, so an alignment error aborts the run.
+  \item The failure event, the threshold and the evaluated error are the same
+    column in every stage of the aligned protocol; a unit test checks that the
+    case-level admissions reproduce the thresholds.
   \item Every table cell and audited inline number in the article is re-derived
-    from the artifacts by an audit script that the test suite runs.
-  \item The schematic figures are generated from editable draw.io sources held
-    in the repository; a test checks that each exported PDF is newer than its
-    source.
-  \item The claim registry binds every number allowed into the abstract, key
-    points and conclusions to an artifact and is checked by
-    \texttt{scripts/254\_wrr\_claim\_binding\_check.py}, which recomputes the
-    allowed numbers and flags any barred number that appears in those regions.
+    from the artifacts by the build script, which fails when a listed number is
+    missing from the text.
   \item Every input the current study reads is listed with a byte count and a
-    SHA-256 in \texttt{current\_data\_manifest.csv} (146 networks, 0 missing),
-    and every ingest for the transport panel records its own hashes before the
-    seal is written.
-  \item Failed worker runs cannot leave a success table behind: the mechanism
-    recomputation writes its summary last inside a hash-bound generation
-    directory and re-verifies the generation on read.
+    SHA-256 in \texttt{current\_data\_manifest.csv}, and each analysis records
+    its own protocol fingerprint.
 \end{itemize}
 
-Figure~\ref{fig:si-chain} lays the study out as a chain and labels each link with
-the research question that establishes it, including the two links that earlier
-versions of this work left open and this one closes.
+\begin{table}
+\caption{Retention at the 5\% cap by rule and panel (mean of three fold seeds,
+with the seed range in parentheses), and the realised failure rate among admitted
+records. The reference arm reconstructs every record and is included for scale;
+it does not satisfy the cap on the designed panels.}
+\label{tab:si-cap}
+\tabletext
+\centering
+\begin{tabular}{lrrrr}
+\hline
+rule & external retention & external risk & development retention & development risk \\
+\hline
+gap-length & 0.396 & 0.018 & 0.305 & 0.024 \\
+peak-window & 0.667 & 0.033 & 0.604 & 0.038 \\
+certificate bound & 0.729 & 0.032 & 0.727 & 0.036 \\
+fitted risk & 0.740 & 0.031 & 0.704 & 0.030 \\
+reconstruct everything & 1.000 & 0.153 & 1.000 & 0.149 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Hot-year composition, external panel, 20\,$^{\circ}$C, fold seed 101,
+case-weighted. Shares are fractions. The unique-station-year weighting is
+reported in the text and leaves the ordering unchanged.
+``Refused hot'' is the share of true hot years left out of the archive;
+``missed hot'' is the share the admitted reconstruction places below the
+threshold.}
+\label{tab:si-hot}
+\tabletext
+\centering
+\begin{tabular}{lrrrrrr}
+\hline
+rule & p$_{\text{full}}$ & p$_A$ & selection & total (95\%) & refused hot & missed hot \\
+\hline
+peak-window & 0.857 & 0.861 & $+0.004$ & $+0.003$ $[-0.005,0.012]$ & 0.332 & 0.003 \\
+fitted risk & 0.857 & 0.868 & $+0.011$ & $+0.007$ $[-0.002,0.016]$ & 0.245 & 0.004 \\
+certificate bound & 0.857 & 0.868 & $+0.011$ & $+0.007$ $[-0.002,0.017]$ & 0.262 & 0.004 \\
+gap-length & 0.857 & 0.875 & $+0.018$ & $+0.016$ $[-0.003,0.046]$ & 0.595 & 0.001 \\
+reconstruct everything & 0.857 & 0.857 & $0.000$ & $-0.006$ $[-0.013,0.003]$ & 0.000 & 0.013 \\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{figure}
-\includegraphics[width=\textwidth]{figures/f3_evidence_chain.pdf}
-\caption{The evidence chain by research question. Every link is labelled with the section that establishes it and with the evidence class it rests on (sample fact, retrospective holdout, sealed confirmation, exploratory post-open); the deployment link is closed for pooled designed outages and remains open on the empirical arm, and the consequence link carries the finding that the regional aggregate barely moves.}
-\label{fig:si-chain}
-\end{figure}
-
-
-\section{Supporting figures}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/f0_problem_frame.pdf}
-\caption{Problem frame (schematic), the earlier opening figure. The same station-year and outage mask feed an annual mean and a hottest 30-day mean; different supports imply different governing axes. Boxes that quote numerical gradients are mechanism diagnostics from the scored panel, not the sealed confirmation. The data-driven version of this idea is Figure 1 of the article.}
-\label{fig:si-frame}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/f1_system_architecture.pdf}
-\caption{The screening system in detail. Left: the features visible at decision time, under an information barrier that forbids any feature from reading a day the gap hides. Centre: the estimator library with per-case support, the risk model, estimator selection, and the selection-conditional multiplicative conformal calibration. Bottom: the two action spaces the same calibrated object supports.}
-\label{fig:si-arch}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig4_consequence.pdf}
-\caption{Multi-year trend error (a) and the donor controls (b). The panel averages eleven complete years per station, which is too short to resolve a decadal trend; the slope error is reported as a diagnostic of the reconstruction rather than as a trend estimate.}
-\label{fig:si-cons}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig5_robustness.pdf}
-\caption{Development cases (n = 40 704, 110 networks; all intervals network-clustered 95\%): AUC difference between the timing axis and the outage-length rule for each endpoint, in AUC units (a); the consequential-error advantage over the length rule in percentage points under a clean and a perturbed reference series, with the paired change interval (b); and the misclassification rate against the exceedance threshold in $^{\circ}$C, per treatment (c). Panel (b) uses one reconstruction choice on both arms.}
-\label{fig:si-robust}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/f4_deployment_workflow.pdf}
-\caption{What an agency does with the result: which endpoint, where the peak window comes from, the three numbers of the deployable rule, the representativeness guardrail, and what the substitution buys on networks never used for fitting.}
-\label{fig:si-workflow}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig6_hydrology.pdf}
-\caption{Catchment attribution on the United States subset, moved here from the article: 140 of 204 stations matched to GAGES-II across 57 networks. Donor synchrony against site elevation (a), completed-year absolute error ($^{\circ}$C) against elevation (b), and the decomposition of the baseflow-index effect (c). Points are stations; bands are network-clustered 95\% intervals. These are attribute associations on one country and are not a geology law.}
-\label{fig:si-hydro}
-\end{figure}
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/f2_experiment_design.pdf}
-\caption{Study design and data flow. Nine national providers are ingested and quality-checked into 146 river-only networks, 457 stations and 5114 complete station-years; 51\,524 designed outages are placed on those complete years and split by network into a 110-network development set and a 36-network reserved panel, and the configuration is frozen. The reserved panel is a retrospective holdout with mixed prior access. The first sealed USGS and multi-agency transport panels fail the 2026-10-13 audits and are withdrawn; a wave-2 panel (49 network labels, 143 stations, 41 validation groups; USGS, Hub'Eau, UK EA). The fitted-risk cross-fit on that panel is not a new sealed confirmation of a frozen model. The frozen certificate screen's 70\% retention contrast remains $-5.9$ points after clustering on the 41 groups. The same frozen configuration is applied, without truth, to 2422 real incomplete station-years, with admission requiring a finite annual metric. Source: draw.io source \texttt{figures/v17/drawio/f2\_experiment\_design.drawio}.}
-\label{fig:design}
+\includegraphics[width=\textwidth]{figures/s1_study_design.pdf}
+\caption{The evidence chain. Complete station-years are the reference truth; the
+development and external designed panels vary gap length and hidden support
+independently and supply the admission comparisons; the real archive supplies
+gap geometry only, because it has no complete counterpart; and the 418
+real-calendar groups supply the deployment probe. Numbers give cases (and, for
+the panels, independence groups). The external panel is already opened, so its
+comparisons are cross-fitted within it rather than a sealed confirmation.
+Schematic source:
+\texttt{s1\_study\_design.drawio} (draw.io; see the Open Research statement of
+the article).}
+\label{fig:si-design}
 \end{figure}
 
 \end{document}

@@ -1,0 +1,14 @@
+[317] 24 stations, 24 workers, 2000 bootstrap draws
+[Parallel(n_jobs=24)]: Using backend LokyBackend with 24 concurrent workers.
+[Parallel(n_jobs=24)]: Done   2 out of  24 | elapsed:   29.8s remaining:  5.5min
+[Parallel(n_jobs=24)]: Done   7 out of  24 | elapsed:   42.2s remaining:  1.7min
+[Parallel(n_jobs=24)]: Done  12 out of  24 | elapsed:   47.3s remaining:   47.3s
+[Parallel(n_jobs=24)]: Done  17 out of  24 | elapsed:   48.3s remaining:   19.9s
+[Parallel(n_jobs=24)]: Done  22 out of  24 | elapsed:   49.1s remaining:    4.5s
+[Parallel(n_jobs=24)]: Done  24 out of  24 | elapsed:   49.3s finished
+[317] built 21700 cases / 4340 phase rows in 49s
+[317] done in 1.4 min -> /home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261014/p1_mechanism_boundary
+
+real	1m31.537s
+user	15m18.761s
+sys	5m50.465s

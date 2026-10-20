@@ -1,0 +1,279 @@
+{
+  "first_pass_reproduced_with_buggy_jitter": {
+    "pooled_retention": 0.017208266113543827,
+    "pooled_false_admit": 0.09375,
+    "pooled_n_admitted": 224,
+    "n_folds_admitting_nothing": 4,
+    "folds": [
+      {
+        "fold": 0,
+        "threshold": -Infinity,
+        "calibration_retention": 0.0,
+        "calibration_false_admit": NaN,
+        "calibration_upper_bound": NaN,
+        "selection_status": "no_admissible_grid_point",
+        "test_retention": 0.0,
+        "test_n_admitted": 0,
+        "test_false_admit": NaN,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 1,
+        "threshold": -Infinity,
+        "calibration_retention": 0.0,
+        "calibration_false_admit": NaN,
+        "calibration_upper_bound": NaN,
+        "selection_status": "no_admissible_grid_point",
+        "test_retention": 0.0,
+        "test_n_admitted": 0,
+        "test_false_admit": NaN,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 2,
+        "threshold": -Infinity,
+        "calibration_retention": 0.0,
+        "calibration_false_admit": NaN,
+        "calibration_upper_bound": NaN,
+        "selection_status": "no_admissible_grid_point",
+        "test_retention": 0.0,
+        "test_n_admitted": 0,
+        "test_false_admit": NaN,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 3,
+        "threshold": -Infinity,
+        "calibration_retention": 0.0,
+        "calibration_false_admit": NaN,
+        "calibration_upper_bound": NaN,
+        "selection_status": "no_admissible_grid_point",
+        "test_retention": 0.0,
+        "test_n_admitted": 0,
+        "test_false_admit": NaN,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 4,
+        "threshold": 73.00993531159043,
+        "calibration_retention": 0.11003683241252302,
+        "calibration_false_admit": 0.03598326359832636,
+        "calibration_upper_bound": 0.045825043865102694,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.10384793694946685,
+        "test_n_admitted": 224,
+        "test_false_admit": 0.09375,
+        "test_n_networks": 1
+      }
+    ]
+  },
+  "current_fixed_jitter": {
+    "pooled_retention": 0.4927402627333487,
+    "pooled_false_admit": 0.039756782039289056,
+    "pooled_n_admitted": 6414,
+    "n_folds_admitting_nothing": 0,
+    "folds": [
+      {
+        "fold": 0,
+        "threshold": 30.92024952114603,
+        "calibration_retention": 0.49000516973978975,
+        "calibration_false_admit": 0.038157200633022685,
+        "calibration_upper_bound": 0.04913804697006437,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.5109851169383416,
+        "test_n_admitted": 721,
+        "test_false_admit": 0.04160887656033287,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 1,
+        "threshold": 30.671678408797057,
+        "calibration_retention": 0.4700054436581383,
+        "calibration_false_admit": 0.03683113273106324,
+        "calibration_upper_bound": 0.049292575391927,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.4603340292275574,
+        "test_n_admitted": 1764,
+        "test_false_admit": 0.01984126984126984,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 2,
+        "threshold": 30.863304952841105,
+        "calibration_retention": 0.49002110919209363,
+        "calibration_false_admit": 0.03857450558057568,
+        "calibration_upper_bound": 0.04904888848725827,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.47398843930635837,
+        "test_n_admitted": 1230,
+        "test_false_admit": 0.03414634146341464,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 3,
+        "threshold": 30.92535205783707,
+        "calibration_retention": 0.49004502251125565,
+        "calibration_false_admit": 0.039199673336055535,
+        "calibration_upper_bound": 0.04859493016740782,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.5019854401058902,
+        "test_n_admitted": 1517,
+        "test_false_admit": 0.03625576796308504,
+        "test_n_networks": 1
+      },
+      {
+        "fold": 4,
+        "threshold": 60.12151269304151,
+        "calibration_retention": 0.5500920810313076,
+        "calibration_false_admit": 0.042852360227653166,
+        "calibration_upper_bound": 0.049928059093938874,
+        "selection_status": "grid_point_found",
+        "test_retention": 0.5479833101529903,
+        "test_n_admitted": 1182,
+        "test_false_admit": 0.07868020304568528,
+        "test_n_networks": 1
+      }
+    ]
+  },
+  "jitter_diagnosis": {
+    "first_pass_formula": "longest_run + U[0,1) * 1.0 * (max-min) = longest_run + U[0, 280) days",
+    "current_formula": "longest_run + U[0,1) day (identical to scripts 301/305)",
+    "spearman": {
+      "buggy_score_vs_raw_longest_run_pearson_of_ranks": 0.5584779188788341,
+      "current_score_vs_raw_longest_run_pearson_of_ranks": 0.9969286500820284,
+      "note_on_rank_correlation": "raw longest_run is integer days with many ties, so its rank() is the average rank inside a tie block while the jittered score assigns distinct ranks there; the block-monotonicity flags below are the exact orientation test",
+      "raw_longest_run_spread_days": 280.0,
+      "raw_longest_run_min_gap_days": 1.0,
+      "current_score_never_reorders_distinct_values": true,
+      "buggy_score_never_reorders_distinct_values": false,
+      "current_score_keeps_tie_blocks_intact": true
+    }
+  },
+  "orientation": {
+    "ascending_shortest_first": {
+      "0.1": {
+        "retention": 0.1000230467849735,
+        "false_admit_rate": 0.0007680491551459293,
+        "mean_longest_run_admitted": 4.310291858678956
+      },
+      "0.3": {
+        "retention": 0.2999923177383422,
+        "false_admit_rate": 0.012804097311139564,
+        "mean_longest_run_admitted": 8.847119078104994
+      },
+      "0.5": {
+        "retention": 0.4999615886917108,
+        "false_admit_rate": 0.04025814382298709,
+        "mean_longest_run_admitted": 15.15918869084204
+      },
+      "0.7": {
+        "retention": 0.7000076822616579,
+        "false_admit_rate": 0.08977172958735734,
+        "mean_longest_run_admitted": 29.279741000877962
+      },
+      "0.9": {
+        "retention": 0.8999769532150265,
+        "false_admit_rate": 0.1343576611182245,
+        "mean_longest_run_admitted": 50.13358941527956
+      }
+    },
+    "descending_longest_first": {
+      "0.1": {
+        "retention": 0.1000230467849735,
+        "false_admit_rate": 0.3870967741935484,
+        "mean_longest_run_admitted": 211.1520737327189
+      },
+      "0.3": {
+        "retention": 0.2999923177383422,
+        "false_admit_rate": 0.322663252240717,
+        "mean_longest_run_admitted": 152.4809218950064
+      },
+      "0.5": {
+        "retention": 0.4999615886917108,
+        "false_admit_rate": 0.27904118008604795,
+        "mean_longest_run_admitted": 117.32467732022127
+      },
+      "0.7": {
+        "retention": 0.7000076822616579,
+        "false_admit_rate": 0.22256365232660227,
+        "mean_longest_run_admitted": 90.83483318700614
+      },
+      "0.9": {
+        "retention": 0.8999769532150265,
+        "false_admit_rate": 0.1772940674349125,
+        "mean_longest_run_admitted": 73.12189500640204
+      }
+    }
+  },
+  "raw_cutoff_curve": [
+    {
+      "raw_longest_run_le_days": 7.0,
+      "admitted_share": 0.13428593377890452,
+      "false_admit_rate_among_admitted": 0.0011441647597254005
+    },
+    {
+      "raw_longest_run_le_days": 14.0,
+      "admitted_share": 0.3224245217792118,
+      "false_admit_rate_among_admitted": 0.013104598522754349
+    },
+    {
+      "raw_longest_run_le_days": 21.0,
+      "admitted_share": 0.36613659061227627,
+      "false_admit_rate_among_admitted": 0.013428451531682753
+    },
+    {
+      "raw_longest_run_le_days": 30.0,
+      "admitted_share": 0.5010371053238073,
+      "false_admit_rate_among_admitted": 0.040631708065010735
+    },
+    {
+      "raw_longest_run_le_days": 45.0,
+      "admitted_share": 0.5253130521625566,
+      "false_admit_rate_among_admitted": 0.044457443696987425
+    },
+    {
+      "raw_longest_run_le_days": 60.0,
+      "admitted_share": 0.6367826688177,
+      "false_admit_rate_among_admitted": 0.07250573048618651
+    },
+    {
+      "raw_longest_run_le_days": 90.0,
+      "admitted_share": 0.7497119151878313,
+      "false_admit_rate_among_admitted": 0.09990777743621272
+    },
+    {
+      "raw_longest_run_le_days": 120.0,
+      "admitted_share": 0.8554198355996006,
+      "false_admit_rate_among_admitted": 0.12528064660978896
+    },
+    {
+      "raw_longest_run_le_days": 140.0,
+      "admitted_share": 0.860566950910348,
+      "false_admit_rate_among_admitted": 0.12569184074272452
+    },
+    {
+      "raw_longest_run_le_days": 180.0,
+      "admitted_share": 0.9647384189905508,
+      "false_admit_rate_among_admitted": 0.1450867972607103
+    },
+    {
+      "raw_longest_run_le_days": 270.0,
+      "admitted_share": 0.9993854190673734,
+      "false_admit_rate_among_admitted": 0.1592743485279422
+    },
+    {
+      "raw_longest_run_le_days": 304.0,
+      "admitted_share": 1.0,
+      "false_admit_rate_among_admitted": 0.15963739724975032
+    }
+  ],
+  "recorded_first_pass_numbers": {
+    "source": "crossfit_risk_cap_table.csv written 09:56 local (overwritten since)",
+    "length_rule_pooled_retention": 0.017208,
+    "length_rule_pooled_false_admit": 0.09375,
+    "length_rule_folds_admitting_nothing": 4,
+    "fold4_threshold": 73.009935,
+    "fold4_test_retention": 0.103848,
+    "fold4_test_n_admitted": 224
+  }
+}

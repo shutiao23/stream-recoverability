@@ -17,6 +17,7 @@ and superscript exponents that a Latin-1 font silently drops.
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 import re
 import shutil
 import subprocess
@@ -138,7 +139,7 @@ def main() -> int:
         "-V", "linkcolor=black",
         "-V", "urlcolor=[HTML]{1C5CAB}",
         "-V", f"title={title}",
-        "-V", "date=Draft of 2026-09-24",
+        "-V", f"date=Draft of {datetime.fromtimestamp(args.source.stat().st_mtime):%Y-%m-%d}",
         "--toc", "--toc-depth=2",
         "-H", str(preamble),
         "--resource-path", f"{ROOT}:{args.source.parent}",

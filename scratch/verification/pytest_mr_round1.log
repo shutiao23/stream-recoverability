@@ -1,0 +1,86 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 19%]
+........................................................................ [ 25%]
+........................................................................ [ 31%]
+........................................................................ [ 38%]
+........................................................................ [ 44%]
+........................................................................ [ 50%]
+.........................................../home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f1e7ea0cfe0>
+
+Traceback (most recent call last):
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+             ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'split'
+
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+............................. [ 57%]
+........................................................................ [ 63%]
+........................................................................ [ 69%]
+........................................................................ [ 76%]
+........................................................................ [ 82%]
+........................................................................ [ 88%]
+........................................................................ [ 95%]
+.......................................F.F..F.........                   [100%]
+=================================== FAILURES ===================================
+_____________________ test_figures_are_placed_in_the_text ______________________
+
+>   ???
+E   AssertionError: 8
+E   assert 8 == 7
+E    +  where 8 = <built-in method count of str object at 0xe1891f0>('\\begin{figure}')
+E    +    where <built-in method count of str object at 0xe1891f0> = '%% Supporting Information for the Water Resources Research submission.\n%% Built by scripts/223_wrr_build.py alongsid...\texttt{figures/v17/drawio/f2\\_experiment\\_design.drawio}.}\n\\label{fig:design}\n\\end{figure}\n\n\\end{document}\n'.count
+
+tests/test_wrr_submission.py:171: AssertionError
+__________________ test_title_and_abstract_state_the_finding ___________________
+
+    
+    def test_title_and_abstract_state_the_finding():
+        """The title names a finding, not a study object, and the abstract carries
+        the prevailing assumption, the gap and a number."""
+    
+        import re  # noqa: PLC0415
+    
+        text = MANUSCRIPT.read_text(encoding="utf-8")
+        title = re.search(r"\\title\{(.*?)\}", text, re.S).group(1)
+        lowered = " ".join(title.lower().split())
+        for vague in ("a study of", "analysis of", "assessment of", "research on",
+                      "investigation of", "towards ", "toward "):
+>           assert vague not in lowered, (vague, title)
+E           AssertionError: Hidden support share as a conditional risk screen for annual thermal
+E             extremes in incomplete river-temperature records
+E           assert ('not' in 'hidden support share as a conditional risk screen for annual thermal extremes in incomplete river-temperature records' or ',' in 'hidden support share as a conditional risk screen for annual thermal extremes in incomplete river-temperature records')
+
+tests/test_wrr_submission.py:200: AssertionError
+_________________ test_claim_registry_blocks_pending_headlines _________________
+
+    def test_claim_registry_blocks_pending_headlines():
+        path = ROOT / "results" / "wrr_submission_ready" / "claim_registry.csv"
+        assert path.is_file()
+        frame = pd.read_csv(path)
+        blocked = frame.loc[frame["may_enter_abstract_or_conclusions"].astype(str).str.lower().eq("false")]
+        assert not blocked.empty
+        assert "A4" in set(frame["claim_id"])
+        assert frame.loc[frame["claim_id"] == "A4", "status"].iloc[0] in {
+            "invalid_pending_recompute",
+            "recomputed_exploratory_not_for_headline",
+        }
+>       assert not bool(frame.loc[frame["claim_id"] == "A4", "may_enter_abstract_or_conclusions"].iloc[0])
+E       AssertionError: assert not True
+E        +  where True = bool('False')
+
+tests/test_wrr_submission_ready_p0.py:122: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_wrr_submission.py::test_figures_are_placed_in_the_text - As...
+FAILED tests/test_wrr_submission.py::test_title_and_abstract_state_the_finding
+FAILED tests/test_wrr_submission_ready_p0.py::test_claim_registry_blocks_pending_headlines
+EXIT=1

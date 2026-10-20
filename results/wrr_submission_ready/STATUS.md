@@ -55,3 +55,25 @@ count are quantified (P0-05), the coverage and measurement contract exists with
 an independent recompute of thirty headline values (P0-06), and the manuscript,
 SI, figures and PDFs carry one version of the claims (P0-07). Finding-by-finding
 closure: `docs/reviews/wrr_major_revision_finding_closure.md`.
+
+## Aligned-policy round (2026-10-20)
+
+The review of 2026-10-19 found that the admitted object (the stored policy
+reconstruction) and the calibrated failure event (the certificate error)
+differed, and that the tie rule changed between calibration and deployment. Both
+are repaired in `major_revision_20261020/`, and every downstream number is
+re-derived. Point-by-point response: `paper/wrr/RESPONSE_TO_REVIEW.md`; round
+summary: `major_revision_20261020/README.md`.
+
+Headline after the repair: at a 5 % cap on the admitted reconstruction's error,
+the fitted risk score keeps 74.0 % of the external panel against 66.7 % for the
+peak-window rule (+7.0 to +8.3 points; the pre-specified five-point margin is met
+at every fold seed), 72.9 % for the certificate bound (no advantage over it) and
+39.6 % for the gap-length rule. On the 418 real calendars, admitting every
+reconstruction already sits under the cap (2.6–4.1 %), so screening has little
+decision value there and refuses 25–60 % of true hot years. The paper is written
+as a method study with that regime boundary.
+
+Verification on this tree: `python -m pytest tests/` exit 0;
+`python scripts/223_wrr_build.py` green except the author placeholder. Not
+submission-ready: `metadata/submission_author_metadata.json` is a human gate.

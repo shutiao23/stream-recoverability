@@ -1,0 +1,227 @@
+== phase 1: network selection
+{
+  "n_loadable_multi_station_development_networks": 91,
+  "n_selected": 16,
+  "selected": [
+    "chmi_morava",
+    "chmi_vltava",
+    "gkd_bayern_iller",
+    "huc8_02040202",
+    "huc8_03110206",
+    "nve_basin_26",
+    "nve_basin_88",
+    "usgs2_huc2_08",
+    "usgs2_huc2_15",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1901",
+    "usgs2_huc6_020502",
+    "usgs2_huc6_070900",
+    "usgs2_huc6_071300",
+    "usgs2_huc6_120301",
+    "usgs2_huc6_180400"
+  ]
+}
+== phase 2: case construction
+27 station jobs
+[Parallel(n_jobs=24)]: Using backend LokyBackend with 24 concurrent workers.
+[Parallel(n_jobs=24)]: Done   4 out of  27 | elapsed:    2.9s remaining:   16.9s
+[Parallel(n_jobs=24)]: Done  10 out of  27 | elapsed:    3.3s remaining:    5.6s
+[Parallel(n_jobs=24)]: Done  16 out of  27 | elapsed:    3.5s remaining:    2.4s
+[Parallel(n_jobs=24)]: Done  22 out of  27 | elapsed:    3.6s remaining:    0.8s
+[Parallel(n_jobs=24)]: Done  27 out of  27 | elapsed:    3.8s finished
+418 candidate groups from 14 networks
+== phase 3: assertions + policy backend
+{
+  "status": "pass",
+  "n_groups_checked": 418,
+  "n_cross_year_groups_checked": 22,
+  "n_cross_year_pairs_checked": 18,
+  "checks": [
+    "masked_days == declared_gap_days for every case",
+    "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+    "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+  ]
+}
+== phase 4: nested cross-fitted certificate + thresholds
+{
+  "path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json",
+  "exists": true,
+  "used": true,
+  "sha256": "c7033a61d7ba5ae799c43c9a7f67116b7ca0f8e504eda15727fc7bd921311c20",
+  "schema_version": 1,
+  "generated_by": "scripts/311_wrr_p0_02_frozen_risk_thresholds.py",
+  "assignments_path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/fold_assignments.csv",
+  "n_assignment_networks": {
+    "101": 110,
+    "202": 110,
+    "303": 110
+  },
+  "records": [
+    "calibrated_bound|seed101",
+    "calibrated_bound|seed202",
+    "calibrated_bound|seed303",
+    "fitted_risk_certtarget|seed101",
+    "fitted_risk_certtarget|seed202",
+    "fitted_risk_certtarget|seed303",
+    "fitted_risk|seed101",
+    "fitted_risk|seed202",
+    "fitted_risk|seed303",
+    "length_rule|seed101",
+    "length_rule|seed202",
+    "length_rule|seed303",
+    "peak_overlap_rule|seed101",
+    "peak_overlap_rule|seed202",
+    "peak_overlap_rule|seed303",
+    "uncalibrated_bound|seed101",
+    "uncalibrated_bound|seed202",
+    "uncalibrated_bound|seed303"
+  ]
+}
+   checking whether the p0_02 score units are reproducible here
+{
+  "path": "results/v17_fitness/step6_screen/development_certificates.parquet",
+  "exists": true,
+  "probe_fold": 0,
+  "n_cases_compared": 5120,
+  "max_abs_bound_difference_c": 1.2031796926834244,
+  "median_abs_bound_difference_c": 0.015242413958218931,
+  "choice_agreement": 0.7912109375,
+  "reproduced": false
+}
+fitting 14 nested folds on up to 8 workers
+[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Done   2 out of  14 | elapsed:   15.4s remaining:  1.5min
+[Parallel(n_jobs=8)]: Done   5 out of  14 | elapsed:   16.8s remaining:   30.2s
+[Parallel(n_jobs=8)]: Done   8 out of  14 | elapsed:   21.2s remaining:   15.9s
+[Parallel(n_jobs=8)]: Done  11 out of  14 | elapsed:   32.6s remaining:    8.9s
+[Parallel(n_jobs=8)]: Done  14 out of  14 | elapsed:   34.4s remaining:    0.0s
+[Parallel(n_jobs=8)]: Done  14 out of  14 | elapsed:   34.4s finished
+{
+  "literal_final_threshold": {
+    "score": "calibrated_bound",
+    "fold_seed": 101,
+    "available": true,
+    "threshold_units": "score units; lower score = safer",
+    "n_networks_mapped": 14,
+    "networks_without_fold": [],
+    "fold_thresholds": {
+      "0": 0.6639349954958699,
+      "1": 0.6548684764689496,
+      "2": 0.6539904013556187,
+      "3": 0.6585668603555126,
+      "4": 0.7066010821191225
+    },
+    "pooled_eval_development": {
+      "label": "cross-fitted, selection honest",
+      "retention": 0.7594585298742138,
+      "retention_ci95_low": 0.7301907017008329,
+      "retention_ci95_high": 0.784270677944033,
+      "n_admitted": 30913,
+      "n_cases": 40704,
+      "n_networks": 110,
+      "false_admit_rate": 0.04150357454792482,
+      "false_admit_ci95_low": 0.03423639775876938,
+      "false_admit_ci95_high": 0.049914734367566785,
+      "false_admit_rate_network_equal": 0.04496584997313956,
+      "n_false_admitted": 1283,
+      "n_folds_admitting_nothing": 0,
+      "bootstrap_draws": 2000
+    }
+  },
+  "simple_rules": {
+    "length_rule": {
+      "score": "length_rule",
+      "fold_seed": 101,
+      "available": true,
+      "threshold_units": "score units; lower score = safer",
+      "n_networks_mapped": 14,
+      "networks_without_fold": [],
+      "fold_thresholds": {
+        "0": 30.87809571665732,
+        "1": 30.560995989441253,
+        "2": 30.51846681073136,
+        "3": 30.858153810778685,
+        "4": 30.82699631661753
+      },
+      "pooled_eval_development": {
+        "label": "cross-fitted, selection honest",
+        "retention": 0.3881191037735849,
+        "retention_ci95_low": 0.35431768160060245,
+        "retention_ci95_high": 0.4199732768320265,
+        "n_admitted": 15798,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "false_admit_rate": 0.040827952905431064,
+        "false_admit_ci95_low": 0.033347528343227135,
+        "false_admit_ci95_high": 0.05097555978127484,
+        "false_admit_rate_network_equal": 0.04967991298673885,
+        "n_false_admitted": 645,
+        "n_folds_admitting_nothing": 0,
+        "bootstrap_draws": 2000
+      },
+      "path": "consumed_p0_02_frozen_per_fold_threshold"
+    },
+    "peak_window_rule": {
+      "score": "peak_overlap_rule",
+      "fold_seed": 101,
+      "available": true,
+      "threshold_units": "score units; lower score = safer",
+      "n_networks_mapped": 14,
+      "networks_without_fold": [],
+      "fold_thresholds": {
+        "0": 0.5006144682598739,
+        "1": 0.500734552138818,
+        "2": 0.5001706866859715,
+        "3": 0.4674299640898077,
+        "4": 0.5007172127221903
+      },
+      "pooled_eval_development": {
+        "label": "cross-fitted, selection honest",
+        "retention": 0.6574783805031447,
+        "retention_ci95_low": 0.6405710728352734,
+        "retention_ci95_high": 0.6741125304825833,
+        "n_admitted": 26762,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "false_admit_rate": 0.04229878185486884,
+        "false_admit_ci95_low": 0.03574971890469172,
+        "false_admit_ci95_high": 0.04941810312946164,
+        "false_admit_rate_network_equal": 0.04439483322626548,
+        "n_false_admitted": 1132,
+        "n_folds_admitting_nothing": 0,
+        "bootstrap_draws": 2000
+      },
+      "path": "consumed_p0_02_frozen_per_fold_threshold"
+    }
+  }
+}
+== phase 5: certificate application and method decisions
+== phase 6: tables
+== phase 7: network-clustered contrasts
+wrote /home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261014/p0_03_final_method_replay (185.9 s)
+                     method  n_decided  usable_share  consequential_error_rate_among_available  consequential_error_rate_over_all_candidates
+                 final_rule        395      0.944976                                  0.005063                                      0.059809
+              final_rule_fb        395      0.944976                                  0.005063                                      0.059809
+      final_rule_point_risk        401      0.959330                                  0.009975                                      0.050239
+final_rule_literal_p002_tau        396      0.947368                                  0.005051                                      0.057416
+           peak_window_rule        394      0.942584                                  0.010152                                      0.066986
+                length_rule        325      0.777512                                  0.000000                                      0.222488
+     peak_window_rule_pub10        334      0.799043                                  0.000000                                      0.200957
+          length_rule_pub49        382      0.913876                                  0.010471                                      0.095694
+         length_rule_pub140        409      0.978469                                  0.024450                                      0.045455
+           donor_ridge_path          0      0.000000                                       NaN                                      1.000000
+         observed_days_path        412      0.985646                                  0.072816                                      0.086124
+           frozen_cert_rule        403      0.964115                                  0.019851                                      0.055024
+{
+  "threshold_paths": {
+    "final_rule": "computed_equivalent_p0_02_rule",
+    "final_rule_point_risk": "computed_point_risk_crossfit",
+    "final_rule_literal_p002_tau": "literal_p0_02_tau_units_unverified"
+  },
+  "simple": {
+    "length_rule": "consumed_p0_02_frozen_per_fold_threshold",
+    "peak_window_rule": "consumed_p0_02_frozen_per_fold_threshold"
+  },
+  "literal_available": true
+}
+exit=0

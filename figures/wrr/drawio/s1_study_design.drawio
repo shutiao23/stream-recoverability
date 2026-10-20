@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="s1_study_design" name="Page-1">
+    <mxGraphModel dx="528" dy="176" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="528" pageHeight="176" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="page" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="528" height="176" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#faf9f6;strokeColor=#e6e3dc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="6" y="4" width="516" height="82" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#faf9f6;strokeColor=#e6e3dc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="6" y="94" width="516" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="t1" value="reference truth and designed outages" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=9;fontStyle=1;fontColor=#111111;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="14" y="6" width="330" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="real gap calendars and what they can carry" style="text;html=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=9;fontStyle=1;fontColor=#111111;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="14" y="96" width="330" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="truth" value="Complete reference&#10;5,114 station-years&#10;146 networks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="16" y="24" width="112" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="designed" value="Designed outages&#10;53,721 cases" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="144" y="24" width="100" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="dev" value="Development&#10;40,704 / 110 groups" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="260" y="20" width="116" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext" value="External&#10;13,017 / 41 groups" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="260" y="50" width="116" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="compare" value="Admission comparison&#10;5% cap, group cross-fit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="392" y="20" width="118" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="archive" value="Real archive&#10;2,422 incomplete years" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="16" y="112" width="112" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="calendar" value="Real calendars&#10;418 / 14 networks" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="144" y="112" width="100" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="probe" value="Deployment probe&#10;what screening does&#10;on real calendars" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eef2f7;strokeColor=#7f8ea3;strokeWidth=1;fontFamily=Helvetica;fontSize=9;fontStyle=0;fontColor=#111111;verticalAlign=middle;align=center;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="392" y="108" width="118" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="truth" target="designed">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="designed" target="dev">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="252" y="44"/>
+              <mxPoint x="252" y="32"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="designed" target="ext">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="252" y="54"/>
+              <mxPoint x="252" y="62"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="dev" target="compare">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="384" y="32"/>
+              <mxPoint x="384" y="33"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ext" target="compare">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="384" y="62"/>
+              <mxPoint x="384" y="60"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;" edge="1" parent="1" source="archive" target="calendar">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#111111;strokeWidth=1;endArrow=block;endFill=1;endSize=4;fontFamily=Helvetica;fontSize=9;fontColor=#111111;labelBackgroundColor=#fcfcfb;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="calendar" target="probe">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

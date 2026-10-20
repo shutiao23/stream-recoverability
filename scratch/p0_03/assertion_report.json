@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "n_groups_checked": 418,
+  "n_cross_year_groups_checked": 22,
+  "n_cross_year_pairs_checked": 18,
+  "checks": [
+    "masked_days == declared_gap_days for every case",
+    "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+    "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+  ]
+}

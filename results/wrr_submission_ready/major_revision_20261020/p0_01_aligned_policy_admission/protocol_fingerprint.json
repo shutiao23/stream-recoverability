@@ -1,0 +1,35 @@
+{
+  "script": "330_wrr_aligned_policy_admission.py",
+  "script_sha256": "72995f023703e26a13339774dce4ed83a4a466740f77c9d8bee59fa872f6e0bd",
+  "git_head": "bfc797ef43c28d6346ce68ce51846e20fb2b2e77",
+  "python": "3.11.7",
+  "numpy": "1.26.4",
+  "pandas": "2.1.4",
+  "protocol": {
+    "admitted_object": "stored policy reconstruction",
+    "failure_event": "abserr_policy > 0.5 C; missing policy error counts as failure",
+    "fold_unit": "connected component of networks sharing a station_id",
+    "fold_seeds": [
+      101,
+      202,
+      303
+    ],
+    "n_splits": 5,
+    "retention_grid": [
+      0.1,
+      0.95,
+      0.01
+    ],
+    "tie_rule": "no jitter; threshold is an observed score; score <= threshold admits whole tie blocks",
+    "selection_rule": "largest snapped threshold whose independence-group clustered bootstrap percentile at 1 - 0.05/n_candidates is <= 0.05",
+    "select_draws": 1000,
+    "eval_draws": 2000,
+    "fixed_retention": 0.7,
+    "fixed_retention_tiebreak": "stable case key (network|station|year|realization)"
+  },
+  "inputs": {
+    "wave2_confirmation": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9",
+    "development": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8"
+  },
+  "elapsed_seconds": 30.0
+}

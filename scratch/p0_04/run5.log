@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1920, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1158, in main
+    write_summary(decomp, counts, compare, sensitivity, cross, fingerprint)
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1770, in write_summary
+    max_cov_abs = frontiers.loc[frontiers.rule_family.eq("interval_abstention")].groupby(
+                  ^^^^^^^^^
+NameError: name 'frontiers' is not defined

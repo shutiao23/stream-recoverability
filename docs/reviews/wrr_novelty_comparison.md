@@ -11,7 +11,7 @@ running** (it grew from 1388 to 1450 lines between my first and second read), so
 every line number below refers to this revision only; re-check before applying.
 
 Nothing was edited. Writes were limited to
-`docs/reviews/wrr_novelty_comparison.md`, `paper/wrr/references_additions.bib`,
+`docs/reviews/wrr_novelty_comparison.md`, `paper/wrr/references.bib` (the entries formerly in `references_additions.bib` were merged there on 2026-10-20),
 and `scratch/novelty_check/`.
 
 Verification method: every work below was resolved through the Crossref REST API

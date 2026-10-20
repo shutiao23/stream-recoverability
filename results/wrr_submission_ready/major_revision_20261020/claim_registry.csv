@@ -1,0 +1,26 @@
+claim_id,claim,value,artifact,selector
+C01,the two failure definitions disagree on 6.90% of external cases (898 of 13017),6.90,p0_01_aligned_policy_admission/event_crosstab.csv,"disagreement_rate, wave2_confirmation"
+C02,"external retention at the 5% cap, fitted risk score",0.740 (0.736-0.745),p0_01_aligned_policy_admission/crossfit_table.csv,"row_type=riskcap, panel=wave2_confirmation, score=fitted_risk, retention"
+C03,"external retention at the 5% cap, peak-window rule",0.667,same,score=peak_overlap_rule
+C04,"external retention at the 5% cap, certificate bound",0.729,same,score=calibrated_bound
+C05,"external retention at the 5% cap, gap-length rule",0.396,same,score=length_rule
+C06,external retention of reconstruct_all and its realised risk,1.000 at 0.153,same,score=reconstruct_all
+C07,"fitted minus peak-window retention, external, three fold seeds","+8.0, +7.3, +7.0 pp",p0_01_aligned_policy_admission/contrasts.csv,"metric=retention, left=fitted_risk, right=peak_overlap_rule"
+C08,"fitted minus certificate bound, external","+1.6 [+0.2,+3.1] pp seed 101; +1.1 and +0.6 crossing zero",same,right=calibrated_bound
+C09,"development retention, fitted and peak-window",0.704 and 0.604,crossfit_table.csv,panel=development
+C10,"fitted minus peak-window retention, development","+10.3, +10.1, +9.7 pp",contrasts.csv,panel=development
+C11,"false-admit rate at fixed 70% retention, external","fitted 0.022, peak 0.037, bound 0.028, length 0.083",crossfit_table.csv,row_type=fixed70
+C12,real-calendar realised risk when everything is admitted,2.6-4.1%,p0_03_real_calendar_adoption/replay_admission.csv,"arm=reconstruct_all, risk_among_admitted"
+C13,real-calendar coverage and risk of the screens,93.5-96.4% at 0.5-1.7%,same,arms fitted/certificate/peak
+C14,fitted minus peak-window retention on real calendars,+0.2 to +2.4 pp; 2 of 9 intervals exclude zero,p0_03_real_calendar_adoption/replay_contrasts.csv,fitted_risk - peak_overlap_rule
+C15,"true hot years refused at 20 C, external, seed 101","fitted 24.5%, bound 26.2%, peak 33.2%, length 59.5%, all 0%",p0_04_hot_year_closure/hot_year_designed.csv,"weighting=case, hot_c=20, fold_seed=101"
+C16,fitted-score total deviation of the admitted hot-year share,"+0.7 pp [-0.3,+1.6]",same,"arm=fitted_risk, total_bias"
+C17,unique-station-year total deviation of the fitted score,"+0.9 pp [0.0,1.8]",same,weighting=station_year
+C18,selector population-risk violation versus finite-batch exceedance,0.4% versus 7.8% (baseline); 2.4% versus 12.2% (twelve groups),p0_02_selection_calibration/selection_calibration.json,"true_risk_exceedance_rate, batch_exceedance_rate"
+C19,threshold stability at ten times the bootstrap draws,42 of 150 cells change; retention moves at most 3.9 pp (1.0 pp fitted),p0_01_aligned_policy_admission/threshold_stability.csv,"changed, retention_10x"
+C20,"the object repair versus the tie repair, external","2.7 pp -> 7.2 pp; about 4.5 from the object, 1.3 from the tie",p0_05_repair_attribution/repair_attribution.csv,fitted_minus_peak by event and tie
+C21,"position effect at a fixed 30-day gap, five reconstructors",0.24 to 0.64 C,results/wrr_submission_ready/major_revision_20261014/p1_mechanism_boundary/crossed_effects.csv,"full_minus_none_at_fixed_length, length=30"
+C22,"length effect at full hidden support, linear interpolation","1.16 C [1.00,1.33]",same,"long_minus_short_at_fixed_hidden_share, network_paired_subsets"
+C23,"misaligned minus aligned error, five reconstructors",0.28 to 0.70 C,p1_mechanism_boundary/misalignment_table.csv,"condition_contrast, misaligned_minus_aligned"
+C24,documented-daily-mean subset advantage of fitted over peak,+8.0/+7.3/+7.3 external; +8.8/+8.7/+10.4 development,major_revision_20261020/p1_measurement_subset/subset_contrasts.csv,"left=fitted_risk, right=peak_overlap_rule"
+C25,panel counts,5114 station-years / 146 networks / 457 stations; 40704 and 13017 designed cases; 2422 real; 418 replay groups,major_revision_20261019/p0_02_isolated_risk_thresholds/eligibility_counts.csv and wave2 ingest,"n_cases, n_network_labels, n_unique_stations, n_station_years"

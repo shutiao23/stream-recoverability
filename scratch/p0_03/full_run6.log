@@ -1,0 +1,188 @@
+== phase 1: network selection
+{
+  "n_loadable_multi_station_development_networks": 91,
+  "n_selected": 16,
+  "selected": [
+    "chmi_morava",
+    "chmi_vltava",
+    "gkd_bayern_iller",
+    "huc8_02040202",
+    "huc8_03110206",
+    "nve_basin_26",
+    "nve_basin_88",
+    "usgs2_huc2_08",
+    "usgs2_huc2_15",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1901",
+    "usgs2_huc6_020502",
+    "usgs2_huc6_070900",
+    "usgs2_huc6_071300",
+    "usgs2_huc6_120301",
+    "usgs2_huc6_180400"
+  ]
+}
+== phase 2: case construction
+27 station jobs
+[Parallel(n_jobs=24)]: Using backend LokyBackend with 24 concurrent workers.
+[Parallel(n_jobs=24)]: Done   4 out of  27 | elapsed:    3.0s remaining:   17.3s
+[Parallel(n_jobs=24)]: Done  10 out of  27 | elapsed:    3.4s remaining:    5.8s
+[Parallel(n_jobs=24)]: Done  16 out of  27 | elapsed:    3.6s remaining:    2.5s
+[Parallel(n_jobs=24)]: Done  22 out of  27 | elapsed:    3.8s remaining:    0.9s
+[Parallel(n_jobs=24)]: Done  27 out of  27 | elapsed:    4.2s finished
+418 candidate groups from 14 networks
+== phase 3: assertions + policy backend
+{
+  "status": "pass",
+  "n_groups_checked": 418,
+  "n_cross_year_groups_checked": 22,
+  "n_cross_year_pairs_checked": 18,
+  "checks": [
+    "masked_days == declared_gap_days for every case",
+    "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+    "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+  ]
+}
+== phase 4: nested cross-fitted certificate + thresholds
+{
+  "path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json",
+  "exists": true,
+  "used": false,
+  "error": "no per-fold thresholds recognised",
+  "top_level_keys": [
+    "generated_by",
+    "generated_utc",
+    "protocol",
+    "records",
+    "retrospective_not_deployable",
+    "schema_note",
+    "schema_version"
+  ]
+}
+fitting 14 nested folds on up to 8 workers
+[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Done   2 out of  14 | elapsed:   19.8s remaining:  2.0min
+[Parallel(n_jobs=8)]: Done   5 out of  14 | elapsed:   21.5s remaining:   38.7s
+[Parallel(n_jobs=8)]: Done   8 out of  14 | elapsed:   23.2s remaining:   17.4s
+[Parallel(n_jobs=8)]: Done  11 out of  14 | elapsed:   34.7s remaining:    9.5s
+[Parallel(n_jobs=8)]: Done  14 out of  14 | elapsed:   35.7s remaining:    0.0s
+[Parallel(n_jobs=8)]: Done  14 out of  14 | elapsed:   35.7s finished
+== phase 5: certificate application and method decisions
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1135: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abstain_reason__{sfx}__final_rule"] = reason
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1136: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__final_rule"] = np.where(ok, chosen_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1137: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__final_rule"] = np.where(ok, chosen_abserr, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1138: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__final_rule"] = np.where(ok, choice, "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1139: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"threshold__{sfx}__final_rule"] = tau
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1140: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr_certificate_backend__{sfx}"] = np.where(ok, chosen_abserr, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1146: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__final_rule_fb"] = mode_fb
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1147: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__final_rule_fb"] = ok | fb_ok
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1148: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__final_rule_fb"] = np.where(ok, chosen_metric, np.where(fb_ok, obs_metric_all, np.nan))
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1149: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__final_rule_fb"] = np.where(ok, chosen_abserr, np.where(fb_ok, obs_abserr_all, np.nan))
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1150: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__final_rule_fb"] = np.where(ok, choice, np.where(fb_ok, "observed_days", "none"))
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1162: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"score__{sfx}__{method}"] = score
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1163: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__{method}"] = decide
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1164: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__{method}"] = np.where(decide, "ok", "abstain")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1165: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__{method}"] = np.where(decide, policy_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1166: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__{method}"] = np.where(decide, policy_err, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1167: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__{method}"] = np.where(decide, out[f"policy_choice__{sfx}"].astype(str), "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1162: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"score__{sfx}__{method}"] = score
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1163: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__{method}"] = decide
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1164: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__{method}"] = np.where(decide, "ok", "abstain")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1165: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__{method}"] = np.where(decide, policy_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1166: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__{method}"] = np.where(decide, policy_err, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1167: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__{method}"] = np.where(decide, out[f"policy_choice__{sfx}"].astype(str), "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1162: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"score__{sfx}__{method}"] = score
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1163: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__{method}"] = decide
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1164: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__{method}"] = np.where(decide, "ok", "abstain")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1165: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__{method}"] = np.where(decide, policy_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1166: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__{method}"] = np.where(decide, policy_err, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1167: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__{method}"] = np.where(decide, out[f"policy_choice__{sfx}"].astype(str), "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1173: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__donor_ridge_path"] = donor_avail
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1174: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__donor_ridge_path"] = np.where(donor_avail, "ok", "degenerate_donor")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1175: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__donor_ridge_path"] = np.where(donor_avail, donor_err, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1176: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__donor_ridge_path"] = np.where(donor_avail, donor_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1177: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__donor_ridge_path"] = np.where(donor_avail, "donor_ridge", "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1179: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__observed_days_path"] = obs_avail_all
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1180: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__observed_days_path"] = np.where(obs_avail_all, "observed_window_only", "abstain")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1181: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__observed_days_path"] = np.where(obs_avail_all, obs_abserr_all, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1182: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__observed_days_path"] = np.where(obs_avail_all, obs_metric_all, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1183: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__observed_days_path"] = np.where(obs_avail_all, "observed_days", "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1198: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"mode__{sfx}__frozen_cert_rule"] = np.select([f_ok, f_degen], ["ok", "degenerate_donor"], default="abstain")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1199: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"decision__{sfx}__frozen_cert_rule"] = f_ok
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1200: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"abserr__{sfx}__frozen_cert_rule"] = np.where(f_ok, f_abserr, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1201: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"metric__{sfx}__frozen_cert_rule"] = np.where(f_ok, f_metric, np.nan)
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1202: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"source__{sfx}__frozen_cert_rule"] = np.where(f_ok, f_choice, "none")
+/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py:1203: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out[f"threshold__{sfx}__frozen_cert_rule"] = f_tau
+== phase 6: tables
+== phase 7: network-clustered contrasts
+Traceback (most recent call last):
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3791, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "index.pyx", line 152, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 181, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: ('cofail_level', 'method', 'n_candidates', 'n_groups', 'n_networks', 'n_decided', 'decided_share', 'usable_share', 'strict_ok_share', 'consequential_error_rate_among_available', 'mean_abserr_among_available', 'consequential_error_rate_over_all_candidates', 'share_mode_degenerate_donor', 'share_mode_observed_window_only', 'share_mode_abstain')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 2251, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 2230, in main
+    write_summary(
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 1741, in write_summary
+    method_error[METHOD_ERROR_COLUMNS].to_string(index=False),
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/frame.py", line 3893, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3798, in get_loc
+    raise KeyError(key) from err
+KeyError: ('cofail_level', 'method', 'n_candidates', 'n_groups', 'n_networks', 'n_decided', 'decided_share', 'usable_share', 'strict_ok_share', 'consequential_error_rate_among_available', 'mean_abserr_among_available', 'consequential_error_rate_over_all_candidates', 'share_mode_degenerate_donor', 'share_mode_observed_window_only', 'share_mode_abstain')

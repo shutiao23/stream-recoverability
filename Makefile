@@ -274,6 +274,32 @@ wrr-schematics:
 	   figures/v17/f2_experiment_design.pdf figures/v17/f3_evidence_chain.pdf \
 	   figures/v17/f4_deployment_workflow.pdf paper/wrr/figures/
 
+# 2026-10-20 aligned-policy round: one object, one failure event, one tie rule.
+# Order matters: 331 and 334 read 330's thresholds and calibration scores, and
+# 333 reads 331's replay detail.
+wrr-round-20261020:
+	PYTHONPATH=src $(PYTHON) scripts/330_wrr_aligned_policy_admission.py
+	PYTHONPATH=src $(PYTHON) scripts/332_wrr_selection_calibration_v2.py
+	PYTHONPATH=src $(PYTHON) scripts/331_wrr_aligned_real_calendar.py
+	PYTHONPATH=src $(PYTHON) scripts/333_wrr_aligned_hot_year_closure.py
+	PYTHONPATH=src $(PYTHON) scripts/334_wrr_repair_attribution.py
+	PYTHONPATH=src $(PYTHON) scripts/336_wrr_measurement_subset.py
+	PYTHONPATH=src $(PYTHON) scripts/335_wrr_figures_v2.py
+	$(PYTHON) scripts/223_wrr_build.py
+
+wrr-figures-20261020:
+	PYTHONPATH=src $(PYTHON) scripts/335_wrr_figures_v2.py
+
+# Architecture and system-design figures are draw.io sources.  Point DRAWIO_BIN
+# at the draw.io desktop executable; without it the script falls back to the
+# repository's XML renderer and says so.
+wrr-schematics-20261020:
+	$(PYTHON) scripts/337_wrr_drawio_figures.py
+
+# Field-by-field check of references.bib against the publisher deposits.
+wrr-reference-audit:
+	$(PYTHON) scripts/338_wrr_reference_audit.py
+
 wrr-check:
 	$(PYTHON) scripts/223_wrr_build.py --skip-build
 

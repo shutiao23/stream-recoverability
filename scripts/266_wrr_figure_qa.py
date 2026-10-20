@@ -127,6 +127,10 @@ SCHEMATIC_FIGURES = {
     "f2_experiment_design": "study design and data flow (drawio README)",
     "f3_evidence_chain": "evidence chain (drawio README)",
     "f4_deployment_workflow": "deployment workflow (drawio README)",
+    # 2026-10-20: the paper's schematics moved to figures/wrr/drawio/ and are
+    # exported with the draw.io desktop app, not drawn in matplotlib.
+    "f2_system_design": "system design and admission workflow (drawio, 2026-10-20)",
+    "s1_study_design": "study design and evidence chain (drawio, 2026-10-20)",
 }
 
 #: Warnings that are defects in the artifact rather than artifacts of Poppler's
@@ -1697,7 +1701,11 @@ def analyse_file(
 
     # (f) provenance ------------------------------------------------------
     if target.kind == "figure":
-        drawio_expected = ROOT / "figures" / "v17" / "drawio" / f"{target.stem}.drawio"
+        drawio_candidates = [
+            ROOT / "figures" / "v17" / "drawio" / f"{target.stem}.drawio",
+            ROOT / "figures" / "wrr" / "drawio" / f"{target.stem}.drawio",
+        ]
+        drawio_expected = next((c for c in drawio_candidates if c.exists()), drawio_candidates[0])
         drawio_repo = sorted(
             str(p.relative_to(ROOT)) for p in (ROOT / "figures").rglob(f"{target.stem}.drawio")
         )
@@ -1729,7 +1737,7 @@ def analyse_file(
             "schematic_list_is_explicit": True,
             "upstream_pdf_candidates": upstream,
         }
-        if schematic and not drawio_expected.exists():
+        if schematic and not drawio_repo:
             hard.append(
                 Item(
                     "SCHEMATIC_WITHOUT_DRAWIO_SOURCE",
@@ -1745,10 +1753,10 @@ def analyse_file(
                     locator={"drawio_sources_in_repo": drawio_repo},
                 )
             )
-        if not drawio_expected.exists() and generators:
-            record["provenance"]["kind"] = "python"
-        elif drawio_expected.exists():
+        if drawio_repo:
             record["provenance"]["kind"] = "drawio" if not generators else "drawio+python"
+        elif generators:
+            record["provenance"]["kind"] = "python"
         else:
             record["provenance"]["kind"] = "unknown"
 

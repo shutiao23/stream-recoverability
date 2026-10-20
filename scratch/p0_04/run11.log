@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 2016, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1158, in main
+    write_summary(decomp, counts, compare, sensitivity, cross, fingerprint)
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1917, in write_summary
+    for n, P in panels.items()
+                ^^^^^^
+NameError: name 'panels' is not defined. Did you mean: 'panel'?

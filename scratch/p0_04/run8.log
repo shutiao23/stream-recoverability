@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1982, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1158, in main
+    write_summary(decomp, counts, compare, sensitivity, cross, fingerprint)
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/313_wrr_p0_04_env_closed_loop.py", line 1625, in write_summary
+    f"{worst.abs_diff:.3f} pp ({worst.name[2]} @ {float(worst.name[1]):.1f} C; per-case "
+                                ~~~~~~~~~~^^^
+IndexError: tuple index out of range

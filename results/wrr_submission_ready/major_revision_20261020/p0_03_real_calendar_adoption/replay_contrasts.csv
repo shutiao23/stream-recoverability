@@ -1,0 +1,109 @@
+level,seed,contrast,left,right,point,ci_low,ci_high,ci_excludes_zero,n_networks
+target_only,101,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.011961722488038277,-0.0027476322020520915,0.02912621359223301,False,14
+target_only,101,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.18660287081339713,0.11458134541984732,0.2875024736147757,True,14
+target_only,101,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.05263157894736842,-0.11676938331129948,-0.015236889692585891,True,14
+target_only,101,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.01674641148325359,-0.05128205128205128,0.006864988558352402,False,14
+target_only,101,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.028708133971291867,0.0,0.07317073170731707,False,14
+target_only,101,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.0645933014354067,-0.1359523035183965,-0.023032629558541268,True,14
+target_only,101,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.3557692307692308,-0.15853491936558708,True,14
+target_only,101,risk_among_admitted fitted_risk,fitted_risk,none,0.007575757575757576,0.0,0.024850842627841246,False,14
+target_only,101,risk_among_admitted calibrated_bound,calibrated_bound,none,0.017369727047146403,0.0,0.051371824997202685,False,14
+target_only,101,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.0076726342710997444,0.0,0.021786789193424874,False,14
+target_only,101,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+target_only,101,risk_among_admitted reconstruct_all,reconstruct_all,none,0.028708133971291867,0.00257036535414434,0.07868852459016394,False,14
+target_only,202,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.0215311004784689,0.004423091753909037,0.04714069832180069,True,14
+target_only,202,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.18899521531100477,0.11913229807401433,0.2785947790971588,True,14
+target_only,202,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.050239234449760764,-0.11363636363636363,-0.014732287942801427,True,14
+target_only,202,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.011961722488038277,-0.04030481133755693,0.0030871408791969565,False,14
+target_only,202,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.03349282296650718,0.0,0.08433734939759036,False,14
+target_only,202,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.07177033492822966,-0.14714470098953106,-0.027210884353741496,True,14
+target_only,202,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.355642414268218,-0.1624259138473754,True,14
+target_only,202,risk_among_admitted fitted_risk,fitted_risk,none,0.010075566750629723,0.0,0.025975232945493174,False,14
+target_only,202,risk_among_admitted calibrated_bound,calibrated_bound,none,0.017412935323383085,0.0,0.051286764705882365,False,14
+target_only,202,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.007731958762886598,0.0,0.02181818181818182,False,14
+target_only,202,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+target_only,202,risk_among_admitted reconstruct_all,reconstruct_all,none,0.028708133971291867,0.0023923444976076554,0.07754190278553756,False,14
+target_only,303,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.023923444976076555,0.00531844534504109,0.04325730328831474,True,14
+target_only,303,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.20813397129186603,0.13455560471289527,0.3014041358627424,True,14
+target_only,303,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.045454545454545456,-0.10810810810810811,-0.009193307674181125,True,14
+target_only,303,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.009569377990430622,-0.036212751096112904,0.0056657223796034,False,14
+target_only,303,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.03349282296650718,0.0,0.07455204696312781,False,14
+target_only,303,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.06937799043062201,-0.14041630993150686,-0.026439144736842092,True,14
+target_only,303,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.2535885167464115,-0.3693307894029048,-0.16949051413777758,True,14
+target_only,303,risk_among_admitted fitted_risk,fitted_risk,none,0.007518796992481203,0.0,0.026011829297118424,False,14
+target_only,303,risk_among_admitted calibrated_bound,calibrated_bound,none,0.017369727047146403,0.0,0.05128205128205128,False,14
+target_only,303,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.007712082262210797,0.0,0.022558518938856582,False,14
+target_only,303,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+target_only,303,risk_among_admitted reconstruct_all,reconstruct_all,none,0.028708133971291867,0.0025,0.07903008899870985,False,14
+partial_donor_failure,101,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.0023923444976076554,-0.008,0.010811298663284225,False,14
+partial_donor_failure,101,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.17703349282296652,0.10638297872340426,0.26159728792179127,True,14
+partial_donor_failure,101,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.06220095693779904,-0.13982965113641518,-0.01949847149597919,True,14
+partial_donor_failure,101,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.007177033492822967,-0.017115612993363602,0.0,False,14
+partial_donor_failure,101,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.009569377990430622,0.0,0.0196078431372549,False,14
+partial_donor_failure,101,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.0645933014354067,-0.13140407657347472,-0.024389007074654922,True,14
+partial_donor_failure,101,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.35770139752966523,-0.16109371493849575,True,14
+partial_donor_failure,101,risk_among_admitted fitted_risk,fitted_risk,none,0.00510204081632653,0.0,0.020833333333333332,False,14
+partial_donor_failure,101,risk_among_admitted calibrated_bound,calibrated_bound,none,0.005063291139240506,0.0,0.020689655172413793,False,14
+partial_donor_failure,101,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.005115089514066497,0.0,0.020833333333333332,False,14
+partial_donor_failure,101,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+partial_donor_failure,101,risk_among_admitted reconstruct_all,reconstruct_all,none,0.02631578947368421,0.0,0.0790233384069001,False,14
+partial_donor_failure,202,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.007177033492822967,0.0,0.01400014005602241,False,14
+partial_donor_failure,202,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.17464114832535885,0.10129018762677484,0.2552307537663186,True,14
+partial_donor_failure,202,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.0645933014354067,-0.13768464325529542,-0.020331498652109193,True,14
+partial_donor_failure,202,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.009569377990430622,-0.02512562814070352,0.0,False,14
+partial_donor_failure,202,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.01674641148325359,0.0,0.03763497098123904,False,14
+partial_donor_failure,202,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.07177033492822966,-0.146791946467417,-0.02564102564102564,True,14
+partial_donor_failure,202,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.3578665318503539,-0.15901430439539904,True,14
+partial_donor_failure,202,risk_among_admitted fitted_risk,fitted_risk,none,0.005115089514066497,0.0,0.02197802197802198,False,14
+partial_donor_failure,202,risk_among_admitted calibrated_bound,calibrated_bound,none,0.005063291139240506,0.0,0.021741106719367596,False,14
+partial_donor_failure,202,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.005154639175257732,0.0,0.02203907389402042,False,14
+partial_donor_failure,202,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+partial_donor_failure,202,risk_among_admitted reconstruct_all,reconstruct_all,none,0.02631578947368421,0.0,0.07962206938609569,False,14
+partial_donor_failure,303,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.011961722488038277,-0.014931026684758026,0.037210301859132405,False,14
+partial_donor_failure,303,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.19617224880382775,0.12640371748723894,0.2803283508943886,True,14
+partial_donor_failure,303,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.05741626794258373,-0.125,-0.020365751738313672,True,14
+partial_donor_failure,303,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.004784688995215311,-0.02857300188797986,0.02549611204255073,False,14
+partial_donor_failure,303,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.01674641148325359,0.0,0.032948179979777566,False,14
+partial_donor_failure,303,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.06937799043062201,-0.1367797152455607,-0.026965787526071452,True,14
+partial_donor_failure,303,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.2535885167464115,-0.3841642228739003,-0.16923076923076924,True,14
+partial_donor_failure,303,risk_among_admitted fitted_risk,fitted_risk,none,0.005076142131979695,0.0,0.02077922077922078,False,14
+partial_donor_failure,303,risk_among_admitted calibrated_bound,calibrated_bound,none,0.005050505050505051,0.0,0.020943323692014796,False,14
+partial_donor_failure,303,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.005141388174807198,0.0,0.02122157006603082,False,14
+partial_donor_failure,303,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+partial_donor_failure,303,risk_among_admitted reconstruct_all,reconstruct_all,none,0.02631578947368421,0.0,0.07812765731292518,False,14
+all_donor_failure,101,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.004784688995215311,0.0,0.011450381679389313,False,14
+all_donor_failure,101,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.17942583732057416,0.11084306720899528,0.2640654929687135,True,14
+all_donor_failure,101,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.05980861244019139,-0.13636363636363635,-0.017454193300866932,True,14
+all_donor_failure,101,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.004784688995215311,-0.009843005016384786,0.0,False,14
+all_donor_failure,101,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.009569377990430622,0.0,0.019456201030028597,False,14
+all_donor_failure,101,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.0645933014354067,-0.13220338983050847,-0.02312027567807914,True,14
+all_donor_failure,101,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.3562284876556325,-0.15789121868843228,True,14
+all_donor_failure,101,risk_among_admitted fitted_risk,fitted_risk,none,0.007633587786259542,0.0,0.022222222222222223,False,14
+all_donor_failure,101,risk_among_admitted calibrated_bound,calibrated_bound,none,0.010126582278481013,0.0,0.024194770283479966,False,14
+all_donor_failure,101,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.0076726342710997444,0.0,0.02222428748451054,False,14
+all_donor_failure,101,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+all_donor_failure,101,risk_among_admitted reconstruct_all,reconstruct_all,none,0.04066985645933014,0.009634557186090334,0.09590055809233895,False,14
+all_donor_failure,202,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.009569377990430622,0.0,0.019656019656019656,False,14
+all_donor_failure,202,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.17703349282296652,0.10568922992600713,0.2601160951413841,True,14
+all_donor_failure,202,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.06220095693779904,-0.1361182336182336,-0.020285482258870547,True,14
+all_donor_failure,202,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.007177033492822967,-0.017903004160781767,0.0,False,14
+all_donor_failure,202,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.01674641148325359,0.0,0.03712928761916439,False,14
+all_donor_failure,202,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.07177033492822966,-0.14634671993271656,-0.025584992968289248,True,14
+all_donor_failure,202,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.23923444976076555,-0.35714285714285715,-0.16209356672285172,True,14
+all_donor_failure,202,risk_among_admitted fitted_risk,fitted_risk,none,0.007653061224489796,0.0,0.022785532078740917,False,14
+all_donor_failure,202,risk_among_admitted calibrated_bound,calibrated_bound,none,0.010126582278481013,0.0,0.025126418254795998,False,14
+all_donor_failure,202,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.007731958762886598,0.0,0.023042360864941516,False,14
+all_donor_failure,202,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+all_donor_failure,202,risk_among_admitted reconstruct_all,reconstruct_all,none,0.04066985645933014,0.00904926304607622,0.09667805755395688,False,14
+all_donor_failure,303,admitted_share fitted_risk - peak_overlap_rule,fitted_risk,peak_overlap_rule,0.009569377990430622,-0.011801160683805571,0.02696629213483146,False,14
+all_donor_failure,303,admitted_share fitted_risk - length_rule,fitted_risk,length_rule,0.1937799043062201,0.12451539060977986,0.27711077470503775,True,14
+all_donor_failure,303,admitted_share fitted_risk - reconstruct_all,fitted_risk,reconstruct_all,-0.05980861244019139,-0.12814137129130357,-0.021679727627601186,True,14
+all_donor_failure,303,admitted_share fitted_risk - calibrated_bound,fitted_risk,calibrated_bound,-0.007177033492822967,-0.024099302780127774,0.012158981392245537,False,14
+all_donor_failure,303,admitted_share calibrated_bound - peak_overlap_rule,calibrated_bound,peak_overlap_rule,0.01674641148325359,0.0,0.03364141910586865,False,14
+all_donor_failure,303,admitted_share peak_overlap_rule - reconstruct_all,peak_overlap_rule,reconstruct_all,-0.06937799043062201,-0.14006208453530666,-0.027147928136771946,True,14
+all_donor_failure,303,admitted_share length_rule - reconstruct_all,length_rule,reconstruct_all,-0.2535885167464115,-0.3806493810952738,-0.1722071418050207,True,14
+all_donor_failure,303,risk_among_admitted fitted_risk,fitted_risk,none,0.01272264631043257,0.0,0.032071434425749654,False,14
+all_donor_failure,303,risk_among_admitted calibrated_bound,calibrated_bound,none,0.010101010101010102,0.0,0.024392732702837244,False,14
+all_donor_failure,303,risk_among_admitted peak_overlap_rule,peak_overlap_rule,none,0.007712082262210797,0.0,0.02307755775577558,False,14
+all_donor_failure,303,risk_among_admitted length_rule,length_rule,none,0.0,0.0,0.0,False,14
+all_donor_failure,303,risk_among_admitted reconstruct_all,reconstruct_all,none,0.04066985645933014,0.009613663484486874,0.09552896437353466,False,14

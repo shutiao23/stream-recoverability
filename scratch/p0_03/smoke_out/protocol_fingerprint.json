@@ -1,0 +1,352 @@
+{
+  "script": "scripts/312_wrr_p0_03_final_method_replay.py",
+  "script_sha256": "ec76f031d281c4518c5fb60f3ed627bdd3b6cc63dbe32dcef79829addc29d40c",
+  "git_head": "8eade30bbf5f82b9af3b7900de81e52707e8af47",
+  "generated_utc": "2026-10-15T10:52:44.837774+00:00",
+  "runtime_seconds": 49.3,
+  "inputs": {
+    "results/v18_closure/e2_archive_deployment/real_station_years.parquet": "168e50aadec7bf2ff4e34bea0262b2c8a555869defbaeb9b2c0d0bbd9326ec1f",
+    "results/v17_fitness/step1_panel/network_split.csv": "a24ceccea68316c543f7bbf87ac0d00bbf19b2595eb56caf3b2e752402d8e631",
+    "results/v17_fitness/step1_panel/station_roster.csv": "c96e8838b3cc06934c25208fc71a5b37d49b0d96671f2e679694419fb92aedc8",
+    "results/v17_fitness/step4_ceiling/development_cases.parquet": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8"
+  },
+  "panels": {
+    "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc4_0410/daily_wide_temperature.csv": "127b10ea4dc6ce66ac46cce49db0e0e14a77bfb855c3ec9368da956a2824641d",
+    "results/development_v11/second_confirmation/daily_qc/networks/usgs2_huc6_190803/daily_wide_temperature.csv": "dd1b8619f7478ef149aecb4fcc57c25e6c0b005b77405dde1d8292f4e2b5ca4f"
+  },
+  "frozen_certificate": {
+    "path": "results/v17_fitness/step9_freeze/certificate.joblib",
+    "exists": true,
+    "used_as_secondary": true,
+    "sha256": "97736b74f9988a6158de6c1bb9884922d4b6ddd18c7270af9b53c6ba852f9d7e"
+  },
+  "protocol": {
+    "seed": 41,
+    "max_networks": 2,
+    "cofail_levels": [
+      {
+        "name": "target_only",
+        "suffix": "t0",
+        "fraction": 0.0
+      },
+      {
+        "name": "partial_donor_failure",
+        "suffix": "p5",
+        "fraction": 0.5
+      },
+      {
+        "name": "all_donor_failure",
+        "suffix": "a1",
+        "fraction": 1.0
+      }
+    ],
+    "max_source_years_per_station": 4,
+    "max_target_years_per_source": 3,
+    "max_runs_per_source": 4,
+    "min_gap_days": 3,
+    "max_gap_days": 330,
+    "max_stations_per_network": 2,
+    "tolerance_c": 0.5,
+    "risk_cap": 0.05,
+    "min_threshold_admits": 100,
+    "threshold_fallback": 0.5,
+    "coverage": 0.9,
+    "length_rule_days": 49,
+    "length_rule_days_wide": 140,
+    "peak_rule_max_overlap": 0.1,
+    "boot_draws_primary": 2000,
+    "boot_draws_secondary": 1000,
+    "screening_features": [
+      "longest_run",
+      "total_missing",
+      "missing_fraction",
+      "n_runs",
+      "peak_overlap",
+      "warm_observed_fraction",
+      "observed_peak_margin",
+      "observed_peak",
+      "clim_peak",
+      "n_visible_donors",
+      "donor_corr_mean",
+      "donor_corr_max",
+      "donor_corr_min",
+      "donor_coverage_mean",
+      "train_resid_sd",
+      "seasonal_amplitude",
+      "train_metric_sd",
+      "n_complete_years",
+      "record_years",
+      "month_sin",
+      "month_cos",
+      "left_flank",
+      "right_flank",
+      "has_complete_window",
+      "air_available"
+    ],
+    "certificate": "selection-conditional multiplicative split conformal; per held-out network the corpus networks are split three ways by network (60% heads / 20% conformal scale / 20% threshold calibration)",
+    "placement_families": {
+      "source_calendar_union": "all missing days of the source year mapped by (month, day)",
+      "source_gap_run": "contiguous real missing runs mapped by day offset; cross-year runs evaluated in both affected calendar years"
+    },
+    "error_backend": "each method's own declared estimator; the simple rules share the deployed information-conditioned policy"
+  },
+  "threshold_paths": {
+    "final_rule": {
+      "path": "computed_equivalent_p0_02_rule",
+      "detail": "p0_02's pre-registered rule (largest calibration retention in 0.10..0.95 whose calibration false-admit rate plus a one-sided 95% network-clustered bootstrap upper bound is <= 5%) re-implemented on a per-held-out-network three-way network-disjoint split",
+      "thresholds_by_network": {
+        "usgs2_huc4_0410": 0.6145052172285422,
+        "usgs2_huc6_190803": 0.641203324600726
+      }
+    },
+    "final_rule_point_risk": {
+      "path": "computed_point_risk_crossfit",
+      "detail": "largest threshold whose calibration point false-admit rate is <= 5% (no clustered bound)",
+      "thresholds_by_network": {
+        "usgs2_huc4_0410": 0.7699686322499806,
+        "usgs2_huc6_190803": 0.8223008080694417
+      }
+    },
+    "final_rule_literal_p002_tau": {
+      "path": "literal_p0_02_tau_units_unverified",
+      "detail": "p0_02 numeric thresholds for score=calibrated_bound applied to this script's bounds; the stored certificate table is not reproducible with the current screen.py, so the units may differ (see certificate_table_reproduction in the fingerprint)",
+      "thresholds_by_network": {
+        "usgs2_huc4_0410": 0.6585668603555126,
+        "usgs2_huc6_190803": 0.6585668603555126
+      }
+    }
+  },
+  "simple_rule_thresholds": {
+    "length_rule": {
+      "score": "length_rule",
+      "fold_seed": 101,
+      "available": true,
+      "threshold_units": "score units; lower score = safer",
+      "n_networks_mapped": 2,
+      "networks_without_fold": [],
+      "fold_thresholds": {
+        "0": 30.87809571665732,
+        "1": 30.560995989441253,
+        "2": 30.51846681073136,
+        "3": 30.858153810778685,
+        "4": 30.82699631661753
+      },
+      "pooled_eval_development": {
+        "label": "cross-fitted, selection honest",
+        "retention": 0.3881191037735849,
+        "retention_ci95_low": 0.35431768160060245,
+        "retention_ci95_high": 0.4199732768320265,
+        "n_admitted": 15798,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "false_admit_rate": 0.040827952905431064,
+        "false_admit_ci95_low": 0.033347528343227135,
+        "false_admit_ci95_high": 0.05097555978127484,
+        "false_admit_rate_network_equal": 0.04967991298673885,
+        "n_false_admitted": 645,
+        "n_folds_admitting_nothing": 0,
+        "bootstrap_draws": 2000
+      },
+      "path": "consumed_p0_02_frozen_per_fold_threshold"
+    },
+    "peak_window_rule": {
+      "score": "peak_overlap_rule",
+      "fold_seed": 101,
+      "available": true,
+      "threshold_units": "score units; lower score = safer",
+      "n_networks_mapped": 2,
+      "networks_without_fold": [],
+      "fold_thresholds": {
+        "0": 0.5006144682598739,
+        "1": 0.500734552138818,
+        "2": 0.5001706866859715,
+        "3": 0.4674299640898077,
+        "4": 0.5007172127221903
+      },
+      "pooled_eval_development": {
+        "label": "cross-fitted, selection honest",
+        "retention": 0.6574783805031447,
+        "retention_ci95_low": 0.6405710728352734,
+        "retention_ci95_high": 0.6741125304825833,
+        "n_admitted": 26762,
+        "n_cases": 40704,
+        "n_networks": 110,
+        "false_admit_rate": 0.04229878185486884,
+        "false_admit_ci95_low": 0.03574971890469172,
+        "false_admit_ci95_high": 0.04941810312946164,
+        "false_admit_rate_network_equal": 0.04439483322626548,
+        "n_false_admitted": 1132,
+        "n_folds_admitting_nothing": 0,
+        "bootstrap_draws": 2000
+      },
+      "path": "consumed_p0_02_frozen_per_fold_threshold"
+    }
+  },
+  "external_threshold_file": {
+    "path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/final_admission_thresholds.json",
+    "exists": true,
+    "used": true,
+    "sha256": "c7033a61d7ba5ae799c43c9a7f67116b7ca0f8e504eda15727fc7bd921311c20",
+    "schema_version": 1,
+    "generated_by": "scripts/311_wrr_p0_02_frozen_risk_thresholds.py",
+    "assignments_path": "results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds/fold_assignments.csv",
+    "n_assignment_networks": {
+      "101": 110,
+      "202": 110,
+      "303": 110
+    },
+    "records": [
+      "calibrated_bound|seed101",
+      "calibrated_bound|seed202",
+      "calibrated_bound|seed303",
+      "fitted_risk_certtarget|seed101",
+      "fitted_risk_certtarget|seed202",
+      "fitted_risk_certtarget|seed303",
+      "fitted_risk|seed101",
+      "fitted_risk|seed202",
+      "fitted_risk|seed303",
+      "length_rule|seed101",
+      "length_rule|seed202",
+      "length_rule|seed303",
+      "peak_overlap_rule|seed101",
+      "peak_overlap_rule|seed202",
+      "peak_overlap_rule|seed303",
+      "uncalibrated_bound|seed101",
+      "uncalibrated_bound|seed202",
+      "uncalibrated_bound|seed303"
+    ]
+  },
+  "certificate_table_reproduction": {
+    "path": "results/v17_fitness/step6_screen/development_certificates.parquet",
+    "exists": true,
+    "probe_fold": 0,
+    "n_cases_compared": 5120,
+    "max_abs_bound_difference_c": 1.2031796926834244,
+    "median_abs_bound_difference_c": 0.015242413958218931,
+    "choice_agreement": 0.7912109375,
+    "reproduced": false
+  },
+  "calibration_fold_detail": [
+    {
+      "network_id": "usgs2_huc4_0410",
+      "fold_seed": 1224294192,
+      "n_fit_networks": 65,
+      "n_scale_calibration_networks": 22,
+      "n_threshold_calibration_networks": 22,
+      "n_fit_cases": 23586,
+      "n_scale_calibration_cases": 9859,
+      "n_threshold_calibration_cases": 7218,
+      "threshold_clustered": 0.6145052172285422,
+      "threshold_clustered_source": "p0_02_rule_clustered_bound",
+      "threshold_clustered_retention": 0.69,
+      "threshold_clustered_risk_point": 0.03393574297188755,
+      "threshold_clustered_risk_upper": 0.04813779900961591,
+      "threshold_clustered_admits_nothing": false,
+      "threshold_point": 0.7699686322499806,
+      "threshold_point_source": "cross_fitted_risk_cap_point",
+      "threshold_point_risk": 0.04991711180696261,
+      "threshold_point_admitted": 5429
+    },
+    {
+      "network_id": "usgs2_huc6_190803",
+      "fold_seed": 3006261245,
+      "n_fit_networks": 65,
+      "n_scale_calibration_networks": 22,
+      "n_threshold_calibration_networks": 22,
+      "n_fit_cases": 23325,
+      "n_scale_calibration_cases": 9089,
+      "n_threshold_calibration_cases": 8186,
+      "threshold_clustered": 0.641203324600726,
+      "threshold_clustered_source": "p0_02_rule_clustered_bound",
+      "threshold_clustered_retention": 0.73,
+      "threshold_clustered_risk_point": 0.03530789825970549,
+      "threshold_clustered_risk_upper": 0.04932733770847279,
+      "threshold_clustered_admits_nothing": false,
+      "threshold_point": 0.8223008080694417,
+      "threshold_point_source": "cross_fitted_risk_cap_point",
+      "threshold_point_risk": 0.04997679096394863,
+      "threshold_point_admitted": 6463
+    }
+  ],
+  "truth_invariance_verified": true,
+  "policy_backend_consistency_ok": true,
+  "replicate_structure": {
+    "n_candidate_groups": 82,
+    "n_candidate_level_rows": 246,
+    "n_networks": 2,
+    "n_stations": 3,
+    "n_families": {
+      "source_gap_run": 52,
+      "source_calendar_union": 30
+    },
+    "n_cross_year_groups": 22,
+    "n_groups_single_donor": 82,
+    "cofail_realisation": {
+      "target_only": {
+        "mean_donors_cofailed": 0.0,
+        "median_donors_cofailed": 0.0,
+        "min_donors_cofailed": 0,
+        "max_donors_cofailed": 0,
+        "mean_visible_donors": 0.9634146341463414,
+        "share_zero_visible_donors": 0.036585365853658534,
+        "share_strict_partial": NaN
+      },
+      "partial_donor_failure": {
+        "mean_donors_cofailed": 1.0,
+        "median_donors_cofailed": 1.0,
+        "min_donors_cofailed": 1,
+        "max_donors_cofailed": 1,
+        "mean_visible_donors": 0.0,
+        "share_zero_visible_donors": 1.0,
+        "share_strict_partial": 0.0
+      },
+      "all_donor_failure": {
+        "mean_donors_cofailed": 1.0,
+        "median_donors_cofailed": 1.0,
+        "min_donors_cofailed": 1,
+        "max_donors_cofailed": 1,
+        "mean_visible_donors": 0.0,
+        "share_zero_visible_donors": 1.0,
+        "share_strict_partial": NaN
+      }
+    },
+    "note": "one written row is one candidate group; the three co-failure levels are repeated measures stored as suffixed columns of the same row, so groups*3 is NOT the number of experiments"
+  },
+  "case_build_diagnostics": {
+    "n_station_jobs": 3,
+    "n_skipped_no_training_history": 0,
+    "n_skipped_eval_year_incomplete": 2,
+    "n_skipped_eval_year_fully_masked": 0,
+    "n_skipped_short_mask": 6,
+    "n_skipped_placement_outside_panel": 0,
+    "n_union_groups": 30,
+    "n_run_groups": 52,
+    "n_cross_year_groups": 22,
+    "n_cross_year_placements": 12,
+    "n_cross_year_years_skipped_incomplete": 2,
+    "n_runs_dropped_by_cap": 0,
+    "n_leap_source_days_without_target_date": 0,
+    "n_anchor_adjusted_feb29": 0
+  },
+  "assertions": {
+    "status": "pass",
+    "n_groups_checked": 82,
+    "n_cross_year_groups_checked": 22,
+    "n_cross_year_pairs_checked": 12,
+    "checks": [
+      "masked_days == declared_gap_days for every case",
+      "declared_gap_days + gap_days_outside_eval_year == gap_total_days for every contiguous-run case",
+      "cross-year cases hold a strict part of the run (0 < declared < gap_total_days)"
+    ]
+  },
+  "reduction_statement": "at most 4 longest runs per source year per station, at most 4 source years per station, at most 3 target anchor years per source year, at most 2 stations per network; every method scores every candidate in the resulting pool (no per-method sub-sampling)",
+  "not_proven": [
+    "the replay transplants real incomplete-year calendars onto other years of the same station; it is not a real outage at that station",
+    "the calibrated thresholds are transferred from designed-outage development cases to real calendars, and the designed corpus is what sets the 5% risk cap",
+    "co-failure is imposed by masking donor columns with the target calendar, not by observing real simultaneous neighbour failures",
+    "the final rule is a per-fold refit certificate (three-way network-disjoint split), not the frozen step-9 joblib object; the frozen object appears only as the secondary frozen_cert_rule row",
+    "no statement about operational monitoring admission; offline archive repair only",
+    "the replay networks are development networks, so this is an internal cross-fitted probe, not a sealed confirmation panel",
+    "the co-failure levels are repeated measures on the same group and are never independent replicates"
+  ]
+}

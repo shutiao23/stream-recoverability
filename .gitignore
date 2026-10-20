@@ -180,3 +180,8 @@ scratch/prov/raw/
 scratch/ehyd/
 scratch/**/*.html
 scratch/**/*.pdf
+
+# 2026-10-20 aligned-policy round: regenerable cross-fit caches (joblib models
+# and npz score arrays, ~100 MB). The scripts rebuild them on demand.
+scratch/p0_01_aligned/
+scratch/p0_02/crossfit_cache/

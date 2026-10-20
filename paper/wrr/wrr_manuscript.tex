@@ -2,12 +2,10 @@
 %% The class and its supporting files are vendored unmodified in template/;
 %% see template/PROVENANCE.md for the source and commit.
 %%
-%% The article's prose and every number in it are maintained in
-%% ../v18/manuscript.md, which is checked against the analysis artifacts by
-%% scripts/221_v18_audit_manuscript.py. This file is the journal-format
-%% rendering of that source; scripts/223_wrr_build.py builds it and
-%% tests/test_wrr_submission.py checks the AGU limits that a desk editor
-%% checks first.
+%% Prose and numbers were rewritten on 2026-10-20 after the aligned-policy
+%% rerun (scripts/330-335). The evidence identity of every claim is recorded in
+%% results/wrr_submission_ready/major_revision_20261020/. scripts/223_wrr_build.py
+%% builds this file and checks the AGU limits a desk editor checks first.
 
 \documentclass[draft]{agujournal2025}
 
@@ -15,56 +13,29 @@
 \usepackage{amsmath}
 \usepackage{tabularx}
 \usepackage{ragged2e}
-%% Long evidence paths must not run past the margin: microtype improves
-%% justification and seqsplit lets an unbreakable \texttt path break.
 \usepackage{microtype}
-%% seqsplit lets an unbreakable \texttt path break, but its scanner fails under
-%% XeLaTeX, which the published layout uses; that layout is a rendering, so it
-%% keeps plain \texttt and the submission copy (pdfLaTeX) keeps the breaks.
 \ifdefined\XeTeXversion\else
   \usepackage{seqsplit}
   \let\wrrtexttt\texttt
   \renewcommand{\texttt}[1]{\wrrtexttt{\seqsplit{#1}}}
 \fi
 \setlength{\emergencystretch}{3em}
-%% One line shorter than the class default: the last body line was landing in
-%% the footer band on two pages, overprinting the page number.
 
-%% The AGU column is 32.25 pc. A table with five or six columns and prose
-%% headers does not fit it as a plain tabular, so every table below is a
-%% tabularx sized to the text width. L wraps and takes a larger share of the
-%% slack; R right-aligns and takes a smaller one, so a label column is not
-%% squeezed to nothing by four numeric headers. The weights in each table sum
-%% to its number of X columns, which is what tabularx requires.
-%% Two weighted X columns: Y wraps prose, Z right-aligns numbers. The weight is
-%% given per table and the weights in one table sum to its number of X columns,
-%% which is what tabularx needs if the table is to fill \textwidth exactly.
-%%
-%% Plain \raggedright / \raggedleft rather than the ragged2e forms, because
-%% those keep \parindent and a wrapped cell then starts indented and continues
-%% flush left, which reads as a staircase.
 \newcolumntype{Y}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{Z}[1]{>{\hsize=#1\hsize\raggedleft\arraybackslash}X}
 
-%% Table bodies inherit the article's double spacing and paragraph indent,
-%% which turns a wrapped cell into a staircase. Both are switched off here.
-%% The draft option sets a 20 pt baseline at every font size, which is what
-%% AGU wants for reviewing prose and what makes a table sprawl. Tables are set
-%% single-spaced; the class hardcodes the skip inside \@setfontsize, so
-%% \baselinestretch has no effect and the skip is set directly.
 \newcommand{\tabletext}{%
   \footnotesize
   \setlength{\baselineskip}{10pt}%
   \setlength{\parindent}{0pt}%
 }
 
-
 \begin{document}
 
 \journalname{Water Resources Research}
 
-\title{Hidden support share as a conditional risk screen for annual thermal
-extremes in incomplete river-temperature records}
+\title{Hiding the peak, not missing the days: support-based screening of
+incomplete river-temperature archives}
 
 %% AUTHOR BLOCK IS A PLACEHOLDER.
 %% paper_archived/author_information_required.md records why: the repository does not
@@ -79,62 +50,63 @@ extremes in incomplete river-temperature records}
 \titlerunninghead{Ignored.}
 
 \keypoints
- {Fitted risk keeps about 3 points more than a peak-window rule, short of a 5-point margin}
- {It keeps fewer records than the certificate bound; the gap versus length is not the confirmatory contrast}
- {Forty-nine network labels collapse to 41 groups once shared stations stay together}
+  {A gap of fixed length damages the hottest 30-day mean only when it hides that window; the annual mean reacts to length}
+  {At a 5\% error cap, a rule that screens hidden peak support keeps 67\% of an external archive; a gap-length rule keeps 40\%}
+  {A fitted risk score adds 7--10 points over the support rule, but real calendars may need no screen and refusal costs hot years}
+
 \maketitle
 
 \begin{abstract}
-Thermal archives are screened by how much data is missing. That test has not been
-checked against the statistic's own support, because a gap's length and position
-cannot be varied independently in a record that failed on its own. We combine
-5114 complete river station-years from 146 networks with 51524 designed outages
-and score admission of the annual hottest 30-day mean on a retrospective holdout
-and on an external panel. The external panel has 49 network labels and 41
-validation groups, because labels that share a station stay in one fold.
-Thresholds are chosen without the test fold's labels, under a five-per-cent
-false-admit cap with a simultaneous bound over the retention grid. The
-confirmatory contrast is against a peak-window rule. A fitted risk score keeps
-72.5--72.8\% of external candidates and the peak-window rule 69.6--69.9\%. The
-difference is 2.6 to 3.3 points. Each interval excludes zero, and none meets a
-pre-specified five-point margin. The calibrated certificate bound keeps more
-(74.6--75.0\%). The gap versus a length rule is larger and is not that contrast. Engineered
-peak-overlap features add nothing measurable to a same-capacity learner
-($+0.05$ points, $[-0.17,+0.23]$). Hiding the peak and lengthening the gap both
-raise error, by amounts the reconstructor sets. The frozen certificate screen
-still cuts errors by 5.9 points ($[-7.0,-4.8]$) at 70\% retention; that number
-is not the fitted score. On real-calendar groups the fitted score does not
-separate from the peak-window rule, and the cap is not a guarantee for a new
-archive.
+Incomplete river-temperature records are admitted by counting missing days: a
+year passes if its longest gap is short enough. A gap of a given
+length does not remove the same amount of the statistic computed, and in real
+records the two vary together, so they have never been separated. We pair
+5{,}114 complete station-years from 146 river networks with 53{,}721 designed
+outages that vary gap length and hidden support independently, and with 418 real
+monitoring calendars, and score admission of the annual hottest 30-day mean.
+Hidden support, not gap length, orders the error: a 30-day gap that hides the
+peak window costs 0.68\,$^{\circ}$C, the same gap outside it
+0.03\,$^{\circ}$C, while the annual mean responds to length, not position. The
+reconstructor sets the height; residual error concentrates in cases whose
+reconstructed window lands away from the true one. At a 5\%
+cap on the error of the admitted reconstruction, support screening keeps 67\% of
+a 13{,}017-case external panel and a gap-length rule 40\%, while a fitted risk
+score keeps 74\%, 7 to 8 points above the support rule and not reliably better
+than a calibrated bound. On 418 real calendars, which hide less than half of the
+peak window in 94\% of cases, admitting everything sits at 2.6--4.1\%, under the
+cap, and screening refuses a quarter to a half of the true hot years. Support is the right conditioning
+variable, but its value is confined to archives whose gaps are consequential.
 \begin{plainlanguagesummary}
-Rivers are getting warmer, and managers ask how hot a river got last summer. The
-answer needs a year of daily temperatures, but records have holes, and the usual
-screen counts how many days are missing. We show that this is the wrong question
-for a summer peak: what matters is whether the missing days include the few weeks
-the peak depends on. Using complete years from 146 river networks, we place gaps
-of identical length in different positions and compare what two statistics lose.
-A gap over the peak window destroys the hottest 30-day mean while the same gap in
-autumn barely moves it; a whole-year average behaves in the opposite way. A rule that screens on this hidden support instead of on gap length removes most
-large errors on a retrospective holdout. On the gaps these networks actually
-keep, a fitted risk score does not separate from a simple peak-window rule.
-Results about exact crossover days, autumn maintenance benefits and "peak never
-observed" counts are exploratory or use proxies and should not yet guide
-operations.
+Rivers are warming, and managers ask how hot a river got in its hottest month.
+Answering needs a year of daily temperatures; records have holes; and the usual
+screening test asks how many days are missing. We show that this is the wrong
+question for a summer peak. What matters is whether the missing days include the
+few weeks the peak depends on. Using complete years from 146 river networks, we
+place gaps of the same length in different positions and compare what two
+statistics lose: a gap over the peak window destroys the hottest 30-day mean
+while the same gap in autumn barely moves it, and a whole-year average behaves in
+the opposite way. Screening on this hidden support therefore keeps two thirds of
+a large test archive where a rule based on gap length keeps two fifths. A learned
+risk score keeps slightly more again, but it is complex, it does not beat a
+simpler calibrated alternative, and on the holes that real monitoring programmes
+actually leave the peak is usually observed anyway, so no screen is needed.
+Screening buys usable years only where gaps are long and badly placed, and it
+buys them by discarding hot years.
 \end{plainlanguagesummary}
 \end{abstract}
 
 \section{Introduction}
 
 Cold-water habitat assessment, thermal-regime classification and
-criterion-exceedance accounting all reduce a year of daily water temperature to
+criterion-exceedance accounting \cite{wac2024} all reduce a year of daily water temperature to
 one number --- a hottest 30-day mean, an annual mean, a seasonal amplitude
 \cite{caissie2006,isaak2017} --- and it is that number, not the daily series,
 that enters a management judgement. The error that matters is therefore the
-error of the derived statistic. On the panel assembled here, computing the
-summer peak from recorded days alone, which is the default once a station-year
-passes a completeness screen, carries a mean absolute error of
-\textbf{1.305\,$^{\circ}$C}, or 1.23 year-to-year standard deviations of the
-quantity itself, and 24.9\% of station-years are wrong by more than
+error of the derived statistic. On the designed outages placed on the complete
+station-years assembled here, computing the summer peak from the recorded days
+alone, which is what an agency
+does once a year passes a completeness test, carries a mean absolute error of
+1.31\,$^{\circ}$C, and 24.9\% of station-years are then wrong by more than
 1.0\,$^{\circ}$C. An error of that size turns a thermally stressful year into an
 unremarkable one.
 
@@ -145,19 +117,22 @@ derived number may be used, and two families of rule encode that assumption
 regional analyses, require a minimum sampling duration of one calendar month and
 recommend a deployment period of 1 June to 31 August ``to capture the thermal
 maxima''; the same standards govern which of those records enter the regional
-assessment \cite{mauger2017}. Quantitative guidance constrains what may be absent:
-\citeA{johnson2021} report that ``datasets with less than seven weeks of
+assessment \cite{mauger2017}. Quantitative guidance constrains what may be
+absent: \citeA{johnson2021} report that ``datasets with less than seven weeks of
 consecutively missing data enabled estimation of all annual signal parameters
 with reasonable accuracy'', expanding to ``approximately 20 weeks'' when missing
 data are imputed. The gap-filling literature optimises the accuracy of the
 filled series rather than the admissibility of the completed year
-\cite{mohseni1998,li2017}, and the closest prior work fills incomplete summer
+\cite{mohseni1998,li2017}, and treats the incomplete record as a missing-data
+problem rather than as a property of the derived statistic \cite{rubin1976}, and the closest prior work fills incomplete summer
 records so that a thermal peak can be computed, applies that filling uniformly,
 declines no station-year, and admits July--August-only records on the
 climatological position of the hottest window \cite{beaufort2022}. Large-sample
 thermal models optimise daily or reach-scale prediction skill
 \cite{isaak2017,corona2025,kratzert2023}, and selective-prediction methods
-control error at a fixed rejection rate \cite{geifman2017,zaoui2020}. None of
+control error at a fixed rejection rate \cite{geifman2017,zaoui2020}, and
+distribution-free risk control bounds an expectation under an exchangeability
+assumption \cite{lei2018,angelopoulos2022,bai2026}. None of
 these rules measures how much of the target statistic's own support a record
 contains.
 
@@ -167,15 +142,17 @@ little which. A hottest 30-day mean is an extreme supported on a short window:
 if the outage misses that window the statistic is recoverable almost exactly
 however long the outage is, and if the outage covers it the statistic must be
 inferred however short the outage is. The direction of a completeness rule's
-error is therefore opposite in the two cases, and an average over a mixed archive
-conceals the reversal. The literature is consistent with that reversal without
-having isolated it: reported timing effects on annual thermal parameters are
-inconsistent across regions, years and parameters \cite{johnson2021};
-reconstruction bias depends on where the target window falls
-\cite{beaufort2022}; systematic, time-varying instrument bias rather than random
+error should therefore be opposite in the two cases, and an average over a mixed
+archive would conceal the reversal. The literature is consistent with that
+reversal without having isolated it: reported timing effects on annual thermal
+parameters are inconsistent across regions, years and parameters
+\cite{johnson2021}; reconstruction bias depends on where the target window falls
+\cite{beaufort2022}; paired air--water analyses show how much of the thermal
+regime is inherited from the atmosphere \cite{hare2023}; large-scale climate
+modes modulate river thermal regimes \cite{sanikhani2026,you2026}; systematic, time-varying instrument bias rather than random
 noise dominates long-term monitoring error \cite{jackson2025}; and
-statistic-aware completeness conventions do exist in climate monitoring, but they
-are defined by counts or seasons rather than by the statistic's support
+statistic-aware completeness conventions do exist in climate monitoring, but
+they are defined by counts or seasons rather than by the statistic's support
 \cite{zhang2011}. Irregular sampling and sampling artifacts likewise bias means
 and trends and decide which model structures remain trustworthy
 \cite{grey2024}, and reconstruction frameworks have been built for regulated and
@@ -184,10 +161,12 @@ data-sparse basins, including Chinese catchments and the Yangtze mainstem
 questions, not the archive-admission question for a named annual extreme.
 
 Testing the assumption requires separating two properties of a gap that real
-records entangle. Gap length and the share of the target window that is hidden
-correlate at $-0.86$ in our own panel, so a comparison across real gaps cannot
-say whether a rule works because it avoids long gaps, because it avoids badly
-placed ones, or because both simply track how much record the station has. A
+records entangle. Gap length and the share of the target window hidden
+correlate at $+0.45$ in our own panel, and gap length correlates at $-0.86$
+with the fraction of warm-season days that remains observed; a comparison
+across real gaps therefore cannot say whether a rule works because it avoids
+long gaps, because it avoids badly placed ones, or because both simply track
+how much warm-season record the station has. A
 second obstacle is truth: in exactly the years where the admission decision
 matters, the target statistic is unknown by construction, so the benefit of a
 rule cannot be measured where it would be applied. A third is that evaluations
@@ -195,39 +174,39 @@ report a rule's discrimination rather than the composition of the archive it
 leaves behind, and composition is what decides which catchments remain available
 for analysis.
 
-To address these limitations we assemble 5114 complete river station-years from
-146 networks and nine national agencies, place 51524 outages on complete years so
-that the two properties of a gap can be varied independently, and score
-admission rules on held-out river networks, on sealed panels that took no part in
-development, and --- without any truth --- on the 2422 records in this same
-archive that really do have gaps. Three questions organise the paper, and the
-last matters most, because a screening rule is judged by the archive it leaves
-behind. First, which property of a gap predicts the error of a derived thermal
-statistic, and does the answer depend on which statistic is being computed?
-Second, is that dependence a dichotomy between two regimes or a continuous
-transition, where does it turn over, and how much of the gain survives the gap
-calendar these networks actually keep? Third, what does conditioning on it change
-for the error among retained station-years, for which stations survive in the
-archive, and for the undecided records?
+To address these limitations we assemble 5{,}114 complete river station-years
+from 146 networks and nine national agencies, place 53{,}721 outages on complete
+years so that the two properties of a gap can be varied independently, and score
+admission rules on held-out river networks, on an external panel that took no
+part in development, and --- without any truth --- on the 2{,}422 records in this
+same archive that really do have gaps. Three questions organise the paper.
+First, which property of a gap predicts the error of a derived thermal statistic,
+and does the answer depend on which statistic is being computed? Second, how much
+of that dependence is the reconstructor's doing, and what mechanism explains the
+error that remains when support is accounted for? Third, what does conditioning
+on support change for the error among retained station-years, for which stations
+survive in the archive, and for the hot-year judgement that the archive is used
+to make? The third question decides whether the first two have practical value,
+and on the evidence below they have value only in a regime we can name in
+advance.
 
 \begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/f1_decision.pdf}
-\caption{What the admission rule changes, on the external panel
-(13\,017 designed-outage cases; 49 network labels; 41 validation groups).
-Thresholds for panel (a) use only the other groups, and each outer fold keeps its
-own calibration scores. (a) Retention at the simultaneous 5\% false-admit rule:
-the calibrated certificate bound admits 75\% of candidates, the fitted risk score
-73\%, the peak-window rule 70\% and the gap-length rule 44\%; bars are the mean
-over three group-fold seeds and the black line spans the seeds' range. That range
-is not a confidence interval for a new archive. (b) The same rules on the
-risk--retention plane, filled markers for those operating points and open red
-markers for the point an earlier draft quoted, which was chosen with the
-evaluation labels and is not deployable; the dashed line is the 5\% cap.
-(c) The false-admit rate at a matched 70\% retention for the stored seed, with
-its group-clustered 95\% interval: 2.2\% for the fitted score, 2.6\% for the
-calibrated bound and 9.0\% for the gap-length rule. Source data:
-\texttt{figures/wrr/f1\_decision\_data.json}.}
-\label{fig:decision}
+\includegraphics[width=\textwidth]{figures/f1_support.pdf}
+\caption{Hidden support, not gap length, orders the error, and the order reverses
+between statistics. All panels use the 13{,}017 designed outages of the external
+panel with a day-of-year climatology reconstruction, so the panels differ only in
+the statistic and in gap geometry. (a) Mean absolute error of the hottest 30-day
+mean against the longest consecutive gap, split by the share of the true 30-day
+peak window that the gap hides (grey, none; orange, partial; blue, all). Errors
+are network-clustered means with 95\% intervals (2{,}000 cluster-bootstrap
+draws over the 41 shared-station groups); a cell is drawn when it holds at least
+25 cases. (b) The same for the annual mean. (c) Mean absolute error of five
+annual statistics at the three hidden-support classes, with the same intervals;
+the coldest 30-day mean moves in the opposite direction to the hottest. (d)
+Distribution of hidden peak support in the designed outages (purple) and in the
+418 real monitoring calendars (green). Source data:
+\texttt{fig1\_source.csv}.}
+\label{fig:support}
 \end{figure}
 
 \begin{table}
@@ -252,1719 +231,613 @@ selective prediction \cite{geifman2017,zaoui2020} & error at a fixed rejection r
 \end{tabularx}
 \end{table}
 
-\section{Study system, data and identification design}
+\section{Study system, data and design}
 
-\subsection{The statistic, its support, and the share a gap hides}
+\subsection{The statistic and its support}
 
 Let a station-year be a sequence $y=(y_1,\dots,y_T)$ of daily mean water
-temperatures, $T\in\{365,366\}$, and let $q(\cdot)$ be the derived statistic of
-interest. The family we sweep is the hottest consecutive $k$-day mean
+temperatures and let $M$ be the set of missing days. The annual hottest 30-day
+mean is
 \begin{equation}
-q_k(y) \;=\; \max_{t}\; \frac{1}{k}\sum_{i=t}^{t+k-1} y_i ,
-\label{eq:qk}
+H_{30}(y)=\max_{t\in\{30,\dots,T\}}\frac{1}{30}\sum_{s=t-29}^{t}y_s ,
 \end{equation}
-which is the annual maximum at $k=1$ and the annual mean at $k=T$; the coldest
-30-day mean, the annual amplitude, and the sine-fit mean, phase and amplitude of
-\citeA{johnson2021} are scored alongside.
-
-A gap is a binary mask $m\in\{0,1\}^T$; the analyst observes the days where
-$m_t=0$. A reconstruction $\hat y = R(y_{\bar m}, Z)$ completes the year using
-side information $Z$ --- synchronous donor stations, air temperature, the
-station's own history --- and reports $q(\hat y)$. The quantity that matters is
-the error of the reported statistic,
+and its support is the set of days inside the winning window,
+$S=\{s: s\in[t^\ast-29,t^\ast]\}$. For a gap $M$ we distinguish two
+quantities that real records confound:
 \begin{equation}
-L \;=\; \bigl| q(\hat y) - q(y) \bigr| ,
+\ell=\max\{\text{length of a consecutive run in }M\},
+\qquad
+h=\frac{|M\cap S|}{|S|}.
 \end{equation}
-and a station-year is called \emph{consequential} when $L>\tau$ for a tolerance
-$\tau$ in the units of $q$.
+Here $\ell$ is what a completeness rule reads and $h$ is the share of the
+statistic's own support that the record does not contain.
 
-The property of the gap we propose as the governing one follows from how much
-each day moves the statistic. Writing $w^q_t = |\partial q(y)/\partial y_t|$ for
-the discrete influence function of $q$ at $y$ \cite{hampel1974}, the
-\emph{hidden mass} of a gap is the share of that influence it removes,
-\begin{equation}
-h_q(m) \;=\; \frac{\sum_{t:\, m_t=1} w^q_t}{\sum_t w^q_t}.
-\label{eq:hidden}
-\end{equation}
-For the annual mean every $w_t$ is equal and $h_q$ is the missing fraction; for
-the hottest $k$-day mean the influence is concentrated on the $k$ days achieving
-the maximum and $h_q$ is the share of that window the gap hides; for the sine-fit
-parameters the weights are smooth functions of day of year --- a constant for the
-fitted mean, $|\sin(\theta_t-\phi)|$ for the amplitude, which is largest at both
-extremes, and $|\cos(\theta_t-\phi)|$ for the phase, which is largest a
-quarter-year from the peak. Equation~\eqref{eq:hidden} therefore contains the
-incumbent axis as a special case rather than opposing it, which is why the two
-regimes reported below are ends of one scale.
+Two properties of this definition matter for what follows. First, $S$ is
+defined by the year's own temperatures and is therefore unknown at the moment of
+the admission decision. The admission rules below use an observable analogue,
+$\hat h$, computed against the station's climatological peak window estimated
+from its other complete years; the diagnostic panels use the true $h$, and the
+difference between the two is one of the mechanisms we report. Second, $h$ is
+statistic-specific: for the annual mean every day is support, so $h$ degenerates
+to the missing fraction, whereas for the coldest 30-day mean the support is the
+winter window, and a gap that hides the summer peak is a gap that leaves the
+cold support observed. The same gap therefore has three different values of $h$
+and can be good for one statistic and bad for another.
 
-Equation~\eqref{eq:hidden} cannot be evaluated at decision time, because the
-weights depend on the days the gap hides. What an analyst has is the
-\emph{climatological} support: the window the station's other complete years say
-the maximum should fall in. That estimate has an error, and
-Section~\ref{sec:dilate} shows the error is large enough to change what a
-screening rule should condition on.
+\subsection{Records and panels}
 
-\subsection{Records, and what each dataset is for}
+Daily mean water temperature comes from nine national providers (ARSO, CHMI,
+FOEN, GKD Bayern, LUBW, NVE, Rijkswaterstaat, SYKE and USGS) and, on the
+external panel, from France's Hub'Eau and the UK Environment Agency. All records
+are public monitoring archives reused for this analysis; no sampling was
+conducted for this study. The base panel keeps networks with at least four
+complete years: 146 networks, 457 stations and 5{,}114 fully observed
+station-years. Two derived panels are used. The development panel holds 110
+networks, 354 stations, 4{,}045 station-years and 40{,}704 designed outages; it
+was used to select methods and is not a confirmation set. The external panel
+holds 49 network labels, 143 distinct stations, 1{,}103 station-years and
+13{,}017 designed outages. Labels that share a station are merged into
+connected components before any fold is drawn, so the external panel has 41
+validation groups and no target station appears in two folds; 164 station-years
+appear under more than one label and stay inside one group.
 
-Every result below is therefore reported with the measurement contract of the
-cases it rests on (\texttt{measurement\_contract\_table.csv},
-\texttt{final\_coverage\_table.csv}). Of the 40\,704 development cases,
-74.4\% come from providers that document a daily mean (84 networks), 15.5\% are
-project aggregates of sub-daily or instantaneous values (14 networks, chiefly
-CHMI 10-minute and Rijkswaterstaat raw readings), 8.3\% come from ten networks
-whose provider never states whether the published daily value is a mean (all
-ARSO), and 1.7\% are the three Finnish morning reference readings. The reserved
-panel is similar; the external wave-2 panel is 94.4\% documented daily means.
-Where a headline number is quoted for the pooled panel, the stratum table above
-gives the same contrast inside the documented-daily-mean subset, so the reader
-can see how much of it rests on records whose statistic is stated.
-\label{sec:records}
+The stored policy reconstruction fails the 0.5\,$^{\circ}$C tolerance on 15.3\%
+of external cases and 14.9\% of development cases; those are the rates a screen
+has to improve on. The real, incomplete part of the archive is 2{,}422
+station-years. Those years
+have no complete counterpart, so no reconstruction error can be measured on
+them; they are used only to describe the gap geometry that monitoring programmes
+actually leave.
 
-Daily water-temperature series were assembled from nine national providers: ARSO
-(Slovenia), CHMI (Czechia), FOEN (Switzerland), GKD Bayern and LUBW (Germany),
-NVE (Norway), Rijkswaterstaat (Netherlands), SYKE (Finland) and the USGS (United
-States). Acquisition contracts differ, and we audited each one against the
-provider's own documentation
-(\texttt{measurement\_provenance\_dictionary.csv}).
-Five providers document a daily mean and the parser reads it: USGS
-(\texttt{parameterCd=00010}, \texttt{statCd=00003}), FOEN
-(\texttt{data\_1day\_mean}), GKD Bayern (\texttt{Tageswerte}, column
-\texttt{Mittelwert}), NVE HydAPI (resolution 1440, documented as mean) and, for
-the transport panel below, the UK Environment Agency (measure period 86400,
-``daily mean Temperature''), with LUBW's \texttt{Tagesmittelwert} documented but
-its opaque workbook column only partially re-verified. Four providers do not meet
-that contract as read: CHMI's parser averages 10-minute \emph{instantaneous}
-values ($T_O$) even though the provider also publishes a daily-mean product
-($T_D$); Rijkswaterstaat's parser averages raw \texttt{NVT} readings even though
-a live 24\,h mean parameter (\texttt{GEM24H}) exists; SYKE's public day values
-are morning nearshore reference readings (08:00, 20\,cm below the surface) rather
-than 24\,h means; and ARSO's daily value has no published mean-versus-hour
-statement. We therefore treat ``daily mean'' as a contract that holds for part of
-the panel and report the consequence: restricted to the five providers whose
-daily value is a documented provider daily mean, the development contrast is
-$-5.7$ points ($[-6.5,-4.9]$, 84 networks) and the reserved contrast $-6.6$
-($[-7.9,-5.3]$, 29 networks), against $-6.4$ and $-7.1$ for the full panel
-(\texttt{amendments/provider\_contract\_sensitivity/}). The sealed confirmation is
-USGS-only and so is entirely inside the documented stratum. The three SYKE
-stations remain flagged in
-\texttt{results/wrr\_submission\_ready/measurement\_provenance\_stations.csv}
-and are read as a sensitivity stratum, not as proven daily means. A
-\emph{network} is one provider's group of stations on a common river system. It
-is the unit at which donor stations are available to one another, and it is the
-clustering unit for every interval reported here, because station-years within a
-network share weather, regulation and instrumentation.
+\subsection{Designed outages: varying length and support independently}
 
-Waterbody class was assigned per network and non-river objects --- seas, lakes,
-canals, estuaries, deltas --- are excluded rather than averaged into a river
-result. Reference series are never imputed: a calendar year with any missing day
-supplies no truth. Stations with fewer than four fully observed calendar years
-are excluded because the estimator protocol requires them. This leaves
-\textbf{146 networks, 457 stations and 5114 fully observed station-years}.
+On each complete station-year we place synthetic outages with a factorial
+design: a target gap length in \{30, 60, 90, 180\} days and a position drawn so
+that the gap falls in one of three support classes --- clear of the peak window
+($h=0$), partly overlapping it ($0<h<1$), or covering it completely ($h=1$) ---
+with the remaining missing days scattered at random to reach the designed
+completeness. This is what makes the two properties separable: $h$ is set by the
+position draw and $\ell$ by the length draw, and their correlation in the
+designed panel falls to the design value instead of the $+0.45$ observed in real
+records. Each outage is reconstructed by five methods that see the same
+information (Table~\ref{tab:panels}).
 
-The same 457 stations contribute \textbf{2422 further station-years that are
-genuinely incomplete}. These carry no truth and are therefore not part of the
-scored population; they are the population a screening rule exists for.
-Section~\ref{sec:deploy} reports overlap-rule decisions on that panel; the frozen
-certificate can also be applied through a truth-free \texttt{predict} interface
-(repository amendment
-\texttt{results/wrr\_submission\_ready/e2\_certificate\_predict/}).
+\subsection{Real calendars}
 
-Station coordinates were assembled for all 457 stations, from the providers' own
-catalogues, from the USGS NWIS site service for 195 United States gauges, and
-from ARSO's public station feed, and daily 2\,m air temperature was joined from
-NASA POWER for the whole panel, 1981 to 2026 \cite{nasapower2026}. For the
-United States subset, basin characteristics were joined from GAGES-II
-\cite{falcone2011} on the eight-digit gauge identifier, matching \textbf{140 of
-204} eligible stations across 57 networks. Basin attributes are used to ask which
-rivers are hard (Section~\ref{sec:hard}) and which rivers a screen keeps
-(Section~\ref{sec:repr}); they are deliberately not used inside the screening
-rule, because they are unavailable for the other eight agencies.
-
-Table~\ref{tab:quantities} lists every quantity the analysis uses, what it means
-physically, where its value comes from, and whether it was calibrated. Networks
---- never station-years --- were split into development and reserved, stratified
-on provider and on donor regime, with the seed recorded before any scoring. This
-gives \textbf{110 development and 36 reserved networks}. That reserved panel is a
-retrospective network holdout for the frozen v17 screen: 28 of 36 networks have
-prior development, descriptive or scoring use in earlier programme stages
-(\texttt{results/wrr\_submission\_ready/prior\_access\_ledger\_reserved\_networks.csv}).
-It is not an unused confirmation set for analyses developed after opening.
-A sealed confirmation was therefore recruited externally: 39 USGS
-HUC4 networks (91 stations; reported HUC2 contexts need recount under
-string-safe HUC identifiers; 8973 designed outage cases) that lie outside the
-v17/v18 development panel were ingested, hashed, and scored once with the frozen
-certificate (\texttt{p0\_07\_sealed\_confirmation/verdict.json}).
-That score is retained as an executed artifact, but the 2026-10-13 audit finds
-it cannot yet support a confirmation claim: USGS no-data sentinels
-($-999999$) entered complete-year truth chains, and cases whose selected
-reconstructor returned no annual metric were dropped before the 70\% retention
-cut, so the published operating point is not 70\% of the candidate population
-(\texttt{AMENDMENT\_claim\_status\_freeze\_20261013.md}; amendments under
-\texttt{p0\_02\_qc\_ledger/} and \texttt{p0\_03\_retention\_denominator/}).
-Formal effect of that first sealed score: withdrawn after audit.
-A repo-wide prior-access diagnostic still applies (24 of 39 networks appear in
-earlier iterations). A pre-registered multi-agency transport test
-(SMHI, UK Environment Agency, Hub'Eau; 32 primary networks / 152 stations /
-17\,826 cases, with NVE only as a secondary stratum; manuscript text that mixed
-245 extended-panel stations into the primary counts is corrected here) was
-likewise scored once, but its quality-checked gate incorrectly mixed the NVE
-secondary panel ($\approx 97\%$ of historical quality-checked cases) and fails
-when recomputed on the primary quality-checked subset alone (2 networks, 307
-cases; clustered interval includes zero;
-\texttt{amendments/f03\_primary\_qc\_diagnostic/}). That transport seal remains
-withdrawn. Independently, a wave-2 confirmation panel was recruited under a
-pre-sealed protocol (\texttt{P0\_07\_NEW\_CONFIRMATION\_SEAL.json}), excluding
-programme-used stations and leftover opened-wave ingest: 49 networks /
-143 stations / 13\,017 cases across USGS, Hub'Eau and UK EA. At 70\% retention
-and 0.5\,$^{\circ}$C tolerance it yields $\Delta=-5.89$ points
-($[-6.92,-4.91]$), zero reconstruction failures, USGS and Hub'Eau both negative,
-and the USGS quality-checked subset agreeing
-(\texttt{p0\_07\_wave2\_ingest/p0\_07\_wave2\_confirmation/verdict.json}).
-Section~\ref{sec:records} reports the retrospective holdout that remains valid
-and labels the withdrawn first seals accordingly.
-
+The 418 candidate groups of the real-calendar replay are built by transplanting
+every missing day of a genuinely incomplete year onto a complete target year,
+keeping the calendar position of the gap. This is the only setting in which the
+gap geometry is the one an agency actually faces. It has no new sealed panel and
+it is not a confirmation set; it is a development-period probe of what screening
+would do to real calendars.
 
 \begin{table}
-\caption{Quantities used in the analysis.}
-\label{tab:quantities}
+\caption{Panels, their units, and what each is allowed to support. ``Groups''
+are connected components of networks that share a station id and are the
+resampling and fold unit throughout.}
+\label{tab:panels}
 \tabletext
 \centering
-\begin{tabularx}{\textwidth}{Y{0.85}Y{1.30}Y{1.30}Y{0.55}}
+\begin{tabularx}{\textwidth}{Y{0.95}Y{0.85}Y{0.80}Y{0.55}Y{1.85}}
 \hline
-quantity & physical meaning & source & calibrated \\
+panel & cases & networks & groups & role \\
 \hline
-$h_q$, hidden mass & share of the statistic's influence removed by the gap & mask and the station's own complete years & no \\
-peak-window overlap & $h_q$ for a 30-day extreme, from the climatological window & mask and training years & no \\
-warm-season coverage & share of May--September days observed & mask & no \\
-longest run, missing fraction & size of the gap & mask & no \\
-observed-peak margin & how far the observed days already constrain the annual maximum & observed days and training climatology & no \\
-donor count, coverage, correlation & how much synchronous anomaly information neighbours carry & training-period deseasonalised series & no \\
-$K$, ridge penalty of the donor and air estimators & strength of shrinkage toward the seasonal mean & leave-one-year-out within station & yes, within station \\
-conformal scale & multiplicative factor turning a predicted bound into a valid one & calibration networks, disjoint from fitting and test & yes, on networks \\
-$\tau$, tolerance & consequential error in the units of the statistic & 0.47 of the endpoint's own interannual SD; swept 0.25--1.0 & no, declared \\
-basin attributes & elevation, slope, baseflow index, drainage area & GAGES-II, United States subset & no, not an input \\
+complete base & 5{,}114 station-years & 146 & --- & reference truth for every recovery experiment; USGS reference-network criteria follow \cite{falcone2011} \\
+development & 40{,}704 designed outages & 110 & 110 & method selection and cross-fitted development evidence \\
+external & 13{,}017 designed outages & 49 labels, 143 stations & 41 & cross-fitted external comparison; already opened, not a new seal \\
+real archive & 2{,}422 incomplete station-years & --- & --- & gap geometry only; no complete counterpart, so no error can be measured \\
+real calendar replay & 418 candidate groups & 14 & 14 & development-period probe of deployment on real gap calendars \\
 \hline
 \end{tabularx}
-\tablenotetext{a}{No quantity in the first six rows reads a day the gap hides;
-that restriction is enforced in the feature constructor rather than by
-convention.}
 \end{table}
-
-\subsection{Gap design: two arms, and why both are needed}
-
-A case is one station-year under one gap realization. Two arms are used and
-reported separately, because they answer different questions and are not one
-population. The \emph{empirical} arm samples real gap runs --- length and start
-month --- from the same network's own records and transplants them onto fully
-observed years, so that operational numbers reflect the geometry agencies
-experience. The \emph{stratified} arm crosses gap length
-$\{14,30,60,90,120,180,270\}$ days with the overlap between the gap and the
-station's climatological peak window, so that the response surface is estimable
-rather than accidental. The design yields \textbf{51524 cases}, 40704
-development and 10820 reserved.
-
-Both arms transplant a mask onto a year whose values were observed, which assumes
-the mask is uninformative about the values it hides.
-Section~\ref{sec:assume} tests that assumption against the archive rather than
-asserting it. Gaps are placed inside one calendar year; failures that straddle
-New Year damage two annual statistics while hiding neither warm season, and the
-design cannot represent that case.
-
-Each endpoint is scored against a tolerance equal to the same fraction, 0.47, of
-\emph{its own} interannual standard deviation at the same stations. For the
-annual peak that scale is 1.06\,$^{\circ}$C, giving a primary tolerance of
-0.50\,$^{\circ}$C; the scale falls monotonically with support width, from
-1.18\,$^{\circ}$C at $k=1$ to 0.55\,$^{\circ}$C at $k=365$. The fraction is swept
-at 0.25, 0.47 and 1.0, and no conclusion about which axis wins is claimed unless
-it is invariant across the sweep. The reference series carries instrument error
-of roughly 0.1 to 0.2\,$^{\circ}$C, so the primary tolerance is about three times
-sensor accuracy; Section~\ref{sec:assume} perturbs the reference by
-0.15\,$^{\circ}$C and repeats the analysis.
 
 \section{Methods}
 
-Each choice below answers one of the obstacles in the introduction, and the
-order of the subsections follows that logic rather than the order in which the
-code runs: the reconstruction defines what a deployed rule may read; the rule
-defines the two candidate conditioning axes and the information barrier between
-them and the truth; the test protocol fixes the operating point, the clustered
-inference unit and the falsification tests declared before scoring.
+\subsection{Reconstruction and the information it may use}
 
-\subsection{Reconstruction, and what each estimator is allowed to see}
+Every reconstructor is fitted leave-one-year-out: the model that fills days in
+year $y$ sees only other years at the same station, plus, where the method
+allows it, other stations of the same network. Five reconstructors are used:
+day-of-year climatology, a smoothed climatology, linear interpolation between
+observed days, a ridge regression on visible donor stations, and a ridge
+regression on gridded air temperature (NASA POWER \cite{nasapower2026}). A stored per-case policy selects one of
+them for each station-year on validation evidence, and the reconstruction that
+the admission rule accepts is that policy output, whose absolute error we write
+$e$ and whose consequential failure we define as $e>0.5\,^{\circ}$C. On the
+external panel the policy chooses donor regression for 69\% of cases, smoothed
+climatology for 24\% and interpolation for 6\%; the climatology fallback is
+where the policy fails, at 38\% against 8\% for donor regression, and it is one
+reason the fitted score can separate records that share the same hidden
+support. The
+tolerance is fixed before any result in this paper was computed; it is roughly
+half the interannual standard deviation of the hottest 30-day mean within a
+station, so a failure is a year whose reconstructed rank would move.
 
-Every case is completed by each supported estimator: the statistic computed from
-recorded days alone (current practice), a day-of-year median climatology, a
-smoothed climatology, linear interpolation where both flanks exist, ridge
-regression on the visible subset of synchronous donors, and an air-driven ridge
-with lagged air temperature and harmonics. Estimators are fit leave-one-year-out
-within the station, which is what offline archive repair permits;
-Section~\ref{sec:assume} repeats the study under the stricter protocol in which
-only prior years are available. Support is declared per method: donor regression
-does not read a flanking observation, so requiring one would discard usable
-cases, and absent donor columns are never imputed but the model is refit on the
-visible subset.
+\subsection{The admission problem}
 
-One weakness in that library was worth removing before the comparison was run.
-Air temperature was available for 2.3\% of development cases in an earlier
-version of this analysis, so the reconstruction this field actually uses was
-effectively absent, and 36 of the 110 development networks have no synchronous
-donor at all. With coordinates joined for all 457 stations and NASA POWER pulled
-for the whole panel, air forcing now covers 98.6\% of development cases and
-100\% of reserved cases. The retrospective reserved holdout is not re-scored
-against the new forcing; Section~\ref{sec:fair} reports it as a
-development-panel sensitivity analysis.
+A rule computes a score $s(x)$ from decision-time features $x$ and admits a
+record when $s(x)\le\tau$. The threshold $\tau$ is selected on calibration
+groups only, never on the labels of the records it will judge. We compare four
+scores that are available before the decision and one reference arm:
 
-The reconstruction layer is not the contribution of this paper and is kept
-deliberately simple. Its role is to make the comparison between conditioning
-variables fair, which requires only that the estimator paired with the incumbent
-rule is the strongest deployable one; Section~\ref{sec:fair} tests that
-requirement directly rather than assuming it.
+\begin{itemize}
+\item \emph{gap-length rule}: $s=\ell$, the longest consecutive missing run.
+\item \emph{peak-window rule}: $s=\hat h$, the share of the climatological peak
+window hidden by the gap.
+\item \emph{certificate bound}: $s=b$, a calibrated upper bound on the
+reconstruction error stored by a companion certificate model; it ranks records
+by predicted error and carries no label from the evaluated year.
+\item \emph{fitted risk score}: a quantile gradient-boosting regressor
+($q=0.9$, depth 4, 350 iterations) on 22 decision-time features that include
+gap geometry, visible-donor count and correlation, the reconstructor's own
+training residual and the disagreement among reconstructors. It is trained on
+$e$, the error of the same policy reconstruction it is used to admit, and it is
+cross-fitted by group: the calibration score of each outer fold is an inner
+out-of-fold prediction, so no outer test label can reach that fold's threshold.
+\item \emph{reconstruct everything}: the reference arm, admitting every record
+whose policy reconstruction is defined. It is what an agency does if no screen
+is worth its cost, and it is the arm against which the value of screening has to
+be judged.
+\end{itemize}
 
-\subsection{The screening rule, and the information it is forbidden to read}
+Ties are handled once, at the score definition: a threshold is an observed value
+of the raw score, and admission is $s\le\tau$, so a tie block is admitted whole
+in calibration, in evaluation and at deployment. No jitter is added at any
+stage. A separate fixed-retention comparison admits the safest 70\% of each
+fold using a deterministic case key to break ties, which is a second deployable
+rule and is reported as such.
 
-For each case the screen predicts an upper bound on the absolute error each
-supported estimator would produce, selects the estimator with the smallest
-bound, and emits a conformal interval on the statistic together with an
-admission decision at an analyst-chosen tolerance. Its inputs are the first six
-rows of Table~\ref{tab:quantities}. No input may read a day the gap hides, and
-that restriction is enforced in code rather than by convention.
+\begin{figure}[htbp]
+\includegraphics[width=\textwidth]{figures/f2_system_design.pdf}
+\caption{How a station-year becomes an admissible record. Band 1: complete
+station-years supply the reference truth, designed outages vary gap geometry,
+five reconstructors are fitted leave-one-year-out, and the stored policy output
+is the admitted object, whose error against the complete year defines a failure
+at 0.5\,$^{\circ}$C. Band 2: the admission rule reads only decision-time
+information, scores each record, calibrates one threshold per group fold with a
+clustered bound at the 5\% cap, and admits a record whose score is at or below
+the threshold; ties are admitted whole. Band 3: what the rule changes, and the
+regime check that decides whether a screen is worth its cost. Schematic source:
+\texttt{f2\_system\_design.drawio} (draw.io; see the Open Research statement).}
+\label{fig:system}
+\end{figure}
 
-Calibration is split conformal \cite{lei2018}, and the risk-control framing
-follows the distribution-free line of \citeA{angelopoulos2022} with the caveat
-that selective observation is itself an existing problem statement
-\cite{bai2026}; what is specific here is that selection happens among
-reconstructions chosen per station-year. Two properties matter. It is
-\emph{selection-conditional}, because taking the smallest of several bounds is
-a winner's curse that per-estimator calibration cannot see, and
-\emph{multiplicative}, because the error scale spans an order of magnitude
-between a gap that misses the peak window and one that covers it. Fitting,
-calibration and test networks are always disjoint.
+\subsection{Risk control and what it means}
 
-\subsection{Test protocol: fixed operating point, clustered unit, declared falsifications}
+The threshold is the largest candidate whose group-clustered bootstrap bound on
+the calibration false-admit rate is at most 5\%, with the percentile taken at
+$1-0.05/n_{\mathrm{cand}}$ over the $n_{\mathrm{cand}}$ distinct thresholds
+searched. We are explicit about what this is and is not. It is an empirical,
+finite-sample calibration rule for a clustered design, in the spirit of
+distribution-free risk control but without its exchangeability guarantee
+\cite{angelopoulos2022,bai2026}. It is not a
+distribution-free guarantee for an unseen archive, and a bound that holds at
+each candidate is not a bound that holds after maximising over candidates; the
+Bonferroni factor is there for that reason. Section~4.5 reports what the rule
+actually delivers in simulation, separating the population risk of the selected
+threshold from the error rate observed in a finite test batch --- the two are not
+the same event, and only the first is a property an agency can rely on.
 
-Before any rule was fit we measured, on development cases, how much a rule with
-perfect foresight could win inside each candidate action space, and compared it
-with the margin the reserved panel can resolve. Two natural framings --- adopt or
-reject a fixed reconstruction, and choose among reconstruction methods --- have
-ceilings of $+0.038$ and $+0.080\,^{\circ}$C against a threshold of
-$0.136\,^{\circ}$C, and were not pursued. Retain-or-exclude clears its gate by a
-factor of five and is the action space studied here. A decision experiment whose
-ceiling is below its own resolvable margin cannot produce evidence in either
-direction, and running one consumes a reserved panel for nothing.
+\subsection{Uncertainty and the unit of inference}
 
-Every interval resamples whole networks, because station-years within a network
-are not independent and reusing a station-year under several gap realizations
-does not create independent observations. The pre-registered primary criterion,
-frozen before the reserved panel was opened, is that at the retention of the
-matched length rule the screen must reduce the consequential-error rate by at
-least five percentage points with a network-clustered interval excluding zero.
-Precision was computed in advance: the reserved panel resolves 1.44 points, so
-the declared effect is 3.5 times the resolution.
-
-Where several endpoints are compared, the direction of each contrast was
-predicted in advance from the form of the statistic, which is the defence against
-multiplicity. Three of those predictions were not met, and
-Sections~\ref{sec:dilate} and \ref{sec:sine} report them as failures rather than
-reshaping them into successes.
+The resampling unit is the shared-station group. All intervals are percentile
+intervals from 2{,}000 group-bootstrap draws unless stated otherwise, and every
+contrast is paired: the same resampled groups are used for both arms. Three fold
+seeds (101, 202, 303) are pre-declared and all are reported. Shares are fractions
+throughout; we write percentage points when a difference is in points. For the
+hot-year analysis, the case-weighted estimate is primary and a unique
+station-year weighting, in which each station-year carries total weight one
+regardless of how many outage realisations it contributes, is reported as the
+pre-declared sensitivity.
 
 \section{Results}
 
-\subsection{The phenomenon: the same gap damages different annual statistics differently}
+\subsection{The same gap has opposite consequences for different statistics}
 
-Whether an incomplete year can carry a summer extreme depends strongly on where
-its gap falls. One real record shows the two ends of the range: a 30-day gap
-over the peak window costs $3.99\,^{\circ}$C in the hottest 30-day mean, while
-the same 30 days in late autumn cost nothing; the annual mean on this example
-moves by $-1.03$ and $+0.24\,^{\circ}$C and therefore does \emph{not} reverse the
-order (Figure~\ref{fig:frame}). Across the development panel the relative
-importance of timing versus length still differs by endpoint, which is enough to
-change which station-years an archive should keep, without requiring a universal
-``position dominates length'' law.
+\subsubsection{Support orders the error, and length barely moves it}
 
-\subsubsection{Computing the peak from recorded days alone costs more than a year-to-year standard deviation}
+Figure~\ref{fig:support}a and b hold the gap length in view and split by hidden
+support. For the hottest 30-day mean the support class sets the height of the
+curve and the length barely moves it: a gap that leaves the peak window
+observed costs 0.003\,$^{\circ}$C at one week and 0.04\,$^{\circ}$C at
+91--180 days, while a gap that covers the window costs 0.68\,$^{\circ}$C at
+15--30 days and stays near 0.9\,$^{\circ}$C from 60 days out to beyond 180. At a
+fixed length of 30 days the crossed design puts the position effect at
+0.64\,$^{\circ}$C [0.55, 0.74], and at 90 days at 0.89\,$^{\circ}$C
+[0.76, 1.04]. For the annual mean the same split collapses: the three support
+classes lie on top of one another and the error rises with length from
+0.02\,$^{\circ}$C at one week to 0.26\,$^{\circ}$C by 180 days, with the one
+class that has longer records reaching 0.41\,$^{\circ}$C.
 
-Current practice is expensive before any rule is proposed. On development cases,
-computing the annual peak from recorded days alone --- the default once a
-station-year passes a completeness screen --- gives a mean absolute error of
-\textbf{1.305\,$^{\circ}$C, or 1.23 interannual standard deviations} of the
-quantity being measured, with 24.9\% of station-years wrong by more than
-1.0\,$^{\circ}$C. Substituting a day-of-year climatology over the gap gives
-0.402\,$^{\circ}$C, the best supported reconstruction 0.225\,$^{\circ}$C with air
-forcing available for the whole panel (0.242\,$^{\circ}$C without it), and an
-oracle over the estimator set 0.130\,$^{\circ}$C. The error is therefore
-dominated not by which station-years are kept but by whether the record is
-repaired at all, which fixes the size of the question the rest of the paper
-addresses: given that a year has been repaired, which repaired years can be
-trusted.
+\subsubsection{A colder statistic reverses the ordering}
 
-\begin{figure}[ht]
-\includegraphics[width=\textwidth]{figures/f1_example.pdf}
-\caption{Two statistics, one record, two equal-length gaps. (a) A complete annual water-temperature record (CHMI Berounka, station 0-203-1-198600, 2013; n = 365 days, no missing day) with two designed 30-day gaps: gap A over the window that achieves the complete-record hottest 30-day mean (15 July to 13 August) and gap B in late autumn (1 to 30 November). The curve is dark where the gap leaves it observed and faint where the analyst would not see it. (b) Each gap's effect on each statistic, in $^{\circ}$C: dots are estimates from the days the gap leaves, open dots and dotted lines the complete-record truth (annual mean 10.05\,$^{\circ}$C, hottest 30-day mean 21.58\,$^{\circ}$C). The panels use different vertical scales and neither starts at zero, so the printed values carry the comparison: gap A moves the hottest 30-day mean by $-3.99\,^{\circ}$C while the same length in late autumn leaves it exact, whereas the annual mean moves by $-1.03$ and $+0.24\,^{\circ}$C. (c) All 336 possible 30-day gap starts of the same year, showing the error each position induces in the hottest 30-day mean (orange) and the annual mean (blue); the shaded band holds starts whose window reaches the peak window. An illustration on one real record, not a result: no model, no population estimate, no test. Source data: \texttt{figures/wrr/f1\_example\_data.json} and \texttt{f1\_example\_sweep.csv}.}
-\label{fig:frame}
-\end{figure}
+The reversal is not confined to the annual mean. Figure~\ref{fig:support}c
+compares five annual statistics at the three support classes. The hottest 7-day
+mean behaves like the hottest 30-day mean but more steeply (0.03 against
+1.13\,$^{\circ}$C). The seasonal amplitude, which is a difference of a summer and
+a winter window, behaves like the hot statistics because its summer term is the
+one at risk. The coldest 30-day mean moves the other way: 0.12\,$^{\circ}$C when
+the gap misses the peak window against 0.07\,$^{\circ}$C when it covers it,
+because a gap placed away from the summer peak is a gap that can cover the
+winter minimum, and a gap over the summer peak leaves the cold support observed.
+One rule, three statistics, opposite consequences: what a completeness count
+cannot express is which days a statistic is made of.
 
-\subsubsection{The share of the support a gap hides orders every endpoint, and the ordering reverses}
+Figure~\ref{fig:support}d adds the reason this matters for practice. In the
+designed panel 30\% of outages hide more than half of the climatological peak
+window and the median gap is 30 days. In the 418 real calendars the median gap is
+7 days, the median missing fraction is 2.2\%, and 5.7\% of candidates hide more
+than half of that window. The two populations are not the same population, and Section~4.4
+shows what that difference does to the value of a screen.
 
-Table~\ref{tab:axes} reports, for five endpoints, how well each candidate
-property of the gap discriminates a consequential error. The ordering reverses
-between extremes and averages, every clustered interval excludes zero, and the
-winning axis is unchanged at tolerances of 0.25, 0.47 and 1.0 interannual
-standard deviations. The seven-day peak has the largest timing advantage of any
-endpoint, which the support account predicted before it was measured because a
-shorter extreme is more localised in time; peak-window overlap has an AUC of
-0.447 for the cold extreme, because hiding the summer peak carries no
-information about the winter minimum. The last row is not evidence that cold
-extremes are a length-governed exception, and reading it that way would be a
-mistake: the two support axes in the table are defined on the warm season. Built
-on the endpoint's own season --- a climatological coldest-30-day window and the
-observed share of the cold months --- the support axis beats the length rule for
-the coldest 30-day mean on the same development cases (AUC 0.876 and 0.897
-against 0.819; clustered error-rate gaps $-0.0050$ and $-0.0059$, intervals
-excluding zero), and adds to length in a grouped out-of-fold model (AUC 0.905
-against 0.813 for length alone). What the table shows is that the support must be
-defined on the season the statistic lives in; it does not license a
-warm-season axis for a cold endpoint. That cold-endpoint analysis is exploratory:
-it uses the development panel and does not touch the sealed confirmation.
+\subsection{The reconstructor sets the height, not the shape}
 
-\begin{table}
-\caption{Discrimination of a consequential error by axis (AUC), development cases, each endpoint at 0.47 of its own interannual standard deviation.}
-\label{tab:axes}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.45}Z{0.80}Z{0.85}Z{0.75}Z{1.15}}
-\hline
-endpoint & peak-window overlap & warm-season coverage & outage length & AUC difference (95\% CI) \\
-\hline
-hottest 7-day mean & 0.823 & 0.824 & 0.752 & $+0.072$ (0.063, 0.096) \\
-hottest 30-day mean & 0.819 & 0.820 & 0.750 & $+0.070$ (0.061, 0.098) \\
-amplitude & 0.758 & 0.792 & 0.768 & $+0.024$ (0.015, 0.037) \\
-annual mean & 0.672 & 0.818 & 0.845 & $-0.027$ ($-0.036$, $-0.018$) \\
-coldest 30-day mean & 0.447 & 0.619 & 0.803 & $-0.184$ ($-0.228$, $-0.156$) \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{The difference is AUC(best timing axis) minus AUC(outage length). All five intervals exclude zero and the ordering reverses between the two regimes.}
-\end{table}
+The support effect is conditional on what the reconstructor can infer. Figure
+\ref{fig:reconstructor}a crosses gap position with gap length at 30, 60 and 90
+days for five reconstructors. Hiding the peak always costs something, but the
+cost ranges from 0.24\,$^{\circ}$C [0.20, 0.28] for donor-station regression to
+0.64\,$^{\circ}$C [0.55, 0.74] for day-of-year climatology at 30 days, and the
+ordering of the five methods at 90 days is the same as at 30.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.95\textwidth]{figures/f2a_endpoint_ordering.pdf}
-\includegraphics[width=0.95\textwidth]{figures/f2b_panel_heterogeneity.pdf}
-\caption{The same screening gain, ordered two ways. (a) Discrimination of a consequential error by endpoint, as the AUC difference between the best timing axis and the outage-length rule, with network-clustered 95\% intervals; positive means the timing axis wins. Warm-season extremes favour timing; the annual mean favours length. The cold-extreme negative result in this panel uses a warm-season support axis and should not be read as ``length wins for cold extremes'' --- cold-season support reverses that comparison (AUC $\approx 0.88$ vs length 0.82; SI winter amendment). (b) Pooled contrasts for retrospective development and reserved panels (grey) and the wave-2 independent confirmation (green; USGS, Hub'Eau, UK EA; $\Delta=-5.89$ points). The first sealed USGS and multi-agency transport scores remain omitted as withdrawn after the 2026-10-13 audit. The dashed line is the pre-declared $\Delta=-1.0$ point threshold. Source data: \texttt{figures/wrr/f2\_heterogeneity\_data.json}.}
-\label{fig:hetero}
-\end{figure}
+Figure~\ref{fig:reconstructor}b asks the complementary question: with the hidden
+share held at one, does length still matter? For climatology and smoothing the
+answer is a few hundredths of a degree and not distinguishable from zero under a
+network-paired interval (0.03\,$^{\circ}$C [$-0.18$, 0.22] and
+0.10\,$^{\circ}$C [$-0.05$, 0.26]). Air regression is
+0.13\,$^{\circ}$C [0.03, 0.22], small but distinguishable; donor regression is
+$-0.09$\,$^{\circ}$C [$-0.24$, 0.06]. Linear interpolation is the large exception
+at 1.16\,$^{\circ}$C [1.00, 1.33]: when the window is entirely unobserved, an
+interpolator must bridge the whole gap and its error grows with the bridge,
+whereas a climatological or donor method substitutes an estimate that does not
+depend on the length of the missing run.
 
-\subsection{The response is conditional: where the gain holds and where it disappears}
-
-The advantage of conditioning on support is not general. It depends on how wide
-the estimand's support is, it survives only in part under the gap calendar these
-networks actually keep, and it differs across agencies and across how strictly
-their daily values are checked. Reporting only the pooled number would hide all
-three dependencies.
-
-\subsubsection{The transition is continuous, and a fixed narrow window turns over near a three-month support}
-
-Table~\ref{tab:axes} evaluates the question at two points and reads the gap
-between them as a dichotomy. Sweeping the hottest-$k$-day mean of
-Equation~\eqref{eq:qk} from $k=1$ to $k=365$ evaluates it everywhere
-(Table~\ref{tab:sweep}, Figure~\ref{fig:law}a). The advantage of a fixed 30-day
-peak window --- the axis the screen actually uses --- is flat at about $+0.075$
-AUC while the estimand's support is a month or less, falls to $+0.050$ at two
-months and to $+0.002$ at three, and is negative beyond that. The 90-day grid
-point is statistically indistinguishable from zero (95\% interval $-0.018$ to
-$+0.026$, positive in 55\% of network-clustered replicates), and the first
-clearly negative grid point is 182 days, so the crossing is only located between
-60 and 182 days: a bootstrap of the whole curve puts its 95\% interval at
-$[77,107]$ days and it moves between 85 and 102 days across the tolerance grid,
-while the opened reserved panel's interval ($[104,136]$) overlaps it rather than
-displacing it. We therefore report a range and not a day count. The same sweep
-supports a second, different statement: a conditioning window dilated around the
-estimand's own support keeps its advantage over whole-year completeness out to
-about 359 days (95\% interval 351 to 364, and it fails to cross at all in 7\% of
-replicates), ending only at the trivial $k=365$ coincidence, and the advantage is
-a hump that peaks near 60 days rather than decaying monotonically. The mid-range
-crossing is thus a property of holding the conditioning window narrow and fixed,
-not of the support idea itself. Nor is one window enough across the continuum:
-a single 60-to-90-day window is within 0.0004 AUC of each endpoint's own optimum
-up to a 90-day support, but costs 0.083 AUC at the annual-mean end. These continuum numbers are exploratory
-analyses developed after the reserved panel was opened; they motivate the
-screening axis but are not the sealed USGS confirmation reported with the data
-description. The two regimes of Table~\ref{tab:axes} are useful ends of that
-exploratory scale, not a proven universal dichotomy.
+Figure~\ref{fig:reconstructor}c puts the two findings on one axis. Across the
+full range of hidden support every reconstructor's error rises monotonically
+with the share hidden, but the curves are at different heights and the
+interpolation curve bends upward at the right-hand end. The support share is the
+right conditioning variable for every method; the coefficient on it, and whether
+a length term survives alongside it, are properties of the reconstructor. A claim
+that position dominates length as a law would therefore be wrong, and it is not
+the claim we make.
 
 \begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/figv3_support_law.pdf}
-\caption{The transition is continuous, and it is the estimand's support that decides. Exploratory results from the opened panel, not the sealed USGS confirmation. (a) Advantage in AUC of a fixed 30-day peak window over whole-year completeness, against the support width $k$ of the estimand (1 to 365 days), development cases; the crossing is an interval, 77 to 107 days, and the sign is reversed for $k=182$ and $k=365$ days. (b) AUC of each conditioning axis for each estimand, so that the reversal can be read column by column; intervals are network-clustered 95\%. (c) The same axes for the three sine-fit parameters of the standing guidance, each evaluated at 0.47 of its own interannual standard deviation. Because the support of a year must be located before it can be conditioned on, the useful conditioning window is wider than the statistic itself, which is why a fixed narrow window turns over. Source data: \texttt{results/v18\_closure/e6\_support\_width/} and \texttt{e3\_sine\_endpoints/}.}
-\label{fig:law}
+\includegraphics[width=\textwidth]{figures/f3_reconstructor.pdf}
+\caption{The support effect is universal in sign and conditional in size. (a)
+Difference in mean absolute error between an outage that hides the whole peak
+window and one that leaves it observed, at fixed length (30, 60, 90 days), for
+five reconstructors. (b) Difference between a 90-day and a 30-day outage at a
+fixed hidden share of one, with a network-paired interval; only linear
+interpolation retains a length effect once the window is unobserved. (c) Mean
+absolute error against hidden support share for the same five reconstructors on
+the external designed panel. Panels (a) and (b) use the crossed panel of 1{,}899
+cases and 12 networks with 2{,}000 network-clustered bootstrap draws; panel (c)
+uses the 13{,}017 external cases with group-clustered intervals. Source data:
+\texttt{fig3\_source.csv}.}
+\label{fig:reconstructor}
 \end{figure}
 
-\begin{table}
-\caption{The governing axis as a function of the support of the estimand, development cases.}
-\label{tab:sweep}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Z{0.75}Z{0.85}Z{0.85}Z{0.95}Z{1.60}}
-\hline
-support width $k$ (days) & interannual SD ($^{\circ}$C) & AUC, peak window & AUC, missing fraction & difference (95\% CI) \\
-\hline
-1 & 1.18 & 0.825 & 0.751 & $+0.074$ (0.053, 0.097) \\
-3 & 1.17 & 0.824 & 0.746 & $+0.078$ (0.055, 0.104) \\
-7 & 1.16 & 0.823 & 0.746 & $+0.077$ (0.053, 0.104) \\
-15 & 1.12 & 0.821 & 0.743 & $+0.078$ (0.053, 0.106) \\
-30 & 1.08 & 0.819 & 0.744 & $+0.075$ (0.049, 0.104) \\
-60 & 1.02 & 0.815 & 0.765 & $+0.050$ (0.028, 0.078) \\
-90 & 0.94 & 0.792 & 0.790 & $+0.002$ ($-0.018$, 0.026) \\
-182 & 0.74 & 0.728 & 0.823 & $-0.095$ ($-0.111$, $-0.077$) \\
-365 & 0.55 & 0.672 & 0.845 & $-0.173$ ($-0.192$, $-0.157$) \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{The difference is AUC(30-day peak window) minus AUC(whole-year missing fraction), with a network-clustered 95\% interval. Every interval excludes zero except the one at $k=90$, which is where the crossing is.}
-\end{table}
+\subsection{Why the window matters, and what support alone misses}
 
-\subsubsection{On the estimands the standing guidance was derived for, the guidance is right}
+The proximate mechanism is window misalignment. The climatological window that
+a deployable support rule uses is not the year's true window; in 61\% of cases
+under day-of-year climatology, 58\% under smoothing, 56\% under interpolation,
+37\% under donor regression and 51\% under air regression, the reconstruction's
+best 30-day window lands somewhere else than the truth, a median of 4 to 14 days
+away. When it does, the error is larger by 0.66, 0.65, 0.70, 0.28 and
+0.52\,$^{\circ}$C respectively, and every interval excludes zero
+(Figure~\ref{fig:mechanism}a). A rule built on support is therefore a rule built
+on the climatological guess about where the support is, and it inherits that
+guess's error.
 
-The sine-fit parameters also connect to a physical reading that is worth keeping
-separate from the statistical one: air--water phase and amplitude carry
-information about groundwater and riparian influence \cite{hare2023}, and a
-support-conditioned screen improves the error of those parameters without
-claiming to identify the process behind them.
+Two further diagnostics constrain the explanation. Reconstruction residuals are
+strongly persistent: the median lag-1 autocorrelation of the residual inside the
+gap is between 0.84 and 0.88 for every method, and cases above a method's median
+carry 0.16 to 0.36\,$^{\circ}$C more error under the three climatological and
+interpolating methods (Figure~\ref{fig:mechanism}b). Errors therefore do not
+average out over a gap; they accumulate coherently, which is why a hidden peak
+costs more than the number of hidden days would suggest. A competing thermal peak
+does not order the error (Figure~\ref{fig:mechanism}c): the relation is
+non-monotone and flat for donor regression, so a close second-best window is not
+by itself a failure condition. The mechanism is placement, not competition.
 
-\label{sec:sine}
-
-\citeA{johnson2021} fit a sine wave by linear regression and take a mean, a phase
-and an amplitude; they do not compute a hottest 30-day mean. Reproducing that
-estimator on our panel puts the two accounts on the same footing for the first
-time (Table~\ref{tab:sine}, Figure~\ref{fig:law}c). A completeness threshold is
-the correct axis for the fitted mean, at 0.845 against 0.672 for peak-window
-overlap, and is within 0.02 AUC of the best axis for the phase. The ordering is
-the same under the authors' own protocol, in which the sine is fitted to
-whatever days are present with no repair at all: peak overlap 0.667, 0.743 and
-0.590 against whole-year missingness 0.902, 0.842 and 0.898 for the mean,
-amplitude and phase, at base rates of 32\% to 34\% consequential against 10\% to
-12\% after repair.
-
-Two reporting rules come out of this endpoint. Phase is only identifiable when
-the fitted amplitude stands above the noise, and the floor depends on the
-residual structure rather than on the sample size alone. The uniform-sampling
-formula $\sigma\sqrt{2/n}/A$ gives $A/\sigma \ge 4.5$ for a 95\% interval no
-wider than the phase tolerance used here, and building the design matrix on each
-case's own observed days leaves that figure essentially unchanged
-(median required $A/\sigma = 3.73$), so the visibility mask is not what limits
-the endpoint. The residuals are what limit it: with the empirically estimated
-lag-one autocorrelation (median 0.89) the same design-based interval requires
-$A/\sigma = 16.2$, and a HAC interval 11.7; an independent block bootstrap of the
-sine-fit residuals lands between them at $3.2\times$ the i.i.d. width. Every case
-the fixed rule would retain has a design-based half-width above the phase
-tolerance, so the earlier $A/\sigma \ge 4.5$ floor was too permissive under the
-unrepaired protocol and is replaced by the design-based requirement; the episode
-is a reminder that a signal-to-noise rule computed at uniform sampling does not
-transfer to a record with autocorrelated residuals (\texttt{p1\_mechanism\_boundary/}).
-What survives is the ranking result below, which does not depend on the floor. Second, the fitted mean and phase
-are the regime the standing guidance was derived for, and on them it is right.
-
-The third declared prediction failed here. We expected that for the phase, whose
-influence is largest a quarter-year from the peak, two 61-day windows around the
-spring and autumn limbs would beat both peak overlap and gap length. They beat
-peak overlap decisively ($+0.249$ AUC, 95\% CI 0.231 to 0.270) and they do not
-beat gap length (0.831 against 0.836). Weighting every day by the influence
-function of Equation~\eqref{eq:hidden} instead recovers the advantage: 0.847,
-which beats the whole-year missing fraction by $+0.013$ (0.009, 0.017) and peak
-overlap by $+0.265$ (0.249, 0.285).
-
-\begin{table}
-\caption{Axis comparison on the sine-fit parameters (AUC), development cases,
-each at 0.47 of its own interannual standard deviation.}
-\label{tab:sine}
-\centering
-\begin{tabularx}{\textwidth}{Y{0.95}Z{0.85}Z{1.00}Z{0.85}Z{1.15}Y{1.20}}
-\hline
-estimand & peak window & missing fraction & outage length & influence-weighted & best axis \\
-\hline
-fitted mean & 0.672 & 0.845 & 0.845 & 0.845 & outage length \\
-amplitude   & 0.724 & 0.812 & 0.815 & 0.831 & influence-weighted \\
-phase       & 0.583 & 0.835 & 0.836 & 0.847 & influence-weighted \\
-\hline
-\end{tabularx}
-\end{table}
-
-
-\subsubsection{The gain disappears under the gap calendar these networks keep, because long gaps begin in autumn}
-\label{sec:absent}
-
-The frozen holdout test was run on the pooled case set, which mixes two arms
-whose base rates differ by an order of magnitude, and they must be reported apart
-(Table~\ref{tab:arms}). The declared five-point effect is met on the pooled and
-stratified populations and \emph{not} on the reserved empirical arm, where the
-interval includes zero. The holdout headline $-7.13$ points is therefore an
-effect on a mixture that includes a designed arm. The sealed USGS confirmation
-likewise finds a much smaller empirical-arm gain than the pooled contrast, so
-neither number should be quoted as next year's agency experience under natural
-outages alone.
-
-\begin{table}
-\caption{Decomposition by outage arm.}
-\label{tab:arms}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.05}Y{0.80}Z{0.75}Z{0.85}Z{0.90}Z{0.80}Z{1.85}}
-\hline
-panel & arm & cases & base rate (\%) & length rule (\%) & screen (\%) & contrast, points (95\% CI) \\
-\hline
-development & empirical & 14995 & 7.4\% & 2.52\% & 0.38\% & $-2.13$ ($-3.45$, $-1.26$) \\
-development & stratified & 25709 & 19.3\% & 14.58\% & 6.17\% & $-8.39$ ($-9.25$, $-7.47$) \\
-reserved & empirical & 4041 & 4.2\% & 0.74\% & 0.11\% & $-0.71$ ($-2.36$, $+0.05$) \\
-reserved & stratified & 6779 & 20.8\% & 16.59\% & 7.78\% & $-8.68$ ($-10.46$, $-6.51$) \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{Base rate is the consequential-error rate with no screening; the two rule columns are at 70\% retention. The declared five-point effect is met on the pooled and stratified populations and not on the empirical arm.}
-\end{table}
-
-Why the empirical arm is null is itself a result. Across the 6472 real interior
-gaps in this archive, gaps shorter than 30 days and gaps of 30 to 89 days are
-close to uniform in start month ($\chi^2=4.0$ on 11 df, $p=0.97$ for the
-30-to-89-day class). Gaps of 90 days or more are not: \textbf{72.3\% of them
-begin between September and January and 17.9\% between March and July}
-($\chi^2=86.1$, $p=9.5\times10^{-14}$; Figure~\ref{fig:season}a). The gaps long
-enough to destroy a summer peak are seasonal shutdowns, and they start after the
-warm season has been recorded, so little is at risk and little can be screened
-out: 4.2\% of reserved empirical cases exceed the tolerance with no screening at
-all.
-
-A counterfactual that holds gap lengths fixed and moves only start month is
-reported in Figure~\ref{fig:season}b as an exploratory amendment after correcting
-year-end truncation in the placement code
-(\texttt{results/wrr\_submission\_ready/e1\_maintenance\_recompute/}). Those
-percentage-point swings are not sealed confirmation and are not used as
-agency recommendations.
+Nothing in this section makes the support rule sufficient. Figure
+\ref{fig:mechanism}d shows why: within a single support bin, records refused by
+the fitted risk score fail at 40 to 55\% while records it admits fail at 0.7 to
+15\%. The score is reading something support does not contain --- donor
+availability, the geometry of scattered missing days, and the reconstructor's own
+training residual --- and the smallest bins are the ones where it matters most.
+That is the information behind the retention gain reported next, and it is also
+the reason a more complex rule can be worth its cost where gaps are consequential.
 
 \begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/figv1_outage_seasonality.pdf}
-\caption{The gap calendar these networks actually keep. (a) Start month of the 6472 real interior gaps found in complete years, split by length class: 5246 gaps of 1--7 days, 760 of 8--29 days, 282 of 30--89 days and 184 of 90 days or longer (median gap 2 days, 95th percentile 43 days). Long outages begin in autumn and winter, which is where the peak window is not; 55.8\% of them ($[50.9,60.9]$\%, 99 network clusters) hide less than half of the climatological peak window. (b) Exploratory maintenance-calendar counterfactual: consequential-error rate for 32\,240 outage placements drawn from the observed calendar, the maintenance calendar, and a uniform calendar after the multi-year placement correction of the amendment; differences are within the interval, so no maintenance benefit is claimed. Descriptive and exploratory, not a sealed result. Source data: \texttt{results/v18\_closure/e1\_outage\_seasonality/}.}
-\label{fig:season}
+\includegraphics[width=\textwidth]{figures/f4_mechanism.pdf}
+\caption{Placement, persistence and the residual information in a fitted score.
+(a) Increase in mean absolute error when the reconstructed peak window differs
+from the true one, by reconstructor; labels give the share of cases misaligned.
+(b) Difference in mean absolute error between cases above and below the
+reconstructor's median gap-residual lag-1 autocorrelation (median 0.84--0.88
+inside the gap). (c) Mean absolute error against the temperature gap to the best
+disjoint window; a competing peak does not order the error, and the colours
+follow panels (a) and (b). Panels (a)--(c) use the 1{,}899-case crossed panel and
+the network-clustered intervals of the mechanism run. (d) Within each hidden-support
+bin of the external panel (fold seed 101), the share of records above the
+0.5\,$^{\circ}$C failure threshold among those the fitted score admits and those
+it refuses. Source data:
+\texttt{fig4\_source.csv}.}
+\label{fig:mechanism}
 \end{figure}
 
-\subsubsection{Agency and assurance strata on the withdrawn transport seal}
+\subsection{What it changes for the decision}
 
-Agency- and assurance-stratified contrasts from the first sealed transport score
-remain withdrawn: the historical quality-checked stratum that reported about
-$-6.2$ points was dominated by the NVE secondary panel and does not satisfy the
-pre-registered primary-panel gate
-(\texttt{amendments/f03\_primary\_qc\_diagnostic/}). External confirmation is
-carried instead by the wave-2 multi-provider panel under repaired QA
-(Section~\ref{sec:records}). Measurement-contract sensitivity on the development
-and reserved panels remains informative as retrospective context:
-documented-daily-mean strata give about $-5.7$ and $-6.6$ points respectively
-(\texttt{amendments/provider\_contract\_sensitivity/};
-\texttt{measurement\_provenance\_dictionary.csv}).
+\subsubsection{Retention at the cap, and the comparison that was pre-specified}
 
-\subsection{The mechanism: hidden support and donor information control the error}
+Figure~\ref{fig:decision}a gives the retention each rule achieves at the
+pre-registered 5\% cap, averaged over the three fold seeds, on the external and
+development panels. On the external panel the gap-length rule keeps 39.6\% of
+candidates, the peak-window rule 66.7\%, the certificate bound 72.9\% and the
+fitted risk score 74.0\%. The fitted-score gain over the peak-window rule is 8.0,
+7.3 and 7.0 points at seeds 101, 202 and 303, every interval excludes zero, and
+all three clear the five-point practical margin that was fixed before the
+comparison (Figure~\ref{fig:decision}d). The development panel reproduces the
+sign and the size: 70.4\% against 60.4\%, a gain of 9.7 to 10.3 points. Against
+the certificate bound the fitted score is not reliably superior: it is $+1.6$
+points [+0.2, +3.1] on the external panel at seed 101 but $+1.1$ and $+0.6$ with
+intervals that include zero at the other two seeds, and $-2.6$, $-1.7$ and
+$-2.5$ points on development, where the interval includes zero at all three. We
+therefore report an advantage over a transparent support rule and no reliable
+advantage over the calibrated bound.
 
-Two measurable quantities organise the pattern: the share of the estimand's own
-support that a gap hides, which enters the error through the influence function
-of the statistic, and the synchronous anomaly information the surrounding
-stations carry. Both are visible at decision time, and neither is a restatement
-of gap length.
+At a fixed 70\% retention the ordering is the same and the scale is easier to
+read: the fitted score admits 2.2\% failures on the external panel against 3.7\%
+for the peak-window rule, 8.3\% for the gap-length rule and 2.8\% for the bound.
+The gap-length rule is not a straw baseline that a weak comparison flatters: at
+70\% retention it is the worst of the four by more than five points, which is the
+cost of asking the wrong question of the archive.
 
-\subsubsection{A support must be located before it can be conditioned on, so the useful window is wider than the statistic}
-\label{sec:dilate}
+\subsubsection{What refusing a record costs the hot-year archive}
 
-Two predictions declared for this round were not met, and both failures have one
-cause. We predicted that the axis restricted to the estimand's own support would
-be at least as good as any hand-chosen axis at every $k$, and that its advantage
-would decay monotonically. Neither holds: the advantage is a hump peaking at a
-60-day support, and for supports of 15 days or less the fixed 30-day peak window
-beats the estimand's own support, by 0.064 AUC at $k=1$.
+Figure~\ref{fig:decision}b is the part of the decision that the designed panel
+cannot show. On the 418 real calendars, admitting every reconstruction puts
+2.6--4.1\% of records above the tolerance, under the cap at every point estimate,
+although the intervals are wide and no cap is certified for a new archive. The
+screens keep 93--96\% of candidates --- they remove only a small tail --- and
+reduce the failure rate to 0.5--1.7\%. The fitted-score advantage over the peak-window rule
+shrinks to 0.2--2.4 points, and only 2 of 9 level-by-seed intervals exclude zero.
+Where the peak window is usually observed, screening has almost nothing to do.
 
-Table~\ref{tab:dilate} gives the reason. The gain from conditioning on a window
-wider than the statistic tracks the year-to-year wander of the realised window's
-location almost exactly: it is $+0.102$ AUC at $k=1$, where the climatological
-window is the worst estimate of where this year's window will fall and the
-wander is 16.7 days, and vanishes at $k\ge 90$, where the wander has fallen to
-7.4 days and the support is wide enough to contain its own location error. A
-screening rule therefore does not condition on the support; it conditions on the
-support \emph{dilated by the uncertainty in the support's location}, and a
-dilation of roughly two location standard deviations on each side is what the
-data choose.
-
-\begin{table}
-\caption{Which climatological window a screen should condition on, development cases.}
-\label{tab:dilate}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Z{0.85}Z{1.05}Z{0.85}Z{1.05}Z{0.80}Z{1.40}}
-\hline
-estimand $k$ (days) & best window (days) & AUC there & AUC on own support & gain & support wander (days) \\
-\hline
-1 & 90 & 0.862 & 0.760 & $+0.102$ & 16.7 \\
-3 & 60 & 0.858 & 0.766 & $+0.092$ & 16.3 \\
-7 & 90 & 0.855 & 0.778 & $+0.077$ & 16.5 \\
-15 & 60 & 0.853 & 0.802 & $+0.051$ & 15.3 \\
-30 & 90 & 0.852 & 0.827 & $+0.025$ & 13.7 \\
-60 & 90 & 0.860 & 0.855 & $+0.005$ & 9.4 \\
-90 & 90 & 0.856 & 0.856 & 0 & 7.4 \\
-182 & 182 & 0.851 & 0.851 & 0 & 6.9 \\
-365 & 365 & 0.844 & 0.844 & 0 & --- \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{The diagonal is the estimand's own support; the last column is the median year-to-year circular standard deviation of the realised window's centre.}
-\end{table}
-
-One consequence is interpretive rather than deployed. AUC at the best
-conditioning window is between 0.85 and 0.86 for every estimand from the annual
-maximum to the half-year mean on this opened panel, so a 60-to-90-day window can
-help \emph{discrimination} analyses. The screen scored below still conditions on
-a fixed 30-day climatological window; we do not treat the wider-window AUC
-advantage as a verified method innovation, because it was never wired into the
-frozen admission rule or shown to improve retention or false-admit risk at the
-operating point.
-
-\subsubsection{Position and length both matter, and the size of each effect depends on the reconstructor}
-
-Whether position or length matters more is conditional, and the controlled
-comparison says so. Holding the reconstructed window fully hidden and varying
-only the gap length, the completed-year error still rises for every reconstructor
-tested: by $+0.15\,^{\circ}$C for donor regression (95\% interval 0.11 to
-0.20), $+0.25$ for the day-of-year climatology (0.21 to 0.29) and $+0.98$ for
-linear interpolation (0.82 to 1.13). Holding the length fixed and varying only
-whether the peak window is hidden at all moves the error by more still, and again
-by an amount that depends on the reconstructor: $+0.36\,^{\circ}$C for donor
-regression (0.29 to 0.44) at a 60-day gap and $+0.87$ for the climatology (0.71
-to 1.04). Adding the air-temperature-driven reconstructor to the same crossed design gives
-the same ordering --- fully hiding the peak window costs $+0.44$, $+0.76$ and
-$+0.79\,^{\circ}$C at 30, 60 and 90 days, and lengthening the gap at a fully
-hidden window costs $+0.35\,^{\circ}$C ($[0.26,0.43]$) --- so the pattern is not
-an artefact of any one reconstructor. What the reconstruction does with the
-hidden days is equally important: the window that achieves the reconstructed
-maximum is a different window from the true one in 56 to 61\% of cases for the
-climatological and interpolation methods and in 37\% for donor regression, rising
-to 90 to 94\% when the true window is fully hidden. Where that happens the error
-is larger by $0.28$ to $0.70\,^{\circ}$C, so a screen that condition on the
-climatological window is protecting against a shift that the reconstruction
-itself introduces. Whether length still matters once the window is fully hidden
-depends on the reconstructor: it does for linear interpolation ($+1.12\,^{\circ}$C
-between 30 and 90 days, $[0.75,1.45]$) and for the air regression ($+0.12$,
-$[0.07,0.17]$), it does under the station-year paired design for the two
-climatologies, and it does not for donor regression ($+0.02$, $[-0.01,0.05]$),
-whose neighbours carry synchronous anomaly information that the other methods
-lack.
-
-Both properties therefore act, their effects interact, and the
-reconstructor sets the scale; the fitted models agree with that reading, since
-once the support is in the model the length term adds little in this feature set
-(permutation importance $-0.004$ against 0.194 for peak-window overlap,
-Figure~\ref{fig:mech}c) while the nested feature sets still rise from AUC 0.742
-with length alone to 0.845 adding the support, 0.858 adding the observed-peak
-margin and 0.884 adding donor quality (Figure~\ref{fig:mech}b).
-
-How much of that increment survives the choice of training networks is a separate
-question, and the answer is small. Drawing twenty independent network subsets at
-each size and holding the evaluation panel fixed, adding the support features
-improves the 70\%-retention error rate by $0.23$ points at ten training networks
-(95\% interval over draws $0.14$ to $0.32$) and by $0.14$ points at seventy-five
-($0.07$ to $0.20$); the sign reverses in two to five of the twenty draws. The
-sample-efficiency reading of the earlier single-draw curve does not survive:
-support with ten networks is indistinguishable from the generic feature set with
-twenty-five ($+0.20$ points, $[-0.06,+0.44]$) and worse than generic with fifty
-or more ($+0.61$, $[0.38,0.84]$), which puts its equivalent at about eighteen
-generic networks out of one hundred and ten. The published non-monotonicity at
-fifty networks was a draw artefact: that point lies outside the whole twenty-draw
-range at the same size. What the support features buy is therefore a small,
-consistent ranking increment, not a cheaper model.
-
-On the shape of the average response, binning development cases on both properties
-simultaneously and measuring the growth of error along each with the other
-averaged out, the hottest 30-day mean grows $3.5\times$ along the missing-days
-axis and $9.6\times$ along the peak-overlap axis, while the annual mean grows
-$10.2\times$ and $1.5\times$ respectively: the two ratios swap by roughly an
-order of magnitude in each direction. That ordering is a property of these
-estimators on this panel, not a law about incomplete records.
-
-Two qualifications belong with that. Length is not irrelevant: holding peak
-overlap at zero, the consequential-error rate still rises from 0.6\% at 1 to 30
-days to 8.7\% at 121 to 200 days. And in a linear score that already contains
-warm-season coverage the length term takes a small negative weight, which is
-collinearity --- the two correlate at $-0.86$ --- and not evidence that longer
-gaps are safer. That correlation is also why a timing-versus-length labelling is
-wrong: warm-season coverage is a count of missing days restricted to a window,
-which is a length measure with a domain restriction, and it is the domain
-restriction and not the timing that does the work.
-
-Donor information enters the residual through quality rather than quantity.
-Halving the donor set by training-period correlation costs $+0.084\,^{\circ}$C
-(95\% interval 0.064 to 0.110) when the comparison is re-run with the donor count
-matched exactly between the two arms, against $+0.082$ (0.061 to 0.112) under the
-original construction in which the paired cases can differ by up to seven donors
-(34\% of cases). Replacing donor anomalies with phase-shuffled surrogates while
-preserving each donor's seasonal cycle costs $+0.234\,^{\circ}$C (0.149 to 0.299),
-so donors supply synchronous anomaly information and not merely a seasonal shape.
+Figure~\ref{fig:decision}c shows what the small tail costs. At a 20\,$^{\circ}$C
+hot-year threshold on the external panel, 86\% of candidates are true hot years.
+Reconstructing everything refuses none of them but misjudges 1.3\% as cool. The
+fitted score refuses 25\% of the true hot years, the certificate bound 26\%, the
+peak-window rule 33\% and the gap-length rule 60\%. The admitted hot-year share rises by 1.1 points under the fitted score, for a
+total deviation of $+0.7$ points with a 95\% interval of $-0.3$ to $+1.6$, so the
+screens do not distort the archive's composition much, but they buy their lower error rate with a large refusal of the
+years the analysis exists to count. That trade is the decision an agency
+actually faces, and it is invisible in a table that reports only the error rate
+among admitted records.
 
 \begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig1_mechanism.pdf}
-\caption{Position and length both move the error, and the reconstructor sets the scale. Development cases (n = 40\,704 cases, 110 networks); error bars are network-clustered 95\% intervals unless a panel says otherwise. (a) Growth of consequential error along each axis with the other averaged out, computed in bins of both properties: the hottest 30-day mean grows $9.6\times$ along peak-window overlap and $3.5\times$ along missing days, while the annual mean reverses the two ($1.5\times$ and $10.2\times$). (b) Out-of-fold AUC of nested feature sets grouped by network, from outage length alone (0.742) through support (0.845) and observed-peak margin (0.858) to donor quality (0.884). (c) Permutation importance of the decision-time features; once the support is in the model, outage length adds nothing measurable ($-0.004$ against 0.194 for peak-window overlap). (d) The winning axis by endpoint, the reversal of the main figure computed on the same cases. Source data: \texttt{results/v17\_fitness/step5\_mechanism/} and \texttt{step22\_robustness/}.}
-\label{fig:mech}
+\includegraphics[width=\textwidth]{figures/f5_decision.pdf}
+\caption{What each rule keeps, and what the keeping costs. (a) Retention at the
+5\% cap of the admitted reconstruction's error, by rule, on the external panel
+(solid) and the development panel (hatched); bars are the mean of three fold
+seeds and the line spans the seeds. The reference arm that admits every
+reconstruction is omitted here because it does not satisfy the cap on this
+panel; it appears in panel (b). (b) Coverage against realised failure rate on
+the 418 real calendars, one point per co-failure level and fold seed, for all
+five arms; the dashed line is the 5\% cap. (c) At a 20\,$^{\circ}$C hot-year
+threshold on the external panel, the share of true hot years refused by each rule
+(dark) and the share admitted but judged cool (light); bars span the three fold
+seeds. (d) Fitted-score minus peak-window retention with its group-clustered
+95\% interval, by fold seed, for both panels; the dashed line is the
+pre-specified five-point margin. Source data:
+\texttt{fig5\_source.csv}.}
+\label{fig:decision}
 \end{figure}
 
-\subsubsection{The calibrated bound is honest enough to interpret}
+\subsection{The risk rule delivers the risk, and the earlier number did not}
 
-Everything that follows uses a predicted error bound to rank station-years, so
-the bound is checked before it is used. On the reserved networks the nominal 90\%
-interval covers 90.9\% of cases marginally, inside the pre-declared band of 0.87
-to 0.93, and 86.3\% to 94.9\% within every pre-declared stratum
-(Figure~\ref{fig:calib}a). Median widths adapt with the quantity they are meant
-to track, from 0.06\,$^{\circ}$C when the peak window is untouched to
-1.87\,$^{\circ}$C when most of it is hidden.
+Two properties of the selector need to be separated because an earlier version of
+this analysis conflated them. The first is the population risk of the threshold
+the rule selects: if the archive were infinite, would the admitted set violate
+the 5\% cap? The second is the error rate observed in a finite fresh batch, which
+carries its own sampling noise. We re-ran the selector on 2{,}000 synthetic
+clustered archives per scenario, keeping the deployed rule identical to the one
+used on the river panels, and measured both.
 
-Those strata pool across networks, and conformal validity assumes an
-exchangeability that fails between river networks. Coverage inside individual
-reserved networks has mean 0.904 and median 0.913 but a minimum of 0.778, with
-five of 36 networks below 0.85. The pooled interval is an honest statement about
-a population of networks and is \emph{not} a guarantee at a single new site;
-calibrating on the per-network conformal quantiles at the 0.9 level puts no
-network below 0.85 for a 1.5-fold widening. The screening results below are identical under every
-calibration to four decimal places, because the rank order the screen uses is a
-monotone transform of the bound, so a reader who distrusts the intervals need not
-distrust the frontier.
+With the deployed simultaneous bound, the selected threshold's \emph{population}
+failure rate exceeds 5\% in 0.4\% of repetitions in the baseline scenario, 0.6\%
+near the cap, 0.4\% with unequal group sizes and 2.4\% with only twelve
+calibration groups. The finite fresh batch exceeds 5\% far more often --- 7.8\%,
+7.5\%, 4.6\% and 12.2\% in the same scenarios --- because the batch adds noise
+that the rule cannot control. The 8.5\% figure quoted in the previous version of
+this work was the second quantity, and reading it as the selector's error rate
+was a misinterpretation; the rule is conservative, not miscalibrated. The price
+is retention: the simultaneous bound keeps 18.5\% of synthetic candidates where a
+pointwise bound keeps 35.9\%.
 
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig3_calibration.pdf}
-\caption{Is the predicted error bound honest enough to rank station-years? (a) Coverage of the nominal 90\% interval by donor-regime stratum on the reserved panel: 90.9\% marginally, inside the pre-declared 0.87--0.93 band, and 86.3--94.9\% within every pre-declared stratum; the dashed line is the nominal level. (b) Interval width in $^{\circ}$C against the share of the peak window the gap hides, from 0.06\,$^{\circ}$C when the window is untouched to 1.87\,$^{\circ}$C when most of it is hidden, with network-clustered bands, so the bound tracks the quantity it is meant to bound. (c) Width price of a site-level rather than pooled guarantee: the site-level quantiles reach no network below 0.85 at a 1.5-fold widening, but that level was chosen on the opened reserved panel and stays exploratory. Development cases unless a panel says otherwise. Source data: \texttt{results/v17\_fitness/step8\_conformal/} and \texttt{amendments/e6\_support\_width\_uncertainty/}.}
-\label{fig:calib}
-\end{figure}
+The extreme percentile the rule reads, $1-0.05/86\approx0.9994$, is numerically
+delicate at 1{,}000 bootstrap draws. Re-running the selection with 10{,}000
+draws changes the chosen threshold in 42 of 150 fold-by-score cells. The decision
+consequences are small for the score this paper recommends --- the fitted score's
+retention moves by at most 1.0 point --- and larger for the discrete rules, where
+one grid step can move 3.9 points of retention. We therefore describe the
+selected threshold as a calibration decision at this granularity, not as a
+stable optimum.
 
-\subsection{What it changes: retained error, archive composition, and the decision}
+\subsection{What the repair changed, and what it did not}
 
-A screening rule is judged by the archive it leaves behind, so we close on three
-consequences: the error among retained station-years at equal retention, which
-stations survive, and what the two admission rules do to the 2422 records in
-this archive that really have gaps and have never been decided.
-
-\subsubsection{Conditioning on the support cuts the error rate at equal retention}
-
-At 70\% retention on development cases, the share of retained station-years with
-a peak error above 0.5\,$^{\circ}$C is 2.9\% for the calibrated screen, 5.6\% for
-a rule on peak overlap alone, 9.2\% for the gap-length rule and 15.0\% for random
-retention (Figure~\ref{fig:frontier}a). On the 36 reserved networks scored as a
-retrospective network holdout (mixed prior access; see the prior-access ledger),
-the screen gives 2.5\% against 9.7\% for the length rule
-(Figure~\ref{fig:frontier}b): a contrast of $-7.13$ points, 95\%
-network-clustered interval $-8.97$ to $-5.36$, against the five-point effect
-declared for that freeze. Both declared conditions are met on that holdout, in
-every donor regime ($-6.6$, $-6.7$, $-7.2$, all excluding zero). The first sealed
-external panels remain withdrawn after audit; the independent wave-2
-confirmation (Section~\ref{sec:records}) is a separate score and does not revise
-this retrospective holdout figure.
-The holdout result is not carried by the largest agencies alone: case-equal
-$-7.01$, provider-equal $-6.29$, network-equal $-5.82$, station-equal $-5.54$
-points, with a median across individual reserved networks of $-5.0$, 83\% of
-networks favouring the screen, and a worst network of $+2.8$.
-
-\begin{table}
-\caption{Reserved panel at 70\% retention, across tolerances.}
-\label{tab:tol}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.80}Z{0.80}Z{0.80}Z{0.80}Z{0.80}}
-\hline
-screen & $>0.25\,^{\circ}$C & $>0.5\,^{\circ}$C & $>1.0\,^{\circ}$C & under by $>1\,^{\circ}$C \\
-\hline
-outage-length rule & 17.2\% & 9.7\% & 3.4\% & 2.0\% \\
-peak-overlap rule & 9.2\% & 4.2\% & 1.2\% & 0.7\% \\
-calibrated screen & 7.1\% & 2.5\% & 0.4\% & 0.3\% \\
-random & 23.9\% & 14.4\% & 5.6\% & 3.7\% \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{The last column is the share of retained station-years whose annual peak is underestimated by more than 1\,$^{\circ}$C.}
-\end{table}
-
-Placed at the operating points the published guidance implies rather than at an
-arbitrary retention: at the seven-week unfilled limit (49 days, 49.2\% retention
-on the reserved panel) the length rule leaves 5.2\% and the screen 0.3\%; at the
-twenty-week imputed limit (140 days, 85.1\% retention) the length rule leaves
-11.3\% and the screen 6.9\%. The second of those is more permissive than an
-earlier version of this analysis assumed --- it admits 85\% of cases rather than
-74\% --- and the screen's advantage there is 4.4 points rather than 6.2.
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/fig2_frontier.pdf}
-\caption{What equal retention costs under each admission rule. (a) Development cases (n = 40\,704 cases, 110 networks): the share of retained station-years whose hottest 30-day mean is wrong by more than 0.5\,$^{\circ}$C, against the share of station-years retained, for random retention (grey), the gap-length rule (orange), peak-window overlap alone (blue) and the calibrated screen (black). (b) The same curves on the 36-network reserved panel (10\,820 cases), which was opened once after the configuration was frozen. Curves are network-clustered means with 95\% bands; the square marks the operating point quoted in the text, 70\% retention, where the screen leaves 2.5\% against 9.7\% for the length rule, a contrast of $-7.13$ points ($[-8.97,-5.36]$). Source data: \texttt{results/v17\_fitness/step4\_ceiling/} and \texttt{step10\_confirmation/}.}
-\label{fig:frontier}
-\end{figure}
-
-Most of the benefit does not require the calibrated machinery
-(Table~\ref{tab:abl}). Fifty-nine per cent is available from a logistic
-regression on three variables and 57\% from peak-window overlap with no fitting
-at all; method selection contributes 0.2 points. Fitted on development networks
-and applied unchanged to the reserved panel, the deployable rule is
-\begin{equation}
-\text{risk} \;=\; \text{logistic}\bigl(-1.302 + 2.070\,x_1 - 2.412\,x_2 - 0.00187\,x_3\bigr),
-\label{eq:rule}
-\end{equation}
-where $x_1$ is the share of the station's climatological hottest-30 window the
-gap hides, $x_2$ the share of May-to-September days that remain observed, and
-$x_3$ the length in days of the longest consecutive gap. It gives 4.2\% against
-the length rule's 9.6\% at 70\% retention, a contrast of $-5.44$ points ($-6.85$,
-$-3.96$), and cuts severe underestimation of the peak from 1.9\% to 0.6\%.
-
-\begin{table}
-\caption{Component ablation, development cases at 70\% retention, each variant re-run through the full out-of-fold pipeline.}
-\label{tab:abl}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.80}Z{0.60}Z{0.60}}
-\hline
-screen & error rate & points vs the length rule \\
-\hline
-outage-length rule (incumbent) & 9.24\% & --- \\
-three-variable logistic regression & 5.53\% & $-3.71$ \\
-peak-overlap alone, no fitting at all & 5.62\% & $-3.62$ \\
-three-feature gradient boosting & 4.89\% & $-4.35$ \\
-geometry and timing only (8 features) & 4.86\% & $-4.38$ \\
-drop donor features & 3.78\% & $-5.46$ \\
-drop the observed-peak margin & 3.13\% & $-6.11$ \\
-full screen & 2.93\% & $-6.31$ \\
-full screen, screening only (no method choice) & 3.11\% & $-6.13$ \\
-\hline
-\end{tabularx}
-\end{table}
-
-\subsubsection{A five-per-cent false-admit cap is met without reading the labels}
-
-The operating point quoted in the previous version of this analysis --- the
-largest retention whose realised false-admit rate stayed under five per cent ---
-was chosen by looking at the errors of the records being admitted. No agency can
-do that. Two further defects in the first honest attempt are corrected in
-\texttt{major\_revision\_20261019/p0\_02\_isolated\_risk\_thresholds/}. Calibration
-scores are stored separately for each outer fold, so a later fold cannot
-overwrite them with a model that has seen the earlier test labels. Folds are
-assigned on 41 validation groups rather than on 49 network labels, because eight
-pairs of labels share stations, including 01610400 and 01649500 under both
-\texttt{usgs\_wave2\_2070} and \texttt{usgs\_wave2\_huc6\_020700}. The threshold
-is the largest grid point from 10 to 95 per cent whose false-admit rate has a
-simultaneous independence-group bootstrap bound, at $1-0.05/86$, of at most five
-per cent. A pointwise 95\% bound is not used: in 2000 synthetic repetitions that
-pointwise rule exceeded five per cent on fresh groups 19.2\% of the time, and the
-simultaneous rule 8.5\% of the time
-(\texttt{p0\_04\_selection\_calibration/}).
-
-On the external panel the fitted risk score keeps 72.5--72.8\% of candidates, the
-peak-window rule 69.6--69.9\%, the calibrated certificate bound 74.6--75.0\% and
-the length rule 43.5--45.0\%. Realised false-admit rates for these pooled cells
-are 2.6--2.9\% for the fitted score, and every pooled interval on this panel
-ends below five per cent. Against the peak-window rule the fitted score leads by
-2.6 to 3.3 points, with each seed's interval excluding zero and none of them
-clearing a five-point margin (the highest upper end is 5.7 points). Against the
-calibrated bound the fitted score keeps 1.8 to 2.5 points \emph{fewer} records.
-The length-rule gap is 27.6 to 29.0 points. It is reported because readers will
-look for it. It is not the contrast that decides whether the fitted score is
-worth its complexity. This external-panel cross-fit trains on other groups of
-the same panel. It is not the sealed confirmation of a frozen model. The sealed
-70\% retention contrast belongs to the frozen certificate screen and, with the
-41 groups as the bootstrap clusters, is still $-5.9$ points ($[-7.0,-4.8]$).
-
-The five-per-cent cap on this panel is a point estimate under a simultaneous
-bound, not a guarantee for a new archive. The synthetic exceedance rate above is
-why that sentence stays qualified. Multiplicative conformal calibration remains
-a scale change rather than a ranking change where the calibrated and uncalibrated
-bounds admit the same cases. The label-chosen frontier is still the
-non-deployable comparison, drawn in open red on Figure~\ref{fig:decision}.
-
-\subsubsection{The incumbent is not handicapped, including by the absence of the field’s own reconstruction}
-\label{sec:fair}
-
-A screening comparison can be rigged by pairing the incumbent with a weak
-reconstruction, so the incumbent is paired here with every reconstruction in the
-study, including one nobody can deploy (Table~\ref{tab:fair}).
-
-The screen beats the incumbent armed with a reconstruction nobody can run, and
-the reconstruction paired with the incumbent throughout is the strongest of the
-deployable options rather than the weakest. Air-driven reconstruction is reported
-twice, because the earlier label was wrong: air-temperature regression remains a
-workhorse for data-sparse basins \cite{sanikhani2026,you2026}, and the library's air ridge with a fixed
-penalty ($\alpha=1.0$, seven lags, whole-year fit, penalised) was described as
-``in the manner of \citeA{beaufort2022}'' but shares only its input with that
-paper, and is now labelled as what it is. Reimplementing the cited method
-faithfully --- per-station OLS of summer water temperature on a right-aligned
-moving average of air temperature, 2--10 day windows chosen per station by
-$R^2$, fitted on July--August --- gives 12.76\% against the library ridge's
-15.16\% (paired difference $-2.40$ points, $[-3.20,-1.62]$, 1200 network-clustered
-draws), and both remain worse than per-case selection at 9.00\%
-(\texttt{amendments/faithful\_baseline/}). The axis conclusion does not depend on
-the estimator library: the timing-minus-length AUC contrast is $+0.070$ with the
-old forcing and $+0.081$ with the new. The screen uses the new information,
-selecting the air-driven estimator for 20.0\% of cases against 0.07\% before, and
-donor regression for 53.1\%.
-
-\begin{table}
-\caption{Development cases at 70\% retention, with air forcing available throughout.}
-\label{tab:fair}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{0.80}Y{1.55}Z{0.65}}
-\hline
-screen & reconstruction & error rate above 0.5\,$^{\circ}$C \\
-\hline
-length rule & information-conditioned policy (used throughout) & 9.00\% \\
-length rule & always library air ridge, $\alpha=1.0$, else climatology & 15.16\% \\
-length rule & always faithful \citeA{beaufort2022} climate correction & 12.76\% \\
-length rule & always donor ridge, else climatology & 9.57\% \\
-length rule & always smooth climatology & 19.79\% \\
-length rule & oracle over methods, not deployable & 3.62\% \\
-calibrated screen & deployable estimators it selects itself & 2.87\% \\
-\hline
-\end{tabularx}
-\end{table}
-
-One result here was not expected: the \emph{fixed} information-conditioned
-policy gets slightly worse at donor-less stations when air becomes available,
-from 0.340 to 0.364\,$^{\circ}$C.
-
-\subsubsection{On records that really have gaps, the two rules disagree on one year in six}
-\label{sec:deploy}
-
-Every number above is computed on a complete station-year with a synthetic hole
-punched in it, which is the only way to have a truth. The same archive contains
-2422 genuinely incomplete station-years, a third of the total, which carry no
-truth and have never been decided. Three things can be asked of them without
-inventing one (Figure~\ref{fig:deploy}).
-
-They are not a marginal population. The median incomplete year is missing 9 days
-and the 90th percentile 128; 28.7\% of them have at least one day of the
-station's climatological peak window missing, and 261 have more than half of it
-missing.
-
-The two rules disagree on a sixth of them. At the seven-week unfilled limit the
-length rule admits 83.2\% and a peak-window rule at 10\% hidden admits 81.2\% ---
-near-equal retention, which is the comparison this paper insists on --- and they
-\textbf{disagree on 15.1\%} of station-years: 207 are admitted by the incumbent
-and rejected on the support, and 158 are rejected by the incumbent and admitted
-on it. At the twenty-week imputed limit the incumbent admits 91.7\% and the
-disagreement is 11.6\%, of which 267 are in the dangerous direction and 13 in the
-wasteful one. The disagreement is present in every provider with more than 20
-incomplete station-years, from 11.1\% to 25.7\%.
-
-\begin{table}
-\caption{Archive composition under each admission rule, on the 2422 real incomplete station-years.}
-\label{tab:deploy}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.80}Z{0.75}Z{0.85}Z{0.80}Z{0.80}}
-\hline
-rule & admitted (n) & \multicolumn{3}{c}{admitted years with the climatological peak window hidden (n)} \\
-\cline{3-5}
- & & any day & more than half & wholly \\
-\hline
-repair everything, no screening & 2422 & 696 & 261 & 186 \\
-length $\le$ 140 d, with imputation & 2221 & 507 & 82 & 17 \\
-length $\le$ 49 d, unfilled & 2016 & 437 & 45 & 2 \\
-peak window $\le$ 10\% hidden & 1967 & 241 & 0 & 0 \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{Both published limits are those of Johnson et al. (2021). The last three columns need no truth: they count admitted station-years in which any day, more than half, or all of the climatological peak window is unobserved. A wholly hidden climatological window is a proxy for a wholly unobserved realised peak, with a measured positive predictive value of 0.74 on sealed designed cases (Section~\ref{sec:assume}).}
-\end{table}
-
-What the disagreement costs can be counted without a truth
-(Table~\ref{tab:deploy}). The published guideline agencies are most likely to
-apply, the twenty-week limit that exists because imputation is assumed, admits 17
-station-years whose \emph{climatological} peak window was never observed at all
-and 82 whose peak window is mostly gone. That count is a proxy and its error rate
-is measurable: on the sealed designed cases, where the realised peak is known, a
-wholly hidden climatological window carries a positive predictive value of 0.74
-(network-clustered interval 0.71 to 0.76) for a wholly hidden \emph{realised}
-peak, with sensitivity 0.87 and only 3.1\% of proxy-clear cases hiding the
-realised peak. Transported to the 17 flagged station-years, that implies about 12
-to 13 whose realised annual peak was wholly unobserved and about 4 whose proxy
-fired while the realised peak was visible. A risk model fitted on development
-cases from
-decision-time features only, and checked for calibration on the reserved panel
-first (largest decile miscalibration 6.2 points, and under 1.6 points in nine of
-ten deciles), predicts a consequential-error rate of 0.98\% among the years the
-unfilled limit admits, 1.85\% among those the imputed limit admits, and 0.26\%
-among those the peak-window rule admits at essentially the same retention. That
-last figure is an extrapolation from scored cases to unscored records and is
-labelled as one; Section~\ref{sec:assume} tests the exchangeability it assumes.
-
-At the level of a regional aggregate the choice of rule barely matters: admitting
-incomplete years at all raises the archive's mean annual peak by about half a
-degree, and the four rules differ by less than 0.1\,$^{\circ}$C ($+0.52$,
-$+0.51$, $+0.53$ and $+0.45$) and by 0.4 points in the share above
-20\,$^{\circ}$C ($+4.55$ to $+4.17$).
-
-The same is true of a multi-year slope. Theil--Sen slopes of the annual peak have
-RMSE 0.143\,$^{\circ}$C\,yr$^{-1}$ on recorded days, 0.044 with reconstruction
-and no screening, 0.048 under length screening and 0.041 under the screen: the
-dominant step is again whether the record is repaired. Eleven complete years per
-station is in any case too short to resolve a decadal trend, so we report the
-slope error as a diagnostic of the reconstruction and make no trend claim.
-
-Per station-year the choice does matter, and Section~\ref{sec:judgement} follows
-it into the judgement an agency actually makes.
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/figv2_archive_deployment.pdf}
-\caption{What the two admission rules do to records that really have gaps. (a) The length rule and the support screen applied to the 2422 incomplete station-years of this archive that have never been decided (of 7536 station-years in total, 5114 of them complete): they disagree on 15.1\% of admissions ($[13.4,16.8]$\%, 136 network clusters). Among all 2422 years, 261 have more than half of the climatological peak window hidden; of those, the length rule at 49\,d admits 45 and at 140\,d admits 82 (Table~\ref{tab:deploy}) --- not 261. (b) Predicted, not observed, consequential error for each admitted set (there is no truth in these years); the screen's admitted set is the more conservative one, and the prediction is miscalibrated by at most 6.2 points in its worst decile. (c) Incomplete years with more than half of the climatological peak window hidden (population n = 261); length-rule admits in that population are 45 or 82 depending on the threshold. 28.7\% of the 2422 years hide at least one day of the climatological peak window (median 9 missing days, 90th percentile 128). ``Peak window'' here is the climatological window from the station's earlier years, a proxy: the positive predictive value of that proxy for a wholly unobserved realised peak is 0.74 on designed cases. Source data: \texttt{results/v18\_closure/e2\_archive\_deployment/}.}
-\label{fig:deploy}
-\end{figure}
-
-\subsubsection{The hot-year composition of the admitted set, decomposed}
-
-An agency that screens also changes the mix of years it keeps, and the honest way
-to report that is a decomposition rather than a single number. Writing the
-predicted hot-year share among admitted records as $\hat p_A$, the true share
-among them as $p_A$ and the true share in the full candidate pool as $p_{\rm
-full}$, the total deviation splits exactly into a prediction term and a selection
-term,
-$\hat p_A-p_{\rm full}=(\hat p_A-p_A)+(p_A-p_{\rm full})$, and both are
-reported for every rule (\texttt{p0\_04\_env\_closed\_loop/}). On the reserved
-panel at 18\,$^{\circ}$C the prediction term stays below half a point for every
-rule (largest magnitude $0.46$ points, for judging everything), while the
-selection term reaches $1.40$ points for the peak-window rule and $0.78$ for the
-length rule; for the calibrated screen it is $0.36$ points, and the total
-deviation is $0.29$ points. The repair matters less for the magnitudes than for
-the attribution: judging every record without screening previously reported a
-deviation of exactly zero even though it made 172 wrong judgements, and its
-corrected deviation is its own prediction error. Two further cautions follow from
-the same table. The elevation-balanced variant's apparent advantage in hot-year
-composition has the opposite sign once records are weighted by network rather
-than by case, so no cost-free balancing claim is made. And the length rule's own
-counts depend on how ties at the retention cut are broken, moving its errors by
-five in the reserved panel across thirteen seeds, whereas the calibrated and
-abstaining rules are unchanged across all of them.
-
-Abstention is compared against judging everything at the same error budget rather
-than only against the screen. At a budget of $0.5\%$ wrong judgements, judging
-everything is admissible in only one of four panel-threshold cells (the external
-panel at 18\,$^{\circ}$C, where it makes 52 wrong judgements in 13\,017
-candidates, $0.40$\%); there abstention can at best tie it. In the three cells
-where the budget binds, interval abstention holds the largest coverage inside the
-budget ($96.1\%$ at $0.48\%$ on the reserved panel at 18\,$^{\circ}$C,
-$94.8\%$ at 20\,$^{\circ}$C, and $96.7\%$ on the external panel at
-20\,$^{\circ}$C). At equal coverage, abstention usually has fewer errors than
-the calibrated screen (none against 25 at 70\% coverage on the reserved panel).
-Abstention therefore wins under one criterion in the external 18\,$^{\circ}$C
-cell and under the other elsewhere, which is the comparison the earlier draft
-skipped.
-
-\subsubsection{The final rule runs on real calendars and knows when it cannot}
-
-The rules compared on the real gap calendar were, until this revision, the length
-rule and the peak-window rule --- not the certificate rule the paper recommends.
-Re-running the replay with the final rule, its threshold calibrated on
-network-disjoint data, on 418 candidate groups from 14 networks (22 cross-year
-placements evaluated in both affected calendar years, with the declared gap
-length asserted against the mask in every case), the rule neither loses to the
-simple rules when neighbours fail nor buys its position by abstaining. With every
-donor masked it decides 94.5\% of candidates, against 94.3\% for the peak-window
-rule and 77.8\% for the length rule; among the cases it decides its
-consequential-error rate is half a point better than the peak-window rule
-($-0.51$ points, $[-1.19,0.00]$) and half a point worse than the length rule
-($+0.51$, $[0.00,2.17]$), whose stricter threshold admits a fifth fewer records.
-The share of records that are both produced and within $0.5\,^{\circ}$C exceeds
-the length rule by 16.3 points ($[9.8,24.3]$), while against the peak-window rule
-it is a tie ($+0.7$, $[0.0,1.4]$). Realised error among its decided cases is 1.0,
-0.5 and 0.5 per cent across the three co-failure levels, well inside the five per
-cent its calibration promised, so the threshold transfers conservatively from
-designed outages to real calendars.
-
-The accounting that makes those numbers interpretable is the one the earlier
-replay did not keep. When every donor is masked the donor reconstructor cannot be
-formed at all, yet the previous code returned a finite donor value for 412 of the
-418 cases --- the hottest fully observed window, with a mean absolute error of
-$0.24\,^{\circ}$C against $0.04\,^{\circ}$C for real donor reconstruction. The
-donor estimate is now unavailable in that situation, the strict rule does not
-admit the case, and a separately labelled fallback variant reports it under the
-observed-days estimator it actually is; the three paths are never merged into one
-robustness column (\texttt{p0\_03\_final\_method\_replay/}). The replay
-transplants real calendars onto other years of the same station, so it is a
-within-development cross-fitted probe rather than a sealed confirmation, and the
-co-failure levels are imposed by masking donors with the target calendar rather
-than observed.
-
-\subsubsection{Conditioning on difficulty removes mountain catchments unless the threshold is applied within strata}
-\label{sec:repr}
-
-A rule that lowers the average error by discarding hard station-years has bought
-accuracy with representativeness, and in this application the hard sites are not
-a random subset: Section~\ref{sec:hard} showed they are high-elevation, steep,
-donor-poor catchments, which are the cold-water headwaters the summer endpoint
-exists to describe.
-
-At 70\% retention the calibrated screen's per-station retention correlates with
-site elevation at Spearman $\rho=-0.26$ ($p=0.011$) on development and $-0.27$
-($p=0.077$) on the reserved panel, while the incumbent length rule is
-elevation-neutral at $\rho=-0.05$ ($p=0.60$) and $-0.10$ ($p=0.52$). On the
-reserved panel the screen retains 77.7\% of station-years in the lowest elevation
-tertile and 66.9\% in the highest, a spread of 10.8 points against 1.7 for the
-length rule (Figure~\ref{fig:repr}b). By donor regime the same pattern appears on
-development cases: 57.1\% at donor-less stations against 72.5\% at donor-rich
-ones, a 15.4-point spread, while the length rule tilts the other way.
-
-The distortion is cheap to remove (Table~\ref{tab:repr}). Applying the screen's
-threshold within stratum rather than globally costs 0.31 points of
-consequential-error rate on development cases and 0.30 on the reserved panel and
-flattens both distortions. Stratifying on donor regime alone does not fix the
-elevation tilt and stratifying on elevation alone does not fix the donor tilt, so
-an agency that cares about both must declare both.
-
-\begin{figure}[htbp]
-\includegraphics[width=\textwidth]{figures/figv4_representativeness.pdf}
-\caption{Which station-years the screen costs, and what balancing them would cost. (a) Across the development networks, the higher the correlation between a station's retention and its site elevation, the larger the consequential-error rate under the calibrated screen ($\rho=-0.259$, $p=0.011$, 43 stations with GAGES-II attributes); the screen appears to select on difficulty, which tracks catchment type. (b) On the reserved panel, retention by elevation tertile under the length rule, the calibrated screen and the screen with thresholds fitted within strata: the screen retains 10.8 points fewer high-elevation station-years than low-elevation ones ($[-15.4,-0.3]$, 36 network clusters), and balancing on elevation recovers that at a cost of 0.31 points of consequential error. Bars are network-clustered 95\% intervals. Source data: \texttt{results/v18\_closure/e4\_representativeness/} and \texttt{amendments/faithful\_baseline/}.}
-\label{fig:repr}
-\end{figure}
-
-\begin{table}
-\caption{Error against representativeness, reserved panel at 70\% retention.}
-\label{tab:repr}
-\tabletext
-\centering
-\begin{tabularx}{\textwidth}{Y{1.90}Z{0.75}Z{0.90}Z{0.80}Z{0.65}}
-\hline
-rule & error rate (\%) & $\rho$ with elevation & donor spread (points) & retention SD (points) \\
-\hline
-outage-length rule & 8.81\% & $-0.10$ & 4.5 pts & 0.075 \\
-peak-overlap rule & 3.75\% & $+0.16$ & 2.4 pts & 0.104 \\
-calibrated screen, global threshold & 2.53\% & $-0.27$ & 4.3 pts & 0.149 \\
-screen, balanced within donor regime & 2.52\% & $-0.27$ & 0.1 pts & 0.148 \\
-screen, balanced within elevation tertile & 2.85\% & $+0.08$ & 4.6 pts & 0.148 \\
-screen, balanced within both & 2.84\% & $+0.07$ & 0.1 pts & 0.144 \\
-\hline
-\end{tabularx}
-\tablenotetext{a}{Retention SD is the standard deviation of per-station retention across stations; a larger value means the rule treats stations more unevenly.}
-\end{table}
-
-\subsubsection{Where it is hard: catchment attributes explain a modest share of the error}
-\label{sec:hard}
-
-The account so far is a property of estimators and estimands and would hold for
-any time series. For the 140 United States stations matched to GAGES-II across 57
-networks, we regressed donor synchrony and completed-year error on basin
-attributes with the expected direction of each effect declared before the
-regressions were run (Supporting Information Figure~S7). Site elevation and basin slope
-both reduce donor synchrony (Spearman $\rho=-0.29$, 95\% CI $-0.46$ to $-0.08$,
-and $\rho=-0.31$, $-0.51$ to $-0.07$), and site elevation raises both
-completed-year error ($\rho=+0.24$, 0.06 to 0.43) and the consequential-error
-rate ($\rho=+0.25$, 0.08 to 0.43).
-
-The groundwater prediction taken from the literature is not reproduced, and the
-reason is instructive --- with the caveat that the comparison is indicative
-rather than a replication, because the original claim concerns imputation harm to
-specific fitted sine parameters while the contrast here is the completed-year
-error of a different estimator. \citeA{johnson2021} report that filling can harm
-groundwater-influenced sites, which predicts larger completed-year error at a
-high baseflow index. Baseflow index does reduce donor synchrony in the predicted
-direction, from 0.70 in the lowest tertile to 0.59 in the highest, although the
-rank correlation interval includes zero ($\rho=-0.19$, $-0.42$ to 0.10). But the
-error moves the other way: splitting at the median baseflow index, high-baseflow
-stations are $-0.043\,^{\circ}$C easier than low-baseflow stations (95\% CI
-$-0.081$ to $-0.004$). Across baseflow
-tertiles the mean annual peak falls from 22.7\,$^{\circ}$C to 18.1\,$^{\circ}$C
-($\rho=-0.47$, $-0.60$ to $-0.26$) and its interannual standard deviation from
-0.98 to 0.76\,$^{\circ}$C (Supporting Information Figure~S7c), so two effects act in
-opposite directions and the second is larger.
-
-Regulation does not make station-years harder for this endpoint: reference and
-non-reference basins differ by $+0.004\,^{\circ}$C (95\% CI $-0.051$ to
-$+0.093$), although the reference flag is a coarse proxy for regulation rather
-than a controlled contrast, so this bounds nothing about individual dams. Catchment attributes explain a modest share of the variation, a
-standardised linear model reaching $R^2=0.22$ for donor synchrony and 0.13 for
-completed-year error, and no attribute predicts how much a screen gains: every
-correlation between a basin attribute and the per-station screening benefit has
-an interval containing zero. Whether an attribute predicts what a screen
-\emph{keeps} is a different question, and Section~\ref{sec:repr} answers it
-differently.
-
-
-\subsubsection{The conclusion survives instrument error, a stricter fitting protocol, and transfer across agencies}
-
-A rule that is fitted on earlier years and applied to later ones is the design an
-agency actually faces, so it is run separately from the leave-one-year-out
-protocol. Splitting each station's complete years into an earlier 60\% and a
-later 40\% block, fitting and calibrating on the earlier block alone and
-evaluating once on the later one, the ranking conclusion is unchanged: the
-contrast at matched 70\% retention is $-6.8$ points ($[-7.7,-5.7]$, 110
-networks), and the difference from the leave-one-year-out protocol is
-$-0.07$ points ($[-0.33,+0.24]$). What the past-to-future design does change is
-what can be promised at a risk target: with the threshold chosen on the earlier
-block only, the risk score keeps 81.2\% of the later block against 41.2\% for
-the length rule, a retention gain of $40.1$ points ($[28.0,49.1]$) --- but the
-realised false-admit rate on the later block is 5.9\% against the 5\% the
-calibration block promised, so the honest reading is a retention gain at a
-calibrated target whose level is not guaranteed out of block, not a guaranteed
-risk cap on future years. Warm years
-are not a failure mode: the contrast is $-7.7$ points among hot years
-($[-8.7,-6.6]$) and $-5.3$ among ordinary years ($[-6.5,-4.3]$).
-
-The same rule is then re-run inside each measurement-contract stratum. It keeps
-its sign everywhere but not its size: $-5.6$ points on the 84 networks whose
-providers document a daily mean ($[-6.4,-4.9]$), $-8.4$ on the 14 networks whose
-sub-daily values the project aggregates ($[-10.3,-5.0]$), $-4.9$ on the ten
-networks whose provider never states the statistic ($[-7.6,-2.5]$), and $-11.4$
-on the two Finnish networks whose documented value is a morning reading, where
-two networks are too few for an interval. So a sentence about transfer across
-agencies should quote the documented-daily-mean figure, $-5.6$ points, rather
-than the pooled one. Since the stratum is a property of the archive
-rather than of the method, an agency adopting the rule should expect the
-documented-daily-mean figure for its own records and not the pooled one.
-\label{sec:assume}
-
-\textbf{Missingness is weakly informative, and the effect is bounded well below
-the tolerance.} Every case transplants a mask onto a year whose values were
-observed, which is valid only if the mask is ignorable in the sense of
-\citeA{rubin1976}; loggers are lost to floods, buried by ice and fouled in low
-flow, and each of those coincides with anomalous conditions. Across the 6472
-real gaps, the mean anomaly of the seven days preceding a gap, relative to the
-station's own day-of-year climatology, is $+0.018\,^{\circ}$C for gaps of a week
-or less ($p=0.44$), $+0.038$ for 8 to 29 days ($p=0.56$), $-0.002$ for 30 to 89
-days ($p=0.98$) and $-0.215$ for 90 days and longer ($p=0.081$). Donors recording
-through a gap run $+0.063\,^{\circ}$C warm during short gaps, detectable at this
-sample size ($p=0.017$) and 3\% of the within-station anomaly scale. The design
-is therefore defended on the magnitude of the effect rather than on its absence,
-and the class that warrants a limitation is gaps of three months and longer.
-What the records support is a specified-shift sensitivity, not a bound: on the
-day-level recompute, where the reconstructed hidden days are offset by
-$\delta\,^{\circ}$C and the hottest 30-day window is re-sought, the screen keeps
-its advantage at equal retention for $\delta$ from $-1$ to $+1\,^{\circ}$C
-($-10.7$ points at $\delta=-1$, network-clustered interval $-13.7$ to $-5.4$),
-and 28.8\% of cases switch to a different window once the offset is applied
-(\texttt{amendments/mnar\_day\_level/}: 240 cases, six networks, an exploratory
-sensitivity on a reserved subset whose own status is
-\emph{not an identification bound}). Because the perturbation is a constant
-offset on hidden days rather than a model of why they are missing, this
-establishes what the screen tolerates, not what the missing values were; the
-approximate fixed-window arithmetic used in an earlier version is withdrawn.
-
-\textbf{Three further checks move the numbers and not the conclusion.}
-Instrument error in these archives is systematic and time-varying as well as
-random \cite{jackson2025}, which is why the check below is repeated under
-correlated, drifting and step-like error and not only under white noise.
-Perturbing the reference series by 0.15\,$^{\circ}$C of normal noise moves the
-development contrast from 5.98 to 6.03 points, the reserved contrast from 6.21 to
-6.22 points, and the mean absolute error from 0.2361 to 0.2363\,$^{\circ}$C; the
-paired change is $+0.049$ points ($-0.036$, $+0.150$) on development and $+0.013$
-($-0.175$, $+0.185$) on the reserved panel, so the check no longer reports a
-reduction in the advantage (an earlier version evaluated the two arms with two
-different reconstruction choices). Correlated error displaces the 30-day endpoint
-harder at the same daily scale and still leaves the contrast within its interval:
-an AR(1) process with $\rho=0.7$ by 2.25 times and a mid-year 0.3\,$^{\circ}$C
-step by 2.12 times, giving 5.95 and 6.21 points (development) and 6.19 and 6.43
-(reserved). A constant annual bias of $\pm0.5\,^{\circ}$C is an exact endpoint
-shift, so it moves the contrast by at most 1.0 point (largest change interval
-0.35 to 1.82 points, on the reserved panel at $-0.5\,^{\circ}$C) while raising the
-mean absolute error to 0.30\,$^{\circ}$C. Restricting estimators to years before the gap
-raises reconstruction error from 0.242 to 0.270\,$^{\circ}$C on a panel that
-falls to 33633 development cases, and moves the contrast from $-6.35$ ($-7.12$,
-$-5.52$) to $-5.92$ points ($-6.72$, $-4.99$) with coverage 0.906. Under
-leave-one-provider-out the contrast is negative with an interval excluding zero
-for all nine agencies, from $-11.6$ points (Finland) to $-1.2$ (Switzerland),
-with conformal coverage between 0.82 and 0.96.
+The previous version of this analysis declared the policy reconstruction as the
+admitted object but calibrated the failure event on a different reconstruction.
+On the external panel the two failure definitions disagree on 898 of 13{,}017
+cases --- 6.9\% --- and the mismatch mattered: with the event measured on the
+certificate, the fitted score's gain over the peak-window rule on the external
+panel was 2.7 points; measured on the admitted reconstruction it is 7.2 points
+under the same tie rule. Most of the change (about 4.5 points) comes from
+measuring the right object, and about 1.3 points from admitting whole tie blocks
+instead of jittering the scores. Neither repair was optional: a rule whose stated
+object is the policy reconstruction cannot be calibrated on a different one, and
+a rule whose calibration admits half of a tie block and whose deployment admits
+all of it is two rules.
 
 \section{Discussion}
 
-Using 5114 complete river station-years and 51524 designed outages, the error of
-an annual thermal extreme depends on where a gap falls and on how long it is.
-Which of those dominates depends on the reconstructor. An annual mean does not
-follow the same pattern. Screening on indicator-conditioned risk beats a
-completeness threshold at equal retention. It does not, on the external panel,
-clear a five-point retention margin over a transparent peak-window rule, and it
-does not keep more records than the calibrated certificate bound. The result
-agrees with the standing guidance on the estimands that guidance was derived for,
-and disagrees with its transfer to extremes; the disagreement is one of
-conditioning axis, not of arithmetic. Two mechanisms account for it, one of which
-the data can measure and one of which they cannot.
+\subsection{What is new relative to gap-length guidance}
 
-\subsection{Two mechanisms explain the reversal, and one of them is not in the data}
+The standing guidance is not wrong about what it was derived from. On the
+estimands for which it was derived --- annual means and annual signal parameters
+that integrate over the year --- we reproduce its behaviour: the error grows with
+the amount of record removed and the position of the removal is second order. Our
+disagreement is about the transfer of that result to a named extreme. For the
+hottest 30-day mean the ordering inverts, and the inversion is not small: at the
+same gap length, a badly placed 30-day outage costs about twenty times a
+well-placed one, while a 180-day outage that leaves the peak window observed costs
+almost nothing. A completeness rule cannot see this because the quantity that
+matters --- the share of the statistic's support that is absent --- is not a
+function of the number of missing days alone.
 
-The transition measured in Table~\ref{tab:sweep} is not a property of rivers, of
-the estimators, or of the screening rule. It is a property of the functional
-being computed, and it follows from where that functional puts its weight. A
-statistic whose influence is concentrated on a few days is destroyed by losing
-those days and is almost unaffected by losing any others; a statistic whose
-influence is spread evenly over the year tends to degrade with how many days go
-missing and is less sensitive to which. Between those two limits the influence
-is neither concentrated nor uniform, and the discriminating power of a narrow
-conditioning window falls as the weight it captures falls. On this panel's
-exploratory width sweep, a fixed 30-day window stops beating a whole-year count
-near a three-month support; that numerical crossing is panel- and climate-dependent,
-not a universal constant.
+This also changes what a recovery experiment has to control. A comparison across
+real gaps cannot identify the support effect, because length and support are
+entangled in exactly the records where the decision is made. The factorial
+placement used here is not a cosmetic robustness check; it is what makes the
+claim testable at all. And the claim it supports is conditional: the support
+share is the right conditioning variable for every reconstructor we tested, but
+the coefficient on it, and whether a residual length effect survives, are
+properties of the reconstructor rather than of rivers.
 
-Two measurements distinguish that account from a re-description of the data.
-First, the gradient ratios swap by roughly an order of magnitude in each
-direction between the peak and the annual mean, which is a direct measurement of
-how error grows along each axis rather than an inference from discrimination.
-Second, and more decisively, the account makes a prediction about a case it was
-not built on. The sine-fit phase has an influence function with two broad lobes a
-quarter-year from the peak, so the account predicts that peak-window overlap
-should be a poor axis for it --- and it is, at 0.583 against 0.836 for gap length.
-A description fitted to the extreme-versus-average contrast would not have
-predicted that.
+\subsection{Why the fitted score adds seven to ten points, and why that is not a licence}
 
-The same account explains where it failed. We predicted that conditioning on the
-estimand's own support would always be best, and it is not, because the support
-has to be estimated and the estimate wanders. Once the wander is measured the
-failure becomes a quantitative statement rather than an exception: the gain from
-widening the conditioning window tracks the wander from 16.7 days at $k=1$ to 7.4
-days at $k=90$ and disappears when the support becomes wide enough to contain it.
-This is the part of the result we would expect to transfer to other variables and
-other climates, because nothing in it is specific to water temperature: any
-estimator conditioned on an estimated support inherits the uncertainty of that
-support.
+The gain over the peak-window rule is real and large enough to matter for an
+archive. It comes from two places that the mechanism analysis makes visible.
+First, within a support bin, the fitted score separates records whose
+reconstruction will fail from those whose will not, using donor availability, the
+scattered-gap geometry and the reconstructor's own training residual; the
+refused tail fails at 40 to 55\% against 0.7 to 15\% for the admitted bulk.
+Second, the climatological support rule uses a guessed window, and the score is
+free to learn when that guess is likely to be wrong.
 
-\subsection{Where this agrees with the standing guidance, and where the disagreement lies}
+Neither place justifies a general claim of superiority, and the comparison with
+the certificate bound says so directly. On the development panel the bound keeps
+more records at the same risk; on the external panel the difference is at most
+1.6 points and crosses zero at two of the three seeds. The honest reading is that a fitted score is one way to
+recover the information a support rule leaves on the table, not the only way and
+not demonstrably the best way. What the support rule does better than either is
+explain itself: its decision is a statement about the record, and an agency can
+audit it without the model.
 
-An earlier framing of this work held that the incumbent rule gets an ordering
-backwards. Section~\ref{sec:sine} shows that reading is wrong on the guidance's
-own terms. \citeA{johnson2021} derive their limits for sine-fit mean, phase and
-amplitude, and for those three estimands a completeness threshold is the correct
-axis or within 0.02 AUC of it. What we correct is not the threshold but the habit
-of carrying it across to an estimand it was not derived for.
+\subsection{The regime boundary: when screening cannot pay}
 
-That reading also resolves the anomaly the guidance itself reported. Its authors
-observed that the timing of consecutive missing data had ``inconsistent effects
-... among regions, years, and individual parameters'' on annual thermal-signal
-estimates. Their three estimands have three different
-influence functions --- a constant, two lobes at the extremes, two lobes at the
-transitions --- and only one of the three has weight concentrated narrowly enough
-for a timing effect to appear. Observing all three at once, inconsistency is the
-only thing one could see. We do not contradict the observation; we decompose it,
-and we can now say in advance which of their parameters should show a timing
-effect and which should not.
+The real-calendar result is the one that should govern adoption. The gaps that
+monitoring programmes actually leave are short and mostly off-peak: a median of
+seven days, a median of 2.2\% of the year missing, and 5.7\% of records hiding
+more than half of the peak window. In that regime the unscreened archive sits under the
+cap at the point estimate, every screen removes only a small tail, and the
+largest difference between the fitted score and the transparent rule is 2.4
+points. The
+practical question there is not which screen to use but whether to screen at all,
+and for a 5\% tolerance the answer is often no.
 
-A smaller result points the same way and was not expected. The fixed
-information-conditioned policy gets slightly \emph{worse} at donor-less stations
-once air forcing becomes available, because its preference order was written when
-air was rare and it now prefers an air regression to a climatology at sites where
-the climatology is better. A fixed ladder over estimators is not robust to a
-change in what is available; a per-case selection is. That is an argument for the
-method of this paper rather than against it, and we report it because it was the
-opposite of what we expected.
+Screening earns its cost in the other regime: long gaps, at or over the peak
+window, which is where the designed panel lives, the fitted score's advantage
+over the support rule is 7 to 8 points, and the support rule's advantage over
+the length rule is about 27. An agency can decide which regime it is in before
+looking at any label, because the gap-length distribution and the climatological
+overlap are both observable. That is the operational content of this paper: not
+``screen on support'', but ``compute the support share first, and if the archive
+rarely hides the peak, admit the records and spend the effort elsewhere''.
 
-The disagreement with the gap-filling literature is of a different kind and is
-not resolved by our result. \citeA{beaufort2022} fill every record alike, and on
-our panel pairing the incumbent rule with that treatment makes it worse rather
-than better (Table~\ref{tab:fair}). That is not evidence against
-air-temperature regression, which is the best available estimator at many of our
-stations and which the screen selects for 20.0\% of cases. It is evidence that a
-reconstruction chosen once for a whole archive and a reconstruction chosen per
-station-year are different objects, and that the quantity a screening comparison
-must hold fixed is the second.
+The hot-year composition makes the same point from the other side. A screen that
+lowers the failure rate among admitted records while refusing 25 to 60\% of the
+true hot years has not preserved the archive's purpose, even when the signed
+composition bias is near zero. The two quantities have to be reported together;
+one without the other is a number that can always be made to look good.
 
-\subsection{What changes in the judgement an agency actually makes}
-\label{sec:judgement}
+\subsection{Limitations}
 
-The archive-level aggregate is the wrong place to look for the value of a
-screening rule, because it averages over the station-years where the call is
-easy. A criterion-exceedance judgement is the right place, because it is made
-one station-year at a time and it is where a wrong peak becomes a wrong
-decision. On reserved networks the misclassification rate of a
-20\,$^{\circ}$C exceedance is 6.86\% when the statistic is computed on recorded
-days, 1.97\% when every year is reconstructed and not screened, 1.53\% under
-length screening and 0.36\% under the screen. Restricted to the years where the
-call is close the four figures are 16.84\%, 9.50\%, 7.26\% and 1.92\% within
-1.0\,$^{\circ}$C of the threshold and 19.10\%, 13.12\%, 10.24\% and 3.38\%
-within 0.5\,$^{\circ}$C, so the advantage is proportionally larger exactly where
-it is needed. The bias in the count of years
-above 20\,$^{\circ}$C falls from $-0.76$ years per station under recorded days
-and $-0.32$ under length screening to $+0.06$.
+The external panel is already opened. Every comparison on it is cross-fitted
+within that panel, not a sealed confirmation on data that took no part in method
+selection, and the development panel is a sanity replication rather than an
+independent test. The real-calendar replay is a development-period probe built
+from 418 candidate groups in 14 networks; its intervals are wide and its point
+estimates should not be extrapolated to a national archive.
 
-That result is not an artefact of the threshold chosen. Swept from 14 to
-24\,$^{\circ}$C the screen's misclassification stays between 0.18\% and 0.37\%
-while the length rule stays between 0.84\% and 1.53\%. The sweep matters because
-no single number is the criterion: regulatory practice uses a seven-day average
-of daily maxima with criteria differing by several degrees between jurisdictions
-and designated uses, 16\,$^{\circ}$C for core cold-water salmonid habitat and
-13\,$^{\circ}$C for salmonid spawning \cite{wac2024}, which is why the seven-day
-endpoint is reported throughout and why the threshold is swept rather than
-asserted. The illustration is not a compliance test, and we can now say by how
-much it misses one: on the 1591 station-years of the sealed USGS panel that
-publish both statistics, the regulatory seven-day average of daily maxima sits a
-median $+1.57\,^{\circ}$C above our seven-day average of daily means (5th to
-95th percentile $+0.49$ to $+4.43$), and at criteria of 16, 18 and 20\,$^{\circ}$C
-the two endpoints disagree on 5.5\%, 4.3\% and 10.4\% of station-years --- every
-disagreement a missed exceedance and none a false one
-(\texttt{amendments/regulatory\_daily\_max/}). A threshold shift matches counts
-but not decisions, because the offset is nearly constant (slope $-0.002$ per
-$^{\circ}$C). An agency applying a daily-maximum criterion must compute it from
-daily maxima, which the archive publishes for 90 of the 91 sealed stations.
+The tolerance of 0.5\,$^{\circ}$C is a judgement, not a measurement. It
+corresponds to about half the within-station interannual standard deviation of
+the hottest 30-day mean in this panel, but an agency with a different use --- a
+criterion exceedance, say --- would set a different one, and the retention
+numbers scale with it.
 
-For a judgement of this kind, screening is not the best use of the calibrated
-object. Discarding a station-year is a blunt response to uncertainty about a
-single call. On the reserved retrospective panel, absolute admission at a
-0.5\,$^{\circ}$C calibrated bound retains 67.5\% of years with a 2.0\%
-consequential false-admit rate (uncalibrated 66.2\% / 1.8\%); the multiplicative
-scale barely moves ranking-based risk-cap retention, which is why calibration
-must be judged on absolute admit sets, not on risk--retention frontiers alone.
-For threshold calls, abstaining only where the conformal metric interval
-straddles 18\,$^{\circ}$C judges 93.1\% of reserved years at 0.19\%
-misclassification among judged calls, versus judging 70\% under calibrated
-screening at 0.33\% --- and combining screen with abstention judges 68.3\% at
-0.03\%. The two actions answer different questions --- screening decides what
-enters an archive, abstention decides what one judgement may say --- and the same
-calibrated object serves both.
+The record's measurement basis is not uniform. About 74\% of development cases
+are provider-declared daily means, 15\% are project-aggregated sub-daily data,
+8\% have an unspecified daily definition, and 2\% are morning reference readings;
+on the external panel about 94\% are declared daily means. We re-selected the
+thresholds inside the declared-daily-mean subset and the ranking does not depend
+on the mixed-measurement providers: the fitted score's advantage over the
+peak-window rule is 8.0, 7.3 and 7.3 points on the external subset and 8.8, 8.7
+and 10.4 on the development subset, close to the full-panel values, and its
+comparison with the certificate bound remains interval-crossing.
 
-\subsection{What an agency should change, and in what order}
-
-A recipe that an agency can follow without reading any truth follows from the
-results above, and it is deliberately short. First, assemble the station's
-complete years and compute, for the year in question, only quantities visible at
-decision time: the share of the station's climatological hottest-30 window the
-gap hides, the share of the warm season still observed, the longest run, the
-number and agreement of neighbouring stations that record through the gap, and
-the spread of the reconstruction ensemble. Second, fit the risk score on
-networks that are disjoint from the ones the rule will be judged on, and choose
-the admission threshold on those calibration groups alone, as the largest
-retention whose simultaneous clustered bound stays inside the agency's cap.
-Networks that share a station stay in one group. Third, apply the threshold once
-and report three states rather than two: admitted, not admitted, and unavailable,
-the last for records where the reconstruction the rule assumed cannot be formed
-at all. On the external cross-fit the fitted score keeps about 73\% of candidates
-at a realised false-admit rate near 2.7\%. That is a few points more than the
-peak-window rule and a few points less than the certificate bound. On the 418
-real-calendar groups, scored with the same development-fold models and the same
-thresholds, the fitted score and the peak-window rule admit 93.5--95.5\% of
-candidates. Their difference is at most 1.9 points and the interval includes zero
-except for one seed under target-only failure. When every donor fails, the two
-rules still match. The length rule admits 77.8\%. Error among the records the
-fitted score keeps is 0.5--1.3\%, against 2.6--4.1\% if every available
-reconstruction is kept.
-
-Three caveats belong in the same paragraph as the recipe. The cap is met as a
-point estimate and not as a guarantee, so an agency with a hard regulatory limit
-should treat the realised rate as evidence and not as a certificate. The
-threshold is fold-specific, so a change of networks or of the measurement
-contract is a reason to recalibrate rather than to reuse the number. And the
-rules should be re-derived when the archive's own gap calendar changes. On these
-418 groups the fitted score does not separate from the peak-window rule, so the
-designed-outage gap versus gap length is not the gain an agency should expect
-from its own calendar.
-
-
-The first recommendation is to treat screening as estimand-specific. An agency
-assembling warm-season extremes from maximum gap length should trial conditioning
-on how much of a station's climatological warm window the gap hides, and should
-keep length-based rules for annual means and the sine-fit regime parameters for
-which standing guidance was derived. Cold extremes are not an exception to this:
-the support axis has to be defined on the cold season, and when it is, it beats
-the length rule for the coldest 30-day mean on the development panel; a
-warm-season support axis is the wrong tool there, which is what the reversal in
-Table~\ref{tab:axes} shows. On the retrospective reserved
-holdout, substituting a support-aware screen takes the consequential-error rate
-from 9.7\% to 2.5\% at equal retention on pooled designed outages; the
-empirical-arm gain is not resolved, so this is not yet a claim about the
-networks' natural failure calendar.
-
-Maintenance-calendar pricing that previously appeared to show autumn servicing
-gains of several percentage points is withdrawn from recommendations until the
-cross-year outage placement is recomputed: the earlier counterfactual truncated
-late-year gaps at day 366 while still labelling them by their nominal length.
-Until that recompute is confirmed on networks outside the development programme,
-schedule changes remain a hypothesis suggested by autumn-heavy long outages, not a
-verified error-rate benefit. It cannot be replaced by an observed counterfactual
-on this archive, and we checked rather than assumed that: for the 200 USGS
-stations of the incomplete-year population we classified all 2921 real interior
-gaps and 68180 missing days against the provider's own daily-value qualifiers,
-and no cause-naming code --- maintenance, equipment, ice, seasonal or
-discontinued --- occurs once. What the qualifiers do support is an archival
-decomposition: 94.9\% of missing days are days the provider published no record
-for at all (interval 88.7 to 98.2), 4.8\% were published only under a different
-statistic of the same parameter, and 0.3\% were published for the target
-statistic and dropped by the archive
-(\texttt{amendments/outage\_causes/}). A rule that excludes planned-maintenance
-gaps and keeps equipment failures is therefore a no-op on 0 of 1361 station-years,
-while re-ingestion would recover five station-years (all 2024--2025) whose target
-values the live service now serves. Redundancy investments similarly need cost and
-failure-mode evidence beyond synchrony correlations on the opened panel.
-
-Thresholds should be applied within strata when difficulty correlates with
-elevation or donor poverty, or the archive can quietly lose mountain stations.
-Nothing here applies to ungauged sites, because locating support uses a
-station's own history. A pooled conformal interval is a statement about a
-population of networks, not an automatic guarantee at a single new site;
-cluster-aware calibration must be chosen on calibration data only and validated
-on networks outside the development programme before it is sold as site-level
-coverage.
-
-\subsection{What generalises, and what does not}
-
-How much evidence a confirmation would need is a design question that can be
-answered from the panels in hand, after the unit of evidence is fixed. A
-case-level design effect does not get applied a second time to the network count.
-The development panel has 110 networks and no shared stations across those
-labels. The external panel's 49 labels are 41 groups. Dividing 110 by a design
-effect and calling the result 14.1 independent networks, or 49 by a design effect
-and calling it 11, mixed a case-level calculation with a group-level count and is
-withdrawn (\texttt{p0\_05\_power\_independence/} records the old arithmetic; the
-corrected reading is in the script). The power simulation that remains was built
-for the frozen certificate-versus-length contrast at 70\% retention, not for the
-fitted-score rule above. At twenty resampled networks that interval excludes zero
-in 10.7\% of draws when the true effect is exactly zero, so it is not used here
-to recommend a sample size. A separate 2000-repetition check of the threshold
-selector itself is reported above and also issues no network-count recommendation.
-The panels are not provider-independent: on the external panel one agency
-contributes 94.2\% of the cases, and the network-equal leave-that-agency-out
-estimate is $-4.1$ points with an interval crossing zero ($[-9.8,+1.8]$), so the
-transfer claim is directional rather than a statement about agencies in general.
-Validation groups, not case counts and not network-label strings, are the
-currency of this design.
-
-Three parts of the result are portable. The governing quantity of
-Equation~\eqref{eq:hidden} is defined wherever a derived statistic is computed
-from an incomplete record, and its ingredients --- an influence function and a
-mask --- are available in any such setting. The protocol that measures the
-transition is portable in the same way: compute the statistic over a family of
-support widths, measure how far the support's location moves between periods,
-dilate by that amount, and condition on the result. And the finding that a
-screening rule must be specified together with its strata is a statement about
-selection, not about temperature.
-
-Three parts are not. The numerical crossover near three months depends on how
-concentrated a river's thermal year is and on how far its peak wanders between
-years; both are properties of this climate and this variable. The operational
-gain is regime-dependent: designed-outage contrasts on the retrospective holdout
-are larger than empirical-arm contrasts on the same networks (about $-0.7$ to
-$-1.9$ points), so an agency must not quote the designed mixture as a bankable
-operational guarantee. The withdrawn first seals are not re-used; the wave-2 confirmation
-($\Delta=-5.9$ points) is the external score that enters conclusions.
-Catchment associations rest on 140 of
-204 stations in one country and should be read as attribute correlations on that
-subset, not as a geology-versus-terrain law.
-
-One boundary deserves naming separately, because it limits interpretation rather
-than transfer. The mechanism argument is supported by an influence-function
-derivation, by measured error gradients, by a continuum with a located crossover
-and by an out-of-sample prediction about the phase. It is not supported by an
-independent observation of the internal quantity itself, because the hidden mass
-of Equation~\eqref{eq:hidden} is by construction unobservable on the records it
-matters for. A different representation that reproduced the same gradients would
-not be excluded by our evidence.
-
-\subsection{What the remaining uncertainty changes, and what it does not}
-
-Uncertainty enters this study in four places, and it is worth separating what
-each one moves. Measurement error in the reference series changes the numbers in
-the third decimal and changes neither the mechanism nor the recommendation:
-0.15\,$^{\circ}$C of noise moves the reserved contrast from 6.21 to 6.22 points,
-and time-correlated error displaces the endpoint twice as hard while still
-leaving the contrast inside its interval.
-Fitting protocol changes the numbers by about half a point and changes nothing
-else: restricting estimators to prior years moves the contrast from $-6.35$ to
-$-5.92$. Neither of these is capable of overturning a conclusion.
-
-The other two are. The choice of population changes the practical conclusion
-completely: on the arm built from the gap geometry these networks actually
-experience the effect is $-0.71$ points with an interval containing zero, and any
-reader who needs a number for their own archive needs the arm that matches their
-gap regime rather than the pooled figure. And the absence of an independent
-observation of the internal quantity limits the mechanism judgement, as the
-previous section states: we can show that conditioning on an estimate of the
-support discriminates better, and we cannot show that no other representation
-would do as well.
-
-Two further limits belong here because they are specific rather than generic.
-Missingness is weakly informative and the transplant design is defended on the
-magnitude of that effect rather than on its absence, which makes the defence
-weakest for gaps of 90 days and longer, where the leading flank runs
-$0.215\,^{\circ}$C cold. And the archive-level consequence is small: the choice
-of rule moves a regional mean annual peak by less than 0.1\,$^{\circ}$C. We
-report that because it deflates a claim we might have made. At the level of a
-regional aggregate the decision that matters is whether to repair; the rule
-matters per station-year, and it matters for who is in the archive.
+Finally, the support share is defined against the year's own peak window, which
+is unknown at decision time. The deployable rule uses the climatological window
+and the mechanism section shows what that substitution costs; a rule that could
+predict the year's window from antecedent conditions would do better, and we have
+not built one.
 
 \section{Conclusions}
 
-Using 5114 complete station-years from 146 river networks and 51524 designed
-outages, with a retrospective network holdout and an independent wave-2
-confirmation panel, we quantified what an incomplete year can still support.
-Three answers follow.
+A completeness rule assumes that the amount of a record that is missing decides
+whether the record can be used. We tested that assumption by separating what real
+records entangle: 5{,}114 complete station-years, 53{,}721 designed outages that
+vary gap length and hidden support independently, and 418 real monitoring
+calendars.
 
-First, indicator-conditioned screening is worth reporting for hottest-30
-admission, with the object of each number named. The frozen certificate screen
-cuts consequential errors on the retrospective holdout from 9.7\% to 2.5\% at
-70\% retention ($-7.1$ points, $[-9.0,-5.4]$), and on the external designed
-panel by $-5.9$ points ($[-7.0,-4.8]$) when the 41 validation groups, rather than
-the 49 labels, are the bootstrap clusters. The fitted risk score is a different
-object. Under the simultaneous five-per-cent rule, with test-fold labels excluded
-from its calibration scores, it keeps 72.5--72.8\% of external-panel candidates.
-That is 2.6 to 3.3 points more than the peak-window rule and 1.8 to 2.5 points
-fewer than the calibrated certificate bound. The 27-point gap versus the length
-rule is real on this cross-fit and is not the confirmatory contrast. No unused
-panel remains, so this fitted-score result is not a new sealed confirmation.
-Peak-window overlap remains a strong transparent rule. On the development panel a
-same-capacity generic risk model already matches a model that adds engineered
-support share; the claim is not that support share is an irreplaceable feature.
-Fixed-reconstructor crossed controls show that fully hiding the peak window
-raises error under climatology and donor methods alike, with network intervals
-excluding zero, while length effects at fixed overlap are weaker and
-method-dependent --- conditional mechanism evidence, not a universal geometry
-law. The same fitted score, applied to 418 real-calendar groups with models that
-did not train on the scored network, does not beat the peak-window rule: the
-admitted-share difference is within about two points and usually includes zero,
-including when every neighbouring station fails. On the external designed panel
-at 20\,$^{\circ}$C, admitting by the fitted score moves the predicted hot-year
-share by $+0.9$ points relative to the full candidate pool (prediction error
-$-0.3$, selection shift $+1.2$). Keeping every reconstruction moves it by $-0.6$
-points. A lower error among admitted years is not a more accurate regional
-share. The withdrawn first seals and the failed transport quality-checked gate
-remain labelled and are not re-used.
+We found that the share of the target statistic's own support that a gap hides
+orders the error of an annual thermal extreme, whereas the amount missing orders
+the error of an annual mean; the two orderings are opposite, and the same 30-day
+gap costs 0.68\,$^{\circ}$C when it hides the peak window and 0.03\,$^{\circ}$C
+when it does not. The support effect is conditional in size:
+it ranges from 0.24 to 0.64\,$^{\circ}$C at 30 days across five reconstructors,
+and only linear interpolation retains a large length effect once the window is
+unobserved. The proximate mechanism is window placement --- when the
+reconstructed peak window lands elsewhere the error rises by 0.28 to
+0.70\,$^{\circ}$C --- reinforced by residuals that are strongly persistent and
+therefore do not cancel.
 
-Second, the gain is conditional in ways a pooled number hides: it is larger on
-stratified pressure outages than on empirical transplants (wave-2 empirical
-about $-0.8$ points; reserved empirical interval includes zero), and it depends
-on the estimand. Completeness thresholds remain the correct axis for annual
-means and the sine-fit parameters, which is where the standing guidance was
-derived. Wider conditioning windows that raise AUC are an applicability boundary
-for discrimination, not a deployed component of the scored screen.
-
-Third, the practical consequence is an estimand-specific admission decision
-rather than a new universal threshold, and admission is meaningful only when the
-chosen reconstructor returns a finite annual metric. Autumn maintenance benefits
-and transported ``annual peak never observed'' headcounts are not retained as
-verified effects: the former needs an outage-cause record this archive does not
-publish, and the latter must stay labelled as climatological-window proxies.
+For the admission decision, conditioning on support keeps 67\% of an external
+panel at a 5\% error cap where a gap-length rule keeps 40\%, and a fitted risk
+score keeps 74\%, 7 to 8 points more than the transparent support rule and not
+reliably more than a calibrated certificate bound. On the real calendars that agencies actually
+hold, the unscreened archive sits under the cap at the point estimate and the screens refuse 25 to
+60\% of the true hot years to remove a small tail. Support is the right
+conditioning variable; its value is confined to archives whose gaps are
+consequential, and inside that regime a transparent support rule captures most of
+what a complex one does.
 
 \section*{Open Research Statement}
 
-Daily water-temperature records for the main retrospective panel are from nine
-public providers (ARSO, CHMI, FOEN, GKD Bayern, LUBW, NVE, Rijkswaterstaat, SYKE
-and the USGS). The independent wave-2 confirmation additionally uses hashed
-USGS, Hub'Eau and UK Environment Agency panels under
-\texttt{p0\_07\_wave2\_ingest/wave2\_inputs\_manifest.csv}; the earlier sealed
-USGS and multi-agency transport scores remain withdrawn after audit. None
-required a data-use agreement. Named open licences cover the USGS (US public domain),
-CHMI/GKD Bayern/SYKE (CC BY 4.0), UK EA (OGL v3.0), FOEN (opendata.swiss), NVE
-(NLOD/CC BY), SMHI (CC BY 4.0 SE) and Hub'Eau (Licence Ouverte). ARSO and
-Rijkswaterstaat state attribution/source terms without naming a licence. LUBW
-reserves copyright: its raw values are \emph{not} redistributed with this paper;
-the seven LUBW networks are available only through LUBW's own service, and the
-analysis reports derived statistics. Licences, acquisition routes and evidence
-are in \texttt{metadata/data\_rights.csv},
-\texttt{measurement\_provenance\_dictionary.csv}
-and \texttt{current\_data\_acquisition.csv}. Station coordinates are from those
-providers' catalogues, the USGS NWIS site service, and ARSO's public station
-feed. Daily 2\,m air temperature is NASA POWER (MERRA-2)
-\cite{nasapower2026}. Basin characteristics are GAGES-II \cite{falcone2011}.
-
-All analysis code, derived artifacts, figures, the editable draw.io sources of
-the schematic figures and the frozen pre-registration are in the accompanying
-repository. A claim registry
-(\texttt{claim\_registry.csv}) records each
-headline claim's artifact, endpoint, unit, denominator, evidence type and
-whether it may enter the abstract or conclusions. An automated binding check
-(\texttt{scripts/254\_wrr\_claim\_binding\_check.py}) recomputes the allowed
-headline set against live artifacts (including the wave-2 confirmation).
-Input-file hashes for the 146 study networks are in
-\texttt{results/wrr\_submission\_ready/current\_data\_manifest.csv}; wave-2
-panel hashes are in \texttt{wave2\_inputs\_manifest.csv}. Source data for the
-figures are deposited with the analysis: the schematic figures are draw.io
-files (\texttt{figures/v17/drawio/}), and every data figure names its source
-artifact in its caption, with the plotted values also written to
-\texttt{figures/wrr/}. A permanent archive of the repository and a DOI will be
-deposited on acceptance. Certificate reproduction requires
-\texttt{constraints-freeze-certificate.txt} (scikit-learn 1.2.2), not the
-general \texttt{constraints.txt} pin.
+All data are public monitoring records reused under their providers' terms, and
+the derived tables are regenerated by the scripts listed below. The repository
+holds the panel-building code, the analysis scripts, the frozen thresholds and
+the figure sources; the schematic figures are draw.io sources under
+\texttt{figures/wrr/drawio/}, exported to PDF with draw.io 32.5.5, and every
+data figure is a Python script writing the PDF that appears here, with the table
+behind each panel in
+\texttt{results/wrr\_submission\_ready/major\_revision\_20261020/p0\_06\_figures/}; the scripts that produce every number in this manuscript are
+\texttt{scripts/330} to \texttt{scripts/336}; \texttt{scripts/337} exports the
+schematics and \texttt{scripts/338} re-checks the bibliography, with the earlier
+evidence chain in \texttt{scripts/301} to \texttt{scripts/324}. Inputs, output hashes and software
+versions are recorded in each run's \texttt{protocol\_fingerprint.json}. A
+permanent archive with a DOI is planned at acceptance; the current repository is
+a development repository and is not offered as the archival copy. Provider
+licences and the processing steps that produce the daily series are documented in
+\texttt{DATA\_RIGHTS.md} and the supporting information.
 
 \section*{Acknowledgments}
 
-Acknowledgments and funding statements pending author confirmation; see
-\texttt{author\_information\_required.md} in the repository. The
-authors declare no competing interests.
+We thank the national monitoring agencies listed in the supporting information
+for maintaining and publishing the records this study reuses. [Funding and
+author contributions pending author confirmation.]
 
-\bibliography{references}
+\bibliography{references,references_additions}
 
 \end{document}

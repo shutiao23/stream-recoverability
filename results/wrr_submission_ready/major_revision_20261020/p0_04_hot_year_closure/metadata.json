@@ -1,0 +1,22 @@
+{
+  "hot_levels_c": [
+    18.0,
+    20.0
+  ],
+  "fold_seeds": [
+    101,
+    202,
+    303
+  ],
+  "arms": [
+    "fitted_risk",
+    "calibrated_bound",
+    "peak_overlap_rule",
+    "length_rule",
+    "reconstruct_all"
+  ],
+  "bootstrap_draws": 4000,
+  "primary_population": "case-weighted",
+  "sensitivity_population": "unique station-year (each station-year total weight 1)",
+  "confusion_definition": "judgement = admitted AND reconstructed hottest-30 > hot threshold; false hot = judged hot but true cool; missed hot = judged cool but true hot; refused hot = not admitted and true hot"
+}

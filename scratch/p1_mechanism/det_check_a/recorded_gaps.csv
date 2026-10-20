@@ -1,0 +1,6 @@
+reconstructor,n_cases,n_completed_year_not_finite,share_not_finite,median_masked_days_with_nan_fill,max_masked_days_with_nan_fill,n_cases_inside_gap_AC_not_estimable,n_cases_outside_gap_AC_not_estimable,n_cases_with_no_visible_donor,max_air_design_missing_days_in_year
+doy_climatology,4340,0,0.0,0.0,0.0,1103,0,68,14.0
+smooth_climatology,4340,0,0.0,0.0,0.0,1103,0,68,14.0
+linear_interp,4340,0,0.0,0.0,0.0,1103,4340,68,14.0
+donor_ridge,4340,127,0.029262672811059907,0.0,304.0,1215,127,68,14.0
+air_ridge,4340,24,0.005529953917050691,0.0,13.0,1126,24,68,14.0

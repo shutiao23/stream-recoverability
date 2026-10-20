@@ -1,0 +1,213 @@
+{
+  "reps": 2000,
+  "risk_cap": 0.05,
+  "select_draws": 1000,
+  "reference_cases": 2000000,
+  "seed": 20261020,
+  "procedures": {
+    "deployed": "simultaneous clustered bootstrap band at 1 - 0.05/n_candidates",
+    "pointwise": "pointwise clustered bootstrap band at 1 - 0.05, then the maximum"
+  },
+  "scenarios": {
+    "baseline": {
+      "spec": {
+        "n_cal_groups": 32,
+        "n_test_groups": 16,
+        "cases_per_group": 40,
+        "base": -2.4,
+        "slope": 0.9,
+        "intercept_sd": 0.25,
+        "unequal": false
+      },
+      "note": "the 2026-10-19 simulation, reused unchanged",
+      "results": [
+        {
+          "procedure": "deployed",
+          "reps": 2000,
+          "mean_retention": 0.18527187500000003,
+          "mean_true_population_risk": 0.01985440462417506,
+          "mean_test_batch_rate": 0.0203673381394588,
+          "batch_exceedance_rate": 0.078,
+          "batch_exceedance_mc_se": 0.005996498978570746,
+          "true_risk_exceedance_rate": 0.0045,
+          "true_risk_exceedance_mc_se": 0.0014966211945579282,
+          "fraction_reps_zero_test_failures": 0.358,
+          "batch_minus_true_pp": 7.35
+        },
+        {
+          "procedure": "pointwise",
+          "reps": 2000,
+          "mean_retention": 0.35891875,
+          "mean_true_population_risk": 0.03518218519201673,
+          "mean_test_batch_rate": 0.03560424210694645,
+          "batch_exceedance_rate": 0.1905,
+          "batch_exceedance_mc_se": 0.008780938161722813,
+          "true_risk_exceedance_rate": 0.074,
+          "true_risk_exceedance_mc_se": 0.005853375094763704,
+          "fraction_reps_zero_test_failures": 0.064,
+          "batch_minus_true_pp": 11.65
+        }
+      ]
+    },
+    "low_error": {
+      "spec": {
+        "n_cal_groups": 32,
+        "n_test_groups": 16,
+        "cases_per_group": 40,
+        "base": -3.3,
+        "slope": 0.9,
+        "intercept_sd": 0.25,
+        "unequal": false
+      },
+      "note": "a low-error regime, where a test batch often contains no failure at all",
+      "results": [
+        {
+          "procedure": "deployed",
+          "reps": 2000,
+          "mean_retention": 0.7608859375,
+          "mean_true_population_risk": 0.0312698917054268,
+          "mean_test_batch_rate": 0.031958109557285494,
+          "batch_exceedance_rate": 0.0505,
+          "batch_exceedance_mc_se": 0.00489641450451246,
+          "true_risk_exceedance_rate": 0.0,
+          "true_risk_exceedance_mc_se": 0.0,
+          "fraction_reps_zero_test_failures": 0.0045,
+          "batch_minus_true_pp": 5.050000000000001
+        },
+        {
+          "procedure": "pointwise",
+          "reps": 2000,
+          "mean_retention": 0.8805187499999999,
+          "mean_true_population_risk": 0.038564096327039936,
+          "mean_test_batch_rate": 0.03936661141860364,
+          "batch_exceedance_rate": 0.153,
+          "batch_exceedance_mc_se": 0.008049565205649308,
+          "true_risk_exceedance_rate": 0.0,
+          "true_risk_exceedance_mc_se": 0.0,
+          "fraction_reps_zero_test_failures": 0.0,
+          "batch_minus_true_pp": 15.299999999999999
+        }
+      ]
+    },
+    "near_cap": {
+      "spec": {
+        "n_cal_groups": 32,
+        "n_test_groups": 16,
+        "cases_per_group": 40,
+        "base": -2.9,
+        "slope": 0.5,
+        "intercept_sd": 0.35,
+        "unequal": false
+      },
+      "note": "the selected threshold sits close to the 5% boundary",
+      "results": [
+        {
+          "procedure": "deployed",
+          "reps": 2000,
+          "mean_retention": 0.28756015625000003,
+          "mean_true_population_risk": 0.02222269338317129,
+          "mean_test_batch_rate": 0.022442756184351688,
+          "batch_exceedance_rate": 0.0755,
+          "batch_exceedance_mc_se": 0.005907611615534657,
+          "true_risk_exceedance_rate": 0.006,
+          "true_risk_exceedance_mc_se": 0.0017268468374467957,
+          "fraction_reps_zero_test_failures": 0.3265,
+          "batch_minus_true_pp": 6.949999999999999
+        },
+        {
+          "procedure": "pointwise",
+          "reps": 2000,
+          "mean_retention": 0.5430890625,
+          "mean_true_population_risk": 0.03648441282411519,
+          "mean_test_batch_rate": 0.03688299638541363,
+          "batch_exceedance_rate": 0.2,
+          "batch_exceedance_mc_se": 0.00894427190999916,
+          "true_risk_exceedance_rate": 0.066,
+          "true_risk_exceedance_mc_se": 0.005551756478809206,
+          "fraction_reps_zero_test_failures": 0.0625,
+          "batch_minus_true_pp": 13.4
+        }
+      ]
+    },
+    "unequal_groups": {
+      "spec": {
+        "n_cal_groups": 36,
+        "n_test_groups": 18,
+        "cases_per_group": 40,
+        "base": -2.4,
+        "slope": 0.9,
+        "intercept_sd": 0.25,
+        "unequal": true
+      },
+      "note": "group sizes 5 to 200; the clustered bootstrap is not group-size blind",
+      "results": [
+        {
+          "procedure": "deployed",
+          "reps": 2000,
+          "mean_retention": 0.2960269166347912,
+          "mean_true_population_risk": 0.030581487718110877,
+          "mean_test_batch_rate": 0.03077283781221484,
+          "batch_exceedance_rate": 0.046,
+          "batch_exceedance_mc_se": 0.00468422885862764,
+          "true_risk_exceedance_rate": 0.0045,
+          "true_risk_exceedance_mc_se": 0.0014966211945579282,
+          "fraction_reps_zero_test_failures": 0.0735,
+          "batch_minus_true_pp": 4.15
+        },
+        {
+          "procedure": "pointwise",
+          "reps": 2000,
+          "mean_retention": 0.42478094821872114,
+          "mean_true_population_risk": 0.04064536958408826,
+          "mean_test_batch_rate": 0.040847119723216786,
+          "batch_exceedance_rate": 0.1815,
+          "batch_exceedance_mc_se": 0.008618519304381698,
+          "true_risk_exceedance_rate": 0.064,
+          "true_risk_exceedance_mc_se": 0.005472842040475863,
+          "fraction_reps_zero_test_failures": 0.0045,
+          "batch_minus_true_pp": 11.75
+        }
+      ]
+    },
+    "few_groups": {
+      "spec": {
+        "n_cal_groups": 12,
+        "n_test_groups": 6,
+        "cases_per_group": 40,
+        "base": -2.4,
+        "slope": 0.9,
+        "intercept_sd": 0.25,
+        "unequal": false
+      },
+      "note": "a twelve-group archive, the smallest this protocol would run on",
+      "results": [
+        {
+          "procedure": "deployed",
+          "reps": 2000,
+          "mean_retention": 0.1530395833333333,
+          "mean_true_population_risk": 0.01706511066790805,
+          "mean_test_batch_rate": 0.017328155718440534,
+          "batch_exceedance_rate": 0.122,
+          "batch_exceedance_mc_se": 0.007318333143551201,
+          "true_risk_exceedance_rate": 0.0235,
+          "true_risk_exceedance_mc_se": 0.0033873108803297047,
+          "fraction_reps_zero_test_failures": 0.584,
+          "batch_minus_true_pp": 9.85
+        },
+        {
+          "procedure": "pointwise",
+          "reps": 2000,
+          "mean_retention": 0.30917500000000003,
+          "mean_true_population_risk": 0.03114253770026558,
+          "mean_test_batch_rate": 0.03219103085401845,
+          "batch_exceedance_rate": 0.2535,
+          "batch_exceedance_mc_se": 0.009727223396221554,
+          "true_risk_exceedance_rate": 0.1195,
+          "true_risk_exceedance_mc_se": 0.007253266505513223,
+          "fraction_reps_zero_test_failures": 0.269,
+          "batch_minus_true_pp": 13.4
+        }
+      ]
+    }
+  }
+}

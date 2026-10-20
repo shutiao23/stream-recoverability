@@ -1,0 +1,6 @@
+[load] wave2_confirmation: 13017 cases / 49 networks; consequential-error rate 0.1596; certificate-error fallbacks 0
+[load] development: 40704 cases / 110 networks; consequential-error rate 0.1456; certificate-error fallbacks 0
+[selfcheck] {'risk_construction_matches_script301': True, 'clustered_point_estimate_matches_direct': True}
+[crossfit] fitting 12 (panel, seed, model) tasks on 8 workers
+[crossfit] done in 77.5s
+Wrote /home/lzq/workspace/parttime/stream-recoverability/results/wrr_submission_ready/major_revision_20261014/p0_02_frozen_risk_thresholds in 181.4s

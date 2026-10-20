@@ -1,0 +1,25 @@
+{
+  "figures": [
+    "f1_support",
+    "f2_system_design",
+    "f3_reconstructor",
+    "f4_mechanism",
+    "f5_decision",
+    "s1_study_design"
+  ],
+  "sources": {
+    "wave2_cases": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+    "aligned_admissions": "results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/case_level_admissions_wave2_confirmation.parquet",
+    "aligned_crossfit": "results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/crossfit_table.csv",
+    "aligned_contrasts": "results/wrr_submission_ready/major_revision_20261020/p0_01_aligned_policy_admission/contrasts.csv",
+    "replay_admission": "results/wrr_submission_ready/major_revision_20261020/p0_03_real_calendar_adoption/replay_admission.csv",
+    "hot_year": "results/wrr_submission_ready/major_revision_20261020/p0_04_hot_year_closure/hot_year_designed.csv",
+    "mechanism": "results/wrr_submission_ready/major_revision_20261014/p1_mechanism_boundary"
+  },
+  "sha256": {
+    "wave2_cases": "7c5c38d2b33be0bb",
+    "aligned_admissions": "612cf5be4500f5f4",
+    "aligned_crossfit": "167aecd55c88b514",
+    "replay_admission": "2830598b8a49c540"
+  }
+}

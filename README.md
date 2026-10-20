@@ -3,6 +3,15 @@
 A reproducible study of how reservoir regulation reshapes the information
 available to recover daily stream temperature under monitoring outages.
 
+The current manuscript for *Water Resources Research* is
+[`paper/wrr/wrr_manuscript.tex`](paper/wrr/wrr_manuscript.tex); its submission PDF,
+supporting information and the point-by-point answer to the last review are in
+[`paper/wrr/`](paper/wrr/README.md). Every number in that manuscript comes from
+the aligned-policy round under
+[`results/wrr_submission_ready/major_revision_20261020/`](results/wrr_submission_ready/major_revision_20261020/README.md);
+`make wrr-round-20261020` re-runs it end to end, and `make wrr` rebuilds the
+documents.
+
 The completed v11 reviewer-response study is implemented under
 [`paper_archived/development_v11/`](paper_archived/development_v11/README.md). Run
 `make development-v11` to reproduce its 55-network LONO calibration and nested

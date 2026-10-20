@@ -1,0 +1,20 @@
+{
+  "seeds": [
+    101,
+    202,
+    303
+  ],
+  "scores": [
+    "fitted_risk",
+    "peak_overlap_rule",
+    "length_rule"
+  ],
+  "jitter_scale": {
+    "length_rule": 1.0,
+    "peak_overlap_rule": 0.001,
+    "fitted_risk": "1e-9 x spread"
+  },
+  "select_draws": 1000,
+  "eval_draws": 4000,
+  "note": "jitter is applied to calibration and evaluation alike; the 2026-10-19 run applied it to calibration only, which is why its replay rule differed"
+}

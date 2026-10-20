@@ -1,0 +1,55 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 19%]
+........................................................................ [ 25%]
+........................................................................ [ 31%]
+........................................................................ [ 38%]
+........................................................................ [ 44%]
+........................................................................ [ 50%]
+.........................................../home/lzq/anaconda3/lib/python3.11/site-packages/_pytest/unraisableexception.py:78: PytestUnraisableExceptionWarning: Exception ignored on calling ctypes callback function: <function _ThreadpoolInfo._find_modules_with_dl_iterate_phdr.<locals>.match_module_callback at 0x7f9572706ca0>
+
+Traceback (most recent call last):
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/anaconda3/lib/python3.11/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+             ^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'split'
+
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+............................. [ 57%]
+........................................................................ [ 63%]
+........................................................................ [ 69%]
+........................................................................ [ 76%]
+........................................................................ [ 82%]
+........................................................................ [ 88%]
+........................................................................ [ 95%]
+............................................F.........                   [100%]
+=================================== FAILURES ===================================
+_________________ test_claim_registry_blocks_pending_headlines _________________
+
+    def test_claim_registry_blocks_pending_headlines():
+        path = ROOT / "results" / "wrr_submission_ready" / "claim_registry.csv"
+        assert path.is_file()
+        frame = pd.read_csv(path)
+        blocked = frame.loc[frame["may_enter_abstract_or_conclusions"].astype(str).str.lower().eq("false")]
+        assert not blocked.empty
+        assert "A4" in set(frame["claim_id"])
+        assert frame.loc[frame["claim_id"] == "A4", "status"].iloc[0] in {
+            "invalid_pending_recompute",
+            "recomputed_exploratory_not_for_headline",
+        }
+>       assert not bool(frame.loc[frame["claim_id"] == "A4", "may_enter_abstract_or_conclusions"].iloc[0])
+E       AssertionError: assert not True
+E        +  where True = bool('False')
+
+tests/test_wrr_submission_ready_p0.py:122: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_wrr_submission_ready_p0.py::test_claim_registry_blocks_pending_headlines
+EXIT=1

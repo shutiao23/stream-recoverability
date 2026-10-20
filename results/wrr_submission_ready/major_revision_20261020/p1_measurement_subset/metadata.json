@@ -1,0 +1,18 @@
+{
+  "documented_daily_mean_providers": {
+    "development": [
+      "foen",
+      "gkd_bayern",
+      "lubw",
+      "nve_hydapi",
+      "usgs"
+    ],
+    "wave2_confirmation": [
+      "uk_ea",
+      "usgs"
+    ]
+  },
+  "select_draws": 1000,
+  "eval_draws": 4000,
+  "note": "thresholds re-selected on the documented subset; fitted-risk calibration uses the stored per-outer-fold inner out-of-fold scores restricted to the subset"
+}

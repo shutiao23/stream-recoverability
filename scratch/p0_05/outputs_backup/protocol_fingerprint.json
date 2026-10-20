@@ -1,0 +1,164 @@
+{
+  "script": "scripts/314_wrr_p0_05_power_and_independence.py",
+  "script_sha256": "aeb82d5f5d21d908c344f0bb43a804d4ce4363a6b43af4a1c454efac616959ae",
+  "generated_utc": "2026-10-15T11:50:13Z",
+  "git": {
+    "commit": "0544f3b760cdeecdce11c273cb03bac01573e486",
+    "describe": "0544f3b760-dirty",
+    "branch": "main"
+  },
+  "config": {
+    "retention": 0.7,
+    "tolerance_c": 0.5,
+    "alpha": 0.05,
+    "mue_points": [
+      2.0,
+      3.0,
+      5.0
+    ],
+    "design_ns": [
+      20,
+      40,
+      60,
+      80
+    ],
+    "outer_draws": 1000,
+    "outer_draws_by_panel": {
+      "development": 1000,
+      "wave2_external": 1000,
+      "pooled_dev_wave2": 800
+    },
+    "inner_draws": 200,
+    "n_jobs": 96,
+    "leverage_draws": 500,
+    "seed": 20261014,
+    "jitter_seed": 991,
+    "budget_seconds": 1500.0,
+    "quick": false,
+    "draw_reduction_reason": "outer draws reduced from the pre-declared 2000 to 1000 (CPU contention with co-running agents; 1000 draws keeps the Monte Carlo SE of a 0.8 power estimate near 0.013)",
+    "panel_point_pp": {
+      "development": -6.3454181728845676,
+      "wave2_external": -5.89332748024583,
+      "pooled_dev_wave2": -6.320967956388779
+    }
+  },
+  "estimator": "certificate-minus-length consequential-error rate at matched 70 % retention (non-finite selected errors counted as failures); network-clustered bootstrap (percentile interval, resampling whole networks with replacement)",
+  "inputs": [
+    {
+      "path": "results/v17_fitness/step4_ceiling/development_cases.parquet",
+      "sha256": "5062cb889963ed1436317fd111ade1ff2f2d7c5764b5c520de38ec02be20edb8",
+      "bytes": 17491833,
+      "mtime_utc": "2026-09-23T20:55:18Z",
+      "exists": true
+    },
+    {
+      "path": "results/v17_fitness/step6_screen/development_certificates.parquet",
+      "sha256": "39bf13f2c19d29b559246e2467135d71d745de92947738fd71374146d69de7fe",
+      "bytes": 3673772,
+      "mtime_utc": "2026-09-24T10:26:10Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_cases.parquet",
+      "sha256": "7c5c38d2b33be0bb2ed8ecdc303ad412287838b462531ea69bfae34298183eb9",
+      "bytes": 5220529,
+      "mtime_utc": "2026-10-13T10:16:30Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_wave2_ingest/p0_07_wave2_confirmation/wave2_certificates.parquet",
+      "sha256": "1dd65145a296ec79757f87bc51642da29fd88ef0e2b08312f004606b892e1a17",
+      "bytes": 1102189,
+      "mtime_utc": "2026-10-13T10:16:31Z",
+      "exists": true
+    },
+    {
+      "path": "results/v17_fitness/step9_freeze/certificate.joblib",
+      "sha256": "97736b74f9988a6158de6c1bb9884922d4b6ddd18c7270af9b53c6ba852f9d7e",
+      "bytes": 6560015,
+      "mtime_utc": "2026-09-23T21:02:01Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/claim_registry.csv",
+      "sha256": "b67a244e5c243aa1539c34cb808a9f1ba7f79149ae153eb7d8747d7e5f2b1c73",
+      "bytes": 15835,
+      "mtime_utc": "2026-10-15T10:56:09Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/prior_access_audit_multi_agency.csv",
+      "sha256": "6870b6a484a31d8bd0f0c56f85ad8d5e16471a240ef7bba6968202828c97eb94",
+      "bytes": 17766,
+      "mtime_utc": "2026-10-12T12:09:21Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/prior_access_audit_sealed_usgs.csv",
+      "sha256": "8ba7ac3b006db9514b91452a749eaf954013031df12053082c7b42c4d6611724",
+      "bytes": 24100,
+      "mtime_utc": "2026-10-12T12:08:26Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/prior_access_audit_summary.json",
+      "sha256": "b03248bca0266a3afc7e26d3893ebbaae49de0d0f3ba889feae135a8228cd087",
+      "bytes": 5172,
+      "mtime_utc": "2026-10-12T12:09:21Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/prior_access_ledger_reserved_networks.csv",
+      "sha256": "a6bc400fd9c8023e495647206722c35ce76e35e90333a658f425ff3e91de8d99",
+      "bytes": 5835,
+      "mtime_utc": "2026-10-12T00:55:43Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07b_multi_agency_transport/transport_cases.parquet",
+      "sha256": "e0303f52b2cf37194425d5e8ce420bfca2ac7bc5754d130bbf01ae5ecf8f6f9c",
+      "bytes": 12287668,
+      "mtime_utc": "2026-10-12T11:59:05Z",
+      "exists": true
+    },
+    {
+      "path": "results/wrr_submission_ready/p0_07_nve_probe/cases.parquet",
+      "sha256": "96f50e5da5b8d931f6f7cc4ed794953db4caa955e061a2a34483b72b074a78df",
+      "bytes": 136053,
+      "mtime_utc": "2026-10-12T01:33:56Z",
+      "exists": true
+    }
+  ],
+  "outputs": [
+    "SUMMARY.md",
+    "independent_evidence_requirements.csv",
+    "leave_one_provider_out.csv",
+    "network_variance_table.csv",
+    "per_network_contrasts.csv",
+    "power_table.csv",
+    "protocol_fingerprint.json",
+    "provider_leverage.csv",
+    "residual_unused_networks.csv",
+    "simulation_diagnostics.json",
+    "weighting_scenarios.csv"
+  ],
+  "timing_seconds": {
+    "section0_estimator_equivalence_seconds": 49.69343018531799,
+    "section1_variance_icc_seconds": 9.745232820510864,
+    "section2_design_simulation_seconds": 719.0394985675812,
+    "section3_provider_leverage_seconds": 12.387222528457642,
+    "section4_requirements_seconds": 0.05705690383911133,
+    "total_seconds": 791.2659893035889
+  },
+  "environment": {
+    "python": "3.11.7",
+    "platform": "Linux-6.6.20-x86_64-with-glibc2.35",
+    "numpy": "1.26.4",
+    "pandas": "2.1.4"
+  },
+  "self_check": {
+    "max_statistic_abs_diff_pp": 0.0,
+    "max_point_abs_diff_pp": 0.0
+  },
+  "fingerprint_sha256": "1dbc2c99be0dd69f4f9c4c78628125e8b98668a4356a90750e90c65ee4efece3"
+}

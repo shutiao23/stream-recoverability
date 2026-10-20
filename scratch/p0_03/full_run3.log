@@ -1,0 +1,50 @@
+== phase 1: network selection
+{
+  "n_loadable_multi_station_development_networks": 91,
+  "n_selected": 16,
+  "selected": [
+    "chmi_morava",
+    "chmi_vltava",
+    "gkd_bayern_iller",
+    "huc8_02040202",
+    "huc8_03110206",
+    "nve_basin_26",
+    "nve_basin_88",
+    "usgs2_huc2_08",
+    "usgs2_huc2_15",
+    "usgs2_huc4_0601",
+    "usgs2_huc4_1901",
+    "usgs2_huc6_020502",
+    "usgs2_huc6_070900",
+    "usgs2_huc6_071300",
+    "usgs2_huc6_120301",
+    "usgs2_huc6_180400"
+  ]
+}
+== phase 2: case construction
+27 station jobs
+[Parallel(n_jobs=24)]: Using backend LokyBackend with 24 concurrent workers.
+[Parallel(n_jobs=24)]: Done   4 out of  27 | elapsed:    2.7s remaining:   15.5s
+[Parallel(n_jobs=24)]: Done  10 out of  27 | elapsed:    3.2s remaining:    5.5s
+[Parallel(n_jobs=24)]: Done  16 out of  27 | elapsed:    3.4s remaining:    2.3s
+[Parallel(n_jobs=24)]: Done  22 out of  27 | elapsed:    3.4s remaining:    0.8s
+[warn] parallel run with 24 workers failed (TypeError); retrying
+[Parallel(n_jobs=8)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n_jobs=8)]: Done   2 tasks      | elapsed:    2.6s
+[Parallel(n_jobs=8)]: Done  16 out of  19 | elapsed:    2.6s remaining:    0.5s
+[warn] parallel run with 8 workers failed (TypeError); retrying
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+[Parallel(n_jobs=2)]: Done  14 tasks      | elapsed:    2.4s
+[warn] parallel run with 2 workers failed (TypeError); retrying
+[Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+[warn] parallel run with 1 workers failed (TypeError); retrying
+Traceback (most recent call last):
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 2125, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 1814, in main
+    results = parallel_with_fallback(
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lzq/workspace/parttime/stream-recoverability/scripts/312_wrr_p0_03_final_method_replay.py", line 277, in parallel_with_fallback
+    raise RuntimeError(f"all parallel attempts failed: {last_exc}")
+RuntimeError: all parallel attempts failed: build_station_cases() takes 1 positional argument but 6 were given
