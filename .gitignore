@@ -230,3 +230,9 @@ scratch/p0_02/crossfit_cache/
 /paper/wrr_tr/*.bbl
 /paper/wrr_tr/*.fls
 /paper/wrr_tr/*.fdb_latexmk
+
+# Shared caches used by the review generators and their target-recovery dependencies.
+/scratch/wrr_target_recovery_20261021/
+/scratch/wrr_target_recovery_20261022/
+/results/wrr_target_recovery_*/**/*.parquet
+/results/wrr_target_recovery_*/**/*.joblib

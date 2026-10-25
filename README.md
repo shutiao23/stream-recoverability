@@ -10,7 +10,7 @@ Run `make wrr-review-paper` to aggregate existing experimental outputs and compi
 Assessing whether incomplete river-temperature records support thermal estimates
 and downstream decisions.
 
-The current manuscript for *Water Resources Research* is
+The earlier scientific-revision manuscript for *Water Resources Research* is
 [`paper/wrr/wrr_manuscript.tex`](paper/wrr/wrr_manuscript.tex); its submission PDF,
 supporting information and the point-by-point answer to the last review are in
 [`paper/wrr/`](paper/wrr/README.md). Every number in that manuscript comes from
