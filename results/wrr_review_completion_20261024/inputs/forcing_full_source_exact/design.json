@@ -1,0 +1,11 @@
+{
+  "Daymet": "1km tmin/tmax midpoint, not daily mean; omitted leap-year December31 and affected lags remain unavailable",
+  "NZ_water_values_requested": false,
+  "flow": "log1p flow lags0/1/3/7, calendar days, contradictory daily values unavailable; no flow means unavailable arm",
+  "inputs": "network-specific original full-precision water panel and forcing; original input window",
+  "interpretation": "point reconstruction sensitivity; product, timing and aggregation change together; no refitted annual distribution or transfer guarantee",
+  "model": "unstandardized Ridge alpha1, source air lags/harmonics and minimum120 training rows, complete held year excluded",
+  "n_physical_stations": 319,
+  "partial": false,
+  "selection": "all benchmarkable opened USGS source sites with metadata; sorted by ID, no selection by error"
+}

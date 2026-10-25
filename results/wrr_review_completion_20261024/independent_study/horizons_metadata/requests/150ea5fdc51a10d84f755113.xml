@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Lake Wiritoa">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>44.710</Altitude>
+<BARO_CLOSEST>Lake Koitiata</BARO_CLOSEST>
+<BARO_CLOSEST_RL>18</BARO_CLOSEST_RL>
+<BARO_REF_DIST>18245</BARO_REF_DIST>
+<BARO_RL>49</BARO_RL>
+<Catchment>Kaitoke Lakes</Catchment>
+<Comment>Purpose:&#13;&#10;SOE: Coastal Lakes. Lake Monitoring Buoy&#13;&#10;Current Location at Buoy&#13;&#10;Historic Location NZMG 2688500 6134900</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Wanganui</District>
+<Easting>2688355</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<GeomorphicLType>Aeolian</GeomorphicLType>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LFENZID>18934</LFENZID>
+<LType>Stratified</LType>
+<LWQuality>false</LWQuality>
+<Latitude>-39.97504286</Latitude>
+<LawaSiteID>HRC-10005</LawaSiteID>
+<LawaSiteName>Lake Wiritoa</LawaSiteName>
+<Longitude>175.08822203</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReach>7031085</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<Northing>6134629</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>LWA</SecondSynonym>
+<ShortName>Hor-0484CR</ShortName>
+<SiteID>439</SiteID>
+<SurfaceWaterZone>West_4</SurfaceWaterZone>
+</Site>
+</HilltopServer>

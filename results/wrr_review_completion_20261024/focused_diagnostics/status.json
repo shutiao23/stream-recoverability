@@ -1,0 +1,40 @@
+{
+  "European_years_fixed_by_original_plan": [
+    2003,
+    2018,
+    2022
+  ],
+  "US_year_selection": "largest positive source-seed0 median decision-time air anomaly, >=3 physical stations per region-year; fixed before extracting example errors; unavailable regions retained",
+  "complete": true,
+  "n_US_regions_with_qualified_warm_year": 15,
+  "n_US_source_regions": 18,
+  "n_example_score_rows": 2692,
+  "new_NZ_water_values_requested": false,
+  "profile_stations_fixed_by_original_plan": [
+    "usgs|13342500",
+    "usgs|06054500"
+  ],
+  "scope": "opened archive illustrations, not independent heatwaves or additional refits; station weather support varies; every estimator uses the same finite example cases",
+  "source_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ]
+}

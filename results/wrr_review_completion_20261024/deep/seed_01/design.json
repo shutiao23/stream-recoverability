@@ -1,0 +1,25 @@
+{
+  "air_scale_c": 10,
+  "annual_steps": 366,
+  "budget": "CPU, small fixed architecture, validation early stopping; no test tuning",
+  "csdi_diffusion_steps": 20,
+  "csdi_target_strategy": "mix: water-only contiguous patterns and random masking",
+  "development_attempt": "full case-weighted validation runs were stopped for computational cost before any CSDI test prediction; all final arms rerun with the same group-balanced rule",
+  "epochs_cap": 30,
+  "evidence_role": "opened-source mechanism comparator",
+  "input_features": [
+    "water_anomaly",
+    "air_anomaly",
+    "season_sin",
+    "season_cos"
+  ],
+  "n_test_cases": 816,
+  "n_test_groups": 36,
+  "n_train": 3784,
+  "n_validation": 108,
+  "n_validation_groups": 36,
+  "seed": 1,
+  "test_selection": "first calendar and first two decision-time dangerous crossed cases for two evenly spaced eligible years per held-group station",
+  "validation_selection": "at most three evenly spaced station-years per independent validation group, chosen without losses or H30 values",
+  "water_scale_c": 5
+}

@@ -1,0 +1,491 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Voltage" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+<Measurement Name="Dissolved Oxygen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-08-23T09:25:00</VMStart>
+<VMFinish>2012-06-15T12:15:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-12-09T10:00:00</VMStart>
+<VMFinish>2012-02-01T14:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Inorganic Nitrogen" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Dissolved Inorganic Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Inorganic Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Pahaoa River at Glendhu" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2011-08-23T09:25:00</From>
+<To>2012-06-15T12:15:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Pahaoa River at Glendhu" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-12-09T10:00:00</From>
+<To>2012-02-01T14:00:00</To>
+</DataSource>
+</HilltopServer>

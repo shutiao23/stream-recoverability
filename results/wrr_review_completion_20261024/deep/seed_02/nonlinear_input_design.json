@@ -1,0 +1,16 @@
+{
+  "air_lags_days": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    7,
+    14
+  ],
+  "discharge_feature": "station-standardized log1p daily flow, reference excludes target year",
+  "groups_and_masks": "identical to saved neural comparison",
+  "missing_discharge": "flow arm unavailable where any hidden-day flow is absent; no success imputed",
+  "neural_information_boundary": "neural models receive air and observed target water, without neighboring-water covariates; compare algorithm performance primarily within the air-ridge tier",
+  "original_boosting_arm": "current-air-only comparator retained as an exploratory development specification"
+}

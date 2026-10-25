@@ -1,0 +1,11 @@
+{
+  "role": "exploratory national source analysis; fixed before full country summaries, not a public registration",
+  "geographic_grid_degrees": 1.0,
+  "geographic_measure": "occupied latitude-longitude cells and HUC2 station counts, not drainage area or all-US-river coverage",
+  "hot_year_reference_years": [1981, 2010],
+  "hot_year_reference_quantile": 0.9,
+  "hot_year_minimum_complete_reference_years": 5,
+  "hot_year_periods": {"all": [1981, 2025], "reference": [1981, 2010], "recent": [2011, 2025]},
+  "hot_year_reference": "same approved complete-year reference threshold for all methods at a station; no estimated values in threshold fitting",
+  "hot_year_interpretation": "descriptive frequencies on each rule's available annual values; incomplete-year classifications are model/statistic dependent, not verified natural-gap events"
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Waihi at S.H.52">
+<AEP0.01>467141</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>53</Altitude>
+<Catchment>Akitio</Catchment>
+<CatchmentArea>128.9</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Akit_1c)&#13;&#10;Water resource gaugings carried out at bridge 400m d/s of water level site at &#13;&#10;U24:895801</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2789200</Easting>
+<Ffreq>Generalised Pareto</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>329116</FloodFlow10>
+<FloodFlow20>380167</FloodFlow20>
+<FloodFlow5>267358</FloodFlow5>
+<FloodFlow50>434331</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.83" Min20="7.92" Min30="9.58" Hour1="13.5" Hour2="19.1" Hour6="33.5" Hour12="47.1" Day1="65" Day2="87.3" Day3="102" Day4="113" Day5="122">
+</Interval>
+<Interval ARI="2" Min10="6.58" Min20="8.9" Min30="10.7" Hour1="15" Hour2="21.3" Hour6="37" Hour12="51.9" Day1="71.3" Day2="95.4" Day3="111" Day4="123" Day5="132">
+</Interval>
+<Interval ARI="5" Min10="9.38" Min20="12.5" Min30="15" Hour1="20.8" Hour2="29" Hour6="49.5" Hour12="68.5" Day1="93" Day2="123" Day3="142" Day4="157" Day5="168">
+</Interval>
+<Interval ARI="10" Min10="11.7" Min20="15.5" Min30="18.5" Hour1="25.3" Hour2="35.1" Hour6="59.1" Hour12="81.1" Day1="109" Day2="143" Day3="165" Day4="181" Day5="193">
+</Interval>
+<Interval ARI="20" Min10="14.3" Min20="18.7" Min30="22.3" Hour1="30.3" Hour2="41.7" Hour6="69.3" Hour12="94.3" Day1="126" Day2="164" Day3="188" Day4="206" Day5="219">
+</Interval>
+<Interval ARI="30" Min10="15.9" Min20="20.8" Min30="24.7" Hour1="33.4" Hour2="45.8" Hour6="75.5" Hour12="102" Day1="136" Day2="176" Day3="202" Day4="220" Day5="234">
+</Interval>
+<Interval ARI="40" Min10="17.2" Min20="22.4" Min30="26.5" Hour1="35.7" Hour2="48.8" Hour6="80.1" Hour12="108" Day1="143" Day2="185" Day3="211" Day4="230" Day5="245">
+</Interval>
+<Interval ARI="50" Min10="18.2" Min20="23.6" Min30="27.9" Hour1="37.6" Hour2="51.2" Hour6="83.7" Hour12="113" Day1="149" Day2="192" Day3="219" Day4="238" Day5="253">
+</Interval>
+<Interval ARI="60" Min10="19" Min20="24.7" Min30="29.1" Hour1="39.1" Hour2="53.2" Hour6="86.7" Hour12="117" Day1="154" Day2="198" Day3="225" Day4="245" Day5="260">
+</Interval>
+<Interval ARI="80" Min10="20.4" Min20="26.4" Min30="31.1" Hour1="41.6" Hour2="56.4" Hour6="91.5" Hour12="123" Day1="161" Day2="207" Day3="235" Day4="255" Day5="271">
+</Interval>
+<Interval ARI="100" Min10="21.5" Min20="27.8" Min30="32.6" Hour1="43.6" Hour2="59" Hour6="95.3" Hour12="127" Day1="167" Day2="214" Day3="243" Day4="263" Day5="279">
+</Interval>
+<Interval ARI="250" Min10="26.4" Min20="33.8" Min30="39.5" Hour1="52.3" Hour2="69.9" Hour6="111" Hour12="147" Day1="191" Day2="242" Day3="273" Day4="295" Day5="312">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.43556376</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>LAWA-101967</LawaSiteID>
+<LawaSiteName>Waihi at S.H.52</LawaSiteName>
+<Longitude>176.29169371</Longitude>
+<MALF7Day>95</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>370062</MaxFlow>
+<MaxFlowAt>30-Jul-2008</MaxFlowAt>
+<MeanAnnualFloodFlow>202391</MeanAnnualFloodFlow>
+<MeanFlow>2502</MeanFlow>
+<MedianFlow>772</MedianFlow>
+<MetNumber>D06422</MetNumber>
+<MinFlow>41</MinFlow>
+<MinFlowAt>23-Feb-2013</MinFlowAt>
+<NZReach>7041846</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7241392</NZSegment>
+<Northing>6080400</Northing>
+<R_Rain>Wainui at Wimbledon,Pongaroa at Town,Owahanga at Owahanga Station</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>250500</RiverNumber>
+<SecondSynonym>WHI</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>2286</SiteID>
+<StatsPeriod>1/7/2005-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Akit_1</SurfaceWaterZone>
+</Site>
+</HilltopServer>

@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Makakahi at Hamua">
+<AEP0.01>464000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>168</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>158.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_8d)&#13;&#10;Flood Warning (IVR)&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;Consent monitoring: SM/ST</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2742400</Easting>
+<FFreq>GEV</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>302000</FloodFlow10>
+<FloodFlow20>350000</FloodFlow20>
+<FloodFlow5>254000</FloodFlow5>
+<FloodFlow50>414000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.56517792</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00008</LawaSiteID>
+<LawaSiteName>Makakahi at Hamua</LawaSiteName>
+<Longitude>175.74508469</Longitude>
+<MALF7Day>387</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>24-Feb-2006</MacroStart>
+<MaxFlow>483054</MaxFlow>
+<MaxFlowAt> 9-Oct-2000</MaxFlowAt>
+<MeanAnnualFloodFlow>196497</MeanAnnualFloodFlow>
+<MeanFlow>6253</MeanFlow>
+<MedianFlow>3240</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>37</MinFlow>
+<MinFlowAt>16-Mar-2013</MinFlowAt>
+<NZReach>7044946</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7244807</NZSegment>
+<Northing>6067600</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325201</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>HAM</SecondSynonym>
+<ShortName>Hor-0232</ShortName>
+<SiteID>485</SiteID>
+<StatsPeriod>1/7/1978-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_8</SurfaceWaterZone>
+<eQualCode>Hor-0018</eQualCode>
+</Site>
+</HilltopServer>

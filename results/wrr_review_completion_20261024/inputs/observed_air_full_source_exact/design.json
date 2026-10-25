@@ -1,0 +1,10 @@
+{
+  "daily_model": "exact source StationModels.air_ridge: unstandardized Ridge alpha1, original minimum training rows and same lags/harmonics",
+  "n_target_sites": 319,
+  "new_NZ_temperature_requested": false,
+  "population": "all opened source USGS sites",
+  "quality": "TAVG tenths Celsius divided by10; -9999 missing; nonblank QFLAG excluded; contradictory dates unavailable",
+  "scope": "nearby observational sensitivity, not a perfect co-located riverbank-air upper bound or an independent river-temperature test",
+  "selection": "nearest GHCN TAVG station within25km with at least15 metadata-overlap years in1981--2025; no water-error ranking, no second-station substitution after scoring",
+  "time_convention": "provider-reported daily dates; source S is a24-hour average ending2400UTC, other sources vary. No invented UTC-to-local shift. Time aggregation and point/product changes are confounded."
+}

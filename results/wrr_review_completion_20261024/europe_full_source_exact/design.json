@@ -1,0 +1,13 @@
+{
+  "NZ_water_values_requested": false,
+  "control": "original network-specific full-precision water and POWER panels, input window, unscaled Ridge alpha1 and held-year exclusion",
+  "coordinate_supplement": "results/wrr_review_completion_20261024/inputs/source_coordinate_supplement.csv",
+  "coordinate_supplement_sha256": "926e363fc0aea90cf54552d4fbc38f00e812de068630f886c90dcfbb212dfaa5",
+  "interpretation": "product and time convention sensitivity, not pure spatial resolution or perfect observed local forcing; no new annual distribution/risk refit",
+  "n_physical_sites": 262,
+  "partial": false,
+  "population": "all benchmarkable non-USGS European opened source sites",
+  "provider": "Open-Meteo ERA5-Land daily mean2m air; UTC; original POWER follows original source date convention",
+  "selection": "source roster with coordinates fixed before scoring; no error-based selection or substitutions",
+  "weather_range": "station water-history date support plus14 preceding lag days; reused longer cached responses remain valid"
+}

@@ -1,0 +1,17 @@
+network_id,station_id,provider,latitude,longitude,coordinate_source,station_key
+arso_drava,2005,arso,46.59786,14.9839,ARSO hidro_podatki_zadnji.xml,arso|2005
+arso_drava,2150,arso,46.37097,15.99615,ARSO hidro_podatki_zadnji.xml,arso|2150
+chmi_labe,0-203-1-004200,chmi,50.5143585,15.7416403,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv,chmi|0-203-1-004200
+chmi_labe,0-203-1-042000,chmi,50.0945145,15.806681,repository catalogue: results/development_v11/chmi_temperature/official_station_catalog.csv,chmi|0-203-1-042000
+foen_aare_aaregebiet,2016,foen,47.482477851737606,8.194335161172075,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv,foen|2016
+foen_aare_aaregebiet,2019,foen,46.74568778351095,8.092187496929057,repository catalogue: results/framework/public_catalog/foen_temperature_station_metadata_20260826.csv,foen|2019
+gkd_bayern_donau,10026293,gkd_bayern,48.3891,9.9866,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv,gkd_bayern|10026293
+gkd_bayern_donau,10039802,gkd_bayern,48.7107,10.8015,repository catalogue: results/development_v11/gkd_bayern_temperature/station_catalog.csv,gkd_bayern|10039802
+lubw_enz,CEN901,lubw,48.99928775605336,9.139656865746693,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv,lubw|CEN901
+lubw_fils,CFI129,lubw,48.702157909093394,9.44379795501427,repository catalogue: results/development_v11/lubw_temperature/official_station_catalog.csv,lubw|CFI129
+nve_basin_103,103.46.0,nve_hydapi,62.23429,8.32228,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv,nve_hydapi|103.46.0
+nve_basin_103,103.48.0,nve_hydapi,62.31002,8.10102,repository catalogue: results/development_v11/second_confirmation/nve/series_catalog.csv,nve_hydapi|103.48.0
+rws_rijn_lek_nederrijn,amerongen.boven,rws_waterwebservices,51.9753,5.4125,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv,rws_waterwebservices|amerongen.boven
+rws_maas,belfeld.boven,rws_waterwebservices,51.3189,6.1123,repository catalogue: results/framework/public_catalog/rws_temperature_locations.csv,rws_waterwebservices|belfeld.boven
+syke_basin_kymijoki,1670,syke,62.59805555555556,25.73888888888889,repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv,syke|1670
+syke_basin_kymijoki,1676,syke,60.90694444444444,26.651666666666664,repository catalogue: results/development_v11/syke_surface_temperature/official_station_catalog.csv,syke|1676

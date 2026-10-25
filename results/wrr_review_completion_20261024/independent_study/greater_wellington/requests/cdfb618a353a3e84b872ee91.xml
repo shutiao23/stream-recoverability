@@ -1,0 +1,677 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Temperature" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2017-01-20T13:58:20</From>
+<To>2017-05-25T15:43:20</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-03-29T10:10:00</From>
+<To>2020-01-08T09:05:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 340 nm" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2022-06-22T10:20:00</To>
+<Measurement Name="Absorbance at 340 nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 340 nm</RequestAs>
+<Units>/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 440 nm" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2022-06-22T10:20:00</To>
+<Measurement Name="Absorbance at 440 nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 440 nm</RequestAs>
+<Units>/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 740 nm" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2014-05-14T09:17:00</To>
+<Measurement Name="Absorbance at 740 nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 740 nm</RequestAs>
+<Units>/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Secchi depth (without viewer)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Secchi depth (without viewer)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Secchi depth (without viewer)</RequestAs>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2024-06-01T00:00:00</From>
+<To>2024-06-01T00:00:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2015-03-23T09:30:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Salinity" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Salinity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Salinity</RequestAs>
+<Units>ppt</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll a" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Chlorophyll a">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll a</RequestAs>
+<Divisor>0.001</Divisor>
+<Units>mg/m3</Units>
+<Format>#.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Phaeophytin" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Phaeophytin">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Phaeophytin</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2016-06-24T10:00:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Depth (X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Water Depth (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Depth (X)</RequestAs>
+<Units>m</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Volatile Suspended Solids" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Volatile Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volatile Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 780 nm" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-07-24T10:00:00</From>
+<To>2022-06-22T10:20:00</To>
+<Measurement Name="Absorbance at 780 nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 780 nm</RequestAs>
+<Units>/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen (persulphate digestion)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2021-07-20T10:05:00</From>
+<To>2026-06-18T12:45:00</To>
+<Measurement Name="Total Nitrogen (persulphate digestion)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen (persulphate digestion)</RequestAs>
+<Units>mg/L</Units>
+<Format>#.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (bottom)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2019-07-24T12:45:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Water Temperature (bottom)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (bottom)(X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Salinity (bottom)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2019-07-24T12:45:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Salinity (bottom)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Salinity (bottom)</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (bottom)(Field)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2019-07-24T12:45:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (bottom)(Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (bottom)(Field)</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (bottom)(Field)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2019-07-24T12:45:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Dissolved Oxygen (bottom)(Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (bottom)(Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (bottom)(Field)(X)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2019-07-24T12:45:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Conductivity (bottom)(Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (bottom)(Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+<Measurement Name="Dissolved Oxygen (bottom)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (bottom)</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+<Measurement Name="Water Temperature (bottom)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (bottom)</RequestAs>
+<Units>Deg C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+<Measurement Name="Dissolved Oxygen % Sat (bottom)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (bottom)</RequestAs>
+<Units>%</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Cyanobacteria Cell Count" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2022-08-12T12:10:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Cyanobacteria cell count">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cyanobacteria cell count</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Cyanobacteria Biovolume" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2022-08-12T12:10:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Total Cyanobacteria Biovolume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cyanobacteria Biovolume</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Secchi depth (with viewer)" Site="Lake Wairarapa Middle" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-09-24T10:53:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="Secchi depth (with viewer)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Secchi depth (with viewer)</RequestAs>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2014-01-24T09:37:00</From>
+<To>2026-07-20T10:22:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-01-20T13:58:20</From>
+<To>2017-05-25T15:43:20</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+</DataSource>
+<DataSource Name="Water Temperature (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (bottom)" Site="Lake Wairarapa Middle" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-01-20T14:00:00</From>
+<To>2017-05-25T14:38:24</To>
+</DataSource>
+</HilltopServer>

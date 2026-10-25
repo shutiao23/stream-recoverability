@@ -1,0 +1,6 @@
+{
+  "delay_source": "provider hourly-limit response",
+  "observed_utc": "2026-10-24T05:35:55.011019+00:00",
+  "provider_message": "{\"reason\":\"Hourly API request limit exceeded. Please try again in the next hour.\",\"error\":true}",
+  "retry_after_seconds": 3600
+}

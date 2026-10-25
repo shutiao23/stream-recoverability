@@ -1,0 +1,821 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>1977-05-20T12:30:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Derived Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1977-05-20T12:30:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1977-05-21T00:30:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1977-05-21T12:30:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-10-24T13:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1978-03-14T12:00:00</From>
+<To>2013-02-28T09:40:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>1978-03-14T12:00:00</VMStart>
+<VMFinish>2013-02-28T09:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1978-03-14T12:00:00</VMStart>
+<VMFinish>2013-02-28T09:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1978-03-14T12:00:00</VMStart>
+<VMFinish>2013-02-28T09:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1978-03-14T12:00:00</VMStart>
+<VMFinish>2013-02-28T09:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>1993-02-17T11:55:00</From>
+<To>2013-02-28T09:40:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>17-Feb-1993 11:55:00</SurveyTime>
+<LeftOffset>-19.300</LeftOffset>
+<RightOffset>-8.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2003 12:07:00</SurveyTime>
+<LeftOffset>4.300</LeftOffset>
+<RightOffset>16.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Mar-2007 11:56:00</SurveyTime>
+<LeftOffset>7.600</LeftOffset>
+<RightOffset>15.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Mar-2007 13:55:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>10.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2007 12:45:00</SurveyTime>
+<LeftOffset>3.600</LeftOffset>
+<RightOffset>10.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2008 09:16:00</SurveyTime>
+<LeftOffset>5.050</LeftOffset>
+<RightOffset>14.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Feb-2013 09:40:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.700</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>1993-02-17T11:55:00</From>
+<To>2013-02-28T09:40:00</To>
+<Sections>
+<Section>
+<SurveyTime>17-Feb-1993 11:55:00</SurveyTime>
+<LeftOffset>-19.300</LeftOffset>
+<RightOffset>-8.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Feb-1994 11:17:00</SurveyTime>
+<LeftOffset>-17.000</LeftOffset>
+<RightOffset>-8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2003 12:07:00</SurveyTime>
+<LeftOffset>4.300</LeftOffset>
+<RightOffset>16.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Mar-2007 11:56:00</SurveyTime>
+<LeftOffset>7.600</LeftOffset>
+<RightOffset>15.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Mar-2007 13:55:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>10.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2007 12:45:00</SurveyTime>
+<LeftOffset>3.600</LeftOffset>
+<RightOffset>10.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2008 09:16:00</SurveyTime>
+<LeftOffset>5.050</LeftOffset>
+<RightOffset>14.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Feb-2013 09:40:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.700</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2012-01-25T13:00:00</From>
+<To>2012-02-27T12:45:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2013-03-26T09:45:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2026-03-09T10:55:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2001-11-06T10:36:00</VMStart>
+<VMFinish>2026-03-09T10:55:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2006-11-07T09:01:00</From>
+<To>2018-03-27T08:30:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2006-11-07T09:01:00</From>
+<To>2018-03-27T08:30:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Total)(%)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2006-03-28T11:15:00</To>
+<Measurement Name="Periphyton (Total)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Total)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Cyanobacteria Mats)(%)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2009-12-08T09:07:00</From>
+<To>2022-01-31T07:54:00</To>
+<Measurement Name="Periphyton (Cyanobacteria Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Cyanobacteria Mats)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow Category" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-02-22T08:15:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Category</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Virtual Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Virtual Flow Category</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2001-11-06T10:36:00</VMStart>
+<VMFinish>2026-03-09T10:55:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Cover)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-11-11T11:10:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Fine Sediment (% Cover)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Cover)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Sand)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-11-11T11:10:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Fine Sediment (% Sand)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Sand)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc &gt;1.6m" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>10</ItemFormat>
+<From>2013-11-12T08:50:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Black Disc &gt;1.6m">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc &gt;1.6m</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Discrete Data" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2026-03-09T10:55:00</To>
+<Measurement Name="Virtual Discrete Data">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Virtual Discrete Data</RequestAs>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2001-11-06T10:36:00</VMStart>
+<VMFinish>2026-03-09T10:55:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Cyanobacteria Bankside Cover (%)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-12-12T08:00:00</From>
+<To>2026-03-09T10:55:00</To>
+<Measurement Name="Cyanobacteria Bankside Cover (%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Cyanobacteria Bankside Cover (%)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cyanobacteria Health Risk" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>10</ItemFormat>
+<From>2017-12-12T08:00:00</From>
+<To>2018-03-29T08:30:00</To>
+<Measurement Name="Cyanobacteria Health Risk">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Cyanobacteria Health Risk</RequestAs>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Lawa Toxic Algae Status" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-12-04T08:10:00</From>
+<To>2026-03-09T10:55:00</To>
+<Measurement Name="Lawa Toxic Algae Status">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Lawa Toxic Algae Status</RequestAs>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Forecast Rec WQ Score" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2018-12-01T06:00:00</From>
+<To>2026-10-24T12:15:00</To>
+<Measurement Name="Forecast Rec WQ Score">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Forecast Rec WQ Score</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Forecast Rec WQ Score Interp">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Forecast Rec WQ Score Interp</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2018-12-01T06:00:00</VMStart>
+<VMFinish>2026-10-24T12:15:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Forecast Rec WQ Score - ReRun 2025" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2023-03-06T05:00:00</From>
+<To>2025-01-21T21:00:00</To>
+<Measurement Name="Forecast Rec WQ Score - ReRun 2025">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Forecast Rec WQ Score - ReRun 2025</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Forecast Rec WQ Score (RF)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-11-01T07:00:00</From>
+<To>2026-10-12T09:00:00</To>
+<Measurement Name="Forecast Rec WQ Score (RF)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Forecast Rec WQ Score (RF)</RequestAs>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Forecast Rec WQ Score (RF) (v3)" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2026-07-06T15:00:00</From>
+<To>2026-10-24T11:00:00</To>
+<Measurement Name="Forecast Rec WQ Score (RF) (v3)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Forecast Rec WQ Score (RF) (v3)</RequestAs>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1993-02-17T11:55:00</From>
+<To>2013-02-28T09:40:00</To>
+<TimeObjects>
+<SurveyTime>17-Feb-1993 11:55:00</SurveyTime>
+<SurveyTime>14-Apr-2003 12:07:00</SurveyTime>
+<SurveyTime>21-Mar-2007 11:56:00</SurveyTime>
+<SurveyTime>23-Mar-2007 13:55:00</SurveyTime>
+<SurveyTime>28-Mar-2007 12:45:00</SurveyTime>
+<SurveyTime>18-Mar-2008 09:16:00</SurveyTime>
+<SurveyTime>28-Feb-2013 09:40:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2001-11-06T10:36:00</From>
+<To>2026-03-09T10:55:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>9</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1993-02-17T11:55:00</From>
+<To>2013-02-28T09:40:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>4</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1993-02-17T11:55:00</From>
+<To>2013-02-28T09:40:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2012-01-25T13:00:00</From>
+<To>2012-02-27T12:45:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pakuratahi River at Hutt Forks" >
+<NumItems>2</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>13</ItemFormat>
+<From>2012-01-25T13:00:00</From>
+<To>2012-02-27T12:45:00</To>
+<Measurement Name="Check Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<RequestAs>Recorder Date &amp;Time [Water Temperature]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

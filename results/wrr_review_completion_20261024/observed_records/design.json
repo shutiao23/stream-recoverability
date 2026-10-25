@@ -1,0 +1,15 @@
+{
+  "comparison": "same station and analysis window; incomplete-year observed-window lower bound versus maximum over every complete observed year",
+  "eligible_stations": 96,
+  "floating_tolerance_c": 5e-06,
+  "imputation_used": false,
+  "minimum_complete_observed_years": 15,
+  "not_claimed": "the incomplete candidate is necessarily the unique hottest year; other incomplete years might be hotter; reported daily values are not error-free physical truth",
+  "period": [
+    1981,
+    2025
+  ],
+  "random_seeds_used": false,
+  "scientific_scope": "a complete-only record attribution is contradicted for these finite observed station histories; no new-region or population-sampling inference",
+  "verified": "all complete-year H30 references recomputed from observed daily water_c; every lower-bound witness contains 30 finite original daily observations"
+}

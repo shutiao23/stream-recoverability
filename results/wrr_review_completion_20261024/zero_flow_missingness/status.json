@@ -1,0 +1,15 @@
+{
+  "bootstrap_draws": 400,
+  "complete": true,
+  "limits": "Recorded approved zero flow is a historical proxy, not an intermittent-river or dry-bed classification. No recorded zero does not prove perennial flow. Association is not causation, a missing-at-random test or a rule for sensor validity.",
+  "n_USGS_physical_stations": 336,
+  "n_USGS_station_year_rows": 6479,
+  "n_flow_stations_with_recorded_zero": 21,
+  "new_NZ_water_values_requested": false,
+  "source_sha256": {
+    "results/wrr_target_recovery_20261021/e1_archive/usgs_flow.parquet": "7af89e9edc4fb87b0e93ec22e547b673155dd1f125a9e04cf9d2e04583df72ab",
+    "results/wrr_target_recovery_20261021/e1_missingness/station_year_sample.parquet": "6541b9746d0d87055887e744fb681902cd98c0d6fb9d5588b6b351e4b0ce0402",
+    "scripts/430_tr_e1_missingness.py": "ee6310eae9601d1644b9bf813bb5dd8b8c0d0ab612c7e98b03dfb1e5da8bd7de",
+    "scripts/519_review_completion_zero_flow_missingness.py": "8d35eb5761b037cdb7989d587b62fedbf3d932ea20a2fb2bae53ecf6bc57a002"
+  }
+}

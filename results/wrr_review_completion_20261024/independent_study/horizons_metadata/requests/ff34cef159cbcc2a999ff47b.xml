@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Hokio at Lake Horowhenua">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>6.554</Altitude>
+<BARO_CLOSEST>Hokio at Lake Horowhenua</BARO_CLOSEST>
+<BARO_CLOSEST_RL>9</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>9</BARO_RL>
+<Catchment>Horowhenua</Catchment>
+<CatchmentArea>48.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Also known as Hokio Stream Lake&#160;outlet&#160;at&#160;weir&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2699300</Easting>
+<FirstSynonym>Hokio Stream Lake&#160;outlet&#160;at&#160;weir</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.60587533</Latitude>
+<LawaSiteID>HRC-00004</LawaSiteID>
+<LawaSiteName>Hokio at Lake Horowhenua</LawaSiteName>
+<LawaSurfaceWaterQualityMeasurement>Stage [Water Level]</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.23726571</Longitude>
+<Macro>true</Macro>
+<MacroStart>28-Apr-2009</MacroStart>
+<MaxFlow>10671</MaxFlow>
+<MaxFlowAt>22-Jun-2015</MaxFlowAt>
+<MetNumber>
+</MetNumber>
+<MinFlow>65</MinFlow>
+<MinFlowAt>30-Nov-2014</MinFlowAt>
+<NZReach>7045939</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7245739</NZSegment>
+<NZVD16>6174</NZVD16>
+<Northing>6064300</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>323000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>HLH</SecondSynonym>
+<ShortName>Hor-0297</ShortName>
+<SiteID>822</SiteID>
+<SurfaceWaterZone>Hoki_1</SurfaceWaterZone>
+<eQualCode>Hor-0297</eQualCode>
+</Site>
+</HilltopServer>

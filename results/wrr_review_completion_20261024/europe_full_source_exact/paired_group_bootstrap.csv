@@ -1,0 +1,10 @@
+arm,stratum,metric,n_groups,n_bootstrap,point,lower,upper,scope
+ERA5_Land,all,relative_mae_reduction,68,2000,0.00797794585863798,-0.011368210703289427,0.025728130313628614,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,all,absolute_mae_change,68,2000,-0.002483211226442693,-0.008133909118149945,0.003539452639179684,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,all,failure_rate_change,68,2000,-0.0019930376551247644,-0.006551075453631124,0.002589292533731814,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,danger,relative_mae_reduction,68,2000,0.007820166625820857,-0.011978347948969365,0.02663322702698725,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,danger,absolute_mae_change,68,2000,-0.004798062623268521,-0.016227243306476034,0.007565737019520144,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,danger,failure_rate_change,68,2000,-0.002587403761201565,-0.011606619853941869,0.006564032780242407,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,air_layer_danger,relative_mae_reduction,56,2000,-0.0037476577758062124,-0.03651736393266551,0.02344961386091797,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,air_layer_danger,absolute_mae_change,56,2000,0.002473010185756125,-0.017431809593040398,0.024646613057804495,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee
+ERA5_Land,air_layer_danger,failure_rate_change,56,2000,-0.004223652453740949,-0.02021134528022744,0.011197826949294911,connected-group resampling of fixed available source cases; no mask/model repetition or new-climate guarantee

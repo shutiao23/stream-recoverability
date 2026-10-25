@@ -1,0 +1,13 @@
+Dear Editor,
+
+Please consider “Incomplete river-temperature years: separating recovery, screening and trend inference” as a Research Article for Water Resources Research. River-temperature studies often discard incomplete years or reconstruct daily values before calculating annual heat statistics. We examine how these choices affect annual thermal extremes, decisions to release individual estimates, and trend inference across an opened archive of 581 stations in 185 connected groups.
+
+Building explicitly on the record-augmentation and maintenance-of-variance literature, we compare simple overlap rules, MOVE.1, stochastic reconstruction, functional debiasing, distribution regression and neural imputers. Twenty repetitions separate independent groups across fitting and calibration roles. Calibrated stochastic regression is competitive with the more elaborate annual model, and group-level diagnostics limit stronger transfer claims. A direct scientific consequence does not depend on imputation: observed 30-day windows in incomplete years already exceed every complete-year heat record at 20 of 96 long-record stations. These reported-series witnesses contradict complete-only record attribution while leaving the unique full-record hottest year unresolved. Trend and sensor-exposure stresses distinguish gains in precision from assumptions about missingness, uncertainty and observation quality.
+
+The manuscript separates historical registered verdicts from exploratory analyses of opened data. Earlier Australian and additional-USGS evaluations are explicitly described as opened-data evidence. The current version does not claim a publicly registered new-region evaluation or verified natural-outage recovery accuracy. Metadata and execution materials for a small prospective New Zealand failure-detection study are prepared; its outcomes remain absent. We believe the paper's practical contribution is to show which inferences incomplete years can support, and where more complex reconstruction or a low average predicted risk fails to justify stronger conclusions.
+
+[The authors will complete the final data/software archive references and all required originality, authorship, funding, competing-interest and simultaneous-submission declarations. This letter must be updated if the scope or independent-study results change.]
+
+Sincerely,
+[Corresponding author]
+[Affiliation and contact details]

@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Akatarawa River at Cemetery">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>100</Altitude>
+<CatchmentArea>113.5</CatchmentArea>
+<Comment>Last Survey: 15/1/18 Level Book Hydro 2 pg 37&#13;&#10;http://ourspace.gw.govt.nz/ws/scicoord/_layouts/15/DocIdRedir.aspx?ID=SCCO-3-314&#13;&#10;ARI frequency estimates derived from at-site data, but the standard errors have been extracted from HIRDS so will need to be revised using the at site data in the future</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>hutt</District>
+<Easting>1776280</Easting>
+<FirstSynonym>Akatarawa River at Cemetery</FirstSynonym>
+<FloodFlow10>465</FloodFlow10>
+<FloodFlow100>707</FloodFlow100>
+<FloodFlow20>539</FloodFlow20>
+<FloodFlow5>387</FloodFlow5>
+<FloodFlow50>635</FloodFlow50>
+<FlowWebVeryHigh>42.98</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="2" Min10="8.2" Min20="12.5" Min30="15.5" Hour1="21" Hour2="32" Hour6="60" Hour12="77" Day1="99" Day2="123" Day3="135" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="11.3" Min20="16.2" Min30="20" Hour1="27" Hour2="39" Hour6="74" Hour12="102" Day1="124" Day2="154" Day3="169" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="13.2" Min20="18.7" Min30="23" Hour1="31" Hour2="43" Hour6="81" Hour12="115" Day1="139" Day2="170" Day3="187" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.1" Min20="21.1" Min30="25.9" Hour1="35" Hour2="47" Hour6="87" Hour12="125" Day1="152" Day2="183" Day3="202" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="17.5" Min20="24.2" Min30="29.6" Hour1="40" Hour2="51" Hour6="94" Hour12="137" Day1="168" Day2="198" Day3="218" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="19.3" Min20="26.5" Min30="32.4" Hour1="43" Hour2="54" Hour6="99" Hour12="145" Day1="179" Day2="208" Day3="229" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.8" Min20="1.1" Min30="1.3" Hour1="1.1" Hour2="0.59" Hour6="3.8" Hour12="5.1" Day1="6.7" Day2="11" Day3="15" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.2" Min20="1.6" Min30="1.9" Hour1="1.7" Hour2="1.7" Hour6="5.4" Hour12="7.1" Day1="9.1" Day2="15" Day3="20" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.7" Min20="2.2" Min30="2.6" Hour1="2.5" Hour2="3" Hour6="7.1" Hour12="9.3" Day1="11" Day2="19" Day3="24" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.2" Min20="2.8" Min30="3.3" Hour1="3.6" Hour2="4.8" Hour6="9.4" Hour12="12" Day1="14" Day2="23" Day3="29" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="2.8" Min20="3.6" Min30="4.3" Hour1="5.6" Hour2="8" Hour6="13" Hour12="17" Day1="20" Day2="30" Day3="37" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="3.3" Min20="4.2" Min30="5.1" Hour1="7.7" Hour2="11" Hour6="17" Hour12="22" Day1="25" Day2="37" Day3="44" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.08584512</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00057</LawaSiteID>
+<Longitude>175.09869850</Longitude>
+<LowFlow100yr14Day>0.671</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.628</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.764</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.643</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.83</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.748</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.962</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.783</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.769</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.703</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.887</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.73</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.709</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.656</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.811</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.676</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.911</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.811</LowFlow5yr1Day>
+<LowFlow5yr28Day>1.065</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.855</LowFlow5yr7Day>
+<LowFlowMALF14Day>1.161</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.996</LowFlowMALF1Day>
+<LowFlowMALF28Day>1.411</LowFlowMALF28Day>
+<MALF7Day>1.069</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>710.384</MaxFlow>
+<MaxFlowAt> 6-Jan-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>283</MeanAnnualFloodFlow>
+<MeanFlow>5.496</MeanFlow>
+<MedianFlow>3.248</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.626</MinFlow>
+<MinFlowAt>12-Mar-2000</MinFlowAt>
+<Northing>5449591</Northing>
+<Rainfall_100Year_12Hour>145</Rainfall_100Year_12Hour>
+<Rainfall_100Year_1Hour>43</Rainfall_100Year_1Hour>
+<Rainfall_100Year_24Hour>179</Rainfall_100Year_24Hour>
+<Rainfall_100Year_2Hour>54</Rainfall_100Year_2Hour>
+<Rainfall_100Year_3Hour>65</Rainfall_100Year_3Hour>
+<Rainfall_100Year_48Hour>208</Rainfall_100Year_48Hour>
+<Rainfall_100Year_6Hour>99</Rainfall_100Year_6Hour>
+<Rainfall_100Year_72Hour>229</Rainfall_100Year_72Hour>
+<Rainfall_10Year_12Hour>115</Rainfall_10Year_12Hour>
+<Rainfall_10Year_1Hour>31</Rainfall_10Year_1Hour>
+<Rainfall_10Year_24Hour>139</Rainfall_10Year_24Hour>
+<Rainfall_10Year_2Hour>43</Rainfall_10Year_2Hour>
+<Rainfall_10Year_3Hour>53</Rainfall_10Year_3Hour>
+<Rainfall_10Year_48Hour>170</Rainfall_10Year_48Hour>
+<Rainfall_10Year_6Hour>81</Rainfall_10Year_6Hour>
+<Rainfall_10Year_72Hour>187</Rainfall_10Year_72Hour>
+<Rainfall_20Year_12Hour>125</Rainfall_20Year_12Hour>
+<Rainfall_20Year_1Hour>35</Rainfall_20Year_1Hour>
+<Rainfall_20Year_24Hour>152</Rainfall_20Year_24Hour>
+<Rainfall_20Year_2Hour>47</Rainfall_20Year_2Hour>
+<Rainfall_20Year_3Hour>57</Rainfall_20Year_3Hour>
+<Rainfall_20Year_48Hour>183</Rainfall_20Year_48Hour>
+<Rainfall_20Year_6Hour>87</Rainfall_20Year_6Hour>
+<Rainfall_20Year_72Hour>202</Rainfall_20Year_72Hour>
+<Rainfall_2Year_12Hour>77</Rainfall_2Year_12Hour>
+<Rainfall_2Year_1Hour>21</Rainfall_2Year_1Hour>
+<Rainfall_2Year_24Hour>99</Rainfall_2Year_24Hour>
+<Rainfall_2Year_2Hour>32</Rainfall_2Year_2Hour>
+<Rainfall_2Year_3Hour>41</Rainfall_2Year_3Hour>
+<Rainfall_2Year_48Hour>123</Rainfall_2Year_48Hour>
+<Rainfall_2Year_6Hour>60</Rainfall_2Year_6Hour>
+<Rainfall_2Year_72Hour>135</Rainfall_2Year_72Hour>
+<Rainfall_50Year_12Hour>137</Rainfall_50Year_12Hour>
+<Rainfall_50Year_1Hour>40</Rainfall_50Year_1Hour>
+<Rainfall_50Year_24Hour>168</Rainfall_50Year_24Hour>
+<Rainfall_50Year_2Hour>51</Rainfall_50Year_2Hour>
+<Rainfall_50Year_3Hour>61</Rainfall_50Year_3Hour>
+<Rainfall_50Year_48Hour>198</Rainfall_50Year_48Hour>
+<Rainfall_50Year_6Hour>94</Rainfall_50Year_6Hour>
+<Rainfall_50Year_72Hour>218</Rainfall_50Year_72Hour>
+<Rainfall_5Year_12Hour>102</Rainfall_5Year_12Hour>
+<Rainfall_5Year_1Hour>27</Rainfall_5Year_1Hour>
+<Rainfall_5Year_24Hour>124</Rainfall_5Year_24Hour>
+<Rainfall_5Year_2Hour>39</Rainfall_5Year_2Hour>
+<Rainfall_5Year_3Hour>49</Rainfall_5Year_3Hour>
+<Rainfall_5Year_48Hour>154</Rainfall_5Year_48Hour>
+<Rainfall_5Year_6Hour>74</Rainfall_5Year_6Hour>
+<Rainfall_5Year_72Hour>169</Rainfall_5Year_72Hour>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Akatarawa River</RiverName>
+<RiverNumber>298360</RiverNumber>
+<SecondSynonym>Akatarawa River at Cemetery</SecondSynonym>
+<ShortName>Cemetery</ShortName>
+<SiteID>47</SiteID>
+<SurfaceWaterSubZone>HuttSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This site is located approximately 1km upstream from the confluence with the Hutt River and has been operating since February 1979.</WebComment>
+</Site>
+</HilltopServer>

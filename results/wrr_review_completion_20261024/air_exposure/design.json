@@ -1,0 +1,18 @@
+{
+  "calibration": "all estimator weights, classifier and interval offsets remain clean-source region-held-out fits; no contaminated-label refit",
+  "censored_trend_scope": "Not rerun: contaminated visible windows no longer establish valid physical lower bounds. All original clean-source censored comparisons remain available.",
+  "exposure": "Seven consecutive visible warm-season daily sensor readings replaced by concurrent air; choose randomly among hottest 10 percent of eligible seven-day air windows, without hidden water values",
+  "scenarios": [
+    "mcar",
+    "strong_heat"
+  ],
+  "scope": "synthetic unflagged measurement contamination; three mask seeds with one source fit, not twenty-repeat stability or new-region evidence",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_fit_seed": 0,
+  "target": "still-defined water temperature, not a dry-bed physical quantity",
+  "trend_repetitions": 200
+}

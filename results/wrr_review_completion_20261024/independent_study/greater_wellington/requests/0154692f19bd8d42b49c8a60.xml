@@ -1,0 +1,1122 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Gauging Results" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-09-17T09:34:00</From>
+<To>2009-07-22T10:45:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2008-09-17T09:34:00</VMStart>
+<VMFinish>2009-07-22T10:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-09-17T09:34:00</VMStart>
+<VMFinish>2009-07-22T10:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-09-17T09:34:00</VMStart>
+<VMFinish>2009-07-22T10:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-09-17T09:34:00</VMStart>
+<VMFinish>2009-07-22T10:45:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2008-09-17T09:34:00</From>
+<To>2009-07-22T10:45:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>17-Sep-2008 09:34:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Oct-2008 09:00:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Nov-2008 09:14:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Dec-2008 10:00:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2009 09:54:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>8.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Feb-2009 10:29:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2009 09:09:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Apr-2009 10:02:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jun-2009 10:11:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Jul-2009 10:45:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2008-09-17T09:34:00</From>
+<To>2009-07-22T10:45:00</To>
+<Sections>
+<Section>
+<SurveyTime>17-Sep-2008 09:34:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Oct-2008 09:00:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Nov-2008 09:14:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Dec-2008 10:00:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2009 09:54:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>8.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Feb-2009 10:29:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2009 09:09:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Apr-2009 10:02:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jun-2009 10:11:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Jul-2009 10:45:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2009-02-18T11:54:45</From>
+<To>2009-04-23T10:24:45</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-09-17T09:25:00</VMStart>
+<VMFinish>2009-08-19T11:02:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (X)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2009-06-18T09:55:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Water Level (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (X)</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Alkalinity (Total)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Alkalinity (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Alkalinity (Total)</RequestAs>
+<Units>g/m3 as CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bicarbonate" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Bicarbonate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bicarbonate</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hardness (Total)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Hardness (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hardness (Total)</RequestAs>
+<Units>g/m3 CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Aluminium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Aluminium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Aluminium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Arsenic (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Arsenic (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Arsenic (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cadmium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Cadmium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Cadmium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chromium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Chromium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chromium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Copper (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Copper (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Copper (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Iron (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Iron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Iron (Dissolved)</RequestAs>
+<Units>mg/L</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Lead (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Lead (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Lead (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.#####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Manganese (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Manganese (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Manganese (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nickel (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Nickel (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nickel (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-09-17T09:25:00</To>
+<Measurement Name="Zinc (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Munsell Colour" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2009-03-18T09:16:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Munsell Colour">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Munsell Colour</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cations" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Total Cations">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cations</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Anions" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Total Anions">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Anions</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ionic Balance Error" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2008-12-10T09:46:00</To>
+<Measurement Name="Ionic Balance Error">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ionic Balance Error</RequestAs>
+<Units>%</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Boron (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Boron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Boron (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Calcium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Calcium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Calcium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Magnesium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Magnesium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Magnesium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Potassium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Potassium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Potassium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sodium (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Sodium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sodium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chloride (Dissolved)" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Chloride Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chloride Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate Dissolved" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Sulphate Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fluoride Dissolved" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-06-18T09:55:00</To>
+<Measurement Name="Fluoride Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fluoride Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-09-17T09:34:00</From>
+<To>2009-07-22T10:45:00</To>
+<TimeObjects>
+<SurveyTime>17-Sep-2008 09:34:00</SurveyTime>
+<SurveyTime>16-Oct-2008 09:00:00</SurveyTime>
+<SurveyTime>20-Nov-2008 09:14:00</SurveyTime>
+<SurveyTime>10-Dec-2008 10:00:00</SurveyTime>
+<SurveyTime>21-Jan-2009 09:54:00</SurveyTime>
+<SurveyTime>18-Feb-2009 10:29:00</SurveyTime>
+<SurveyTime>18-Mar-2009 09:09:00</SurveyTime>
+<SurveyTime>23-Apr-2009 10:02:00</SurveyTime>
+<SurveyTime>18-Jun-2009 10:11:00</SurveyTime>
+<SurveyTime>22-Jul-2009 10:45:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2008-09-17T09:25:00</From>
+<To>2009-08-19T11:02:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Hinau Stream at Hinau Gully Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2009-02-18T11:54:45</From>
+<To>2009-04-23T10:24:45</To>
+</DataSource>
+</HilltopServer>

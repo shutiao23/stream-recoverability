@@ -1,5 +1,12 @@
 # Stream-Temperature Recoverability
 
+## Fourth-review implementation (2026-10-25)
+
+The [work and delivery summary](docs/reviews/wrr_review_completion_20261024/GIT_DELIVERY_ZH.md) records the twenty-seed experiments, current manuscript and unresolved evidence. The [article](paper/wrr_tr/review_completion_article.pdf) and [supporting information](paper/wrr_tr/review_completion_supporting.pdf) retain negative comparator and transfer results. European forcing currently covers 261/262 sites; its recovery and automatic delivery stages stopped at the full-source gate. Independent NZ outcomes require a verified public OSF registration with matching frozen attachments.
+
+Run `make wrr-review-paper` to aggregate existing experimental outputs and compile the paper. Raw observations and large case caches must be acquired/generated separately. The frozen code/model snapshot is tracked with Git LFS: run `git lfs pull`, then follow the [isolated execution instructions](docs/reviews/wrr_review_completion_20261024/INDEPENDENT_EXECUTION_ZH.md).
+
+
 Assessing whether incomplete river-temperature records support thermal estimates
 and downstream decisions.
 

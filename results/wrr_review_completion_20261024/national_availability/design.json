@@ -1,0 +1,14 @@
+{
+  "analysis_years": [
+    1981,
+    2025
+  ],
+  "metadata_snapshot": "data/external/wrr_usgs_new_reference_20261021/metadata/combined_daily_mean_temperature_metadata.json",
+  "native_dates": "date-only API fields already identify provider-native calendar days; timestamp fields use site zone; whole calendar years inside metadata series window",
+  "population": "all primary USGS daily-mean water-temperature stream site types in existing national combined metadata snapshot; one metadata-selected series per site",
+  "retain_opportunity": ">=4 approved date-complete historical years and >=15 supported years with some approved observation; conditional on future numeric QC and predictor availability",
+  "scientific_scope": "national availability census; no new water values, H30 trends or natural-gap validation",
+  "screen": "cannot reach 15 fully supported calendar years is a metadata exclusion; unknown spans queried and never silently excluded",
+  "unapproved": "observed provisional values are never recoded as true missing; any unapproved dates exclude that year from strict approved-data eligibility",
+  "value_fields_requested": false
+}

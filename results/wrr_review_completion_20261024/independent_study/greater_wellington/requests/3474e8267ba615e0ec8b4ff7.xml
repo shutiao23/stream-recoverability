@@ -1,0 +1,187 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="BQ33/0015" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-11-25T10:00:00</From>
+<To>2016-04-14T14:30:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="W/L below M.P.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>W/L below M.P.</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Stage to NZVD2016">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage to NZVD2016</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+<Ratset1>21</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2011-11-25T10:00:00</VMStart>
+<VMFinish>2016-04-14T14:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="BQ33/0015" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2011-11-25T10:00:00</From>
+<To>2016-04-14T14:30:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="BQ33/0015" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-11-25T10:00:00</From>
+<To>2016-04-14T14:30:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="BQ33/0015" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2011-11-25T10:00:00</From>
+<To>2016-04-14T14:30:00</To>
+</DataSource>
+</HilltopServer>

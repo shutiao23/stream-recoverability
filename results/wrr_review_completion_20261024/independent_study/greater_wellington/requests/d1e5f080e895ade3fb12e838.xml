@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="R26/6879">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<BoreBottomOfScreen>-5.4</BoreBottomOfScreen>
+<BoreDepth>5.4</BoreDepth>
+<BoreTopOfScreen>-4.4</BoreTopOfScreen>
+<Comment>
+</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1775707</Easting>
+<FirstSynonym>Coastal GW Zone at Housiaux 2</FirstSynonym>
+<GISTag>
+</GISTag>
+<GroundwaterSubZone>WaikanaeGW</GroundwaterSubZone>
+<GroundwaterZone>KapitiCoastGW</GroundwaterZone>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-40.81740285</Latitude>
+<LawaGroundwaterMeasurement>Stage [Water Level]</LawaGroundwaterMeasurement>
+<LawaSiteID>GW-00097</LawaSiteID>
+<Longitude>175.08341775</Longitude>
+<Macro>False</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5479424</Northing>
+<ReadPointRL>7412</ReadPointRL>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Housiaux 2</ShortName>
+<SiteID>1337</SiteID>
+<WebComment>Located in the Coastal groundwater zone and is approximately 5.5m deep. Manual measurements have been taken since November 2004 and automatic recording started in April 2009. We also measure groundwater temperature at this site.</WebComment>
+</Site>
+</HilltopServer>

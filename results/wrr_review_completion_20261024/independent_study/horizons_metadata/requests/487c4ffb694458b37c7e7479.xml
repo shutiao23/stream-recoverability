@@ -1,0 +1,2372 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<DataSource Name="Water Level" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-12T10:40:00</From>
+<To>2026-10-24T11:57:13</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Volume (Moving 40 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 40 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Oneplan-MinQ">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Oneplan-MinQ</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Volume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Volume</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Linear Specific Yield">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Linear Specific Yield</RequestAs>
+<Units>(l/s)/Km2</Units>
+<Format>###.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Hour)</RequestAs>
+<Units>l/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>$$$</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow (Daily Rate of Change)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (Daily Rate of Change)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-15T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Stage</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Water Level)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Water Level)</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Days</RequestAs>
+<Units>1 = in restriction</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 100 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 100 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 200 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 200 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 365 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 365 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 400 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 400 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 730 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 730 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow MovingAvg (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow MovingAvg (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Hour)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Month)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Month)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Min (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Min (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Gap Accurals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gap Accurals</RequestAs>
+<Divisor>60</Divisor>
+<Units>Minutes</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="PLBed">
+<Item>1</Item>
+<RequestAs>PLBed [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Rating Tools</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Flow Percentile Bin">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Percentile Bin</RequestAs>
+<Units>% (%Bin)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (MSL)">
+<Item>1</Item>
+<RequestAs>Water Level (MSL) [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (NZVD2016)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (NZVD2016)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Annual Volume">
+<Item>1</Item>
+<RequestAs>Annual Volume [Water Level]</RequestAs>
+<Units>m3/1000</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Accrual Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Accrual Days</RequestAs>
+<Units>Days</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-12T10:40:00</VMStart>
+<VMFinish>2026-10-24T11:57:13</VMFinish>
+</Measurement>
+<Measurement Name="Stage - ESG Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage - ESG Deviation</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-05-16T10:07:00</VMStart>
+<VMFinish>2026-09-09T12:16:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed (%) Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>PLBed (%) Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-05-16T10:07:00</VMStart>
+<VMFinish>2026-09-09T12:16:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage Max (1Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage Max (1Day)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-14T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="IVR Stage State">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>IVR Stage State</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-14T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-10-01T00:15:00</From>
+<To>2026-10-24T12:30:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="VM Voltage (Missing Record)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Voltage (Missing Record)</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-10-01T00:15:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Lake Wiritoa" >
+<NoData />
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<Measurement Name="Atmospheric Pressure (Modelled)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure (Modelled)</RequestAs>
+<Units>hPa</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>9</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Dissolved Oxygen Saturation (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen Saturation (-500 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+</Measurement>
+<Measurement Name="Corrected DO mg/l (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO mg/l (-500 mm)</RequestAs>
+<Units>mg/l</Units>
+<Format>##.##</Format>
+<VM>1</VM>
+<VMStart>2024-09-05T15:45:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Corrected DO (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (-500 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+<VM>1</VM>
+<VMStart>2024-09-05T15:45:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="pH (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (-500 mm)</RequestAs>
+<Units>pH</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ORP (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="ORP (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ORP (-500 mm)</RequestAs>
+<Units>mV</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="SP Conductivity (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="SP Conductivity (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>SP Conductivity (-500 mm)</RequestAs>
+<Units>us/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Turbidity (ISO) (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (ISO) (-500 mm)</RequestAs>
+<Units>FNU</Units>
+<Format>####.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Blue Green Algae (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Blue Green Algae (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Blue Green Algae (-500 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>###.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Chlorophyll (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll (-500 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>###.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:01</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-1000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-1000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-1000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-1500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-1500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-1500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-2000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-2000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="EXO Depth" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="EXO Depth">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>EXO Depth</RequestAs>
+<Units>m</Units>
+<Format>##.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WTemp" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WTemp">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WTemp</RequestAs>
+<Units>NEMS</Units>
+<Format>###.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sonde Internal Volts" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<Measurement Name="Sonde Internal Volts">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sonde Internal Volts</RequestAs>
+<Units>V</Units>
+<Format>##.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Battery Capacity 1" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-06-07T11:24:02</From>
+<To>2026-10-24T10:19:13</To>
+<Measurement Name="Battery Capacity 1">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Battery Capacity 1</RequestAs>
+<Units>0-100%</Units>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-2500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-2500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-2500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-3000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-3000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-3000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-3500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-3500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-3500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-4000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-4000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-4000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-4500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-4500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-4500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-5000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-5000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-5000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-5500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-5500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-5500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-6000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-6000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-6000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-6500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-6500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-6500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-7000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-7000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-7000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-7500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-7500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-7500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-8000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-8000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-8000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-8500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-8500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-8500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-10500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-10500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-10500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-12500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-12500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-12500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-14500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-14500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-14500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-16500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-16500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-16500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-18500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-18500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-18500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Nitrate (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate (-500 mm)</RequestAs>
+<Units>g/m&#179;</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_1500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_1500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_1500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_2000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_2000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_2000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_2500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_2500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_2500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_3000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_3000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_3000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_3500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_3500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_3500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_4000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_4000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_4000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_4500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_4500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_4500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_5000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_5000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_5000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_5500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_5500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_5500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_6000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_6000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_6000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_9500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_9500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_9500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_10000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_10000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_10000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_10500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_10500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_10500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_11000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_11000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_11000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_11500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_11500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_11500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_12000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_12000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_12000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_12500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_12500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_12500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_13000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_13000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_13000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_13500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_13500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_13500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_14000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_14000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_14000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_14500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_14500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_14500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_15000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_15000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_15000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_15500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_15500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_15500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_16000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_16000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_16000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_16500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_16500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_16500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_17000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_17000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_17000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_17500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_17500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_17500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_18000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_18000mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_18000mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QC_WT_18500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+<Measurement Name="QC_WT_18500mm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QC_WT_18500mm</RequestAs>
+<Units>NEMS</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-12T10:40:00</From>
+<To>2026-10-21T06:05:57</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-10-01T00:15:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="pH (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="ORP (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="SP Conductivity (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Blue Green Algae (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Chlorophyll (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:01</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-1000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-1500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-2000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="EXO Depth" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WTemp" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="Sonde Internal Volts" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Battery Capacity 1" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-06-07T11:24:02</From>
+<To>2026-10-21T05:00:56</To>
+</DataSource>
+<DataSource Name="Water Temperature (-2500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-3000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-3500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-4000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-4500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-5000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-5500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-6000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-6500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-7000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-7500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-8000 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-8500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-10500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-12500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-14500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-16500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-18500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:05:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Nitrate (-500 mm)" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:45:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_1500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_2000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_2500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_3000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_3500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_4000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_4500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_5000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_5500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_6000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_9500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_10000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_10500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_11000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_11500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_12000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_12500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_13000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_13500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_14000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_14500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_15000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_15500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_16000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_16500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_17000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_17500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_18000mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="QC_WT_18500mm" Site="Lake Wiritoa" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-09-05T15:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>NEMS</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level" Site="Lake Wiritoa" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2024-05-16T10:07:00</From>
+<To>2026-09-09T12:16:00</To>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2024-05-16T10:07:00</From>
+<To>2026-09-03T14:09:00</To>
+<Measurement Name="Water Temperature Check">
+<Item>1</Item>
+<RequestAs>Water Temperature Check [Water Temperature]</RequestAs>
+<Format>$$$</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2025-07-08T13:56:29</From>
+<To>2026-08-18T12:30:00</To>
+<Measurement Name="Check Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>####.#</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Atmospheric Pressure]</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Atmospheric Pressure]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2025-07-08T13:56:29</From>
+<To>2026-08-18T12:30:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO saturation check">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO saturation check</RequestAs>
+<Units>%</Units>
+<Format>####.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Lake Wiritoa" >
+<NumItems>5</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2024-10-04T12:20:18</From>
+<To>2026-05-18T10:36:16</To>
+<SensorGroup>NRT Stage</SensorGroup>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="ESG Error">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>ESG Error</RequestAs>
+<Units>mm (+/-)</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Lake Wiritoa" >
+<NumItems>4</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-05-16T10:07:00</From>
+<To>2025-10-22T10:59:49</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-05-16T10:07:00</From>
+<To>2025-08-12T12:17:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-08T13:56:29</From>
+<To>2025-07-08T13:56:29</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Lake Wiritoa" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-08T13:56:29</From>
+<To>2025-07-08T13:56:29</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Lake Wiritoa" >
+<NumItems>5</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-10-04T12:20:18</From>
+<To>2025-07-08T13:25:00</To>
+<SensorGroup>NRT Stage</SensorGroup>
+</DataSource>
+</HilltopServer>

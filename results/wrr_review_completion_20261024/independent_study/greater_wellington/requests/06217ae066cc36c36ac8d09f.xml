@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Ruamahanga River at Te Ore Ore">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>98.75</Altitude>
+<Catchment>Ruamahanga River</Catchment>
+<Comment>Water Quality Site established Feb-97. RSoE network formed, established as RSoE site Sep-03.</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1825574</Easting>
+<FirstSynonym>Ruamahanga River at Te Ore Ore</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-40.95283816</Latitude>
+<LawaBathingWaterQualityMeasurement>Water Temperature (X)</LawaBathingWaterQualityMeasurement>
+<LawaSiteID>GW-00032</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.68011378</Longitude>
+<Macro>True</Macro>
+<MacroStart>1/01/2004</MacroStart>
+<MetNumber>
+</MetNumber>
+<NZReach>9006280</NZReach>
+<NZSegment>9256232</NZSegment>
+<Northing>5463019</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Soft sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS32</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1510</SiteID>
+</Site>
+</HilltopServer>

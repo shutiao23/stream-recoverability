@@ -1,0 +1,9 @@
+{
+  "air_features": "exact ridge raw air lags 0/1/2/3/5/7/14 and annual sine/cosine",
+  "flow_features": "log1p discharge lags 0/1/3/7; missing on any hidden day means unavailable",
+  "model": "MSE HistGradientBoosting, 200 iterations, 31 leaves, L2=1; fixed budget, no target tuning",
+  "neural_scope": "global models use local climatology but no local water-air coefficient refit; this local nonlinear comparator is separate",
+  "scope": "same target-station history as local ridge, except the complete held year is excluded from all training labels",
+  "seed": 2,
+  "test": "identical saved neural test cases and masks; air-tier is the fair information comparison"
+}

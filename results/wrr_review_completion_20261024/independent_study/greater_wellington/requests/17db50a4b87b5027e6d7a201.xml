@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Parkvale Stream at Renalls Weir">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>45.6</Altitude>
+<Catchment>Ruamahanga River</Catchment>
+<CatchmentArea>50.5</CatchmentArea>
+<Comment>RSoE network formed, established as RSoE site Sep-03.</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-ruamahanga-river-and-streams-in-wairarapa-valley/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.15</ComplianceFlowThreshold>
+<ConsentControlSite>False</ConsentControlSite>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1813515</Easting>
+<FirstSynonym>Parkvale Stream at Renalls Weir</FirstSynonym>
+<FlowWebVeryHigh>3.684</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="2" Min10="5.65" Min20="7.74" Min30="9.39" Hour1="13.2" Hour2="18.5" Hour6="31.2" Hour12="42.3" Day1="55.7" Day2="70.4" Day3="79.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="7.6" Min20="10.4" Min30="12.5" Hour1="17.5" Hour2="24.5" Hour6="41" Hour12="55.3" Day1="72.5" Day2="91.2" Day3="102" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="9.13" Min20="12.4" Min30="15" Hour1="20.9" Hour2="29.1" Hour6="48.4" Hour12="65.2" Day1="85.1" Day2="107" Day3="119" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="10.8" Min20="14.6" Min30="17.6" Hour1="24.4" Hour2="34" Hour6="56.3" Hour12="75.5" Day1="98.2" Day2="123" Day3="137" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="11.8" Min20="16" Min30="19.2" Hour1="26.6" Hour2="36.9" Hour6="61.1" Hour12="81.8" Day1="106" Day2="133" Day3="148" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="12.5" Min20="17" Min30="20.4" Hour1="28.2" Hour2="39.1" Hour6="64.6" Hour12="86.3" Day1="112" Day2="140" Day3="156" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="13.1" Min20="17.8" Min30="21.4" Hour1="29.5" Hour2="40.9" Hour6="67.3" Hour12="89.9" Day1="117" Day2="145" Day3="162" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="13.6" Min20="18.4" Min30="22.1" Hour1="30.6" Hour2="42.3" Hour6="69.6" Hour12="92.9" Day1="120" Day2="150" Day3="167" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="14.5" Min20="19.5" Min30="23.4" Hour1="32.3" Hour2="44.6" Hour6="73.2" Hour12="97.7" Day1="126" Day2="157" Day3="175" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="15.1" Min20="20.3" Min30="24.4" Hour1="33.6" Hour2="46.4" Hour6="76.1" Hour12="101" Day1="131" Day2="163" Day3="181" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.92" Min20="1.2" Min30="1.3" Hour1="1.9" Hour2="2.6" Hour6="5" Hour12="7.5" Day1="12" Day2="16" Day3="17" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.3" Min20="1.6" Min30="1.8" Hour1="2.6" Hour2="3.6" Hour6="6.6" Hour12="9.8" Day1="16" Day2="22" Day3="23" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.7" Min20="2.1" Min30="2.4" Hour1="3.3" Hour2="4.5" Hour6="8" Hour12="12" Day1="19" Day2="25" Day3="27" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.2" Min20="2.7" Min30="3.2" Hour1="4.2" Hour2="5.7" Hour6="9.7" Hour12="14" Day1="22" Day2="30" Day3="32" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="2.5" Min20="3.2" Min30="3.8" Hour1="4.8" Hour2="6.6" Hour6="11" Hour12="15" Day1="24" Day2="32" Day3="34" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="2.8" Min20="3.5" Min30="4.2" Hour1="5.3" Hour2="7.3" Hour6="12" Hour12="17" Day1="26" Day2="34" Day3="37" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3" Min20="3.9" Min30="4.6" Hour1="5.8" Hour2="7.9" Hour6="13" Hour12="18" Day1="27" Day2="36" Day3="38" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="3.3" Min20="4.2" Min30="5" Hour1="6.2" Hour2="8.4" Hour6="14" Hour12="19" Day1="28" Day2="37" Day3="40" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="3.7" Min20="4.7" Min30="5.6" Hour1="6.9" Hour2="9.4" Hour6="15" Hour12="20" Day1="30" Day2="39" Day3="42" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="4" Min20="5.1" Min30="6.2" Hour1="7.5" Hour2="10" Hour6="16" Hour12="22" Day1="31" Day2="41" Day3="44" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.07801993</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00046</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.54166084</Longitude>
+<Macro>True</Macro>
+<MacroStart>1/01/2004</MacroStart>
+<MaxFlow>23.062</MaxFlow>
+<MaxFlowAt>18-Aug-2004</MaxFlowAt>
+<MeanFlow>0.771</MeanFlow>
+<MedianFlow>0.558</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>-0.064</MinFlow>
+<MinFlowAt>19-Feb-2003</MinFlowAt>
+<NZReach>9009215</NZReach>
+<NZSegment>9259306</NZSegment>
+<Northing>5449469</Northing>
+<RECClimate>Warm Dry</RECClimate>
+<RECGeology>Alluvium</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>292251</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS46</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1136</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_MiddleSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+<WebComment>This site is located on the lower Parkvale Stream, approximately 5 km south-east of Carterton. The site is used to monitor low flows for water allocation and issuing water take restrictions and has been operating since April 2007.</WebComment>
+</Site>
+</HilltopServer>

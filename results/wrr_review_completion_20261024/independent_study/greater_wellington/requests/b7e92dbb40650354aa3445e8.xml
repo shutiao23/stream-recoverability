@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Waikanae River at Greenaway Rd">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>3.26</Altitude>
+<Catchment>Waikanae River</Catchment>
+<Comment>RSoE Site established Sept-03</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1771223</Easting>
+<FirstSynonym>Waikanae River at Greenaway Rd</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.87694978</Latitude>
+<LawaSiteID>GW-00010</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.03207168</Longitude>
+<Macro>true</Macro>
+<MacroStart> 1-Jan-2004</MacroStart>
+<MetNumber>
+</MetNumber>
+<NZReach>9003856</NZReach>
+<NZSegment>9253695</NZSegment>
+<Northing>5472915</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Hard sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS10</SecondSynonym>
+<ShortName>RS10</ShortName>
+<SiteID>2510</SiteID>
+</Site>
+</HilltopServer>

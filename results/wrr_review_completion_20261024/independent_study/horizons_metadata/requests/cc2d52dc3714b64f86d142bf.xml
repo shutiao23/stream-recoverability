@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Manawatu at Foxton">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>-0.876</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>5946.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;HOPCRN: Water Level&#13;&#10;SOE Water Quality: Water Temperature</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2699600</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>FWDWQ</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.47255737</Latitude>
+<LawaSiteID>HRC-10025</LawaSiteID>
+<LawaSiteName>Manawatu at Foxton</LawaSiteName>
+<Longitude>175.23635946</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReach>7041981</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7241844</NZSegment>
+<NZVD16>-1303</NZVD16>
+<Northing>6079100</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325000</RiverNumber>
+<Scheme>LMS Lower Manawatu</Scheme>
+<SecondSynonym>FOX</SecondSynonym>
+<ShortName>Hor-0219</ShortName>
+<SiteID>315</SiteID>
+<SurfaceWaterZone>Mana_13CMA</SurfaceWaterZone>
+<eQualCode>Hor-0203</eQualCode>
+</Site>
+</HilltopServer>

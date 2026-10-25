@@ -1,0 +1,85 @@
+{
+  "air_forcing": {
+    "aggregation": "24 finite hourly temperatures per fixed NZST day; no interpolation",
+    "model": "era5_land",
+    "provider": "Open-Meteo ERA5-Land",
+    "variable": "hourly temperature_2m"
+  },
+  "classical_calibration_sha256": "bde77397fba40479f2c43151b2fdf41df61963a9813ca4906465014864218d1e",
+  "domain": "Continuous river records with at least four strict QC complete hot years after acquisition. No dry-bed physical temperature claim. All metadata-eligible candidates included; distance-based domain flags diagnostic only, never tuned on target errors.",
+  "endpoint": "https://hilltop.gw.govt.nz/Data.hts",
+  "grouping_evidence": "Agency SurfaceWaterZone conservatively merges connected Hutt tributaries and Wainuiomata, all Ruamahanga tributaries, and the selected Kapiti coastal catchments. Predictors share water donors only within these merged groups. Management grouping is structural; independent/exchangeable weather and errors across zones remain assumptions.",
+  "independence_groups_verified": true,
+  "metadata_roster_file": "greater_wellington/registration_roster.csv",
+  "metadata_roster_sha256": "ac7d0be3918abd3954f474bf829d430611724a67a9b43550bcad1c6aee7f9d53",
+  "n_conservative_groups": 3,
+  "n_prospective_stations": 9,
+  "native_time_zone": "NZST fixed UTC+12, confirmed by all candidate TimeRange metadata",
+  "observation_end_exclusive": "2026-07-01T00:00:00",
+  "prior_temperature_access_excluded": true,
+  "provider": "greater_wellington",
+  "provider_time_ranges": [
+    {
+      "from": "2001-11-26T19:00:00+12:00",
+      "site": "Akatarawa River at Cemetery",
+      "to": "2026-10-24T13:20:00+12:00"
+    },
+    {
+      "from": "2001-04-18T20:15:00+12:00",
+      "site": "Hutt River at Taita Gorge",
+      "to": "2021-11-04T11:45:00+12:00"
+    },
+    {
+      "from": "2009-12-21T13:00:00+12:00",
+      "site": "Kopuaranga River at Stuarts",
+      "to": "2018-06-01T14:00:00+12:00"
+    },
+    {
+      "from": "2002-10-25T14:00:00+12:00",
+      "site": "Mangaone Stream at Ratanui",
+      "to": "2026-10-24T13:20:00+12:00"
+    },
+    {
+      "from": "2001-11-25T03:15:00+12:00",
+      "site": "Mangaroa River at Te Marua",
+      "to": "2016-01-21T10:00:00+12:00"
+    },
+    {
+      "from": "2007-03-08T11:15:00+12:00",
+      "site": "Wainuiomata River at Leonard Wood Park",
+      "to": "2016-02-05T12:00:00+12:00"
+    },
+    {
+      "from": "2002-11-05T14:00:00+12:00",
+      "site": "Wainuiomata River at Manuka Track",
+      "to": "2026-10-24T13:00:00+12:00"
+    },
+    {
+      "from": "2007-11-05T10:00:00+12:00",
+      "site": "Waipoua River at Mikimiki Bridge",
+      "to": "2021-07-17T22:30:00+12:00"
+    },
+    {
+      "from": "2003-03-13T14:30:00+12:00",
+      "site": "Waitohu Stream at Water Supply Intake",
+      "to": "2026-10-24T13:20:00+12:00"
+    }
+  ],
+  "public_registration_required_before_acquisition": true,
+  "qc_specification": {
+    "accepted_quality_codes": [
+      600
+    ],
+    "aggregation": "mean of a full regular native day; no interpolation or synthetic records",
+    "cadence": "monthly timestamp mode up to 60 minutes, shorter tie, must divide 24 hours",
+    "daily_completeness": 1.0,
+    "native_clock": "NZST fixed UTC+12"
+  },
+  "source_case_settings_sha256": "3d71fe5318af849bd9127b5426efa10459efcb9bbf0f4125061a82badd4812f5",
+  "source_decision_hot_cutoff": 0.5775520449874613,
+  "source_generator_sha256": "d32cf048d7105753845f6edc54f0a3bc71bc38d95f8c372fd383064418c1dfcd",
+  "source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
+  "status": "metadata_roster_frozen",
+  "study_interpretation": "Small prospective failure-detection/descriptive study; no budget reached 80 percent source planning power. Three conservative zones cannot implement E5 at ten labeled groups. No confirmation of universal transfer or individual conditional risk.",
+  "temperature_values_requested": false
+}

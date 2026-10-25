@@ -1,0 +1,285 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Gauging Results" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2004-04-26T14:41:00</VMStart>
+<VMFinish>2008-03-28T11:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-26T14:41:00</VMStart>
+<VMFinish>2008-03-28T11:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-26T14:41:00</VMStart>
+<VMFinish>2008-03-28T11:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-26T14:41:00</VMStart>
+<VMFinish>2008-03-28T11:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>26-Apr-2004 14:41:00</SurveyTime>
+<LeftOffset>1.750</LeftOffset>
+<RightOffset>5.320</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2005 14:10:00</SurveyTime>
+<LeftOffset>2.550</LeftOffset>
+<RightOffset>4.950</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2008 10:04:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2008 11:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+<Sections>
+<Section>
+<SurveyTime>26-Apr-2004 14:41:00</SurveyTime>
+<LeftOffset>1.750</LeftOffset>
+<RightOffset>5.320</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2005 14:10:00</SurveyTime>
+<LeftOffset>2.550</LeftOffset>
+<RightOffset>4.950</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2008 10:04:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2008 11:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-12-23T13:49:00</From>
+<To>2005-07-13T14:55:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+<TimeObjects>
+<SurveyTime>26-Apr-2004 14:41:00</SurveyTime>
+<SurveyTime>15-Mar-2005 14:10:00</SurveyTime>
+<SurveyTime>28-Mar-2008 10:04:00</SurveyTime>
+<SurveyTime>28-Mar-2008 11:00:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>9</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>4</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-04-26T14:41:00</From>
+<To>2008-03-28T11:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Waitohu Stream at Taylors Road Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-12-23T13:49:00</From>
+<To>2005-07-13T14:55:00</To>
+</DataSource>
+</HilltopServer>

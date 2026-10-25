@@ -1,0 +1,852 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-02-05T16:45:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Level (24hr Moving Mean)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Level (24hr Moving Mean)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-06T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Water Level Above/Below Ground">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level Above/Below Ground</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+<Ratset1>11</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-02-05T16:45:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Alkalinity" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Alkalinity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Alkalinity</RequestAs>
+<Units>g/m3 as CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chloride" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Chloride">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chloride</RequestAs>
+<Units>g/m3</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-11-18T10:34:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Water Level (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (X)</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Dissolved Solids" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2021-11-05T13:29:00</To>
+<Measurement Name="Total Dissolved Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Dissolved Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2021-11-05T13:29:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bicarbonate" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Bicarbonate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bicarbonate</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bromide" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Bromide">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bromide</RequestAs>
+<Units>g/m3</Units>
+<Format>#.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fluoride" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Fluoride">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fluoride</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Silica Dissolved Reactive" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Silica Dissolved Reactive">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Silica Dissolved Reactive</RequestAs>
+<Units>g/m3 SiO2</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Sulphate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Iron (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Iron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Iron (Dissolved)</RequestAs>
+<Units>mg/L</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Lead (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Lead (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Lead (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.#####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Manganese (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Manganese (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Manganese (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Zinc (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Hardness" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Total Hardness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Hardness</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2021-11-05T13:29:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cations" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Total Cations">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cations</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Anions" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Total Anions">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Anions</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ionic Balance Error" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Ionic Balance Error">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ionic Balance Error</RequestAs>
+<Units>%</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Free CO2" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Free CO2">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Free CO2</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Boron (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2008-12-15T10:14:00</To>
+<Measurement Name="Boron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Boron (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Calcium (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Calcium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Calcium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Magnesium (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Magnesium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Magnesium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Potassium (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Potassium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Potassium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sodium (Dissolved)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Sodium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sodium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Oxidised Nitrogen" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="Total Oxidised Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Oxidised Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (TC)" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Conductivity (TC)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (TC)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ORP (Field)(X)" Site="R27/7215" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2021-11-05T13:29:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="ORP (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ORP (Field)(X)</RequestAs>
+<Units>mv</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2008-12-15T10:14:00</From>
+<To>2025-11-18T10:34:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-02-05T16:45:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Conductivity (TC)" Site="R27/7215" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="R27/7215" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2008-02-05T16:45:00</From>
+<To>2026-03-04T07:30:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

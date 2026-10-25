@@ -1,0 +1,4 @@
+seed,endpoint,version,n,bias_plugin,bias,reduction,coverage90,criterion_met,historical_registered_verdict,retention_baseline,retention_learned,gain,dataset
+2,P1_analogue,raw_redesign,3045.0,-1.0161718108735334,-0.6714310937471281,0.33925435978198937,0.4768472906403941,False,"unchanged, not met; these refits are exploratory",,,,source
+2,P1_analogue,calibrated_redesign,3045.0,-1.0161718108735334,-0.6518278848426469,0.3585455944872993,0.6223316912972086,False,"unchanged, not met; these refits are exploratory",,,,source
+2,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source

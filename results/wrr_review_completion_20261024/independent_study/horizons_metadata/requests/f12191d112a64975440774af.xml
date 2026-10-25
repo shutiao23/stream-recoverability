@@ -1,0 +1,3145 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<DataSource Name="Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="VM Modelled Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Modelled Flow</RequestAs>
+<Units>l/s</Units>
+<Format>$$$</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>7</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Accrual Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Accrual Days</RequestAs>
+<Units>Days</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>10</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Virtual Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Virtual Stage</RequestAs>
+<Units>mm</Units>
+<Format>#####</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>15</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Volume (Moving 40 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 40 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Oneplan-MinQ">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Oneplan-MinQ</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Volume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Volume</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Linear Specific Yield">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Linear Specific Yield</RequestAs>
+<Units>(l/s)/Km2</Units>
+<Format>###.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Hour)</RequestAs>
+<Units>l/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>$$$</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow (Daily Rate of Change)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (Daily Rate of Change)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Stage</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Water Level)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Water Level)</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Days</RequestAs>
+<Units>1 = in restriction</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 100 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 100 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 200 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 200 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 365 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 365 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 400 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 400 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 730 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 730 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow MovingAvg (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow MovingAvg (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Hour)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Month)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Month)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Min (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Min (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Gap Accurals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gap Accurals</RequestAs>
+<Divisor>60</Divisor>
+<Units>Minutes</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed">
+<Item>1</Item>
+<RequestAs>PLBed [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Rating Tools</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Percentile Bin">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Percentile Bin</RequestAs>
+<Units>% (%Bin)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (MSL)">
+<Item>1</Item>
+<RequestAs>Water Level (MSL) [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (NZVD2016)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (NZVD2016)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Volume">
+<Item>1</Item>
+<RequestAs>Annual Volume [Water Level]</RequestAs>
+<Units>m3/1000</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Accrual Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Accrual Days</RequestAs>
+<Units>Days</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage - ESG Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage - ESG Deviation</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-24T09:49:07</VMStart>
+<VMFinish>2026-10-20T10:15:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed (%) Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>PLBed (%) Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-24T09:49:07</VMStart>
+<VMFinish>2026-10-20T10:15:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage Max (1Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage Max (1Day)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="IVR Stage State">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>IVR Stage State</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2026-07-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="VM Voltage (Missing Record)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Voltage (Missing Record)</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2026-07-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>###.##</Format>
+</Measurement>
+<Measurement Name="WT Deviation Moving Average">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WT Deviation Moving Average</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-24T09:51:04</VMStart>
+<VMFinish>2026-10-20T10:15:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Min">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Min</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Mean">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Mean</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Max">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Max</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Deviation</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-24T09:51:04</VMStart>
+<VMFinish>2026-10-20T10:15:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (backup sensors)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Backup Sensors</SensorGroup>
+<Measurement Name="Stage (backup)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage (backup)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Primary Stage Deviation (mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Primary Stage Deviation (mm)</RequestAs>
+<Units>mm DEV (ABS)</Units>
+<Format>#</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Primary Stage Deviation Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Primary Stage Deviation Warning</RequestAs>
+<Units>Boolean</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Linear Specfic Yield (Backup)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Linear Specfic Yield (Backup)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Arawhata Drain at Hokio Beach Road" >
+<NoData />
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="Atmospheric Pressure (Modelled)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure (Modelled)</RequestAs>
+<Units>hPa</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>9</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO Saturation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO Saturation</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Corrected DO (%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Corrected DO (mg/l)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (mg/l)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>4</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="DO (%) Accrual (Below 80%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO (%) Accrual (Below 80%)</RequestAs>
+<Units>Hours</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Min">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Min</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Mean">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Mean</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Max">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Max</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="DO Field Check Deviation">
+<Item>1</Item>
+<RequestAs>DO Field Check Deviation [Dissolved Oxygen (%)]</RequestAs>
+<Units>% (ABS)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="pH sensor" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+<Measurement Name="pH">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH</RequestAs>
+<Units>pH</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="pH Field Check Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH Field Check Deviation</RequestAs>
+<Units>pH</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity Low Range (T Comp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+<Measurement Name="Conductivity Low Range (T Comp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity Low Range (T Comp)</RequestAs>
+<Units>uS/cm</Units>
+<Format>########</Format>
+</Measurement>
+<Measurement Name="TDS - (0.67)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>TDS - (0.67)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>14</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Conductivity Check Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity Check Deviation</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T06:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Signature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Signature</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T06:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Software Version">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Software Version</RequestAs>
+<Units>Version</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: SD">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: SD</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="WL (-) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (-) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="WL (+) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (+) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: Point Sample</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+<Measurement Name="Turbidity: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Point Sample</RequestAs>
+<Units>FNU</Units>
+<Format>###.###</Format>
+</Measurement>
+<Measurement Name="Daily Sediment Load (ISO Turb)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Sediment Load (ISO Turb)</RequestAs>
+<Units>Ton/Day</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Water Quality</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+<Ratset1>8</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Sediment Flux (ISO Turb)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sediment Flux (ISO Turb)</RequestAs>
+<Units>kg/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Water Quality</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>12</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Sediment Conc (ISO Turb)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sediment Conc (ISO Turb)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Water Quality</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+<Ratset1>13</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Turbidity: Lab Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Lab Sample</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Missing Record VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Missing Record VM</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:30:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity Deviation (Lab Sample)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity Deviation (Lab Sample)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:30:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Combined Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Combined Point Sample</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Accrual Analysis">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Accrual Analysis</RequestAs>
+<Units>Hours &gt;40</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Sampling Alert">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Sampling Alert</RequestAs>
+<Units>State</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="SampleID" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2023-08-02T08:50:18</From>
+<To>2023-08-03T06:00:50</To>
+<SensorGroup>Sample Turbidity</SensorGroup>
+<Measurement Name="SampleID">
+<Item>1</Item>
+<RequestAs>SampleID [SampleID]</RequestAs>
+<Units>#</Units>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Auto Sampler Turbidity" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2023-08-02T08:50:18</From>
+<To>2023-08-03T06:00:50</To>
+<SensorGroup>Sample Turbidity</SensorGroup>
+<Measurement Name="Auto Sampler Turbidity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Auto Sampler Turbidity</RequestAs>
+<Units>NTU</Units>
+<Format>###.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Low Range): Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+<Measurement Name="Turbidity (Low Range): Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Low Range): Point Sample</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Turbidity (ISO) Yield">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (ISO) Yield</RequestAs>
+<Units>FNU/km2</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T03:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="WL (backup) statistics: SD" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="WL (backup) statistics: SD">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (backup) statistics: SD</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WL (backup) statistics: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="WL (backup) statistic: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (backup) statistic: Point Sample</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+<Measurement Name="ADP Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Temperature</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Pressure" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+<Measurement Name="ADP Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Pressure</RequestAs>
+<Units>PSI</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Mean Velocity" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Mean Velocity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Mean Velocity</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+<Measurement Name="ADP Area (VM)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Area (VM)</RequestAs>
+<Units>m2</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="ADP Index Velocity (VM)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Index Velocity (VM)</RequestAs>
+<Units>m/s</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Flow ADP (VM)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow ADP (VM)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+<Measurement Name="ADP Water Level">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Water Level</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (Index X)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<Measurement Name="ADP Mean Velocity (Index X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Mean Velocity (Index X)</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (Index Y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Mean Velocity (Index Y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Mean Velocity (Index Y)</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Mean Velocity (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Mean Velocity (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Flow (Sensor)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+<Measurement Name="ADP Flow (Sensor)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Flow (Sensor)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Beam 1 (Noise)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Beam 1 (Noise)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Beam 1 (Noise)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Beam 2 (Noise)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Beam 2 (Noise)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Beam 2 (Noise)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell01 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell01 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell01 (SNR)</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell02 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell02 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell02 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell03 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell03 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell03 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell04 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell04 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell04 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell05 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell05 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell05 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell06 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell06 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell06 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell07 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell07 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell07 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell08 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell08 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell08 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell09 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell09 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell09 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell10 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+<Measurement Name="ADP Cell10 (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell10 (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 1 (V1x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 1 (V1x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 1 (V1x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 1 (V1y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 1 (V1y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 1 (V1y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 2 (V2x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 2 (V2x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 2 (V2x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 2 (V2y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 2 (V2y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 2 (V2y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 3 (V3x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 3 (V3x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 3 (V3x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 3 (V3y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 3 (V3y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 3 (V3y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 4 (V4x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 4 (V4x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 4 (V4x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 4 (V4y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 4 (V4y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 4 (V4y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 5 (V5x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 5 (V5x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 5 (V5x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 5 (V5y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 5 (V5y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 5 (V5y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 6 (V6x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 6 (V6x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 6 (V6x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 6 (V6y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 6 (V6y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 6 (V6y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 7 (V7x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 7 (V7x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 7 (V7x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 7 (V7y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 7 (V7y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 7 (V7y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 8 (V8x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 8 (V8x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 8 (V8x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 8 (V8y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 8 (V8y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 8 (V8y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 9 (V9x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 9 (V9x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 9 (V9x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 9 (V9y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 9 (V9y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 9 (V9y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 10 (V10x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 10 (V10x)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 10 (V10x)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 10 (V10y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 10 (V10y)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 10 (V10y)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 1 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 1 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 1 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 1 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 1 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 1 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 2 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 2 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 2 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 2 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 2 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 2 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 3 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 3 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 3 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 3 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 3 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 3 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 4 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 4 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 4 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 4 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 4 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 4 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 5 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 5 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 5 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 5 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 5 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 5 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 6 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 6 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 6 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 6 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 6 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 6 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 7 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 7 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 7 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 7 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 7 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 7 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 8 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 8 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 8 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 8 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 8 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 8 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 9 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 9 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 9 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 9 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 9 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 9 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 10 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 10 (Beam 1 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 10 (Beam 1 Amp)</RequestAs>
+<Units>x M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Cell 10 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+<Measurement Name="ADP Cell 10 (Beam 2 Amp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Cell 10 (Beam 2 Amp)</RequestAs>
+<Units>y M3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ORP" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+<Measurement Name="ORP">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ORP</RequestAs>
+<Units>mV</Units>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="NO3-N Concentration" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+<Measurement Name="NO3-N Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>NO3-N Concentration</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 220nm" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+<Measurement Name="Absorbance at 220nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 220nm</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Absorbance at 270nm" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+<Measurement Name="Absorbance at 270nm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Absorbance at 270nm</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2026-07-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Water Level (backup sensors)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Backup Sensors</SensorGroup>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="pH sensor" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+</DataSource>
+<DataSource Name="Conductivity Low Range (T Comp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T06:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T06:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+</DataSource>
+<DataSource Name="SampleID" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-08-02T08:50:18</From>
+<To>2023-08-03T06:00:50</To>
+<SensorGroup>Sample Turbidity</SensorGroup>
+</DataSource>
+<DataSource Name="Auto Sampler Turbidity" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-08-02T08:50:18</From>
+<To>2023-08-03T06:00:50</To>
+<SensorGroup>Sample Turbidity</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity (Low Range): Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+</DataSource>
+<DataSource Name="WL (backup) statistics: SD" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="WL (backup) statistics: Point Sample" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Pressure" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Mean Velocity" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (Index X)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (Index Y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Flow (Sensor)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Beam 1 (Noise)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Beam 2 (Noise)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Cell01 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell02 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell03 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell04 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell05 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell06 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell07 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell08 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell09 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell10 (SNR)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_SNR</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 1 (V1x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 1 (V1y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 2 (V2x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 2 (V2y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 3 (V3x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 3 (V3y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 4 (V4x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 4 (V4y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 5 (V5x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 5 (V5y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 6 (V6x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 6 (V6y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 7 (V7x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 7 (V7y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 8 (V8x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 8 (V8y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 9 (V9x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-09T11:15:00</From>
+<To>2025-07-08T13:20:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 9 (V9y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 10 (V10x)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 10 (V10y)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 1 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 1 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 2 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 2 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 3 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 3 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 4 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 4 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 5 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 5 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 6 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 6 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 7 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 7 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 8 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 8 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 9 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 9 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 10 (Beam 1 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Cell 10 (Beam 2 Amp)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_Cells</SensorGroup>
+</DataSource>
+<DataSource Name="ORP" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+</DataSource>
+<DataSource Name="NO3-N Concentration" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+</DataSource>
+<DataSource Name="Absorbance at 220nm" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+</DataSource>
+<DataSource Name="Absorbance at 270nm" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2024-01-24T09:49:07</From>
+<To>2026-10-20T10:15:00</To>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2024-01-24T09:51:04</From>
+<To>2026-10-20T10:15:00</To>
+<Measurement Name="Water Temperature Check">
+<Item>1</Item>
+<RequestAs>Water Temperature Check [Water Temperature]</RequestAs>
+<Format>$$$</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2022-01-11T10:10:00</From>
+<To>2026-10-20T10:15:00</To>
+<Measurement Name="Check Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>####.#</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Atmospheric Pressure]</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Atmospheric Pressure]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2024-01-24T09:51:04</From>
+<To>2026-10-20T10:15:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO saturation check">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO saturation check</RequestAs>
+<Units>%</Units>
+<Format>####.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>5</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2022-01-10T13:00:00</From>
+<To>2026-10-20T10:15:00</To>
+<SensorGroup>NRT Stage</SensorGroup>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="ESG Error">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>ESG Error</RequestAs>
+<Units>mm (+/-)</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>4</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-24T09:49:07</From>
+<To>2025-11-05T10:48:53</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-24T09:51:04</From>
+<To>2025-10-22T11:00:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-11T10:10:00</From>
+<To>2025-10-22T11:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-24T09:51:04</From>
+<To>2025-10-22T11:00:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Arawhata Drain at Hokio Beach Road" >
+<NumItems>5</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-10T13:00:00</From>
+<To>2025-11-05T10:48:53</To>
+<SensorGroup>NRT Stage</SensorGroup>
+</DataSource>
+</HilltopServer>

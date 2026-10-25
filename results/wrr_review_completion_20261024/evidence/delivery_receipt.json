@@ -1,0 +1,353 @@
+{
+  "European_analysis_status": {
+    "complete": true,
+    "n_station_input_jobs": 262,
+    "partial": true,
+    "requested": 262,
+    "retrieved": 22,
+    "rows": 154114
+  },
+  "European_weather_progress": {
+    "processed": 214,
+    "requested": 262,
+    "retrieved": 205,
+    "updated_utc": "2026-10-24T06:19:10.063346+00:00"
+  },
+  "H7_daily_input_audit": true,
+  "H7_source_region_refits": 540,
+  "NZ_independent_values_requested": false,
+  "all_user_requirements_complete": false,
+  "artifacts": {
+    "docs/reviews/wrr_review_completion_20261024/EXECUTION_REPORT_ZH.md": {
+      "bytes": 115738,
+      "sha256": "a9553a92b082001e0e087228d12a106f23579ffb917ddddbfeabb5f3504ba282"
+    },
+    "docs/reviews/wrr_review_completion_20261024/EXPERIMENT_CHECKLIST_ZH.md": {
+      "bytes": 10401,
+      "sha256": "9e56b27a02d86481d3cece43b71ead74e259b0f633ff5696f7231dd7d489472a"
+    },
+    "docs/reviews/wrr_review_completion_20261024/FLOW_EXECUTION_ZH.md": {
+      "bytes": 5197,
+      "sha256": "c106e6cc839bd4c0bf2025a73b26738f5adf05cecc0e5c212fbe935094f10793"
+    },
+    "docs/reviews/wrr_review_completion_20261024/FOCUSED_DIAGNOSTICS_ZH.md": {
+      "bytes": 13603,
+      "sha256": "2da3fb4e458dbeb7684a7af6ca6d60e60c587c0b039fa3f94c044e72004da4a0"
+    },
+    "docs/reviews/wrr_review_completion_20261024/FORCING_EXECUTION_ZH.md": {
+      "bytes": 6667,
+      "sha256": "fbcb25f947a6b5a081a876abc06eca32765e206d5ac359e5241905daae118b40"
+    },
+    "docs/reviews/wrr_review_completion_20261024/INDEPENDENT_EXECUTION_ZH.md": {
+      "bytes": 7046,
+      "sha256": "c90b769bc16551ce7c0778bd847534592f3dfddd732024df2b279bac013d3648"
+    },
+    "docs/reviews/wrr_review_completion_20261024/NATIONAL_EXECUTION_ZH.md": {
+      "bytes": 29182,
+      "sha256": "ec9a8cd9dc870af5f49366179f84f99dafacc03cff4950713c2f74bd980237a6"
+    },
+    "docs/reviews/wrr_review_completion_20261024/SUBMISSION_CHECKLIST_ZH.md": {
+      "bytes": 2784,
+      "sha256": "1a3f926da7ee0abaf723ec4b99f5139e26fe3df801c7dd266f2a55665a49e006"
+    },
+    "docs/reviews/wrr_review_completion_20261024/WINDOW_EXECUTION_ZH.md": {
+      "bytes": 8613,
+      "sha256": "df8e45403e33751883bec24037c92959a8e538980602f29f3899458f75346bbf"
+    },
+    "docs/reviews/wrr_review_completion_20261024/ZERO_FLOW_MISSINGNESS_ZH.md": {
+      "bytes": 5766,
+      "sha256": "37b4346a03941fea86727fe2257901a76f654038ab3575f1c712b765b81fe57d"
+    },
+    "paper/wrr_tr/review_completion_article.pdf": {
+      "bytes": 360964,
+      "sha256": "9fb5e6d0fc55c7d96e245d96b8ade689830a4bfa87d908bdea60a96f8ec3e541"
+    },
+    "paper/wrr_tr/review_completion_cover_letter.txt": {
+      "bytes": 2416,
+      "sha256": "daf721d02c8c84c26a5c0ff505bce979f1bf1c6456bf6113bfb71ffb77f14ca2"
+    },
+    "paper/wrr_tr/review_completion_supporting.pdf": {
+      "bytes": 320058,
+      "sha256": "b7c15b30bd898bff783adfb0596f2d7917bb3072b71bf57d761e28a13a72ac15"
+    },
+    "results/wrr_review_completion_20261024/evidence/archive_execution_smoke.json": {
+      "bytes": 738,
+      "sha256": "8ca2719c3dcfc20ab3dcbcc53a9ae56d6098dc32476ba491a2c5973fc9175cf5"
+    },
+    "results/wrr_review_completion_20261024/evidence/extended_unit_tests.xml": {
+      "bytes": 13738,
+      "sha256": "b044a7920882732827714c069095723fa8fe68930f46a095609ccd4299821454"
+    },
+    "results/wrr_review_completion_20261024/evidence/validation.json": {
+      "bytes": 2941,
+      "sha256": "da8cc27c8cb97ac9ef94979a1bfd3281352eaa7016ea5d2210bf8b6c7a7952bd"
+    },
+    "results/wrr_review_completion_20261024/failure_map/failure_map.pdf": {
+      "bytes": 43887,
+      "sha256": "67dfdb5cb5dc3b8b57cc340f9b06c4b5dbd1745ad69f9e1fcbb91e12c8bb4d11"
+    },
+    "results/wrr_review_completion_20261024/failure_map/status.json": {
+      "bytes": 519,
+      "sha256": "3b5bfd6ca017571773343e8f34823c19aa21e9e39fbf2cb6281a3d5d5609d40c"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/design.json": {
+      "bytes": 1549,
+      "sha256": "6add5df4fd7b8ade08d5eae949fa483fd1cd6cf06a4408dcca890dd55aa7b5d8"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/historical_control_audit.json": {
+      "bytes": 266,
+      "sha256": "530faf300dc9cb6b6e97dde1953dc755a830835cd6cb3f22418f59431a742576"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/paired_effects.csv": {
+      "bytes": 2312,
+      "sha256": "eba7aaab2f8a092759e1d5500c812d87c942c3639ae62f04d6d66493632d6b33"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/rules.csv": {
+      "bytes": 4367,
+      "sha256": "dbc91b29e9b1080757e5657888cb38c9c9c0f99f7a7d6c1c3310a9f528fa1582"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/scorecard.csv": {
+      "bytes": 5053,
+      "sha256": "98b6870e62fe5c17c2aa93e68c575b1821a5f1bac9b9c5287f5b22d07e12611d"
+    },
+    "results/wrr_review_completion_20261024/flow_comparators/status.json": {
+      "bytes": 1361,
+      "sha256": "78792cb6e5bf13678720b0987e48089adec8b7177029fd281434d33bfbbf89ab"
+    },
+    "results/wrr_review_completion_20261024/focused_diagnostics/hot_year_examples_per_seed.csv": {
+      "bytes": 386141,
+      "sha256": "214dbb0455892ee6dbe92cbef0bad49245045d7bec4022e40f709c8744cfe223"
+    },
+    "results/wrr_review_completion_20261024/focused_diagnostics/prespecified_station_profiles.csv": {
+      "bytes": 947,
+      "sha256": "74d37249cce5dff247b6058f0e53fa785a1014dd37377e35901e15bb767afc8a"
+    },
+    "results/wrr_review_completion_20261024/focused_diagnostics/prespecified_station_trends_per_seed.csv": {
+      "bytes": 13981,
+      "sha256": "d002df057b9d146676bbf73570b27c9a2fd79865154ff133edf8744baa33e004"
+    },
+    "results/wrr_review_completion_20261024/focused_diagnostics/status.json": {
+      "bytes": 892,
+      "sha256": "7001aa21dbd4a2c06e4f03e57511e895eb25a8b3d91cebc7cc7b59c71dd6bd11"
+    },
+    "results/wrr_review_completion_20261024/independent_study/registration_code_and_protocol.tar.gz": {
+      "bytes": 107017548,
+      "sha256": "3ffaf656054716b30b084a452c71187ba3f76a430cd33cabdd3aeed4e6621d07"
+    },
+    "results/wrr_review_completion_20261024/inputs/forcing_recovery/usgs/numerical_audit.json": {
+      "bytes": 289059,
+      "sha256": "5b2b1750487f738f9c3e3e21c30bfaf78d87bde1b084306028804a5f79ba50d0"
+    },
+    "results/wrr_review_completion_20261024/inputs/forcing_recovery/usgs/status.json": {
+      "bytes": 459,
+      "sha256": "a0ebbe523583cff4468d6c6435fb3632706a572abbc349010d7088445109d27a"
+    },
+    "results/wrr_review_completion_20261024/inputs/forcing_recovery/usgs/summary.csv": {
+      "bytes": 6399,
+      "sha256": "c6f5758bce3a8078ee2f4cd0b3908c81a30c321fd3d77095717c0e9396db18d4"
+    },
+    "results/wrr_review_completion_20261024/inputs/source_coordinate_supplement.csv": {
+      "bytes": 4255,
+      "sha256": "926e363fc0aea90cf54552d4fbc38f00e812de068630f886c90dcfbb212dfaa5"
+    },
+    "results/wrr_review_completion_20261024/inputs/source_coordinate_supplement_audit.json": {
+      "bytes": 1079,
+      "sha256": "dbb8102d357a2f8f3c301d3fed3684a23a9221c58e8abdf2ec2116f7e2a470ef"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/acquisition.json": {
+      "bytes": 256,
+      "sha256": "6ba48c226d9c32cbdf0bb10b21cc3d3f4453413380be1d68c40cda094cdcb37e"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/meaning/field_significance.csv": {
+      "bytes": 706,
+      "sha256": "92f889d3a8384b84ada86b983330aaf364b47537d0a237f865aafe2eb2e01729"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/meaning/hot_year_frequency_network_region.csv": {
+      "bytes": 134221,
+      "sha256": "fcca209f8e6d0a37e886f31a622b4c258f8471713666311cf6f9adce803b3e47"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/meaning/network_and_regional_summary.csv": {
+      "bytes": 8918,
+      "sha256": "79b909ebaa116b578ac6e3742f9786883f25633e3bbc76b30d4cb88340ec1643"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/meaning/observed_record_certificates.csv": {
+      "bytes": 23827,
+      "sha256": "e8950c6ec635d1375e03c54d74b57211ef3a1efcfdb58145446bf24f6da0a3a2"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/meaning/spatial_coverage.csv": {
+      "bytes": 1402,
+      "sha256": "4bd656e5219772a29a197ea8a6035c8517d105df5d6883118703dec928d4f83f"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/application/status.json": {
+      "bytes": 501,
+      "sha256": "e7ed233798e616dae82a3b26bf524adc574f47e3196f064fac21ce089b1c889d"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/forcing_status.json": {
+      "bytes": 57817,
+      "sha256": "97fcbc61871cb88eae4c9a0fcca9fffdd249cc19dc742dc6592e86c17ad2d77f"
+    },
+    "results/wrr_review_completion_20261024/national_meaning/status.json": {
+      "bytes": 2627,
+      "sha256": "bbf44eaa5912eb6d769b9983339378ed386dcd56bf821764e7c7a7224e01d331"
+    },
+    "results/wrr_review_completion_20261024/zero_flow_missingness/cohort_counts.csv": {
+      "bytes": 354,
+      "sha256": "b0849ed8caa4ca1752ca42bfae21a334fd4f05f3d912fec348e986268a425383"
+    },
+    "results/wrr_review_completion_20261024/zero_flow_missingness/conditional_logit_summary.csv": {
+      "bytes": 3823,
+      "sha256": "faa1365df89e27431edac69cb40ee11e94bacbf6e6e2150630ecb602c565bc40"
+    },
+    "results/wrr_review_completion_20261024/zero_flow_missingness/status.json": {
+      "bytes": 1018,
+      "sha256": "db655bec174f07a6665a827f037ccb10ae5e3bdf846f0774608c11b91a982cae"
+    }
+  },
+  "author_and_platform_fields": "user-owned",
+  "created_utc": "2026-10-24T13:20:07.041808+00:00",
+  "default_H30_parity": {
+    "atol": 1e-11,
+    "cases": 240,
+    "columns": 201,
+    "comparison": "Default H30 regeneration versus original source seed0 with existing AR1 bridge repair overlay",
+    "network_id": "arso_bistrica",
+    "passed": true,
+    "rtol": 1e-11,
+    "station": "arso|2432"
+  },
+  "draft_manifest_files_changed_since_packaging": [],
+  "draft_registration_bundle_matches_current_manifest_files": true,
+  "driver_recovery_models": {
+    "europe": {},
+    "usgs": {
+      "OOF": "exclude target and residual validation years, using all other finite daily training rows",
+      "annual_distribution_and_risk_weights_refitted": false,
+      "case_rows": 269264,
+      "complete": true,
+      "n_station_input_jobs": 340,
+      "new_NZ_water_values_requested": false,
+      "partial": false,
+      "recovery_model": "same Gaussian AR1 window-scale v2 used in source recovery analysis; recalculated driver-specific OOF residual moments",
+      "region": "usgs"
+    }
+  },
+  "full_H7_target_refits_complete": true,
+  "full_USGS_forcing": {
+    "arms": [
+      "Daymet",
+      "POWER",
+      "POWER_flow"
+    ],
+    "complete": true,
+    "n_station_input_jobs": 340,
+    "partial": false,
+    "rows": 201948
+  },
+  "full_USGS_forcing_original_control": {
+    "availability_disagreements": 0,
+    "case_rows": 67316,
+    "exact_source_verified": true,
+    "maximum_point_difference": 0.0,
+    "n_both_available": 67297
+  },
+  "national_h30_analysis_complete": false,
+  "national_qualification_and_result_bounds": {
+    "complete": false,
+    "eligibility_lower_counts": {
+      "MaySep90_15": 522,
+      "annual75_15": 525,
+      "annual90_15": 462,
+      "complete15": 100,
+      "retained_MOVE1": 521,
+      "retained_bound_projected": 521,
+      "retained_individual": 496,
+      "retained_raw": 521,
+      "retained_stochastic": 519
+    },
+    "eligibility_upper_counts_allowing_unresolved": {
+      "MaySep90_15": 862,
+      "annual75_15": 865,
+      "annual90_15": 802,
+      "complete15": 440,
+      "retained_MOVE1": 861,
+      "retained_bound_projected": 861,
+      "retained_individual": 836,
+      "retained_raw": 861,
+      "retained_stochastic": 859
+    },
+    "execution_complete_on_retrieved_panel": true,
+    "hot_year_reference": {
+      "geographic_grid_degrees": 1.0,
+      "geographic_measure": "occupied latitude-longitude cells and HUC2 station counts, not drainage area or all-US-river coverage",
+      "hot_year_interpretation": "descriptive frequencies on each rule's available annual values; incomplete-year classifications are model/statistic dependent, not verified natural-gap events",
+      "hot_year_minimum_complete_reference_years": 5,
+      "hot_year_periods": {
+        "all": [
+          1981,
+          2025
+        ],
+        "recent": [
+          2011,
+          2025
+        ],
+        "reference": [
+          1981,
+          2010
+        ]
+      },
+      "hot_year_reference": "same approved complete-year reference threshold for all methods at a station; no estimated values in threshold fitting",
+      "hot_year_reference_quantile": 0.9,
+      "hot_year_reference_years": [
+        1981,
+        2010
+      ],
+      "role": "exploratory national source analysis; fixed before full country summaries, not a public registration"
+    },
+    "intervals": "basin block bootstrap for network stability and separate conditional imputation sensitivity. Exchangeability, temporal and observation-quality assumptions remain unverified; no empirical coverage can be measured on real missing years.",
+    "n_catalog_sites": 4285,
+    "n_metadata_candidates": 1273,
+    "n_numeric_processed_sites": 933,
+    "n_stations_with_hot_year_reference": 198,
+    "new_NZ_temperature_values_requested": false,
+    "observed_record_station_years": 70,
+    "observed_record_stations": 43,
+    "partial": true,
+    "scientific_scope": "descriptive retrieved-monitoring-network sensitivity on a metadata-fixed national USGS frame; not all US rivers, a blind transfer test or verified natural-gap trend accuracy",
+    "source_annual_weights_retrained": false,
+    "spatial_measure": "occupied1degree station cells andHUC2counts,notdrainagearea; unresolved eligibility givesexplicitupperbounds",
+    "unresolved_or_no_annual_record_candidates": 340
+  },
+  "national_retrieved_panel_execution_complete": true,
+  "national_source_progress": {
+    "NZ_independent_values_requested": false,
+    "all_planned_attempted": true,
+    "completion_evidence": "Acquisition exited0; every candidate site-result file and final status counts verified",
+    "pid": 2349253,
+    "processed_sites": 1273,
+    "requested_sites": 1273,
+    "source_values_requested": true,
+    "stage": "finished",
+    "updated_utc": "2026-10-24T12:53:58.153217+00:00"
+  },
+  "public_registration_status": "not_publicly_registered",
+  "source_coordinates": {
+    "causal_claim": false,
+    "dam_source": "exact station join to cached GAGES-II hydromod_dams 2009 snapshot; archive acquired in earlier work; not a new contemporary NID classification",
+    "intermittency": "zero days are an available-record proxy, not a verified intermittent-river class",
+    "lake_outlets": "explicit agency outlet designation only; all other stations unknown, not a verified non-outlet class",
+    "n_agency_designated_lake_outlets": 1,
+    "n_stations": 581,
+    "n_with_coordinates": 581,
+    "seed": 0
+  },
+  "source_core_verified": true,
+  "source_region_refits": 540,
+  "source_seeds": 20,
+  "unit_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 95
+  },
+  "unit_tests_passed": 95
+}

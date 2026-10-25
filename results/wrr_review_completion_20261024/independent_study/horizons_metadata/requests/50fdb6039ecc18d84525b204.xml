@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Waikawa at North Manakau Road">
+<AEP0.01>160727</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>94</Altitude>
+<Catchment>Waikawa</Catchment>
+<CatchmentArea>28.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (West_9a)&#13;&#10;Previous gaugings done further down at E2698800 N6053200.&#13;&#10;RL0 = &#13;&#10;</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2698700</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>91000</FloodFlow10>
+<FloodFlow20>110000</FloodFlow20>
+<FloodFlow5>74000</FloodFlow5>
+<FloodFlow50>140000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.1" Min20="10.2" Min30="12.6" Hour1="18" Hour2="25.1" Hour6="42.7" Hour12="59.6" Day1="83.3" Day2="101.9" Day3="114.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="7.6" Min20="11" Min30="13.5" Hour1="19.4" Hour2="27" Hour6="45.6" Hour12="63.6" Day1="88.6" Day2="108.4" Day3="122" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="9.6" Min20="13.7" Min30="17" Hour1="24.3" Hour2="33.6" Hour6="56.1" Hour12="77.5" Day1="107.2" Day2="131.1" Day3="147.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="11.1" Min20="16" Min30="19.7" Hour1="28.2" Hour2="38.8" Hour6="64.3" Hour12="88.4" Day1="121.6" Day2="148.7" Day3="167.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="12.9" Min20="18.4" Min30="22.7" Hour1="32.6" Hour2="44.6" Hour6="73.3" Hour12="100.3" Day1="137.2" Day2="167.8" Day3="188.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="14" Min20="20" Min30="24.7" Hour1="35.4" Hour2="48.3" Hour6="79" Hour12="107.8" Day1="147" Day2="179.9" Day3="202.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="14.8" Min20="21.2" Min30="26.2" Hour1="37.6" Hour2="51.1" Hour6="83.3" Hour12="113.4" Day1="154.4" Day2="188.9" Day3="212.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="15.5" Min20="22.2" Min30="27.4" Hour1="39.3" Hour2="53.4" Hour6="86.8" Hour12="118" Day1="160.4" Day2="196.2" Day3="220.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="16.1" Min20="23" Min30="28.4" Hour1="40.8" Hour2="55.3" Hour6="89.8" Hour12="121.9" Day1="165.4" Day2="202.4" Day3="227.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="17" Min20="24.4" Min30="30.1" Hour1="43.2" Hour2="58.5" Hour6="94.6" Hour12="128.2" Day1="173.6" Day2="212.4" Day3="239" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="17.8" Min20="25.5" Min30="31.5" Hour1="45.2" Hour2="61.1" Hour6="98.6" Hour12="133.3" Day1="180.3" Day2="220.6" Day3="248.2" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.70774669</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00056</LawaSiteID>
+<LawaSiteName>Waikawa at North Manakau Road</LawaSiteName>
+<Longitude>175.23357366</Longitude>
+<MALF7Day>276</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>29-Jan-2009</MacroStart>
+<MaxFlow>125314</MaxFlow>
+<MaxFlowAt>19-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>46411</MeanAnnualFloodFlow>
+<MeanFlow>1404</MeanFlow>
+<MedianFlow>836</MedianFlow>
+<MetNumber>E05723</MetNumber>
+<MinFlow>164</MinFlow>
+<MinFlowAt>23-Dec-2017</MinFlowAt>
+<NZReach>7048450</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7248627</NZSegment>
+<Northing>6053000</Northing>
+<R_Rain>Ohau at Makahika</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>320000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Native</SWQLanduse>
+<Scheme>Southern</Scheme>
+<SecondSynonym>WKW</SecondSynonym>
+<ShortName>Hor-0058</ShortName>
+<SiteID>9854</SiteID>
+<StatsPeriod>1/7/2006-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>West_9</SurfaceWaterZone>
+<eQualCode>Hor-0058</eQualCode>
+</Site>
+</HilltopServer>

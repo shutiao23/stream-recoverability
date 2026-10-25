@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangapapa at Troup Rd">
+<AEP0.01>131000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>74</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>33.4</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_9b)&#13;&#10;Site also known as Woodland Rd and Woodlands Rd. Gauged by MWD Havelock&#13;&#10;in 1970&apos;s.&#13;&#10;Consent monitoring: SM/ST</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2751800</Easting>
+<FFreq>EV1</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>82000</FloodFlow10>
+<FloodFlow20>97000</FloodFlow20>
+<FloodFlow5>67000</FloodFlow5>
+<FloodFlow50>116000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.34016131</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00020</LawaSiteID>
+<LawaSiteName>Mangapapa at Troup Rd</LawaSiteName>
+<Longitude>175.84661557</Longitude>
+<MALF7Day>20</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jul-2006</MacroStart>
+<MaxFlow>77232</MaxFlow>
+<MaxFlowAt>15-Oct-2013</MaxFlowAt>
+<MeanAnnualFloodFlow>50407</MeanAnnualFloodFlow>
+<MeanFlow>686</MeanFlow>
+<MedianFlow>331</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0</MinFlow>
+<MinFlowAt>16-Mar-2013</MinFlowAt>
+<NZReach>7039229</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7238188</NZSegment>
+<Northing>6092300</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>NIWAR</RecordingAuthority2>
+<RiverNumber>325182</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>TRO</SecondSynonym>
+<ShortName>Hor-0011</ShortName>
+<SiteID>423</SiteID>
+<StatsPeriod>1/7/2006-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Mana_9</SurfaceWaterZone>
+<eQualCode>Hor-0011</eQualCode>
+</Site>
+</HilltopServer>

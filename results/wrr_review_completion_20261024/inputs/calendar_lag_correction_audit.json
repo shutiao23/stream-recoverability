@@ -1,0 +1,76 @@
+{
+  "old_output_provenance": "recomputed archived positional-lag script on the unchanged cached source inputs, not preserved original output bytes",
+  "prior_rows": 18033,
+  "calendar_rows": 18717,
+  "new_rows_per_arm": {
+    "Daymet": 6239,
+    "POWER": 6239,
+    "POWER_flow": 6239
+  },
+  "POWER_controls_equal": true,
+  "POWER_common_control_rows": 6239,
+  "prior_code_sha256": "974368a67e4bae553cb5ce06864a80f8d98ec38f71583ebcb37a328f27e2b83f",
+  "new_code_sha256": "3ebd6381c2f6f20c0abd3abdf86527e3d9d544930e459f8e0494f8adec7fabbc",
+  "calendar_corrected_pairs": [
+    {
+      "arm": "Daymet",
+      "stratum": "all",
+      "n": 6127,
+      "POWER_mae": 0.3786118910194792,
+      "alternative_mae": 0.388925146125012,
+      "paired_mae_change": 0.0103132551055328,
+      "POWER_bias": -0.1816170990894458,
+      "alternative_bias": -0.1809461150893923
+    },
+    {
+      "arm": "Daymet",
+      "stratum": "danger",
+      "n": 2563,
+      "POWER_mae": 0.7520582829509023,
+      "alternative_mae": 0.7752644803834408,
+      "paired_mae_change": 0.0232061974325384,
+      "POWER_bias": -0.4152970506385544,
+      "alternative_bias": -0.415102764228367
+    },
+    {
+      "arm": "Daymet",
+      "stratum": "air_layer_danger",
+      "n": 1159,
+      "POWER_mae": 0.8044809023950646,
+      "alternative_mae": 0.8152390175644675,
+      "paired_mae_change": 0.0107581151694029,
+      "POWER_bias": -0.3352377769512989,
+      "alternative_bias": -0.3512826196441769
+    },
+    {
+      "arm": "POWER_flow",
+      "stratum": "all",
+      "n": 5433,
+      "POWER_mae": 0.3968895773340885,
+      "alternative_mae": 0.3376168149696212,
+      "paired_mae_change": -0.0592727623644672,
+      "POWER_bias": -0.1963497273744519,
+      "alternative_bias": -0.106973483400831
+    },
+    {
+      "arm": "POWER_flow",
+      "stratum": "danger",
+      "n": 2242,
+      "POWER_mae": 0.8003792344946044,
+      "alternative_mae": 0.667513770158186,
+      "paired_mae_change": -0.1328654643364183,
+      "POWER_bias": -0.4542446462830852,
+      "alternative_bias": -0.2626082732313757
+    },
+    {
+      "arm": "POWER_flow",
+      "stratum": "air_layer_danger",
+      "n": 1061,
+      "POWER_mae": 0.8483716852575809,
+      "alternative_mae": 0.6949305791372473,
+      "paired_mae_change": -0.1534411061203335,
+      "POWER_bias": -0.3394317554596104,
+      "alternative_bias": -0.1405341837790399
+    }
+  ]
+}

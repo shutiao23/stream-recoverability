@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Rangitikei at Pukeokahu">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>457</Altitude>
+<Catchment>Rangitikei</Catchment>
+<CatchmentArea>769.8</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Rang_2a)&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;RL0= </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Rangitikei District</District>
+<Easting>2771300</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.62765118</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00046</LawaSiteID>
+<LawaSiteName>Rangitikei at Pukeokahu</LawaSiteName>
+<Longitude>176.04422404</Longitude>
+<MALF7Day>5001</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>16-Jul-1999</MacroStart>
+<MaxFlow>684743</MaxFlow>
+<MaxFlowAt> 4-Oct-2003</MaxFlowAt>
+<MeanAnnualFloodFlow>403067</MeanAnnualFloodFlow>
+<MeanFlow>24146</MeanFlow>
+<MedianFlow>16698</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>3320</MinFlow>
+<MinFlowAt> 3-Mar-2020</MinFlowAt>
+<NZReach>7023107</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7208135</NZSegment>
+<Northing>6170800</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>327000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Native</SWQLanduse>
+<SecondSynonym>PUK</SecondSynonym>
+<ShortName>Hor-0048</ShortName>
+<SiteID>2063</SiteID>
+<StatsPeriod>1/7/1999-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Rang_2</SurfaceWaterZone>
+<eQualCode>Hor-0048</eQualCode>
+</Site>
+</HilltopServer>

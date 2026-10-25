@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Tamaki at Water Supply Weir">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>280</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>31.6</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_3)&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;Bed control&#13;&#10;RL 0 =</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2770900</Easting>
+<Ffreq>GEV</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>75490</FloodFlow10>
+<FloodFlow20>95301</FloodFlow20>
+<FloodFlow5>56786</FloodFlow5>
+<FloodFlow50>123973</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.16518624</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00095</LawaSiteID>
+<LawaSiteName>Tamaki at Water Supply Weir</LawaSiteName>
+<Longitude>176.06361182</Longitude>
+<MALF7Day>206</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>91272</MaxFlow>
+<MaxFlowAt>10-Apr-2000</MaxFlowAt>
+<MeanAnnualFloodFlow>36858</MeanAnnualFloodFlow>
+<MeanFlow>1579</MeanFlow>
+<MedianFlow>979</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>23</MinFlow>
+<MinFlowAt> 8-Feb-1998</MinFlowAt>
+<NZReach>7035283</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7232523</NZSegment>
+<Northing>6111100</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325300</RiverNumber>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>WSW</SecondSynonym>
+<ShortName>Hor-0569</ShortName>
+<SiteID>2246</SiteID>
+<StatsPeriod>1/7/1983-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_3</SurfaceWaterZone>
+</Site>
+</HilltopServer>

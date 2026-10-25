@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Ohura at Nihoniho">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>159</Altitude>
+<Catchment>Ohura</Catchment>
+<CatchmentArea>334.0</CatchmentArea>
+<Comment>Purpose: &#13;&#10;Flood Warning (IVR)&#13;&#10;Was MWD river gauging site.&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>Ruapehu District</District>
+<Easting>2687633</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.5" Min20="10.6" Min30="13" Hour1="18.5" Hour2="25.2" Hour6="41.2" Hour12="56.1" Day1="76.4" Day2="94.8" Day3="107.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="8.2" Min20="11.6" Min30="14.2" Hour1="20.2" Hour2="27.4" Hour6="44.3" Hour12="60" Day1="81.3" Day2="100.9" Day3="114.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="10.6" Min20="15.1" Min30="18.6" Hour1="26.4" Hour2="35.1" Hour6="55.4" Hour12="73.8" Day1="98.3" Day2="122" Day3="138.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="12.7" Min20="18" Min30="22.2" Hour1="31.5" Hour2="41.4" Hour6="64.2" Hour12="84.6" Day1="111.5" Day2="138.3" Day3="156.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.1" Min20="21.4" Min30="26.2" Hour1="37.3" Hour2="48.6" Hour6="74" Hour12="96.5" Day1="125.8" Day2="156.1" Day3="177.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="16.6" Min20="23.6" Min30="28.9" Hour1="41.1" Hour2="53.2" Hour6="80.3" Hour12="104" Day1="134.8" Day2="167.3" Day3="189.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="17.8" Min20="25.2" Min30="31" Hour1="44" Hour2="56.8" Hour6="85" Hour12="109.7" Day1="141.6" Day2="175.7" Day3="199.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="18.8" Min20="26.6" Min30="32.7" Hour1="46.4" Hour2="59.7" Hour6="88.9" Hour12="114.3" Day1="147" Day2="182.4" Day3="207" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="19.6" Min20="27.8" Min30="34.1" Hour1="48.4" Hour2="62.1" Hour6="92.2" Hour12="118.2" Day1="151.6" Day2="188.2" Day3="213.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="21" Min20="29.8" Min30="36.5" Hour1="51.9" Hour2="66.2" Hour6="97.6" Hour12="124.6" Day1="159.2" Day2="197.5" Day3="224.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="22.1" Min20="31.4" Min30="38.5" Hour1="54.7" Hour2="69.6" Hour6="102" Hour12="129.9" Day1="165.3" Day2="205.1" Day3="232.7" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-38.78582987</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<Longitude>175.04381131</Longitude>
+<Macro>false</Macro>
+<MaxFlow>197294</MaxFlow>
+<MaxFlowAt>14-Oct-2025</MaxFlowAt>
+<MeanAnnualFloodFlow>129152</MeanAnnualFloodFlow>
+<MeanFlow>9829</MeanFlow>
+<MedianFlow>4633</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>34</MinFlow>
+<MinFlowAt>18-Mar-2015</MinFlowAt>
+<NZReach>7003256</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7142212</NZSegment>
+<Northing>6266687</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>333540</RiverNumber>
+<SecondSynonym>NHO</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>10242</SiteID>
+<SurfaceWaterZone>Whai_4b</SurfaceWaterZone>
+</Site>
+</HilltopServer>

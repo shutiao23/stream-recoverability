@@ -1,0 +1,8 @@
+{
+  "calibrated_variant": "uses neural validation groups for a pooled quantile-offset correction; raw variant uses no validation outcome correction",
+  "draw_convention": "128 midpoint quantile integration; CSDI retains its sampled 20-member ensemble; integration approximation and finite ensemble size differ",
+  "source_case_version": "20261022, exactly the neural masks",
+  "test_cases": 774,
+  "test_group_disjoint": true,
+  "training": "neural training independence groups only"
+}

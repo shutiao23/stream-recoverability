@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Lake Koitiata">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>18</Altitude>
+<BARO_CLOSEST>Lake Koitiata</BARO_CLOSEST>
+<BARO_CLOSEST_RL>0</BARO_CLOSEST_RL>
+<BARO_REF_DIST>18</BARO_REF_DIST>
+<BARO_RL>18</BARO_RL>
+<Catchment>Southern Whanganui Lakes</Catchment>
+<Comment>Purpose:&#13;&#10;SOE Coastal Lakes&#13;&#10;Current location at Tower&#13;&#10;Historic Location NZMG 2696900 6118600</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Rangitikei District</District>
+<Easting>2696908</Easting>
+<FirstSynonym>Lake Koitata</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<GeomorphicLType>Aeolian</GeomorphicLType>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LFENZID>16901</LFENZID>
+<LType>Polymictic</LType>
+<LWQuality>true</LWQuality>
+<LWQualityStart>27-Nov-2014</LWQualityStart>
+<Latitude>-40.11795798</Latitude>
+<LawaSiteID>LAWA-102709</LawaSiteID>
+<LawaSiteName>Lake Koitiata</LawaSiteName>
+<Longitude>175.19302089</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReach>7034056</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<Northing>6118550</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>KOI</SecondSynonym>
+<ShortName>Hor-0601</ShortName>
+<SiteID>689</SiteID>
+</Site>
+</HilltopServer>

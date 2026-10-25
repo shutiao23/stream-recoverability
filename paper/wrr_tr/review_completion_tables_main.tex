@@ -1,0 +1,79 @@
+\begin{table}[p]
+\caption{Historical registered verdicts. The redesign cannot revise them.}
+\label{tab:historical}
+\centering\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+endpoint & verdict \\
+\midrule
+P1 & not met \\
+P2 & not met \\
+P3 & not met \\
+P4 & met historically \\
+N1--N3 & met after recomputation \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\begin{table}[p]
+\caption{Exploratory direction stability; positive differences favor distribution regression. MAE and trend entries are fractional reductions; CRPS entries are score differences in degrees C. These are repeated analyses of the same archive.}
+\label{tab:stability0}
+\centering\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+metric & comparison & positive & repeats & median \\
+\midrule
+MAE reduction & Daily plug-in & 20 & 20 & 0.212 \\
+MAE reduction & Functional debiasing & 20 & 20 & 0.053 \\
+MAE reduction & Lookup debiasing & 20 & 20 & 0.202 \\
+MAE reduction & Annual MOVE.1 & 20 & 20 & 0.263 \\
+MAE reduction & Warm-season MOVE.1 & 20 & 20 & 0.243 \\
+MAE reduction & Stochastic regression & 6 & 20 & -0.003 \\
+MAE reduction & Calibrated stochastic & 11 & 20 & 0.002 \\
+MAE reduction & Calibrated state & 20 & 20 & 0.072 \\
+CRPS improvement & Calibrated state & 20 & 20 & 0.017 \\
+Tail CRPS improvement & Calibrated state & 20 & 20 & 0.004 \\
+CRPS improvement & State simulation & 20 & 20 & 0.018 \\
+Tail CRPS improvement & State simulation & 20 & 20 & 0.004 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\begin{table}[p]
+\caption{Exploratory direction stability; positive differences favor distribution regression. MAE and trend entries are fractional reductions; CRPS entries are score differences in degrees C. These are repeated analyses of the same archive.}
+\label{tab:stability12}
+\centering\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllll}
+\toprule
+metric & comparison & positive & repeats & median \\
+\midrule
+CRPS improvement & Stochastic regression & 12 & 20 & 0.001 \\
+Tail CRPS improvement & Stochastic regression & 0 & 20 & -0.001 \\
+CRPS improvement & Calibrated stochastic & 7 & 20 & -0.001 \\
+Tail CRPS improvement & Calibrated stochastic & 0 & 20 & -0.001 \\
+Trend RMSE reduction & mcar & 20 & 20 & 0.695 \\
+Trend RMSE reduction & non air trend & 0 & 20 & -0.602 \\
+Trend RMSE reduction & strong heat & 20 & 20 & 0.696 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\begin{table}[p]
+\caption{Observed-window record attribution on reported daily series, with no imputation. The eligible population contains 96 stations and at least fifteen complete observed years per station in 1981--2025. Positive excess means the complete-only record cannot be the full-record maximum.}
+\label{tab:observed-record-main}
+\centering\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llll}
+\toprule
+margin c & n station years & n stations & n groups \\
+\midrule
+0.000 & 35 & 20 & 15 \\
+0.500 & 12 & 6 & 6 \\
+1.000 & 3 & 2 & 2 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

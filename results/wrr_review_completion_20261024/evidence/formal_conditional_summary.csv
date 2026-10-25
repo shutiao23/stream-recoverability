@@ -1,0 +1,17 @@
+family,method,nominal_coverage,seeds,region_mean_retention,region_mean_coverage,selected_risk_group_mixture,region_mean_false_admission_frequency,region_mean_case_weighted_retention,n_admitted,median_calibration_groups,maximum_solver_fallback,selected_risk_nonempty_region_median
+calendar,coarse_overlapping_groups,0.9,20,0.0,1.0,,0.0,0.0,0,17.0,0.0,
+calendar,coarse_overlapping_groups,0.95,20,0.0,1.0,,0.0,0.0,0,17.0,0.0,
+calendar,coarse_overlapping_groups_randomized,0.9,20,0.15649338681918415,0.9001846037754219,0.005011414417212113,0.0007842532149040114,0.16224201144954242,116168,17.0,0.0175438596491228,0.0
+calendar,coarse_overlapping_groups_randomized,0.95,20,0.07812385975692354,0.9501239041138761,0.005029648947614428,0.00039293558900998767,0.0807768025285401,57992,17.0,0.0096153846153846,0.0
+calendar,held_region_group_randomized,0.9,20,0.0,0.9007722091376523,,0.0,0.0,0,17.0,0.0,
+calendar,held_region_group_randomized,0.95,20,0.0,0.9502698844511622,,0.0,0.0,0,17.0,0.0,
+calendar,held_region_group_required,0.9,20,0.0,1.0,,0.0,0.0,0,17.0,0.0,
+calendar,held_region_group_required,0.95,20,0.0,1.0,,0.0,0.0,0,17.0,0.0,
+crossed,coarse_overlapping_groups,0.9,20,0.0,0.9999999999999996,,0.0,0.0,0,17.0,0.0,
+crossed,coarse_overlapping_groups,0.95,20,0.0,0.9999999999999996,,0.0,0.0,0,17.0,0.0,
+crossed,coarse_overlapping_groups_randomized,0.9,20,0.11068364908646641,0.900071602251038,0.08345762320384385,0.00923739428028479,0.11510579543769758,295694,17.0,0.0082449941107184,0.0714285714285714
+crossed,coarse_overlapping_groups_randomized,0.95,20,0.05517794220296149,0.9496207339509437,0.08602572992764027,0.004746722753914909,0.05726505727888324,147609,17.0,0.0051040439733019,0.0745341614906832
+crossed,held_region_group_randomized,0.9,20,0.0,0.8995870175207482,,0.0,0.0,0,17.0,0.0,
+crossed,held_region_group_randomized,0.95,20,0.0,0.9501612281846182,,0.0,0.0,0,17.0,0.0,
+crossed,held_region_group_required,0.9,20,0.0,0.9999999999999996,,0.0,0.0,0,17.0,0.0,
+crossed,held_region_group_required,0.95,20,0.0,0.9999999999999996,,0.0,0.0,0,17.0,0.0,

@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-10-24T11:53:21.616640+00:00",
+  "role": "incremental source-forcing preparation before full1273siteacquisition; final501mustrepeat",
+  "eligible_targets": 486,
+  "stations_with_forcing": 486,
+  "native_cells": 256,
+  "unavailable_cell_jobs": 0,
+  "source_acquisition_progress": {
+    "NZ_independent_values_requested": false,
+    "pid": 2349253,
+    "processed_sites": 1150,
+    "requested_sites": 1273,
+    "source_values_requested": true,
+    "updated_utc": "2026-10-24T11:51:21.966660+00:00"
+  },
+  "full_country_inputs_complete": false
+}

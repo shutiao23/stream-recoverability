@@ -1,0 +1,9 @@
+{
+  "caveat": "panel sensitivity; estimated incomplete-year H30 lacks natural-gap truth and hot-year calibration may fail; no confirmed new physical trend",
+  "period": "each station's first through last complete year, identically for both policies",
+  "rankings": "method-eligible year sets and common eligible years reported separately",
+  "regional_annual_mean": "equal-station anomaly relative to that station's complete-year mean; require >=80% fixed-roster support",
+  "roster": ">=15 complete observed years in 1981-2025; identical stations under both policies",
+  "source": "already opened archive only",
+  "uncertainty": "connected-group bootstrap, independently selecting one of 20 stored imputations per station-year; no imputation before complete-year edges; does not model cross-station missing-error dependence or all estimator-training variation"
+}

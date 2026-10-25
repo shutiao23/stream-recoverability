@@ -1,0 +1,27 @@
+{
+  "historical_endpoints": "unchanged, exploratory source specification only",
+  "internal_legacy_aliases": "Native files keep h7 names; cases/h7_spec_refit has an explicitly documented internal h7-to-h30 adapter for the unchanged fitting/scoring engine. Secondary H30 values are removed before aliasing.",
+  "observed_availability_floor": "same30 observed days for calendar-mask eligibility as H30, to hold this population rule fixed",
+  "partial": false,
+  "primary_window_days": 7,
+  "refitted": [
+    "annual quantile regression",
+    "functional debiasing",
+    "failure classifier",
+    "disjoint interval and rule calibration"
+  ],
+  "regenerated": [
+    "training climate peak/support",
+    "crossed masks",
+    "historical peak anomalies and residuals",
+    "window-specific historical mask replay",
+    "raw/state predictive quantiles",
+    "MOVE annual augmentation",
+    "AR1 bridge functional draws"
+  ],
+  "seeds": [
+    0
+  ],
+  "target": "H7 annual maximum of seven consecutive daily means",
+  "with_trends": true
+}

@@ -1,0 +1,917 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<DataSource Name="Voltage" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-10-01T00:30:00</From>
+<To>2026-10-24T12:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="VM Voltage (Missing Record)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Voltage (Missing Record)</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-10-01T00:30:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="Atmospheric Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Atmospheric Pressure mmHg">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure mmHg</RequestAs>
+<Units>mmHg</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Identify Hidden Gap Markers">
+<Item>1</Item>
+<RequestAs>Identify Hidden Gap Markers [Atmospheric Pressure]</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Atmospheric Pressure (Modelled)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure (Modelled)</RequestAs>
+<Units>hPa</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>9</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Atmospheric Pressure (Field Deviation)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure (Field Deviation)</RequestAs>
+<Units>hPa</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>10</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Atmospheric P corrected to sea level">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric P corrected to sea level</RequestAs>
+<Units>hPa (corr)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>11</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="DEPTH" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2024-03-08T12:00:00</To>
+<Measurement Name="DEPTH">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DEPTH</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Signature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Signature</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Software Version">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Software Version</RequestAs>
+<Units>Version</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Event Duration" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Histogram</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-03-04T13:00:00</To>
+<Measurement Name="Event Duration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Event Duration</RequestAs>
+<Units>Days</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Dissolved Oxygen Saturation (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen Saturation (-500 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+</Measurement>
+<Measurement Name="Corrected DO mg/l (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO mg/l (-500 mm)</RequestAs>
+<Units>mg/l</Units>
+<Format>##.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Corrected DO (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (-500 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Dissolved Oxygen Saturation (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen Saturation (-2000 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+</Measurement>
+<Measurement Name="Corrected DO (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (-2000 mm)</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Corrected DO mg/l (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO mg/l (-2000 mm)</RequestAs>
+<Units>mg/l</Units>
+<Format>##.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="pH (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (-500 mm)</RequestAs>
+<Units>pH</Units>
+<Format>##.#</Format>
+</Measurement>
+<Measurement Name="Gap Marker">
+<Item>1</Item>
+<RequestAs>Gap Marker [pH (-500 mm)]</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Processing Tools</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="ORP (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="ORP (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ORP (-500 mm)</RequestAs>
+<Units>mV</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="SP Conductivity (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="SP Conductivity (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>SP Conductivity (-500 mm)</RequestAs>
+<Units>us/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Turbidity (ISO) (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (ISO) (-500 mm)</RequestAs>
+<Units>FNU</Units>
+<Format>####.#</Format>
+</Measurement>
+<Measurement Name="Visual Clarity (SYN)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Visual Clarity (SYN)</RequestAs>
+<Units>m</Units>
+<Format>#.#</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+<Ratset1>15</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Blue Green Algae (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Blue Green Algae (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Blue Green Algae (-500 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>###.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Chlorophyll (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll (-500 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>###.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-1000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-1000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-1000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-1500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-1500 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-1500 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Water Temperature (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (-2000 mm)</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sonde Volts" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<Measurement Name="Sonde Volts">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sonde Volts</RequestAs>
+<Units>V</Units>
+<Format>##.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Secchi Disc (HRC)" Site="Lake Horowhenua at Buoy" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2014-02-27T12:00:00</From>
+<To>2025-08-27T11:11:00</To>
+<SensorGroup>Field Measurements</SensorGroup>
+<Measurement Name="Secchi Disc (HRC)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Secchi Disc (HRC)</RequestAs>
+<Units>m</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Item2">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Item2</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="pH (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (-2000 mm)</RequestAs>
+<Units>pH</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ORP (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="ORP (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ORP (-2000 mm)</RequestAs>
+<Units>mV</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="SP Conductivity (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="SP Conductivity (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>SP Conductivity (-2000 mm)</RequestAs>
+<Units>us/cm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Turbidity (ISO) (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (ISO) (-2000 mm)</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Blue Green Algae (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Blue Green Algae (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Blue Green Algae (-2000 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Chlorophyll (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll (-2000 mm)</RequestAs>
+<Units>ug/l</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="EXO Depth (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="EXO Depth (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>EXO Depth (-2000 mm)</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sonde Volts (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+<Measurement Name="Sonde Volts (-2000 mm)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sonde Volts (-2000 mm)</RequestAs>
+<Units>V</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2013-07-17T15:00:00</From>
+<To>2025-08-27T11:11:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-10-01T00:30:00</From>
+<To>2026-10-21T06:00:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="DEPTH" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2024-03-08T12:00:00</To>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Event Duration" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-03-04T13:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Dissolved Oxygen Saturation (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="pH (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="ORP (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="SP Conductivity (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Blue Green Algae (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Chlorophyll (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-1000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-1500 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Water Temperature (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Sonde Volts" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+</DataSource>
+<DataSource Name="pH (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="ORP (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="SP Conductivity (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity (ISO) (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Blue Green Algae (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Chlorophyll (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="EXO Depth (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="Sonde Volts (-2000 mm)" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Water Quality Buoy</SensorGroup>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Lake Horowhenua at Buoy" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2013-07-17T15:00:00</From>
+<To>2025-08-27T11:11:00</To>
+</DataSource>
+</HilltopServer>

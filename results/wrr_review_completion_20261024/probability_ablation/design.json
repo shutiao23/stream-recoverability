@@ -1,0 +1,27 @@
+{
+  "calibration": "Platt map and empirical group factors learned from source probability-calibration groups; held-region labels excluded",
+  "decision": "same cap .1, same D2 point and identical evaluation cases",
+  "purpose": "isolate a global probability-map effect from extra overlapping-group adjustment; neither is the formal conditional-conformal method",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ]
+}

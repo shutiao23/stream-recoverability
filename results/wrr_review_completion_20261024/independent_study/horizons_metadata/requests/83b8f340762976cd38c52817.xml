@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Ohau at Rongomatane">
+<AEP0.01>615157</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>89.375</Altitude>
+<Catchment>Ohau</Catchment>
+<CatchmentArea>105.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Ohau_1a)&#13;&#10;                 (Ohau_1b)&#13;&#10;Flood Warning (IVR)&#13;&#10;2.0m Flood Warning Kimberly Reserve&#13;&#10;SOE Quantity Programme: Water Level / Flow.&#13;&#10;Site RL0 = 89.375m MSL (Wellington)&#13;&#10;Site taken over from NIWA 2011</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2707200</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>361000</FloodFlow10>
+<FloodFlow20>430000</FloodFlow20>
+<FloodFlow5>295000</FloodFlow5>
+<FloodFlow50>531000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.66344416</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00094</LawaSiteID>
+<LawaSiteName>Ohau at Rongomatane</LawaSiteName>
+<LawaSurfaceWaterQualityMeasurement>Stage [Water Level]</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.33265335</Longitude>
+<MALF7Day>1177</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>492722</MaxFlow>
+<MaxFlowAt> 4-Oct-1986</MaxFlowAt>
+<MeanAnnualFloodFlow>237702</MeanAnnualFloodFlow>
+<MeanFlow>6400</MeanFlow>
+<MedianFlow>3801</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>584</MinFlow>
+<MinFlowAt>29-Apr-2003</MinFlowAt>
+<NZReach>7047475</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7247560</NZSegment>
+<Northing>6057700</Northing>
+<RL0>9.9</RL0>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>321000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<Scheme>Southern</Scheme>
+<SecondSynonym>RON</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1318</SiteID>
+<StatsPeriod>1/7/1979-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Ohau_1a</SurfaceWaterZone>
+<XSection>NA</XSection>
+</Site>
+</HilltopServer>

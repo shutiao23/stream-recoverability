@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="R27/7153">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<BoreBottomOfScreen>-34</BoreBottomOfScreen>
+<BoreDepth>34</BoreDepth>
+<BoreTopOfScreen>-33</BoreTopOfScreen>
+<Comment>
+</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1758681</Easting>
+<FirstSynonym>Lower Hutt GW Zone at McEwan Park Deep</FirstSynonym>
+<GISTag>
+</GISTag>
+<GroundwaterSubZone>Lower_HuttGW</GroundwaterSubZone>
+<GroundwaterZone>WellingtonHarbourAndHuttValleyGW</GroundwaterZone>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.23413169</Latitude>
+<LawaGroundwaterMeasurement>Stage [Water Level]</LawaGroundwaterMeasurement>
+<LawaSiteID>GW-00142</LawaSiteID>
+<Longitude>174.89344937</Longitude>
+<Macro>False</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5433523</Northing>
+<ReadPointRL>2996</ReadPointRL>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>McEwan Park Deep</ShortName>
+<SiteID>3001</SiteID>
+<WebComment>Site monitoring ceased on 10/12/2025; deemed redundant.(Located in the Lower Hutt groundwater zone and is approximately 34m deep. This site had been operating since March 2008.)</WebComment>
+</Site>
+</HilltopServer>

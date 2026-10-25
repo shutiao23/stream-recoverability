@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Temperature" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Turbidity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity</RequestAs>
+<Units>FNU</Units>
+<Format>####.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2020-12-18T15:25:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="pH">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+<Measurement Name="pH (test)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (test)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2020-12-18T15:25:00</VMStart>
+<VMFinish>2021-07-18T14:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Depth" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Water Depth">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Depth</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2021-04-13T15:00:00</VMStart>
+<VMFinish>2021-07-18T14:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (TC)" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Conductivity (TC)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (TC)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (mg/L)" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+<Measurement Name="Dissolved Oxygen (mg/L)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (mg/L)</RequestAs>
+<Units>mg/L</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="Turbidity" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="pH" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2020-12-18T15:25:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="Water Depth" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="Conductivity (TC)" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (mg/L)" Site="Kaiwharawhara Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-04-13T15:00:00</From>
+<To>2021-07-18T14:00:00</To>
+</DataSource>
+</HilltopServer>

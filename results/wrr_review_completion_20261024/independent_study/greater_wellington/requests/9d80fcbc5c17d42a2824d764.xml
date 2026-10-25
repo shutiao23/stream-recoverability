@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Ruamahanga River at Mt Bruce">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>300</Altitude>
+<CatchmentArea>76.5</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-ruamahanga-river-and-streams-in-wairarapa-valley/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1819318</Easting>
+<FirstSynonym>Ruamahanga River at Mt Bruce</FirstSynonym>
+<FloodFlow10>408</FloodFlow10>
+<FloodFlow100>550</FloodFlow100>
+<FloodFlow20>451</FloodFlow20>
+<FloodFlow233>307</FloodFlow233>
+<FloodFlow5>362</FloodFlow5>
+<FloodFlow50>508</FloodFlow50>
+<FlowWebVeryHigh>93.6</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="2.33" Min10="" Min20="" Min30="" Hour1="22" Hour2="36" Hour6="72" Hour12="100" Day1="126" Day2="154" Day3="172" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="" Min20="" Min30="" Hour1="26" Hour2="42" Hour6="86" Hour12="120" Day1="148" Day2="185" Day3="208" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="" Min20="" Min30="" Hour1="29" Hour2="47" Hour6="97" Hour12="136" Day1="166" Day2="210" Day3="237" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="" Min20="" Min30="" Hour1="32" Hour2="52" Hour6="108" Hour12="152" Day1="184" Day2="235" Day3="265" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="" Min20="" Min30="" Hour1="36" Hour2="59" Hour6="122" Hour12="172" Day1="206" Day2="266" Day3="302" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="" Min20="" Min30="" Hour1="39" Hour2="64" Hour6="132" Hour12="188" Day1="223" Day2="289" Day3="329" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.75458017</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00183</LawaSiteID>
+<Longitude>175.59803009</Longitude>
+<LowFlow100yr14Day>0.749</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.643</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.828</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.733</LowFlow100yr7Day>
+<LowFlow10yr14Day>1.025</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.811</LowFlow10yr1Day>
+<LowFlow10yr28Day>1.373</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.931</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.92</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.748</LowFlow20yr1Day>
+<LowFlow20yr28Day>1.166</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.856</LowFlow20yr7Day>
+<LowFlow233yr14Day>1.426</LowFlow233yr14Day>
+<LowFlow233yr1Day>1.054</LowFlow233yr1Day>
+<LowFlow233yr28Day>2.163</LowFlow233yr28Day>
+<LowFlow233yr7Day>1.217</LowFlow233yr7Day>
+<LowFlow50yr14Day>0.814</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.683</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.956</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.78</LowFlow50yr7Day>
+<LowFlow5yr14Day>1.169</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.898</LowFlow5yr1Day>
+<LowFlow5yr28Day>1.655</LowFlow5yr28Day>
+<LowFlow5yr7Day>1.033</LowFlow5yr7Day>
+<LowFlowMALF14Day>1.583</LowFlowMALF14Day>
+<LowFlowMALF1Day>1.132</LowFlowMALF1Day>
+<LowFlowMALF28Day>2.478</LowFlowMALF28Day>
+<MALF7Day>1.304</MALF7Day>
+<Macro>false</Macro>
+<MeanAnnualFloodFlow>307</MeanAnnualFloodFlow>
+<MedianFlow>4.43</MedianFlow>
+<MetNumber>
+</MetNumber>
+<Northing>5485239</Northing>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Ruamahanga River</RiverName>
+<RiverNumber>292000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Mt Bruce</ShortName>
+<SiteID>1506</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_UpperSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+</Site>
+</HilltopServer>

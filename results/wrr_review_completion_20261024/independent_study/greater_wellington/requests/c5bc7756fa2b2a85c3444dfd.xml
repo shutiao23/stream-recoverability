@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Whareroa Stream at QE Park">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>5</Altitude>
+<Catchment>Whareroa Stream</Catchment>
+<Comment>RSoE Site established Sept-03. RSoE Site Closed May-16 - Network Purpose / Objectives changed.</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1765976</Easting>
+<FirstSynonym>Whareroa Stream at QE Park</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.95469066</Latitude>
+<LawaSiteID>GW-00012</LawaSiteID>
+<Longitude>174.97211384</Longitude>
+<Macro>false</Macro>
+<MacroStart> 1-Jan-2004</MacroStart>
+<MetNumber>
+</MetNumber>
+<NZReach>9005972</NZReach>
+<Northing>5464400</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>313000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS12</SecondSynonym>
+<ShortName>RS12</ShortName>
+<SiteID>2724</SiteID>
+</Site>
+</HilltopServer>

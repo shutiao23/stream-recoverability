@@ -1,0 +1,15 @@
+{
+  "fingerprint": "eb513a6ae17ece89266cddecf63257d518d029b205dcef402d87deb9a51f6786",
+  "information": "MOVE.1 and one-donor Ridge use the same best available donor and other-year log-anomaly pairs; historical Ridge and stochastic bridge use up to three donors",
+  "input_sha256": {
+    "results/wrr_target_recovery_20261021/e1_archive/usgs_flow.parquet": "7af89e9edc4fb87b0e93ec22e547b673155dd1f125a9e04cf9d2e04583df72ab",
+    "results/wrr_target_recovery_20261021/e1_archive/usgs_site_metadata.csv": "634300c321f0f8dd61eb722279b193b079649b797535fb55c5ce13f631c3cd5f",
+    "results/wrr_target_recovery_20261022/s1_flow/case_predictions.parquet": "29661212080837a44b3c456038d0ca0529c0241afec70ff922b4cba597015c5e",
+    "scratch/wrr_target_recovery_20261021/s1_flow_cases.parquet": "a713bf1ac6e79e51e15f52a27a70064cc90938046bd5ba92f2a54a238372ae61",
+    "scripts/461_tr2_flow_demo.py": "fc4450da56ada6fcaca3dd1507c319f86be71584bb4d8ae9c41d441515a5b94c",
+    "scripts/517_review_completion_flow_comparators.py": "316501bdea6e6a40d25977fa76be214c8143ee9a91848ccb6199eba50c139ac5",
+    "src/stream_recoverability/experiments/tr_revision/baselines.py": "a8f320abd29209541cf51858f64c9830bb9d5c5f7d0734ee2789d0546c764f74"
+  },
+  "scope": "opened positive-flow perennial subset, April--March climatic years; historical masks and source feature controls fixed; no new blind transfer or20-seed stability claim",
+  "working_uncertainty": "20 Gaussian AR1 residual bridges using other-year in-sample regression residuals; not calibrated predictive coverage"
+}

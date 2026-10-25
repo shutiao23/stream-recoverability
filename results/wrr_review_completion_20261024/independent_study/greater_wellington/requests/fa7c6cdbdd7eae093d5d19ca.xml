@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Kopuaranga River at Stuarts">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>135.68</Altitude>
+<Catchment>Ruamahanga River</Catchment>
+<CatchmentArea>166.0</CatchmentArea>
+<Comment>20190125 deleted TIDEDA alias 586993 as double-up with 29264&#13;&#10;Water Quality Site established Feb-97. RSoE network formed, established as RSoE site Sep-03. &#13;&#10;RSoE/RWQE: Site coordinates are for hydrology site. RWQE sampling ca. 150m u/s. at E1826839 N5469726.</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1826760</Easting>
+<FirstSynonym>Kopuaranga River at Stuarts</FirstSynonym>
+<FlowWebVeryHigh>42.3</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.89357041</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00038</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.69179599</Longitude>
+<Macro>true</Macro>
+<MacroStart> 1-Jan-2004</MacroStart>
+<MaxFlow>52.2</MaxFlow>
+<MaxFlowAt> 3-Mar-2012</MaxFlowAt>
+<MeanFlow>3.43</MeanFlow>
+<MedianFlow>2.044</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.468</MinFlow>
+<MinFlowAt> 3-Feb-2013</MinFlowAt>
+<NZReach>9004627</NZReach>
+<NZSegment>9254500</NZSegment>
+<Northing>5469569</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Soft sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Kopuaranga River</RiverName>
+<RiverNumber>292380</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS38</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>601</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_UpperSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+<WebComment>This site is located just upstream of the confluence with the Ruamahanga River, it has been operating since August 2009. The site is primarily operated to monitor river flows for the water quality programme.</WebComment>
+</Site>
+</HilltopServer>

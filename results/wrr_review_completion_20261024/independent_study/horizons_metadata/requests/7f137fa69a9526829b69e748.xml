@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Waikawa at ds Manakau Confluence">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>5</Altitude>
+<BARO_CLOSEST>Hokio at Lake Horowhenua</BARO_CLOSEST>
+<BARO_CLOSEST_RL>9</BARO_CLOSEST_RL>
+<BARO_REF_DIST>10900</BARO_REF_DIST>
+<BARO_RL>16</BARO_RL>
+<Catchment>Waikawa</Catchment>
+<CatchmentArea>66.9</CatchmentArea>
+<Comment>Purpose:&#13;&#10;RL0 = 97.0m (arbitrary) WL</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>Horowhenua District</District>
+<Easting>2694300</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>WR</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.69253754</Latitude>
+<Longitude>175.18098898</Longitude>
+<Macro>false</Macro>
+<MaxFlow>46668</MaxFlow>
+<MaxFlowAt> 8-Jul-2018</MaxFlowAt>
+<MeanFlow>2255</MeanFlow>
+<MedianFlow>1182</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>295</MinFlow>
+<MinFlowAt>11-Apr-2024</MinFlowAt>
+<NZReach>7048215</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7248337</NZSegment>
+<Northing>6054800</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>320000</RiverNumber>
+<SecondSynonym>MKC</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>2359</SiteID>
+</Site>
+</HilltopServer>

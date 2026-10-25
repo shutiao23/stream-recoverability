@@ -1,0 +1,17 @@
+{
+  "records": [
+    {
+      "station_key": "usgs|14158500",
+      "station_id": "14158500",
+      "lake_outlet_status": "agency_designated_lake_outlet",
+      "evidence": "official USGS station name explicitly states AT OUTLET OF CLEAR LAKE; no proximity-based inference",
+      "official_url": "https://waterdata.usgs.gov/monitoring-location/USGS-14158500/",
+      "retrieved_utc": "2026-10-24T11:11:05.368275+00:00",
+      "official_page_sha256": "1dab6a5013e5c5b412b36a2bedc4e4e2330df81fc810c12f127d1eca4793074b",
+      "cached_station_name": "MCKENZIE RIVER AT OUTLET OF CLEAR LAKE, OR",
+      "cached_metadata_sha256": "634300c321f0f8dd61eb722279b193b079649b797535fb55c5ce13f631c3cd5f",
+      "scope": "positive agency designation only; unlisted source stations remain unknown; no thermal-dominance or causal claim"
+    }
+  ],
+  "n_verified": 1
+}

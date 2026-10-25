@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Manawatu at Moutoa">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>0</Altitude>
+<BARO_CLOSEST>Manawatu at Victoria Ave</BARO_CLOSEST>
+<BARO_CLOSEST_RL>38</BARO_CLOSEST_RL>
+<BARO_REF_DIST>26403</BARO_REF_DIST>
+<BARO_RL>10</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>5374.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Rainfall</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2711083</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="6.63" Min20="8.84" Min30="10.5" Hour1="14" Hour2="18.7" Hour6="29" Hour12="37.6" Day1="47.8" Day2="59.5" Day3="66.7" Day4="72" Day5="76">
+</Interval>
+<Interval ARI="2" Min10="7.31" Min20="9.73" Min30="11.5" Hour1="15.4" Hour2="20.5" Hour6="31.7" Hour12="41" Day1="52" Day2="64.6" Day3="72.4" Day4="78" Day5="82.3">
+</Interval>
+<Interval ARI="5" Min10="9.74" Min20="12.9" Min30="15.2" Hour1="20.2" Hour2="26.7" Hour6="40.9" Hour12="52.5" Day1="66.3" Day2="81.8" Day3="91.4" Day4="98.2" Day5="104">
+</Interval>
+<Interval ARI="10" Min10="11.6" Min20="15.3" Min30="18" Hour1="23.8" Hour2="31.4" Hour6="47.8" Hour12="61.2" Day1="76.9" Day2="94.5" Day3="105" Day4="113" Day5="119">
+</Interval>
+<Interval ARI="20" Min10="13.6" Min20="17.9" Min30="21" Hour1="27.7" Hour2="36.3" Hour6="55" Hour12="70.1" Day1="87.8" Day2="108" Day3="120" Day4="128" Day5="135">
+</Interval>
+<Interval ARI="30" Min10="14.9" Min20="19.5" Min30="22.9" Hour1="30.1" Hour2="39.4" Hour6="59.3" Hour12="75.5" Day1="94.4" Day2="115" Day3="128" Day4="137" Day5="144">
+</Interval>
+<Interval ARI="40" Min10="15.8" Min20="20.7" Min30="24.2" Hour1="31.8" Hour2="41.6" Hour6="62.5" Hour12="79.5" Day1="99.1" Day2="121" Day3="134" Day4="143" Day5="151">
+</Interval>
+<Interval ARI="50" Min10="16.6" Min20="21.6" Min30="25.3" Hour1="33.2" Hour2="43.3" Hour6="65" Hour12="82.5" Day1="103" Day2="125" Day3="139" Day4="148" Day5="156">
+</Interval>
+<Interval ARI="60" Min10="17.2" Min20="22.4" Min30="26.2" Hour1="34.3" Hour2="44.8" Hour6="67.1" Hour12="85.1" Day1="106" Day2="129" Day3="143" Day4="153" Day5="160">
+</Interval>
+<Interval ARI="80" Min10="18.2" Min20="23.6" Min30="27.7" Hour1="36.1" Hour2="47.1" Hour6="70.4" Hour12="89.1" Day1="111" Day2="135" Day3="149" Day4="159" Day5="167">
+</Interval>
+<Interval ARI="100" Min10="18.9" Min20="24.6" Min30="28.8" Hour1="37.6" Hour2="48.9" Hour6="73" Hour12="92.3" Day1="115" Day2="139" Day3="154" Day4="164" Day5="172">
+</Interval>
+<Interval ARI="250" Min10="22.3" Min20="28.9" Min30="33.7" Hour1="43.7" Hour2="56.6" Hour6="83.9" Hour12="106" Day1="130" Day2="157" Day3="174" Day4="185" Day5="194">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.49144629</Latitude>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>HRC-00107</LawaSiteID>
+<LawaSiteName>Manawatu at Moutoa</LawaSiteName>
+<Longitude>175.37249590</Longitude>
+<Macro>false</Macro>
+<MetNumber>E05533</MetNumber>
+<NZReach>7042794</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7242286</NZSegment>
+<NZVD16>-461</NZVD16>
+<Northing>6076701</Northing>
+<RL0>0</RL0>
+<R_Rain>Manawatu at Opiki Floodway,Arawhata Drain at Kane Farm</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>LMS Lower Manawatu</Scheme>
+<SecondSynonym>MOU</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>324</SiteID>
+<SurfaceWaterZone>Mana</SurfaceWaterZone>
+<XSection>Provisional, Manawatu at Moutoa, 29-Jun-2004 10:20:00</XSection>
+</Site>
+</HilltopServer>

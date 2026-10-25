@@ -1,0 +1,61 @@
+seed,endpoint,version,n,bias_plugin,bias,reduction,coverage90,criterion_met,historical_registered_verdict,retention_baseline,retention_learned,gain,dataset
+0,P1_analogue,raw_redesign,12325.0,-0.4727917919231554,-0.1544647940480926,0.6732921410928421,0.8102231237322515,False,"unchanged, not met; these refits are exploratory",,,,source
+0,P1_analogue,calibrated_redesign,12325.0,-0.4727917919231554,-0.1359890157137072,0.712370184853357,0.8762677484787018,True,"unchanged, not met; these refits are exploratory",,,,source
+0,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+1,P1_analogue,raw_redesign,12409.0,-0.4666468857080507,-0.1377973171753735,0.7047075178348368,0.8190829236844226,False,"unchanged, not met; these refits are exploratory",,,,source
+1,P1_analogue,calibrated_redesign,12409.0,-0.4666468857080507,-0.0853907481239006,0.8170120689987335,0.8863727939398823,True,"unchanged, not met; these refits are exploratory",,,,source
+1,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+2,P1_analogue,raw_redesign,12243.0,-0.4671177849157692,-0.1329340044138987,0.715416520829175,0.8153230417381361,False,"unchanged, not met; these refits are exploratory",,,,source
+2,P1_analogue,calibrated_redesign,12243.0,-0.4671177849157692,-0.101626032140423,0.7824402422212455,0.8750306297476109,True,"unchanged, not met; these refits are exploratory",,,,source
+2,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+3,P1_analogue,raw_redesign,12342.0,-0.4713617156707699,-0.1232372802627974,0.7385505097981387,0.8055420515313564,False,"unchanged, not met; these refits are exploratory",,,,source
+3,P1_analogue,calibrated_redesign,12342.0,-0.4713617156707699,-0.0871489980481305,0.8151122690901753,0.8670393777345649,True,"unchanged, not met; these refits are exploratory",,,,source
+3,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+4,P1_analogue,raw_redesign,12425.0,-0.4592441409033647,-0.1572911554789871,0.657499918954688,0.814486921529175,False,"unchanged, not met; these refits are exploratory",,,,source
+4,P1_analogue,calibrated_redesign,12425.0,-0.4592441409033647,-0.1222531951219862,0.7337947635401383,0.8825754527162978,True,"unchanged, not met; these refits are exploratory",,,,source
+4,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+5,P1_analogue,raw_redesign,12291.0,-0.4770235537945125,-0.1332927663984191,0.7205740359398738,0.7959482548206004,False,"unchanged, not met; these refits are exploratory",,,,source
+5,P1_analogue,calibrated_redesign,12291.0,-0.4770235537945125,-0.1097436453883744,0.7699408246921728,0.8691725652916769,True,"unchanged, not met; these refits are exploratory",,,,source
+5,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+6,P1_analogue,raw_redesign,12323.0,-0.4682225216787469,-0.1350546335617858,0.711558869322291,0.8110038140063296,False,"unchanged, not met; these refits are exploratory",,,,source
+6,P1_analogue,calibrated_redesign,12323.0,-0.4682225216787469,-0.0865444888641032,0.8151637632598066,0.8931266736995861,True,"unchanged, not met; these refits are exploratory",,,,source
+6,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+7,P1_analogue,raw_redesign,12199.0,-0.4733510042689258,-0.1276862123014701,0.7302504670953914,0.7983441265677514,False,"unchanged, not met; these refits are exploratory",,,,source
+7,P1_analogue,calibrated_redesign,12199.0,-0.4733510042689258,-0.1189632317472216,0.7486786112750383,0.8602344454463481,True,"unchanged, not met; these refits are exploratory",,,,source
+7,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+8,P1_analogue,raw_redesign,12390.0,-0.4677028093989071,-0.1335273823140132,0.7145037839613941,0.8060532687651332,False,"unchanged, not met; these refits are exploratory",,,,source
+8,P1_analogue,calibrated_redesign,12390.0,-0.4677028093989071,-0.0850716473638616,0.8181074698413808,0.8882163034705408,True,"unchanged, not met; these refits are exploratory",,,,source
+8,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+9,P1_analogue,raw_redesign,12299.0,-0.4733597908048671,-0.1236732102300643,0.7387331737244109,0.8138873079112123,False,"unchanged, not met; these refits are exploratory",,,,source
+9,P1_analogue,calibrated_redesign,12299.0,-0.4733597908048671,-0.1094182363292287,0.7688476324886366,0.8884462151394422,True,"unchanged, not met; these refits are exploratory",,,,source
+9,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+10,P1_analogue,raw_redesign,12406.0,-0.4761124370955792,-0.1244349709050394,0.7386437294851442,0.8009027889730775,False,"unchanged, not met; these refits are exploratory",,,,source
+10,P1_analogue,calibrated_redesign,12406.0,-0.4761124370955792,-0.116637745907075,0.755020585854471,0.8746574238271804,True,"unchanged, not met; these refits are exploratory",,,,source
+10,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+11,P1_analogue,raw_redesign,12244.0,-0.4686391296653809,-0.159782994034341,0.6590489698364929,0.813296308395949,False,"unchanged, not met; these refits are exploratory",,,,source
+11,P1_analogue,calibrated_redesign,12244.0,-0.4686391296653809,-0.1386593939633904,0.7041233111234301,0.8909670042469782,True,"unchanged, not met; these refits are exploratory",,,,source
+11,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+12,P1_analogue,raw_redesign,12387.0,-0.4699415980757262,-0.1411189678906745,0.6997095629148058,0.8169048195689029,False,"unchanged, not met; these refits are exploratory",,,,source
+12,P1_analogue,calibrated_redesign,12387.0,-0.4699415980757262,-0.1156516099961412,0.7539021647164226,0.8969080487607977,True,"unchanged, not met; these refits are exploratory",,,,source
+12,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+13,P1_analogue,raw_redesign,12393.0,-0.4697567593466298,-0.1508801791508469,0.6788121168055112,0.8099733720648753,False,"unchanged, not met; these refits are exploratory",,,,source
+13,P1_analogue,calibrated_redesign,12393.0,-0.4697567593466298,-0.1214219697130676,0.7415216124150088,0.8725893649640927,True,"unchanged, not met; these refits are exploratory",,,,source
+13,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+14,P1_analogue,raw_redesign,12333.0,-0.4629986573472064,-0.1311352051423694,0.7167697939045423,0.8199951350036487,False,"unchanged, not met; these refits are exploratory",,,,source
+14,P1_analogue,calibrated_redesign,12333.0,-0.4629986573472064,-0.1297093628665993,0.7198493757848433,0.8838887537501013,True,"unchanged, not met; these refits are exploratory",,,,source
+14,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+15,P1_analogue,raw_redesign,12306.0,-0.4686661836428384,-0.1230761059971095,0.737390683832859,0.8081423695758166,False,"unchanged, not met; these refits are exploratory",,,,source
+15,P1_analogue,calibrated_redesign,12306.0,-0.4686661836428384,-0.1066379238353095,0.7724650773682099,0.8844466114090688,True,"unchanged, not met; these refits are exploratory",,,,source
+15,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+16,P1_analogue,raw_redesign,12294.0,-0.4685049130420999,-0.158317537742419,0.6620792368762363,0.8086058239791768,False,"unchanged, not met; these refits are exploratory",,,,source
+16,P1_analogue,calibrated_redesign,12294.0,-0.4685049130420999,-0.1704573517806667,0.6361674188775275,0.8782332845290386,True,"unchanged, not met; these refits are exploratory",,,,source
+16,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+17,P1_analogue,raw_redesign,12240.0,-0.4788541390908157,-0.1223271600635658,0.7445419177208652,0.8146241830065359,False,"unchanged, not met; these refits are exploratory",,,,source
+17,P1_analogue,calibrated_redesign,12240.0,-0.4788541390908157,-0.0961715874512669,0.7991630862085379,0.8749183006535948,True,"unchanged, not met; these refits are exploratory",,,,source
+17,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+18,P1_analogue,raw_redesign,12263.0,-0.4717259203116384,-0.1327748084704324,0.7185339987619996,0.8046970561852728,False,"unchanged, not met; these refits are exploratory",,,,source
+18,P1_analogue,calibrated_redesign,12263.0,-0.4717259203116384,-0.1173972892869809,0.7511324177195432,0.8731957922205007,True,"unchanged, not met; these refits are exploratory",,,,source
+18,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source
+19,P1_analogue,raw_redesign,12249.0,-0.4724774760848113,-0.1270966224186344,0.7309996161683268,0.817372846763001,False,"unchanged, not met; these refits are exploratory",,,,source
+19,P1_analogue,calibrated_redesign,12249.0,-0.4724774760848113,-0.1113322919925229,0.7643648689561268,0.9037472446730346,True,"unchanged, not met; these refits are exploratory",,,,source
+19,P2_analogue,diagnostic equal-realized-risk ranking,,,,,,False,"unchanged, not met; thresholds here use evaluation labels and are diagnostic",1.0,1.0,0.0,source

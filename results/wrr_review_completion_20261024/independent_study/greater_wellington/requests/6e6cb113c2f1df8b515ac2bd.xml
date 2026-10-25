@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Waitohu Stream at Water Supply Intake">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>19.2</CatchmentArea>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1786883</Easting>
+<FirstSynonym>Waitohu Stream at Water Supply Intake</FirstSynonym>
+<FloodFlow10>78</FloodFlow10>
+<FloodFlow100>119</FloodFlow100>
+<FloodFlow20>91</FloodFlow20>
+<FloodFlow5>65</FloodFlow5>
+<FloodFlow50>107</FloodFlow50>
+<FlowWebVeryHigh>8.2</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.76666669</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00241</LawaSiteID>
+<Longitude>175.21423898</Longitude>
+<LowFlow100yr14Day>0.103</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.076</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.108</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.078</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.123</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.096</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.143</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.102</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.116</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.089</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.13</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.093</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.108</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.081</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.116</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.084</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.134</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.107</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.161</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.114</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.165</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.136</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.213</LowFlowMALF28Day>
+<MALF7Day>0.147</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>87</MaxFlow>
+<MaxFlowAt>20-Feb-1996</MaxFlowAt>
+<MeanAnnualFloodFlow>46</MeanAnnualFloodFlow>
+<MeanFlow>0.880</MeanFlow>
+<MedianFlow>0.445</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.064</MinFlow>
+<MinFlowAt>29-Apr-2003</MinFlowAt>
+<Northing>5484786</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Waitohu Stream</RiverName>
+<RiverNumber>319000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Waitohu</ShortName>
+<SiteID>2666</SiteID>
+<SurfaceWaterSubZone>WaitohuSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>KapitiSW</SurfaceWaterZone>
+<WebComment>This site is located immediately upstream of the KCDC water supply intake, which is upstream of the quarry on the Waitohu Valley Road. It has been operating since October 1994. There are three stage and flow measurements available for this site. The &quot;Stage&quot; and associated &quot;Flow&quot; measurements are from a float and counter-weight system in the tower, these measurements are not reliable at low flows because the water level is below the bottom intakes. The &quot;Stage 2&quot; and associated &quot;Flow 2&quot; measurements are from a pressure transducer and are the most reliable. The third set of measurements (Stage 3 and Flow 3) are from a bubbler system.</WebComment>
+</Site>
+</HilltopServer>

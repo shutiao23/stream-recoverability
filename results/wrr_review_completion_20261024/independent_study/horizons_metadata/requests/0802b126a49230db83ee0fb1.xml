@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Oroua at Almadale Slackline">
+<AEP0.01>395616</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>137</Altitude>
+<BARO_CLOSEST>Oroua at Almadale Slackline</BARO_CLOSEST>
+<BARO_CLOSEST_RL>138</BARO_CLOSEST_RL>
+<BARO_REF_DIST>138</BARO_REF_DIST>
+<BARO_RL>138</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>293.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_12a)&#13;&#10;Flood Warning (IVR)&#13;&#10;Site RL0 = 130.100m (MSL Moutiriki)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Manawatu District</District>
+<Easting>2736500</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>267091</FloodFlow10>
+<FloodFlow20>307635</FloodFlow20>
+<FloodFlow5>223680</FloodFlow5>
+<FloodFlow50>358565</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.17341852</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00035</LawaSiteID>
+<LawaSiteName>Oroua at Almadale Slackline</LawaSiteName>
+<Longitude>175.65987704</Longitude>
+<MALF7Day>1322</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Feb-2006</MacroStart>
+<MaxFlow>568259</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>170220</MeanAnnualFloodFlow>
+<MeanFlow>10408</MeanFlow>
+<MedianFlow>6898</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>452</MinFlow>
+<MinFlowAt>10-Dec-2010</MinFlowAt>
+<NZReach>7035365</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7232687</NZSegment>
+<NZVD16>128436</NZVD16>
+<Northing>6111300</Northing>
+<RL0>130.1</RL0>
+<RL0_Moutiriki>130.1</RL0_Moutiriki>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325080</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Feilding, LMS Lower Manawatu, Northern&#13;&#10;</Scheme>
+<SecondSynonym>ALS</SecondSynonym>
+<ShortName>Hor-0039</ShortName>
+<SiteID>9868</SiteID>
+<StatsPeriod>1/7/1948-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_12</SurfaceWaterZone>
+<XSection>Provisional, Oroua at Almadale Slackline, 30-Oct-2000 12:00:00</XSection>
+<XSection_Moutiriki>Provisional, Oroua at Almadale Slackline, 12-Dec-2019 12:20:00</XSection_Moutiriki>
+<eQualCode>Hor-0039</eQualCode>
+</Site>
+</HilltopServer>

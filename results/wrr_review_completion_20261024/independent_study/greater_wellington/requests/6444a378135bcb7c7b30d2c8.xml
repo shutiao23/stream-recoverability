@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Whakatikei River at Dude Ranch">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>46.0</CatchmentArea>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1770535</Easting>
+<FirstSynonym>Whakatikei River at Dude Ranch</FirstSynonym>
+<FloodFlow10>141</FloodFlow10>
+<FloodFlow100>223</FloodFlow100>
+<FloodFlow20>166</FloodFlow20>
+<FloodFlow200>248</FloodFlow200>
+<FloodFlow5>115</FloodFlow5>
+<FloodFlow50>199</FloodFlow50>
+<FlowWebVeryHigh>12.8</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.08184895</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<Longitude>175.03018248</Longitude>
+<LowFlow100yr14Day>0.159</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.149</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.162</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.15</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.226</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.203</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.247</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.212</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.2</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.183</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.215</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.189</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.175</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.162</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.182</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.165</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.26</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.232</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.291</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.244</LowFlow5yr7Day>
+<MALF14Day>0.365</MALF14Day>
+<MALF1Day>0.315</MALF1Day>
+<MALF28Day>0.43</MALF28Day>
+<MALF7Day>0.339</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>263</MaxFlow>
+<MaxFlowAt> 6-Jan-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>79</MeanAnnualFloodFlow>
+<MeanFlow>1.646</MeanFlow>
+<MedianFlow>0.985</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.101</MinFlow>
+<MinFlowAt> 6-Mar-1978</MinFlowAt>
+<Northing>5450171</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Whakatikei River</RiverName>
+<RiverNumber>298300</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Whakatikei</ShortName>
+<SiteID>2688</SiteID>
+<TemporaryWebsiteComment>This site has recently been telemetered, however communications can be a little unreliable (daily at best).</TemporaryWebsiteComment>
+<WebComment>This site is located approximately 6km upstream from the confluence with the Hutt River and has been operating since September 1976. This site is not telemetered and is therefore only downloaded approximately 2 monthly during site visits.</WebComment>
+</Site>
+</HilltopServer>

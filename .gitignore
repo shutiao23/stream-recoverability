@@ -207,3 +207,26 @@ scratch/p0_02/crossfit_cache/
 /results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/**/*.parquet
 /results/wrr_submission_ready/major_revision_20261020c/r3_14_monitoring_replay/**/source_roster.csv
 /results/wrr_submission_ready/major_revision_20261020c/r3_17_evidence/independent_decisions.csv
+
+# Fourth-review source observations and regenerable case/model caches stay local.
+/data/external/wrr_review_national_20261024/
+/data/external/wrr_target_recovery_20261021/
+/data/external/wrr_target_recovery_20261022/
+/scratch/review_completion*/
+/results/wrr_review_completion_20261024/**/*.parquet
+!/results/wrr_review_completion_20261024/deployment/source_rule_calibration_diagnostics.parquet
+/results/wrr_review_completion_20261024/cases/
+/results/wrr_review_completion_20261024/refits/
+/results/wrr_review_completion_20261024/repairs/
+/results/wrr_review_completion_20261024/development/
+/results/wrr_review_completion_20261024/**/weather/
+/results/wrr_review_completion_20261024/**/raw/
+/results/wrr_review_completion_20261024/**/__pycache__/
+/results/wrr_review_completion_20261024/**/*.pt
+/results/wrr_review_completion_20261024/**/*.pypots
+/paper/wrr_tr/*.aux
+/paper/wrr_tr/*.log
+/paper/wrr_tr/*.blg
+/paper/wrr_tr/*.bbl
+/paper/wrr_tr/*.fls
+/paper/wrr_tr/*.fdb_latexmk

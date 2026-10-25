@@ -1,0 +1,867 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Akatarawa River at Cemetery">
+<Latitude>-41.08584512</Latitude>
+<Longitude>175.09869850</Longitude>
+</Site>
+<Site Name="Awhea River at Tora Rd">
+<Latitude>-41.49566187</Latitude>
+<Longitude>175.51195459</Longitude>
+</Site>
+<Site Name="BN32/0081">
+<Latitude>-40.79889447</Latitude>
+<Longitude>175.12280787</Longitude>
+</Site>
+<Site Name="BN32/0082">
+<Latitude>-40.79889425</Latitude>
+<Longitude>175.12281972</Longitude>
+</Site>
+<Site Name="BN32/0083">
+<Latitude>-40.79890303</Latitude>
+<Longitude>175.12283185</Longitude>
+</Site>
+<Site Name="BP33/0056">
+<Latitude>-41.14322740</Latitude>
+<Longitude>175.41841878</Longitude>
+</Site>
+<Site Name="BP33/0057">
+<Latitude>-41.13770263</Latitude>
+<Longitude>175.35074778</Longitude>
+</Site>
+<Site Name="BP34/0127">
+<Latitude>-41.06393089</Latitude>
+<Longitude>175.60185676</Longitude>
+</Site>
+<Site Name="BP34/0133">
+<Latitude>-41.05872403</Latitude>
+<Longitude>175.49567605</Longitude>
+</Site>
+<Site Name="BP34/0140">
+<Latitude>-41.09455861</Latitude>
+<Longitude>175.46407711</Longitude>
+</Site>
+<Site Name="BP34/0141">
+<Latitude>-41.09817951</Latitude>
+<Longitude>175.51118378</Longitude>
+</Site>
+<Site Name="BP34/0229">
+<Latitude>-40.89619511</Latitude>
+<Longitude>175.66995500</Longitude>
+</Site>
+<Site Name="BP34/0230">
+<Latitude>-40.95523059</Latitude>
+<Longitude>175.68644786</Longitude>
+</Site>
+<Site Name="BP34/0231">
+<Latitude>-40.97754597</Latitude>
+<Longitude>175.67809564</Longitude>
+</Site>
+<Site Name="BP34/0232">
+<Latitude>-40.97092210</Latitude>
+<Longitude>175.62701433</Longitude>
+</Site>
+<Site Name="BP34/0233">
+<Latitude>-40.99378084</Latitude>
+<Longitude>175.67324911</Longitude>
+</Site>
+<Site Name="BP34/0234">
+<Latitude>-41.03913561</Latitude>
+<Longitude>175.66057196</Longitude>
+</Site>
+<Site Name="BP34/0235">
+<Latitude>-41.06922296</Latitude>
+<Longitude>175.62899778</Longitude>
+</Site>
+<Site Name="BP34/0236">
+<Latitude>-41.10549928</Latitude>
+<Longitude>175.44264720</Longitude>
+</Site>
+<Site Name="BP34/0237">
+<Latitude>-41.02708249</Latitude>
+<Longitude>175.50728975</Longitude>
+</Site>
+<Site Name="BQ32/0489">
+<Latitude>-41.21714225</Latitude>
+<Longitude>174.90556786</Longitude>
+</Site>
+<Site Name="BQ32/0490">
+<Latitude>-41.20149410</Latitude>
+<Longitude>174.91657451</Longitude>
+</Site>
+<Site Name="BQ32/0493">
+<Latitude>-41.20393502</Latitude>
+<Longitude>174.92736752</Longitude>
+</Site>
+<Site Name="BQ32/0499">
+<Latitude>-41.21715887</Latitude>
+<Longitude>174.90565184</Longitude>
+</Site>
+<Site Name="BQ32/0500">
+<Latitude>-41.20149271</Latitude>
+<Longitude>174.91665795</Longitude>
+</Site>
+<Site Name="BQ32/0502">
+<Latitude>-41.21838591</Latitude>
+<Longitude>174.91746136</Longitude>
+</Site>
+<Site Name="BQ32/0503">
+<Latitude>-41.20391622</Latitude>
+<Longitude>174.92741467</Longitude>
+</Site>
+<Site Name="BQ32/0611">
+<Latitude>-41.23405086</Latitude>
+<Longitude>174.89343511</Longitude>
+</Site>
+<Site Name="BQ32/0612">
+<Latitude>-41.24587271</Latitude>
+<Longitude>174.89918255</Longitude>
+</Site>
+<Site Name="BQ32/0613">
+<Latitude>-41.24588289</Latitude>
+<Longitude>174.89911124</Longitude>
+</Site>
+<Site Name="BQ32/0677">
+<Latitude>-41.20739051</Latitude>
+<Longitude>174.91352634</Longitude>
+</Site>
+<Site Name="BQ32/0678">
+<Latitude>-41.20743513</Latitude>
+<Longitude>174.91355150</Longitude>
+</Site>
+<Site Name="BQ32/0710">
+<Latitude>-41.20393502</Latitude>
+<Longitude>174.92736752</Longitude>
+</Site>
+<Site Name="BQ32/0711">
+<Latitude>-41.20149410</Latitude>
+<Longitude>174.91657451</Longitude>
+</Site>
+<Site Name="BQ32/0745">
+<Latitude>-41.20743532</Latitude>
+<Longitude>174.91353957</Longitude>
+</Site>
+<Site Name="BQ33/0005">
+<Latitude>-41.16194750</Latitude>
+<Longitude>175.30765978</Longitude>
+</Site>
+<Site Name="BQ33/0006">
+<Latitude>-41.16490081</Latitude>
+<Longitude>175.30680993</Longitude>
+</Site>
+<Site Name="BQ33/0007">
+<Latitude>-41.16036410</Latitude>
+<Longitude>175.26767878</Longitude>
+</Site>
+<Site Name="BQ33/0008">
+<Latitude>-41.17787469</Latitude>
+<Longitude>175.25617094</Longitude>
+</Site>
+<Site Name="BQ33/0009">
+<Latitude>-41.25867079</Latitude>
+<Longitude>175.16070526</Longitude>
+</Site>
+<Site Name="BQ33/0011">
+<Latitude>-41.25257427</Latitude>
+<Longitude>175.23978786</Longitude>
+</Site>
+<Site Name="BQ33/0012">
+<Latitude>-41.25474138</Latitude>
+<Longitude>175.25242974</Longitude>
+</Site>
+<Site Name="BQ33/0013">
+<Latitude>-41.24208240</Latitude>
+<Longitude>175.27325929</Longitude>
+</Site>
+<Site Name="BQ33/0014">
+<Latitude>-41.24793067</Latitude>
+<Longitude>175.28811700</Longitude>
+</Site>
+<Site Name="BQ33/0015">
+<Latitude>-41.21778027</Latitude>
+<Longitude>175.30188055</Longitude>
+</Site>
+<Site Name="BQ33/0016">
+<Latitude>-41.21437924</Latitude>
+<Longitude>175.29719289</Longitude>
+</Site>
+<Site Name="BQ33/0018">
+<Latitude>-41.17116672</Latitude>
+<Longitude>175.31548109</Longitude>
+</Site>
+<Site Name="BQ33/0019">
+<Latitude>-41.17308056</Latitude>
+<Longitude>175.31436840</Longitude>
+</Site>
+<Site Name="BQ33/0020">
+<Latitude>-41.17667304</Latitude>
+<Longitude>175.31532938</Longitude>
+</Site>
+<Site Name="BQ33/0021">
+<Latitude>-41.17636025</Latitude>
+<Longitude>175.31968141</Longitude>
+</Site>
+<Site Name="BQ33/0037">
+<Latitude>-41.35620245</Latitude>
+<Longitude>175.20695101</Longitude>
+</Site>
+<Site Name="BQ33/0041">
+<Latitude>-41.33937838</Latitude>
+<Longitude>175.20456617</Longitude>
+</Site>
+<Site Name="BQ33/0046">
+<Latitude>-41.37550753</Latitude>
+<Longitude>175.21333133</Longitude>
+</Site>
+<Site Name="BQ33/0056">
+<Latitude>-41.39434707</Latitude>
+<Longitude>175.22141023</Longitude>
+</Site>
+<Site Name="BQ33/0070">
+<Latitude>-41.36904956</Latitude>
+<Longitude>175.17985017</Longitude>
+</Site>
+<Site Name="BQ33/0072">
+<Latitude>-41.38489155</Latitude>
+<Longitude>175.21946179</Longitude>
+</Site>
+<Site Name="BQ33/0073">
+<Latitude>-41.40223381</Latitude>
+<Longitude>175.23134444</Longitude>
+</Site>
+<Site Name="BQ33/0106">
+<Latitude>-41.36405476</Latitude>
+<Longitude>175.21920757</Longitude>
+</Site>
+<Site Name="Bartons Lagoon near South Eastern shore">
+<Latitude>-41.16925370</Latitude>
+<Longitude>175.31610504</Longitude>
+</Site>
+<Site Name="Battersea Drain at Mensens">
+<Latitude>-41.17585020</Latitude>
+<Longitude>175.41241886</Longitude>
+</Site>
+<Site Name="Beef Creek at headwaters">
+<Latitude>-41.01810983</Latitude>
+<Longitude>175.42576190</Longitude>
+</Site>
+<Site Name="Black Creek at Kaituna">
+<Latitude>-40.89071858</Latitude>
+<Longitude>175.54413664</Longitude>
+</Site>
+<Site Name="Booths Creek at 100m Upstream of Park Road culvert">
+<Latitude>-41.02814337</Latitude>
+<Longitude>175.53903899</Longitude>
+</Site>
+<Site Name="Booths Creek at Andersons Line">
+<Latitude>-41.01501351</Latitude>
+<Longitude>175.53607293</Longitude>
+</Site>
+<Site Name="Booths Creek at Para Road">
+<Latitude>-41.06567263</Latitude>
+<Longitude>175.53384238</Longitude>
+</Site>
+<Site Name="Booths Creek at Park Road">
+<Latitude>-41.02954291</Latitude>
+<Longitude>175.53969938</Longitude>
+</Site>
+<Site Name="Booths Creek at SH2">
+<Latitude>-41.01699137</Latitude>
+<Longitude>175.53460290</Longitude>
+</Site>
+<Site Name="Burlings Stream at Western Lake Road">
+<Latitude>-41.23869924</Latitude>
+<Longitude>175.16470073</Longitude>
+</Site>
+<Site Name="Carters Reserve South">
+<Latitude>-41.06657271</Latitude>
+<Longitude>175.59734350</Longitude>
+</Site>
+<Site Name="Castlepoint South Bottom of Trial">
+<Latitude>-40.92752902</Latitude>
+<Longitude>176.16543784</Longitude>
+</Site>
+<Site Name="Dock Creek at U/S Otakura Junction">
+<Latitude>-41.18902618</Latitude>
+<Longitude>175.34668159</Longitude>
+</Site>
+<Site Name="Enaki Stream D/S site for Riparian">
+<Latitude>-41.02534566</Latitude>
+<Longitude>175.49726909</Longitude>
+</Site>
+<Site Name="Enaki Stream U/S Mangatarere Confluence">
+<Latitude>-41.02152446</Latitude>
+<Longitude>175.49570943</Longitude>
+</Site>
+<Site Name="Enaki Stream U/S site for Riparian">
+<Latitude>-41.02156997</Latitude>
+<Longitude>175.49568736</Longitude>
+</Site>
+<Site Name="Gollans Stream Upstream of Boardwalk">
+<Latitude>-41.35658260</Latitude>
+<Longitude>174.87591970</Longitude>
+</Site>
+<Site Name="Gollans Stream at Boardwalk">
+<Latitude>-41.36098600</Latitude>
+<Longitude>174.87653635</Longitude>
+</Site>
+<Site Name="Hinau Stream at Hinau Gully Rd Bridge">
+<Latitude>-40.97511152</Latitude>
+<Longitude>175.49735726</Longitude>
+</Site>
+<Site Name="Horokiri Stream at Snodgrass">
+<Latitude>-41.07930266</Latitude>
+<Longitude>174.92617299</Longitude>
+</Site>
+<Site Name="Huangarua River at Ponatahi Bridge">
+<Latitude>-41.20800072</Latitude>
+<Longitude>175.46909416</Longitude>
+</Site>
+<Site Name="Huangarua at Hautotara">
+<Latitude>-41.29641222</Latitude>
+<Longitude>175.47489946</Longitude>
+</Site>
+<Site Name="Hutt River at Birchville">
+<Latitude>-41.10017595</Latitude>
+<Longitude>175.09076014</Longitude>
+</Site>
+<Site Name="Hutt River at Kaitoke Weir">
+<Latitude>-41.05198789</Latitude>
+<Longitude>175.19197751</Longitude>
+</Site>
+<Site Name="Hutt River at Melling Bridge">
+<Latitude>-41.20411788</Latitude>
+<Longitude>174.90719348</Longitude>
+</Site>
+<Site Name="Hutt River at Taita Gorge">
+<Latitude>-41.15660826</Latitude>
+<Longitude>174.98478200</Longitude>
+</Site>
+<Site Name="Hutt River at Te Marua">
+<Latitude>-41.07745121</Latitude>
+<Longitude>175.14461582</Longitude>
+</Site>
+<Site Name="Kaiwharawhara Stream at Gorge">
+<Latitude>-86.11047314</Latitude>
+<Longitude>192.46909037</Longitude>
+</Site>
+<Site Name="Kaiwharawhara Stream at Ngaio Gorge">
+<Latitude>-41.25798289</Latitude>
+<Longitude>174.77940709</Longitude>
+</Site>
+<Site Name="Kakariki Stream D/S site for Riparian">
+<Latitude>-40.85657294</Latitude>
+<Longitude>175.05503348</Longitude>
+</Site>
+<Site Name="Kakariki Stream U/S site for Riparian">
+<Latitude>-40.85908604</Latitude>
+<Longitude>175.05907377</Longitude>
+</Site>
+<Site Name="Kakariki Stream at Awanui Drive">
+<Latitude>-40.86427312</Latitude>
+<Longitude>175.06519070</Longitude>
+</Site>
+<Site Name="Karori Stream D/S site for Riparian">
+<Latitude>-41.29894178</Latitude>
+<Longitude>174.72117153</Longitude>
+</Site>
+<Site Name="Karori Stream U/S site for Riparian">
+<Latitude>-41.29530121</Latitude>
+<Longitude>174.72248509</Longitude>
+</Site>
+<Site Name="Karori Stream at Makara Peak Mountain Bike Park">
+<Latitude>-41.29670668</Latitude>
+<Longitude>174.72246236</Longitude>
+</Site>
+<Site Name="Karori Trib U/S Fitzgerald Place">
+<Latitude>-41.29833737</Latitude>
+<Longitude>174.72544343</Longitude>
+</Site>
+<Site Name="Kopuaranga River at Stuarts">
+<Latitude>-40.89357041</Latitude>
+<Longitude>175.69179599</Longitude>
+</Site>
+<Site Name="Kopuaranga at Palmers Bridge">
+<Latitude>-40.81893375</Latitude>
+<Longitude>175.67185573</Longitude>
+</Site>
+<Site Name="Kourarau Stream at Te Kopi Rd Bridge">
+<Latitude>-41.05784298</Latitude>
+<Longitude>175.67378442</Longitude>
+</Site>
+<Site Name="Lagoon at Lake Reserve foreshore">
+<Latitude>-41.17540929</Latitude>
+<Longitude>175.31770477</Longitude>
+</Site>
+<Site Name="Lake Kohangapiripiri">
+<Latitude>-41.36310701</Latitude>
+<Longitude>174.85572312</Longitude>
+</Site>
+<Site Name="Lake Kohangatera">
+<Latitude>-41.37428665</Latitude>
+<Longitude>174.86451878</Longitude>
+</Site>
+<Site Name="Lake Waiorongomai">
+<Latitude>-40.71114994</Latitude>
+<Longitude>175.14378748</Longitude>
+</Site>
+<Site Name="Lake Wairarapa Alsops Bay">
+<Latitude>-41.28215662</Latitude>
+<Longitude>175.16811893</Longitude>
+</Site>
+<Site Name="Lake Wairarapa Barrage Argonaut">
+<Latitude>-41.31269723</Latitude>
+<Longitude>175.19434881</Longitude>
+</Site>
+<Site Name="Lake Wairarapa Middle">
+<Latitude>-41.22668280</Latitude>
+<Longitude>175.21447068</Longitude>
+</Site>
+<Site Name="Lake Wairarapa Site 2">
+<Latitude>-41.17632023</Latitude>
+<Longitude>175.28475171</Longitude>
+</Site>
+<Site Name="Lake Wairarapa at old pier">
+</Site>
+<Site Name="Lake Waitawa main WQ site 3.5m from bottom">
+<Latitude>-40.72477788</Latitude>
+<Longitude>175.17080572</Longitude>
+</Site>
+<Site Name="Makahakaha at Gladstone Rd East Culv">
+<Latitude>-41.08454698</Latitude>
+<Longitude>175.63908432</Longitude>
+</Site>
+<Site Name="Makara Stream at Kennels">
+<Latitude>-41.23595385</Latitude>
+<Longitude>174.71271629</Longitude>
+</Site>
+<Site Name="Mangaone Stream at Gas Installation">
+<Latitude>-40.79323741</Latitude>
+<Longitude>175.09473929</Longitude>
+</Site>
+<Site Name="Mangaone Stream at Ratanui">
+<Latitude>-40.82742334</Latitude>
+<Longitude>175.15669569</Longitude>
+</Site>
+<Site Name="Mangaroa River at Te Marua">
+<Latitude>-41.09432204</Latitude>
+<Longitude>175.12809110</Longitude>
+</Site>
+<Site Name="Mangatarere River at Gorge">
+<Latitude>-40.93499383</Latitude>
+<Longitude>175.51186713</Longitude>
+</Site>
+<Site Name="Mangatarere River at State Highway 2">
+<Latitude>-41.05477704</Latitude>
+<Longitude>175.49618121</Longitude>
+</Site>
+<Site Name="Motuwaireka Stream at headwaters">
+<Latitude>-41.05951154</Latitude>
+<Longitude>175.99910137</Longitude>
+</Site>
+<Site Name="Ngarara Stream at Field Way">
+<Latitude>-40.86160905</Latitude>
+<Longitude>175.03109239</Longitude>
+</Site>
+<Site Name="Ohariu Stream at Takarau Gorge Road">
+<Latitude>-41.22666728</Latitude>
+<Longitude>174.73974731</Longitude>
+</Site>
+<Site Name="Ohariu Stream at The Woolshed">
+<Latitude>-41.21788544</Latitude>
+<Longitude>174.75869638</Longitude>
+</Site>
+<Site Name="Ohariu Stream tributary">
+<Latitude>-41.20927224</Latitude>
+<Longitude>174.77410251</Longitude>
+</Site>
+<Site Name="Otaki River at Pukehinau">
+<Latitude>-40.82204660</Latitude>
+<Longitude>175.19957526</Longitude>
+</Site>
+<Site Name="Otakura Stm at Moroa Rd">
+<Latitude>-41.13071382</Latitude>
+<Longitude>175.46064137</Longitude>
+</Site>
+<Site Name="Otakura Stm at SH 53">
+<Latitude>-41.17759330</Latitude>
+<Longitude>175.40918072</Longitude>
+</Site>
+<Site Name="Otakura Stream at Weir">
+<Latitude>-41.18728715</Latitude>
+<Longitude>175.36738907</Longitude>
+</Site>
+<Site Name="Owhiro Stream at Mouth">
+<Latitude>-41.34398098</Latitude>
+<Longitude>174.75848832</Longitude>
+</Site>
+<Site Name="Pahaoa River at Glendhu">
+<Latitude>-41.37658246</Latitude>
+<Longitude>175.72497235</Longitude>
+</Site>
+<Site Name="Pahaoa River at Hinakura">
+<Latitude>-41.29805044</Latitude>
+<Longitude>175.64767819</Longitude>
+</Site>
+<Site Name="Pakuratahi River at Hutt Forks">
+<Latitude>-41.05681307</Latitude>
+<Longitude>175.19306591</Longitude>
+</Site>
+<Site Name="Pakuratahi River at Truss Bridge">
+<Latitude>-41.12413612</Latitude>
+<Longitude>175.18957731</Longitude>
+</Site>
+<Site Name="Papawai Stream at Fabians Road">
+<Latitude>-41.09518572</Latitude>
+<Longitude>175.47431592</Longitude>
+</Site>
+<Site Name="Papawai Stream at U/S Oxi Pond Confl">
+<Latitude>-41.10309313</Latitude>
+<Longitude>175.49064027</Longitude>
+</Site>
+<Site Name="Papawai Tributary Stream">
+</Site>
+<Site Name="Parkvale Spring at Hughes Line">
+<Latitude>-41.00083394</Latitude>
+<Longitude>175.56790240</Longitude>
+</Site>
+<Site Name="Parkvale Stream at 400m downstream of Renalls weir">
+<Latitude>-41.08098627</Latitude>
+<Longitude>175.54192993</Longitude>
+</Site>
+<Site Name="Parkvale Stream at 50m downstream of Renalls weir">
+<Latitude>-41.07854530</Latitude>
+<Longitude>175.54152635</Longitude>
+</Site>
+<Site Name="Parkvale Stream at Hughes Line">
+<Latitude>-40.99572312</Latitude>
+<Longitude>175.57896180</Longitude>
+</Site>
+<Site Name="Parkvale Stream at Park Rd">
+<Latitude>-41.04578628</Latitude>
+<Longitude>175.55337520</Longitude>
+</Site>
+<Site Name="Parkvale Stream at Renalls Weir">
+<Latitude>-41.07801993</Latitude>
+<Longitude>175.54166084</Longitude>
+</Site>
+<Site Name="Parkvale Tributary at Lowes Reserve">
+<Latitude>-40.99686768</Latitude>
+<Longitude>175.59297497</Longitude>
+</Site>
+<Site Name="Pauatahanui Stream at Elmwood Bridge">
+<Latitude>-41.11441006</Latitude>
+<Longitude>174.91936237</Longitude>
+</Site>
+<Site Name="Pauatahanui Stream at Gorge">
+<Latitude>-41.11687356</Latitude>
+<Longitude>174.92341227</Longitude>
+</Site>
+<Site Name="Pinehaven Stream opp Chatsworth Road">
+<Latitude>-41.15171706</Latitude>
+<Longitude>175.01539161</Longitude>
+</Site>
+<Site Name="Porirua Harbour at Mana Cruising Club">
+<Latitude>-41.09987001</Latitude>
+<Longitude>174.86743898</Longitude>
+</Site>
+<Site Name="Porirua Harbour at PCC WQ Site">
+<Latitude>-309.45931877</Latitude>
+<Longitude>-1323.49136128</Longitude>
+</Site>
+<Site Name="Porirua Stream at Town Centre">
+<Latitude>-41.14093271</Latitude>
+<Longitude>174.84296268</Longitude>
+</Site>
+<Site Name="R26/6287">
+<Latitude>-40.86455058</Latitude>
+<Longitude>175.02414632</Longitude>
+</Site>
+<Site Name="R26/6831">
+<Latitude>-40.91101266</Latitude>
+<Longitude>175.00398925</Longitude>
+</Site>
+<Site Name="R26/6832">
+<Latitude>-40.90715669</Latitude>
+<Longitude>174.99728345</Longitude>
+</Site>
+<Site Name="R26/6833">
+<Latitude>-40.89051507</Latitude>
+<Longitude>174.98084169</Longitude>
+</Site>
+<Site Name="R26/6879">
+<Latitude>-40.81740285</Latitude>
+<Longitude>175.08341775</Longitude>
+</Site>
+<Site Name="R27/0122">
+<Latitude>-41.23413169</Latitude>
+<Longitude>174.89344937</Longitude>
+</Site>
+<Site Name="R27/6978">
+<Latitude>-41.13048657</Latitude>
+<Longitude>175.05011091</Longitude>
+</Site>
+<Site Name="R27/7021">
+<Latitude>-41.14441902</Latitude>
+<Longitude>175.01087851</Longitude>
+</Site>
+<Site Name="R27/7041">
+<Latitude>-41.13911752</Latitude>
+<Longitude>175.04340980</Longitude>
+</Site>
+<Site Name="R27/7153">
+<Latitude>-41.23413169</Latitude>
+<Longitude>174.89344937</Longitude>
+</Site>
+<Site Name="R27/7154">
+<Latitude>-41.22747809</Latitude>
+<Longitude>174.87346440</Longitude>
+</Site>
+<Site Name="R27/7215">
+<Latitude>-41.22747809</Latitude>
+<Longitude>174.87346440</Longitude>
+</Site>
+<Site Name="R28/0016">
+<Latitude>-41.39009510</Latitude>
+<Longitude>175.14602454</Longitude>
+</Site>
+<Site Name="R28/0019">
+<Latitude>-41.38622545</Latitude>
+<Longitude>175.14729649</Longitude>
+</Site>
+<Site Name="Rangiuru Stream at Floodway">
+<Latitude>-40.75525828</Latitude>
+<Longitude>175.10725149</Longitude>
+</Site>
+<Site Name="Ruamahanga River at Barrage South">
+<Latitude>-41.31458711</Latitude>
+<Longitude>175.19395826</Longitude>
+</Site>
+<Site Name="Ruamahanga River at Mt Bruce">
+<Latitude>-40.75458017</Latitude>
+<Longitude>175.59803009</Longitude>
+</Site>
+<Site Name="Ruamahanga River at Te Ore Ore">
+<Latitude>-40.95283816</Latitude>
+<Longitude>175.68011378</Longitude>
+</Site>
+<Site Name="Ruamahanga River at Waihenga Bridge">
+<Latitude>-41.19685836</Latitude>
+<Longitude>175.43999678</Longitude>
+</Site>
+<Site Name="Ruamahanga River at Wardells">
+<Latitude>-41.00481677</Latitude>
+<Longitude>175.67236373</Longitude>
+</Site>
+<Site Name="S25/5258">
+<Latitude>-40.77991869</Latitude>
+<Longitude>175.15950664</Longitude>
+</Site>
+<Site Name="S25/5332">
+<Latitude>-40.74521594</Latitude>
+<Longitude>175.15786211</Longitude>
+</Site>
+<Site Name="S26/0545">
+<Latitude>-41.06178012</Latitude>
+<Longitude>175.49305466</Longitude>
+</Site>
+<Site Name="S28/0004">
+<Latitude>-41.36785830</Latitude>
+<Longitude>175.16231874</Longitude>
+</Site>
+<Site Name="S28/0005">
+<Latitude>-41.37596023</Latitude>
+<Longitude>175.16062613</Longitude>
+</Site>
+<Site Name="Tauanui River Standard (May 2016 - Jul 2017)">
+<Latitude>-41.34252309</Latitude>
+<Longitude>175.20543716</Longitude>
+</Site>
+<Site Name="Tauanui River Standard (Oct 2018)">
+<Latitude>-41.33937838</Latitude>
+<Longitude>175.20456617</Longitude>
+</Site>
+<Site Name="Tauanui River at Gorge">
+<Latitude>-41.40279286</Latitude>
+<Longitude>175.25669983</Longitude>
+</Site>
+<Site Name="Tauanui River at Sutherlands corner">
+<Latitude>-41.32716870</Latitude>
+<Longitude>175.20343745</Longitude>
+</Site>
+<Site Name="Tauanui River at Whakatomotomo Rd">
+<Latitude>-41.39831365</Latitude>
+<Longitude>175.28058743</Longitude>
+</Site>
+<Site Name="Tauanui River at adjacent to Raho Ruru Rd">
+<Latitude>-41.34077972</Latitude>
+<Longitude>175.20429077</Longitude>
+</Site>
+<Site Name="Taueru River at Castlehill">
+<Latitude>-40.75449412</Latitude>
+<Longitude>175.98867994</Longitude>
+</Site>
+<Site Name="Taueru River at Gladstone">
+<Latitude>-41.06304782</Latitude>
+<Longitude>175.66761699</Longitude>
+</Site>
+<Site Name="Taueru River at Letts Road">
+<Latitude>-40.97112271</Latitude>
+<Longitude>175.77967552</Longitude>
+</Site>
+<Site Name="Taueru River at Maringi Road">
+<Latitude>-40.80476864</Latitude>
+<Longitude>175.94885754</Longitude>
+</Site>
+<Site Name="Taueru River at Te Whiti Rd Bridge">
+<Latitude>-41.06337984</Latitude>
+<Longitude>175.66805882</Longitude>
+</Site>
+<Site Name="Taueru River at Upper Bideford Road">
+<Latitude>-40.84400458</Latitude>
+<Longitude>175.89008666</Longitude>
+</Site>
+<Site Name="Tauherenikau R Mouth at L Wairarapa">
+<Latitude>-41.17720684</Latitude>
+<Longitude>175.31565814</Longitude>
+</Site>
+<Site Name="Tauherenikau River at Websters">
+<Latitude>-41.16791526</Latitude>
+<Longitude>175.34926521</Longitude>
+</Site>
+<Site Name="Tauherenikau Seep Drn at Bartons Lagoon inlet">
+<Latitude>-41.16895575</Latitude>
+<Longitude>175.31703618</Longitude>
+</Site>
+<Site Name="Te Hapua Wetland at Jill and Joys">
+<Latitude>-40.81882784</Latitude>
+<Longitude>175.06730149</Longitude>
+</Site>
+<Site Name="Te Hapua Wetland at Pateke">
+<Latitude>-40.81713858</Latitude>
+<Longitude>175.08408530</Longitude>
+</Site>
+<Site Name="Te Hapua Wetland at Shoveler Lagoon">
+<Latitude>-40.81335125</Latitude>
+<Longitude>175.07832335</Longitude>
+</Site>
+<Site Name="Te Hopai Pump Drain IQ Trial">
+<Latitude>-41.27327821</Latitude>
+<Longitude>175.26249864</Longitude>
+</Site>
+<Site Name="Tilsons Creek at Scott Culvert">
+<Latitude>-41.09377674</Latitude>
+<Longitude>175.49245499</Longitude>
+</Site>
+<Site Name="Turanganui River at IFIM cross section 15">
+<Latitude>-41.36937985</Latitude>
+<Longitude>175.18759691</Longitude>
+</Site>
+<Site Name="Waikanae River at Greenaway Rd">
+<Latitude>-40.87694978</Latitude>
+<Longitude>175.03207168</Longitude>
+</Site>
+<Site Name="Waikanae River at Otaihanga">
+<Latitude>-40.87704228</Latitude>
+<Longitude>175.01757269</Longitude>
+</Site>
+<Site Name="Waikanae River at Water Treatment Plant">
+<Latitude>-40.88809773</Latitude>
+<Longitude>175.07274447</Longitude>
+</Site>
+<Site Name="Waikoukou Stm at Gladstone Winery">
+<Latitude>-41.06114146</Latitude>
+<Longitude>175.60572125</Longitude>
+</Site>
+<Site Name="Waingawa River at SH2">
+<Latitude>-40.96625618</Latitude>
+<Longitude>175.61117982</Longitude>
+</Site>
+<Site Name="Waingawa River at South Rd">
+<Latitude>-40.97360067</Latitude>
+<Longitude>175.62369810</Longitude>
+</Site>
+<Site Name="Wainuiomata River at Leonard Wood Park">
+<Latitude>-41.28400515</Latitude>
+<Longitude>174.94738309</Longitude>
+</Site>
+<Site Name="Wainuiomata River at Manuka Track">
+<Latitude>-41.25677265</Latitude>
+<Longitude>175.00892684</Longitude>
+</Site>
+<Site Name="Wainuioru River at Brancepeth Bridge">
+<Latitude>-41.04777429</Latitude>
+<Longitude>175.82392215</Longitude>
+</Site>
+<Site Name="Waiohine River at Herrick">
+</Site>
+<Site Name="Waipoua River at Colombo Rd Bridge">
+<Latitude>-40.95415228</Latitude>
+<Longitude>175.67356150</Longitude>
+</Site>
+<Site Name="Waipoua River at Mikimiki Bridge">
+<Latitude>-40.84517651</Latitude>
+<Longitude>175.61744894</Longitude>
+</Site>
+<Site Name="Waipoua River at QE2 Park">
+<Latitude>-40.94692106</Latitude>
+<Longitude>175.66923075</Longitude>
+</Site>
+<Site Name="Waipoua River at SH2 Bridge">
+<Latitude>-40.94575964</Latitude>
+<Longitude>175.66804359</Longitude>
+</Site>
+<Site Name="Waitohu Stream at Golf Club">
+<Latitude>-40.73988284</Latitude>
+<Longitude>175.14339554</Longitude>
+</Site>
+<Site Name="Waitohu Stream at Taylors Road Bridge">
+<Latitude>-40.74751776</Latitude>
+<Longitude>175.16000925</Longitude>
+</Site>
+<Site Name="Waitohu Stream at Water Supply Intake">
+<Latitude>-40.76666669</Latitude>
+<Longitude>175.21423898</Longitude>
+</Site>
+<Site Name="Wakamoekau at Majors">
+<Latitude>-40.86759407</Latitude>
+<Longitude>175.57510822</Longitude>
+</Site>
+<Site Name="Wellington Harbour at Baring Head Wave Buoy (North (A))">
+<Latitude>-41.41365845</Latitude>
+<Longitude>174.84876237</Longitude>
+</Site>
+<Site Name="Wellington Harbour at Baring Head Wave Buoy (North (A))-Offline">
+</Site>
+<Site Name="Wellington Harbour at Baring Head Wave Buoy (South (B))">
+<Latitude>-41.41164661</Latitude>
+<Longitude>174.84840620</Longitude>
+</Site>
+<Site Name="Wellington Harbour at Baring Head Wave Buoy (South (B))-Offline">
+</Site>
+<Site Name="Wellington Harbour at Queens Wharf">
+<Latitude>-41.28450269</Latitude>
+<Longitude>174.77982903</Longitude>
+</Site>
+<Site Name="Whakatikei River at Dude Ranch">
+<Latitude>-41.08184895</Latitude>
+<Longitude>175.03018248</Longitude>
+</Site>
+<Site Name="Whangaehu River at 250m from Confluence">
+<Latitude>-40.98514857</Latitude>
+<Longitude>175.68965933</Longitude>
+</Site>
+<Site Name="Whareama River at Gauge">
+<Latitude>-40.95994723</Latitude>
+<Longitude>176.04296485</Longitude>
+</Site>
+<Site Name="Whareroa Stream at QE Park">
+<Latitude>-40.95469066</Latitude>
+<Longitude>174.97211384</Longitude>
+</Site>
+<Site Name="__TestSite">
+<Latitude>-41.29219093</Latitude>
+<Longitude>174.77600146</Longitude>
+</Site>
+<CRC>1015</CRC>
+</HilltopServer>

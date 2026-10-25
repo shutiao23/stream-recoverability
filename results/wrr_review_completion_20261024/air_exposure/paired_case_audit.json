@@ -1,0 +1,27 @@
+{
+  "rows": [
+    {
+      "mask_seed": 0,
+      "n_paired_cases": 145684,
+      "case_mask_and_truth_match": true,
+      "fraction_actually_exposed": 0.9762636940226792,
+      "mean_daily_air_minus_water_shift": 2.300092493368366
+    },
+    {
+      "mask_seed": 1,
+      "n_paired_cases": 145693,
+      "case_mask_and_truth_match": true,
+      "fraction_actually_exposed": 0.9764436177441607,
+      "mean_daily_air_minus_water_shift": 2.304285114752978
+    },
+    {
+      "mask_seed": 2,
+      "n_paired_cases": 145752,
+      "case_mask_and_truth_match": true,
+      "fraction_actually_exposed": 0.9761855754981064,
+      "mean_daily_air_minus_water_shift": 2.297878821263448
+    }
+  ],
+  "uses_hidden_water_to_choose_exposure": false,
+  "scope": "opened-source paired stress inputs; no new-region temperatures"
+}

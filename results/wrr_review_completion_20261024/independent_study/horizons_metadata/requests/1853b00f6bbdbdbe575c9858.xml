@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangahao at Kakariki">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>180</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>137.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Rainfall&#13;&#10;RL0 =</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2731700</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.18" Min20="10.7" Min30="13.7" Hour1="20.9" Hour2="32" Hour6="60.5" Hour12="87" Day1="119" Day2="155" Day3="174" Day4="186" Day5="194">
+</Interval>
+<Interval ARI="2" Min10="7.94" Min20="11.8" Min30="15.1" Hour1="23" Hour2="35" Hour6="66.1" Hour12="94.8" Day1="130" Day2="167" Day3="188" Day4="201" Day5="210">
+</Interval>
+<Interval ARI="5" Min10="10.6" Min20="15.7" Min30="19.9" Hour1="30.2" Hour2="45.7" Hour6="85.1" Hour12="121" Day1="165" Day2="211" Day3="236" Day4="252" Day5="262">
+</Interval>
+<Interval ARI="10" Min10="12.7" Min20="18.7" Min30="23.7" Hour1="35.7" Hour2="53.7" Hour6="99.3" Hour12="141" Day1="190" Day2="243" Day3="271" Day4="288" Day5="299">
+</Interval>
+<Interval ARI="20" Min10="15" Min20="21.9" Min30="27.6" Hour1="41.4" Hour2="62.1" Hour6="114" Hour12="161" Day1="216" Day2="274" Day3="305" Day4="324" Day5="336">
+</Interval>
+<Interval ARI="30" Min10="16.4" Min20="23.9" Min30="30.1" Hour1="45" Hour2="67.2" Hour6="123" Hour12="173" Day1="232" Day2="293" Day3="326" Day4="346" Day5="358">
+</Interval>
+<Interval ARI="40" Min10="17.4" Min20="25.3" Min30="31.9" Hour1="47.6" Hour2="70.9" Hour6="129" Hour12="181" Day1="243" Day2="307" Day3="341" Day4="361" Day5="374">
+</Interval>
+<Interval ARI="50" Min10="18.2" Min20="26.5" Min30="33.3" Hour1="49.6" Hour2="73.9" Hour6="134" Hour12="188" Day1="252" Day2="317" Day3="352" Day4="373" Day5="386">
+</Interval>
+<Interval ARI="60" Min10="18.9" Min20="27.4" Min30="34.5" Hour1="51.3" Hour2="76.3" Hour6="138" Hour12="194" Day1="259" Day2="326" Day3="361" Day4="382" Day5="395">
+</Interval>
+<Interval ARI="80" Min10="20" Min20="29" Min30="36.4" Hour1="54" Hour2="80.2" Hour6="145" Hour12="203" Day1="270" Day2="340" Day3="376" Day4="397" Day5="411">
+</Interval>
+<Interval ARI="100" Min10="20.8" Min20="30.2" Min30="37.8" Hour1="56.1" Hour2="83.2" Hour6="150" Hour12="209" Day1="279" Day2="350" Day3="387" Day4="409" Day5="423">
+</Interval>
+<Interval ARI="250" Min10="24.6" Min20="35.4" Min30="44.2" Hour1="65.1" Hour2="96" Hour6="172" Hour12="238" Day1="315" Day2="393" Day3="433" Day4="456" Day5="470">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.56001056</Latitude>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>HRC-00109</LawaSiteID>
+<LawaSiteName>Mangahao at Kakariki</LawaSiteName>
+<Longitude>175.61847009</Longitude>
+<Macro>false</Macro>
+<MetNumber>D05551</MetNumber>
+<MinFlow>250</MinFlow>
+<MinFlowAt> 2-Feb-1989</MinFlowAt>
+<NZReach>7044891</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<Northing>6068500</Northing>
+<R_Rain>Mangatainoka at Hillwood Hukanui,Upper Mangahao at No.1 Dam</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325190</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>KAK</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>43</SiteID>
+<SurfaceWaterZone>Mana</SurfaceWaterZone>
+</Site>
+</HilltopServer>

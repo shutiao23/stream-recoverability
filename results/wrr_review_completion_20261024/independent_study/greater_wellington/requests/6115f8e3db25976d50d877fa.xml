@@ -1,0 +1,1401 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1975-05-30T10:45:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>1975-05-30T10:44:00</FirstRating>
+<LastRating>2024-08-26T06:00:00</LastRating>
+</Measurement>
+<Measurement Name="7-day moving mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>7-day moving mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-06-06T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+<Ratset1>5</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-06-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-06-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T22:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T22:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Pauatahanui Stream at Gorge" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1974-02-27T13:40:00</From>
+<To>2026-06-17T14:13:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-06-17T14:13:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1974-02-27T13:40:00</VMStart>
+<VMFinish>2026-06-17T14:13:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1974-02-27T13:40:00</VMStart>
+<VMFinish>2026-06-17T14:13:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-06-17T14:13:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Pauatahanui Stream at Gorge" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2017-11-10T13:55:00</From>
+<To>2026-06-17T14:13:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>10-Nov-2017 13:55:00</SurveyTime>
+<LeftOffset>0.950</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Nov-2017 14:14:00</SurveyTime>
+<LeftOffset>0.750</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Mar-2018 10:43:00</SurveyTime>
+<LeftOffset>1.050</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Apr-2018 14:40:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-May-2018 15:21:00</SurveyTime>
+<LeftOffset>7.350</LeftOffset>
+<RightOffset>12.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jul-2018 14:29:00</SurveyTime>
+<LeftOffset>0.920</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2018 14:38:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Dec-2018 13:05:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Feb-2019 12:36:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.675</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-May-2019 12:47:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Sep-2019 13:11:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2019 14:11:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Dec-2019 12:50:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>6.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jan-2020 13:26:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-May-2020 10:50:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jun-2020 15:32:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Aug-2020 14:41:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Nov-2020 12:55:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Jan-2021 13:15:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Apr-2021 13:30:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jun-2021 13:02:00</SurveyTime>
+<LeftOffset>1.250</LeftOffset>
+<RightOffset>6.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2023 13:11:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.850</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2023 13:21:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-May-2023 13:55:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jul-2023 12:58:00</SurveyTime>
+<LeftOffset>0.630</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Aug-2023 11:57:00</SurveyTime>
+<LeftOffset>3.300</LeftOffset>
+<RightOffset>9.440</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Sep-2023 13:05:00</SurveyTime>
+<LeftOffset>3.350</LeftOffset>
+<RightOffset>8.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Nov-2023 14:07:00</SurveyTime>
+<LeftOffset>3.660</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Feb-2024 13:36:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Apr-2024 12:30:00</SurveyTime>
+<LeftOffset>1.850</LeftOffset>
+<RightOffset>6.670</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Jul-2024 14:50:00</SurveyTime>
+<LeftOffset>2.070</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2024 14:34:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Nov-2024 12:26:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2025 13:58:00</SurveyTime>
+<LeftOffset>15.900</LeftOffset>
+<RightOffset>20.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-May-2025 15:31:00</SurveyTime>
+<LeftOffset>24.600</LeftOffset>
+<RightOffset>29.950</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jul-2025 14:00:00</SurveyTime>
+<LeftOffset>15.600</LeftOffset>
+<RightOffset>21.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2025 14:18:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Nov-2025 14:39:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2026 13:22:00</SurveyTime>
+<LeftOffset>0.225</LeftOffset>
+<RightOffset>5.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Apr-2026 13:03:00</SurveyTime>
+<LeftOffset>22.150</LeftOffset>
+<RightOffset>28.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-May-2026 14:03:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>6.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-May-2026 15:12:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>5.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jun-2026 14:13:00</SurveyTime>
+<LeftOffset>0.450</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Pauatahanui Stream at Gorge" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2017-11-10T13:55:00</From>
+<To>2026-06-17T14:13:00</To>
+<Sections>
+<Section>
+<SurveyTime>10-Nov-2017 13:55:00</SurveyTime>
+<LeftOffset>0.950</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Nov-2017 14:14:00</SurveyTime>
+<LeftOffset>0.750</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Mar-2018 10:43:00</SurveyTime>
+<LeftOffset>1.050</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Apr-2018 14:40:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-May-2018 15:21:00</SurveyTime>
+<LeftOffset>7.350</LeftOffset>
+<RightOffset>12.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jul-2018 14:29:00</SurveyTime>
+<LeftOffset>0.920</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2018 14:38:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Dec-2018 13:05:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Feb-2019 12:36:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.675</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-May-2019 12:47:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Sep-2019 13:11:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2019 14:11:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Dec-2019 12:50:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>6.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jan-2020 13:26:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-May-2020 10:50:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jun-2020 15:32:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Aug-2020 14:41:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Nov-2020 12:55:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Jan-2021 13:15:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Apr-2021 13:30:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jun-2021 13:02:00</SurveyTime>
+<LeftOffset>1.250</LeftOffset>
+<RightOffset>6.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2023 13:11:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.850</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2023 13:21:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-May-2023 13:55:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jul-2023 12:58:00</SurveyTime>
+<LeftOffset>0.630</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Aug-2023 11:57:00</SurveyTime>
+<LeftOffset>3.300</LeftOffset>
+<RightOffset>9.440</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Sep-2023 13:05:00</SurveyTime>
+<LeftOffset>3.350</LeftOffset>
+<RightOffset>8.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Nov-2023 14:07:00</SurveyTime>
+<LeftOffset>3.660</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Feb-2024 13:36:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Apr-2024 12:30:00</SurveyTime>
+<LeftOffset>1.850</LeftOffset>
+<RightOffset>6.670</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Jul-2024 14:50:00</SurveyTime>
+<LeftOffset>2.070</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2024 14:34:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Nov-2024 12:26:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2025 13:58:00</SurveyTime>
+<LeftOffset>15.900</LeftOffset>
+<RightOffset>20.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-May-2025 15:31:00</SurveyTime>
+<LeftOffset>24.600</LeftOffset>
+<RightOffset>29.950</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jul-2025 14:00:00</SurveyTime>
+<LeftOffset>15.600</LeftOffset>
+<RightOffset>21.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2025 14:18:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Nov-2025 14:39:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2026 13:22:00</SurveyTime>
+<LeftOffset>0.225</LeftOffset>
+<RightOffset>5.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Apr-2026 13:03:00</SurveyTime>
+<LeftOffset>22.150</LeftOffset>
+<RightOffset>28.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-May-2026 14:03:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>6.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-May-2026 15:12:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>5.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jun-2026 14:13:00</SurveyTime>
+<LeftOffset>0.450</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Voltage" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-04-24T13:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-04-25T15:15:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2013-06-12T13:45:00</From>
+<To>2025-07-02T13:25:00</To>
+<Measurement Name="Turbidity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity</RequestAs>
+<Units>FNU</Units>
+<Format>####.#</Format>
+</Measurement>
+<Measurement Name="Derived Turbidity (Falling)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Turbidity (Falling)</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1975-05-30T10:45:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Predicted Suspended Sediment Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Predicted Suspended Sediment Concentration</RequestAs>
+<Units>mg/l</Units>
+<Format>#.#########</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-06-12T13:45:00</VMStart>
+<VMFinish>2025-07-02T13:25:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Predicted Suspended Sediment Load">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Predicted Suspended Sediment Load</RequestAs>
+<Units>mg/min</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-06-12T13:45:00</VMStart>
+<VMFinish>2025-07-02T13:25:00</VMFinish>
+<Ratset1>4</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Suspended Sediment Load">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Suspended Sediment Load</RequestAs>
+<Units>kg</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-06-12T13:45:00</VMStart>
+<VMFinish>2025-07-02T13:25:00</VMFinish>
+<Ratset1>5</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Suspended Sediment Load (Incremental)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Suspended Sediment Load (Incremental)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-06-12T13:45:00</VMStart>
+<VMFinish>2025-07-02T13:25:00</VMFinish>
+<Ratset1>6</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2016-07-15T12:15:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-10-15T11:55:00</From>
+<To>2014-09-19T13:05:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-10-15T11:55:00</VMStart>
+<VMFinish>2014-09-19T13:05:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2015-05-14T13:10:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2015-05-14T13:10:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2014-07-23T09:10:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2015-05-14T13:10:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2015-05-14T13:10:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-10-15T11:55:00</From>
+<To>2014-09-19T13:05:00</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level 2" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2023-06-16T08:00:00</To>
+<Measurement Name="Stage 2">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage 2</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Suspended Sediment Concentration" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2025-06-11T21:36:00</To>
+<Measurement Name="Suspended Sediment Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Suspended Sediment Concentration</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+<Measurement Name="Turbidity (Hach)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Hach)</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Daily Compliance Flow" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2020-01-01T04:00:03</From>
+<To>2026-10-24T04:00:07</To>
+<Measurement Name="Daily Compliance Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Compliance Flow</RequestAs>
+<Units>m3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Daily Compliance Flow (l/s)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Compliance Flow (l/s)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2020-01-01T04:00:03</VMStart>
+<VMFinish>2026-10-24T04:00:07</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab - Red Light)(X)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2016-07-14T07:16:00</From>
+<To>2025-06-11T21:36:00</To>
+<Measurement Name="Turbidity (Lab - Red Light)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab - Red Light)(X)</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity Minimum (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+<Measurement Name="Turbidity Minimum (Hach)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity Minimum (Hach)</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity Mean (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+<Measurement Name="Turbidity Mean (Hach)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity Mean (Hach)</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (ClariVue)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-04-25T15:05:00</From>
+<To>2026-05-15T07:40:00</To>
+<Measurement Name="Turbidity (ClariVue)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (ClariVue)</RequestAs>
+<Units>FNU</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Pauatahanui Stream at Gorge" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-11-10T13:55:00</From>
+<To>2026-06-17T14:13:00</To>
+<TimeObjects>
+<SurveyTime>10-Nov-2017 13:55:00</SurveyTime>
+<SurveyTime>23-Nov-2017 14:14:00</SurveyTime>
+<SurveyTime>13-Mar-2018 10:43:00</SurveyTime>
+<SurveyTime>13-Apr-2018 14:40:00</SurveyTime>
+<SurveyTime> 9-May-2018 15:21:00</SurveyTime>
+<SurveyTime>26-Jul-2018 14:29:00</SurveyTime>
+<SurveyTime>12-Sep-2018 14:38:00</SurveyTime>
+<SurveyTime> 5-Dec-2018 13:05:00</SurveyTime>
+<SurveyTime>15-Feb-2019 12:36:00</SurveyTime>
+<SurveyTime> 8-May-2019 12:47:00</SurveyTime>
+<SurveyTime>19-Sep-2019 13:11:00</SurveyTime>
+<SurveyTime>29-Nov-2019 14:11:00</SurveyTime>
+<SurveyTime>23-Dec-2019 12:50:00</SurveyTime>
+<SurveyTime>14-Jan-2020 13:26:00</SurveyTime>
+<SurveyTime>14-May-2020 10:50:00</SurveyTime>
+<SurveyTime>24-Jun-2020 15:32:00</SurveyTime>
+<SurveyTime> 6-Aug-2020 14:41:00</SurveyTime>
+<SurveyTime>12-Nov-2020 12:55:00</SurveyTime>
+<SurveyTime>13-Jan-2021 13:15:00</SurveyTime>
+<SurveyTime> 8-Apr-2021 13:30:00</SurveyTime>
+<SurveyTime> 3-Jun-2021 13:02:00</SurveyTime>
+<SurveyTime>18-Jan-2023 13:11:00</SurveyTime>
+<SurveyTime> 8-Mar-2023 13:21:00</SurveyTime>
+<SurveyTime> 2-May-2023 13:55:00</SurveyTime>
+<SurveyTime>18-Jul-2023 12:58:00</SurveyTime>
+<SurveyTime> 8-Aug-2023 11:57:00</SurveyTime>
+<SurveyTime>13-Sep-2023 13:05:00</SurveyTime>
+<SurveyTime>23-Nov-2023 14:07:00</SurveyTime>
+<SurveyTime>29-Feb-2024 13:36:00</SurveyTime>
+<SurveyTime>30-Apr-2024 12:30:00</SurveyTime>
+<SurveyTime>16-Jul-2024 14:50:00</SurveyTime>
+<SurveyTime>12-Sep-2024 14:34:00</SurveyTime>
+<SurveyTime>26-Nov-2024 12:26:00</SurveyTime>
+<SurveyTime>20-Feb-2025 13:58:00</SurveyTime>
+<SurveyTime> 6-May-2025 15:31:00</SurveyTime>
+<SurveyTime> 8-Jul-2025 14:00:00</SurveyTime>
+<SurveyTime>12-Sep-2025 14:18:00</SurveyTime>
+<SurveyTime>25-Nov-2025 14:39:00</SurveyTime>
+<SurveyTime>21-Jan-2026 13:22:00</SurveyTime>
+<SurveyTime>29-Apr-2026 13:03:00</SurveyTime>
+<SurveyTime> 7-May-2026 14:03:00</SurveyTime>
+<SurveyTime>13-May-2026 15:12:00</SurveyTime>
+<SurveyTime>17-Jun-2026 14:13:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2012-08-08T11:36:00</From>
+<To>2025-06-11T21:36:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1975-05-30T10:45:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Pauatahanui Stream at Gorge" >
+<NumItems>15</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2014-10-15T13:05:00</From>
+<To>2026-06-17T14:13:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Pauatahanui Stream at Gorge" >
+<NumItems>9</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-11-10T13:55:00</From>
+<To>2024-04-30T12:30:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Pauatahanui Stream at Gorge" >
+<NumItems>4</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-11-10T13:55:00</From>
+<To>2024-04-30T12:30:00</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-04-24T13:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-04-25T15:15:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Turbidity" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2013-06-12T13:45:00</From>
+<To>2025-04-20T20:00:00</To>
+</DataSource>
+<DataSource Name="Water Level 2" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2023-06-16T08:00:00</To>
+</DataSource>
+<DataSource Name="Turbidity (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+</DataSource>
+<DataSource Name="Daily Compliance Flow" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2020-01-01T04:00:03</From>
+<To>2026-10-24T04:00:07</To>
+</DataSource>
+<DataSource Name="Turbidity Minimum (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+</DataSource>
+<DataSource Name="Turbidity Mean (Hach)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-05-08T01:00:00</To>
+</DataSource>
+<DataSource Name="Turbidity (ClariVue)" Site="Pauatahanui Stream at Gorge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-04-25T15:05:00</From>
+<To>2026-05-15T07:40:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Pauatahanui Stream at Gorge" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2017-06-13T14:50:00</From>
+<To>2026-09-02T11:50:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity" Site="Pauatahanui Stream at Gorge" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2023-11-10T12:15:00</From>
+<To>2025-04-28T15:25:00</To>
+<Measurement Name="Check Turbidity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Turbidity</RequestAs>
+<Units>NTU</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<RequestAs>Recorder Date &amp;Time [Turbidity]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Turbidity]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

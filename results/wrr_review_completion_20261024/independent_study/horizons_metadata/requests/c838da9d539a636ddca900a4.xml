@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Lake Horowhenua at Buoy">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>8.144</Altitude>
+<BARO_CLOSEST>Hokio at Lake Horowhenua</BARO_CLOSEST>
+<BARO_CLOSEST_RL>9</BARO_CLOSEST_RL>
+<BARO_REF_DIST>1128</BARO_REF_DIST>
+<BARO_RL>7</BARO_RL>
+<Catchment>Horowhenua</Catchment>
+<Comment>Purpose:&#13;&#10;Lake Monitoring&#13;&#10;SOE Monitoring Bouy</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2700280</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<GeomorphicLType>Aeolian</GeomorphicLType>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LFENZID>4345</LFENZID>
+<LType>Polymictic</LType>
+<LWQuality>true</LWQuality>
+<LWQualityStart>17-Jul-2013</LWQualityStart>
+<Latitude>-40.61070074</Latitude>
+<LawaSiteID>HRC-00333</LawaSiteID>
+<LawaSiteName>Lake Horowhenua at Buoy</LawaSiteName>
+<Longitude>175.24901185</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReach>7046037</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<Northing>6063739</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>HOR</SecondSynonym>
+<ShortName>Hor-0305</ShortName>
+<SiteID>13179</SiteID>
+<SurfaceWaterZone>Hoki_1</SurfaceWaterZone>
+<eQualCode>Hor-0305</eQualCode>
+</Site>
+</HilltopServer>

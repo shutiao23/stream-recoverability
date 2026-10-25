@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Ohau at Haines Ford">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>14</Altitude>
+<BARO_CLOSEST>Hokio at Lake Horowhenua</BARO_CLOSEST>
+<BARO_CLOSEST_RL>9</BARO_CLOSEST_RL>
+<BARO_REF_DIST>7317</BARO_REF_DIST>
+<BARO_RL>14</BARO_RL>
+<Catchment>Ohau</Catchment>
+<CatchmentArea>154.1</CatchmentArea>
+<Comment>Purpose: &#13;&#10;Histroically Named: Ohau at d/s Muhunoa Village&#13;&#10;SOE Site: Ohau at Haines Property</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2695765</Easting>
+<FirstSynonym>Ohau at d/s Muhunoa Village</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.51" Min20="9.83" Min30="11.5" Hour1="15.2" Hour2="20.1" Hour6="30.9" Hour12="39.8" Day1="50.5" Day2="62.7" Day3="70.3" Day4="75.8" Day5="80.1">
+</Interval>
+<Interval ARI="2" Min10="8.24" Min20="10.8" Min30="12.6" Hour1="16.7" Hour2="22" Hour6="33.6" Hour12="43.3" Day1="54.8" Day2="67.9" Day3="76.1" Day4="82" Day5="86.6">
+</Interval>
+<Interval ARI="5" Min10="10.8" Min20="14.1" Min30="16.5" Hour1="21.6" Hour2="28.3" Hour6="43" Hour12="55.1" Day1="69.5" Day2="85.6" Day3="95.7" Day4="103" Day5="108">
+</Interval>
+<Interval ARI="10" Min10="12.8" Min20="16.6" Min30="19.4" Hour1="25.4" Hour2="33.1" Hour6="50" Hour12="63.9" Day1="80.2" Day2="98.6" Day3="110" Day4="118" Day5="124">
+</Interval>
+<Interval ARI="20" Min10="14.9" Min20="19.3" Min30="22.5" Hour1="29.3" Hour2="38.1" Hour6="57.3" Hour12="72.9" Day1="91.3" Day2="112" Day3="124" Day4="133" Day5="140">
+</Interval>
+<Interval ARI="30" Min10="16.2" Min20="20.9" Min30="24.3" Hour1="31.7" Hour2="41.2" Hour6="61.6" Hour12="78.4" Day1="97.9" Day2="120" Day3="133" Day4="143" Day5="150">
+</Interval>
+<Interval ARI="40" Min10="17.2" Min20="22.1" Min30="25.7" Hour1="33.4" Hour2="43.4" Hour6="64.8" Hour12="82.3" Day1="103" Day2="125" Day3="139" Day4="149" Day5="157">
+</Interval>
+<Interval ARI="50" Min10="17.9" Min20="23.1" Min30="26.8" Hour1="34.8" Hour2="45.1" Hour6="67.3" Hour12="85.4" Day1="106" Day2="130" Day3="144" Day4="154" Day5="162">
+</Interval>
+<Interval ARI="60" Min10="18.5" Min20="23.8" Min30="27.7" Hour1="35.9" Hour2="46.6" Hour6="69.4" Hour12="87.9" Day1="109" Day2="133" Day3="148" Day4="158" Day5="166">
+</Interval>
+<Interval ARI="80" Min10="19.6" Min20="25.1" Min30="29.2" Hour1="37.8" Hour2="48.9" Hour6="72.7" Hour12="91.9" Day1="114" Day2="139" Day3="154" Day4="165" Day5="173">
+</Interval>
+<Interval ARI="100" Min10="20.4" Min20="26.1" Min30="30.3" Hour1="39.2" Hour2="50.7" Hour6="75.2" Hour12="95.1" Day1="118" Day2="144" Day3="159" Day4="170" Day5="179">
+</Interval>
+<Interval ARI="250" Min10="23.7" Min20="30.3" Min30="35.1" Hour1="45.2" Hour2="58.3" Hour6="85.9" Hour12="108" Day1="134" Day2="162" Day3="179" Day4="191" Day5="200">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.66429898</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00031</LawaSiteID>
+<LawaSiteName>Ohau at Haines Ford</LawaSiteName>
+<Longitude>175.19739923</Longitude>
+<Macro>false</Macro>
+<MaxFlow>151295</MaxFlow>
+<MaxFlowAt> 9-Dec-2024</MaxFlowAt>
+<MeanFlow>7224</MeanFlow>
+<MedianFlow>4124</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>265</MinFlow>
+<MinFlowAt>26-Dec-2017</MinFlowAt>
+<NZReach>7047460</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7247544</NZSegment>
+<Northing>6057900</Northing>
+<R_Rain>Ohau at Makahika,Arawhata Drain at Kane Farm,Upper Mangahao at No.1 Dam</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>321000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>OHF</SecondSynonym>
+<ShortName>Hor-0519</ShortName>
+<SiteID>9884</SiteID>
+<SurfaceWaterZone>Ohau_1</SurfaceWaterZone>
+</Site>
+</HilltopServer>

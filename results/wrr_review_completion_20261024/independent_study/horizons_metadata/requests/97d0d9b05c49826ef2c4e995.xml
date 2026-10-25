@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangatainoka at Larsons Road">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>256</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>57.3</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;Water Allocation (Mana_8a)&#13;&#10;SOE Water Quality: Water Temperature</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2730800</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>WRFWCDWQ</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.64036613</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00022</LawaSiteID>
+<LawaSiteName>Mangatainoka at Larsons Road</LawaSiteName>
+<Longitude>175.61096470</Longitude>
+<MALF7Day>431</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 2-Jan-2013</MacroStart>
+<MaxFlow>273571</MaxFlow>
+<MaxFlowAt>12-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>189850</MeanAnnualFloodFlow>
+<MeanFlow>5101</MeanFlow>
+<MedianFlow>2093</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>191</MinFlow>
+<MinFlowAt> 5-Mar-2015</MinFlowAt>
+<NZReach>7046821</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7246861</NZSegment>
+<Northing>6059600</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325201</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Native</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>LAR</SecondSynonym>
+<ShortName>Hor-0311</ShortName>
+<SiteID>202</SiteID>
+<StatsPeriod>1/7/1984-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_8</SurfaceWaterZone>
+<eQualCode>Hor-0013</eQualCode>
+</Site>
+</HilltopServer>

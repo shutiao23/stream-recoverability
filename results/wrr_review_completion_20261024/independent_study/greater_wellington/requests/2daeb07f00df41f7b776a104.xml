@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Dissolved Oxygen" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Dissolved Oxygen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-25T15:10:25</VMStart>
+<VMFinish>2024-03-25T10:45:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Temperature (X)" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Temperature (X)</RequestAs>
+<Units>Deg C</Units>
+<Format>###.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Turanganui River at IFIM cross section 15" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-25T15:10:25</From>
+<To>2024-03-25T10:45:00</To>
+</DataSource>
+</HilltopServer>

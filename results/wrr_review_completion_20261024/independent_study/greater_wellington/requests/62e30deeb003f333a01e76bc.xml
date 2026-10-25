@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Pakuratahi River at Truss Bridge">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>37.2</CatchmentArea>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1783807</Easting>
+<FirstSynonym>Pakuratahi River at Truss Bridge</FirstSynonym>
+<FloodFlow10>127</FloodFlow10>
+<FloodFlow100>176</FloodFlow100>
+<FloodFlow20>142</FloodFlow20>
+<FloodFlow200>191</FloodFlow200>
+<FloodFlow5>112</FloodFlow5>
+<FloodFlow50>162</FloodFlow50>
+<FlowWebVeryHigh>22.37</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.12413612</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<Longitude>175.18957731</Longitude>
+<LowFlow100yr14Day>0.123</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.102</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.128</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.116</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.17</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.139</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.202</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.156</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.152</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.125</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.174</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.141</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.134</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.111</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.146</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.125</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.194</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.159</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.241</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.176</LowFlow5yr7Day>
+<MALF14Day>0.27</MALF14Day>
+<MALF1Day>0.218</MALF1Day>
+<MALF28Day>0.37</MALF28Day>
+<MALF7Day>0.24</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>148</MaxFlow>
+<MaxFlowAt>20-Jun-2024</MaxFlowAt>
+<MeanAnnualFloodFlow>91</MeanAnnualFloodFlow>
+<MeanFlow>2.077</MeanFlow>
+<MedianFlow>0.885</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.084</MinFlow>
+<MinFlowAt> 2-Feb-2022</MinFlowAt>
+<Northing>5445152</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Pakuratahi River</RiverName>
+<RiverNumber>298550</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Pakuratahi</ShortName>
+<SiteID>1084</SiteID>
+<TemporaryWebsiteComment>This site has recently been telemetered, however communications can be a little unreliable.</TemporaryWebsiteComment>
+<WebComment>This site is located approximately 10 kms upstream from the confluence of the Hutt and Pakuratahi rivers and along the Rimutaka Rail Trail. It has been in operation since May 1978 </WebComment>
+</Site>
+</HilltopServer>

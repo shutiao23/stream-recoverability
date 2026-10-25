@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Raparapawai at Jackson Rd">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>119</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>42.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_5e)&#13;&#10;RL 0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2764500</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7" Min20="9.4" Min30="11.2" Hour1="15.2" Hour2="20.5" Hour6="32.8" Hour12="44.2" Day1="59.6" Day2="74.3" Day3="84.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="7.7" Min20="10.4" Min30="12.4" Hour1="16.8" Hour2="22.5" Hour6="35.7" Hour12="47.8" Day1="64" Day2="79.7" Day3="90.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="10.5" Min20="14.3" Min30="17" Hour1="23" Hour2="30.2" Hour6="46.3" Hour12="60.7" Day1="79.5" Day2="99.1" Day3="112.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="13" Min20="17.6" Min30="21" Hour1="28.4" Hour2="36.7" Hour6="55" Hour12="71" Day1="91.8" Day2="114.4" Day3="130.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.8" Min20="21.4" Min30="25.6" Hour1="34.6" Hour2="44.2" Hour6="64.8" Hour12="82.7" Day1="105.3" Day2="131.3" Day3="149.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="17.8" Min20="24" Min30="28.7" Hour1="38.9" Hour2="49.1" Hour6="71.3" Hour12="90.2" Day1="114" Day2="142.1" Day3="161.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="19.3" Min20="26.1" Min30="31.1" Hour1="42.1" Hour2="53" Hour6="76.2" Hour12="95.9" Day1="120.6" Day2="150.3" Day3="170.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="20.5" Min20="27.7" Min30="33.1" Hour1="44.9" Hour2="56.2" Hour6="80.3" Hour12="100.5" Day1="125.9" Day2="156.9" Day3="178.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="21.6" Min20="29.2" Min30="34.9" Hour1="47.2" Hour2="58.9" Hour6="83.7" Hour12="104.5" Day1="130.4" Day2="162.5" Day3="184.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="23.4" Min20="31.6" Min30="37.8" Hour1="51.1" Hour2="63.5" Hour6="89.5" Hour12="111.1" Day1="137.9" Day2="171.8" Day3="195.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="24.9" Min20="33.7" Min30="40.2" Hour1="54.4" Hour2="67.3" Hour6="94.2" Hour12="116.4" Day1="143.9" Day2="179.4" Day3="204" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.32287672</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00047</LawaSiteID>
+<LawaSiteName>Raparapawai at Jackson Rd</LawaSiteName>
+<Longitude>175.99540424</Longitude>
+<MALF7Day>54</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jan-2012</MacroStart>
+<MaxFlow>153656</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>40951</MeanAnnualFloodFlow>
+<MeanFlow>1102</MeanFlow>
+<MedianFlow>631</MedianFlow>
+<MetNumber>D05394</MetNumber>
+<MinFlow>9</MinFlow>
+<MinFlowAt>26-Feb-2005</MinFlowAt>
+<NZReach>7038868</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7237817</NZSegment>
+<Northing>6093800</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325230</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>JAC</SecondSynonym>
+<ShortName>Hor-0009</ShortName>
+<SiteID>2078</SiteID>
+<StatsPeriod>1/7/2003-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_5</SurfaceWaterZone>
+<eQualCode>Hor-0009</eQualCode>
+</Site>
+</HilltopServer>

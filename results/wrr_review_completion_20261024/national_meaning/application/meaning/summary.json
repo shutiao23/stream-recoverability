@@ -1,0 +1,66 @@
+{
+  "complete": false,
+  "eligibility_lower_counts": {
+    "MaySep90_15": 522,
+    "annual75_15": 525,
+    "annual90_15": 462,
+    "complete15": 100,
+    "retained_MOVE1": 521,
+    "retained_bound_projected": 521,
+    "retained_individual": 496,
+    "retained_raw": 521,
+    "retained_stochastic": 519
+  },
+  "eligibility_upper_counts_allowing_unresolved": {
+    "MaySep90_15": 862,
+    "annual75_15": 865,
+    "annual90_15": 802,
+    "complete15": 440,
+    "retained_MOVE1": 861,
+    "retained_bound_projected": 861,
+    "retained_individual": 836,
+    "retained_raw": 861,
+    "retained_stochastic": 859
+  },
+  "execution_complete_on_retrieved_panel": true,
+  "hot_year_reference": {
+    "geographic_grid_degrees": 1.0,
+    "geographic_measure": "occupied latitude-longitude cells and HUC2 station counts, not drainage area or all-US-river coverage",
+    "hot_year_interpretation": "descriptive frequencies on each rule's available annual values; incomplete-year classifications are model/statistic dependent, not verified natural-gap events",
+    "hot_year_minimum_complete_reference_years": 5,
+    "hot_year_periods": {
+      "all": [
+        1981,
+        2025
+      ],
+      "recent": [
+        2011,
+        2025
+      ],
+      "reference": [
+        1981,
+        2010
+      ]
+    },
+    "hot_year_reference": "same approved complete-year reference threshold for all methods at a station; no estimated values in threshold fitting",
+    "hot_year_reference_quantile": 0.9,
+    "hot_year_reference_years": [
+      1981,
+      2010
+    ],
+    "role": "exploratory national source analysis; fixed before full country summaries, not a public registration"
+  },
+  "intervals": "basin block bootstrap for network stability and separate conditional imputation sensitivity. Exchangeability, temporal and observation-quality assumptions remain unverified; no empirical coverage can be measured on real missing years.",
+  "n_catalog_sites": 4285,
+  "n_metadata_candidates": 1273,
+  "n_numeric_processed_sites": 933,
+  "n_stations_with_hot_year_reference": 198,
+  "new_NZ_temperature_values_requested": false,
+  "observed_record_station_years": 70,
+  "observed_record_stations": 43,
+  "partial": true,
+  "scientific_scope": "descriptive retrieved-monitoring-network sensitivity on a metadata-fixed national USGS frame; not all US rivers, a blind transfer test or verified natural-gap trend accuracy",
+  "source_annual_weights_retrained": false,
+  "spatial_measure": "occupied1degree station cells andHUC2counts,notdrainagearea; unresolved eligibility givesexplicitupperbounds",
+  "unresolved_or_no_annual_record_candidates": 340
+}

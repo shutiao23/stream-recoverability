@@ -1,0 +1,1035 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<DataSource Name="Water Level" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:55:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>2021-02-13T00:00:00</FirstRating>
+<LastRating>2026-08-28T00:00:00</LastRating>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>1</Item>
+<RequestAs>Mean Velocity [Water Level]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/s</Units>
+<Format>##.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<Ratset1>1</Ratset1>
+<Ratset2>2</Ratset2>
+<FirstRating>1974-10-01T00:00:00</FirstRating>
+<LastRating>1974-10-01T00:00:00</LastRating>
+</Measurement>
+<Measurement Name="Return Periods">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Return Periods</RequestAs>
+<Units>ARI (Years)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<Ratset1>1</Ratset1>
+<Ratset2>4</Ratset2>
+<FirstRating>1942-01-02T00:00:00</FirstRating>
+<LastRating>1942-01-02T00:00:00</LastRating>
+</Measurement>
+<Measurement Name="Flow Distribution Percentile">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Distribution Percentile</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<Ratset1>1</Ratset1>
+<Ratset2>5</Ratset2>
+<FirstRating>1900-01-01T12:00:00</FirstRating>
+<LastRating>1900-01-01T12:00:00</LastRating>
+</Measurement>
+<Measurement Name="Monthly Flow Deviation (monthly median)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Monthly Flow Deviation (monthly median)</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Low Flow ARI (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Low Flow ARI (1 Day)</RequestAs>
+<Units>ARI</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T12:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+<Ratset1>5</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Volume (Moving 40 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 40 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-02-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Oneplan-MinQ">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Oneplan-MinQ</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Volume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Volume</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Linear Specific Yield">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Linear Specific Yield</RequestAs>
+<Units>(l/s)/Km2</Units>
+<Format>###.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Hour)</RequestAs>
+<Units>l/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>$$$</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow (Daily Rate of Change)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (Daily Rate of Change)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T12:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Stage</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Water Level)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Water Level)</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T06:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Days</RequestAs>
+<Units>1 = in restriction</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 100 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 100 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-04-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 200 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 200 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-07-19T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 365 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 365 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-12-31T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 400 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 400 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-02-04T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 730 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 730 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-12-31T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow MovingAvg (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow MovingAvg (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T12:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Hour)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:30</VMStart>
+<VMFinish>2026-10-24T12:00:30</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Month)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Month)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-02-01T00:00:00</VMStart>
+<VMFinish>2026-10-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Min (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Min (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Gap Accurals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gap Accurals</RequestAs>
+<Divisor>60</Divisor>
+<Units>Minutes</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed">
+<Item>1</Item>
+<RequestAs>PLBed [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Rating Tools</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Percentile Bin">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Percentile Bin</RequestAs>
+<Units>% (%Bin)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (MSL)">
+<Item>1</Item>
+<RequestAs>Water Level (MSL) [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (NZVD2016)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (NZVD2016)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Volume">
+<Item>1</Item>
+<RequestAs>Annual Volume [Water Level]</RequestAs>
+<Units>m3/1000</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Accrual Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Accrual Days</RequestAs>
+<Units>Days</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage - ESG Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage - ESG Deviation</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-16T12:54:35</VMStart>
+<VMFinish>2026-10-13T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed (%) Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>PLBed (%) Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-16T12:54:35</VMStart>
+<VMFinish>2026-10-13T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage Max (1Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage Max (1Day)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="IVR Stage State">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>IVR Stage State</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:30:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-10-01T06:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="VM Voltage (Missing Record)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Voltage (Missing Record)</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-10-01T06:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:45:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>###.##</Format>
+</Measurement>
+<Measurement Name="WT Deviation Moving Average">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WT Deviation Moving Average</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-16T12:54:49</VMStart>
+<VMFinish>2026-10-13T12:48:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Min">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Min</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Mean">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Mean</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Daily Max">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Daily Max</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Temperature Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature Deviation</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-16T12:54:49</VMStart>
+<VMFinish>2026-10-13T12:48:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Soil Temperature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:45:00</To>
+<Measurement Name="Soil Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Temperature</RequestAs>
+<Units>&#176;</Units>
+<Format>####.#</Format>
+<MeasurementGroup>Soil Moisture</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Soil Moisture" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:45:00</To>
+<Measurement Name="Soil Moisture">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Moisture</RequestAs>
+<Units>%</Units>
+<Format>###.##</Format>
+<MeasurementGroup>Soil Moisture</MeasurementGroup>
+</Measurement>
+<Measurement Name="Soil Moisture (Temp Corrected)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Moisture (Temp Corrected)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Soil Moisture</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Soil Moisture (Period)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Moisture (Period)</RequestAs>
+<Units>uSec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Soil Moisture</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:45:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="SCADA Rainfall (backup)" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType DataTypeInterval="6.00 Minutes">Rain6</DataType>
+<Interpolation>Incremental</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T07:28:16</From>
+<To>2026-10-16T16:20:07</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Rainfall (backup)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall (backup)</RequestAs>
+<Divisor>1000</Divisor>
+<Units>mm</Units>
+<Format>####.#</Format>
+</Measurement>
+<Measurement Name="Runoff (backup)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Runoff (backup)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T08:58:16</VMStart>
+<VMFinish>2026-10-16T16:20:07</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Signature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Signature</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+<Measurement Name="Campbell Software Version">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Campbell Software Version</RequestAs>
+<Units>Version</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:55:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: SD">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: SD</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="WL (-) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (-) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+<Measurement Name="WL (+) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (+) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:55:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:55:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: Point Sample</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:35:00</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-10-01T06:00:00</From>
+<To>2026-10-21T06:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Soil Temperature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Soil Moisture" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="SCADA Rainfall (backup)" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType DataTypeInterval="6.00 Minutes">Rain6</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T07:28:16</From>
+<To>2026-10-16T16:20:07</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Campbell Signature" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Campbell Software Version" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:00:00</To>
+<SensorGroup>Logger Status</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:35:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Mangahao at Ballance" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:35:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level" Site="Mangahao at Ballance" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2024-01-16T12:54:35</From>
+<To>2026-10-13T12:45:00</To>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2024-01-16T12:54:49</From>
+<To>2026-10-13T12:48:00</To>
+<Measurement Name="Water Temperature Check">
+<Item>1</Item>
+<RequestAs>Water Temperature Check [Water Temperature]</RequestAs>
+<Format>$$$</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2023-09-26T13:03:00</From>
+<To>2024-03-12T12:56:04</To>
+<Measurement Name="Check Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>####.#</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Atmospheric Pressure]</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Atmospheric Pressure]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2023-09-26T13:03:00</From>
+<To>2024-03-12T12:56:04</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO saturation check">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO saturation check</RequestAs>
+<Units>%</Units>
+<Format>####.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="SCADA Rainfall" Site="Mangahao at Ballance" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType DataTypeInterval="6.00 Minutes">Rain6</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2022-06-14T13:22:00</From>
+<To>2026-10-01T11:56:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Check Gauge Total">
+<Item>1</Item>
+<RequestAs>Check Gauge Total [SCADA Rainfall]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>mm</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [SCADA Rainfall]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Total">
+<Item>3</Item>
+<RequestAs>Recorder Total [SCADA Rainfall]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [SCADA Rainfall]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Mangahao at Ballance" >
+<NumItems>5</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2022-01-12T13:30:03</From>
+<To>2026-10-13T12:45:00</To>
+<SensorGroup>NRT Stage</SensorGroup>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="ESG Error">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>ESG Error</RequestAs>
+<Units>mm (+/-)</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Mangahao at Ballance" >
+<NumItems>4</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-16T12:54:35</From>
+<To>2025-10-21T11:30:15</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-16T12:54:49</From>
+<To>2025-10-21T11:30:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-09-26T13:03:00</From>
+<To>2024-03-12T12:56:04</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Mangahao at Ballance" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-09-26T13:03:00</From>
+<To>2024-03-12T12:56:04</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="SCADA Rainfall" Site="Mangahao at Ballance" >
+<NumItems>4</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType DataTypeInterval="6.00 Minutes">Rain6</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-06-14T13:22:00</From>
+<To>2023-03-14T13:23:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Mangahao at Ballance" >
+<NumItems>5</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-12T13:30:03</From>
+<To>2025-10-21T11:30:15</To>
+<SensorGroup>NRT Stage</SensorGroup>
+</DataSource>
+</HilltopServer>

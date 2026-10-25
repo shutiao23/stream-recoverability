@@ -1,0 +1,84 @@
+{
+  "completion": "qualification and minimum-sample calculation complete; independent natural-gap validation unavailable",
+  "evidence": {
+    "results/wrr_submission_ready/followup_20261021/natural_backup/qualification_summary.json": {
+      "actual_masks_not_synthetic": true,
+      "n_distinct_primary_years": 0,
+      "n_pair_year_candidates": 180,
+      "n_qualified_pair_years": 0,
+      "provider_certified_daily_mean_claim": false,
+      "reasons": {
+        "annual_boundary_outside_verified_primary_support": 151,
+        "backup_does_not_cover_every_actual_missing_day": 11,
+        "fewer_than_three_complete_prior_primary_years": 3,
+        "primary_year_already_complete": 14,
+        "sensor_records_not_comparable_under_prespecified_QC": 1
+      },
+      "recovery_errors_used_for_selection": false
+    },
+    "results/wrr_submission_ready/followup_20261021/natural_backup/short_history/gap_sampling_audit.csv": [
+      {
+        "distinct_hours": 19,
+        "finite_gross_screened_rows": 19,
+        "kind": "partial_or_unqualified_daily_sampling",
+        "missing_qualified_day": "2022-12-11",
+        "primary_serial": 21031926,
+        "raw_rows": 19,
+        "river": "Exploits_River",
+        "station": "Exploits River 5",
+        "year": 2022
+      },
+      {
+        "distinct_hours": 16,
+        "finite_gross_screened_rows": 16,
+        "kind": "partial_or_unqualified_daily_sampling",
+        "missing_qualified_day": "2022-12-12",
+        "primary_serial": 21031926,
+        "raw_rows": 16,
+        "river": "Exploits_River",
+        "station": "Exploits River 5",
+        "year": 2022
+      },
+      {
+        "distinct_hours": 13,
+        "finite_gross_screened_rows": 13,
+        "kind": "partial_or_unqualified_daily_sampling",
+        "missing_qualified_day": "2022-12-20",
+        "primary_serial": 21031926,
+        "raw_rows": 13,
+        "river": "Exploits_River",
+        "station": "Exploits River 5",
+        "year": 2022
+      },
+      {
+        "distinct_hours": 8,
+        "finite_gross_screened_rows": 8,
+        "kind": "partial_or_unqualified_daily_sampling",
+        "missing_qualified_day": "2024-02-14",
+        "primary_serial": 21098645,
+        "raw_rows": 8,
+        "river": "Salmon_Cove_River_Trinity_Bay",
+        "station": "Salmon Cove River, Trinity Bay 1",
+        "year": 2024
+      }
+    ],
+    "results/wrr_submission_ready/followup_20261021/public_backup_search/usgs_qualification_summary.json": {
+      "available_pair_years_evaluated": 3,
+      "backup_native_approved_observations": 0,
+      "candidate_pair_years": 3,
+      "candidate_sites": 2,
+      "independently_verified_natural_gap_confirmations": 0,
+      "left_edge_caveat": "First acquired local day may be a partial UTC day. Complete prior years are a verified lower bound within the acquired window, not a claim that earlier provider years were incomplete.",
+      "no_recovery_outcomes_opened_or_used_for_selection": true,
+      "pending_pair_years_not_evaluated": 0,
+      "physical_sensor_hardware_and_exact_position_unverified": true,
+      "provisional_backup_data_are_not_approved_reference_truth": true,
+      "provisional_data_are_not_missing_data": true,
+      "record_reference_eligible_pair_years": 0,
+      "reference_daily_definition": "project UTC daily aggregation from each native timestamp and explicit UTC offset; not provider-certified daily means"
+    }
+  },
+  "interpretation": "No qualified natural outage with sufficient history and accurate independent peak-window reference established by the opened public search. Existing short-history winter pairs are exploratory and do not close the H30 claim.",
+  "minimum_reference": "paired-bias correction estimated on a separate overlap period; uncertainty in the reference propagated; effective independent outages, not daily n",
+  "triple_collocation": "Not identified from only paired logger data. Air and donor residual correlation must be measured on common complete days before assuming uncorrelated errors; no triple-collocation H30 accuracy claim is made."
+}

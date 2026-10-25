@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Owahanga at Owahanga Station">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>20</Altitude>
+<BARO_CLOSEST>Mangatainoka at Pahiatua Town Bridge</BARO_CLOSEST>
+<BARO_CLOSEST_RL>104</BARO_CLOSEST_RL>
+<BARO_REF_DIST>11650</BARO_REF_DIST>
+<BARO_RL>15</BARO_RL>
+<Catchment>Owahanga</Catchment>
+<CatchmentArea>341.2</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;Water Allocation (Owha_1)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;HOPCRN: Rainfall&#13;&#10;SOE Water Quality: Water TemperatureRL&#13;&#10;RL 0 =&#13;&#10;Consent monitoring: SM/ST&#13;&#10;Rain Gauge: 2789829 6058379 (NZMG)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2789978</Easting>
+<FirstSynonym>Aohanga at Owahanga Station</FirstSynonym>
+<GISTag>WRFWCDWQRF</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.32" Min20="7.29" Min30="8.93" Hour1="12.9" Hour2="19" Hour6="35.2" Hour12="51" Day1="71.8" Day2="96.9" Day3="113" Day4="124" Day5="132">
+</Interval>
+<Interval ARI="2" Min10="5.99" Min20="8.18" Min30="10" Hour1="14.4" Hour2="21.1" Hour6="38.9" Hour12="56.2" Day1="78.8" Day2="106" Day3="123" Day4="135" Day5="144">
+</Interval>
+<Interval ARI="5" Min10="8.49" Min20="11.5" Min30="13.9" Hour1="19.8" Hour2="28.8" Hour6="52.1" Hour12="74.4" Day1="103" Day2="137" Day3="158" Day4="173" Day5="183">
+</Interval>
+<Interval ARI="10" Min10="10.5" Min20="14.1" Min30="17.1" Hour1="24.2" Hour2="34.8" Hour6="62.2" Hour12="88.1" Day1="121" Day2="160" Day3="184" Day4="200" Day5="212">
+</Interval>
+<Interval ARI="20" Min10="12.8" Min20="17" Min30="20.5" Hour1="28.8" Hour2="41.2" Hour6="72.9" Hour12="103" Day1="140" Day2="184" Day3="210" Day4="228" Day5="241">
+</Interval>
+<Interval ARI="30" Min10="14.3" Min20="18.9" Min30="22.7" Hour1="31.8" Hour2="45.2" Hour6="79.5" Hour12="111" Day1="152" Day2="198" Day3="226" Day4="245" Day5="258">
+</Interval>
+<Interval ARI="40" Min10="15.4" Min20="20.3" Min30="24.3" Hour1="33.9" Hour2="48.2" Hour6="84.2" Hour12="118" Day1="160" Day2="208" Day3="237" Day4="256" Day5="270">
+</Interval>
+<Interval ARI="50" Min10="16.2" Min20="21.4" Min30="25.6" Hour1="35.7" Hour2="50.5" Hour6="88" Hour12="123" Day1="166" Day2="216" Day3="246" Day4="266" Day5="280">
+</Interval>
+<Interval ARI="60" Min10="17" Min20="22.3" Min30="26.7" Hour1="37.1" Hour2="52.5" Hour6="91.2" Hour12="127" Day1="172" Day2="223" Day3="253" Day4="273" Day5="288">
+</Interval>
+<Interval ARI="80" Min10="18.2" Min20="23.8" Min30="28.5" Hour1="39.5" Hour2="55.6" Hour6="96.2" Hour12="134" Day1="180" Day2="233" Day3="264" Day4="285" Day5="300">
+</Interval>
+<Interval ARI="100" Min10="19.1" Min20="25.1" Min30="29.9" Hour1="41.3" Hour2="58.1" Hour6="100" Hour12="139" Day1="187" Day2="241" Day3="273" Day4="294" Day5="309">
+</Interval>
+<Interval ARI="250" Min10="23.4" Min20="30.4" Min30="36" Hour1="49.3" Hour2="68.8" Hour6="117" Hour12="160" Day1="214" Day2="274" Day3="308" Day4="331" Day5="347">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.63381569</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>LAWA-103992</LawaSiteID>
+<LawaSiteName>Owahanga at Owahanga Station</LawaSiteName>
+<Longitude>176.31059789</Longitude>
+<Macro>false</Macro>
+<MaxFlow>970811</MaxFlow>
+<MaxFlowAt>14-Feb-2023</MaxFlowAt>
+<MetNumber>D06634</MetNumber>
+<MinFlow>0</MinFlow>
+<MinFlowAt>24-Feb-2003</MinFlowAt>
+<NZReach>7047138</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7247393</NZSegment>
+<Northing>6058339</Northing>
+<R_Rain>Pongaroa at Town,Akitio at Cadmus Bridge,</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>251000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>OOS</SecondSynonym>
+<ShortName>Hor-0552</ShortName>
+<SiteID>17897</SiteID>
+<SurfaceWaterZone>Owha_1</SurfaceWaterZone>
+</Site>
+</HilltopServer>

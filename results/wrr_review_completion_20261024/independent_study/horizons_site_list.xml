@@ -1,0 +1,3180 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Version>2512.1.2.89</Version>
+<Projection>NZMG</Projection>
+<Site Name="209005">
+<Easting>2679466</Easting><Northing>6141931</Northing>
+</Site>
+<Site Name="209017">
+<Easting>2678700</Easting><Northing>6142300</Northing>
+</Site>
+<Site Name="301011">
+<Easting>2693633</Easting><Northing>6124189</Northing>
+</Site>
+<Site Name="301019">
+<Easting>2695637</Easting><Northing>6123915</Northing>
+</Site>
+<Site Name="301029">
+</Site>
+<Site Name="301045">
+<Easting>2693585</Easting><Northing>6124200</Northing>
+</Site>
+<Site Name="302003">
+<Easting>2699400</Easting><Northing>6124000</Northing>
+</Site>
+<Site Name="302009">
+<Easting>2704165</Easting><Northing>6130340</Northing>
+</Site>
+<Site Name="302026">
+<Easting>2705347</Easting><Northing>6125533</Northing>
+</Site>
+<Site Name="303017">
+<Easting>2709769</Easting><Northing>6127646</Northing>
+</Site>
+<Site Name="304019">
+<Easting>2720849</Easting><Northing>6124635</Northing>
+</Site>
+<Site Name="306003">
+<Easting>2732895</Easting><Northing>6122101</Northing>
+</Site>
+<Site Name="306007">
+<Easting>2734971</Easting><Northing>6123805</Northing>
+</Site>
+<Site Name="312001">
+<Easting>2703800</Easting><Northing>6110700</Northing>
+</Site>
+<Site Name="312004">
+<Easting>2698300</Easting><Northing>6118600</Northing>
+</Site>
+<Site Name="312006">
+<Easting>2701627</Easting><Northing>6116741</Northing>
+</Site>
+<Site Name="312007">
+<Easting>2700100</Easting><Northing>6115700</Northing>
+</Site>
+<Site Name="312009">
+<Easting>2705100</Easting><Northing>6117300</Northing>
+</Site>
+<Site Name="312012">
+</Site>
+<Site Name="312015">
+<Easting>2705200</Easting><Northing>6117200</Northing>
+</Site>
+<Site Name="312035">
+<Easting>2699533</Easting><Northing>6117471</Northing>
+</Site>
+<Site Name="312038">
+</Site>
+<Site Name="312045">
+<Easting>2699749</Easting><Northing>6110098</Northing>
+</Site>
+<Site Name="312046">
+<Easting>2701622</Easting><Northing>6116740</Northing>
+</Site>
+<Site Name="313001">
+<Easting>2708200</Easting><Northing>6109600</Northing>
+</Site>
+<Site Name="313013">
+<Easting>2707200</Easting><Northing>6112800</Northing>
+</Site>
+<Site Name="313053">
+<Easting>2707292</Easting><Northing>6112826</Northing>
+</Site>
+<Site Name="316017">
+<Easting>2738200</Easting><Northing>6116300</Northing>
+</Site>
+<Site Name="316019">
+<Easting>2738200</Easting><Northing>6116300</Northing>
+</Site>
+<Site Name="316031">
+<Easting>2734400</Easting><Northing>6112400</Northing>
+</Site>
+<Site Name="316037">
+<Easting>2733600</Easting><Northing>6110700</Northing>
+</Site>
+<Site Name="322015">
+<Easting>2703800</Easting><Northing>6103900</Northing>
+</Site>
+<Site Name="323001">
+<Easting>2710600</Easting><Northing>6098200</Northing>
+</Site>
+<Site Name="323015">
+<Easting>2705757</Easting><Northing>6106615</Northing>
+</Site>
+<Site Name="324000">
+<Easting>2714712</Easting><Northing>6107703</Northing>
+</Site>
+<Site Name="324003">
+<Easting>2714713</Easting><Northing>6107702</Northing>
+</Site>
+<Site Name="324061">
+<Easting>2722300</Easting><Northing>6108500</Northing>
+</Site>
+<Site Name="324071">
+<Easting>2716360</Easting><Northing>6098295</Northing>
+</Site>
+<Site Name="325003">
+<Easting>2723300</Easting><Northing>6106000</Northing>
+</Site>
+<Site Name="325007">
+<Easting>2728800</Easting><Northing>6108200</Northing>
+</Site>
+<Site Name="325009">
+<Easting>2728400</Easting><Northing>6104800</Northing>
+</Site>
+<Site Name="325019">
+<Easting>2729800</Easting><Northing>6104100</Northing>
+</Site>
+<Site Name="325023">
+<Easting>2723463</Easting><Northing>6100651</Northing>
+</Site>
+<Site Name="325031">
+<Easting>2730352</Easting><Northing>6098190</Northing>
+</Site>
+<Site Name="325047">
+<Easting>2729131</Easting><Northing>6104013</Northing>
+</Site>
+<Site Name="325071">
+<Easting>2729688</Easting><Northing>6098834</Northing>
+</Site>
+<Site Name="325081">
+<Easting>2724585</Easting><Northing>6099046</Northing>
+</Site>
+<Site Name="325141">
+<Easting>2725900</Easting><Northing>6102900</Northing>
+</Site>
+<Site Name="325221">
+<Easting>2729900</Easting><Northing>6104800</Northing>
+</Site>
+<Site Name="325251">
+<Easting>2730200</Easting><Northing>6108400</Northing>
+</Site>
+<Site Name="325261">
+<Easting>2723600</Easting><Northing>6100600</Northing>
+</Site>
+<Site Name="325351">
+<Easting>2730400</Easting><Northing>6102000</Northing>
+</Site>
+<Site Name="325361">
+<Easting>2728000</Easting><Northing>6104100</Northing>
+</Site>
+<Site Name="326011">
+<Easting>2734271</Easting><Northing>6098740</Northing>
+</Site>
+<Site Name="326061">
+<Easting>2734000</Easting><Northing>6099300</Northing>
+</Site>
+<Site Name="326097">
+<Easting>2733300</Easting><Northing>6103900</Northing>
+</Site>
+<Site Name="326181">
+<Easting>2735200</Easting><Northing>6097500</Northing>
+</Site>
+<Site Name="326191">
+<Easting>2731600</Easting><Northing>6099200</Northing>
+</Site>
+<Site Name="326201">
+<Easting>2731300</Easting><Northing>6099800</Northing>
+</Site>
+<Site Name="326211">
+<Easting>2735683</Easting><Northing>6106044</Northing>
+</Site>
+<Site Name="326321">
+<Easting>2736492</Easting><Northing>6101178</Northing>
+</Site>
+<Site Name="326377">
+</Site>
+<Site Name="327001">
+<Easting>2742600</Easting><Northing>6098900</Northing>
+</Site>
+<Site Name="327037">
+<Easting>2741611</Easting><Northing>6107000</Northing>
+</Site>
+<Site Name="327039">
+<Easting>2742357</Easting><Northing>6099116</Northing>
+</Site>
+<Site Name="332009">
+<Easting>2703900</Easting><Northing>6090600</Northing>
+</Site>
+<Site Name="332063">
+</Site>
+<Site Name="333003">
+<Easting>2706300</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="333005">
+<Easting>2706300</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="333035">
+<Easting>2711200</Easting><Northing>6095600</Northing>
+</Site>
+<Site Name="333113">
+<Easting>2709131</Easting><Northing>6094734</Northing>
+</Site>
+<Site Name="333161">
+<Easting>2706592</Easting><Northing>6089105</Northing>
+</Site>
+<Site Name="333169">
+</Site>
+<Site Name="333173">
+</Site>
+<Site Name="333238">
+<Easting>2711928</Easting><Northing>6095462</Northing>
+</Site>
+<Site Name="334001">
+<Easting>2721600</Easting><Northing>6096400</Northing>
+</Site>
+<Site Name="334021">
+<Easting>2721800</Easting><Northing>6091800</Northing>
+</Site>
+<Site Name="334041">
+<Easting>2715600</Easting><Northing>6090900</Northing>
+</Site>
+<Site Name="335041">
+<Easting>2726000</Easting><Northing>6094700</Northing>
+</Site>
+<Site Name="335051">
+<Easting>2724100</Easting><Northing>6087100</Northing>
+</Site>
+<Site Name="335071">
+<Easting>2727378</Easting><Northing>6091887</Northing>
+</Site>
+<Site Name="335161">
+<Easting>2726500</Easting><Northing>6095700</Northing>
+</Site>
+<Site Name="335171">
+<Easting>2724500</Easting><Northing>6089300</Northing>
+</Site>
+<Site Name="335311">
+<Easting>2730400</Easting><Northing>6088900</Northing>
+</Site>
+<Site Name="335331">
+<Easting>2726800</Easting><Northing>6087400</Northing>
+</Site>
+<Site Name="335351">
+<Easting>2726100</Easting><Northing>6088400</Northing>
+</Site>
+<Site Name="335361">
+<Easting>2728600</Easting><Northing>6088400</Northing>
+</Site>
+<Site Name="335371">
+<Easting>2726600</Easting><Northing>6093200</Northing>
+</Site>
+<Site Name="335391">
+<Easting>2729600</Easting><Northing>6096300</Northing>
+</Site>
+<Site Name="336001">
+<Easting>2732900</Easting><Northing>6094600</Northing>
+</Site>
+<Site Name="336007">
+<Easting>2738900</Easting><Northing>6095000</Northing>
+</Site>
+<Site Name="336009">
+<Easting>2735800</Easting><Northing>6093067</Northing>
+</Site>
+<Site Name="336013">
+<Easting>2738700</Easting><Northing>6093400</Northing>
+</Site>
+<Site Name="336017">
+<Easting>2737300</Easting><Northing>6094000</Northing>
+</Site>
+<Site Name="336019">
+<Easting>2735500</Easting><Northing>6087900</Northing>
+</Site>
+<Site Name="336023">
+<Easting>2738500</Easting><Northing>6093200</Northing>
+</Site>
+<Site Name="336071">
+<Easting>2731300</Easting><Northing>6088800</Northing>
+</Site>
+<Site Name="336113">
+<Easting>2735000</Easting><Northing>6090500</Northing>
+</Site>
+<Site Name="336121">
+<Easting>2731500</Easting><Northing>6088500</Northing>
+</Site>
+<Site Name="336141">
+<Easting>2736400</Easting><Northing>6092600</Northing>
+</Site>
+<Site Name="336181">
+<Easting>2735600</Easting><Northing>6090700</Northing>
+</Site>
+<Site Name="336203">
+<Easting>2739023</Easting><Northing>6094570</Northing>
+</Site>
+<Site Name="336271">
+<Easting>2734300</Easting><Northing>6089400</Northing>
+</Site>
+<Site Name="336301">
+<Easting>2731600</Easting><Northing>6092000</Northing>
+</Site>
+<Site Name="336321">
+<Easting>2738700</Easting><Northing>6094700</Northing>
+</Site>
+<Site Name="336333">
+<Easting>2736000</Easting><Northing>6096500</Northing>
+</Site>
+<Site Name="336371">
+<Easting>2737000</Easting><Northing>6091700</Northing>
+</Site>
+<Site Name="336401">
+<Easting>2738000</Easting><Northing>6093000</Northing>
+</Site>
+<Site Name="336421">
+<Easting>2735200</Easting><Northing>6093200</Northing>
+</Site>
+<Site Name="336431">
+<Easting>2737600</Easting><Northing>6092500</Northing>
+</Site>
+<Site Name="336441">
+<Easting>2732000</Easting><Northing>6088700</Northing>
+</Site>
+<Site Name="336481">
+<Easting>2734900</Easting><Northing>6091200</Northing>
+</Site>
+<Site Name="336511">
+<Easting>2735500</Easting><Northing>6091500</Northing>
+</Site>
+<Site Name="336541">
+<Easting>2734900</Easting><Northing>6093100</Northing>
+</Site>
+<Site Name="336571">
+<Easting>2735044</Easting><Northing>6088801</Northing>
+</Site>
+<Site Name="336581">
+<Easting>2736700</Easting><Northing>6094000</Northing>
+</Site>
+<Site Name="336641">
+<Easting>2738900</Easting><Northing>6094300</Northing>
+</Site>
+<Site Name="336651">
+<Easting>2738300</Easting><Northing>6094600</Northing>
+</Site>
+<Site Name="337001">
+<Easting>2744200</Easting><Northing>6096400</Northing>
+</Site>
+<Site Name="337003">
+<Easting>2740400</Easting><Northing>6095600</Northing>
+</Site>
+<Site Name="337005">
+<Easting>2743800</Easting><Northing>6095200</Northing>
+</Site>
+<Site Name="337013">
+<Easting>2743700</Easting><Northing>6095000</Northing>
+</Site>
+<Site Name="337021">
+<Easting>2740500</Easting><Northing>6093900</Northing>
+</Site>
+<Site Name="337031">
+<Easting>2741700</Easting><Northing>6094600</Northing>
+</Site>
+<Site Name="337041">
+<Easting>2741900</Easting><Northing>6095100</Northing>
+</Site>
+<Site Name="338005">
+<Easting>2753300</Easting><Northing>6088700</Northing>
+</Site>
+<Site Name="338011">
+<Easting>2754300</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="338051">
+<Easting>2753700</Easting><Northing>6090300</Northing>
+</Site>
+<Site Name="338061">
+<Easting>2754500</Easting><Northing>6088700</Northing>
+</Site>
+<Site Name="339001">
+<Easting>2764000</Easting><Northing>6092300</Northing>
+</Site>
+<Site Name="342001">
+<Easting>2704300</Easting><Northing>6081000</Northing>
+</Site>
+<Site Name="342051">
+<Easting>2703300</Easting><Northing>6078400</Northing>
+</Site>
+<Site Name="342091">
+<Easting>2703600</Easting><Northing>6077500</Northing>
+</Site>
+<Site Name="343101">
+<Easting>2711400</Easting><Northing>6085900</Northing>
+</Site>
+<Site Name="343171">
+<Easting>2707400</Easting><Northing>6086900</Northing>
+</Site>
+<Site Name="344001">
+<Easting>2715800</Easting><Northing>6078600</Northing>
+</Site>
+<Site Name="344007">
+<Easting>2718300</Easting><Northing>6081800</Northing>
+</Site>
+<Site Name="344041">
+<Easting>2714900</Easting><Northing>6080400</Northing>
+</Site>
+<Site Name="344051">
+<Easting>2721100</Easting><Northing>6084700</Northing>
+</Site>
+<Site Name="344181">
+</Site>
+<Site Name="345001">
+<Easting>2726700</Easting><Northing>6085300</Northing>
+</Site>
+<Site Name="345009">
+<Easting>2727200</Easting><Northing>6082100</Northing>
+</Site>
+<Site Name="345011">
+<Easting>2722300</Easting><Northing>6085600</Northing>
+</Site>
+<Site Name="345021">
+<Easting>2722300</Easting><Northing>6081100</Northing>
+</Site>
+<Site Name="345031">
+<Easting>2726500</Easting><Northing>6085300</Northing>
+</Site>
+<Site Name="345041">
+<Easting>2729200</Easting><Northing>6085900</Northing>
+</Site>
+<Site Name="345071">
+<Easting>2724200</Easting><Northing>6086100</Northing>
+</Site>
+<Site Name="345101">
+<Easting>2726800</Easting><Northing>6081900</Northing>
+</Site>
+<Site Name="345111">
+<Easting>2724300</Easting><Northing>6085400</Northing>
+</Site>
+<Site Name="345151">
+<Easting>2723400</Easting><Northing>6079800</Northing>
+</Site>
+<Site Name="346031">
+<Easting>2734540</Easting><Northing>6086023</Northing>
+</Site>
+<Site Name="347031">
+<Easting>2745812</Easting><Northing>6078133</Northing>
+</Site>
+<Site Name="347056">
+<Easting>2745991</Easting><Northing>6078576</Northing>
+</Site>
+<Site Name="348003">
+<Easting>2754300</Easting><Northing>6084200</Northing>
+</Site>
+<Site Name="348005">
+<Easting>2748600</Easting><Northing>6079600</Northing>
+</Site>
+<Site Name="348007">
+<Easting>2748629</Easting><Northing>6079526</Northing>
+</Site>
+<Site Name="348009">
+<Easting>2753419</Easting><Northing>6083082</Northing>
+</Site>
+<Site Name="348021">
+<Easting>2749000</Easting><Northing>6080800</Northing>
+</Site>
+<Site Name="348061">
+<Easting>2753411</Easting><Northing>6083100</Northing>
+</Site>
+<Site Name="348134">
+<Easting>2752909</Easting><Northing>6082154</Northing>
+</Site>
+<Site Name="352007">
+<Easting>2700600</Easting><Northing>6067800</Northing>
+</Site>
+<Site Name="352051">
+<Easting>2703128</Easting><Northing>6072610</Northing>
+</Site>
+<Site Name="352111">
+<Easting>2699100</Easting><Northing>6066300</Northing>
+</Site>
+<Site Name="352131">
+<Easting>2702600</Easting><Northing>6066400</Northing>
+</Site>
+<Site Name="352139">
+<Easting>2703513</Easting><Northing>6071380</Northing>
+</Site>
+<Site Name="352151">
+<Easting>2702900</Easting><Northing>6066400</Northing>
+</Site>
+<Site Name="352271">
+<Easting>2700615</Easting><Northing>6067756</Northing>
+</Site>
+<Site Name="352311">
+<Easting>2697400</Easting><Northing>6069800</Northing>
+</Site>
+<Site Name="352411">
+<Easting>2701500</Easting><Northing>6068900</Northing>
+</Site>
+<Site Name="353291">
+<Easting>2709290</Easting><Northing>6066220</Northing>
+</Site>
+<Site Name="354003">
+<Easting>2714870</Easting><Northing>6070659</Northing>
+</Site>
+<Site Name="354005">
+<Easting>2713400</Easting><Northing>6071300</Northing>
+</Site>
+<Site Name="354011">
+<Easting>2714300</Easting><Northing>6074200</Northing>
+</Site>
+<Site Name="354021">
+<Easting>2717500</Easting><Northing>6075300</Northing>
+</Site>
+<Site Name="354065">
+<Easting>2716665</Easting><Northing>6075681</Northing>
+</Site>
+<Site Name="354070">
+<Easting>2714000</Easting><Northing>6073500</Northing>
+</Site>
+<Site Name="357103">
+<Easting>2742800</Easting><Northing>6072300</Northing>
+</Site>
+<Site Name="361003">
+<Easting>2694600</Easting><Northing>6059300</Northing>
+</Site>
+<Site Name="361041">
+<Easting>2694699</Easting><Northing>6059345</Northing>
+</Site>
+<Site Name="362003">
+<Easting>2696700</Easting><Northing>6057500</Northing>
+</Site>
+<Site Name="362005">
+<Easting>2699200</Easting><Northing>6056800</Northing>
+</Site>
+<Site Name="362007">
+<Easting>2699200</Easting><Northing>6056800</Northing>
+</Site>
+<Site Name="362017">
+<Easting>2702600</Easting><Northing>6064800</Northing>
+</Site>
+<Site Name="362033">
+<Easting>2702100</Easting><Northing>6062300</Northing>
+</Site>
+<Site Name="362101">
+<Easting>2698400</Easting><Northing>6054400</Northing>
+</Site>
+<Site Name="362281">
+<Easting>2700600</Easting><Northing>6058600</Northing>
+</Site>
+<Site Name="362301">
+<Easting>2702000</Easting><Northing>6063000</Northing>
+</Site>
+<Site Name="362303">
+<Easting>2702795</Easting><Northing>6062316</Northing>
+</Site>
+<Site Name="362331">
+<Easting>2697643</Easting><Northing>6062234</Northing>
+</Site>
+<Site Name="362424">
+<Easting>2700864</Easting><Northing>6062189</Northing>
+</Site>
+<Site Name="362467">
+<Easting>2701778</Easting><Northing>6061458</Northing>
+</Site>
+<Site Name="362468">
+<Easting>2699375</Easting><Northing>6063313</Northing>
+</Site>
+<Site Name="362486">
+<Easting>2698741</Easting><Northing>6061006</Northing>
+</Site>
+<Site Name="362487">
+<Easting>2698743</Easting><Northing>6061007</Northing>
+</Site>
+<Site Name="362488">
+<Easting>2699009</Easting><Northing>6061173</Northing>
+</Site>
+<Site Name="362489">
+<Easting>2699009</Easting><Northing>6061173</Northing>
+</Site>
+<Site Name="362490">
+<Easting>2699274</Easting><Northing>6061747</Northing>
+</Site>
+<Site Name="362492">
+<Easting>2699275</Easting><Northing>6061748</Northing>
+</Site>
+<Site Name="362493">
+<Easting>2699390</Easting><Northing>6061698</Northing>
+</Site>
+<Site Name="362494">
+<Easting>2699391</Easting><Northing>6061698</Northing>
+</Site>
+<Site Name="362495">
+<Easting>2699572</Easting><Northing>6061587</Northing>
+</Site>
+<Site Name="362496">
+<Easting>2699572</Easting><Northing>6061586</Northing>
+</Site>
+<Site Name="362497">
+<Easting>2699588</Easting><Northing>6062188</Northing>
+</Site>
+<Site Name="362498">
+<Easting>2699586</Easting><Northing>6062193</Northing>
+</Site>
+<Site Name="362499">
+<Easting>2699720</Easting><Northing>6062112</Northing>
+</Site>
+<Site Name="362500">
+<Easting>2699719</Easting><Northing>6062113</Northing>
+</Site>
+<Site Name="362502">
+<Easting>2699836</Easting><Northing>6062041</Northing>
+</Site>
+<Site Name="362503">
+<Easting>2699834</Easting><Northing>6062041</Northing>
+</Site>
+<Site Name="362504">
+<Easting>2700638</Easting><Northing>6062700</Northing>
+</Site>
+<Site Name="362505">
+<Easting>2700635</Easting><Northing>6062701</Northing>
+</Site>
+<Site Name="362510">
+<Easting>2699715</Easting><Northing>6062509</Northing>
+</Site>
+<Site Name="362511">
+<Easting>2698447</Easting><Northing>6056211</Northing>
+</Site>
+<Site Name="362512">
+<Easting>2699094</Easting><Northing>6061039</Northing>
+</Site>
+<Site Name="362514">
+<Easting>2699435</Easting><Northing>6062144</Northing>
+</Site>
+<Site Name="362515">
+<Easting>2699436</Easting><Northing>6062143</Northing>
+</Site>
+<Site Name="362519">
+<Easting>2699719</Easting><Northing>6062119</Northing>
+</Site>
+<Site Name="362521">
+<Easting>2701912</Easting><Northing>6057619</Northing>
+</Site>
+<Site Name="362541">
+<Easting>2698174</Easting><Northing>6054238</Northing>
+</Site>
+<Site Name="362551">
+<Easting>2697772</Easting><Northing>6064476</Northing>
+</Site>
+<Site Name="362661">
+<Easting>2700100</Easting><Northing>6059300</Northing>
+</Site>
+<Site Name="362711">
+<Easting>2701400</Easting><Northing>6059500</Northing>
+</Site>
+<Site Name="362812">
+<Easting>2703800</Easting><Northing>6058300</Northing>
+</Site>
+<Site Name="362821">
+<Easting>2704300</Easting><Northing>6059400</Northing>
+</Site>
+<Site Name="362951">
+<Easting>2701500</Easting><Northing>6062300</Northing>
+</Site>
+<Site Name="363132">
+<Easting>2705011</Easting><Northing>6062878</Northing>
+</Site>
+<Site Name="363251">
+<Easting>2704800</Easting><Northing>6061400</Northing>
+</Site>
+<Site Name="372061">
+<Easting>2697100</Easting><Northing>6052700</Northing>
+</Site>
+<Site Name="372140">
+<Easting>2697120</Easting><Northing>6052701</Northing>
+</Site>
+<Site Name="420075">
+<Easting>2766400</Easting><Northing>6099800</Northing>
+</Site>
+<Site Name="430005">
+<Easting>2767600</Easting><Northing>6096300</Northing>
+</Site>
+<Site Name="698011">
+<Easting>2672300</Easting><Northing>6146400</Northing>
+</Site>
+<Site Name="699011">
+<Easting>2675400</Easting><Northing>6145300</Northing>
+</Site>
+<Site Name="699013">
+<Easting>2674200</Easting><Northing>6146700</Northing>
+</Site>
+<Site Name="790003">
+<Easting>2684000</Easting><Northing>6140100</Northing>
+</Site>
+<Site Name="790007">
+<Easting>2685000</Easting><Northing>6137000</Northing>
+</Site>
+<Site Name="790011">
+<Easting>2682204</Easting><Northing>6143069</Northing>
+</Site>
+<Site Name="790017">
+<Easting>2683290</Easting><Northing>6140187</Northing>
+</Site>
+<Site Name="790041">
+<Easting>2689066</Easting><Northing>6133877</Northing>
+</Site>
+<Site Name="790065">
+<Easting>2683104</Easting><Northing>6138675</Northing>
+</Site>
+<Site Name="790069">
+<Easting>2682700</Easting><Northing>6139300</Northing>
+</Site>
+<Site Name="790075">
+<Easting>2688604</Easting><Northing>6143185</Northing>
+</Site>
+<Site Name="790083">
+<Easting>2683205</Easting><Northing>6137329</Northing>
+</Site>
+<Site Name="790087">
+<Easting>2681609</Easting><Northing>6137803</Northing>
+</Site>
+<Site Name="790095">
+<Easting>2683788</Easting><Northing>6139759</Northing>
+</Site>
+<Site Name="790127">
+<Easting>2681911</Easting><Northing>6142958</Northing>
+</Site>
+<Site Name="792013">
+<Easting>2703895</Easting><Northing>6136565</Northing>
+</Site>
+<Site Name="793007">
+<Easting>2714700</Easting><Northing>6132700</Northing>
+</Site>
+<Site Name="ATH-1991006011">
+<Easting>2706400</Easting><Northing>6057700</Northing>
+</Site>
+<Site Name="ATH-1993001355">
+</Site>
+<Site Name="ATH-1993005093">
+</Site>
+<Site Name="ATH-1994001405">
+<Easting>2739200</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="ATH-1994001517">
+<Easting>2705300</Easting><Northing>6117000</Northing>
+</Site>
+<Site Name="ATH-1994001627">
+<Easting>2724200</Easting><Northing>6076700</Northing>
+</Site>
+<Site Name="ATH-1994001669">
+<Easting>2774600</Easting><Northing>6077100</Northing>
+</Site>
+<Site Name="ATH-1994002807">
+<Easting>2705700</Easting><Northing>6149700</Northing>
+</Site>
+<Site Name="ATH-1994002904">
+<Easting>2693800</Easting><Northing>6052100</Northing>
+</Site>
+<Site Name="ATH-1995001433">
+<Easting>2750957</Easting><Northing>6080999</Northing>
+</Site>
+<Site Name="ATH-1995003193">
+<Easting>2731370</Easting><Northing>6130271</Northing>
+</Site>
+<Site Name="ATH-1995003230">
+<Easting>2706324</Easting><Northing>6057797</Northing>
+</Site>
+<Site Name="ATH-1995004525">
+<Easting>2703211</Easting><Northing>6059100</Northing>
+</Site>
+<Site Name="ATH-1996001182">
+<Easting>2729804</Easting><Northing>6104801</Northing>
+</Site>
+<Site Name="ATH-1996001184">
+<Easting>2729804</Easting><Northing>6104701</Northing>
+</Site>
+<Site Name="ATH-1996001196">
+<Easting>2730400</Easting><Northing>6105100</Northing>
+</Site>
+<Site Name="ATH-1996004295">
+<Easting>2712534</Easting><Northing>6110065</Northing>
+</Site>
+<Site Name="ATH-1996004631">
+<Easting>2770700</Easting><Northing>6104700</Northing>
+</Site>
+<Site Name="ATH-1996004798">
+</Site>
+<Site Name="ATH-1997002995">
+<Easting>2713100</Easting><Northing>6124300</Northing>
+</Site>
+<Site Name="ATH-1997003577">
+<Easting>2710200</Easting><Northing>6255600</Northing>
+</Site>
+<Site Name="ATH-1997004322">
+<Easting>2703100</Easting><Northing>6062600</Northing>
+</Site>
+<Site Name="ATH-1997004420">
+<Easting>2723600</Easting><Northing>6220500</Northing>
+</Site>
+<Site Name="ATH-1997004447">
+<Easting>2713200</Easting><Northing>6110500</Northing>
+</Site>
+<Site Name="ATH-1997004476">
+<Easting>2714400</Easting><Northing>6131700</Northing>
+</Site>
+<Site Name="ATH-1998004064">
+</Site>
+<Site Name="ATH-1998007207">
+<Easting>2734800</Easting><Northing>6092800</Northing>
+</Site>
+<Site Name="ATH-1998007472">
+<Easting>2738500</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="ATH-1999007894">
+<Easting>2700300</Easting><Northing>6090500</Northing>
+</Site>
+<Site Name="ATH-1999008090">
+<Easting>2732476</Easting><Northing>6088270</Northing>
+</Site>
+<Site Name="ATH-2000003711">
+<Easting>2743500</Easting><Northing>6189600</Northing>
+</Site>
+<Site Name="ATH-2000003738">
+<Easting>2739700</Easting><Northing>6191400</Northing>
+</Site>
+<Site Name="ATH-2000007767">
+<Easting>2752000</Easting><Northing>6087600</Northing>
+</Site>
+<Site Name="ATH-2000008548">
+<Easting>2727861</Easting><Northing>6207839</Northing>
+</Site>
+<Site Name="ATH-2000008564">
+<Easting>2708700</Easting><Northing>6109800</Northing>
+</Site>
+<Site Name="ATH-2000008571">
+<Easting>2714438</Easting><Northing>6121106</Northing>
+</Site>
+<Site Name="ATH-2000008673">
+<Easting>2731884</Easting><Northing>6089052</Northing>
+</Site>
+<Site Name="ATH-2000008693">
+<Easting>2719800</Easting><Northing>6199900</Northing>
+</Site>
+<Site Name="ATH-2001008067">
+<Easting>2725000</Easting><Northing>6296800</Northing>
+</Site>
+<Site Name="ATH-2001008223">
+<Easting>2732000</Easting><Northing>6100700</Northing>
+</Site>
+<Site Name="ATH-2001008270">
+</Site>
+<Site Name="ATH-2001008400">
+<Easting>2713900</Easting><Northing>6091200</Northing>
+</Site>
+<Site Name="ATH-2001008676">
+</Site>
+<Site Name="ATH-2001008679">
+<Easting>2721788</Easting><Northing>6116213</Northing>
+</Site>
+<Site Name="ATH-2001008764">
+<Easting>2705100</Easting><Northing>6088400</Northing>
+</Site>
+<Site Name="ATH-2001008785">
+<Easting>2733300</Easting><Northing>6103900</Northing>
+</Site>
+<Site Name="ATH-2001008890">
+<Easting>2741900</Easting><Northing>6098100</Northing>
+</Site>
+<Site Name="ATH-2001008976">
+<Easting>2719000</Easting><Northing>6240200</Northing>
+</Site>
+<Site Name="ATH-2001008992">
+<Easting>2699400</Easting><Northing>6060800</Northing>
+</Site>
+<Site Name="ATH-2001009087">
+<Easting>2699500</Easting><Northing>6060500</Northing>
+</Site>
+<Site Name="ATH-2001009236">
+<Easting>2736495</Easting><Northing>6101170</Northing>
+</Site>
+<Site Name="ATH-2001009310">
+<Easting>2733484</Easting><Northing>6086071</Northing>
+</Site>
+<Site Name="ATH-2001009314">
+<Easting>2716900</Easting><Northing>6116900</Northing>
+</Site>
+<Site Name="ATH-2001009362">
+<Easting>2685500</Easting><Northing>6144300</Northing>
+</Site>
+<Site Name="ATH-2001009377">
+<Easting>2681700</Easting><Northing>6260200</Northing>
+</Site>
+<Site Name="ATH-2001009442">
+<Easting>2731438</Easting><Northing>6088704</Northing>
+</Site>
+<Site Name="ATH-2001009450">
+<Easting>2734600</Easting><Northing>6091700</Northing>
+</Site>
+<Site Name="ATH-2002008094">
+<Easting>2729900</Easting><Northing>6216200</Northing>
+</Site>
+<Site Name="ATH-2002008292">
+<Easting>2704064</Easting><Northing>6061389</Northing>
+</Site>
+<Site Name="ATH-2002009085">
+<Easting>2727200</Easting><Northing>6129900</Northing>
+</Site>
+<Site Name="ATH-2002009501">
+<Easting>2729231</Easting><Northing>6086086</Northing>
+</Site>
+<Site Name="ATH-2002009502">
+<Easting>2729263</Easting><Northing>6085929</Northing>
+</Site>
+<Site Name="ATH-2002009504">
+<Easting>2729333</Easting><Northing>6086531</Northing>
+</Site>
+<Site Name="ATH-2002009537">
+<Easting>2735600</Easting><Northing>6092600</Northing>
+</Site>
+<Site Name="ATH-2002009652">
+<Easting>2677300</Easting><Northing>6142600</Northing>
+</Site>
+<Site Name="ATH-2002009653">
+<Easting>2677300</Easting><Northing>6142600</Northing>
+</Site>
+<Site Name="ATH-2002009762">
+</Site>
+<Site Name="ATH-2002009781">
+<Easting>2706900</Easting><Northing>6086700</Northing>
+</Site>
+<Site Name="ATH-2002009784">
+<Easting>2715062</Easting><Northing>6098574</Northing>
+</Site>
+<Site Name="ATH-2002009901">
+<Easting>2696600</Easting><Northing>6051200</Northing>
+</Site>
+<Site Name="ATH-2002009910">
+</Site>
+<Site Name="ATH-2002009920">
+<Easting>2701400</Easting><Northing>6105500</Northing>
+</Site>
+<Site Name="ATH-2002009921">
+<Easting>2701400</Easting><Northing>6105500</Northing>
+</Site>
+<Site Name="ATH-2002010026">
+<Easting>2679300</Easting><Northing>6140500</Northing>
+</Site>
+<Site Name="ATH-2003008378">
+<Easting>2773905</Easting><Northing>6104360</Northing>
+</Site>
+<Site Name="ATH-2003008896">
+<Easting>2767800</Easting><Northing>6100300</Northing>
+</Site>
+<Site Name="ATH-2003009298">
+<Easting>2719800</Easting><Northing>6077700</Northing>
+</Site>
+<Site Name="ATH-2003009402">
+<Easting>2716805</Easting><Northing>6116218</Northing>
+</Site>
+<Site Name="ATH-2003009407">
+<Easting>2717119</Easting><Northing>6116100</Northing>
+</Site>
+<Site Name="ATH-2003009464">
+<Easting>2721200</Easting><Northing>6122700</Northing>
+</Site>
+<Site Name="ATH-2003009519">
+<Easting>2706983</Easting><Northing>6200764</Northing>
+</Site>
+<Site Name="ATH-2003009521">
+<Easting>2706357</Easting><Northing>6200898</Northing>
+</Site>
+<Site Name="ATH-2003009788">
+<Easting>2681000</Easting><Northing>6140900</Northing>
+</Site>
+<Site Name="ATH-2003009883">
+<Easting>2725400</Easting><Northing>6105500</Northing>
+</Site>
+<Site Name="ATH-2003009993">
+<Easting>2731900</Easting><Northing>6101600</Northing>
+</Site>
+<Site Name="ATH-2003010008">
+<Easting>2722400</Easting><Northing>6125500</Northing>
+</Site>
+<Site Name="ATH-2003010184">
+<Easting>2700100</Easting><Northing>6059300</Northing>
+</Site>
+<Site Name="ATH-2003010237">
+</Site>
+<Site Name="ATH-2003010349">
+<Easting>2702000</Easting><Northing>6063000</Northing>
+</Site>
+<Site Name="ATH-2004008582">
+<Easting>2731800</Easting><Northing>6052000</Northing>
+</Site>
+<Site Name="ATH-2004009218">
+</Site>
+<Site Name="ATH-2004009505">
+<Easting>2729502</Easting><Northing>6086096</Northing>
+</Site>
+<Site Name="ATH-2004010247">
+<Easting>2716700</Easting><Northing>6075500</Northing>
+</Site>
+<Site Name="ATH-2004010250">
+<Easting>2703300</Easting><Northing>6073500</Northing>
+</Site>
+<Site Name="ATH-2004010341">
+<Easting>2713800</Easting><Northing>6113600</Northing>
+</Site>
+<Site Name="ATH-2004010342">
+<Easting>2713300</Easting><Northing>6112700</Northing>
+</Site>
+<Site Name="ATH-2004010363">
+<Easting>2703500</Easting><Northing>6071300</Northing>
+</Site>
+<Site Name="ATH-2004010406">
+<Easting>2733200</Easting><Northing>6132400</Northing>
+</Site>
+<Site Name="ATH-2004010430">
+<Easting>2669100</Easting><Northing>6150000</Northing>
+</Site>
+<Site Name="ATH-2004010446">
+<Easting>2753700</Easting><Northing>6084200</Northing>
+</Site>
+<Site Name="ATH-2004010506">
+<Easting>2718500</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="ATH-2004010534">
+<Easting>2679100</Easting><Northing>6140500</Northing>
+</Site>
+<Site Name="ATH-2004010540">
+<Easting>2712300</Easting><Northing>6110800</Northing>
+</Site>
+<Site Name="ATH-2004010545">
+<Easting>2711200</Easting><Northing>6100700</Northing>
+</Site>
+<Site Name="ATH-2004010546">
+<Easting>2711200</Easting><Northing>6100700</Northing>
+</Site>
+<Site Name="ATH-2004010641">
+<Easting>2705700</Easting><Northing>6079000</Northing>
+</Site>
+<Site Name="ATH-2004010643">
+<Easting>2708600</Easting><Northing>6082400</Northing>
+</Site>
+<Site Name="ATH-2004010727">
+<Easting>2707400</Easting><Northing>6091000</Northing>
+</Site>
+<Site Name="ATH-2004010799">
+<Easting>2704700</Easting><Northing>6066200</Northing>
+</Site>
+<Site Name="ATH-2005008315">
+<Easting>2726500</Easting><Northing>6129400</Northing>
+</Site>
+<Site Name="ATH-2005009192">
+</Site>
+<Site Name="ATH-2005009214">
+<Easting>2742000</Easting><Northing>6173800</Northing>
+</Site>
+<Site Name="ATH-2005009602">
+<Easting>2710300</Easting><Northing>6201200</Northing>
+</Site>
+<Site Name="ATH-2005009929">
+<Easting>2706770</Easting><Northing>6193774</Northing>
+</Site>
+<Site Name="ATH-2005009966">
+<Easting>2707400</Easting><Northing>6255100</Northing>
+</Site>
+<Site Name="ATH-2005010241">
+<Easting>2717000</Easting><Northing>6066500</Northing>
+</Site>
+<Site Name="ATH-2005010424">
+<Easting>2709100</Easting><Northing>6099800</Northing>
+</Site>
+<Site Name="ATH-2005010425">
+<Easting>2709100</Easting><Northing>6099800</Northing>
+</Site>
+<Site Name="ATH-2005010447">
+<Easting>2702600</Easting><Northing>6100200</Northing>
+</Site>
+<Site Name="ATH-2005010507">
+<Easting>2736400</Easting><Northing>6111300</Northing>
+</Site>
+<Site Name="ATH-2005010677">
+<Easting>2713200</Easting><Northing>6074100</Northing>
+</Site>
+<Site Name="ATH-2005010697">
+<Easting>2750400</Easting><Northing>6151200</Northing>
+</Site>
+<Site Name="ATH-2005010786">
+<Easting>2717600</Easting><Northing>6115500</Northing>
+</Site>
+<Site Name="ATH-2005010816">
+<Easting>2700400</Easting><Northing>6111200</Northing>
+</Site>
+<Site Name="ATH-2005010849">
+<Easting>2715800</Easting><Northing>6112200</Northing>
+</Site>
+<Site Name="ATH-2005010850">
+<Easting>2769100</Easting><Northing>6099900</Northing>
+</Site>
+<Site Name="ATH-2005010852">
+<Easting>2699514</Easting><Northing>6065419</Northing>
+</Site>
+<Site Name="ATH-2005010948">
+<Easting>2724300</Easting><Northing>6100600</Northing>
+</Site>
+<Site Name="ATH-2005010980">
+<Easting>2699119</Easting><Northing>6060588</Northing>
+</Site>
+<Site Name="ATH-2005011069">
+<Easting>2688804</Easting><Northing>6134023</Northing>
+</Site>
+<Site Name="ATH-2005011070">
+<Easting>2688808</Easting><Northing>6134023</Northing>
+</Site>
+<Site Name="ATH-2005011172">
+<Easting>2763500</Easting><Northing>6149200</Northing>
+</Site>
+<Site Name="ATH-2005011176">
+<Easting>2697800</Easting><Northing>6056300</Northing>
+</Site>
+<Site Name="ATH-2006009474">
+<Easting>2718300</Easting><Northing>6117200</Northing>
+</Site>
+<Site Name="ATH-2006009475">
+<Easting>2718300</Easting><Northing>6117200</Northing>
+</Site>
+<Site Name="ATH-2006009693">
+<Easting>2733500</Easting><Northing>6089500</Northing>
+</Site>
+<Site Name="ATH-2006010270">
+<Easting>2697297</Easting><Northing>6056703</Northing>
+</Site>
+<Site Name="ATH-2006010345">
+<Easting>2754300</Easting><Northing>6098600</Northing>
+</Site>
+<Site Name="ATH-2006010354">
+<Easting>2750400</Easting><Northing>6080800</Northing>
+</Site>
+<Site Name="ATH-2006010524">
+<Easting>2734700</Easting><Northing>6109200</Northing>
+</Site>
+<Site Name="ATH-2006010725">
+<Easting>2725400</Easting><Northing>6102300</Northing>
+</Site>
+<Site Name="ATH-2006010897">
+<Easting>2737346</Easting><Northing>6114483</Northing>
+</Site>
+<Site Name="ATH-2006010907">
+</Site>
+<Site Name="ATH-2006010993">
+<Easting>2763300</Easting><Northing>6091500</Northing>
+</Site>
+<Site Name="ATH-2006011091">
+<Easting>2763300</Easting><Northing>6091500</Northing>
+</Site>
+<Site Name="ATH-2006011111">
+<Easting>2751700</Easting><Northing>6088200</Northing>
+</Site>
+<Site Name="ATH-2006011200">
+<Easting>2765600</Easting><Northing>6097900</Northing>
+</Site>
+<Site Name="ATH-2006011201">
+<Easting>2765300</Easting><Northing>6098300</Northing>
+</Site>
+<Site Name="ATH-2006011251">
+<Easting>2698049</Easting><Northing>6118966</Northing>
+</Site>
+<Site Name="ATH-2006011266">
+<Easting>2736843</Easting><Northing>6092409</Northing>
+</Site>
+<Site Name="ATH-2006011316">
+<Easting>2783800</Easting><Northing>6099700</Northing>
+</Site>
+<Site Name="ATH-2006011344">
+<Easting>2701082</Easting><Northing>6060543</Northing>
+</Site>
+<Site Name="ATH-2006011366">
+<Easting>2766400</Easting><Northing>6096400</Northing>
+</Site>
+<Site Name="ATH-2006011396">
+<Easting>2766200</Easting><Northing>6094100</Northing>
+</Site>
+<Site Name="ATH-2006011404">
+<Easting>2708900</Easting><Northing>6108900</Northing>
+</Site>
+<Site Name="ATH-2006011421">
+<Easting>2732400</Easting><Northing>6103300</Northing>
+</Site>
+<Site Name="ATH-2006011554">
+<Easting>2701889</Easting><Northing>6079953</Northing>
+</Site>
+<Site Name="ATH-2007009025">
+<Easting>2698800</Easting><Northing>6053100</Northing>
+</Site>
+<Site Name="ATH-2007010319">
+<Easting>2771000</Easting><Northing>6103600</Northing>
+</Site>
+<Site Name="ATH-2007010320">
+<Easting>2770800</Easting><Northing>6101900</Northing>
+</Site>
+<Site Name="ATH-2007010437">
+<Easting>2717800</Easting><Northing>6078300</Northing>
+</Site>
+<Site Name="ATH-2007010704">
+<Easting>2699700</Easting><Northing>6083800</Northing>
+</Site>
+<Site Name="ATH-2007010866">
+<Easting>2731000</Easting><Northing>6105400</Northing>
+</Site>
+<Site Name="ATH-2007010997">
+<Easting>2736600</Easting><Northing>6111400</Northing>
+</Site>
+<Site Name="ATH-2007011102">
+<Easting>2746300</Easting><Northing>6104800</Northing>
+</Site>
+<Site Name="ATH-2007011162">
+<Easting>2726800</Easting><Northing>6085900</Northing>
+</Site>
+<Site Name="ATH-2007011343">
+<Easting>2724600</Easting><Northing>6128200</Northing>
+</Site>
+<Site Name="ATH-2007011405">
+<Easting>2702600</Easting><Northing>6088600</Northing>
+</Site>
+<Site Name="ATH-2007011441">
+<Easting>2718300</Easting><Northing>6114000</Northing>
+</Site>
+<Site Name="ATH-2007011544">
+<Easting>2713000</Easting><Northing>6110600</Northing>
+</Site>
+<Site Name="ATH-2007011553">
+<Easting>2711314</Easting><Northing>6075862</Northing>
+</Site>
+<Site Name="ATH-2007011649">
+<Easting>2716700</Easting><Northing>6078300</Northing>
+</Site>
+<Site Name="ATH-2007011654">
+<Easting>2729200</Easting><Northing>6085900</Northing>
+</Site>
+<Site Name="ATH-2007011657">
+<Easting>2716800</Easting><Northing>6114900</Northing>
+</Site>
+<Site Name="ATH-2007011694">
+<Easting>2736000</Easting><Northing>6137200</Northing>
+</Site>
+<Site Name="ATH-2007011769">
+<Easting>2722100</Easting><Northing>6123600</Northing>
+</Site>
+<Site Name="ATH-2007011783">
+<Easting>2716700</Easting><Northing>6078300</Northing>
+</Site>
+<Site Name="ATH-2007011829">
+<Easting>2738400</Easting><Northing>6057200</Northing>
+</Site>
+<Site Name="ATH-2007011898">
+<Easting>2731400</Easting><Northing>6131900</Northing>
+</Site>
+<Site Name="ATH-2007011942">
+<Easting>2703400</Easting><Northing>6114500</Northing>
+</Site>
+<Site Name="ATH-2008008883">
+<Easting>2752262</Easting><Northing>6092129</Northing>
+</Site>
+<Site Name="ATH-2008009069">
+<Easting>2701689</Easting><Northing>6097220</Northing>
+</Site>
+<Site Name="ATH-2008010252">
+<Easting>2703900</Easting><Northing>6072900</Northing>
+</Site>
+<Site Name="ATH-2008011497">
+<Easting>2708700</Easting><Northing>6093300</Northing>
+</Site>
+<Site Name="ATH-2008011590">
+<Easting>2726800</Easting><Northing>6085400</Northing>
+</Site>
+<Site Name="ATH-2008011653">
+<Easting>2708800</Easting><Northing>6108300</Northing>
+</Site>
+<Site Name="ATH-2008011693">
+<Easting>2770700</Easting><Northing>6158900</Northing>
+</Site>
+<Site Name="ATH-2008011759">
+<Easting>2782100</Easting><Northing>6124000</Northing>
+</Site>
+<Site Name="ATH-2008011765">
+<Easting>2731803</Easting><Northing>6098702</Northing>
+</Site>
+<Site Name="ATH-2008011781">
+<Easting>2766900</Easting><Northing>6104700</Northing>
+</Site>
+<Site Name="ATH-2008011821">
+<Easting>2752900</Easting><Northing>6157200</Northing>
+</Site>
+<Site Name="ATH-2008011885">
+<Easting>2702400</Easting><Northing>6074500</Northing>
+</Site>
+<Site Name="ATH-2008011886">
+<Easting>2702400</Easting><Northing>6074500</Northing>
+</Site>
+<Site Name="ATH-2008011966">
+<Easting>2709011</Easting><Northing>6072685</Northing>
+</Site>
+<Site Name="ATH-2008012064">
+<Easting>2720200</Easting><Northing>6083000</Northing>
+</Site>
+<Site Name="ATH-2008012113">
+<Easting>2709274</Easting><Northing>6073852</Northing>
+</Site>
+<Site Name="ATH-2008012211">
+<Easting>2753600</Easting><Northing>6086700</Northing>
+</Site>
+<Site Name="ATH-2008012236">
+<Easting>2704700</Easting><Northing>6111200</Northing>
+</Site>
+<Site Name="ATH-2008012237">
+<Easting>2704700</Easting><Northing>6111200</Northing>
+</Site>
+<Site Name="ATH-2008012288">
+<Easting>2710300</Easting><Northing>6108700</Northing>
+</Site>
+<Site Name="ATH-2008012329">
+<Easting>2705209</Easting><Northing>6061959</Northing>
+</Site>
+<Site Name="ATH-2008012334">
+<Easting>2721700</Easting><Northing>6187100</Northing>
+</Site>
+<Site Name="ATH-2008012343">
+<Easting>2698100</Easting><Northing>6057300</Northing>
+</Site>
+<Site Name="ATH-2008012344">
+<Easting>2697800</Easting><Northing>6057600</Northing>
+</Site>
+<Site Name="ATH-2008012345">
+<Easting>2756600</Easting><Northing>6084900</Northing>
+</Site>
+<Site Name="ATH-2008012374">
+<Easting>2745800</Easting><Northing>6104100</Northing>
+</Site>
+<Site Name="ATH-2008012380">
+<Easting>2754183</Easting><Northing>6083936</Northing>
+</Site>
+<Site Name="ATH-2008012389">
+<Easting>2695600</Easting><Northing>6123900</Northing>
+</Site>
+<Site Name="ATH-2009010468">
+<Easting>2780649</Easting><Northing>6068275</Northing>
+</Site>
+<Site Name="ATH-2009010853">
+<Easting>2683002</Easting><Northing>6137355</Northing>
+</Site>
+<Site Name="ATH-2009011066">
+<Easting>2747451</Easting><Northing>6097651</Northing>
+</Site>
+<Site Name="ATH-2009011528">
+<Easting>2737600</Easting><Northing>6094300</Northing>
+</Site>
+<Site Name="ATH-2009011619">
+<Easting>2701400</Easting><Northing>6077700</Northing>
+</Site>
+<Site Name="ATH-2009011691">
+<Easting>2777400</Easting><Northing>6174000</Northing>
+</Site>
+<Site Name="ATH-2009011770">
+<Easting>2700100</Easting><Northing>6057500</Northing>
+</Site>
+<Site Name="ATH-2009011812">
+<Easting>2765600</Easting><Northing>6102800</Northing>
+</Site>
+<Site Name="ATH-2009011815">
+<Easting>2777944</Easting><Northing>6115483</Northing>
+</Site>
+<Site Name="ATH-2009011908">
+<Easting>2707200</Easting><Northing>6102900</Northing>
+</Site>
+<Site Name="ATH-2009011917">
+<Easting>2699600</Easting><Northing>6057100</Northing>
+</Site>
+<Site Name="ATH-2009011933">
+</Site>
+<Site Name="ATH-2009012018">
+<Easting>2764500</Easting><Northing>6102600</Northing>
+</Site>
+<Site Name="ATH-2009012054">
+<Easting>2726600</Easting><Northing>6098500</Northing>
+</Site>
+<Site Name="ATH-2009012078">
+<Easting>2713600</Easting><Northing>6090700</Northing>
+</Site>
+<Site Name="ATH-2009012135">
+<Easting>2729200</Easting><Northing>6104000</Northing>
+</Site>
+<Site Name="ATH-2009012146">
+<Easting>2715600</Easting><Northing>6090900</Northing>
+</Site>
+<Site Name="ATH-2009012387">
+<Easting>2765500</Easting><Northing>6103400</Northing>
+</Site>
+<Site Name="ATH-2009012388">
+<Easting>2746100</Easting><Northing>6105700</Northing>
+</Site>
+<Site Name="ATH-2009012507">
+<Easting>2764600</Easting><Northing>6092800</Northing>
+</Site>
+<Site Name="ATH-2009012544">
+<Easting>2734800</Easting><Northing>6108900</Northing>
+</Site>
+<Site Name="ATH-2009012546">
+<Easting>2734800</Easting><Northing>6108900</Northing>
+</Site>
+<Site Name="ATH-2009012560">
+<Easting>2717400</Easting><Northing>6112600</Northing>
+</Site>
+<Site Name="ATH-2009012581">
+<Easting>2676100</Easting><Northing>6150000</Northing>
+</Site>
+<Site Name="ATH-2009012582">
+<Easting>2676900</Easting><Northing>6150500</Northing>
+</Site>
+<Site Name="ATH-2009012583">
+<Easting>2677100</Easting><Northing>6151200</Northing>
+</Site>
+<Site Name="ATH-2009012584">
+<Easting>2703000</Easting><Northing>6138000</Northing>
+</Site>
+<Site Name="ATH-2009012624">
+<Easting>2693873</Easting><Northing>6055934</Northing>
+</Site>
+<Site Name="ATH-2009012631">
+<Easting>2754500</Easting><Northing>6083100</Northing>
+</Site>
+<Site Name="ATH-2009012671">
+<Easting>2706066</Easting><Northing>6093814</Northing>
+</Site>
+<Site Name="ATH-2009012693">
+<Easting>2705800</Easting><Northing>6061800</Northing>
+</Site>
+<Site Name="ATH-2009012697">
+<Easting>2732896</Easting><Northing>6122105</Northing>
+</Site>
+<Site Name="ATH-2009012712">
+<Easting>2733100</Easting><Northing>6107200</Northing>
+</Site>
+<Site Name="ATH-2009012723">
+<Easting>2751600</Easting><Northing>6081400</Northing>
+</Site>
+<Site Name="ATH-2009012728">
+<Easting>2764800</Easting><Northing>6098400</Northing>
+</Site>
+<Site Name="ATH-2009012760">
+<Easting>2754500</Easting><Northing>6087200</Northing>
+</Site>
+<Site Name="ATH-2009012824">
+<Easting>2733500</Easting><Northing>6115100</Northing>
+</Site>
+<Site Name="ATH-2009012825">
+<Easting>2733500</Easting><Northing>6115000</Northing>
+</Site>
+<Site Name="ATH-2009012859">
+<Easting>2761300</Easting><Northing>6089100</Northing>
+</Site>
+<Site Name="ATH-2009012871">
+<Easting>2737900</Easting><Northing>6092000</Northing>
+</Site>
+<Site Name="ATH-2009012891">
+<Easting>2724800</Easting><Northing>6297500</Northing>
+</Site>
+<Site Name="ATH-2009012904">
+<Easting>2713800</Easting><Northing>6072600</Northing>
+</Site>
+<Site Name="ATH-2009012957">
+<Easting>2728683</Easting><Northing>6102309</Northing>
+</Site>
+<Site Name="ATH-2009012973">
+<Easting>2772600</Easting><Northing>6102000</Northing>
+</Site>
+<Site Name="ATH-2009012986">
+<Easting>2700200</Easting><Northing>6119200</Northing>
+</Site>
+<Site Name="ATH-2009012992">
+<Easting>2713300</Easting><Northing>6075100</Northing>
+</Site>
+<Site Name="ATH-2009013044">
+<Easting>2733700</Easting><Northing>6189300</Northing>
+</Site>
+<Site Name="ATH-2009013052">
+<Easting>2690297</Easting><Northing>6141922</Northing>
+</Site>
+<Site Name="ATH-2009013099">
+<Easting>2677800</Easting><Northing>6142800</Northing>
+</Site>
+<Site Name="ATH-2009013100">
+<Easting>2768100</Easting><Northing>6096200</Northing>
+</Site>
+<Site Name="ATH-2010009861">
+</Site>
+<Site Name="ATH-2010010950">
+<Easting>2712600</Easting><Northing>6110300</Northing>
+</Site>
+<Site Name="ATH-2010011593">
+</Site>
+<Site Name="ATH-2010011603">
+<Easting>2728400</Easting><Northing>6191300</Northing>
+</Site>
+<Site Name="ATH-2010011767">
+<Easting>2710700</Easting><Northing>6195700</Northing>
+</Site>
+<Site Name="ATH-2010012001">
+<Easting>2710100</Easting><Northing>6087800</Northing>
+</Site>
+<Site Name="ATH-2010012646">
+<Easting>2743300</Easting><Northing>6095100</Northing>
+</Site>
+<Site Name="ATH-2010012694">
+<Easting>2722000</Easting><Northing>6092100</Northing>
+</Site>
+<Site Name="ATH-2010012713">
+<Easting>2703400</Easting><Northing>6114500</Northing>
+</Site>
+<Site Name="ATH-2010012905">
+<Easting>2770900</Easting><Northing>6111400</Northing>
+</Site>
+<Site Name="ATH-2010012932">
+<Easting>2704200</Easting><Northing>6099800</Northing>
+</Site>
+<Site Name="ATH-2010013038">
+<Easting>2735136</Easting><Northing>6092690</Northing>
+</Site>
+<Site Name="ATH-2010013085">
+<Easting>2702400</Easting><Northing>6117200</Northing>
+</Site>
+<Site Name="ATH-2010013118">
+<Easting>2725900</Easting><Northing>6102800</Northing>
+</Site>
+<Site Name="ATH-2010013126">
+<Easting>2700800</Easting><Northing>6108400</Northing>
+</Site>
+<Site Name="ATH-2010013131">
+<Easting>2699700</Easting><Northing>6058000</Northing>
+</Site>
+<Site Name="ATH-2010013146">
+<Easting>2702700</Easting><Northing>6116100</Northing>
+</Site>
+<Site Name="ATH-2010013155">
+<Easting>2701100</Easting><Northing>6108700</Northing>
+</Site>
+<Site Name="ATH-2010013156">
+<Easting>2738400</Easting><Northing>6094100</Northing>
+</Site>
+<Site Name="ATH-2010013157">
+<Easting>2699900</Easting><Northing>6058000</Northing>
+</Site>
+<Site Name="ATH-2010013189">
+<Easting>2743200</Easting><Northing>6095900</Northing>
+</Site>
+<Site Name="ATH-2010013190">
+<Easting>2743200</Easting><Northing>6095900</Northing>
+</Site>
+<Site Name="ATH-2010013225">
+<Easting>2772500</Easting><Northing>6101200</Northing>
+</Site>
+<Site Name="ATH-2010013226">
+<Easting>2770300</Easting><Northing>6100600</Northing>
+</Site>
+<Site Name="ATH-2010013233">
+<Easting>2749400</Easting><Northing>6111300</Northing>
+</Site>
+<Site Name="ATH-2010013241">
+<Easting>2682300</Easting><Northing>6137300</Northing>
+</Site>
+<Site Name="ATH-2010013317">
+<Easting>2677800</Easting><Northing>6142800</Northing>
+</Site>
+<Site Name="ATH-2010013325">
+<Easting>2770800</Easting><Northing>6186100</Northing>
+</Site>
+<Site Name="ATH-2010013343">
+<Easting>2712500</Easting><Northing>6109700</Northing>
+</Site>
+<Site Name="ATH-2010013405">
+<Easting>2703300</Easting><Northing>6078400</Northing>
+</Site>
+<Site Name="ATH-2010013411">
+<Easting>2721300</Easting><Northing>6122600</Northing>
+</Site>
+<Site Name="ATH-2010013460">
+<Easting>2706200</Easting><Northing>6146500</Northing>
+</Site>
+<Site Name="ATH-2011012472">
+<Easting>2748500</Easting><Northing>6079500</Northing>
+</Site>
+<Site Name="ATH-2011012682">
+<Easting>2753304</Easting><Northing>6083297</Northing>
+</Site>
+<Site Name="ATH-2011012684">
+<Easting>2753505</Easting><Northing>6083496</Northing>
+</Site>
+<Site Name="ATH-2011013139">
+<Easting>2736800</Easting><Northing>6082700</Northing>
+</Site>
+<Site Name="ATH-2011013483">
+<Easting>2700100</Easting><Northing>6097900</Northing>
+</Site>
+<Site Name="ATH-2011013527">
+<Easting>2677300</Easting><Northing>6145000</Northing>
+</Site>
+<Site Name="ATH-2011013549">
+<Easting>2705100</Easting><Northing>6106500</Northing>
+</Site>
+<Site Name="ATH-2011013613">
+<Easting>2726000</Easting><Northing>6095800</Northing>
+</Site>
+<Site Name="ATH-2011013641">
+<Easting>2730906</Easting><Northing>6091192</Northing>
+</Site>
+<Site Name="ATH-2011013690">
+<Easting>2705500</Easting><Northing>6257600</Northing>
+</Site>
+<Site Name="ATH-2011013692">
+<Easting>2794000</Easting><Northing>6071200</Northing>
+</Site>
+<Site Name="ATH-2011013718">
+<Easting>2734100</Easting><Northing>6099300</Northing>
+</Site>
+<Site Name="ATH-2011013730">
+<Easting>2719100</Easting><Northing>6195100</Northing>
+</Site>
+<Site Name="ATH-2011013751">
+<Easting>2729800</Easting><Northing>6104900</Northing>
+</Site>
+<Site Name="ATH-2011013772">
+<Easting>2710100</Easting><Northing>6095600</Northing>
+</Site>
+<Site Name="ATH-2011013781">
+<Easting>2738600</Easting><Northing>6141800</Northing>
+</Site>
+<Site Name="ATH-2011013813">
+<Easting>2703500</Easting><Northing>6102300</Northing>
+</Site>
+<Site Name="ATH-2011013828">
+<Easting>2693600</Easting><Northing>6057700</Northing>
+</Site>
+<Site Name="ATH-2011013850">
+<Easting>2787300</Easting><Northing>6122000</Northing>
+</Site>
+<Site Name="ATH-2011013859">
+<Easting>2754800</Easting><Northing>6085500</Northing>
+</Site>
+<Site Name="ATH-2011013960">
+<Easting>2714300</Easting><Northing>6072900</Northing>
+</Site>
+<Site Name="ATH-2011013969">
+<Easting>2683100</Easting><Northing>6146000</Northing>
+</Site>
+<Site Name="ATH-2011013975">
+<Easting>2740583</Easting><Northing>6118151</Northing>
+</Site>
+<Site Name="ATH-2011013994">
+<Easting>2702000</Easting><Northing>6097200</Northing>
+</Site>
+<Site Name="ATH-2011013997">
+<Easting>2714100</Easting><Northing>6072800</Northing>
+</Site>
+<Site Name="ATH-2011014051">
+<Easting>2754100</Easting><Northing>6117500</Northing>
+</Site>
+<Site Name="ATH-2011014055">
+<Easting>2704400</Easting><Northing>6114900</Northing>
+</Site>
+<Site Name="ATH-2011014062">
+<Easting>2692700</Easting><Northing>6126200</Northing>
+</Site>
+<Site Name="ATH-2011014097">
+<Easting>2726000</Easting><Northing>6088400</Northing>
+</Site>
+<Site Name="ATH-2011014098">
+<Easting>2723500</Easting><Northing>6127200</Northing>
+</Site>
+<Site Name="ATH-2011014102">
+<Easting>2706900</Easting><Northing>6086800</Northing>
+</Site>
+<Site Name="ATH-2011014170">
+<Easting>2704700</Easting><Northing>6088100</Northing>
+</Site>
+<Site Name="ATH-2011014173">
+<Easting>2734100</Easting><Northing>6107700</Northing>
+</Site>
+<Site Name="ATH-2011014174">
+<Easting>2755400</Easting><Northing>6086000</Northing>
+</Site>
+<Site Name="ATH-2011014183">
+<Easting>2683200</Easting><Northing>6137300</Northing>
+</Site>
+<Site Name="ATH-2012010403">
+</Site>
+<Site Name="ATH-2012011051">
+</Site>
+<Site Name="ATH-2012013905">
+<Easting>2678000</Easting><Northing>6141600</Northing>
+</Site>
+<Site Name="ATH-2012014007">
+<Easting>2713212</Easting><Northing>6071492</Northing>
+</Site>
+<Site Name="ATH-2012014028">
+<Easting>2753300</Easting><Northing>6083100</Northing>
+</Site>
+<Site Name="ATH-2012014029">
+<Easting>2753436</Easting><Northing>6083103</Northing>
+</Site>
+<Site Name="ATH-2012014121">
+</Site>
+<Site Name="ATH-2012014142">
+<Easting>2725400</Easting><Northing>6086900</Northing>
+</Site>
+<Site Name="ATH-2012014150">
+<Easting>2701000</Easting><Northing>6100600</Northing>
+</Site>
+<Site Name="ATH-2012014230">
+<Easting>2719299</Easting><Northing>6260104</Northing>
+</Site>
+<Site Name="ATH-2012014234">
+<Easting>2707200</Easting><Northing>6079400</Northing>
+</Site>
+<Site Name="ATH-2012014251">
+<Easting>2740900</Easting><Northing>6093900</Northing>
+</Site>
+<Site Name="ATH-2012014268">
+<Easting>2726200</Easting><Northing>6129300</Northing>
+</Site>
+<Site Name="ATH-2012014275">
+<Easting>2708600</Easting><Northing>6106304</Northing>
+</Site>
+<Site Name="ATH-2012014276">
+<Easting>2723100</Easting><Northing>6093000</Northing>
+</Site>
+<Site Name="ATH-2012014296">
+<Easting>2730800</Easting><Northing>6190300</Northing>
+</Site>
+<Site Name="ATH-2012014338">
+<Easting>2707600</Easting><Northing>6105600</Northing>
+</Site>
+<Site Name="ATH-2012014355">
+<Easting>2725700</Easting><Northing>6087600</Northing>
+</Site>
+<Site Name="ATH-2012014364">
+<Easting>2711800</Easting><Northing>6255100</Northing>
+</Site>
+<Site Name="ATH-2012014378">
+<Easting>2729900</Easting><Northing>6104500</Northing>
+</Site>
+<Site Name="ATH-2012014384">
+<Easting>2733300</Easting><Northing>6100300</Northing>
+</Site>
+<Site Name="ATH-2012014406">
+<Easting>2750100</Easting><Northing>6125400</Northing>
+</Site>
+<Site Name="ATH-2012014407">
+<Easting>2726000</Easting><Northing>6088400</Northing>
+</Site>
+<Site Name="ATH-2012014463">
+<Easting>2740300</Easting><Northing>6093900</Northing>
+</Site>
+<Site Name="ATH-2012014476">
+<Easting>2701600</Easting><Northing>6089000</Northing>
+</Site>
+<Site Name="ATH-2012014481">
+<Easting>2709300</Easting><Northing>6114600</Northing>
+</Site>
+<Site Name="ATH-2012014488">
+<Easting>2707484</Easting><Northing>6071736</Northing>
+</Site>
+<Site Name="ATH-2012014491">
+<Easting>2719800</Easting><Northing>6122000</Northing>
+</Site>
+<Site Name="ATH-2012014506">
+<Easting>2733100</Easting><Northing>6091000</Northing>
+</Site>
+<Site Name="ATH-2012014561">
+<Easting>2700900</Easting><Northing>6134700</Northing>
+</Site>
+<Site Name="ATH-2012014568">
+<Easting>2761800</Easting><Northing>6102200</Northing>
+</Site>
+<Site Name="ATH-2012014596">
+<Easting>2726300</Easting><Northing>6189500</Northing>
+</Site>
+<Site Name="ATH-2012014597">
+<Easting>2703600</Easting><Northing>6118500</Northing>
+</Site>
+<Site Name="ATH-2012014625">
+<Easting>2724500</Easting><Northing>6101600</Northing>
+</Site>
+<Site Name="ATH-2012014629">
+<Easting>2738100</Easting><Northing>6093500</Northing>
+</Site>
+<Site Name="ATH-2012014642">
+<Easting>2704500</Easting><Northing>6086400</Northing>
+</Site>
+<Site Name="ATH-2012014662">
+<Easting>2704651</Easting><Northing>6130994</Northing>
+</Site>
+<Site Name="ATH-2012014663">
+<Easting>2701200</Easting><Northing>6060500</Northing>
+</Site>
+<Site Name="ATH-2012014684">
+<Easting>2702800</Easting><Northing>6084800</Northing>
+</Site>
+<Site Name="ATH-2012014716">
+<Easting>2732800</Easting><Northing>6188500</Northing>
+</Site>
+<Site Name="ATH-2013010987">
+</Site>
+<Site Name="ATH-2013011165">
+<Easting>2766400</Easting><Northing>6095600</Northing>
+</Site>
+<Site Name="ATH-2013012569">
+</Site>
+<Site Name="ATH-2013014398">
+</Site>
+<Site Name="ATH-2013014516">
+</Site>
+<Site Name="ATH-2013014571">
+<Easting>2725800</Easting><Northing>6090500</Northing>
+</Site>
+<Site Name="ATH-2013014655">
+<Easting>2697300</Easting><Northing>6120400</Northing>
+</Site>
+<Site Name="ATH-2013014724">
+<Easting>2718400</Easting><Northing>6118200</Northing>
+</Site>
+<Site Name="ATH-2013014752">
+</Site>
+<Site Name="ATH-2013014806">
+<Easting>2709655</Easting><Northing>6197281</Northing>
+</Site>
+<Site Name="ATH-2013014829">
+<Easting>2725314</Easting><Northing>6094704</Northing>
+</Site>
+<Site Name="ATH-2013014863">
+<Easting>2716815</Easting><Northing>6082308</Northing>
+</Site>
+<Site Name="ATH-2013014865">
+<Easting>2701500</Easting><Northing>6059600</Northing>
+</Site>
+<Site Name="ATH-2013014882">
+<Easting>2726814</Easting><Northing>6085231</Northing>
+</Site>
+<Site Name="ATH-2013014885">
+<Easting>2726814</Easting><Northing>6085231</Northing>
+</Site>
+<Site Name="ATH-2013014903">
+<Easting>2699516</Easting><Northing>6057213</Northing>
+</Site>
+<Site Name="ATH-2013014964">
+<Easting>2712253</Easting><Northing>6196992</Northing>
+</Site>
+<Site Name="ATH-2013014965">
+<Easting>2726103</Easting><Northing>6191459</Northing>
+</Site>
+<Site Name="ATH-2013014973">
+<Easting>2763262</Easting><Northing>6104966</Northing>
+</Site>
+<Site Name="ATH-2013014983">
+<Easting>2714300</Easting><Northing>6194499</Northing>
+</Site>
+<Site Name="ATH-2013015000">
+<Easting>2721745</Easting><Northing>6186578</Northing>
+</Site>
+<Site Name="ATH-2013015033">
+<Easting>2701424</Easting><Northing>6117803</Northing>
+</Site>
+<Site Name="ATH-2013015034">
+<Easting>2701424</Easting><Northing>6117803</Northing>
+</Site>
+<Site Name="ATH-2013015038">
+<Easting>2713400</Easting><Northing>6071300</Northing>
+</Site>
+<Site Name="ATH-2013015046">
+<Easting>2706143</Easting><Northing>6147787</Northing>
+</Site>
+<Site Name="ATH-2013015086">
+<Easting>2715099</Easting><Northing>6194200</Northing>
+</Site>
+<Site Name="ATH-2013015096">
+<Easting>2729099</Easting><Northing>6086900</Northing>
+</Site>
+<Site Name="ATH-2013015160">
+<Easting>2712292</Easting><Northing>6072304</Northing>
+</Site>
+<Site Name="ATH-2013015214">
+<Easting>2726433</Easting><Northing>6101685</Northing>
+</Site>
+<Site Name="ATH-2013015217">
+<Easting>2726782</Easting><Northing>6103092</Northing>
+</Site>
+<Site Name="ATH-2014011834">
+<Easting>2709000</Easting><Northing>6200300</Northing>
+</Site>
+<Site Name="ATH-2014011835">
+<Easting>2707500</Easting><Northing>6200500</Northing>
+</Site>
+<Site Name="ATH-2014013572">
+<Easting>2750923</Easting><Northing>6165557</Northing>
+</Site>
+<Site Name="ATH-2014013721">
+<Easting>2714500</Easting><Northing>6106200</Northing>
+</Site>
+<Site Name="ATH-2014013934">
+</Site>
+<Site Name="ATH-2014013935">
+<Easting>2729523</Easting><Northing>6136757</Northing>
+</Site>
+<Site Name="ATH-2014015102">
+<Easting>2707792</Easting><Northing>6107107</Northing>
+</Site>
+<Site Name="ATH-2014015131">
+<Easting>2709100</Easting><Northing>6094700</Northing>
+</Site>
+<Site Name="ATH-2014015132">
+<Easting>2712115</Easting><Northing>6072524</Northing>
+</Site>
+<Site Name="ATH-2014015146">
+<Easting>2711752</Easting><Northing>6202676</Northing>
+</Site>
+<Site Name="ATH-2014015150">
+<Easting>2750000</Easting><Northing>6080100</Northing>
+</Site>
+<Site Name="ATH-2014015167">
+<Easting>2712500</Easting><Northing>6195600</Northing>
+</Site>
+<Site Name="ATH-2014015175">
+<Easting>2706391</Easting><Northing>6108666</Northing>
+</Site>
+<Site Name="ATH-2014015187">
+<Easting>2762258</Easting><Northing>6144107</Northing>
+</Site>
+<Site Name="ATH-2014015201">
+<Easting>2783395</Easting><Northing>6109491</Northing>
+</Site>
+<Site Name="ATH-2014015202">
+<Easting>2710245</Easting><Northing>6096025</Northing>
+</Site>
+<Site Name="ATH-2014015207">
+<Easting>2704626</Easting><Northing>6131000</Northing>
+</Site>
+<Site Name="ATH-2014015224">
+</Site>
+<Site Name="ATH-2014015240">
+<Easting>2776096</Easting><Northing>6102596</Northing>
+</Site>
+<Site Name="ATH-2014015241">
+<Easting>2735886</Easting><Northing>6090261</Northing>
+</Site>
+<Site Name="ATH-2014015268">
+<Easting>2701999</Easting><Northing>6081500</Northing>
+</Site>
+<Site Name="ATH-2014015277">
+<Easting>2731944</Easting><Northing>6088587</Northing>
+</Site>
+<Site Name="ATH-2014015303">
+<Easting>2707400</Easting><Northing>6091000</Northing>
+</Site>
+<Site Name="ATH-2014015321">
+<Easting>2729614</Easting><Northing>6103201</Northing>
+</Site>
+<Site Name="ATH-2014015350">
+<Easting>2781396</Easting><Northing>6127083</Northing>
+</Site>
+<Site Name="ATH-2014015369">
+<Easting>2713099</Easting><Northing>6082699</Northing>
+</Site>
+<Site Name="ATH-2014015401">
+<Easting>2727800</Easting><Northing>6106300</Northing>
+</Site>
+<Site Name="ATH-2014015437">
+<Easting>2714402</Easting><Northing>6110570</Northing>
+</Site>
+<Site Name="ATH-2014015439">
+<Easting>2757209</Easting><Northing>6063013</Northing>
+</Site>
+<Site Name="ATH-2014015470">
+<Easting>2716699</Easting><Northing>6078300</Northing>
+</Site>
+<Site Name="ATH-2014015482">
+<Easting>2758713</Easting><Northing>6083500</Northing>
+</Site>
+<Site Name="ATH-2014015511">
+<Easting>2718156</Easting><Northing>6113361</Northing>
+</Site>
+<Site Name="ATH-2014015523">
+<Easting>2737700</Easting><Northing>6092900</Northing>
+</Site>
+<Site Name="ATH-2014015552">
+<Easting>2716437</Easting><Northing>6098425</Northing>
+</Site>
+<Site Name="ATH-2014015570">
+<Easting>2763102</Easting><Northing>6149595</Northing>
+</Site>
+<Site Name="ATH-2014015590">
+<Easting>2738901</Easting><Northing>6094202</Northing>
+</Site>
+<Site Name="ATH-2014015591">
+<Easting>2738600</Easting><Northing>6093306</Northing>
+</Site>
+<Site Name="ATH-2014015592">
+<Easting>2735501</Easting><Northing>6093007</Northing>
+</Site>
+<Site Name="ATH-2014015593">
+<Easting>2737489</Easting><Northing>6092821</Northing>
+</Site>
+<Site Name="ATH-2014015594">
+<Easting>2738291</Easting><Northing>6093814</Northing>
+</Site>
+<Site Name="ATH-2014015599">
+<Easting>2704726</Easting><Northing>6076817</Northing>
+</Site>
+<Site Name="ATH-2014015619">
+<Easting>2706000</Easting><Northing>6103300</Northing>
+</Site>
+<Site Name="ATH-2014015621">
+<Easting>2738000</Easting><Northing>6093000</Northing>
+</Site>
+<Site Name="ATH-2014015638">
+<Easting>2746809</Easting><Northing>6080906</Northing>
+</Site>
+<Site Name="ATH-2014015661">
+<Easting>2699400</Easting><Northing>6060800</Northing>
+</Site>
+<Site Name="ATH-2014015662">
+<Easting>2699400</Easting><Northing>6060800</Northing>
+</Site>
+<Site Name="ATH-2014015663">
+<Easting>2699400</Easting><Northing>6060800</Northing>
+</Site>
+<Site Name="ATH-2014015683">
+<Easting>2706727</Easting><Northing>6089096</Northing>
+</Site>
+<Site Name="ATH-2014015685">
+<Easting>2716029</Easting><Northing>6087943</Northing>
+</Site>
+<Site Name="ATH-2014200009">
+<Easting>2704733</Easting><Northing>6102330</Northing>
+</Site>
+<Site Name="ATH-2014200014">
+<Easting>2696327</Easting><Northing>6128136</Northing>
+</Site>
+<Site Name="ATH-2015200046">
+<Easting>2697504</Easting><Northing>6057392</Northing>
+</Site>
+<Site Name="ATH-2015200049">
+<Easting>2697504</Easting><Northing>6057360</Northing>
+</Site>
+<Site Name="ATH-2015200064">
+<Easting>2696417</Easting><Northing>6051903</Northing>
+</Site>
+<Site Name="ATH-2015200077">
+<Easting>2700848</Easting><Northing>6060347</Northing>
+</Site>
+<Site Name="ATH-2015200138">
+<Easting>2730298</Easting><Northing>6109364</Northing>
+</Site>
+<Site Name="ATH-2015200157">
+<Easting>2713528</Easting><Northing>6195356</Northing>
+</Site>
+<Site Name="ATH-2015200172">
+<Easting>2702500</Easting><Northing>6063937</Northing>
+</Site>
+<Site Name="ATH-2015200239">
+<Easting>2705514</Easting><Northing>6103308</Northing>
+</Site>
+<Site Name="ATH-2015200283">
+</Site>
+<Site Name="ATH-2015200291">
+<Easting>2707073</Easting><Northing>6090564</Northing>
+</Site>
+<Site Name="ATH-2015200292">
+<Easting>2735012</Easting><Northing>6089532</Northing>
+</Site>
+<Site Name="ATH-2015200353">
+<Easting>2711131</Easting><Northing>6094560</Northing>
+</Site>
+<Site Name="ATH-2015200372">
+<Easting>2712142</Easting><Northing>6093773</Northing>
+</Site>
+<Site Name="ATH-2015200440">
+<Easting>2728735</Easting><Northing>6097308</Northing>
+</Site>
+<Site Name="ATH-2015200461">
+<Easting>2707451</Easting><Northing>6089931</Northing>
+</Site>
+<Site Name="ATH-2015200468">
+<Easting>2786900</Easting><Northing>6113300</Northing>
+</Site>
+<Site Name="ATH-2015200508">
+<Easting>2709493</Easting><Northing>6098416</Northing>
+</Site>
+<Site Name="ATH-2015200525">
+<Easting>2702364</Easting><Northing>6089463</Northing>
+</Site>
+<Site Name="ATH-2015200530">
+<Easting>2712214</Easting><Northing>6195622</Northing>
+</Site>
+<Site Name="ATH-2015200574">
+<Easting>2770798</Easting><Northing>6101897</Northing>
+</Site>
+<Site Name="ATH-2015200585">
+</Site>
+<Site Name="ATH-2015200588">
+<Easting>2708341</Easting><Northing>6082162</Northing>
+</Site>
+<Site Name="ATH-2015200608">
+<Easting>2695096</Easting><Northing>6122235</Northing>
+</Site>
+<Site Name="ATH-2015200627">
+<Easting>2711049</Easting><Northing>6103857</Northing>
+</Site>
+<Site Name="ATH-2016200658">
+<Easting>2708419</Easting><Northing>6082020</Northing>
+</Site>
+<Site Name="ATH-2016200735">
+<Easting>2702400</Easting><Northing>6074500</Northing>
+</Site>
+<Site Name="ATH-2016200736">
+<Easting>2702400</Easting><Northing>6074500</Northing>
+</Site>
+<Site Name="ATH-2016200838">
+<Easting>2725098</Easting><Northing>6081329</Northing>
+</Site>
+<Site Name="ATH-2016200844">
+<Easting>2717857</Easting><Northing>6202494</Northing>
+</Site>
+<Site Name="ATH-2016200847">
+<Easting>2782100</Easting><Northing>6124000</Northing>
+</Site>
+<Site Name="ATH-2016200938">
+<Easting>2664090</Easting><Northing>6152398</Northing>
+</Site>
+<Site Name="ATH-2016201076">
+<Easting>2735046</Easting><Northing>6090678</Northing>
+</Site>
+<Site Name="ATH-2016201087">
+<Easting>2707231</Easting><Northing>6082167</Northing>
+</Site>
+<Site Name="ATH-2016201122">
+<Easting>2704320</Easting><Northing>6076621</Northing>
+</Site>
+<Site Name="ATH-2017201282">
+<Easting>2735487</Easting><Northing>6089738</Northing>
+</Site>
+<Site Name="ATH-2017201314">
+</Site>
+<Site Name="ATH-2017201419">
+<Easting>2694424</Easting><Northing>6122789</Northing>
+</Site>
+<Site Name="ATH-2017201527">
+<Easting>2703206</Easting><Northing>6078092</Northing>
+</Site>
+<Site Name="ATH-2017201557">
+<Easting>2694451</Easting><Northing>6122822</Northing>
+</Site>
+<Site Name="ATH-2017201571">
+<Easting>2716297</Easting><Northing>6106352</Northing>
+</Site>
+<Site Name="ATH-2017201649">
+<Easting>2703078</Easting><Northing>6072216</Northing>
+</Site>
+<Site Name="ATH-2017201722">
+<Easting>2713397</Easting><Northing>6075235</Northing>
+</Site>
+<Site Name="ATH-2017201741">
+</Site>
+<Site Name="ATH-2017201753">
+<Easting>2702415</Easting><Northing>6117271</Northing>
+</Site>
+<Site Name="ATH-2017201774">
+<Easting>2689936</Easting><Northing>6134140</Northing>
+</Site>
+<Site Name="ATH-2018201871">
+<Easting>2713376</Easting><Northing>6073699</Northing>
+</Site>
+<Site Name="ATH-2018201872">
+<Easting>2782129</Easting><Northing>6124002</Northing>
+</Site>
+<Site Name="ATH-2018201933">
+</Site>
+<Site Name="ATH-2018201977">
+<Easting>2738469</Easting><Northing>6092448</Northing>
+</Site>
+<Site Name="ATH-2018202016">
+<Easting>2725179</Easting><Northing>6128548</Northing>
+</Site>
+<Site Name="ATH-2018202195">
+<Easting>2709187</Easting><Northing>6080617</Northing>
+</Site>
+<Site Name="ATH-2018202267">
+<Easting>2705720</Easting><Northing>6079106</Northing>
+</Site>
+<Site Name="ATH-2018202280">
+<Easting>2675596</Easting><Northing>6148478</Northing>
+</Site>
+<Site Name="ATH-2018202281">
+<Easting>2708976</Easting><Northing>6094512</Northing>
+</Site>
+<Site Name="ATH-2018202330">
+<Easting>2710231</Easting><Northing>6091154</Northing>
+</Site>
+<Site Name="ATH-2019202790">
+<Easting>2716562</Easting><Northing>6069165</Northing>
+</Site>
+<Site Name="ATH-2019202888">
+<Easting>2709730</Easting><Northing>6194116</Northing>
+</Site>
+<Site Name="ATH-2019202966">
+<Easting>2721555</Easting><Northing>6092769</Northing>
+</Site>
+<Site Name="ATH-2019203103">
+<Easting>2717341</Easting><Northing>6118884</Northing>
+</Site>
+<Site Name="ATH-2019203173">
+<Easting>2734035</Easting><Northing>6114631</Northing>
+</Site>
+<Site Name="ATH-2020203296">
+<Easting>2721920</Easting><Northing>6123396</Northing>
+</Site>
+<Site Name="ATH-2020203563">
+</Site>
+<Site Name="ATH-2020203573">
+<Easting>2745843</Easting><Northing>6100427</Northing>
+</Site>
+<Site Name="ATH-2020203626">
+<Easting>2745407</Easting><Northing>6096301</Northing>
+</Site>
+<Site Name="ATH-2020203865">
+<Easting>2705732</Easting><Northing>6149995</Northing>
+</Site>
+<Site Name="ATH-2020203991">
+<Easting>2738210</Easting><Northing>6093303</Northing>
+</Site>
+<Site Name="ATH-2022204945">
+<Easting>2735183</Easting><Northing>6090496</Northing>
+</Site>
+<Site Name="ATH-2022205141">
+<Easting>2693348</Easting><Northing>6059644</Northing>
+</Site>
+<Site Name="ATH-2022205284">
+<Easting>2716218</Easting><Northing>6106302</Northing>
+</Site>
+<Site Name="ATH-2022205581">
+<Easting>2693647</Easting><Northing>6057770</Northing>
+</Site>
+<Site Name="ATH-2022205611">
+<Easting>2737817</Easting><Northing>6095106</Northing>
+</Site>
+<Site Name="ATH-2024207654">
+<Easting>2737046</Easting><Northing>6094630</Northing>
+</Site>
+<Site Name="ATH-2025207791">
+<Easting>2704205</Easting><Northing>6059677</Northing>
+</Site>
+<Site Name="Ahuahu at Te Tuhi Junction">
+<Easting>2679428</Easting><Northing>6172062</Northing>
+</Site>
+<Site Name="Air Quality at Taihape">
+<Easting>2750118</Easting><Northing>6166155</Northing>
+</Site>
+<Site Name="Air Quality at Taumarunui">
+<Easting>2707077</Easting><Northing>6255068</Northing>
+</Site>
+<Site Name="Akitio at Cadmus Bridge">
+<Easting>2797508</Easting><Northing>6069370</Northing>
+</Site>
+<Site Name="Akitio at Toi Flat">
+<Easting>2787700</Easting><Northing>6091900</Northing>
+</Site>
+<Site Name="Akitio at Weber">
+<Easting>2791725</Easting><Northing>6083432</Northing>
+</Site>
+<Site Name="Akitio at Weber Intersection">
+<Easting>2791639</Easting><Northing>6083209</Northing>
+</Site>
+<Site Name="Amons">
+<Easting>2699883</Easting><Northing>6100423</Northing>
+</Site>
+<Site Name="Arawhata Drain at Dairy Track Bridge">
+<Easting>2699471</Easting><Northing>6061979</Northing>
+</Site>
+<Site Name="Arawhata Drain at Dairy Track Sump">
+<Easting>2699575</Easting><Northing>6062195</Northing>
+</Site>
+<Site Name="Arawhata Drain at Hokio Beach Road">
+<Easting>2700100</Easting><Northing>6062500</Northing>
+</Site>
+<Site Name="Arawhata Drain at Kane Farm">
+<Easting>2698777</Easting><Northing>6060926</Northing>
+</Site>
+<Site Name="Arawhata at Culvert ds Joblins">
+<Easting>2699099</Easting><Northing>6061515</Northing>
+</Site>
+<Site Name="Arawhata at us Hokio Beach Road">
+<Easting>2700045</Easting><Northing>6062468</Northing>
+</Site>
+<Site Name="Burkes Drain at Hockly Bridge">
+<Easting>2720651</Easting><Northing>6091016</Northing>
+</Site>
+<Site Name="Butlers">
+<Easting>2700600</Easting><Northing>6058700</Northing>
+</Site>
+<Site Name="Desert Rd Summit Climate Station">
+<Easting>2745380</Easting><Northing>6202554</Northing>
+</Site>
+<Site Name="East Waitewaewae at Oriwa">
+<Easting>2708559</Easting><Northing>6049487</Northing>
+</Site>
+<Site Name="Flemington">
+<Easting>2798500</Easting><Northing>6113500</Northing>
+</Site>
+<Site Name="Forest Rd Drain at Drop Structure">
+<Easting>2701900</Easting><Northing>6103500</Northing>
+</Site>
+<Site Name="Glenwood HBRC">
+<Easting>2783663</Easting><Northing>6150847</Northing>
+</Site>
+<Site Name="HDC Foxton Beach 1">
+<Easting>2700026</Easting><Northing>6079415</Northing>
+</Site>
+<Site Name="HDC Foxton Beach 3">
+<Easting>2700024</Easting><Northing>6079232</Northing>
+</Site>
+<Site Name="HDC Stormwater at Fairfield Rd">
+<Easting>2705720</Easting><Northing>6063413</Northing>
+</Site>
+<Site Name="Hautapu at Alabasters">
+<Easting>2748712</Easting><Northing>6168053</Northing>
+</Site>
+<Site Name="Hautapu at Mounganui Station">
+<Easting>2751880</Easting><Northing>6184505</Northing>
+</Site>
+<Site Name="Hokio at Lake Horowhenua">
+<Easting>2699300</Easting><Northing>6064300</Northing>
+</Site>
+<Site Name="Hokowhitu Lagoon at Pump Shed">
+<Easting>2733723</Easting><Northing>6089758</Northing>
+</Site>
+<Site Name="Hyde Park Bore 2">
+<Easting>2697970</Easting><Northing>6119008</Northing>
+</Site>
+<Site Name="Joblins at Kane Boundary">
+<Easting>2699152</Easting><Northing>6061080</Northing>
+</Site>
+<Site Name="KB Drain at Gillespies Line">
+<Easting>2727457</Easting><Northing>6094262</Northing>
+</Site>
+<Site Name="Kahuterawa at Johnstons Rata">
+<Easting>2732333</Easting><Northing>6080805</Northing>
+</Site>
+<Site Name="Kahuterawa at Scotts Road">
+<Easting>2728800</Easting><Northing>6076700</Northing>
+</Site>
+<Site Name="Kai Iwi at Handley Road">
+<Easting>2672782</Easting><Northing>6145652</Northing>
+</Site>
+<Site Name="Kaikokopu Stream at us Himatangi Town">
+<Easting>2700600</Easting><Northing>6090300</Northing>
+</Site>
+<Site Name="Kaitoke at Vector Gas Line">
+<Easting>2683514</Easting><Northing>6135316</Northing>
+</Site>
+<Site Name="Kawhatau Catchment at Upper Kawhatau">
+<Easting>2769100</Easting><Northing>6155500</Northing>
+</Site>
+<Site Name="Kawhatau at Parenga">
+<Easting>2751800</Easting><Northing>6154700</Northing>
+</Site>
+<Site Name="Kawhatau at Potaka Bridge">
+<Easting>2757400</Easting><Northing>6153700</Northing>
+</Site>
+<Site Name="Kings Canal at Cook Street">
+<Easting>2704354</Easting><Northing>6078381</Northing>
+</Site>
+<Site Name="Kiwitea at Strathspey Farm">
+<Easting>2734852</Easting><Northing>6113109</Northing>
+</Site>
+<Site Name="Koitiata at Beamish Rd">
+<Easting>2695369</Easting><Northing>6119989</Northing>
+</Site>
+<Site Name="Kop 4 A1 Drain at us Pump Station">
+<Easting>2705051</Easting><Northing>6071935</Northing>
+</Site>
+<Site Name="Kop 4 A2 Drain at us A1 Confluence">
+<Easting>2705133</Easting><Northing>6071358</Northing>
+</Site>
+<Site Name="Kop 4 at Pump Chamber">
+<Easting>2705116</Easting><Northing>6072022</Northing>
+</Site>
+<Site Name="Koputaroa at Tavistock Rd">
+<Easting>2707800</Easting><Northing>6065100</Northing>
+</Site>
+<Site Name="Kuku Beach">
+<Easting>2697200</Easting><Northing>6057300</Northing>
+</Site>
+<Site Name="Kumeti at Rua Roa">
+<Easting>2768200</Easting><Northing>6108500</Northing>
+</Site>
+<Site Name="Kumeti at Te Rehunga">
+<Easting>2766300</Easting><Northing>6105200</Northing>
+</Site>
+<Site Name="L Horowhenua Inflow at Lindsay Road">
+<Easting>2702000</Easting><Northing>6066400</Northing>
+</Site>
+<Site Name="Lake Dudding">
+<Easting>2704386</Easting><Northing>6120397</Northing>
+</Site>
+<Site Name="Lake Heaton">
+<Easting>2705174</Easting><Northing>6119419</Northing>
+</Site>
+<Site Name="Lake Herbert">
+<Easting>2705908</Easting><Northing>6116306</Northing>
+</Site>
+<Site Name="Lake Horowhenua at Buoy">
+<Easting>2700280</Easting><Northing>6063739</Northing>
+</Site>
+<Site Name="Lake Horowhenua at Weir">
+<Easting>2699400</Easting><Northing>6064300</Northing>
+</Site>
+<Site Name="Lake Kohata">
+<Easting>2687712</Easting><Northing>6134973</Northing>
+</Site>
+<Site Name="Lake Koitiata">
+<Easting>2696908</Easting><Northing>6118550</Northing>
+</Site>
+<Site Name="Lake Papaitonga at Staff Gauge">
+<Easting>2698017</Easting><Northing>6059810</Northing>
+</Site>
+<Site Name="Lake Pauri">
+<Easting>2688929</Easting><Northing>6134337</Northing>
+</Site>
+<Site Name="Lake William">
+<Easting>2706681</Easting><Northing>6117825</Northing>
+</Site>
+<Site Name="Lake Wiritoa">
+<Easting>2688355</Easting><Northing>6134629</Northing>
+</Site>
+<Site Name="Lethbridge Rd Trib at Makino Rd">
+<Easting>2728825</Easting><Northing>6109045</Northing>
+</Site>
+<Site Name="Linton Drain at Tane Road">
+<Easting>2722800</Easting><Northing>6080900</Northing>
+</Site>
+<Site Name="Lower Retaruke">
+<Easting>2700107</Easting><Northing>6234298</Northing>
+</Site>
+<Site Name="MDC Himatangi Shallow">
+<Easting>2700337</Easting><Northing>6090412</Northing>
+</Site>
+<Site Name="Main Drain at Lynchs Bridge">
+<Easting>2721651</Easting><Northing>6088100</Northing>
+</Site>
+<Site Name="Main Drain at Rangiotu Gates">
+<Easting>2717538</Easting><Northing>6084381</Northing>
+</Site>
+<Site Name="Makahiwi at Repeater">
+<Easting>2701036</Easting><Northing>6242941</Northing>
+</Site>
+<Site Name="Makakahi at Hamua">
+<Easting>2742400</Easting><Northing>6067600</Northing>
+</Site>
+<Site Name="Makakahi at Mangaone">
+<Easting>2741500</Easting><Northing>6064500</Northing>
+</Site>
+<Site Name="Makara at Above Race Intake">
+<Easting>2707588</Easting><Northing>6200523</Northing>
+</Site>
+<Site Name="Makara at Below Race Weir">
+<Easting>2707495</Easting><Northing>6200415</Northing>
+</Site>
+<Site Name="Makaraiti at Above Race Intake">
+<Easting>2707200</Easting><Northing>6200880</Northing>
+</Site>
+<Site Name="Makaraiti at Below Race Intake">
+<Easting>2706991</Easting><Northing>6200752</Northing>
+</Site>
+<Site Name="Makino Floodway at Gate 1">
+<Easting>2730024</Easting><Northing>6109091</Northing>
+</Site>
+<Site Name="Makino Floodway at Gate 2">
+<Easting>2730096</Easting><Northing>6108990</Northing>
+</Site>
+<Site Name="Makino Floodway at Gate 3">
+<Easting>2730150</Easting><Northing>6108898</Northing>
+</Site>
+<Site Name="Makino Floodway at Gate 4">
+<Easting>2730424</Easting><Northing>6108585</Northing>
+</Site>
+<Site Name="Makino Floodway at Gate 5">
+<Easting>2730592</Easting><Northing>6108336</Northing>
+</Site>
+<Site Name="Makino Floodway at Pharazyn Rd">
+<Easting>2730592</Easting><Northing>6108336</Northing>
+</Site>
+<Site Name="Makino Trib at Stonebridge Reserve">
+<Easting>2728035</Easting><Northing>6107330</Northing>
+</Site>
+<Site Name="Makino at Boness Road">
+<Easting>2725400</Easting><Northing>6102300</Northing>
+</Site>
+<Site Name="Makino at Brewster Rd">
+<Easting>2730701</Easting><Northing>6110923</Northing>
+</Site>
+<Site Name="Makino at Cheltenham">
+<Easting>2734700</Easting><Northing>6117800</Northing>
+</Site>
+<Site Name="Makino at Duke St">
+<Easting>2728603</Easting><Northing>6106671</Northing>
+</Site>
+<Site Name="Makino at Feilding Library">
+<Easting>2728241</Easting><Northing>6105892</Northing>
+</Site>
+<Site Name="Makino at Floodgates">
+<Easting>2729765</Easting><Northing>6109358</Northing>
+</Site>
+<Site Name="Makino at Halcombe Road">
+<Easting>2725500</Easting><Northing>6109300</Northing>
+</Site>
+<Site Name="Makino at MDC Water Supply">
+<Easting>2728063</Easting><Northing>6108693</Northing>
+</Site>
+<Site Name="Makino at Makino Farm">
+<Easting>2732373</Easting><Northing>6115300</Northing>
+</Site>
+<Site Name="Makino at Makino Rd">
+<Easting>2730211</Easting><Northing>6112064</Northing>
+</Site>
+<Site Name="Makino at Rata Street">
+<Easting>2727500</Easting><Northing>6105100</Northing>
+</Site>
+<Site Name="Makino at Reids Line">
+<Easting>2729700</Easting><Northing>6109000</Northing>
+</Site>
+<Site Name="Makohine at Zohs Road">
+<Easting>2744200</Easting><Northing>6154500</Northing>
+</Site>
+<Site Name="Makotuku at Above Race Intake">
+<Easting>2709100</Easting><Northing>6200300</Northing>
+</Site>
+<Site Name="Makotuku at F Trig">
+<Easting>2725400</Easting><Northing>6206100</Northing>
+</Site>
+<Site Name="Makotuku at Raetihi">
+<Easting>2706464</Easting><Northing>6195576</Northing>
+</Site>
+<Site Name="Makotuku at SH49A">
+<Easting>2710300</Easting><Northing>6201100</Northing>
+</Site>
+<Site Name="Makowhai Tributary at SH1">
+<Easting>2713881</Easting><Northing>6108814</Northing>
+</Site>
+<Site Name="Makowhai at SH1">
+<Easting>2714625</Easting><Northing>6108243</Northing>
+</Site>
+<Site Name="Makowhai at ds Ohakea">
+<Easting>2713563</Easting><Northing>6106961</Northing>
+</Site>
+<Site Name="Makuri at Bee 4 Trig">
+<Easting>2769000</Easting><Northing>6067200</Northing>
+</Site>
+<Site Name="Makuri at Tuscan Hills">
+<Easting>2758300</Easting><Northing>6071700</Northing>
+</Site>
+<Site Name="Manakau at S.H.1 Bridge">
+<Easting>2696800</Easting><Northing>6051200</Northing>
+</Site>
+<Site Name="Manawatu at Apiti Track">
+<Easting>2778100</Easting><Northing>6124200</Northing>
+</Site>
+<Site Name="Manawatu at Floodway">
+<Easting>2710800</Easting><Northing>6075900</Northing>
+</Site>
+<Site Name="Manawatu at Foxton">
+<Easting>2699600</Easting><Northing>6079100</Northing>
+</Site>
+<Site Name="Manawatu at Hopelands">
+<Easting>2761600</Easting><Northing>6089900</Northing>
+</Site>
+<Site Name="Manawatu at Moutoa">
+<Easting>2711083</Easting><Northing>6076701</Northing>
+</Site>
+<Site Name="Manawatu at Moutoa Gate Pier">
+<Easting>2710866</Easting><Northing>6076593</Northing>
+</Site>
+<Site Name="Manawatu at Opiki Bridge">
+<Easting>2719400</Easting><Northing>6082700</Northing>
+</Site>
+<Site Name="Manawatu at Opiki Floodway">
+<Easting>2720160</Easting><Northing>6083087</Northing>
+</Site>
+<Site Name="Manawatu at Te Ao Nui">
+<Easting>2732360</Easting><Northing>6091890</Northing>
+</Site>
+<Site Name="Manawatu at Teachers College">
+<Easting>2733100</Easting><Northing>6089200</Northing>
+</Site>
+<Site Name="Manawatu at Upper Gorge">
+<Easting>2749400</Easting><Northing>6093300</Northing>
+</Site>
+<Site Name="Manawatu at Victoria Ave">
+<Easting>2732360</Easting><Northing>6091890</Northing>
+</Site>
+<Site Name="Manawatu at Weber Road">
+<Easting>2775100</Easting><Northing>6102700</Northing>
+</Site>
+<Site Name="Manga-atua at Davey Rd">
+<Easting>2756211</Easting><Northing>6091695</Northing>
+</Site>
+<Site Name="Manga-atua at Hopelands Rd">
+<Easting>2758000</Easting><Northing>6093000</Northing>
+</Site>
+<Site Name="Manga-auta at Hopelands Rd">
+</Site>
+<Site Name="Mangaehu at Bridge">
+<Easting>2636000</Easting><Northing>6200900</Northing>
+</Site>
+<Site Name="Mangaetoroa at Scarrows">
+<Easting>2701400</Easting><Northing>6195700</Northing>
+</Site>
+<Site Name="Mangahao at Ballance">
+<Easting>2746800</Easting><Northing>6081800</Northing>
+</Site>
+<Site Name="Mangahao at Kakariki">
+<Easting>2731700</Easting><Northing>6068500</Northing>
+</Site>
+<Site Name="Mangahao at No. 2 Dam">
+<Easting>2721100</Easting><Northing>6064300</Northing>
+</Site>
+<Site Name="Manganui o te Ao at Ashworth">
+<Easting>2700300</Easting><Northing>6208200</Northing>
+</Site>
+<Site Name="Mangaone Stopbanks BH01">
+<Easting>2729950</Easting><Northing>6092006</Northing>
+</Site>
+<Site Name="Mangaone Stopbanks BH02">
+<Easting>2729980</Easting><Northing>6092019</Northing>
+</Site>
+<Site Name="Mangaone West at Lees Road">
+<Easting>2723540</Easting><Northing>6106283</Northing>
+</Site>
+<Site Name="Mangaone at Awapuni Racecourse">
+<Easting>2728405</Easting><Northing>6087718</Northing>
+</Site>
+<Site Name="Mangaone at Bunnythorpe Rd">
+<Easting>2733400</Easting><Northing>6099700</Northing>
+</Site>
+<Site Name="Mangaone at Flygers Line Gates">
+<Easting>2730879</Easting><Northing>6094923</Northing>
+</Site>
+<Site Name="Mangaone at Milson Line">
+<Easting>2731100</Easting><Northing>6095300</Northing>
+</Site>
+<Site Name="Mangaone at Tremaine Avenue">
+<Easting>2729969</Easting><Northing>6092024</Northing>
+</Site>
+<Site Name="Mangaone at Valley Road">
+<Easting>2740600</Easting><Northing>6108100</Northing>
+</Site>
+<Site Name="Mangaorapa">
+<Easting>2803106</Easting><Northing>6089294</Northing>
+</Site>
+<Site Name="Mangapapa at Troup Rd">
+<Easting>2751800</Easting><Northing>6092300</Northing>
+</Site>
+<Site Name="Mangaparare at Mangaparo Road">
+<Easting>2682315</Easting><Northing>6260094</Northing>
+</Site>
+<Site Name="Mangaroa at Ohura Town Bridge">
+<Easting>2682100</Easting><Northing>6260800</Northing>
+</Site>
+<Site Name="Mangatainoka at Hillwood Hukanui">
+<Easting>2735700</Easting><Northing>6066200</Northing>
+</Site>
+<Site Name="Mangatainoka at Larsons Road">
+<Easting>2730800</Easting><Northing>6059600</Northing>
+</Site>
+<Site Name="Mangatainoka at Pahiatua Dairy Factory">
+<Easting>2748046</Easting><Northing>6079334</Northing>
+</Site>
+<Site Name="Mangatainoka at Pahiatua Town Bridge">
+<Easting>2750100</Easting><Northing>6080200</Northing>
+</Site>
+<Site Name="Mangatoro at Mangahei Road">
+<Easting>2781300</Easting><Northing>6101900</Northing>
+</Site>
+<Site Name="Mangawhero at Aberfeldy">
+<Easting>2703873</Easting><Northing>6154807</Northing>
+</Site>
+<Site Name="Mangawhero at Bangonie">
+<Easting>2705427</Easting><Northing>6178227</Northing>
+</Site>
+<Site Name="Mangawhero at DOC Headquarters">
+<Easting>2717900</Easting><Northing>6197700</Northing>
+</Site>
+<Site Name="Mangawhero at Ore Ore">
+<Easting>2704588</Easting><Northing>6179413</Northing>
+</Site>
+<Site Name="Mangawhero at Ore Ore Slip">
+<Easting>2704550</Easting><Northing>6179450</Northing>
+</Site>
+<Site Name="Mangawhero at Pakihi Rd Bridge">
+<Easting>2710091</Easting><Northing>6194414</Northing>
+</Site>
+<Site Name="Mangawhero at Raupiu Road">
+<Easting>2709900</Easting><Northing>6164600</Northing>
+</Site>
+<Site Name="Matarawa Diversion at No. 3 Line">
+<Easting>2689300</Easting><Northing>6141200</Northing>
+</Site>
+<Site Name="Matarawa at City Branch">
+<Easting>2688700</Easting><Northing>6141100</Northing>
+</Site>
+<Site Name="Matarawa at Matarawa Valley">
+<Easting>2694625</Easting><Northing>6138045</Northing>
+</Site>
+<Site Name="Moawhango at Moawhango">
+<Easting>2755700</Easting><Northing>6174500</Northing>
+</Site>
+<Site Name="Moorcock">
+<Easting>2781377</Easting><Northing>6139857</Northing>
+</Site>
+<Site Name="Mt Maire Repeater">
+<Easting>2744961</Easting><Northing>6162987</Northing>
+</Site>
+<Site Name="National Park Climate Station">
+<Easting>2719311</Easting><Northing>6223889</Northing>
+</Site>
+<Site Name="Ngahere Park Climate Station">
+<Easting>2734780</Easting><Northing>6085645</Northing>
+</Site>
+<Site Name="Ngaruroro Catchment at Ngamatea">
+<Easting>2785120</Easting><Northing>6190440</Northing>
+</Site>
+<Site Name="Nguturoa at S.H.57 Bridge">
+<Easting>2726900</Easting><Northing>6082600</Northing>
+</Site>
+<Site Name="Ohau at Above Makahika Confluence">
+<Easting>2709163</Easting><Northing>6058547</Northing>
+</Site>
+<Site Name="Ohau at Haines Ford">
+<Easting>2695765</Easting><Northing>6057900</Northing>
+</Site>
+<Site Name="Ohau at Makahika">
+<Easting>2713020</Easting><Northing>6059992</Northing>
+</Site>
+<Site Name="Ohau at Rongomatane">
+<Easting>2707200</Easting><Northing>6057700</Northing>
+</Site>
+<Site Name="Ohura at Nihoniho">
+<Easting>2687633</Easting><Northing>6266687</Northing>
+</Site>
+<Site Name="Ohura at Ohura River Road">
+<Easting>2687100</Easting><Northing>6252800</Northing>
+</Site>
+<Site Name="Ohura at Tokorima">
+<Easting>2686300</Easting><Northing>6252100</Northing>
+</Site>
+<Site Name="Ohura at Waikaka">
+<Easting>2694564</Easting><Northing>6278700</Northing>
+</Site>
+<Site Name="Ohura at Waitewhena Airstrip">
+<Easting>2682136</Easting><Northing>6280160</Northing>
+</Site>
+<Site Name="Omahine at Moana Trig">
+<Easting>2656200</Easting><Northing>6179400</Northing>
+</Site>
+<Site Name="Omanuka Lagoon">
+<Easting>2707580</Easting><Northing>6094945</Northing>
+</Site>
+<Site Name="Omaru at Charlies">
+<Easting>2662200</Easting><Northing>6205900</Northing>
+</Site>
+<Site Name="Ongarue at Jet Boat Ramp Taumarunui">
+<Easting>2705800</Easting><Northing>6255400</Northing>
+</Site>
+<Site Name="Ongarue at Taringamotu">
+<Easting>2704299</Easting><Northing>6257897</Northing>
+</Site>
+<Site Name="Orautoha above Raetihi Power Stn">
+<Easting>2705645</Easting><Northing>6201375</Northing>
+</Site>
+<Site Name="Oroua at Almadale Slackline">
+<Easting>2736500</Easting><Northing>6111300</Northing>
+</Site>
+<Site Name="Oroua at Apiti Gorge Bridge">
+<Easting>2760000</Easting><Northing>6136705</Northing>
+</Site>
+<Site Name="Oroua at Awahuri Bridge">
+<Easting>2724300</Easting><Northing>6100200</Northing>
+</Site>
+<Site Name="Oroua at Kawa Wool">
+<Easting>2728700</Easting><Northing>6103800</Northing>
+</Site>
+<Site Name="Oroua at Kopane Bridge">
+<Easting>2721700</Easting><Northing>6096100</Northing>
+</Site>
+<Site Name="Oroua at Rangiotu">
+<Easting>2717500</Easting><Northing>6084200</Northing>
+</Site>
+<Site Name="Oroua at Rangiwahia">
+<Easting>2763400</Easting><Northing>6141900</Northing>
+</Site>
+<Site Name="Oroua at Te Arakura Road">
+<Easting>2726580</Easting><Northing>6101737</Northing>
+</Site>
+<Site Name="Oruakeretaki at S.H.2 Napier">
+<Easting>2767900</Easting><Northing>6101400</Northing>
+</Site>
+<Site Name="Otaki River at Depot">
+<Easting>2690999</Easting><Northing>6046377</Northing>
+</Site>
+<Site Name="Owahanga at Owahanga Station">
+<Easting>2789978</Easting><Northing>6058339</Northing>
+</Site>
+<Site Name="Painua Drain at Arawhata Rd">
+<Easting>2699472</Easting><Northing>6062256</Northing>
+</Site>
+<Site Name="Pakihikura at Pakihikura Airstrip">
+<Easting>2741200</Easting><Northing>6137100</Northing>
+</Site>
+<Site Name="Paradise Valley Climate Station">
+<Easting>2747133</Easting><Northing>6204470</Northing>
+</Site>
+<Site Name="Parks Peak HBCB">
+<Easting>2788792</Easting><Northing>6164632</Northing>
+</Site>
+<Site Name="Patea at Stratford">
+<Easting>2621164</Easting><Northing>6206164</Northing>
+</Site>
+<Site Name="Patiki Stream at Kawiu Road">
+<Easting>2702800</Easting><Northing>6063900</Northing>
+</Site>
+<Site Name="Pohangina at Alphabet Hut">
+<Easting>2753900</Easting><Northing>6109700</Northing>
+</Site>
+<Site Name="Pohangina at Delaware Ridge">
+<Easting>2763900</Easting><Northing>6122100</Northing>
+</Site>
+<Site Name="Pohangina at Mais Reach">
+<Easting>2746800</Easting><Northing>6105300</Northing>
+</Site>
+<Site Name="Pohangina at Makawakawa Divide">
+<Easting>2767100</Easting><Northing>6119600</Northing>
+</Site>
+<Site Name="Pohangina at Piripiri">
+<Easting>2760800</Easting><Northing>6124000</Northing>
+</Site>
+<Site Name="Pohangina at Range View Farm">
+<Easting>2759200</Easting><Northing>6125000</Northing>
+</Site>
+<Site Name="Pohangina at Ruahine Repeater">
+<Easting>2767100</Easting><Northing>6119600</Northing>
+</Site>
+<Site Name="Pohangina at Saddle Road Bridge">
+<Easting>2745700</Easting><Northing>6099000</Northing>
+</Site>
+<Site Name="Pohangina at Totara Reserve">
+<Easting>2753200</Easting><Northing>6116900</Northing>
+</Site>
+<Site Name="Pohokura Saddle">
+<Easting>2650600</Easting><Northing>6225400</Northing>
+</Site>
+<Site Name="Pongaroa at Town">
+<Easting>2780445</Easting><Northing>6068496</Northing>
+</Site>
+<Site Name="Porewa Catchment at Tututotara">
+<Easting>2721700</Easting><Northing>6127800</Northing>
+</Site>
+<Site Name="Porewa at Dam 100">
+<Easting>2734000</Easting><Northing>6145200</Northing>
+</Site>
+<Site Name="Porewa at Dam 62">
+<Easting>2730508</Easting><Northing>6137730</Northing>
+</Site>
+<Site Name="Porewa at Dam 73">
+<Easting>2729402</Easting><Northing>6138596</Northing>
+</Site>
+<Site Name="Porewa at Dam 75">
+<Easting>2728793</Easting><Northing>6139798</Northing>
+</Site>
+<Site Name="Porewa at Scotts Br">
+<Easting>2734639</Easting><Northing>6147435</Northing>
+</Site>
+<Site Name="Pukepuke Drain at Lagoon ESG">
+<Easting>2702512</Easting><Northing>6093993</Northing>
+</Site>
+<Site Name="Pukepuke Lagoon">
+<Easting>2702367</Easting><Northing>6093629</Northing>
+</Site>
+<Site Name="Rakau Hamama Lagoon">
+<Easting>2694425</Easting><Northing>6063434</Northing>
+</Site>
+<Site Name="Rakau Hamama Lagoon West">
+<Easting>2694416</Easting><Northing>6063454</Northing>
+</Site>
+<Site Name="Rangitikei at Erewhon Station">
+<Easting>2768200</Easting><Northing>6184200</Northing>
+</Site>
+<Site Name="Rangitikei at Hamptons">
+<Easting>2708900</Easting><Northing>6108700</Northing>
+</Site>
+<Site Name="Rangitikei at Kakariki">
+<Easting>2718300</Easting><Northing>6117200</Northing>
+</Site>
+<Site Name="Rangitikei at Mangaweka">
+<Easting>2750400</Easting><Northing>6151300</Northing>
+</Site>
+<Site Name="Rangitikei at McKelvies">
+<Easting>2703300</Easting><Northing>6098500</Northing>
+</Site>
+<Site Name="Rangitikei at Onepuhi">
+<Easting>2720100</Easting><Northing>6122200</Northing>
+</Site>
+<Site Name="Rangitikei at Pukeokahu">
+<Easting>2771300</Easting><Northing>6170800</Northing>
+</Site>
+<Site Name="Raparapawai at Jackson Rd">
+<Easting>2764500</Easting><Northing>6093800</Northing>
+</Site>
+<Site Name="Raumai Climate Station">
+<Easting>2699154</Easting><Northing>6109237</Northing>
+</Site>
+<Site Name="Ruamahanga River at Bannister Basin">
+<Easting>2718800</Easting><Northing>6049200</Northing>
+</Site>
+<Site Name="Ruamahanga River at Mt Bruce">
+<Easting>2729535</Easting><Northing>6047651</Northing>
+</Site>
+<Site Name="Ruatiti at Ruatiti Station">
+<Easting>2697860</Easting><Northing>6217080</Northing>
+</Site>
+<Site Name="Saddle Road">
+<Easting>2744900</Easting><Northing>6099200</Northing>
+</Site>
+<Site Name="Sexton Land Co">
+<Easting>2702687</Easting><Northing>6088695</Northing>
+</Site>
+<Site Name="Sluggish Creek at Greenaway Rd">
+<Easting>2716648</Easting><Northing>6094898</Northing>
+</Site>
+<Site Name="Tamaki at Stephensons">
+<Easting>2770700</Easting><Northing>6102200</Northing>
+</Site>
+<Site Name="Tamaki at Tamaki Reserve">
+<Easting>2768500</Easting><Northing>6115900</Northing>
+</Site>
+<Site Name="Tamaki at Water Supply Weir">
+<Easting>2770900</Easting><Northing>6111100</Northing>
+</Site>
+<Site Name="Tapuae at Waituna West">
+<Easting>2742483</Easting><Northing>6131006</Northing>
+</Site>
+<Site Name="Tarn Track Climate Station">
+<Easting>2746389</Easting><Northing>6185933</Northing>
+</Site>
+<Site Name="Taueru at Castlehill">
+<Easting>2762372</Easting><Northing>6045698</Northing>
+</Site>
+<Site Name="Tawataia Dam">
+<Easting>2747573</Easting><Northing>6058106</Northing>
+</Site>
+<Site Name="Te Koau">
+<Easting>2790188</Easting><Northing>6176342</Northing>
+</Site>
+<Site Name="Te Matai Road Aquifer 1">
+<Easting>2736700</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="Te Matai Road Aquifer 2">
+<Easting>2736700</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="Te Matai Road Aquifer 3">
+<Easting>2736700</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="Te Matai Road Aquifer 4">
+<Easting>2736700</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="Te Matai Road Aquifer 6">
+<Easting>2736700</Easting><Northing>6092700</Northing>
+</Site>
+<Site Name="Three Kings Climate Station">
+<Easting>2760845</Easting><Northing>6197157</Northing>
+</Site>
+<Site Name="Tiraumea at Alfredton">
+<Easting>2751800</Easting><Northing>6054700</Northing>
+</Site>
+<Site Name="Tiraumea at Ngaturi">
+<Easting>2757800</Easting><Northing>6078000</Northing>
+</Site>
+<Site Name="Tokiahuru at Junction">
+<Easting>2721720</Easting><Northing>6186960</Northing>
+</Site>
+<Site Name="Tokiahuru at Karioi Forest">
+<Easting>2728410</Easting><Northing>6191450</Northing>
+</Site>
+<Site Name="Tokiahuru at Powells Rd">
+<Easting>2724922</Easting><Northing>6189134</Northing>
+</Site>
+<Site Name="Tokomaru at Riverland Farm">
+<Easting>2721800</Easting><Northing>6077200</Northing>
+</Site>
+<Site Name="Totara Reserve Water Supply">
+<Easting>2753273</Easting><Northing>6116755</Northing>
+</Site>
+<Site Name="Tributary of Mangaone at DS Race Intake">
+<Easting>2706361</Easting><Northing>6200914</Northing>
+</Site>
+<Site Name="Turakina GW">
+<Easting>2694149</Easting><Northing>6121994</Northing>
+</Site>
+<Site Name="Turakina at Koeke Airstrip">
+<Easting>2731809</Easting><Northing>6161844</Northing>
+</Site>
+<Site Name="Turakina at ONeills Bridge">
+<Easting>2700600</Easting><Northing>6128700</Northing>
+</Site>
+<Site Name="Turakina at Otairi">
+<Easting>2723600</Easting><Northing>6147100</Northing>
+</Site>
+<Site Name="Turakina at Ruanui">
+<Easting>2735300</Easting><Northing>6172700</Northing>
+</Site>
+<Site Name="Turakina at Waipu">
+<Easting>2695488</Easting><Northing>6124621</Northing>
+</Site>
+<Site Name="Turitea at Ngahere Park">
+<Easting>2735310</Easting><Northing>6085205</Northing>
+</Site>
+<Site Name="Turoa at Repeater">
+<Easting>2727905</Easting><Northing>6208025</Northing>
+</Site>
+<Site Name="Tutaenui at Dam E4">
+<Easting>2715259</Easting><Northing>6125091</Northing>
+</Site>
+<Site Name="Tutaenui at Dam W3">
+<Easting>2711820</Easting><Northing>6124838</Northing>
+</Site>
+<Site Name="Tutaenui at Hammond St">
+<Easting>2713200</Easting><Northing>6123700</Northing>
+</Site>
+<Site Name="Tutaenui at Ribby Farm">
+<Easting>2714777</Easting><Northing>6131057</Northing>
+</Site>
+<Site Name="Upper Mangahao at No.1 Dam">
+<Easting>2719600</Easting><Northing>6061600</Northing>
+</Site>
+<Site Name="Waiharuru at S.H.49">
+<Easting>2722506</Easting><Northing>6192482</Northing>
+</Site>
+<Site Name="Waihi at S.H.52">
+<Easting>2789200</Easting><Northing>6080400</Northing>
+</Site>
+<Site Name="Waikawa at North Manakau Road">
+<Easting>2698700</Easting><Northing>6053000</Northing>
+</Site>
+<Site Name="Waikawa at ds Manakau Confluence">
+<Easting>2694300</Easting><Northing>6054800</Northing>
+</Site>
+<Site Name="Waimarino Forest Climate Station">
+<Easting>2698607</Easting><Northing>6198490</Northing>
+</Site>
+<Site Name="Wainui at Herbertville">
+<Easting>2811591</Easting><Northing>6073518</Northing>
+</Site>
+<Site Name="Wainui at Herbertville Road Br">
+<Easting>2808200</Easting><Northing>6077700</Northing>
+</Site>
+<Site Name="Wainui at Wimbledon">
+<Easting>2808024</Easting><Northing>6077704</Northing>
+</Site>
+<Site Name="Waiouru at Water Treatment Plant">
+<Easting>2741200</Easting><Northing>6189500</Northing>
+</Site>
+<Site Name="Waitangi at Tangiwai">
+<Easting>2731600</Easting><Northing>6188600</Northing>
+</Site>
+<Site Name="Waitarere">
+<Easting>2700846</Easting><Northing>6069037</Northing>
+</Site>
+<Site Name="Waitatapia Stream at Taungata">
+<Easting>2700200</Easting><Northing>6041400</Northing>
+</Site>
+<Site Name="Waitohu Stream at Water Supply Intake">
+<Easting>2696899</Easting><Northing>6046500</Northing>
+</Site>
+<Site Name="Waitotara at Rimunui Station">
+<Easting>2667900</Easting><Northing>6175300</Northing>
+</Site>
+<Site Name="West St Drain at Ranfurly Rd">
+<Easting>2727484</Easting><Northing>6105657</Northing>
+</Site>
+<Site Name="Westlawn Climate Station">
+<Easting>2755470</Easting><Northing>6190822</Northing>
+</Site>
+<Site Name="Whakapapa R. at d/s Intake">
+<Easting>2722524</Easting><Northing>6228942</Northing>
+</Site>
+<Site Name="Whangaehu at Aranui">
+<Easting>2717500</Easting><Northing>6162700</Northing>
+</Site>
+<Site Name="Whangaehu at Karioi">
+<Easting>2721935</Easting><Northing>6186346</Northing>
+</Site>
+<Site Name="Whangaehu at Kauangaroa">
+<Easting>2704500</Easting><Northing>6139700</Northing>
+</Site>
+<Site Name="Whangaehu at Kowhai St Mangamahu">
+<Easting>2711841</Easting><Northing>6150885</Northing>
+</Site>
+<Site Name="Whangaehu at Tangiwai Flood Gauge">
+<Easting>2739700</Easting><Northing>6195800</Northing>
+</Site>
+<Site Name="Whangaehu at Tangiwai SH49 Bridge">
+<Easting>2731755</Easting><Northing>6189893</Northing>
+</Site>
+<Site Name="Whangaehu at Titoki">
+<Easting>2725728</Easting><Northing>6177109</Northing>
+</Site>
+<Site Name="Whangaehu at Tukino">
+<Easting>2735457</Easting><Northing>6210481</Northing>
+</Site>
+<Site Name="Whangaehu at Tukino Repeater">
+<Easting>2739000</Easting><Northing>6211800</Northing>
+</Site>
+<Site Name="Whangamomona at Bridge to Somewhere">
+<Easting>2666020</Easting><Northing>6216775</Northing>
+</Site>
+<Site Name="Whangamomona at Marco Road">
+<Easting>2662532</Easting><Northing>6232579</Northing>
+</Site>
+<Site Name="Whanganui at Cherry Grove">
+<Easting>2705880</Easting><Northing>6254535</Northing>
+</Site>
+<Site Name="Whanganui at Kirikau">
+<Easting>2693813</Easting><Northing>6241496</Northing>
+</Site>
+<Site Name="Whanganui at Mataimona Trig">
+<Easting>2681295</Easting><Northing>6183756</Northing>
+</Site>
+<Site Name="Whanganui at Pipiriki">
+<Easting>2685806</Easting><Northing>6189795</Northing>
+</Site>
+<Site Name="Whanganui at Piriaka">
+<Easting>2713400</Easting><Northing>6253100</Northing>
+</Site>
+<Site Name="Whanganui at Piriaka Notch">
+<Easting>2713400</Easting><Northing>6253100</Northing>
+</Site>
+<Site Name="Whanganui at Te Maire">
+<Easting>2699800</Easting><Northing>6249000</Northing>
+</Site>
+<Site Name="Whanganui at Te Porere">
+<Easting>2733200</Easting><Northing>6235200</Northing>
+</Site>
+<Site Name="Whanganui at Te Rewa">
+<Easting>2695200</Easting><Northing>6157300</Northing>
+</Site>
+<Site Name="Whanganui at Town Bridge">
+<Easting>2685698</Easting><Northing>6139097</Northing>
+</Site>
+<Site Name="Whareama River at Tanawa Hut">
+<Easting>2774715</Easting><Northing>6046105</Northing>
+</Site>
+<Site Name="Whelans at Kane Boundary">
+<Easting>2699586</Easting><Northing>6061597</Northing>
+</Site>
+<Site Name="Whitebait Creek at Edinburgh Terrace">
+<Easting>2700071</Easting><Northing>6079644</Northing>
+</Site>
+<CRC>16793</CRC>
+</HilltopServer>

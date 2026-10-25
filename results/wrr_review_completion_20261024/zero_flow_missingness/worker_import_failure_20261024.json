@@ -1,0 +1,8 @@
+{
+  "recorded_utc": "2026-10-24T12:38:38.270585+00:00",
+  "observed_failure": "ModuleNotFoundError: review_missingness_conditional_helpers in spawned joblib worker; BrokenProcessPool; exit code1",
+  "scientific_results_created": false,
+  "fix": "Import the existing helper using its real file stem 430_tr_e1_missingness; added actual2-worker bootstrap regression test",
+  "original_log_bytes_preserved": false,
+  "record_scope": "Failure facts recovered from observed command output; this JSON is not the original stderr byte stream"
+}

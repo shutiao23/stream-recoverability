@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Horokiri Stream at Snodgrass">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>20.69</Altitude>
+<Catchment>Horokiri Stream</Catchment>
+<CatchmentArea>28.7</CatchmentArea>
+<Comment>Water Quality Site established Jul-02. RSoE network formed, established as RSoE site Sep-03.</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wellington-and-porirua-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.07</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1761804</Easting>
+<FirstSynonym>Horokiri Stream at Snodgrass</FirstSynonym>
+<FloodFlow10>53</FloodFlow10>
+<FloodFlow100>84</FloodFlow100>
+<FloodFlow20>63</FloodFlow20>
+<FloodFlow200>92</FloodFlow200>
+<FloodFlow5>44</FloodFlow5>
+<FloodFlow50>75</FloodFlow50>
+<FlowWebVeryHigh>4.816</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.07930266</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00013</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>174.92617299</Longitude>
+<MALF7Day>0.084</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 1-Jan-2004</MacroStart>
+<MaxFlow>68.505</MaxFlow>
+<MaxFlowAt> 3-Oct-2003</MaxFlowAt>
+<MeanAnnualFloodFlow>32</MeanAnnualFloodFlow>
+<MeanFlow>0.587</MeanFlow>
+<MedianFlow>0.311</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.008</MinFlow>
+<MinFlowAt> 1-Jan-2006</MinFlowAt>
+<NZReach>9009035</NZReach>
+<NZSegment>9259111</NZSegment>
+<Northing>5450652</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Hard sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>309000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS13</SecondSynonym>
+<ShortName>Horokiri</ShortName>
+<SiteID>394</SiteID>
+<SurfaceWaterSubZone>TeAwaruaOPoriruaSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>TeAwaruaOPoriruaSW</SurfaceWaterZone>
+<WebComment>This site is located just upstream of the Pauatahanui Golf Club and has been operating since August 2002.</WebComment>
+</Site>
+</HilltopServer>

@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Pohangina at Mais Reach">
+<AEP0.01>1315870</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>90</Altitude>
+<BARO_CLOSEST>Manawatu at Victoria Ave</BARO_CLOSEST>
+<BARO_CLOSEST_RL>38</BARO_CLOSEST_RL>
+<BARO_REF_DIST>19530</BARO_REF_DIST>
+<BARO_RL>90</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>471.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;Water Allocation (Mana_10b)&#13;&#10;                 (Mana_10c)&#13;&#10;                 (Mana_10d)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;RL0 = 85.881&#13;&#10;RL0 = 89.030 NZVD16</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Manawatu District</District>
+<Easting>2746800</Easting>
+<FFeq>GEV</FFeq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>752000</FloodFlow10>
+<FloodFlow20>906000</FloodFlow20>
+<FloodFlow5>607000</FloodFlow5>
+<FloodFlow50>1130000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.2" Min20="10.3" Min30="12.7" Hour1="18" Hour2="24.2" Hour6="38.5" Hour12="51.7" Day1="69.4" Day2="88.5" Day3="102" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="8" Min20="11.3" Min30="13.9" Hour1="19.8" Hour2="26.4" Hour6="41.8" Hour12="55.7" Day1="74.4" Day2="94.8" Day3="109.2" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="10.7" Min20="15.1" Min30="18.6" Hour1="26.5" Hour2="34.7" Hour6="53.4" Hour12="70" Day1="91.9" Day2="117.1" Day3="134.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="12.9" Min20="18.4" Min30="22.6" Hour1="32.1" Hour2="41.6" Hour6="62.8" Hour12="81.5" Day1="105.7" Day2="134.7" Day3="155.2" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.5" Min20="22.1" Min30="27.1" Hour1="38.6" Hour2="49.5" Hour6="73.5" Hour12="94.2" Day1="120.8" Day2="154" Day3="177.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="17.3" Min20="24.6" Min30="30.2" Hour1="42.9" Hour2="54.7" Hour6="80.4" Hour12="102.4" Day1="130.5" Day2="166.3" Day3="191.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="18.6" Min20="26.5" Min30="32.5" Hour1="46.3" Hour2="58.7" Hour6="85.6" Hour12="108.6" Day1="137.8" Day2="175.6" Day3="202.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="19.7" Min20="28" Min30="34.5" Hour1="49" Hour2="62" Hour6="89.9" Hour12="113.7" Day1="143.8" Day2="183.2" Day3="211.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="20.7" Min20="29.4" Min30="36.1" Hour1="51.4" Hour2="64.8" Hour6="93.6" Hour12="118" Day1="148.8" Day2="189.6" Day3="218.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="22.3" Min20="31.7" Min30="38.9" Hour1="55.3" Hour2="69.5" Hour6="99.6" Hour12="125.1" Day1="157" Day2="200.1" Day3="230.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="23.6" Min20="33.5" Min30="41.2" Hour1="58.6" Hour2="73.3" Hour6="104.6" Hour12="130.9" Day1="163.8" Day2="208.7" Day3="240.4" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.22457367</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00040</LawaSiteID>
+<LawaSiteName>Pohangina at Mais Reach</LawaSiteName>
+<Longitude>175.78297264</Longitude>
+<MALF7Day>2608</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Sep-2006</MacroStart>
+<MaxFlow>1109123</MaxFlow>
+<MaxFlowAt>15-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>456807</MeanAnnualFloodFlow>
+<MeanFlow>16987</MeanFlow>
+<MedianFlow>9939</MedianFlow>
+<MetNumber>E05275</MetNumber>
+<MinFlow>37</MinFlow>
+<MinFlowAt> 9-Feb-2009</MinFlowAt>
+<NZReach>7036595</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7234641</NZSegment>
+<NZVD16>85070</NZVD16>
+<Northing>6105300</Northing>
+<RL0>85.881</RL0>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325170</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Central LMS Middle, Northern&#13;&#10;</Scheme>
+<SecondSynonym>MAI</SecondSynonym>
+<ShortName>Hor-0031</ShortName>
+<SiteID>1805</SiteID>
+<StatsPeriod>1/7/1969-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_10</SurfaceWaterZone>
+<eQualCode>Hor-0031</eQualCode>
+</Site>
+</HilltopServer>

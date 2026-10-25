@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Lake Kohangatera">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>5</Altitude>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<ConsentControlSite>False</ConsentControlSite>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1755922</Easting>
+<FirstSynonym>Lake Kohangatera</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="2" Min10="6.9" Min20="9.83" Min30="12" Hour1="16.7" Hour2="22.9" Hour6="36.7" Hour12="48.5" Day1="63" Day2="80.7" Day3="92.6" Day4="102" Day5="">
+</Interval>
+<Interval ARI="5" Min10="9.08" Min20="12.9" Min30="15.8" Hour1="21.9" Hour2="30" Hour6="47.9" Hour12="63.2" Day1="82" Day2="105" Day3="120" Day4="132" Day5="">
+</Interval>
+<Interval ARI="10" Min10="10.8" Min20="15.3" Min30="18.6" Hour1="25.9" Hour2="35.4" Hour6="56.4" Hour12="74.3" Day1="96.3" Day2="123" Day3="141" Day4="155" Day5="">
+</Interval>
+<Interval ARI="20" Min10="12.5" Min20="17.8" Min30="21.7" Hour1="30" Hour2="41.1" Hour6="65.3" Hour12="85.8" Day1="111" Day2="142" Day3="162" Day4="178" Day5="">
+</Interval>
+<Interval ARI="30" Min10="13.6" Min20="19.3" Min30="23.5" Hour1="32.6" Hour2="44.5" Hour6="70.7" Hour12="92.9" Day1="120" Day2="153" Day3="175" Day4="192" Day5="">
+</Interval>
+<Interval ARI="40" Min10="14.4" Min20="20.4" Min30="24.8" Hour1="34.4" Hour2="47" Hour6="74.6" Hour12="98" Day1="127" Day2="162" Day3="185" Day4="203" Day5="">
+</Interval>
+<Interval ARI="50" Min10="15" Min20="21.3" Min30="25.9" Hour1="35.9" Hour2="49" Hour6="77.7" Hour12="102" Day1="132" Day2="168" Day3="192" Day4="211" Day5="">
+</Interval>
+<Interval ARI="60" Min10="15.5" Min20="22" Min30="26.8" Hour1="37.1" Hour2="50.6" Hour6="80.3" Hour12="105" Day1="136" Day2="173" Day3="198" Day4="218" Day5="">
+</Interval>
+<Interval ARI="80" Min10="16.3" Min20="23.2" Min30="28.2" Hour1="39" Hour2="53.2" Hour6="84.3" Hour12="111" Day1="143" Day2="182" Day3="208" Day4="228" Day5="">
+</Interval>
+<Interval ARI="100" Min10="17" Min20="24.1" Min30="29.3" Hour1="40.5" Hour2="55.3" Hour6="87.6" Hour12="115" Day1="148" Day2="189" Day3="216" Day4="237" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.78" Min20="1.2" Min30="1.4" Hour1="2" Hour2="2.8" Hour6="4.8" Hour12="5.7" Day1="7.3" Day2="11" Day3="12" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.1" Min20="1.7" Min30="2" Hour1="2.8" Hour2="3.8" Hour6="6.5" Hour12="7.5" Day1="10" Day2="14" Day3="16" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.5" Min20="2.3" Min30="2.7" Hour1="3.6" Hour2="4.8" Hour6="8.1" Hour12="9.2" Day1="12" Day2="17" Day3="19" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2" Min20="3" Min30="3.6" Hour1="4.6" Hour2="6.1" Hour6="10" Hour12="11" Day1="15" Day2="21" Day3="23" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="2.4" Min20="3.6" Min30="4.3" Hour1="5.3" Hour2="7.1" Hour6="12" Hour12="13" Day1="17" Day2="23" Day3="26" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="2.7" Min20="4" Min30="4.8" Hour1="5.9" Hour2="7.9" Hour6="13" Hour12="14" Day1="18" Day2="25" Day3="28" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="2.9" Min20="4.4" Min30="5.3" Hour1="6.4" Hour2="8.6" Hour6="14" Hour12="15" Day1="19" Day2="27" Day3="30" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="3.1" Min20="4.8" Min30="5.7" Hour1="6.9" Hour2="9.2" Hour6="15" Hour12="16" Day1="20" Day2="28" Day3="31" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="3.5" Min20="5.4" Min30="6.4" Hour1="7.7" Hour2="10" Hour6="16" Hour12="18" Day1="22" Day2="30" Day3="34" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="3.9" Min20="5.9" Min30="7" Hour1="8.4" Hour2="11" Hour6="18" Hour12="19" Day1="23" Day2="32" Day3="36" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LFENZID>4</LFENZID>
+<LType>ICOLL</LType>
+<LWQuality>false</LWQuality>
+<LWQualityStart> 1-Mar-2011</LWQualityStart>
+<Latitude>-41.37428665</Latitude>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00164</LawaSiteID>
+<Longitude>174.86451878</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5418015</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>297100</RiverNumber>
+<SecondSynonym>LKT2</SecondSynonym>
+<ShortName>LKT2</ShortName>
+<SiteID>2950</SiteID>
+<SurfaceWaterSubZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>Lake Kohangatera is located on the south coast near Pencarrow Head. This monitoring site has been operating since August 2007.</WebComment>
+</Site>
+</HilltopServer>

@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Whanganui at Te Rewa">
+<AEP0.01>5686196</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>21</Altitude>
+<BARO_CLOSEST>Whanganui at Te Rewa</BARO_CLOSEST>
+<BARO_CLOSEST_RL>24</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>24</BARO_RL>
+<Catchment>Whanganui</Catchment>
+<CatchmentArea>6643.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Wanganui District</District>
+<Easting>2695200</Easting>
+<Ffreq>GEV</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>4198000</FloodFlow10>
+<FloodFlow20>4703000</FloodFlow20>
+<FloodFlow5>3618000</FloodFlow5>
+<FloodFlow50>5291000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="6.07" Min20="8.56" Min30="10.4" Hour1="14.3" Hour2="19.3" Hour6="30" Hour12="38.7" Day1="49.1" Day2="61.4" Day3="69.3" Day4="75.3" Day5="80.1">
+</Interval>
+<Interval ARI="2" Min10="6.72" Min20="9.46" Min30="11.5" Hour1="15.7" Hour2="21.2" Hour6="32.8" Hour12="42.2" Day1="53.5" Day2="66.6" Day3="75.2" Day4="81.6" Day5="86.8">
+</Interval>
+<Interval ARI="5" Min10="9.09" Min20="12.7" Min30="15.3" Hour1="20.9" Hour2="27.9" Hour6="42.7" Hour12="54.6" Day1="68.7" Day2="84.9" Day3="95.4" Day4="103" Day5="110">
+</Interval>
+<Interval ARI="10" Min10="11" Min20="15.3" Min30="18.4" Hour1="24.9" Hour2="33.1" Hour6="50.3" Hour12="64.1" Day1="80.2" Day2="98.7" Day3="111" Day4="119" Day5="126">
+</Interval>
+<Interval ARI="20" Min10="13.1" Min20="18.1" Min30="21.7" Hour1="29.3" Hour2="38.8" Hour6="58.5" Hour12="74.2" Day1="92.4" Day2="113" Day3="126" Day4="136" Day5="144">
+</Interval>
+<Interval ARI="30" Min10="14.4" Min20="19.9" Min30="23.9" Hour1="32.1" Hour2="42.4" Hour6="63.6" Hour12="80.4" Day1="99.9" Day2="122" Day3="136" Day4="147" Day5="155">
+</Interval>
+<Interval ARI="40" Min10="15.4" Min20="21.3" Min30="25.4" Hour1="34.1" Hour2="45" Hour6="67.4" Hour12="85" Day1="105" Day2="129" Day3="143" Day4="154" Day5="163">
+</Interval>
+<Interval ARI="50" Min10="16.2" Min20="22.3" Min30="26.7" Hour1="35.8" Hour2="47.1" Hour6="70.4" Hour12="88.6" Day1="110" Day2="134" Day3="149" Day4="160" Day5="169">
+</Interval>
+<Interval ARI="60" Min10="16.9" Min20="23.2" Min30="27.8" Hour1="37.2" Hour2="48.9" Hour6="72.9" Hour12="91.7" Day1="113" Day2="138" Day3="153" Day4="165" Day5="174">
+</Interval>
+<Interval ARI="80" Min10="18" Min20="24.7" Min30="29.5" Hour1="39.4" Hour2="51.7" Hour6="76.9" Hour12="96.6" Day1="119" Day2="145" Day3="161" Day4="173" Day5="182">
+</Interval>
+<Interval ARI="100" Min10="18.9" Min20="25.9" Min30="30.9" Hour1="41.2" Hour2="54" Hour6="80.1" Hour12="100" Day1="124" Day2="150" Day3="167" Day4="179" Day5="189">
+</Interval>
+<Interval ARI="250" Min10="22.9" Min20="31.2" Min30="37.1" Hour1="49.1" Hour2="64" Hour6="94.1" Hour12="117" Day1="144" Day2="173" Day3="192" Day4="205" Day5="216">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.76939402</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>HRC-00059</LawaSiteID>
+<LawaSiteName>Whanganui at Te Rewa</LawaSiteName>
+<Longitude>175.16182082</Longitude>
+<MALF7Day>40656</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>4964953</MaxFlow>
+<MaxFlowAt>21-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>2271750</MeanAnnualFloodFlow>
+<MeanFlow>211391</MeanFlow>
+<MedianFlow>118584</MedianFlow>
+<MetNumber>E95713</MetNumber>
+<MinFlow>22212</MinFlow>
+<MinFlowAt>16-Apr-2013</MinFlowAt>
+<NZReach>7026174</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7215327</NZSegment>
+<Northing>6157300</Northing>
+<RL0>0</RL0>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>333000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Northern, Whanganui</Scheme>
+<SecondSynonym>TER</SecondSynonym>
+<ShortName>Hor-0162</ShortName>
+<SiteID>9874</SiteID>
+<StatsPeriod>1/7/2000-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Whai_6</SurfaceWaterZone>
+<WQ_rep>Special</WQ_rep>
+<XSection>Provisional, Whanganui at Te Rewa, 08-Aug-2013 16:00:00</XSection>
+<eQualCode>Hor-0162</eQualCode>
+</Site>
+</HilltopServer>

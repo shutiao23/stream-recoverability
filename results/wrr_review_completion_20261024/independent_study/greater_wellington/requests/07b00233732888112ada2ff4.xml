@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Waipoua River at Mikimiki Bridge">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<BoreBottomOfScreen>-66.5</BoreBottomOfScreen>
+<BoreDepth>66.5</BoreDepth>
+<BoreTopOfScreen>-63.9</BoreTopOfScreen>
+<CatchmentArea>80.3</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wairarapa-rivers-west-of-ruamahanga-river-and-lake-wairarapa/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>0.300</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1820657</Easting>
+<FirstSynonym>Waipoua River at Mikimiki Bridge</FirstSynonym>
+<FloodFlow10>268</FloodFlow10>
+<FloodFlow100>417</FloodFlow100>
+<FloodFlow20>313</FloodFlow20>
+<FloodFlow233>161</FloodFlow233>
+<FloodFlow5>220</FloodFlow5>
+<FloodFlow50>372</FloodFlow50>
+<FlowWebVeryHigh>31</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.84517651</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00236</LawaSiteID>
+<Longitude>175.61744894</Longitude>
+<LowFlow100yr14Day>0.147</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.12</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.205</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.131</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.238</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.179</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.32</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.203</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.202</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.156</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.26</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.175</LowFlow20yr7Day>
+<LowFlow233yr14Day>0.396</LowFlow233yr14Day>
+<LowFlow233yr1Day>0.272</LowFlow233yr1Day>
+<LowFlow233yr28Day>0.604</LowFlow233yr28Day>
+<LowFlow233yr7Day>0.322</LowFlow233yr7Day>
+<LowFlow5yr14Day>0.292</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.211</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.412</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.244</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.476</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.31</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.773</LowFlowMALF28Day>
+<MALF7Day>0.375</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>355.622</MaxFlow>
+<MaxFlowAt>20-Oct-1998</MaxFlowAt>
+<MeanAnnualFloodFlow>161</MeanAnnualFloodFlow>
+<MeanFlow>5.494</MeanFlow>
+<MedianFlow>3.42</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0</MinFlow>
+<MinFlowAt>24-Dec-1982</MinFlowAt>
+<Northing>5475132</Northing>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Waipoua River</RiverName>
+<RiverNumber>292350</RiverNumber>
+<SecondSynonym>Waipoua River at Mikimiki Bridge</SecondSynonym>
+<ShortName>Waipoua</ShortName>
+<SiteID>2634</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_UpperSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+<WebComment>This site is located at the next to the Waipoua River at Mikimiki Road Bridge approximately 14kms northwest of Masterton. This site was originally installed for catchment monitoring and water allocation.</WebComment>
+</Site>
+</HilltopServer>

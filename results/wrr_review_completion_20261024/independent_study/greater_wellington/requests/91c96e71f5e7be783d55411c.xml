@@ -1,0 +1,254 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Voltage" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-07-01T22:57:13</From>
+<To>2026-10-24T13:00:01</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Sp at 25deg)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+<Measurement Name="Conductivity (Sp at 25deg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Sp at 25deg)</RequestAs>
+<Units>us/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:00:00</From>
+<To>2026-10-20T13:00:00</To>
+<Measurement Name="E-Coli (Continuous)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli (Continuous)</RequestAs>
+<Units>CFU/100ml</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-12-31T23:15:00</From>
+<To>2026-10-20T13:45:00</To>
+<Measurement Name="Faecal Coliforms (Continuous)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms (Continuous)</RequestAs>
+<Units>CFU/100ml</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Battery Temperature" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-07-01T22:57:13</From>
+<To>2026-10-24T13:00:58</To>
+<Measurement Name="Battery Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Battery Temperature</RequestAs>
+<Units>Deg C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage (Internal)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-07-01T20:44:35</From>
+<To>2026-10-24T13:00:01</To>
+<Measurement Name="Voltage (Internal)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage (Internal)</RequestAs>
+<Units>V</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (NTU)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+<Measurement Name="Turbidity (NTU)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (NTU)</RequestAs>
+<Units>NTU</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+<Measurement Name="Total Suspended Solids (Continuous)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids (Continuous)</RequestAs>
+<Units>mg/L</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Coliforms (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-07-08T14:00:09</To>
+<Measurement Name="Total Coliforms (Continuous)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Coliforms (Continuous)</RequestAs>
+<Units>CFU/100ml</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-01T22:57:13</From>
+<To>2026-10-24T13:00:01</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+</DataSource>
+<DataSource Name="Conductivity (Sp at 25deg)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+</DataSource>
+<DataSource Name="E-Coli (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:00:00</From>
+<To>2026-10-20T13:00:00</To>
+</DataSource>
+<DataSource Name="Faecal Coliforms (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-12-31T23:15:00</From>
+<To>2026-10-20T13:45:00</To>
+</DataSource>
+<DataSource Name="Battery Temperature" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-01T22:57:13</From>
+<To>2026-10-24T13:00:58</To>
+</DataSource>
+<DataSource Name="Voltage (Internal)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-01T20:44:35</From>
+<To>2026-10-24T13:00:01</To>
+</DataSource>
+<DataSource Name="Turbidity (NTU)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+</DataSource>
+<DataSource Name="Total Suspended Solids (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-10-20T13:45:00</To>
+</DataSource>
+<DataSource Name="Total Coliforms (Continuous)" Site="Porirua Harbour at PCC WQ Site" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-09-18T22:06:58</From>
+<To>2026-07-08T14:00:09</To>
+</DataSource>
+</HilltopServer>

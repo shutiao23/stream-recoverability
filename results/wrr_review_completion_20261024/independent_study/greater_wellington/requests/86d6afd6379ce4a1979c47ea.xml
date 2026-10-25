@@ -1,0 +1,1594 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Taueru River at Castlehill" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-11-18T13:15:00</From>
+<To>2011-01-26T14:00:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>2008-11-18T00:00:00</FirstRating>
+<LastRating>2011-01-23T18:45:00</LastRating>
+</Measurement>
+<Measurement Name="Derived Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1967-05-10T08:30:00</VMStart>
+<VMFinish>2026-10-24T07:05:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-20T00:00:00</VMStart>
+<VMFinish>2011-01-26T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-20T00:00:00</VMStart>
+<VMFinish>2011-01-26T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-19T01:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1967-05-10T20:30:00</VMStart>
+<VMFinish>2026-10-24T07:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1967-05-11T08:30:00</VMStart>
+<VMFinish>2026-10-24T07:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-19T01:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Taueru River at Castlehill" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2005-03-14T09:20:00</From>
+<To>2011-01-26T14:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2005-03-14T09:20:00</VMStart>
+<VMFinish>2011-01-26T14:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2005-03-14T09:20:00</VMStart>
+<VMFinish>2011-01-26T14:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-18T13:15:00</VMStart>
+<VMFinish>2011-01-26T14:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Taueru River at Castlehill" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2005-03-14T09:20:00</From>
+<To>2011-01-26T14:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>14-Mar-2005 09:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>1.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-May-2007 10:40:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>2.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Nov-2008 13:55:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>2.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Feb-2009 15:30:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Mar-2009 12:06:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>2.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Apr-2009 13:10:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jul-2009 14:50:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.750</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Sep-2009 14:05:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>3.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Nov-2009 13:10:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>3.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jan-2010 13:55:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2010 11:35:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Apr-2010 14:15:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Jul-2010 14:30:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Oct-2010 13:40:00</SurveyTime>
+<LeftOffset>0.750</LeftOffset>
+<RightOffset>4.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jan-2011 14:20:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.400</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Taueru River at Castlehill" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2005-03-14T09:20:00</From>
+<To>2011-01-26T14:20:00</To>
+<Sections>
+<Section>
+<SurveyTime>14-Mar-2005 09:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>1.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-May-2007 10:40:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>2.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Nov-2008 13:55:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>2.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Feb-2009 15:30:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Mar-2009 12:06:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>2.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Apr-2009 13:10:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jul-2009 14:50:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.750</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Sep-2009 14:05:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>3.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Nov-2009 13:10:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>3.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jan-2010 13:55:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2010 11:35:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Apr-2010 14:15:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Jul-2010 14:30:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Oct-2010 13:40:00</SurveyTime>
+<LeftOffset>0.750</LeftOffset>
+<RightOffset>4.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jan-2011 14:20:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>2.400</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Taueru River at Castlehill" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-12-16T11:42:00</From>
+<To>2011-03-15T13:18:33</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="RL Section" Site="Taueru River at Castlehill" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>RLOffsetSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2009-07-03T14:30:00</From>
+<To>2009-07-03T14:30:00</To>
+<Sections>
+<Section>
+<SurveyTime> 3-Jul-2009 14:30:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>12.500</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2016-03-15T12:05:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-09-25T14:40:00</VMStart>
+<VMFinish>2016-06-13T12:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2016-03-15T12:05:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2015-07-15T13:30:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Organic Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2006-06-21T14:40:00</To>
+<Measurement Name="Dissolved organic nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved organic nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Alkalinity (Total)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Alkalinity (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Alkalinity (Total)</RequestAs>
+<Units>g/m3 as CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bicarbonate" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Bicarbonate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bicarbonate</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hardness (Total)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Hardness (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hardness (Total)</RequestAs>
+<Units>g/m3 CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Aluminium (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Aluminium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Aluminium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Arsenic (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Arsenic (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Arsenic (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Iron (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Iron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Iron (Dissolved)</RequestAs>
+<Units>mg/L</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Manganese (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Manganese (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Manganese (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-21T15:31:00</From>
+<To>2005-07-21T15:31:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Hardness" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Total Hardness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Hardness</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Munsell Colour" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2012-01-25T13:30:00</To>
+<Measurement Name="Munsell Colour">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Munsell Colour</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cations" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Total Cations">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cations</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Anions" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Total Anions">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Anions</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ionic Balance Error" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-02-19T12:10:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Ionic Balance Error">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ionic Balance Error</RequestAs>
+<Units>%</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Boron (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Boron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Boron (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Calcium (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Calcium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Calcium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Inorganic Nitrogen" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Dissolved Inorganic Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Inorganic Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Magnesium (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Magnesium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Magnesium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-21T15:31:00</From>
+<To>2005-07-21T15:31:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Potassium (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Potassium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Potassium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sodium (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Sodium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sodium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chloride (Dissolved)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Chloride Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chloride Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate Dissolved" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-17T12:15:00</From>
+<To>2013-06-18T14:15:00</To>
+<Measurement Name="Sulphate Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow Category" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2014-06-17T14:05:00</To>
+<Measurement Name="Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Category</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Total)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Vegetation Cover % (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Total)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Emergent)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Vegetation Cover % (Emergent)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Emergent)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Sub SR)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Vegetation Cover % (Sub SR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Sub SR)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Sub BS)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Vegetation Cover % (Sub BS)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Sub BS)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Cover)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Fine Sediment (% Cover)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Cover)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Sand)" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Fine Sediment (% Sand)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Sand)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Macrophyte channel clogginess %" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-18T14:15:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="Macrophyte channel clogginess %">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Macrophyte channel clogginess %</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-hb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="MCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-sb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="MCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT taxa" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="%EPT taxa">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT taxa</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Taxa Richness" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="Taxa Richness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Taxa Richness</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="EPT Richness (-hydroptilidae)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>EPT Richness (-hydroptilidae)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-01T15:00:00</VMStart>
+<VMFinish>2015-02-04T12:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-hb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="QMCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-sb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="QMCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-hb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="ASPM-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-sb" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="ASPM-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT abundance" Site="Taueru River at Castlehill" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-01T15:00:00</From>
+<To>2015-02-04T12:30:00</To>
+<Measurement Name="%EPT abundance">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT abundance</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Taueru River at Castlehill" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2005-03-14T09:20:00</From>
+<To>2011-01-26T14:20:00</To>
+<TimeObjects>
+<SurveyTime>14-Mar-2005 09:20:00</SurveyTime>
+<SurveyTime> 1-May-2007 10:40:00</SurveyTime>
+<SurveyTime>18-Nov-2008 13:55:00</SurveyTime>
+<SurveyTime>17-Feb-2009 15:30:00</SurveyTime>
+<SurveyTime>20-Mar-2009 12:06:00</SurveyTime>
+<SurveyTime>24-Apr-2009 13:10:00</SurveyTime>
+<SurveyTime> 3-Jul-2009 14:50:00</SurveyTime>
+<SurveyTime> 4-Sep-2009 14:05:00</SurveyTime>
+<SurveyTime>13-Nov-2009 13:10:00</SurveyTime>
+<SurveyTime>20-Jan-2010 13:55:00</SurveyTime>
+<SurveyTime>31-Jan-2010 17:30:00</SurveyTime>
+<SurveyTime>14-Apr-2010 11:35:00</SurveyTime>
+<SurveyTime>19-Apr-2010 14:15:00</SurveyTime>
+<SurveyTime>13-Jul-2010 14:30:00</SurveyTime>
+<SurveyTime>22-Oct-2010 13:40:00</SurveyTime>
+<SurveyTime>26-Jan-2011 14:20:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="RL Facecard" Site="Taueru River at Castlehill" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>RLFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2009-07-03T14:30:00</From>
+<To>2009-07-03T14:30:00</To>
+<TimeObjects>
+<SurveyTime> 3-Jul-2009 14:30:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Taueru River at Castlehill" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2003-09-25T14:40:00</From>
+<To>2016-06-13T12:00:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Taueru River at Castlehill" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2004-12-16T11:42:00</From>
+<To>2011-03-15T13:18:33</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Taueru River at Castlehill" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2008-11-18T13:15:00</From>
+<To>2011-01-26T14:00:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

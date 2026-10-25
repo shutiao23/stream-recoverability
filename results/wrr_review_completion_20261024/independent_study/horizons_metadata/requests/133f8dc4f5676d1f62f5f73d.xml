@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangatainoka at Pahiatua Town Bridge">
+<AEP0.01>930000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>103.7</Altitude>
+<BARO_CLOSEST>Mangatainoka at Pahiatua Town Bridge</BARO_CLOSEST>
+<BARO_CLOSEST_RL>0</BARO_CLOSEST_RL>
+<BARO_REF_DIST>119</BARO_REF_DIST>
+<BARO_RL>119</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>395.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;Water Allocation (Mana_8b)&#13;&#10;                 (Mana_8c)&#13;&#10;BM1 = 111.955m (MSL Wellington)&#13;&#10;RL0 = 103.704m (MSL Wellington)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2750100</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>616000</FloodFlow10>
+<FloodFlow20>712000</FloodFlow20>
+<FloodFlow5>519000</FloodFlow5>
+<FloodFlow50>844000</FloodFlow50>
+<GISTag>WRFWCDWQ</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.44956981</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00023</LawaSiteID>
+<LawaSiteName>Mangatainoka at Pahiatua Town Bridge</LawaSiteName>
+<Longitude>175.83118672</Longitude>
+<MALF7Day>1707</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jul-2014</MacroStart>
+<MaxFlow>948341</MaxFlow>
+<MaxFlowAt> 6-Sep-2010</MaxFlowAt>
+<MeanAnnualFloodFlow>409678</MeanAnnualFloodFlow>
+<MeanFlow>17766</MeanFlow>
+<MedianFlow>8928</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>231</MinFlow>
+<MinFlowAt>25-Mar-2003</MinFlowAt>
+<NZReach>7041713</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7241237</NZSegment>
+<Northing>6080200</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325201</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>PAH</SecondSynonym>
+<ShortName>Hor-0315</ShortName>
+<SiteID>9970</SiteID>
+<StatsPeriod>1/7/1954-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_8</SurfaceWaterZone>
+<eQualCode>Hor-0020</eQualCode>
+</Site>
+</HilltopServer>

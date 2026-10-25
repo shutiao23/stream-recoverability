@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Te Hapua Wetland at Jill and Joys">
+<Altitude>8</Altitude>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>
+</District>
+<Easting>1774344</Easting>
+<FirstSynonym>Te Hapua Wetland at Jill and Joys</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="2" Min10="8.49" Min20="11.3" Min30="13.4" Hour1="18" Hour2="23.9" Hour6="36.8" Hour12="47.2" Day1="59.3" Day2="72.6" Day3="80.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="11.1" Min20="14.7" Min30="17.4" Hour1="23.2" Hour2="30.8" Hour6="47" Hour12="60" Day1="75.1" Day2="91.5" Day3="101" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="13.1" Min20="17.3" Min30="20.5" Hour1="27.2" Hour2="35.9" Hour6="54.5" Hour12="69.5" Day1="86.7" Day2="105" Day3="116" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.2" Min20="20.1" Min30="23.6" Hour1="31.3" Hour2="41.2" Hour6="62.3" Hour12="79.2" Day1="98.6" Day2="119" Day3="132" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="16.4" Min20="21.7" Min30="25.6" Hour1="33.8" Hour2="44.4" Hour6="67" Hour12="85.1" Day1="106" Day2="128" Day3="141" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="17.4" Min20="22.9" Min30="27" Hour1="35.6" Hour2="46.8" Hour6="70.4" Hour12="89.3" Day1="111" Day2="134" Day3="147" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="18.1" Min20="23.9" Min30="28.1" Hour1="37.1" Hour2="48.6" Hour6="73.1" Hour12="92.6" Day1="115" Day2="139" Day3="153" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="18.7" Min20="24.7" Min30="29" Hour1="38.2" Hour2="50.1" Hour6="75.3" Hour12="95.3" Day1="118" Day2="142" Day3="157" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="19.7" Min20="25.9" Min30="30.5" Hour1="40.1" Hour2="52.6" Hour6="78.8" Hour12="99.6" Day1="123" Day2="149" Day3="163" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="20.5" Min20="26.9" Min30="31.6" Hour1="41.6" Hour2="54.5" Hour6="81.6" Hour12="103" Day1="127" Day2="153" Day3="168" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="1.1" Min20="1.3" Min30="1.5" Hour1="2.2" Hour2="3.1" Hour6="5.7" Hour12="7.5" Day1="6.6" Day2="8.6" Day3="9.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.6" Min20="1.9" Min30="2.2" Hour1="3" Hour2="4" Hour6="7.4" Hour12="9.6" Day1="8.7" Day2="11" Day3="13" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="2" Min20="2.5" Min30="3" Hour1="3.7" Hour2="4.9" Hour6="8.8" Hour12="11" Day1="10" Day2="13" Day3="15" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.6" Min20="3.4" Min30="4" Hour1="4.7" Hour2="6.1" Hour6="10" Hour12="13" Day1="13" Day2="16" Day3="18" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="3.1" Min20="4" Min30="4.7" Hour1="5.4" Hour2="7" Hour6="12" Hour12="15" Day1="14" Day2="18" Day3="20" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="3.5" Min20="4.4" Min30="5.3" Hour1="5.9" Hour2="7.7" Hour6="13" Hour12="16" Day1="15" Day2="19" Day3="21" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3.8" Min20="4.9" Min30="5.9" Hour1="6.4" Hour2="8.3" Hour6="13" Hour12="17" Day1="16" Day2="20" Day3="22" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="4.1" Min20="5.2" Min30="6.4" Hour1="6.8" Hour2="8.8" Hour6="14" Hour12="18" Day1="17" Day2="21" Day3="23" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="4.6" Min20="5.9" Min30="7.2" Hour1="7.6" Hour2="9.7" Hour6="15" Hour12="19" Day1="18" Day2="22" Day3="25" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="5" Min20="6.4" Min30="7.9" Hour1="8.2" Hour2="10" Hour6="16" Hour12="20" Day1="19" Day2="24" Day3="26" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<Latitude>-40.81882784</Latitude>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00112</LawaSiteID>
+<Longitude>175.06730149</Longitude>
+<MetNumber>
+</MetNumber>
+<Northing>5479298</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>316000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>3291</SiteID>
+</Site>
+</HilltopServer>

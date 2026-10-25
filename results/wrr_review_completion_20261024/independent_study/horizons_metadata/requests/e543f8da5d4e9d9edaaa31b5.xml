@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Kumeti at Te Rehunga">
+<AEP0.01>22600</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>234</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>12.1</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_4)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2766300</Easting>
+<FFeq>EV1</FFeq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>14600</FloodFlow10>
+<FloodFlow20>17100</FloodFlow20>
+<FloodFlow5>12100</FloodFlow5>
+<FloodFlow50>20200</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.21971517</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00006</LawaSiteID>
+<LawaSiteName>Kumeti at Te Rehunga</LawaSiteName>
+<LawaSurfaceWaterQualityMeasurement>Stage [Water Level]</LawaSurfaceWaterQualityMeasurement>
+<Longitude>176.01200079</Longitude>
+<MALF7Day>66</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>13-Feb-2012</MacroStart>
+<MaxFlow>22177</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>9367</MeanAnnualFloodFlow>
+<MeanFlow>409</MeanFlow>
+<MedianFlow>332</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>12</MinFlow>
+<MinFlowAt>30-Jan-1984</MinFlowAt>
+<NZReach>7036367</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7234284</NZSegment>
+<Northing>6105200</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325282</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>KUM</SecondSynonym>
+<ShortName>Hor-0081</ShortName>
+<SiteID>17</SiteID>
+<StatsPeriod>1/7/1977-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_4</SurfaceWaterZone>
+<eQualCode>Hor-0081</eQualCode>
+</Site>
+</HilltopServer>

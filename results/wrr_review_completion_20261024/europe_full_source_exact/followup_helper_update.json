@@ -1,0 +1,11 @@
+{
+  "updated_utc": "2026-10-24T06:35:06.216522+00:00",
+  "old_helper_pid": 2633714,
+  "reason": "load verified provider UTC reset handling into the waiting helper; no acquisition restart",
+  "acquisition_pid_unchanged": 2532961,
+  "previous_state": {
+    "pid": 2532961,
+    "stage": "waiting_for_existing_weather_job",
+    "updated_utc": "2026-10-24T06:34:51.481650+00:00"
+  }
+}

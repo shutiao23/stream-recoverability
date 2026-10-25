@@ -1,0 +1,25 @@
+{
+  "NZ_independent_temperature_access": false,
+  "acquisition_padding": [
+    "1980-01-01",
+    "2026-01-02"
+  ],
+  "application": "source-fixed global annual distribution/P2 weights and interval offsets; local other-year history fits daily models. This does not verify natural-gap truth or population trend accuracy.",
+  "classical_calibration_sha256": "bde77397fba40479f2c43151b2fdf41df61963a9813ca4906465014864218d1e",
+  "eligibility": "at least fifteen eligible years per rule; complete, annual90, annual75, published May-September90, and supported retained years reported separately",
+  "field_inference": "same-roster and expanded-roster comparisons, conservative merged HUC2 basin blocks, BH and synchronized year nulls; exchangeability remains an assumption",
+  "imputation": "at least four complete historical years; at least thirty usable observed days and no provisional/ambiguous observations in a delivered year; no unsupported success",
+  "metadata_roster": "results/wrr_review_completion_20261024/national_availability/national_stream_site_roster.csv",
+  "metadata_roster_sha256": "4c012aad12e9d1a6d35c81047db06b728767d31f602c5dbc9c1953fb115628eb",
+  "n_catalog_stream_sites": 4285,
+  "n_metadata_candidates": 1273,
+  "old_dates_only_files": "preserved; this separate value-bearing source phase must never be labeled dates-only or blind",
+  "one_series": "same longest-metadata-support primary daily mean per physical site as the dates-only census; no sensor unions",
+  "reference": "same source station ingest gate: approved finite Celsius, explicit sentinel/range flags, station rejection retained in denominator; provisional is reported but never called an absent date",
+  "role": "exploratory national source application; not independent validation or public preregistration",
+  "source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
+  "years": [
+    1981,
+    2025
+  ]
+}

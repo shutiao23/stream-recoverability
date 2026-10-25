@@ -1,0 +1,460 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1994-08-31T13:55:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Level (Moving Average)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Level (Moving Average)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-09-01T02:20:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+<Ratset1>4</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-08-31T13:55:00</VMStart>
+<VMFinish>2026-10-24T13:10:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2008-11-05T13:45:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1990-02-19T10:00:00</From>
+<To>1999-12-22T10:00:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Salinity" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1990-02-19T10:00:00</From>
+<To>1996-06-26T10:00:00</To>
+<Measurement Name="Salinity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Salinity</RequestAs>
+<Units>ppt</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1990-02-19T10:00:00</From>
+<To>2000-10-24T12:11:12</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Enterococci Bacteria" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1996-07-29T10:00:00</From>
+<To>2000-10-24T12:11:12</To>
+<Measurement Name="Enterococci Bacteria">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Enterococci Bacteria</RequestAs>
+<Units>n/100ml</Units>
+<Format>$$$</Format>
+</Measurement>
+<Measurement Name="Enterococci Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Enterococci Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1996-07-29T10:00:00</VMStart>
+<VMFinish>2000-10-24T12:11:12</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Seaweed" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1996-12-06T10:00:00</From>
+<To>2000-10-24T12:11:00</To>
+<Measurement Name="Seaweed">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Seaweed</RequestAs>
+<Units>% cover</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level 2" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-07-20T15:32:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Stage 2">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage 2</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (period average)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-04-22T15:52:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Water Level (period average)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (period average)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (period min)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-07-30T17:21:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Water Level (period min)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (period min)</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (period max)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-07-30T17:21:00</From>
+<To>2026-10-24T13:10:00</To>
+<Measurement Name="Water Level (period max)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (period max)</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2000-04-18T09:07:00</From>
+<To>2000-10-24T12:11:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1994-08-31T13:55:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2008-11-05T13:45:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Water Level 2" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-07-20T15:32:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Water Level (period average)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-04-22T15:52:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Water Level (period min)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-30T17:21:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Water Level (period max)" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-07-30T17:21:00</From>
+<To>2026-10-24T13:10:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2003-07-08T13:20:00</From>
+<To>2025-11-24T12:19:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Wellington Harbour at Queens Wharf" >
+<NumItems>2</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>13</ItemFormat>
+<From>2008-11-05T13:45:00</From>
+<To>2014-05-19T14:00:00</To>
+<Measurement Name="Check Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<RequestAs>Recorder Date &amp;Time [Water Temperature]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

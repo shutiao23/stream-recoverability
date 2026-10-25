@@ -1,0 +1,99 @@
+{
+  "full_seed_analyses": 20,
+  "required_seed_analyses": 20,
+  "source_case_count_range": [
+    145627,
+    145823
+  ],
+  "deep_models_by_seed": {
+    "0": [
+      "boosting",
+      "boosting_lagged_air",
+      "boosting_local_air",
+      "boosting_local_flow",
+      "boosting_with_flow",
+      "csdi",
+      "distribution_regression_calibrated",
+      "distribution_regression_raw",
+      "functional_debias",
+      "lstm",
+      "saits",
+      "stochastic_regression_calibrated_local",
+      "stochastic_regression_local"
+    ],
+    "1": [
+      "boosting",
+      "boosting_lagged_air",
+      "boosting_local_air",
+      "boosting_local_flow",
+      "boosting_with_flow",
+      "csdi",
+      "distribution_regression_calibrated",
+      "distribution_regression_raw",
+      "functional_debias",
+      "lstm",
+      "saits",
+      "stochastic_regression_calibrated_local",
+      "stochastic_regression_local"
+    ],
+    "2": [
+      "boosting",
+      "boosting_lagged_air",
+      "boosting_local_air",
+      "boosting_local_flow",
+      "boosting_with_flow",
+      "csdi",
+      "distribution_regression_calibrated",
+      "distribution_regression_raw",
+      "functional_debias",
+      "lstm",
+      "saits",
+      "stochastic_regression_calibrated_local",
+      "stochastic_regression_local"
+    ]
+  },
+  "registration": {
+    "author_and_platform_fields": "user will fill these fields",
+    "local_file_is_registration": false,
+    "next_requirement": "user-managed public OSF registration and matching protocol/model attachments before any new observation access",
+    "status": "not_publicly_registered",
+    "water_temperature_values_requested": false
+  },
+  "independent_test": "not performed; no new water-temperature values acquired",
+  "natural_reference": "qualification complete; zero qualified natural gaps, so recovery accuracy unverified",
+  "author_and_platform_fields": "user-owned; user will fill authors, funding and OSF/Zenodo links",
+  "local_evidence_complete": false,
+  "partial_run": false,
+  "all_user_requirements_complete": false,
+  "remaining_scientific_evidence": [
+    "public registration and genuinely new independent outcomes",
+    "unresolved national historical eligibility (340 candidates); retrieved-panel analyses completed",
+    "all-source European weather acquisition and exact-control comparison",
+    "driver-specific recovery probability validation on all source regions"
+  ],
+  "scientific_limits": [
+    "natural peak-window qualification has zero references; planned negative pathway completed",
+    "nearby NOAA comparison completed for all benchmarkable source USGS sites but does not provide perfect co-location or clock equivalence",
+    "conditional imputation and spatial exchangeability assumptions remain unverified"
+  ],
+  "source_core_complete": true,
+  "additional_local_experiments": {
+    "group_deletion_seeds": 20,
+    "conditional_conformal_seeds": 20,
+    "formal_semi_rcps_seeds": 20,
+    "observed_record_stations": 20,
+    "regional_comparisons": 8,
+    "air_exposure_mask_seeds": 3
+  },
+  "national_availability_complete": false,
+  "national_h30_analysis_complete": false,
+  "national_retrieved_panel_execution_complete": true,
+  "national_unresolved_candidates": 340,
+  "full_USGS_forcing_complete": true,
+  "full_H7_target_refits_complete": true,
+  "full_Europe_available_coordinate_forcing_complete": false,
+  "driver_recovery_models_complete": {
+    "usgs": true,
+    "europe": false
+  }
+}

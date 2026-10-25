@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Tiraumea at Ngaturi">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>99</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>734.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation: (Mana_7a)&#13;&#10;                  (Mana_7b)&#13;&#10;                  (Mana_7c)&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;RL0= &#13;&#10;</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2757800</Easting>
+<FFeq>GEV</FFeq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>534000</FloodFlow10>
+<FloodFlow20>663000</FloodFlow20>
+<FloodFlow5>417000</FloodFlow5>
+<FloodFlow50>858000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.39" Min20="7.5" Min30="9.12" Hour1="12.7" Hour2="17.6" Hour6="29.1" Hour12="39.2" Day1="51.9" Day2="67.2" Day3="77.3" Day4="84.9" Day5="91">
+</Interval>
+<Interval ARI="2" Min10="6.03" Min20="8.37" Min30="10.1" Hour1="14.1" Hour2="19.5" Hour6="32" Hour12="43" Day1="56.7" Day2="73.2" Day3="84.1" Day4="92.2" Day5="98.7">
+</Interval>
+<Interval ARI="5" Min10="8.35" Min20="11.5" Min30="13.8" Hour1="19" Hour2="26.1" Hour6="42.1" Hour12="56" Day1="73.2" Day2="93.6" Day3="107" Day4="117" Day5="124">
+</Interval>
+<Interval ARI="10" Min10="10.2" Min20="14" Min30="16.8" Hour1="22.9" Hour2="31.2" Hour6="49.8" Hour12="65.9" Day1="85.5" Day2="109" Day3="123" Day4="134" Day5="143">
+</Interval>
+<Interval ARI="20" Min10="12.3" Min20="16.7" Min30="19.9" Hour1="27.1" Hour2="36.6" Hour6="57.9" Hour12="76.1" Day1="98.1" Day2="124" Day3="140" Day4="152" Day5="162">
+</Interval>
+<Interval ARI="30" Min10="13.6" Min20="18.4" Min30="21.9" Hour1="29.7" Hour2="40" Hour6="62.9" Hour12="82.3" Day1="106" Day2="133" Day3="150" Day4="163" Day5="173">
+</Interval>
+<Interval ARI="40" Min10="14.6" Min20="19.6" Min30="23.4" Hour1="31.6" Hour2="42.4" Hour6="66.5" Hour12="86.8" Day1="111" Day2="139" Day3="157" Day4="171" Day5="181">
+</Interval>
+<Interval ARI="50" Min10="15.3" Min20="20.6" Min30="24.6" Hour1="33.1" Hour2="44.4" Hour6="69.3" Hour12="90.3" Day1="115" Day2="145" Day3="163" Day4="176" Day5="187">
+</Interval>
+<Interval ARI="60" Min10="16" Min20="21.5" Min30="25.6" Hour1="34.4" Hour2="46" Hour6="71.7" Hour12="93.2" Day1="119" Day2="149" Day3="168" Day4="181" Day5="192">
+</Interval>
+<Interval ARI="80" Min10="17" Min20="22.9" Min30="27.1" Hour1="36.4" Hour2="48.6" Hour6="75.4" Hour12="97.8" Day1="125" Day2="155" Day3="175" Day4="189" Day5="200">
+</Interval>
+<Interval ARI="100" Min10="17.9" Min20="23.9" Min30="28.4" Hour1="38" Hour2="50.7" Hour6="78.4" Hour12="101" Day1="129" Day2="161" Day3="180" Day4="195" Day5="206">
+</Interval>
+<Interval ARI="250" Min10="21.6" Min20="28.7" Min30="33.9" Hour1="45" Hour2="59.5" Hour6="90.8" Hour12="117" Day1="147" Day2="181" Day3="203" Day4="218" Day5="230">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.46711055</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>HRC-00050</LawaSiteID>
+<LawaSiteName>Tiraumea at Ngaturi</LawaSiteName>
+<Longitude>175.92276693</Longitude>
+<MALF7Day>2563</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jun-2009</MacroStart>
+<MaxFlow>733056</MaxFlow>
+<MaxFlowAt>11-Apr-1991</MaxFlowAt>
+<MeanAnnualFloodFlow>334627</MeanAnnualFloodFlow>
+<MeanFlow>15722</MeanFlow>
+<MedianFlow>7453</MedianFlow>
+<MetNumber>D05495</MetNumber>
+<MinFlow>1567</MinFlow>
+<MinFlowAt>11-May-1981</MinFlowAt>
+<NZReach>7042157</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7242086</NZSegment>
+<Northing>6078000</Northing>
+<R_Rain>Tiraumea at Alfredton,Makuri at Bee 4 Trig, Makuri at Tuscan Hills</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325200</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>NGA</SecondSynonym>
+<ShortName>Hor-0233</ShortName>
+<SiteID>1767</SiteID>
+<StatsPeriod>1/7/1980-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_7</SurfaceWaterZone>
+<eQualCode>Hor-0021</eQualCode>
+</Site>
+</HilltopServer>

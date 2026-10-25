@@ -1,0 +1,9 @@
+seed,family,reference,n_common,crps_D2,crps_reference,crps_difference,twcrps_difference,dataset
+0,calendar,stochastic_regression,0,,,,,bom
+0,crossed,stochastic_regression,0,,,,,bom
+0,calendar,air_state_simulation,2237,0.4743064301577426,0.4727348750416348,0.0015715551161077437,-0.007089591256461848,bom
+0,crossed,air_state_simulation,12543,0.35772605208739167,0.392909842819049,-0.03518379073165735,-0.008504566976693209,bom
+0,calendar,stochastic_regression,0,,,,,usgs_new
+0,crossed,stochastic_regression,0,,,,,usgs_new
+0,calendar,air_state_simulation,304,0.3572146087311847,0.394334510661151,-0.03711990192996624,-0.002527499025092536,usgs_new
+0,crossed,air_state_simulation,4731,0.26567829524573605,0.3120677220567364,-0.0463894268110003,-0.010595400676035505,usgs_new

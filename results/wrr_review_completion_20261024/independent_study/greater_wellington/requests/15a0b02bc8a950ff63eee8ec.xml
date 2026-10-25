@@ -1,0 +1,919 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2012-11-29T14:15:00</From>
+<To>2026-10-24T08:20:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>2012-11-29T00:00:00</FirstRating>
+<LastRating>2025-04-30T19:20:00</LastRating>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-12-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-12-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-30T02:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-30T02:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2026-10-24T08:20:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Burlings Stream at Western Lake Road" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2010-04-22T16:20:00</From>
+<To>2025-12-18T12:45:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2025-12-18T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2010-04-22T16:20:00</VMStart>
+<VMFinish>2025-12-18T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2010-04-22T16:20:00</VMStart>
+<VMFinish>2025-12-18T12:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2012-11-29T14:15:00</VMStart>
+<VMFinish>2025-12-18T12:45:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Burlings Stream at Western Lake Road" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2010-04-22T16:20:00</From>
+<To>2025-12-18T12:45:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>22-Apr-2010 16:20:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Aug-2012 14:44:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>5.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2012 14:16:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Dec-2012 11:16:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>4.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2013 13:44:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>4.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2013 12:01:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-Jan-2013 10:22:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2013 13:22:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Feb-2013 13:15:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jul-2013 13:26:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jul-2013 12:58:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>4.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Aug-2013 14:43:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>4.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Oct-2013 14:00:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Feb-2014 10:50:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Apr-2014 13:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jul-2014 15:32:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Feb-2015 12:51:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2015 13:59:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>3.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Oct-2015 12:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Apr-2016 13:25:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>0.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2016 12:47:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Sep-2016 15:40:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Dec-2016 12:30:00</SurveyTime>
+<LeftOffset>11.000</LeftOffset>
+<RightOffset>14.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2017 13:23:00</SurveyTime>
+<LeftOffset>-0.100</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Mar-2018 10:55:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Jun-2018 14:15:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2019 12:52:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-May-2019 13:08:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Oct-2019 12:20:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Apr-2022 15:28:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>2.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jun-2023 15:13:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>3.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Sep-2023 14:58:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Feb-2024 12:05:00</SurveyTime>
+<LeftOffset>0.230</LeftOffset>
+<RightOffset>2.270</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Apr-2024 10:55:00</SurveyTime>
+<LeftOffset>0.540</LeftOffset>
+<RightOffset>2.540</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Jul-2024 14:29:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>3.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Aug-2024 14:38:00</SurveyTime>
+<LeftOffset>0.350</LeftOffset>
+<RightOffset>3.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Oct-2024 13:11:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>5.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2024 13:46:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Jan-2025 13:20:00</SurveyTime>
+<LeftOffset>0.550</LeftOffset>
+<RightOffset>5.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2025 14:05:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jun-2025 14:54:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Sep-2025 13:53:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Nov-2025 13:40:00</SurveyTime>
+<LeftOffset>3.900</LeftOffset>
+<RightOffset>8.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Dec-2025 12:45:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>6.950</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Burlings Stream at Western Lake Road" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2010-04-22T16:20:00</From>
+<To>2025-12-18T12:45:00</To>
+<Sections>
+<Section>
+<SurveyTime>22-Apr-2010 16:20:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Aug-2012 14:44:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>5.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2012 14:16:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Dec-2012 11:16:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>4.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2013 13:44:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>4.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2013 12:01:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-Jan-2013 10:22:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2013 13:22:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Feb-2013 13:15:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>4.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Jul-2013 13:26:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jul-2013 12:58:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>4.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Aug-2013 14:43:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>4.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Oct-2013 14:00:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Feb-2014 10:50:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Apr-2014 13:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jul-2014 15:32:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>7.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Feb-2015 12:51:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2015 13:59:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>3.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Oct-2015 12:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Apr-2016 13:25:00</SurveyTime>
+<LeftOffset>-0.900</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2016 12:47:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Sep-2016 15:40:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Dec-2016 12:30:00</SurveyTime>
+<LeftOffset>11.000</LeftOffset>
+<RightOffset>14.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Mar-2017 13:23:00</SurveyTime>
+<LeftOffset>-0.100</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Mar-2018 10:55:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Jun-2018 14:15:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2019 12:52:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-May-2019 13:08:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>1.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Oct-2019 12:20:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Apr-2022 15:28:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>2.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jun-2023 15:13:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>3.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Sep-2023 14:58:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Feb-2024 12:05:00</SurveyTime>
+<LeftOffset>0.230</LeftOffset>
+<RightOffset>2.270</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Apr-2024 10:55:00</SurveyTime>
+<LeftOffset>0.540</LeftOffset>
+<RightOffset>2.540</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Jul-2024 14:29:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>3.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Aug-2024 14:38:00</SurveyTime>
+<LeftOffset>0.350</LeftOffset>
+<RightOffset>3.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Oct-2024 13:11:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>5.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2024 13:46:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>6.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Jan-2025 13:20:00</SurveyTime>
+<LeftOffset>0.550</LeftOffset>
+<RightOffset>5.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Apr-2025 14:05:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jun-2025 14:54:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Sep-2025 13:53:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Nov-2025 13:40:00</SurveyTime>
+<LeftOffset>3.900</LeftOffset>
+<RightOffset>8.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Dec-2025 12:45:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>6.950</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Voltage" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T08:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2012-11-29T14:15:00</From>
+<To>2026-10-24T08:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Burlings Stream at Western Lake Road" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2010-04-22T16:20:00</From>
+<To>2025-12-18T12:45:00</To>
+<TimeObjects>
+<SurveyTime>22-Apr-2010 16:20:00</SurveyTime>
+<SurveyTime>15-Aug-2012 14:44:00</SurveyTime>
+<SurveyTime>29-Nov-2012 14:16:00</SurveyTime>
+<SurveyTime>19-Dec-2012 11:16:00</SurveyTime>
+<SurveyTime>10-Jan-2013 13:44:00</SurveyTime>
+<SurveyTime>18-Jan-2013 12:01:00</SurveyTime>
+<SurveyTime>31-Jan-2013 10:22:00</SurveyTime>
+<SurveyTime> 7-Feb-2013 13:22:00</SurveyTime>
+<SurveyTime>28-Feb-2013 13:15:00</SurveyTime>
+<SurveyTime> 3-Jul-2013 13:26:00</SurveyTime>
+<SurveyTime>24-Jul-2013 12:58:00</SurveyTime>
+<SurveyTime>15-Aug-2013 14:43:00</SurveyTime>
+<SurveyTime> 2-Oct-2013 14:00:00</SurveyTime>
+<SurveyTime>27-Feb-2014 10:50:00</SurveyTime>
+<SurveyTime>15-Apr-2014 13:20:00</SurveyTime>
+<SurveyTime>30-Jul-2014 15:32:00</SurveyTime>
+<SurveyTime>12-Feb-2015 12:51:00</SurveyTime>
+<SurveyTime>24-Mar-2015 13:59:00</SurveyTime>
+<SurveyTime> 6-Oct-2015 12:47:00</SurveyTime>
+<SurveyTime>29-Apr-2016 13:25:00</SurveyTime>
+<SurveyTime>29-Jun-2016 12:47:00</SurveyTime>
+<SurveyTime>15-Sep-2016 15:40:00</SurveyTime>
+<SurveyTime>22-Dec-2016 12:30:00</SurveyTime>
+<SurveyTime>28-Mar-2017 13:23:00</SurveyTime>
+<SurveyTime> 9-Mar-2018 10:55:00</SurveyTime>
+<SurveyTime>15-Jun-2018 14:15:00</SurveyTime>
+<SurveyTime> 8-Jan-2019 12:52:00</SurveyTime>
+<SurveyTime>28-May-2019 13:08:00</SurveyTime>
+<SurveyTime>18-Oct-2019 12:20:00</SurveyTime>
+<SurveyTime>28-Apr-2022 15:28:00</SurveyTime>
+<SurveyTime> 8-Jun-2023 15:13:00</SurveyTime>
+<SurveyTime>11-Sep-2023 14:58:00</SurveyTime>
+<SurveyTime>21-Feb-2024 12:05:00</SurveyTime>
+<SurveyTime> 2-Apr-2024 10:55:00</SurveyTime>
+<SurveyTime> 1-Jul-2024 14:29:00</SurveyTime>
+<SurveyTime>16-Aug-2024 14:38:00</SurveyTime>
+<SurveyTime>11-Oct-2024 13:11:00</SurveyTime>
+<SurveyTime>27-Nov-2024 13:46:00</SurveyTime>
+<SurveyTime> 9-Jan-2025 13:20:00</SurveyTime>
+<SurveyTime>14-Apr-2025 14:05:00</SurveyTime>
+<SurveyTime>10-Jun-2025 14:54:00</SurveyTime>
+<SurveyTime>24-Sep-2025 13:53:00</SurveyTime>
+<SurveyTime> 4-Nov-2025 13:40:00</SurveyTime>
+<SurveyTime>18-Dec-2025 12:45:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="Water Level" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2015-08-27T12:30:00</From>
+<To>2026-10-24T08:20:00</To>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Burlings Stream at Western Lake Road" >
+<NumItems>15</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2015-10-06T12:47:00</From>
+<To>2025-12-18T12:45:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Voltage" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T08:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Burlings Stream at Western Lake Road" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2015-12-03T15:00:00</From>
+<To>2026-10-24T08:00:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Burlings Stream at Western Lake Road" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2012-11-29T14:15:00</From>
+<To>2012-11-29T14:15:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

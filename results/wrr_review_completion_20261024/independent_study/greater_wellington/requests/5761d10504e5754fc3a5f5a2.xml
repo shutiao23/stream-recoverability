@@ -1,0 +1,217 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Te Hopai Pump Drain IQ Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2013-09-11T06:01:00</From>
+<To>2013-10-01T12:38:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Te Hopai Pump Drain IQ Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2013-09-11T06:01:00</From>
+<To>2013-10-01T12:38:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow" Site="Te Hopai Pump Drain IQ Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2013-09-11T06:01:00</From>
+<To>2013-10-01T12:38:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Flow">
+<Item>1</Item>
+<RequestAs>Flow [Flow]</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Daily Mean Flow (Moving)">
+<Item>1</Item>
+<RequestAs>Daily Mean Flow (Moving) [Flow]</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T18:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow (l/s)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (l/s)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2013-09-11T06:01:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+<Measurement Name="Hourly Mean Flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hourly Mean Flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:31:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow Velocity" Site="Te Hopai Pump Drain IQ Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2013-09-11T06:01:00</From>
+<To>2013-10-01T12:38:00</To>
+<Measurement Name="Flow Velocity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Velocity</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hourly mean Flow Velocity (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hourly mean Flow Velocity (moving)</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2013-09-11T06:31:00</VMStart>
+<VMFinish>2013-10-01T12:38:00</VMFinish>
+</Measurement>
+</DataSource>
+</HilltopServer>

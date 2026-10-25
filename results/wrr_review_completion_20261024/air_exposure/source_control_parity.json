@@ -1,0 +1,16 @@
+{
+  "role": "same clean-source seed zero across original and frozen-weight stress control; no new-region outcomes",
+  "matched_scorecard_rows": 552,
+  "maximum_absolute_differences": {
+    "n": 0.0,
+    "eligible": 0.0,
+    "bias": 0.0,
+    "mae": 0.0,
+    "failure_rate": 0.0,
+    "crps": 0.0,
+    "twcrps": 0.0,
+    "coverage90": 0.0,
+    "interval_score90": 0.0,
+    "width90": 0.0
+  }
+}

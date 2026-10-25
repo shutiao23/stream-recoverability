@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Waiharuru at S.H.49">
+<Altitude>660</Altitude>
+<CatchmentArea>11.3</CatchmentArea>
+<Comment>Purpose:&#13;&#10;RWCB staffgauge site re-opened.</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2722506</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.81" Min20="7.92" Min30="9.48" Hour1="12.9" Hour2="17.5" Hour6="28.2" Hour12="38" Day1="51.1" Day2="68.6" Day3="81.4" Day4="91.9" Day5="101">
+</Interval>
+<Interval ARI="2" Min10="6.42" Min20="8.73" Min30="10.4" Hour1="14.2" Hour2="19.2" Hour6="30.8" Hour12="41.4" Day1="55.5" Day2="74.4" Day3="88.1" Day4="99.4" Day5="109">
+</Interval>
+<Interval ARI="5" Min10="8.62" Min20="11.6" Min30="13.9" Hour1="18.7" Hour2="25" Hour6="39.8" Hour12="53.1" Day1="70.7" Day2="94" Day3="111" Day4="125" Day5="136">
+</Interval>
+<Interval ARI="10" Min10="10.4" Min20="13.9" Min30="16.5" Hour1="22.1" Hour2="29.6" Hour6="46.6" Hour12="61.9" Day1="82" Day2="108" Day3="128" Day4="143" Day5="156">
+</Interval>
+<Interval ARI="20" Min10="12.3" Min20="16.4" Min30="19.4" Hour1="25.9" Hour2="34.4" Hour6="53.8" Hour12="71.1" Day1="93.8" Day2="123" Day3="145" Day4="162" Day5="177">
+</Interval>
+<Interval ARI="30" Min10="13.5" Min20="17.9" Min30="21.2" Hour1="28.2" Hour2="37.4" Hour6="58.2" Hour12="76.7" Day1="101" Day2="132" Day3="155" Day4="173" Day5="189">
+</Interval>
+<Interval ARI="40" Min10="14.3" Min20="19.1" Min30="22.5" Hour1="29.9" Hour2="39.6" Hour6="61.4" Hour12="80.8" Day1="106" Day2="139" Day3="163" Day4="182" Day5="198">
+</Interval>
+<Interval ARI="50" Min10="15.1" Min20="20" Min30="23.6" Hour1="31.3" Hour2="41.3" Hour6="63.9" Hour12="84" Day1="110" Day2="144" Day3="168" Day4="188" Day5="205">
+</Interval>
+<Interval ARI="60" Min10="15.6" Min20="20.8" Min30="24.5" Hour1="32.4" Hour2="42.7" Hour6="66.1" Hour12="86.7" Day1="114" Day2="148" Day3="173" Day4="193" Day5="210">
+</Interval>
+<Interval ARI="80" Min10="16.6" Min20="22" Min30="25.9" Hour1="34.2" Hour2="45.1" Hour6="69.5" Hour12="91" Day1="119" Day2="155" Day3="181" Day4="202" Day5="219">
+</Interval>
+<Interval ARI="100" Min10="17.4" Min20="23" Min30="27.1" Hour1="35.7" Hour2="46.9" Hour6="72.2" Hour12="94.4" Day1="123" Day2="160" Day3="187" Day4="208" Day5="226">
+</Interval>
+<Interval ARI="250" Min10="20.8" Min20="27.3" Min30="32.1" Hour1="42" Hour2="54.9" Hour6="83.6" Hour12="109" Day1="141" Day2="182" Day3="212" Day4="236" Day5="256">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<Latitude>-39.44610794</Latitude>
+<Longitude>175.46896656</Longitude>
+<MetNumber>E95448</MetNumber>
+<MinFlow>259</MinFlow>
+<MinFlowAt>14-May-2013</MinFlowAt>
+<NZReach>7017312</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7193703</NZSegment>
+<Northing>6192482</Northing>
+<R_Rain>Mangaetoroa at Scarrows</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>331321</RiverNumber>
+<SecondSynonym>WRU</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>10017</SiteID>
+</Site>
+</HilltopServer>

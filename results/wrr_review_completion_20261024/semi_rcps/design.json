@@ -1,0 +1,31 @@
+{
+  "repeats": 100,
+  "scope": "finite-sample result requires iid groups, labeled/unlabeled/test same distribution and source predictor fixed; no every-group or arbitrary-shift guarantee",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "source": "Einbinder, Ringel, Romano arXiv:2412.11174v2 Algorithms 1 and 4",
+  "target": "E[B_g]/E[A_g] <= .05 via bounded loss B_g+.05(1-A_g)",
+  "testing": "fixed ascending threshold sequence; stop at first failure; delta .05",
+  "unit": "independent connected group, equal group weights",
+  "unlabeled": "distinct held-region groups, balanced disjoint blocks; leftovers by index discarded; test groups untouched"
+}

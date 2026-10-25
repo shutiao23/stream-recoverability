@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Manawatu at Teachers College">
+<AEP0.01>3678000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>21.209</Altitude>
+<BARO_CLOSEST>Manawatu at Teachers College</BARO_CLOSEST>
+<BARO_CLOSEST_RL>32</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>32</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>3900.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;Water Allocation (Mana_10a)&#13;&#10;                 (Mana_10e)&#13;&#10;                 (Mana_11a)&#13;&#10;                 (Mana_11f)&#13;&#10;                 (Mana_13a)&#13;&#10;                 (Mana_13e)&#13;&#10;Site RL0 = 21.209m (MSL Moturiki)&#13;&#10;SOE Water Quality: Turbidity &amp; Sediment&#13;&#10;SOE Water Quality: Dissolved Oxygen&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;Control: Natural Rapid</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY NC 4.0</DataLicense>
+<District>Palmerston North City</District>
+<Easting>2733100</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<Flood2004>3515323</Flood2004>
+<FloodFlow10>2406000</FloodFlow10>
+<FloodFlow20>2758000</FloodFlow20>
+<FloodFlow5>2038000</FloodFlow5>
+<FloodFlow50>3212000</FloodFlow50>
+<GISTag>WRFWCDWQ</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.37329271</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00015</LawaSiteID>
+<LawaSiteName>Manawatu at Teachers College</LawaSiteName>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature [Water Temperature]</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.62770422</Longitude>
+<MALF7Day>16814</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Aug-2000</MacroStart>
+<MaxFlow>3515323</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>1473215</MeanAnnualFloodFlow>
+<MeanFlow>104974</MeanFlow>
+<MedianFlow>64964</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>8907</MinFlow>
+<MinFlowAt>23-Feb-1928</MinFlowAt>
+<NZReach>7039894</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7239110</NZSegment>
+<NZVD16>20944</NZVD16>
+<Northing>6089200</Northing>
+<RL0>21.209</RL0>
+<RLZero>29.700</RLZero>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Central LMS Middle, LMS Lower Manawatu&#13;&#10;</Scheme>
+<SecondSynonym>TCO</SecondSynonym>
+<ShortName>Hor-0034</ShortName>
+<SiteID>340</SiteID>
+<StatsPeriod>1/7/1923-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_10</SurfaceWaterZone>
+<UrlPhotograph>http://hilltopserver.horizons.govt.nz/images/sitephotos/Manawatu at Teachers College.jpg</UrlPhotograph>
+<XSection>Provisional, Manawatu at Teachers College, 1-Jun-2011 09:00:00</XSection>
+<eQualCode>Hor-0034</eQualCode>
+</Site>
+</HilltopServer>

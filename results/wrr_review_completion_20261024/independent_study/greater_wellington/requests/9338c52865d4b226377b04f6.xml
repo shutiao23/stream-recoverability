@@ -1,0 +1,559 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-07-26T15:15:00</From>
+<To>2008-01-11T09:30:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Rainfall" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Incremental</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-07-26T15:15:00</From>
+<To>2008-01-11T09:30:00</To>
+<Measurement Name="Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall</RequestAs>
+<Divisor>1000</Divisor>
+<Units>mm</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Annual Maximum Daily Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Daily Rainfall</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Daily Rainfall - Date">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Daily Rainfall - Date</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Rainfall Totals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Rainfall Totals</RequestAs>
+<Units>mm</Units>
+<Format>###.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Consecutive Days With Zero Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Consecutive Days With Zero Rainfall</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-28T00:00:00</VMStart>
+<VMFinish>2008-01-11T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Rainfall">
+<Item>1</Item>
+<RequestAs>Daily Rainfall [Rainfall]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-28T00:00:00</VMStart>
+<VMFinish>2008-01-11T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="RainDays">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>RainDays</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-28T00:00:00</VMStart>
+<VMFinish>2008-01-11T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Moving Total">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Moving Total</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:17:30</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Running Hourly Totals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Running Hourly Totals</RequestAs>
+<Units>mm</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T17:00:00</VMStart>
+<VMFinish>2008-01-11T09:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Timestep</RequestAs>
+<Units>Secs</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Raingauge tip intensity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Raingauge tip intensity</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Raingauge tip value">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Raingauge tip value</RequestAs>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-07-26T15:15:00</VMStart>
+<VMFinish>2008-01-11T09:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Voltage" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2007-11-29T12:01:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+<Measurement Name="Dissolved Oxygen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+<Measurement Name="Conductivity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity</RequestAs>
+<Units>&#181;S/cm@25&#176;C</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+<Measurement Name="pH">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+<Measurement Name="pH (test)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (test)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-08-07T16:01:00</VMStart>
+<VMFinish>2008-01-11T10:01:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-08-07T16:01:00</VMStart>
+<VMFinish>2008-01-11T10:01:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Oxidised Nitrogen" Site="Castlepoint South Bottom of Trial" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-07-22T13:15:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="Total Oxidised Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Oxidised Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2007-11-29T12:09:00</From>
+<To>2008-08-05T11:53:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH" Site="Castlepoint South Bottom of Trial" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-08-07T16:01:00</From>
+<To>2008-01-11T10:01:00</To>
+</DataSource>
+</HilltopServer>

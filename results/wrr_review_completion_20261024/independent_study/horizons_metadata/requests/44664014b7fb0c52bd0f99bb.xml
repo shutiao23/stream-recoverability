@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangahao at Ballance">
+<AEP0.01>1085000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>84.478</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>266.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_9d)&#13;&#10;                 (Mana_9e)&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: Water Level / Flow&#13;&#10;Datum: 84.478 MSL Moturiki.&#13;&#10;Staff gauged installed by MORB (1932). Not records available been 1932 and tower construction in 1954. &#13;&#10;Consent monitoring: SM/ST</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2746800</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>820000</FloodFlow10>
+<FloodFlow20>915000</FloodFlow20>
+<FloodFlow5>710000</FloodFlow5>
+<FloodFlow50>1020000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="6" Min20="8.7" Min30="10.9" Hour1="16" Hour2="21.8" Hour6="35.6" Hour12="48.5" Day1="66.1" Day2="81.7" Day3="92.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="6.6" Min20="9.6" Min30="12" Hour1="17.6" Hour2="23.9" Hour6="38.5" Hour12="52.1" Day1="70.5" Day2="87.1" Day3="98.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="8.8" Min20="12.9" Min30="16.1" Hour1="23.6" Hour2="31.3" Hour6="48.9" Hour12="64.7" Day1="85.8" Day2="106.1" Day3="120.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="10.7" Min20="15.6" Min30="19.6" Hour1="28.7" Hour2="37.4" Hour6="57.2" Hour12="74.8" Day1="97.7" Day2="120.8" Day3="136.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="12.9" Min20="18.8" Min30="23.5" Hour1="34.5" Hour2="44.5" Hour6="66.6" Hour12="85.8" Day1="110.7" Day2="136.9" Day3="154.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="14.3" Min20="21" Min30="26.2" Hour1="38.4" Hour2="49.1" Hour6="72.6" Hour12="92.9" Day1="118.9" Day2="147.1" Day3="166.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="15.4" Min20="22.6" Min30="28.2" Hour1="41.4" Hour2="52.7" Hour6="77.2" Hour12="98.3" Day1="125.1" Day2="154.7" Day3="175.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="16.3" Min20="23.9" Min30="29.9" Hour1="43.8" Hour2="55.6" Hour6="81" Hour12="102.6" Day1="130.1" Day2="160.9" Day3="182.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="17.1" Min20="25.1" Min30="31.4" Hour1="46" Hour2="58.1" Hour6="84.1" Hour12="106.3" Day1="134.3" Day2="166.1" Day3="188" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="18.5" Min20="27.1" Min30="33.8" Hour1="49.5" Hour2="62.3" Hour6="89.4" Hour12="112.4" Day1="141.3" Day2="174.6" Day3="197.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="19.6" Min20="28.7" Min30="35.8" Hour1="52.5" Hour2="65.7" Hour6="93.8" Hour12="117.3" Day1="146.9" Day2="181.6" Day3="205.6" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.43611503</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00019</LawaSiteID>
+<LawaSiteName>Mangahao at Ballance</LawaSiteName>
+<Longitude>175.79170689</Longitude>
+<MALF7Day>1819</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>18-Apr-2000</MacroStart>
+<MaxFlow>1002571</MaxFlow>
+<MaxFlowAt> 6-Jan-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>561276</MeanAnnualFloodFlow>
+<MeanFlow>14866</MeanFlow>
+<MedianFlow>7134</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>696</MinFlow>
+<MinFlowAt>11-Jan-1987</MinFlowAt>
+<NZReach>7041259</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7240715</NZSegment>
+<Northing>6081800</Northing>
+<R_Rain>Mangatainoka at Pahiatua Dairy Factory,</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325190</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>BAL</SecondSynonym>
+<ShortName>Hor-0095</ShortName>
+<SiteID>42</SiteID>
+<StatsPeriod>1/7/1975-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_9</SurfaceWaterZone>
+<eQualCode>Hor-0095</eQualCode>
+</Site>
+</HilltopServer>

@@ -1,0 +1,11 @@
+{
+  "native_resolution_degrees": [
+    0.5,
+    0.625
+  ],
+  "new_independent_NZ_values": false,
+  "provider": "NASA POWER daily T2M, MERRA2, explicit LST, 1981--2025",
+  "purpose": "fixed source input convention; no local weather-station upper benchmark or attribution to spatial resolution alone",
+  "routing": "one lowest-station-ID representative per native grid and 15-degree solar-time swath; existing source response has priority",
+  "selection": "metadata-fixed USGS source roster with >=4 complete and >=15 QC/observation-supported years; no prediction-error selection"
+}

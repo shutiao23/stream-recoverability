@@ -1,0 +1,12 @@
+{
+  "independence_groups_verified": false,
+  "metadata_roster_file": null,
+  "metadata_roster_sha256": null,
+  "native_time_zone": "NZST, fixed UTC+12, subject to explicit provider time metadata verification",
+  "prior_temperature_access_excluded": false,
+  "provider": "greater_wellington_metadata_fallback",
+  "qc_specification": null,
+  "required_before_registration": "Freeze a nonempty eligible roster with station_key and independence_group, provider-specific quality/cadence/daily aggregation, shared-donor network joins, full prior-access exclusion and acquisition endpoints. This template cannot authorize any value access.",
+  "source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
+  "status": "draft_not_qualified_not_acquisition_authorization"
+}

@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "check": "full_seed_analyses",
+      "observed": 20,
+      "passed": true,
+      "required": 20
+    },
+    {
+      "check": "new_values_not_requested_before_registration",
+      "passed": true
+    },
+    {
+      "check": "matched low-flow classical comparisons, historical controls and observed-window bounds",
+      "passed": true
+    },
+    {
+      "check": "planned station profiles and twenty-seed common-case named-year event diagnostics",
+      "passed": true
+    },
+    {
+      "check": "C1 zero-flow proxy strata, unknown flow and group-bootstrap odds intervals",
+      "passed": true
+    },
+    {
+      "check": "group deletion, formal calibration and observed record witnesses",
+      "passed": true
+    },
+    {
+      "check": "outcome-free metadata roster, native measurement plan and source inference interface",
+      "passed": true
+    },
+    {
+      "check": "paired unflagged exposure and unchanged clean-source scorecard",
+      "passed": true
+    },
+    {
+      "check": "nearby observed-air original-input controls and calendar-day driver lags",
+      "passed": true
+    },
+    {
+      "check": "full-source USGS forcing exact controls and unavailable-case denominators",
+      "passed": true
+    },
+    {
+      "check": "usgs driver-specific recovery residual exclusion, point controls and probability support",
+      "passed": true
+    },
+    {
+      "check": "exact official French station coordinates and complete source-map coverage",
+      "passed": true
+    },
+    {
+      "check": "explicit agency lake-outlet designation without inferred negative river classes",
+      "passed": true
+    },
+    {
+      "check": "native H7 targets,540 disjoint outer fits and unchanged default H30",
+      "passed": true
+    },
+    {
+      "check": "draft bundle checksums and frozen source candidate",
+      "passed": true
+    },
+    {
+      "check": "isolated registered-archive inference and synthetic generator parity without network",
+      "passed": true
+    },
+    {
+      "check": "national retrieved-panel artifacts and unresolved-eligibility bounds",
+      "passed": true
+    }
+  ],
+  "completed_seed_analyses": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "driver_recovery_models_complete": {
+    "europe": false,
+    "usgs": true
+  },
+  "full_Europe_available_coordinate_forcing_complete": false,
+  "full_H7_target_refits_complete": true,
+  "full_USGS_forcing_complete": true,
+  "independent_transfer_completed": false,
+  "local_evidence_complete": false,
+  "national_availability_complete": false,
+  "national_h30_analysis_complete": false,
+  "national_retrieved_panel_execution_complete": true,
+  "overall_user_goal_complete": false,
+  "qualified_natural_gap_accuracy_completed": false,
+  "source_core_and_local_extensions_complete": false,
+  "source_core_complete": true
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Huangarua at Hautotara">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>140.0</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wairarapa-rivers-streams-east-of-ruamahanga-river/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>1.035</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1807216</Easting>
+<FirstSynonym>Huangarua at Hautotara</FirstSynonym>
+<FloodFlow10>351</FloodFlow10>
+<FloodFlow100>577</FloodFlow100>
+<FloodFlow20>420</FloodFlow20>
+<FloodFlow233>190</FloodFlow233>
+<FloodFlow5>279</FloodFlow5>
+<FloodFlow50>510</FloodFlow50>
+<FlowWebVeryHigh>44</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.29641222</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<Longitude>175.47489946</Longitude>
+<Macro>false</Macro>
+<MeanAnnualFloodFlow>190</MeanAnnualFloodFlow>
+<MedianFlow>1.07</MedianFlow>
+<MetNumber>
+</MetNumber>
+<Northing>5425383</Northing>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Huangarua River</RiverName>
+<RiverNumber>292200</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Huangaroa</ShortName>
+<SiteID>403</SiteID>
+</Site>
+</HilltopServer>

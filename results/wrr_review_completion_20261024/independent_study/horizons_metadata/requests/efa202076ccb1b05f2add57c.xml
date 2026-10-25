@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Oruakeretaki at S.H.2 Napier">
+<AEP0.01>190580</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>161</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>54.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_5d)&#13;&#10;RL0 =</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2767900</Easting>
+<Ffreq>Pearson Type3</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>101610</FloodFlow10>
+<FloodFlow20>127749</FloodFlow20>
+<FloodFlow5>76468</FloodFlow5>
+<FloodFlow50>163246</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.25342628</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00037</LawaSiteID>
+<LawaSiteName>Oruakeretaki at S.H.2 Napier</LawaSiteName>
+<Longitude>176.03231873</Longitude>
+<MALF7Day>259</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Oct-2009</MacroStart>
+<MaxFlow>128126</MaxFlow>
+<MaxFlowAt>20-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>66626</MeanAnnualFloodFlow>
+<MeanFlow>2318</MeanFlow>
+<MedianFlow>1445</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>80</MinFlow>
+<MinFlowAt> 1-Mar-2013</MinFlowAt>
+<NZReach>7037487</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7235868</NZSegment>
+<Northing>6101400</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325272</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>OSH</SecondSynonym>
+<ShortName>Hor-0005</ShortName>
+<SiteID>1436</SiteID>
+<StatsPeriod>1/7/2004-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_5</SurfaceWaterZone>
+<eQualCode>Hor-0005</eQualCode>
+</Site>
+</HilltopServer>

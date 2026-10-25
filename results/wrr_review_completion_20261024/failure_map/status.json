@@ -1,0 +1,10 @@
+{
+  "causal_claim": false,
+  "dam_source": "exact station join to cached GAGES-II hydromod_dams 2009 snapshot; archive acquired in earlier work; not a new contemporary NID classification",
+  "intermittency": "zero days are an available-record proxy, not a verified intermittent-river class",
+  "lake_outlets": "explicit agency outlet designation only; all other stations unknown, not a verified non-outlet class",
+  "n_agency_designated_lake_outlets": 1,
+  "n_stations": 581,
+  "n_with_coordinates": 581,
+  "seed": 0
+}

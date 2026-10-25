@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Wainui at Herbertville Road Br">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>25</Altitude>
+<BARO_CLOSEST>Manawatu at Weber Road</BARO_CLOSEST>
+<BARO_CLOSEST_RL>170</BARO_CLOSEST_RL>
+<BARO_REF_DIST>41550</BARO_REF_DIST>
+<BARO_RL>25</BARO_RL>
+<Catchment>Wainui</Catchment>
+<CatchmentArea>63.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: River Level&#13;&#10;Water Allocation (East_1)&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2808200</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.45327432</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>LAWA-103993 </LawaSiteID>
+<LawaSiteName>Wainui at Herbertville Road Br</LawaSiteName>
+<Longitude>176.51669241</Longitude>
+<Macro>false</Macro>
+<MaxFlow>188984</MaxFlow>
+<MaxFlowAt>14-Feb-2023</MaxFlowAt>
+<MeanFlow>901</MeanFlow>
+<MedianFlow>302</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>3</MinFlow>
+<MinFlowAt> 3-Dec-2024</MinFlowAt>
+<NZReach>7042542</NZReach>
+<NZSegment>7242177</NZSegment>
+<Northing>6077700</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>246000</RiverNumber>
+<SecondSynonym>WHR</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>2403</SiteID>
+<SurfaceWaterZone>East_1</SurfaceWaterZone>
+</Site>
+</HilltopServer>

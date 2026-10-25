@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="BN32/0081">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>16.67</Altitude>
+<BoreBottomOfScreen>-92.0</BoreBottomOfScreen>
+<BoreDepth>100.0</BoreDepth>
+<BoreID>BN32/0081</BoreID>
+<BoreTopOfScreen>-86.0</BoreTopOfScreen>
+<Comment>New bore for water level and quality measurements. Bore depth ~100m, Read Point RL 17.543m .&#13;&#10;24.3.25: Reference Level MP changed from 17.543m to 17.350m., being confirmed with surveying 13/3/25. Water level at ~11:55 = 10750mm (+/-5mm) PVC piezo pipe and steel casing had been cut down -29/1/25 - at time of bore development work attempts</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>
+</District>
+<Easting>1779079</Easting>
+<FirstSynonym>Hautere GW Zone at Te Horo Beach Rd Deep</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>true</GWQuality>
+<GroundwaterQualityZone>Te_HoroGW</GroundwaterQualityZone>
+<GroundwaterSubZone>Te_HoroGW</GroundwaterSubZone>
+<GroundwaterZone>KapitiCoastGW</GroundwaterZone>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.79889447</Latitude>
+<LawaGroundwaterMeasurement>Stage [Water Level]</LawaGroundwaterMeasurement>
+<LawaSiteID>LAWA-104228</LawaSiteID>
+<Longitude>175.12280787</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5481399</Northing>
+<ReadPointRL>17350</ReadPointRL>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Te Horo Deep</ShortName>
+<SiteID>14049</SiteID>
+<WebComment>Located in the Hautere groundwater zone and is approximately 92m deep. This site has been operating fully from 18 July 2025.</WebComment>
+</Site>
+</HilltopServer>

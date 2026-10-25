@@ -1,0 +1,3607 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2002-01-15T13:45:00</From>
+<To>2026-10-24T13:05:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>2002-01-01T00:00:00</FirstRating>
+<LastRating>2025-12-08T11:25:00</LastRating>
+</Measurement>
+<Measurement Name="Derived Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="VM Test">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>VM Test</RequestAs>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T14:15:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+<Ratset1>10</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-17T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-17T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-16T01:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-16T01:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-16T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-16T01:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2002-01-11T11:23:00</From>
+<To>2025-12-08T11:30:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2025-12-08T11:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-11T11:23:00</VMStart>
+<VMFinish>2025-12-08T11:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-11T11:23:00</VMStart>
+<VMFinish>2025-12-08T11:30:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T13:45:00</VMStart>
+<VMFinish>2025-12-08T11:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Histogram" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Histogram</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2002-01-15T14:15:00</From>
+<To>2013-11-05T16:30:00</To>
+<Measurement Name="Histogram Data">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Histogram Data</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Histogram Volume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Histogram Volume</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2002-01-15T14:15:00</VMStart>
+<VMFinish>2013-11-05T16:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Rainfall" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Incremental</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2008-01-08T14:00:00</From>
+<To>2026-10-24T13:05:00</To>
+<Measurement Name="Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall</RequestAs>
+<Divisor>1000</Divisor>
+<Units>mm</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Annual Maximum Daily Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Daily Rainfall</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2010-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Daily Rainfall - Date">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Daily Rainfall - Date</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2010-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Rainfall Totals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Rainfall Totals</RequestAs>
+<Units>mm</Units>
+<Format>###.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2010-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Consecutive Days With Zero Rainfall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Consecutive Days With Zero Rainfall</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Rainfall">
+<Item>1</Item>
+<RequestAs>Daily Rainfall [Rainfall]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="RainDays">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>RainDays</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Moving Total">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Moving Total</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-08T14:02:30</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Running Hourly Totals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Running Hourly Totals</RequestAs>
+<Units>mm</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-08T15:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Rainfall Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall Timestep</RequestAs>
+<Units>Secs</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-08T14:00:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Raingauge tip intensity">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Raingauge tip intensity</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-08T14:00:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+<Measurement Name="Raingauge tip value">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Raingauge tip value</RequestAs>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-08T14:00:00</VMStart>
+<VMFinish>2026-10-24T13:05:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>2002-01-11T11:23:00</From>
+<To>2025-12-08T11:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime>11-Jan-2002 11:23:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>10.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Jan-2002 14:10:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Jan-2002 13:40:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-Jan-2002 11:10:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Feb-2002 14:35:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Mar-2002 14:25:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Mar-2002 11:05:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-May-2002 14:10:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Nov-2002 09:40:00</SurveyTime>
+<LeftOffset>5.700</LeftOffset>
+<RightOffset>10.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Jan-2003 13:25:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>4.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jan-2003 14:00:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>2.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Apr-2003 13:30:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>5.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-May-2003 14:55:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Dec-2003 13:10:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jan-2004 10:46:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Jun-2004 14:05:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Nov-2004 15:10:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>8.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Nov-2004 15:00:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Nov-2004 09:15:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Dec-2004 13:30:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Jan-2005 12:00:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>10.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Feb-2005 15:25:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>5.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2005 13:00:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Oct-2005 09:35:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Nov-2005 14:30:00</SurveyTime>
+<LeftOffset>3.400</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2005 12:45:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2006 14:50:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Apr-2006 11:38:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>4.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-May-2006 14:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2006 13:45:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Aug-2006 15:10:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Nov-2006 13:55:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Jan-2007 14:50:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>16.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2007 13:55:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>1.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2007 12:40:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>2.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-May-2007 14:20:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>9.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-May-2007 13:55:00</SurveyTime>
+<LeftOffset>1.580</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Jul-2007 15:15:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>7.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Aug-2007 14:10:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>9.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Oct-2007 12:55:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Oct-2007 13:50:00</SurveyTime>
+<LeftOffset>4.700</LeftOffset>
+<RightOffset>12.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2008 13:50:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Apr-2008 13:50:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>2.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Sep-2008 15:30:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Nov-2008 13:25:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Feb-2009 12:08:00</SurveyTime>
+<LeftOffset>7.660</LeftOffset>
+<RightOffset>9.210</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Mar-2009 13:55:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jun-2009 14:44:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>11.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Oct-2009 14:00:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jul-2010 13:30:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Aug-2010 15:05:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Oct-2010 14:05:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Dec-2010 15:05:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Sep-2011 11:35:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Feb-2012 12:18:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Aug-2012 13:48:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2012 13:27:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Dec-2012 14:41:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>6.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2012 09:52:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>3.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Aug-2013 11:40:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>9.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Nov-2013 14:38:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Jan-2014 12:55:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Jan-2014 13:35:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Apr-2014 09:45:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-May-2014 14:44:00</SurveyTime>
+<LeftOffset>5.100</LeftOffset>
+<RightOffset>12.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jul-2014 12:53:00</SurveyTime>
+<LeftOffset>3.500</LeftOffset>
+<RightOffset>11.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2014 12:54:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>4.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jan-2015 14:54:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Aug-2015 11:59:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>8.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Nov-2015 13:19:00</SurveyTime>
+<LeftOffset>2.900</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2016 12:31:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>4.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Feb-2016 12:50:00</SurveyTime>
+<LeftOffset>3.800</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Dec-2016 14:23:00</SurveyTime>
+<LeftOffset>5.000</LeftOffset>
+<RightOffset>10.750</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Jan-2017 13:55:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Mar-2017 14:30:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-May-2017 10:30:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>9.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Jun-2017 15:04:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Aug-2017 14:13:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>10.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Oct-2017 13:14:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2017 10:22:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2018 15:03:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Apr-2018 12:04:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-May-2018 10:56:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jul-2018 13:44:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Sep-2018 14:28:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Nov-2018 13:28:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>5.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Jan-2019 10:37:00</SurveyTime>
+<LeftOffset>13.700</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jan-2019 09:41:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Mar-2019 13:41:00</SurveyTime>
+<LeftOffset>0.990</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-May-2019 10:54:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jun-2019 14:08:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>7.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Aug-2019 12:09:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Oct-2019 11:31:00</SurveyTime>
+<LeftOffset>15.300</LeftOffset>
+<RightOffset>21.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Nov-2019 10:33:00</SurveyTime>
+<LeftOffset>17.000</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2020 13:02:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>2.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Jun-2020 10:21:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Sep-2020 13:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Dec-2020 14:50:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Feb-2021 13:00:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2021 13:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Oct-2021 13:19:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Nov-2021 13:57:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2022 11:32:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Feb-2022 11:02:00</SurveyTime>
+<LeftOffset>0.150</LeftOffset>
+<RightOffset>3.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Feb-2022 13:04:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2022 14:08:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Apr-2022 14:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Sep-2022 11:58:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Nov-2022 14:10:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>6.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Apr-2023 14:41:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Sep-2023 11:27:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Oct-2023 10:50:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Dec-2023 09:47:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>5.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2024 15:00:00</SurveyTime>
+<LeftOffset>0.250</LeftOffset>
+<RightOffset>2.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Jan-2024 12:01:00</SurveyTime>
+<LeftOffset>0.310</LeftOffset>
+<RightOffset>1.970</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Feb-2024 15:25:00</SurveyTime>
+<LeftOffset>0.180</LeftOffset>
+<RightOffset>1.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Mar-2024 10:53:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>1.220</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-May-2024 13:20:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jun-2024 11:09:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>4.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Aug-2024 13:23:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>10.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Sep-2024 14:41:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>10.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Nov-2024 13:27:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Feb-2025 13:07:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Feb-2025 12:21:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Apr-2025 12:52:00</SurveyTime>
+<LeftOffset>3.200</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-May-2025 14:44:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>8.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jul-2025 13:30:00</SurveyTime>
+<LeftOffset>2.770</LeftOffset>
+<RightOffset>9.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Oct-2025 12:37:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>9.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2025 11:20:00</SurveyTime>
+<LeftOffset>3.250</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>2002-01-11T11:23:00</From>
+<To>2025-12-08T11:20:00</To>
+<Sections>
+<Section>
+<SurveyTime>11-Jan-2002 11:23:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>10.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Jan-2002 14:10:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Jan-2002 13:40:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-Jan-2002 11:10:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Feb-2002 14:35:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>8.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Mar-2002 14:25:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Mar-2002 11:05:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-May-2002 14:10:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Nov-2002 09:40:00</SurveyTime>
+<LeftOffset>5.700</LeftOffset>
+<RightOffset>10.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Jan-2003 13:25:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>4.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jan-2003 14:00:00</SurveyTime>
+<LeftOffset>0.850</LeftOffset>
+<RightOffset>2.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Dec-2003 13:10:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jan-2004 10:46:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Jun-2004 14:05:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Nov-2004 15:10:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>8.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Nov-2004 15:00:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Nov-2004 09:15:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Dec-2004 13:30:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Jan-2005 12:00:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>10.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Feb-2005 15:25:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>5.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2005 13:00:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Oct-2005 09:35:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Nov-2005 14:30:00</SurveyTime>
+<LeftOffset>3.400</LeftOffset>
+<RightOffset>8.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2005 12:45:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2006 14:50:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Apr-2006 11:38:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>4.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-May-2006 14:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>3.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2006 13:45:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Aug-2006 15:10:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Nov-2006 13:55:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Jan-2007 14:50:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>16.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2007 13:55:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>1.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2007 12:40:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>2.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-May-2007 14:20:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>9.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-May-2007 13:55:00</SurveyTime>
+<LeftOffset>1.580</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Jul-2007 15:15:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>7.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Aug-2007 14:10:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>9.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Oct-2007 12:55:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>9.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Oct-2007 13:50:00</SurveyTime>
+<LeftOffset>4.700</LeftOffset>
+<RightOffset>12.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2008 13:50:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>3.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Apr-2008 13:50:00</SurveyTime>
+<LeftOffset>0.200</LeftOffset>
+<RightOffset>2.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Sep-2008 15:30:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Nov-2008 13:25:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Feb-2009 12:08:00</SurveyTime>
+<LeftOffset>-9.210</LeftOffset>
+<RightOffset>-7.660</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Mar-2009 13:55:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jun-2009 14:44:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>11.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Oct-2009 14:00:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jul-2010 13:30:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Aug-2010 15:05:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Oct-2010 14:05:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Dec-2010 15:05:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Sep-2011 11:35:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Feb-2012 12:18:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>5.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Aug-2012 13:48:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2012 13:27:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>9.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Dec-2012 14:41:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>6.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2012 09:52:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>3.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Aug-2013 11:40:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>9.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Nov-2013 14:38:00</SurveyTime>
+<LeftOffset>2.100</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Jan-2014 12:55:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Jan-2014 13:35:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Apr-2014 09:45:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>6.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-May-2014 14:44:00</SurveyTime>
+<LeftOffset>5.100</LeftOffset>
+<RightOffset>12.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jul-2014 12:53:00</SurveyTime>
+<LeftOffset>3.500</LeftOffset>
+<RightOffset>11.150</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2014 12:54:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>4.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jan-2015 14:54:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>3.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Aug-2015 11:59:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>8.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Nov-2015 13:19:00</SurveyTime>
+<LeftOffset>2.900</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2016 12:31:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>4.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Feb-2016 12:50:00</SurveyTime>
+<LeftOffset>3.800</LeftOffset>
+<RightOffset>6.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Dec-2016 14:23:00</SurveyTime>
+<LeftOffset>5.000</LeftOffset>
+<RightOffset>10.750</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Jan-2017 13:55:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Mar-2017 14:30:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-May-2017 10:30:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>9.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Jun-2017 15:04:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Aug-2017 14:13:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>10.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Oct-2017 13:14:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2017 10:22:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>4.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-2018 15:03:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Apr-2018 12:04:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>6.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>31-May-2018 10:56:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>8.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Jul-2018 13:44:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Sep-2018 14:28:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Nov-2018 13:28:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>5.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Jan-2019 10:37:00</SurveyTime>
+<LeftOffset>13.700</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Jan-2019 09:41:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Mar-2019 13:41:00</SurveyTime>
+<LeftOffset>0.990</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-May-2019 10:54:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Jun-2019 14:08:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>7.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Aug-2019 12:09:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>9.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Oct-2019 11:31:00</SurveyTime>
+<LeftOffset>15.300</LeftOffset>
+<RightOffset>21.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Nov-2019 10:33:00</SurveyTime>
+<LeftOffset>17.000</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jan-2020 13:02:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>2.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Jun-2020 10:21:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Sep-2020 13:20:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Dec-2020 14:50:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Feb-2021 13:00:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>6.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2021 13:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>6.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 5-Oct-2021 13:19:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>30-Nov-2021 13:57:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>3.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jan-2022 11:32:00</SurveyTime>
+<LeftOffset>0.100</LeftOffset>
+<RightOffset>3.400</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Feb-2022 11:02:00</SurveyTime>
+<LeftOffset>0.150</LeftOffset>
+<RightOffset>3.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Feb-2022 13:04:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Mar-2022 14:08:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>8.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Apr-2022 14:47:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>7.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Sep-2022 11:58:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>9.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 3-Nov-2022 14:10:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>6.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Apr-2023 14:41:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Sep-2023 11:27:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>7.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Oct-2023 10:50:00</SurveyTime>
+<LeftOffset>1.600</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Dec-2023 09:47:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>5.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2024 15:00:00</SurveyTime>
+<LeftOffset>0.250</LeftOffset>
+<RightOffset>2.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Jan-2024 12:01:00</SurveyTime>
+<LeftOffset>0.310</LeftOffset>
+<RightOffset>1.970</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Feb-2024 15:25:00</SurveyTime>
+<LeftOffset>0.180</LeftOffset>
+<RightOffset>1.450</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Mar-2024 10:53:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>1.220</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-May-2024 13:20:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>4.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Jun-2024 11:09:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>4.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Aug-2024 13:23:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>10.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Sep-2024 14:41:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>10.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Nov-2024 13:27:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>7.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Feb-2025 13:07:00</SurveyTime>
+<LeftOffset>1.700</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Feb-2025 12:21:00</SurveyTime>
+<LeftOffset>1.800</LeftOffset>
+<RightOffset>5.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Apr-2025 12:52:00</SurveyTime>
+<LeftOffset>3.200</LeftOffset>
+<RightOffset>6.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-May-2025 14:44:00</SurveyTime>
+<LeftOffset>2.300</LeftOffset>
+<RightOffset>8.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jul-2025 13:30:00</SurveyTime>
+<LeftOffset>2.770</LeftOffset>
+<RightOffset>9.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Oct-2025 12:37:00</SurveyTime>
+<LeftOffset>2.800</LeftOffset>
+<RightOffset>9.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2025 11:20:00</SurveyTime>
+<LeftOffset>3.250</LeftOffset>
+<RightOffset>8.200</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Voltage" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-05-25T13:30:00</From>
+<To>2018-06-01T10:00:00</To>
+<Measurement Name="Dissolved Oxygen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-05-25T13:30:00</From>
+<To>2018-06-01T10:00:00</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="pH (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-09-22T11:55:00</VMStart>
+<VMFinish>2026-09-09T12:38:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="pH (test)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (test)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-09-22T11:55:00</VMStart>
+<VMFinish>2026-09-09T12:38:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow (X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2005-05-30T11:25:00</From>
+<To>2007-09-20T13:22:00</To>
+<Measurement Name="Flow (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (X)</RequestAs>
+<Units>m3/s</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2016-03-01T11:10:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-09-22T11:55:00</VMStart>
+<VMFinish>2026-09-09T12:38:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level (X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2007-11-21T13:30:00</From>
+<To>2015-07-24T13:05:00</To>
+<Measurement Name="Water Level (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (X)</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-05-25T13:30:00</From>
+<To>2018-06-01T10:00:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2007-05-25T13:30:00</VMStart>
+<VMFinish>2018-06-01T10:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Organic Carbon" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-07-10T12:50:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Dissolved Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Organic Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2006-06-23T11:30:00</To>
+<Measurement Name="Dissolved organic nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved organic nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Alkalinity (Total)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Alkalinity (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Alkalinity (Total)</RequestAs>
+<Units>g/m3 as CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bicarbonate" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Bicarbonate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bicarbonate</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Silica Dissolved Reactive" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2026-01-22T11:30:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Silica Dissolved Reactive">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Silica Dissolved Reactive</RequestAs>
+<Units>g/m3 SiO2</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2026-01-22T11:30:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Sulphate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hardness (Total)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2025-12-12T12:26:00</To>
+<Measurement Name="Hardness (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hardness (Total)</RequestAs>
+<Units>g/m3 CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Aluminium (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Aluminium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Aluminium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Arsenic (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Arsenic (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Arsenic (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Copper (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-07-10T12:50:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Copper (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Copper (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Iron (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Iron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Iron (Dissolved)</RequestAs>
+<Units>mg/L</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Manganese (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Manganese (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Manganese (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Total)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-07-10T12:50:00</From>
+<To>2026-06-15T11:58:00</To>
+<Measurement Name="Zinc (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Total)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-07-10T12:50:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Zinc (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2020-06-18T13:00:00</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll a" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2016-08-23T12:25:00</From>
+<To>2026-06-15T12:12:00</To>
+<Measurement Name="Chlorophyll a">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll a</RequestAs>
+<Divisor>0.001</Divisor>
+<Units>mg/m3</Units>
+<Format>#.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Soil Moisture Content" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2017-04-11T15:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Soil Moisture Content">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Moisture Content</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Hardness" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Total Hardness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Hardness</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Soil Temperature 10cm" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2008-01-08T15:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Soil Temperature 10cm">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Temperature 10cm</RequestAs>
+<Units>Deg C</Units>
+<Format>##.#</Format>
+</Measurement>
+<Measurement Name="Soil Temperature 10cm 24 mavg">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Temperature 10cm 24 mavg</RequestAs>
+<Units>&#186;C</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-01-09T03:00:00</VMStart>
+<VMFinish>2026-10-24T13:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Munsell Colour" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2011-07-28T13:30:00</To>
+<Measurement Name="Munsell Colour">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Munsell Colour</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cations" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2013-06-24T13:00:00</To>
+<Measurement Name="Total Cations">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cations</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Anions" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2013-06-24T13:00:00</To>
+<Measurement Name="Total Anions">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Anions</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ionic Balance Error" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-02-18T11:15:00</From>
+<To>2013-06-24T13:00:00</To>
+<Measurement Name="Ionic Balance Error">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ionic Balance Error</RequestAs>
+<Units>%</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Suspended Sediment Concentration" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2018-07-25T09:55:00</From>
+<To>2024-06-11T13:45:00</To>
+<Measurement Name="Suspended Sediment Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Suspended Sediment Concentration</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Boron (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Boron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Boron (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Calcium (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Calcium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Calcium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Inorganic Nitrogen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Dissolved Inorganic Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Inorganic Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Magnesium (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Magnesium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Magnesium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Potassium (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Potassium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Potassium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sodium (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Sodium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sodium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chloride (Dissolved)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Chloride Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chloride Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate Dissolved" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-16T13:10:00</From>
+<To>2013-06-24T13:00:00</To>
+<Measurement Name="Sulphate Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Cyanobacteria Mats)(%)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-30T13:25:00</From>
+<To>2023-06-29T12:00:00</To>
+<Measurement Name="Periphyton (Cyanobacteria Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Cyanobacteria Mats)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow Category" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2020-08-13T15:30:00</To>
+<Measurement Name="Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Category</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Virtual Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Virtual Flow Category</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-09-22T11:55:00</VMStart>
+<VMFinish>2026-09-09T12:38:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Total)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-30T13:20:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Vegetation Cover % (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Total)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Emergent)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-30T13:20:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Vegetation Cover % (Emergent)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Emergent)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Sub SR)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-30T13:20:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Vegetation Cover % (Sub SR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Sub SR)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Vegetation Cover % (Sub BS)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2012-08-30T13:20:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Vegetation Cover % (Sub BS)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Vegetation Cover % (Sub BS)</RequestAs>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Cover)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-30T13:25:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Fine Sediment (% Cover)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Cover)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Sand)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-30T13:25:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Fine Sediment (% Sand)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Sand)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Macrophyte channel clogginess %" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-30T13:25:00</From>
+<To>2016-06-29T09:35:00</To>
+<Measurement Name="Macrophyte channel clogginess %">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Macrophyte channel clogginess %</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Daily Compliance Flow" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T04:00:03</From>
+<To>2026-10-24T04:00:07</To>
+<Measurement Name="Daily Compliance Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Compliance Flow</RequestAs>
+<Units>m3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Daily Compliance Flow (l/s)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Compliance Flow (l/s)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2021-01-01T04:00:03</VMStart>
+<VMFinish>2026-10-24T04:00:07</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<SensorGroup>CADDIS_Data</SensorGroup>
+<Measurement Name="MCI (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI (Lawa)</RequestAs>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-03-23T15:00:00</VMStart>
+<VMFinish>2024-12-17T11:48:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<SensorGroup>CADDIS_Data</SensorGroup>
+<Measurement Name="QMCI (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-03-23T15:00:00</VMStart>
+<VMFinish>2024-12-17T11:48:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-hb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="MCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-sb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="MCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT taxa" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="%EPT taxa">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT taxa</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Taxa Richness" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="Taxa Richness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Taxa Richness</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="EPT Richness (-hydroptilidae)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>EPT Richness (-hydroptilidae)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-03-23T15:00:00</VMStart>
+<VMFinish>2024-12-17T11:48:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Soil Temperature" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+<Measurement Name="Soil Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Soil Temperature</RequestAs>
+<Units>Deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Copper (Total)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2025-07-10T12:50:00</From>
+<To>2026-06-15T11:58:00</To>
+<Measurement Name="Copper (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Copper (Total)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Rainfall (MetService Gridded Forecast)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Incremental</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-27T12:00:00</To>
+<Measurement Name="Rainfall (MetService Gridded Forecast)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rainfall (MetService Gridded Forecast)</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-hb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="QMCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-sb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="QMCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-hb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="ASPM-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-sb" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="ASPM-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Film)(%)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2023-07-18T14:00:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Periphyton (Film)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Film)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Bare Rock)(%)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2023-07-18T14:00:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="Periphyton (Bare Rock)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Bare Rock)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="ASPM (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-03-23T15:00:00</VMStart>
+<VMFinish>2024-12-17T11:48:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT abundance" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-03-23T15:00:00</From>
+<To>2024-12-17T11:48:00</To>
+<Measurement Name="%EPT abundance">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT abundance</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2002-01-11T11:23:00</From>
+<To>2025-12-08T11:20:00</To>
+<TimeObjects>
+<SurveyTime>11-Jan-2002 11:23:00</SurveyTime>
+<SurveyTime>15-Jan-2002 14:10:00</SurveyTime>
+<SurveyTime>23-Jan-2002 13:40:00</SurveyTime>
+<SurveyTime>31-Jan-2002 11:10:00</SurveyTime>
+<SurveyTime> 8-Feb-2002 14:35:00</SurveyTime>
+<SurveyTime> 1-Mar-2002 14:25:00</SurveyTime>
+<SurveyTime>27-Mar-2002 11:05:00</SurveyTime>
+<SurveyTime> 7-May-2002 14:10:00</SurveyTime>
+<SurveyTime>13-Nov-2002 09:40:00</SurveyTime>
+<SurveyTime> 6-Jan-2003 13:25:00</SurveyTime>
+<SurveyTime>28-Jan-2003 14:00:00</SurveyTime>
+<SurveyTime>23-Apr-2003 13:30:00</SurveyTime>
+<SurveyTime>27-May-2003 14:55:00</SurveyTime>
+<SurveyTime>17-Dec-2003 13:10:00</SurveyTime>
+<SurveyTime>28-Jan-2004 10:46:00</SurveyTime>
+<SurveyTime> 1-Jun-2004 14:05:00</SurveyTime>
+<SurveyTime> 3-Nov-2004 15:10:00</SurveyTime>
+<SurveyTime>24-Nov-2004 15:00:00</SurveyTime>
+<SurveyTime>30-Nov-2004 09:15:00</SurveyTime>
+<SurveyTime>14-Dec-2004 13:30:00</SurveyTime>
+<SurveyTime>27-Jan-2005 12:00:00</SurveyTime>
+<SurveyTime>16-Feb-2005 15:25:00</SurveyTime>
+<SurveyTime>15-Mar-2005 13:00:00</SurveyTime>
+<SurveyTime>20-Oct-2005 09:35:00</SurveyTime>
+<SurveyTime>10-Nov-2005 14:30:00</SurveyTime>
+<SurveyTime>21-Dec-2005 12:45:00</SurveyTime>
+<SurveyTime>20-Feb-2006 14:50:00</SurveyTime>
+<SurveyTime> 5-Apr-2006 11:38:00</SurveyTime>
+<SurveyTime>11-May-2006 14:00:00</SurveyTime>
+<SurveyTime>29-Jun-2006 13:45:00</SurveyTime>
+<SurveyTime>29-Aug-2006 15:10:00</SurveyTime>
+<SurveyTime> 6-Nov-2006 13:55:00</SurveyTime>
+<SurveyTime> 9-Jan-2007 14:50:00</SurveyTime>
+<SurveyTime> 8-Mar-2007 13:55:00</SurveyTime>
+<SurveyTime>15-Mar-2007 12:40:00</SurveyTime>
+<SurveyTime> 4-May-2007 14:20:00</SurveyTime>
+<SurveyTime>28-May-2007 13:55:00</SurveyTime>
+<SurveyTime>16-Jul-2007 15:15:00</SurveyTime>
+<SurveyTime> 9-Aug-2007 14:10:00</SurveyTime>
+<SurveyTime>15-Oct-2007 12:55:00</SurveyTime>
+<SurveyTime>18-Oct-2007 13:50:00</SurveyTime>
+<SurveyTime> 7-Feb-2008 13:50:00</SurveyTime>
+<SurveyTime> 4-Apr-2008 13:50:00</SurveyTime>
+<SurveyTime>29-Sep-2008 15:30:00</SurveyTime>
+<SurveyTime>17-Nov-2008 13:25:00</SurveyTime>
+<SurveyTime> 5-Feb-2009 12:08:00</SurveyTime>
+<SurveyTime> 4-Mar-2009 13:55:00</SurveyTime>
+<SurveyTime>30-Jun-2009 14:44:00</SurveyTime>
+<SurveyTime>13-Oct-2009 14:00:00</SurveyTime>
+<SurveyTime>14-Jul-2010 13:30:00</SurveyTime>
+<SurveyTime>23-Aug-2010 15:05:00</SurveyTime>
+<SurveyTime> 8-Oct-2010 14:05:00</SurveyTime>
+<SurveyTime> 2-Dec-2010 15:05:00</SurveyTime>
+<SurveyTime> 6-Sep-2011 11:35:00</SurveyTime>
+<SurveyTime> 1-Feb-2012 12:18:00</SurveyTime>
+<SurveyTime>22-Aug-2012 13:48:00</SurveyTime>
+<SurveyTime>29-Nov-2012 13:27:00</SurveyTime>
+<SurveyTime>18-Dec-2012 14:41:00</SurveyTime>
+<SurveyTime>21-Dec-2012 09:52:00</SurveyTime>
+<SurveyTime> 1-Aug-2013 11:40:00</SurveyTime>
+<SurveyTime>11-Nov-2013 14:38:00</SurveyTime>
+<SurveyTime> 7-Jan-2014 12:55:00</SurveyTime>
+<SurveyTime>23-Jan-2014 13:35:00</SurveyTime>
+<SurveyTime>10-Apr-2014 09:45:00</SurveyTime>
+<SurveyTime>19-May-2014 14:44:00</SurveyTime>
+<SurveyTime> 8-Jul-2014 12:53:00</SurveyTime>
+<SurveyTime> 8-Dec-2014 12:54:00</SurveyTime>
+<SurveyTime>20-Jan-2015 14:54:00</SurveyTime>
+<SurveyTime>12-Aug-2015 11:59:00</SurveyTime>
+<SurveyTime>16-Nov-2015 13:19:00</SurveyTime>
+<SurveyTime> 8-Jan-2016 12:31:00</SurveyTime>
+<SurveyTime>23-Feb-2016 12:50:00</SurveyTime>
+<SurveyTime>13-Dec-2016 14:23:00</SurveyTime>
+<SurveyTime>27-Jan-2017 13:55:00</SurveyTime>
+<SurveyTime>23-Mar-2017 14:30:00</SurveyTime>
+<SurveyTime> 2-May-2017 10:30:00</SurveyTime>
+<SurveyTime>22-Jun-2017 15:04:00</SurveyTime>
+<SurveyTime>16-Aug-2017 14:13:00</SurveyTime>
+<SurveyTime> 4-Oct-2017 13:14:00</SurveyTime>
+<SurveyTime>27-Nov-2017 10:22:00</SurveyTime>
+<SurveyTime>20-Feb-2018 15:03:00</SurveyTime>
+<SurveyTime>19-Apr-2018 12:04:00</SurveyTime>
+<SurveyTime>31-May-2018 10:56:00</SurveyTime>
+<SurveyTime>20-Jul-2018 13:44:00</SurveyTime>
+<SurveyTime>24-Sep-2018 14:28:00</SurveyTime>
+<SurveyTime> 1-Nov-2018 13:28:00</SurveyTime>
+<SurveyTime>11-Jan-2019 10:37:00</SurveyTime>
+<SurveyTime>30-Jan-2019 09:41:00</SurveyTime>
+<SurveyTime> 1-Mar-2019 13:41:00</SurveyTime>
+<SurveyTime>10-May-2019 10:54:00</SurveyTime>
+<SurveyTime>26-Jun-2019 14:08:00</SurveyTime>
+<SurveyTime>22-Aug-2019 12:09:00</SurveyTime>
+<SurveyTime> 9-Oct-2019 11:31:00</SurveyTime>
+<SurveyTime>26-Nov-2019 10:33:00</SurveyTime>
+<SurveyTime> 8-Jan-2020 13:02:00</SurveyTime>
+<SurveyTime> 4-Jun-2020 10:21:00</SurveyTime>
+<SurveyTime>10-Sep-2020 13:20:00</SurveyTime>
+<SurveyTime>16-Dec-2020 14:50:00</SurveyTime>
+<SurveyTime> 9-Feb-2021 13:00:00</SurveyTime>
+<SurveyTime>24-Mar-2021 13:47:00</SurveyTime>
+<SurveyTime> 5-Oct-2021 13:19:00</SurveyTime>
+<SurveyTime>30-Nov-2021 13:57:00</SurveyTime>
+<SurveyTime>21-Jan-2022 11:32:00</SurveyTime>
+<SurveyTime> 2-Feb-2022 11:02:00</SurveyTime>
+<SurveyTime>10-Feb-2022 13:04:00</SurveyTime>
+<SurveyTime> 8-Mar-2022 14:08:00</SurveyTime>
+<SurveyTime>21-Apr-2022 14:47:00</SurveyTime>
+<SurveyTime>15-Sep-2022 11:58:00</SurveyTime>
+<SurveyTime> 3-Nov-2022 14:10:00</SurveyTime>
+<SurveyTime> 6-Apr-2023 14:41:00</SurveyTime>
+<SurveyTime> 1-Sep-2023 11:27:00</SurveyTime>
+<SurveyTime>20-Oct-2023 10:50:00</SurveyTime>
+<SurveyTime> 7-Dec-2023 09:47:00</SurveyTime>
+<SurveyTime>10-Jan-2024 15:00:00</SurveyTime>
+<SurveyTime>25-Jan-2024 12:01:00</SurveyTime>
+<SurveyTime>22-Feb-2024 15:25:00</SurveyTime>
+<SurveyTime>14-Mar-2024 10:53:00</SurveyTime>
+<SurveyTime> 1-May-2024 13:20:00</SurveyTime>
+<SurveyTime>21-Jun-2024 11:09:00</SurveyTime>
+<SurveyTime> 7-Aug-2024 13:15:00</SurveyTime>
+<SurveyTime> 7-Aug-2024 13:23:00</SurveyTime>
+<SurveyTime>25-Sep-2024 14:41:00</SurveyTime>
+<SurveyTime> 4-Nov-2024 13:27:00</SurveyTime>
+<SurveyTime>12-Feb-2025 13:07:00</SurveyTime>
+<SurveyTime>24-Feb-2025 12:21:00</SurveyTime>
+<SurveyTime>10-Apr-2025 12:52:00</SurveyTime>
+<SurveyTime>27-May-2025 14:44:00</SurveyTime>
+<SurveyTime>17-Jul-2025 13:30:00</SurveyTime>
+<SurveyTime>17-Oct-2025 12:37:00</SurveyTime>
+<SurveyTime> 8-Dec-2025 11:20:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>2003-09-22T11:55:00</From>
+<To>2026-09-09T12:38:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1940-01-01T00:00:00</From>
+<To>2026-10-24T13:05:00</To>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>15</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1940-01-01T00:00:00</From>
+<To>2025-12-08T11:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Rainfall" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2016-07-20T15:15:00</From>
+<To>2026-10-24T13:05:00</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-02-09T12:00:00</From>
+<To>2018-06-01T10:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-02-09T12:00:00</From>
+<To>2018-06-01T10:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-02-09T12:00:00</From>
+<To>2018-06-01T10:00:00</To>
+</DataSource>
+<DataSource Name="Soil Moisture Content" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Soil Temperature 10cm" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Daily Compliance Flow" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T04:00:03</From>
+<To>2026-10-24T04:00:07</To>
+</DataSource>
+<DataSource Name="Soil Temperature" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-24T13:00:00</To>
+</DataSource>
+<DataSource Name="Rainfall (MetService Gridded Forecast)" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2026-10-27T12:00:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2008-11-17T13:45:00</From>
+<To>2025-07-17T13:35:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Rainfall" Site="Parkvale Stream at Renalls Weir" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>141</ItemFormat>
+<From>2008-01-08T14:00:00</From>
+<To>2026-08-14T14:00:00</To>
+<Measurement Name="Check Gauge Total">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Gauge Total</RequestAs>
+<Units>mm</Units>
+<Format>###.###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp; Time">
+<Item>2</Item>
+<RequestAs>Recorder Date &amp; Time [Rainfall]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Total">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Total</RequestAs>
+<Units>mm</Units>
+<Format>###.#</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Rainfall]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

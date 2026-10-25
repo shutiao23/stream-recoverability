@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Lake William">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<BARO_CLOSEST>Lake Koitiata</BARO_CLOSEST>
+<BARO_CLOSEST_RL>18</BARO_CLOSEST_RL>
+<BARO_REF_DIST>9770</BARO_REF_DIST>
+<BARO_RL>100</BARO_RL>
+<Catchment>Turakina</Catchment>
+<Comment>Purpose:&#13;&#10;SOE: Coastal Lakes&#13;&#10;Lake Monitoring Buoy&#13;&#10;Contact Rec&#13;&#10;Current Location at Buoy&#13;&#10;Historic Location NZMG at 2707067 6117673</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Rangitikei District</District>
+<Easting>2706681</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>CDWQLK</GISTag>
+<GWQuality>false</GWQuality>
+<GeomorphicLType>Aeolian</GeomorphicLType>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LFENZID>13437</LFENZID>
+<LType>Polymictic</LType>
+<LWQuality>true</LWQuality>
+<LWQualityStart>17-Dec-2015</LWQualityStart>
+<Latitude>-40.12223605</Latitude>
+<LawaSiteID>LAWA-102308</LawaSiteID>
+<LawaSiteName>Lake William</LawaSiteName>
+<Longitude>175.30786495</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReachVersion>REC2.4</NZReachVersion>
+<Northing>6117825</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>LWM</SecondSynonym>
+<ShortName>Hor-0603</ShortName>
+<SiteID>14850</SiteID>
+<SurfaceWaterZone>West_5</SurfaceWaterZone>
+</Site>
+</HilltopServer>

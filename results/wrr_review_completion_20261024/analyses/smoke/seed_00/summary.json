@@ -1,0 +1,10 @@
+{
+  "case_score_convention": "128 midpoint samples of stored quantiles, constant tails outside .05-.95; exact ensemble score for stochastic regression",
+  "complete": true,
+  "n_cases": 3751,
+  "n_groups": 4,
+  "n_stations": 14,
+  "seed": 0,
+  "split": "smoke",
+  "trend_replicates": 2
+}

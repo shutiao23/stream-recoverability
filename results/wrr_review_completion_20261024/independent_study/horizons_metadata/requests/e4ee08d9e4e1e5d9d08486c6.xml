@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Ohura at Tokorima">
+<AEP0.01>492874</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>137</Altitude>
+<Catchment>Whanganui</Catchment>
+<CatchmentArea>668.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;Was MWD river site Raingauge listed with CLIDB as Ohura River Road.&#13;&#10;Raingauge is located 1.25km NE of river site at grid R18:871528.&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;SOE Water Quality: Water Temperature</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2686300</Easting>
+<Ffreq>Gumbel</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>353629</FloodFlow10>
+<FloodFlow20>396285</FloodFlow20>
+<FloodFlow5>309159</FloodFlow5>
+<FloodFlow50>451499</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="7.1" Min20="9.8" Min30="11.9" Hour1="16.3" Hour2="22.2" Hour6="36.3" Hour12="49.5" Day1="67.4" Day2="81.4" Day3="90.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="7.9" Min20="10.8" Min30="13" Hour1="17.9" Hour2="24.3" Hour6="39.3" Hour12="53.2" Day1="72" Day2="86.9" Day3="97.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="10.5" Min20="14.5" Min30="17.4" Hour1="24" Hour2="31.8" Hour6="49.9" Hour12="66.3" Day1="88" Day2="106.3" Day3="118.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="12.7" Min20="17.5" Min30="21.1" Hour1="29" Hour2="38.1" Hour6="58.5" Hour12="76.7" Day1="100.5" Day2="121.4" Day3="135.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.3" Min20="21.1" Min30="25.4" Hour1="34.9" Hour2="45.2" Hour6="68.1" Hour12="88.2" Day1="114.2" Day2="137.9" Day3="154" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="17" Min20="23.4" Min30="28.2" Hour1="38.8" Hour2="49.9" Hour6="74.3" Hour12="95.6" Day1="122.9" Day2="148.4" Day3="165.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="18.3" Min20="25.2" Min30="30.4" Hour1="41.8" Hour2="53.5" Hour6="79.1" Hour12="101.2" Day1="129.4" Day2="156.3" Day3="174.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="19.4" Min20="26.7" Min30="32.2" Hour1="44.3" Hour2="56.5" Hour6="82.9" Hour12="105.7" Day1="134.7" Day2="162.7" Day3="181.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="20.4" Min20="28" Min30="33.8" Hour1="46.4" Hour2="59" Hour6="86.2" Hour12="109.5" Day1="139.2" Day2="168.1" Day3="187.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="21.9" Min20="30.2" Min30="36.4" Hour1="50" Hour2="63.2" Hour6="91.7" Hour12="115.9" Day1="146.5" Day2="176.9" Day3="197.6" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="23.2" Min20="32" Min30="38.5" Hour1="53" Hour2="66.7" Hour6="96.1" Hour12="121.1" Day1="152.4" Day2="184.1" Day3="205.6" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-38.91749850</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00032</LawaSiteID>
+<LawaSiteName>Ohura at Tokorima</LawaSiteName>
+<Longitude>175.03235915</Longitude>
+<MALF7Day>937</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>369412</MaxFlow>
+<MaxFlowAt>21-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>251191</MeanAnnualFloodFlow>
+<MeanFlow>23519</MeanFlow>
+<MedianFlow>11168</MedianFlow>
+<MetNumber>C85801</MetNumber>
+<MinFlow>228</MinFlow>
+<MinFlowAt>27-Mar-2008</MinFlowAt>
+<NZReach>7005708</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7152279</NZSegment>
+<Northing>6252100</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>333540</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Whanganui</Scheme>
+<SecondSynonym>OHU</SecondSynonym>
+<ShortName>Hor-0067</ShortName>
+<SiteID>1348</SiteID>
+<StatsPeriod>1/7/2001-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Whai_4b</SurfaceWaterZone>
+<eQualCode>Hor-0067</eQualCode>
+</Site>
+</HilltopServer>

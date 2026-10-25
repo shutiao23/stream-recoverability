@@ -1,0 +1,8 @@
+{
+  "baseline_case_seed": 0,
+  "baseline_model": "local residual AR1 bridge uses each station's other-year history, also available to the neural climatology; no global failure labels used",
+  "calibration": "same neural validation station-years and pooled quantile-offset convention as the matched D2 calibration",
+  "case_version": "seed zero is identical to all 145684 original neural-cohort masks",
+  "exact_mask_identity_verified": true,
+  "test_outcomes_used_for_calibration": false
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Whangaehu at Karioi">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<Catchment>Whangaehu</Catchment>
+<CatchmentArea>338.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;RL0 = &#13;&#10;Taken over from NIWA 2014</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2721935</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>152000</FloodFlow10>
+<FloodFlow20>201000</FloodFlow20>
+<FloodFlow5>117000</FloodFlow5>
+<FloodFlow50>293000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.50150759</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00096</LawaSiteID>
+<LawaSiteName>Whangaehu at Karioi</LawaSiteName>
+<Longitude>175.46432358</Longitude>
+<MALF7Day>8912</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>498612</MaxFlow>
+<MaxFlowAt>18-Mar-2007</MaxFlowAt>
+<MeanAnnualFloodFlow>97867</MeanAnnualFloodFlow>
+<MeanFlow>14269</MeanFlow>
+<MedianFlow>12818</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>6545</MinFlow>
+<MinFlowAt> 7-Apr-2015</MinFlowAt>
+<NZReach>7019389</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7199144</NZSegment>
+<Northing>6186346</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>331000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SecondSynonym>KAR</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>2605</SiteID>
+<StatsPeriod>1/7/1963-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Whau_1</SurfaceWaterZone>
+</Site>
+</HilltopServer>

@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-10-24T08:46:05.008114+00:00",
+  "role": "incremental preparation for the fixed full national source study; final forcing stage repeats after acquisition",
+  "eligible_targets_current": 302,
+  "stations_with_forcing": 302,
+  "native_cells": 156,
+  "cell_jobs_available": 156,
+  "cell_jobs_unavailable": 0,
+  "acquisition_progress_at_receipt": {
+    "NZ_independent_values_requested": false,
+    "pid": 2349253,
+    "processed_sites": 700,
+    "requested_sites": 1273,
+    "source_values_requested": true,
+    "updated_utc": "2026-10-24T08:22:31.430293+00:00"
+  },
+  "full_national_acquisition_complete": false,
+  "new_NZ_water_values_requested": false,
+  "forcing_status_sha256": "cbb240c48e65c685497022b3fe374e983eea8ed23160bb0d0becb55b5d0db2c2"
+}

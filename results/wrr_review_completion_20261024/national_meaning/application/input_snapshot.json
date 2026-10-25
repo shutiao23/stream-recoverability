@@ -1,0 +1,3213 @@
+{
+  "n_processed_station_panels": 933,
+  "networks": [
+    {
+      "air_sha256": "73476015ad28ee27475487ad54e294ae10571c7bf7e0099aff8fb4ce3c77baf7",
+      "fingerprint": "12e736c825c4fbee9dae1ddd2da9a549eeca09e34d41bc46a805e7fe9c2c222d",
+      "network_id": "nat_huc8_01010005",
+      "stations": [
+        "01018035"
+      ],
+      "water_sha256": "cea044f79dc8880285ed90dbba31969b501aebdd86c0f683e2e2105331e05530"
+    },
+    {
+      "air_sha256": "31d28e750ecf62d0c688cca5aa184b89956e9d24308ae95464a290aa8cb3c6ab",
+      "fingerprint": "107b955fe30a574fb3f89afc8940fb38d0e53ca79e44ab1b907561552f1ddcf7",
+      "network_id": "nat_huc8_01060002",
+      "stations": [
+        "010642505"
+      ],
+      "water_sha256": "985fe614f848605e0ed9918317115be0514f4373889f89a39788e29db1571307"
+    },
+    {
+      "air_sha256": "0a7ee9d52da3d1818e8672e7c8234254899c0e02e30758a4b7a89a510149e508",
+      "fingerprint": "671cdc0731fd509c22e643769fe6843661e1570791111d02aac7b0746955e61f",
+      "network_id": "nat_huc8_01070004",
+      "stations": [
+        "01095220",
+        "01095375"
+      ],
+      "water_sha256": "6b30d984a46fc3d6eb0a4459c326fe31828641a70435fc39dbd0b84b08d56729"
+    },
+    {
+      "air_sha256": "981edf96a309d124a450349133319489f4f49b3bee0f604cdd93a43566b520e4",
+      "fingerprint": "b00732848e292ea2ea19a1a153cc68dbff4af206025298ff8063c2bfc5397990",
+      "network_id": "nat_huc8_01080101",
+      "stations": [
+        "01129200",
+        "01129500"
+      ],
+      "water_sha256": "c51b2dae00fe007f042fa88d1d79208d201cc52deb2133a5f45c0f04e5e8ee65"
+    },
+    {
+      "air_sha256": "39f6d81aeabb590dc707224ceec0dd7cd87f71580a8afc29c0fcdad2433843ef",
+      "fingerprint": "5fc8661b339b29b4af566b123562a845487c643da287a208d144b359126c7122",
+      "network_id": "nat_huc8_01080205",
+      "stations": [
+        "01192500",
+        "01193050",
+        "01193500"
+      ],
+      "water_sha256": "b823c9150cdb279ca4d068dc3664199bf9a8ae9d0c3661b9532c7c9ad8e32a16"
+    },
+    {
+      "air_sha256": "613218c4aeb4f09e636b84b38cf1c3f1ae9e4b0c86994d34a5ff78d6bcd97339",
+      "fingerprint": "1d03579a6b333d4f6f08ac5c1ca2cbcc8919baceec94599d26c0ed4b22d865a2",
+      "network_id": "nat_huc8_01090001",
+      "stations": [
+        "01104370",
+        "01104405",
+        "01104410",
+        "01104415",
+        "01104430",
+        "01104453",
+        "01104455",
+        "01104460",
+        "01104475"
+      ],
+      "water_sha256": "f0580060ab37794f7450ea6ce9a58773ab217f28e52ef55dbd7cfa5ca7ae8129"
+    },
+    {
+      "air_sha256": "e8db19e5c3c065a4cca2c0e0a465e462370039163d2e7b86837c991bf0e4b35a",
+      "fingerprint": "c27cca9f20f4d529a476efe855c5c993625a6283ae157f8debd33cc0bbe13b75",
+      "network_id": "nat_huc8_01090004",
+      "stations": [
+        "01115098",
+        "01115110",
+        "01115114",
+        "01115170",
+        "01115183",
+        "01115187",
+        "01115190",
+        "01115265",
+        "01115275",
+        "01115276",
+        "01115280",
+        "01115297"
+      ],
+      "water_sha256": "664fafc544a614be9c1ff5372b1949302a7473a75e04f5c545f6a268aa22f34f"
+    },
+    {
+      "air_sha256": "fcb84c191daef0364cb15d002cfc9b301332833f724d7888de257cf21341ba7d",
+      "fingerprint": "1c4987c367ba3a2ee4dfb59e2fae3ac17268ad51467fc81f7416b2fb068464d4",
+      "network_id": "nat_huc8_02020006",
+      "stations": [
+        "01359139",
+        "01362230",
+        "01362500"
+      ],
+      "water_sha256": "657965e4f703515cade0ec73e7b8bf1a1a89a9ff83fa8f1c520db96f0dd2d5f5"
+    },
+    {
+      "air_sha256": "f5f72b1e8a01f23a96b57d6c4ade99b0b7779aa197a20749fe7f29a764b565a1",
+      "fingerprint": "0dba28d9ebf61f60950c2c272ec47cd9407a1a404a37536cb6007601a010963e",
+      "network_id": "nat_huc8_02030103",
+      "stations": [
+        "01382000",
+        "01382210",
+        "01388000",
+        "01389005",
+        "01389500"
+      ],
+      "water_sha256": "0170d6e030e6ac89b3a92d65dcdf2f15a2844c2fb57ab8910c56c6c37d4fa66c"
+    },
+    {
+      "air_sha256": "a36db9fb2e237c60e0af541058c7a2a7241a98b7817889a2e53cbf54242e146e",
+      "fingerprint": "35441ee328ad315c46e57f18861cd91364a3d4ff30920171c89fba4adc10d491",
+      "network_id": "nat_huc8_02040101",
+      "stations": [
+        "01425000",
+        "01426500",
+        "01427000",
+        "01427207",
+        "01427510",
+        "01428500"
+      ],
+      "water_sha256": "03657c8860cad25d352e987ee8fcd70286435a6e05159781f069ac495e0179a2"
+    },
+    {
+      "air_sha256": "0f065f8ec657b1a8cbd447ff23c57a54e26ca1f44308a5fa464449e6dddf983d",
+      "fingerprint": "4e02d3347479e0b64540780a9c844af3aadac484d26a59b6f1ba2a3a0d8b81c5",
+      "network_id": "nat_huc8_02040102",
+      "stations": [
+        "01417500",
+        "01420500",
+        "01421000"
+      ],
+      "water_sha256": "4c6c0e17d58d55db98742d2d068ed8db71e822f87519d808640cb0d0cdff96ad"
+    },
+    {
+      "air_sha256": "9c31c9a808077e8121f371c1854a532e077c19b1243ae4384e13db9d6c88abdd",
+      "fingerprint": "45724a4a347909a4cac901d331926a2dd1e21bb8f6321adb093db670ce183921",
+      "network_id": "nat_huc8_02040103",
+      "stations": [
+        "01428750",
+        "01429000",
+        "01431500"
+      ],
+      "water_sha256": "712b151f16bb207f47240b48afd568d8024fa3530e1337977b1cf499285f66f8"
+    },
+    {
+      "air_sha256": "fb8a2f655df322310b77a1b4d08fed958eff2c9b38bd99b02b476ade049bf934",
+      "fingerprint": "cb7a0aea95d8e04f1d0087149d4157aee7423c1c71ddea15bc53796b5c979d58",
+      "network_id": "nat_huc8_02040104",
+      "stations": [
+        "01432110",
+        "01432160",
+        "01432805",
+        "01434000",
+        "01436690",
+        "01440000"
+      ],
+      "water_sha256": "c81054000154b7f423c88bc85033c72183fd556efa164ce72f87081ab6de3297"
+    },
+    {
+      "air_sha256": "f7329db8d4fc7433b6bd66bf3695adcdda54ce483cfd6c5063440fa9e4418280",
+      "fingerprint": "efd3fa6496a53c8c539ef7f55fd76ddba7656b8728442e46dfe59a0ecc08d780",
+      "network_id": "nat_huc8_02040106",
+      "stations": [
+        "01447500",
+        "01447720",
+        "01447800",
+        "01449360",
+        "01454700",
+        "01454720"
+      ],
+      "water_sha256": "dc1b9d5531a2080b2a2afb8788ab64ed3b82d96c7b702dc12eb2a80e67ede0e5"
+    },
+    {
+      "air_sha256": "2aa5c02c7cde74d5d5cc4e81fa9a8cd6c58ee2caec37a89af8a5a07b5720ff87",
+      "fingerprint": "c77683bde33b372437a574a46b20cf9ee7b40f8a9c1237ae70ffe77c0bdce16c",
+      "network_id": "nat_huc8_02040202",
+      "stations": [
+        "01466500",
+        "01467150",
+        "01467200",
+        "01474703",
+        "01477050",
+        "01477120"
+      ],
+      "water_sha256": "ca60ca4b52504d94a931d995ab63a786b3f2decab22b61d12bcf0af261a314ba"
+    },
+    {
+      "air_sha256": "6fcd24645f95a6539220c49f1c4fa84ade359e76a5c55af4f1a4c7df00a8532b",
+      "fingerprint": "9fb67310f387741dc63159e48a23bbd313ced3c5c11eb8771e748b4b21cd2b29",
+      "network_id": "nat_huc8_02040205",
+      "stations": [
+        "01478137",
+        "01480065",
+        "01480400",
+        "01480500",
+        "01480617",
+        "01480870",
+        "01481000",
+        "01481500"
+      ],
+      "water_sha256": "637d84f7f05e66d5497818fc9a706bcd50be31d8ea0f3fc487438761c30cc588"
+    },
+    {
+      "air_sha256": "0d03fcdac3acb747c59ea238a9e3b5251245f52bda2dadad483411e981ebadb6",
+      "fingerprint": "5a66e60e1d29bc8d25643e501ffe4460b51988e0ab8e17116dfda6c4bcaebe6f",
+      "network_id": "nat_huc8_02040303",
+      "stations": [
+        "01484525"
+      ],
+      "water_sha256": "5975d3f3f849df60acdaf1294a94811a907b0b9fef107a4427a4dcccc018367d"
+    },
+    {
+      "air_sha256": "606462d7eea4dd87e4ed24308b145ccb94b3cc9c049c3a26bafbb278b0cdaa8a",
+      "fingerprint": "8430c0b7d0f293ab83c60d93daf6175a3fd7471b1be99648241d74407ca22971",
+      "network_id": "nat_huc8_02050104",
+      "stations": [
+        "01518700",
+        "01520000"
+      ],
+      "water_sha256": "f7efa7fae8ae09ce3b88d1afe8bb3765010f8aedb2e1d5e077bf3c56b2a2c5e9"
+    },
+    {
+      "air_sha256": "c3359295be9736bf50b27b8ce0f53957a1e0e9ad6befa3b75f13f95fc162da0a",
+      "fingerprint": "01c692babad71627accb4829b08f116e96e3249100f1d424dde9616a17e51291",
+      "network_id": "nat_huc8_02050201",
+      "stations": [
+        "01542500"
+      ],
+      "water_sha256": "c6db93d57e63e2c318ea7fb398a2128c39427d0591d5f43c01ace23fa845cac2"
+    },
+    {
+      "air_sha256": "59007460610591bed6c2ef7acea8d37bb241e9a1f74da0a312ce37f0162119f1",
+      "fingerprint": "7d7a5cff0ee59bedb95968ca3e38ddcc8455ee1fac8fd6ed0e4455f5a094ac06",
+      "network_id": "nat_huc8_02070001",
+      "stations": [
+        "01608500"
+      ],
+      "water_sha256": "61b0346b82ea73d95f3380bb309479e921a9c5dd008ec976be2aedd6a6d708db"
+    },
+    {
+      "air_sha256": "573895d2b551749be943df65b19ebdf4fe4e8efddc74a308c57ec5868d77fff0",
+      "fingerprint": "e58df9dbcb19e02d728f0081e50fdda830e863f080e38386345645811ff61ae3",
+      "network_id": "nat_huc8_02070008",
+      "stations": [
+        "01646305",
+        "01646500"
+      ],
+      "water_sha256": "6ff57ac33cc12b4d0062f09189f8a52365805b4d88d345132c38b5896d03381f"
+    },
+    {
+      "air_sha256": "21ba0a9fab2b785d91d62839e74c6f9cad7f7aaa382a9c32e38a4bc04cb69bc9",
+      "fingerprint": "713f21bbd92bf3fab61ada436f1fb06669b72b8011e6d141985596bc8f3d770e",
+      "network_id": "nat_huc8_02070010",
+      "stations": [
+        "01649190",
+        "01649500",
+        "01656903"
+      ],
+      "water_sha256": "e409b7da2e12ef7209f37a57dce7ac97765ddd8d0a1cd17e9895d246fb33c5a1"
+    },
+    {
+      "air_sha256": "e2ec098cc9e950c695d50cb7bc947d5d5afa9270a68698f0defabe7e0202920b",
+      "fingerprint": "466fb3a3f1d5b942299313bc7483eae6d8e0ed140a41c469d7d036c18eac1ebc",
+      "network_id": "nat_huc8_02080201",
+      "stations": [
+        "02011400",
+        "02011500",
+        "02011800",
+        "02012800"
+      ],
+      "water_sha256": "2f5013dad3f6860430064708be9b8533daa6eed50a9bb5000a4c95e1ac6fbef8"
+    },
+    {
+      "air_sha256": "1ebf6d131405219fbf21914e9082af90ca62e9bf6154f7339bb857d2e95cbbcf",
+      "fingerprint": "069838bfc143c402a89b1e444286ba4a23df96bb8fdacb112af4a21413421836",
+      "network_id": "nat_huc8_03010104",
+      "stations": [
+        "02077200",
+        "02077303"
+      ],
+      "water_sha256": "ae744349ea7bf28cd0c2ed07755011de034504772c2515eec824ee9461aeba4f"
+    },
+    {
+      "air_sha256": "b181526374a5e909e8db5e609779ec2667a3e5f28d3ef6075706662ffc1921a3",
+      "fingerprint": "82cc3c0715c73b4e0d9aa18c051be61e08b4075336294bd7904bc8cac437d6a2",
+      "network_id": "nat_huc8_03010107",
+      "stations": [
+        "0208062765",
+        "02081022",
+        "02081094",
+        "0208114150"
+      ],
+      "water_sha256": "ad5f1549a34f35e9921d5fdef9519290d1e01dac374eab527208f05e0c56e6a0"
+    },
+    {
+      "air_sha256": "5197a539f8caedf9b77e0a116d95743cfe0b32b92ec54a5a904878730cde2279",
+      "fingerprint": "0cba758ad40f1be804d916120554792059f9fbebf9666d5fb053439ab4d2963b",
+      "network_id": "nat_huc8_03030003",
+      "stations": [
+        "02101726"
+      ],
+      "water_sha256": "c9cbca4e76a1b6767841d79e9c4cd0182377ef7a245adc8fe3cae6ac805a47d1"
+    },
+    {
+      "air_sha256": "791bf2ecf257584e2893b84e01176667ec90601127cba6466ad23ad341c653d8",
+      "fingerprint": "fd23c119a2f4f0d7cce71a30d920191c5e5b9b898ae945fc4869a3d73b105b87",
+      "network_id": "nat_huc8_03040206",
+      "stations": [
+        "02110400",
+        "02110500",
+        "02110701",
+        "02110704",
+        "02110725",
+        "02110802",
+        "021108125",
+        "02110815"
+      ],
+      "water_sha256": "76d2eb19c4d5452db365769596800a40bea9a9840dae17bbd0045efa8e4a2705"
+    },
+    {
+      "air_sha256": "69bf585edef518b1e7727e65c4d637998796af4dbe13a2791c6c19fe5e481509",
+      "fingerprint": "cbc9677e5be2d2456c34bfdcc001975ec09417eb1463b3b6dc253853c3125382",
+      "network_id": "nat_huc8_03040207",
+      "stations": [
+        "02110755",
+        "02110760",
+        "02110770",
+        "02110777"
+      ],
+      "water_sha256": "66f18f3d2b1f927514aef4f4e96d21f8fa06a441df20060e20cdde206b882593"
+    },
+    {
+      "air_sha256": "93a80ac87faf902e880498ebacacb389ff0588df153e34c9bf77c01c50b298f7",
+      "fingerprint": "b40156c534ce73cf3592f699c3c64dd144d9052f8215bd759d4439b62726011f",
+      "network_id": "nat_huc8_03050104",
+      "stations": [
+        "02148000",
+        "02148315"
+      ],
+      "water_sha256": "0db371250fea01ca8f31b21845b0c80d0180531b25cb168ee7662208a38fa0c3"
+    },
+    {
+      "air_sha256": "0a7198e82f149b07ac1d01e5031f2d8b4c334fc638127f9130cb6dc1e09fc5ed",
+      "fingerprint": "d4d4c1dc6944d2d55a3d2598be805ad1a8dc5445ef19bf3b3892a72c04cfc7bb",
+      "network_id": "nat_huc8_03050106",
+      "stations": [
+        "02156500",
+        "02160991"
+      ],
+      "water_sha256": "184092350972dcbee2f7654e355ceaa22b107b67bc3cf95a68c4a9621138d021"
+    },
+    {
+      "air_sha256": "d91111349de2b00e5842f4445e7a8eb87f7932430fdc4f5c51be16667282b2f3",
+      "fingerprint": "dfa1a5d06f3ab227827c8a297b9bad43e9c64fe0ecd8ce52aaea660ddf7e98a3",
+      "network_id": "nat_huc8_03050107",
+      "stations": [
+        "02160105"
+      ],
+      "water_sha256": "12fd9de459f6ea3a5ff8de5cca2b497b9aeef606038746283eef67640adb132c"
+    },
+    {
+      "air_sha256": "d485c6b0166cc4f5b1051fe3f465007bf500ec687d555e942ea1af31e7042a51",
+      "fingerprint": "df533c32d70cf40e74e0c7b37c76eb6fbbb29113c1194d566c17284f11e27c34",
+      "network_id": "nat_huc8_03050108",
+      "stations": [
+        "02160700"
+      ],
+      "water_sha256": "ed94d41e089753542db0472608ce852d5621827cb16d0d7a4e71f87dc8e735d4"
+    },
+    {
+      "air_sha256": "d353cd05587f28a9449f3a306b167dfc1812d74fe65f84b71ef806578acf4f59",
+      "fingerprint": "5f7d62a007fcd149b05262d3703791f6cfe21b3255ac744a49b6691eb31a03da",
+      "network_id": "nat_huc8_03050109",
+      "stations": [
+        "02163001",
+        "02167600",
+        "02167716",
+        "02168504",
+        "02169000"
+      ],
+      "water_sha256": "c5f77e497ba1656b71f9e2ef3dfc0c3edb17b9e22182ba9a6eccfef2de616784"
+    },
+    {
+      "air_sha256": "41d868989e3c75fc20a6c80554722a84904cd6888c9c665b719e942965d73c23",
+      "fingerprint": "8b21dfa6f6711c911e541f9a33bd4db9e21843775c647e9608629ed87b4eb29d",
+      "network_id": "nat_huc8_03050201",
+      "stations": [
+        "02172002",
+        "02172020",
+        "02172040",
+        "02172050",
+        "02172053",
+        "021720677",
+        "021720698",
+        "021720709",
+        "021720710"
+      ],
+      "water_sha256": "1f8f56df65b6e26d244308af7f92af417c872652c075fdc0a32a35f68fa66122"
+    },
+    {
+      "air_sha256": "4b0c7eaa352ccfc3671a949c3afa5739ae7d701ebfc03981cc4b3edee6051af7",
+      "fingerprint": "ddd69cd2eb8840d7186bdc43959677ec6285a9c1ad819f95fdd2901415d587e4",
+      "network_id": "nat_huc8_03050202",
+      "stations": [
+        "021720869"
+      ],
+      "water_sha256": "0af0f7193974a5af494203d68b8fc3b6b1f62b848e016d6ca12ad68f1c5e169d"
+    },
+    {
+      "air_sha256": "66fd2efd449adb9b1a8b1c80106c95bb1fa16411712e9ef3fa2e0918bd28c145",
+      "fingerprint": "a3f4aa1418b2289e3a2cb9c3ced8ba764b3468999d3f63eab22eaaf1a3de6442",
+      "network_id": "nat_huc8_03060102",
+      "stations": [
+        "02176930"
+      ],
+      "water_sha256": "8d5527b3009e8df9d6ceee479a3204ea57a0ac19144729c700f7c4987b363233"
+    },
+    {
+      "air_sha256": "c9c171475146f46d90f474b0db857aa829788c1e2838cb2604afabacbe8d32f1",
+      "fingerprint": "faf650f339386dc9c5eabeb632231f9756977c67d7564718a5a0a9368f9408a3",
+      "network_id": "nat_huc8_03060109",
+      "stations": [
+        "02198810",
+        "02198840",
+        "02198920",
+        "021989773",
+        "021989784"
+      ],
+      "water_sha256": "efbde98a75618963b36ad0959dcdadb8714ff2c994ce4f1750e36c50379bb1c1"
+    },
+    {
+      "air_sha256": "27eb885a5b021fb281167d258019f6bec72e53e66ea22029529b1898e30d4cc6",
+      "fingerprint": "560d6427d0b107296e6d0f284845a50b506dea4b5e05cc68867250e2a23c2020",
+      "network_id": "nat_huc8_03060204",
+      "stations": [
+        "022035975"
+      ],
+      "water_sha256": "745f6d61b7cd635e3dca2c742811d01d8129af96569a00a0cdd6714f2ca17845"
+    },
+    {
+      "air_sha256": "0495605b721447f354197069631f0ce7d350d3a6fab7d752a9b1137374e7740f",
+      "fingerprint": "956aeeda1576c700f165ccf2d83d0e37b9ec78be68eb3d3416f9a805c5c60c44",
+      "network_id": "nat_huc8_03070101",
+      "stations": [
+        "02217274",
+        "02218565"
+      ],
+      "water_sha256": "a16913b4d5e6a15a446ae0b5d7c434b6ac555163e33374ebdffc6f0660488401"
+    },
+    {
+      "air_sha256": "4d10e47dbe464d25342158921a5f0507afe7449e7020e61cdacc090446eb196a",
+      "fingerprint": "1b1c875c9f5db0192f1eadde1bf6797bff052afbc8a86897590957fb1cc5b41d",
+      "network_id": "nat_huc8_03070103",
+      "stations": [
+        "02203603",
+        "02203655",
+        "02203700",
+        "02204070",
+        "02205865",
+        "02207120",
+        "02207185",
+        "02207385",
+        "02207400",
+        "02208150",
+        "02212600"
+      ],
+      "water_sha256": "6525fdfad9d6d004ea31bb8c56d06154fcadd94b4b8ab1f4156bc52f8dcf7c87"
+    },
+    {
+      "air_sha256": "2c76e3241f596cd1996b32eb5e649f6f20f625cef96b11fcb8c8b881e78fcdd4",
+      "fingerprint": "20d3248eaf9c728970c628bb6aa0cb9b3519daeb4a44d23547e1bc57c4debd2b",
+      "network_id": "nat_huc8_03080103",
+      "stations": [
+        "02244040",
+        "294213081345300",
+        "295856081372301",
+        "301124081395901",
+        "302309081333001"
+      ],
+      "water_sha256": "f164898fc33ccf2b881e371bdaa5b66842a78856272216e34c9766d563f98257"
+    },
+    {
+      "air_sha256": "d4c338b48b706f51dfef2d8fe00a0f1d941af7dc81f35b59022b935bf537ac52",
+      "fingerprint": "e5d670386e7e9c0766b54f3ca7663a47a74b98f7e9f12e505ae88e4ca73e6caa",
+      "network_id": "nat_huc8_03090101",
+      "stations": [
+        "02264000",
+        "02264100",
+        "02266200",
+        "02266298",
+        "02266300",
+        "02266320",
+        "02266495"
+      ],
+      "water_sha256": "a45d042436e405d17883ae761a0a3c38886f5c45fac2e0f0f53a9491c4f7922a"
+    },
+    {
+      "air_sha256": "60eb4915e7c71e2da2930219ff9e9c20d51a4a8d43d5bd0054ee5407a9faf4d1",
+      "fingerprint": "e3db2bb9eead23eba22caafb882ef2ab9e7ba2bd8396e2285e562ff4b4b80d5c",
+      "network_id": "nat_huc8_03090202",
+      "stations": [
+        "02277100",
+        "022908295",
+        "02290878",
+        "251003080435500",
+        "251209080350100",
+        "251241080385300",
+        "251253080320100",
+        "254157080213800",
+        "265651080045500",
+        "265906080093500",
+        "265929080091800"
+      ],
+      "water_sha256": "5b0f065a4949b583b20dd724c8fa6e3e9a5f20d81dda5d6ecc47800be917a43d"
+    },
+    {
+      "air_sha256": "fbd9a8252cec30ee850268730e3af99fce7037ea3a7b89803e86647ad215850a",
+      "fingerprint": "2fa96bdfb4af308572a1898f0747d9854d70996bc26a297536f165ae36aeeb1c",
+      "network_id": "nat_huc8_03090204",
+      "stations": [
+        "02290928",
+        "02290930",
+        "255327081275900",
+        "255432081303900",
+        "255534081324000",
+        "255654081350200",
+        "255726081303700"
+      ],
+      "water_sha256": "6d0e0938cd3f3c47c50cbd19030169987a37a2ef483cfdc61c8f5981ca35285a"
+    },
+    {
+      "air_sha256": "63281119a50ba4f47280b5024735ec72f84c253fa7d4cdbe2c3fd48317a6e2e8",
+      "fingerprint": "d725ec21efaaeb1f5c31ac1a9515c04ffa2afe052f4a53d62dcddc76a859fe4d",
+      "network_id": "nat_huc8_03110205",
+      "stations": [
+        "02323592"
+      ],
+      "water_sha256": "32e7157f024f830c9451279bbdfbd96d8f2923c6794cb74841be2a9d11aea1e5"
+    },
+    {
+      "air_sha256": "ffe7c10da6c7b057e563d8f85333e8553616710be42bc2760dfaf0dda1450092",
+      "fingerprint": "44c77f9577bc5f5577746453de67f765066eae3222f6e2aaeca435b8e1afec80",
+      "network_id": "nat_huc8_03130001",
+      "stations": [
+        "02330450",
+        "02334430",
+        "02334480",
+        "02334578",
+        "02334652",
+        "02334653",
+        "02334885",
+        "02335000",
+        "02335350",
+        "02335450",
+        "02335815",
+        "02336000",
+        "02336030",
+        "02336120",
+        "02336240",
+        "02336300",
+        "02336313",
+        "02336360",
+        "02336410"
+      ],
+      "water_sha256": "2e2a5a8668d2ec59eb5a264db224bb616f495856bd33d90228026f11e5958303"
+    },
+    {
+      "air_sha256": "a77e2fe1bbdce6a6ff2f2755d3f3102e3a006d94b0648990bf9933f51e28bc09",
+      "fingerprint": "e39846006c7313c2e83912159aa92669a6c157dac8d903722922cd6ccda4e026",
+      "network_id": "nat_huc8_03130002",
+      "stations": [
+        "02336526",
+        "02336728",
+        "02337170",
+        "02337410"
+      ],
+      "water_sha256": "b87ad9adc6f02952210ec443fc2cb67798910fd46a7dfee10a5e6f86526415d5"
+    },
+    {
+      "air_sha256": "3aacc62442dfa7ad38bdde89f280671895da7238ce27dca1d931125a02725313",
+      "fingerprint": "a8ade4bbc1dffd8f63b46a102bfb0fc0f222be61ec9cc4fd68db8f839da7b073",
+      "network_id": "nat_huc8_03130004",
+      "stations": [
+        "023432415"
+      ],
+      "water_sha256": "87e3a446e0becf2dddc7cb6e666ee365901c19ff56e8fc79cf91bd65b0bac946"
+    },
+    {
+      "air_sha256": "fb61b6a3d768cf8a7007d9d81491e42c1ca0d041fad8b8832d8c8fc17462c9fc",
+      "fingerprint": "256dbea572c8b3fc7b1d88ffa2e702d3248a2da693ce5f2112a37637eec1f096",
+      "network_id": "nat_huc8_03130005",
+      "stations": [
+        "02344630"
+      ],
+      "water_sha256": "687b1771b6e202d219c5a1e8b35a19ff13e70075242d04391f36c779544ba37a"
+    },
+    {
+      "air_sha256": "48448253fe0fd93bb00ee17527f5b8cbc51ee8a3af68da7289b73dacfbe34126",
+      "fingerprint": "4c550b842d562d1d4b5cb47f049e17c9af9acc93e4c539c635f0b5d2550444da",
+      "network_id": "nat_huc8_03150105",
+      "stations": [
+        "02397000",
+        "02397530"
+      ],
+      "water_sha256": "363b23be4873b472289f82257531ffa2fd67f4e0c8469c4dacdfbdbf19cef346"
+    },
+    {
+      "air_sha256": "1d7257cb2607e6306646f7573d15520951aca7ca1761c082f0bfe8850df535ac",
+      "fingerprint": "9bc66dc1286194ad11eb0d08990a8ce07844da579c09993b015d04ca6a90dc89",
+      "network_id": "nat_huc8_03150106",
+      "stations": [
+        "02405500"
+      ],
+      "water_sha256": "a7fcebd7271f5b53c9971447c5862fddd8c991f49adabc88f8975a5557614d52"
+    },
+    {
+      "air_sha256": "b0a177121f42ec2814c777096e2fac9a33506dc9342e5d64b4e22a58298cff47",
+      "fingerprint": "4dd381bd55ab1298d53a6eff425bcfedcbfa1e3e38720998ca45c512b47fda54",
+      "network_id": "nat_huc8_03150107",
+      "stations": [
+        "02407514"
+      ],
+      "water_sha256": "d07df4f9c98010c58eff7642fefe292d749bd3672d20004784a72a057b4d45af"
+    },
+    {
+      "air_sha256": "6560fe731f512187e3449914be24a9f7247cc58e5f72a836342d90abf5e6dd25",
+      "fingerprint": "fd4315fa2dec6d31b20d0f636302b5e4c4c2acf9910d0249eaed241acf109209",
+      "network_id": "nat_huc8_03150202",
+      "stations": [
+        "02423130",
+        "02423380",
+        "02423397",
+        "02423398",
+        "02423496"
+      ],
+      "water_sha256": "6197debef9129c960473f9ad9e844f55c73bda6e0e5dbab7011b792b8d9a5cdb"
+    },
+    {
+      "air_sha256": "80e37073274f3df211c3b43fbea5eeee38071c2481109fe5ec01b5c5aed306c9",
+      "fingerprint": "2f2917dfb985c641942562720aa2c0dd79c236dd3cf3822f88787b83070f6bb3",
+      "network_id": "nat_huc8_03160111",
+      "stations": [
+        "02455980",
+        "02457595",
+        "02458148",
+        "02458450"
+      ],
+      "water_sha256": "d494d6f2356404725a336e907db2a903b86f51739b407ea95ba715c3acad6d62"
+    },
+    {
+      "air_sha256": "9072bf1b07a8a39cfc1c159afbe39d018ce5a6dae3b0518d443ed7cdb60a9a7f",
+      "fingerprint": "cc4807555c60881fe69757df973dfc096c4226297f8b67548e6b7434003bd505",
+      "network_id": "nat_huc8_03180004",
+      "stations": [
+        "301141089320300"
+      ],
+      "water_sha256": "db3dd1ca08b93e37ae7a6f484547671879775c25ed195094c3ad276f5db62fa3"
+    },
+    {
+      "air_sha256": "596b8fe8c1c8db80afbf1bb8366df8b62ce20192e846dd5f327c76b29f7a89fc",
+      "fingerprint": "be7cbee943a83ca2f62a9ef2eafc3d38a404706a7cf717b668905bf1e03bdc2b",
+      "network_id": "nat_huc8_04010201",
+      "stations": [
+        "04024000"
+      ],
+      "water_sha256": "17c0246ec54e4ec4ee5c91e73dbe17fdc5ef9b7c494e9b1ce432c38002bc1f26"
+    },
+    {
+      "air_sha256": "4ec980ba9f9bbd797856fb5ab49465665b90fd633a7d1d1f988d51220cbc761d",
+      "fingerprint": "f9ab7de0f876d3b8a1f9a0e6103c8824f4cd342331e4db49afd8c3ec3a12b054",
+      "network_id": "nat_huc8_04020104",
+      "stations": [
+        "04041500"
+      ],
+      "water_sha256": "b2d88638f84b834866c417bc4a4ac65d3e2955a42d9c58c7433b4bfd0ea86c8c"
+    },
+    {
+      "air_sha256": "d3b8b4999c5830b331cddfb06cc41041467398ae42f967dc0aa458632466bb1f",
+      "fingerprint": "ad309a0cdd119f918467bab502cff4ad6d95c8e40f37252146ac9a26fe962383",
+      "network_id": "nat_huc8_04020105",
+      "stations": [
+        "04043140",
+        "04043238",
+        "04043244"
+      ],
+      "water_sha256": "b28f540a4c2ca34c67881a68b49ea088f0d56d9b99203355949150c4c5be1a3f"
+    },
+    {
+      "air_sha256": "7fb2fff3a44afde14b476432f006e19781e2c8628114b3e7ae91d385be1a722b",
+      "fingerprint": "6ce53ec6894fc9b81a5a001032855f1e889c00214b06c1e2b2c8ebe74d865291",
+      "network_id": "nat_huc8_04030108",
+      "stations": [
+        "04063700"
+      ],
+      "water_sha256": "d477418e43e31ef777bc12d7e4e51f8c442df997b9afb98058e6c44e0c3a7dc7"
+    },
+    {
+      "air_sha256": "68d03400b2d4895ee42ef9af63e1be752876317e5ebbecf35caeab0850c9a402",
+      "fingerprint": "79aa464c9ce2af480749dcc93810c585d3e6e309dc0161fc4567cd747e1d05c6",
+      "network_id": "nat_huc8_04030202",
+      "stations": [
+        "04077630",
+        "0407809265"
+      ],
+      "water_sha256": "a139b71ca97466f9f8ca8c9bb7a65d20cbf4105d6630af218a4fde9a6efd19c0"
+    },
+    {
+      "air_sha256": "9f6b2b4091a42a7d5d0b4ae0328ea03dfdfb3ee44177c0bea5d15a6d094dc9d3",
+      "fingerprint": "5fb030db6ab21c0f89c47e269c968a5b08533ede5d36560909539b461c4ad0b6",
+      "network_id": "nat_huc8_04030204",
+      "stations": [
+        "04084445",
+        "04085119"
+      ],
+      "water_sha256": "3ba57aed925090ab9a6267ffdca458f2a327b7651c1a08780bcb348284ccb08e"
+    },
+    {
+      "air_sha256": "ce80b08587238970013f60fc1c0d2a1e36c07626084be604a7fce5bd6d4ac175",
+      "fingerprint": "27dcc789f62b637156a2825f3093445d5379e4083a9b82c85c87960be3fb576f",
+      "network_id": "nat_huc8_04040003",
+      "stations": [
+        "04087000",
+        "040871473",
+        "040871476",
+        "040871488",
+        "04087159"
+      ],
+      "water_sha256": "ea345142e84a4d4952f82f1bf5b82813d6a432974e784d1d1a152f10b97023dc"
+    },
+    {
+      "air_sha256": "57402081188347a73783ecba098d1da625f289b2fcf3a372dfca373f94d5b451",
+      "fingerprint": "46a6f1397fe8f2e70d550e567638c5b41b5255fae245c7e11061f251f07eff31",
+      "network_id": "nat_huc8_04050001",
+      "stations": [
+        "04101500"
+      ],
+      "water_sha256": "96c8fea7997f078e5bb6228f57b7a416736cc7c1c71d6dde605b5e22c0b170ee"
+    },
+    {
+      "air_sha256": "a52b5a2863090839b0f6333c23ce4ac82580d28503f0a65f787febfe880ff9b9",
+      "fingerprint": "4062936d5023be0b97c76041544a803ec2e0026b477b2d57c8f415702dac1ed3",
+      "network_id": "nat_huc8_04060102",
+      "stations": [
+        "04121650",
+        "04121660",
+        "04121680",
+        "04121944",
+        "04121970"
+      ],
+      "water_sha256": "8802229a1291fa2faf9876b62aa47f979fabe6108051f66a91267e039edbe1b8"
+    },
+    {
+      "air_sha256": "56d7ee2e78bef584f028f5e9b4359cd199b9a3100302e95fa183348d542cd8e0",
+      "fingerprint": "fac5ca26fb9f5c5f01b4c389b4796b2c62dff1863b00a6208f4881123d338db3",
+      "network_id": "nat_huc8_04060103",
+      "stations": [
+        "04124000",
+        "04124200",
+        "04125460",
+        "04125550"
+      ],
+      "water_sha256": "affc866c76d5bef614e62beb9a891850061272c895f1ab3597189e9a17db2fb2"
+    },
+    {
+      "air_sha256": "459a0208b34638008473aac41ff202596f964402636f4562541d2746988d58f3",
+      "fingerprint": "37a8c0e0230351c5a19e5cdec336e049095a227c7c965eb55253906605bcd8fa",
+      "network_id": "nat_huc8_04070007",
+      "stations": [
+        "04136000",
+        "04136500",
+        "04136900",
+        "04137005",
+        "04137020",
+        "04137025",
+        "04137030",
+        "04137500"
+      ],
+      "water_sha256": "a5cb5524317328a3ea7c0004faaa53cde7a9c1be8a8eece9912970d31c32c929"
+    },
+    {
+      "air_sha256": "e1f92c0abc3bc1ade3a15030e146163b652ee5d941e53879446cc6e2d2dbb067",
+      "fingerprint": "e166f6f7d3c101120a4dfc898b5c349096349546b4f88ff66afd10177604c2df",
+      "network_id": "nat_huc8_04090004",
+      "stations": [
+        "04166100",
+        "04166470",
+        "04166500",
+        "04167150",
+        "04167625",
+        "04168400"
+      ],
+      "water_sha256": "b6c8e18d26160e984363984d7feab194253869d36a05fdf7fb627af5159c1652"
+    },
+    {
+      "air_sha256": "bf7b2eaba4bc09ddbcf666baabe21b148e42277747befb11bc5aa2c0ddf14331",
+      "fingerprint": "e861b53bcceb92480a928a1b8f6760fe7b7002a1ad5e73bc715aa45ffd03fb26",
+      "network_id": "nat_huc8_04130001",
+      "stations": [
+        "0422026250"
+      ],
+      "water_sha256": "209efd82b265ece3848c09ac1a0c62a6fb681c8e2a6fd274a93ba9d93c5daf44"
+    },
+    {
+      "air_sha256": "d1e5f4fd56125ec188f5fa8939934a66816c6fe16871545677184c10c1d366bc",
+      "fingerprint": "aea747bcb648f5999b12900c9571bab64fad69aac8899e1a35db85c394ce3a36",
+      "network_id": "nat_huc8_04130003",
+      "stations": [
+        "04231600"
+      ],
+      "water_sha256": "036a3f380a37173020527be8537e71831adf11e111f8f1d02555f7208a246982"
+    },
+    {
+      "air_sha256": "efd64999f45a4001450bcf5ea276ceb6f519c30044e1cc15b19e1bef207dbbbc",
+      "fingerprint": "353b15eb45c8aa20f68c796ecdb81748914d9918f02631decc86f15848584fe8",
+      "network_id": "nat_huc8_04140101",
+      "stations": [
+        "04232050",
+        "0423205010"
+      ],
+      "water_sha256": "413404a0f5db6c7a7f6599eecfab7d5c928238554d1a11ad79ca42b11127b64e"
+    },
+    {
+      "air_sha256": "22dcc83f56488101f7c1081867b5ef55fa3a39d012d8380b7380aa01b0d557c1",
+      "fingerprint": "6de8889ca18db1a9574acb85203a0a2df9cbb7929de9308cb181f72ec65947c1",
+      "network_id": "nat_huc8_04180000",
+      "stations": [
+        "04001000"
+      ],
+      "water_sha256": "1cc2b8da1c902ead3ca5f0b1b9a874291f7fa2b474c316dc1fde268f25458e33"
+    },
+    {
+      "air_sha256": "eac4f4f2aa7352e8c31a76b32b4e988518ecfb6b1b9e80e6feb6e0a1039f9605",
+      "fingerprint": "28f5197cf59cef57757ba752eb39b98c9bc1c446a5dc2ee6c5f744a775b4c031",
+      "network_id": "nat_huc8_05010001",
+      "stations": [
+        "03007800",
+        "03012550"
+      ],
+      "water_sha256": "b2de2f9c8e23eae3f0bebc11d27112260fa79452d5231261fa8714c03e8a0c26"
+    },
+    {
+      "air_sha256": "54a83b354c4e9feb43db4ffb055601a14c9458229efa4150b8e04afbc8ee479b",
+      "fingerprint": "439163e7a33b1dee21b1f5844ffa83fc55e7d28532bcf949bf7f0ac72b187b93",
+      "network_id": "nat_huc8_05010003",
+      "stations": [
+        "03020000"
+      ],
+      "water_sha256": "c3ab04834193c10336736b61c545845b38973306111104891f1a67da8e6f2781"
+    },
+    {
+      "air_sha256": "bbc93a80bca835006eceac7ac5a3b6e23d8da53082b8f1283b71437a08a017be",
+      "fingerprint": "5a1b7b0633b55b3714eaeca4586ed5facb97ed15a59598c7b1491dd899c4f336",
+      "network_id": "nat_huc8_05010004",
+      "stations": [
+        "03022554"
+      ],
+      "water_sha256": "94c0ca73235538946d6a9c18120df28421858d59950edaa67a0f6d6feeafcac8"
+    },
+    {
+      "air_sha256": "69f3457ab81acef746ae0e06b9f70ea2fcf1c215c74640e5114540dfa5fb4240",
+      "fingerprint": "c56d25a07e3c001efec9db042fc91cff6dde07b10a51d9354938bee742872de9",
+      "network_id": "nat_huc8_05010006",
+      "stations": [
+        "03034000",
+        "03036000",
+        "03039000"
+      ],
+      "water_sha256": "252c543753896865ebfe7db85759f59b145c7167fae5c96822b3f8972c1f7038"
+    },
+    {
+      "air_sha256": "c704b03d7bdc45179005015ceb8cad11eb735d3d0fa7e7abddb061e7e252a418",
+      "fingerprint": "3458ffb2dff278d51a70501f10bbc8e6447a0ee176c3546146ac98926e756149",
+      "network_id": "nat_huc8_05010007",
+      "stations": [
+        "03043810"
+      ],
+      "water_sha256": "d8fa4986c54dddae1e54454c3da6b78da9e7c7f89f875162522ac7ad7844858c"
+    },
+    {
+      "air_sha256": "c9456a9503e69e730f491228451f577935fbd1dee625df60c2d382c620b5244e",
+      "fingerprint": "11a95bacab9d32a6082419b54eecacf86037bcdc1f3d242bcfbc8048ce5060d2",
+      "network_id": "nat_huc8_05010008",
+      "stations": [
+        "03047000"
+      ],
+      "water_sha256": "617c0fee31ecf52b790f27909feecd0d52347e0a3a881f953b5c53e3b74bc724"
+    },
+    {
+      "air_sha256": "904605dfcdbb1b6b4a814b7b237acd07c66eb6599ca513141b472245cd9112df",
+      "fingerprint": "9927e8bd00ecdacd7cf26d513a7d4751461105a0ece39fe64ad982dc67994969",
+      "network_id": "nat_huc8_05010009",
+      "stations": [
+        "03049640"
+      ],
+      "water_sha256": "0424a6376caabc131ebe97df9514ffcdea114895929eb010cd7148a2c29b8a0d"
+    },
+    {
+      "air_sha256": "eb1a5d6a47dd55b077660ba5e08c5f85721af7ad821eca32db0753d1a868b5ff",
+      "fingerprint": "673c661fa6069ee501ea93dd0456611f6d6ed9cae27964f3cc8a42622dea3a4b",
+      "network_id": "nat_huc8_05020005",
+      "stations": [
+        "03073000",
+        "03075070",
+        "03085000"
+      ],
+      "water_sha256": "b540089e2719281e5aea79d155e82b9837140fbd99e99b08c9d911a21a5e9e2c"
+    },
+    {
+      "air_sha256": "0ca3b3b616701ddaf0002777cdc2a76e47ae9c61e40dc42841405568fe62b467",
+      "fingerprint": "74cd1fb36259a917150fb06898fe9f1c53780705f7747dcae697fe3a5ad11bf6",
+      "network_id": "nat_huc8_05020006",
+      "stations": [
+        "03077100",
+        "03077500",
+        "03079000",
+        "03081000",
+        "03083500"
+      ],
+      "water_sha256": "a50592fa5a38ec08fb4667eac6e65667646c95329cd085f5d0ac3efc4b1bc276"
+    },
+    {
+      "air_sha256": "16249f7467970a4e6765aa581426bef30192348c713b1ef1fdb1f2152bf6546a",
+      "fingerprint": "142618302558b8446ea94a33844ebcc84618dd43b07cd892d23b2b81c6ce4ceb",
+      "network_id": "nat_huc8_05030101",
+      "stations": [
+        "03108490"
+      ],
+      "water_sha256": "e3298357cd81b8c5fcfbb4e613d9ee4eeabc2f9c74c218e234135d3c2143aff5"
+    },
+    {
+      "air_sha256": "58d905303ba02b3c2d1ffed7264178ee30f027fc0c895ba2e192194253fa59a1",
+      "fingerprint": "349c70ca4360b472c42503e64807845432fcd9f8ffc680a64dba48a55f7f444e",
+      "network_id": "nat_huc8_05030102",
+      "stations": [
+        "03102950",
+        "03103500"
+      ],
+      "water_sha256": "840d5ae9403b22965c8611748db5069b82bd8969cd1abcf7898b52616b12adca"
+    },
+    {
+      "air_sha256": "15744ce42cd6f099bd524c47219e8ee3e9b4dbbd8a15ad8c807e6f9914604635",
+      "fingerprint": "bd1ee75370a6a620402f12c7215788087a32a0b651ef50e5f25013829b8150c7",
+      "network_id": "nat_huc8_05030103",
+      "stations": [
+        "03086500",
+        "03090500",
+        "03091500",
+        "03092460",
+        "03094000",
+        "03095500",
+        "03098600",
+        "03099500"
+      ],
+      "water_sha256": "c96f534f2886ea967dcd75522fb063a7513213f8d06397f37b4263e5b39e4a8e"
+    },
+    {
+      "air_sha256": "c295714a147f549839eeee88ca41e7c1f74d237f9f7422e77ba3761b59ed0d1f",
+      "fingerprint": "8db23e74a0a8603f9782a4ae7590f4adb14ad9bd46e7b83463f65fe716173b0b",
+      "network_id": "nat_huc8_05080002",
+      "stations": [
+        "03271510"
+      ],
+      "water_sha256": "0597bb1ddfd895b497e59a0244794a3a7f59b5d3f2898ce14328c3e325c5fa6b"
+    },
+    {
+      "air_sha256": "2a3011fbe420227a945ab6c5da33f8dcf9c3280d1100c8d90456834e5a96a153",
+      "fingerprint": "c080a3a8b64c1212ed7128e029351e6b41e12b963b4895c5ce4ab5470923f1cb",
+      "network_id": "nat_huc8_05100101",
+      "stations": [
+        "03249500",
+        "03254520"
+      ],
+      "water_sha256": "1ffef8bb93a07d91183a4770d4b78a23e8af0145c353df40e7bb74516908999a"
+    },
+    {
+      "air_sha256": "aa69bbee8295e4a71ec75cbdc32fa0b6823f721de42232dea31de05bfa2c728a",
+      "fingerprint": "1333315e84c3f56dca39561ba60fd828b820d6fc992bdb5bea396f5693e4ba18",
+      "network_id": "nat_huc8_05110001",
+      "stations": [
+        "03306000",
+        "03306500",
+        "03307000"
+      ],
+      "water_sha256": "26fd34ff85d2950d8e7b0573befe6031831a63c7e4df32f4184a13c40c1879b0"
+    },
+    {
+      "air_sha256": "0b0271ec12bf7f5d831988e37530548fb0ede08a9530f3d53561f9d395de2915",
+      "fingerprint": "6f7f3e083d7abfee48c61280349c53d493941bb3263b48d305988a663f75fe36",
+      "network_id": "nat_huc8_05110002",
+      "stations": [
+        "03313000"
+      ],
+      "water_sha256": "0d0efcc8e80e9ab3c7fbd10739bc5200ffde2d3bbe5c595521270fc429db862c"
+    },
+    {
+      "air_sha256": "e3bbb7ae004e9bb62a9b38dc87b8efb639ffc89cec991caa70e01bfcf4894e59",
+      "fingerprint": "9254fcaaeaf06cdb014948a64050507873b1081cf59282cbdd5c2ef4c2c595bb",
+      "network_id": "nat_huc8_05120102",
+      "stations": [
+        "03324500"
+      ],
+      "water_sha256": "c7eb0f61305754df6c587732233d112b49874837565d9e1de6a9556a2da6273a"
+    },
+    {
+      "air_sha256": "618f4f0c5dc71da1c8232b616f9604d9ef1397d6983bdda680b6610867b6285b",
+      "fingerprint": "0ac45e5b8305c37778253f3b2db60081e18989d5ee8348b72c72066888dc0b38",
+      "network_id": "nat_huc8_05120201",
+      "stations": [
+        "03353200",
+        "03353611",
+        "03354000"
+      ],
+      "water_sha256": "7f3240f20bba718aa39fb3290c57ca78f385906332fbea1785228613d608e8c6"
+    },
+    {
+      "air_sha256": "e87e982c56c72b7555d404ef083d4d3ea7d7912a21c883ae5c4c15ccceebc64d",
+      "fingerprint": "e6804913b5557cddc84c6a7a6706f5b632d3ba48767e97b9d829d418ebc583bf",
+      "network_id": "nat_huc8_05120202",
+      "stations": [
+        "03373980",
+        "03374100"
+      ],
+      "water_sha256": "da0568a39641b0988806bb91f5b6c3355ade37bf631f5eb4bda9d87f5d74ee30"
+    },
+    {
+      "air_sha256": "694023973822dcf92b163d6b7dbacd454695e16b02a1729df51d592073783d93",
+      "fingerprint": "35165ef7e352d635a52755b0de215b413e129844c19d9f9d378228e57a13e4c7",
+      "network_id": "nat_huc8_05120203",
+      "stations": [
+        "03359000"
+      ],
+      "water_sha256": "27855d77879585bfd896ed705c8e388e9a48eb2ece6bfa4136d05a315800137a"
+    },
+    {
+      "air_sha256": "68809afd7c334a0e80cb914c0c36dda546b710ae90cc96dd931c93abb6e854bd",
+      "fingerprint": "00fb580f8169fcaa482dfdcb38337f6a5ed35973d623df3245ad07b8b95700bd",
+      "network_id": "nat_huc8_05120209",
+      "stations": [
+        "03374500"
+      ],
+      "water_sha256": "30c9cf48df618b7b28b5f71a0d139ebe1520a89e528957152f99afed94a60018"
+    },
+    {
+      "air_sha256": "d8f65218c0d72fcd723ab788e5eb26c094e7f11020d1a8ecd4d0c968301f0619",
+      "fingerprint": "4f57d4be59a4c9e560b16a50ced65707aba5b7ec7ae9fa48556741dddbbad212",
+      "network_id": "nat_huc8_05130202",
+      "stations": [
+        "03431083",
+        "03431091",
+        "03431514"
+      ],
+      "water_sha256": "b213ac4b7327adb2c7cd3f9f0cc0cedfca856eb3c8898df44307fd00afacfa6b"
+    },
+    {
+      "air_sha256": "9c8eb277ac94413cb829d27946f0919b93700baf94bfc0b5ef6f23791a332633",
+      "fingerprint": "d022b455bb32a4dd6d6960a6e9d6f0de2e1c6358a67b7536ecebd69264124912",
+      "network_id": "nat_huc8_05130203",
+      "stations": [
+        "03428200",
+        "03430200"
+      ],
+      "water_sha256": "10180bb45f52765b11c4d7899e598e38c4a1a88e585bbe1e22a0e5338c631b53"
+    },
+    {
+      "air_sha256": "6bfd1ae1d5a92921cf88298a42f79f0695f6a0460618066449bd75fe570b63e7",
+      "fingerprint": "d8b9787c888c429fa6ce26deeb6847f8d1477ea4be3ae9d14f8f21c56a905d09",
+      "network_id": "nat_huc8_05140102",
+      "stations": [
+        "03297800",
+        "03297900",
+        "03298000",
+        "03298135",
+        "03298150",
+        "03298200",
+        "03298250",
+        "03298300",
+        "03301900",
+        "03301940",
+        "03302000",
+        "03302030",
+        "03302050"
+      ],
+      "water_sha256": "304da7d8429100488332ad84c72a09da7fd3a8dcc82760897fe3080bc34e066f"
+    },
+    {
+      "air_sha256": "de58ea23685457c35b925abdeb1098fea64c3ffb53085be0a1d1cddffabae2e3",
+      "fingerprint": "c6d844ab9546d720237ef6cd7d115fe1fcf2d36b9440793b65c4c50f22e788b9",
+      "network_id": "nat_huc8_06010106",
+      "stations": [
+        "03460000",
+        "03460795"
+      ],
+      "water_sha256": "9775589d3006ede276e1e09ce8def6955567bd056501c2fc8fdebf2b0d394ba8"
+    },
+    {
+      "air_sha256": "a15d8a60159993505e92c7a1c612a536cac96af1934ceb389396a3253c7dc3c5",
+      "fingerprint": "c4de1c665c32068fd780fc58c9c84b7a0c71fb4b5ea4f49d995e5d93b3975c38",
+      "network_id": "nat_huc8_06010201",
+      "stations": [
+        "03497300"
+      ],
+      "water_sha256": "71bf18af126463498f0480e8f5dd76455a3be2f69593fae48e7b3a9930babbba"
+    },
+    {
+      "air_sha256": "41ae3cb85e64e5b5635ebaa79172ee774eab7da39defe96c579756a91b1af94f",
+      "fingerprint": "43e714d48a615283734cbe2100416e19049bbabb3fb58a3ef0366c76f9eed9ac",
+      "network_id": "nat_huc8_06010204",
+      "stations": [
+        "0351706800"
+      ],
+      "water_sha256": "042f83f529713098bae8c384b57f64a7ff14e6870e883a6b65fa2ff011a566ea"
+    },
+    {
+      "air_sha256": "a3e309af6d1b2e784eab3a431d1369fc2d33880e17e2a90d97d504139786eb79",
+      "fingerprint": "4ccc921eb972831aba84bc88ba2be43b474de6cbbf43722d43a1ad6badece59d",
+      "network_id": "nat_huc8_07030001",
+      "stations": [
+        "05333500"
+      ],
+      "water_sha256": "799d29240b1e7cf0784b9b4be57c1e419a8ca722272ce5a8d868096292115acf"
+    },
+    {
+      "air_sha256": "15d6327c185446ca98de4a0e9c159ce8fc6c113b9ddaf1cd7f643819b5d0c320",
+      "fingerprint": "04886aa85feafa5310f60eb3b34a0a84e826affa6fced9b9dcddc58d7b7cf960",
+      "network_id": "nat_huc8_07030002",
+      "stations": [
+        "05331833"
+      ],
+      "water_sha256": "1e2dcd259803130c7fcddd726a27fae965e68388f5f66d17a42917bad4ecb5c6"
+    },
+    {
+      "air_sha256": "345f4a64304d47942b0784f34499ad2064495c23e1f569514a7dd54e0ebb816c",
+      "fingerprint": "41c3320379a774877c3c9d40eb60139bf4b1f7a3b4d1253da7727ccd8abc10a8",
+      "network_id": "nat_huc8_07030005",
+      "stations": [
+        "05340500"
+      ],
+      "water_sha256": "fb2310d5d566c4b794128ce3e39f99e768fa509c8651ac0a1f165fb4d7a3de2d"
+    },
+    {
+      "air_sha256": "0b9d41ff541f61d8d457c0a672da375135cd7740d4f8e6d35a62b921a47e46e1",
+      "fingerprint": "5241e22a0593aeddec91c42a27188e3e2af3ddb5636513513111d7deea945538",
+      "network_id": "nat_huc8_07040006",
+      "stations": [
+        "05382255",
+        "05382257",
+        "05382267",
+        "05382284"
+      ],
+      "water_sha256": "fb744a54fb8d3383a2ccc8ad93267a1c227527b509deff9018ab504e9f78ec54"
+    },
+    {
+      "air_sha256": "af12702ebb39619e24f3961413b0a8f5ad15708da3c500dffea4233051073df5",
+      "fingerprint": "07b3ee9203b62bfaa13ad0e91f4e08599ff27f330af0387bee2204a4a516a624",
+      "network_id": "nat_huc8_07050005",
+      "stations": [
+        "05370000"
+      ],
+      "water_sha256": "d7947873d7785fd23cdea1cd3ffe5997797aae7ec9811136ba7801e3de008476"
+    },
+    {
+      "air_sha256": "dea4f0e07b9b45a991d1fb0543a540e9773d206e4bb26b5e120b873874d2dc55",
+      "fingerprint": "674aa2505296007546e284ce5cfb06d3ec8eca673f0a5f000dbec37c557eefc1",
+      "network_id": "nat_huc8_07070005",
+      "stations": [
+        "05406457",
+        "05406469",
+        "05406470",
+        "05406479",
+        "05406497",
+        "05406500"
+      ],
+      "water_sha256": "c3b9570b18ce3453c85dc846b6f70c98a4622a5767304e78b54d5731f0377c8e"
+    },
+    {
+      "air_sha256": "a99c70e8f8bac0c44f6f7a5d0ae962a56dde708353b9e9d3c52010887438ae6b",
+      "fingerprint": "231df3a0b33ec6181f064554c6f63fc38d7392880ef76c92859af1f32dd03d89",
+      "network_id": "nat_huc8_07090004",
+      "stations": [
+        "05435943",
+        "05435950"
+      ],
+      "water_sha256": "d97590aa766ce9f915244b7d87cbeb2b6e7c9e5b85f7217c73179542ed11a904"
+    },
+    {
+      "air_sha256": "4bc6b66f56a2c472f8da3a9ccb1af9fe2b15ea8e34bbaa863cec959b86bc9eee",
+      "fingerprint": "afa4069060449a38de3f5ba8f005aaf019ede0db5586e1efd75df9caff1b07c0",
+      "network_id": "nat_huc8_07140102",
+      "stations": [
+        "07014000"
+      ],
+      "water_sha256": "4af1df06f91bd948d25916921190a754388eed87cea8be1e33b6acd2810cdd5a"
+    },
+    {
+      "air_sha256": "41661da8ea6c53eed5f36b1918ed87a38f7f29b04283cdf09a65fbe2ae532786",
+      "fingerprint": "81e6ba5123ca3870c83133afbab2da240f07a0ceccbb0be1d7256a2fffe50f51",
+      "network_id": "nat_huc8_08070100",
+      "stations": [
+        "07374000"
+      ],
+      "water_sha256": "a41f55b822c7b2c3410b823f18283ad6f114bcf5031a54c51a7a0296c64a61c7"
+    },
+    {
+      "air_sha256": "a4987ed0ddb7b5068d3d812dbcfca2cd0470f31f8f2597f2575870fe7298febd",
+      "fingerprint": "8818dbe89f8e8ff470802203191f0b01e2cb396c20ffd1bf4fb1b3d3495bd5b3",
+      "network_id": "nat_huc8_08080206",
+      "stations": [
+        "08017044"
+      ],
+      "water_sha256": "9299493474a263063636ad7516be820abc5851e9f4c64a322b982195dec02192"
+    },
+    {
+      "air_sha256": "9ae20184a706469429b5459499e83490737a66ce37a71b37b48cd4e41a2d9493",
+      "fingerprint": "2b982605abc102dcd94d797b25b87bbabe7dfe272906b996b937ad72b04178bd",
+      "network_id": "nat_huc8_08090203",
+      "stations": [
+        "073745253",
+        "295124089542100"
+      ],
+      "water_sha256": "916ea4242b78aa28de25c4a70b4351a8e93f3d133c3c3f012a107a5d0662b802"
+    },
+    {
+      "air_sha256": "80184a4b567842e0c114c0534c9b42c9c2034d5f2aeb1c19a98ed74faeaecf15",
+      "fingerprint": "c1ef170ad5f6b5255916a5e203f560ae584d535a6a3637233201a1a3ee4fc276",
+      "network_id": "nat_huc8_08090301",
+      "stations": [
+        "073802516",
+        "292859090004000"
+      ],
+      "water_sha256": "bb336624fd68cb13e4e70cf0db3b71a0dc6d8bd3290a67946de60427fbf3ce73"
+    },
+    {
+      "air_sha256": "e9e3e855b29a429985b6e92e0e0e9a4ae85152b118bc4e6465e08745999c6cbe",
+      "fingerprint": "c14d32902b5ecf99c47b6294536ae9a7170b091c6afa850696a4106db12d95f7",
+      "network_id": "nat_huc8_08090302",
+      "stations": [
+        "07381150",
+        "07381328",
+        "07381331",
+        "07381350",
+        "07381355",
+        "073814675"
+      ],
+      "water_sha256": "4096fd23acce6f324c043832140b991ba3d43078fa17e027661e78db7f195a46"
+    },
+    {
+      "air_sha256": "6957040a3e4dea45df01ecfe663f8ddf0083f9b4af03ca270533ec6f6afd7c41",
+      "fingerprint": "d27b944e202a2f36b1c87d4f1d5e04c7a8e3be362a613be2ed11c20e09db8078",
+      "network_id": "nat_huc8_09020104",
+      "stations": [
+        "05054000"
+      ],
+      "water_sha256": "ce442818f169276bc6fbec24a33afbbeab73730e9a0a5e1b29bfd8390cccca13"
+    },
+    {
+      "air_sha256": "334fd54e21edc7804f6828954edaa2502039b02ca708a438c353fca5e421162d",
+      "fingerprint": "36b0d4fcb887e35136fe24220ae304214f4d462eaa02229ffd5093ac57aa9bda",
+      "network_id": "nat_huc8_09020203",
+      "stations": [
+        "05056000",
+        "05057000",
+        "05057200"
+      ],
+      "water_sha256": "dd95f85b10a08f2b1e5baf91e4813ae892a21fd1b61ce679be68f70879a56905"
+    },
+    {
+      "air_sha256": "10b865297a694e8a1c86d6f690c7d00cbf4af237a898ae020555559b75fb005c",
+      "fingerprint": "44e5348c61ea39358479183c4cca3d064dfd44e17b1d95379eed06af4e550b76",
+      "network_id": "nat_huc8_09020204",
+      "stations": [
+        "05058000",
+        "05059300"
+      ],
+      "water_sha256": "6cc1f9e32b667deac25c18765394f0b405c732b8776cb52df8bf01a2f9a20d52"
+    },
+    {
+      "air_sha256": "f5ab3f16adaa1648042afbac7a31caa21d5e337e62217cac885314e05b843df7",
+      "fingerprint": "c39bc6b76b9cd3335c680f645f77f329b26e23a0c098ffdf9a12dfdcb9985a6d",
+      "network_id": "nat_huc8_09030001",
+      "stations": [
+        "05124480"
+      ],
+      "water_sha256": "e1c42f59f9f76e3c8212f79d8eccbdc80966029ec2d4c7fd4b56f50979699da6"
+    },
+    {
+      "air_sha256": "c11ac61847baccc673cdcdbd474c786d8196d56076f06b2378aeaac8ba8b8b72",
+      "fingerprint": "0a39ef4b19ba78002e6f67f1a553e90c1b19223b9550fabf75128d95a7aebb6b",
+      "network_id": "nat_huc8_09030008",
+      "stations": [
+        "05133500"
+      ],
+      "water_sha256": "5c0e3e7d22e4de27d916db073774d9f55d01f0998a87e29b1f153c52ee2ce65e"
+    },
+    {
+      "air_sha256": "0eb3b53c377e428d6a9e63789c486bed60710ee6b982e32c5c2ae70f2612853b",
+      "fingerprint": "5b75a4ebfda7264c76f71f3ce7921632d71d903d89c4b4125da6b70f2f17c65b",
+      "network_id": "nat_huc8_10020004",
+      "stations": [
+        "06024450",
+        "06025500",
+        "06026420"
+      ],
+      "water_sha256": "c537c5902430ef29eb8a3491ac79fde00e60240ce7427bc2ce084c1be72cea31"
+    },
+    {
+      "air_sha256": "e7f23e8e217d9db3d0d7f750f79209a5b28f4e015d864ad5993b8aec93138adc",
+      "fingerprint": "cdf1a6d98277d28ec8eeacaaee3c656b0d5a540acaaf6df662c226cc6fcab11e",
+      "network_id": "nat_huc8_10020007",
+      "stations": [
+        "06036805",
+        "06036905",
+        "06036940",
+        "06037100",
+        "06037500",
+        "06038500",
+        "06038800",
+        "06041000"
+      ],
+      "water_sha256": "4028bb43e9fe7da276e6066c6c6f1053374ca4f397bbfc59af03b0bb8aef5786"
+    },
+    {
+      "air_sha256": "b18a52ebeab10d4b4dadccba5c288c3d283f100f6b91ffb35deb80b1fa7d419c",
+      "fingerprint": "468cfffa2e14f01eda4844e9abd6a37167e528d94f4f210baf6736ddc0d6b0c3",
+      "network_id": "nat_huc8_10030101",
+      "stations": [
+        "06054500"
+      ],
+      "water_sha256": "1fafddb03f02fb36defebd32c124dc18c172878c37788010f3fdfb93a9e12ebc"
+    },
+    {
+      "air_sha256": "7d89538489060c4eb7ad1d1de1c1e85d6e56508773b13500778d3815333f48c5",
+      "fingerprint": "c233a524fe4e7ac51e88c9fba21578ab43fe9730661b1f64b12e8f02cc03818e",
+      "network_id": "nat_huc8_10030102",
+      "stations": [
+        "06073500"
+      ],
+      "water_sha256": "bbc9a0f225de2e6974c6cdc3f3c761249720ede0d4d41123da838066347eb7f4"
+    },
+    {
+      "air_sha256": "55bc72682a45e69142e0ac33ff205bed14c2b047bc8d0b5a5e002e709200c6b1",
+      "fingerprint": "733aee0a044e4c80821686054e0eb53632a1e19dae16c32163a97452cc54c4f5",
+      "network_id": "nat_huc8_10030103",
+      "stations": [
+        "06077200"
+      ],
+      "water_sha256": "f09ace9df969b894a3a95a0de6c3c5f051bfe9c4d6b68534282b90eed9f90fd0"
+    },
+    {
+      "air_sha256": "1b793605fb80ca804ec5f5120b4e4cd8ff03f61305938989c3d4ac59e8bddad9",
+      "fingerprint": "61526fb7b3e59a71faea023eedb0ae00c579b5fbfb65f211380a3d230d642004",
+      "network_id": "nat_huc8_10030104",
+      "stations": [
+        "06085800",
+        "06089000"
+      ],
+      "water_sha256": "1c4881566c938f33f6440daeba1b3d9e1e7c2f8e4f482958452169dc31c7a3a8"
+    },
+    {
+      "air_sha256": "0ce8bbe5d3962b0d80faf73827596022bdb461522a0b2823829d74c092553498",
+      "fingerprint": "4972e7e11593a07a1ce206a3ef958bc21a8e1a81d9b40ff2bd0514ac919dba22",
+      "network_id": "nat_huc8_10070005",
+      "stations": [
+        "06204070",
+        "06205000"
+      ],
+      "water_sha256": "2cea5b35cc0ceb27616f7cd1f6dbcc6eddf6759252a2012c8b030e8a1314d76d"
+    },
+    {
+      "air_sha256": "35d6f5f3bb4c4ae2f8b6e75b5d7afb4213a29cd03dc596b0339e9423b8eb4810",
+      "fingerprint": "634559257a069079f55fae43d574861f2d3e1505e2a412138b38d4d5ada76cfb",
+      "network_id": "nat_huc8_10110101",
+      "stations": [
+        "06330000"
+      ],
+      "water_sha256": "de8c1e4c74f80b26df2ccdbd3de333442db04e9a6e78b1369511707bd6f93079"
+    },
+    {
+      "air_sha256": "3c5e8d0db0303e660d059f7c405f7f2548e20ef3c0fe6bac2a393fa5720d1506",
+      "fingerprint": "72c252b4cc2afc32893d30d477c9265f3c5786658a0d9da2f248346f606ac58f",
+      "network_id": "nat_huc8_10130101",
+      "stations": [
+        "06342500"
+      ],
+      "water_sha256": "474af90195aced6ab68addee8b876553ec9c26cd8493278f209b472cdb3a7124"
+    },
+    {
+      "air_sha256": "c328cdbd620e86a211dfc74ebae366087fb9db3e70bc17a18962259aec77dc9d",
+      "fingerprint": "20dc318303079321f285c429450071151d125b12613d633eff12c68f25899da2",
+      "network_id": "nat_huc8_10200202",
+      "stations": [
+        "06796550"
+      ],
+      "water_sha256": "5683655aaf2a4d9dd1c44a22f8a00a9a360d5414483b322f9333a12091fc3945"
+    },
+    {
+      "air_sha256": "fab2afc4670d75876cb3647206ea8db651c3a6ef94b8fe1cfa919b8a8273d658",
+      "fingerprint": "384dc092f3a4c263b90c800df064c55135759194367fa706d794a47f59a0e554",
+      "network_id": "nat_huc8_10300101",
+      "stations": [
+        "06893820",
+        "06894000"
+      ],
+      "water_sha256": "76d3db5879b2c49acbca12931b236c88e63acc109374582845ad2148f0f924ef"
+    },
+    {
+      "air_sha256": "479b4e72c397830d9d3ce4cbca23a44b2ee7e165b4794a7578cac44448178678",
+      "fingerprint": "9a88e756726c22617290c11e36b34bebb6e5c7415e64343810419dcfb3817d01",
+      "network_id": "nat_huc8_11010004",
+      "stations": [
+        "07060500"
+      ],
+      "water_sha256": "ce726c529775d0895ca1162c4d1b9bb63bf350e165e87b9865f230f99a2d18cf"
+    },
+    {
+      "air_sha256": "e0b6b8569959ed05481bfed0aa40135fc02a7c75f432785719f3a0f196b74499",
+      "fingerprint": "64e82afcfc7abd96e33682863f9fed8585eb1837c7cfe4e9224248cd304c6890",
+      "network_id": "nat_huc8_11010005",
+      "stations": [
+        "07056515"
+      ],
+      "water_sha256": "dab3dc72c773dd7aec77b3282bc0b18076819b87707fd851cb5bea7b8157326a"
+    },
+    {
+      "air_sha256": "fbf89c5290dd3e2aac2860b5d973111e0321fc730a819010304d2953e9bd9f29",
+      "fingerprint": "0bb3df6014e5c31e8bf6adec3627a2fb8b33405bdf34b18f26a84454a25afd7a",
+      "network_id": "nat_huc8_11010007",
+      "stations": [
+        "07061270",
+        "07061290"
+      ],
+      "water_sha256": "26f492803adcee5e4c90355a2b937c55994cc48fcf3b26161a598e80e789880a"
+    },
+    {
+      "air_sha256": "636abbc2819b7f5226a15ba0b1f1f76866c7372de58ef300e1db24760925b769",
+      "fingerprint": "ead32e242b1e282e88a6c9ee4ed8b8526e4062ee614b67c0ad72ee8b677a005e",
+      "network_id": "nat_huc8_11020001",
+      "stations": [
+        "07086000",
+        "07091200",
+        "07094500"
+      ],
+      "water_sha256": "39415cfb1d8ce36ce9637be478f672fd09f7df7c6c77482e0c44ff73beb1b4d4"
+    },
+    {
+      "air_sha256": "cea21f68ab8dcd5b8fe0aa2982321fa6cea257615f1dac83768232f895cec054",
+      "fingerprint": "5f123190e1f25d8d921ae8a3f89c6be4021ca967ae365608f5346f43d76ef752",
+      "network_id": "nat_huc8_11020002",
+      "stations": [
+        "07096000",
+        "07097000",
+        "07099400",
+        "07099969",
+        "07109500",
+        "381312104321001"
+      ],
+      "water_sha256": "0299c82a83add9c892686eb861e1ef6983aa89682276d63901f8840cb58a2501"
+    },
+    {
+      "air_sha256": "6b816789d1680913448f6ac54361d66b8f4f6c0ad5bf4efe6f03c5241b772de3",
+      "fingerprint": "c54c9cbec52957e556d6cbfb93e90937f91f073c0046c7ab9be72e32d97fbd7b",
+      "network_id": "nat_huc8_11020003",
+      "stations": [
+        "07105530",
+        "07105800",
+        "07106000",
+        "07106500"
+      ],
+      "water_sha256": "78d06c05c18fbdea54178203becbaf27e7f4eef191372f75b2b6f1976d6b4310"
+    },
+    {
+      "air_sha256": "9fb2456ce093f7e927a27611dfb63eaee2ef72bb40273c2a25927a9316bba5e5",
+      "fingerprint": "35a62c0779372431175edfbc62b19cfb43efaef40ce3470106f1fb52221b269d",
+      "network_id": "nat_huc8_11020005",
+      "stations": [
+        "07119700"
+      ],
+      "water_sha256": "576e693c09881c799df27229c212b6b63fca030d3b4c822aafb2239ccdf392c1"
+    },
+    {
+      "air_sha256": "aef127157edc196ebe5bccaefbc2be0eff78bec61c8d01488eacf7ef29a8364f",
+      "fingerprint": "47801dfe957bcc7734e608f99d26e7b9cd267e7d0d56d323b7a4d1fe18f9b1c0",
+      "network_id": "nat_huc8_11070209",
+      "stations": [
+        "071912213",
+        "07191222"
+      ],
+      "water_sha256": "54659c48c5019f2e00ebff190a6b6479187b12430f4a1b5fdb64ca68e32bfcab"
+    },
+    {
+      "air_sha256": "42ad022fdad2746c635939901cdf75c37d408f824f620aab00be9cff13bcf289",
+      "fingerprint": "47ddfaa07a281a28694968ee00eb1be2ad1af44d22ee557f323ac84f496cdf64",
+      "network_id": "nat_huc8_11110101",
+      "stations": [
+        "07164500"
+      ],
+      "water_sha256": "7a4b52106cd8a636b2b382cf0b9fa626364558fff8881aa968177865c253cc76"
+    },
+    {
+      "air_sha256": "3931ab8469fa60589a5594da810fbf13d72c09f9c587c1f821645ff3895db120",
+      "fingerprint": "fb8022d5f1cdbc9bcc7e008cb76cd8ab88153f750810c16df75c061c526bb0ce",
+      "network_id": "nat_huc8_11130205",
+      "stations": [
+        "07311782",
+        "07311800"
+      ],
+      "water_sha256": "6f042daef515a6ff7ca8a8a395b331e3b9aca27c8759bc50a87be59aaa6e84d1"
+    },
+    {
+      "air_sha256": "3e78593b156329134dd2451a6eef578f18cb27d343bed2d53bcb4fb01efa56fa",
+      "fingerprint": "540282807891bd2aaea609302a4f595cfb1b07c5d8cdcc30dac842b5b62e9db0",
+      "network_id": "nat_huc8_11130206",
+      "stations": [
+        "07311900",
+        "07312100",
+        "07312500",
+        "07312700"
+      ],
+      "water_sha256": "d30730535d2b8fa80c29ab62a282fd6f525c519e9994149e028b13d9548d1a39"
+    },
+    {
+      "air_sha256": "6ed65d9e02fab5426d33a304237fd1c56ce83734d1f9cd8e742b4b60bcb9ce67",
+      "fingerprint": "754612a747f53738f765c60a5c4b6e7952ba44b905b54abacd9bade9f1c366bc",
+      "network_id": "nat_huc8_12030203",
+      "stations": [
+        "08067100",
+        "08067215",
+        "08067252"
+      ],
+      "water_sha256": "d750f75233326d0c900d6b31c4f8ed91bcff9f101558576cb9c83177bf7ba74c"
+    },
+    {
+      "air_sha256": "82a97fa0246e45a24513f6817484fd56ad34efe58d6c98b165e6a5ae98fbe999",
+      "fingerprint": "60450b414d279386b83b65e31bdb68fe72530ed73290a740833473afe53b22cb",
+      "network_id": "nat_huc8_12040102",
+      "stations": [
+        "08068275",
+        "08068400",
+        "08068500"
+      ],
+      "water_sha256": "4ac41f9fdae4b04cb3677e443834f744a6fdd8c1bc48273009233c6d13a821cf"
+    },
+    {
+      "air_sha256": "82183cf109f1472fe6b90d367ee79ce8df915dc4cd09db3f0ceb2518f61bcca9",
+      "fingerprint": "33d6ed51d46884a2b6f04f5f1cb4de2334e836c771390d477a1e592df94d6b98",
+      "network_id": "nat_huc8_12040103",
+      "stations": [
+        "08070200"
+      ],
+      "water_sha256": "53e610289ea9733a37295869ec68ebc8c88f84a27ba7af22ff1cbe121d42999a"
+    },
+    {
+      "air_sha256": "16bdc24db6689c79ca195cabe4815132a5e94173a8debbe3e3cc0e62d243d556",
+      "fingerprint": "fcdd2c0303c4230e8ea814b5840a83061a062470428b65c70906ccd270d571f5",
+      "network_id": "nat_huc8_12040104",
+      "stations": [
+        "08074710"
+      ],
+      "water_sha256": "44ac1fb4307395ed7c505503d96f45cdfcea4c644c7a51e15502a6375c373b79"
+    },
+    {
+      "air_sha256": "1dbad73dd9c17d6f6f98b7e8a26121ebf0b1ce7777039c36413852dafc7b8f6c",
+      "fingerprint": "d9a99d8076faded1c56f86e49a471177782020232bc60a919ae84be84c06626f",
+      "network_id": "nat_huc8_12060105",
+      "stations": [
+        "08086212",
+        "08086290"
+      ],
+      "water_sha256": "9985dfe8e96abf7027d82218a93c125d85848558527574e06006e48490f1acc3"
+    },
+    {
+      "air_sha256": "3ba88e2334a6397ba643a9f94ae399efa18b9c7eaeac81910772d29a3259bc90",
+      "fingerprint": "5aa1be57c8224a384fb733a8903e4bcb63751453908a3e67b11fddd3975c5b11",
+      "network_id": "nat_huc8_12080007",
+      "stations": [
+        "08123800"
+      ],
+      "water_sha256": "4508010b698d864b0833640afb64f98d9b806982dc6bdb718db16746da99e8f1"
+    },
+    {
+      "air_sha256": "714a2463d86e4ed5f9144115edc92e8467c947bd609affa6d01558c4102982b2",
+      "fingerprint": "527528a9db69922ef482300fc19df7acfd68ee8d4f4195f0c4127ecf3ed1fe22",
+      "network_id": "nat_huc8_12080008",
+      "stations": [
+        "08123850"
+      ],
+      "water_sha256": "1fe176645d7be28cc713d32a6e536ed9978070fdd545d78bc9ed6e553a412df0"
+    },
+    {
+      "air_sha256": "59c8fbbab18208d3ba1354ab8027165952e6ac2666b5d05d521a5674189f610a",
+      "fingerprint": "1c26f43c56124b73fcd3c3f9ba6e0398ebf9237b463130e37cb572300a6ab3f3",
+      "network_id": "nat_huc8_12090101",
+      "stations": [
+        "08126380"
+      ],
+      "water_sha256": "bf96f7b3fb553cfa887f6641032bcd67960da98915c3edf4fe67dad982aa2aeb"
+    },
+    {
+      "air_sha256": "832bc63c9b5c753516d6d8e5c419564c85f2e08c977a0839edd221437cb7f715",
+      "fingerprint": "9d78b03c2d4b6ea90c76bd002041c296d4190375e08a6b52fd46a33334255c61",
+      "network_id": "nat_huc8_12100301",
+      "stations": [
+        "08181800"
+      ],
+      "water_sha256": "1d3b3d7f949be38be3bfab5414ee491c2e47a1cf9f11a8138faf487669ebfa3d"
+    },
+    {
+      "air_sha256": "25e7d5e503d67b5d2c923d5d6dfc3aead3202f9dfab84cb5c587988a3428e696",
+      "fingerprint": "3de8603e529592e8374d2980687b31c426b6397625d5c853d4f0df79ce6a1155",
+      "network_id": "nat_huc8_12100302",
+      "stations": [
+        "08181500"
+      ],
+      "water_sha256": "354bf330cb43e4155d89b2f4a6f5b5f8ecbd11d655e5e15ef4b453acb129ae79"
+    },
+    {
+      "air_sha256": "1374919bff8377203d54815fbc3fbd4a6f6ea25271a907100b05030d27635951",
+      "fingerprint": "f80cee5cf45080d5d50f24f414f2c1a618f65b7da5fc830e9b6529c23ebd8548",
+      "network_id": "nat_huc8_12110111",
+      "stations": [
+        "08211200"
+      ],
+      "water_sha256": "4114ee0f101bb8fc64c6360a75ec3cb16dc65bc6db7b2f1156033cd3847b2b1e"
+    },
+    {
+      "air_sha256": "6df5a474636320f71fa10aecd74499c6d68f69d1da32d6516fa93c9790a364e4",
+      "fingerprint": "87f0607ced07643b4d6448fddc593ea4d84f5ba1ff5c4d43a375437d933a1ddd",
+      "network_id": "nat_huc8_14010001",
+      "stations": [
+        "09010500",
+        "09014050",
+        "09033300",
+        "09034250",
+        "09041090",
+        "09058000",
+        "09070500"
+      ],
+      "water_sha256": "545a391df805f58eab7099d52358bbc39717f9b492d97a0e93de52f4a9b68f6e"
+    },
+    {
+      "air_sha256": "63803c56e98e860bedb7a4e5f93b77b74548b2afbce2a1cedb55943ade76e22a",
+      "fingerprint": "efe4a7aafca4a89b96b5dee9eab2876aa435689e591bb95ad024e611b728c570",
+      "network_id": "nat_huc8_14010003",
+      "stations": [
+        "09064600",
+        "09066510",
+        "394220106431500"
+      ],
+      "water_sha256": "5585efd5125ad79de28bfbbcfbec588e77d7385c0d414c1cc13694315499b43b"
+    },
+    {
+      "air_sha256": "3a7e9ffb5923c0922f4f6eadf2d12794e838494b04fe0ecc51370698cb2c07a6",
+      "fingerprint": "3309b459b8b9cbbe47d4bd914dda0eac3ac6fdcccc0a350c9eb8290ee6d222dc",
+      "network_id": "nat_huc8_14010004",
+      "stations": [
+        "09085000"
+      ],
+      "water_sha256": "9b284d11e005d53b4262d9263a9d513814a118b29b3e36dcd0328da2c1434d22"
+    },
+    {
+      "air_sha256": "b119e885d51350acde0048688220b21c70dc08587d05cbed23456fd6ca056740",
+      "fingerprint": "ca48818031b20401b0703e87723ba634273e9acd03b98c0fcf9341f6f675068f",
+      "network_id": "nat_huc8_14010005",
+      "stations": [
+        "09085150",
+        "09095300",
+        "09163500"
+      ],
+      "water_sha256": "2d8a25b65cf660910674e3ce4669d9000f7ed47674fde46c0d9b2492874e2a23"
+    },
+    {
+      "air_sha256": "df4a7c6edff28ee49614b01935754f68b9c1cd3d318c88fef4114d8f50e9ded9",
+      "fingerprint": "240c173b095ff97a99fff9bda78221ecfd1b73c3313df523ea148a5702fb37bb",
+      "network_id": "nat_huc8_14020004",
+      "stations": [
+        "09136100"
+      ],
+      "water_sha256": "afe24a3036b797313aae34a5ef67f0cb891d50cfa1f0363a3f5d044b35869943"
+    },
+    {
+      "air_sha256": "05b3fc050a6a3094f0e5fef6c41753e4422674009548323c8f28937d632a9da6",
+      "fingerprint": "6e230a10b2f38d64eabd9cf8c2f27187baaa4b7d3ffb26781caa65347feb71cf",
+      "network_id": "nat_huc8_14020005",
+      "stations": [
+        "09144250"
+      ],
+      "water_sha256": "52342c8f727ebcb7b3c11e3b8df5048460124a0c775538cfe1e9c514ff643b9d"
+    },
+    {
+      "air_sha256": "0f1419237e4782ba20788d60aecf854a0d172377a822d5272ef0cf449fbc2c95",
+      "fingerprint": "4b8e9174e52ef11378bc3bc9697c8e30c063aa36bacf42fa9705a2dbd11f16fc",
+      "network_id": "nat_huc8_14020006",
+      "stations": [
+        "09149500"
+      ],
+      "water_sha256": "908e14172431ae3884d3decda9d3d6550b8ffb8a4a5a5272b08ad78078cee376"
+    },
+    {
+      "air_sha256": "1e48cfe48db09eb02e058b003a7d989bcd8ea0504d3968d6de8bc61536cc4a0f",
+      "fingerprint": "37d13d56941a1be71b32e43d4c460ac854e29cd0648f2eaa48098728fb0639e7",
+      "network_id": "nat_huc8_14030002",
+      "stations": [
+        "09171100"
+      ],
+      "water_sha256": "23b2ff09387473b7afa49067bc339f78096e3cf0c54ea546944a927d2e818a63"
+    },
+    {
+      "air_sha256": "22e065f493d1cc3157abb3219f4adae9ea6c4eab2a8e28634944231d9243f342",
+      "fingerprint": "89c9340362cab0d41bdb524ca293ae6f4f98b8a5d931b5cadc0fdc5010fd0a8a",
+      "network_id": "nat_huc8_14030004",
+      "stations": [
+        "09180000"
+      ],
+      "water_sha256": "3abecaef013067177c9cd9cfba72ce5902b24864a95915cb49e23839f9d91ef0"
+    },
+    {
+      "air_sha256": "7720f0a8f802c1629163d0e52ba9a7670ea524d117d1dfd955b131067b98e0d6",
+      "fingerprint": "8d7469fb4656ce3e86a45a99b75efd2c707051ef4544bd0905d9070e5b9c9390",
+      "network_id": "nat_huc8_14030005",
+      "stations": [
+        "09180500"
+      ],
+      "water_sha256": "9428f9402345412a642414791e9de18623fa81b89c12f16caea2b386d169d46c"
+    },
+    {
+      "air_sha256": "00509b6c3b6b406912f14231cfccf4f97d792ae67cd44e0ac0ae9efa497ffae6",
+      "fingerprint": "c267440c7dee07555e3309ad0e27e740d585026859e4137a1a4adbc595800b67",
+      "network_id": "nat_huc8_14040102",
+      "stations": [
+        "09196500"
+      ],
+      "water_sha256": "de68037cafd79a03c90cb5d8ebc35d9418e0e5a6ba0ddc5539487f547e1d80ec"
+    },
+    {
+      "air_sha256": "342065769e52aa94ae53126856534d80aaf89af909017b7e564214fb7ce84446",
+      "fingerprint": "c4a4c514face3ddb50341841f87b19b09255e1d04d0a3393b7a544d628c5a633",
+      "network_id": "nat_huc8_14040106",
+      "stations": [
+        "09217000",
+        "09234500",
+        "09261000"
+      ],
+      "water_sha256": "18f1cc9c75a7b08705b1c7e13b2781028fecf6b73c2fc80accb658cc45447f0d"
+    },
+    {
+      "air_sha256": "f4610165d1d1d1573238265fae4a1dc80125d43d22076af816b495734b12408c",
+      "fingerprint": "c8190faab69f57e23b6eeb7a5105182052ceb79647279b4889a03ca0440ff650",
+      "network_id": "nat_huc8_14060003",
+      "stations": [
+        "09302000"
+      ],
+      "water_sha256": "35b026d3568e3164566b012a00e1535f3dd6aee3a8279da9b87895c59eed4b65"
+    },
+    {
+      "air_sha256": "e937472b10f40ef7ece3f076888a23a54514b932b2b4c0ce7a29f16823bff04f",
+      "fingerprint": "2a45e8286fe918045c0172ef3e0746c8b516981fc355d71ae77ea07fce197b40",
+      "network_id": "nat_huc8_14070006",
+      "stations": [
+        "09380000"
+      ],
+      "water_sha256": "a6e4aa9aa74df28ff44fefe9fa328a48309d1d334e304b0ad8aae5f1eb0c72be"
+    },
+    {
+      "air_sha256": "45dda2029d2fc26ce8ff0a3dd55cfe5b54abe5f8c9ed76cdec25bae57c83cecf",
+      "fingerprint": "f36729ad7d12c144d8dc8e8c5eb333d0ee2305e6fa5b2a123276ab2d998e85a3",
+      "network_id": "nat_huc8_14080205",
+      "stations": [
+        "09379500"
+      ],
+      "water_sha256": "b9b7971bf3e474a039a01ab011101b51f6652f288d524733ddbb4ff147f8b933"
+    },
+    {
+      "air_sha256": "a35b9d4b28807b734343564367e3db42acf1201c01529bfde68462cab9c1b068",
+      "fingerprint": "cb9ea8289bb08aa910e9e222b4ac0d58e485e34fe97e060330d3bc1e52a7792e",
+      "network_id": "nat_huc8_15010008",
+      "stations": [
+        "09406000",
+        "09408175"
+      ],
+      "water_sha256": "e1d4af7bb76942ecf16ff5846c13059a47991e721743667f0d29370cbcb14819"
+    },
+    {
+      "air_sha256": "89a7bbeaab3ecce588dead8c296c62960febc1598ce7b0302830494b48f5770e",
+      "fingerprint": "a2dfa0443d4aac47026044ed4c095871ca9d77ba8d3c68f72e73e9879fb3ad84",
+      "network_id": "nat_huc8_15030104",
+      "stations": [
+        "09429490"
+      ],
+      "water_sha256": "a9f991a72ac04ddbe73362d9e56b6f945e19a8ae02e8891ec3cc6633550a0ce4"
+    },
+    {
+      "air_sha256": "9b155b25bdf0b0487f030caf614d6f9d83a1a191dada4622b55df54256a3bda7",
+      "fingerprint": "2609e7cc914d333fe3f1ae2487a5a5d57cb20865a61141e12dbe25e47a7292d1",
+      "network_id": "nat_huc8_16020101",
+      "stations": [
+        "10129900"
+      ],
+      "water_sha256": "a11be003c74f1c788acc4aeab860e84ba730f23b1fe1532206c5ebe1ff95328f"
+    },
+    {
+      "air_sha256": "0af47331a69967f7fb443bb7ac33f915ccaa1a92daacda650783a86dbe2b5627",
+      "fingerprint": "2c8e2e536070fc6dc48424d10e899300c2f50ff0d4b9e43d0ec992b92f7d7e30",
+      "network_id": "nat_huc8_16020102",
+      "stations": [
+        "10133650",
+        "10133800",
+        "10133980"
+      ],
+      "water_sha256": "f30549c5ea3b590068776611f603649133759bd963a2117857824d0e21275f65"
+    },
+    {
+      "air_sha256": "1587f8bf251e8c59a3898c272862e451451c403b1f7820d06c875076a07aa280",
+      "fingerprint": "84de969c4779603d7aac9c57ef361785da5260dc877f9024a8ef1c3044a112e7",
+      "network_id": "nat_huc8_16020204",
+      "stations": [
+        "10172200"
+      ],
+      "water_sha256": "d23f5eb8d34f6374d44ab554792e8c8f7b2fc0d86e09c22dfacb1842d2ca2a38"
+    },
+    {
+      "air_sha256": "6944bc363843cbb5e6da4be59421fe4f385cff669dc02896219180f7c00a94dc",
+      "fingerprint": "ec79a7f9294eaae01f16561fd69323fc39ad0dbe23e406bed4b4f2cfea8145a6",
+      "network_id": "nat_huc8_16040101",
+      "stations": [
+        "10313400",
+        "10315600"
+      ],
+      "water_sha256": "bc2f1c25a6a589fc81e7d8f75adbc9d27efd80d6e4106a6e7758b194bf940a60"
+    },
+    {
+      "air_sha256": "9111d2f3f03fc12420f976661fc872704512d33bb8d0187dbe129cd7e8ec4157",
+      "fingerprint": "a54ef12da6b62f6e8c927263012e752ed67eb0d550dda9c5b14449c3a0fae4ee",
+      "network_id": "nat_huc8_16050102",
+      "stations": [
+        "10348200",
+        "10350500",
+        "10351600"
+      ],
+      "water_sha256": "8b0aa4695c5092ae5ccda130025edbc97b659b2db5e6ae19beca2defbc5e4f36"
+    },
+    {
+      "air_sha256": "a024c708491e0aeae8f459e4a973f619904192e92f219e9a530d750495ad2605",
+      "fingerprint": "f6d54c238eff02d2470703be7edd9903b86c4dab246e999b6fd099a0b169c6d2",
+      "network_id": "nat_huc8_16050103",
+      "stations": [
+        "10351650",
+        "10351700"
+      ],
+      "water_sha256": "e8d111cab6cea2f8b9f53a7c225911f0a929c5ecb132ff3f582619eeeb0dc71e"
+    },
+    {
+      "air_sha256": "9cd104485b6cbeab040955ed58f47f88c9260aef37002f58f6222c04bb67621a",
+      "fingerprint": "88b934a9cb8ede8e1954125dd9caa25f32d3699cd54b609f88564331e8f1de74",
+      "network_id": "nat_huc8_16050203",
+      "stations": [
+        "10312210"
+      ],
+      "water_sha256": "7fc8d889dc71cd436298c20d84c85538d8914c3f8ab38b9acfe0548dd4395ad4"
+    },
+    {
+      "air_sha256": "bb8f5d3511832b2d26215976f993cdf3a7f10c05844a45421a2b3577527732c7",
+      "fingerprint": "cc0506ab1ca4fcbca842fb733917646e638b5f07bdfd5a23530b4a46101cfa4e",
+      "network_id": "nat_huc8_16050303",
+      "stations": [
+        "10301500",
+        "10302002"
+      ],
+      "water_sha256": "62d314292917146e9f0c2548eeaca9a096046b1981efec7356b764eeeaaccda2"
+    },
+    {
+      "air_sha256": "cfa7550153bcabc97fddd239f634574fe6a5e24e6000e19e961425834271636d",
+      "fingerprint": "442c746aaa275f5a1272d33e5ee816c1f7955e9e28e27ab86f0e28d5b2afed26",
+      "network_id": "nat_huc8_16060004",
+      "stations": [
+        "10249300"
+      ],
+      "water_sha256": "0cbe5785c86bb4866da4add8d79c8d6d9413b34c7b7306eddae8f124a6252a3d"
+    },
+    {
+      "air_sha256": "e70cc2498dc2ba747d818a7e0c5d68e55af713eab366d028abadc37efde9a58d",
+      "fingerprint": "ce194eab9334a9be486ecb725065d200ffd244e654fd9dc214d79ed648c432de",
+      "network_id": "nat_huc8_17010104",
+      "stations": [
+        "12322000"
+      ],
+      "water_sha256": "16776fb7795b5f045afdac73e380fd55911e44051768489726e6e2a62436e5cc"
+    },
+    {
+      "air_sha256": "5ba6cfc4e0599c9bb99a7be15957b275e2da108ffc1d3730cb3cdca2fbb5bdfc",
+      "fingerprint": "17e3a47b4ace91b4b6f605e4f18e184ede6b254f5cb3cc1c0013f05382c6062c",
+      "network_id": "nat_huc8_17010201",
+      "stations": [
+        "12323770",
+        "12323800",
+        "12324200",
+        "12324590"
+      ],
+      "water_sha256": "04bec69a1bf51451c084164f3b609193ed46954eee0b030cb90fb45e389171dd"
+    },
+    {
+      "air_sha256": "0347844b08df67716c424ef262f08527fb8d2e43474d1cfc9ad31a6ea271c31f",
+      "fingerprint": "136e8e325590f0403787e79c9348fe1306983374342b800c23b613d15297da11",
+      "network_id": "nat_huc8_17010202",
+      "stations": [
+        "12334510"
+      ],
+      "water_sha256": "85489e06c42e184c4122ca4da722a87314b6e2e229d61120d4a9cba7d216fa7b"
+    },
+    {
+      "air_sha256": "7d11ad8d8b36015bf9a3a9aeb5ebad2b928b3ce21b038d1b7ddc7f4d1a716c5a",
+      "fingerprint": "e0220afdaf0df227983ac64d581969f3a07503de19679d9ab7eaf6050504c055",
+      "network_id": "nat_huc8_17010203",
+      "stations": [
+        "12338300",
+        "12340000"
+      ],
+      "water_sha256": "5e5b44a2c085a33008aad0771824600e672cb43cf56e69208243fe0a4aca2bbe"
+    },
+    {
+      "air_sha256": "79647a244724a84a5e6543af9074e0d07067ee74133985bbc264ab5c1acb0518",
+      "fingerprint": "6ba7e87aedd1e2e83f449dfab67e0ca79678c593763e179dc33810a05d7f14e1",
+      "network_id": "nat_huc8_17010205",
+      "stations": [
+        "12344000",
+        "12352500"
+      ],
+      "water_sha256": "1eae25166baf09f1aec64e40038dcb5cd2376b36b3c71d539218857c444adae3"
+    },
+    {
+      "air_sha256": "d41f903bd3b67c1f7c35801ab5492b62b0012a5d47989e0593828e763e5f5130",
+      "fingerprint": "e699e9794080b5231a3472f7b544e89c22bb9ff305032ef99de62c6ab8cae3a8",
+      "network_id": "nat_huc8_17010208",
+      "stations": [
+        "12363000"
+      ],
+      "water_sha256": "5945d3e4aeafeb3892c89832242d438471c01b7f3eca9962c5ba14d5fbbc20f1"
+    },
+    {
+      "air_sha256": "e94bdcb92a6bb3f93614ef8b06236aac9572587a3acf47be79e042d31169ef0f",
+      "fingerprint": "69f3d8f9b71106aa976f05d10d506f97b720a4d9ea1aeed91799d70f22bbd8f3",
+      "network_id": "nat_huc8_17010209",
+      "stations": [
+        "12362500"
+      ],
+      "water_sha256": "a6ce91a783f45d705b17e8d49e7f090eaf266de829abf63181cb74c68b2001c4"
+    },
+    {
+      "air_sha256": "36c228840de1287998a37fd5d85e10940a0db27cf48848a2559dbe187326f053",
+      "fingerprint": "e21fd4d1682c7eacb8b8db889ceb89ba907c599a6e789257a235961afb322818",
+      "network_id": "nat_huc8_17010302",
+      "stations": [
+        "12413370",
+        "12413445"
+      ],
+      "water_sha256": "6feb936391bc58c9600c6827d42f4ad1025190d5d7c65291d3261c483c142035"
+    },
+    {
+      "air_sha256": "7235d1a04c3f4f9cb4879cfccafab1e5a4c0833794525c6c9c1de26b1139fcb7",
+      "fingerprint": "f886fee3b89c620f7957e353ce7101d188e2c4fe884d2e1d4289d906d61ae96a",
+      "network_id": "nat_huc8_17020006",
+      "stations": [
+        "12439500",
+        "12445000",
+        "12447200"
+      ],
+      "water_sha256": "90a7ae5480b13629ba68be85216157d290579f6c11b5e37006e87e462236c4b0"
+    },
+    {
+      "air_sha256": "fe84e6763adae75a562f5b391351e93732ad23d68a60ae1316869ca5a2ff4443",
+      "fingerprint": "a1c45d7887ace80f0a5c7b6278de3040ec4ac814a345de9793d2f024f821d803",
+      "network_id": "nat_huc8_17040103",
+      "stations": [
+        "13016450",
+        "13018350"
+      ],
+      "water_sha256": "07f7733587affc8722430d27b0ed4902aeadb0288a33c5a2a6ece3219c68e0f3"
+    },
+    {
+      "air_sha256": "ae7db6aefbf5b67f4216068ea4964e22bca52a8e50335fb62cc7633ffa327e0d",
+      "fingerprint": "843532e75363fe2b3f04c1330b8177d84f0ac17fddd587f23420b1e07f69a3dc",
+      "network_id": "nat_huc8_17040203",
+      "stations": [
+        "13056500"
+      ],
+      "water_sha256": "8080e98c7e99cb57d71a634081c0f1ddd5d2ff29c8f9d8ebdf2319ef8c02c046"
+    },
+    {
+      "air_sha256": "3b3d10b148914068f12441357f0ce9174544833dc84b93d1b9a73896532225d3",
+      "fingerprint": "8cc12596157f469a1dc625572072cc97b341675a44a9526f110df266a6a24d3c",
+      "network_id": "nat_huc8_17040206",
+      "stations": [
+        "13069500"
+      ],
+      "water_sha256": "6b3292fbbb90b56d1a4fa1654b8bca82af910473dca20f1325a7ec17c83b6985"
+    },
+    {
+      "air_sha256": "3c0883765248dc6757e60be2082006732b80141722afaefa4599218c50fd31f3",
+      "fingerprint": "7edcfffdc22650eced714e5adf55f0a1301091f40d42ea841228b3b2ec1e4594",
+      "network_id": "nat_huc8_17040212",
+      "stations": [
+        "13092747",
+        "13094000"
+      ],
+      "water_sha256": "e86f67008c81c04b849c3b9ac7fe57fe25c1de5a9a0c88eabe4352dbfd826487"
+    },
+    {
+      "air_sha256": "99906341757b1a85eb63d2054d533d8eec813460379a53eaa13bf0c9be43d29d",
+      "fingerprint": "3d7ff9dc3468d8c7f1d003ae7dc42023e8e7b42cf121986e20291070b9ec588c",
+      "network_id": "nat_huc8_17040221",
+      "stations": [
+        "13150430"
+      ],
+      "water_sha256": "100bdb4ded09a1b06c23052ad1034080f7fe94bb140d5c57fceadf9907167a73"
+    },
+    {
+      "air_sha256": "2b631c803c481346ae151450934f4d7e23fca5ec741c9426cb2c4be3e8a8dce6",
+      "fingerprint": "8a3ec1957bac5ce7ebf11e47f55e64003e8ddf435db45efdba6d9b37702d3b31",
+      "network_id": "nat_huc8_17050101",
+      "stations": [
+        "13154500"
+      ],
+      "water_sha256": "d7c6cd2f01ad0f904c6dd135932efac3c182f06d912902f0a555cc7025cd356e"
+    },
+    {
+      "air_sha256": "bd20a173328f9dd9add291069881f4b7f72d39dac8395173fe3543505f6dcdaa",
+      "fingerprint": "bc65d7e4967fbee5a76d69fa39c34b871307fb159a3734f2a789d73d06b00079",
+      "network_id": "nat_huc8_17050113",
+      "stations": [
+        "13192200"
+      ],
+      "water_sha256": "f5028cb7da6c3c9f9558be94eb15bbe062f02d3cb3ba52094c15003c06e7480d"
+    },
+    {
+      "air_sha256": "102da48a9aad409ca4bd3f45ecc441c109db2f26edfe3d5e91480fc23c75e553",
+      "fingerprint": "f9fa615c488e071361bbe3daf4480debb7bd579c1014e7f2463d5d803a3ece72",
+      "network_id": "nat_huc8_17050201",
+      "stations": [
+        "13269000"
+      ],
+      "water_sha256": "423993fb6f6b9e2b8507b06c64cb39a6cfed82c0f66117f21d3c1bda5749b62a"
+    },
+    {
+      "air_sha256": "9d2ca2c666f4ec3e9ed493709b7167efa81fe69e32b62486f1a330f075ef61e5",
+      "fingerprint": "f6670fecd1913194fabf4afb27011f2c75c008caf28def8e8a2da3bd4e39573d",
+      "network_id": "nat_huc8_17060103",
+      "stations": [
+        "13317660",
+        "13334300"
+      ],
+      "water_sha256": "d680807c7078e18c2a31e309951b4e42c161705b5d9ef7d4b63a2b5ea6fe7b32"
+    },
+    {
+      "air_sha256": "0d9c5a2064392dbca1372e4f062ce0abb0a21e234b549ebe2b0e7352f7301d0f",
+      "fingerprint": "dc674e8adfa715382a84b6cf662136d3676e7ac2a210902e087b6302423e4004",
+      "network_id": "nat_huc8_17060105",
+      "stations": [
+        "13331500"
+      ],
+      "water_sha256": "8e1dc15f46592fd88b69ce8000f1ef475e63bbfa8f548978ec0f51d3897e0296"
+    },
+    {
+      "air_sha256": "c4d6e0e377f9c800709968abac9e274f186d12df3247a7c3b69f518078729c1b",
+      "fingerprint": "9926fe11b4a73ae291755fb6379da1b706ee7d9721db485de7ba720f07335f45",
+      "network_id": "nat_huc8_17060306",
+      "stations": [
+        "13340000",
+        "13341050",
+        "13342500"
+      ],
+      "water_sha256": "83f16ba2762b3b1353e3d1160f08eec43d7e1a0f476f5c0ceb14bf426eeb3256"
+    },
+    {
+      "air_sha256": "c228994380dda7423543b02623615fdf1ed0db4a700398207210b0366124f072",
+      "fingerprint": "f08c2ff3e93f9eb7d9a62cac80c8439bf82eded41db76d4f195d61231d097127",
+      "network_id": "nat_huc8_17060307",
+      "stations": [
+        "13340600"
+      ],
+      "water_sha256": "834b56204175cfddbee7bc6dd0f3cd1340b5de09bb113707c8a97abdbaa991c7"
+    },
+    {
+      "air_sha256": "46f52a1fb037f61ad8c2051aa07c1d827d72065cf950bfe4d7dfe29f520ff84b",
+      "fingerprint": "a15429ad487817503311f9cff7454686ae96e25d12b517f8797c6fea4b8172c9",
+      "network_id": "nat_huc8_17070104",
+      "stations": [
+        "14034470",
+        "14034500"
+      ],
+      "water_sha256": "03824e23bdbf7a1aec18d586f7195033872f3c2b8d01867e4275340b67d8af60"
+    },
+    {
+      "air_sha256": "75108698e90face486ac1e5373662b42d2ffaf84707bf98dc5ac5ee745e1c5e5",
+      "fingerprint": "c42921fc8fc7d22422c4e5f11ed19368b760a198e8bc7e342dd4dabd71e68a80",
+      "network_id": "nat_huc8_17070105",
+      "stations": [
+        "14105700",
+        "453712121071200",
+        "453845121562000",
+        "454249120423500"
+      ],
+      "water_sha256": "6326f7440c54b255898172ca4fee15115219d38631bd7204cdabe24647715367"
+    },
+    {
+      "air_sha256": "e20e4668d0b3fd49529ae487939f62656c12ca992f4af101b9c031b491a8d1de",
+      "fingerprint": "170b38f21aa63acb518e0a8449c3eda9ca2510502156826d41807c9ec4d361c8",
+      "network_id": "nat_huc8_17070204",
+      "stations": [
+        "14046778",
+        "14046890"
+      ],
+      "water_sha256": "ac471b9c88670874c3056114c65337a5d79046da02ec3a2e48cf7c23957a0cca"
+    },
+    {
+      "air_sha256": "09b139e36a92120a0c695892424e73f1e314c60b0423a2b8d868c590126fe98b",
+      "fingerprint": "17df078adaa41ba3141e87fd36d011c63c22500ee566e3e26d32927c7dbb4e0e",
+      "network_id": "nat_huc8_17070301",
+      "stations": [
+        "14076500",
+        "14091500"
+      ],
+      "water_sha256": "059d524062c29ab556737e0c5c18e1ecda18b949071f5fb2a90b3435b53878c2"
+    },
+    {
+      "air_sha256": "7a2bb0e36a95a81583d8740d37a923528e1f3092c25b8a3f924ac03d1f3e127b",
+      "fingerprint": "6ce1213a9f8cffdf7ee1611b76153470ea8905c446a1b55afe5b36e1b7d998d6",
+      "network_id": "nat_huc8_17070305",
+      "stations": [
+        "14087400"
+      ],
+      "water_sha256": "8fb1c2cfbc479c33df4c21caaf3142a3cefe06453603d49ce12153a6bddba661"
+    },
+    {
+      "air_sha256": "b82138f9060b6cc0661bd0e139af7a511b0aa77308d351f62376b1c2a55eb436",
+      "fingerprint": "623c5aead4d1d0134f7cb6bf576484e7279922a312254f9a01c4519e264e0600",
+      "network_id": "nat_huc8_17070306",
+      "stations": [
+        "14092500"
+      ],
+      "water_sha256": "41a0fc281881a8cd2f3d583093c7ab029e10892f42a574df7a944d38ea14896d"
+    },
+    {
+      "air_sha256": "0c14a3c1b3827c1805802c22c5c8bc099c12eeb9f3d6ed825a3b99e96de05724",
+      "fingerprint": "f3c97ee7b9fa060dd026b91342aada610dcb065a64d55688c04ae9a30c151040",
+      "network_id": "nat_huc8_17080001",
+      "stations": [
+        "14138720",
+        "14138870",
+        "14138900",
+        "14139800",
+        "14140020",
+        "14141500",
+        "14142500",
+        "453439122223900",
+        "453630122021400",
+        "453845121564001"
+      ],
+      "water_sha256": "2aab23c6112be0c5b9cdf59d885556c3da6c97be15f63fe9c0aee7f3cdf707b4"
+    },
+    {
+      "air_sha256": "2bd4fe808b17c285e41c830dd931c2b6b18983e142c486a9d3611fa139fe62fd",
+      "fingerprint": "8c090a1cb38258f190a4b248be12f4e20b582d0727399343cb14f690d7687a92",
+      "network_id": "nat_huc8_17090001",
+      "stations": [
+        "14144800",
+        "14144900",
+        "14145500",
+        "14147500",
+        "14148000",
+        "14150000",
+        "14150290",
+        "14150800",
+        "14152000"
+      ],
+      "water_sha256": "28b8761dea10b971581cbf32a8be173b70bf53e31a2fba52e89c1b3f3dba4249"
+    },
+    {
+      "air_sha256": "ba86c96523d3da528ea90b13b66af68b49afb4210d697ea730e5a78db21f57f8",
+      "fingerprint": "4ad0431e03b633ed68138b8f62e4597fe05780ee90537fe565af9163026c898a",
+      "network_id": "nat_huc8_17090002",
+      "stations": [
+        "14152500",
+        "14153500",
+        "14154500",
+        "14157500"
+      ],
+      "water_sha256": "17636bdc2fe836f9c5f29922d466ebe9c0a0f8ab7b8924dab4e99d9cdc8ffb69"
+    },
+    {
+      "air_sha256": "f8848cf6e5779105f737a0cc46cfc739a1e2f7d7312deb2b2eaf80dc8cfeaaaa",
+      "fingerprint": "1a15fc420cb005ec06b81622bfe642862db87105b356964d5b195d0e13408b11",
+      "network_id": "nat_huc8_17090003",
+      "stations": [
+        "14158100",
+        "14166000",
+        "14169000",
+        "14170000",
+        "14173500",
+        "14174000"
+      ],
+      "water_sha256": "d798dd0dcdf23960ba43ed8ed067bd73a2e002b565f2f3c91445a305a27c6dc4"
+    },
+    {
+      "air_sha256": "dcfca7a80e389553373eec8a2c2846a5188210919ca505f6248fe5afd9732a1d",
+      "fingerprint": "8953a76806070d5469f457ee77efa00ead5956b303e3a64db172c18d628b8f83",
+      "network_id": "nat_huc8_17090004",
+      "stations": [
+        "14158850",
+        "14159100",
+        "14159110",
+        "14159200",
+        "14159500",
+        "14161100",
+        "14162500",
+        "14163150",
+        "14163900",
+        "14164900"
+      ],
+      "water_sha256": "f676ce8eaa90a211f8754a4b87b5dd4d9655fa9eeb5f75e0f39a3e0e56c04805"
+    },
+    {
+      "air_sha256": "f313c81188714272d254bd86021374803010bd3c72b6ec9d0d30f806c639226a",
+      "fingerprint": "e96e62951350abdb82872b755bde8d1436fbd88794ac8a6ce982e73cb7480bd3",
+      "network_id": "nat_huc8_17090005",
+      "stations": [
+        "14178000",
+        "14179000",
+        "14180300",
+        "14181500",
+        "14181900",
+        "14182500",
+        "14183000",
+        "14184100",
+        "14189050"
+      ],
+      "water_sha256": "edfe957032876379455309a45ccbab64eb696a39c8ab91700b38796de29e0166"
+    },
+    {
+      "air_sha256": "a1741ac21e4417912ae53c6f0a165c20497085a5da3ded97253369026fba7fe9",
+      "fingerprint": "db372b14aa4d058a15bed014de41c8071469328aff5af98ce74c27da09ce4250",
+      "network_id": "nat_huc8_17090006",
+      "stations": [
+        "14185000",
+        "14185800",
+        "14185900",
+        "14186200",
+        "14187200",
+        "14187500"
+      ],
+      "water_sha256": "31ee1b5e465db8e7fc02c59bad6ab765d12b1df5fab8437a73ce5766bd33c5b2"
+    },
+    {
+      "air_sha256": "cc9ca89a8e3399aeab981b64f45e8afc1a0f6353fbcd3490c62d8500023874a8",
+      "fingerprint": "ec82824f69a9aa19a81e5b5f814ac0d119db4fc7e22d80ffea824e463368ce2f",
+      "network_id": "nat_huc8_17090007",
+      "stations": [
+        "14192015",
+        "14197900"
+      ],
+      "water_sha256": "ff14b6f2bda7ed59f9f0984cb4f75f39e7dc71f40867517e433813793eb39181"
+    },
+    {
+      "air_sha256": "4916d8050c8b644322faeacc61caf9ccdadb4eda7087f80a829f533bd520a8d7",
+      "fingerprint": "5920a9859c8c0a5bfc2d5c2f90126232b467aa579c8f8227a1b0204178be9bd7",
+      "network_id": "nat_huc8_17090010",
+      "stations": [
+        "14202980",
+        "14205400",
+        "14206694",
+        "14206950",
+        "452230122512201",
+        "452559122472401",
+        "453004122510301",
+        "453030122560101",
+        "453040123065201"
+      ],
+      "water_sha256": "472bcdce9d1decea7ec97ca8261aad04f79c4b9864a73754c969ad568c474299"
+    },
+    {
+      "air_sha256": "a4c283e0660bc15e8d812e97f79c7b0fe0908728c5cc6ee9e5f1cdeca63b0dbb",
+      "fingerprint": "93f931d2404a2576b6d0b4063242372fa44f5f929b67973b0c94b806f2e3cec8",
+      "network_id": "nat_huc8_17090011",
+      "stations": [
+        "14209710",
+        "14210000",
+        "14211010"
+      ],
+      "water_sha256": "8a2318581b13879ef631ab66cc45e1c8a051621b5d4debbf5a6ff6b873b4035d"
+    },
+    {
+      "air_sha256": "fc9a7573b82ccb7a74c243609906c28bbebff254d28a6e46515984c8b11fdb34",
+      "fingerprint": "e7ccd8092db4a54e138407a1aa9d663996ac80ea32b68acf055cfaaba054ed7d",
+      "network_id": "nat_huc8_17090012",
+      "stations": [
+        "14211400",
+        "14211500",
+        "14211542",
+        "14211550",
+        "14211720"
+      ],
+      "water_sha256": "10a442a8e9c7409fbe914d7fb3f4322ead5827c6acaff85f8b61e6c2da57eafb"
+    },
+    {
+      "air_sha256": "de1676f6228998b0eb3e0fad843bab71c5c506102f4153b45317784567a53704",
+      "fingerprint": "96ea34e8507985420b154375b7d00fde4c638ebaed406c222d33226ea0b4c0c5",
+      "network_id": "nat_huc8_17100301",
+      "stations": [
+        "14316460",
+        "14316495",
+        "14316500",
+        "14317450",
+        "14318000",
+        "14319500"
+      ],
+      "water_sha256": "15deab24d4bb88848c749cb4d0b6bba57106ddce7aca87d4809ab215e650b556"
+    },
+    {
+      "air_sha256": "ac7e640e51a82ebfbecc1b4aa2292772dbe87f80866893390d867178261df339",
+      "fingerprint": "eacab344043c01dceec62f4e14041fcda56f08b45eafd9be1598d61454fe3faa",
+      "network_id": "nat_huc8_17100303",
+      "stations": [
+        "14320934",
+        "14321000"
+      ],
+      "water_sha256": "9506e1582691a6a29ed01290583067e7c3c5e6ee5903918c37a8af0067f8aedf"
+    },
+    {
+      "air_sha256": "f87ef85a31b2243a7c893e30c2c3d2751f5246e44481ca94a78359c1186b70f9",
+      "fingerprint": "47ac86fa10ffa7cec038426a8ffd82f9e02e1ab70ffdc9ad656767c9c1319c4e",
+      "network_id": "nat_huc8_17100307",
+      "stations": [
+        "14330000",
+        "14337500",
+        "14337600",
+        "14337830",
+        "14338000",
+        "14339000"
+      ],
+      "water_sha256": "3ac81961654d7e494afdd1855a7ad5bf1cab37b0f1abaae3e1c38600a7c8b9d9"
+    },
+    {
+      "air_sha256": "30a33d227952aa03ccef5ead5e64b286dbed96e516c5fabf09ef92c7373136c6",
+      "fingerprint": "e4a73db1c8273ad2b6304532e924c86e15e56d0098fa64523438c27f144db1fd",
+      "network_id": "nat_huc8_17100308",
+      "stations": [
+        "14359000",
+        "14361500"
+      ],
+      "water_sha256": "f854342d1aa829acb4211100bca9ab62418118c682a72fa2977d333f67cec018"
+    },
+    {
+      "air_sha256": "7dad34f6be4db69103ad808746d5555f24ef178ca44f0f670102d522cf874ed6",
+      "fingerprint": "49bb6f48f8e39c8b066644bec9056f6ddaa49186c132e6a479780f991768da42",
+      "network_id": "nat_huc8_17100309",
+      "stations": [
+        "14362000",
+        "14366000",
+        "14369500"
+      ],
+      "water_sha256": "f7654053eb700dec5e4a8d9861f933baf10d40769ffd4c3dcd65a3e373a7df5a"
+    },
+    {
+      "air_sha256": "e50f2911f2eadcc15ed503279ab9700d57498811ab7e933ab8c6b927ea76f25f",
+      "fingerprint": "9ddb9a8cd54b778412152c6b636c9c373aea10b8bcdda03fbfa0e77c54e3a307",
+      "network_id": "nat_huc8_17100310",
+      "stations": [
+        "14372300"
+      ],
+      "water_sha256": "4c097cd0ac1784f122932bae6b2bc8661602cb6fcb7bc2952c145528a866f7f9"
+    },
+    {
+      "air_sha256": "3a6ed92b044caa649bc5e373fab849a5219b7798f1d28c058dcd960f557700a3",
+      "fingerprint": "dac0a4b6ebb956a5dd6b9f8b2ee32b28acfe4f9de113ff605145e85daf5f707b",
+      "network_id": "nat_huc8_17110004",
+      "stations": [
+        "12205000",
+        "12209490",
+        "12210000",
+        "12210700",
+        "12210900",
+        "12212050",
+        "12212430",
+        "12213100"
+      ],
+      "water_sha256": "cd383badd4bcd7ea076bcbc46fe5bbd2e50eb69b968091d40719b730205c9256"
+    },
+    {
+      "air_sha256": "0f69c1e3cfdd31893c05f55460818ce7939363bdc0160127c841779ac27f3838",
+      "fingerprint": "b60ef5bde9a31036137967fb7e4375e6a3038d07c120b13785d325bccee9d16c",
+      "network_id": "nat_huc8_17110005",
+      "stations": [
+        "12178000",
+        "12181000"
+      ],
+      "water_sha256": "261a68a299995d8a047b7383bb054bf64734e82be654ad4c11babd2efe005056"
+    },
+    {
+      "air_sha256": "b8e89b92744c3b248b37e77c2b8c307ed42c048c62ae6bf84244dcc3aa61e591",
+      "fingerprint": "34323c5266adb15f6569b1d22f88bb8bbdb4100ace9ea75bbe17253d586db8b1",
+      "network_id": "nat_huc8_17110009",
+      "stations": [
+        "12137290",
+        "12137800",
+        "12138160"
+      ],
+      "water_sha256": "15fd8172d0946bcfa1f86c0b595d7a4311e68a328fcf556b1292b3ebbc22f984"
+    },
+    {
+      "air_sha256": "a7f5a5344d0fbe3a4d65906d37b5a7d8169551dc6ea91beb584ef4295874e56e",
+      "fingerprint": "1479d1e052e58f21ef7e27ae3554bd94a23d0c64a97a6dcd790f01b820d0342f",
+      "network_id": "nat_huc8_17110010",
+      "stations": [
+        "12147500",
+        "12147600",
+        "12148000",
+        "12148300"
+      ],
+      "water_sha256": "4a336930705e0461a3739f07df7394c61e36cd52899ee330a3bd9284f4fa80d0"
+    },
+    {
+      "air_sha256": "67054b437a4090a08d2bb829657ee35722581efa9db8a85ef0bb72df03b45935",
+      "fingerprint": "9d5d98023330cc66164b55d402f4901748699c0e3b4ae270b110811e2f0f0fca",
+      "network_id": "nat_huc8_17110012",
+      "stations": [
+        "12115000",
+        "12116500",
+        "12117600",
+        "12119000"
+      ],
+      "water_sha256": "29564fb303446547bfe85f0ca15bd87b9d8f13929feab378c2371988c943879a"
+    },
+    {
+      "air_sha256": "8647a518ed5c1c3db43bef904083a56e4fda61ec942b6afddf0aafe930b5cc02",
+      "fingerprint": "01ba53f3bbfafc7c4521207c046e0a432cd0f65113d2951ff4af53c67343f2a1",
+      "network_id": "nat_huc8_17110013",
+      "stations": [
+        "12113390"
+      ],
+      "water_sha256": "4a5ccad794ea96572c7b014c06fd4cbceccfcb8598e8250c97b4dd99e61e25c5"
+    },
+    {
+      "air_sha256": "02c1094bac15a13364b98508e67f52bd20a75889a3797285fa20793a394d4393",
+      "fingerprint": "ed687127ccacbfea6664acac91ad871b6e5b1caaeeb8d550f49a6259f0f2eea7",
+      "network_id": "nat_huc8_17110014",
+      "stations": [
+        "12100490",
+        "12101100"
+      ],
+      "water_sha256": "107ceebce9d1c7f630474055f617979b037de49b5a7134d8322bb80bc51f1d54"
+    },
+    {
+      "air_sha256": "12236dba3a8feec81bb8915a84dc51a4eee7f8e4c6a0be99e22ffc479cf216c7",
+      "fingerprint": "861797e388654d13f24599c502fe4b76e09e4cdaf2f6641b371b59e4c80424db",
+      "network_id": "nat_huc8_17110017",
+      "stations": [
+        "12056500"
+      ],
+      "water_sha256": "a045e0f372eb48307fe94b9f495495b357a0131808bd3c5a84f544ffa6795c51"
+    },
+    {
+      "air_sha256": "a00960cac007c943bb201fc9b97e85fc60125c56538fe51aefe8948dc60157f8",
+      "fingerprint": "1fa8affd88f7cced1b9c9031b8dd4ff0d0c7af6bdd8315c92b490de2db9ee41a",
+      "network_id": "nat_huc8_17120003",
+      "stations": [
+        "10396000"
+      ],
+      "water_sha256": "b41257f9ca003d209f430395c3b542ba35904afe7e83bed1a499a8d1dbe76c60"
+    },
+    {
+      "air_sha256": "59eeb546f501068f623bd1061971058324daa1983b1ecc1fc9ad514484080fae",
+      "fingerprint": "c57fc1b4f46445d582658f13cdb19d42ee047b4c18bce527eb490a6ffc1275fd",
+      "network_id": "nat_huc8_18010110",
+      "stations": [
+        "11467000"
+      ],
+      "water_sha256": "e357ce097006b8731d0d0570e28667db7751f2ca6bb9556a799f142f1f7bd642"
+    },
+    {
+      "air_sha256": "6e06c1e15295a27a1075b52c1feed2c22a5b0cfec14977abf1335ea3db3d7a3b",
+      "fingerprint": "d0336360156d5935aaa96448e958358beb66ce46bc48105a35708306517822ec",
+      "network_id": "nat_huc8_18010201",
+      "stations": [
+        "11502500"
+      ],
+      "water_sha256": "5f31689761908a66522a0fc5d506bc06947f0c98178e05655b27cd1a60070ca8"
+    },
+    {
+      "air_sha256": "0a4f9e7a4953ceb504658f4dee35869cc2dd869ea75bbd9ecd512a24755b78d4",
+      "fingerprint": "9ff643eac89ff67814f7a0048cac677b87cff2dce69594c024c564935fae24ae",
+      "network_id": "nat_huc8_18010202",
+      "stations": [
+        "11501000"
+      ],
+      "water_sha256": "cf47f5b0206bd25ff904bae873f3b8225e3ea65bb683efdb381bdfc146bfb9e2"
+    },
+    {
+      "air_sha256": "282a2b4ac6741ef272f2a22aacc42214a36e213746ca0caefe1a432e0224db61",
+      "fingerprint": "c81f86c3a8305417b70e395db527154608d5d41214127413a50a137e637fd02a",
+      "network_id": "nat_huc8_18010203",
+      "stations": [
+        "421401121480900"
+      ],
+      "water_sha256": "9c5bd6bde6fae3ceb40e1c9baaeb1e9efbc81b6508d2d8daf626498d8d21b254"
+    },
+    {
+      "air_sha256": "eee82cb4982edaeba8ee5007fc9fec17883ae5966f28a76a768743922b924f62",
+      "fingerprint": "0811068fbd4d2f9544a6119172f2d3a7c7a07e8822de474eeb8d750c2da4404e",
+      "network_id": "nat_huc8_18010204",
+      "stations": [
+        "11507500",
+        "11507501",
+        "11509370",
+        "420451121510000",
+        "420732121501100",
+        "420741121554001",
+        "420853121505500",
+        "420853121505501",
+        "421015121471800"
+      ],
+      "water_sha256": "4b5157876653cb3629405baae0af8b5b74d7408974cf5ca2c562b8317ec70eff"
+    },
+    {
+      "air_sha256": "d0bf307b7fdd145b9fafbd54d17546829afd7781c89f969af47a127c347a1d38",
+      "fingerprint": "b0852fa33d58fa0b2345def57c5a6a5a7491ef8669f5a8c6d14699c0d25c419f",
+      "network_id": "nat_huc8_18010206",
+      "stations": [
+        "11509500"
+      ],
+      "water_sha256": "14dd03807a3c35864aeb2622355b05fff6d9d130774c0a28e0489dccf692fb2f"
+    },
+    {
+      "air_sha256": "1118261ab17d480fc6fe7806c207c3016019c74eafaec57a2039deb30cfe2813",
+      "fingerprint": "7f5e7e925df8792972eeac6052f58b4c1586d954cc046c9f88d33bbd9eee7cb8",
+      "network_id": "nat_huc8_18020163",
+      "stations": [
+        "11447650"
+      ],
+      "water_sha256": "13c83467326e6e3187098e855b0dbbca4ad24ae3edc66e93f6bd76039841dc05"
+    },
+    {
+      "air_sha256": "0ea89a958286330da7e8260c4ccd5063fd8cfbe1907a6e92f2a75b4ea65de364",
+      "fingerprint": "c1ea3b453cbaef6fe600524669eafbda2f282392ab607a0d2eb36d9ea48d91d5",
+      "network_id": "nat_huc8_18040001",
+      "stations": [
+        "11261100",
+        "11261500",
+        "11262900"
+      ],
+      "water_sha256": "3cf378332a5e6bd2fb022301a1dcd113afcbb0b22cd5225b0078ba1eff048f73"
+    },
+    {
+      "air_sha256": "ade84c2a843f8faceca64d6ec35b6f4c5fa56f6ab126e355ea68b4a34f0f68cc",
+      "fingerprint": "84ebe60ac1b42189aa40623274454e301566395df12207c9bd2076ca5c97aa17",
+      "network_id": "nat_huc8_18040002",
+      "stations": [
+        "11274538",
+        "11274550"
+      ],
+      "water_sha256": "990d5b0023d1c4888020fdc946208f62b46755d1744edd9bc33c98e839d0b194"
+    },
+    {
+      "air_sha256": "df8d7e981af0ee3bd2770db2def6f55e439f05d1a03b088f5cdfa2aaf98164b5",
+      "fingerprint": "31c0d6a7f2133989e5e7821af808c5b125d46fd935493fa7268b9e0b2b1d520e",
+      "network_id": "nat_huc8_18040003",
+      "stations": [
+        "11303500"
+      ],
+      "water_sha256": "9093c964083734a19b0058e39cbf090e9e11c26ff15a8ec0a459e3cedad94599"
+    },
+    {
+      "air_sha256": "f0085da1889caf4b284216e428302034acb8c2dcad25406e2ce9bfbe362f72ac",
+      "fingerprint": "6ca2b973de3494c9c39f760a7bb0c22137140eabee210866d9ad2af26a99b887",
+      "network_id": "nat_huc8_18040010",
+      "stations": [
+        "11299997",
+        "11302000",
+        "11303000"
+      ],
+      "water_sha256": "c77d308eb194fbbda3a4e89c01faba45d67ec4e46d4e2852a9bfda69aa555439"
+    },
+    {
+      "air_sha256": "6fbd671fe13fec4a1768b3828117fffd7523e0f343042b5d36e86beafef27096",
+      "fingerprint": "241dfa507ec0c0410d529f26707fecfe37b6793f4245541a29e7e0b96a82d83b",
+      "network_id": "nat_huc8_18090102",
+      "stations": [
+        "10265150"
+      ],
+      "water_sha256": "69cd51eced9c0868665e7573a7213b9d9f37dea999debc254d1900fbd84814ee"
+    },
+    {
+      "air_sha256": "d6c5b36a543bf2104e463a1c14d94605eb67bad39ccfd8cd293ffdb50d3dd228",
+      "fingerprint": "de43cec0ab4aa531a5bf2b761ddaad5fa24a66243ade4cf977609178f1d57916",
+      "network_id": "nat_huc8_19010103",
+      "stations": [
+        "15081497",
+        "15085100"
+      ],
+      "water_sha256": "da898209c1793d7a8361d7092810c0ca369d3c96a5b1249e24d81097a7ff84ac"
+    },
+    {
+      "air_sha256": "80c94a35a4f8fcca77ace5d1be357d91c73c191fc77b99b65d84ac89a3e55cb6",
+      "fingerprint": "61bf8a52d929ef336a2db25229e49103141f822c124f0d2f261b473fb6e3b1af",
+      "network_id": "nat_huc8_19010303",
+      "stations": [
+        "15056210"
+      ],
+      "water_sha256": "eff253688a0e135dbcaa50c3fc9f60aa1a9541605ab54c5f78e2af750b279dea"
+    },
+    {
+      "air_sha256": "cfd0b135c89d3af1f431bd729890cde4ab931e155d06a39c24abfc94e98de620",
+      "fingerprint": "3863c11a1c280ad9705111d402309ab7008ca92e38268031be3c41426c3c43ca",
+      "network_id": "nat_huc8_19020301",
+      "stations": [
+        "15238986",
+        "15239070"
+      ],
+      "water_sha256": "734200b67faacdb1f7dd44e959af2fae9b178d38c422cca8c60745dd0625900a"
+    },
+    {
+      "air_sha256": "2deee1f1725102c0b209ad4ef4bcbbd5b3ebfbb4b43b15e53f93f714e01b5592",
+      "fingerprint": "74682fe03ad03ef4488c206e1e16a4095a208743d4bed3100557bbe055532c18",
+      "network_id": "nat_huc8_19020302",
+      "stations": [
+        "15258000",
+        "15261000",
+        "15266300"
+      ],
+      "water_sha256": "8bcccb222bdd38b1d8e7841670c75499e29f9eac25dc686b47503c19e8f44d00"
+    },
+    {
+      "air_sha256": "7dd08a6c7c49dc9ca88dca10ce9137793c6ac3994e3180c22227cae88105a2fa",
+      "fingerprint": "a610d9f04de7cb0583f278b9d42b7f826fbb1e5be48b425521f82b85f48bafcd",
+      "network_id": "nat_huc8_19020402",
+      "stations": [
+        "15283700"
+      ],
+      "water_sha256": "a638e763fd90b790d35606571091a83f0d4867c514bcbea648da6c2a07533da0"
+    },
+    {
+      "air_sha256": "cee5cc48d26255179b06234b3f20bff09d29c61a3b29c354850a05d10f427ae3",
+      "fingerprint": "f1edbd3d8a5375ffe640705099a67585f9701b2536f0190f37414257de798ca6",
+      "network_id": "nat_huc8_19020505",
+      "stations": [
+        "15294005",
+        "15294350"
+      ],
+      "water_sha256": "6ba1bed0b7707e939c494ad737e3e1b79bc90268d140fe8a403ec4e96de0eac7"
+    },
+    {
+      "air_sha256": "76c7edc06961e91f65331962fa0761b0a3568715ea9841b85451960b1e9073d5",
+      "fingerprint": "575f1785d4cef7ecbc7ca322e7588936a9d802520d39b9b8deee661c1f34fb48",
+      "network_id": "nat_huc8_19020701",
+      "stations": [
+        "15295700"
+      ],
+      "water_sha256": "424ebb40e09fd4b02f51fef614b4145f4c204efddd7c113c2792976bbfe18d26"
+    },
+    {
+      "air_sha256": "e124d41ee8b8e84753d5769608998090d3eb4af22a5da797a3ba9e4db10a41bd",
+      "fingerprint": "cc30f2caac416723cc664f60f7af13ff0ba6e1817e4d7737b4512ad82e100a44",
+      "network_id": "nat_huc8_19030101",
+      "stations": [
+        "15297610"
+      ],
+      "water_sha256": "d8a8782295871bee8e45622f9215a634b07a200903e20b0fb4e2dfad94f4a3c2"
+    },
+    {
+      "air_sha256": "86fd119132d555200c3e6af28957e24f10988f6d616e8f2b184482c1bf09abb4",
+      "fingerprint": "6668d204080c2ac02bf72d1ae35c65b44840e8f21b19f93fe7edbafc4bfa7f52",
+      "network_id": "nat_huc8_19080309",
+      "stations": [
+        "15519100"
+      ],
+      "water_sha256": "a5a33c927bee734d2c9d0257232cae8e31842c9d9d135cff9f491ea7f6512c26"
+    },
+    {
+      "air_sha256": "1d70177667289a5ca4007579a6d7c97d7dbd84defaf9ae397e4dd66e20c973ec",
+      "fingerprint": "130c94c3c1f9a4ae73ebd969d646c78b5820c6cecc8a84c74df0e45664ec1a32",
+      "network_id": "nat_singleton_12212390",
+      "stations": [
+        "12212390"
+      ],
+      "water_sha256": "d9ad334f1261af8e572c6dee26029220964e46810ca8b36d56acadad94e22835"
+    }
+  ],
+  "partial": false,
+  "source_model_sha256": "1c7cbc30ce0d60e894f4d195e6381310caf6927ec324b80f4b11c4be23f4d78c",
+  "targets": [
+    "01018035",
+    "010642505",
+    "01095220",
+    "01095375",
+    "01104405",
+    "01104415",
+    "01104430",
+    "01104453",
+    "01104455",
+    "01104460",
+    "01104475",
+    "01115098",
+    "01115110",
+    "01115114",
+    "01115183",
+    "01115187",
+    "01115190",
+    "01115265",
+    "01115275",
+    "01115276",
+    "01115280",
+    "01115297",
+    "01129200",
+    "01129500",
+    "01193500",
+    "01359139",
+    "01362230",
+    "01362500",
+    "01388000",
+    "01417500",
+    "01420500",
+    "01421000",
+    "01425000",
+    "01426500",
+    "01427000",
+    "01427207",
+    "01427510",
+    "01428500",
+    "01428750",
+    "01429000",
+    "01431500",
+    "01432110",
+    "01432160",
+    "01432805",
+    "01434000",
+    "01436690",
+    "01447500",
+    "01447720",
+    "01447800",
+    "01449360",
+    "01466500",
+    "01474703",
+    "01480065",
+    "01480400",
+    "01480500",
+    "01481000",
+    "01481500",
+    "01484525",
+    "01518700",
+    "01520000",
+    "01542500",
+    "01608500",
+    "01646500",
+    "01649500",
+    "02011400",
+    "02011500",
+    "02012800",
+    "02077200",
+    "02077303",
+    "0208062765",
+    "02081022",
+    "02081094",
+    "0208114150",
+    "02101726",
+    "02110400",
+    "02110500",
+    "02110755",
+    "02110760",
+    "02110770",
+    "02110777",
+    "02110802",
+    "021108125",
+    "02110815",
+    "02148000",
+    "02148315",
+    "02156500",
+    "02160105",
+    "02160700",
+    "02160991",
+    "02163001",
+    "02167600",
+    "02167716",
+    "02168504",
+    "02169000",
+    "02172020",
+    "02172040",
+    "02172050",
+    "02172053",
+    "021720677",
+    "021720698",
+    "021720709",
+    "021720710",
+    "021720869",
+    "02176930",
+    "02198840",
+    "02198920",
+    "021989773",
+    "021989784",
+    "022035975",
+    "02203603",
+    "02203655",
+    "02205865",
+    "02207120",
+    "02207185",
+    "02207400",
+    "02208150",
+    "02217274",
+    "02218565",
+    "02244040",
+    "02266300",
+    "02266320",
+    "02266495",
+    "02277100",
+    "022908295",
+    "02290928",
+    "02290930",
+    "02323592",
+    "02330450",
+    "02334430",
+    "02334480",
+    "02334578",
+    "02334653",
+    "02334885",
+    "02335000",
+    "02335350",
+    "02335450",
+    "02336000",
+    "02336030",
+    "02336120",
+    "02336240",
+    "02336300",
+    "02336313",
+    "02336360",
+    "02336410",
+    "02336526",
+    "02337170",
+    "02337410",
+    "023432415",
+    "02344630",
+    "02397000",
+    "02397530",
+    "02405500",
+    "02407514",
+    "02423130",
+    "02423380",
+    "02423397",
+    "02423398",
+    "02423496",
+    "02455980",
+    "02457595",
+    "02458450",
+    "03007800",
+    "03012550",
+    "03020000",
+    "03022554",
+    "03039000",
+    "03043810",
+    "03047000",
+    "03049640",
+    "03073000",
+    "03075070",
+    "03081000",
+    "03086500",
+    "03090500",
+    "03091500",
+    "03092460",
+    "03094000",
+    "03095500",
+    "03099500",
+    "03102950",
+    "03103500",
+    "03108490",
+    "03254520",
+    "03271510",
+    "03298000",
+    "03298150",
+    "03301940",
+    "03306000",
+    "03313000",
+    "03324500",
+    "03353611",
+    "03354000",
+    "03359000",
+    "03373980",
+    "03374500",
+    "03428200",
+    "03430200",
+    "03431083",
+    "03431091",
+    "03431514",
+    "03460000",
+    "03497300",
+    "0351706800",
+    "04001000",
+    "04024000",
+    "04041500",
+    "04043238",
+    "04043244",
+    "04063700",
+    "04077630",
+    "0407809265",
+    "04084445",
+    "040871473",
+    "04101500",
+    "04121650",
+    "04121660",
+    "04121680",
+    "04121944",
+    "04121970",
+    "04124000",
+    "04124200",
+    "04125460",
+    "04125550",
+    "04136000",
+    "04136500",
+    "04136900",
+    "04137005",
+    "04137020",
+    "04137025",
+    "04137030",
+    "04137500",
+    "04166500",
+    "0422026250",
+    "04231600",
+    "04232050",
+    "0423205010",
+    "05054000",
+    "05057000",
+    "05058000",
+    "05124480",
+    "05133500",
+    "05331833",
+    "05333500",
+    "05340500",
+    "05370000",
+    "05382255",
+    "05382257",
+    "05382267",
+    "05406470",
+    "05435943",
+    "05435950",
+    "06025500",
+    "06036805",
+    "06036905",
+    "06036940",
+    "06037500",
+    "06038500",
+    "06038800",
+    "06041000",
+    "06054500",
+    "06073500",
+    "06077200",
+    "06085800",
+    "06204070",
+    "06330000",
+    "06342500",
+    "06796550",
+    "06893820",
+    "06894000",
+    "07014000",
+    "07056515",
+    "07060500",
+    "07061290",
+    "07086000",
+    "07096000",
+    "07099400",
+    "07099969",
+    "07106500",
+    "07109500",
+    "07119700",
+    "07164500",
+    "071912213",
+    "07311782",
+    "07312100",
+    "07374000",
+    "073745253",
+    "07381150",
+    "07381328",
+    "07381331",
+    "07381350",
+    "07381355",
+    "073814675",
+    "08017044",
+    "08067215",
+    "08067252",
+    "08068400",
+    "08068500",
+    "08070200",
+    "08074710",
+    "08086290",
+    "08123800",
+    "08123850",
+    "08126380",
+    "08181500",
+    "08181800",
+    "08211200",
+    "09014050",
+    "09085000",
+    "09085150",
+    "09136100",
+    "09144250",
+    "09149500",
+    "09163500",
+    "09171100",
+    "09180000",
+    "09180500",
+    "09196500",
+    "09234500",
+    "09261000",
+    "09302000",
+    "09379500",
+    "09380000",
+    "09406000",
+    "09429490",
+    "10129900",
+    "10133650",
+    "10133800",
+    "10133980",
+    "10172200",
+    "10249300",
+    "10265150",
+    "10301500",
+    "10312210",
+    "10313400",
+    "10348200",
+    "10350500",
+    "10351600",
+    "10351700",
+    "10396000",
+    "11261100",
+    "11261500",
+    "11262900",
+    "11274550",
+    "11303000",
+    "11303500",
+    "11447650",
+    "11467000",
+    "11501000",
+    "11502500",
+    "11507500",
+    "11507501",
+    "11509370",
+    "11509500",
+    "12056500",
+    "12100490",
+    "12101100",
+    "12113390",
+    "12115000",
+    "12116500",
+    "12117600",
+    "12119000",
+    "12137290",
+    "12137800",
+    "12138160",
+    "12147500",
+    "12147600",
+    "12148000",
+    "12148300",
+    "12178000",
+    "12181000",
+    "12205000",
+    "12209490",
+    "12210000",
+    "12210700",
+    "12210900",
+    "12212050",
+    "12212390",
+    "12212430",
+    "12213100",
+    "12322000",
+    "12323770",
+    "12323800",
+    "12324200",
+    "12334510",
+    "12340000",
+    "12344000",
+    "12362500",
+    "12363000",
+    "12413370",
+    "12447200",
+    "13016450",
+    "13018350",
+    "13056500",
+    "13069500",
+    "13092747",
+    "13150430",
+    "13154500",
+    "13192200",
+    "13269000",
+    "13317660",
+    "13331500",
+    "13334300",
+    "13340000",
+    "13340600",
+    "13341050",
+    "13342500",
+    "14034500",
+    "14046778",
+    "14046890",
+    "14076500",
+    "14087400",
+    "14091500",
+    "14092500",
+    "14105700",
+    "14138720",
+    "14138870",
+    "14138900",
+    "14139800",
+    "14140020",
+    "14141500",
+    "14144800",
+    "14144900",
+    "14145500",
+    "14147500",
+    "14148000",
+    "14150000",
+    "14150290",
+    "14150800",
+    "14152000",
+    "14153500",
+    "14154500",
+    "14159200",
+    "14159500",
+    "14161100",
+    "14162500",
+    "14166000",
+    "14169000",
+    "14174000",
+    "14178000",
+    "14179000",
+    "14180300",
+    "14181500",
+    "14182500",
+    "14184100",
+    "14185000",
+    "14185800",
+    "14185900",
+    "14186200",
+    "14187200",
+    "14189050",
+    "14192015",
+    "14197900",
+    "14202980",
+    "14209710",
+    "14210000",
+    "14211010",
+    "14211400",
+    "14211500",
+    "14211542",
+    "14211550",
+    "14211720",
+    "14316460",
+    "14316495",
+    "14316500",
+    "14317450",
+    "14318000",
+    "14319500",
+    "14320934",
+    "14330000",
+    "14337500",
+    "14337600",
+    "14337830",
+    "14338000",
+    "14339000",
+    "14359000",
+    "14361500",
+    "14362000",
+    "14366000",
+    "14369500",
+    "14372300",
+    "15056210",
+    "15081497",
+    "15085100",
+    "15239070",
+    "15258000",
+    "15261000",
+    "15266300",
+    "15283700",
+    "15294005",
+    "15295700",
+    "15297610",
+    "15519100",
+    "251003080435500",
+    "251209080350100",
+    "251241080385300",
+    "251253080320100",
+    "255327081275900",
+    "255432081303900",
+    "255534081324000",
+    "255654081350200",
+    "265651080045500",
+    "265906080093500",
+    "265929080091800",
+    "292859090004000",
+    "295124089542100",
+    "295856081372301",
+    "301141089320300",
+    "394220106431500",
+    "420451121510000",
+    "420741121554001",
+    "420853121505500",
+    "420853121505501",
+    "421015121471800",
+    "421401121480900",
+    "452230122512201",
+    "453004122510301",
+    "453030122560101",
+    "453040123065201",
+    "453630122021400",
+    "454249120423500"
+  ]
+}

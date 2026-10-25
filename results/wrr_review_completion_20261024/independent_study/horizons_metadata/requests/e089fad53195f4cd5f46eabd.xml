@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Tokiahuru at Junction">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>580</Altitude>
+<Catchment>Whangaehu</Catchment>
+<CatchmentArea>220.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Whau_1c)&#13;&#10;Site installed by RWCB and transferred to MWD (now NIWA). &#13;&#10;Site closed 12 Jan 1994.&#13;&#10;Re-opened by HRC June 2006.&#13;&#10;Also known as Tokiahuru u/s Whangaehu Confluence&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2721720</Easting>
+<Ffreq>GEV</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>83000</FloodFlow10>
+<FloodFlow20>100000</FloodFlow20>
+<FloodFlow5>67000</FloodFlow5>
+<FloodFlow50>130000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.49603242</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00053</LawaSiteID>
+<LawaSiteName>Tokiahuru at Junction</LawaSiteName>
+<Longitude>175.46162542</Longitude>
+<MALF7Day>4821</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>133680</MaxFlow>
+<MaxFlowAt>15-Oct-2013</MaxFlowAt>
+<MeanAnnualFloodFlow>52274</MeanAnnualFloodFlow>
+<MeanFlow>7586</MeanFlow>
+<MedianFlow>6698</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>4108</MinFlow>
+<MinFlowAt>10-May-1985</MinFlowAt>
+<NZReach>7019277</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7198785</NZSegment>
+<Northing>6186960</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>WAWRS</RecordingAuthority2>
+<RiverNumber>331320</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Forest</SWQLanduse>
+<SecondSynonym>JUN</SecondSynonym>
+<ShortName>Hor-0041</ShortName>
+<SiteID>1783</SiteID>
+<StatsPeriod>13/8/1979-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Whau_1</SurfaceWaterZone>
+<eQualCode>Hor-0041</eQualCode>
+</Site>
+</HilltopServer>

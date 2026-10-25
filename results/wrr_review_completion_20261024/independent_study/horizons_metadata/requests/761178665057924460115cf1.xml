@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Matarawa at City Branch">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>16</Altitude>
+<Catchment>Whanganui</Catchment>
+<CatchmentArea>71.1</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;SOE Quantity Programme: Water Level / Flow</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Wanganui District</District>
+<Easting>2688700</Easting>
+<FFreq>GEV</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>7200</FloodFlow10>
+<FloodFlow20>7800</FloodFlow20>
+<FloodFlow5>6600</FloodFlow5>
+<FloodFlow50>8300</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Horizons</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.91669603</Latitude>
+<LawaSiteID>LAWA-101965</LawaSiteID>
+<LawaSiteName>Matarawa at City Branch</LawaSiteName>
+<Longitude>175.09045950</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<MinFlow>4</MinFlow>
+<MinFlowAt>10-Mar-2007</MinFlowAt>
+<NZReach>7029747</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7222905</NZSegment>
+<Northing>6141100</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>333010</RiverNumber>
+<Scheme>Matarawa, Northern&#13;&#10;</Scheme>
+<SecondSynonym>CIT</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>103</SiteID>
+<SurfaceWaterZone>Whai_7d</SurfaceWaterZone>
+</Site>
+</HilltopServer>

@@ -1,0 +1,12 @@
+{
+  "historical_models_only": false,
+  "inference": "station BH within agency/rule; synchronized temporal null resampling; group bootstrap for regional medians",
+  "limitation": "archive is an assembled panel, not a census of all USGS water-temperature stations; inference is descriptive for this panel; incomplete-year outcomes are unknown",
+  "n_stations_by_rule": {
+    "complete_year": 98,
+    "coverage_75": 235,
+    "retain_and_estimate": 255,
+    "warm_90": 230
+  },
+  "period_comparability": "same-station slope contrasts and individual record spans reported; changing station roster and changing year support are distinct"
+}

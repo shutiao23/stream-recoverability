@@ -1,0 +1,10 @@
+{
+  "atol": 1e-11,
+  "cases": 240,
+  "columns": 201,
+  "comparison": "Default H30 regeneration versus original source seed0 with existing AR1 bridge repair overlay",
+  "network_id": "arso_bistrica",
+  "passed": true,
+  "rtol": 1e-11,
+  "station": "arso|2432"
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Tamaki at Hartridges">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>175</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>51.0</CatchmentArea>
+<Comment>Purpose:&#10;&#13;&#10;Water Allocation (Mana_5b) &#10;</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2771047</Easting>
+<FFreq>GEV</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>94000</FloodFlow10>
+<FloodFlow20>121000</FloodFlow20>
+<FloodFlow5>70000</FloodFlow5>
+<FloodFlow50>167000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<HistGISTag>ASWQ</HistGISTag>
+<Inactive>1</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.23410496</Latitude>
+<LawaSiteID>LAWA-100245</LawaSiteID>
+<LawaSiteName>Tamaki at Hartridges</LawaSiteName>
+<Longitude>176.06845647</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<NZReach>7037038</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7235258</NZSegment>
+<Northing>6103438</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325300</RiverNumber>
+<SecondSynonym>TAH</SecondSynonym>
+<ShortName>Hor-0004a</ShortName>
+<SiteID>14098</SiteID>
+<SurfaceWaterZone>Mana_5</SurfaceWaterZone>
+<eQualCode>Hor-0004a</eQualCode>
+</Site>
+</HilltopServer>

@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="BN32/0083">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>17.565</Altitude>
+<BoreBottomOfScreen>-10.0</BoreBottomOfScreen>
+<BoreDepth>10.0</BoreDepth>
+<BoreID>BN32/0083</BoreID>
+<BoreTopOfScreen>-7.0</BoreTopOfScreen>
+<Comment>New bore for water quality and level.Bore depth ~10m, Read Point RL 17.565m &#13;&#10;24.3.25: Reference Level MP changed from 17.565 m to 17.570m., being confirmed with surveying 13/3/25. Water level at ~11:57 = 7550mm (+/-5mm).</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>
+</District>
+<Easting>1779081</Easting>
+<FirstSynonym>Hautere GW Zone at Te Horo Beach Rd Shallow</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>true</GWQuality>
+<GroundwaterQualityZone>Te_HoroGW</GroundwaterQualityZone>
+<GroundwaterSubZone>Te_HoroGW</GroundwaterSubZone>
+<GroundwaterZone>KapitiCoastGW</GroundwaterZone>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.79890303</Latitude>
+<LawaGroundwaterMeasurement>Stage [Water Level]</LawaGroundwaterMeasurement>
+<LawaSiteID>LAWA-104230</LawaSiteID>
+<Longitude>175.12283185</Longitude>
+<Macro>false</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5481398</Northing>
+<ReadPointRL>17570</ReadPointRL>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Te Horo Shallow</ShortName>
+<SiteID>14051</SiteID>
+<WebComment>Located in the Hautere groundwater zone and is approximately 10m deep. This site will be operating January 2025.</WebComment>
+</Site>
+</HilltopServer>

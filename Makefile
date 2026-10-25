@@ -368,3 +368,108 @@ wrr-transport-score:
 # self-contained HTML in dist/companion).
 wrr-companion:
 	PYTHONPATH=src $(PYTHON) scripts/264_wrr_companion_dataset.py
+
+# Fourth-review redesign on opened outcomes. No target acquisition is hidden
+# behind these targets; public registration is a separate external dependency.
+.PHONY: wrr-review-completion wrr-review-cases wrr-review-refits wrr-review-windows wrr-review-analyses wrr-review-deep wrr-review-inputs wrr-review-national wrr-review-prereg wrr-review-deployment wrr-review-paper wrr-review-check
+
+wrr-review-cases:
+	$(PYTHON) scripts/465_review_completion_cases.py --workers 64 --resume
+	$(PYTHON) scripts/465_review_completion_cases.py --split cold_to_hot --seeds 0 1 2 --workers 32 --resume
+	$(PYTHON) scripts/465_review_completion_cases.py --split before_2010 --seeds 0 1 2 --workers 32 --resume
+	$(PYTHON) scripts/465_review_completion_cases.py --split non_air_refit --seeds 0 1 2 --workers 32 --resume
+	$(PYTHON) scripts/465_review_completion_cases.py --split air_exposure --seeds 0 1 2 --workers 48 --resume
+
+wrr-review-refits:
+	$(PYTHON) scripts/466_review_completion_refit.py --workers 48
+	$(PYTHON) scripts/466_review_completion_refit.py --split cold_to_hot --seeds 0 1 2 --workers 32
+	$(PYTHON) scripts/466_review_completion_refit.py --split before_2010 --seeds 0 1 2 --workers 32
+	$(PYTHON) scripts/466_review_completion_refit.py --split non_air_refit --seeds 0 1 2 --workers 32
+	$(PYTHON) scripts/479_review_completion_opened_transfer.py
+
+wrr-review-analyses:
+	$(PYTHON) scripts/483_review_completion_bridge_repair.py --workers 24
+	$(PYTHON) scripts/467_review_completion_analysis.py --workers 16
+	$(PYTHON) scripts/467_review_completion_analysis.py --split cold_to_hot --seeds 0 1 2 --workers 3 --skip-trends
+	$(PYTHON) scripts/467_review_completion_analysis.py --split before_2010 --seeds 0 1 2 --workers 3 --skip-trends
+	$(PYTHON) scripts/467_review_completion_analysis.py --split non_air_refit --seeds 0 1 2 --workers 3
+	$(PYTHON) scripts/467_review_completion_analysis.py --split opened_transfer --seeds 0 --workers 1 --skip-trends
+	$(PYTHON) scripts/470_review_completion_adaptation.py --workers 16
+	$(PYTHON) scripts/471_review_completion_meaning.py
+	$(PYTHON) scripts/482_review_completion_failure_map.py
+	$(PYTHON) scripts/486_review_completion_group_robustness.py --workers 8
+	$(PYTHON) scripts/487_review_completion_semi_rcps.py --workers 8
+	$(PYTHON) scripts/488_review_completion_conditional_conformal.py --workers 8
+	$(PYTHON) scripts/489_review_completion_regional_rankings.py
+	$(PYTHON) scripts/491_review_completion_observed_record_bounds.py
+	$(PYTHON) scripts/492_review_completion_probability_ablation.py
+	$(PYTHON) scripts/499_review_completion_air_exposure.py --workers 3
+	$(PYTHON) scripts/518_review_completion_focused_diagnostics.py
+	$(PYTHON) scripts/519_review_completion_zero_flow_missingness.py --workers 24 --draws 400
+
+wrr-review-deep:
+	$(PYTHON) scripts/468_review_completion_deep.py --seed 0
+	$(PYTHON) scripts/468_review_completion_deep.py --seed 1
+	$(PYTHON) scripts/468_review_completion_deep.py --seed 2
+	$(PYTHON) scripts/481_review_completion_deep_match.py
+	$(PYTHON) scripts/484_review_completion_nonlinear_inputs.py
+	$(PYTHON) scripts/493_review_completion_local_boosting.py
+
+wrr-review-windows:
+	$(PYTHON) scripts/506_review_completion_window_refits.py --workers 48 --resume --with-trends
+	$(PYTHON) scripts/509_review_completion_window_evidence.py
+
+wrr-review-inputs:
+	$(PYTHON) scripts/517_review_completion_flow_comparators.py --workers 24
+	$(PYTHON) scripts/469_review_completion_inputs.py --forcing
+	$(PYTHON) scripts/513_review_completion_source_coordinates.py
+	$(PYTHON) scripts/507_review_completion_full_forcing.py --workers 2 --analysis-workers 16
+	$(PYTHON) scripts/505_review_completion_observed_air.py --all-source --exact-source-ridge
+	$(PYTHON) scripts/515_review_completion_forcing_recovery.py --region usgs --workers 16
+	$(PYTHON) scripts/475_review_completion_daily_max.py
+	$(PYTHON) scripts/477_review_completion_europe_forcing.py
+	$(PYTHON) scripts/510_review_completion_europe_full.py --workers 2 --analysis-workers 16
+	$(PYTHON) scripts/515_review_completion_forcing_recovery.py --region europe --workers 16
+	$(PYTHON) scripts/478_review_completion_reference_diagnostics.py
+	$(PYTHON) scripts/490_review_completion_national_availability.py --metadata-only
+
+wrr-review-national:
+	$(PYTHON) scripts/500_review_completion_national_inputs.py --workers 2
+	$(PYTHON) scripts/501_review_completion_national_forcing.py --workers 2
+	$(PYTHON) scripts/502_review_completion_national_application.py --workers 24 --resume
+	$(PYTHON) scripts/503_review_completion_national_meaning.py --bootstrap 2000
+
+wrr-review-prereg:
+	$(PYTHON) scripts/494_review_completion_independent_metadata.py
+	$(PYTHON) scripts/494_review_completion_independent_metadata.py --agency greater_wellington
+	$(PYTHON) scripts/472_review_completion_prereg.py
+	$(PYTHON) scripts/498_review_completion_freeze_independent_roster.py
+	$(PYTHON) scripts/472_review_completion_prereg.py
+
+wrr-review-deployment:
+	$(PYTHON) scripts/485_review_completion_deployment.py
+
+wrr-review-paper:
+	$(PYTHON) scripts/473_review_completion_evidence.py
+	cd paper/wrr_tr && TEXINPUTS=.:../wrr/template: latexmk -pdf -interaction=nonstopmode -halt-on-error review_completion_article.tex
+	cd paper/wrr_tr && TEXINPUTS=.:../wrr/template: latexmk -pdf -interaction=nonstopmode -halt-on-error review_completion_supporting.tex
+
+wrr-review-check:
+	$(PYTHON) -m pytest tests/test_wrr_review_completion.py tests/test_wrr_target_recovery.py tests/test_wrr_review_independent.py tests/test_wrr_review_national.py tests/test_wrr_review_windows.py tests/test_wrr_review_forcing_evidence.py tests/test_wrr_forcing_residual_history.py tests/test_wrr_national_coverage.py
+	$(PYTHON) scripts/516_review_completion_archive_smoke.py
+	$(PYTHON) scripts/474_review_completion_validate.py
+	$(PYTHON) scripts/512_review_completion_delivery.py
+
+wrr-review-completion:
+	$(MAKE) wrr-review-cases
+	$(MAKE) wrr-review-refits
+	$(MAKE) wrr-review-windows
+	$(MAKE) wrr-review-deep
+	$(MAKE) wrr-review-inputs
+	$(MAKE) wrr-review-analyses
+	$(MAKE) wrr-review-deployment
+	$(MAKE) wrr-review-national
+	$(MAKE) wrr-review-prereg
+	$(MAKE) wrr-review-paper
+	$(PYTHON) scripts/472_review_completion_prereg.py
+	$(MAKE) wrr-review-check

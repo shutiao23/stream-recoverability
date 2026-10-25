@@ -1,0 +1,11 @@
+{
+  "OOF": "exclude target and residual validation years, using all other finite daily training rows",
+  "annual_distribution_and_risk_weights_refitted": false,
+  "case_rows": 269264,
+  "complete": true,
+  "n_station_input_jobs": 340,
+  "new_NZ_water_values_requested": false,
+  "partial": false,
+  "recovery_model": "same Gaussian AR1 window-scale v2 used in source recovery analysis; recalculated driver-specific OOF residual moments",
+  "region": "usgs"
+}

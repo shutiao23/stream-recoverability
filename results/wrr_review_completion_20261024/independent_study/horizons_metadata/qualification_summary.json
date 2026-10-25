@@ -1,0 +1,20 @@
+{
+  "all_sites_resolved": true,
+  "collection": "WaterTemperature",
+  "collection_sites": 58,
+  "endpoint": "https://envirodata.horizons.govt.nz/api/hilltop/data",
+  "errors": [],
+  "grouping_status": "Catchment is conservative metadata grouping; shared-donor and river-network joins remain to be frozen before registration",
+  "interpretation": "Calendar span is necessary, not proof of four complete hot years. A zero eligible roster is a metadata-eligibility failure, not a failed predictive test.",
+  "metadata_status_counts": {
+    "fewer_than_four_calendar_supported_hot_years": 47,
+    "no_exact_continuous_water_temperature_measurement": 9,
+    "nonriver_or_ambiguous_name_excluded": 4,
+    "river_connectivity_metadata_unresolved": 4
+  },
+  "potentially_eligible_catchments": 0,
+  "potentially_eligible_sites": 0,
+  "series_rows": 64,
+  "temperature_observations_requested": false,
+  "updated_utc": "2026-10-24T01:09:31.502774+00:00"
+}

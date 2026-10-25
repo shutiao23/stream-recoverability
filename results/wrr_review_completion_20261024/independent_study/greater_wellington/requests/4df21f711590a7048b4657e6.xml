@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Te Hapua Wetland at Shoveler Lagoon">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>3</Altitude>
+<Comment>
+</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1775288</Easting>
+<FirstSynonym>Te Hapua Wetland at Shoveler Lagoon</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="2" Min10="8.52" Min20="11.4" Min30="13.5" Hour1="18" Hour2="23.9" Hour6="36.8" Hour12="47.3" Day1="59.4" Day2="72.6" Day3="80.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="11.1" Min20="14.8" Min30="17.5" Hour1="23.3" Hour2="30.8" Hour6="47.1" Hour12="60.2" Day1="75.3" Day2="91.7" Day3="101" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="13.1" Min20="17.4" Min30="20.5" Hour1="27.2" Hour2="36" Hour6="54.7" Hour12="69.8" Day1="87.1" Day2="106" Day3="117" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.2" Min20="20.1" Min30="23.7" Hour1="31.4" Hour2="41.3" Hour6="62.6" Hour12="79.6" Day1="99" Day2="120" Day3="132" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="16.5" Min20="21.8" Min30="25.6" Hour1="33.9" Hour2="44.6" Hour6="67.3" Hour12="85.5" Day1="106" Day2="128" Day3="141" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="17.5" Min20="23" Min30="27" Hour1="35.7" Hour2="46.9" Hour6="70.8" Hour12="89.8" Day1="111" Day2="134" Day3="148" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="18.2" Min20="23.9" Min30="28.2" Hour1="37.1" Hour2="48.8" Hour6="73.4" Hour12="93.1" Day1="115" Day2="139" Day3="153" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="18.8" Min20="24.7" Min30="29.1" Hour1="38.3" Hour2="50.3" Hour6="75.6" Hour12="95.8" Day1="119" Day2="143" Day3="157" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="19.8" Min20="26" Min30="30.5" Hour1="40.2" Hour2="52.7" Hour6="79.2" Hour12="100" Day1="124" Day2="149" Day3="164" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="20.6" Min20="27" Min30="31.7" Hour1="41.7" Hour2="54.6" Hour6="81.9" Hour12="104" Day1="128" Day2="154" Day3="169" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-40.81335125</Latitude>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00208</LawaSiteID>
+<Longitude>175.07832335</Longitude>
+<Macro>False</Macro>
+<MetNumber>
+</MetNumber>
+<Northing>5479884</Northing>
+<ReadPointRL>5466</ReadPointRL>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>316000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>3288</SiteID>
+<SurfaceWaterSubZone>WaikanaeSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>KapitiCoastSW</SurfaceWaterZone>
+<WebComment>This site has been closed.</WebComment>
+</Site>
+</HilltopServer>

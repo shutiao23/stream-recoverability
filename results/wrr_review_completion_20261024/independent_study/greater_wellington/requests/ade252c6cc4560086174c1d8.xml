@@ -1,0 +1,2852 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<DataSource Name="Water Level" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2009-12-23T15:00:00</From>
+<To>2026-10-24T09:45:12</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>1995-01-01T00:00:00</FirstRating>
+<LastRating>2026-06-26T22:00:00</LastRating>
+</Measurement>
+<Measurement Name="Derived Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1979-02-05T14:00:00</VMStart>
+<VMFinish>2026-10-24T16:00:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Derived Flow 2">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-28T19:30:00</VMStart>
+<VMFinish>2017-09-12T16:00:00</VMFinish>
+<Ratset1>7</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Daily mean flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-25T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (4am)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (4am)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-25T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily mean flow (Moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily mean flow (Moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-24T03:00:00</VMStart>
+<VMFinish>2026-10-24T09:45:12</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1979-02-06T02:00:00</VMStart>
+<VMFinish>2026-10-24T16:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow (Prev 24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow (Prev 24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1979-02-06T14:00:00</VMStart>
+<VMFinish>2026-10-24T16:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Derived Flow 2  (24 Mov Avg)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Derived Flow 2  (24 Mov Avg)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2008-11-29T19:30:00</VMStart>
+<VMFinish>2017-09-12T16:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flag Gaps">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flag Gaps</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-23T15:00:00</VMStart>
+<VMFinish>2026-10-24T09:45:12</VMFinish>
+</Measurement>
+<Measurement Name="Maximum Daily Mean Flow (moving)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Maximum Daily Mean Flow (moving)</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-24T03:00:00</VMStart>
+<VMFinish>2026-10-24T09:45:12</VMFinish>
+</Measurement>
+<Measurement Name="Rate of Rise/Fall">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Rate of Rise/Fall</RequestAs>
+<Units>mm/hr</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-23T15:00:00</VMStart>
+<VMFinish>2026-10-24T09:45:12</VMFinish>
+</Measurement>
+<Measurement Name="Record Timestep">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Record Timestep</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-23T15:00:00</VMStart>
+<VMFinish>2026-10-24T09:45:12</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>15</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1994-07-04T13:15:00</From>
+<To>2026-01-12T12:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Measurement Name="Stage">
+<Item>1</Item>
+<RequestAs>Stage [Gauging Results]</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>2</Item>
+<RequestAs>Flow [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Area">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>Area</RequestAs>
+<Divisor>10000</Divisor>
+<Units>sq m</Units>
+<Format>#.####</Format>
+</Measurement>
+<Measurement Name="Mean Velocity">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Mean Velocity</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m/sec</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Max Depth">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>Max Depth</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Slope">
+<Item>6</Item>
+<DefaultMeasurement />
+<RequestAs>Slope</RequestAs>
+<Units>mm/km</Units>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Width">
+<Item>7</Item>
+<DefaultMeasurement />
+<RequestAs>Width</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Hyd Radius">
+<Item>8</Item>
+<DefaultMeasurement />
+<RequestAs>Hyd Radius</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Wet Perimeter">
+<Item>9</Item>
+<DefaultMeasurement />
+<RequestAs>Wet Perimeter</RequestAs>
+<Divisor>1000</Divisor>
+<Units>m</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="Sed Conc">
+<Item>10</Item>
+<DefaultMeasurement />
+<RequestAs>Sed Conc</RequestAs>
+<Units>mg/l</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Temperature">
+<Item>11</Item>
+<RequestAs>Temperature [Gauging Results]</RequestAs>
+<Divisor>1000</Divisor>
+<Units>Deg C</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Change Stage">
+<Item>12</Item>
+<DefaultMeasurement />
+<RequestAs>Change Stage</RequestAs>
+<Units>mm/hr</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Method and No Verts">
+<Item>13</Item>
+<DefaultMeasurement />
+<RequestAs>Method and No Verts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Verts and Sample Pts">
+<Item>14</Item>
+<DefaultMeasurement />
+<RequestAs>Verts and Sample Pts</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Gauging Number">
+<Item>15</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Number</RequestAs>
+<Format>#</Format>
+</Measurement>
+<Measurement Name="Flow Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2009-12-23T15:00:00</VMStart>
+<VMFinish>2026-01-12T12:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage</RequestAs>
+<Units>m&#179;/sec</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-07-04T13:15:00</VMStart>
+<VMFinish>2026-01-12T12:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow From Gauged Stage SS">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow From Gauged Stage SS</RequestAs>
+<Units>l/sec</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>1994-07-04T13:15:00</VMStart>
+<VMFinish>2026-01-12T12:20:00</VMFinish>
+</Measurement>
+<Measurement Name="Gauging Stage vs record Difference">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gauging Stage vs record Difference</RequestAs>
+<Units>mm</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2009-12-23T15:00:00</VMStart>
+<VMFinish>2026-01-12T12:20:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>9</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>87125</ItemFormat>
+<From>1994-07-04T13:15:00</From>
+<To>2026-01-12T12:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+<Sections>
+<Section>
+<SurveyTime> 4-Jul-1994 13:15:00</SurveyTime>
+<LeftOffset>-20.500</LeftOffset>
+<RightOffset>-1.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-1996 08:45:00</SurveyTime>
+<LeftOffset>-57.000</LeftOffset>
+<RightOffset>-27.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Oct-1996 14:50:00</SurveyTime>
+<LeftOffset>20.000</LeftOffset>
+<RightOffset>48.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-May-1997 16:10:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2009 12:55:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>22.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Dec-2009 14:11:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>16.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2010 10:58:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Feb-2010 15:15:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>20.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Feb-2010 15:19:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>20.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Feb-2010 11:10:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>17.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Mar-2010 14:20:00</SurveyTime>
+<LeftOffset>2.500</LeftOffset>
+<RightOffset>17.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Apr-2010 14:07:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>16.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jun-2010 14:15:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Aug-2010 11:45:00</SurveyTime>
+<LeftOffset>1.150</LeftOffset>
+<RightOffset>15.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Sep-2010 10:55:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>20.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Sep-2010 12:05:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>19.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Nov-2010 11:05:00</SurveyTime>
+<LeftOffset>5.800</LeftOffset>
+<RightOffset>16.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Feb-2011 13:14:00</SurveyTime>
+<LeftOffset>11.100</LeftOffset>
+<RightOffset>21.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Mar-2011 08:20:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>15.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Mar-2017 12:14:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>18.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Oct-2017 15:25:00</SurveyTime>
+<LeftOffset>14.500</LeftOffset>
+<RightOffset>31.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2017 12:55:00</SurveyTime>
+<LeftOffset>2.550</LeftOffset>
+<RightOffset>10.730</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2018 11:21:00</SurveyTime>
+<LeftOffset>1.430</LeftOffset>
+<RightOffset>16.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2018 11:48:00</SurveyTime>
+<LeftOffset>1.050</LeftOffset>
+<RightOffset>16.580</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Jan-2019 11:10:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Feb-2019 13:02:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>16.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2019 13:33:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>16.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jul-2020 13:41:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Aug-2020 11:11:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Sep-2020 11:30:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>16.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Oct-2020 14:33:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>18.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Dec-2020 15:10:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Jan-2021 10:14:00</SurveyTime>
+<LeftOffset>6.000</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Feb-2021 13:10:00</SurveyTime>
+<LeftOffset>6.900</LeftOffset>
+<RightOffset>18.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-May-2021 10:07:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2021 13:30:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>15.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2021 13:43:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>18.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jul-2021 11:46:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>19.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Sep-2021 15:05:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Oct-2021 14:09:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Nov-2021 13:40:00</SurveyTime>
+<LeftOffset>5.000</LeftOffset>
+<RightOffset>19.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Dec-2021 13:04:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jan-2022 10:28:00</SurveyTime>
+<LeftOffset>5.500</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Feb-2022 13:51:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>27.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Feb-2022 13:55:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>22.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Mar-2022 13:46:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Apr-2022 15:05:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>18.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Apr-2022 13:34:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jun-2022 14:20:00</SurveyTime>
+<LeftOffset>5.750</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2022 13:38:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>20.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jul-2022 12:13:45</SurveyTime>
+<LeftOffset>8.000</LeftOffset>
+<RightOffset>36.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Oct-2022 12:18:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>18.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Dec-2022 14:28:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2023 14:31:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>19.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2023 15:07:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>21.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Aug-2023 12:17:00</SurveyTime>
+<LeftOffset>5.600</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2023 13:30:00</SurveyTime>
+<LeftOffset>5.400</LeftOffset>
+<RightOffset>24.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2024 13:00:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Mar-2024 13:18:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Apr-2024 09:58:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>18.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Jun-2024 15:27:00</SurveyTime>
+<LeftOffset>4.300</LeftOffset>
+<RightOffset>22.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jul-2024 14:36:00</SurveyTime>
+<LeftOffset>1.900</LeftOffset>
+<RightOffset>20.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2024 12:08:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Sep-2024 16:38:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Nov-2024 12:30:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>23.940</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Dec-2024 09:55:00</SurveyTime>
+<LeftOffset>4.900</LeftOffset>
+<RightOffset>23.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Feb-2025 13:42:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>24.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-May-2025 13:49:00</SurveyTime>
+<LeftOffset>5.300</LeftOffset>
+<RightOffset>23.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jun-2025 14:49:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>23.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Aug-2025 12:15:00</SurveyTime>
+<LeftOffset>6.600</LeftOffset>
+<RightOffset>25.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Oct-2025 12:44:00</SurveyTime>
+<LeftOffset>3.400</LeftOffset>
+<RightOffset>23.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2025 10:29:00</SurveyTime>
+<LeftOffset>5.850</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jan-2026 12:20:00</SurveyTime>
+<LeftOffset>9.100</LeftOffset>
+<RightOffset>26.150</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>4</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>16</ItemFormat>
+<From>1994-07-04T13:15:00</From>
+<To>2026-01-12T12:20:00</To>
+<Sections>
+<Section>
+<SurveyTime> 4-Jul-1994 13:15:00</SurveyTime>
+<LeftOffset>-20.500</LeftOffset>
+<RightOffset>-1.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Feb-1996 08:45:00</SurveyTime>
+<LeftOffset>-57.000</LeftOffset>
+<RightOffset>-27.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Oct-1996 14:50:00</SurveyTime>
+<LeftOffset>20.000</LeftOffset>
+<RightOffset>48.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-May-1997 16:10:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>6.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Dec-2009 12:55:00</SurveyTime>
+<LeftOffset>2.700</LeftOffset>
+<RightOffset>22.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Dec-2009 14:11:00</SurveyTime>
+<LeftOffset>2.400</LeftOffset>
+<RightOffset>16.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Jan-2010 10:58:00</SurveyTime>
+<LeftOffset>2.600</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Feb-2010 15:15:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>20.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Feb-2010 15:19:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>20.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Feb-2010 11:10:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>17.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Mar-2010 14:20:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>15.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Apr-2010 14:07:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>16.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Jun-2010 14:15:00</SurveyTime>
+<LeftOffset>-18.200</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Aug-2010 11:45:00</SurveyTime>
+<LeftOffset>1.150</LeftOffset>
+<RightOffset>15.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Sep-2010 10:55:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>20.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Sep-2010 12:05:00</SurveyTime>
+<LeftOffset>-18.500</LeftOffset>
+<RightOffset>0.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Nov-2010 11:05:00</SurveyTime>
+<LeftOffset>5.800</LeftOffset>
+<RightOffset>16.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Feb-2011 13:14:00</SurveyTime>
+<LeftOffset>11.100</LeftOffset>
+<RightOffset>21.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 2-Mar-2011 08:20:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>15.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-Mar-2017 12:14:00</SurveyTime>
+<LeftOffset>2.000</LeftOffset>
+<RightOffset>18.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Oct-2017 15:25:00</SurveyTime>
+<LeftOffset>14.500</LeftOffset>
+<RightOffset>31.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Dec-2017 12:55:00</SurveyTime>
+<LeftOffset>2.550</LeftOffset>
+<RightOffset>10.730</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Feb-2018 11:21:00</SurveyTime>
+<LeftOffset>1.430</LeftOffset>
+<RightOffset>16.050</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Mar-2018 11:48:00</SurveyTime>
+<LeftOffset>1.050</LeftOffset>
+<RightOffset>16.580</RightOffset>
+</Section>
+<Section>
+<SurveyTime>25-Jan-2019 11:10:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Feb-2019 13:02:00</SurveyTime>
+<LeftOffset>2.200</LeftOffset>
+<RightOffset>16.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Mar-2019 13:33:00</SurveyTime>
+<LeftOffset>3.000</LeftOffset>
+<RightOffset>16.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Jul-2020 13:41:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Aug-2020 11:11:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Sep-2020 11:30:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>16.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>15-Oct-2020 14:33:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>18.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Dec-2020 15:10:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>17.900</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 7-Jan-2021 10:14:00</SurveyTime>
+<LeftOffset>6.000</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Feb-2021 13:10:00</SurveyTime>
+<LeftOffset>6.900</LeftOffset>
+<RightOffset>18.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-May-2021 10:07:00</SurveyTime>
+<LeftOffset>0.600</LeftOffset>
+<RightOffset>17.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2021 13:30:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>15.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2021 13:43:00</SurveyTime>
+<LeftOffset>1.500</LeftOffset>
+<RightOffset>18.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jul-2021 11:46:00</SurveyTime>
+<LeftOffset>1.200</LeftOffset>
+<RightOffset>19.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Sep-2021 15:05:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Oct-2021 14:09:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Nov-2021 13:40:00</SurveyTime>
+<LeftOffset>5.000</LeftOffset>
+<RightOffset>19.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>22-Dec-2021 13:04:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jan-2022 10:28:00</SurveyTime>
+<LeftOffset>5.500</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Feb-2022 13:51:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>27.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>21-Feb-2022 13:55:00</SurveyTime>
+<LeftOffset>1.100</LeftOffset>
+<RightOffset>22.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Mar-2022 13:46:00</SurveyTime>
+<LeftOffset>0.400</LeftOffset>
+<RightOffset>18.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Apr-2022 15:05:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>18.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime>20-Apr-2022 13:34:00</SurveyTime>
+<LeftOffset>0.700</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Jun-2022 14:20:00</SurveyTime>
+<LeftOffset>5.750</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Jun-2022 13:38:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>20.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jul-2022 12:13:45</SurveyTime>
+<LeftOffset>8.000</LeftOffset>
+<RightOffset>36.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>19-Oct-2022 12:18:00</SurveyTime>
+<LeftOffset>0.650</LeftOffset>
+<RightOffset>18.600</RightOffset>
+</Section>
+<Section>
+<SurveyTime>13-Dec-2022 14:28:00</SurveyTime>
+<LeftOffset>0.500</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Mar-2023 14:31:00</SurveyTime>
+<LeftOffset>1.000</LeftOffset>
+<RightOffset>19.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>28-Jun-2023 15:07:00</SurveyTime>
+<LeftOffset>1.300</LeftOffset>
+<RightOffset>21.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Aug-2023 12:17:00</SurveyTime>
+<LeftOffset>5.600</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>29-Nov-2023 13:30:00</SurveyTime>
+<LeftOffset>5.400</LeftOffset>
+<RightOffset>24.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Jan-2024 13:00:00</SurveyTime>
+<LeftOffset>0.900</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Mar-2024 13:18:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>18.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Apr-2024 09:58:00</SurveyTime>
+<LeftOffset>1.400</LeftOffset>
+<RightOffset>18.550</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 4-Jun-2024 15:27:00</SurveyTime>
+<LeftOffset>4.300</LeftOffset>
+<RightOffset>22.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jul-2024 14:36:00</SurveyTime>
+<LeftOffset>1.900</LeftOffset>
+<RightOffset>20.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Sep-2024 12:08:00</SurveyTime>
+<LeftOffset>0.800</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>26-Sep-2024 16:38:00</SurveyTime>
+<LeftOffset>0.300</LeftOffset>
+<RightOffset>20.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 1-Nov-2024 12:30:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>23.940</RightOffset>
+</Section>
+<Section>
+<SurveyTime>17-Dec-2024 09:55:00</SurveyTime>
+<LeftOffset>4.900</LeftOffset>
+<RightOffset>23.300</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Feb-2025 13:42:00</SurveyTime>
+<LeftOffset>7.000</LeftOffset>
+<RightOffset>24.250</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 6-May-2025 13:49:00</SurveyTime>
+<LeftOffset>5.300</LeftOffset>
+<RightOffset>23.700</RightOffset>
+</Section>
+<Section>
+<SurveyTime>24-Jun-2025 14:49:00</SurveyTime>
+<LeftOffset>4.800</LeftOffset>
+<RightOffset>23.800</RightOffset>
+</Section>
+<Section>
+<SurveyTime>18-Aug-2025 12:15:00</SurveyTime>
+<LeftOffset>6.600</LeftOffset>
+<RightOffset>25.200</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 8-Oct-2025 12:44:00</SurveyTime>
+<LeftOffset>3.400</LeftOffset>
+<RightOffset>23.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>27-Nov-2025 10:29:00</SurveyTime>
+<LeftOffset>5.850</LeftOffset>
+<RightOffset>26.500</RightOffset>
+</Section>
+<Section>
+<SurveyTime>12-Jan-2026 12:20:00</SurveyTime>
+<LeftOffset>9.100</LeftOffset>
+<RightOffset>26.150</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Voltage" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2022-09-12T06:00:00</To>
+<Measurement Name="Voltage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Voltage</RequestAs>
+<Units>Volts</Units>
+<Format>##.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2014-02-11T13:45:00</From>
+<To>2014-03-14T13:45:00</To>
+<Measurement Name="Dissolved Oxygen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen</RequestAs>
+<Units>ppm</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2007-05-24T14:22:00</From>
+<To>2016-03-08T11:17:17</To>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature (X)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Water Temperature (X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature (X)</RequestAs>
+<Units>deg C</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2003-06-24T11:34:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="pH (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-06-24T11:34:00</VMStart>
+<VMFinish>2026-10-01T10:17:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="pH (test)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (test)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-06-24T11:34:00</VMStart>
+<VMFinish>2026-10-01T10:17:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Lab)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2001-10-30T11:30:00</To>
+<Measurement Name="Dissolved Oxygen (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Lab)</RequestAs>
+<Units>mg/l</Units>
+<Format>####.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="RL Section" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>RLOffsetSection</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1981-01-09T12:00:00</From>
+<To>2017-03-09T12:00:00</To>
+<Sections>
+<Section>
+<SurveyTime> 9-Jan-1981 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>67.000</RightOffset>
+</Section>
+<Section>
+<SurveyTime>16-Jan-1995 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>73.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>10-Nov-1998 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>73.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>23-Aug-2010 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>73.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>11-Nov-2011 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>73.100</RightOffset>
+</Section>
+<Section>
+<SurveyTime>14-Dec-2015 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>73.180</RightOffset>
+</Section>
+<Section>
+<SurveyTime> 9-Mar-2017 12:00:00</SurveyTime>
+<LeftOffset>0.000</LeftOffset>
+<RightOffset>70.000</RightOffset>
+</Section>
+</Sections>
+</DataSource>
+<DataSource Name="Turbidity (Lab)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Turbidity (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity (Lab)</RequestAs>
+<Units>NTU</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Lab)(X)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2016-02-19T12:20:00</To>
+<Measurement Name="Conductivity (Lab)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Lab)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="E-Coli" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2000-01-11T11:15:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="E-Coli">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="E-Coli Warning">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>E-Coli Warning</RequestAs>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2000-01-11T11:15:00</VMStart>
+<VMFinish>2026-10-01T10:17:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-07-24T13:50:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Total Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Phosphorus" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-07-24T13:50:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Total Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Black Disc" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Black Disc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Black Disc</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2014-02-11T13:45:00</From>
+<To>2014-03-14T13:45:00</To>
+<Measurement Name="Dissolved Oxygen % Sat">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat</RequestAs>
+<Units>% satn.</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Dissolved Oxygen % Sat Corrected Alt VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat Corrected Alt VM</RequestAs>
+<Units>%</Units>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2014-02-11T13:45:00</VMStart>
+<VMFinish>2014-03-14T13:45:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Lab)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="pH (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Lab)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Suspended Solids" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Total Suspended Solids">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Suspended Solids</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Biochemical Oxygen Demand 5day" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2001-10-30T11:30:00</To>
+<Measurement Name="Biochemical Oxygen Demand 5day">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Biochemical Oxygen Demand 5day</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Organic Carbon" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2001-07-24T13:50:00</From>
+<To>2016-06-14T09:30:00</To>
+<Measurement Name="Total Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Organic Carbon" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-07-11T15:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Dissolved Organic Carbon">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Organic Carbon</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Nitrite Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrite-Nitrate Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Nitrite-Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrite-Nitrate Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nitrate Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Nitrate Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nitrate Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Kjeldahl Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Total Kjeldahl Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Kjeldahl Nitrogen</RequestAs>
+<Units>g/m3 TKN</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Organic Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2006-06-29T15:26:00</To>
+<Measurement Name="Dissolved organic nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved organic nitrogen</RequestAs>
+<Units>g/m3 N</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Reactive Phosphorus" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Dissolved Reactive Phosphorus">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Reactive Phosphorus</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Alkalinity (Total)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Alkalinity (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Alkalinity (Total)</RequestAs>
+<Units>g/m3 as CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Bicarbonate" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Bicarbonate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Bicarbonate</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Silica Dissolved Reactive" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2026-01-08T12:30:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Silica Dissolved Reactive">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Silica Dissolved Reactive</RequestAs>
+<Units>g/m3 SiO2</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2026-01-08T12:30:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Sulphate">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hardness (Total)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-01-08T12:30:00</To>
+<Measurement Name="Hardness (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Hardness (Total)</RequestAs>
+<Units>g/m3 CaCO3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Aluminium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Aluminium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Aluminium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Arsenic (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Arsenic (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Arsenic (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cadmium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2009-06-16T14:05:00</To>
+<Measurement Name="Cadmium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Cadmium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chromium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2009-06-16T14:05:00</To>
+<Measurement Name="Chromium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chromium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Copper (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Copper (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Copper (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Iron (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Iron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Iron (Dissolved)</RequestAs>
+<Units>mg/L</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Lead (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2009-06-16T14:05:00</To>
+<Measurement Name="Lead (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Lead (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.#####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Manganese (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Manganese (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Manganese (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Nickel (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2009-06-16T14:05:00</To>
+<Measurement Name="Nickel (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Nickel (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Total)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2018-08-15T13:20:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Zinc (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Total)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Zinc (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Zinc (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Zinc (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Faecal Coliforms" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2020-06-10T14:15:00</To>
+<Measurement Name="Faecal Coliforms">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Faecal Coliforms</RequestAs>
+<Units>cfu/100ml</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chlorophyll a" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-07-27T15:35:00</From>
+<To>2026-06-11T12:19:00</To>
+<Measurement Name="Chlorophyll a">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chlorophyll a</RequestAs>
+<Divisor>0.001</Divisor>
+<Units>mg/m3</Units>
+<Format>#.####</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Filamentous)(%)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Periphyton (Filamentous)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Filamentous)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Hardness" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Total Hardness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Hardness</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ammoniacal Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Ammoniacal Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ammoniacal Nitrogen</RequestAs>
+<Units>g/m3-N</Units>
+<Format>$$$$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="pH (Field)(X)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-06-24T11:34:00</From>
+<To>2016-06-14T09:30:00</To>
+<Measurement Name="pH (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>pH (Field)(X)</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity (Field)(X)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-06-24T11:34:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Conductivity (Field)(X)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity (Field)(X)</RequestAs>
+<Units>&#181;S/cm</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Lab)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2001-10-30T11:30:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Lab)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Lab)</RequestAs>
+<Units>%</Units>
+<Format>####.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat (Field)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Dissolved Oxygen % Sat (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen % Sat (Field)</RequestAs>
+<Units>% Saturation</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (Field)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Dissolved Oxygen (Field)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (Field)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cloud Cover" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2003-05-27T12:15:00</To>
+<Measurement Name="Cloud Cover">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Cloud Cover</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Munsell Colour" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2011-07-22T13:15:00</To>
+<Measurement Name="Munsell Colour">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Munsell Colour</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Cations" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2013-06-20T13:35:00</To>
+<Measurement Name="Total Cations">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Cations</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Anions" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2013-06-20T13:35:00</To>
+<Measurement Name="Total Anions">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Anions</RequestAs>
+<Units>mEquiv/L</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Ionic Balance Error" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-02-20T12:40:00</From>
+<To>2013-06-20T13:35:00</To>
+<Measurement Name="Ionic Balance Error">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Ionic Balance Error</RequestAs>
+<Units>%</Units>
+<Format>#.######</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Suspended Sediment Concentration" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2018-08-15T13:20:00</From>
+<To>2024-06-18T12:13:00</To>
+<Measurement Name="Suspended Sediment Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Suspended Sediment Concentration</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow (Synthetic)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>1989-11-01T00:00:00</From>
+<To>2011-01-05T00:00:00</To>
+<Measurement Name="Flow (Synthetic)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (Synthetic)</RequestAs>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Boron (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Boron (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Boron (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Calcium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Calcium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Calcium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Inorganic Nitrogen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Dissolved Inorganic Nitrogen">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Inorganic Nitrogen</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Magnesium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Magnesium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Magnesium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Mats)(%)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-06-24T11:34:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Periphyton (Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Mats)(%)</RequestAs>
+<Units>% Cover</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Potassium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Potassium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Potassium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sodium (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-09-09T13:20:00</To>
+<Measurement Name="Sodium (Dissolved)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sodium (Dissolved)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Silica (Reactive)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2026-05-12T12:44:00</From>
+<To>2026-05-12T12:44:00</To>
+<Measurement Name="Silica (Reactive)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Silica (Reactive)</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Recoverable Copper" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-07-11T15:00:00</From>
+<To>2019-06-13T13:00:00</To>
+<Measurement Name="Total Recoverable Copper">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Recoverable Copper</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Total Recoverable Zinc" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2017-07-11T15:00:00</From>
+<To>2019-06-13T13:00:00</To>
+<Measurement Name="Total Recoverable Zinc">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Total Recoverable Zinc</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Chloride (Dissolved)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Chloride Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Chloride Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Sulphate Dissolved" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2008-01-22T12:25:00</From>
+<To>2013-06-20T13:35:00</To>
+<Measurement Name="Sulphate Dissolved">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Sulphate Dissolved</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature 2" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2015-09-22T11:00:00</From>
+<To>2019-05-16T13:15:00</To>
+<Measurement Name="Water Temperature 2">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Temperature 2</RequestAs>
+<Units>&#176;C</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Cyanobacteria Mats)(%)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-22T13:20:00</From>
+<To>2023-06-08T13:30:00</To>
+<Measurement Name="Periphyton (Cyanobacteria Mats)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Cyanobacteria Mats)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Flow Category" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-09-18T12:32:00</From>
+<To>2014-06-19T15:20:00</To>
+<Measurement Name="Flow Category">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Category</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Cover)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-22T13:20:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Fine Sediment (% Cover)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Cover)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Fine Sediment (% Sand)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2013-07-22T13:20:00</From>
+<To>2016-06-14T09:30:00</To>
+<Measurement Name="Fine Sediment (% Sand)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Fine Sediment (% Sand)</RequestAs>
+<Units>%</Units>
+<Format>##.#</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2003-03-21T12:00:00</From>
+<To>2024-12-04T10:30:00</To>
+<SensorGroup>CADDIS_Data</SensorGroup>
+<Measurement Name="MCI (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI (Lawa)</RequestAs>
+<Format>#.#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-03-21T12:00:00</VMStart>
+<VMFinish>2024-12-04T10:30:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<SensorGroup>CADDIS_Data</SensorGroup>
+<Measurement Name="QMCI (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-20T11:12:00</VMStart>
+<VMFinish>2024-12-04T10:30:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-hb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-03-21T12:00:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="MCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="MCI-sb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-03-21T12:00:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="MCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>MCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT taxa" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-03-21T12:00:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="%EPT taxa">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT taxa</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Taxa Richness" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2003-03-21T12:00:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="Taxa Richness">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Taxa Richness</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="EPT Richness (-hydroptilidae)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>EPT Richness (-hydroptilidae)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2003-03-21T12:00:00</VMStart>
+<VMFinish>2024-12-04T10:30:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Copper (Total)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2018-08-15T13:20:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Copper (Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Copper (Total)</RequestAs>
+<Units>g/m3</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-hb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="QMCI-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="QMCI-sb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="QMCI-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>QMCI-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-hb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="ASPM-hb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-hb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM-sb" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="ASPM-sb">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM-sb</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Film)(%)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2023-07-12T12:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Periphyton (Film)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Film)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Periphyton (Bare Rock)(%)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2023-07-12T12:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="Periphyton (Bare Rock)(%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Periphyton (Bare Rock)(%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ASPM" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="ASPM (Lawa)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ASPM (Lawa)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2004-04-20T11:12:00</VMStart>
+<VMFinish>2024-12-04T10:30:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="%EPT abundance" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>2</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQData</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>9</ItemFormat>
+<From>2004-04-20T11:12:00</From>
+<To>2024-12-04T10:30:00</To>
+<Measurement Name="%EPT abundance">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>%EPT abundance</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Hydrometric Facecard" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>HydFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1994-07-04T13:15:00</From>
+<To>2026-01-12T12:20:00</To>
+<TimeObjects>
+<SurveyTime> 4-Jul-1994 13:15:00</SurveyTime>
+<SurveyTime> 8-Nov-1994 13:00:00</SurveyTime>
+<SurveyTime>20-Feb-1996 08:45:00</SurveyTime>
+<SurveyTime>13-Oct-1996 14:50:00</SurveyTime>
+<SurveyTime>21-May-1997 16:10:00</SurveyTime>
+<SurveyTime>20-Oct-1998 04:00:00</SurveyTime>
+<SurveyTime> 8-Dec-2009 12:55:00</SurveyTime>
+<SurveyTime>23-Dec-2009 14:11:00</SurveyTime>
+<SurveyTime>18-Jan-2010 10:58:00</SurveyTime>
+<SurveyTime> 4-Feb-2010 15:15:00</SurveyTime>
+<SurveyTime> 4-Feb-2010 15:19:00</SurveyTime>
+<SurveyTime>11-Feb-2010 11:10:00</SurveyTime>
+<SurveyTime>19-Mar-2010 14:20:00</SurveyTime>
+<SurveyTime>20-Apr-2010 14:07:00</SurveyTime>
+<SurveyTime>17-Jun-2010 14:15:00</SurveyTime>
+<SurveyTime> 4-Aug-2010 11:45:00</SurveyTime>
+<SurveyTime> 9-Sep-2010 10:19:00</SurveyTime>
+<SurveyTime> 9-Sep-2010 10:55:00</SurveyTime>
+<SurveyTime> 9-Sep-2010 11:29:00</SurveyTime>
+<SurveyTime> 9-Sep-2010 12:05:00</SurveyTime>
+<SurveyTime> 9-Sep-2010 12:19:00</SurveyTime>
+<SurveyTime>18-Nov-2010 11:05:00</SurveyTime>
+<SurveyTime> 8-Feb-2011 13:14:00</SurveyTime>
+<SurveyTime> 2-Mar-2011 08:20:00</SurveyTime>
+<SurveyTime> 6-Mar-2017 12:14:00</SurveyTime>
+<SurveyTime> 5-Apr-2017 14:15:00</SurveyTime>
+<SurveyTime> 5-Apr-2017 14:45:00</SurveyTime>
+<SurveyTime> 9-Oct-2017 15:25:00</SurveyTime>
+<SurveyTime>21-Dec-2017 12:55:00</SurveyTime>
+<SurveyTime> 7-Feb-2018 11:21:00</SurveyTime>
+<SurveyTime>15-Mar-2018 11:48:00</SurveyTime>
+<SurveyTime>25-Jan-2019 11:10:00</SurveyTime>
+<SurveyTime> 1-Feb-2019 13:02:00</SurveyTime>
+<SurveyTime>18-Mar-2019 13:33:00</SurveyTime>
+<SurveyTime>14-Jul-2020 13:41:00</SurveyTime>
+<SurveyTime>21-Aug-2020 11:11:00</SurveyTime>
+<SurveyTime> 1-Sep-2020 11:30:00</SurveyTime>
+<SurveyTime>15-Oct-2020 14:33:00</SurveyTime>
+<SurveyTime> 4-Dec-2020 15:10:00</SurveyTime>
+<SurveyTime> 7-Jan-2021 10:14:00</SurveyTime>
+<SurveyTime>26-Feb-2021 13:10:00</SurveyTime>
+<SurveyTime>13-May-2021 10:07:00</SurveyTime>
+<SurveyTime>22-Jun-2021 10:55:17</SurveyTime>
+<SurveyTime>28-Jun-2021 13:30:00</SurveyTime>
+<SurveyTime>28-Jun-2021 13:43:00</SurveyTime>
+<SurveyTime>29-Jul-2021 11:46:00</SurveyTime>
+<SurveyTime>29-Sep-2021 15:05:00</SurveyTime>
+<SurveyTime>26-Oct-2021 14:09:00</SurveyTime>
+<SurveyTime>11-Nov-2021 13:40:00</SurveyTime>
+<SurveyTime>22-Dec-2021 13:04:00</SurveyTime>
+<SurveyTime>12-Jan-2022 10:28:00</SurveyTime>
+<SurveyTime>14-Feb-2022 13:51:00</SurveyTime>
+<SurveyTime>21-Feb-2022 13:55:00</SurveyTime>
+<SurveyTime>10-Mar-2022 13:46:00</SurveyTime>
+<SurveyTime> 4-Apr-2022 15:05:00</SurveyTime>
+<SurveyTime>20-Apr-2022 13:34:00</SurveyTime>
+<SurveyTime> 8-Jun-2022 14:20:00</SurveyTime>
+<SurveyTime>22-Jun-2022 13:50:00</SurveyTime>
+<SurveyTime>29-Jun-2022 13:00:00</SurveyTime>
+<SurveyTime>29-Jun-2022 13:38:00</SurveyTime>
+<SurveyTime>12-Jul-2022 12:13:45</SurveyTime>
+<SurveyTime>19-Oct-2022 12:18:00</SurveyTime>
+<SurveyTime>13-Dec-2022 14:28:00</SurveyTime>
+<SurveyTime>24-Mar-2023 14:31:00</SurveyTime>
+<SurveyTime>28-Jun-2023 15:07:00</SurveyTime>
+<SurveyTime>18-Aug-2023 12:17:00</SurveyTime>
+<SurveyTime>29-Nov-2023 13:30:00</SurveyTime>
+<SurveyTime>10-Jan-2024 13:00:00</SurveyTime>
+<SurveyTime> 4-Mar-2024 13:18:00</SurveyTime>
+<SurveyTime> 9-Apr-2024 09:58:00</SurveyTime>
+<SurveyTime> 4-Jun-2024 15:27:00</SurveyTime>
+<SurveyTime>24-Jul-2024 14:36:00</SurveyTime>
+<SurveyTime>12-Sep-2024 12:08:00</SurveyTime>
+<SurveyTime>26-Sep-2024 16:38:00</SurveyTime>
+<SurveyTime> 1-Nov-2024 12:30:00</SurveyTime>
+<SurveyTime>17-Dec-2024 09:55:00</SurveyTime>
+<SurveyTime>10-Feb-2025 13:42:00</SurveyTime>
+<SurveyTime> 6-May-2025 13:49:00</SurveyTime>
+<SurveyTime>24-Jun-2025 14:49:00</SurveyTime>
+<SurveyTime>18-Aug-2025 12:15:00</SurveyTime>
+<SurveyTime> 8-Oct-2025 12:44:00</SurveyTime>
+<SurveyTime>28-Oct-2025 12:58:45</SurveyTime>
+<SurveyTime>27-Nov-2025 10:29:00</SurveyTime>
+<SurveyTime>12-Jan-2026 12:20:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="RL Facecard" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>0</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>RLFacecard</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1981-01-09T12:00:00</From>
+<To>2017-03-09T12:00:00</To>
+<TimeObjects>
+<SurveyTime> 9-Jan-1981 12:00:00</SurveyTime>
+<SurveyTime>16-Jan-1995 12:00:00</SurveyTime>
+<SurveyTime>10-Nov-1998 12:00:00</SurveyTime>
+<SurveyTime>23-Aug-2010 12:00:00</SurveyTime>
+<SurveyTime>11-Nov-2011 12:00:00</SurveyTime>
+<SurveyTime>14-Dec-2015 12:00:00</SurveyTime>
+<SurveyTime> 9-Mar-2017 12:00:00</SurveyTime>
+</TimeObjects>
+</DataSource>
+<DataSource Name="WQ Sample" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>WQSample</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>2</ItemFormat>
+<From>1997-02-04T13:00:00</From>
+<To>2026-10-01T10:17:00</To>
+<Measurement Name="WQ Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WQ Sample</RequestAs>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-09-20T16:15:00</From>
+<To>2026-10-24T09:45:12</To>
+</DataSource>
+<DataSource Name="Gauging Results" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>15</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>GaugingResults</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2017-03-06T12:14:00</From>
+<To>2026-01-12T12:20:00</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Gaugings" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>9</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydGauging</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-07-12T12:13:45</From>
+<To>2022-07-12T12:13:45</To>
+<IndentMeasurements>1</IndentMeasurements>
+</DataSource>
+<DataSource Name="Hydrometric Sections" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>4</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>HydSection</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-07-12T12:13:45</From>
+<To>2022-07-12T12:13:45</To>
+</DataSource>
+<DataSource Name="Voltage" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2021-01-01T00:00:00</From>
+<To>2022-09-12T06:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2014-02-11T13:45:00</From>
+<To>2014-03-14T13:45:00</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2007-05-24T14:22:00</From>
+<To>2016-03-08T11:17:17</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen % Sat" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2014-02-11T13:45:00</From>
+<To>2014-03-14T13:45:00</To>
+</DataSource>
+<DataSource Name="Flow (Synthetic)" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>1989-11-01T00:00:00</From>
+<To>2011-01-05T00:00:00</To>
+</DataSource>
+<DataSource Name="Water Temperature 2" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2015-09-22T11:00:00</From>
+<To>2019-05-16T13:15:00</To>
+</DataSource>
+<DataSource Name="Water Level" Site="Waipoua River at Colombo Rd Bridge" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2009-12-23T15:00:00</From>
+<To>2022-09-12T06:05:00</To>
+<Measurement Name="Internal S.G.">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Internal S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Recorder Date &amp;Time">
+<Item>2</Item>
+<DefaultMeasurement />
+<RequestAs>Recorder Date &amp;Time</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="External S.G.">
+<Item>3</Item>
+<DefaultMeasurement />
+<RequestAs>External S.G.</RequestAs>
+<Units>mm</Units>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<DefaultMeasurement />
+<RequestAs>Comment</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+</HilltopServer>

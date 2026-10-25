@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-10-24T02:42:30.782374+00:00",
+  "former_process_id": 1907062,
+  "former_tool_session": 35787,
+  "verified_live_before_stop": true,
+  "last_progress": {
+    "date_calendars_resolved": 509,
+    "processed_sites": 675,
+    "requested_sites": 1273,
+    "running_process_id": 1907062,
+    "temperature_values_requested": false,
+    "updated_utc": "2026-10-24T02:28:22.836328+00:00"
+  },
+  "reason": "Intentional consolidation into script500 numeric national source acquisition, to compute H30 as well as availability with documented50k pages. Not a silence/timeout restart. Original dates-only caches and partial files retained unchanged.",
+  "replacement": "scripts/500_review_completion_national_inputs.py",
+  "new_NZ_independent_temperature_access": false
+}

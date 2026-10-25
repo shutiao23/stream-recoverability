@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Pauatahanui Stream at Gorge">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>39.2</CatchmentArea>
+<Comment>site number 30802</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wellington-and-porirua-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>0.085</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1761480</Easting>
+<FirstSynonym>Pauatahanui Stream at Gorge</FirstSynonym>
+<FloodFlow10>65</FloodFlow10>
+<FloodFlow100>93</FloodFlow100>
+<FloodFlow20>74</FloodFlow20>
+<FloodFlow200>101</FloodFlow200>
+<FloodFlow5>55</FloodFlow5>
+<FloodFlow50>85</FloodFlow50>
+<FlowWebVeryHigh>6.3</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.11687356</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00163</LawaSiteID>
+<Longitude>174.92341227</Longitude>
+<MALF7Day>0.100</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>83.192</MaxFlow>
+<MaxFlowAt>18-Apr-2026</MaxFlowAt>
+<MeanAnnualFloodFlow>42</MeanAnnualFloodFlow>
+<MeanFlow>0.728</MeanFlow>
+<MedianFlow>0.364</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.031</MinFlow>
+<MinFlowAt>28-Feb-2008</MinFlowAt>
+<Northing>5446486</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>308000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1149</SiteID>
+<SurfaceWaterSubZone>TeAwaruaOPoriruaSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>TeAwaruaOPoriruaSW</SurfaceWaterZone>
+<WebComment>This site is located about 800m upstream of where the stream flows under SH1 (Transmission Gully). River levels/flow have been monitored here since May 1975.</WebComment>
+</Site>
+</HilltopServer>

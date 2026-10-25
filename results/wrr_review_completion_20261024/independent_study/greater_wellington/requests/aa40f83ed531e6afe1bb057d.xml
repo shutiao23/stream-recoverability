@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Pauatahanui Stream at Elmwood Bridge">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>5.41</Altitude>
+<Catchment>Pauatahanui Stream</Catchment>
+<Comment>Water Quality Site established Jul-97. RSoE network formed, established as RSoE site Sep-03. Site was relocated ca. 0.2km u/s in 2015-16 due to Transmission Gully Roadworks. Old coordinates are E1761097 N5446783 (NZTM).</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1761146</Easting>
+<FirstSynonym>Pauatahanui Stream at Elmwood Bridge</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.11441006</Latitude>
+<LawaSiteID>GW-00014</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>174.91936237</Longitude>
+<Macro>True</Macro>
+<MacroStart>1/01/2004</MacroStart>
+<MetNumber>
+</MetNumber>
+<NZReach>9010034</NZReach>
+<NZSegment>9260167</NZSegment>
+<Northing>5446767</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Hard sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS14</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1147</SiteID>
+</Site>
+</HilltopServer>

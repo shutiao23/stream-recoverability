@@ -1,0 +1,5 @@
+/results/wrr_review_completion_20261024/independent_study/registration_code_and_protocol.tar.gz filter=lfs diff=lfs merge=lfs -text
+
+# Preserve byte-hashed provider metadata and the upstream rate-limit snapshot.
+/results/wrr_review_completion_20261024/independent_study/**/*.xml -text -diff
+/results/wrr_review_completion_20261024/europe_full_source_exact/provider_rate_limit_source_20261024.swift -text -diff

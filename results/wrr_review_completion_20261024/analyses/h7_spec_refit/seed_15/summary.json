@@ -1,0 +1,13 @@
+{
+  "analysis_version": "20261024-final-1",
+  "baseline_calibration": "same disjoint source calibration roles, bootstrap multiplicities and difficulty offsets as D2",
+  "case_score_convention": "128 midpoint samples of stored quantiles, constant tails outside .05-.95; exact ensemble score for stochastic regression",
+  "complete": true,
+  "n_cases": 145750,
+  "n_groups": 185,
+  "n_stations": 581,
+  "seed": 15,
+  "split": "h7_spec_refit",
+  "trend_missingness": "station-specific marginal matched to the .9/.18 heat-associated scenario",
+  "trend_replicates": 200
+}

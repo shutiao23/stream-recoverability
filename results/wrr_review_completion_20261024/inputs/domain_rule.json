@@ -1,0 +1,14 @@
+{
+  "boundary": 0.9044895537990894,
+  "features": [
+    "peak_overlap",
+    "missing_fraction",
+    "train_h30_mean",
+    "train_h30_sd",
+    "air_warm_z_mean"
+  ],
+  "method": "standardized nearest-neighbor distance; cutoff from leave-one-region-out source distances",
+  "new_data_status": "already opened; exploratory diagnosis only",
+  "source_grouping": "one record per station; conservative independence still determined separately",
+  "warning": "first available mask features are a screening sensitivity, not Meyer-Pebesma area-of-applicability validation or a physical river-type classification"
+}

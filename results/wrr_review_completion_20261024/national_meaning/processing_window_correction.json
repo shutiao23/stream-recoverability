@@ -1,0 +1,6 @@
+{
+  "recorded_utc": "2026-10-24T02:47:49.618012+00:00",
+  "prior_controller_pid": 2341620,
+  "reason": "Correct cached full-period inputs to the same1980--2026-01-02 acquisition padding as fresh queries, and bind cached QC to the helper bytes actually loaded. No population or outcome criterion changed; this is not a timeout restart.",
+  "new_NZ_values_requested": false
+}

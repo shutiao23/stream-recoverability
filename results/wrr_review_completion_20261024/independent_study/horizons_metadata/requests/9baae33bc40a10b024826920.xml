@@ -1,0 +1,72 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Rangitikei at McKelvies">
+<AEP0.01>1466459</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>8</Altitude>
+<BARO_CLOSEST>Rangitikei at McKelvies</BARO_CLOSEST>
+<BARO_CLOSEST_RL>8</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>8</BARO_RL>
+<Catchment>Rangitikei</Catchment>
+<CatchmentArea>3895.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Rang_4a)&#13;&#10;                 (Rang_4b)&#13;&#10;                 (Rang_4d)&#13;&#10;RL0 = 0 (MSL Wellington - Reference 5.42km X-Section)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Manawatu District</District>
+<Easting>2703300</Easting>
+<Ffreq>GEV</Ffreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>990000</FloodFlow10>
+<FloodFlow20>1120000</FloodFlow20>
+<FloodFlow5>870000</FloodFlow5>
+<FloodFlow50>1300000</FloodFlow50>
+<GISTag>AS</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.29703142</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00043</LawaSiteID>
+<LawaSiteName>Rangitikei at McKelvies</LawaSiteName>
+<Longitude>175.27406600</Longitude>
+<MALF7Day>13217</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>28-Jan-2009</MacroStart>
+<MaxFlow>1235237</MaxFlow>
+<MaxFlowAt>21-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>843847</MeanAnnualFloodFlow>
+<MeanFlow>73870</MeanFlow>
+<MedianFlow>47272</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>8512</MinFlow>
+<MinFlowAt>12-Mar-2013</MinFlowAt>
+<NZReach>7038059</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7235983</NZSegment>
+<Northing>6098500</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>327000</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>MCK</SecondSynonym>
+<ShortName>Hor-0054</ShortName>
+<SiteID>2061</SiteID>
+<StatsPeriod>1/7/2006-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Rang_4</SurfaceWaterZone>
+<eQualCode>Hor-0054</eQualCode>
+</Site>
+</HilltopServer>

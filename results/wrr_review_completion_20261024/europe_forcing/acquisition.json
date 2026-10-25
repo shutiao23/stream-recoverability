@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "local_meteorological_station_upper_bound": "not available; reanalysis is not a station observation",
+  "model": "ERA5-Land via Open-Meteo, daily mean 2m air temperature, UTC",
+  "retrieved": 16,
+  "selected": 16,
+  "selection": "two opened stations per European provider sorted by identifier; no performance-based selection"
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangaone at Flygers Line Gates">
+<Altitude>37</Altitude>
+<Catchment>Manawatu</Catchment>
+<Comment>Purpose: &#13;&#10;Flood Warning&#13;&#10;HOPCRN: Rainfall&#13;&#10;Water Allocation (Mana_11d)&#13;&#10;                            (Mana_11e)&#13;&#10;Bed control&#13;&#10;RL0=</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Palmerston North City</District>
+<Easting>2730879</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.35" Min20="7.56" Min30="9.17" Hour1="12.6" Hour2="17" Hour6="26.5" Hour12="34.3" Day1="43.6" Day2="54.5" Day3="61.6" Day4="67" Day5="71.4">
+</Interval>
+<Interval ARI="2" Min10="5.94" Min20="8.37" Min30="10.1" Hour1="13.9" Hour2="18.7" Hour6="29.1" Hour12="37.5" Day1="47.6" Day2="59.3" Day3="67" Day4="72.7" Day5="77.4">
+</Interval>
+<Interval ARI="5" Min10="8.07" Min20="11.3" Min30="13.6" Hour1="18.5" Hour2="24.8" Hour6="37.9" Hour12="48.6" Day1="61.1" Day2="75.7" Day3="85.1" Day4="92.1" Day5="97.8">
+</Interval>
+<Interval ARI="10" Min10="9.74" Min20="13.5" Min30="16.3" Hour1="22.1" Hour2="29.4" Hour6="44.6" Hour12="56.9" Day1="71.2" Day2="87.7" Day3="98.4" Day4="106" Day5="113">
+</Interval>
+<Interval ARI="20" Min10="11.6" Min20="16" Min30="19.2" Hour1="25.9" Hour2="34.3" Hour6="51.7" Hour12="65.5" Day1="81.7" Day2="100" Day3="112" Day4="121" Day5="128">
+</Interval>
+<Interval ARI="30" Min10="12.7" Min20="17.5" Min30="21" Hour1="28.2" Hour2="37.3" Hour6="56" Hour12="70.8" Day1="88" Day2="108" Day3="120" Day4="129" Day5="137">
+</Interval>
+<Interval ARI="40" Min10="13.5" Min20="18.7" Min30="22.3" Hour1="29.9" Hour2="39.5" Hour6="59.1" Hour12="74.6" Day1="92.5" Day2="113" Day3="126" Day4="135" Day5="143">
+</Interval>
+<Interval ARI="50" Min10="14.2" Min20="19.6" Min30="23.4" Hour1="31.3" Hour2="41.2" Hour6="61.5" Hour12="77.6" Day1="96.1" Day2="117" Day3="130" Day4="140" Day5="148">
+</Interval>
+<Interval ARI="60" Min10="14.8" Min20="20.3" Min30="24.3" Hour1="32.4" Hour2="42.7" Hour6="63.6" Hour12="80" Day1="99" Day2="121" Day3="134" Day4="144" Day5="152">
+</Interval>
+<Interval ARI="80" Min10="15.7" Min20="21.5" Min30="25.7" Hour1="34.3" Hour2="45" Hour6="66.8" Hour12="84" Day1="104" Day2="126" Day3="140" Day4="150" Day5="159">
+</Interval>
+<Interval ARI="100" Min10="16.4" Min20="22.5" Min30="26.8" Hour1="35.7" Hour2="46.8" Hour6="69.4" Hour12="87.1" Day1="107" Day2="130" Day3="145" Day4="155" Day5="164">
+</Interval>
+<Interval ARI="250" Min10="19.6" Min20="26.6" Min30="31.7" Hour1="41.9" Hour2="54.6" Hour6="80.2" Hour12="100" Day1="123" Day2="148" Day3="163" Day4="175" Day5="184">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<Latitude>-40.32236467</Latitude>
+<Longitude>175.59957432</Longitude>
+<MetNumber>D05393</MetNumber>
+<NZReach>7038657</NZReach>
+<NZSegment>7237446</NZSegment>
+<Northing>6094923</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325100</RiverNumber>
+<SecondSynonym>FLY</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>19300</SiteID>
+</Site>
+</HilltopServer>

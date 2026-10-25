@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Taueru River at Te Whiti Rd Bridge">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>497.0</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wairarapa-rivers-streams-east-of-ruamahanga-river/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.25</ComplianceFlowThreshold>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1824184</Easting>
+<FirstSynonym>Taueru River at Te Whiti Rd Bridge</FirstSynonym>
+<FlowWebVeryHigh>68</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.06337984</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00199</LawaSiteID>
+<Longitude>175.66805882</Longitude>
+<Macro>False</Macro>
+<MaxFlow>426.287</MaxFlow>
+<MaxFlowAt>12-Jul-2013</MaxFlowAt>
+<MeanFlow>5.323</MeanFlow>
+<MedianFlow>1.376</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.092</MinFlow>
+<MinFlowAt> 5-Jan-2011</MinFlowAt>
+<Northing>5450777</Northing>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>292300</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>2360</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_UpperSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+<WebComment>Located at the Te Whiti Road bridge and was installed to supply flow levels for the water quality monitoring programme.</WebComment>
+</Site>
+</HilltopServer>

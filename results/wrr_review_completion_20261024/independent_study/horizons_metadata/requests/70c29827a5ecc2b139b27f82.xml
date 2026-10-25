@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Makotuku at Raetihi">
+<AEP0.01>348000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>520</Altitude>
+<Catchment>Whangaehu</Catchment>
+<CatchmentArea>62.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Whau_3c)&#13;&#10;Concrete control. Early Foxboro record from 1974 to 1978. Also known as &#13;&#10;Makotuku at Old Raetihi Borough Weir, and Makotuku at Raetihi Weir, &#13;&#10;site 1033103</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2706464</Easting>
+<FirstSynonym>Makotuku at Old Raetihi Borough Weir</FirstSynonym>
+<FloodFlow10>179000</FloodFlow10>
+<FloodFlow20>228000</FloodFlow20>
+<FloodFlow5>136000</FloodFlow5>
+<FloodFlow50>305000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.42213441</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00007</LawaSiteID>
+<LawaSiteName>Makotuku at Raetihi</LawaSiteName>
+<Longitude>175.28170041</Longitude>
+<MALF7Day>136</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jan-2007</MacroStart>
+<MaxFlow>158229</MaxFlow>
+<MaxFlowAt> 7-Jul-2006</MaxFlowAt>
+<MeanAnnualFloodFlow>73433</MeanAnnualFloodFlow>
+<MeanFlow>1699</MeanFlow>
+<MedianFlow>754</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>65</MinFlow>
+<MinFlowAt> 7-Mar-2019</MinFlowAt>
+<NZReach>7017142</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7193268</NZSegment>
+<Northing>6195576</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>331167</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RAE</SecondSynonym>
+<ShortName>Hor-0044</ShortName>
+<SiteID>274</SiteID>
+<StatsPeriod>1/7/1975-1/7/2017</StatsPeriod>
+<SurfaceWaterZone>Whau_3</SurfaceWaterZone>
+<eQualCode>Hor-0044</eQualCode>
+</Site>
+</HilltopServer>

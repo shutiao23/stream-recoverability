@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Wainuiomata River at Manuka Track">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>145.9</Altitude>
+<Catchment>Wainuiomata River</Catchment>
+<CatchmentArea>25.2</CatchmentArea>
+<Comment>Water Quality Site established Jun-87. RSoE network formed, established as RSoE site Sep-03.</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1768301</Easting>
+<FirstSynonym>Wainuiomata River at Manuka Track</FirstSynonym>
+<FloodFlow10>61</FloodFlow10>
+<FloodFlow100>105</FloodFlow100>
+<FloodFlow20>72</FloodFlow20>
+<FloodFlow5>50</FloodFlow5>
+<FloodFlow50>92</FloodFlow50>
+<FlowWebVeryHigh>6.46</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.25677265</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00028</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.00892684</Longitude>
+<LowFlow100yr14Day>0.095</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.088</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.099</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.092</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.123</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.112</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.138</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.118</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.113</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.103</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.123</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.108</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.102</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.094</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.108</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.098</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.138</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.125</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.158</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.131</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.191</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.169</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.228</LowFlowMALF28Day>
+<MALF7Day>0.179</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 1-Jan-2004</MacroStart>
+<MaxFlow>91</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>33</MeanAnnualFloodFlow>
+<MeanFlow>0.906</MeanFlow>
+<MedianFlow>0.556</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.089</MinFlow>
+<MinFlowAt>20-Mar-1989</MinFlowAt>
+<NZReach>9013597</NZReach>
+<NZSegment>9264014</NZSegment>
+<Northing>5430792</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Hard sedimentary</RECGeology>
+<RECLandcover>Indigenous Forest</RECLandcover>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Wainuiomata River</RiverName>
+<RiverNumber>296000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Native</SWQLanduse>
+<SecondSynonym>RS28</SecondSynonym>
+<ShortName>Manuka Track</ShortName>
+<SiteID>2589</SiteID>
+<SurfaceWaterSubZone>WainuiomataSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This site is located approximately 3km upstream of the water treatment plant and has been operating since June 1982.</WebComment>
+</Site>
+</HilltopServer>

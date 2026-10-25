@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Mangawhero at Pakihi Rd Bridge">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>519</Altitude>
+<Catchment>Whangaehu</Catchment>
+<CatchmentArea>139.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Whau_3d)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2710091</Easting>
+<FFreq>GEV</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>397000</FloodFlow10>
+<FloodFlow20>478000</FloodFlow20>
+<FloodFlow5>322000</FloodFlow5>
+<FloodFlow50>506000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.43174582</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00028</LawaSiteID>
+<LawaSiteName>Mangawhero at Pakihi Rd Bridge</LawaSiteName>
+<Longitude>175.32417056</Longitude>
+<MALF7Day>1240</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Jan-2007</MacroStart>
+<MaxFlow>236695</MaxFlow>
+<MaxFlowAt>15-Oct-2013</MaxFlowAt>
+<MeanAnnualFloodFlow>91418</MeanAnnualFloodFlow>
+<MeanFlow>4674</MeanFlow>
+<MedianFlow>3196</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>987</MinFlow>
+<MinFlowAt> 3-Apr-2015</MinFlowAt>
+<NZReach>7017464</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7194090</NZSegment>
+<Northing>6194414</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>331030</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>MPA</SecondSynonym>
+<ShortName>Hor-0045</ShortName>
+<SiteID>10065</SiteID>
+<StatsPeriod>1/7/2006-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Whau_3</SurfaceWaterZone>
+<eQualCode>Hor-0045</eQualCode>
+</Site>
+</HilltopServer>

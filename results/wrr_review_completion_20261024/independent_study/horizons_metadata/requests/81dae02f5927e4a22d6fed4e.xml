@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Tokomaru at Riverland Farm">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>57.5</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_13b)&#13;&#10;                 (Mana_13c)&#13;&#10;RL0 = </Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2721800</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>150000</FloodFlow10>
+<FloodFlow20>170000</FloodFlow20>
+<FloodFlow5>130000</FloodFlow5>
+<FloodFlow50>195000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.48428276</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>LAWA-100246</LawaSiteID>
+<LawaSiteName>Tokomaru at Riverland Farm</LawaSiteName>
+<Longitude>175.49870026</Longitude>
+<MALF7Day>276</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>169711</MaxFlow>
+<MaxFlowAt>29-Dec-2000</MaxFlowAt>
+<MeanAnnualFloodFlow>96968</MeanAnnualFloodFlow>
+<MeanFlow>2299</MeanFlow>
+<MedianFlow>1244</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>51</MinFlow>
+<MinFlowAt>28-Mar-2015</MinFlowAt>
+<NZReach>7042713</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7242356</NZSegment>
+<NZVD16>10110</NZVD16>
+<Northing>6077200</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325000</RiverNumber>
+<Scheme>Central LMS Middle</Scheme>
+<SecondSynonym>TRF</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>10968</SiteID>
+<StatsPeriod>1/7/1980-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_13</SurfaceWaterZone>
+</Site>
+</HilltopServer>

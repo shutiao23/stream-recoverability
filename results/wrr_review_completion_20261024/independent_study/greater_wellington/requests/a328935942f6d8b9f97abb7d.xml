@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Hutt River at Birchville">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>75.19</Altitude>
+<CatchmentArea>427.0</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wellington-and-porirua-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>1.450</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1775575</Easting>
+<FirstSynonym>Hutt River at Birchville</FirstSynonym>
+<FloodFlow10>1136</FloodFlow10>
+<FloodFlow100>1695</FloodFlow100>
+<FloodFlow20>1307</FloodFlow20>
+<FloodFlow5>957</FloodFlow5>
+<FloodFlow50>1529</FloodFlow50>
+<FlowWebVeryHigh>170</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.10017595</Latitude>
+<LawaBathingWaterQualityMeasurement>Water Temperature (X)</LawaBathingWaterQualityMeasurement>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-10001</LawaSiteID>
+<Longitude>175.09076014</Longitude>
+<LowFlow100yr14Day>1.087</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.955</LowFlow100yr1Day>
+<LowFlow100yr28Day>1.257</LowFlow100yr28Day>
+<LowFlow100yr7Day>1.009</LowFlow100yr7Day>
+<LowFlow10yr14Day>1.738</LowFlow10yr14Day>
+<LowFlow10yr1Day>1.41</LowFlow10yr1Day>
+<LowFlow10yr28Day>2.287</LowFlow10yr28Day>
+<LowFlow10yr7Day>1.545</LowFlow10yr7Day>
+<LowFlow20yr14Day>1.491</LowFlow20yr14Day>
+<LowFlow20yr1Day>1.237</LowFlow20yr1Day>
+<LowFlow20yr28Day>1.896</LowFlow20yr28Day>
+<LowFlow20yr7Day>1.342</LowFlow20yr7Day>
+<LowFlow50yr14Day>1.24</LowFlow50yr14Day>
+<LowFlow50yr1Day>1.062</LowFlow50yr1Day>
+<LowFlow50yr28Day>1.499</LowFlow50yr28Day>
+<LowFlow50yr7Day>1.136</LowFlow50yr7Day>
+<LowFlow5yr14Day>2.075</LowFlow5yr14Day>
+<LowFlow5yr1Day>1.645</LowFlow5yr1Day>
+<LowFlow5yr28Day>2.82</LowFlow5yr28Day>
+<LowFlow5yr7Day>1.822</LowFlow5yr7Day>
+<LowFlowMALF1Day>2.349</LowFlowMALF1Day>
+<LowFlowMALF28Day>4.385</LowFlowMALF28Day>
+<MALF7Day>2.800</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>1382</MaxFlow>
+<MaxFlowAt> 1-Jun-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>718</MeanAnnualFloodFlow>
+<MeanFlow>22.059</MeanFlow>
+<MedianFlow>12.272</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>1.090</MinFlow>
+<MinFlowAt>23-Feb-1971</MinFlowAt>
+<NZReach>9009486</NZReach>
+<NZSegment>9259583</NZSegment>
+<Northing>5448016</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Hard sedimentary</RECGeology>
+<RECLandcover>Indigenous Forest</RECLandcover>
+<RWQualitySiteType>River</RWQualitySiteType>
+<RecordingAuthority1>GW-Western/Niwa</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Hutt River</RiverName>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQLanduse>Forest</SWQLanduse>
+<SecondSynonym>FCR06</SecondSynonym>
+<ShortName>Birchville</ShortName>
+<SiteID>434</SiteID>
+<SurfaceWaterSubZone>HuttSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This site is located about 1 km north of the Maoribank corner of the Hutt River. This site is run by NIWA but is co-funded by Greater Wellington. River levels/flow have been monitored here since September 1970. The measurements labelled &quot;Stage&quot; and &quot;Flow&quot; are the primary sensors maintained by Niwa, the measurements labelled &quot;Stage 2&quot; and &quot;Flow 2&quot; are the backup sensors maintained by GWRC.</WebComment>
+</Site>
+</HilltopServer>

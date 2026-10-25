@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Manawatu at Weber Road">
+<AEP0.01>1270000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>160</Altitude>
+<BARO_CLOSEST>Manawatu at Weber Road</BARO_CLOSEST>
+<BARO_CLOSEST_RL>170</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>170</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>713.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning Site (IVR)&#13;&#10;Water Allocation (Mana_1a)&#13;&#10;                 (Mana_1b)&#13;&#10;                 (Mana_2a)&#13;&#10;                 (Mana_2b)&#13;&#10;Consent monitoring: SM/ST</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2775100</Easting>
+<FFeq>GEV</FFeq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>811000</FloodFlow10>
+<FloodFlow20>950000</FloodFlow20>
+<FloodFlow5>667000</FloodFlow5>
+<FloodFlow50>1130000</FloodFlow50>
+<GISTag>WRFWCDWQ</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.23947125</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00018</LawaSiteID>
+<LawaSiteName>Manawatu at Weber Road</LawaSiteName>
+<Longitude>176.11635941</Longitude>
+<MALF7Day>1984</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>20-Mar-2000</MacroStart>
+<MaxFlow>1311986</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>521423</MeanAnnualFloodFlow>
+<MeanFlow>14757</MeanFlow>
+<MedianFlow>7073</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>988</MinFlow>
+<MinFlowAt>14-Apr-1978</MinFlowAt>
+<NZReach>7037199</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7235487</NZSegment>
+<Northing>6102700</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Eastern Upper Manawatu</Scheme>
+<SecondSynonym>WEB</SecondSynonym>
+<ShortName>Hor-0002</ShortName>
+<SiteID>72</SiteID>
+<StatsPeriod>1/7/1955-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_1</SurfaceWaterZone>
+<XSection>NA</XSection>
+<eQualCode>Hor-0002</eQualCode>
+</Site>
+</HilltopServer>

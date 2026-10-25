@@ -1,0 +1,5 @@
+station_key,station_name,family,n_evaluation_complete_years,first_evaluation_year,last_evaluation_year,n_cases,median_missing_days,danger_fraction,donor_layer_fraction,air_layer_fraction,major_upstream_dams_2009,zero_flow_days_available_record,lake_outlet_status
+usgs|06054500,Missouri River at Toston MT,calendar,20,2001,2025,105,16.0,0.09523809523809523,0.7523809523809524,0.24761904761904763,15.0,0.0,not independently established
+usgs|06054500,Missouri River at Toston MT,crossed,20,2001,2025,360,60.0,0.5277777777777778,0.6194444444444445,0.38055555555555554,15.0,0.0,not independently established
+usgs|13342500,CLEARWATER RIVER AT SPALDING ID,calendar,20,2001,2024,99,9.0,0.06060606060606061,0.9191919191919192,0.08080808080808081,3.0,0.0,not independently established
+usgs|13342500,CLEARWATER RIVER AT SPALDING ID,crossed,20,2001,2024,360,60.0,0.5194444444444445,0.8944444444444445,0.10555555555555556,3.0,0.0,not independently established

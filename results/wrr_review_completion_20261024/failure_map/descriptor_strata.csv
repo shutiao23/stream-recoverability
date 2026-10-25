@@ -1,0 +1,17 @@
+family,descriptor,stratum,n_stations,station_equal_failure_rate,station_equal_bias
+calendar,GAGES_II_major_dam_2009,none_recorded_2009,78,0.025277305177795195,0.00403297476128093
+calendar,GAGES_II_major_dam_2009,one_or_more_2009,138,0.0245192900791369,-0.003322264766016842
+calendar,GAGES_II_major_dam_2009,unknown,365,0.04030838990447261,-0.005209306288267701
+calendar,zero_flow_proxy,no_zero_in_available_flow,245,0.024912233127075654,0.0004465201651794535
+calendar,zero_flow_proxy,unknown,309,0.04308041283422538,-0.007530267561203272
+calendar,zero_flow_proxy,zero_flow_recorded,27,0.024167017333786657,0.006376219792397133
+calendar,explicit_agency_lake_outlet,agency_designated_lake_outlet,1,0.0,0.005588786213286068
+calendar,explicit_agency_lake_outlet,not independently established,580,0.034599748534347274,-0.0035360104961403606
+crossed,GAGES_II_major_dam_2009,none_recorded_2009,78,0.15536771774707064,0.045844111899380154
+crossed,GAGES_II_major_dam_2009,one_or_more_2009,138,0.1585422054796017,-0.032311862616358406
+crossed,GAGES_II_major_dam_2009,unknown,365,0.12202944672704547,-0.011383263355989099
+crossed,zero_flow_proxy,no_zero_in_available_flow,245,0.1476423823224912,0.0015447389859136245
+crossed,zero_flow_proxy,unknown,309,0.12288956606145515,-0.01723519563154444
+crossed,zero_flow_proxy,zero_flow_recorded,27,0.1627035116232647,-0.003365668120127244
+crossed,explicit_agency_lake_outlet,agency_designated_lake_outlet,1,0.046296296296296294,-0.046213362298989195
+crossed,explicit_agency_lake_outlet,not independently established,580,0.13533096224057214,-0.008606679440591103

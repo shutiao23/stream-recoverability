@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Pahaoa River at Hinakura">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>20.32</Altitude>
+<Catchment>Pahaoa River</Catchment>
+<CatchmentArea>563.0</CatchmentArea>
+<Comment>RSoE Site established Aug-11, closed in Jun-12 and established in Jul-16.</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wairarapa-rivers-streams-east-of-ruamahanga-river/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.08</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<ConsentControlSite>False</ConsentControlSite>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1821678</Easting>
+<FirstSynonym>Pahaoa River at Hinakura</FirstSynonym>
+<FloodFlow10>857</FloodFlow10>
+<FloodFlow100>2010</FloodFlow100>
+<FloodFlow20>1132</FloodFlow20>
+<FloodFlow233>426</FloodFlow233>
+<FloodFlow5>625</FloodFlow5>
+<FloodFlow50>1583</FloodFlow50>
+<FlowWebVeryHigh>145</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="2" Min10="5.53" Min20="7.68" Min30="9.44" Hour1="13.6" Hour2="19.8" Hour6="35.4" Hour12="49.6" Day1="66.8" Day2="85.4" Day3="95.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="7.5" Min20="10.4" Min30="12.7" Hour1="18.3" Hour2="26.5" Hour6="47" Hour12="65.5" Day1="87.9" Day2="112" Day3="125" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="9.04" Min20="12.5" Min30="15.3" Hour1="21.9" Hour2="31.6" Hour6="55.8" Hour12="77.6" Day1="104" Day2="132" Day3="147" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="10.7" Min20="14.7" Min30="18" Hour1="25.7" Hour2="37" Hour6="65.1" Hour12="90.3" Day1="120" Day2="153" Day3="170" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="11.7" Min20="16.1" Min30="19.6" Hour1="28" Hour2="40.4" Hour6="70.8" Hour12="98" Day1="131" Day2="165" Day3="184" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="12.5" Min20="17.1" Min30="20.9" Hour1="29.8" Hour2="42.8" Hour6="75" Hour12="104" Day1="138" Day2="174" Day3="194" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="13.1" Min20="17.9" Min30="21.8" Hour1="31.1" Hour2="44.7" Hour6="78.2" Hour12="108" Day1="144" Day2="181" Day3="202" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="13.6" Min20="18.6" Min30="22.6" Hour1="32.3" Hour2="46.3" Hour6="80.9" Hour12="112" Day1="148" Day2="187" Day3="209" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="14.4" Min20="19.7" Min30="23.9" Hour1="34.1" Hour2="48.9" Hour6="85.3" Hour12="118" Day1="156" Day2="197" Day3="219" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="15" Min20="20.5" Min30="25" Hour1="35.5" Hour2="50.9" Hour6="88.6" Hour12="122" Day1="162" Day2="204" Day3="227" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.96" Min20="1.2" Min30="1.3" Hour1="1.9" Hour2="2.8" Hour6="5.5" Hour12="8.4" Day1="13" Day2="17" Day3="19" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.4" Min20="1.7" Min30="1.9" Hour1="2.6" Hour2="3.9" Hour6="7.3" Hour12="11" Day1="18" Day2="22" Day3="25" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.7" Min20="2.1" Min30="2.5" Hour1="3.3" Hour2="4.9" Hour6="9" Hour12="14" Day1="22" Day2="27" Day3="30" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.2" Min20="2.8" Min30="3.2" Hour1="4.2" Hour2="6.2" Hour6="11" Hour12="17" Day1="26" Day2="32" Day3="36" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="2.6" Min20="3.3" Min30="3.8" Hour1="4.8" Hour2="7.2" Hour6="12" Hour12="19" Day1="28" Day2="35" Day3="39" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="2.8" Min20="3.6" Min30="4.2" Hour1="5.3" Hour2="8" Hour6="14" Hour12="20" Day1="30" Day2="37" Day3="42" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3.1" Min20="4" Min30="4.6" Hour1="5.8" Hour2="8.7" Hour6="14" Hour12="22" Day1="32" Day2="39" Day3="44" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="3.3" Min20="4.3" Min30="4.9" Hour1="6.2" Hour2="9.3" Hour6="15" Hour12="23" Day1="33" Day2="41" Day3="46" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="3.7" Min20="4.8" Min30="5.5" Hour1="6.9" Hour2="10" Hour6="17" Hour12="25" Day1="35" Day2="44" Day3="49" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="4" Min20="5.2" Min30="6" Hour1="7.5" Hour2="11" Hour6="18" Hour12="27" Day1="37" Day2="46" Day3="51" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.29805044</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00160</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.64767819</Longitude>
+<LowFlow100yr14Day>0</LowFlow100yr14Day>
+<LowFlow100yr1Day>0</LowFlow100yr1Day>
+<LowFlow100yr28Day>0</LowFlow100yr28Day>
+<LowFlow100yr7Day>0</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.016</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.007</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.024</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.014</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.006</LowFlow20yr14Day>
+<LowFlow20yr1Day>0</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.007</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.004</LowFlow20yr7Day>
+<LowFlow233yr14Day>0.065</LowFlow233yr14Day>
+<LowFlow233yr1Day>0.041</LowFlow233yr1Day>
+<LowFlow233yr28Day>0.092</LowFlow233yr28Day>
+<LowFlow233yr7Day>0.052</LowFlow233yr7Day>
+<LowFlow50yr14Day>0</LowFlow50yr14Day>
+<LowFlow50yr1Day>0</LowFlow50yr1Day>
+<LowFlow50yr28Day>0</LowFlow50yr28Day>
+<LowFlow50yr7Day>0</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.033</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.018</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.048</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.027</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.132</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.091</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.2</LowFlowMALF28Day>
+<MALF7Day>0.111</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>29/02/2012</MacroStart>
+<MaxFlow>1196.774</MaxFlow>
+<MaxFlowAt>31-Mar-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>426</MeanAnnualFloodFlow>
+<MeanFlow>10.384</MeanFlow>
+<MedianFlow>2.422</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.001</MinFlow>
+<MinFlowAt>17-Mar-1989</MinFlowAt>
+<NZReach>9014719</NZReach>
+<NZSegment>9265229</NZSegment>
+<Northing>5424774</Northing>
+<RECClimate>Cool Wet</RECClimate>
+<RECGeology>Soft sedimentary</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Pahaoa River</RiverName>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS60</SecondSynonym>
+<ShortName>Pahaoa</ShortName>
+<SiteID>1074</SiteID>
+<SurfaceWaterSubZone>Wairarapa_CoastSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>Wairarapa_CoastSW</SurfaceWaterZone>
+<WebComment>This site is located in the lower part of the largest catchment that flows to the eastern coast in the Wairarapa. The headwaters are in Ngaumu Forest at Stronvar. It was a jointly run site with NIWA and started in 1986, but since July 2014 is now solely run by GWRC</WebComment>
+</Site>
+</HilltopServer>

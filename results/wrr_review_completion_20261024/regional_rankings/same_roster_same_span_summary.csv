@@ -1,0 +1,30 @@
+region,status,n_stations,n_groups,window,common_years,n_years_complete,n_years_retained,top_complete,top_retained,top_complete_common,top_retained_common,median_slope_complete,median_slope_retained,difference_of_regional_medians,median_paired_station_difference,contrast_group_bootstrap_lower,contrast_group_bootstrap_upper
+provider:arso,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:chmi,computed,11,4.0,1981-2025; each station restricted to its first-last complete year for both policies,18.0,18.0,18.0,2015.0,2015.0,2015.0,2015.0,1.282349561677457,1.282349561677457,0.0,0.0,-0.039615420687846514,0.23115046385533056
+provider:foen,computed,11,2.0,1981-2025; each station restricted to its first-last complete year for both policies,25.0,25.0,25.0,2018.0,2018.0,2018.0,2018.0,0.6409830429732811,0.6501564102564037,0.009173367283122569,0.0,,
+provider:gkd_bayern,computed,37,8.0,1981-2025; each station restricted to its first-last complete year for both policies,10.0,10.0,15.0,2022.0,2018.0,2022.0,2022.0,0.7292409000929234,0.7204761904761531,-0.008764709616770339,0.0,-0.029604928076082608,0.08761656671395945
+provider:hubeau,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:lubw,fewer_than_five_complete-qualified_stations,1,,,,,,,,,,,,,,,
+provider:nve_hydapi,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:rws_waterwebservices,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:syke,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:uk_ea,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+provider:usgs,computed,36,19.0,1981-2025; each station restricted to its first-last complete year for both policies,1.0,1.0,22.0,2020.0,2018.0,2020.0,2020.0,0.24604742912603772,0.2003606021747509,-0.04568682695128681,0.005809884144164612,-0.18656561487338244,0.0913549256009818
+region:usgs_huc01,fewer_than_five_complete-qualified_stations,2,,,,,,,,,,,,,,,
+region:usgs_huc02,computed,5,2.0,1981-2025; each station restricted to its first-last complete year for both policies,10.0,10.0,23.0,2002.0,2002.0,2002.0,2002.0,-0.4908567208271804,-0.3796955777641135,0.1111611430630669,0.1111611430630669,,
+region:usgs_huc03,computed,5,4.0,1981-2025; each station restricted to its first-last complete year for both policies,11.0,11.0,25.0,2011.0,2010.0,2011.0,2011.0,0.0858126105988566,0.07056003079560189,-0.015252579803254715,0.03184978019480261,-0.09551381605787411,0.1497840029231249
+region:usgs_huc04,computed,5,2.0,1981-2025; each station restricted to its first-last complete year for both policies,12.0,12.0,26.0,2020.0,2012.0,2020.0,2020.0,0.22308164753751483,0.04555768144265853,-0.1775239660948563,-0.03324203725075728,,
+region:usgs_huc05,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc06,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc07,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc08,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc09,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc10,fewer_than_five_complete-qualified_stations,4,,,,,,,,,,,,,,,
+region:usgs_huc11,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc12,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc14,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc15,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc16,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc17,computed,15,7.0,1981-2025; each station restricted to its first-last complete year for both policies,8.0,8.0,22.0,2015.0,2015.0,2015.0,2015.0,0.4006669920286171,0.42736610729311125,0.026699115264494144,-0.007306138915459448,-0.17817883261449477,0.06848087307254237
+region:usgs_huc18,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,
+region:usgs_huc19,fewer_than_five_complete-qualified_stations,0,,,,,,,,,,,,,,,

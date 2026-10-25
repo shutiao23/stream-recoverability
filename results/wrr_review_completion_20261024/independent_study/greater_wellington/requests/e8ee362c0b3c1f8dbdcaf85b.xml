@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Mangaone Stream at Ratanui">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>75</Altitude>
+<CatchmentArea>9.2</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-kapiti-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>0.05</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1781860</Easting>
+<FirstSynonym>Mangaone Stream at Ratanui</FirstSynonym>
+<FloodFlow10>23</FloodFlow10>
+<FloodFlow100>35</FloodFlow100>
+<FloodFlow20>27</FloodFlow20>
+<FloodFlow5>19</FloodFlow5>
+<FloodFlow50>32</FloodFlow50>
+<FlowWebVeryHigh>2.35</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="2" Min10="8.93" Min20="12.9" Min30="16" Hour1="22.9" Hour2="32.3" Hour6="53.4" Hour12="70.8" Day1="90.7" Day2="112" Day3="124" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="11.6" Min20="16.7" Min30="20.6" Hour1="29.4" Hour2="41.3" Hour6="68" Hour12="89.8" Day1="115" Day2="141" Day3="156" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="13.6" Min20="19.5" Min30="24.1" Hour1="34.3" Hour2="48.1" Hour6="78.7" Hour12="104" Day1="132" Day2="162" Day3="179" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.7" Min20="22.5" Min30="27.7" Hour1="39.3" Hour2="55" Hour6="89.8" Hour12="118" Day1="150" Day2="184" Day3="202" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="17" Min20="24.3" Min30="29.9" Hour1="42.4" Hour2="59.2" Hour6="96.5" Hour12="127" Day1="161" Day2="196" Day3="216" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="17.9" Min20="25.6" Min30="31.5" Hour1="44.6" Hour2="62.3" Hour6="101" Hour12="133" Day1="169" Day2="206" Day3="226" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="18.6" Min20="26.7" Min30="32.8" Hour1="46.4" Hour2="64.7" Hour6="105" Hour12="138" Day1="175" Day2="213" Day3="234" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="19.3" Min20="27.5" Min30="33.8" Hour1="47.8" Hour2="66.6" Hour6="108" Hour12="142" Day1="180" Day2="219" Day3="240" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="20.2" Min20="28.9" Min30="35.5" Hour1="50.1" Hour2="69.8" Hour6="113" Hour12="148" Day1="187" Day2="228" Day3="250" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="21" Min20="29.9" Min30="36.8" Hour1="51.9" Hour2="72.2" Hour6="117" Hour12="153" Day1="193" Day2="235" Day3="258" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.74" Min20="0.99" Min30="1.2" Hour1="1.7" Hour2="2.5" Hour6="4.8" Hour12="6.6" Day1="2.8" Day2="6.4" Day3="5.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.1" Min20="1.5" Min30="1.8" Hour1="2.4" Hour2="3.6" Hour6="6.5" Hour12="9" Day1="4.5" Day2="8.9" Day3="8.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.6" Min20="2.2" Min30="2.6" Hour1="3.1" Hour2="4.8" Hour6="8.2" Hour12="11" Day1="6.5" Day2="11" Day3="11" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.2" Min20="3.1" Min30="3.7" Hour1="4.2" Hour2="6.5" Hour6="11" Hour12="14" Day1="9.3" Day2="15" Day3="15" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="2.6" Min20="3.8" Min30="4.6" Hour1="5" Hour2="7.6" Hour6="12" Hour12="17" Day1="11" Day2="17" Day3="17" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="3" Min20="4.3" Min30="5.2" Hour1="5.7" Hour2="8.6" Hour6="13" Hour12="18" Day1="13" Day2="19" Day3="19" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3.3" Min20="4.8" Min30="5.8" Hour1="6.3" Hour2="9.4" Hour6="15" Hour12="20" Day1="14" Day2="21" Day3="21" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="3.6" Min20="5.2" Min30="6.4" Hour1="6.8" Hour2="10" Hour6="16" Hour12="21" Day1="15" Day2="22" Day3="22" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="4.1" Min20="5.9" Min30="7.3" Hour1="7.6" Hour2="11" Hour6="17" Hour12="23" Day1="17" Day2="24" Day3="24" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="4.5" Min20="6.6" Min30="8" Hour1="8.4" Hour2="12" Hour6="19" Hour12="25" Day1="19" Day2="26" Day3="26" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.82742334</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00133</LawaSiteID>
+<Longitude>175.15669569</Longitude>
+<LowFlow100yr14Day>0.049</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.039</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.059</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.041</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.058</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.049</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.069</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.052</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.055</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.045</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.065</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.048</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.051</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.041</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.061</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.044</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.063</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.054</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.074</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.057</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.078</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.069</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.09</LowFlowMALF28Day>
+<MALF7Day>0.072</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>34.107</MaxFlow>
+<MaxFlowAt>20-Oct-1998</MaxFlowAt>
+<MeanAnnualFloodFlow>14</MeanAnnualFloodFlow>
+<MeanFlow>0.323</MeanFlow>
+<MedianFlow>0.194</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.044</MinFlow>
+<MinFlowAt>24-Mar-2001</MinFlowAt>
+<Northing>5478162</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Mangaone Stream</RiverName>
+<RiverNumber>317000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Mangaone</ShortName>
+<SiteID>706</SiteID>
+<SurfaceWaterSubZone>MangaoneSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>KapitiSW</SurfaceWaterZone>
+<WebComment>This site is located at the start of the Mangaone Valley and has been operating since January 1993. Please use &apos;Stage 2&apos; and &apos;Flow 2&apos; for water level and flow data from 01/08/2018 170000 onwards. Due to river bed degradation the primary sensors are inaccurate but are retained as a backup in high flows.</WebComment>
+</Site>
+</HilltopServer>

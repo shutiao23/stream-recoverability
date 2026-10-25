@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Waikanae River at Water Treatment Plant">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>40</Altitude>
+<CatchmentArea>124.5</CatchmentArea>
+<Comment>ARI frequency estimates derived from at-site data, but the standard errors have been extracted from HIRDS&#13;&#10;so will need to be revised using the at site data in the future&#13;&#10;Original Rainfall site 1774621 E 5471597 N&#13;&#10;River site 1774586 E 5471372 N&#13;&#10;Rainfall Site from Feb 2024 </Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-kapiti-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>0.75</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1774621</Easting>
+<FirstSynonym>Waikanae River at Water Treatment Plant</FirstSynonym>
+<FloodFlow10>261</FloodFlow10>
+<FloodFlow100>399</FloodFlow100>
+<FloodFlow20>303</FloodFlow20>
+<FloodFlow5>217</FloodFlow5>
+<FloodFlow50>358</FloodFlow50>
+<FlowWebVeryHigh>38</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="2" Min10="7.8" Min20="11.1" Min30="13.7" Hour1="19" Hour2="27" Hour6="44" Hour12="59" Day1="76" Day2="93" Day3="101" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="9.9" Min20="14.1" Min30="17.3" Hour1="25" Hour2="33" Hour6="52" Hour12="75" Day1="97" Day2="118" Day3="129" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="11.6" Min20="16.5" Min30="20.3" Hour1="29" Hour2="37" Hour6="58" Hour12="85" Day1="112" Day2="135" Day3="147" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="13.5" Min20="19.2" Min30="23.6" Hour1="33" Hour2="41" Hour6="63" Hour12="95" Day1="126" Day2="151" Day3="165" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="16.4" Min20="23.3" Min30="28.6" Hour1="39" Hour2="47" Hour6="69" Hour12="108" Day1="144" Day2="171" Day3="188" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="19" Min20="27" Min30="33.1" Hour1="43" Hour2="51" Hour6="74" Hour12="117" Day1="157" Day2="187" Day3="205" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="0.55" Min20="0.84" Min30="1" Hour1="1.5" Hour2="1.9" Hour6="3.3" Hour12="4.5" Day1="5" Day2="7.1" Day3="6" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="0.88" Min20="1.4" Min30="1.6" Hour1="2.1" Hour2="2.8" Hour6="4.5" Hour12="6.2" Day1="6.8" Day2="9.7" Day3="8.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.3" Min20="2" Min30="2.4" Hour1="2.8" Hour2="3.8" Hour6="5.7" Hour12="7.9" Day1="8.6" Day2="12" Day3="11" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="1.9" Min20="2.9" Min30="3.4" Hour1="3.8" Hour2="5.2" Hour6="7.4" Hour12="10" Day1="11" Day2="15" Day3="14" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3" Min20="4.5" Min30="5.4" Hour1="5.7" Hour2="7.9" Hour6="10" Hour12="14" Day1="15" Day2="20" Day3="19" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="4.1" Min20="6.2" Min30="7.4" Hour1="7.7" Hour2="11" Hour6="13" Hour12="19" Day1="18" Day2="25" Day3="25" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-40.88809773</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00228</LawaSiteID>
+<Longitude>175.07274447</Longitude>
+<LowFlow100yr14Day>0.614</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.526</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.649</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.572</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.781</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.665</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.871</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.727</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.717</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.612</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.787</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.668</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.653</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.559</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.701</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.609</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.867</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.737</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.986</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.807</LowFlow5yr7Day>
+<LowFlowMALF14Day>1.129</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.955</LowFlowMALF1Day>
+<LowFlowMALF28Day>1.342</LowFlowMALF28Day>
+<MALF7Day>1.048</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>381.167</MaxFlow>
+<MaxFlowAt> 1-Jun-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>163</MeanAnnualFloodFlow>
+<MeanFlow>4.78</MeanFlow>
+<MedianFlow>2.947</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.539</MinFlow>
+<MinFlowAt>23-Jan-2001</MinFlowAt>
+<Northing>5471597</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>315000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Waikanae</ShortName>
+<SiteID>2528</SiteID>
+<SurfaceWaterSubZone>WaikanaeSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>KapitiSW</SurfaceWaterZone>
+<WebComment>This site is located immediately above the KCDC water treatment plant and has been operating since March 1975, whilst rainfall has been recorded since February 1995.</WebComment>
+</Site>
+</HilltopServer>

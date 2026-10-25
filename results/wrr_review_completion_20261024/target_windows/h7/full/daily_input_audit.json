@@ -1,0 +1,296 @@
+{
+  "audit": "independent reconstruction from original network-specific daily inputs, held year excluded from all training",
+  "core_script_sha256": "1a9ee379027b040b0d036e29814c8a8c3ff3b0cfc382855f69a8373c658a5ff3",
+  "n_distinct_provider_policy_cases": 16,
+  "passed": true,
+  "rows": [
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "arso_bistrica",
+      "policy": "air_ridge",
+      "station_key": "arso|2432",
+      "year": 2017
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "arso_bistrica",
+      "policy": "donor_ridge",
+      "station_key": "arso|2432",
+      "year": 2015
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "arso_drava",
+      "policy": "smooth_climatology",
+      "station_key": "arso|2005",
+      "year": 2015
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "chmi_berounka",
+      "policy": "air_ridge",
+      "station_key": "chmi|0-203-1-186000",
+      "year": 2013
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "chmi_bela",
+      "policy": "donor_ridge",
+      "station_key": "chmi|0-203-1-097000",
+      "year": 2017
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "chmi_botic",
+      "policy": "smooth_climatology",
+      "station_key": "chmi|0-203-1-200480",
+      "year": 2017
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "foen_aare_aaregebiet",
+      "policy": "air_ridge",
+      "station_key": "foen|2205",
+      "year": 2023
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "foen_aare_aaregebiet",
+      "policy": "donor_ridge",
+      "station_key": "foen|2016",
+      "year": 2000
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "gkd_bayern_alz",
+      "policy": "air_ridge",
+      "station_key": "gkd_bayern|18403002",
+      "year": 1981
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "gkd_bayern_alz",
+      "policy": "donor_ridge",
+      "station_key": "gkd_bayern|18403002",
+      "year": 2010
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "gkd_bayern_fraenkische_saale",
+      "policy": "smooth_climatology",
+      "station_key": "gkd_bayern|24405002",
+      "year": 1981
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "hubeau_loir",
+      "policy": "donor_ridge",
+      "station_key": "hubeau|04108000",
+      "year": 2009
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "hubeau_loir",
+      "policy": "linear_interp",
+      "station_key": "hubeau|04108000",
+      "year": 2025
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "hubeau_loir",
+      "policy": "smooth_climatology",
+      "station_key": "hubeau|04108000",
+      "year": 2025
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "lubw_donau",
+      "policy": "air_ridge",
+      "station_key": "lubw|CQQ105",
+      "year": 1988
+    },
+    {
+      "checked_columns": [
+        "eval_truth_h7",
+        "eval_truth_h30",
+        "h7__policy",
+        "train_h7_mean",
+        "train_h7_sd",
+        "train_h7_q90",
+        "clim_peak",
+        "peak_overlap",
+        "observed_lower_bound__observed_days"
+      ],
+      "maximum_difference": 0.0,
+      "network_id": "lubw_donau",
+      "policy": "donor_ridge",
+      "station_key": "lubw|CQQ105",
+      "year": 1996
+    }
+  ]
+}

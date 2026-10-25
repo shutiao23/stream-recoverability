@@ -1,0 +1,14 @@
+{
+  "archive_sha256": "3ffaf656054716b30b084a452c71187ba3f76a430cd33cabdd3aeed4e6621d07",
+  "network_disabled": true,
+  "new_NZ_water_values_requested": false,
+  "passed": true,
+  "returncode": 0,
+  "scope": "isolated code/model inference and synthetic case generation; no registration or target-outcome evidence",
+  "source_feature_cases": 243,
+  "stderr": "",
+  "stdout": "{\"passed\": true, \"source_feature_cases\": 243, \"synthetic_generated_cases\": 15, \"synthetic_numeric_columns_compared\": 176, \"network_disabled\": true, \"working_tree_code_imported\": false, \"new_NZ_water_values_requested\": false}\n",
+  "synthetic_generated_cases": 15,
+  "synthetic_numeric_columns_compared": 176,
+  "working_tree_code_imported": false
+}

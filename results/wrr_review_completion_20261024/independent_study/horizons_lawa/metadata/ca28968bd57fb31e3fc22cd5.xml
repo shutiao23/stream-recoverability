@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Rangitikei at Mangaweka">
+<AEP0.01>2300000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>257</Altitude>
+<BARO_CLOSEST>Rangitikei at Mangaweka</BARO_CLOSEST>
+<BARO_CLOSEST_RL>257</BARO_CLOSEST_RL>
+<BARO_REF_DIST>0</BARO_REF_DIST>
+<BARO_RL>257</BARO_RL>
+<Catchment>Rangitikei</Catchment>
+<CatchmentArea>2787.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Flood Warning (IVR)&#13;&#10;6.5m Flood Warning Vinegar Hill Campground&#13;&#10;Water Allocation (Rang_2b)&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;1984 River Classification Survey: RL0 = 247.342&#13;&#10;MWRC Network 01/07/2014</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Rangitikei District</District>
+<Easting>2750400</Easting>
+<FFreq>GEV(Historic)</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>1170000</FloodFlow10>
+<FloodFlow20>1440000</FloodFlow20>
+<FloodFlow5>941000</FloodFlow5>
+<FloodFlow50>1890000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.80942586</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00045</LawaSiteID>
+<LawaSiteName>Rangitikei at Mangaweka</LawaSiteName>
+<Longitude>175.80808471</Longitude>
+<MALF7Day>14239</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>16-Jul-1999</MacroStart>
+<MaxFlow>1804450</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>783408</MeanAnnualFloodFlow>
+<MeanFlow>63157</MeanFlow>
+<MedianFlow>45649</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>9000</MinFlow>
+<MinFlowAt>12-Mar-2013</MinFlowAt>
+<NZReach>7027408</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7218183</NZSegment>
+<Northing>6151300</Northing>
+<RL0>247.347</RL0>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>NIWA</RecordingAuthority2>
+<RiverNumber>327000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Northern</Scheme>
+<SecondSynonym>MWK</SecondSynonym>
+<ShortName>Hor-0051</ShortName>
+<SiteID>2060</SiteID>
+<StatsPeriod>1/7/1969-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Rang_2</SurfaceWaterZone>
+<XSection>Provisional, Rangitikei at Mangaweka, 22-Mar-1985 00:00:00</XSection>
+<eQualCode>Hor-0051</eQualCode>
+</Site>
+</HilltopServer>

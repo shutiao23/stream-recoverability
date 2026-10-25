@@ -1,0 +1,11 @@
+{
+  "n_complete_native_air_days": 2,
+  "n_hourly_air_points": 72,
+  "provider_units": {
+    "temperature_2m": "\u00b0C",
+    "time": "iso8601"
+  },
+  "role": "driver endpoint and clock check only",
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=-41.085845&longitude=175.098699&start_date=2024-01-01&end_date=2024-01-03&hourly=temperature_2m&models=era5_land&timezone=UTC&temperature_unit=celsius",
+  "water_temperature_requested": false
+}

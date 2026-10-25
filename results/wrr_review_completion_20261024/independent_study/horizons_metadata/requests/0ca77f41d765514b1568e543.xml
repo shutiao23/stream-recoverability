@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Hautapu at Alabasters">
+<AEP0.01>227000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>445</Altitude>
+<Catchment>Rangitikei</Catchment>
+<CatchmentArea>267.0</CatchmentArea>
+<Comment>Purpose: &#13;&#10;Water Allocation (Rang_2f, Rang_2g)&#13;&#10;Replacement site for Taihape 32726. &#13;&#10;Took over from NIWA 2014&#13;&#10;</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Rangitikei District</District>
+<Easting>2748712</Easting>
+<FFreq>GEV</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>95000</FloodFlow10>
+<FloodFlow20>125000</FloodFlow20>
+<FloodFlow5>71000</FloodFlow5>
+<FloodFlow50>176000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58 " Min10="5.62" Min20="7.61" Min30="9.07" Hour1="12.2" Hour2="16.3" Hour6="25.4" Hour12="33.3" Day1="43.5" Day2="56.5" Day3="65.7" Day4="73" Day5="79.1">
+</Interval>
+<Interval ARI="2 " Min10="6.26" Min20="8.46" Min30="10.1" Hour1="13.5" Hour2="17.9" Hour6="27.8" Hour12="36.4" Day1="47.5" Day2="61.4" Day3="71.2" Day4="79" Day5="85.6">
+</Interval>
+<Interval ARI="5 " Min10="8.61" Min20="11.5" Min30="13.6" Hour1="18.1" Hour2="23.8" Hour6="36.4" Hour12="47.2" Day1="60.9" Day2="78.1" Day3="90" Day4="99.5" Day5="107">
+</Interval>
+<Interval ARI="10 " Min10="10.5" Min20="14" Min30="16.5" Hour1="21.7" Hour2="28.4" Hour6="42.9" Hour12="55.3" Day1="70.9" Day2="90.3" Day3="104" Day4="114" Day5="123">
+</Interval>
+<Interval ARI="20 " Min10="12.6" Min20="16.6" Min30="19.5" Hour1="25.6" Hour2="33.2" Hour6="49.8" Hour12="63.8" Day1="81.3" Day2="103" Day3="118" Day4="130" Day5="139">
+</Interval>
+<Interval ARI="30 " Min10="13.9" Min20="18.3" Min30="21.5" Hour1="28" Hour2="36.3" Hour6="54.1" Hour12="69" Day1="87.6" Day2="111" Day3="126" Day4="139" Day5="149">
+</Interval>
+<Interval ARI="40 " Min10="14.9" Min20="19.6" Min30="22.9" Hour1="29.8" Hour2="38.5" Hour6="57.2" Hour12="72.8" Day1="92.2" Day2="116" Day3="132" Day4="145" Day5="156">
+</Interval>
+<Interval ARI="50 " Min10="15.7" Min20="20.6" Min30="24" Hour1="31.2" Hour2="40.3" Hour6="59.6" Hour12="75.8" Day1="95.7" Day2="120" Day3="137" Day4="150" Day5="161">
+</Interval>
+<Interval ARI="60 " Min10="16.4" Min20="21.4" Min30="25" Hour1="32.4" Hour2="41.8" Hour6="61.7" Hour12="78.2" Day1="98.7" Day2="124" Day3="141" Day4="154" Day5="165">
+</Interval>
+<Interval ARI="80 " Min10="17.5" Min20="22.8" Min30="26.6" Hour1="34.3" Hour2="44.1" Hour6="64.9" Hour12="82.2" Day1="103" Day2="129" Day3="147" Day4="161" Day5="172">
+</Interval>
+<Interval ARI="100 " Min10="18.3" Min20="23.9" Min30="27.8" Hour1="35.9" Hour2="46" Hour6="67.5" Hour12="85.3" Day1="107" Day2="134" Day3="152" Day4="166" Day5="178">
+</Interval>
+<Interval ARI="250 " Min10="22.2" Min20="28.7" Min30="33.2" Hour1="42.6" Hour2="54.2" Hour6="78.5" Hour12="98.4" Day1="123" Day2="152" Day3="172" Day4="187" Day5="200">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-39.65907135</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteID>HRC-00003</LawaSiteID>
+<LawaSiteName>Hautapu at Alabasters</LawaSiteName>
+<Longitude>175.78222844</Longitude>
+<MALF7Day>746</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>15-Jan-2008</MacroStart>
+<MaxFlow>236596</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>59695</MeanAnnualFloodFlow>
+<MeanFlow>4408</MeanFlow>
+<MedianFlow>2633</MedianFlow>
+<MetNumber>E95675</MetNumber>
+<MinFlow>350</MinFlow>
+<MinFlowAt> 7-Mar-2015</MinFlowAt>
+<NZReach>7023817</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7209566</NZSegment>
+<Northing>6168053</Northing>
+<R_Rain>Turakina at Koeke Airstrip,Turakina at Ruanui,Makohine at Zohs Road,Rangitikei at Erewhon Station,Kawhatau Catchment at Upper Kawhatau</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>327260</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>HTA</SecondSynonym>
+<ShortName>Hor-0049</ShortName>
+<SiteID>276</SiteID>
+<StatsPeriod>1/7/2000-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Rang</SurfaceWaterZone>
+<eQualCode>Hor-0049</eQualCode>
+</Site>
+</HilltopServer>

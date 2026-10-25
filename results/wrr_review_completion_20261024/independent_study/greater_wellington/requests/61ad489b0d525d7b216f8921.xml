@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Parkvale Tributary at Lowes Reserve">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>106.12</Altitude>
+<Catchment>Ruamahanga River</Catchment>
+<Comment>RSoE network formed, established as RSoE site Sep-03.</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1818094</Easting>
+<FirstSynonym>Parkvale Tributary at Lowes Reserve</FirstSynonym>
+<FlowWebVeryHigh>0.036</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-40.99686768</Latitude>
+<LawaSiteID>GW-00045</LawaSiteID>
+<LawaSurfaceWaterQualityMeasurement>Water Temperature (X)</LawaSurfaceWaterQualityMeasurement>
+<Longitude>175.59297497</Longitude>
+<Macro>True</Macro>
+<MacroStart>1/01/2004</MacroStart>
+<MedianFlow>0.011</MedianFlow>
+<MetNumber>
+</MetNumber>
+<NZReach>9007329</NZReach>
+<NZSegment>9257424</NZSegment>
+<Northing>5458352</Northing>
+<RECClimate>Warm Dry</RECClimate>
+<RECGeology>Alluvium</RECGeology>
+<RECLandcover>Pasture</RECLandcover>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>
+</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>RS45</SecondSynonym>
+<ShortName>RS45</ShortName>
+<SiteID>1140</SiteID>
+</Site>
+</HilltopServer>

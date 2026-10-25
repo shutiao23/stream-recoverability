@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Akitio at Cadmus Bridge">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>20</Altitude>
+<BARO_CLOSEST>Mangatainoka at Pahiatua Town Bridge</BARO_CLOSEST>
+<BARO_CLOSEST_RL>104</BARO_CLOSEST_RL>
+<BARO_REF_DIST>48550</BARO_REF_DIST>
+<BARO_RL>20</BARO_RL>
+<Catchment>Akitio</Catchment>
+<CatchmentArea>540.3</CatchmentArea>
+<Comment>Purpose: &#13;&#10;Flood Warning (IVR)&#13;&#10;HOPCRN: River Level&#13;&#10;HOPCRN: Rainfall&#13;&#10;Water Allocation&#13;&#10;Rain Gauge: 2797458 6069154 (NZMG)&#13;&#10;</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Tararua District</District>
+<Easting>2797508</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>WRFWCDWQRF</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="5.18" Min20="7.21" Min30="8.87" Hour1="12.8" Hour2="18.8" Hour6="34.2" Hour12="49" Day1="68.5" Day2="92.5" Day3="108" Day4="119" Day5="128">
+</Interval>
+<Interval ARI="2" Min10="5.85" Min20="8.12" Min30="9.96" Hour1="14.4" Hour2="20.9" Hour6="37.8" Hour12="54.1" Day1="75.3" Day2="101" Day3="118" Day4="130" Day5="139">
+</Interval>
+<Interval ARI="5" Min10="8.36" Min20="11.5" Min30="14" Hour1="19.9" Hour2="28.6" Hour6="50.8" Hour12="71.7" Day1="98.7" Day2="131" Day3="152" Day4="166" Day5="178">
+</Interval>
+<Interval ARI="10" Min10="10.4" Min20="14.2" Min30="17.2" Hour1="24.3" Hour2="34.7" Hour6="60.8" Hour12="85.1" Day1="116" Day2="153" Day3="176" Day4="193" Day5="205">
+</Interval>
+<Interval ARI="20" Min10="12.7" Min20="17.2" Min30="20.7" Hour1="29.1" Hour2="41.2" Hour6="71.3" Hour12="99.2" Day1="134" Day2="176" Day3="201" Day4="220" Day5="233">
+</Interval>
+<Interval ARI="30" Min10="14.2" Min20="19.1" Min30="23" Hour1="32.1" Hour2="45.2" Hour6="77.8" Hour12="108" Day1="145" Day2="189" Day3="216" Day4="235" Day5="250">
+</Interval>
+<Interval ARI="40" Min10="15.3" Min20="20.5" Min30="24.7" Hour1="34.3" Hour2="48.2" Hour6="82.6" Hour12="114" Day1="153" Day2="199" Day3="227" Day4="247" Day5="261">
+</Interval>
+<Interval ARI="50" Min10="16.2" Min20="21.7" Min30="26" Hour1="36.1" Hour2="50.6" Hour6="86.3" Hour12="119" Day1="159" Day2="206" Day3="235" Day4="255" Day5="271">
+</Interval>
+<Interval ARI="60" Min10="17" Min20="22.6" Min30="27.1" Hour1="37.6" Hour2="52.6" Hour6="89.4" Hour12="123" Day1="165" Day2="213" Day3="242" Day4="263" Day5="278">
+</Interval>
+<Interval ARI="80" Min10="18.2" Min20="24.2" Min30="29" Hour1="40" Hour2="55.8" Hour6="94.4" Hour12="129" Day1="173" Day2="222" Day3="253" Day4="274" Day5="290">
+</Interval>
+<Interval ARI="100" Min10="19.2" Min20="25.4" Min30="30.4" Hour1="41.9" Hour2="58.3" Hour6="98.3" Hour12="134" Day1="179" Day2="230" Day3="261" Day4="283" Day5="298">
+</Interval>
+<Interval ARI="250" Min10="23.6" Min20="31" Min30="36.8" Hour1="50.2" Hour2="69.2" Hour6="115" Hour12="155" Day1="205" Day2="261" Day3="294" Day4="317" Day5="334">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.53198643</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaRainfallMeasurement>Rainfall [SCADA Rainfall]</LawaRainfallMeasurement>
+<LawaSiteName>Akitio at Cadmus Bridge</LawaSiteName>
+<Longitude>176.39452111</Longitude>
+<Macro>false</Macro>
+<MaxFlow>1311618</MaxFlow>
+<MaxFlowAt>14-Feb-2023</MaxFlowAt>
+<MetNumber>D06533</MetNumber>
+<MinFlow>69</MinFlow>
+<MinFlowAt> 4-Mar-2025</MinFlowAt>
+<NZSegment>7244532</NZSegment>
+<Northing>6069370</Northing>
+<R_Rain>Akitio at Toi Flat,Akitio at Weber Intersection, Owahanga at Owahanga Station</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>250000</RiverNumber>
+<SecondSynonym>CAD</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>19282</SiteID>
+</Site>
+</HilltopServer>

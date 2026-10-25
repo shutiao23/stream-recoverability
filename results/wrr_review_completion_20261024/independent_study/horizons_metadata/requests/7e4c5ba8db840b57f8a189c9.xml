@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Arawhata Drain at Hokio Beach Road">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>7.530</Altitude>
+<BARO_CLOSEST>Hokio at Lake Horowhenua</BARO_CLOSEST>
+<BARO_CLOSEST_RL>9</BARO_CLOSEST_RL>
+<BARO_REF_DIST>2058</BARO_REF_DIST>
+<BARO_RL>9</BARO_RL>
+<Catchment>Horowhenua</Catchment>
+<CatchmentArea>6.2</CatchmentArea>
+<Comment>Purpose: &#13;&#10;WQ Monitoring and Arawhata Wetland&#13;&#10;RL 0 = 7.211m (NZVD2016)&#13;&#10;Historically also named Arawhata Stream at&#160;Hokio&#160;Beach&#160;Rd.&#13;&#10;Historical MSL Wellington (not Foxton).</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2700100</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.62189702</Latitude>
+<LawaSiteID>HRC-00001</LawaSiteID>
+<LawaSiteName>Arawhata Drain at Hokio Beach Road</LawaSiteName>
+<Longitude>175.24725993</Longitude>
+<Macro>true</Macro>
+<MacroStart>29-Jan-2009</MacroStart>
+<MetNumber>
+</MetNumber>
+<NZReach>7046139</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7246119</NZSegment>
+<NZVD16>7211</NZVD16>
+<Northing>6062500</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>323010</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>ADH</SecondSynonym>
+<ShortName>Hor-0295</ShortName>
+<SiteID>935</SiteID>
+<SurfaceWaterZone>Hoki_1</SurfaceWaterZone>
+<eQualCode>Hor-0295</eQualCode>
+</Site>
+</HilltopServer>

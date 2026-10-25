@@ -1,0 +1,1151 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<DataSource Name="Water Level" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+</Measurement>
+<Measurement Name="Flow">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<Ratset1>1</Ratset1>
+<FirstRating>2020-05-20T00:00:00</FirstRating>
+<LastRating>2025-10-25T00:00:00</LastRating>
+</Measurement>
+<Measurement Name="Return Periods">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Return Periods</RequestAs>
+<Units>ARI (Years)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<Ratset1>1</Ratset1>
+<Ratset2>4</Ratset2>
+<FirstRating>2025-12-01T00:00:00</FirstRating>
+<LastRating>2025-12-01T00:00:00</LastRating>
+</Measurement>
+<Measurement Name="Volume (Moving 40 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 40 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-02-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Oneplan-MinQ">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Oneplan-MinQ</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Daily Volume">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Daily Volume</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Linear Specific Yield">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Linear Specific Yield</RequestAs>
+<Units>(l/s)/Km2</Units>
+<Format>###.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Hour)</RequestAs>
+<Units>l/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>$$$</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow (Daily Rate of Change)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow (Daily Rate of Change)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T12:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Maximum Stage">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Annual Maximum Stage</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Water Level)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Water Level)</RequestAs>
+<Units>m3</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T06:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Days</RequestAs>
+<Units>1 = in restriction</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 100 Day Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 100 Day Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-04-10T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 200 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 200 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-07-19T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 365 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 365 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-12-31T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 400 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 400 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-02-04T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Volume (Moving 730 Days Total)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Volume (Moving 730 Days Total)</RequestAs>
+<Units>Megalitres</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-12-31T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow MovingAvg (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow MovingAvg (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T12:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Hour)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Hour)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:30</VMStart>
+<VMFinish>2026-10-24T12:00:30</VMFinish>
+</Measurement>
+<Measurement Name="Flow Mean (1 Month)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Mean (1 Month)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-02-01T00:00:00</VMStart>
+<VMFinish>2026-10-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Max (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Max (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Min (1 Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Min (1 Day)</RequestAs>
+<Units>l/s</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Gap Accurals">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Gap Accurals</RequestAs>
+<Divisor>60</Divisor>
+<Units>Minutes</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed">
+<Item>1</Item>
+<RequestAs>PLBed [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Rating Tools</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Flow Percentile Bin">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Flow Percentile Bin</RequestAs>
+<Units>% (%Bin)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (MSL)">
+<Item>1</Item>
+<RequestAs>Water Level (MSL) [Water Level]</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Water Level (NZVD2016)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water Level (NZVD2016)</RequestAs>
+<Units>mm</Units>
+<Format>####</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Annual Volume">
+<Item>1</Item>
+<RequestAs>Annual Volume [Water Level]</RequestAs>
+<Units>m3/1000</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-01-01T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Restriction Accrual Days">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Restriction Accrual Days</RequestAs>
+<Units>Days</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-03T00:00:00</VMStart>
+<VMFinish>2026-10-25T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage - ESG Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage - ESG Deviation</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-20T11:45:00</VMFinish>
+</Measurement>
+<Measurement Name="PLBed (%) Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>PLBed (%) Deviation</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-20T11:45:00</VMFinish>
+</Measurement>
+<Measurement Name="Stage Max (1Day)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Stage Max (1Day)</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="IVR Stage State">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>IVR Stage State</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="Atmospheric Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>#.#</Format>
+</Measurement>
+<Measurement Name="Atmospheric Pressure mmHg">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure mmHg</RequestAs>
+<Units>mmHg</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>1</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Identify Hidden Gap Markers">
+<Item>1</Item>
+<RequestAs>Identify Hidden Gap Markers [Atmospheric Pressure]</RequestAs>
+<Units>Gap</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>3</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Atmospheric Pressure (Field Deviation)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric Pressure (Field Deviation)</RequestAs>
+<Units>hPa</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>10</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Atmospheric P corrected to sea level">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Atmospheric P corrected to sea level</RequestAs>
+<Units>hPa (corr)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Measurements</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>11</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+</DataSource>
+<DataSource Name="DEPTH" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2022-03-30T12:00:00</From>
+<To>2022-04-21T12:00:00</To>
+<Measurement Name="DEPTH">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DEPTH</RequestAs>
+<Units>m</Units>
+<Format>$$$</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen sensor" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="Water Temperature">
+<Item>1</Item>
+<RequestAs>Water Temperature [Dissolved Oxygen sensor]</RequestAs>
+<Units>&#176;C</Units>
+<Format>##.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO Saturation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO Saturation</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Corrected DO (%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (%)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>2</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="Corrected DO (mg/l)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Corrected DO (mg/l)</RequestAs>
+<Units>mg/l</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+<Ratset1>4</Ratset1>
+<Ratset2>15</Ratset2>
+</Measurement>
+<Measurement Name="DO (%) Accrual (Below 80%)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO (%) Accrual (Below 80%)</RequestAs>
+<Units>Hours</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T01:00:00</VMStart>
+<VMFinish>2026-10-24T12:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Min">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Min</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Mean">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Mean</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="Dissolved Oxygen (%) Daily Max">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Dissolved Oxygen (%) Daily Max</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Virtual Statistics</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+<Measurement Name="DO Field Check Deviation">
+<Item>1</Item>
+<RequestAs>DO Field Check Deviation [Dissolved Oxygen (%)]</RequestAs>
+<Units>% (ABS)</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-02T00:00:00</VMStart>
+<VMFinish>2026-10-24T00:00:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (ppm)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2022-03-30T12:00:00</From>
+<To>2022-04-21T12:00:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO concentration</RequestAs>
+<Units>ppm</Units>
+<Format>####.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Conductivity Low Range (T Comp)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+<Measurement Name="Conductivity Low Range (T Comp)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity Low Range (T Comp)</RequestAs>
+<Units>uS/cm</Units>
+<Format>########</Format>
+</Measurement>
+<Measurement Name="Conductivity Check Deviation">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Conductivity Check Deviation</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: SD">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: SD</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+<Measurement Name="WL (-) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (-) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="WL (+) Limit (SD)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>WL (+) Limit (SD)</RequestAs>
+<Units>mm</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2025-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+<Measurement Name="Water level statistics: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Water level statistics: Point Sample</RequestAs>
+<Units>mm</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Turbidity: Point Sample" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+<Measurement Name="Turbidity: Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Point Sample</RequestAs>
+<Units>FNU</Units>
+<Format>###.###</Format>
+</Measurement>
+<Measurement Name="Turbidity: Lab Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Lab Sample</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Missing Record VM">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Missing Record VM</RequestAs>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity Deviation (Lab Sample)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity Deviation (Lab Sample)</RequestAs>
+<Units>%</Units>
+<Format>#.##</Format>
+<MeasurementGroup>Performance Monitoring</MeasurementGroup>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Combined Point Sample">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Combined Point Sample</RequestAs>
+<Units>FNU</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Accrual Analysis">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Accrual Analysis</RequestAs>
+<Units>Hours &gt;40</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+<Measurement Name="Turbidity: Sampling Alert">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Turbidity: Sampling Alert</RequestAs>
+<Units>State</Units>
+<Format>#.##</Format>
+<VM>1</VM>
+<VMStart>2024-01-01T00:00:00</VMStart>
+<VMFinish>2026-10-24T12:40:00</VMFinish>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (SNR)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Mean Velocity (SNR)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Mean Velocity (SNR)</RequestAs>
+<Units>SNR</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Flow (Sensor)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+<Measurement Name="ADP Flow (Sensor)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Flow (Sensor)</RequestAs>
+<Units>m3/s</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="ADP Index Velocity (sensor)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-24T12:40:00</To>
+<Measurement Name="ADP Index Velocity (sensor)">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>ADP Index Velocity (sensor)</RequestAs>
+<Units>m/s</Units>
+<Format>#.###</Format>
+<MeasurementGroup>ADP_5min</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="NO3-N Concentration" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Instant</Interpolation>
+<ItemFormat>1</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-24T12:40:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+<Measurement Name="NO3-N Concentration">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>NO3-N Concentration</RequestAs>
+<Units>g/m3</Units>
+<Format>#.###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="DEPTH" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-03-30T12:00:00</From>
+<To>2022-04-21T12:00:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen sensor" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (ppm)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-03-30T12:00:00</From>
+<To>2022-04-21T12:00:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Conductivity Low Range (T Comp)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water Quality Sensors</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: SD" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Water level statistics: Point Sample" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Water level statistics</SensorGroup>
+</DataSource>
+<DataSource Name="Turbidity: Point Sample" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Turbidity (ISO)</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Mean Velocity (SNR)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="ADP Flow (Sensor)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>ADP_5min</SensorGroup>
+</DataSource>
+<DataSource Name="ADP Index Velocity (sensor)" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2025-03-07T16:25:00</From>
+<To>2026-10-21T06:30:00</To>
+</DataSource>
+<DataSource Name="NO3-N Concentration" Site="Hokio at Lake Horowhenua" >
+<NumItems>1</NumItems>
+<TSType>StdQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Event</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-01T00:00:00</From>
+<To>2026-10-21T06:30:00</To>
+<SensorGroup>Nitrate Sensor (UV)</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level" Site="Hokio at Lake Horowhenua" >
+<NumItems>4</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2023-01-10T13:14:00</From>
+<To>2026-10-20T11:45:00</To>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Level Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2022-01-11T11:15:00</From>
+<To>2026-10-20T11:45:00</To>
+<Measurement Name="Water Temperature Check">
+<Item>1</Item>
+<RequestAs>Water Temperature Check [Water Temperature]</RequestAs>
+<Format>$$$</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Water Temperature]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Water Temperature Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2023-01-10T13:18:00</From>
+<To>2026-10-20T11:45:00</To>
+<Measurement Name="Check Pressure">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>Check Pressure</RequestAs>
+<Units>hPa</Units>
+<Format>####.#</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Atmospheric Pressure]</RequestAs>
+<Format>#.##</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Atmospheric Pressure]</RequestAs>
+<Format>###</Format>
+<MeasurementGroup>Atmospheric Pressure Inspections</MeasurementGroup>
+</Measurement>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>45</ItemFormat>
+<From>2024-01-24T12:38:00</From>
+<To>2026-10-20T11:45:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+<Measurement Name="DO saturation check">
+<Item>1</Item>
+<DefaultMeasurement />
+<RequestAs>DO saturation check</RequestAs>
+<Units>%</Units>
+<Format>####.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>3</Item>
+<RequestAs>Comment [Dissolved Oxygen (%)]</RequestAs>
+<Format>###</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Hokio at Lake Horowhenua" >
+<NumItems>5</NumItems>
+<TSType>CheckSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>140</ItemFormat>
+<From>2022-01-11T11:15:00</From>
+<To>2026-10-20T11:45:00</To>
+<SensorGroup>NRT Stage</SensorGroup>
+<Measurement Name="External S.G.">
+<Item>1</Item>
+<RequestAs>External S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Recorder Time">
+<Item>2</Item>
+<RequestAs>Recorder Time [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Internal S.G.">
+<Item>3</Item>
+<RequestAs>Internal S.G. [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="Comment">
+<Item>4</Item>
+<RequestAs>Comment [Water Level NRT]</RequestAs>
+<Format>#.##</Format>
+</Measurement>
+<Measurement Name="ESG Error">
+<Item>5</Item>
+<DefaultMeasurement />
+<RequestAs>ESG Error</RequestAs>
+<Units>mm (+/-)</Units>
+<Format>#.##</Format>
+</Measurement>
+</DataSource>
+<DataSource Name="Water Level" Site="Hokio at Lake Horowhenua" >
+<NumItems>4</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-01-10T13:14:00</From>
+<To>2025-11-05T07:56:04</To>
+</DataSource>
+<DataSource Name="Water Temperature" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-11T11:15:00</From>
+<To>2025-08-18T13:15:00</To>
+</DataSource>
+<DataSource Name="Atmospheric Pressure" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2023-01-10T13:18:00</From>
+<To>2025-08-18T13:15:00</To>
+</DataSource>
+<DataSource Name="Dissolved Oxygen (%)" Site="Hokio at Lake Horowhenua" >
+<NumItems>3</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2024-01-24T12:38:00</From>
+<To>2025-08-18T13:15:00</To>
+<SensorGroup>Dissolved Oxygen</SensorGroup>
+</DataSource>
+<DataSource Name="Water Level NRT" Site="Hokio at Lake Horowhenua" >
+<NumItems>5</NumItems>
+<TSType>CheckQualSeries</TSType>
+<DataType>SimpleTimeSeries</DataType>
+<Interpolation>Discrete</Interpolation>
+<ItemFormat>0</ItemFormat>
+<From>2022-01-11T11:15:00</From>
+<To>2025-11-05T07:56:04</To>
+<SensorGroup>NRT Stage</SensorGroup>
+</DataSource>
+</HilltopServer>

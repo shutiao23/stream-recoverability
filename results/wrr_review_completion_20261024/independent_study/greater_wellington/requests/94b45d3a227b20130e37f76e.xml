@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Hutt River at Taita Gorge">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>547.0</CatchmentArea>
+<Comment>
+</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1766532</Easting>
+<FirstSynonym>Hutt River at Taita Gorge</FirstSynonym>
+<FloodFlow10>1334</FloodFlow10>
+<FloodFlow100>1974</FloodFlow100>
+<FloodFlow20>1530</FloodFlow20>
+<FloodFlow5>1129</FloodFlow5>
+<FloodFlow50>1784</FloodFlow50>
+<FlowWebVeryHigh>190</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.15660826</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00255</LawaSiteID>
+<Longitude>174.98478200</Longitude>
+<LowFlow100yr14Day>1.793</LowFlow100yr14Day>
+<LowFlow100yr1Day>1.455</LowFlow100yr1Day>
+<LowFlow100yr28Day>2.052</LowFlow100yr28Day>
+<LowFlow100yr7Day>1.551</LowFlow100yr7Day>
+<LowFlow10yr14Day>2.604</LowFlow10yr14Day>
+<LowFlow10yr1Day>2.079</LowFlow10yr1Day>
+<LowFlow10yr28Day>3.275</LowFlow10yr28Day>
+<LowFlow10yr7Day>2.28</LowFlow10yr7Day>
+<LowFlow20yr14Day>2.296</LowFlow20yr14Day>
+<LowFlow20yr1Day>1.842</LowFlow20yr1Day>
+<LowFlow20yr28Day>2.81</LowFlow20yr28Day>
+<LowFlow20yr7Day>2.003</LowFlow20yr7Day>
+<LowFlow50yr14Day>1.984</LowFlow50yr14Day>
+<LowFlow50yr1Day>1.602</LowFlow50yr1Day>
+<LowFlow50yr28Day>2.34</LowFlow50yr28Day>
+<LowFlow50yr7Day>1.722</LowFlow50yr7Day>
+<LowFlow5yr14Day>3.023</LowFlow5yr14Day>
+<LowFlow5yr1Day>2.401</LowFlow5yr1Day>
+<LowFlow5yr28Day>3.906</LowFlow5yr28Day>
+<LowFlow5yr7Day>2.657</LowFlow5yr7Day>
+<LowFlowMALF14Day>4.282</LowFlowMALF14Day>
+<LowFlowMALF1Day>3.38</LowFlowMALF1Day>
+<LowFlowMALF28Day>5.768</LowFlowMALF28Day>
+<MALF7Day>3.788</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>1562</MaxFlow>
+<MaxFlowAt> 6-Jan-2005</MaxFlowAt>
+<MeanAnnualFloodFlow>855</MeanAnnualFloodFlow>
+<MeanFlow>24.799</MeanFlow>
+<MedianFlow>14.140</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>1.628</MinFlow>
+<MinFlowAt>20-Mar-1989</MinFlowAt>
+<Northing>5441959</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Hutt River</RiverName>
+<RiverNumber>298000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Taita Gorge</ShortName>
+<SiteID>491</SiteID>
+<SurfaceWaterSubZone>HuttSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This station is located on the Hutt River opposite Stokes Valley and has been operating since March 1979.</WebComment>
+</Site>
+</HilltopServer>

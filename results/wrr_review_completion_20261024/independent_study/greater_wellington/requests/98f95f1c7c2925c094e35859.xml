@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Otakura Stream at Weir">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>51.4</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-ruamahanga-river-and-streams-in-wairarapa-valley/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.095</ComplianceFlowThreshold>
+<ConsentControlSite>False</ConsentControlSite>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1798544</Easting>
+<FirstSynonym>Otakura Stream at Weir</FirstSynonym>
+<FloodFlow10>14.2</FloodFlow10>
+<FloodFlow100>21.5</FloodFlow100>
+<FloodFlow20>16.4</FloodFlow20>
+<FloodFlow233>9.1</FloodFlow233>
+<FloodFlow5>11.9</FloodFlow5>
+<FloodFlow50>19.3</FloodFlow50>
+<FlowWebVeryHigh>4.05</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.18728715</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00159</LawaSiteID>
+<LawaSiteName>Otukura Stream at Weir</LawaSiteName>
+<Longitude>175.36738907</Longitude>
+<LowFlow100yr14Day>0.013</LowFlow100yr14Day>
+<LowFlow100yr1Day>0</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.018</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.01</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.028</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.013</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.036</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.022</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.022</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.007</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.028</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.017</LowFlow20yr7Day>
+<LowFlow233yr14Day>0.063</LowFlow233yr14Day>
+<LowFlow233yr1Day>0.042</LowFlow233yr1Day>
+<LowFlow233yr28Day>0.077</LowFlow233yr28Day>
+<LowFlow233yr7Day>0.053</LowFlow233yr7Day>
+<LowFlow50yr14Day>0.016</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.003</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.022</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.012</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.039</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.021</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.049</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.031</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.09</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.066</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.106</LowFlowMALF28Day>
+<MALF7Day>0.08</MALF7Day>
+<Macro>False</Macro>
+<MaxFlow>17.151</MaxFlow>
+<MaxFlowAt> 7-Jul-2006</MaxFlowAt>
+<MeanAnnualFloodFlow>9.1</MeanAnnualFloodFlow>
+<MeanFlow>0.555</MeanFlow>
+<MedianFlow>0.365</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.006</MinFlow>
+<MinFlowAt>28-Feb-2006</MinFlowAt>
+<Northing>5437750</Northing>
+<RecordingAuthority1>GW-Eastern</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>292069</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>
+</ShortName>
+<SiteID>1045</SiteID>
+<SurfaceWaterSubZone>Ruamahanga_LowerSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>RuamahangaSW</SurfaceWaterZone>
+<WebComment>This site is located a short distance upstream of Kahutara Road and is used for monitoring water take restrictions in the Otukura and Battersea catchments. It was installed in December 1997.</WebComment>
+</Site>
+</HilltopServer>

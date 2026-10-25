@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Makuri at Tuscan Hills">
+<AEP0.01>284000</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>119</Altitude>
+<BARO_CLOSEST>Mangatainoka at Pahiatua Town Bridge</BARO_CLOSEST>
+<BARO_CLOSEST_RL>104</BARO_CLOSEST_RL>
+<BARO_REF_DIST>11740</BARO_REF_DIST>
+<BARO_RL>119</BARO_RL>
+<Catchment>Manawatu</Catchment>
+<CatchmentArea>136.2</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Mana_7d)&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;SOE Water Quality: Water Temperature</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<District>Tararua District</District>
+<Easting>2758300</Easting>
+<FFreq>GEV (Syn)</FFreq>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>196000</FloodFlow10>
+<FloodFlow20>235000</FloodFlow20>
+<FloodFlow5>159000</FloodFlow5>
+<FloodFlow50>289000</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+<Interval ARI="1.58" Min10="6.8" Min20="9.9" Min30="12.4" Hour1="18.2" Hour2="26.1" Hour6="46.1" Hour12="66" Day1="94.5" Day2="116.1" Day3="130.9" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="7.5" Min20="11" Min30="13.8" Hour1="20.2" Hour2="28.7" Hour6="50" Hour12="71" Day1="100.9" Day2="124" Day3="139.8" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="10.2" Min20="15" Min30="18.8" Hour1="27.6" Hour2="38.3" Hour6="64.3" Hour12="89.1" Day1="123.5" Day2="151.7" Day3="171.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="12.6" Min20="18.5" Min30="23.2" Hour1="34" Hour2="46.4" Hour6="75.9" Hour12="103.5" Day1="141.1" Day2="173.4" Day3="195.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="15.4" Min20="22.6" Min30="28.3" Hour1="41.6" Hour2="55.8" Hour6="89" Hour12="119.5" Day1="160.4" Day2="197.1" Day3="222.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="30" Min10="17.3" Min20="25.4" Min30="31.8" Hour1="46.6" Hour2="62" Hour6="97.6" Hour12="129.8" Day1="172.7" Day2="212.2" Day3="239.3" Day4="" Day5="">
+</Interval>
+<Interval ARI="40" Min10="18.7" Min20="27.5" Min30="34.4" Hour1="50.6" Hour2="66.8" Hour6="104.1" Hour12="137.6" Day1="181.9" Day2="223.5" Day3="252.1" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="20" Min20="29.3" Min30="36.7" Hour1="53.8" Hour2="70.8" Hour6="109.4" Hour12="143.9" Day1="189.4" Day2="232.7" Day3="262.4" Day4="" Day5="">
+</Interval>
+<Interval ARI="60" Min10="21" Min20="30.8" Min30="38.6" Hour1="56.6" Hour2="74.2" Hour6="113.9" Hour12="149.3" Day1="195.7" Day2="240.4" Day3="271.2" Day4="" Day5="">
+</Interval>
+<Interval ARI="80" Min10="22.8" Min20="33.4" Min30="41.8" Hour1="61.4" Hour2="79.9" Hour6="121.5" Hour12="158.2" Day1="206.1" Day2="253.2" Day3="285.5" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="24.2" Min20="35.6" Min30="44.5" Hour1="65.3" Hour2="84.7" Hour6="127.7" Hour12="165.5" Day1="214.5" Day2="263.5" Day3="297.2" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.52366469</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00010</LawaSiteID>
+<LawaSiteName>Makuri at Tuscan Hills</LawaSiteName>
+<Longitude>175.93112739</Longitude>
+<MALF7Day>2055</MALF7Day>
+<Macro>true</Macro>
+<MacroStart> 3-Dec-2001</MacroStart>
+<MaxFlow>269989</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>119271</MeanAnnualFloodFlow>
+<MeanFlow>4988</MeanFlow>
+<MedianFlow>3504</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>1599</MinFlow>
+<MinFlowAt>29-Mar-2008</MinFlowAt>
+<NZReach>7043988</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7243830</NZSegment>
+<Northing>6071700</Northing>
+<R_Rain>Tiraumea at Ngaturi,Makuri at Bee 4 Trig</R_Rain>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>325206</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<SecondSynonym>MTH</SecondSynonym>
+<ShortName>Hor-0022</ShortName>
+<SiteID>587</SiteID>
+<StatsPeriod>1/7/2000-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>Mana_7</SurfaceWaterZone>
+<eQualCode>Hor-0022</eQualCode>
+</Site>
+</HilltopServer>

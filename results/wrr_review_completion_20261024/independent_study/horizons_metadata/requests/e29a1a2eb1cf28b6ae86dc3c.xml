@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Whanganui at Te Maire">
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>148</Altitude>
+<Catchment>Whanganui</Catchment>
+<CatchmentArea>2212.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (Whai_1)&#13;&#10;                 (Whai_2a)&#13;&#10;                 (Whai_2b)&#13;&#10;                 (Whai_2c)&#13;&#10;                 (Whai_2d)&#13;&#10;                 (Whai_2e)&#13;&#10;                 (Whai_2f)&#13;&#10;                 (Whai_2g)&#13;&#10;SOE Water Quality: Turbidity&#13;&#10;SOE Water Quality: Water Temperature&#13;&#10;Primary Flow Records to be obtained from Genesis (2010)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Ruapehu District</District>
+<Easting>2699800</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-38.94250007</Latitude>
+<LawaSiteID>HRC-00062</LawaSiteID>
+<LawaSiteName>Whanganui at Te Maire</LawaSiteName>
+<Longitude>175.18889243</Longitude>
+<MALF7Day>22810</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>17-Jul-1999</MacroStart>
+<MaxFlow>1801396</MaxFlow>
+<MeanAnnualFloodFlow>868949</MeanAnnualFloodFlow>
+<MeanFlow>70742</MeanFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>11573</MinFlow>
+<NZReach>7006225</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7154460</NZSegment>
+<Northing>6249000</Northing>
+<RecordingAuthority1>Genesis</RecordingAuthority1>
+<RecordingAuthority2>MWRC</RecordingAuthority2>
+<RiverNumber>333000</RiverNumber>
+<SWQAltitude>Upland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Native</SWQLanduse>
+<Scheme>Whanganui</Scheme>
+<SecondSynonym>TEM</SecondSynonym>
+<ShortName>Hor-0066</ShortName>
+<SiteID>2699</SiteID>
+<SurfaceWaterZone>Whai_3</SurfaceWaterZone>
+<eQualCode>Hor-0066</eQualCode>
+</Site>
+</HilltopServer>

@@ -1,0 +1,153 @@
+{
+  "acquisition": "only after OSF public timestamp, attached model/code archive, metadata roster and eligibility signed; a local timestamp or an unrelated registration cannot authorize it",
+  "authorship": "user-owned: the user will fill author, affiliation, funding and platform/deposit fields",
+  "eligibility": {
+    "daily_mean": "agency daily mean, or verified complete subdaily aggregation with QC; no monthly WQ samples",
+    "exclude_existing_stations_and_connected_networks": true,
+    "hot_year": "July-June using actual calendar boundaries",
+    "minimum_complete_hot_years": 4,
+    "minimum_group_evaluable_admissions": 20,
+    "network": "connected catchments, conservative joins across shared rivers and donors",
+    "river_only": true,
+    "sampling_stop": "metadata roster fixed before observations; no performance-based substitutions"
+  },
+  "endpoints": {
+    "E1": {
+      "nonempty_required": true,
+      "one_sided_95_group_bootstrap_upper_max": 0.08,
+      "population": "controlled 30/60/90-day gaps",
+      "risk_max": 0.06,
+      "role": "primary"
+    },
+    "E2": {
+      "empty_groups": "report unavailable, do not count as passes",
+      "group_failure_risk_threshold": 0.1,
+      "max_fraction_exceeding": 0.1,
+      "minimum_admitted_per_group": 20,
+      "role": "co_primary"
+    },
+    "E3": {
+      "coverage90_range": [
+        0.85,
+        0.95
+      ],
+      "interval_score": true,
+      "role": "secondary",
+      "stratum": "decision-time peak_overlap >= 0.5"
+    },
+    "E4": {
+      "mae_reduction_vs_plugin_min": 0.2,
+      "role": "secondary",
+      "stratum": "same decision-time danger stratum"
+    },
+    "E5": {
+      "feasibility": "Not implementable in the fixed three-zone cohort; report unavailable, not zero-risk certified retention",
+      "label_budget_groups": 10,
+      "report": "bounded-group certified retention, certificate status and worst-group risk",
+      "role": "descriptive"
+    }
+  },
+  "failure_text": "Unchanged source calibration did not meet the prespecified descriptive criteria. With three zones the ten-labeled-group comparison is unavailable; no sufficient local-label budget has been established. Report the observed failures and all qualification/availability limits.",
+  "implementation_files": [
+    "scripts/465_review_completion_cases.py",
+    "scripts/466_review_completion_refit.py",
+    "scripts/467_review_completion_analysis.py",
+    "scripts/470_review_completion_adaptation.py",
+    "scripts/494_review_completion_independent_metadata.py",
+    "scripts/495_review_completion_independent_analysis.py",
+    "scripts/496_review_completion_independent_acquisition.py",
+    "scripts/497_review_completion_independent_cases.py",
+    "scripts/498_review_completion_freeze_independent_roster.py",
+    "src/stream_recoverability/experiments/tr_revision/independent.py",
+    "src/stream_recoverability/experiments/tr_revision/native_temperature.py"
+  ],
+  "inference": {
+    "E1_E2_joint_success": "intersection, with E1 confidence bound and point-estimate E2; no claim of simultaneous confidence for every group",
+    "bootstrap_draws": 2000,
+    "handling_unavailable": "retain denominator and reason; do not impute success",
+    "multiplicity": "E1 and E2 must both pass; E3/E4 secondary, Holm adjustment for inferential superiority tests",
+    "unit": "independent connected-catchment group"
+  },
+  "measurement": {
+    "air": {
+      "aggregation": "24 finite hourly temperatures per fixed NZST day; no interpolation",
+      "model": "era5_land",
+      "provider": "Open-Meteo ERA5-Land",
+      "variable": "hourly temperature_2m"
+    },
+    "native_clock": "NZST fixed UTC+12, confirmed by all candidate TimeRange metadata",
+    "observation_end_exclusive": "2026-07-01T00:00:00",
+    "qc": {
+      "accepted_quality_codes": [
+        600
+      ],
+      "aggregation": "mean of a full regular native day; no interpolation or synthetic records",
+      "cadence": "monthly timestamp mode up to 60 minutes, shorter tie, must divide 24 hours",
+      "daily_completeness": 1.0,
+      "native_clock": "NZST fixed UTC+12"
+    }
+  },
+  "metadata_screening": {
+    "fallback_trigger": "fewer than four calendar-supported July-June years or no qualified continuous river series, determined exclusively from metadata",
+    "fixed_fallback_order": [
+      "Horizons public continuous archive",
+      "Greater Wellington public continuous archive"
+    ],
+    "grouping": "Horizons catchment; Greater Wellington conservatively merged surface-water management zones, with any shared donors/connectivity merged before freezing; zone counts are not automatically independent catchment counts",
+    "horizons_result": "58 collection sites screened; zero potentially eligible sites in the current public archive; no predictive test performed",
+    "observation_access": false,
+    "qualification_files": [
+      "horizons_metadata/qualification_summary.json",
+      "greater_wellington/qualification_summary.json"
+    ]
+  },
+  "metadata_source": "https://envirodata.horizons.govt.nz/api/hilltop/data",
+  "method": {
+    "batch_policy_scope": "not a primary endpoint; any additional batch method must have its full source calibration and individual cap fixed in the public protocol before values, not selected after target outcomes",
+    "candidate_file": "results/wrr_review_completion_20261024/deployment/global_source_candidate.joblib",
+    "conditional_conformal_scope": "auxiliary conservative and independently randomized binary-LAC prediction sets; coverage/false-admission frequency reported separately from selected risk; no substitution for the E2 group-risk endpoint",
+    "decision": "primary single-value release: source-fixed D2 failure score <= 0.1; any separately reported batch policy must also cap individual scores at 0.3",
+    "estimators": [
+      "source-developed functional debias point",
+      "distribution regression with group-disjoint interval calibration",
+      "MOVE1 warm and annual",
+      "stochastic AR1 bridge"
+    ],
+    "local_calibration_secondary": [
+      2,
+      4,
+      8,
+      10,
+      16
+    ],
+    "local_comparators": [
+      "bounded-group selected-risk certificate",
+      "labeled-only WSR RCPS",
+      "general-loss semi-supervised RCPS with WSR, distinct unlabeled calibration groups and untouched test groups"
+    ],
+    "primary_release_value": "calibrated D2 median; this is the source failure classifier's target",
+    "scope": "classical estimation is a comparator; it does not inherit the classifier trained for D2 errors",
+    "source_model_selection": "source-only global candidate already fitted with seed zero and four disjoint group roles; candidate.json records the choice; no target outcomes used",
+    "target_history_use": "Offline reconstruction: daily regression, climatology and residual models use the target station's other historical years under the fixed recipe; the evaluated whole year is excluded. Later historical years may be used. Annual distribution-regression/P2 weights, failure classifier, interval offsets and decision-hot cutoff remain source-only. This is not a real-time forecast or absence of all target-history fitting.",
+    "tolerance_c": 0.5
+  },
+  "planning": {
+    "budget_reaching_target": null,
+    "interpretation": "No tested equal-seed source planning mixture reaches 80%; algorithm and group-composition variation is substantial. Source-seed quantiles are not new-climate uncertainty or verified transfer power. This is failure-detection design material until publicly registered with a qualified roster.",
+    "joint_E1_E2_target_probability": 0.8,
+    "n_source_seeds": 20,
+    "simulations_per_group_budget": 40000
+  },
+  "population": "New Zealand regional-council continuous river temperature, Horizons first, followed by independent councils only if the fixed metadata eligibility fails; no temperature values before public registration",
+  "prospective_cohort": {
+    "acquisition_plan": "acquisition_plan.json",
+    "conservative_groups": 3,
+    "provider": "greater_wellington",
+    "qualification": "metadata only; strict quality-complete years are checked once after registration",
+    "roster": "greater_wellington/registration_roster.csv",
+    "stations": 9,
+    "water_values_opened": false
+  },
+  "status": "metadata-roster-frozen failure-detection draft; user platform fields and public registration still pending",
+  "success_text": "This small prospective cohort met the prespecified descriptive sample criteria. Three conservative management zones do not establish population-level 95 percent risk control, general climate transfer, or any individual conditional guarantee."
+}

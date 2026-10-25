@@ -1,0 +1,4 @@
+scenario,repeats,passing,missing_coverage_median,total_coverage_median,rmse_reduction_median
+mcar,20,0,0.7920238095238095,1.0,0.6947391814690735
+non_air_trend,20,0,0.03684523809523805,1.0,-0.601698686534052
+strong_heat,20,0,0.795952380952381,1.0,0.695879383569934

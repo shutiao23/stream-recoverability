@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Wainuiomata River at Leonard Wood Park">
+<Agency>Wellington</Agency>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>
+</Altitude>
+<CatchmentArea>77.5</CatchmentArea>
+<Comment>
+</Comment>
+<ComplianceFlowRestrictionsWebLink>http://www.gw.govt.nz/restrictions-wellington-and-porirua-rivers-streams/</ComplianceFlowRestrictionsWebLink>
+<ComplianceFlowSite>True</ComplianceFlowSite>
+<ComplianceFlowThreshold>.300</ComplianceFlowThreshold>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1763077</Easting>
+<FirstSynonym>Wainuiomata River at Leonard Wood Park</FirstSynonym>
+<FloodFlow10>125</FloodFlow10>
+<FloodFlow100>279</FloodFlow100>
+<FloodFlow20>156</FloodFlow20>
+<FloodFlow5>96</FloodFlow5>
+<FloodFlow50>237</FloodFlow50>
+<FlowWebVeryHigh>18</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>false</LWQuality>
+<Latitude>-41.28400515</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>GW-00231</LawaSiteID>
+<Longitude>174.94738309</Longitude>
+<LowFlow100yr14Day>0.11</LowFlow100yr14Day>
+<LowFlow100yr1Day>0.107</LowFlow100yr1Day>
+<LowFlow100yr28Day>0.121</LowFlow100yr28Day>
+<LowFlow100yr7Day>0.107</LowFlow100yr7Day>
+<LowFlow10yr14Day>0.175</LowFlow10yr14Day>
+<LowFlow10yr1Day>0.146</LowFlow10yr1Day>
+<LowFlow10yr28Day>0.206</LowFlow10yr28Day>
+<LowFlow10yr7Day>0.16</LowFlow10yr7Day>
+<LowFlow20yr14Day>0.15</LowFlow20yr14Day>
+<LowFlow20yr1Day>0.131</LowFlow20yr1Day>
+<LowFlow20yr28Day>0.174</LowFlow20yr28Day>
+<LowFlow20yr7Day>0.14</LowFlow20yr7Day>
+<LowFlow50yr14Day>0.125</LowFlow50yr14Day>
+<LowFlow50yr1Day>0.116</LowFlow50yr1Day>
+<LowFlow50yr28Day>0.141</LowFlow50yr28Day>
+<LowFlow50yr7Day>0.119</LowFlow50yr7Day>
+<LowFlow5yr14Day>0.208</LowFlow5yr14Day>
+<LowFlow5yr1Day>0.166</LowFlow5yr1Day>
+<LowFlow5yr28Day>0.25</LowFlow5yr28Day>
+<LowFlow5yr7Day>0.187</LowFlow5yr7Day>
+<LowFlowMALF14Day>0.328</LowFlowMALF14Day>
+<LowFlowMALF1Day>0.259</LowFlowMALF1Day>
+<LowFlowMALF28Day>0.418</LowFlowMALF28Day>
+<MALF7Day>0.291</MALF7Day>
+<Macro>false</Macro>
+<MaxFlow>172.734</MaxFlow>
+<MaxFlowAt>16-Feb-2004</MaxFlowAt>
+<MeanAnnualFloodFlow>50</MeanAnnualFloodFlow>
+<MeanFlow>2.291</MeanFlow>
+<MedianFlow>1.239</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>0.051</MinFlow>
+<MinFlowAt> 7-Feb-2018</MinFlowAt>
+<Northing>5427886</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverName>Wainuiomata River</RiverName>
+<RiverNumber>296000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Leonard Wood Park</ShortName>
+<SiteID>2588</SiteID>
+<SurfaceWaterSubZone>WainuiomataSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This site is located approximately 500m above the old sewerage treatment plant site and has been operating since April 1977. There are no low flow statistics for this site due to the abstractions upstream affecting results. Due to stream bed degradation, a second sensor has been installed to collect low stage/flow data, these measurements are called Stage 2/Flow 2 and are more reliable during low to medium flows.</WebComment>
+</Site>
+</HilltopServer>

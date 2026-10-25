@@ -1,0 +1,2144 @@
+{
+  "cached_only": false,
+  "eligible_target_ids": [
+    "01018035",
+    "010642505",
+    "01095220",
+    "01095375",
+    "01104405",
+    "01104415",
+    "01104430",
+    "01104453",
+    "01104455",
+    "01104460",
+    "01104475",
+    "01115098",
+    "01115110",
+    "01115114",
+    "01115183",
+    "01115187",
+    "01115190",
+    "01115265",
+    "01115275",
+    "01115276",
+    "01115280",
+    "01115297",
+    "01129200",
+    "01129500",
+    "01193500",
+    "01359139",
+    "01362230",
+    "01362500",
+    "01388000",
+    "01417500",
+    "01420500",
+    "01421000",
+    "01425000",
+    "01426500",
+    "01427000",
+    "01427207",
+    "01427510",
+    "01428500",
+    "01428750",
+    "01429000",
+    "01431500",
+    "01432110",
+    "01432160",
+    "01432805",
+    "01434000",
+    "01436690",
+    "01447500",
+    "01447720",
+    "01447800",
+    "01449360",
+    "01466500",
+    "01474703",
+    "01480065",
+    "01480400",
+    "01480500",
+    "01481000",
+    "01481500",
+    "01484525",
+    "01518700",
+    "01520000",
+    "01542500",
+    "01608500",
+    "01646500",
+    "01649500",
+    "02011400",
+    "02011500",
+    "02012800",
+    "02077200",
+    "02077303",
+    "0208062765",
+    "02081022",
+    "02081094",
+    "0208114150",
+    "02101726",
+    "02110400",
+    "02110500",
+    "02110755",
+    "02110760",
+    "02110770",
+    "02110777",
+    "02110802",
+    "021108125",
+    "02110815",
+    "02148000",
+    "02148315",
+    "02156500",
+    "02160105",
+    "02160700",
+    "02160991",
+    "02163001",
+    "02167600",
+    "02167716",
+    "02168504",
+    "02169000",
+    "02172020",
+    "02172040",
+    "02172050",
+    "02172053",
+    "021720677",
+    "021720698",
+    "021720709",
+    "021720710",
+    "021720869",
+    "02176930",
+    "02198840",
+    "02198920",
+    "021989773",
+    "021989784",
+    "022035975",
+    "02203603",
+    "02203655",
+    "02205865",
+    "02207120",
+    "02207185",
+    "02207400",
+    "02208150",
+    "02217274",
+    "02218565",
+    "02244040",
+    "02266300",
+    "02266320",
+    "02266495",
+    "02277100",
+    "022908295",
+    "02290928",
+    "02290930",
+    "02323592",
+    "02330450",
+    "02334430",
+    "02334480",
+    "02334578",
+    "02334653",
+    "02334885",
+    "02335000",
+    "02335350",
+    "02335450",
+    "02336000",
+    "02336030",
+    "02336120",
+    "02336240",
+    "02336300",
+    "02336313",
+    "02336360",
+    "02336410",
+    "02336526",
+    "02337170",
+    "02337410",
+    "023432415",
+    "02344630",
+    "02397000",
+    "02397530",
+    "02405500",
+    "02407514",
+    "02423130",
+    "02423380",
+    "02423397",
+    "02423398",
+    "02423496",
+    "02455980",
+    "02457595",
+    "02458450",
+    "03007800",
+    "03012550",
+    "03020000",
+    "03022554",
+    "03039000",
+    "03043810",
+    "03047000",
+    "03049640",
+    "03073000",
+    "03075070",
+    "03081000",
+    "03086500",
+    "03090500",
+    "03091500",
+    "03092460",
+    "03094000",
+    "03095500",
+    "03099500",
+    "03102950",
+    "03103500",
+    "03108490",
+    "03254520",
+    "03271510",
+    "03298000",
+    "03298150",
+    "03301940",
+    "03306000",
+    "03313000",
+    "03324500",
+    "03353611",
+    "03354000",
+    "03359000",
+    "03373980",
+    "03374500",
+    "03428200",
+    "03430200",
+    "03431083",
+    "03431091",
+    "03431514",
+    "03460000",
+    "03497300",
+    "0351706800",
+    "04001000",
+    "04024000",
+    "04041500",
+    "04043238",
+    "04043244",
+    "04063700",
+    "04077630",
+    "0407809265",
+    "04084445",
+    "040871473",
+    "04101500",
+    "04121650",
+    "04121660",
+    "04121680",
+    "04121944",
+    "04121970",
+    "04124000",
+    "04124200",
+    "04125460",
+    "04125550",
+    "04136000",
+    "04136500",
+    "04136900",
+    "04137005",
+    "04137020",
+    "04137025",
+    "04137030",
+    "04137500",
+    "04166500",
+    "0422026250",
+    "04231600",
+    "04232050",
+    "0423205010",
+    "05054000",
+    "05057000",
+    "05058000",
+    "05124480",
+    "05133500",
+    "05331833",
+    "05333500",
+    "05340500",
+    "05370000",
+    "05382255",
+    "05382257",
+    "05382267",
+    "05406470",
+    "05435943",
+    "05435950",
+    "06025500",
+    "06036805",
+    "06036905",
+    "06036940",
+    "06037500",
+    "06038500",
+    "06038800",
+    "06041000",
+    "06054500",
+    "06073500",
+    "06077200",
+    "06085800",
+    "06204070",
+    "06330000",
+    "06342500",
+    "06796550",
+    "06893820",
+    "06894000",
+    "07014000",
+    "07056515",
+    "07060500",
+    "07061290",
+    "07086000",
+    "07096000",
+    "07099400",
+    "07099969",
+    "07106500",
+    "07109500",
+    "07119700",
+    "07164500",
+    "071912213",
+    "07311782",
+    "07312100",
+    "07374000",
+    "073745253",
+    "07381150",
+    "07381328",
+    "07381331",
+    "07381350",
+    "07381355",
+    "073814675",
+    "08017044",
+    "08067215",
+    "08067252",
+    "08068400",
+    "08068500",
+    "08070200",
+    "08074710",
+    "08086290",
+    "08123800",
+    "08123850",
+    "08126380",
+    "08181500",
+    "08181800",
+    "08211200",
+    "09014050",
+    "09085000",
+    "09085150",
+    "09136100",
+    "09144250",
+    "09149500",
+    "09163500",
+    "09171100",
+    "09180000",
+    "09180500",
+    "09196500",
+    "09234500",
+    "09261000",
+    "09302000",
+    "09379500",
+    "09380000",
+    "09406000",
+    "09429490",
+    "10129900",
+    "10133650",
+    "10133800",
+    "10133980",
+    "10172200",
+    "10249300",
+    "10265150",
+    "10301500",
+    "10312210",
+    "10313400",
+    "10348200",
+    "10350500",
+    "10351600",
+    "10351700",
+    "10396000",
+    "11261100",
+    "11261500",
+    "11262900",
+    "11274550",
+    "11303000",
+    "11303500",
+    "11447650",
+    "11467000",
+    "11501000",
+    "11502500",
+    "11507500",
+    "11507501",
+    "11509370",
+    "11509500",
+    "12056500",
+    "12100490",
+    "12101100",
+    "12113390",
+    "12115000",
+    "12116500",
+    "12117600",
+    "12119000",
+    "12137290",
+    "12137800",
+    "12138160",
+    "12147500",
+    "12147600",
+    "12148000",
+    "12148300",
+    "12178000",
+    "12181000",
+    "12205000",
+    "12209490",
+    "12210000",
+    "12210700",
+    "12210900",
+    "12212050",
+    "12212390",
+    "12212430",
+    "12213100",
+    "12322000",
+    "12323770",
+    "12323800",
+    "12324200",
+    "12334510",
+    "12340000",
+    "12344000",
+    "12362500",
+    "12363000",
+    "12413370",
+    "12447200",
+    "13016450",
+    "13018350",
+    "13056500",
+    "13069500",
+    "13092747",
+    "13150430",
+    "13154500",
+    "13192200",
+    "13269000",
+    "13317660",
+    "13331500",
+    "13334300",
+    "13340000",
+    "13340600",
+    "13341050",
+    "13342500",
+    "14034500",
+    "14046778",
+    "14046890",
+    "14076500",
+    "14087400",
+    "14091500",
+    "14092500",
+    "14105700",
+    "14138720",
+    "14138870",
+    "14138900",
+    "14139800",
+    "14140020",
+    "14141500",
+    "14144800",
+    "14144900",
+    "14145500",
+    "14147500",
+    "14148000",
+    "14150000",
+    "14150290",
+    "14150800",
+    "14152000",
+    "14153500",
+    "14154500",
+    "14159200",
+    "14159500",
+    "14161100",
+    "14162500",
+    "14166000",
+    "14169000",
+    "14174000",
+    "14178000",
+    "14179000",
+    "14180300",
+    "14181500",
+    "14182500",
+    "14184100",
+    "14185000",
+    "14185800",
+    "14185900",
+    "14186200",
+    "14187200",
+    "14189050",
+    "14192015",
+    "14197900",
+    "14202980",
+    "14209710",
+    "14210000",
+    "14211010",
+    "14211400",
+    "14211500",
+    "14211542",
+    "14211550",
+    "14211720",
+    "14316460",
+    "14316495",
+    "14316500",
+    "14317450",
+    "14318000",
+    "14319500",
+    "14320934",
+    "14330000",
+    "14337500",
+    "14337600",
+    "14337830",
+    "14338000",
+    "14339000",
+    "14359000",
+    "14361500",
+    "14362000",
+    "14366000",
+    "14369500",
+    "14372300",
+    "15056210",
+    "15081497",
+    "15085100",
+    "15239070",
+    "15258000",
+    "15261000",
+    "15266300",
+    "15283700",
+    "15294005",
+    "15295700",
+    "15297610",
+    "15519100",
+    "251003080435500",
+    "251209080350100",
+    "251241080385300",
+    "251253080320100",
+    "255327081275900",
+    "255432081303900",
+    "255534081324000",
+    "255654081350200",
+    "265651080045500",
+    "265906080093500",
+    "265929080091800",
+    "292859090004000",
+    "295124089542100",
+    "295856081372301",
+    "301141089320300",
+    "394220106431500",
+    "420451121510000",
+    "420741121554001",
+    "420853121505500",
+    "420853121505501",
+    "421015121471800",
+    "421401121480900",
+    "452230122512201",
+    "453004122510301",
+    "453030122560101",
+    "453040123065201",
+    "453630122021400",
+    "454249120423500"
+  ],
+  "eligible_targets": 520,
+  "jobs": [
+    {
+      "cell": "(268, 174, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/010642505.json",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 180, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_180_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 173, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/01095220.json",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 174, -5)",
+      "n_stations": 7,
+      "source": "data/external/wrr_target_recovery_20261021/power/01104405.json",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 174, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/01129200.json",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 173, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/269_173_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 173, -5)",
+      "n_stations": 11,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/01115114.json",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 172, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/01193050.json",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 169, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/01365100.json",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 170, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/265_170_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 169, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/262_169_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 167, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/264_167_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 168, -5)",
+      "n_stations": 6,
+      "source": "data/external/wrr_review_national_20261024/power/264_168_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 168, -5)",
+      "n_stations": 6,
+      "source": "data/external/wrr_target_recovery_20261021/power/01434000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 167, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/263_167_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 169, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/263_169_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 167, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261021/power/01447500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 169, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/260_169_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 168, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/01474703.json",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 167, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_167_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 168, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/257_168_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 167, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261021/power/01480617.json",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 165, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/01518700.json",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 162, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_162_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 163, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/262_163_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 165, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/01649500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(256, 160, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/02011400.json",
+      "status": "available"
+    },
+    {
+      "cell": "(253, 161, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/253_161_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(253, 162, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/253_162_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(253, 164, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/253_164_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 164, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/252_164_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 165, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/252_165_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(251, 161, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/251_161_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 162, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/02110725.json",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 162, -5)",
+      "n_stations": 5,
+      "source": "data/external/wrr_target_recovery_20261021/power/02110755.json",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 161, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/02110815.json",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 159, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/248_159_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(249, 157, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/02160700.json",
+      "status": "available"
+    },
+    {
+      "cell": "(249, 158, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/02156500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(249, 156, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/249_156_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 157, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/248_157_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 158, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/02169000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(250, 155, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/250_155_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(246, 160, -5)",
+      "n_stations": 9,
+      "source": "data/external/wrr_target_recovery_20261021/power/02172020.json",
+      "status": "available"
+    },
+    {
+      "cell": "(244, 158, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261021/power/02198840.json",
+      "status": "available"
+    },
+    {
+      "cell": "(243, 158, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/243_158_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 153, -6)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261021/power/02337170.json",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 154, -6)",
+      "n_stations": 6,
+      "source": "data/external/wrr_target_recovery_20261021/power/02207185.json",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 157, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/239_157_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 153, -6)",
+      "n_stations": 18,
+      "source": "data/external/wrr_target_recovery_20261021/power/02334430.json",
+      "status": "available"
+    },
+    {
+      "cell": "(237, 157, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/237_157_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(237, 158, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/237_158_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(234, 160, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/265929080091800.json",
+      "status": "available"
+    },
+    {
+      "cell": "(231, 159, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/022908295.json",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 155, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/239_155_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(232, 158, -5)",
+      "n_stations": 5,
+      "source": "data/external/wrr_review_national_20261024/power/232_158_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(249, 154, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/249_154_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 152, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/247_152_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 152, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/02394000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(243, 152, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/243_152_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 151, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/02397530.json",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 150, -6)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/02405500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 149, -6)",
+      "n_stations": 7,
+      "source": "data/external/wrr_target_recovery_20261021/power/02423380.json",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 163, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/264_163_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 162, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03012550.json",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 160, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/263_160_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 161, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/263_161_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(261, 161, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/03043810.json",
+      "status": "available"
+    },
+    {
+      "cell": "(261, 160, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/03049640.json",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 160, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03083500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 161, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03079000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 159, -5)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/262_159_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 158, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_review_national_20261024/power/262_158_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(261, 159, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03108490.json",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 159, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/03103500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 153, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03238140.json",
+      "status": "available"
+    },
+    {
+      "cell": "(256, 151, -6)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261021/power/03298000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 153, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_153_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 151, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03306000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 150, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03313000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 151, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/262_151_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 150, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/03353611.json",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 149, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03359000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 148, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03373980.json",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 149, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/03374500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 150, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/252_150_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 149, -6)",
+      "n_stations": 4,
+      "source": "data/external/wrr_review_national_20261024/power/252_149_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(251, 155, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/251_155_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(251, 154, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/251_154_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(276, 145, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/04001000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 146, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/04041500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 140, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/273_140_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 147, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/04043238.json",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 146, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_146_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 146, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_146_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 145, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_145_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 147, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/268_147_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 147, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/266_147_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 150, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/264_150_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 151, -6)",
+      "n_stations": 5,
+      "source": "data/external/wrr_target_recovery_20261021/power/04121660.json",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 151, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/269_151_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 151, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/268_151_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 150, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/269_150_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 153, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261021/power/04136500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 155, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/269_155_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 154, -6)",
+      "n_stations": 5,
+      "source": "data/external/wrr_target_recovery_20261021/power/04137020.json",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 155, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/265_155_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 164, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/0422026250.json",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 133, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_133_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 164, -5)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/266_164_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 131, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_131_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 131, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/275_131_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(276, 142, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/276_142_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 138, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/277_138_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 142, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_142_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 140, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_140_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 140, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_140_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 140, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_140_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 143, -6)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/268_143_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 145, -6)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/266_145_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 108, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_108_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 111, -7)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/269_111_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 110, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/269_110_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 110, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_110_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 110, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_110_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 110, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_110_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/275_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 112, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_112_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(276, 122, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/276_122_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 127, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_127_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 134, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/262_134_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 137, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/258_137_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(256, 142, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/256_142_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 140, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/07056515.json",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 141, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/07060500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(255, 143, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/07061290.json",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 118, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/258_118_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 120, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/257_120_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 121, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/257_121_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(256, 121, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/256_121_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(256, 122, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/256_122_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(252, 134, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/252_134_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(253, 137, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/253_137_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(247, 128, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/247_128_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(248, 129, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/248_129_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(241, 142, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/241_142_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 144, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/240_144_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 143, -6)",
+      "n_stations": 5,
+      "source": "data/external/wrr_target_recovery_20261021/power/07381328.json",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 142, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261021/power/073814675.json",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 139, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/240_139_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 136, -6)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/240_136_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 136, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/239_136_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 135, -6)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/240_135_-6.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(245, 130, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/08086290.json",
+      "status": "available"
+    },
+    {
+      "cell": "(244, 126, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/244_126_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(244, 127, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/244_127_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 130, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/239_130_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(243, 128, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/243_128_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(238, 131, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/238_131_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(236, 132, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/236_132_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 119, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/260_119_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 116, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/259_116_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 115, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/258_115_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 115, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/257_115_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 114, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/258_114_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 114, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/257_114_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 113, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/258_113_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 112, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/266_112_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 113, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/262_113_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(261, 113, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/261_113_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 112, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/260_112_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 112, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/254_112_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/254_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 107, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/254_107_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(246, 105, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/246_105_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(261, 110, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/261_110_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 100, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/10249300.json",
+      "status": "available"
+    },
+    {
+      "cell": "(262, 109, -7)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/262_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(258, 97, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/258_97_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(255, 98, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/255_98_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 98, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_98_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(263, 104, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/263_104_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 96, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_96_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 97, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/259_97_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(260, 97, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/260_97_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 98, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/10396000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(254, 95, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/254_95_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(255, 95, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/255_95_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(255, 94, -8)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/255_94_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 94, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/257_94_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(257, 91, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/11463682.json",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 93, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/265_93_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 91, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/275_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 93, -8)",
+      "n_stations": 10,
+      "source": "data/external/wrr_review_national_20261024/power/264_93_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 92, -8)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12113390.json",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 92, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(276, 93, -8)",
+      "n_stations": 3,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12137290.json",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 93, -8)",
+      "n_stations": 7,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12116100.json",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 94, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/277_94_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(278, 93, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12205000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 93, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12209490.json",
+      "status": "available"
+    },
+    {
+      "cell": "(278, 102, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/278_102_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(278, 92, -8)",
+      "n_stations": 6,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/12210700.json",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 108, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/272_108_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 108, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/273_108_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 106, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/273_106_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 106, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_106_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 105, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/272_105_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 106, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/277_106_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 105, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/277_105_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(275, 102, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/275_102_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(277, 96, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/277_96_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 111, -7)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/267_111_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 109, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/268_109_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 108, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/266_108_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 105, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/265_105_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 105, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/267_105_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(266, 104, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/266_104_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 103, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/267_103_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 101, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/268_101_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(272, 101, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/272_101_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 100, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_100_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 102, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/273_102_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(274, 103, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/274_103_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(273, 101, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/273_101_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 97, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_97_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 96, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/269_96_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 95, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_95_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 94, -8)",
+      "n_stations": 4,
+      "source": "data/external/wrr_review_national_20261024/power/269_94_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 94, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_94_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 93, -8)",
+      "n_stations": 6,
+      "source": "data/external/wrr_review_national_20261024/power/271_93_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 92, -8)",
+      "n_stations": 8,
+      "source": "data/external/wrr_review_national_20261024/power/271_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 92, -8)",
+      "n_stations": 6,
+      "source": "data/external/wrr_review_national_20261024/power/267_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 92, -8)",
+      "n_stations": 8,
+      "source": "data/external/wrr_review_national_20261024/power/268_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(268, 91, -8)",
+      "n_stations": 3,
+      "source": "data/external/wrr_review_national_20261024/power/268_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 91, -8)",
+      "n_stations": 5,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/14319500.json",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 93, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/269_93_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 91, -8)",
+      "n_stations": 4,
+      "source": "data/external/wrr_review_national_20261024/power/269_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 93, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/270_93_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 92, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/270_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(269, 92, -8)",
+      "n_stations": 5,
+      "source": "data/external/wrr_review_national_20261024/power/269_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(270, 91, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/270_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 91, -8)",
+      "n_stations": 6,
+      "source": "data/external/wrr_review_national_20261024/power/271_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(267, 90, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/267_90_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 92, -8)",
+      "n_stations": 5,
+      "source": "data/external/wrr_review_national_20261024/power/265_92_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 91, -8)",
+      "n_stations": 4,
+      "source": "data/external/wrr_review_national_20261024/power/265_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(264, 91, -8)",
+      "n_stations": 2,
+      "source": "data/external/wrr_review_national_20261024/power/264_91_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(265, 90, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/265_90_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(292, 75, -9)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/292_75_-9.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(291, 76, -9)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/15085100.json",
+      "status": "available"
+    },
+    {
+      "cell": "(300, 47, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/300_47_-10.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(301, 48, -10)",
+      "n_stations": 2,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/15258000.json",
+      "status": "available"
+    },
+    {
+      "cell": "(301, 46, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/15266300.json",
+      "status": "available"
+    },
+    {
+      "cell": "(299, 71, -9)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/299_71_-9.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(304, 48, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/304_48_-10.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(295, 43, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/295_43_-10.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(290, 28, -11)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/290_28_-11.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(311, 50, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/311_50_-10.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(230, 159, -5)",
+      "n_stations": 4,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/251241080385300.json",
+      "status": "available"
+    },
+    {
+      "cell": "(232, 157, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/232_157_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(239, 144, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/073802511.json",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 157, -5)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/240_157_-5.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(240, 145, -6)",
+      "n_stations": 1,
+      "source": "data/external/wrr_target_recovery_20261022/usgs_new/power_raw/301141089320300.json",
+      "status": "available"
+    },
+    {
+      "cell": "(259, 117, -7)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/259_117_-7.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(271, 95, -8)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/271_95_-8.json.gz",
+      "status": "available"
+    },
+    {
+      "cell": "(303, 50, -10)",
+      "n_stations": 1,
+      "source": "data/external/wrr_review_national_20261024/power/303_50_-10.json.gz",
+      "status": "available"
+    }
+  ],
+  "n_stations_with_forcing": 520,
+  "native_cells": 269
+}

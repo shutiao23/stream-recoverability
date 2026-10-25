@@ -1,0 +1,19 @@
+region,year,n_stations,median_air_anomaly,qualified,unavailable_reason
+usgs_huc01,2016.0,6.0,0.5975386098838895,True,
+usgs_huc02,2024.0,18.0,0.48184397617720004,True,
+usgs_huc03,2010.0,15.0,0.833182901694275,True,
+usgs_huc04,2012.0,4.0,0.7088291685846704,True,
+usgs_huc05,2016.0,17.0,0.5602166384949908,True,
+usgs_huc06,2016.0,4.0,0.6339990320959616,True,
+usgs_huc07,2012.0,3.0,0.5213784093161888,True,
+usgs_huc08,2011.0,3.0,0.6583683398064086,True,
+usgs_huc09,,,,False,no complete-water source year with >=3 physical stations and positive median air anomaly
+usgs_huc10,2021.0,7.0,0.7189188361854365,True,
+usgs_huc11,2011.0,3.0,0.7420233834687844,True,
+usgs_huc12,,,,False,no complete-water source year with >=3 physical stations and positive median air anomaly
+usgs_huc14,2020.0,5.0,0.4489132698853263,True,
+usgs_huc15,2024.0,3.0,0.4427582498815165,True,
+usgs_huc16,,,,False,no complete-water source year with >=3 physical stations and positive median air anomaly
+usgs_huc17,2015.0,37.0,0.664436794957715,True,
+usgs_huc18,2021.0,11.0,0.5242149292538036,True,
+usgs_huc19,2019.0,9.0,1.0573242316165403,True,

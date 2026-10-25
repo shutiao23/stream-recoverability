@@ -1,0 +1,9 @@
+{
+  "delay_source": "inferred documented UTC daily reset plus60s; original generic fallback retained",
+  "observed_utc": "2026-10-24T07:01:02.429600+00:00",
+  "provider_message": "{\"reason\":\"Daily API request limit exceeded. Please try again tomorrow.\",\"error\":true}",
+  "retry_after_seconds": 61198,
+  "documented_reset_utc": "2026-10-25T00:01:00+00:00",
+  "documentation_sha256": "240c50f76392f34ff72be016cb621e0b0042bf7f8c8fefec6d3f235e8fba4878",
+  "documentation_url": "https://github.com/open-meteo/open-meteo/blob/main/Sources/App/Helper/Vapor/RateLimiter.swift"
+}

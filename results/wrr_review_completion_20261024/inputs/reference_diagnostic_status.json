@@ -1,0 +1,7 @@
+{
+  "common_period_station_years": 23,
+  "median_air_donor_residual_correlation": 0.505434360248445,
+  "precision_scenario": "assumed Gaussian AR1 daily reference error; bound on annual maximum from simultaneous bounds on linear window means; neither sensor-error parameters nor real-gap accuracy are inferred",
+  "reason": "three independent error channels and a calibrated reference have not been established; observed primary error also induces shared residual correlation",
+  "triple_collocation_accuracy_estimated": false
+}

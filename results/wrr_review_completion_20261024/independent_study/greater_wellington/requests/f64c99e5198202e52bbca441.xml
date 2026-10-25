@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Hutt River at Te Marua">
+<Agency>Wellington</Agency>
+<AirQNES>False</AirQNES>
+<AirQuality>False</AirQuality>
+<AirSiteCurrent>False</AirSiteCurrent>
+<Altitude>139</Altitude>
+<CatchmentArea>191.0</CatchmentArea>
+<Comment>ARI frequency estimates derived from at-site data, but the standard &#13;&#10;errors have been extracted from HIRDS so will need to be revised using &#13;&#10;the at site data in the future</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>
+</District>
+<Easting>1780160</Easting>
+<FirstSynonym>Hutt River at Te Marua</FirstSynonym>
+<GISTag>
+</GISTag>
+<HIRDS>
+<Interval ARI="2" Min10="9" Min20="12" Min30="15" Hour1="23" Hour2="34" Hour6="62" Hour12="86" Day1="103" Day2="129" Day3="143" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="12" Min20="16" Min30="20" Hour1="30" Hour2="42" Hour6="75" Hour12="110" Day1="141" Day2="165" Day3="183" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="14" Min20="18" Min30="23" Hour1="35" Hour2="47" Hour6="83" Hour12="127" Day1="165" Day2="189" Day3="209" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="16" Min20="21" Min30="26" Hour1="40" Hour2="53" Hour6="92" Hour12="143" Day1="189" Day2="212" Day3="234" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="18" Min20="24" Min30="31" Hour1="46" Hour2="59" Hour6="102" Hour12="163" Day1="220" Day2="242" Day3="267" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="20" Min20="26" Min30="34" Hour1="51" Hour2="65" Hour6="111" Hour12="178" Day1="243" Day2="264" Day3="291" Day4="" Day5="">
+</Interval>
+<Interval ARI="" Min10="" Min20="" Min30="" Hour1="" Hour2="" Hour6="" Hour12="" Day1="" Day2="" Day3="" Day4="" Day5="">
+</Interval>
+<Interval ARI="2" Min10="1" Min20="1.1" Min30="1.6" Hour1="2.1" Hour2="1.2" Hour6="4.3" Hour12="3" Day1="4" Day2="8.4" Day3="7.7" Day4="" Day5="">
+</Interval>
+<Interval ARI="5" Min10="1.4" Min20="1.6" Min30="2.4" Hour1="3" Hour2="2.3" Hour6="5.9" Hour12="5.1" Day1="6.3" Day2="12" Day3="11" Day4="" Day5="">
+</Interval>
+<Interval ARI="10" Min10="1.9" Min20="2.2" Min30="3.3" Hour1="4" Hour2="3.7" Hour6="7.6" Hour12="7.9" Day1="8.9" Day2="15" Day3="15" Day4="" Day5="">
+</Interval>
+<Interval ARI="20" Min10="2.5" Min20="2.9" Min30="4.2" Hour1="5.3" Hour2="5.7" Hour6="10" Hour12="12" Day1="12" Day2="19" Day3="19" Day4="" Day5="">
+</Interval>
+<Interval ARI="50" Min10="3.2" Min20="3.7" Min30="5.5" Hour1="7.7" Hour2="9.4" Hour6="14" Hour12="18" Day1="18" Day2="27" Day3="27" Day4="" Day5="">
+</Interval>
+<Interval ARI="100" Min10="3.8" Min20="4.4" Min30="6.5" Hour1="10" Hour2="13" Hour6="19" Hour12="25" Day1="24" Day2="34" Day3="35" Day4="" Day5="">
+</Interval>
+</HIRDS>
+<Inactive>0</Inactive>
+<LWQuality>False</LWQuality>
+<Latitude>-41.07745121</Latitude>
+<LawaRainfallMeasurement>Rainfall</LawaRainfallMeasurement>
+<LawaSiteID>GW-00106</LawaSiteID>
+<Longitude>175.14461582</Longitude>
+<Macro>False</Macro>
+<MetNumber>E15019</MetNumber>
+<Northing>5450429</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>298000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Te Marua</ShortName>
+<SiteID>496</SiteID>
+<SurfaceWaterSubZone>HuttSW</SurfaceWaterSubZone>
+<SurfaceWaterZone>WellingtonHarbourAndHuttValleySW</SurfaceWaterZone>
+<WebComment>This site is located in the gorge above the Te Marua water treatment plant and has been operating since August 1991. We no longer collect continuous water level and flow data at this site. However we have set up &quot;real time&quot; derived flow measurements based on data from nearby sites.</WebComment>
+</Site>
+</HilltopServer>

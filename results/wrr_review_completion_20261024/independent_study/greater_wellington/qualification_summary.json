@@ -1,0 +1,22 @@
+{
+  "agency": "greater_wellington",
+  "all_sites_resolved": true,
+  "collection": "exact Water Temperature SiteList",
+  "collection_sites": 218,
+  "endpoint": "https://hilltop.gw.govt.nz/Data.hts",
+  "errors": [],
+  "grouping_status": "Greater Wellington SurfaceWaterZone conservatively merges rivers; management-zone counts do not establish independent or exchangeable errors",
+  "interpretation": "Calendar span is necessary, not proof of four complete hot years. A zero eligible roster is a metadata-eligibility failure, not a failed predictive test.",
+  "metadata_status_counts": {
+    "fewer_than_four_calendar_supported_hot_years": 4,
+    "metadata_potential_only_requires_registered_value_QC": 9,
+    "nonriver_or_ambiguous_name_excluded": 16,
+    "river_connectivity_metadata_unresolved": 189
+  },
+  "potential_conservative_groups": 3,
+  "potentially_eligible_catchments": 3,
+  "potentially_eligible_sites": 9,
+  "series_rows": 218,
+  "temperature_observations_requested": false,
+  "updated_utc": "2026-10-24T01:43:59.530266+00:00"
+}

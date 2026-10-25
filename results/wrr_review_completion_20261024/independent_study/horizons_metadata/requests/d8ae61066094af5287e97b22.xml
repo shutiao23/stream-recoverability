@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>Horizons</Agency>
+<Site Name="Manakau at S.H.1 Bridge">
+<AEP0.01>77325</AEP0.01>
+<AirQNES>false</AirQNES>
+<AirQuality>false</AirQuality>
+<AirSiteCurrent>false</AirSiteCurrent>
+<Altitude>31.177</Altitude>
+<Catchment>Manakau</Catchment>
+<CatchmentArea>16.0</CatchmentArea>
+<Comment>Purpose:&#13;&#10;Water Allocation (West_9b)&#13;&#10;Recording site is 200m d/s of bridge. Gaugings previously done in reach between&#13;&#10;bridge and recording site at E2696675 N6051000.&#13;&#10;Site RL0 = 31.177 MSL (Wellington)</Comment>
+<ConsentCompliance>false</ConsentCompliance>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>Horowhenua District</District>
+<Easting>2696800</Easting>
+<FirstSynonym>
+</FirstSynonym>
+<FloodFlow10>41222</FloodFlow10>
+<FloodFlow20>51036</FloodFlow20>
+<FloodFlow5>32001</FloodFlow5>
+<FloodFlow50>65318</FloodFlow50>
+<GISTag>
+</GISTag>
+<GWQuality>false</GWQuality>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<LAWA_Agency>Manawatu-Whanganui Regional Council</LAWA_Agency>
+<LAWA_Region>Manawatu-Whanganui Regional Council</LAWA_Region>
+<LWQuality>false</LWQuality>
+<Latitude>-40.72438502</Latitude>
+<LawaFlowMeasurement>Flow [Water Level]</LawaFlowMeasurement>
+<LawaSiteID>HRC-00011</LawaSiteID>
+<LawaSiteName>Manakau at S.H.1 Bridge</LawaSiteName>
+<Longitude>175.21163203</Longitude>
+<MALF7Day>45</MALF7Day>
+<Macro>true</Macro>
+<MacroStart>30-Jan-2012</MacroStart>
+<MaxFlow>69458</MaxFlow>
+<MaxFlowAt>19-Jun-2015</MaxFlowAt>
+<MeanAnnualFloodFlow>25639</MeanAnnualFloodFlow>
+<MeanFlow>355</MeanFlow>
+<MedianFlow>180</MedianFlow>
+<MetNumber>
+</MetNumber>
+<MinFlow>9</MinFlow>
+<MinFlowAt>19-Mar-2015</MinFlowAt>
+<NZReach>7048887</NZReach>
+<NZReachVersion>REC2.4</NZReachVersion>
+<NZSegment>7249277</NZSegment>
+<Northing>6051200</Northing>
+<RecordingAuthority1>MWRC</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>320010</RiverNumber>
+<SWQAltitude>Lowland</SWQAltitude>
+<SWQFrequencyAll>Monthly</SWQFrequencyAll>
+<SWQFrequencyLast5>Monthly</SWQFrequencyLast5>
+<SWQLanduse>Rural</SWQLanduse>
+<Scheme>Southern</Scheme>
+<SecondSynonym>MKU</SecondSynonym>
+<ShortName>Hor-0060</ShortName>
+<SiteID>294</SiteID>
+<StatsPeriod>1/7/2006-1/7/2015</StatsPeriod>
+<SurfaceWaterZone>West_9</SurfaceWaterZone>
+<eQualCode>Hor-0060</eQualCode>
+</Site>
+</HilltopServer>

@@ -1,0 +1,11 @@
+{
+  "application_complete": true,
+  "model_weights_unchanged": true,
+  "n_model_targets": 520,
+  "n_processed_stations": 933,
+  "n_real_cases": 7307,
+  "new_NZ_temperature_values_requested": false,
+  "partial": false,
+  "truth": "Incomplete-year truth remains unknown. Raw annual estimates stay primary; hard-lower-bound projection is a separate sensitivity, not a retuned estimator.",
+  "year_definition": "calendar1981--2025, including any Southern US territories; no invented coordinate changes"
+}

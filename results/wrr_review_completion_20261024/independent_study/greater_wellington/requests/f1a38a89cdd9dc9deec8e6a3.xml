@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<HilltopServer>
+<Agency>GWRC</Agency>
+<Site Name="Hutt River at Kaitoke Weir">
+<Altitude>
+</Altitude>
+<CatchmentArea>86.8</CatchmentArea>
+<Comment>Rating derived from subtracting Greater Wellington Bulk Water abstractions from flows recorded at the Niwa station Hutt at Kaitoke. Stage data from PT/Radar mounted to weir building. Gauging data may be derived/copied to Hutt River at Kaitoke (Niwa site) or Hutt First rating derived from subtracting Greater Wellington Bulk Water abstractions from flows recorded at the Niwa station Hutt at Kaitoke. Gauging data may be derived/copied to Hutt River at Kaitoke (Niwa site) or Hutt River at Kaitoke Weir (ESCI &quot;site&quot; with water level sensor mounted to the weir building)</Comment>
+<DataLicense>CC BY 4.0</DataLicense>
+<District>WE</District>
+<Easting>1784210</Easting>
+<FirstSynonym>Hutt River at Kaitoke Weir</FirstSynonym>
+<FlowWebVeryHigh>75</FlowWebVeryHigh>
+<GISTag>
+</GISTag>
+<HIRDS>
+</HIRDS>
+<Inactive>0</Inactive>
+<Latitude>-41.05198789</Latitude>
+<Longitude>175.19197751</Longitude>
+<MedianFlow>4.9</MedianFlow>
+<MetNumber>
+</MetNumber>
+<Northing>5453157</Northing>
+<RecordingAuthority1>GW-Western</RecordingAuthority1>
+<RecordingAuthority2>
+</RecordingAuthority2>
+<RiverNumber>298000</RiverNumber>
+<SecondSynonym>
+</SecondSynonym>
+<ShortName>Kaitoke Weir</ShortName>
+<SiteID>458</SiteID>
+<WebsiteComment>The occasional downward water level spikes are due to Wellington Water scouring the weir intake. All river water is passed through the intake and back into the river.</WebsiteComment>
+</Site>
+</HilltopServer>
