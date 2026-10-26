@@ -1,0 +1,20 @@
+\begin{table}[t]\centering
+\fontsize{8}{10}\selectfont
+\renewcommand{\arraystretch}{1.08}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\tabcolsep}{4pt}
+\hyphenpenalty=10000\exhyphenpenalty=10000
+\caption{Evidence map. Each claim is paired with the comparison and metric used here and with the boundary that limits it. The table indexes the results; it is not an additional test.}\label{tab:evidence-map}
+\begin{tabular}{L{0.18\textwidth}L{0.26\textwidth}L{0.20\textwidth}L{0.25\textwidth}}
+\toprule
+Claim & Primary comparison & Metric & Boundary \\
+\midrule
+Observed windows can overturn a complete-only record & Complete-year H30 vs.\ fully observed 30-day window $L$ & Count of $L$ above the complete-year maximum & Reported measurements only; not the unique warmest year \\
+Target recovery beats a daily plug-in & D2 vs.\ plug-in, functional debiasing and calibrated stochastic regression & H30 MAE, CRPS and 90\% coverage & No unique gain over calibrated stochastic regression \\
+Retaining years improves finite-record trends & Warm-season rule vs.\ all supported years at the same estimator & Trend RMSE; symmetric retention and estimator shares & Shares are setting-specific, not a universal percentage \\
+Annual calibration does not imply trend calibration & Independent vs.\ shared-parameter vs.\ residual-block ranks & Missing-component coverage and width & Forward undercoverage persists \\
+Numerical release can control average risk & Fixed cap vs.\ three-output rule & Selected risk, retention and group excess & Group risk and zero publication remain \\
+Visible diagnostics do not restore extrapolation safety & Clean vs.\ hot-year, future-year and air-exposure stress & Selected risk, coverage and retention & Synthetic stress severity; not an archive prevalence \\
+\bottomrule
+\end{tabular}
+\end{table}

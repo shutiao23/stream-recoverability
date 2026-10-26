@@ -1,0 +1,48 @@
+\section{Whole-archive supplements}
+The full MSE cells, interactions, matched estimator contrasts, unavailable cases and task calibration sources are stored in results/whole\_archive. Independent source groups, rather than mask repetitions, determine calibration support. Forward task calibration ends before 2010. The four error-direction illustration uses a single synthetic half-degree common shock on thirty annual values; it is an algebraic sensitivity, not new river evidence. The evaluation-only error covariance uses hidden reference values solely for diagnosis and is never a deployment estimator. Gaussian-tail extrapolation leaves the central stored quantiles unchanged but changes the marginal tails, and is reported separately from the fixed-marginal rank comparison.
+\begin{table}[p]\centering\small
+\caption{Task calibration and independent-draw intervals on exactly the same supported cases. Coverage is a fraction; missing source support is reported separately.}\label{tab:task-calibration}
+\begin{tabular}{llllll}
+\toprule
+Setting & Method & $n$ & Original coverage & Task coverage & Width ratio\\\midrule
+calendar / forward & D2 & 340 & 0.979 & 0.841 & 0.536\\
+calendar / forward & Stochastic & 332 & 0.991 & 0.873 & 0.524\\
+calendar / offline & D2 & 840 & 0.935 & 0.969 & 1.274\\
+calendar / offline & Stochastic & 835 & 0.917 & 0.903 & 1.150\\
+crossed / forward & D2 & 340 & 0.968 & 0.965 & 1.158\\
+crossed / forward & Stochastic & 331 & 0.961 & 0.976 & 1.297\\
+crossed / offline & D2 & 840 & 0.918 & 0.971 & 1.478\\
+crossed / offline & Stochastic & 838 & 0.862 & 0.952 & 1.442\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\small
+\caption{Task calibration support. Empirical calibration from small source pools does not establish a finite-sample guarantee.}\label{tab:task-calibration-support}
+\begin{tabular}{lllll}
+\toprule
+Family & Time setting & Estimator & Availability & Minimum source groups\\\midrule
+calendar & forward & D2 & 0.415 & 1\\
+calendar & forward & stochastic\_calibrated & 0.405 & 1\\
+calendar & offline & D2 & 1.000 & 2\\
+calendar & offline & stochastic\_calibrated & 0.994 & 2\\
+crossed & forward & D2 & 0.415 & 1\\
+crossed & forward & stochastic\_calibrated & 0.404 & 1\\
+crossed & offline & D2 & 1.000 & 2\\
+crossed & offline & stochastic\_calibrated & 0.998 & 2\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\small
+\caption{Additional observation-only witnesses from approved USGS daily means. Every candidate remains in the qualification table. Sparse complete-reference support precludes an incidence or transfer inference.}\label{tab:additional-observed-records}
+\begin{tabular}{llllll}
+\toprule
+Station & Year & Complete $n$ & Observed $L$ & Complete max & Excess\\\midrule
+08377900 & 2016 & 3 & 14.990 & 14.853 & 0.137\\
+08377900 & 2018 & 3 & 15.537 & 14.853 & 0.683\\
+08377900 & 2020 & 3 & 15.737 & 14.853 & 0.883\\
+08405200 & 2013 & 2 & 28.693 & 28.327 & 0.367\\
+08405200 & 2015 & 2 & 28.703 & 28.327 & 0.377\\
+08405200 & 2016 & 2 & 28.537 & 28.327 & 0.210\\
+08405200 & 2019 & 2 & 28.833 & 28.327 & 0.507\\
+08405200 & 2020 & 2 & 28.970 & 28.327 & 0.643\\
+07364133 & 2015 & 1 & 29.427 & 28.767 & 0.660\\
+\bottomrule\end{tabular}
+\end{table}
