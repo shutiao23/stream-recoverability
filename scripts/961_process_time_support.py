@@ -211,7 +211,7 @@ def write_tex(summary, decomposition, paired, choices, counts, audit):
         "\n".join("\\newcommand{\\" + name + "}{" + str(value) + "}" for name, value in macros.items()) + "\n")
     lines = [r"\begin{table}[t]\centering\small",
              r"\caption{Finite-record H30 slope RMSE ($^{\circ}$C per decade) on \PTRTimeN{} forward controlled-gap archives with actual masked years. All schemes are paired. The all-supported-year oracle year-set error is zero by target definition; its estimated error remains a substantive comparison.}",
-             r"\label{tab:time-support}", r"\begin{tabular}{lrrrrr}\toprule",
+             r"\label{tab:time-support-legacy-weak}", r"\begin{tabular}{lrrrrr}\toprule",
              r"Retention & Years & Estimate & Year-set & Reconstruction & Span (years) \\\midrule"]
     for scheme in SCHEMES:
         row = d.loc[scheme]

@@ -105,6 +105,14 @@ def test_source_calibration_and_scope_are_explicit(trajectory):
     assert status["target_subset_even_odd_calibration_executed"] is False
     assert status["trajectory_count_convergence_established"] is False
     assert status["fine_method_ranking_robustness_established"] is False
+    assert "separate experiment" in status["interpretation"]
+    assert "scripts/968" in status["interpretation"]
+    supporting = (ROOT / "paper/wrr_tr/process_trajectory_revision_supporting.tex").read_text()
+    assert "scripts/968" in supporting
+    assert "Source-role offsets were not re-estimated, and no target-subset" not in supporting
+    generator = (ROOT / "scripts/962_process_trajectory_budget.py").read_text()
+    assert "04_trajectory_budget_uncalibrated.pdf" in generator
+    assert 'figdir / "04_trajectory_budget.pdf"' not in generator
     groups = pd.read_csv(OUT / "trajectory_revision_group_scope.csv")
     assert groups.independence_group.nunique() == 2
     assert sorted(groups.n_cases) == [9, 18]

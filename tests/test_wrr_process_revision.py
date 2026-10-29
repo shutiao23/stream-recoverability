@@ -54,6 +54,8 @@ def test_article_states_exploratory_questions_and_use_case():
     assert "blanket claim of no advantage" in article
     assert "H1:" not in article and "H2:" not in article and "H3:" not in article
     assert "The new experiment completes the source-role step" in article
+    keypoints = article.split(r"\keypoints", 1)[1].split(r"\maketitle", 1)[0]
+    assert "extra paths still move those tails" in keypoints
     assert "Trial composition is therefore not the explanation" not in article
     response = (ROOT / "docs/reviews/wrr_process_revision_20261029/RESPONSE_TO_REVIEW_ZH.md").read_text()
     assert "来源角色重校准没有执行" not in response
@@ -102,7 +104,9 @@ def test_gap_geometry_and_archive_comparison_are_saved():
     assert "process_gap_revision_archive_table.tex" in supporting
     assert "process_gap_revision_table.tex" in supporting
     assert r"\label{tab:gap-geometry}" in (PAPER / "process_gap_geometry_table.tex").read_text()
-    assert r"\label{tab:archive-comparison}" in (PAPER / "process_archive_table.tex").read_text()
+    assert r"\label{tab:archive-comparison}" in (PAPER / "process_gap_revision_archive_table.tex").read_text()
+    assert r"\input{process_gap_revision_archive_table.tex}" in (PAPER / "process_archive_table.tex").read_text()
+    assert r"\label{tab:archive-comparison}" not in (PAPER / "process_archive_table.tex").read_text()
     observed = pd.read_csv(OUT / "observed_gap_summary.csv").iloc[0]
     assert int(observed.incomplete_years) == 220
     assert observed.median_longest_run < 10

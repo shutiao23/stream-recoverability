@@ -16,9 +16,10 @@ python scripts/962_process_trajectory_budget.py --replay
 python scripts/964_process_gap_and_archive.py
 python scripts/process_review_water_air.py
 python scripts/963_process_revision_report.py
+python scripts/970_process_experiment_report.py
 ```
 
-960、961、962、964 和水气脚本的本轮表格/报告写入 `results/wrr_process_revision_20261029/`；论文输入写入 `paper/wrr_tr/process_*revision_*.tex`。963 汇总现有与本轮证据、生成图表与兼容宏；它保留旧审稿结果作为输入，不应通过改写旧审稿 CSV 来使新论述成立。`scope.json` 和中文回复是本轮验收记录，不由每个分析脚本自动重写；更改科学口径时需同步核对。
+960、961、962、964 和水气脚本的本轮表格/报告写入 `results/wrr_process_revision_20261029/`；论文输入写入 `paper/wrr_tr/process_*revision_*.tex`。963 汇总现有与本轮证据、生成图表与兼容宏；它保留旧审稿结果作为输入，不应通过改写旧审稿 CSV 来使新论述成立。主文图 10/11（`03_time_support`、`04_trajectory_budget`）由 970 从已保存的实验表写出；962/963 只写带 `_uncalibrated` / `_legacy` 后缀的参考图，不再覆盖这两张图。`scope.json` 和中文回复是本轮验收记录，不由每个分析脚本自动重写；更改科学口径时需同步核对。
 
 962 已保存 27 个冻结输入及其哈希。常规重复运行使用现有冻结输入；如需要从原 whole-archive 设计重新生成日拟合冻结输入，可在同一命令增加 `--refresh-frozen`。该选项会更新本轮的冻结输入，但不改变原始六站名单，也不重训 D2。脚本验证种子 0 的原 20/100/500 分位数再进行三个种子的嵌套抽样；失败时会终止，不应绕过一致性检查。
 

@@ -54,3 +54,13 @@ def test_supporting_information_uses_unmodified_si_class_and_complete_contents()
     assert r'\ref{tab:truckee-exploratory}' in supporting
     expanded=expand(PAPER/'review_completion_supporting.tex')
     assert r'\label{tab:truckee-exploratory}' in expanded
+    article=expand(PAPER/'review_completion_article.tex')
+    for name,text in (('article',article),('supporting',expanded)):
+        labels=re.findall(r'\\label\{([^}]+)\}',text)
+        duplicates=sorted({label for label in labels if labels.count(label)>1})
+        assert not duplicates, name+' multiply-defined labels: '+', '.join(duplicates)
+    leftover=['tab:time-support-legacy-weak','tab:time-support-legacy-report']
+    assert all(label not in expanded and label not in article for label in leftover)
+    report=(ROOT/'scripts/963_process_revision_report.py').read_text()
+    assert 'save(fig, "03_time_support")' not in report
+    assert 'save(fig, "03_time_support_legacy")' in report

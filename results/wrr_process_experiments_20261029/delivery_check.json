@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "created_utc": "2026-10-29T19:11:17.442480+00:00",
+  "created_utc": "2026-10-29T19:28:06.703972+00:00",
   "archive": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/dist/wrr_process_experiments_20261029.zip",
   "environment": {
     "python": "3.11.7",
@@ -27,21 +27,21 @@
     }
   },
   "scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay",
-  "archive_sha256": "0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
+  "archive_sha256": "1ee22cabe9a2b5ce1ea300e60f5cdf0244e2921376c3b509883942be4990a256",
   "archive_integrity_and_workspace_match": {
     "crc": "passed",
     "safe_paths": "passed",
     "members": 3315,
     "files": 3315,
     "workspace_byte_comparisons": 3313,
-    "workspace_bytes_compared": 288360053,
+    "workspace_bytes_compared": 288329568,
     "skipped_generated_or_validation_members": [
       "REVIEW_PACKAGE_README.txt",
       "dependency_inventory.json"
     ],
     "exclusions": "Only root package README/dependency inventory and validation.json/delivery_check.json basenames are excluded. Repository README.md files are compared."
   },
-  "delivery_log_directory": "results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
+  "delivery_log_directory": "results/wrr_process_experiments_20261029/delivery_logs/1ee22cabe9a2b5ce1ea300e60f5cdf0244e2921376c3b509883942be4990a256",
   "extracted_package_checks": {
     "catalog_preflight": {
       "status": "passed",
@@ -108,13 +108,13 @@
       },
       "compile": {
         "review_completion_article.tex": {
-          "pages_text_characters": 116093
+          "pages_text_characters": 122223
         },
         "review_completion_supporting.tex": {
-          "pages_text_characters": 230157
+          "pages_text_characters": 206346
         }
       },
-      "module": "/tmp/wrr_experiment_delivery_hckh_cru/scripts/930_delivery_consistency.py"
+      "module": "/tmp/wrr_experiment_delivery_iu9vunn7/scripts/930_delivery_consistency.py"
     },
     "source_calibration_frozen_replay": {
       "status": "passed",
@@ -249,5 +249,5 @@
       "Strict independent external climate confirmation, data rights or permanent deposit"
     ]
   },
-  "completed_utc": "2026-10-29T19:12:43.547573+00:00"
+  "completed_utc": "2026-10-29T19:29:32.381333+00:00"
 }

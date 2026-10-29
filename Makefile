@@ -231,6 +231,7 @@ review-process-revision:
 	$(PYTHON) scripts/process_review_water_air.py
 	$(PYTHON) scripts/962_process_trajectory_budget.py --replay
 	$(PYTHON) scripts/963_process_revision_report.py
+	$(PYTHON) scripts/970_process_experiment_report.py
 	$(PYTHON) scripts/524_research_report.py
 	$(PYTHON) scripts/929_manuscript_inputs.py
 	cd paper/wrr_tr && TEXINPUTS=.:../wrr/template: latexmk -pdf -silent -interaction=nonstopmode -halt-on-error review_completion_article.tex

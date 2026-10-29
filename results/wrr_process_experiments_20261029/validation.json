@@ -5,9 +5,9 @@
   "user_facing_timezone": "Asia/Shanghai",
   "scope": "Current manuscript claims for the 2026-10-29 process review, including executed source-role recalibration, exact year-set enumeration, common-weight regional diagnostics, unified gap units and within-station water-air slopes.",
   "tests": {
-    "command": "PYTHONPATH=src python -m pytest tests/test_wrr_process_revision.py tests/test_wrr_trajectory_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_process_review_region_water.py tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_review_manuscript_structure.py tests/test_current_observation_replay.py tests/test_review_completion_current_evidence.py tests/test_review_bundle_atomic_write.py -q --tb=no",
+    "command": "PYTHONPATH=src python -m pytest tests/test_wrr_process_revision.py tests/test_wrr_trajectory_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_process_review_region_water.py tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_review_manuscript_structure.py tests/test_current_observation_replay.py tests/test_review_completion_current_evidence.py tests/test_review_bundle_atomic_write.py tests/test_wrr_adversarial_revision.py -q --tb=no",
     "exit_code": 0,
-    "passed": 81,
+    "passed": 94,
     "failed": 0
   },
   "independent_audits": {
@@ -35,21 +35,21 @@
   },
   "manuscripts": {
     "paper/wrr_tr/review_completion_article.pdf": {
-      "sha256": "206c380e6ed649ae12bb23b8e12f52c100412c6bf8e32386299fc3d6f1803e48",
-      "pages": 38
+      "sha256": "112258dab30192b75fcb5f809d3a7b752f043d60b720cc997edab4b2c85cb13e",
+      "pages": 39
     },
     "paper/wrr_tr/review_completion_supporting.pdf": {
-      "sha256": "ba56f7f2b13572989453cb0b9ac61437c7fadb60a11aa70a9d4a8b3c4ed3c34e",
-      "pages": 111
+      "sha256": "58bcd7f6240c85039a5a8afef914bdb9686bd3384238560cdcd0d42545f47d4b",
+      "pages": 99
     }
   },
   "package": {
     "canonical": "dist/wrr_process_experiments_20261029.zip",
-    "sha256": "0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
-    "bytes": 200606730,
+    "sha256": "1ee22cabe9a2b5ce1ea300e60f5cdf0244e2921376c3b509883942be4990a256",
+    "bytes": 200590410,
     "gitignored": true,
     "delivery_report": "results/wrr_process_experiments_20261029/delivery_check.json",
-    "delivery_report_sha256": "67e9e1885bb51110d621dc2f1b1b84a234ae1276c2184c261d2ba071ff53ca03",
+    "delivery_report_sha256": "e095601389ba25e0a00e54e0b2ae32253056e23c3a713f15a185180d312ef190",
     "delivery_status": "passed",
     "source_role_offsets_reestimated": true,
     "source_cases": 2370,
@@ -69,7 +69,10 @@
     "pooled_0.007_not_used_to_close_stratified_tails": true,
     "larger_budget_source_role_calibration_executed": true,
     "fully_sampled_fine_ranking_robustness_claimed": false,
-    "trajectory_count_convergence_established": false
+    "trajectory_count_convergence_established": false,
+    "keypoints_report_stratified_tail_movement": true,
+    "uncalibrated_962_does_not_overwrite_experiment_figures": true,
+    "si_external_recruitment_and_numerical_budget_compressed": true
   },
   "not_executed_or_not_claimed": [
     "Full raw-source reconstruction or new model retraining",
@@ -86,5 +89,5 @@
     "Permanent storage and external publication"
   ],
   "external_publication_performed": false,
-  "created_utc": "2026-10-29T19:12:55.685044+00:00"
+  "created_utc": "2026-10-29T19:29:58.619056+00:00"
 }

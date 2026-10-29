@@ -265,9 +265,9 @@ def source_calibration_status() -> dict:
         "target_subset_even_odd_calibration_executed": False,
         "trajectory_count_convergence_established": False,
         "fine_method_ranking_robustness_established": False,
-        "interpretation": "20 trajectories define the fixed computational-budget comparator. "
-        "Uncalibrated endpoint sensitivity on two groups does not establish source-calibrated "
-        "performance at larger budgets. Fully sampled tails, source-role recalibration and fine method rankings remain unresolved.",
+        "interpretation": "This 962 package is an uncalibrated nested-prefix diagnostic on two groups. "
+        "It does not re-estimate source-role offsets. Source-role recalibration is a separate experiment "
+        "(scripts/968). Fully sampled tails and fine method rankings remain unresolved in this package.",
     }
 def seed_ranges(summary: pd.DataFrame) -> pd.DataFrame:
     values = [name for name in summary if name.startswith(("median_", "max_", "n_"))]
@@ -337,9 +337,9 @@ def write_paper_outputs(deltas: pd.DataFrame, tails: pd.DataFrame, overall: pd.D
         r"18 Swiss donor-ridge cases and nine Bavarian air-ridge cases. Region, reconstructor and group therefore cannot be separated by this diagnostic. "
         r"Casewise endpoint changes, counts exceeding 0.05$^{\circ}$C, width and coverage are reported for every seed. "
         r"A small overall median does not establish tail stability in either stratum. "
-        r"The 20-path comparator is a fixed computational-budget implementation. Source-role offsets were not re-estimated, "
-        r"and no target-subset even/odd calibration was performed. Fully sampled tail behavior and source-calibrated performance at larger budgets remain unresolved; "
-        r"these results do not establish convergence or a robust fine ranking between methods. "
+        r"The 20-path comparator is a fixed computational-budget implementation. This 962 diagnostic does not re-estimate source-role offsets, "
+        r"and no target-subset even/odd calibration was performed. The current paper's source-role experiment is scripts/968, which re-estimates original-role offsets at each budget before scoring the same 27 targets. "
+        r"These uncalibrated results do not establish convergence or a robust fine ranking between methods. "
         r"\input{process_trajectory_revision_table.tex}" + "\n"
     )
     plt.rcParams.update({"font.size": 9, "pdf.fonttype": 42, "ps.fonttype": 42})
@@ -375,12 +375,15 @@ def write_paper_outputs(deltas: pd.DataFrame, tails: pd.DataFrame, overall: pd.D
     fig.tight_layout()
     figdir = PAPER / "figures/process_revision"
     figdir.mkdir(parents=True, exist_ok=True)
-    fig.savefig(figdir / "04_trajectory_budget.pdf", bbox_inches="tight")
-    fig.savefig(figdir / "04_trajectory_budget.png", dpi=180, bbox_inches="tight")
+    # Do not overwrite Figure 11. The manuscript figure is written by 970 from the
+    # source-role experiment; this uncalibrated diagnostic is a named reference only.
+    fig.savefig(figdir / "04_trajectory_budget_uncalibrated.pdf", bbox_inches="tight")
+    fig.savefig(figdir / "04_trajectory_budget_uncalibrated.png", dpi=180, bbox_inches="tight")
     plt.close(fig)
-    (figdir / "04_trajectory_budget.source.json").write_text(json.dumps({
+    (figdir / "04_trajectory_budget_uncalibrated.source.json").write_text(json.dumps({
         "script": "scripts/962_process_trajectory_budget.py", "cases": "results/wrr_process_revision_20261029/trajectory_revision_case_deltas.csv",
         "seeds": list(SEEDS), "comparison": "20_to_500", "source_role_offsets_reestimated": False,
+        "manuscript_figure": "04_trajectory_budget is written by scripts/970_process_experiment_report.py",
     }, indent=2) + "\n")
 
 
