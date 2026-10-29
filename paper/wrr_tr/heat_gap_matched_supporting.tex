@@ -1,0 +1,16 @@
+\section{Heat-associated years with matched gap templates}
+After examining earlier results and the available gap templates, we repeated the forward controlled-gap sensitivity for 41 stations and five archive masks per station. The selected heat-associated years are the same as in the prior heat sensitivity. For years masked in both the baseline and heat design, the original gap is retained; remaining baseline offset--length templates are transferred to the newly selected heat years. Every archive retains its original masked-year count, multiset of templates and actual number of hidden days. Total hidden days are \HGDays{} in either design, and air-hot masked years increase from \HGHotBase{} to \HGHotNew{}; repeated masks are not independent observations. Offsets are relative to the year, and the relationship of a transferred gap to a particular seasonal peak can change.
+
+The matched-gap plan incorrectly described the first-seven-year air baseline as entirely pre-2010. In \HGBurninStations{} of the 41 stations, one of those seven reference-year labels is 2010 or later. The saved implementation uses the first seven reference years; no predictions were changed by this clarification. Air information constructs a synthetic retrospective mask and is not a hidden water-temperature outcome, but the mechanism is not a strictly prior-vintage or prospective outage generator.
+
+After viewing the pairwise results, we additionally restricted all three designs and both methods to the same \HGArchives{} available station--replicate settings from \HGStations{} stations and \HGGroups{} connected groups (Table~\ref{tab:heat-gap-matched}). Group-resampled differences in paired MSE for matched minus baseline are [\HGDLow, \HGDHigh] for D2 and [\HGSLow, \HGSHigh] for the stochastic comparator, in $({}^{\circ}\mathrm{C}/\mathrm{decade})^2$. The shared cohort is post-hoc, and these differences change in group-equal weighting. The fixed heat-year count and gap-template distribution do not isolate year, position and peak alignment, establish a natural-outage mechanism, or prove climate transfer.
+
+\begin{table}[ht]\caption{Three-way common cohort, baseline / previous heat / matched heat, with independent annual ranks. RMSE, widths and interval scores are $^{\circ}$C per decade; coverage is for nominal 95\% trend intervals.}\label{tab:heat-gap-matched}\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrr}\toprule
+Method & RMSE & Coverage (\%) & Width & Interval score \\
+\midrule
+D2 & 0.153 / 0.162 / 0.142 & 92.3 / 90.2 / 91.3 & 0.464 / 0.445 / 0.445 & 0.743 / 0.770 / 0.696 \\
+Stochastic & 0.138 / 0.155 / 0.136 & 88.0 / 87.4 / 85.8 & 0.408 / 0.385 / 0.391 & 0.789 / 0.878 / 0.865 \\
+\bottomrule\end{tabular}}\end{table}
+
+Separate checks reconstruct all 205 masks from the same underlying panels and seeded selection and independently recompute 32 paired summary rows, 96 fixed-prediction leave-region-out rows, 24 three-way summary rows and 16 three-way contrasts, including seeded group resampling. The underlying observations, trained source models and local daily refits are reused; these checks do not constitute independent physical or climate validation.

@@ -1,0 +1,20 @@
+digraph study {
+  graph [rankdir=TB, bgcolor="white", pad="0.08", nodesep="0.24", ranksep="0.38", splines=ortho];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, margin="0.12,0.09", color="#777777"];
+  edge [color="#666666", arrowsize=0.7];
+  source [label="Assembled source archive\n581 stations; 185 connected groups\n6,170 complete station-years", fillcolor="#dceafb"];
+  observed [label="Observed-window evidence\nIncomplete reported years\nNo reconstruction", fillcolor="#fff1d6"];
+  single [label="Single-year source cases\nAnnual recovery and release tests\nHeld-group source roles", fillcolor="#d9ecde"];
+  whole [label="Jointly degraded target archive\nAll selected gaps masked together\nRefit local daily stages", fillcolor="#e8e0f3"];
+  observed_result [label="Observed bound vs.\ncomplete-year record", fillcolor="#f5f5f5"];
+  annual_result [label="Annual scores; numerical\nrelease, bound or unknown", fillcolor="#f5f5f5"];
+  trend_result [label="Fixed source annual models\nFinite-record trends and\nrank-coupling sensitivity", fillcolor="#f5f5f5"];
+  note [label="Hidden target days are excluded from local fitting. Visible target and donor records remain usable.\nThe release-then-trend working likelihood is a separate exploratory analysis.", shape=box, style="dashed,filled", fillcolor="#ffffff", color="#999999", fontsize=10];
+  source -> observed; source -> single; source -> whole;
+  { rank=same; observed; single; whole; }
+  observed -> observed_result; single -> annual_result; whole -> trend_result;
+  { rank=same; observed_result; annual_result; trend_result; }
+  observed -> single [style=invis, weight=30]; single -> whole [style=invis, weight=30];
+  observed_result -> annual_result [style=invis, weight=30]; annual_result -> trend_result [style=invis, weight=30];
+  observed_result -> note [style=invis]; annual_result -> note [style=invis]; trend_result -> note [style=invis];
+}

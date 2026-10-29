@@ -1,0 +1,17 @@
+\begin{table}[t]\centering\small
+\caption{Descriptive regional coverage standardization on common cells. Min-count weights are the primary common target; equal-cell weights are a sensitivity analysis. Coverage is in percent and differences are percentage points. Geometry cells contain gap, training-peak overlap, year and visible-donor bins. Adding the reconstructor changes the supported population; it does not identify a reconstructor effect.}
+\label{tab:region-standardized}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+Cells & Weights & FOEN & Bavaria & Difference \\
+\midrule
+Geometry & Original & 98.75 & 82.78 & 15.97 \\
+Geometry & Min-count & 98.72 & 82.68 & 16.04 \\
+Geometry & Equal-cell & 99.29 & 81.68 & 17.62 \\
++ reconstructor & Original & 99.58 & 94.12 & 5.46 \\
++ reconstructor & Min-count & 99.72 & 96.04 & 3.69 \\
++ reconstructor & Equal-cell & 99.75 & 93.41 & 6.33 \\
+\bottomrule\end{tabular}}
+\par\footnotesize Reconstructor common support retains 472/1,119 FOEN and 289/1,983 Bavaria cases. Switzerland has no air-ridge cases, so Bavaria's air-reconstruction failure stratum has no cross-region counterpart.
+\end{table}

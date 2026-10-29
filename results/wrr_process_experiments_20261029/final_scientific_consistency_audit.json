@@ -1,0 +1,547 @@
+{
+  "status": "passed",
+  "numeric_checks": [
+    {
+      "check": "PETimeWarmRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4459",
+        "rendered": "0.4459"
+      }
+    },
+    {
+      "check": "PETimeWarmTruthRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4458",
+        "rendered": "0.4458"
+      }
+    },
+    {
+      "check": "PETimeUniformRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4492",
+        "rendered": "0.4492"
+      }
+    },
+    {
+      "check": "PETimeUniformTruthRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4483",
+        "rendered": "0.4483"
+      }
+    },
+    {
+      "check": "PETimeUniformDifference",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0033",
+        "rendered": "0.0033"
+      }
+    },
+    {
+      "check": "PETimeUniformLow",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0052",
+        "rendered": "-0.0052"
+      }
+    },
+    {
+      "check": "PETimeUniformHigh",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0171",
+        "rendered": "0.0171"
+      }
+    },
+    {
+      "check": "PETimeCDFRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4284",
+        "rendered": "0.4284"
+      }
+    },
+    {
+      "check": "PETimeCDFTruthRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4199",
+        "rendered": "0.4199"
+      }
+    },
+    {
+      "check": "PETimeCDFDifference",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0175",
+        "rendered": "-0.0175"
+      }
+    },
+    {
+      "check": "PETimeCDFLow",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0274",
+        "rendered": "-0.0274"
+      }
+    },
+    {
+      "check": "PETimeCDFHigh",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0049",
+        "rendered": "-0.0049"
+      }
+    },
+    {
+      "check": "PETimeSxxRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.4023",
+        "rendered": "0.4023"
+      }
+    },
+    {
+      "check": "PETimeSxxTruthRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.3931",
+        "rendered": "0.3931"
+      }
+    },
+    {
+      "check": "PETimeSxxDifference",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0436",
+        "rendered": "-0.0436"
+      }
+    },
+    {
+      "check": "PETimeSxxLow",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0645",
+        "rendered": "-0.0645"
+      }
+    },
+    {
+      "check": "PETimeSxxHigh",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.0173",
+        "rendered": "-0.0173"
+      }
+    },
+    {
+      "check": "PETimeAllRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.1697",
+        "rendered": "0.1697"
+      }
+    },
+    {
+      "check": "PETimeAllTruthRMSE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0000",
+        "rendered": "0.0000"
+      }
+    },
+    {
+      "check": "PETimeAllDifference",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.2762",
+        "rendered": "-0.2762"
+      }
+    },
+    {
+      "check": "PETimeAllLow",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.3557",
+        "rendered": "-0.3557"
+      }
+    },
+    {
+      "check": "PETimeAllHigh",
+      "passed": true,
+      "evidence": {
+        "expected": "-0.1841",
+        "rendered": "-0.1841"
+      }
+    },
+    {
+      "check": "PETimeN",
+      "passed": true,
+      "evidence": {
+        "expected": "805",
+        "rendered": "805"
+      }
+    },
+    {
+      "check": "PETimeOriginalCommon",
+      "passed": true,
+      "evidence": {
+        "expected": "807",
+        "rendered": "807"
+      }
+    },
+    {
+      "check": "PETimeSubsets",
+      "passed": true,
+      "evidence": {
+        "expected": "5758",
+        "rendered": "5758"
+      }
+    },
+    {
+      "check": "PETimePrimarySubsets",
+      "passed": true,
+      "evidence": {
+        "expected": "5756",
+        "rendered": "5756"
+      }
+    },
+    {
+      "check": "PETimeChoiceN",
+      "passed": true,
+      "evidence": {
+        "expected": "468",
+        "rendered": "468"
+      }
+    },
+    {
+      "check": "PETimeIdenticalN",
+      "passed": true,
+      "evidence": {
+        "expected": "337",
+        "rendered": "337"
+      }
+    },
+    {
+      "check": "PECalSourceCases",
+      "passed": true,
+      "evidence": {
+        "expected": "2370",
+        "rendered": "2370"
+      }
+    },
+    {
+      "check": "PECalSourceStations",
+      "passed": true,
+      "evidence": {
+        "expected": "19",
+        "rendered": "19"
+      }
+    },
+    {
+      "check": "PECalSourceYears",
+      "passed": true,
+      "evidence": {
+        "expected": "102",
+        "rendered": "102"
+      }
+    },
+    {
+      "check": "PECalTargetCases",
+      "passed": true,
+      "evidence": {
+        "expected": "27",
+        "rendered": "27"
+      }
+    },
+    {
+      "check": "PECalTargetGroups",
+      "passed": true,
+      "evidence": {
+        "expected": "2",
+        "rendered": "2"
+      }
+    },
+    {
+      "check": "PECalSwissUpperRange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0691--0.1169",
+        "rendered": "0.0691--0.1169"
+      }
+    },
+    {
+      "check": "PECalSwissSourceGroups",
+      "passed": true,
+      "evidence": {
+        "expected": "4",
+        "rendered": "4"
+      }
+    },
+    {
+      "check": "PECalBavariaUpperRange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0609--0.1011",
+        "rendered": "0.0609--0.1011"
+      }
+    },
+    {
+      "check": "PECalBavariaSourceGroups",
+      "passed": true,
+      "evidence": {
+        "expected": "4",
+        "rendered": "4"
+      }
+    },
+    {
+      "check": "PEClassicNativeMAE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.1335",
+        "rendered": "0.1335"
+      }
+    },
+    {
+      "check": "PEClassicNativeCRPS",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0879",
+        "rendered": "0.0879"
+      }
+    },
+    {
+      "check": "PEDTwoFixedMAE",
+      "passed": true,
+      "evidence": {
+        "expected": "0.1150",
+        "rendered": "0.1150"
+      }
+    },
+    {
+      "check": "PEDTwoFixedCRPS",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0867",
+        "rendered": "0.0867"
+      }
+    },
+    {
+      "check": "PEClassicUpdatedMAERange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.1036--0.1218",
+        "rendered": "0.1036--0.1218"
+      }
+    },
+    {
+      "check": "PEClassicUpdatedFiveHundredMAERange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.1100--0.1158",
+        "rendered": "0.1100--0.1158"
+      }
+    },
+    {
+      "check": "PEClassicUpdatedCRPSRange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0762--0.0876",
+        "rendered": "0.0762--0.0876"
+      }
+    },
+    {
+      "check": "PEClassicUpdatedFiveHundredCRPSRange",
+      "passed": true,
+      "evidence": {
+        "expected": "0.0762--0.0787",
+        "rendered": "0.0762--0.0787"
+      }
+    },
+    {
+      "check": "cdf_all_years_primary_CI_excludes_zero",
+      "passed": true,
+      "evidence": {
+        "group_percentile_low": -0.0273556686933238,
+        "group_percentile_high": -0.0048731411891219
+      }
+    },
+    {
+      "check": "cdf_all_years_equal_archive_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.4458836583590306,
+        "control": 0.4283701903284486
+      }
+    },
+    {
+      "check": "cdf_all_years_equal_station_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.4435903380619526,
+        "control": 0.4261782812704879
+      }
+    },
+    {
+      "check": "cdf_all_years_equal_group_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.3775794061125785,
+        "control": 0.3572403124545739
+      }
+    },
+    {
+      "check": "cdf_all_years_all_17_group_deletions_improve",
+      "passed": true,
+      "evidence": {
+        "groups": 17,
+        "minimum": -0.021163792701187,
+        "maximum": -0.0118904517347498
+      }
+    },
+    {
+      "check": "sxx_all_years_primary_CI_excludes_zero",
+      "passed": true,
+      "evidence": {
+        "group_percentile_low": -0.0644663903959208,
+        "group_percentile_high": -0.0172666729212542
+      }
+    },
+    {
+      "check": "sxx_all_years_equal_archive_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.4458836583590306,
+        "control": 0.4022601715650148
+      }
+    },
+    {
+      "check": "sxx_all_years_equal_station_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.4435903380619526,
+        "control": 0.4003203266001551
+      }
+    },
+    {
+      "check": "sxx_all_years_equal_group_point_improves",
+      "passed": true,
+      "evidence": {
+        "warm": 0.3775794061125785,
+        "control": 0.3413372911945673
+      }
+    },
+    {
+      "check": "sxx_all_years_all_17_group_deletions_improve",
+      "passed": true,
+      "evidence": {
+        "groups": 17,
+        "minimum": -0.0500719079174166,
+        "maximum": -0.025328100908454
+      }
+    },
+    {
+      "check": "main_random_200_transcription",
+      "passed": true,
+      "evidence": {
+        "scope": "actual_mask_common",
+        "weighting": "equal_archive",
+        "n": 805,
+        "random_draws": 200,
+        "exact_sqrt_expected_mse": 0.449224602119408,
+        "mean_draw_rmse": 0.4505274683608782,
+        "sqrt_mean_draw_mse": 0.4506110076377022,
+        "selection_percentile_low": 0.4358550715005154,
+        "selection_percentile_high": 0.46708143622315,
+        "min_draw_rmse": 0.4282071204644173,
+        "max_draw_rmse": 0.4744425761494021
+      }
+    },
+    {
+      "check": "main_daily_overlap_counts",
+      "passed": true,
+      "evidence": {
+        "all_rows": 109,
+        "peer_rows": 74,
+        "no_peer": 35,
+        "same_year": 38,
+        "any_day": 14,
+        "shared_days": 40,
+        "eligible_days": 2086
+      }
+    },
+    {
+      "check": "native_both_methods_cover_27",
+      "passed": true,
+      "evidence": {
+        "fixed_D2": 27,
+        "historical_native20": 27
+      }
+    },
+    {
+      "check": "updated500_each_seed_covers27",
+      "passed": true,
+      "evidence": {
+        "0": 27,
+        "1": 27,
+        "2": 27
+      }
+    },
+    {
+      "check": "updated500_MAE_range_crosses_fixed_D2",
+      "passed": true,
+      "evidence": {
+        "minimum": 0.11001675983082418,
+        "D2": 0.11499305154305807,
+        "maximum": 0.11584730896684671
+      }
+    },
+    {
+      "check": "SI_both_tails_six_rows",
+      "passed": true,
+      "evidence": {
+        "label": "tab:source-budget-both-tails",
+        "bavaria_seed2_lower_max": 0.4495711527429478
+      }
+    },
+    {
+      "check": "source_calibration_independent_audit_inputs_still_current",
+      "passed": true,
+      "evidence": {
+        "changed_inputs": []
+      }
+    }
+  ],
+  "issues": [],
+  "scope": "Read-only scientific transcription and active-claim audit; no model refit and no manuscript compilation.",
+  "source_hashes": {
+    "paper/wrr_tr/review_completion_article.tex": "c13d749330fe9432ec36c76f17b65fdb3964a7c2c4f377220d163360c008f6ea",
+    "paper/wrr_tr/simple_research_methods.tex": "ce841a59124d36e48d186500d6a5e2c03b8e3f7a2ecac0256dc1e03a3c424c9d",
+    "paper/wrr_tr/process_experiments_supporting.tex": "fecfdb431f1c9c90034fe020b10be472686bbe56b927bd395871c566951598bf",
+    "paper/wrr_tr/process_revision_supporting.tex": "61a64437e619e9587dcaa4057fa99f5f9a360aca6c7820e8fa22cedb21404129",
+    "paper/wrr_tr/process_revision_figures.tex": "ff2821f55ebeda357ca9b8b884898e391816f73a2ba939cb55a268506a101ad7",
+    "scripts/524_research_report.py": "88f09437882c1821f9a0feaa504516fbb9cf2e88470dbc0f8ad1d39e7c18d0e1",
+    "scripts/970_process_experiment_report.py": "481f0f9a9f6f9f0875a8275fbed91493958d163589b52999e0e89773da7ec3cb"
+  },
+  "resolved_findings": [
+    {
+      "finding": "Historical whole-archive 20-path budget was incorrectly described as globally lacking larger-budget source-role sensitivity",
+      "status": "resolved",
+      "source": "scripts/524_research_report.py and paper/wrr_tr/simple_research_methods.tex"
+    },
+    {
+      "finding": "Observed peer eligibility could be misread as requiring a complete reference year",
+      "status": "resolved",
+      "source": "scripts/970_process_experiment_report.py and paper/wrr_tr/process_experiments_supporting.tex"
+    }
+  ],
+  "numeric_input_hashes_rechecked": {
+    "source_calibration_input_files": 20,
+    "report_input_files": 19,
+    "changed_source_calibration_inputs": [],
+    "changed_report_inputs": []
+  }
+}

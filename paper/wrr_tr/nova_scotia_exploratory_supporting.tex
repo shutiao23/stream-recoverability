@@ -1,0 +1,21 @@
+\section{Nova Scotia reported-clock exploratory masking}
+The preceding qualification did not establish strict reference quality. After inspecting availability and two-release agreement, a separate unregistered exploratory amendment fixed two sites and eight station-years before any model prediction errors were computed. Each selected year has 24 finite reported hourly labels per day and agrees numerically across the two releases of the same monitoring programme. Time zone, estimated-value status and point-level quality remain unresolved. The reported daily value is the mean of the 24 reported hourly values; it is not guaranteed to represent a physical civil day or an error-free temperature. The fixed global source model and source-only interval calibration were reused. Each year was masked separately with 30-, 60- and 90-day controlled gaps, using the other three selected years for local history; no empirical-calendar family or whole-archive degradation was evaluated. NASA POWER forcing uses local solar time and coordinates rounded to 0.01 degree. The adjacent-normal tail continuation is an assumption for CRPS. The 144 cases are repeated masks at two sites and eight station-years, not 144 independent watersheds. An independent arithmetic audit recomputed reference H30, bounds, masks and reported scores. In two post-hoc hidden-value probes, adding 5 $^{\circ}$C to hidden days changed the true H30 but did not change decision features or predictions when identically serialized controls were compared. Those two probes are not an exhaustive leakage proof.
+\begin{table}[p]\centering\small
+\caption{Reported-clock exploratory controlled-gap scores on identical available cases. Coverage is percent, and MAE, width and interval score are in $^{\circ}$C. These are two sites, not independent climatic replications; source quality and time basis remain unresolved.}\label{tab:ns-exploratory}
+\begin{tabular}{lrrrrr}\toprule
+Method & Cases & MAE & 90\% coverage & 90\% width & Interval score\\\midrule
+D2 & 144 & 0.311 & 88.2 & 1.000 & 1.572\\
+Stochastic & 144 & 0.313 & 93.1 & 1.281 & 1.706\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\scriptsize
+\caption{Post-hoc descriptive paired results by gap length and site. Counts are repeated masks; group differences are not inferential tests.}\label{tab:ns-exploratory-detail}
+\begin{tabular}{llrrrrr}\toprule
+Axis & Level & Cases & D2 MAE & Stochastic MAE & D2 coverage & Stochastic coverage\\\midrule
+Gap days & 30 & 48 & 0.247 & 0.231 & 89.6 & 93.8\\
+Gap days & 60 & 48 & 0.297 & 0.319 & 93.8 & 95.8\\
+Gap days & 90 & 48 & 0.387 & 0.388 & 81.2 & 89.6\\
+Station & NS01DL0009 & 72 & 0.400 & 0.393 & 81.9 & 93.1\\
+Station & NS01FB0001 & 72 & 0.221 & 0.232 & 94.4 & 93.1\\
+\bottomrule\end{tabular}
+\end{table}

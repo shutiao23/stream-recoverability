@@ -1,0 +1,64 @@
+python -m pytest tests/test_review_bundle_atomic_write.py
+...                                                                      [100%]
+3 passed in 0.01s
+python -m pytest tests/test_review_completion_current_evidence.py
+...                                                                      [100%]
+3 passed in 0.41s
+python -m pytest tests/test_usace_open_reference_replay.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usace_partial_year_h30_bounds.py
+..                                                                       [100%]
+2 passed in 0.39s
+python -m pytest tests/test_usace_partial_history_scores.py
+..                                                                       [100%]
+2 passed in 0.40s
+python -m pytest tests/test_usace_partial_history_engine.py
+..                                                                       [100%]
+2 passed in 0.32s
+python -m pytest tests/test_source_partial_history_factorial.py
+..                                                                       [100%]
+2 passed in 0.48s
+python -m pytest tests/test_partial_history_feature_support.py
+...                                                                      [100%]
+3 passed in 2.05s
+python -m pytest tests/test_source_support_rule_evaluation.py
+...                                                                      [100%]
+3 passed in 0.43s
+python -m pytest tests/test_usgs_partial_daily_feasibility.py
+...........                                                              [100%]
+11 passed in 0.42s
+python -m pytest tests/test_usgs_partial_power_status.py
+.                                                                        [100%]
+1 passed in 0.45s
+python -m pytest tests/test_usgs_public_snapshot_manifest.py
+.                                                                        [100%]
+1 passed in 0.02s
+python -m pytest tests/test_usgs_subdaily_measurement_bounds.py
+..                                                                       [100%]
+2 passed in 0.56s
+python -m pytest tests/test_isolated_groupmax_review.py
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_________ test_isolated_groupmax_requires_matching_local_bridge_repair _________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1738/test_isolated_groupmax_require0')
+
+    def test_isolated_groupmax_requires_matching_local_bridge_repair(tmp_path):
+        m=module();package=tmp_path/'package';origin=tmp_path/'origin';package.mkdir();origin.mkdir()
+        out=package/m.GROUPMAX;out.mkdir(parents=True)
+        relative=Path('results/study/repair.parquet');source=origin/relative;source.parent.mkdir(parents=True)
+        source.write_bytes(b'original repair')
+        record={'status':'passed','repaired_source_group_maxima_reproduced':True,
+                'repair_path':str(relative),}
+        (out/'source_repair_dependency.json').write_text(json.dumps(record))
+        assert m.require_local_repair(package,origin)==relative
+        source.write_bytes(b'changed')
+>       with pytest.raises(ValueError,match='missing or changed'):m.require_local_repair(package,origin)
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_isolated_groupmax_review.py:45: Failed
+=========================== short test summary info ============================
+FAILED tests/test_isolated_groupmax_review.py::test_isolated_groupmax_requires_matching_local_bridge_repair
+1 failed, 3 passed in 0.36s
+make: *** [Makefile:325: review-test] Error 1

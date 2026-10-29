@@ -1,0 +1,5 @@
+matching,region,n_region,n_supported,n_excluded,support_fraction,loss_fraction,n_common_cells,original_stations,supported_stations,original_groups,supported_groups
+geometry,foen,1119,1119,0,1.0,0.0,54,10,10,2,2
+geometry,gkd_bayern,1983,1969,14,0.9929399899142713,0.007060010085728652,54,24,24,8,8
+geometry_plus_policy,foen,1119,472,647,0.42180518319928506,0.5781948168007149,37,10,10,2,2
+geometry_plus_policy,gkd_bayern,1983,289,1694,0.14573877962682805,0.854261220373172,37,24,10,8,4

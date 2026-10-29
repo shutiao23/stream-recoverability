@@ -1,0 +1,298 @@
+python -m pytest tests/test_wrr_process_revision.py tests/test_wrr_trajectory_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_process_review_region_water.py
+........................                                                 [100%]
+24 passed in 3.19s
+python -m pytest tests/test_review_bundle_atomic_write.py
+...                                                                      [100%]
+3 passed in 0.02s
+python -m pytest tests/test_review_completion_current_evidence.py
+...                                                                      [100%]
+3 passed in 0.37s
+python -m pytest tests/test_usace_open_reference_replay.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usace_partial_year_h30_bounds.py
+..                                                                       [100%]
+2 passed in 0.34s
+python -m pytest tests/test_usace_partial_history_scores.py
+..                                                                       [100%]
+2 passed in 0.36s
+python -m pytest tests/test_usace_partial_history_engine.py
+..                                                                       [100%]
+2 passed in 0.40s
+python -m pytest tests/test_source_partial_history_factorial.py
+..                                                                       [100%]
+2 passed in 0.41s
+python -m pytest tests/test_partial_history_feature_support.py
+...                                                                      [100%]
+3 passed in 1.92s
+python -m pytest tests/test_source_support_rule_evaluation.py
+...                                                                      [100%]
+3 passed in 0.42s
+python -m pytest tests/test_usgs_partial_daily_feasibility.py
+...........                                                              [100%]
+11 passed in 0.32s
+python -m pytest tests/test_usgs_partial_power_status.py
+.                                                                        [100%]
+1 passed in 0.44s
+python -m pytest tests/test_usgs_public_snapshot_manifest.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usgs_subdaily_measurement_bounds.py
+..                                                                       [100%]
+2 passed in 0.51s
+python -m pytest tests/test_isolated_groupmax_review.py
+....                                                                     [100%]
+4 passed in 0.34s
+python -m pytest tests/test_isolated_review_evidence.py
+..                                                                       [100%]
+2 passed in 0.01s
+python -m pytest tests/test_groupmax_annual_calibration.py
+......                                                                   [100%]
+6 passed in 0.47s
+python -m pytest tests/test_past_season_screening.py
+....                                                                     [100%]
+4 passed in 1.92s
+python -m pytest tests/test_summer_window_comparison.py
+....                                                                     [100%]
+4 passed in 0.32s
+python -m pytest tests/test_projected_risk_sensitivity.py
+....                                                                     [100%]
+4 passed in 0.78s
+python -m pytest tests/test_stress_source_common_cohort.py
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_________ test_candidate_baseline_receipt_detects_changed_calibration __________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1757/test_candidate_baseline_receip0')
+
+    def test_candidate_baseline_receipt_detects_changed_calibration(tmp_path):
+        load()  # Make the scripts directory importable for the dynamic audit module.
+        path=Path(__file__).resolve().parents[1]/'scripts/699_stress_source_baseline_audit.py'
+        spec=importlib.util.spec_from_file_location('source_baseline_audit',path)
+        audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit)
+        original=tmp_path/'old';target=tmp_path/'new';original.mkdir();target.mkdir()
+        model=tmp_path/'model';calibration=tmp_path/'calibration'
+        for item in [original/'annual_predictions.parquet',target/'annual_predictions.parquet',target/'trends.csv',model,calibration]:
+            item.write_text(item.name)
+        receipt={'same_masks':True,'hidden_target_values_present':0}
+        (target/'open_source_receipt.json').write_text(json.dumps(receipt))
+        audit.verify_candidate_receipt(original,target,model,calibration)
+        calibration.write_text('changed')
+>       with pytest.raises(ValueError,match='receipt'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_stress_source_common_cohort.py:56: Failed
+=========================== short test summary info ============================
+FAILED tests/test_stress_source_common_cohort.py::test_candidate_baseline_receipt_detects_changed_calibration
+1 failed, 1 passed in 0.69s
+make: [Makefile:335: review-test] Error 1 (ignored)
+python -m pytest tests/test_matched_heat_stress.py
+...                                                                      [100%]
+3 passed in 2.42s
+python -m pytest tests/test_archive_matched_release_trend.py
+.....                                                                    [100%]
+5 passed in 2.13s
+python -m pytest tests/test_nz_quality_bound.py
+....                                                                     [100%]
+4 passed in 2.28s
+python -m pytest tests/test_heat_gap_matched.py
+...                                                                      [100%]
+3 passed in 2.50s
+python -m pytest tests/test_heat_gap_source_common.py
+..                                                                       [100%]
+2 passed in 0.75s
+python -m pytest tests/test_nova_field_range_check.py
+..                                                                       [100%]
+2 passed in 0.35s
+python -m pytest tests/test_nova_field_cleanroom.py
+..                                                                       [100%]
+2 passed in 0.34s
+python -m pytest tests/test_beaufort_proxy.py
+...                                                                      [100%]
+3 passed in 0.36s
+python -m pytest tests/test_archive_summer_proxy.py
+...                                                                      [100%]
+3 passed in 2.28s
+python -m pytest tests/test_candidate_donor_provenance.py
+..                                                                       [100%]
+2 passed in 2.39s
+python -m pytest tests/test_camelsh_metadata_screen.py
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_________________ test_full_calendar_year_envelope_and_unknown _________________
+
+    def test_full_calendar_year_envelope_and_unknown():
+>       assert m.full_years('2011-01-01','2014-12-31')==4
+E       AssertionError: assert 0 == 4
+E        +  where 0 = <function full_years at 0x7fad00fa09a0>('2011-01-01', '2014-12-31')
+E        +    where <function full_years at 0x7fad00fa09a0> = m.full_years
+
+/home/lzq/workspace/parttime/stream-recoverability/tests/test_camelsh_metadata_screen.py:12: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_camelsh_metadata_screen.py::test_full_calendar_year_envelope_and_unknown
+1 failed, 1 passed in 0.39s
+make: [Makefile:346: review-test] Error 1 (ignored)
+python -m pytest tests/test_truckee_wqp_pairing.py
+.                                                                        [100%]
+1 passed in 0.41s
+python -m pytest tests/test_annual_bridge_dependencies.py
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_export_rejects_missing_or_changed_bridge_repair _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1760/test_export_rejects_missing_or0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f947940c690>
+
+    def test_export_rejects_missing_or_changed_bridge_repair(tmp_path,monkeypatch):
+        repair=tmp_path/'results/wrr_review_completion_20261024/repairs/leave_one_year_out/seed_00.parquet'
+        repair.parent.mkdir(parents=True);repair.write_bytes(b'bridge')
+        audit=tmp_path/'results/wrr_review_response_20261027/audit';audit.mkdir(parents=True)
+        effect=audit/'annual_bridge_repair_effect.csv';effect.write_bytes(b'effect')
+        script=tmp_path/'scripts/730_annual_bridge_dependency.py';script.parent.mkdir();script.write_bytes(b'script')
+        report={'status':'passed','seeds_checked':20,}
+        (audit/'annual_bridge_repair_dependency.json').write_text(json.dumps(report))
+        monkeypatch.setattr(m.T,'ROOT',tmp_path)
+        m.verify_bridge_repair(0)
+        repair.write_bytes(b'changed')
+>       with pytest.raises(ValueError,match='missing or changed'):m.verify_bridge_repair(0)
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_annual_bridge_dependencies.py:23: Failed
+=========================== short test summary info ============================
+FAILED tests/test_annual_bridge_dependencies.py::test_export_rejects_missing_or_changed_bridge_repair
+1 failed in 0.37s
+make: [Makefile:348: review-test] Error 1 (ignored)
+python -m pytest tests/test_review_manuscript_structure.py tests/test_single_year_trend_audit.py tests/test_single_year_trend_propagation.py tests/test_single_year_source_calibration.py tests/test_open_source_annual_scores.py tests/test_open_source_archive_summary.py tests/test_open_source_archive_sensitivity.py tests/test_open_observed_snapshot.py tests/test_usgs_observed_snapshot.py tests/test_wrr_usgs_late_start_counts.py tests/test_au_prior_exposure.py tests/test_njdep_metadata_preflight.py tests/test_rivtemp_date_upper_bound.py tests/test_andrews_source_overlap_audit.py tests/test_strict_region_holdout.py tests/test_nova_clock_sensitivity_reference.py tests/test_nova_clock_sensitivity_score.py tests/test_nova_scotia_exploratory_score.py tests/test_nova_scotia_location_audit.py tests/test_nova_scotia_label_completeness.py tests/test_nova_scotia_portal_comparison.py tests/test_poudre_metadata_preflight.py tests/test_nechako_reference_qualification.py tests/test_usgs_unresolved_network_count_screen.py tests/test_source_annual_interval_expansion.py tests/test_peak_visibility_diagnostics.py tests/test_projection_stage_replay.py tests/test_private_annual_score.py tests/test_whole_archive.py tests/test_release_outputs.py tests/test_integrated_release_trend.py tests/test_hubeau_reunion_reference.py tests/test_uncertainty_paired_diagnostics.py tests/test_bc_reference_qualification.py tests/test_bc_reference_integrity.py tests/test_release_matched_retention.py tests/test_source_calibrated_release.py tests/test_release_regional_sensitivity.py tests/test_support_projection_diagnostics.py tests/test_eccc_red_qualification.py tests/test_eccc_opened_cache_screen.py tests/test_private_case_audit.py tests/test_observed_record_reaudit.py tests/test_screening_rule_reaudit.py tests/test_usgs_observed_reaudit.py tests/test_input_panel_precision_audit.py tests/test_usgs_approved_count_preflight.py tests/test_nve_chart_reference_probe.py tests/test_external_observed_records.py tests/test_wrr_review_completion.py tests/test_wrr_target_recovery.py tests/test_wrr_review_independent.py tests/test_wrr_review_national.py tests/test_wrr_review_windows.py tests/test_wrr_review_forcing_evidence.py tests/test_wrr_forcing_residual_history.py tests/test_wrr_national_coverage.py
+.........FF..FF.F.....................F................................. [ 36%]
+........................................................................ [ 73%]
+....................................................                     [100%]
+=================================== FAILURES ===================================
+___________ test_complete_paired_summary_uses_four_way_common_cases ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_complete_paired_summary_u0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f71c081bd90>
+
+    def test_complete_paired_summary_uses_four_way_common_cases(tmp_path, monkeypatch):
+        out, _ = setup_case(tmp_path, monkeypatch)
+>       m.main()
+
+tests/test_open_source_archive_summary.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/661_open_source_archive_summary.py:32: in main
+    archive = T.load_script('open_full_archive_verify', ROOT / 'scripts/658_open_source_archive_sensitivity.py')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('open_full_archive_verify', PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_complete_paired_summary_u0/scripts/658_open_source_archive_sensitivity.py'))
+
+>   monkeypatch.setattr(m.T, 'load_script', lambda *args: SimpleNamespace(sha=sha, verify_plugin=lambda *args: None))
+E   NameError: name 'sha' is not defined
+
+tests/test_open_source_archive_summary.py:49: NameError
+______________ test_missing_archive_setting_blocks_pooled_summary ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_missing_archive_setting_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f71c0849790>
+
+    def test_missing_archive_setting_blocks_pooled_summary(tmp_path, monkeypatch):
+        out, private = setup_case(tmp_path, monkeypatch)
+        (private / 'whole_archive/calendar/offline/replicate_00/station/open_source_receipt.json').unlink()
+        with pytest.raises(ValueError, match='planned settings'):
+>           m.main()
+
+tests/test_open_source_archive_summary.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/661_open_source_archive_summary.py:32: in main
+    archive = T.load_script('open_full_archive_verify', ROOT / 'scripts/658_open_source_archive_sensitivity.py')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('open_full_archive_verify', PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_missing_archive_setting_b0/scripts/658_open_source_archive_sensitivity.py'))
+
+>   monkeypatch.setattr(m.T, 'load_script', lambda *args: SimpleNamespace(sha=sha, verify_plugin=lambda *args: None))
+E   NameError: name 'sha' is not defined
+
+tests/test_open_source_archive_summary.py:49: NameError
+_______________ test_reanalysis_requires_matching_bridge_repair ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_reanalysis_requires_match0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f71c0823110>
+
+    def test_reanalysis_requires_matching_bridge_repair(tmp_path, monkeypatch):
+        out = tmp_path / 'audit'; out.mkdir()
+        source = tmp_path / 'source'; repair = source / 'repairs/before_2010/seed_00.parquet'
+        repair.parent.mkdir(parents=True); repair.write_bytes(b'repair')
+        for name in ['plan.json', 'single_year_calibration_plan.json', 'archive_bridge_repair_effect.csv']:
+            (out / name).write_text(name)
+        script = tmp_path / 'scripts/731_open_archive_bridge_dependency.py'
+        script.parent.mkdir(); script.write_text('audit')
+        report = {'status': 'passed', 'repaired_calibrations_match_saved': True,
+                  }
+        (out / 'archive_bridge_repair_dependency.json').write_text(json.dumps(report))
+        monkeypatch.setattr(m, 'ROOT', tmp_path); monkeypatch.setattr(m, 'OUT', out)
+        monkeypatch.setattr(m, 'SOURCE', source)
+        m.verify_bridge_dependencies(['forward'])
+        repair.write_bytes(b'changed')
+>       with pytest.raises(ValueError, match='missing or changed'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_open_source_archive_sensitivity.py:58: Failed
+___________ test_valid_snapshot_and_changed_daily_are_distinguished ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_valid_snapshot_and_change0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f71c08a2810>
+
+    def test_valid_snapshot_and_changed_daily_are_distinguished(tmp_path, monkeypatch):
+        setup_snapshot(tmp_path, monkeypatch)
+        assert M.verify_snapshot()['included_eligible_stations'] == 4
+        (tmp_path / 'daily_temperature.parquet').write_bytes(b'changed')
+>       with pytest.raises(ValueError, match='changed'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_open_observed_snapshot.py:29: Failed
+________________ test_valid_snapshot_and_changed_input_rejected ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1761/test_valid_snapshot_and_change1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f71c088b490>
+
+    def test_valid_snapshot_and_changed_input_rejected(tmp_path, monkeypatch):
+        source, _, _ = snapshot(tmp_path, monkeypatch)
+        assert M.verify_manifest()['station_count'] == 1
+        (source / 'qualification.csv').write_text('changed')
+>       with pytest.raises(ValueError, match='changed'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_usgs_observed_snapshot.py:39: Failed
+___________ test_scenario_cache_rejects_changed_model_or_calibration ___________
+
+    def test_scenario_cache_rejects_changed_model_or_calibration():
+        scenario = load_script_module('strict_scenario_cache_test', '621_strict_region_scenario_sensitivity.py')
+        inputs = {}
+        scenario.require_matching_inputs({'inputs': inputs.copy()}, inputs)
+>       with pytest.raises(ValueError, match='input dependencies differ'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_strict_region_holdout.py:107: Failed
+=============================== warnings summary ===============================
+tests/test_wrr_review_completion.py: 12 warnings
+  /home/lzq/anaconda3/lib/python3.11/site-packages/conditionalconformal/condconf.py:181: DeprecationWarning: Conversion of an array with ndim > 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+    duals[candidate_idx] += step_size_clip
+
+tests/test_wrr_review_completion.py::test_conditional_boundary_lp_matches_authors_code_with_overlapping_groups
+tests/test_wrr_review_completion.py::test_randomized_conditional_boundary_matches_authors_dual_randomization
+  /home/lzq/.local/lib/python3.11/site-packages/cvxpy/atoms/affine/vec.py:40: FutureWarning: 
+      You didn't specify the order of the vec expression. The default order
+      used in CVXPY is Fortran ('F') order. This default will change to match NumPy's
+      default order ('C') in a future version of CVXPY.
+      To suppress this warning, please specify the order explicitly.
+      
+    warnings.warn(vec_order_warning, FutureWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_open_source_archive_summary.py::test_complete_paired_summary_uses_four_way_common_cases
+FAILED tests/test_open_source_archive_summary.py::test_missing_archive_setting_blocks_pooled_summary
+FAILED tests/test_open_source_archive_sensitivity.py::test_reanalysis_requires_matching_bridge_repair
+FAILED tests/test_open_observed_snapshot.py::test_valid_snapshot_and_changed_daily_are_distinguished
+FAILED tests/test_usgs_observed_snapshot.py::test_valid_snapshot_and_changed_input_rejected
+FAILED tests/test_strict_region_holdout.py::test_scenario_cache_rejects_changed_model_or_calibration
+6 failed, 190 passed, 14 warnings in 7.04s
+make: [Makefile:349: review-test] Error 1 (ignored)

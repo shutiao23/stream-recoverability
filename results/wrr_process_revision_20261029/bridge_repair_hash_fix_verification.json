@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "source_repair_effect_cells_identical": 24,
+  "source_repair_effect_file_byte_identical": true,
+  "protected_scored_files_byte_identical": 11,
+  "source_repair_group_maxima_reproduced": true,
+  "pinned_inputs_verified": 5,
+  "model_refitted": false,
+  "scored_model_or_result_files_changed": false,
+  "scope": "729 recalculated source repair dependency against saved source group maxima; metadata gained mandatory content hashes. 721 and 728 reject absent or mismatching hashes."
+}

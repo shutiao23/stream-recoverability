@@ -1,0 +1,240 @@
+{
+  "status": "passed",
+  "script": "scripts/974_independent_time_gap_audit.py",
+  "independent": true,
+  "method": "No 969 imports; itertools exhaustive sets, rational calendar geometry, direct numpy polyfit, explicit expanded paired-group resamples and pairwise daily missing-date unions.",
+  "annual_enumeration": {
+    "passed": true,
+    "raw_archives": 820,
+    "original_common": 807,
+    "actual_mask_common": 805,
+    "nontrivial_choice": 468,
+    "independently_fitted_feasible_sets": 5758,
+    "random_seed_archive_rows_checked": 161400,
+    "exclusions": [
+      {
+        "station_key": "gkd_bayern|11401009",
+        "replicate": 11,
+        "independence_group": "g0034",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|11405000",
+        "replicate": 2,
+        "independence_group": "g0034",
+        "region": "gkd_bayern",
+        "n_warm": 3
+      },
+      {
+        "station_key": "gkd_bayern|11405000",
+        "replicate": 3,
+        "independence_group": "g0034",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|11405000",
+        "replicate": 9,
+        "independence_group": "g0034",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|11405000",
+        "replicate": 17,
+        "independence_group": "g0034",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|16005701",
+        "replicate": 5,
+        "independence_group": "g0036",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|16005701",
+        "replicate": 12,
+        "independence_group": "g0036",
+        "region": "gkd_bayern",
+        "n_warm": 3
+      },
+      {
+        "station_key": "gkd_bayern|16005701",
+        "replicate": 18,
+        "independence_group": "g0036",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|18001508",
+        "replicate": 5,
+        "independence_group": "g0035",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|18001508",
+        "replicate": 7,
+        "independence_group": "g0035",
+        "region": "gkd_bayern",
+        "n_warm": 4
+      },
+      {
+        "station_key": "gkd_bayern|18001508",
+        "replicate": 18,
+        "independence_group": "g0035",
+        "region": "gkd_bayern",
+        "n_warm": 3
+      },
+      {
+        "station_key": "usgs|04137030",
+        "replicate": 1,
+        "independence_group": "g0166",
+        "region": "usgs_huc04",
+        "n_warm": 4
+      },
+      {
+        "station_key": "usgs|04137030",
+        "replicate": 2,
+        "independence_group": "g0166",
+        "region": "usgs_huc04",
+        "n_warm": 4
+      }
+    ],
+    "optimizer_ties": {
+      "cdf_primary_ties": 71,
+      "sxx_primary_ties": 8
+    },
+    "original_design_prediction_set_sha256": "3e22eb08909dab8e1e9213fb3158db5f8e2afb35aaa799a12b51de2165c3d62a",
+    "geometry_scope": "CDF and Sxx use calendar years, including every fixed complete year; rational integer-count geometry and direct polyfit use no temperature outcome in selection."
+  },
+  "aggregate_and_paired_inference": {
+    "passed": true,
+    "weighted_scheme_summaries": 63,
+    "independently_expanded_group_interval_checks": 108,
+    "primary_cluster_groups": 17,
+    "resamples_per_scope_weighting": 10000,
+    "paired_bootstrap_seed": 2026102969,
+    "random_realizations": 200,
+    "primary_intervals": [
+      {
+        "scheme": "all",
+        "difference": -0.2761991560159869,
+        "low": -0.35567320274643166,
+        "high": -0.18414047837431502
+      },
+      {
+        "scheme": "cdf_all_years",
+        "difference": -0.017513468030594004,
+        "low": -0.02735566869334046,
+        "high": -0.00487314118918674
+      },
+      {
+        "scheme": "legacy_random",
+        "difference": 0.008129392925838919,
+        "low": -0.01034297513395903,
+        "high": 0.01766943806728837
+      },
+      {
+        "scheme": "legacy_time_balanced",
+        "difference": 0.010750880679564645,
+        "low": -0.006251547444429862,
+        "high": 0.040390793783591714
+      },
+      {
+        "scheme": "sxx_all_years",
+        "difference": -0.04362348679402994,
+        "low": -0.06446639039595198,
+        "high": -0.017266672921244723
+      },
+      {
+        "scheme": "uniform_random_expected",
+        "difference": 0.0033409437603605374,
+        "low": -0.005204336021918081,
+        "high": 0.01708655262482349
+      }
+    ],
+    "primary_random_estimands": {
+      "exact_sqrt_expected_mse": 0.44922460211942566,
+      "mean_realized_rmse": 0.4505274683608939,
+      "sqrt_mean_realized_mse": 0.4506110076377176,
+      "conditional_selection_percentiles": [
+        0.43585507150053426,
+        0.46708143622313814
+      ]
+    },
+    "interpretation": "Uniform expectations first average squared errors within each archive. sqrt(E[MSE]), mean realized RMSE and sqrt(mean realized MSE) are separately recomputed. Group resampling carries all paired archive rows and original scope weights."
+  },
+  "same_day_gaps": {
+    "passed": true,
+    "independently_checked_incomplete_rows": 7803,
+    "raw_trial_design_set_sha256": "2cfc6a6ecfe9dc377ee7d37b0c1153d424e0f06a1d9fac0543ee2014c5139c23",
+    "summaries": [
+      {
+        "source": "calendar",
+        "period": "2010-2025",
+        "incomplete_rows": 3806,
+        "peer_evaluable_rows": 2810,
+        "no_evaluable_peer_excluded": 996,
+        "overlapping_incomplete_rows": 1012,
+        "missing_station_days": 41507,
+        "shared_missing_station_days": 4946
+      },
+      {
+        "source": "crossed",
+        "period": "2010-2025",
+        "incomplete_rows": 3777,
+        "peer_evaluable_rows": 2779,
+        "no_evaluable_peer_excluded": 998,
+        "overlapping_incomplete_rows": 1628,
+        "missing_station_days": 165870,
+        "shared_missing_station_days": 64164
+      },
+      {
+        "source": "observed",
+        "period": "2010-2025",
+        "incomplete_rows": 109,
+        "peer_evaluable_rows": 74,
+        "no_evaluable_peer_excluded": 35,
+        "overlapping_incomplete_rows": 14,
+        "missing_station_days": 2086,
+        "shared_missing_station_days": 40
+      },
+      {
+        "source": "observed",
+        "period": "1981-2025",
+        "incomplete_rows": 220,
+        "peer_evaluable_rows": 147,
+        "no_evaluable_peer_excluded": 73,
+        "overlapping_incomplete_rows": 48,
+        "missing_station_days": 3946,
+        "shared_missing_station_days": 158
+      }
+    ],
+    "denominator": "Only group-years with another evaluable station enter peer rates; single-station group-years remain explicitly excluded rather than coded false.",
+    "scope": "Date-set overlap describes co-missingness and does not identify common causes or availability of the donors actually selected by a reconstructor."
+  },
+  "raw_input_sha256": {
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "results/wrr_review_response_20261027/rules/eligible_station_years.csv": "c280490b03cbc6bb06d6d5dc97c94fe5271d9b231e71a5fb442fe3ee34a4966e",
+    "scratch/wrr_target_recovery_20261021/archive_daily.parquet": "6bf6c50dc0163acfbe7a865e18c57f4be07baa464564f3a06f7450251b69e4e3",
+    "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
+    "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925"
+  },
+  "audited_result_sha256": {
+    "results/wrr_process_experiments_20261029/time_all_feasible_subsets.parquet": "6db1f8372cd5e7c73e328d1023d18333fe1fa4af37c4e826587b414c4662e90a",
+    "results/wrr_process_experiments_20261029/time_archive_accounting.parquet": "184107ff5e23acf9e232c3cdd22f14f18f4439887771a2e678e5efb1522f383b",
+    "results/wrr_process_experiments_20261029/time_exact_random_expectations.parquet": "6e7449c13dd20080133c6f416ec9cfe45d2a722a80ffe706afeb9ea83ddb8bdf",
+    "results/wrr_process_experiments_20261029/time_fixed_geometry_selections.parquet": "ee1903ab7407747e2c0060b4adcb86cd2ee861562e4a26cb9c2d3c3db6c0a362",
+    "results/wrr_process_experiments_20261029/time_random_selection_draws.parquet": "d11eda740f1a54e88e0600c42b8a922aca03297bf331912bf52c99c35dda8dfe",
+    "results/wrr_process_experiments_20261029/time_sensitivity_summary.csv": "d36a5ca9fa8573aa742e925d3bb85d9a8b072ac568aa5744145e4e64e5bb12e3",
+    "results/wrr_process_experiments_20261029/time_sensitivity_paired_cluster.csv": "798f41991ad418de6a9a10d8a35479fed1d465e7eda113bd42db12b4caea8da1",
+    "results/wrr_process_experiments_20261029/time_random_selection_variation.csv": "3bdfddd20330b2cf88ab32da66297a4c0b7dda79635ff2cfb0980307d04ec397",
+    "results/wrr_process_experiments_20261029/time_random_seed_summary.csv": "1da37effac6342607383a2f8a2e2c1b521f07f816a17119d1901853e67651470",
+    "results/wrr_process_experiments_20261029/gap_overlap_station_year_cases.csv": "474ccc51ba0f88297ef96aa8eaa8b0bf856622a8169d68b247d3fdb990737599",
+    "results/wrr_process_experiments_20261029/gap_overlap_summary.csv": "1c80214b78ae257929c811a5016d64c93fccf189b42a989f4074f1a30f66d3c9"
+  }
+}

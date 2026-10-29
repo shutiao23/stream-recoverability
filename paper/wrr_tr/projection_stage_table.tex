@@ -1,0 +1,14 @@
+\begin{table}[p]\centering\scriptsize
+\caption{Replay of annual interval stages on common finite-bound cases. Raw is the original model output; stochastic raw quantiles use a finite set of imputations that retain observed days. First applies the first explicit bound projection; Pre-final applies the fixed projection-aware offsets and sorts; Final applies the bound again. New is the count first becoming zero-width at the final projection. Zero widths use $10^{-8}$ $^{\circ}$C tolerance. These are repeated mask cases, and no alternative calibration was fitted.}\label{tab:projection-stage-replay}
+\begin{tabular}{lllrrrrrr}\toprule
+Family & Setting & Estimator & $n$ & Raw & First & Pre-final & Final & New\\\midrule
+calendar & forward & D2 & 3674 & 0 & 2 & 1096 & 1476 & 380\\
+calendar & forward & Stochastic & 3674 & 3090 & 3090 & 2977 & 2977 & 0\\
+calendar & offline & D2 & 6919 & 0 & 0 & 4402 & 4538 & 136\\
+calendar & offline & Stochastic & 6919 & 5818 & 5818 & 5482 & 5482 & 0\\
+crossed & forward & D2 & 3683 & 0 & 0 & 227 & 323 & 96\\
+crossed & forward & Stochastic & 3683 & 1362 & 1362 & 1091 & 1091 & 0\\
+crossed & offline & D2 & 6919 & 0 & 1 & 1376 & 1391 & 15\\
+crossed & offline & Stochastic & 6919 & 2491 & 2491 & 2030 & 2030 & 0\\
+\bottomrule\end{tabular}
+\end{table}

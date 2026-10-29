@@ -1,0 +1,253 @@
+{
+  "status": "passed",
+  "created_utc": "2026-10-29T19:11:17.442480+00:00",
+  "archive": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/dist/wrr_process_experiments_20261029.zip",
+  "environment": {
+    "python": "3.11.7",
+    "implementation": "CPython",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "pyarrow": "14.0.2",
+      "scipy": "1.11.4",
+      "matplotlib": "3.9.2",
+      "scikit-learn": "1.2.2",
+      "torch": "2.13.0+cpu"
+    },
+    "python_environment": "Current interpreter and installed libraries; no dependency installation or clean-environment portability test.",
+    "subprocess_overrides": {
+      "PYTHONPATH": "src",
+      "TR_CONFIG": "configs/wrr_target_recovery_20261022.json",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "scope": "Packaged/workspace byte identity and safe extraction; pre-replay scientific catalog hashes/rows/keys; packaged 930 transcription/PDF compilation, 975 source-calibration frozen replay, 977 annual frozen replay and 967 current observation arithmetic replay",
+  "archive_sha256": "0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
+  "archive_integrity_and_workspace_match": {
+    "crc": "passed",
+    "safe_paths": "passed",
+    "members": 3315,
+    "files": 3315,
+    "workspace_byte_comparisons": 3313,
+    "workspace_bytes_compared": 288360053,
+    "skipped_generated_or_validation_members": [
+      "REVIEW_PACKAGE_README.txt",
+      "dependency_inventory.json"
+    ],
+    "exclusions": "Only root package README/dependency inventory and validation.json/delivery_check.json basenames are excluded. Repository README.md files are compared."
+  },
+  "delivery_log_directory": "results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
+  "extracted_package_checks": {
+    "catalog_preflight": {
+      "status": "passed",
+      "ordering": "Before compilation or replay receipt writes",
+      "artifacts_hashed": 346,
+      "tabular_files_checked": 138,
+      "table_rows_checked": 266562,
+      "key_tables_checked": 138,
+      "dictionary_fields_checked": 2519,
+      "catalog_sha256": "e4d61179256da5ad17151d5007841243df203b0907e2892fc7f3970dba1b9aca",
+      "dictionary_sha256": "0ccf2b20bd24680996c71a85029e01ee186ba96bb2b3c6b11c16109988ce0cbd",
+      "exclusions": [
+        "current_version_manifest.json",
+        "data_dictionary.csv",
+        "dataset_catalog.csv",
+        "dataset_catalog_report.json",
+        "delivery_check.json",
+        "requirements_audit.json",
+        "validation.json"
+      ],
+      "delivery_logs_excluded": true,
+      "coverage": "Only catalog-listed artifacts are required; later acceptance reports/logs are not scientific data rows"
+    },
+    "frozen_source_dependency_manifest": {
+      "manifest": "results/wrr_process_experiments_20261029/source_calibration/frozen_replay_dependency_manifest.json",
+      "sha256": "03958fc5111d8bbfb7ab705ba5791429f091d7654c8155b16c76ab52a1845850",
+      "required_files": 141,
+      "additional_metadata_files": 1,
+      "total_package_files": 142
+    },
+    "frozen_time_dependency_manifest": {
+      "manifest": "results/wrr_process_experiments_20261029/time_frozen_replay/required_files.json",
+      "sha256": "d20ddb150d748ab7a50c93d85e6899ecc6845074315696eeb8397e7105cfa20e",
+      "required_files": 9,
+      "additional_metadata_files": 1,
+      "total_package_files": 10
+    },
+    "local_calibration_probe_record": {
+      "status": "verified_record_and_content_hashes_only",
+      "probe": "results/wrr_process_experiments_20261029/source_calibration/calibration_leakage_probe.json",
+      "sha256": "f767364ddf387c8a1718483132b4bef432a158480dc99968a43a5c680bad32ce",
+      "tested_module": "scripts/968_process_source_calibration.py",
+      "formal_result_files_unchanged": 19,
+      "probe_executed_during_delivery": false,
+      "scope": "Evaluation/reference truth labels entering the annual calibration and scoring stage; fixed daily-model inputs and source trajectory draws remain unchanged.",
+      "not_tested": "Not a perturbation of original hidden water-temperature days followed by daily-model refitting; no claim about leakage in upstream daily fitting or feature construction."
+    },
+    "transcription_and_pdf_compile": {
+      "transcription": {
+        "bc_masks": [
+          288,
+          84,
+          372
+        ],
+        "truckee_cases": 72,
+        "reservoir_cases": 306,
+        "usgs_complete_years": 8,
+        "usgs_four_year_stations": 0,
+        "paired_forward_archives": 736,
+        "paired_forward_years": 3328,
+        "seed_change_max_pp": 0.8152173913043459,
+        "overlap_exact_half": 47,
+        "abstract_words": 249
+      },
+      "compile": {
+        "review_completion_article.tex": {
+          "pages_text_characters": 116093
+        },
+        "review_completion_supporting.tex": {
+          "pages_text_characters": 230157
+        }
+      },
+      "module": "/tmp/wrr_experiment_delivery_hckh_cru/scripts/930_delivery_consistency.py"
+    },
+    "source_calibration_frozen_replay": {
+      "status": "passed",
+      "mode": "frozen_input_replay",
+      "source_cases": 2370,
+      "target_cases": 27,
+      "target_layer_cases": 729,
+      "source_case_budget_quantiles": 21330,
+      "reestimated_offset_cells": 288,
+      "source_role_offsets_reestimated": true,
+      "source_only_calibration": true,
+      "source_target_random_stream_intersections": 0,
+      "source_budget_quantile_max_abs_error": 0.0,
+      "new_source_offset_max_abs_error": 0.0,
+      "target_quantile_metric_max_abs_error": 0.0,
+      "fixed_reference_metric_max_abs_error": 0.0,
+      "native_source_draw_max_abs_error": 0.0,
+      "native_source_quantile_max_abs_error": 0.0,
+      "native_target_draw_max_abs_error": 0.0,
+      "native_target_quantile_max_abs_error": 0.0,
+      "daily_model_fit": false,
+      "D2_model_fit": false,
+      "original_daily_panels_opened": false,
+      "original_case_caches_opened": false,
+      "original_model_joblibs_opened": false,
+      "audited_results_overwritten": false,
+      "limits": [
+        "Replays frozen daily model inputs and recorded source roles, not raw-data preparation or fitting",
+        "D2 quantiles are stored fixed references, not independently regenerated model predictions",
+        "Source-calibrated sensitivity is checked on the original two target groups only",
+        "500 paths do not establish infinite-draw convergence or broad method-ranking robustness"
+      ]
+    },
+    "time_support_frozen_replay": {
+      "status": "passed",
+      "mode": "frozen_saved_annual_input_replay",
+      "frozen_annual_rows": 10860,
+      "raw_archives": 820,
+      "original_common": 807,
+      "actual_mask_common": 805,
+      "choice_only": 468,
+      "all_feasible_subsets": 5758,
+      "exact_conditional_random_expectations": 807,
+      "weighted_summary_checks": 63,
+      "maximum_abs_numeric_error": 2.405187160547939e-11,
+      "primary_equal_archive_summaries": [
+        {
+          "scheme": "all",
+          "estimate_rmse": 0.16968450234307825,
+          "year_set_rmse": 0.0,
+          "reconstruction_rmse": 0.16968450234307825
+        },
+        {
+          "scheme": "cdf_all_years",
+          "estimate_rmse": 0.4283701903284711,
+          "year_set_rmse": 0.4199301400801361,
+          "reconstruction_rmse": 0.10792280669120388
+        },
+        {
+          "scheme": "legacy_random",
+          "estimate_rmse": 0.45401305128490405,
+          "year_set_rmse": 0.456853247354923,
+          "reconstruction_rmse": 0.10303656977297931
+        },
+        {
+          "scheme": "legacy_time_balanced",
+          "estimate_rmse": 0.45663453903862977,
+          "year_set_rmse": 0.4538798170167266,
+          "reconstruction_rmse": 0.08729065008970446
+        },
+        {
+          "scheme": "sxx_all_years",
+          "estimate_rmse": 0.4022601715650352,
+          "year_set_rmse": 0.3930982992454293,
+          "reconstruction_rmse": 0.11851522945874034
+        },
+        {
+          "scheme": "uniform_random_expected",
+          "estimate_rmse": 0.44922460211942566,
+          "year_set_rmse": 0.448267187976088,
+          "reconstruction_rmse": 0.09782917994021503
+        },
+        {
+          "scheme": "warm90",
+          "estimate_rmse": 0.4458836583590651,
+          "year_set_rmse": 0.4457944386708963,
+          "reconstruction_rmse": 0.0022882219824192133
+        }
+      ],
+      "exact_random_estimand": "First average MSE uniformly over feasible subsets within archive, then aggregate archives and take the root. This is not mean realized RMSE across random seeds.",
+      "original_case_caches_opened": false,
+      "original_daily_panels_opened": false,
+      "models_fit": false,
+      "audited_results_overwritten": false,
+      "not_replayed": [
+        "Original data preparation or historical measurement provenance",
+        "200 realized random-seed summaries and paired-group bootstrap intervals",
+        "Actual same-day co-missingness"
+      ],
+      "daily_gap_scope": "Actual same-day gaps are not replayed here. scripts/974_independent_time_gap_audit.py and time_gap_independent_audit.json independently re-read original daily data and exclude group-years without an evaluable peer."
+    },
+    "current_observation_replay": {
+      "open_observed": {
+        "included_stations": 95,
+        "original_stations": 96,
+        "witness_station_years": 35,
+        "rule_decisions_checked": 210
+      },
+      "usgs_observed": {
+        "snapshot_files_verified": 18,
+        "station_count": 10,
+        "complete_reference_station_years": 8,
+        "witness_station_years": 9
+      }
+    },
+    "catalog_checked_before_replay_receipts": true,
+    "scientific_dependencies_unchanged_after_replay": true,
+    "receipt_comparison": "Fresh reports checked for numeric results, denominators and scope; timestamps, runtimes and report bytes are not compared to historical receipts",
+    "isolation": {
+      "temporary_extraction": true,
+      "fresh_subprocesses": true,
+      "cwd_and_project_imports": "Extracted package",
+      "original_workspace_hidden_by_namespace": false,
+      "network_namespace_isolated": false,
+      "environment": "Current Python and TeX installation; no new environment or dependency installation"
+    },
+    "not_replayed": [
+      "Original raw-data preparation and model fitting",
+      "Full D2 prediction regeneration",
+      "B 200-seed realized selections, group-bootstrap intervals and actual daily overlap (local 974 audit content is packaged, not rerun here)",
+      "976 evaluation-label probe (existing record/content hashes checked only)",
+      "Strict independent external climate confirmation, data rights or permanent deposit"
+    ]
+  },
+  "completed_utc": "2026-10-29T19:12:43.547573+00:00"
+}

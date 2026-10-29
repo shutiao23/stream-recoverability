@@ -1,18 +1,53 @@
 \section{Whole-archive supplements}
-The full MSE cells, interactions, matched estimator contrasts, unavailable cases and task calibration sources are stored in results/whole\_archive. Independent source groups, rather than mask repetitions, determine calibration support. Forward task calibration ends before 2010. The four error-direction illustration uses a single synthetic half-degree common shock on thirty annual values; it is an algebraic sensitivity, not new river evidence. The evaluation-only error covariance uses hidden reference values solely for diagnosis and is never a deployment estimator. Gaussian-tail extrapolation leaves the central stored quantiles unchanged but changes the marginal tails, and is reported separately from the fixed-marginal rank comparison.
+Full paired MSE cells, group and region sensitivities, unavailable cases and source calibration support are in the review-response results. Forward task calibration ends before 2010. Normal-spacing tail extrapolation is compared to constant tails under the same observed-window constraint; its outer distribution is assumed, not identified by the seven stored quantiles. Auxiliary rank coupling is not a posterior for the annual estimator.
+\begin{table}[p]\centering\small
+\caption{The same 35 observation-only complete-year witnesses under each screening rule. The accepted-record comparison uses observed windows, not unknown complete H30 values. The 49-day and July--August rows are contextual proxies, not published H30 rules.}\label{tab:observed-rule-comparison}
+\begin{tabular}{lllll}
+\toprule
+Rule & Witnesses & Admitted & Excluded & Above accepted\\\midrule
+Complete & 35 & 0 & 35 & 35\\
+Annual 95 & 35 & 31 & 4 & 3\\
+Station warm 90 & 35 & 32 & 3 & 2\\
+Fixed warm 90 & 35 & 32 & 3 & 2\\
+July--August & 35 & 30 & 5 & 3\\
+Gap $\leq$49 d & 35 & 34 & 1 & 1\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\small
+\caption{Seven-station stress comparisons on common available station/repetition rows. Heat-associated masks and numbers of missing years differ between arms; unavailable cases remain in the eligible denominator. Coverage and width are supplied in the result table.}\label{tab:small-stresses}
+\begin{tabular}{lllll}
+\toprule
+Scenario & Eligible & Available & Base RMSE & Stress RMSE\\\midrule
+Donors / forward & 30 & 30 & 0.079 & 0.116\\
+Donors / offline & 35 & 35 & 0.037 & 0.047\\
+Heat / forward & 30 & 30 & 0.079 & 0.088\\
+Heat / offline & 35 & 30 & 0.035 & 0.058\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\small
+\caption{Release followed by finite-record trend inference for controlled gaps. The values-and-bounds interval is a Gaussian working-likelihood interval, including regression variability; it is not calibrated missing-data uncertainty.}\label{tab:release-then-trend}
+\begin{tabular}{llllll}
+\toprule
+Mode & Released data & Eligible & Available & RMSE & Working width\\\midrule
+forward & Values + bounds & 820 & 820 & 0.202 & 3.262\\
+forward & Values & 820 & 820 & 0.210 & --\\
+offline & Values + bounds & 840 & 840 & 0.040 & 1.986\\
+offline & Values & 840 & 840 & 0.043 & --\\
+\bottomrule\end{tabular}
+\end{table}
 \begin{table}[p]\centering\small
 \caption{Task calibration and independent-draw intervals on exactly the same supported cases. Coverage is a fraction; missing source support is reported separately.}\label{tab:task-calibration}
 \begin{tabular}{llllll}
 \toprule
 Setting & Method & $n$ & Original coverage & Task coverage & Width ratio\\\midrule
-calendar / forward & D2 & 340 & 0.979 & 0.841 & 0.536\\
-calendar / forward & Stochastic & 332 & 0.991 & 0.873 & 0.524\\
-calendar / offline & D2 & 840 & 0.935 & 0.969 & 1.274\\
-calendar / offline & Stochastic & 835 & 0.917 & 0.903 & 1.150\\
-crossed / forward & D2 & 340 & 0.968 & 0.965 & 1.158\\
-crossed / forward & Stochastic & 331 & 0.961 & 0.976 & 1.297\\
-crossed / offline & D2 & 840 & 0.918 & 0.971 & 1.478\\
-crossed / offline & Stochastic & 838 & 0.862 & 0.952 & 1.442\\
+calendar / forward & D2 & 40 & 0.925 & 0.975 & 0.947\\
+calendar / forward & Stochastic & 38 & 1.000 & 1.000 & 0.773\\
+calendar / offline & D2 & 95 & 0.937 & 0.958 & 1.167\\
+calendar / offline & Stochastic & 88 & 0.977 & 0.989 & 1.225\\
+crossed / forward & D2 & 39 & 1.000 & 1.000 & 1.112\\
+crossed / forward & Stochastic & 38 & 1.000 & 1.000 & 1.015\\
+crossed / offline & D2 & 301 & 0.977 & 0.980 & 1.236\\
+crossed / offline & Stochastic & 307 & 0.948 & 0.951 & 1.108\\
 \bottomrule\end{tabular}
 \end{table}
 \begin{table}[p]\centering\small
@@ -20,14 +55,14 @@ crossed / offline & Stochastic & 838 & 0.862 & 0.952 & 1.442\\
 \begin{tabular}{lllll}
 \toprule
 Family & Time setting & Estimator & Availability & Minimum source groups\\\midrule
-calendar & forward & D2 & 0.415 & 1\\
-calendar & forward & stochastic\_calibrated & 0.405 & 1\\
-calendar & offline & D2 & 1.000 & 2\\
-calendar & offline & stochastic\_calibrated & 0.994 & 2\\
-crossed & forward & D2 & 0.415 & 1\\
-crossed & forward & stochastic\_calibrated & 0.404 & 1\\
-crossed & offline & D2 & 1.000 & 2\\
-crossed & offline & stochastic\_calibrated & 0.998 & 2\\
+calendar & forward & D2 & 0.049 & 3\\
+calendar & forward & stochastic\_calibrated & 0.046 & 3\\
+calendar & offline & D2 & 0.113 & 3\\
+calendar & offline & stochastic\_calibrated & 0.105 & 3\\
+crossed & forward & D2 & 0.048 & 3\\
+crossed & forward & stochastic\_calibrated & 0.046 & 3\\
+crossed & offline & D2 & 0.358 & 3\\
+crossed & offline & stochastic\_calibrated & 0.365 & 3\\
 \bottomrule\end{tabular}
 \end{table}
 \begin{table}[p]\centering\small

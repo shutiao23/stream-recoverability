@@ -1,0 +1,95 @@
+{
+  "schema_version": "current_observation_replay_v1",
+  "action": "replay",
+  "freeze_semantics": "current content freeze, not evidence of past provenance",
+  "historical_provenance_authenticated": false,
+  "command": [
+    "/home/lzq/anaconda3/bin/python",
+    "scripts/967_current_observation_replay.py",
+    "replay",
+    "--output",
+    "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations"
+  ],
+  "started_at": {
+    "utc": "2026-10-29T19:12:20.415006+00:00",
+    "Asia/Shanghai": "2026-10-30T03:12:20.415006+08:00"
+  },
+  "scope": "Current offline observation arithmetic and rule replay only; not whole-paper model reproduction, sensor verification or historical-provenance authentication.",
+  "checks": {
+    "open_observed": {
+      "command": [
+        "/home/lzq/anaconda3/bin/python",
+        "/tmp/wrr_experiment_delivery_hckh_cru/scripts/654_verify_open_observed_snapshot.py",
+        "--manifest",
+        "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_current_manifest.json",
+        "--output",
+        "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_reproduction.json"
+      ],
+      "shell_command": "/home/lzq/anaconda3/bin/python /tmp/wrr_experiment_delivery_hckh_cru/scripts/654_verify_open_observed_snapshot.py --manifest /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_current_manifest.json --output /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_reproduction.json",
+      "cwd": "/tmp/wrr_experiment_delivery_hckh_cru",
+      "manifest": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_current_manifest.json",
+      "manifest_sha256": "94237bdeeefd4942dbc90bd8ef8b6edf071b38e4dc06f3a4b48d226545350b8d",
+      "verifier_sha256": "7afb0549e4e88e19378341626a9863ac5fe369a0a42dfd9329b4004d59d63d2e",
+      "started_at": {
+        "utc": "2026-10-29T19:12:20.421468+00:00",
+        "Asia/Shanghai": "2026-10-30T03:12:20.421468+08:00"
+      },
+      "stdout_log": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed.stdout.log",
+      "stderr_log": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed.stderr.log",
+      "report": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/open_observed_reproduction.json",
+      "returncode": 0,
+      "completed_at": {
+        "utc": "2026-10-29T19:12:26.872494+00:00",
+        "Asia/Shanghai": "2026-10-30T03:12:26.872494+08:00"
+      },
+      "actual_report_counts": {
+        "included_stations": 95,
+        "original_stations": 96,
+        "witness_station_years": 35,
+        "rule_decisions_checked": 210
+      },
+      "report_sha256": "46790c860056556cba9c3caf1186567673afd062046ae3e10c5989f6154cfa1c",
+      "status": "passed"
+    },
+    "usgs_observed": {
+      "command": [
+        "/home/lzq/anaconda3/bin/python",
+        "/tmp/wrr_experiment_delivery_hckh_cru/scripts/652_verify_usgs_observed_reproduction.py",
+        "--manifest",
+        "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_current_manifest.json",
+        "--output",
+        "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_reproduction.json"
+      ],
+      "shell_command": "/home/lzq/anaconda3/bin/python /tmp/wrr_experiment_delivery_hckh_cru/scripts/652_verify_usgs_observed_reproduction.py --manifest /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_current_manifest.json --output /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_reproduction.json",
+      "cwd": "/tmp/wrr_experiment_delivery_hckh_cru",
+      "manifest": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_current_manifest.json",
+      "manifest_sha256": "da886fc58b8a6a0ec0799bb705a989ef9dcc79f2af276115419b7b611d2ac2a6",
+      "verifier_sha256": "80dfa92a5c37166c5f04977647c80a4037128306dfedc371f6fb38d8a2b759a7",
+      "started_at": {
+        "utc": "2026-10-29T19:12:26.883270+00:00",
+        "Asia/Shanghai": "2026-10-30T03:12:26.883270+08:00"
+      },
+      "stdout_log": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed.stdout.log",
+      "stderr_log": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed.stderr.log",
+      "report": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_experiments_20261029/delivery_logs/0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326/observations/usgs_observed_reproduction.json",
+      "returncode": 0,
+      "completed_at": {
+        "utc": "2026-10-29T19:12:43.230443+00:00",
+        "Asia/Shanghai": "2026-10-30T03:12:43.230443+08:00"
+      },
+      "actual_report_counts": {
+        "snapshot_files_verified": 18,
+        "station_count": 10,
+        "complete_reference_station_years": 8,
+        "witness_station_years": 9
+      },
+      "report_sha256": "922ed2c5ce42d1c6f53d04aa85cac5d7e7730765e7440d31908f802c8a784dbc",
+      "status": "passed"
+    }
+  },
+  "status": "passed",
+  "completed_at": {
+    "utc": "2026-10-29T19:12:43.236552+00:00",
+    "Asia/Shanghai": "2026-10-30T03:12:43.236552+08:00"
+  }
+}

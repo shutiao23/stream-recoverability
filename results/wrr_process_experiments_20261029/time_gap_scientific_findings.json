@@ -1,0 +1,198 @@
+{
+  "status": "completed_exploratory_analysis",
+  "primary_n": 805,
+  "all_original_archives": 820,
+  "original_common": 807,
+  "nontrivial_choice": 468,
+  "all_feasible_subset_rows": 5758,
+  "zero_mask_additional_common_cases": 2,
+  "warm_unavailable_cases": 13,
+  "fixed_geometry_selection_changes": [
+    {
+      "scheme": "cdf_all_years",
+      "different_selected_sets_from_warm90": 367
+    },
+    {
+      "scheme": "sxx_all_years",
+      "different_selected_sets_from_warm90": 376
+    }
+  ],
+  "primary_equal_archive_rows": [
+    {
+      "scheme": "all",
+      "estimate_rmse": 0.1696845023430801,
+      "year_set_rmse": 0.0,
+      "reconstruction_rmse": 0.1696845023430801,
+      "cross_term": 0.0,
+      "cdf_distance": 0.0,
+      "sxx": 2.6197674637301964,
+      "span": 14.137888198757764
+    },
+    {
+      "scheme": "cdf_all_years",
+      "estimate_rmse": 0.4283701903284486,
+      "year_set_rmse": 0.4199301400801143,
+      "reconstruction_rmse": 0.1079228066912057,
+      "cross_term": -0.0044876347897805,
+      "cdf_distance": 0.0044695633212911,
+      "sxx": 1.8899787344470576,
+      "span": 13.453416149068325
+    },
+    {
+      "scheme": "legacy_random",
+      "estimate_rmse": 0.4540130512849077,
+      "year_set_rmse": 0.4568532473549235,
+      "reconstruction_rmse": 0.1030365697729838,
+      "cross_term": -0.0132035735922896,
+      "cdf_distance": 0.0060730157460631,
+      "sxx": 1.8300173556946848,
+      "span": 13.240993788819877
+    },
+    {
+      "scheme": "legacy_time_balanced",
+      "estimate_rmse": 0.4566345390386536,
+      "year_set_rmse": 0.4538798170167338,
+      "reconstruction_rmse": 0.0872906500897048,
+      "cross_term": -0.0051114436451833,
+      "cdf_distance": 0.0055342993313348,
+      "sxx": 1.8636601293461543,
+      "span": 13.342857142857143
+    },
+    {
+      "scheme": "sxx_all_years",
+      "estimate_rmse": 0.4022601715650148,
+      "year_set_rmse": 0.3930982992454078,
+      "reconstruction_rmse": 0.1185152294587426,
+      "cross_term": -0.0067588868557754,
+      "cdf_distance": 0.0053239783556025,
+      "sxx": 2.0106771965784387,
+      "span": 13.622360248447205
+    },
+    {
+      "scheme": "uniform_random_expected",
+      "estimate_rmse": 0.449224602119408,
+      "year_set_rmse": 0.4482671879760655,
+      "reconstruction_rmse": 0.0978291799402169,
+      "cross_term": -0.0087112771144041,
+      "cdf_distance": 0.0060094585957548,
+      "sxx": 1.8288801059647244,
+      "span": 13.249493394803954
+    },
+    {
+      "scheme": "warm90",
+      "estimate_rmse": 0.4458836583590306,
+      "year_set_rmse": 0.4457944386708618,
+      "reconstruction_rmse": 0.0022882219824192,
+      "cross_term": 7.431928192304982e-05,
+      "cdf_distance": 0.0058669455826223,
+      "sxx": 1.829058045681027,
+      "span": 13.264596273291923
+    }
+  ],
+  "main_paired_group_intervals": [
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "all",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": -0.2761991560159504,
+      "group_percentile_low": -0.3556732027463926,
+      "group_percentile_high": -0.1841404783743103
+    },
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "cdf_all_years",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": -0.017513468030582,
+      "group_percentile_low": -0.0273556686933238,
+      "group_percentile_high": -0.0048731411891219
+    },
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "legacy_random",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": 0.0081293929258771,
+      "group_percentile_low": -0.0103429751339879,
+      "group_percentile_high": 0.0176694380673268
+    },
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "legacy_time_balanced",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": 0.010750880679623,
+      "group_percentile_low": -0.0062515474444231,
+      "group_percentile_high": 0.0403907937837733
+    },
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "sxx_all_years",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": -0.0436234867940157,
+      "group_percentile_low": -0.0644663903959208,
+      "group_percentile_high": -0.0172666729212542
+    },
+    {
+      "scope": "actual_mask_common",
+      "weighting": "equal_archive",
+      "scheme": "uniform_random_expected",
+      "field": "estimate_mse",
+      "n": 805,
+      "groups": 17,
+      "bootstraps": 10000,
+      "rmse_difference": 0.0033409437603774,
+      "group_percentile_low": -0.0052043360219409,
+      "group_percentile_high": 0.0170865526248974
+    }
+  ],
+  "secondary_influence_scope": "Added after observing the new geometric controls; fixed predictions and selections, archive-weighted point contrasts only; no refit or additional bootstrap tests",
+  "leave_group_out_ranges": [
+    {
+      "scheme": "all",
+      "min": -0.289040367986678,
+      "max": -0.20698428968006288
+    },
+    {
+      "scheme": "cdf_all_years",
+      "min": -0.021163792701187012,
+      "max": -0.011890451734749896
+    },
+    {
+      "scheme": "sxx_all_years",
+      "min": -0.05007190791741667,
+      "max": -0.025328100908454
+    },
+    {
+      "scheme": "uniform_random_expected",
+      "min": 0.00026967534110505786,
+      "max": 0.0076771729556053825
+    }
+  ],
+  "random_seeds_better_than_warm90": 62,
+  "random_seed_count": 200,
+  "interpretation": [
+    "Exact archive-conditional subset averaging removes the single-random-selection Monte Carlo approximation.",
+    "Outcome-blind same-count rules including fixed complete years perform better here. A blanket no-advantage claim across same-count rules is unsupported.",
+    "These exploratory controls do not identify pure year-count effects or constitute validated deployment rules.",
+    "All-year recovery remains much closer to the finite-record target than any same-count rule considered.",
+    "Actual same-day co-missingness is distinct from same-year overlap, common outage causes and measured selected-donor availability."
+  ]
+}

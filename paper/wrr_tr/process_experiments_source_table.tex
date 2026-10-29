@@ -1,0 +1,24 @@
+\begin{table}[t]\centering\small
+\caption{Same-target annual comparison by region--reconstructor stratum. D2 and historical native20 are fixed original references. Updated rows regenerate the source-role offsets at the stated nested budget; entries are minima--maxima across seeds 0, 1 and 2, not confidence intervals. MAE and mean 90\% width are in $^{\circ}$C. CRPS uses the same seven-quantile normal-spacing 256-point approximation for every method. Each stratum contains one connected group; these counts do not estimate population coverage or establish a general method ranking.}
+\label{tab:source-budget}
+\resizebox{\ifdim\width>\textwidth\textwidth\else\width\fi}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+Method / paths & Covered & MAE & Width & CRPS256 \\
+\midrule
+\multicolumn{5}{l}{\textit{Switzerland / donor ridge; 18 target station-years}} \\
+Fixed D2 & 18/18 & 0.0569 & 0.7347 & 0.0483 \\
+Historical native20 & 18/18 & 0.0785 & 0.5623 & 0.0554 \\
+Updated nested20 & 18 of 18 & 0.0632--0.0666 & 0.5802--0.6716 & 0.0504--0.0509 \\
+Updated nested100 & 18 of 18 & 0.0642--0.0724 & 0.5677--0.5715 & 0.0490--0.0521 \\
+Updated nested500 & 18 of 18 & 0.0693--0.0730 & 0.5334--0.5533 & 0.0500--0.0516 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Bavaria / air ridge; 9 target station-years}} \\
+Fixed D2 & 9/9 & 0.2311 & 1.0531 & 0.1634 \\
+Historical native20 & 9/9 & 0.2435 & 0.7612 & 0.1530 \\
+Updated nested20 & 8--9 of 9 & 0.1914--0.2321 & 0.7357--0.8804 & 0.1281--0.1621 \\
+Updated nested100 & 8--9 of 9 & 0.1824--0.2129 & 0.7526--0.8547 & 0.1262--0.1467 \\
+Updated nested500 & 9 of 9 & 0.1915--0.2015 & 0.7607--0.8006 & 0.1287--0.1334 \\
+\addlinespace
+\bottomrule\end{tabular}}
+\end{table}

@@ -1,0 +1,12 @@
+\section{Nova Scotia verified workbooks and open-portal comparison}
+Four river locations were fixed from the provider’s historical workbook list before opening their temperature sequences. The workbooks are labelled verified, but their inspected headers do not identify per-hour temperature quality or estimated-value flags; one header states UTC--04:00 and the remaining headers do not establish a time basis. We count complete reported clock-label years, requiring 24 unique hourly labels with finite numeric cells per calendar day, without claiming these labels correspond to 24 independent physical hours or nonestimated values. The openly licensed portal was accessed only after the workbook completeness screen; it is another release of the same monitoring programme, not an independent sensor. Of 14 station-years with complete labels in both releases, 12 have every numeric value equal within the originally specified $10^{-6}$ $^{\circ}$C tolerance. These include at least four such years at 2 stations. Across 262,667 shared unique numeric labels, 12,810 differ at that tolerance; 1,086 exceed 0.5 $^{\circ}$C in a post-hoc diagnostic, with a maximum 4.493 $^{\circ}$C. These comparisons do not identify which version is correct, and clock-label matching does not resolve physical time. The original reference screen did not score a reconstruction method; a later, explicitly exploratory amendment is reported separately. The portal source is Government of Nova Scotia, dataset bkfi-mjgw, Open Government Licence -- Nova Scotia; legacy workbook reuse remains unresolved.
+\begin{table}[p]\centering\small
+\caption{Retrospective 2009--2017 reported-label completeness and release concordance. Equal means that every hourly numeric value in the common complete-label year matches to $10^{-6}$ $^{\circ}$C at the same reported clock label. Quality, estimated-value status, time basis and climate independence are not established.}\label{tab:nova-scotia-reference}
+\begin{tabular}{lrrrr}\toprule
+Station & Workbook & Portal & Both & Fully equal\\\midrule
+NS01DL0009 & 4 & 5 & 4 & 4\\
+NS01ED9111 & 2 & 2 & 1 & 1\\
+NS01EF0002 & 4 & 4 & 3 & 3\\
+NS01FB0001 & 6 & 6 & 6 & 4\\
+\bottomrule\end{tabular}
+\end{table}

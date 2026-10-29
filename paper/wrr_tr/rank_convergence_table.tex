@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering\small
+\caption{Numerical convergence of the three fixed-marginal joint-rank constructions on the difficult forward controlled gaps. Annual quantiles, bounds and evaluation years are fixed. The range is across three random seeds; it is not a confidence interval.}
+\label{tab:rank-convergence}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+Method & Construction & Draws & Coverage (\%) & Width ($^{\circ}$C/dec) & Interval score \\
+\midrule
+D2 & independent & 256 & 88.3 [88.0, 88.5] & 0.450 [0.449, 0.451] & 0.855 [0.849, 0.860] \\
+D2 & independent & 1024 & 89.2 [89.0, 89.4] & 0.457 [0.457, 0.458] & 0.845 [0.842, 0.847] \\
+D2 & independent & 4096 & 89.2 [89.1, 89.2] & 0.459 [0.459, 0.459] & 0.842 [0.839, 0.844] \\
+D2 & residual blocks & 256 & 89.2 [88.6, 89.6] & 0.451 [0.450, 0.451] & 0.840 [0.828, 0.851] \\
+D2 & residual blocks & 1024 & 89.8 [89.7, 89.9] & 0.456 [0.456, 0.456] & 0.828 [0.825, 0.830] \\
+D2 & residual blocks & 4096 & 89.7 [89.6, 89.9] & 0.457 [0.457, 0.458] & 0.825 [0.825, 0.826] \\
+D2 & shared parameters & 256 & 88.4 [88.3, 88.6] & 0.444 [0.444, 0.445] & 0.855 [0.845, 0.863] \\
+D2 & shared parameters & 1024 & 88.7 [88.3, 88.9] & 0.450 [0.449, 0.451] & 0.840 [0.835, 0.846] \\
+D2 & shared parameters & 4096 & 88.7 [88.5, 88.9] & 0.452 [0.451, 0.452] & 0.835 [0.834, 0.835] \\
+Classical & independent & 256 & 86.3 [86.0, 86.7] & 0.384 [0.383, 0.384] & 0.856 [0.849, 0.866] \\
+Classical & independent & 1024 & 87.5 [87.2, 87.6] & 0.390 [0.390, 0.390] & 0.853 [0.852, 0.853] \\
+Classical & independent & 4096 & 87.6 [87.5, 87.6] & 0.391 [0.391, 0.391] & 0.851 [0.851, 0.852] \\
+Classical & residual blocks & 256 & 86.9 [86.5, 87.1] & 0.384 [0.383, 0.385] & 0.840 [0.837, 0.845] \\
+Classical & residual blocks & 1024 & 87.6 [87.4, 87.9] & 0.389 [0.389, 0.390] & 0.837 [0.835, 0.839] \\
+Classical & residual blocks & 4096 & 88.0 [87.8, 88.2] & 0.390 [0.390, 0.391] & 0.837 [0.836, 0.839] \\
+Classical & shared parameters & 256 & 86.3 [85.9, 86.5] & 0.380 [0.380, 0.381] & 0.867 [0.864, 0.868] \\
+Classical & shared parameters & 1024 & 87.3 [87.0, 87.5] & 0.385 [0.385, 0.385] & 0.856 [0.854, 0.859] \\
+Classical & shared parameters & 4096 & 87.5 [87.4, 87.6] & 0.386 [0.386, 0.386] & 0.854 [0.852, 0.856] \\
+\bottomrule
+\end{tabular}}
+\end{table}

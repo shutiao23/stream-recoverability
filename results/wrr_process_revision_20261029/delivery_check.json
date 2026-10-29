@@ -1,0 +1,163 @@
+{
+  "status": "passed",
+  "archive": "dist/wrr_review_response_candidate.zip",
+  "environment": {
+    "python": "3.11.7",
+    "implementation": "CPython",
+    "platform": "Linux",
+    "machine": "x86_64",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.1.4",
+      "pyarrow": "14.0.2",
+      "scipy": "1.11.4",
+      "matplotlib": "3.9.2",
+      "scikit-learn": "1.2.2",
+      "torch": "2.13.0+cpu"
+    },
+    "python_environment": "Current interpreter and installed libraries; no dependency installation or clean-environment portability test.",
+    "subprocess_overrides": {
+      "PYTHONPATH": "src",
+      "TR_CONFIG": "configs/wrr_target_recovery_20261022.json",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "scope": "Current candidate/workspace byte identity, ZIP safety and CRC, current observation arithmetic/rule replay, exact saved-input trajectory replay, manuscript transcription and isolated article/SI compilation.",
+  "not_tested": [
+    "Full original raw-data reconstruction",
+    "Daily-model or D2 retraining",
+    "Source-role recalibration at larger trajectory budgets",
+    "Strict independent external confirmation",
+    "Clean-environment dependency installation",
+    "Public data-rights clearance or permanent archival deposit"
+  ],
+  "archive_sha256": "9e1add49088736b54d1cc6a48aa661769bc4cae4176c99293d61b248ba5f82ce",
+  "archive_integrity_and_workspace_match": {
+    "crc": "passed",
+    "safe_paths": "passed",
+    "members": 2941,
+    "files": 2941,
+    "workspace_byte_comparisons": 2939,
+    "workspace_bytes_compared": 227832656,
+    "skipped_generated_or_validation_members": [
+      "REVIEW_PACKAGE_README.txt",
+      "dependency_inventory.json"
+    ],
+    "exclusions": "Only root package README/dependency inventory and validation.json/delivery_check.json basenames are excluded. Repository README.md files are compared."
+  },
+  "isolated": {
+    "transcription_and_compile": {
+      "transcription": {
+        "bc_masks": [
+          288,
+          84,
+          372
+        ],
+        "truckee_cases": 72,
+        "reservoir_cases": 306,
+        "usgs_complete_years": 8,
+        "usgs_four_year_stations": 0,
+        "paired_forward_archives": 736,
+        "paired_forward_years": 3328,
+        "seed_change_max_pp": 0.8152173913043459,
+        "overlap_exact_half": 47,
+        "abstract_words": 239
+      },
+      "compile": {
+        "review_completion_article.tex": {
+          "pages_text_characters": 106792
+        },
+        "review_completion_supporting.tex": {
+          "pages_text_characters": 219047
+        }
+      }
+    },
+    "csv_exact_comparisons": [
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_nested_cases.csv",
+        "rows": 243,
+        "columns": 23,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_case_deltas.csv",
+        "rows": 162,
+        "columns": 29,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_stratum_tails.csv",
+        "rows": 12,
+        "columns": 18,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_seed_ranges.csv",
+        "rows": 4,
+        "columns": 32,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_stratum_scores.csv",
+        "rows": 18,
+        "columns": 12,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_overall_scores.csv",
+        "rows": 9,
+        "columns": 10,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_group_scope.csv",
+        "rows": 2,
+        "columns": 8,
+        "comparison": "Exact values, dtypes, column order and row order"
+      },
+      {
+        "file": "results/wrr_process_revision_20261029/trajectory_revision_frozen_manifest.csv",
+        "rows": 27,
+        "columns": 16,
+        "comparison": "Exact values, dtypes, column order and row order"
+      }
+    ],
+    "current_observation_replay": {
+      "open_observed": {
+        "included_stations": 95,
+        "original_stations": 96,
+        "witness_station_years": 35,
+        "rule_decisions_checked": 210
+      },
+      "usgs_observed": {
+        "snapshot_files_verified": 18,
+        "station_count": 10,
+        "complete_reference_station_years": 8,
+        "witness_station_years": 9
+      }
+    },
+    "historical_provenance_authenticated": false,
+    "h30_sample_rows_exact": 81,
+    "h30_draws_per_row": 500,
+    "frozen_inputs_unchanged": 27,
+    "source_calibration": {
+      "source_role_offsets_reestimated": false,
+      "source_role_calibration_sensitivity_executed": false,
+      "target_subset_even_odd_calibration_executed": false,
+      "trajectory_count_convergence_established": false,
+      "fine_method_ranking_robustness_established": false
+    },
+    "trajectory_command": "PYTHONPATH=src python scripts/962_process_trajectory_budget.py",
+    "daily_models_refit": false,
+    "source_role_calibration_executed": false,
+    "compile_order": "Transcription and both PDFs checked on the exact extracted package before trajectory regeneration.",
+    "logs": [
+      "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/transcription_compile.log",
+      "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/observation_replay.log",
+      "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/trajectory_replay.log"
+    ]
+  }
+}

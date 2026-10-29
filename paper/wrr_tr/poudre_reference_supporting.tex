@@ -1,0 +1,28 @@
+\section{Poudre Water Quality Network reference qualification}
+A metadata-only screen selected four locations whose source periods span at least four UTC years in 2020--2024. The selected sites share one watershed; older USGS station metadata from the same river had already been encountered, and exact prior-network connections remain unresolved. Before opening temperatures, we fixed a criterion of 96 unique quarter-hour UTC observations per day, finite post-processing values in degrees Celsius and author PASS status. The author metadata describes the unit as degrees C, while the source file uses C; that notation mapping was recorded after inspecting unit labels and before calculating completeness. None of the 20 site-years qualifies; each lacks at least 28 distinct quarter-hour timestamps even before the value and quality filters. Thus no recovery model was scored. Source files contain other sites and parameters that were not qualified here. The authors note that technician calibration records were not collected for 2019--2021; PASS flags do not prove error-free sensors or independent climates. Source: Struthers et al. (2026), DOI 10.4211/hs.521e317e189e498581d0aaa08c3f32bc, CC BY 4.0.
+\begin{table}[p]\centering\scriptsize
+\caption{Author PASS, finite-value and 96-quarter-hour qualification for the four metadata-selected Poudre sites. Missing timestamps are counted independently of quality flags; incomplete days can also contain nonfinite or non-PASS records. These are four sites within one watershed.}\label{tab:poudre-reference}
+\begin{tabular}{lrrrrrr}\toprule
+Site & Year & Calendar days & Complete days & Missing timestamps & Nonfinite & Not PASS\\\midrule
+archery & 2020 & 366 & 290 & 28 & 4441 & 3200\\
+archery & 2021 & 365 & 205 & 11291 & 2835 & 2135\\
+archery & 2022 & 365 & 168 & 13603 & 2289 & 24\\
+archery & 2023 & 365 & 168 & 12080 & 1381 & 1053\\
+archery & 2024 & 366 & 207 & 11428 & 830 & 920\\
+cottonwood & 2020 & 366 & 11 & 4497 & 11666 & 10601\\
+cottonwood & 2021 & 365 & 0 & 35040 & 0 & 0\\
+cottonwood & 2022 & 365 & 183 & 15902 & 282 & 22\\
+cottonwood & 2023 & 365 & 195 & 11139 & 481 & 466\\
+cottonwood & 2024 & 366 & 216 & 11424 & 344 & 438\\
+riverbend & 2020 & 366 & 178 & 28 & 8852 & 7992\\
+riverbend & 2021 & 365 & 227 & 11283 & 1469 & 1111\\
+riverbend & 2022 & 365 & 190 & 13604 & 1335 & 1174\\
+riverbend & 2023 & 365 & 188 & 11996 & 1193 & 1230\\
+riverbend & 2024 & 366 & 210 & 11433 & 148 & 236\\
+salyer & 2020 & 366 & 129 & 28 & 9622 & 8005\\
+salyer & 2021 & 365 & 218 & 11273 & 1507 & 1144\\
+salyer & 2022 & 365 & 88 & 20270 & 4531 & 804\\
+salyer & 2023 & 365 & 200 & 11138 & 1496 & 1529\\
+salyer & 2024 & 366 & 217 & 11346 & 719 & 770\\
+\bottomrule\end{tabular}
+\end{table}

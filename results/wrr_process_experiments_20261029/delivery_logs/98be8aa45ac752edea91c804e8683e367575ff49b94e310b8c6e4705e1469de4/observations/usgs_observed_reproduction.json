@@ -1,0 +1,18 @@
+{
+  "scope": "offline replay of additional USGS observation-only evidence from saved API payloads and included local code; independent arithmetic audit of reference years and reported witness windows",
+  "limitations": "Not an independent implementation of the original quality-based window selection; not sensor accuracy, continuous 24-hour sampling, reconstruction accuracy, climate transfer, or an end-to-end reproduction of the whole paper.",
+  "status": "passed",
+  "snapshot_files_verified": 18,
+  "station_count": 10,
+  "complete_reference_station_years": 8,
+  "witness_station_years": 9,
+  "tables_reproduced": [
+    "raw_reference_summary.csv",
+    "robust_record_witnesses.csv",
+    "qualification.csv",
+    "all_approved_window_bounds.csv"
+  ],
+  "requests_http_disabled_for_analysis": true,
+  "selection_replayed_with_original_implementation": true,
+  "independent_arithmetic_audit_passed": true
+}

@@ -1,0 +1,106 @@
+{
+  "status": "passed_code_regression_with_explicit_historical_replay_limits",
+  "review_test": {
+    "passed": 319,
+    "failed": 0,
+    "skipped": 0,
+    "pytest_commands": 35,
+    "includes_current_observation_integrity_tests": true
+  },
+  "review_test_log": "results/wrr_process_revision_20261029/review_test.log",
+  "third_party_warnings": 14,
+  "scope": "Finite verification-code fixes only. No existing scored model or prediction changed; legacy metadata without recorded hashes is retained and rejected, not retrofitted.",
+  "fixes": [
+    {
+      "area": "USGS partial history",
+      "basis": "Frozen plan, scoring plan, qualifier-aware protocol and strict preparer require observed endpoints, >=75% coverage and gaps <=45 days. Fixed boolean precedence; 450 saved decisions and both 49-assignment histories unchanged.",
+      "evidence": "partial_history_predicate_audit.json"
+    },
+    {
+      "area": "Source group-maximum bridge dependency",
+      "basis": "Previously only checked file existence. Fixed numeric dependency audit pins and checkers require exact SHA256. Recomputed 24 source cells; effect table and 11 protected scored files remain byte-identical.",
+      "evidence": "bridge_repair_hash_fix_verification.json"
+    },
+    {
+      "area": "Candidate baseline, annual/archive bridge, public snapshot integrity",
+      "basis": "Check real content SHA256 and reject absent pins. Future generators emit hashes at generation/audit time. No legacy receipts/manifests were supplied new hashes."
+    },
+    {
+      "area": "Test fixtures",
+      "basis": "Fixed inverted availability predicate, undefined sha helper and two purported input changes that compared identical empty dictionaries. New fixtures contain actual fixed content digests and assert changed/missing hashes are rejected."
+    },
+    {
+      "area": "CAMELSH calendar envelope",
+      "basis": "Corrected parenthesized partial-year arithmetic. Replayed saved metadata in temporary directories: all 533 original-screen rows and all 147 current-screen rows and statuses identical; 12/0 candidates unchanged.",
+      "evidence": "camelsh_date_arithmetic_audit.json"
+    }
+  ],
+  "modified_scripts": [
+    "scripts/575_export_private_annual_predictions.py",
+    "scripts/652_verify_usgs_observed_reproduction.py",
+    "scripts/653_prepare_open_observed_snapshot.py",
+    "scripts/654_verify_open_observed_snapshot.py",
+    "scripts/658_open_source_archive_sensitivity.py",
+    "scripts/699_stress_source_baseline_audit.py",
+    "scripts/721_groupmax_annual_audit.py",
+    "scripts/728_isolated_groupmax_check.py",
+    "scripts/729_bridge_repair_dependency.py",
+    "scripts/730_annual_bridge_dependency.py",
+    "scripts/731_open_archive_bridge_dependency.py",
+    "scripts/732_annual_bridge_dependency_summary.py",
+    "scripts/787_camelsh_metadata_screen.py",
+    "scripts/871_usgs_partial_daily_feasibility.py"
+  ],
+  "modified_tests": [
+    "tests/test_usgs_partial_daily_feasibility.py",
+    "tests/test_isolated_groupmax_review.py",
+    "tests/test_groupmax_annual_calibration.py",
+    "tests/test_stress_source_common_cohort.py",
+    "tests/test_open_source_archive_summary.py",
+    "tests/test_strict_region_holdout.py",
+    "tests/test_annual_bridge_dependencies.py",
+    "tests/test_open_source_archive_sensitivity.py",
+    "tests/test_open_observed_snapshot.py",
+    "tests/test_usgs_observed_snapshot.py"
+  ],
+  "historical_unpinned_metadata_paths_preserved": [
+    "results/wrr_review_response_20261027/audit/annual_bridge_repair_dependency.json",
+    "results/wrr_review_response_20261027/audit/annual_bridge_dependency/seed_*.json",
+    "results/wrr_review_response_20261027/open_source_sensitivity/archive_bridge_repair_dependency.json",
+    "results/wrr_review_response_20261027/open_observed_record_snapshot/manifest.json",
+    "results/wrr_review_response_20261027/audit/usgs_observed_snapshot_manifest.json",
+    "private/wrr_open_source_sensitivity_20261026/whole_archive/*/*/replicate_*/*/open_source_receipt.json"
+  ],
+  "historical_unpinned_candidate_baseline_receipts": {
+    "full_archive_receipts": 3320,
+    "lacking_required_content_hashes": 3320,
+    "699_audit_subset": 205
+  },
+  "historical_unpinned_public_snapshot_files": {
+    "main_open_station_subset": 9,
+    "additional_usgs": 18
+  },
+  "default_legacy_verifier_rejections": [
+    {
+      "verifier": "575_export_private_annual_predictions.py",
+      "legacy_inputs_rejected": true,
+      "reason": "Required annual bridge repair is missing or changed for seed 0: /mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_review_completion_20261024/repairs/leave_one_year_out/seed_00.parquet"
+    },
+    {
+      "verifier": "658_open_source_archive_sensitivity.py",
+      "legacy_inputs_rejected": true,
+      "reason": "Required archive bridge repair is missing or changed: results/wrr_review_response_20261027/open_source_sensitivity/plan.json"
+    },
+    {
+      "verifier": "654_verify_open_observed_snapshot.py",
+      "legacy_inputs_rejected": true,
+      "reason": "Snapshot input missing or changed: ATTRIBUTION.txt"
+    },
+    {
+      "verifier": "652_verify_usgs_observed_reproduction.py",
+      "legacy_inputs_rejected": true,
+      "reason": "Missing, unsafe or changed USGS snapshot input: results/additional_usgs_observed/cohort_metadata.csv"
+    }
+  ],
+  "current_observation_replay": "652/654 support --manifest for explicitly new current-content manifests, retaining original relative data bases and unchanged historical defaults. Current replays are recorded separately by 967."
+}

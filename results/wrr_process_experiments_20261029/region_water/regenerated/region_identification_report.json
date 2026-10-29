@@ -1,0 +1,23 @@
+{
+  "scope": "Saved crossed forward annual cases; common support and common-weight standardization are descriptive and do not identify causal region, reconstructor or river-process effects.",
+  "denominator": {
+    "input_rows": 3683,
+    "selected_crossed_forward_rows": 3102,
+    "unit": "station-year-replicate; repeated masks are retained, not unique annual observations",
+    "duplicate_or_nonfinite_outcomes": "fail closed; missing intervals are not counted as failed coverage"
+  },
+  "primary_target": "Common-cell weights proportional to min(n_FOEN, n_Bavaria); individual case weights target_cell / n_region_cell.",
+  "sensitivity_target": "Equal weights across common cells.",
+  "balance": "Discrete total variation; continuous weighted means, SMD with fixed original-region pooled SD, and weighted KS. Training complete years count training years, not all observed unique complete years.",
+  "inference": "Standardized estimates are descriptive point summaries. Original common-support and stratum summaries retain the original group bootstrap; standardization is not an equivalence or causal test.",
+  "input_sha256": "445a7b556027e125cc0a929125e5c0047d3c60cf994444a30db9cf5715fe34d5",
+  "interpretation": "A regional coverage gap remains under common geometry weights. Policy common support discards most Bavaria cases and excludes its air-ridge stratum; gap attenuation cannot quantify a reconstructor explanation.",
+  "n_bavaria": 1983,
+  "n_foen": 1119,
+  "excluded": [
+    "unmatched_gages is not an unregulated label",
+    "peak_hidden uses withheld complete-year truth",
+    "region and provider are confounded",
+    "no credible flow or regulation subset is used"
+  ]
+}

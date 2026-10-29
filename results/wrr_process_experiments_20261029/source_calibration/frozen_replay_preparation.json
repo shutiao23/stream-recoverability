@@ -1,0 +1,146 @@
+{
+  "scope": "Current-content materialization for a closed frozen-input replay; these source locations are not default replay dependencies.",
+  "materialization_only_inputs": {
+    "results/wrr_process_experiments_20261029/source_calibration/source_union_cases.parquet": "686c030f937d5fadcf5ece042250f735a64fa8e62ece45c5a0a7f760ba9e5b46",
+    "results/wrr_process_experiments_20261029/source_calibration/fixed_target_cases.csv": "0f4b31ea4eb762efa5cce1c544425ec4bd2e26d97b89b9fb9cfc74bdc508f940",
+    "results/wrr_review_response_20261027/whole_archive/classical_calibration.json": "af55b56f0c3a9c81d33c325f50dce37c76d09c87d61f367841a6a7b5342ef76e",
+    "results/wrr_process_experiments_20261029/source_calibration/plan.json": "c89d57ee3a7823d06e445eccbd8ed78c5422b622eb15e830208b560e0171c6c4"
+  },
+  "target_copies": [
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2010.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2010.npz",
+      "sha256": "11fe213b62b99be869d78e0cf9597699b10c456a7aa3cd8431a8129c32469287"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2011.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2011.npz",
+      "sha256": "70e15223672bea59ce03a5dd3f827b4eca68ed06056f99639cf77b11ac678a39"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2014.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2014.npz",
+      "sha256": "4c4157eb1eef1f897d2ca8886c848c9aeda36d4fe16d61b63ce7761d75bc350a"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2015.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2015.npz",
+      "sha256": "e632f6b655d88b344ff1b79096180eaa7003a5dbc4407e7208080d68af686e93"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2016.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2016.npz",
+      "sha256": "99b125a1a7bf762c9649ad93b441758971948c12e7cb0d479a1f94e1821ed218"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2020.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2020.npz",
+      "sha256": "04c4f601cc7b589b0e1a7fce967628d324117713e9cbf6c370ddc8f5b5965510"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2022.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2022.npz",
+      "sha256": "18534cc846a3ed8227edcea3eccfaac2f10dad97828f75cd69a8ed6100f247f3"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2023.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2023.npz",
+      "sha256": "8d72f6b3d9979479361b0f6ea2cd11164d87625ec273f8ee19daeb52ff86dfd8"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2016_2024.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2016_2024.npz",
+      "sha256": "8a3ebfe5a04ee64b7e9194dbbf37b6923761cdc3637ed42ae0a8dab14d43bad8"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2010.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2010.npz",
+      "sha256": "9adc4b40969a1db5f94e08132981a07a25fa08e7c4b1dab27bfa656ffbb7f59c"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2011.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2011.npz",
+      "sha256": "1accf6083e0855d0f50ae350bf65c99f423a79b5b4406dfa486c679cc2fc9a15"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2014.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2014.npz",
+      "sha256": "25e593952a3a6e32370cfbca046f34915147eb07a1c509b78a2bea379cc610c1"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2018.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2018.npz",
+      "sha256": "06b413073ab192b2412b4ef8cf8659340510f6be4424e58863d4dc4bce34144e"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2020.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2020.npz",
+      "sha256": "0018f1d05c09c06995e72e0c1dd21ed6e0e3843d62acdf0a985b2ca2e0274bd3"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2019_2024.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2019_2024.npz",
+      "sha256": "d1ce41d1237a40fd897a5244a8a8d97dd795dcba1d6afe1d4044e4efedd98221"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2029_2010.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2029_2010.npz",
+      "sha256": "9c8c549e81235b6f062eccb0c205473f2155baabc4d32cc74c57aeae90b6c2b3"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2029_2017.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2029_2017.npz",
+      "sha256": "582f431b54b116a5ff3fb2abd7885e40dbe7b4fa93a8a44d3a02f2b7864af00f"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/foen_2029_2024.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/foen_2029_2024.npz",
+      "sha256": "dc7bab402fbb16ffaff0bb96b054d34aed77dced728034dc1dad55f4ea6af9d6"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10026293_2024.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10026293_2024.npz",
+      "sha256": "04f66fb0ad05c4726917907084b92598bade296facb271737188511d39e10c6d"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10039802_2015.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10039802_2015.npz",
+      "sha256": "105213bb1d9654e4675bb2a97def7afd36b8f01f03d428e5ff68c4c01d34331d"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10039802_2024.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10039802_2024.npz",
+      "sha256": "79d2b877dc2f65af8ff2764c1d336dbf15533ad5ac8cf2cde5965dfb21b2ceaf"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2011.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2011.npz",
+      "sha256": "f3acd84b2a552a9739e43c49e1d6e005bbcd042a945e3823099e3a37c68a510b"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2012.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2012.npz",
+      "sha256": "4442406ef83bd58a218519dd25fea2dabc104a81098397fb8703c03cd07ba6ec"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2013.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2013.npz",
+      "sha256": "621f86c08705ae5cc34aa5d2d5fd97e8d7f6e73b7a22070f8648580edf34e74a"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2014.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2014.npz",
+      "sha256": "7a0c66d5d9734e82dc8ac22b71cf839342f9cd5e4976a58c13db5a3d6248fd1c"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2017.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2017.npz",
+      "sha256": "470bdd099a3ed96205c6ca88e0726848478c724bd9176e4fb06fcdd0f6a6389a"
+    },
+    {
+      "copied_from": "results/wrr_process_revision_20261029/trajectory_frozen_inputs/gkd_bayern_10046105_2025.npz",
+      "frozen_copy": "results/wrr_process_experiments_20261029/source_calibration/frozen_target_inputs/gkd_bayern_10046105_2025.npz",
+      "sha256": "fcfe6b07fdb85ab5bc97522dd9716fe2ac9d29d0bb0ced841069115486aa6c14"
+    }
+  ]
+}

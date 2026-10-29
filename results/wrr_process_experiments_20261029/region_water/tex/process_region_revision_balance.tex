@@ -1,0 +1,18 @@
+\begin{table}[t]\centering\small
+\caption{Remaining balance after regional standardization. TV denotes total variation of discrete distributions. History denotes training complete-year count. SMD denotes the FOEN-minus-Bavaria mean difference divided by the pooled population standard deviation in the original two regions, kept fixed across weighting schemes. Full continuous means, missing-weight fractions and weighted Kolmogorov distances are saved with the analysis. Zero joint-cell TV does not ensure balance within bins.}
+\label{tab:region-balance}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrr}
+\toprule
+Cells & Weights & Joint TV & Policy TV & History-bin TV & History SMD \\
+\midrule
+Geometry & Full & 0.232 & 0.854 & 0.948 & -3.006 \\
+Geometry & Common raw & 0.228 & 0.853 & 0.948 & -3.000 \\
+Geometry & Min-count & 0.000 & 0.919 & 0.979 & -3.052 \\
+Geometry & Equal-cell & 0.000 & 0.780 & 0.916 & -3.176 \\
++ reconstructor & Full & 0.884 & 0.854 & 0.948 & -3.006 \\
++ reconstructor & Common raw & 0.614 & 0.000 & 0.696 & -2.292 \\
++ reconstructor & Min-count & 0.000 & 0.000 & 0.722 & -2.707 \\
++ reconstructor & Equal-cell & 0.000 & 0.000 & 0.760 & -2.891 \\
+\bottomrule\end{tabular}}
+\end{table}

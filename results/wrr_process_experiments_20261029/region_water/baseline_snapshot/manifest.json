@@ -1,0 +1,92 @@
+[
+  {
+    "source": "results/wrr_process_revision_20261029/region_protocol.csv",
+    "snapshot": "region_protocol.csv",
+    "sha256": "a6bf8b1bc504d8db434a66b84a529390399a450cecf645db26652aa4fcb0b62c"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_composition.csv",
+    "snapshot": "region_composition.csv",
+    "sha256": "a28efc5467bce9c7958ba5319d0b07e3c1f6df26aa00c592f1df0770dda2952c"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_policy_hidden.csv",
+    "snapshot": "region_policy_hidden.csv",
+    "sha256": "93317ee0bb19187296a29b6cd359bed5c25c3e332ccf2805e36630d59a17f667"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_training_support.csv",
+    "snapshot": "region_training_support.csv",
+    "sha256": "8c749f5e87b8b640fa7792df12028f518ce9b58698748085bc76c727d5727124"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_matched.csv",
+    "snapshot": "region_matched.csv",
+    "sha256": "9d11a62bb20fea28a4eafe0b5eff133e7557b85b2d1f08449302c4ed984c87d0"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_hidden_matched.csv",
+    "snapshot": "region_hidden_matched.csv",
+    "sha256": "4347b4e3271a5fea7ad7aecfd9ec36fad735d035a96eb468b613c0fdd5c3b2ce"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_standardized.csv",
+    "snapshot": "region_standardized.csv",
+    "sha256": "ffabbabe699601bb61c0c0e951ef9c66b7069c37669299b5fae9bd3a97681146"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_support_loss.csv",
+    "snapshot": "region_support_loss.csv",
+    "sha256": "c0ae023bb6c3e18b76f6dc81a90628de891ec0a94e2c6af57423e5cfc50f3516"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_common_cells.csv",
+    "snapshot": "region_common_cells.csv",
+    "sha256": "969a193a5ed4f6efc81a963b4db6768833b163dfc617ec777282b8f19d4b1e6e"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_balance_categorical.csv",
+    "snapshot": "region_balance_categorical.csv",
+    "sha256": "b1d5a5476cda94d7f3b18fc5f697a9fa5538631b2535072c346b4496a7a2b313"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_balance_continuous.csv",
+    "snapshot": "region_balance_continuous.csv",
+    "sha256": "50453f18b9d3c08d2e384be37758edc20776d4aa5abf696df965e18539eda5e6"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_complete_years.csv",
+    "snapshot": "water_air_complete_years.csv",
+    "sha256": "eb00fcf2fbf21e6e9b2c1a9334006497087e72a8464a2f51907065af02258d2f"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_summary.csv",
+    "snapshot": "water_air_summary.csv",
+    "sha256": "7fefe6ee7c800bbf50820e575ba944af10f2877f7db673cbc5dbda11066aad9f"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_paired_changes.csv",
+    "snapshot": "water_air_paired_changes.csv",
+    "sha256": "8474a8a0965bcfd231941b948cadc1a5490e7f614acd27bfc4de7b143dbc39cf"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_station_period_moments.csv",
+    "snapshot": "water_air_station_period_moments.csv",
+    "sha256": "cd9e1c150d9511097ee554386f27183c22b9bbaac158470afa0cd719824fa0f7"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_support.csv",
+    "snapshot": "water_air_support.csv",
+    "sha256": "bf65bac67e14c0331bb0b09772532a81fcc69e9ccd0be65cc7805e70a3be0102"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/region_identification_report.json",
+    "snapshot": "region_identification_report.json",
+    "sha256": "e66388242fd9eb92364a086d3cb05ec56594061b7b0bdde5db759f79cb492d39"
+  },
+  {
+    "source": "results/wrr_process_revision_20261029/water_air_revision_report.json",
+    "snapshot": "water_air_revision_report.json",
+    "sha256": "8e97be0f60d1af9f41941a8b96557eedcae219c6a8b8dcff51cb77bed9ca6b01"
+  }
+]

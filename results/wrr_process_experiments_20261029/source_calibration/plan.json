@@ -1,0 +1,223 @@
+{
+  "status": "planned_and_historical_calibration_reproduced",
+  "exploratory": true,
+  "hash_scope": "Hashes collected for this new experiment; no earlier receipt or provenance timestamp is rewritten.",
+  "input_sha256": {
+    "results/wrr_review_completion_20261024/cases/before_2010/seed_00.parquet": "b0fdb38c79080b4fce194874c6bcf03bd0663a35077e40e4065b7ce91ea0f78e",
+    "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf",
+    "results/wrr_review_response_20261027/whole_archive/classical_calibration.json": "af55b56f0c3a9c81d33c325f50dce37c76d09c87d61f367841a6a7b5342ef76e",
+    "results/wrr_process_revision_20261029/trajectory_revision_frozen_manifest.csv": "25e63571440f39319ff8e1153d2aae23c3c0c96f035c3e06ca250993e6098d5d",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.json": "5c16f1aa75b040d661ba5032c531a76f423991f0630eea481c29f26bec2e800e",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/foen.joblib": "fa1217eed2f4501266e74deb8d598a899e4a74aef20553d30986b657d9364860",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.json": "a4fd6f5c256bd6648a0a4fde0646958878dd01e9592bda1a43814399f5f4b838",
+    "results/wrr_review_completion_20261024/refits/before_2010/seed_00/gkd_bayern.joblib": "8e3ce77fcf0cb100c408aa3d9423aa1494ee16171acb6f9fd7c68f1ad3933c1c"
+  },
+  "source_roles": {
+    "foen": {
+      "role_seed": 3498274817,
+      "assigned_role_groups": {
+        "estimator": [
+          "g0174",
+          "g0059",
+          "g0033",
+          "g0141",
+          "g0177",
+          "g0065",
+          "g0076",
+          "g0176",
+          "g0083",
+          "g0032",
+          "g0054",
+          "g0124",
+          "g0039",
+          "g0046",
+          "g0045",
+          "g0044",
+          "g0094",
+          "g0128",
+          "g0056",
+          "g0070",
+          "g0087",
+          "g0115",
+          "g0163",
+          "g0064",
+          "g0143",
+          "g0031",
+          "g0155",
+          "g0075",
+          "g0147",
+          "g0160",
+          "g0179",
+          "g0063"
+        ],
+        "interval_calibration": [
+          "g0150",
+          "g0181",
+          "g0153",
+          "g0166",
+          "g0072",
+          "g0057",
+          "g0051",
+          "g0037",
+          "g0165"
+        ],
+        "risk_learning": [
+          "g0049",
+          "g0036",
+          "g0148",
+          "g0055",
+          "g0162",
+          "g0074",
+          "g0132",
+          "g0035"
+        ],
+        "rule_calibration": [
+          "g0062",
+          "g0086",
+          "g0034",
+          "g0183",
+          "g0180",
+          "g0048",
+          "g0058",
+          "g0053",
+          "g0149"
+        ]
+      },
+      "calibration_group_multiplicities": {
+        "g0051": 2,
+        "g0057": 1,
+        "g0072": 4,
+        "g0150": 2
+      },
+      "positive_cases": 1142,
+      "effective_weight": 2899,
+      "stations": 11,
+      "groups": 4,
+      "first_year": 2000,
+      "last_year": 2009,
+      "target_groups": [
+        "g0029"
+      ],
+      "source_target_groups_disjoint": true,
+      "historical_offset_max_abs_error": 0.0,
+      "historical_target_calibrated_max_abs_error": 0.0
+    },
+    "gkd_bayern": {
+      "role_seed": 3498274818,
+      "assigned_role_groups": {
+        "estimator": [
+          "g0051",
+          "g0148",
+          "g0183",
+          "g0053",
+          "g0180",
+          "g0153",
+          "g0049",
+          "g0177",
+          "g0059",
+          "g0155",
+          "g0054",
+          "g0057",
+          "g0149",
+          "g0044",
+          "g0058",
+          "g0045",
+          "g0124",
+          "g0179",
+          "g0063",
+          "g0065",
+          "g0115",
+          "g0056",
+          "g0162",
+          "g0163",
+          "g0176",
+          "g0174",
+          "g0029",
+          "g0070",
+          "g0074"
+        ],
+        "interval_calibration": [
+          "g0048",
+          "g0143",
+          "g0141",
+          "g0160",
+          "g0166",
+          "g0076",
+          "g0165"
+        ],
+        "risk_learning": [
+          "g0181",
+          "g0087",
+          "g0030",
+          "g0150",
+          "g0055",
+          "g0128",
+          "g0132",
+          "g0064"
+        ],
+        "rule_calibration": [
+          "g0083",
+          "g0046",
+          "g0094",
+          "g0075",
+          "g0062",
+          "g0072",
+          "g0147",
+          "g0086"
+        ]
+      },
+      "calibration_group_multiplicities": {
+        "g0048": 2,
+        "g0141": 1,
+        "g0143": 2,
+        "g0165": 2
+      },
+      "positive_cases": 1228,
+      "effective_weight": 2242,
+      "stations": 8,
+      "groups": 4,
+      "first_year": 1997,
+      "last_year": 2009,
+      "target_groups": [
+        "g0032"
+      ],
+      "source_target_groups_disjoint": true,
+      "historical_offset_max_abs_error": 0.0,
+      "historical_target_calibrated_max_abs_error": 0.0
+    }
+  },
+  "union_source_cases": 2370,
+  "union_source_stations": 19,
+  "union_source_station_years": 102,
+  "targets": 27,
+  "target_stations": 6,
+  "target_groups": 2,
+  "nested_seeds": [
+    0,
+    1,
+    2
+  ],
+  "nested_counts": [
+    20,
+    100,
+    500
+  ],
+  "native_vs_nested": "Native20 is regenerated with draws=20 to reproduce historical repaired source draws. Nested20 is a prefix of a draws=500 call and need not match native20 because random arrays are generated per day.",
+  "three_layers": [
+    "uncalibrated",
+    "fixed_old_offset",
+    "reestimated_source_offset"
+  ],
+  "calibration_order": "source seven raw quantiles -> observed-bound projection -> weighted source-role residual quantiles -> add offsets to projected target quantiles -> sort -> observed-bound projection -> common normal-spacing 256 annual samples with bound projection",
+  "fallback": "Per cell use >=50 finite positive-weight source cases, counted before multiplicity; otherwise all finite positive-weight source cases. Group bootstrap multiplicities unchanged.",
+  "native_checks_required": "Native20 source draws and quantiles must reproduce repaired historical values before nested sensitivity is accepted. Original calibration offsets and original target calibrated quantities are already checked.",
+  "source_daily_inputs": "Reconstitute once from the original pre-2010 held-year daily split and saved original source masks; native20 reproduction audits the daily means/residual histories, then freeze arrays across all budgets/seeds.",
+  "d2": "Original 27 target D2 quantiles remain fixed; no D2 weights, features or offsets are refit.",
+  "limits": [
+    "Only the original six stations / two connected target groups",
+    "500 paths do not prove infinite-draw convergence",
+    "No target residual or target truth determines a calibration offset",
+    "Named regions, daily reconstructor and target group remain confounded",
+    "Full-archive trend ranking is outside this same-target annual diagnostic"
+  ]
+}

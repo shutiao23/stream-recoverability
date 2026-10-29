@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "scope": "Metadata only; same saved USGS responses, prior-name inventories and source-panel headers. Temporary outputs were compared and removed. No temperature download, recruitment, prediction or score calculation.",
+  "date_arithmetic_fix": "Add/subtract a parenthesized partial-year indicator; previously comparison operators converted arithmetic expressions to booleans.",
+  "existing_screen_replays": [
+    {
+      "screen": "787_camelsh_metadata_screen.py",
+      "station_rows_identical": 533,
+      "status_json_identical": true,
+      "metadata_candidates": 12
+    },
+    {
+      "screen": "790_camelsh_current_metadata_screen.py",
+      "station_rows_identical": 147,
+      "status_json_identical": true,
+      "metadata_candidates": 0
+    }
+  ],
+  "existing_metadata_tables_changed": false,
+  "existing_qualification_conclusions_changed": false,
+  "active_tex_search": "No CAMELSH-specific numerical claim appears in the main article or SI; the external lead ledger records 12 existing-catalog candidates and 0 current-metadata candidates, both reproduced."
+}

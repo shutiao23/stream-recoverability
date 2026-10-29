@@ -1,0 +1,27 @@
+{
+  "transcription": {
+    "bc_masks": [
+      288,
+      84,
+      372
+    ],
+    "truckee_cases": 72,
+    "reservoir_cases": 306,
+    "usgs_complete_years": 8,
+    "usgs_four_year_stations": 0,
+    "paired_forward_archives": 736,
+    "paired_forward_years": 3328,
+    "seed_change_max_pp": 0.8152173913043459,
+    "overlap_exact_half": 47,
+    "abstract_words": 249
+  },
+  "compile": {
+    "review_completion_article.tex": {
+      "pages_text_characters": 116093
+    },
+    "review_completion_supporting.tex": {
+      "pages_text_characters": 230157
+    }
+  },
+  "module": "/tmp/wrr_experiment_delivery_tdu26x7m/scripts/930_delivery_consistency.py"
+}

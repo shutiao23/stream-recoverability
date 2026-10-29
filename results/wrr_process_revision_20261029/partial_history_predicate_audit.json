@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "bug": "Missing parentheses let the <=45-day run alternative bypass coverage and observed endpoints. The frozen protocol requires all criteria.",
+  "frozen_protocols": [
+    "results/wrr_review_response_20261027/external_usgs_partial_daily/feasibility_plan.json",
+    "results/wrr_review_response_20261027/external_usgs_partial_daily/scoring_plan.json",
+    "private/wrr_usgs_partial_daily_20261027/tmpfs_analysis_20261027/qualifier_aware_history_plan.json"
+  ],
+  "annual_history_decisions_checked": 450,
+  "saved_feasibility_decisions_changed": 0,
+  "incorrect_acceptances_under_previous_predicate": [
+    {
+      "station_id": "08377900",
+      "year": 2013,
+      "first_day_observed": true,
+      "last_day_observed": false
+    },
+    {
+      "station_id": "08377900",
+      "year": 2014,
+      "first_day_observed": false,
+      "last_day_observed": true
+    }
+  ],
+  "scored_target_years": 8,
+  "scored_original_history_assignments_checked": 49,
+  "scored_original_history_sets_changed": 0,
+  "qualifier_aware_history_decisions_checked": 49,
+  "qualifier_aware_history_decisions_changed": 0,
+  "model_refitted": false,
+  "predictions_or_scores_recomputed": false,
+  "prediction_inputs_changed": false,
+  "input_sha256": {
+    "scripts/871_usgs_partial_daily_feasibility.py": "123e62ec0f7faef509ee040177f4ea747a4e7475be04e2549c16ba112ae145d9",
+    "private/wrr_usgs_partial_daily_20261027/daily_year_feasibility.csv": "764d159f69d30f88a566b609c5e994bbc281cc64c79aa504aa6320d83579a60e",
+    "private/wrr_usgs_partial_daily_20261027/continuous_target_roster.csv": "193509e298884bb76cd927837f3e47574a07fedd18124d334a3ea7a525a68e9d",
+    "private/wrr_usgs_partial_daily_20261027/tmpfs_analysis_20261027/qualifier_aware_history_details.csv": "c53e60ef3cc72c26a2e85e52fb84a28599df719488cb144d1396a94310e0405f",
+    "private/wrr_usgs_partial_daily_20261027/tmpfs_analysis_20261027/qualifier_aware_roster_v2.csv": "54be53d41e8bdab63e31ea2721dddd001a0eb62ece5f444984c2c7e2da146384",
+    "private/wrr_usgs_partial_daily_20261027/tmpfs_analysis_20261027/qualifier_aware_daily.parquet": "f30d0ffb9b50881667c8984a9d05bffd796c8f59e649c3976b2eaffc84e32851"
+  }
+}

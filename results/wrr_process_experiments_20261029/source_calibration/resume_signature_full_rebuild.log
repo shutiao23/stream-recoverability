@@ -1,0 +1,4 @@
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+[Parallel(n_jobs=2)]: Done  14 tasks      | elapsed:   18.3s
+[Parallel(n_jobs=2)]: Done  19 out of  19 | elapsed:   24.8s finished
+{"stage": "full", "status": "source_calibration_reestimated_and_same_targets_scored", "source_cases": 2370, "elapsed_seconds": 33.231126172468066, "complete_source_calibration_reestimated": true, "target_calibrated_scores_generated": true}

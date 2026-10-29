@@ -1,0 +1,15 @@
+\begin{table}[t]\centering\small
+\caption{Hidden-reference-peak recovery by region and daily reconstructor. The hidden-peak label uses withheld complete-year H30. Coverage is nominal 90\%. Above-interval is the share of complete references hotter than the 95th percentile.}
+\label{tab:region-policy}
+\resizebox{\textwidth}{!}{\begin{tabular}{llrrrrrr}
+\toprule
+Region & Reconstructor & Method & Cases & MAE & Bias & 90\% coverage & Above interval \\
+\midrule
+Switzerland & donor\_ridge & D2 & 633 & 0.175 & -0.130 & 98.1\% & 0.9\% \\
+Switzerland & donor\_ridge & classical & 633 & 0.180 & -0.133 & 96.7\% & 2.7\% \\
+Bavaria & air\_ridge & D2 & 995 & 0.574 & -0.479 & 67.9\% & 30.2\% \\
+Bavaria & air\_ridge & classical & 995 & 0.486 & -0.296 & 66.5\% & 27.1\% \\
+Bavaria & donor\_ridge & D2 & 163 & 0.249 & -0.129 & 90.8\% & 8.6\% \\
+Bavaria & donor\_ridge & classical & 163 & 0.205 & -0.079 & 87.7\% & 8.6\% \\
+\bottomrule\end{tabular}}
+\end{table}

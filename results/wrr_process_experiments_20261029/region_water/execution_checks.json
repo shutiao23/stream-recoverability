@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "commands_completed": [
+    "python scripts/audit_region_water_experiments.py",
+    "python scripts/960_process_region_identification.py --output results/wrr_process_experiments_20261029/region_water/regenerated --paper results/wrr_process_experiments_20261029/region_water/tex",
+    "python scripts/process_review_water_air.py --output results/wrr_process_experiments_20261029/region_water/regenerated --paper results/wrr_process_experiments_20261029/region_water/tex",
+    "pytest tests/test_region_water_adversarial.py tests/test_process_review_region_water.py",
+    "python -m py_compile scripts/960_process_region_identification.py scripts/process_review_water_air.py scripts/audit_region_water_experiments.py"
+  ],
+  "targeted_tests_passed": 16,
+  "old_revision_baseline_files_unchanged": 18,
+  "generated_tex_matches_previous_canonical": {
+    "process_water_revision_table.tex": true,
+    "process_water_revision_correlation.tex": true,
+    "process_water_revision_uncertainty.tex": true,
+    "process_water_revision_values.tex": true,
+    "process_region_revision_table.tex": true,
+    "process_region_revision_balance.tex": true,
+    "process_region_revision_values.tex": true
+  },
+  "water_max_estimate_or_ci_difference_from_baseline": 1.4016565685892601e-13,
+  "interpretation": "Baseline primary numerical results are unchanged up to floating-point rounding; newly computed influence/weighting sensitivities strengthen the limits on interpretation. Counterexample fixes were not triggered by present data."
+}

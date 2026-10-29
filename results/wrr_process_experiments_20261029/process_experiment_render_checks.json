@@ -1,0 +1,16 @@
+{
+  "fragment_latex_exit": 0,
+  "overfull_boxes": 0,
+  "undefined_references": 0,
+  "multiply_defined_labels": 0,
+  "input_data_files_unchanged": 19,
+  "visual_checks": [
+    "03_time_support.png: values and paired intervals visible without clipping",
+    "04_trajectory_budget.png: all 243 case-seed-layer points, two strata, three layers and 18 medians retained",
+    "Six-row SI endpoint table: q05/q95 medians, maxima and either-tail counts visible without clipping"
+  ],
+  "main_and_SI_builds": "Handled separately by the integrating agent; fragment check is not a full manuscript build.",
+  "fragment_pages": 4,
+  "both_endpoints_table_rows": 6,
+  "both_endpoints_table_label": "tab:source-budget-both-tails"
+}

@@ -1,0 +1,11 @@
+\section{Independent observed-record arithmetic re-audits}
+
+Using the same local canonical float32 daily archive and an independent convolution implementation, we recomputed 2,139 complete reference station-years and 545 incomplete station-years at 96 eligible stations. All 35 witness identities, saved 30-day values and complete-year reference maxima agreed within the stated numerical tolerance. This is an arithmetic re-audit of the same processed archive, not an independent check of provider-native records or sensor error.
+
+Comparing 971,673 finite values from 34 selected project input panels with the canonical archive yielded no missingness or float32-cast discrepancies. The largest absolute rounding difference is 0.00000153 degrees C; 0 witness identities and 0 classifications at the 0.5-degree excess threshold changed. The input panels are processed project files, not provider-native instrument records.
+
+Across 2,700 eligible station-years, independently recalculated annual coverage, available 30-day maxima, July--August completeness and longest missing runs reproduced 210 witness--rule decisions. For each of 35 witness years, increasing its observed values by 5 degrees C did not change the leave-target-year-out warm-season climatology. The old fixed-season fraction remains sourced from saved metadata; these probes do not cover every year or other pipelines.
+
+For the ten additional USGS sites, independent parsing of the saved daily API responses reproduced 8 approved-complete reference station-years and the 9 certified observed windows. The original quality-screened window selection also replays from the saved payloads, but the separate arithmetic audit does not independently implement that selection. Approved estimated values remain in complete-year references, but the certified windows contain no estimated days. These records do not establish subdaily completeness, physical measurement accuracy or independent recovery performance.
+
+A separate candidate review subset contains processed daily values for 95 of 96 previously eligible source stations, including all 35 witnesses. One LUBW station is omitted pending permission. The subset verifies the included reported-series arithmetic and rule decisions, but cannot independently confirm the omitted station or the original full eligible-station denominator.

@@ -1,0 +1,90 @@
+{
+  "schema_version": "wrr_process_experiments_validation_v1",
+  "status": "passed",
+  "revision_date": "2026-10-29",
+  "user_facing_timezone": "Asia/Shanghai",
+  "scope": "Current manuscript claims for the 2026-10-29 process review, including executed source-role recalibration, exact year-set enumeration, common-weight regional diagnostics, unified gap units and within-station water-air slopes.",
+  "tests": {
+    "command": "PYTHONPATH=src python -m pytest tests/test_wrr_process_revision.py tests/test_wrr_trajectory_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_process_review_region_water.py tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_review_manuscript_structure.py tests/test_current_observation_replay.py tests/test_review_completion_current_evidence.py tests/test_review_bundle_atomic_write.py -q --tb=no",
+    "exit_code": 0,
+    "passed": 81,
+    "failed": 0
+  },
+  "independent_audits": {
+    "source_calibration": {
+      "status": "passed",
+      "report": "results/wrr_process_experiments_20261029/source_calibration/independent_audit.json",
+      "sha256": "7fdd6f6e7ba9e85e2ea0eea91875f95be6fc0a1813a789f346a8c040d4042086"
+    },
+    "time_gap": {
+      "status": "passed",
+      "report": "results/wrr_process_experiments_20261029/time_gap_independent_audit.json",
+      "sha256": "20b4cd4e5499595bd5769f6f9ab5babc7f6c4c01cf3cb5de9230af1302c25da7"
+    },
+    "process_revision_962": {
+      "status": "passed",
+      "command": "PYTHONPATH=src python scripts/965_process_revision_audit.py",
+      "report": "results/wrr_process_revision_20261029/independent_audit.json",
+      "sha256": "8f8901cbd6c80c55840ba0ccb216066be83f3a377d275af4ada9b3d99c0e26cd"
+    }
+  },
+  "transcription": {
+    "command": "PYTHONPATH=src python scripts/930_delivery_consistency.py",
+    "exit_code": 0,
+    "abstract_words": 249
+  },
+  "manuscripts": {
+    "paper/wrr_tr/review_completion_article.pdf": {
+      "sha256": "206c380e6ed649ae12bb23b8e12f52c100412c6bf8e32386299fc3d6f1803e48",
+      "pages": 38
+    },
+    "paper/wrr_tr/review_completion_supporting.pdf": {
+      "sha256": "ba56f7f2b13572989453cb0b9ac61437c7fadb60a11aa70a9d4a8b3c4ed3c34e",
+      "pages": 111
+    }
+  },
+  "package": {
+    "canonical": "dist/wrr_process_experiments_20261029.zip",
+    "sha256": "0f4100098b4fe35890cc6e787a5e74236d406825114877d4f053964ab9947326",
+    "bytes": 200606730,
+    "gitignored": true,
+    "delivery_report": "results/wrr_process_experiments_20261029/delivery_check.json",
+    "delivery_report_sha256": "67e9e1885bb51110d621dc2f1b1b84a234ae1276c2184c261d2ba071ff53ca03",
+    "delivery_status": "passed",
+    "source_role_offsets_reestimated": true,
+    "source_cases": 2370,
+    "target_cases": 27,
+    "actual_mask_archives": 805,
+    "choice_only_archives": 468
+  },
+  "scientific_stop_conditions": {
+    "regional_common_weights_and_support_loss_reported": true,
+    "training_history_imbalance_and_unidentified_cause_reported": true,
+    "same_count_equivalence_not_claimed": true,
+    "paired_intervals_selection_opportunity_and_MSE_cross_term_reported": true,
+    "stronger_calendar_controls_including_complete_years_reported": true,
+    "annual_longest_gap_metric_and_within_station_water_air_reported": true,
+    "nineteen_window_baseline_complete_year_counts_donor_source_and_denominators_corrected": true,
+    "post_hoc_diagnostics_identified": true,
+    "pooled_0.007_not_used_to_close_stratified_tails": true,
+    "larger_budget_source_role_calibration_executed": true,
+    "fully_sampled_fine_ranking_robustness_claimed": false,
+    "trajectory_count_convergence_established": false
+  },
+  "not_executed_or_not_claimed": [
+    "Full raw-source reconstruction or new model retraining",
+    "Target-subset even/odd-year offset estimation as a surrogate for source-role calibration",
+    "Convergence of 500 nested paths or a robust fine method ranking",
+    "Causal identification of the Bavarian air-ridge failure",
+    "Strict independent-climate confirmation",
+    "Clean-environment dependency installation",
+    "Author identity, data-rights clearance or permanent archival deposit"
+  ],
+  "user_scope_exclusions": [
+    "Author identity and declarations",
+    "Permission administration and reviewer-access arrangements",
+    "Permanent storage and external publication"
+  ],
+  "external_publication_performed": false,
+  "created_utc": "2026-10-29T19:12:55.685044+00:00"
+}

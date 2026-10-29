@@ -1,0 +1,37 @@
+{
+  "schema_version": "current_observation_replay_v1",
+  "action": "prepare",
+  "freeze_semantics": "current content freeze, not evidence of past provenance",
+  "historical_provenance_authenticated": false,
+  "command": [
+    "/home/lzq/anaconda3/bin/python",
+    "scripts/967_current_observation_replay.py",
+    "prepare"
+  ],
+  "started_at": {
+    "utc": "2026-10-29T14:30:37.081157+00:00",
+    "Asia/Shanghai": "2026-10-29T22:30:37.081157+08:00"
+  },
+  "scope": "Current offline observation arithmetic and rule replay only; not whole-paper model reproduction, sensor verification or historical-provenance authentication.",
+  "checks": {
+    "open_observed": {
+      "status": "passed",
+      "manifest": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_revision_20261029/replay_integrity/open_observed_current_manifest.json",
+      "sha256": "94237bdeeefd4942dbc90bd8ef8b6edf071b38e4dc06f3a4b48d226545350b8d",
+      "files": 9,
+      "reused_existing_current_freeze": false
+    },
+    "usgs_observed": {
+      "status": "passed",
+      "manifest": "/mnt/lzq-nvme2p4/lzq/stream-recoverability/results/wrr_process_revision_20261029/replay_integrity/usgs_observed_current_manifest.json",
+      "sha256": "da886fc58b8a6a0ec0799bb705a989ef9dcc79f2af276115419b7b611d2ac2a6",
+      "files": 18,
+      "reused_existing_current_freeze": false
+    }
+  },
+  "status": "passed",
+  "completed_at": {
+    "utc": "2026-10-29T14:30:37.107610+00:00",
+    "Asia/Shanghai": "2026-10-29T22:30:37.107610+08:00"
+  }
+}

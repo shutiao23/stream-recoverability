@@ -1,0 +1,50 @@
+{
+  "scope": "Closed annual numerical replay; original saved-reference and prediction caches are not required by default execution.",
+  "required_files": {
+    "results/wrr_process_experiments_20261029/time_all_feasible_subsets.parquet": {
+      "sha256": "6db1f8372cd5e7c73e328d1023d18333fe1fa4af37c4e826587b414c4662e90a",
+      "bytes": 600540
+    },
+    "results/wrr_process_experiments_20261029/time_archive_accounting.parquet": {
+      "sha256": "184107ff5e23acf9e232c3cdd22f14f18f4439887771a2e678e5efb1522f383b",
+      "bytes": 50061
+    },
+    "results/wrr_process_experiments_20261029/time_exact_random_expectations.parquet": {
+      "sha256": "6e7449c13dd20080133c6f416ec9cfe45d2a722a80ffe706afeb9ea83ddb8bdf",
+      "bytes": 71393
+    },
+    "results/wrr_process_experiments_20261029/time_fixed_geometry_selections.parquet": {
+      "sha256": "ee1903ab7407747e2c0060b4adcb86cd2ee861562e4a26cb9c2d3c3db6c0a362",
+      "bytes": 294514
+    },
+    "results/wrr_process_experiments_20261029/time_frozen_replay/annual_inputs.parquet": {
+      "sha256": "9ce286b560827f2f875d95124046ca50856b91670e2933e6b8baeb4cad608496",
+      "bytes": 84111
+    },
+    "results/wrr_process_experiments_20261029/time_frozen_replay/freeze_manifest.json": {
+      "sha256": "18919f61c8c4631097c91031706ec9429a83dacca632648ef086864295490cc6",
+      "bytes": 314990
+    },
+    "results/wrr_process_experiments_20261029/time_sensitivity_summary.csv": {
+      "sha256": "d36a5ca9fa8573aa742e925d3bb85d9a8b072ac568aa5744145e4e64e5bb12e3",
+      "bytes": 19197
+    },
+    "scripts/974_independent_time_gap_audit.py": {
+      "sha256": "98272b00cbb7974c8b7c5aa6d5d835fc0ffc29e135c3756488c5efabcacc8f09",
+      "bytes": 29223
+    },
+    "scripts/977_replay_time_support.py": {
+      "sha256": "54349bfa2901a39e4fe880d4cfccb0fe475f59a61fb3a2646bf967bd0354888a",
+      "bytes": 20748
+    }
+  },
+  "additionally_package": [
+    "results/wrr_process_experiments_20261029/time_frozen_replay/required_files.json"
+  ],
+  "python_packages": [
+    "numpy",
+    "pandas",
+    "pyarrow"
+  ],
+  "command": "PYTHONPATH=src python scripts/977_replay_time_support.py"
+}

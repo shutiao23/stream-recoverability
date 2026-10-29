@@ -1,0 +1,35 @@
+{
+  "script": "scripts/970_process_experiment_report.py",
+  "input_sha256": {
+    "results/wrr_process_experiments_20261029/time_sensitivity_summary.csv": "d36a5ca9fa8573aa742e925d3bb85d9a8b072ac568aa5744145e4e64e5bb12e3",
+    "results/wrr_process_experiments_20261029/time_sensitivity_paired_cluster.csv": "798f41991ad418de6a9a10d8a35479fed1d465e7eda113bd42db12b4caea8da1",
+    "results/wrr_process_experiments_20261029/time_archive_accounting.csv": "0ff1164d1a0867dd833885688bdf6c65f32f473124ec4fdf0f2d56da531c4afd",
+    "results/wrr_process_experiments_20261029/time_all_feasible_subsets.parquet": "6db1f8372cd5e7c73e328d1023d18333fe1fa4af37c4e826587b414c4662e90a",
+    "results/wrr_process_experiments_20261029/time_fixed_geometry_selections.parquet": "ee1903ab7407747e2c0060b4adcb86cd2ee861562e4a26cb9c2d3c3db6c0a362",
+    "results/wrr_process_experiments_20261029/time_random_selection_variation.csv": "3bdfddd20330b2cf88ab32da66297a4c0b7dda79635ff2cfb0980307d04ec397",
+    "results/wrr_process_experiments_20261029/time_random_seed_summary.csv": "1da37effac6342607383a2f8a2e2c1b521f07f816a17119d1901853e67651470",
+    "results/wrr_process_experiments_20261029/source_calibration/source_union_cases.parquet": "686c030f937d5fadcf5ece042250f735a64fa8e62ece45c5a0a7f760ba9e5b46",
+    "results/wrr_process_experiments_20261029/source_calibration/source_role_cases.csv": "d7adf7ded771cab4cdfc9f5a53425f3f3e467b01ca7bedf8a597b90f948fcb6d",
+    "results/wrr_process_experiments_20261029/source_calibration/fixed_target_cases.csv": "0f4b31ea4eb762efa5cce1c544425ec4bd2e26d97b89b9fb9cfc74bdc508f940",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_historical_reference.csv": "7e6514b531f7195d8a1274b5eb10484f86855b4e4833c2f07543aa0d03628e1f",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_budget_case_deltas.csv": "36f1ddcdcc718c9aa531897d53b6a094601403af9990ed2400b31976aa565b75",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_budget_tail_summary.csv": "0bad79cf2e7c3ff44d400af3a4da83339114cde0b13d9d3e167dad5c508a1ecc",
+    "results/wrr_process_experiments_20261029/source_calibration/crps_grid_sensitivity.json": "1bdf5a560fa8fcb3eee97e4a853a9fb922edbf867a52a7e704361b44db099aab",
+    "results/wrr_process_experiments_20261029/region_water/regional_leave_group_out.csv": "02ee7d6b0f3e1e89fdd3a7351b1b3587c922d188842cf61ebab3b980053a5375",
+    "results/wrr_process_experiments_20261029/region_water/independent_regional_standardization.csv": "973135ffe3bbb04a7a907195063acd81dc298adc57104d24a6c2e3f9a8aa87c7",
+    "results/wrr_process_experiments_20261029/region_water/water_air_weight_and_leave_group_sensitivity.csv": "e00ddb6c6a988058ab5e676f3224e417e0c07272932c13fe7aad0e8dfdbdad6c",
+    "results/wrr_process_experiments_20261029/gap_overlap_summary.csv": "1c80214b78ae257929c811a5016d64c93fccf189b42a989f4074f1a30f66d3c9",
+    "results/wrr_process_experiments_20261029/gap_overlap_station_year_cases.csv": "474ccc51ba0f88297ef96aa8eaa8b0bf856622a8169d68b247d3fdb990737599"
+  },
+  "figure": "04_trajectory_budget",
+  "source_role_offsets_reestimated": true,
+  "layers": [
+    "uncalibrated",
+    "fixed_old_offset",
+    "reestimated_source_offset"
+  ],
+  "plotted_case_seed_points": 243,
+  "median_markers": 18,
+  "threshold_c": 0.05
+}

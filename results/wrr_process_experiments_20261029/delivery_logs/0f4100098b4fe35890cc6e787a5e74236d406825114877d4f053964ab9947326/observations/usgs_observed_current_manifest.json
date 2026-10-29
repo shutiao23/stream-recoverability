@@ -1,0 +1,109 @@
+{
+  "scope": "USGS additional observation-only evidence; source API data and project-produced metadata/results, frozen for local offline replay",
+  "station_count": 10,
+  "files": [
+    {
+      "path": "results/additional_usgs_observed/cohort_metadata.csv",
+      "sha256": "1ec5390f352c60553b26f9259ad24bfcc2db664cb0cd5ea586423f15bf26134f",
+      "bytes": 4842
+    },
+    {
+      "path": "results/additional_usgs_observed/acquisition.json",
+      "sha256": "1fb6b9ee6d6b50a9baa7857d67e321ab09680ce3947b777762a54a67a0455a85",
+      "bytes": 4495
+    },
+    {
+      "path": "results/additional_usgs_observed/plan.json",
+      "sha256": "691f4829e2edbcce90ad9e4accc12653f0975b2f28c4980b9dd15448b90f31c5",
+      "bytes": 2102
+    },
+    {
+      "path": "results/additional_usgs_observed/qualification.csv",
+      "sha256": "ab4010d23e2c22d7bf3cbd13398a0f646236c4d33cf42f2e79f3b622ceeabaf6",
+      "bytes": 3192
+    },
+    {
+      "path": "results/additional_usgs_observed/raw_reference_summary.csv",
+      "sha256": "369ff60bbe589ce72bdf9d4979ed9783b4ad4c33e17c7b0a5b4a11eb564c3bca",
+      "bytes": 196
+    },
+    {
+      "path": "results/additional_usgs_observed/robust_record_witnesses.csv",
+      "sha256": "304e3cfb3c9826236e36eda97fcb4d672598db73a97242131f3de0abfb591c6c",
+      "bytes": 2856
+    },
+    {
+      "path": "results/additional_usgs_observed/all_approved_window_bounds.csv",
+      "sha256": "1683f5d0315e167235699ca252d81dae2a483235c23afabd0527232f8a780141",
+      "bytes": 23124
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/0212378405.json.gz",
+      "sha256": "6debc78923b7979d67042ba79d58316a54e6de0bb8bbdf055e76f7d997b6f3ff",
+      "bytes": 95794
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/07364133.json.gz",
+      "sha256": "7ce7a919683403888619d5b50f712e1cb5b45688be047f3e5df8712e5631cde8",
+      "bytes": 78758
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08048000.json.gz",
+      "sha256": "82339115c676010ade4b1dc1c3911657a6f74d8144cbb7cd34ac740a7d266002",
+      "bytes": 149464
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08227000.json.gz",
+      "sha256": "8ad1c584eed742a05476933406b501ff328a751f4d6c0853577d30d94452fee1",
+      "bytes": 92679
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08375300.json.gz",
+      "sha256": "490c9b516f77be46e5b7d174a2ec9d9580aeb0437ddec66e0f63bc6e1af73831",
+      "bytes": 140162
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08377900.json.gz",
+      "sha256": "efd9fc810b6ab9d6eb958a5818a34b30326695e976f3059acc74cd57a906b392",
+      "bytes": 112013
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08405200.json.gz",
+      "sha256": "5853fcc15727612fcc643d700f1fdbab638f49c736f6a2963e34ae17f9b38100",
+      "bytes": 101576
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08405400.json.gz",
+      "sha256": "83dce92492fcdc84f360e8328d3db3d01065a145fee469cd8f2180288418c86f",
+      "bytes": 36040
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/08407500.json.gz",
+      "sha256": "ad0cd491391d7135f93f54f21b73df273593f39f278d193bfa65905ce61da0dc",
+      "bytes": 151914
+    },
+    {
+      "path": "data/external/additional_usgs_observed/raw/16303000.json.gz",
+      "sha256": "83ecf529bf195dcb1b49ae8f45941920947bf80937f6eabf0d30d0265f319f06",
+      "bytes": 26800
+    },
+    {
+      "path": "data/external/additional_usgs_observed/ATTRIBUTION.txt",
+      "sha256": "76939de4731f568b48a11efcf4c4baadde9f60e0b29e561582a5245654025989",
+      "bytes": 1114
+    }
+  ],
+  "schema_version": "current_observation_snapshot_v1",
+  "frozen_at": {
+    "utc": "2026-10-29T14:30:37.097424+00:00",
+    "Asia/Shanghai": "2026-10-29T22:30:37.097424+08:00"
+  },
+  "freeze_semantics": "current content freeze, not evidence of past provenance",
+  "historical_provenance_authenticated": false,
+  "snapshot_file_base": ".",
+  "legacy_manifest": {
+    "path": "results/wrr_review_response_20261027/audit/usgs_observed_snapshot_manifest.json",
+    "sha256": "a899c96651765167cfbe648d16761e17b31f6ee63a3f5f61c5a952a42b7b7e0d",
+    "files_without_sha256": 18
+  }
+}

@@ -1,0 +1,25 @@
+\section{Single-year source expansion for annual intervals}
+After reviewing prior annual and trend results, we used single-year masked source cases from the candidate models' rule-calibration groups. These groups do not enter the estimators, original interval calibration or risk-learning roles; every target-region group is excluded. Some groups contributed to the separate risk-rule component; the pool is not an unopened independent dataset. Forward source cases are from before 2010. For each family, mode, region and estimator we estimate an equal-group-weighted empirical 90th percentile of nonnegative interval misses. A correction is applied only with at least three available source groups and a positive radius. This rule is exploratory, and the source cases hide a single year rather than an entire degraded archive. It neither establishes group exchangeability nor identifies a calibrated joint trend distribution. At most eight forward groups are assigned to this role, below the nine needed for a finite one-maximum-per-group 90\% rank; the group-maximum diagnostic was not applied.
+\begin{table}[p]\centering\footnotesize
+\caption{Exploratory interval expansion: same target cases must be supported for both methods. Baseline and expanded scores use the identical supported subset; all-case baselines are retained separately in the supplied CSV. Hidden-peak strata depend on the complete reference. Widths are in $^{\circ}$C.}\label{tab:single-year-calibration}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllrrrrrrr}\toprule
+Family / mode & Stratum & Method & Eligible & Supported & Groups & Cover before & Cover after & Width before & Width after\\\midrule
+calendar / forward & all & D2 & 3674 & 0 & 0 & -- & -- & -- & --\\
+calendar / forward & all & classical & 3674 & 0 & 0 & -- & -- & -- & --\\
+calendar / forward & hidden & D2 & 549 & 0 & 0 & -- & -- & -- & --\\
+calendar / forward & hidden & classical & 549 & 0 & 0 & -- & -- & -- & --\\
+calendar / offline & all & D2 & 6919 & 0 & 0 & -- & -- & -- & --\\
+calendar / offline & all & classical & 6919 & 0 & 0 & -- & -- & -- & --\\
+calendar / offline & hidden & D2 & 1028 & 0 & 0 & -- & -- & -- & --\\
+calendar / offline & hidden & classical & 1028 & 0 & 0 & -- & -- & -- & --\\
+crossed / forward & all & D2 & 3683 & 3411 & 14 & 88.7\% & 89.9\% & 0.705 & 0.755\\
+crossed / forward & all & classical & 3683 & 3411 & 14 & 86.6\% & 89.1\% & 0.608 & 0.696\\
+crossed / forward & hidden & D2 & 2146 & 1982 & 14 & 81.0\% & 82.9\% & 1.110 & 1.171\\
+crossed / forward & hidden & classical & 2146 & 1982 & 14 & 76.9\% & 81.3\% & 1.009 & 1.115\\
+crossed / offline & all & D2 & 6919 & 0 & 0 & -- & -- & -- & --\\
+crossed / offline & all & classical & 6919 & 0 & 0 & -- & -- & -- & --\\
+crossed / offline & hidden & D2 & 4132 & 0 & 0 & -- & -- & -- & --\\
+crossed / offline & hidden & classical & 4132 & 0 & 0 & -- & -- & -- & --\\
+\bottomrule\end{tabular}}
+\end{table}
+Re-prediction of the 52 source support cells, verification of individual target intervals and a separate two-method support-intersection check passed. Group-resampling and leave-region-out summaries are supplied; they do not prove independent climates. Unsupported cells and unchanged all-case baselines remain visible. The source group-mass empirical percentile is not a finite-sample coverage guarantee.

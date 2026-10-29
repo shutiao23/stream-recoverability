@@ -1,0 +1,30 @@
+Checked bridge dependency: foen calendar
+Checked bridge dependency: foen crossed
+Checked bridge dependency: gkd_bayern calendar
+Checked bridge dependency: gkd_bayern crossed
+Checked bridge dependency: usgs_huc03 calendar
+Checked bridge dependency: usgs_huc03 crossed
+Checked bridge dependency: usgs_huc04 calendar
+Checked bridge dependency: usgs_huc04 crossed
+Checked bridge dependency: usgs_huc10 calendar
+Checked bridge dependency: usgs_huc10 crossed
+Checked bridge dependency: usgs_huc17 calendar
+Checked bridge dependency: usgs_huc17 crossed
+{
+  "status": "passed",
+  "source_cells_checked": 24,
+  "repair_table_rows": 16616,
+  "repair_path": "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet",
+  "repaired_source_group_maxima_reproduced": true,
+  "input_sha256": {
+    "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf",
+    "results/wrr_review_response_20261027/groupmax_annual_calibration/plan.json": "bedafe1e79e77c65ee537c4be0d80c02bccd7c6a436ae2c0ad5a129fdc73c392",
+    "results/wrr_review_response_20261027/groupmax_annual_calibration/source_freeze.json": "a69df363f7431a4abcddda3ed932ee64bb469f025f74afb0fd1701040a1a164d",
+    "scripts/729_bridge_repair_dependency.py": "b4f50449044049d7ff45b43930bb35af07da02c8938318df4d79a0e4e69e8f80",
+    "results/wrr_review_response_20261027/groupmax_annual_calibration/source_repair_effect.csv": "762718179e36d8b2cd41976b6b2b2bfb02207bb85bca2f86ab856666caa0e8ea"
+  },
+  "cells_with_changed_interval_endpoints": 0,
+  "cells_with_changed_group_maximum": 11,
+  "cells_with_changed_radius": 3,
+  "limitation": "Post-hoc dependency reconstruction on same source models and source cases. No independent source fit, physical measurement check or inference about data rights."
+}

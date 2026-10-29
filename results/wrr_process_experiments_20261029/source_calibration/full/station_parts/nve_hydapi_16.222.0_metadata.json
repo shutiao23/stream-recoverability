@@ -1,0 +1,183 @@
+{
+  "station_key": "nve_hydapi|16.222.0",
+  "cases": 95,
+  "station_years": 4,
+  "native20_max_abs_draw_error": 0.0,
+  "input_panel": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_16/daily_wide_temperature.csv",
+  "input_panel_sha256": "286f440a00893ce898c580c2bf13ced17fc76e31d8d3a4a43703b13a8655d975",
+  "station_index": 308,
+  "source_cases_sha256": "b0fdb38c79080b4fce194874c6bcf03bd0663a35077e40e4065b7ce91ea0f78e",
+  "source_repair_sha256": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf",
+  "daily_reconstruction_signature": {
+    "schema": 1,
+    "shared": {
+      "schema": 1,
+      "files": {
+        "air_forcing": {
+          "path": "data/interim/tr_air_forcing.parquet",
+          "sha256": "373053e0e7c6f36740dc3574ce4698c76a5549c1e6ff690fe01872a603f71fed"
+        },
+        "source_config": {
+          "path": "configs/wrr_target_recovery_20261022.json",
+          "sha256": "d0c3041fe2f4e86a97da2f400a227cb18a0623035c8ee698470b864e3c2a9f16"
+        },
+        "source_generation_settings": {
+          "path": "results/wrr_review_completion_20261024/cases/before_2010/generation_settings.json",
+          "sha256": "9693752dd0f512153254b1fda27bff52f35d9063871907bf3894c29e20880b9a"
+        },
+        "source_cases": {
+          "path": "results/wrr_review_completion_20261024/cases/before_2010/seed_00.parquet",
+          "sha256": "b0fdb38c79080b4fce194874c6bcf03bd0663a35077e40e4065b7ce91ea0f78e"
+        },
+        "source_repair": {
+          "path": "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet",
+          "sha256": "4fc1f4a057f6653e4226277f5caabbbb95ef04005a85cdd78bc5af3721cf79bf"
+        }
+      },
+      "code_sha256": {
+        "scripts/968_process_source_calibration.py": "c64bd95a405616b61e3080a8d32936935ec293f51811247f01f686cf6ade6703",
+        "scripts/431_tr_cases.py": "1a9ee379027b040b0d036e29814c8a8c3ff3b0cfc382855f69a8373c658a5ff3",
+        "scripts/351_wrr_representative_recovery.py": "c5b2084684aeec389d77ce11f3807ea406d9ea9115d99bb27ffb844e17f2206a",
+        "scripts/wrr_tr_common.py": "0bf79caa32c3965b179d46e70345f8463ddaf22ce436989ecbffed7402317a26",
+        "scripts/wrr_r3_common.py": "b13783752ed9018524aaa0067d87650ebf2795cd7505372d172c42fb7bca8b2a",
+        "src/stream_recoverability/experiments/development_recovery.py": "47ee47935eca7f69ee838d729218cb85b1291e15fc5e93ca17a92e73ea75c3e0",
+        "src/stream_recoverability/experiments/v17_fitness/estimators.py": "5ef010e3abfe6f4250ac3623b085f8ca1970ff2db2eecef07dc3ed218c50da45",
+        "src/stream_recoverability/experiments/v17_fitness/paths.py": "b71b87a8641a435eaab36e1cff8550b6e3b1f4385bb2f9522a818d96692556bd",
+        "src/stream_recoverability/experiments/v19_revision/data.py": "a691d1624b5ee79f14a9550f384b499674cea04dc37add19353a98fcdd36aea8",
+        "src/stream_recoverability/experiments/tr_revision/baselines.py": "a8f320abd29209541cf51858f64c9830bb9d5c5f7d0734ee2789d0546c764f74",
+        "src/stream_recoverability/seeds.py": "a1b3265808266be7a12ca93bdb7e0b8d5ec6ca6df11aa715b741a52cce2dfe42"
+      },
+      "versions": {
+        "python": "3.11.7",
+        "implementation": "CPython",
+        "system": "Linux",
+        "machine": "x86_64",
+        "byteorder": "little",
+        "numpy": "1.26.4",
+        "pandas": "2.1.4",
+        "scipy": "1.11.4",
+        "scikit-learn": "1.2.2",
+        "pyarrow": "14.0.2",
+        "joblib": "1.2.0"
+      },
+      "loaded_configuration": {
+        "version": "target_recovery_20261022",
+        "round": 2,
+        "out": "results/wrr_target_recovery_20261022",
+        "previous_out": "results/wrr_target_recovery_20261021",
+        "seed": 20261022,
+        "primary_target": "h30",
+        "window_days": 30,
+        "tolerance_c": 0.5,
+        "tolerance_sensitivity_c": [
+          0.25,
+          0.5,
+          1.0
+        ],
+        "risk_levels": [
+          0.025,
+          0.05,
+          0.1
+        ],
+        "season_mode": "hot_year",
+        "southern_hemisphere_shift_days": 184,
+        "warm_season_months": 5,
+        "degree_day_months": 4,
+        "rule_reference_peak_doy": 211,
+        "warm_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "summer_months": [
+          6,
+          7,
+          8
+        ],
+        "hot_summer_quantile": 0.9,
+        "gap_lengths_days": [
+          30,
+          60,
+          90
+        ],
+        "realizations_per_cell": 2,
+        "n_empirical_geometries": 4,
+        "n_mnar_geometries": 4,
+        "trajectory_draws": 128,
+        "draw_quantiles": [
+          0.05,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.95
+        ],
+        "mnar_strength_multipliers": [
+          0.0,
+          1.0,
+          2.0
+        ],
+        "conformal_overlap_bins": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "conformal_min_group_cases": 300,
+        "expected_risk_alpha": 0.05,
+        "expected_risk_factor_quantile": 0.8,
+        "bootstrap_draws": 2000,
+        "degree_day_base_c": 0.0,
+        "exceedance_threshold_c": 20.0,
+        "trend_min_complete_years": 20,
+        "trend_fallback_min_complete_years": 15,
+        "trend_replicates": 200,
+        "multiple_imputations": 20,
+        "region_min_blocks": 5,
+        "local_recalibration_blocks": [
+          2,
+          4,
+          8,
+          16
+        ],
+        "sealed_min_complete_years": 4,
+        "sealed_min_groups_full": 20,
+        "sealed_min_groups_descriptive": 10,
+        "workers": 96
+      },
+      "season_mode": "hot_year",
+      "algorithm": {
+        "training_split": "before_2010",
+        "window_days": 30,
+        "native_paths": 20,
+        "nested_paths": 500,
+        "mc_seeds": [
+          0,
+          1,
+          2
+        ],
+        "bridge_seed_rule": "plain_seed(9, mc_seed, station_index, year, original_local_position)"
+      }
+    },
+    "job": {
+      "station_key": "nve_hydapi|16.222.0",
+      "station_id": "16.222.0",
+      "network_id": "nve_basin_16",
+      "provider": "nve_hydapi",
+      "region": "nve_hydapi",
+      "independence_group": "g0072",
+      "roster": "source",
+      "station_index": 308,
+      "latitude": 59.41993,
+      "hemisphere_shift_days": 0,
+      "input_panel": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_16/daily_wide_temperature.csv",
+      "input_panel_sha256": "286f440a00893ce898c580c2bf13ced17fc76e31d8d3a4a43703b13a8655d975",
+      "declared_air_input": "data/interim/tr_air_forcing.parquet"
+    },
+    "sha256": "6f1747be4ff021e67529cccdda378ab3fd11e06919d84e20e037a4b7c8ca3356"
+  }
+}

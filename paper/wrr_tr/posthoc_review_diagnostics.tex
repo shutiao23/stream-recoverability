@@ -1,0 +1,39 @@
+\section{Post-hoc retained-truth and point-summary checks}
+These checks reuse the saved forward and offline predictions. They do not refit models, open new stations, or supply an independent validation. Replacing a retained annual value by the experimental truth cannot be done when that year is actually missing.
+
+On each common station--repetition, the warm-season year set is held fixed and every retained D2 annual value is replaced by the known complete-record H30 before the slope is recomputed. The resulting root-mean-square error is the error of the year set alone. Table~\ref{tab:retained-truth} shows that this truth-in-set error is nearly the same as the error of the saved D2 values, especially for forward controlled gaps (0.445242 versus 0.445331 $^{\circ}$C per decade). For a finite complete record, the warm-season screen changes the slope mainly by changing which years and ordinary-least-squares weights remain. Making the retained years exact does not restore the years that were removed.
+
+The two root-mean-square errors are not subtracted, and neither is divided by the other to name a percentage caused by retention. The squared error of the warm-season slope relative to the complete-record slope also contains the cross term between the year-set change and the reconstruction error on the retained years. The four-cell symmetric decomposition in the main text keeps its original definition. The target remains the slope of a particular complete archive, not a latent climate-process trend.
+
+\begin{table}[p]
+\caption{D2 slope error when retained years keep their saved annual values or are replaced by the known complete-record H30. Units are $^{\circ}$C per decade. The truth replacement is an evaluation device.}
+\label{tab:retained-truth}
+\centering
+\footnotesize
+\begin{tabular}{llrrrr}
+\toprule
+Gaps & Timing & Common settings & All years & Warm season & Warm season, true H30 \\
+\midrule
+Calendar & Offline & 840 & 0.008732 & 0.024041 & 0.023985 \\
+Controlled & Offline & 840 & 0.027772 & 0.100603 & 0.100603 \\
+Calendar & Forward & 820 & 0.067277 & 0.113458 & 0.111852 \\
+Controlled & Forward & 807 & 0.169474 & 0.445331 & 0.445242 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The main analysis publishes the annual median and then scores the trend of that published series. A conditional mean is the relevant point for squared error of a slope when the conditional distribution is correct; the median does not automatically have that property. Table~\ref{tab:point-summary} replaces only the annual point, using the mean of the same approximate distribution on the 738 archives where both methods have a forward controlled-gap result. The mean still depends on interpolation between the seven quantiles and on the normal-spacing tails. Both root-mean-square errors change slightly, and the original ordering does not reverse. This is not a claim that the mean is a verified optimum, and it does not replace the published-median analysis.
+
+\begin{table}[p]
+\caption{Trend root-mean-square error, in $^{\circ}$C per decade, when the annual point is the published median or the mean of the same approximate distribution. Both use the 738 common forward controlled-gap archives.}
+\label{tab:point-summary}
+\centering
+\begin{tabular}{lrr}
+\toprule
+Method & Published median & Approximate-distribution mean \\
+\midrule
+D2 & 0.163814 & 0.157811 \\
+Calibrated stochastic & 0.146577 & 0.143719 \\
+\bottomrule
+\end{tabular}
+\end{table}

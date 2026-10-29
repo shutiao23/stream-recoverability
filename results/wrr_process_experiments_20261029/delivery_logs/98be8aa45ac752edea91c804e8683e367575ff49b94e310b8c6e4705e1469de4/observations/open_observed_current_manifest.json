@@ -1,0 +1,75 @@
+{
+  "scope": "Previously eligible open-provider station subset; project-processed float32 daily series, not provider-native raw values or the entire study population",
+  "total_original_eligible_stations": 96,
+  "included_eligible_stations": 95,
+  "included_by_provider": {
+    "gkd_bayern": 37,
+    "usgs": 36,
+    "foen": 11,
+    "chmi": 11
+  },
+  "excluded_by_provider": {
+    "lubw": 1
+  },
+  "original_witnesses_included": 35,
+  "files": [
+    {
+      "path": "ATTRIBUTION.txt",
+      "sha256": "32c995e2139459370a8d622231dd748c2b0843c5da9a0eb88ccc54b06de343f9",
+      "bytes": 1552
+    },
+    {
+      "path": "all_incomplete_year_bounds.csv",
+      "sha256": "1fcd904b1faf8cd6117408898ce558d312c5cd2b9fa0afa78c8521712920c4ad",
+      "bytes": 39422
+    },
+    {
+      "path": "daily_temperature.parquet",
+      "sha256": "106c46c8e5dba79fb0f2befdeb6408a97f264690987858c57dec121a100d3b06",
+      "bytes": 3836827
+    },
+    {
+      "path": "eligible_station_years.csv",
+      "sha256": "cc584d83d1da245c17dd7b53a3aeddb3e9ff5eb98f649c6101a87b8b573d692b",
+      "bytes": 214341
+    },
+    {
+      "path": "observed_record_certificates.csv",
+      "sha256": "a0b37a33b62dd5a554a17eb1fe055dbe4efc60052d682e9d4577f4577f7f7933",
+      "bytes": 17379
+    },
+    {
+      "path": "rule_summary.csv",
+      "sha256": "ea7f39f7add39872d7b59eb05483601485e5cc413d8bc94996aa5fd959fbdf29",
+      "bytes": 367
+    },
+    {
+      "path": "source_roster.csv",
+      "sha256": "1ca4644b54a501db4e0e7baf5a203d84daa1da3e3891ae053f69363895cbb615",
+      "bytes": 46525
+    },
+    {
+      "path": "station_years.parquet",
+      "sha256": "cdec9c65c6dcfc2d8ac32d371938c4471e0b05a578215c30ac8db7fac1e00808",
+      "bytes": 23446
+    },
+    {
+      "path": "witness_rules.csv",
+      "sha256": "9ecf01eab51d6eadd429ebf390a937353e6f01fad2803d8463b39d6fcf97a79c",
+      "bytes": 10852
+    }
+  ],
+  "schema_version": "current_observation_snapshot_v1",
+  "frozen_at": {
+    "utc": "2026-10-29T14:30:37.082223+00:00",
+    "Asia/Shanghai": "2026-10-29T22:30:37.082223+08:00"
+  },
+  "freeze_semantics": "current content freeze, not evidence of past provenance",
+  "historical_provenance_authenticated": false,
+  "snapshot_file_base": "results/wrr_review_response_20261027/open_observed_record_snapshot",
+  "legacy_manifest": {
+    "path": "results/wrr_review_response_20261027/open_observed_record_snapshot/manifest.json",
+    "sha256": "42882e6bfa11095902168a0cc7a6f59b1e3f8dfc9b83d01e1f542acd4d83be79",
+    "files_without_sha256": 9
+  }
+}

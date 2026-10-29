@@ -1,0 +1,45 @@
+python -m pytest tests/test_review_bundle_atomic_write.py
+...                                                                      [100%]
+3 passed in 0.01s
+python -m pytest tests/test_review_completion_current_evidence.py
+...                                                                      [100%]
+3 passed in 0.41s
+python -m pytest tests/test_usace_open_reference_replay.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usace_partial_year_h30_bounds.py
+..                                                                       [100%]
+2 passed in 0.36s
+python -m pytest tests/test_usace_partial_history_scores.py
+..                                                                       [100%]
+2 passed in 0.32s
+python -m pytest tests/test_usace_partial_history_engine.py
+..                                                                       [100%]
+2 passed in 0.41s
+python -m pytest tests/test_source_partial_history_factorial.py
+..                                                                       [100%]
+2 passed in 0.41s
+python -m pytest tests/test_partial_history_feature_support.py
+...                                                                      [100%]
+3 passed in 1.78s
+python -m pytest tests/test_source_support_rule_evaluation.py
+...                                                                      [100%]
+3 passed in 0.47s
+python -m pytest tests/test_usgs_partial_daily_feasibility.py
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+______ test_partial_history_requires_coverage_endpoints_and_bounded_gaps _______
+
+    def test_partial_history_requires_coverage_endpoints_and_bounded_gaps():
+        m=module();x=pd.Series(np.ones(365));x.iloc[50:95]=np.nan;assert m.history_ok(x)
+        x.iloc[95]=np.nan;assert not m.history_ok(x)
+>       x.iloc[50:96]=1;x.iloc[0]=np.nan;assert not m.history_ok(x)
+E       AssertionError: assert not True
+E        +  where True = <function history_ok at 0x7f3446a237e0>(0      NaN\n1      1.0\n2      1.0\n3      1.0\n4      1.0\n      ... \n360    1.0\n361    1.0\n362    1.0\n363    1.0\n364    1.0\nLength: 365, dtype: float64)
+E        +    where <function history_ok at 0x7f3446a237e0> = <module 'usgs_partial_feasibility' from '/mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/871_usgs_partial_daily_feasibility.py'>.history_ok
+
+/home/lzq/workspace/parttime/stream-recoverability/tests/test_usgs_partial_daily_feasibility.py:24: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_usgs_partial_daily_feasibility.py::test_partial_history_requires_coverage_endpoints_and_bounded_gaps
+1 failed, 1 passed in 0.40s
+make: *** [Makefile:321: review-test] Error 1

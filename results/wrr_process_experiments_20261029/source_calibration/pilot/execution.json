@@ -1,0 +1,21 @@
+{
+  "stage": "pilot",
+  "status": "native20_source_reproduced_and_nested_draws_generated",
+  "stations": [
+    {
+      "station_key": "nve_hydapi|16.207.0",
+      "cases": 96,
+      "station_years": 4,
+      "native20_max_abs_draw_error": 0.0,
+      "input_panel": "results/development_v11/second_confirmation/daily_qc/networks/nve_basin_16/daily_wide_temperature.csv",
+      "input_panel_sha256": "286f440a00893ce898c580c2bf13ced17fc76e31d8d3a4a43703b13a8655d975",
+      "station_index": 305
+    }
+  ],
+  "source_cases": 96,
+  "elapsed_seconds": 7.519701947458088,
+  "complete_source_calibration_reestimated": false,
+  "target_calibrated_scores_generated": false,
+  "full_source_cases_required": 2370,
+  "d2_refit": false
+}

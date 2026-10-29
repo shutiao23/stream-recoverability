@@ -1,0 +1,24 @@
+\section{Literature-inspired interannual thermal-peak comparison}
+After inspecting earlier results and data availability, we selected all \BFStations{} of the previously eligible 95 stations with complete reported water years from 2009 through 2017. They belong to \BFGroups{} connected groups; project labels mark one as regulated and leave the others unmatched to the regulation inventory, not necessarily natural. Following the structure described by Beaufort et al. (\url{https://doi.org/10.5194/hess-26-3477-2022}), we examine a nine-year mean of annual 30-day peaks and fill missing summer daily water with station-specific regressions on right-aligned 2--10-day air-temperature means. In each synthetic experiment, we hide 1--8 whole years in every possible combination, select the lag with the highest in-sample $R^2$ using retained summers only, and fit the regression without withheld-year water. We calculate the 30-day maximum wholly contained in July--August for observed and predicted years. All nine years hidden is unavailable because no local fitting data remain. The 11,220 station--mask cases reuse only 22 stations and are not independent climate replicates.
+
+The primary reference is the mean of the nine observed July--August 30-day maxima. A separately reported reference is the mean of the nine full-calendar-year H30 values; this changes the target, so any summer-only estimator may omit a peak outside July--August. The unfilled comparison averages only the retained years; the filled comparison averages retained observed peaks and reconstructed missing-year summer peaks. Both methods are evaluated on the same cases. These are point estimates of interannual averages, not annual H30 recovery, trend, interval calibration or release-rule validation. The observed-only mean bias across the exhaustive symmetric masks is zero for the summer reference by construction; this does not establish unbiasedness under real missingness.
+
+Table~\ref{tab:beaufort-proxy} reports station-equal MAE and 4,000 connected-group bootstrap intervals for the filled-minus-observed absolute-error difference, with one row per station in the group resample. The comparison is post-hoc and uses ten project connected groups; the resampling interval is descriptive and depends on those groups. Other missing-year counts and leave-one-provider-out results are in the aggregate output. Removing a provider does not refit models or establish independent climates.
+
+\begin{table}[ht]\caption{Adapted summer-regression proxy against two distinct nine-year targets. MAE and filled-minus-observed MAE differences are $^{\circ}$C; cases are repeated year masks.}\label{tab:beaufort-proxy}\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
+Reference & Hidden years & Cases & Observed MAE & Filled MAE & Difference & Group interval \\
+\midrule
+Summer & 1 & 198 & 0.100 & 0.069 & -0.031 & [-0.051, -0.020] \\
+Summer & 2 & 792 & 0.156 & 0.112 & -0.043 & [-0.070, -0.028] \\
+Summer & 4 & 2772 & 0.266 & 0.189 & -0.078 & [-0.114, -0.057] \\
+Summer & 6 & 1848 & 0.418 & 0.285 & -0.133 & [-0.184, -0.103] \\
+Summer & 8 & 198 & 0.803 & 0.530 & -0.273 & [-0.416, -0.192] \\
+Full-year & 1 & 198 & 0.190 & 0.192 & 0.002 & [-0.016, 0.012] \\
+Full-year & 2 & 792 & 0.222 & 0.223 & 0.001 & [-0.030, 0.018] \\
+Full-year & 4 & 2772 & 0.305 & 0.288 & -0.017 & [-0.068, 0.012] \\
+Full-year & 6 & 1848 & 0.437 & 0.370 & -0.067 & [-0.143, -0.023] \\
+Full-year & 8 & 198 & 0.805 & 0.581 & -0.224 & [-0.390, -0.127] \\
+\bottomrule\end{tabular}}\end{table}
+
+This is an adaptation, not a reproduction of the French study: it uses a different station population, processed water records, NASA POWER-based daily air instead of SAFRAN, explicit train-only fitting, all combinations of hidden years, and a July--August-contained peak definition. The published article does not establish all of our implementation choices. NASA POWER's gridded local-solar air days may not align with provider water days; the original API version and raw response for these 22 cached stations were not retained. After viewing the proxy results, we requested current NASA POWER responses for \BFVintageRequests{} representatives of distinct stored air series. All \BFVintageDays{} comparable summer and lag-input days matched within $10^{-5}$ $^{\circ}$C. This does not establish historical version, unrequested stations, air or water accuracy, clock alignment or independent-climate generality. A separate implementation recomputed \BFCases{} masks and all 16 summary cells from the same processed inputs; it did not reproduce the original authors' datasets or code.

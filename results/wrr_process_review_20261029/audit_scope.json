@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-29 Asia/Shanghai",
+  "purpose": "Independent peer-review diagnostics on saved outputs; no model refit, no changes to manuscript or submitted results",
+  "bootstrap": "10000 resamples of 17 connected groups, preserving all paired archive rows; percentile intervals are descriptive and not an equivalence test",
+  "regional_standardization": "Uses common cell weights min(n_FOEN,n_Bavaria) or equal cells; sensitivity check, not causal identification; original matching only restricted common support",
+  "trajectory_either_tail_over_005": 10,
+  "trajectory_groups": [
+    "g0029",
+    "g0032"
+  ],
+  "observed_station_keys_not_forward": [],
+  "forward_keys_not_observation": [],
+  "input_sha256": {
+    "results/wrr_adversarial_review_20261027/failure_strata/failure_strata_cases.parquet": "445a7b556027e125cc0a929125e5c0047d3c60cf994444a30db9cf5715fe34d5",
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "results/wrr_process_review_20261028/trajectory_nested_cases.csv": "9736e8c50f96a04057fbf2aa921a6de997225029978c11477876e5efe81928f8",
+    "results/wrr_process_review_20261028/time_support_cases.csv": "ebb91205757a4c6a8df1ea774dd2d5b0fe07453b13cdfdd276223b24010e62cb",
+    "results/wrr_review_response_20261027/rules/eligible_station_years.csv": "c280490b03cbc6bb06d6d5dc97c94fe5271d9b231e71a5fb442fe3ee34a4966e",
+    "paper/wrr_tr/review_completion_article.tex": "dabbd975206398492042df9a6dda1cb46eae6125de9e18e501976c86852629fb",
+    "paper/wrr_tr/review_completion_article.pdf": "df4777db3221011dac5f662d4c903547f9ec9897c38049ba931973c99123168b",
+    "paper/wrr_tr/review_completion_supporting.pdf": "8702bea4ef3644b00f6c93693b5a404f43b232a1f2260ca407882e3bd973cb9b",
+    "scripts/960_process_region_identification.py": "daa9b8ef727d388a2c1759535de51bdc6500edaf2a4e1ea235d3c93267530478",
+    "scripts/961_process_time_support.py": "4ee7f25cc597861224c22e12b3b47c32bd007743e4d99f7c74d132d95f3bc2b6",
+    "scripts/962_process_trajectory_budget.py": "e9076e4845fe2da066b5020171e0746f9177f790de3ffb7af88f4b7ccf3ce275",
+    "scripts/963_process_revision_report.py": "c3045dbce3e964e66437b1343502ed7e7c25d2d9c544b6b4e17962fa1ff41545",
+    "scripts/964_process_gap_and_archive.py": "912b6db86c9699a9035e9a2add88702e3b6cced1be536af34ac7437da4e1ebb2"
+  }
+}

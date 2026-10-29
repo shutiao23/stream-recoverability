@@ -1,0 +1,140 @@
+{
+  "status": "scientific_requirements_verified",
+  "review_attachment": "/home/lzq/.codex/attachments/d4c28df2-1c0e-4e04-afd3-a820a84e923c/pasted-text-1.txt",
+  "requirements": [
+    {
+      "id": "C1_C2",
+      "requirement": "固定原案例/参数，按地区及重建器报告逐例双尾变化和三个种子嵌套预算",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/source_calibration/full/target_budget_tail_summary.csv": "0bad79cf2e7c3ff44d400af3a4da83339114cde0b13d9d3e167dad5c508a1ecc",
+        "results/wrr_process_experiments_20261029/source_calibration/full/source_native20_checks.csv": "126c00bcd61e8285154a01fba3d9326bf4eaa188fda65c731cf60f8cfe065f50",
+        "results/wrr_process_experiments_20261029/source_calibration/full/target_native20_checks.csv": "cf190882d96aa6cdca8e63216d588c17c6e5e22f77ad607e6505a0a9bdb3cdd7",
+        "paper/wrr_tr/process_revision_figures.tex": "ff2821f55ebeda357ca9b8b884898e391816f73a2ba939cb55a268506a101ad7"
+      },
+      "inference_boundary": "native20与nested20不同；27目标仅2群组；500条不证明极限收敛。"
+    },
+    {
+      "id": "C3",
+      "requirement": "实际更新原正权来源年度分布及校准偏移，并评分相同目标",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/source_calibration/source_role_cases.csv": "d7adf7ded771cab4cdfc9f5a53425f3f3e467b01ca7bedf8a597b90f948fcb6d",
+        "results/wrr_process_experiments_20261029/source_calibration/full/source_reestimated_offsets.csv": "6c8c9aa0773389257c6cb9554aa6e986f49a9167b1e94d1776a757e49e37ba81",
+        "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+        "results/wrr_process_experiments_20261029/source_calibration/independent_audit.json": "7fdd6f6e7ba9e85e2ea0eea91875f95be6fc0a1813a789f346a8c040d4042086"
+      },
+      "inference_boundary": "原角色/权重/50案例回退固定；D2未重训；非全档案趋势重新评分。"
+    },
+    {
+      "id": "C_leakage_and_precision",
+      "requirement": "执行目标标签污染负控、来源标签正控及CRPS积分精度核查",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/source_calibration/calibration_leakage_probe.json": "f767364ddf387c8a1718483132b4bef432a158480dc99968a43a5c680bad32ce",
+        "results/wrr_process_experiments_20261029/source_calibration/crps_grid_sensitivity.json": "1bdf5a560fa8fcb3eee97e4a853a9fb922edbf867a52a7e704361b44db099aab"
+      },
+      "inference_boundary": "评价标签接口探针不是隐藏日改值后日模型重训；固定尾部假设的数值积分检查不是物理分布验证。"
+    },
+    {
+      "id": "A",
+      "requirement": "共同权重、支持损失、连续训练支持平衡及群组影响",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/region_water/regenerated/region_standardized.csv": "ffabbabe699601bb61c0c0e951ef9c66b7069c37669299b5fae9bd3a97681146",
+        "results/wrr_process_experiments_20261029/region_water/regenerated/region_balance_continuous.csv": "50453f18b9d3c08d2e384be37758edc20776d4aa5abf696df965e18539eda5e6",
+        "results/wrr_process_experiments_20261029/region_water/regenerated/region_support_loss.csv": "c0ae023bb6c3e18b76f6dc81a90628de891ec0a94e2c6af57423e5cfc50f3516",
+        "results/wrr_process_experiments_20261029/region_water/regional_leave_group_out.csv": "02ee7d6b0f3e1e89fdd3a7351b1b3587c922d188842cf61ebab3b980053a5375",
+        "results/wrr_process_experiments_20261029/region_water/region_water_audit_report.json": "e92f59f22a64839894b4dfcad971af01c66cdb257d4d8e4c76662accb6d94fda"
+      },
+      "inference_boundary": "没有把共同支持等同因果识别；删群会改变共同支持总体。"
+    },
+    {
+      "id": "B",
+      "requirement": "完整可行集、200随机实现、较强calendar控制、配对群组区间及有符号交叉项",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/time_all_feasible_subsets.parquet": "6db1f8372cd5e7c73e328d1023d18333fe1fa4af37c4e826587b414c4662e90a",
+        "results/wrr_process_experiments_20261029/time_sensitivity_paired_cluster.csv": "798f41991ad418de6a9a10d8a35479fed1d465e7eda113bd42db12b4caea8da1",
+        "results/wrr_process_experiments_20261029/time_sensitivity_summary.csv": "d36a5ca9fa8573aa742e925d3bb85d9a8b072ac568aa5744145e4e64e5bb12e3",
+        "results/wrr_process_experiments_20261029/time_random_selection_variation.csv": "3bdfddd20330b2cf88ab32da66297a4c0b7dda79635ff2cfb0980307d04ec397",
+        "results/wrr_process_experiments_20261029/time_gap_independent_audit.json": "20b4cd4e5499595bd5769f6f9ab5babc7f6c4c01cf3cb5de9230af1302c25da7"
+      },
+      "inference_boundary": "sqrt(E[MSE])、平均RMSE与选择变异区分；不主张等效或纯年份数量归因。"
+    },
+    {
+      "id": "B_denominators",
+      "requirement": "820/807/805/468逐档案支持、337构造相同、两零遮挡与13不可评价档案",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/time_archive_accounting.csv": "0ff1164d1a0867dd833885688bdf6c65f32f473124ec4fdf0f2d56da531c4afd",
+        "results/wrr_process_experiments_20261029/time_availability_burden.csv": "6d5673f658b32f87b5e1dddde588bf93cb8eb625276198cd94123668ae4d0f56",
+        "results/wrr_process_experiments_20261029/time_gap_scientific_findings.json": "003426da22ece16fdf832e454bb90a4f5e28c8b8d5ba7d3abe0c50ae9d3c5c2e"
+      },
+      "inference_boundary": "13例暖季仅3或4年未混入共同分母。"
+    },
+    {
+      "id": "gaps",
+      "requirement": "统一年度最长缺口/2010以后主比较并从原日期核查同日重叠",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/gap_overlap_station_year_cases.csv": "474ccc51ba0f88297ef96aa8eaa8b0bf856622a8169d68b247d3fdb990737599",
+        "results/wrr_process_experiments_20261029/gap_overlap_summary.csv": "1c80214b78ae257929c811a5016d64c93fccf189b42a989f4074f1a30f66d3c9",
+        "results/wrr_process_experiments_20261029/time_gap_independent_audit.json": "20b4cd4e5499595bd5769f6f9ab5babc7f6c4c01cf3cb5de9230af1302c25da7"
+      },
+      "inference_boundary": "观测站年与试验站年重复不同权；peer限定队列可评价缺失记录，非所有实际供体。"
+    },
+    {
+      "id": "water_air",
+      "requirement": "pooled/站内年度关系、配对不确定性与权重/删群敏感性",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/region_water/regenerated/water_air_summary.csv": "1a95815761a5bc3520bbb6234890f6fd2816c4c9e17a88cc18f1656824b4cf1b",
+        "results/wrr_process_experiments_20261029/region_water/regenerated/water_air_paired_changes.csv": "6b8bba18b3b0d60251183b2aff71427e18df843d018dbc83ce250f2203e5d2cf",
+        "results/wrr_process_experiments_20261029/region_water/water_air_weight_and_leave_group_sensitivity.csv": "e00ddb6c6a988058ab5e676f3224e417e0c07272932c13fe7aad0e8dfdbdad6c"
+      },
+      "inference_boundary": "FOEN仅2群组；年度两个H30可能不同时发生，不证明日重建稳定。"
+    },
+    {
+      "id": "minor_and_D",
+      "requirement": "19窗口基准、31/8年数、LOYO邻站来源、探索性研究问题及当前主张同步",
+      "status": "verified",
+      "evidence_sha256": {
+        "paper/wrr_tr/review_completion_article.tex": "f5d9868790eaa48105be09b943bc55c3cfac479d0b41ce25e3713275d5fa688b",
+        "paper/wrr_tr/process_gap_revision_archive_table.tex": "8ce171c258869fe41959c66aaf7b2580b048e02cb25fa3e723836cafb5bf6bab",
+        "paper/wrr_tr/process_sample_table.tex": "2e1dcfa8d68185b56b2be58aa76d061386b28bcf304a375c242aec7c0636b230",
+        "paper/wrr_tr/core_claims_table.tex": "dbd5d4f5d90a691df2dadd187bb692e140ec3cbd4612a0c4305c0fa38ba123da",
+        "paper/wrr_tr/process_experiments_supporting.tex": "1ebd745b079d879dda71fe287da317f1ee0d1aeafa70628a7f7b2f6b7ca831a4"
+      },
+      "inference_boundary": "保留有限记录目标；同数优化优势与来源重校准现已真实执行。"
+    },
+    {
+      "id": "cache_binding",
+      "requirement": "变化的forcing/config/代码/版本/job不得静默复用来源缓存",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/source_calibration/resume_signature_rebuild_verification.json": "a8e43c666a29856205fb1c797ac89110fd74c5c53ab6bd0c228bd1c6ac3b8a51",
+        "results/wrr_process_experiments_20261029/source_calibration/full/daily_reconstruction_shared_signature.json": "a38c45b8802d9d6e26b410e38a2904da77f47c1cd921378ea68fe65ba2683939"
+      },
+      "inference_boundary": "旧无签名缓存先拒绝，再19站实际重构，未补造历史签名。"
+    },
+    {
+      "id": "bounded_replays",
+      "requirement": "C与B均在仅含声明依赖的临时副本中数值重放",
+      "status": "verified",
+      "evidence_sha256": {
+        "results/wrr_process_experiments_20261029/source_calibration/replay_receipt.json": "82ca6eb915d71af0ae5abf2a668aa74478d61a09dd728f984763cf1a1f0da8e6",
+        "results/wrr_process_experiments_20261029/source_calibration/frozen_replay_dependency_manifest.json": "03958fc5111d8bbfb7ab705ba5791429f091d7654c8155b16c76ab52a1845850",
+        "results/wrr_process_experiments_20261029/time_frozen_replay/replay_receipt.json": "41c3b9c78ee1854aa7e5624bf59cd58b29938cc4ad6a6f0c88f5142d1536d751",
+        "results/wrr_process_experiments_20261029/time_frozen_replay/required_files.json": "d20ddb150d748ab7a50c93d85e6899ecc6845074315696eeb8397e7105cfa20e"
+      },
+      "inference_boundary": "不是原始全数据、D2全训练或新依赖环境重建；200seed/CI/日缺口另由本地独立原输入复算。"
+    }
+  ],
+  "retired_claims_absent_from_active_expanded_tex": true,
+  "active_tex_files_checked": 114,
+  "user_scope_exclusions": [
+    "作者信息、许可/审稿访问、永久保存由用户明确自行处理"
+  ],
+  "delivery_acceptance": "Final catalog identity, tests and ZIP extraction/compilation/replay are separately recorded in validation.json after completion."
+}

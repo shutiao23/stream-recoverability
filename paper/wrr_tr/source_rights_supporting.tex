@@ -1,0 +1,23 @@
+\section{Source-provider dependence of whole-archive models}
+The 42 whole-archive target stations belong to providers with recorded reuse paths, but source-model training has additional provenance. Recomputing the source role assignments and checking them against all 13 saved seed-zero model bundles shows that 13 estimator roles and 6 interval-calibration roles have positive-weight LUBW source cases. Source cases are repeated masks; their counts are not independent observations. Positive source weights establish model dependence but do not resolve the legal status of any particular derivative. Individual source, model, target, mask and reviewer-access rights still require confirmation. A post-hoc candidate-provider strict-region refit is reported separately and does not replace the main results.
+A subsequent post-hoc audit reconstructed donor visibility for all 194,370 eligible candidate source-case rows using the saved masks and processed panels, and checked the counts against the stored cases. In 39 of 52 mode--region--role cells, some positive-weight rows had a finite donor-regression estimate while a visible donor was absent from the original three local catalogs. These are repeated rows, not independent sites or evidence of unauthorized use. The 73 such USGS panel-column occurrences correspond to 69 identifiers, all returned by the USGS site metadata service; one GKD column has a matching project-generated network-QC record. The independent check re-evaluated 156 selected source cases and all 52 role cells. Site-number existence and project QC metadata do not establish the original provenance of cached temperature values, complete processing lineage, or permission to redistribute derived models. The public site metadata snapshot can be replayed separately; source panel mappings remain local.
+After the metadata audit, we retrieved current USGS daily-mean water temperatures for those 69 sites. Of 293,851 finite local panel-column days, 292,285 had a single distinct finite USGS value and all agreed within $10^{-6}$ $^{\circ}$C. Another 1,525 had multiple distinct USGS values; every local value matched at least one alternative, but that post-hoc match does not determine which series was used historically. Their median within-day range was 0.2 $^{\circ}$C; 41 local days had no finite returned value. These are repeated panel-column days, not independent site-days. A separate implementation recomputed all comparisons. The current public responses are included for source-only replay; they do not establish historic data vintage, sensor quality or derivative permissions.
+\begin{table}[p]\centering\small
+\caption{LUBW cases with positive source-role weights, not independent station counts. Groups with bootstrap multiplicity zero do not contribute.}\label{tab:rights-roles}
+\begin{tabular}{llrr}\toprule
+Mode & Region & Estimator case rows & Interval calibration case rows\\\midrule
+forward & foen & 383 & 0\\
+forward & gkd\_bayern & 287 & 0\\
+forward & usgs\_huc03 & 383 & 0\\
+forward & usgs\_huc04 & 96 & 0\\
+forward & usgs\_huc10 & 191 & 96\\
+forward & usgs\_huc17 & 191 & 0\\
+offline & foen & 288 & 311\\
+offline & gkd\_bayern & 862 & 2732\\
+offline & syke & 1030 & 311\\
+offline & usgs\_huc03 & 3475 & 0\\
+offline & usgs\_huc04 & 1461 & 168\\
+offline & usgs\_huc10 & 1150 & 0\\
+offline & usgs\_huc17 & 1246 & 2732\\
+\bottomrule\end{tabular}
+\end{table}

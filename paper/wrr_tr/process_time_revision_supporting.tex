@@ -1,0 +1,27 @@
+\subsection{Paired time-support diagnostics}
+
+These exploratory comparisons use one reproducible random subset per station--replicate archive, shared by the retained analysis. They do not average over all random year selections. The time-balanced heuristic spreads only the added incomplete years; it does not optimize their placement jointly with the fixed complete years. Its mean span changes only from 13.265 to 13.343 years. Thus year count and time position or slope leverage remain inseparable.
+
+The following 95\% percentile intervals resample the 17 connected groups 10,000 times with seed 20261029, carrying every paired station--replicate archive with its group. Each statistic weights archives equally, including repeated masks. These intervals describe the present cohort and do not establish equivalence.
+
+\begin{table}[t]\centering\small\caption{Paired estimated-slope RMSE contrasts, comparator minus warm-season screen ($^{\circ}$C per decade).}\label{tab:time-paired-revision}
+
+\begin{tabular}{lrr}\toprule Comparator & Difference & 95\% group-resampling interval \\\midrule
+
+Same-count random & +0.0081 & [-0.0106, +0.0176] \\
+
+Same-count time-balanced & +0.0108 & [-0.0060, +0.0394] \\
+
+All supported years & -0.2762 & [-0.3572, -0.1832] \\
+
+\bottomrule\end{tabular}\end{table}
+
+The same-count rules are identical by construction in 337/805 archives (41.9\%): 332 retain no incomplete year and 5 retain every incomplete year. Only 468 archives offer a choice between different same-sized subsets. Their estimated RMSEs are 0.3944 (Warm-season 90\%), 0.4100 (Same-count random), 0.4150 (Same-count time-balanced) $^{\circ}$C per decade. Similar overall point estimates therefore partly reflect identical selections.
+
+For each archive, $S$ is the complete-year slope on the selected set minus the full finite-record slope, $R$ is the estimated slope minus the complete-year slope on that selected set, and $E=S+R$. Consequently,
+
+\[\operatorname{MSE}(E)=\operatorname{MSE}(S)+\operatorname{MSE}(R)+2\operatorname{mean}(SR).\]
+
+For the same-count random control, the numerical identity is $0.206128=0.208715+0.010617-0.013204$. The negative cross term shows error cancellation; RMSE differences and normalized squared terms are not independent causal contributions.
+
+\paragraph{Relationship to the 807-archive core comparison.} Two of the original common archives have no masked year and empty annual-prediction schemas: Bavaria station 10081004, replicate 6 (14 complete years), and station 11405000, replicate 14 (7 complete years). Their design masks are empty and saved warm-season and all-year slope errors are both zero. The prior diagnostic skipped them because the empty prediction files contain neither a year nor a D2 column. The present 805-archive diagnostic explicitly retains that actual-mask scope; this is not a reconstruction failure. A saved 807-archive sensitivity restores their zero errors to every scheme. The remaining 13 of the 820 forward archives lack an available warm-season comparison and are outside both common denominators.

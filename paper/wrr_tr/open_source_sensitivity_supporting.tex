@@ -1,0 +1,37 @@
+\section{Candidate-provider, strict-region source sensitivity}
+After observing the original results and LUBW source dependence, we refitted all 13 whole-archive source models on seven candidate providers with recorded reuse paths. Role assignments and bootstrap draws were recomputed using the filtered data, and every group occurring in the target region was excluded from source roles. An independent role recount found no positive-weight target-region source case or post-2009 forward source case. Original target masks and daily features were reused. All 3,320 archive settings, masks and the unchanged plug-in baselines were checked. Removing providers, changing source assignments and strict regional exclusion jointly change the analysis; the result is not a causal attribution to one of them. The filtered inputs remain processed study data, not provider-native raw records. This after-the-fact sensitivity neither establishes legal redistribution rights nor independent climate transfer, and it does not replace the original analysis.
+\begin{table}[p]\centering\footnotesize
+\caption{Trend RMSE in $^{\circ}$C per decade on the four-way common cases: both methods and both source-model versions must be available. Repetitions are not independent climates.}\label{tab:source-filter-comparison}
+\begin{tabular}{llrrrrrr}\toprule
+Family & Mode & Cases & Groups & D2 orig. & Class. orig. & D2 cand. & Class. cand.\\\midrule
+calendar & forward & 701 & 17 & 0.06178 & 0.05134 & 0.06033 & 0.05822\\
+calendar & offline & 835 & 18 & 0.00873 & 0.01124 & 0.00890 & 0.01119\\
+crossed & forward & 738 & 17 & 0.16381 & 0.14658 & 0.15806 & 0.15600\\
+crossed & offline & 838 & 18 & 0.02780 & 0.03208 & 0.02868 & 0.03195\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\footnotesize
+\caption{Nominal 95\% D2 trend-interval results on cases where both versions are available. Width is in $^{\circ}$C per decade; this comparison is descriptive and the selected cases may differ from the four-way point cohort.}\label{tab:source-filter-coverage}
+\begin{tabular}{llrrrrr}\toprule
+Family & Mode & Cases & Cover orig. & Cover cand. & Width orig. & Width cand.\\\midrule
+calendar & forward & 820 & 96.0\% & 95.7\% & 0.116 & 0.115\\
+calendar & offline & 840 & 95.0\% & 95.2\% & 0.018 & 0.018\\
+crossed & forward & 820 & 88.0\% & 87.6\% & 0.450 & 0.408\\
+crossed & offline & 840 & 94.0\% & 92.9\% & 0.089 & 0.086\\
+\bottomrule\end{tabular}
+\end{table}
+A descriptive connected-group bootstrap resamples the same groups for both source versions and both estimators. It does not establish independent climates or a population transfer guarantee. The corresponding paired MSE differences and bootstrap intervals are supplied with the candidate-source summary.
+\begin{table}[p]\centering\small
+\caption{Symmetric MSE decomposition on cases with all four retention-by-estimator cells available under both versions. Fractions divide the mean retention contribution by mean total improvement; they are not causal or universal.}\label{tab:source-filter-factorial}
+\begin{tabular}{lllrrrr}\toprule
+Family & Mode & Estimator & Cases & Groups & Original fraction & Candidate fraction\\\midrule
+calendar & forward & D2 & 820 & 17 & 0.799 & 0.783\\
+calendar & forward & classical & 701 & 17 & 0.744 & 0.767\\
+calendar & offline & D2 & 840 & 18 & 0.887 & 0.891\\
+calendar & offline & classical & 835 & 18 & 0.931 & 0.930\\
+crossed & forward & D2 & 807 & 17 & 0.939 & 0.937\\
+crossed & forward & classical & 725 & 17 & 0.925 & 0.931\\
+crossed & offline & D2 & 840 & 18 & 0.930 & 0.933\\
+crossed & offline & classical & 838 & 18 & 0.942 & 0.942\\
+\bottomrule\end{tabular}
+\end{table}

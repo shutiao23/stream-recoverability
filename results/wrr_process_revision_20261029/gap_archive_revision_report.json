@@ -1,0 +1,11 @@
+{
+  "primary_gap_period": "2010-2025",
+  "supplementary_observed_period": "1981-2025",
+  "common_metric": "annual longest contiguous missing run, days",
+  "observed_unit_weight": "equal incomplete station-year; no repeated masks",
+  "trial_unit_weight": "equal incomplete station-year-replicate; 20 mask repeats retained",
+  "shared_year_scope": "same year within connected group (and trial replicate); does not imply overlapping missing dates",
+  "archive_complete_year_definition": "unique complete station-years in source cases, including held-out year",
+  "donor_count_source": "leave-one-year-out source cases, not forward controlled gaps",
+  "review_snapshot_preserved": "results/wrr_process_review_20261028 and results/wrr_process_review_20261029 are not overwritten"
+}

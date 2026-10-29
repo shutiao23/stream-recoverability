@@ -1,0 +1,20 @@
+{
+  "scope": "Saved D2 whole-archive predictions; random and balanced rules use year and availability only.",
+  "n_rows": 13212,
+  "random_selection": "One deterministic random subset per archive; plain_seed(961, station_position, replicate, 1). No repeated-random-selection inference.",
+  "time_balanced": "Greedy spread of selected incomplete years only; fixed complete years are not included in the optimization.",
+  "cluster_resampling": {
+    "draws": 10000,
+    "seed": 20261029,
+    "unit": "connected group; paired archive rows and their original row weights are preserved"
+  },
+  "error_identity": "E=S+R; MSE(E)=MSE(S)+MSE(R)+2 mean(SR). Signed cross terms are reported, not attributed causally.",
+  "primary_scope": "Actual-mask archives among original all/warm90 common cases; zero-mask empty schemas are audited and restored in a separate sensitivity.",
+  "limits": [
+    "Finite complete-record slope, not a climate-process trend",
+    "Random and balanced schemes are diagnostics, not proposed archive rules",
+    "Hot-year labels use complete-year truth after selection",
+    "Similar point estimates do not establish equivalence",
+    "Year count and time position or leverage are not separately identified"
+  ]
+}

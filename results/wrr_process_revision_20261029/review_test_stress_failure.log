@@ -1,0 +1,120 @@
+python -m pytest tests/test_wrr_process_revision.py tests/test_wrr_trajectory_revision.py tests/test_wrr_process_time_gap_revision.py tests/test_process_review_region_water.py
+........................                                                 [100%]
+24 passed in 2.87s
+python -m pytest tests/test_review_bundle_atomic_write.py
+...                                                                      [100%]
+3 passed in 0.01s
+python -m pytest tests/test_review_completion_current_evidence.py
+...                                                                      [100%]
+3 passed in 0.34s
+python -m pytest tests/test_usace_open_reference_replay.py
+.                                                                        [100%]
+1 passed in 0.01s
+python -m pytest tests/test_usace_partial_year_h30_bounds.py
+..                                                                       [100%]
+2 passed in 0.39s
+python -m pytest tests/test_usace_partial_history_scores.py
+..                                                                       [100%]
+2 passed in 0.34s
+python -m pytest tests/test_usace_partial_history_engine.py
+..                                                                       [100%]
+2 passed in 0.31s
+python -m pytest tests/test_source_partial_history_factorial.py
+..                                                                       [100%]
+2 passed in 0.38s
+python -m pytest tests/test_partial_history_feature_support.py
+...                                                                      [100%]
+3 passed in 1.81s
+python -m pytest tests/test_source_support_rule_evaluation.py
+...                                                                      [100%]
+3 passed in 0.37s
+python -m pytest tests/test_usgs_partial_daily_feasibility.py
+...........                                                              [100%]
+11 passed in 0.35s
+python -m pytest tests/test_usgs_partial_power_status.py
+.                                                                        [100%]
+1 passed in 0.44s
+python -m pytest tests/test_usgs_public_snapshot_manifest.py
+.                                                                        [100%]
+1 passed in 0.02s
+python -m pytest tests/test_usgs_subdaily_measurement_bounds.py
+..                                                                       [100%]
+2 passed in 0.47s
+python -m pytest tests/test_isolated_groupmax_review.py
+....                                                                     [100%]
+4 passed in 0.34s
+python -m pytest tests/test_isolated_review_evidence.py
+..                                                                       [100%]
+2 passed in 0.01s
+python -m pytest tests/test_groupmax_annual_calibration.py
+......                                                                   [100%]
+6 passed in 0.43s
+python -m pytest tests/test_past_season_screening.py
+....                                                                     [100%]
+4 passed in 1.83s
+python -m pytest tests/test_summer_window_comparison.py
+....                                                                     [100%]
+4 passed in 0.35s
+python -m pytest tests/test_projected_risk_sensitivity.py
+....                                                                     [100%]
+4 passed in 0.74s
+python -m pytest tests/test_stress_source_common_cohort.py
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_common_cohort_excludes_unavailable_and_checks_interval_support ______
+
+    def test_common_cohort_excludes_unavailable_and_checks_interval_support():
+        rows=[]
+        for scenario in ['synchronized_donors','heat_associated_matched']:
+            for i in range(205):
+                for est in ['D2','stochastic_calibrated']:
+                    for dep in ['point','independent']:
+                        for version in ['original','strict_original','candidate']:
+                            for side in ['baseline','stress']:
+                                special=scenario=='synchronized_donors' and est=='D2' and dep=='independent'
+                                available=not special and i==0 and version=='candidate' and side=='stress'
+                                interval=np.nan if special and i==1 and version=='strict_original' and side=='baseline' else .95
+                                error=float(side=='stress')
+                                rows.append({'scenario':scenario,'station_key':f's{i//5}','replicate':i%5,
+                                             'independence_group':f'g{i%17:02d}','region':f'r{i%6}',
+                                             'estimator':est,'dependence':dep,'version':version,'side':side,
+                                             'available':available,'truth_slope':1.,'error':error,'squared_error':error**2,
+                                             'missing_coverage95':interval,'width95':1.,'interval_score95':2.})
+        summary,_=load().summarize(pd.DataFrame(rows))
+        selected=summary[(summary.scenario=='synchronized_donors')&(summary.estimator=='D2')&
+                         (summary.dependence=='independent')]
+>       assert selected.n_common_six_way.eq(204).all()
+E       assert False
+E        +  where False = <bound method Series.all of 3    False\n4    False\n5    False\nName: n_common_six_way, dtype: bool>()
+E        +    where <bound method Series.all of 3    False\n4    False\n5    False\nName: n_common_six_way, dtype: bool> = 3    False\n4    False\n5    False\nName: n_common_six_way, dtype: bool.all
+E        +      where 3    False\n4    False\n5    False\nName: n_common_six_way, dtype: bool = <bound method Series.eq of 3    0\n4    0\n5    0\nName: n_common_six_way, dtype: int64>(204)
+E        +        where <bound method Series.eq of 3    0\n4    0\n5    0\nName: n_common_six_way, dtype: int64> = 3    0\n4    0\n5    0\nName: n_common_six_way, dtype: int64.eq
+E        +          where 3    0\n4    0\n5    0\nName: n_common_six_way, dtype: int64 =               scenario estimator  ... stress_width95 stress_interval_score95\n3  synchronized_donors        D2  ...    ...                NaN\n5  synchronized_donors        D2  ...            NaN                     NaN\n\n[3 rows x 25 columns].n_common_six_way
+
+tests/test_stress_source_common_cohort.py:36: AssertionError
+_________ test_candidate_baseline_receipt_detects_changed_calibration __________
+
+tmp_path = PosixPath('/tmp/pytest-of-lzq/pytest-1749/test_candidate_baseline_receip0')
+
+    def test_candidate_baseline_receipt_detects_changed_calibration(tmp_path):
+        load()  # Make the scripts directory importable for the dynamic audit module.
+        path=Path(__file__).resolve().parents[1]/'scripts/699_stress_source_baseline_audit.py'
+        spec=importlib.util.spec_from_file_location('source_baseline_audit',path)
+        audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit)
+        original=tmp_path/'old';target=tmp_path/'new';original.mkdir();target.mkdir()
+        model=tmp_path/'model';calibration=tmp_path/'calibration'
+        for item in [original/'annual_predictions.parquet',target/'annual_predictions.parquet',target/'trends.csv',model,calibration]:
+            item.write_text(item.name)
+        receipt={'same_masks':True,'hidden_target_values_present':0}
+        (target/'open_source_receipt.json').write_text(json.dumps(receipt))
+        audit.verify_candidate_receipt(original,target,model,calibration)
+        calibration.write_text('changed')
+>       with pytest.raises(ValueError,match='receipt'):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_stress_source_common_cohort.py:54: Failed
+=========================== short test summary info ============================
+FAILED tests/test_stress_source_common_cohort.py::test_common_cohort_excludes_unavailable_and_checks_interval_support
+FAILED tests/test_stress_source_common_cohort.py::test_candidate_baseline_receipt_detects_changed_calibration
+2 failed in 0.61s
+make: *** [Makefile:335: review-test] Error 1

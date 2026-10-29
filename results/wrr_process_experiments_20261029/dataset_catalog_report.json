@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-29T19:00:18.290304+00:00",
+  "status": "inventory_generated_not_scientific_validation",
+  "catalogued_artifacts": 346,
+  "tabular_artifacts": 138,
+  "dictionary_fields": 2519,
+  "declared_key_violations": [],
+  "unresolved_key_tables": [],
+  "unknown_unit_policy": "Unknown units remain documented_feature; metadata has not_applicable. No numerical unit is inferred from numeric dtype alone.",
+  "exclusions": [
+    "current_version_manifest.json",
+    "data_dictionary.csv",
+    "dataset_catalog.csv",
+    "dataset_catalog_report.json",
+    "delivery_check.json",
+    "requirements_audit.json",
+    "validation.json"
+  ],
+  "exclusion_reason": "Avoid self-hash cycles; final validation, delivery reports/logs and version manifests are acceptance artifacts outside this scientific-data inventory.",
+  "final_validation": "Consult validation.json when actually produced; this catalog does not assert that future validation passed.",
+  "output_sha256": {
+    "dataset_catalog.csv": "e4d61179256da5ad17151d5007841243df203b0907e2892fc7f3970dba1b9aca",
+    "data_dictionary.csv": "0ccf2b20bd24680996c71a85029e01ee186ba96bb2b3c6b11c16109988ce0cbd"
+  },
+  "generator_sha256": "9d567090667f100de3913073bde58c7a234b159a94b1d34b83d8e93719d73e04"
+}

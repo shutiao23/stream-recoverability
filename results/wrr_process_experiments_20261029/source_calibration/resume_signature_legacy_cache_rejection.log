@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/968_process_source_calibration.py", line 658, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/968_process_source_calibration.py", line 633, in main
+    records.append(resume_station(jobs[station], cases, args.stage, shared_signature))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/968_process_source_calibration.py", line 136, in resume_station
+    check(isinstance(saved.get("daily_reconstruction_signature"), dict),
+  File "/mnt/lzq-nvme2p4/lzq/stream-recoverability/scripts/968_process_source_calibration.py", line 65, in check
+    raise RuntimeError(message)
+RuntimeError: Resume cache lacks a daily-reconstruction signature; rerun without --resume to rebuild. Existing caches are never backfilled with current signatures.

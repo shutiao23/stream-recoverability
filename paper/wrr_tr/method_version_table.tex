@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\fontsize{8}{10}\selectfont
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3pt}
+\newcolumntype{M}[1]{>{\raggedright\arraybackslash}p{#1}}
+\caption{Calibration and projection order in the analyses used here. The rows are separate analyses; they are not twenty repetitions of one final pipeline.}
+\label{tab:method-versions}
+\begin{tabular}{M{0.18\textwidth}M{0.22\textwidth}M{0.22\textwidth}M{0.28\textwidth}}
+\toprule
+Analysis & Projection and tail treatment & Calibration and source roles & What it supports \\
+\midrule
+Twenty historical single-year source repetitions & The same observed-window projection is applied to both methods after their original calibration. The seven stored quantiles are extended with adjacent normal-quantile spacings. & Original weights and offsets remain fixed. Source roles are the original held-region and held-group assignments. & Historical annual H30 comparisons at the executed 20-path classical budget. Fine differences are not established for larger-budget source-calibrated distributions. Not a whole-archive trend refit. \\
+Whole-archive factorial & The observed-bound projection is applied to each estimator's annual distribution before and after re-estimated offsets, and those annual samples then enter the slope. Each estimator has its own bounded annual marginals. Within one estimator those marginals stay fixed across the three rank constructions. Both use normal-spacing tails. A trend interval is not projected onto an annual lower bound. & Annual weights stay source-only; local daily models, climatology and residual histories are refitted after jointly masking the target archive. The main analysis excludes held test groups; the strict-region sensitivity removes additional same-region groups. & The retention/estimator decomposition and the finite-record trend comparison. The primary retention contrast uses common station-repetition rows. \\
+Forward task calibration & The observed lower bound is imposed on the annual distribution. The independent-draw slope interval is then compared with the task-calibrated slope interval on the same cases. This does not project a trend interval onto an annual lower bound. & Calibration uses unused rule-calibration groups, equal group weights and pre-2010 source errors. Fewer than three nondegenerate groups, a zero factor or an out-of-range target width returns an unsupported status. & The negative result that task calibration is available for only a small selected subset and does not establish population coverage. \\
+External exploratory comparisons & Source models and source calibration are fixed; local history is refitted where the adaptation requires it. & Reference quality, clock, quality codes and watershed dependence are unresolved. & Descriptive transfer evidence only. These rows cannot substitute for a strict independent reference. \\
+\bottomrule
+\end{tabular}
+\end{table}

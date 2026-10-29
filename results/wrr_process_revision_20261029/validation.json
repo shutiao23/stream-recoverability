@@ -1,0 +1,201 @@
+{
+  "schema_version": "wrr_process_revision_validation_v1",
+  "status": "passed",
+  "revision_date": "2026-10-29",
+  "user_facing_timezone": "Asia/Shanghai",
+  "scope": "Implemented scientific revisions, explicit contraction of unsupported claims, current content observation replay, finite-input numerical replay and local manuscript/package reproducibility.",
+  "tests": {
+    "command": "make review-test",
+    "exit_code": 0,
+    "pytest_commands": 35,
+    "passed": 319,
+    "failed": 0,
+    "log": "results/wrr_process_revision_20261029/review_test.log",
+    "log_sha256": "b5c78477f668d702d77c020cd31158885e85d445ab3d73841a7aeb7b5ada76ac",
+    "third_party_warnings": 14
+  },
+  "rebuild": {
+    "command": "make review-process-revision",
+    "exit_code": 0,
+    "log": "results/wrr_process_revision_20261029/rebuild.log",
+    "log_sha256": "c3c2cb9a316f486afb1221f07b9bf743969f6b9740d857913f0015e069a0528e"
+  },
+  "independent_audit": {
+    "status": "passed",
+    "report": "results/wrr_process_revision_20261029/independent_audit.json",
+    "sha256": "b16faed8343e900a0a611716ea0dc834d71d699e696d3394fbc49afaa7f13fc1",
+    "daily_masks_rebuilt": 7583,
+    "source_station_complete_counts": 581,
+    "trajectory_prefix_scores_recomputed": 243
+  },
+  "manuscripts": {
+    "paper/wrr_tr/review_completion_article.pdf": {
+      "sha256": "1ca593ffc67f657efab272c31989c088521760b9d82affb9070836233a77a8cc",
+      "pages": 35,
+      "undefined_references": 0,
+      "oversized_floats": 0,
+      "overfull_boxes_above_2pt": 0
+    },
+    "paper/wrr_tr/review_completion_supporting.pdf": {
+      "sha256": "7b22b0637607a06fefb89157ec2188211c11d16f897e17eb84a76d16be61545e",
+      "pages": 106,
+      "undefined_references": 0,
+      "oversized_floats": 0,
+      "overfull_boxes_above_2pt": 0
+    }
+  },
+  "claim_review": {
+    "status": "passed",
+    "scope": "Independent reading of 113 recursively included source files and current PDF text; no residual positive claims of equivalence, isolated year-count causation, excluded river processes or daily stability found.",
+    "limitation": "This is local claim-to-evidence review, not an external peer-review decision."
+  },
+  "package": {
+    "canonical": "dist/wrr_process_revision_20261029.zip",
+    "current_candidate_alias": "dist/wrr_review_response_candidate.zip",
+    "sha256": "9e1add49088736b54d1cc6a48aa661769bc4cae4176c99293d61b248ba5f82ce",
+    "bytes": 155154035,
+    "delivery_report": "results/wrr_process_revision_20261029/delivery_check.json",
+    "delivery_report_sha256": "119509a18640a4cf7bb6bd73a7aac3a6b3cccaa87cdd8e93035bf1cf808cf8a5",
+    "current_version_manifest": "results/wrr_process_revision_20261029/current_version_manifest.json",
+    "current_version_manifest_sha256": "2817f72bc09c30cb54df2738138893f82ed51a58dfb8147e21951b185b324093",
+    "frozen_files_verified_unchanged": 1831,
+    "isolated_checks": {
+      "transcription_and_compile": {
+        "transcription": {
+          "bc_masks": [
+            288,
+            84,
+            372
+          ],
+          "truckee_cases": 72,
+          "reservoir_cases": 306,
+          "usgs_complete_years": 8,
+          "usgs_four_year_stations": 0,
+          "paired_forward_archives": 736,
+          "paired_forward_years": 3328,
+          "seed_change_max_pp": 0.8152173913043459,
+          "overlap_exact_half": 47,
+          "abstract_words": 239
+        },
+        "compile": {
+          "review_completion_article.tex": {
+            "pages_text_characters": 106792
+          },
+          "review_completion_supporting.tex": {
+            "pages_text_characters": 219047
+          }
+        }
+      },
+      "csv_exact_comparisons": [
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_nested_cases.csv",
+          "rows": 243,
+          "columns": 23,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_case_deltas.csv",
+          "rows": 162,
+          "columns": 29,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_stratum_tails.csv",
+          "rows": 12,
+          "columns": 18,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_seed_ranges.csv",
+          "rows": 4,
+          "columns": 32,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_stratum_scores.csv",
+          "rows": 18,
+          "columns": 12,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_overall_scores.csv",
+          "rows": 9,
+          "columns": 10,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_group_scope.csv",
+          "rows": 2,
+          "columns": 8,
+          "comparison": "Exact values, dtypes, column order and row order"
+        },
+        {
+          "file": "results/wrr_process_revision_20261029/trajectory_revision_frozen_manifest.csv",
+          "rows": 27,
+          "columns": 16,
+          "comparison": "Exact values, dtypes, column order and row order"
+        }
+      ],
+      "current_observation_replay": {
+        "open_observed": {
+          "included_stations": 95,
+          "original_stations": 96,
+          "witness_station_years": 35,
+          "rule_decisions_checked": 210
+        },
+        "usgs_observed": {
+          "snapshot_files_verified": 18,
+          "station_count": 10,
+          "complete_reference_station_years": 8,
+          "witness_station_years": 9
+        }
+      },
+      "historical_provenance_authenticated": false,
+      "h30_sample_rows_exact": 81,
+      "h30_draws_per_row": 500,
+      "frozen_inputs_unchanged": 27,
+      "source_calibration": {
+        "source_role_offsets_reestimated": false,
+        "source_role_calibration_sensitivity_executed": false,
+        "target_subset_even_odd_calibration_executed": false,
+        "trajectory_count_convergence_established": false,
+        "fine_method_ranking_robustness_established": false
+      },
+      "trajectory_command": "PYTHONPATH=src python scripts/962_process_trajectory_budget.py",
+      "daily_models_refit": false,
+      "source_role_calibration_executed": false,
+      "compile_order": "Transcription and both PDFs checked on the exact extracted package before trajectory regeneration.",
+      "logs": [
+        "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/transcription_compile.log",
+        "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/observation_replay.log",
+        "results/wrr_process_revision_20261029/delivery_check_logs/9e1add49088736b5/trajectory_replay.log"
+      ]
+    },
+    "candidate_evidence_status": "current_candidate_checked"
+  },
+  "scientific_stop_conditions": {
+    "regional_common_weights_and_support_loss_reported": true,
+    "training_history_imbalance_and_unidentified_cause_reported": true,
+    "same_count_equivalence_not_claimed": true,
+    "paired_intervals_selection_opportunity_and_MSE_cross_term_reported": true,
+    "annual_longest_gap_metric_and_within_station_water_air_reported": true,
+    "nineteen_window_baseline_complete_year_counts_donor_source_and_denominators_corrected": true,
+    "post_hoc_diagnostics_identified": true,
+    "trajectory_path": "Fixed 20-path comparator with stratified three-seed sensitivity and explicit claim contraction",
+    "larger_budget_source_role_calibration_executed": false,
+    "fully_sampled_fine_ranking_robustness_claimed": false
+  },
+  "historical_replay_limits": "Historical receipts/manifests without recorded hashes remain unchanged and are rejected by strengthened verifiers. Current observation content has separate new manifests and fresh successful offline replays; this does not authenticate past provenance. See verification_code_repairs_report.json.",
+  "not_executed_or_not_claimed": [
+    "Full raw-source reconstruction or new model retraining",
+    "Larger-budget source-role recalibration",
+    "Strict independent-climate confirmation",
+    "Clean-environment dependency installation"
+  ],
+  "user_scope_exclusions": [
+    "Author identity and declarations",
+    "Permission administration and reviewer-access arrangements",
+    "Permanent storage and external publication"
+  ],
+  "external_publication_performed": false
+}

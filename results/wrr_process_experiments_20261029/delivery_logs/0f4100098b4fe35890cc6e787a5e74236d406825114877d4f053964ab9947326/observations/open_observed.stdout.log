@@ -1,0 +1,17 @@
+{
+  "scope": "independent record arithmetic and screening-rule audit on previously selected open-provider processed daily series",
+  "limitations": "one of the original 96 stations is omitted due to unresolved reuse; cannot independently establish eligibility of unprovided stations, reconstruct provider-native data or prior QC, or validate sensor accuracy, the main models, or independent climate transfer",
+  "status": "passed",
+  "included_stations": 95,
+  "original_stations": 96,
+  "excluded_by_provider": {
+    "lubw": 1
+  },
+  "reference_station_years_recomputed": 2122,
+  "incomplete_station_years_recomputed": 518,
+  "witness_station_years": 35,
+  "rule_decisions_checked": 210,
+  "target_year_perturbation_probes": 35,
+  "fixed_original_warm_fraction_source": "saved station-year metadata, not independently recomputed",
+  "source_sensor_and_prior_qc_verified": false
+}

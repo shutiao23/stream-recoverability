@@ -1,0 +1,26 @@
+\section{Exploratory process and numerical diagnostics}
+These checks were developed after inspecting earlier regional and time-support results. They are exploratory and reuse the opened archive; selection of six stations before a numerical replay is not preregistration of the research questions.
+
+\subsection{Common support and common-weight standardization}
+Common geometric cells contain gap length, training-peak overlap, year and visible-donor bins. Screening to shared cells preserves region-specific cell frequencies and is not balancing. The primary standardized target assigns identical weights proportional to the smaller regional cell count; equal-cell weighting is a sensitivity. Joint-cell frequency TV becomes zero under either common target, but within-bin continuous quantities and training histories remain imbalanced. In the geometry min-count analysis, mean training complete-year counts are 9.78 in FOEN versus 22.96 in Bavaria (SMD -3.052); after adding reconstructor they are 8.50 versus 20.18 (SMD -2.707). Saved CSV files also report continuous means, weighted KS distances and missing-weight fractions. A coverage contrast remains under these common geometric-cell weights; residual within-cell and history differences remain, and the comparison does not identify a reconstructor effect or exclude river processes. The absence of a Swiss air-ridge stratum prevents corresponding cross-region comparison of the main Bavarian failure layer.
+\input{process_region_revision_table.tex}
+\input{process_region_revision_balance.tex}
+\input{process_region_policy_table.tex}
+
+\subsection{Annual water--air associations}
+Pooled annual associations mix station differences and within-station variation. We therefore center both H30 quantities within station and period, before/from 2010, and pool those centered observations. Both periods of a sampled connected group remain paired in 10,000 bootstrap replicates (seed 20261029); station-paired resampling is an additional sensitivity, not an assumption-free replacement. FOEN has two groups, with only three distinct bootstrap group compositions; its intervals are particularly coarse. Similar annual within-slope point estimates neither establish equivalence nor validate gap-day residuals, heat-peak timing, tails or autocorrelation. Each variable is its own annual maximum and their maximizing dates need not coincide.
+\input{process_water_revision_table.tex}
+\input{process_water_revision_correlation.tex}
+\input{process_water_revision_uncertainty.tex}
+
+\subsection{Year-set comparisons and retained baselines}
+The original single random selection and incomplete-year-only spacing rule are retained as labeled legacy comparators in the table below. The exact subset expectation and the two selectors that incorporate fixed complete years are the current exploratory extensions. Paired intervals in this table use the common updated resampling specification; the previous resampling tables remain archived with the earlier revision.
+\input{process_experiments_time_table.tex}
+\input{process_gap_revision_supporting.tex}
+\input{process_gap_revision_table.tex}
+\input{process_gap_revision_archive_table.tex}
+\input{process_gap_geometry_table.tex}
+\input{process_station_roster_table.tex}
+\subsection{Earlier uncalibrated-only trajectory diagnostic}
+The original three-seed check reports raw, uncalibrated endpoints in the fixed 27-case sample. Its small pooled median does not establish stratified stability. The subsequent experiment section additionally regenerates the original source-calibration roles and re-estimates offsets at each budget; the table below is retained specifically as the uncalibrated reference.
+\input{process_trajectory_revision_table.tex}

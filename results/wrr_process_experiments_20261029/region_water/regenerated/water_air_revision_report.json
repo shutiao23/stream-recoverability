@@ -1,0 +1,26 @@
+{
+  "scope": "Descriptive annual pooled and station-by-period centered water--air H30 association in the existing whole-archive cohort's complete reference station-years.",
+  "denominator": "Unique station_key-year; duplicate gap masks do not contribute additional annual observations. Finite air and water H30 required.",
+  "denominator_counts": {
+    "raw_mask_rows": 25135,
+    "unique_station_years": 1106,
+    "included_station_years": 1106,
+    "excluded_nonfinite_station_years": 0
+  },
+  "duplicate_validation": "Includes missing/finite disagreement and station region/group identity; conflicts fail rather than depending on row order.",
+  "pooled_moment_arithmetic": "Pooled sums use a shared region-period origin to avoid raw-second-moment cancellation; original unshifted moments remain saved too.",
+  "within_estimand": "Common annual-observation-weighted slope through station-by-period centered x and y; station intercepts and separate period means are removed.",
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20261029,
+    "primary": "Paired connected-group bootstrap, same sampled groups in both periods.",
+    "sensitivity": "Paired station bootstrap; assumes stations are independent.",
+    "interval": "Pointwise 95% percentile; descriptive, no equivalence margin or multiplicity adjustment.",
+    "small_cluster_limit": "FOEN has two connected groups; Bavaria has eight. Group percentile intervals are coarse, especially with only two clusters; station intervals are not a cure for dependence."
+  },
+  "interpretation": "Within-station annual slope point estimates are close across periods; differences remain uncertain. Annual air and water maxima need not be concurrent and cannot confirm stable daily reconstruction errors, hidden peaks, tail errors or autocorrelation.",
+  "input_sha256": {
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e",
+    "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf"
+  }
+}

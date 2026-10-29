@@ -1,0 +1,49 @@
+\section{Core source comparisons}
+\begin{table}[p]\centering\footnotesize
+\caption{Dangerous source-case summaries: the gap overlaps at least half the training-period peak window. Entries are medians across 20 repetitions sharing the source archive. Method-specific availability can differ; paired case comparisons are reported separately. Coverage and CRPS are not defined for point-only methods.}\label{tab:focused-annual}
+\begin{tabular}{llrrrr}\toprule
+Family & Method & Availability & MAE & 90\% coverage & CRPS\\\midrule
+calendar & D2 & 100.0\% & 0.451 & 86.7\% & 0.329\\
+calendar & functional & 100.0\% & 0.476 & -- & --\\
+calendar & plug-in & 100.0\% & 0.564 & -- & --\\
+calendar & classical & 99.9\% & 0.463 & 86.0\% & 0.336\\
+crossed & D2 & 100.0\% & 0.337 & 89.3\% & 0.246\\
+crossed & functional & 100.0\% & 0.355 & -- & --\\
+crossed & plug-in & 100.0\% & 0.428 & -- & --\\
+crossed & classical & 99.7\% & 0.336 & 89.8\% & 0.245\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\footnotesize
+\caption{Held-region source-calibrated comparison of the three-output and score-only rules. The score cutoff is chosen from disjoint source rule-calibration groups. Retention differs in the evaluated target cases; errors are conditional on numerical publication.}\label{tab:focused-source-release}
+\begin{tabular}{llrrrr}\toprule
+Family & Method & Eligible & Published & Retention & Error rate\\\midrule
+calendar & score only & 31,672 & 26,896 & 84.9\% & 0.0\%\\
+calendar & three outputs & 31,672 & 27,090 & 85.5\% & 0.7\%\\
+crossed & score only & 114,012 & 80,980 & 71.0\% & 3.9\%\\
+crossed & three outputs & 114,012 & 82,169 & 72.1\% & 4.9\%\\
+\bottomrule\end{tabular}
+\end{table}
+\begin{table}[p]\centering\footnotesize
+\caption{Retrospective equal numerical-count comparison. The score threshold uses the evaluated feature distribution and the three-output count, so this is transductive. Equal numerical counts do not equate retained bounds or unknown states.}\label{tab:focused-matched-release}
+\resizebox{\linewidth}{!}{\begin{tabular}{llrrrrr}\toprule
+Condition & Family & Eligible & Published by each & Three failures & Score failures & Three / score error\\\midrule
+air substitution & calendar & 31,672 & 88 & 19 & 23 & 21.6\% / 26.1\%\\
+clean & calendar & 31,672 & 27,090 & 190 & 4 & 0.7\% / 0.0\%\\
+clean & crossed & 114,012 & 82,169 & 4026 & 3249 & 4.9\% / 4.0\%\\
+future & crossed & 27,846 & 17,583 & 1924 & 1220 & 10.9\% / 6.9\%\\
+\bottomrule\end{tabular}}
+\end{table}
+\begin{table}[p]\centering\footnotesize
+\caption{Annual and trend coverage on the common archive cohort. Annual coverage weights cases by incomplete years. Tail and rank experiments use different random draws. Within one estimator the three rank constructions share that estimator's annual marginals; the two estimators do not share one annual distribution. Repetitions share the same source archive.}\label{tab:focused-uncertainty}
+\resizebox{\linewidth}{!}{\begin{tabular}{lllrrrrrrrr}\toprule
+Family & Mode & Method & Cases & Groups & Annual 90\% & Constant 95\% & Normal 95\% & Independent 95\% & Shared 95\% & Blocks 95\%\\\midrule
+calendar & forward & D2 & 818 & 17 & 98.2\% & 94.6\% & 95.7\% & 96.0\% & 96.1\% & 96.3\%\\
+calendar & forward & classical & 699 & 17 & 98.2\% & 94.6\% & 95.3\% & 95.4\% & 95.4\% & 95.7\%\\
+calendar & offline & D2 & 840 & 18 & 98.5\% & 92.3\% & 94.9\% & 95.0\% & 95.1\% & 94.9\%\\
+calendar & offline & classical & 835 & 18 & 97.4\% & 91.7\% & 93.3\% & 93.2\% & 93.3\% & 93.3\%\\
+crossed & forward & D2 & 818 & 17 & 90.1\% & 83.0\% & 88.8\% & 88.0\% & 87.9\% & 89.0\%\\
+crossed & forward & classical & 736 & 17 & 88.1\% & 81.4\% & 86.3\% & 86.3\% & 86.1\% & 87.2\%\\
+crossed & offline & D2 & 840 & 18 & 94.1\% & 91.7\% & 94.2\% & 94.0\% & 94.5\% & 94.8\%\\
+crossed & offline & classical & 838 & 18 & 92.6\% & 86.4\% & 90.7\% & 90.2\% & 91.6\% & 91.2\%\\
+\bottomrule\end{tabular}}
+\end{table}

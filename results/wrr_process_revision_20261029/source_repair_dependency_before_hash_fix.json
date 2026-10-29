@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "source_cells_checked": 24,
+  "repair_table_rows": 16616,
+  "repair_path": "results/wrr_review_completion_20261024/repairs/before_2010/seed_00.parquet",
+  "repaired_source_group_maxima_reproduced": true,
+  "cells_with_changed_interval_endpoints": 0,
+  "cells_with_changed_group_maximum": 11,
+  "cells_with_changed_radius": 3,
+  "limitation": "Post-hoc dependency reconstruction on same source models and source cases. No independent source fit, physical measurement check or inference about data rights."
+}

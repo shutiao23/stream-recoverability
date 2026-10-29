@@ -1,0 +1,35 @@
+field,region,stratum,share
+longest_gap,foen,30 d,0.3378016085790885
+longest_gap,foen,31--60 d,0.34405719392314565
+longest_gap,foen,61--90 d,0.31814119749776587
+longest_gap,gkd_bayern,30 d,0.3378719112455875
+longest_gap,gkd_bayern,31--60 d,0.3328290468986384
+longest_gap,gkd_bayern,61--90 d,0.3292990418557741
+training_peak_overlap,foen,no overlap,0.3386952636282395
+training_peak_overlap,foen,partial,0.15013404825737264
+training_peak_overlap,foen,at least half,0.5111706881143878
+training_peak_overlap,gkd_bayern,no overlap,0.33535047907211296
+training_peak_overlap,gkd_bayern,partial,0.16187594553706505
+training_peak_overlap,gkd_bayern,at least half,0.502773575390822
+year_position,foen,2010-2014,0.32707774798927614
+year_position,foen,2015-2019,0.2940125111706881
+year_position,foen,2020-2025,0.37890974084003576
+year_position,gkd_bayern,2010-2014,0.24256177508825014
+year_position,gkd_bayern,2015-2019,0.3429147755925366
+year_position,gkd_bayern,2020-2025,0.4145234493192133
+visible_donors,foen,0,0.0
+visible_donors,foen,1--3,0.1063449508489723
+visible_donors,foen,4+,0.8936550491510277
+visible_donors,gkd_bayern,0,0.0070600100857286935
+visible_donors,gkd_bayern,1--3,0.29551185073121533
+visible_donors,gkd_bayern,4+,0.697428139183056
+training_complete_years,foen,<=10,1.0
+training_complete_years,foen,11-20,0.0
+training_complete_years,foen,21+,0.0
+training_complete_years,gkd_bayern,<=10,0.05194150277357539
+training_complete_years,gkd_bayern,11-20,0.17397881996974282
+training_complete_years,gkd_bayern,21+,0.7740796772566818
+reconstructor,foen,air_ridge,0.0
+reconstructor,foen,donor_ridge,1.0
+reconstructor,gkd_bayern,air_ridge,0.854261220373172
+reconstructor,gkd_bayern,donor_ridge,0.14573877962682805

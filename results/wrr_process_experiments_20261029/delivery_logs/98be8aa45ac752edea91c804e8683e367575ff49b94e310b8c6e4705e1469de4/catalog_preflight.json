@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "ordering": "Before compilation or replay receipt writes",
+  "artifacts_hashed": 346,
+  "tabular_files_checked": 138,
+  "table_rows_checked": 266562,
+  "key_tables_checked": 138,
+  "dictionary_fields_checked": 2519,
+  "catalog_sha256": "e4d61179256da5ad17151d5007841243df203b0907e2892fc7f3970dba1b9aca",
+  "dictionary_sha256": "0ccf2b20bd24680996c71a85029e01ee186ba96bb2b3c6b11c16109988ce0cbd",
+  "exclusions": [
+    "current_version_manifest.json",
+    "data_dictionary.csv",
+    "dataset_catalog.csv",
+    "dataset_catalog_report.json",
+    "delivery_check.json",
+    "requirements_audit.json",
+    "validation.json"
+  ],
+  "delivery_logs_excluded": true,
+  "coverage": "Only catalog-listed artifacts are required; later acceptance reports/logs are not scientific data rows"
+}

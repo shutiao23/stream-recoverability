@@ -1,0 +1,19 @@
+\section{Past-only warm-season sensitivity}
+The original station-specific warm season leaves out the evaluated year but can use observations from later years. After inspecting that comparison and the 35 selected witnesses, we recomputed the same 15-day-smoothed day-of-year climatology and five-month selection with only daily values from years strictly before each evaluated year. The source is the current processed archive, not a historically timestamped data vintage. The 95 stations and 35 witnesses were themselves selected using records available after some evaluated years, so this is a retrospective information-separation sensitivity, not a prospective site recruitment or field performance test.
+
+Two past-only variants are reported. One uses any earlier finite water observation, which can amount to only \PWMinimumDays{} day for an incomplete year; climatological interpolation with so little data is not evidence of adequate support. The other requires at least four fully observed prior calendar years before classifying an incomplete year. Complete years are accepted even if the climatology is unavailable, because every possible warm season is fully observed. The four-year threshold is an exploratory study choice, not a published standard. Unsupported incomplete years remain unknown rather than being counted as rejections. On \PWYears{} eligible station-years, the past-only variant without a minimum changes \PWChange{} decision relative to the original leave-year-out rule; the four-year version leaves \PWUnknown{} years unknown, \PWUnknownBounds{} of which still have an observed 30-day lower bound.
+
+Table~\ref{tab:past-season} also compares the reported observed-window maximum in each rejected year to the greatest reported window from earlier years accepted by that same rule. A rejected year contributes only if both its observed bound and an earlier accepted reported window exist. Earlier accepted incomplete years can have an unobserved higher H30, and these are not comparisons with physical sensor truth. The leave-year-out rule's earlier classifications may use years later than their evaluation year; only the past-only rules enforce the stated temporal information boundary. Among the 35 retrospectively selected witnesses, the four-prior-complete-years variant accepts \PWWitnessAccepted{}, rejects \PWWitnessRejected{} and leaves \PWWitnessUnknown{} unknown; \PWWitnessPrior{} rejected witnesses exceed the earlier accepted reported-window maximum. These counts are not an incidence estimate.
+
+\begin{table}[ht]\caption{Retrospective screening in the 95-station candidate subset. ``Above prior'' counts rejected years whose observed 30-day window exceeds all earlier accepted reported windows. Witness column gives accepted / rejected / unknown among 35 previously selected incomplete years.}\label{tab:past-season}\centering\small
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrr}\toprule
+Rule & Accepted & Rejected & Unknown & Rejected with bound & Above prior & Witnesses \\
+\midrule
+Complete year & 2,122 & 534 & 0 & 518 & 86 & 0 / 35 / 0 \\
+Annual 95\% & 2,550 & 106 & 0 & 90 & 11 & 31 / 4 / 0 \\
+Warm 90\%, leave year out & 2,590 & 66 & 0 & 50 & 9 & 32 / 3 / 0 \\
+Warm 90\%, past data & 2,589 & 67 & 0 & 51 & 9 & 32 / 3 / 0 \\
+Warm 90\%, past + 4 complete & 2,487 & 42 & 127 & 31 & 3 & 27 / 2 / 6 \\
+\bottomrule\end{tabular}}\end{table}
+
+An independent implementation rebuilt all 2,656 earlier-only climatologies, 13,280 rule states and prior-record comparisons on the same processed daily records. In 35 witness-year probes, shifting the target and all later observations by 5 $^{\circ}$C did not change the earlier-only warm season. These checks do not verify historical data vintages, station selection, provider quality control or physical measurement accuracy.

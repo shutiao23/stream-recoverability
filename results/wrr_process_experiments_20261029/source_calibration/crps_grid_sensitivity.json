@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "scope": "Precision of CRPS integration for the same fixed seven-quantile, bounded normal-tail approximation; no offset/model refit or convergence claim for the underlying distribution.",
+  "comparison_cases": 783,
+  "grid_sizes": [
+    256,
+    1024,
+    4096
+  ],
+  "score_rows": 2349,
+  "saved256_reproduction_max_error": 1.1213252548714081e-14,
+  "max_casewise_change_256_to4096": 6.275630147456468e-05,
+  "seed_zero_same_stream_ordering": [
+    {
+      "grid": 256,
+      "fixed_D2": 0.08669893097359889,
+      "nested20_updated": 0.08764690034383554,
+      "nested500_updated": 0.07866795552565273,
+      "same_seed_order_crossing": true
+    },
+    {
+      "grid": 1024,
+      "fixed_D2": 0.08669657416951403,
+      "nested20_updated": 0.08764363193081746,
+      "nested500_updated": 0.07866747702090357,
+      "same_seed_order_crossing": true
+    },
+    {
+      "grid": 4096,
+      "fixed_D2": 0.08669646594167293,
+      "nested20_updated": 0.0876430793162144,
+      "nested500_updated": 0.0786673766560049,
+      "same_seed_order_crossing": true
+    }
+  ],
+  "all_three_grids_preserve_reported_seed0_order_crossing": true,
+  "baseline_seed_and_budget_sentinel": -1,
+  "input_sha256": {
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_three_layer_cases.csv": "3bd1b1c6612ebe5d028d453db205155b3512df6216426028cd65c3c78128f46c",
+    "results/wrr_process_experiments_20261029/source_calibration/full/target_historical_reference.csv": "7e6514b531f7195d8a1274b5eb10484f86855b4e4833c2f07543aa0d03628e1f"
+  },
+  "script_sha256": "bfe64c751124cccd5f4100170949d23d058e81ba65c28ee5dabde1a0c1e4afc6"
+}
