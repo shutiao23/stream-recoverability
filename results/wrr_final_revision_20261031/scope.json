@@ -1,0 +1,75 @@
+{
+  "schema": "stanford_revision_scope_v1",
+  "date": "2026-10-31 Asia/Shanghai",
+  "exploratory": true,
+  "new_models_fit": false,
+  "existing_outputs_changed": false,
+  "archives": 1623,
+  "geometry_rows": 8115,
+  "family_counts": {
+    "crossed": {
+      "archives": 805,
+      "choice": 468,
+      "subsets": 5756,
+      "all_kept": 5,
+      "none_kept": 332
+    },
+    "calendar": {
+      "archives": 818,
+      "choice": 280,
+      "subsets": 2646,
+      "all_kept": 530,
+      "none_kept": 8
+    }
+  },
+  "reference_year_sets": {
+    "stations": 41,
+    "internal_gap_stations": 24,
+    "minimum_years": 7
+  },
+  "max_exact_weight_identity_error": 5.3153037526953995e-12,
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20261031,
+    "unit": "connected group"
+  },
+  "sign_disagreement_counts": {
+    "crossed": {
+      "warm90": 53,
+      "uniform_exact": 55,
+      "cdf_all_years": 51,
+      "sxx_all_years": 42,
+      "all": 16
+    },
+    "calendar": {
+      "warm90": 3,
+      "uniform_exact": 8,
+      "cdf_all_years": 5,
+      "sxx_all_years": 4,
+      "all": 0
+    }
+  },
+  "interpretation": [
+    "The control-gap and empirical-calendar families are separate cohorts; their differences are not a causal missingness effect.",
+    "Empirical calendars are simulated masks on saved predictions, not accuracy validation on genuinely unknown values.",
+    "The iid linear variance formula is a working benchmark. Its residual variance contains real variability, curvature and observation error; it is not a noise decomposition.",
+    "CDF calendar improvement is not stable enough to claim a proven rule; its interval includes zero. Sxx and all-year directions are stronger in this cohort.",
+    "D2 accuracy on common cases and D2 point-estimate availability are different questions. Availability does not certify a releasable value."
+  ],
+  "compact_replay": {
+    "files": [
+      "reference_truths.csv",
+      "case_designs.csv",
+      "annual_predictions_compact.csv"
+    ],
+    "numerical_tolerance": 1e-12,
+    "note": "Re-running this script from an extracted package uses the compact CSV inputs. Values can differ at about 1e-14 from decimal roundoff; denominators and scientific conclusions are unchanged."
+  },
+  "input_sha256": {
+    "results/wrr_process_revision_20261029/time_support_cases.csv": "23fa992edac1df5fc35cb3263c781fbe68923c4e970a5982529b585adba0a925",
+    "results/wrr_review_response_20261027/whole_archive/trends.csv": "0f01b9bdf976eb0b8eb131725a6e818e98ca3a70507ebb5a7ce13964711fb2bf",
+    "scripts/981_stanford_revision.py": "e9dda3a6175026580a15098300110838c05a2964b2d115ce80eceb99d5d4211b",
+    "scripts/980_final_release.py": "02ee27e2372b007c0d065411a98c1ca6336b11e7a8e4f0d4c24bbc0b034e1b01",
+    "results/wrr_review_completion_20261024/cases/leave_one_year_out/seed_00.parquet": "b6fb0bec090d8212d88526f0a2a67c707d2f4c746901cea4aa40208dc7d5c35e"
+  }
+}

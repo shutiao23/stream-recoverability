@@ -30,10 +30,10 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 OLD = ROOT / "dist/wrr_process_experiments_20261029.zip"
-DEST = ROOT / "dist/wrr_final_candidate_20261031.zip"
-EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261031.manifest.json"
-OUT = ROOT / "results/final_release_20261031"
-REVIEW = ROOT / "docs/reviews/wrr_multiview_review_20261031"
+DEST = ROOT / "dist/wrr_final_candidate_20261031_r2.zip"
+EXTERNAL_MANIFEST = ROOT / "dist/wrr_final_candidate_20261031_r2.manifest.json"
+OUT = ROOT / "results/final_release_20261031_r2"
+REVIEW = ROOT / "docs/reviews/wrr_stanford_perspective_20261031"
 GENERATED = [
     "REVIEW_PACKAGE_README.txt",
     "dependency_inventory.json",
@@ -46,14 +46,70 @@ ADDITIONS = [
     "docs/reviews/wrr_multiview_review_20261031/PACKAGE_README.txt",
     "docs/reviews/wrr_multiview_review_20261031/POSTING_CHECKLIST.md",
     "docs/reviews/wrr_multiview_review_20261031/SIMULATED_WRR_REVIEW_ZH.md",
-    "results/final_release_20261031/targeted_tests.xml",
-    "results/final_release_20261031/targeted_tests_summary.json",
-    "results/final_release_20261031/workspace_consistency.json",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVIEW_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/REVISION_COMPLETION_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/WORK_PLAN_ZH.md",
+    "docs/reviews/wrr_stanford_perspective_20261031/diagnostics.py",
+    "paper/wrr_tr/stanford_availability_supporting.tex",
+    "paper/wrr_tr/stanford_calendar_supporting.tex",
+    "paper/wrr_tr/stanford_calendar_table.tex",
+    "paper/wrr_tr/stanford_geometry_supporting.tex",
+    "paper/wrr_tr/stanford_geometry_table.tex",
+    "paper/wrr_tr/stanford_revision_values.tex",
+    "results/final_release_20261031_r2/targeted_tests.xml",
+    "results/final_release_20261031_r2/targeted_tests_summary.json",
+    "results/final_release_20261031_r2/workspace_consistency.json",
+    "results/wrr_final_revision_20261031/annual_predictions_compact.csv",
+    "results/wrr_final_revision_20261031/case_designs.csv",
+    "results/wrr_final_revision_20261031/data_manifest.json",
+    "results/wrr_final_revision_20261031/estimator_availability.csv",
+    "results/wrr_final_revision_20261031/estimator_paired_comparisons.csv",
+    "results/wrr_final_revision_20261031/estimator_unavailable_subset.csv",
+    "results/wrr_final_revision_20261031/reference_truths.csv",
+    "results/wrr_final_revision_20261031/reference_year_sets.csv",
+    "results/wrr_final_revision_20261031/retention_choice_counts.csv",
+    "results/wrr_final_revision_20261031/retention_family_summary.csv",
+    "results/wrr_final_revision_20261031/retention_geometry_cases.csv",
+    "results/wrr_final_revision_20261031/retention_paired_intervals.csv",
+    "results/wrr_final_revision_20261031/scope.json",
     "results/wrr_multiview_review_20261031/time_paired_intervals_recheck.csv",
     "results/wrr_multiview_review_20261031/time_primary_recheck.csv",
     "results/wrr_multiview_review_20261031/time_selection_arithmetic.json",
     "results/wrr_multiview_review_20261031/time_station_group_heterogeneity.csv",
+    "results/wrr_stanford_perspective_20261031/point_estimator_availability.csv",
+    "results/wrr_stanford_perspective_20261031/point_estimator_paired_comparison.csv",
+    "results/wrr_stanford_perspective_20261031/point_estimator_unavailable_subset.csv",
+    "results/wrr_stanford_perspective_20261031/retention_choice_counts.csv",
+    "results/wrr_stanford_perspective_20261031/retention_geometry_cases.csv",
+    "results/wrr_stanford_perspective_20261031/retention_geometry_summary.csv",
+    "results/wrr_stanford_perspective_20261031/retention_paired_intervals.csv",
+    "results/wrr_stanford_perspective_20261031/review_summary.json",
+    "results/wrr_stanford_perspective_20261031/scope.json",
     "scripts/980_final_release.py",
+    "scripts/981_stanford_revision.py",
+    "scripts/982_final_release_tests.py",
+    "scripts/983_verify_extension_replay.py",
+    "tests/test_final_release_freshness.py",
+    "tests/test_stanford_revision.py",
+]
+TARGETED_TEST_FILES = [
+    "tests/test_wrr_source_trajectory_calibration.py",
+    "tests/test_independent_calibration_audit.py",
+    "tests/test_process_time_gap_sensitivity.py",
+    "tests/test_region_water_adversarial.py",
+    "tests/test_experiment_data_catalog.py",
+    "tests/test_process_experiment_delivery.py",
+    "tests/test_wrr_process_revision.py",
+    "tests/test_review_manuscript_structure.py",
+    "tests/test_wrr_adversarial_revision.py",
+    "tests/test_wrr_process_time_gap_revision.py",
+    "tests/test_wrr_trajectory_revision.py",
+    "tests/test_current_observation_replay.py",
+    "tests/test_review_completion_current_evidence.py",
+    "tests/test_review_bundle_atomic_write.py",
+    "tests/test_process_review_region_water.py",
+    "tests/test_stanford_revision.py",
+    "tests/test_final_release_freshness.py",
 ]
 MANUSCRIPTS = {
     "article": {
@@ -293,7 +349,7 @@ def build(_: argparse.Namespace) -> None:
                       "bytes": report["package_bytes"], "members": report["members"]}, ensure_ascii=False))
 
 
-def verify_members(zipped: zipfile.ZipFile) -> dict:
+def verify_members(zipped: zipfile.ZipFile, expected_scientific_members: int | None = None) -> dict:
     require(zipped.testzip() is None, "Final candidate has a CRC failure")
     infos = zipped.infolist()
     names: list[str] = []
@@ -324,7 +380,8 @@ def verify_members(zipped: zipfile.ZipFile) -> dict:
         require(current.is_file(), "Packaged file is absent from workspace: " + name)
         require(current.read_bytes() == zipped.read(name), "Packaged/workspace bytes differ: " + name)
         compared += 1
-    require(compared == 3313 + len(ADDITIONS), f"Workspace comparison count differs: {compared}")
+    expected = expected_scientific_members if expected_scientific_members is not None else 3313 + len(ADDITIONS)
+    require(compared == expected, f"Workspace comparison count differs: {compared} != {expected}")
     return {"status": "passed", "members": len(names), "workspace_byte_comparisons": compared,
             "generated_members": sorted(GENERATED), "manifest_members": len(recorded),
             "manifest_sha256": sha256_bytes(manifest_text.encode())}
@@ -333,8 +390,11 @@ def verify_members(zipped: zipfile.ZipFile) -> dict:
 def verify(_: argparse.Namespace) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     require(DEST.is_file(), "Final candidate is absent: " + str(DEST))
+    require(EXTERNAL_MANIFEST.is_file(), "External package manifest is absent")
+    manifest = json.loads(EXTERNAL_MANIFEST.read_text())
+    require(sha256(DEST) == manifest["package_sha256"], "Package hash differs from its manifest")
     with zipfile.ZipFile(DEST) as zipped:
-        member_report = verify_members(zipped)
+        member_report = verify_members(zipped, expected_scientific_members=manifest.get("scientific_members"))
     with tempfile.TemporaryDirectory(prefix="wrr_final_release_") as temporary:
         extracted = Path(temporary)
         with zipfile.ZipFile(DEST) as zipped:
@@ -402,6 +462,19 @@ def verify(_: argparse.Namespace) -> None:
                                and "calculation ledger" in article_prose)
         require(contribution_stated, "Archive-use contribution statement missing")
         require("time support of finite-record heat slopes" in article_prose, "Article title missing from TeX source")
+        absolute_stated = "median absolute 95th-percentile endpoint changes" in article_prose
+        require(absolute_stated, "Absolute endpoint-change label missing from the abstract")
+        reference_set_stated = ("specified set of complete reference years" in article_prose
+                                and "fixed, station-specific reference-year set" in article_prose
+                                and "need not be contiguous" in article_prose)
+        require(reference_set_stated, "Fixed non-contiguous reference-year set is not defined")
+        geometry_stated = ("Algebraic year-set error" in supporting_text
+                           and "iid working benchmark" in supporting_text
+                           and "not a coverage guarantee" in supporting_text)
+        require(geometry_stated, "SI geometry derivation or its boundary is missing")
+        calendar_stated = ("Empirical-calendar extension and selection opportunity" in supporting_text
+                           and "818" in supporting_text)
+        require(calendar_stated, "Calendar-family SI extension is missing")
 
         cover_text = (extracted / "paper/wrr_tr/review_completion_cover_letter.txt").read_text()
         require("time support of finite-record heat slopes" in cover_text,
@@ -424,6 +497,10 @@ def verify(_: argparse.Namespace) -> None:
             "station_group_heterogeneity_recomputed": True,
             "conditional_group_intervals_in_methods": intervals_conditioned,
             "central_contribution_stated": contribution_stated,
+            "absolute_endpoint_change_label": absolute_stated,
+            "fixed_reference_year_set_defined": reference_set_stated,
+            "si_geometry_derivation": geometry_stated,
+            "si_calendar_extension": calendar_stated,
         }
         require(transcription["abstract_words"] == receipt["abstract_words"],
                 "Receipt abstract word count differs from extracted package")
@@ -436,6 +513,8 @@ def verify(_: argparse.Namespace) -> None:
         "package": str(DEST.relative_to(ROOT)),
         "package_sha256": sha256(DEST),
         "package_bytes": DEST.stat().st_size,
+        "external_manifest": str(EXTERNAL_MANIFEST.relative_to(ROOT)),
+        "external_manifest_sha256": sha256(EXTERNAL_MANIFEST),
         "member_check": member_report,
         "manuscripts": manuscript_report,
         "cover_letter": cover_letter_report,
@@ -477,16 +556,30 @@ def accept(_: argparse.Namespace) -> None:
     verification_path = OUT / "package_verification.json"
     tests_path = OUT / "targeted_tests_summary.json"
     delivery_path = OUT / "package_delivery_check.json"
+    replay_path = OUT / "extension_replay.json"
     require(verification_path.is_file(), "Package verification is absent")
     require(tests_path.is_file(), "Targeted test summary is absent")
     require(delivery_path.is_file(), "Extracted-package delivery check is absent")
+    require(replay_path.is_file(), "Extension replay record is absent")
     verification = json.loads(verification_path.read_text())
     tests = json.loads(tests_path.read_text())
     delivery = json.loads(delivery_path.read_text())
+    replay = json.loads(replay_path.read_text())
     require(verification.get("status") == "passed", "Package verification did not pass")
     require(verification.get("package_sha256") == manifest["package_sha256"], "Verification package hash differs")
-    require(tests.get("passed") == 94 and tests.get("failures") == 0 and tests.get("errors") == 0,
-            "Targeted tests are not the expected 94/0/0 result")
+    require(verification.get("external_manifest_sha256") == sha256(EXTERNAL_MANIFEST),
+            "Verification record does not belong to the current external manifest")
+    require(verification.get("member_check", {}).get("status") == "passed",
+            "Verification member check did not pass")
+    require(verification["member_check"].get("manifest_sha256") == manifest["content_manifest_sha256"],
+            "Verification content manifest differs from the external manifest")
+    require(verification["member_check"].get("members") == manifest["members"],
+            "Verification member count differs from the external manifest")
+    require(tests.get("exit_code") == 0, "Targeted tests exited nonzero")
+    require(tests.get("files") == TARGETED_TEST_FILES, "Targeted test list differs from the declared release scope")
+    require(tests.get("failures") == 0 and tests.get("errors") == 0, "Targeted tests did not pass")
+    require(tests.get("passed") == tests.get("tests") - tests.get("skipped"),
+            "Targeted test counts are inconsistent")
     require(delivery.get("status") == "passed", "Extracted-package delivery check did not pass")
     require(delivery.get("archive_sha256") == manifest["package_sha256"], "Delivery-check archive hash differs")
     checks = delivery.get("extracted_package_checks", {})
@@ -494,24 +587,58 @@ def accept(_: argparse.Namespace) -> None:
     require(checks.get("source_calibration_frozen_replay"), "Packaged source replay record missing")
     require(checks.get("time_support_frozen_replay"), "Packaged time replay record missing")
     require(checks.get("current_observation_replay"), "Packaged observation replay record missing")
+    require(replay.get("status") == "passed", "Extracted-package extension replay did not pass")
+    require(replay.get("archive_sha256") == manifest["package_sha256"],
+            "Extension replay archive hash differs")
+    require(replay.get("archives") == 1623 and replay.get("geometry_rows") == 8115,
+            "Extension replay denominators differ")
+    require(float(replay.get("max_numeric_difference", 1.0)) <= float(replay.get("tolerance", 0.0)),
+            "Extension replay exceeds its declared numeric tolerance")
+
+    # Re-establish package/workspace identity at the moment of acceptance. A
+    # stale "passed" report is not enough: every packaged scientific file must
+    # still equal its current workspace bytes, and the manuscript hashes must be
+    # those named by both the receipt and the verification report.
+    with zipfile.ZipFile(DEST) as zipped:
+        fresh_members = verify_members(zipped, expected_scientific_members=manifest.get("scientific_members"))
+        receipt_bytes = zipped.read("RELEASE_RECEIPT.json")
+    require(fresh_members["manifest_sha256"] == manifest["content_manifest_sha256"],
+            "Current package content manifest differs from the external manifest")
+    require(sha256_bytes(receipt_bytes) == manifest["release_receipt_sha256"],
+            "Current package receipt differs from the external manifest")
+    receipt = json.loads(receipt_bytes)
+    require(receipt.get("abstract_words") == verification.get("extracted_transcription", {}).get("abstract_words"),
+            "Receipt and extracted verification abstract counts differ")
 
     manuscript_report = {}
     for label, paths in MANUSCRIPTS.items():
+        tex_hash = sha256(ROOT / paths["tex"])
+        pdf_hash = sha256(ROOT / paths["pdf"])
+        require(verification["manuscripts"][label]["tex_sha256"] == tex_hash,
+                "TeX changed after verification: " + label)
+        require(verification["manuscripts"][label]["pdf_sha256"] == pdf_hash,
+                "PDF changed after verification: " + label)
+        require(verification["manuscripts"][label].get("pdf_text_matches_rebuild") is True,
+                "Verification did not test saved-versus-rebuilt PDF text: " + label)
+        require(receipt["manuscripts"][label]["tex_sha256"] == tex_hash,
+                "Package receipt TeX hash differs from current file: " + label)
+        require(receipt["manuscripts"][label]["pdf_sha256"] == pdf_hash,
+                "Package receipt PDF hash differs from current file: " + label)
         manuscript_report[label] = {
-            "tex": paths["tex"], "tex_sha256": sha256(ROOT / paths["tex"]),
-            "pdf": paths["pdf"], "pdf_sha256": sha256(ROOT / paths["pdf"]),
+            "tex": paths["tex"], "tex_sha256": tex_hash,
+            "pdf": paths["pdf"], "pdf_sha256": pdf_hash,
             "pdf_pages": pdf_pages(ROOT / paths["pdf"]),
         }
     manuscript_report["article"]["abstract_words"] = abstract_words()
     manuscript_report["article"]["key_points"] = key_points()
-    completion = REVIEW / "MINOR_REVISION_COMPLETION_ZH.md"
+    completion = REVIEW / "REVISION_COMPLETION_ZH.md"
     acceptance = {
         "schema_version": "final_candidate_acceptance_v1",
         "status": "complete",
         "complete": True,
         "review_date": "2026-10-31 Asia/Shanghai",
         "created_utc": utc_now(),
-        "revision": "Minor revision: synchronise SI and candidate package; clarify controlled-gap and finite-record scope; qualify the RMSE/median ratio; report fixed-count heterogeneity; condition group intervals; condense the abstract and central contribution.",
+        "revision": "Minor revision: fixed non-contiguous reference-year target, absolute endpoint-change label, algebraic year-set derivation, empirical-calendar extension, and point-estimate accuracy versus availability; acceptance is bound to the current package and PDFs.",
         "git": git_state(),
         "package": {
             "path": manifest["package"],
@@ -540,6 +667,11 @@ def accept(_: argparse.Namespace) -> None:
                                    "status": delivery["status"], "archive_sha256": delivery["archive_sha256"],
                                    "scope": delivery.get("scope"),
                                    "extracted_check_keys": sorted(checks)},
+        "extension_replay": {"path": str(replay_path.relative_to(ROOT)), "sha256": sha256(replay_path),
+                             "status": replay["status"], "archive_sha256": replay["archive_sha256"],
+                             "archives": replay["archives"], "geometry_rows": replay["geometry_rows"],
+                             "max_numeric_difference": replay["max_numeric_difference"],
+                             "tolerance": replay["tolerance"]},
         "scientific_checks": {
             "main_pages": manuscript_report["article"]["pdf_pages"],
             "supporting_pages": manuscript_report["supporting"]["pdf_pages"],
@@ -552,6 +684,10 @@ def accept(_: argparse.Namespace) -> None:
             "station_group_heterogeneity_in_discussion": verification["scientific_text_checks"]["station_group_heterogeneity_recomputed"],
             "conditional_group_intervals_in_methods": verification["scientific_text_checks"]["conditional_group_intervals_in_methods"],
             "central_contribution_stated": verification["scientific_text_checks"]["central_contribution_stated"],
+            "absolute_endpoint_change_label": verification["scientific_text_checks"]["absolute_endpoint_change_label"],
+            "fixed_reference_year_set_defined": verification["scientific_text_checks"]["fixed_reference_year_set_defined"],
+            "si_geometry_derivation": verification["scientific_text_checks"]["si_geometry_derivation"],
+            "si_calendar_extension": verification["scientific_text_checks"]["si_calendar_extension"],
         },
         "coverage": {
             "proved": [
@@ -559,7 +695,8 @@ def accept(_: argparse.Namespace) -> None:
                 "package/workspace byte identity for every non-generated member",
                 "extracted-package transcription and compilation",
                 "frozen-input source-calibration, annual-selection and current-observation replay",
-                "94 targeted tests",
+                "extracted-package replay of the 1,623-archive calendar extension within 1e-12",
+                f"{tests['tests']} targeted tests from the declared release list",
             ],
             "not_proved": verification["not_tested"],
             "replay_scope": delivery.get("scope"),

@@ -256,6 +256,7 @@ review-process-experiments:
 	$(PYTHON) scripts/audit_region_water_experiments.py
 	$(PYTHON) scripts/968_process_source_calibration.py --stage full --workers 2 --resume
 	$(PYTHON) scripts/969_time_gap_sensitivity.py
+	$(PYTHON) scripts/981_stanford_revision.py
 	$(PYTHON) scripts/971_independent_calibration_audit.py
 	$(PYTHON) scripts/974_independent_time_gap_audit.py
 	$(PYTHON) scripts/975_replay_source_calibration.py --freeze-inputs --check-isolated
@@ -272,11 +273,19 @@ review-process-experiments-check:
 	$(PYTHON) scripts/971_independent_calibration_audit.py
 	$(PYTHON) scripts/974_independent_time_gap_audit.py
 	$(PYTHON) scripts/976_calibration_leakage_probe.py
-	$(PYTHON) -m pytest tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_wrr_process_revision.py tests/test_review_manuscript_structure.py
+	$(PYTHON) -m pytest tests/test_wrr_source_trajectory_calibration.py tests/test_independent_calibration_audit.py tests/test_process_time_gap_sensitivity.py tests/test_region_water_adversarial.py tests/test_experiment_data_catalog.py tests/test_process_experiment_delivery.py tests/test_wrr_process_revision.py tests/test_review_manuscript_structure.py tests/test_stanford_revision.py tests/test_final_release_freshness.py
 	$(PYTHON) scripts/930_delivery_consistency.py
 
 review-process-experiments-package-check:
 	$(PYTHON) scripts/978_process_experiment_delivery.py
+
+.PHONY: review-final-tests
+review-final-tests:
+	$(PYTHON) scripts/982_final_release_tests.py
+
+.PHONY: review-extension-replay
+review-extension-replay:
+	$(PYTHON) scripts/983_verify_extension_replay.py
 
 review-figures-from-summaries:
 	$(PYTHON) scripts/552_recreate_aggregate_figures.py
